@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51efad6bfc5b70344acf9c2c28efe1a1, type: 3}
+  m_Name: Card3
+  m_EditorClassIdentifier: 
+  CardArt: {fileID: 21300000, guid: d54d0f21745df1c4e85199eb50852a2d, type: 3}
+  CardBorder: {fileID: 21300000, guid: 743e735f744cf494c9f9081b4ba9303f, type: 3}
+  animatorOverrideController: {fileID: 22100000, guid: 3e98eb671bc6abd4bad7001010bde3b5,
+    type: 2}
+  CardName: Annihilate
+  CardType: Action
+  CardSubType: Scheme
+  ActionCost: 3
+  Effect: Deal 3 to an enemy

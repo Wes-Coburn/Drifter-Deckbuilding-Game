@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3712138012431901036
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2550938577004964003}
+  - component: {fileID: 6656463491970808230}
+  - component: {fileID: 8654297799340217729}
+  - component: {fileID: 1695913340508565058}
+  m_Layer: 0
+  m_Name: CardManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2550938577004964003
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3712138012431901036}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6656463491970808230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3712138012431901036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7373cbee29c916349af7e6b8470d4e29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8654297799340217729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3712138012431901036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 335445a04975fcb4bab0b7ec3cf47935, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HeroCardPrefab: {fileID: 7279803143792002406, guid: ec19b68285bd03847aafaae758ee7fee,
+    type: 3}
+  CardScript1: {fileID: 11400000, guid: e9c08be6aaec2a74e85c3306c75c5df2, type: 2}
+  CardScript2: {fileID: 11400000, guid: babfe79328b1396459e443f9d4c2e7e9, type: 2}
+  CardScript3: {fileID: 11400000, guid: ecbd65ef947c578438366de31a6e8141, type: 2}
+--- !u!114 &1695913340508565058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3712138012431901036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17fa706939287c4ba41d2c16fd5573f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Evasion: {fileID: 11400000, guid: 47c699f384e8e6a48a965c0eee31751e, type: 2}
+  Retaliate: {fileID: 11400000, guid: ea3240d3d6b88204c8166979a836ea6e, type: 2}
+  Stealth: {fileID: 11400000, guid: edfe3b459c9ebb14eb21ba3bb2f309a0, type: 2}
+  Ward: {fileID: 11400000, guid: 44eb684e5e3c70e4f830456effa3f6b6, type: 2}

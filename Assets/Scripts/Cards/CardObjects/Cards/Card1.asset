@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 120ae26cc4846f34db63edca720772b3, type: 3}
+  m_Name: Card1
+  m_EditorClassIdentifier: 
+  CardArt: {fileID: 21300000, guid: 47433de6b9fd2e5499dd8e39949ee427, type: 3}
+  CardBorder: {fileID: 21300000, guid: 743e735f744cf494c9f9081b4ba9303f, type: 3}
+  animatorOverrideController: {fileID: 22100000, guid: 689fac8044cada8488dbe976b7e107a4,
+    type: 2}
+  CardName: Skyshroud Assassin
+  CardType: Hero
+  CardSubType: Rogue
+  ActionCost: 2
+  HeroLore: The Skyshroud Assassin lurks high above the city, preying on those below.
+    The only loyalty they have is to themselves, and to those who can afford their
+    services.
+  XPCondition: I strike twice
+  AttackScore: 1
+  DefenseScore: 2
+  Level1Abilities:
+  - {fileID: 11400000, guid: 47c699f384e8e6a48a965c0eee31751e, type: 2}
+  - {fileID: 11400000, guid: 70fa4f6bab8cf60469c17b17831d3fb5, type: 2}
+  Level2Abiliites:
+  - {fileID: 11400000, guid: 44eb684e5e3c70e4f830456effa3f6b6, type: 2}
+  Level3Abilities:
+  - {fileID: 11400000, guid: 5117cf951f3539249bb87941f07a724c, type: 2}
