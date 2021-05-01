@@ -16,14 +16,19 @@ public class CardManager : MonoBehaviour
 
         while (DeckCount() < 30) playerDeck.Add(1); // PLAYER DECK
 
+        /* GAME_ZONES */
+        PlayerHand = GameObject.Find(PLAYER_HAND);
+        PlayerZone = GameObject.Find(PLAYER_ZONE);
+        PlayerDiscard = GameObject.Find(PLAYER_DISCARD);
+        EnemyHand = GameObject.Find(ENEMY_HAND);
+        EnemyZone = GameObject.Find(ENEMY_ZONE);
+        EnemyDiscard = GameObject.Find(ENEMY_DISCARD);
+    }
+
+    private void Start()
+    {
         gameManager = GameManager.Instance;
         animationManager = AnimationManager.Instance;
-        playerHand = GameObject.Find(PLAYER_HAND);
-        playerZone = GameObject.Find(PLAYER_ZONE);
-        playerDiscard = GameObject.Find(PLAYER_DISCARD);
-        enemyHand = GameObject.Find(ENEMY_HAND);
-        enemyZone = GameObject.Find(ENEMY_ZONE);
-        enemyDiscard = GameObject.Find(ENEMY_DISCARD);
     }
 
     /* CARD_MANAGER_DATA */
@@ -45,12 +50,12 @@ public class CardManager : MonoBehaviour
     List<GameObject> enemyZoneCards = new List<GameObject>();
 
     /* GAME ZONES */
-    private GameObject playerHand;
-    private GameObject enemyHand;
-    private GameObject playerZone;
-    private GameObject enemyZone;
-    private GameObject playerDiscard;
-    private GameObject enemyDiscard;
+    public GameObject PlayerHand { get; private set; }
+    public GameObject EnemyHand { get; private set; }
+    public GameObject PlayerZone { get; private set; }
+    public GameObject EnemyZone { get; private set; }
+    public GameObject PlayerDiscard { get; private set; }
+    public GameObject EnemyDiscard { get; private set; }
 
     /* MANAGERS */
     private GameManager gameManager;
@@ -99,28 +104,29 @@ public class CardManager : MonoBehaviour
         switch (zone)
         {
             case PLAYER_HAND:
-                zoneTran = playerHand.transform;
+                zoneTran = PlayerHand.transform;
+                Debug.Log("CARD NAME: " + card.GetComponent<HeroCardDisplay>().GetCardName());
                 animationManager.RevealedState(card);
                 break;
             case PLAYER_ZONE:
-                zoneTran = playerZone.transform;
+                zoneTran = PlayerZone.transform;
                 playerZoneCards.Add(card);
                 animationManager.PlayedState(card);
                 break;
             case PLAYER_DISCARD:
-                zoneTran = playerDiscard.transform;
+                zoneTran = PlayerDiscard.transform;
                 playerZoneCards.Remove(card);
                 break;
             case ENEMY_HAND:
-                zoneTran = enemyHand.transform;
+                zoneTran = EnemyHand.transform;
                 break;
             case ENEMY_ZONE:
-                zoneTran = enemyZone.transform;
+                zoneTran = EnemyZone.transform;
                 enemyZoneCards.Add(card);
                 animationManager.PlayedState(card);
                 break;
             case ENEMY_DISCARD:
-                zoneTran = enemyDiscard.transform;
+                zoneTran = EnemyDiscard.transform;
                 enemyZoneCards.Remove(card);
                 break;
         }

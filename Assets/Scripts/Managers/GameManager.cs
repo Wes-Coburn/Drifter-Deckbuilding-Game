@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
      * ****** START
      * *****
      *****/
-    void Start()
+    private void Start()
     {
         playerManager = PlayerManager.Instance;
         UIManager = UIManager.Instance;
