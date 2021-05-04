@@ -8,7 +8,7 @@ public class CardZoom : MonoBehaviour
     private const string PLAYER_ZONE = CardManagerData.PLAYER_ZONE;
     private const string ENEMY_HAND = CardManagerData.ENEMY_HAND;
     private const string ENEMY_ZONE = CardManagerData.ENEMY_ZONE;
-        
+
     /* CHANGE_LAYER_DATA */
     private const string ZOOM_LAYER = ChangeLayerData.ZOOM_LAYER;
 
@@ -83,7 +83,7 @@ public class CardZoom : MonoBehaviour
         UIManager.SetScreenDimmer(true);
         ZoomCardIsCentered = true;
 
-        CreateZoomCard(new Vector2(0, 50), CENTER_SCALE_VALUE);
+        CreateZoomCard(new Vector3(0, 50), CENTER_SCALE_VALUE);
         HeroCardDisplay heroCardDisplay = (HeroCardDisplay)cardDisplay;
         HeroCard heroCard = (HeroCard)heroCardDisplay.CardScript;
 
@@ -121,7 +121,7 @@ public class CardZoom : MonoBehaviour
         }
         else return;
         Vector3 vec3 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        CreateZoomCard(new Vector2(vec3.x, yPos), ZOOM_SCALE_VALUE);
+        CreateZoomCard(new Vector3(vec3.x, yPos), ZOOM_SCALE_VALUE);
     }
 
     /******
@@ -140,12 +140,12 @@ public class CardZoom : MonoBehaviour
      * ****** CREATE_ZOOM_OBJECT
      * *****
      *****/
-    private GameObject CreateZoomObject(GameObject prefab, Vector2 vec2, Transform parentTransform, float scaleValue)
+    private GameObject CreateZoomObject(GameObject prefab, Vector3 vec3, Transform parentTransform, float scaleValue)
     {
-        GameObject zoomObject = Instantiate(prefab, vec2, Quaternion.identity);
+        GameObject zoomObject = Instantiate(prefab, vec3, Quaternion.identity);
         Transform popTran = zoomObject.transform;
         popTran.SetParent(parentTransform, true);
-        popTran.position = new Vector3(popTran.position.x, popTran.position.y, -4);
+        popTran.position = new Vector3(popTran.position.x, popTran.position.y, vec3.z);
         popTran.localScale = new Vector2(scaleValue, scaleValue);
         return zoomObject;
     }
@@ -162,7 +162,8 @@ public class CardZoom : MonoBehaviour
         if (gameObject.GetComponent<CardDisplay>() is HeroCardDisplay) cardPrefab = HeroZoomCard;
         //else if (gameObject.GetComponent<CardDisplay>() is ActionCardDisplay) cardPrefab = ActionZoomCard;
         else Debug.Log("[CreateZoomCard() in CardZoom] CardDisplay TYPE NOT FOUND!");
-        CurrentZoomCard = CreateZoomObject(cardPrefab, vec2, background.transform, scaleValue);
+
+        CurrentZoomCard = CreateZoomObject(cardPrefab, new Vector3(vec2.x, vec2.y, -4), background.transform, scaleValue);
         CurrentZoomCard.GetComponent<CardDisplay>().DisplayZoomCard(gameObject);
     }
 
@@ -174,12 +175,18 @@ public class CardZoom : MonoBehaviour
     public void CreateZoomAbilityIcon(CardAbility cardAbility, Transform parentTransform, float scaleValue)
     {
         GameObject abilityIconPrefab = gameObject.GetComponent<HeroCardDisplay>().AbilityIconPrefab;
-        GameObject abilityIcon = CreateZoomObject(abilityIconPrefab, new Vector2(0, 0), parentTransform, scaleValue);
-        
+        //GameObject abilityIcon = CreateZoomObject(abilityIconPrefab, new Vector3(0, 0, 0), parentTransform, scaleValue);
+
+        GameObject abilityIcon = Instantiate(abilityIconPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        Transform popTran = abilityIcon.transform;
+        popTran.SetParent(parentTransform, true);
+        popTran.localScale = new Vector2(scaleValue, scaleValue);
+
+        abilityIcon.GetComponent<ChangeLayer>().ZoomLayer();
         abilityIcon.layer = LayerMask.NameToLayer(ZOOM_LAYER);
         foreach (Transform child in abilityIcon.transform) child.gameObject.layer = LayerMask.NameToLayer(ZOOM_LAYER);
 
-        abilityIcon.GetComponent<ChangeLayer>().ZoomLayer();
+        abilityIcon.GetComponent<AbilityIconEvents>().IsZoomIcon = true;
         abilityIcon.GetComponent<AbilityIconDisplay>().AbilityScript = cardAbility;
     }
 
@@ -190,7 +197,7 @@ public class CardZoom : MonoBehaviour
      *****/
     private void CreateNextLevelPopup(Vector2 vec2, float scaleValue, List<CardAbility> level2Abilities, List<CardAbility> level3Abilities)
     {
-        NextLevelPopup = CreateZoomObject(nextLevelBox, vec2, background.transform, scaleValue);
+        NextLevelPopup = CreateZoomObject(nextLevelBox, new Vector3(vec2.x, vec2.y, -4), background.transform, scaleValue);
         CreateZoomObject(level2Popup, new Vector2(0, 0), NextLevelPopup.transform, scaleValue / 3);
         foreach (CardAbility cardAbility in level2Abilities)
         {
@@ -212,7 +219,7 @@ public class CardZoom : MonoBehaviour
      *****/
     private void CreateLorePopup(Vector2 vec2, float scaleValue)
     {
-        LorePopup = CreateZoomObject(lorePopup, vec2, background.transform, scaleValue);
+        LorePopup = CreateZoomObject(lorePopup, new Vector3(vec2.x, vec2.y, 0), background.transform, scaleValue);
         HeroCardDisplay heroCardDisplay = (HeroCardDisplay)cardDisplay;
         HeroCard heroCard = (HeroCard)heroCardDisplay.CardScript;
         LorePopup.GetComponent<LorePopupDisplay>().DisplayLorePopup(heroCard.HeroLore);

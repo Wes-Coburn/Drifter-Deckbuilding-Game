@@ -79,7 +79,7 @@ public class UIManager : MonoBehaviour
     {
         if (screenIsDimmed)
         {
-            screenDimmer = Instantiate(screenDimmerPrefab, new Vector3(0, 0, -1), Quaternion.identity);
+            screenDimmer = Instantiate(screenDimmerPrefab, new Vector3(0, 0, -2), Quaternion.identity);
             screenDimmer.transform.SetParent(background.transform);
         }
         else Destroy(screenDimmer);

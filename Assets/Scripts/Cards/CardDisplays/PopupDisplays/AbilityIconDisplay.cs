@@ -33,9 +33,8 @@ public class AbilityIconDisplay : MonoBehaviour
             abilityName = AbilityScript.AbilityName;
             abilitySprite = AbilityScript.AbilitySprite;
         }
-        else if (AbilityScript is KeywordAbility)
+        else if (AbilityScript is KeywordAbility keywordAbility)
         {
-            KeywordAbility keywordAbility = (KeywordAbility)AbilityScript;
             KeywordTrigger keywordTrigger = keywordAbility.KeywordTrigger;
             abilityName = keywordTrigger.AbilityName + ": " + keywordAbility.AbilityDescription;
             abilitySprite = keywordTrigger.AbilitySprite;

@@ -2,10 +2,9 @@
 
 public class AbilityZoom : MonoBehaviour
 {
-
     /* PREFABS */
     [SerializeField] private GameObject abilityPopupPrefab;
-
+    
     /* STATIC_CLASS_VARIABLES */
     public static GameObject AbilityPopup { get; set; }
 
@@ -14,6 +13,8 @@ public class AbilityZoom : MonoBehaviour
 
     private void Update()
     {
+        if (AbilityPopup == null) isHovering = false; // WATCH
+        
         if (isHovering)
         {
             Vector3 hoverPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);

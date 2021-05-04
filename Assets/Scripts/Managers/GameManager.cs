@@ -101,7 +101,8 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        cardManager.DrawHand();
+        cardManager.DrawHand(PLAYER);
+        cardManager.DrawHand(ENEMY);
     }
     public void EndGame()
     {

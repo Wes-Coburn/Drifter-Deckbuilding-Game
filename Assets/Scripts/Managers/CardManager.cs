@@ -14,7 +14,8 @@ public class CardManager : MonoBehaviour
         }
         else Destroy(gameObject);
 
-        while (DeckCount() < 30) playerDeck.Add(1); // PLAYER DECK
+        while (playerDeck.Count < 30) playerDeck.Add(1); // Player Deck
+        while (enemyDeck.Count < 30) enemyDeck.Add(2); // Enemy Deck
 
         /* GAME_ZONES */
         PlayerHand = GameObject.Find(PLAYER_HAND);
@@ -25,13 +26,9 @@ public class CardManager : MonoBehaviour
         EnemyDiscard = GameObject.Find(ENEMY_DISCARD);
     }
 
-    private void Start()
-    {
-        gameManager = GameManager.Instance;
-        animationManager = AnimationManager.Instance;
-    }
-
     /* CARD_MANAGER_DATA */
+    private const string PLAYER_CARD = CardManagerData.PLAYER_CARD;
+    private const string ENEMY_CARD = CardManagerData.ENEMY_CARD;
     private const string PLAYER_HAND = CardManagerData.PLAYER_HAND;
     private const string PLAYER_ZONE = CardManagerData.PLAYER_ZONE;
     private const string PLAYER_DISCARD = CardManagerData.PLAYER_DISCARD;
@@ -46,6 +43,7 @@ public class CardManager : MonoBehaviour
     
     /* CARD LISTS */
     private List<int> playerDeck = new List<int>();
+    private List<int> enemyDeck = new List<int>();
     List<GameObject> playerZoneCards = new List<GameObject>();
     List<GameObject> enemyZoneCards = new List<GameObject>();
 
@@ -56,10 +54,6 @@ public class CardManager : MonoBehaviour
     public GameObject EnemyZone { get; private set; }
     public GameObject PlayerDiscard { get; private set; }
     public GameObject EnemyDiscard { get; private set; }
-
-    /* MANAGERS */
-    private GameManager gameManager;
-    private AnimationManager animationManager;
 
     private CardDisplay GetCardDisplay(GameObject card) => card.GetComponent<CardDisplay>();
     public HeroCardDisplay GetHeroCardDisplay(GameObject heroCard) => (HeroCardDisplay)GetCardDisplay(heroCard);
@@ -105,13 +99,12 @@ public class CardManager : MonoBehaviour
         {
             case PLAYER_HAND:
                 zoneTran = PlayerHand.transform;
-                Debug.Log("CARD NAME: " + card.GetComponent<HeroCardDisplay>().GetCardName());
-                animationManager.RevealedState(card);
+                AnimationManager.Instance.RevealedState(card);
                 break;
             case PLAYER_ZONE:
                 zoneTran = PlayerZone.transform;
                 playerZoneCards.Add(card);
-                animationManager.PlayedState(card);
+                AnimationManager.Instance.PlayedState(card);
                 break;
             case PLAYER_DISCARD:
                 zoneTran = PlayerDiscard.transform;
@@ -123,7 +116,7 @@ public class CardManager : MonoBehaviour
             case ENEMY_ZONE:
                 zoneTran = EnemyZone.transform;
                 enemyZoneCards.Add(card);
-                animationManager.PlayedState(card);
+                AnimationManager.Instance.PlayedState(card);
                 break;
             case ENEMY_DISCARD:
                 zoneTran = EnemyDiscard.transform;
@@ -138,29 +131,42 @@ public class CardManager : MonoBehaviour
      * ****** DRAW_CARD
      * *****
      *****/
-    public void DrawCard()
+    public void DrawCard(string player)
     {
-        int cardID = playerDeck[0];
-        playerDeck.RemoveAt(0);
+        List<int> deck = null;
+        string cardTag = null;
+        string cardZone = null;
 
-        Debug.Log("DRAW CARD");
+        if (player == PLAYER)
+        {
+            deck = playerDeck;
+            cardTag = PLAYER_CARD;
+            cardZone = PLAYER_HAND;
+        }
+        else if (player == ENEMY)
+        {
+            deck = enemyDeck;
+            cardTag = ENEMY_CARD;
+            cardZone = ENEMY_HAND;
+        }
 
-        if (DeckCount() < 1)
+        int cardID = deck[0];
+        deck.RemoveAt(0);
+        
+        if (deck.Count < 1)
         {
             Debug.Log("[CardManager.DrawCard()] NO CARDS LEFT!!!");
             return;
         }
 
         GameObject newCard = CardLibrary.Instance.GetCard(cardID);
-        newCard.tag = "PlayerCard";
+        newCard.tag = cardTag;
         newCard.GetComponent<DragDrop>().IsDraggable = true;
-        ChangeCardZone(newCard, PLAYER_HAND);
+        ChangeCardZone(newCard, cardZone);
     }
-    public void DrawHand()
+    public void DrawHand(string player)
     {
-        //gameManager.UpdateActionsLeft(); // REMOVE THIS EVENTUALLY
-        //for (int i = 0; i < STARTING_HAND_SIZE; i++) DrawCard();
-        DrawCard();
+        for (int i = 0; i < STARTING_HAND_SIZE; i++) DrawCard(player);
     }
 
     /******
@@ -173,11 +179,11 @@ public class CardManager : MonoBehaviour
         switch (player)
         {
             case PLAYER:
-                gameManager.PlayerActionsLeft -= card.GetComponent<CardDisplay>().GetActionCost();
+                GameManager.Instance.PlayerActionsLeft -= card.GetComponent<CardDisplay>().GetActionCost();
                 ChangeCardZone(card, PLAYER_ZONE);
                 break;
             case ENEMY:
-                gameManager.EnemyActionsLeft -= card.GetComponent<CardDisplay>().GetActionCost();
+                GameManager.Instance.EnemyActionsLeft -= card.GetComponent<CardDisplay>().GetActionCost();
                 ChangeCardZone(card, ENEMY_ZONE);
                 break;
         }
@@ -217,7 +223,7 @@ public class CardManager : MonoBehaviour
         if (newDefenseScore < 0) newDefenseScore = 0;
         GetHeroCardDisplay(heroCard).SetDefenseScore(newDefenseScore);
         GetHeroCardDisplay(heroCard).SetDefenseScoreModifier(-damage);
-        animationManager.ModifyDefenseState(heroCard);
+        AnimationManager.Instance.ModifyDefenseState(heroCard);
 
         if (newDefenseScore < 1)
         {
@@ -229,18 +235,18 @@ public class CardManager : MonoBehaviour
     public bool IsPlayable(GameObject card)
     {
         int actionCost = card.GetComponent<CardDisplay>().GetActionCost();
-        int playerActionsLeft = gameManager.PlayerActionsLeft;
+        int playerActionsLeft = GameManager.Instance.PlayerActionsLeft;
 
         if (playerActionsLeft >= actionCost) return true;
         else
         {
-            Debug.Log("[IsPlayable() in CardManager] COULD NOT PLAY! // ActionCost: " + actionCost + " // PlayerActionsLeft: " + gameManager.PlayerActionsLeft);
+            Debug.Log("[IsPlayable() in CardManager] COULD NOT PLAY! // ActionCost: " + actionCost + " // PlayerActionsLeft: " + GameManager.Instance.PlayerActionsLeft);
             return false;
         }
     }
     public bool CanAttack(GameObject heroCard)
     {
-        if (gameManager.PlayerActionsLeft < 1 || !heroCard.GetComponent<HeroCardDisplay>().CanAttack)
+        if (GameManager.Instance.PlayerActionsLeft < 1 || !heroCard.GetComponent<HeroCardDisplay>().CanAttack)
         {
             Debug.Log("[CanAttack() in CardManager] CanAttack = FALSE!");
             return false;
