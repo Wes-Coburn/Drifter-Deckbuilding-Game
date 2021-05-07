@@ -16,11 +16,14 @@ public class GameManager : MonoBehaviour
 
     /* GAME_MANAGER_DATA */
     private const int STARTING_ACTIONS = GameManagerData.STARTING_ACTIONS;
+    private const int ACTIONS_PER_TURN = GameManagerData.ACTIONS_PER_TURN;
+    private const int MAXIMUM_ACTIONS = GameManagerData.MAXIMUM_ACTIONS;
     private const string PLAYER = GameManagerData.PLAYER;
     private const string ENEMY = GameManagerData.ENEMY;
 
     /* MANAGERS */
     private PlayerManager playerManager;
+    private EnemyManager enemyManager;
     private CardManager cardManager;
     private UIManager UIManager;
     
@@ -32,7 +35,7 @@ public class GameManager : MonoBehaviour
         set
         {
             playerReputation = value;
-            UIManager.UpdatePlayerReputation(PlayerReputation);
+            UIManager.UpdatePlayerHealth(PlayerReputation);
         }
     }
     private int enemyReputation;
@@ -42,7 +45,7 @@ public class GameManager : MonoBehaviour
         set
         {
             enemyReputation = value;
-            UIManager.UpdateEnemyReputation(EnemyReputation);
+            UIManager.UpdateEnemyHealth(EnemyReputation);
         }
     }
 
@@ -54,6 +57,7 @@ public class GameManager : MonoBehaviour
         set
         {
             playerActionsLeft = value;
+            if (playerActionsLeft > MAXIMUM_ACTIONS) playerActionsLeft = MAXIMUM_ACTIONS;
             UIManager.UpdatePlayerActionsLeft(PlayerActionsLeft);
         }
     }
@@ -64,6 +68,7 @@ public class GameManager : MonoBehaviour
         set
         {
             enemyActionsLeft = value;
+            if (enemyActionsLeft > MAXIMUM_ACTIONS) enemyActionsLeft = MAXIMUM_ACTIONS;
             UIManager.UpdateEnemyActionsLeft(EnemyActionsLeft);
         }
     }
@@ -76,6 +81,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         playerManager = PlayerManager.Instance;
+        enemyManager = EnemyManager.Instance;
         UIManager = UIManager.Instance;
         cardManager = CardManager.Instance;
 
@@ -101,12 +107,16 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        UIManager.Instance.UpdatePlayerHealth(10); // Unnecessary
+        UIManager.Instance.UpdateEnemyHealth(10); // Unnecessary
+
         cardManager.DrawHand(PLAYER);
         cardManager.DrawHand(ENEMY);
+        StartTurn(PLAYER);
     }
     public void EndGame()
     {
-        // blank
+        // game end animation
     }
     
     
@@ -115,23 +125,37 @@ public class GameManager : MonoBehaviour
      * ****** START/END_TURN
      * *****
      *****/
-    public void NextTurn()
+    private void StartTurn(string player)
     {
-        playerManager.IsMyTurn = !playerManager.IsMyTurn;
+        if (player == PLAYER)
+        {
+            playerManager.IsMyTurn = true;
+            enemyManager.IsMyTurn = false;
+            PlayerActionsLeft += ACTIONS_PER_TURN;
+        }
+        else if (player == ENEMY)
+        {
+            playerManager.IsMyTurn = false;
+            enemyManager.IsMyTurn = true;
+            EnemyActionsLeft += ACTIONS_PER_TURN;
+        }
+
+        cardManager.RefreshCards(player);
         UIManager.UpdateEndTurnButton(playerManager.IsMyTurn);
-        if (playerManager.IsMyTurn) StartTurn();
-        else EndTurn();
+        cardManager.DrawCard(player);
     }
-    private void StartTurn()
+    public void EndTurn(string player)
     {
-        Debug.Log("[START_TURN() in GameManager]!!!");
-        PlayerActionsLeft = STARTING_ACTIONS;
-        cardManager.RefreshCards(PLAYER);
-    }
-    public void EndTurn()
-    {
-        Debug.Log("[END_TURN() in GameManager!!!");
-        EnemyActionsLeft = STARTING_ACTIONS;
-        cardManager.RefreshCards(ENEMY);
+        // end of turn effects
+        string otherPlayer = null;
+        if (player == PLAYER)
+        {
+            otherPlayer = ENEMY;
+        }
+        else if (player == ENEMY)
+        {
+            otherPlayer = PLAYER;
+        }
+        StartTurn(otherPlayer);
     }
 }

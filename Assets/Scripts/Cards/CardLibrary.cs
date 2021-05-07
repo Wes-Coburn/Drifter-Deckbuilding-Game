@@ -13,11 +13,6 @@ public class CardLibrary : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         else Destroy(gameObject);
-
-        // LOAD CARD SCRIPTS
-        cardScripts.Add(CardScript1);
-        cardScripts.Add(CardScript2);
-        cardScripts.Add(CardScript3);
     }
 
     /* CARD_PREFABS */
@@ -25,11 +20,7 @@ public class CardLibrary : MonoBehaviour
     //public GameObject ActionCardPrefab;
 
     /* CARD_SCRIPTS_LIST */
-    private List<Card> cardScripts = new List<Card>();
-    /* CARD_SCRIPTS */
-    public HeroCard CardScript1; // cardID: 1
-    public HeroCard CardScript2; // cardID: 2
-    public ActionCard CardScript3; // cardID: 3
+    public List<Card> cardScripts = new List<Card>();
 
     public GameObject GetCard(int cardID)
     {

@@ -23,8 +23,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject background;
 
     /* REPUTATION */
-    [SerializeField] private GameObject playerReputation;
-    [SerializeField] private GameObject enemyReputation;
+    [SerializeField] private GameObject playerHealth;
+    [SerializeField] private GameObject enemyHealth;
 
     /* ACTIONS_LEFT */
     [SerializeField] private GameObject playerActionsLeft;
@@ -43,8 +43,8 @@ public class UIManager : MonoBehaviour
      * ****** SETTERS
      * *****
      *****/
-    public void UpdatePlayerReputation(int reputation) => playerReputation.GetComponent<TextMeshProUGUI>().SetText("Reputation: " + reputation);
-    public void UpdateEnemyReputation(int reputation) => enemyReputation.GetComponent<TextMeshProUGUI>().SetText("Reputation: " + reputation);
+    public void UpdatePlayerHealth(int health) => playerHealth.GetComponent<TextMeshProUGUI>().SetText("Health: " + health);
+    public void UpdateEnemyHealth(int health) => enemyHealth.GetComponent<TextMeshProUGUI>().SetText("Health: " + health);
     public void UpdatePlayerActionsLeft(int playerActionsLeft) => this.playerActionsLeft.GetComponent<TextMeshProUGUI>().SetText("Actions: " + playerActionsLeft.ToString());
     public void UpdateEnemyActionsLeft(int enemyActionsLeft) => this.enemyActionsLeft.GetComponent<TextMeshProUGUI>().SetText("Actions: " + enemyActionsLeft.ToString());
     public void UpdateEndTurnButton(bool isMyTurn)
@@ -79,7 +79,7 @@ public class UIManager : MonoBehaviour
     {
         if (screenIsDimmed)
         {
-            screenDimmer = Instantiate(screenDimmerPrefab, new Vector3(0, 0, -2), Quaternion.identity);
+            screenDimmer = Instantiate(screenDimmerPrefab, new Vector3(0, 0, -3), Quaternion.identity);
             screenDimmer.transform.SetParent(background.transform);
         }
         else Destroy(screenDimmer);

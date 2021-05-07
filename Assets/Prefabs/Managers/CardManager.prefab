@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2550938577004964003}
   - component: {fileID: 6656463491970808230}
   - component: {fileID: 8654297799340217729}
-  - component: {fileID: 1695913340508565058}
   m_Layer: 0
   m_Name: CardManager
   m_TagString: Untagged
@@ -59,22 +58,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HeroCardPrefab: {fileID: 7279803143792002406, guid: ec19b68285bd03847aafaae758ee7fee,
     type: 3}
-  CardScript1: {fileID: 11400000, guid: e9c08be6aaec2a74e85c3306c75c5df2, type: 2}
-  CardScript2: {fileID: 11400000, guid: babfe79328b1396459e443f9d4c2e7e9, type: 2}
-  CardScript3: {fileID: 11400000, guid: ecbd65ef947c578438366de31a6e8141, type: 2}
---- !u!114 &1695913340508565058
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3712138012431901036}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d17fa706939287c4ba41d2c16fd5573f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Evasion: {fileID: 11400000, guid: 47c699f384e8e6a48a965c0eee31751e, type: 2}
-  Retaliate: {fileID: 11400000, guid: ea3240d3d6b88204c8166979a836ea6e, type: 2}
-  Stealth: {fileID: 11400000, guid: edfe3b459c9ebb14eb21ba3bb2f309a0, type: 2}
-  Ward: {fileID: 11400000, guid: 44eb684e5e3c70e4f830456effa3f6b6, type: 2}
+  cardScripts:
+  - {fileID: 11400000, guid: e9c08be6aaec2a74e85c3306c75c5df2, type: 2}
+  - {fileID: 11400000, guid: babfe79328b1396459e443f9d4c2e7e9, type: 2}
+  - {fileID: 11400000, guid: ecbd65ef947c578438366de31a6e8141, type: 2}
