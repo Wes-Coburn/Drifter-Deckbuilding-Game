@@ -360,6 +360,7 @@ GameObject:
   - component: {fileID: 2939696497564258509}
   - component: {fileID: 2939696497564258500}
   - component: {fileID: 5213109524988458861}
+  - component: {fileID: 1105840656435432104}
   - component: {fileID: 2939696497564258496}
   - component: {fileID: 2939696497564258499}
   m_Layer: 5
@@ -431,6 +432,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d3a56b8c9ec30e45b96a03a11227e90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1105840656435432104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2939696497564258498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52309dc78191ccb4ca7ca3bfe86bd633, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EndTurnSide: {fileID: 1520583646266840572}
+  OpponentTurnSide: {fileID: 1520583647069971668}
 --- !u!61 &2939696497564258496
 BoxCollider2D:
   m_ObjectHideFlags: 0

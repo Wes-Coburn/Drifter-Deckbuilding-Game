@@ -26,10 +26,8 @@ public class DragDrop : MonoBehaviour
     public static bool CardIsDragging = false;
 
     /* CLASS VARIABLES */
-    public bool IsDraggable { get; set; }
     private GameObject enemy;
     private bool isOverEnemy = false;
-    private GameObject dropZone;
     private bool isOverDropZone = false;
     private GameObject startParent;
     private Vector2 startPosition;
@@ -47,7 +45,6 @@ public class DragDrop : MonoBehaviour
     }
     private bool isPlayed = false;
 
-    private void Awake() => IsDraggable = false;
     void Start()
     {
         playerManager = PlayerManager.Instance;
@@ -75,11 +72,7 @@ public class DragDrop : MonoBehaviour
         GameObject collisionObjectParent = collisionObject.transform.parent.gameObject;
         if (!isPlayed)
         {
-            if (collisionObject == playerZone)
-            {
-                isOverDropZone = true;
-                dropZone = playerZone;
-            }
+            if (collisionObject == playerZone) isOverDropZone = true;
         }
         else
         {
@@ -95,11 +88,7 @@ public class DragDrop : MonoBehaviour
         GameObject collisionObject = collision.gameObject;
         if (!isPlayed)
         {
-            if (collisionObject == playerZone)
-            {
-                isOverDropZone = false;
-                dropZone = null;
-            }
+            if (collisionObject == playerZone) isOverDropZone = false;
         }
         else
         {
@@ -121,7 +110,7 @@ public class DragDrop : MonoBehaviour
     public void StartDrag()
     {
         UIManager.DestroyAllZoomObjects();
-        if (!IsDraggable || !playerManager.IsMyTurn) return;
+        if (CompareTag(ENEMY_CARD) || !playerManager.IsMyTurn) return;
 
         IsDragging = true;
         startParent = transform.parent.gameObject;
@@ -132,7 +121,7 @@ public class DragDrop : MonoBehaviour
 
     public void EndDrag()
     {
-        if (!IsDraggable || !playerManager.IsMyTurn) return;
+        if (CompareTag(ENEMY_CARD) || !playerManager.IsMyTurn) return;
 
         IsDragging = false;
         if (!isPlayed)
@@ -140,7 +129,6 @@ public class DragDrop : MonoBehaviour
             if (isOverDropZone && cardManager.IsPlayable(gameObject))
             {
                 isPlayed = true;
-
                 if (gameObject.CompareTag("PlayerCard")) cardManager.PlayCard(gameObject, PLAYER);
                 else cardManager.PlayCard(gameObject, ENEMY);
             }

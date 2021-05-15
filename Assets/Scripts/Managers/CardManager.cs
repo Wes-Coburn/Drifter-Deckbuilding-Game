@@ -16,14 +16,6 @@ public class CardManager : MonoBehaviour
 
         while (playerDeck.Count < 30) playerDeck.Add(1); // Player Deck
         while (enemyDeck.Count < 30) enemyDeck.Add(2); // Enemy Deck
-
-        /* GAME_ZONES */
-        PlayerHand = GameObject.Find(PLAYER_HAND);
-        PlayerZone = GameObject.Find(PLAYER_ZONE);
-        PlayerDiscard = GameObject.Find(PLAYER_DISCARD);
-        EnemyHand = GameObject.Find(ENEMY_HAND);
-        EnemyZone = GameObject.Find(ENEMY_ZONE);
-        EnemyDiscard = GameObject.Find(ENEMY_DISCARD);
     }
 
     /* CARD_MANAGER_DATA */
@@ -46,6 +38,7 @@ public class CardManager : MonoBehaviour
     private List<int> enemyDeck = new List<int>();
     List<GameObject> playerZoneCards = new List<GameObject>();
     List<GameObject> enemyZoneCards = new List<GameObject>();
+    List<GameObject> enemyHandCards = new List<GameObject>();
 
     /* GAME ZONES */
     public GameObject PlayerHand { get; private set; }
@@ -54,6 +47,17 @@ public class CardManager : MonoBehaviour
     public GameObject EnemyZone { get; private set; }
     public GameObject PlayerDiscard { get; private set; }
     public GameObject EnemyDiscard { get; private set; }
+
+    public void StartGame()
+    {
+        /* GAME_ZONES */
+        PlayerHand = GameObject.Find(PLAYER_HAND);
+        PlayerZone = GameObject.Find(PLAYER_ZONE);
+        PlayerDiscard = GameObject.Find(PLAYER_DISCARD);
+        EnemyHand = GameObject.Find(ENEMY_HAND);
+        EnemyZone = GameObject.Find(ENEMY_ZONE);
+        EnemyDiscard = GameObject.Find(ENEMY_DISCARD);
+    }
 
     private CardDisplay GetCardDisplay(GameObject card) => card.GetComponent<CardDisplay>();
     public HeroCardDisplay GetHeroCardDisplay(GameObject heroCard) => (HeroCardDisplay)GetCardDisplay(heroCard);
@@ -77,7 +81,6 @@ public class CardManager : MonoBehaviour
 
     public void SetCardParent(GameObject card, Transform parentTransform)
     {
-        Debug.Log("SET CARD PARENT");
         card.transform.SetParent(parentTransform, false);
         float xPos = card.transform.position.x;
         float yPos = card.transform.position.y;
@@ -87,7 +90,6 @@ public class CardManager : MonoBehaviour
 
     public void ChangeCardZone(GameObject card, string zone)
     {
-        Debug.Log("CHANGE CARD ZONE");
         if (card.TryGetComponent<HeroCardDisplay>(out HeroCardDisplay heroCardDisplay))
         {
             heroCardDisplay.CanAttack = false;
@@ -161,8 +163,9 @@ public class CardManager : MonoBehaviour
 
         GameObject newCard = CardLibrary.Instance.GetCard(cardID);
         newCard.tag = cardTag;
-        newCard.GetComponent<DragDrop>().IsDraggable = true;
         ChangeCardZone(newCard, cardZone);
+
+        if (player == ENEMY) enemyHandCards.Add(newCard);
     }
     public void DrawHand(string player)
     {
@@ -183,6 +186,9 @@ public class CardManager : MonoBehaviour
                 ChangeCardZone(card, PLAYER_ZONE);
                 break;
             case ENEMY:
+                card = enemyHandCards[0]; // TESTING
+                enemyHandCards.RemoveAt(0); // TESTING
+                
                 GameManager.Instance.EnemyActionsLeft -= card.GetComponent<CardDisplay>().GetActionCost();
                 ChangeCardZone(card, ENEMY_ZONE);
                 break;
@@ -218,10 +224,10 @@ public class CardManager : MonoBehaviour
     {
         if (damage < 1) return;
 
-        int defenseScore = GetHeroCardDisplay(heroCard).GetDefenseScore();
+        int defenseScore = GetHeroCardDisplay(heroCard).CurrentDefenseScore; // TESTING
         int newDefenseScore = defenseScore - damage;
         if (newDefenseScore < 0) newDefenseScore = 0;
-        GetHeroCardDisplay(heroCard).SetDefenseScore(newDefenseScore);
+        GetHeroCardDisplay(heroCard).CurrentDefenseScore = newDefenseScore; // TESTING
         GetHeroCardDisplay(heroCard).SetDefenseScoreModifier(-damage);
         AnimationManager.Instance.ModifyDefenseState(heroCard);
 

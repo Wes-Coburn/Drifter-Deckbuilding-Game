@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
 using TMPro;
 
 public class UIManager : MonoBehaviour
@@ -20,23 +22,55 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject centerScreenPopup;
 
     /* GAME ZONES */
-    [SerializeField] private GameObject background;
+    public GameObject CurrentBackground { get; set; }
+    public GameObject CurrentCanvas { get; set; }
 
     /* REPUTATION */
-    [SerializeField] private GameObject playerHealth;
-    [SerializeField] private GameObject enemyHealth;
+    private GameObject playerHealth;
+    private GameObject enemyHealth;
 
     /* ACTIONS_LEFT */
-    [SerializeField] private GameObject playerActionsLeft;
-    [SerializeField] private GameObject enemyActionsLeft;
+    private GameObject playerActionsLeft;
+    private GameObject enemyActionsLeft;
 
     /* END_TURN_BUTTON */
-    [SerializeField] private GameObject endTurnButton;
-    [SerializeField] private GameObject endTurnSide;
-    [SerializeField] private GameObject opponentTurnSide;
+    private GameObject endTurnButton;
 
     /* CLASS_VARAIBLES */
     private GameObject screenDimmer;
+
+    /* WAIT_FOR_SECONDS */
+    public Action OnWaitForSecondsCallback;
+
+    public void Start()
+    {
+        CurrentBackground = GameObject.Find("Background");
+        CurrentCanvas = GameObject.Find("Canvas");
+    }
+
+    public void LoadGameScene()
+    {
+        playerHealth = GameObject.Find("PlayerHealth");
+        enemyHealth = GameObject.Find("EnemyHealth");
+        playerActionsLeft = GameObject.Find("PlayerActionsLeft");
+        enemyActionsLeft = GameObject.Find("EnemyActionsLeft");
+        endTurnButton = GameObject.Find("EndTurnButton");
+    }
+    
+    public void WaitForSeconds(float delay) => StartCoroutine(WaitForSecondsNumerator(delay));
+    private IEnumerator WaitForSecondsNumerator(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        WaitForSecondsCallback();
+    }
+    private void WaitForSecondsCallback()
+    {
+        if (OnWaitForSecondsCallback != null)
+        {
+            OnWaitForSecondsCallback();
+            OnWaitForSecondsCallback = null;
+        }
+    }
 
     /******
      * *****
@@ -51,8 +85,8 @@ public class UIManager : MonoBehaviour
     {
         BoxCollider2D boxCollider = endTurnButton.GetComponent<BoxCollider2D>();
         boxCollider.enabled = isMyTurn;
-        endTurnSide.SetActive(isMyTurn);
-        opponentTurnSide.SetActive(!isMyTurn);
+        endTurnButton.GetComponent<EndTurnButtonDisplay>().EndTurnSide.SetActive(isMyTurn);
+        endTurnButton.GetComponent<EndTurnButtonDisplay>().OpponentTurnSide.SetActive(!isMyTurn);
     }
 
     /******
@@ -80,7 +114,7 @@ public class UIManager : MonoBehaviour
         if (screenIsDimmed)
         {
             screenDimmer = Instantiate(screenDimmerPrefab, new Vector3(0, 0, -3), Quaternion.identity);
-            screenDimmer.transform.SetParent(background.transform);
+            screenDimmer.transform.SetParent(CurrentBackground.transform);
         }
         else Destroy(screenDimmer);
     }

@@ -21,7 +21,6 @@ public class CardLibrary : MonoBehaviour
 
     /* CARD_SCRIPTS_LIST */
     public List<Card> cardScripts = new List<Card>();
-
     public GameObject GetCard(int cardID)
     {
         cardID--;

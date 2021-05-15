@@ -12,18 +12,39 @@ public class HeroCardDisplay : CardDisplay
 
     /* HERO_CARD_DATA */
     /* XP */
-    public int CurrentXP { get; private set; }
-    [SerializeField] private GameObject XPCondition;
-    [SerializeField] private GameObject XP1;
-    [SerializeField] private GameObject XP2;
-    [SerializeField] private GameObject XP3;
-    [SerializeField] private GameObject XP4;
+    [SerializeField] private GameObject LevelUpCondition;
     /* ATTACK_SCORE */
-    [SerializeField] private GameObject AttackScore;
-    [SerializeField] private GameObject AttackScoreModifier;
+    [SerializeField] private GameObject attackScore;
+    [SerializeField] private GameObject attackScoreModifier;
     /* DEFENSE_SCORE */
-    [SerializeField] private GameObject DefenseScore;
-    [SerializeField] private GameObject DefenseScoreModifier;
+    [SerializeField] private GameObject defenseScore;
+    [SerializeField] private GameObject defenseScoreModifier;
+    [SerializeField] private GameObject maxDefenseScoreDisplay;
+
+    private int currentDefenseScore;
+    public int CurrentDefenseScore
+    {
+        get => currentDefenseScore;
+        set
+        {
+            currentDefenseScore = value;
+            TextMeshPro txtPro = defenseScore.GetComponent<TextMeshPro>();
+            txtPro.SetText(CurrentDefenseScore.ToString());
+        }
+    }
+    private int maxDefenseScore;
+    public int MaxDefenseScore
+    {
+        get => maxDefenseScore;
+        set
+        {
+            maxDefenseScore = value;
+            if (maxDefenseScoreDisplay == null) return;
+            TextMeshPro txtPro = maxDefenseScoreDisplay.GetComponent<TextMeshPro>();
+            txtPro.SetText(MaxDefenseScore.ToString());
+        }
+    }
+
     /* ABILITIES */
     public List<CardAbility> CurrentAbilities;
     public List<GameObject> AbilityIcons;
@@ -51,10 +72,11 @@ public class HeroCardDisplay : CardDisplay
     {
         base.DisplayCard();
         heroCard = (HeroCard)CardScript;
-        SetCurrentXP(0);
-        SetXPCondition("Gain XP: " + heroCard.XPCondition);
+        SetLevelUpCondition("Gain XP: " + heroCard.XPCondition);
         SetAttackScore(heroCard.AttackScore);
-        SetDefenseScore(heroCard.DefenseScore);
+
+        MaxDefenseScore = heroCard.DefenseScore; // TESTING
+        CurrentDefenseScore = MaxDefenseScore; // TESTING
         
         foreach (CardAbility cardAbility in heroCard.Level1Abilities)
         {
@@ -73,15 +95,15 @@ public class HeroCardDisplay : CardDisplay
         base.DisplayZoomCard(parentCard);
         CardDisplay parentCardDisplay = parentCard.GetComponent<CardDisplay>();
         HeroCardDisplay heroParentCardDisplay = (HeroCardDisplay)parentCardDisplay;
-        SetXPCondition(heroParentCardDisplay.GetXPCondition());
-        SetCurrentXP(heroParentCardDisplay.GetCurrentXP());
+        SetLevelUpCondition(heroParentCardDisplay.GetLevelUpCondition());
         SetAttackScore(heroParentCardDisplay.GetAttackScore());
-        SetDefenseScore(heroParentCardDisplay.GetDefenseScore());
+
+        CurrentDefenseScore = heroParentCardDisplay.CurrentDefenseScore; // TESTING
+        MaxDefenseScore = heroParentCardDisplay.MaxDefenseScore; // TESTING
 
         foreach (CardAbility cardAbility in heroParentCardDisplay.CurrentAbilities)
         {
             if (cardAbility == null) continue; // Skip empty abilities
-
             gameObject.GetComponent<CardZoom>().CreateZoomAbilityIcon(cardAbility, CurrentAbilitiesDisplay.transform, 1);
         }
     }
@@ -128,62 +150,26 @@ public class HeroCardDisplay : CardDisplay
      * ****** GETTERS/SETTERS
      * *****
      *****/
-    public int GetAttackScore() => System.Convert.ToInt32(AttackScore.GetComponent<TextMeshPro>().text);
-    public void SetAttackScore(int attackScore)
+    public int GetAttackScore() => System.Convert.ToInt32(attackScore.GetComponent<TextMeshPro>().text);
+    public void SetAttackScore(int newAttackScore)
     {
-        TextMeshPro txtPro = AttackScore.GetComponent<TextMeshPro>();
-        txtPro.SetText(attackScore.ToString());
+        TextMeshPro txtPro = attackScore.GetComponent<TextMeshPro>();
+        txtPro.SetText(newAttackScore.ToString());
     }
-    public void SetAttackScoreModifier(int attackScoreModifier) // IMPLEMENT!
+    public void SetAttackScoreModifier(int newAttackScoreModifier)
     {
-        TextMeshPro txtPro = AttackScoreModifier.GetComponent<TextMeshPro>();
-        txtPro.SetText(attackScoreModifier.ToString());
+        TextMeshPro txtPro = attackScoreModifier.GetComponent<TextMeshPro>();
+        txtPro.SetText(newAttackScoreModifier.ToString());
     }
-    public int GetDefenseScore() => System.Convert.ToInt32(DefenseScore.GetComponent<TextMeshPro>().text);
-    public void SetDefenseScore(int defenseScore)
+    public void SetDefenseScoreModifier(int newDefenseScoreModifier)
     {
-        TextMeshPro txtPro = DefenseScore.GetComponent<TextMeshPro>();
-        txtPro.SetText(defenseScore.ToString());
+        TextMeshPro txtPro = defenseScoreModifier.GetComponent<TextMeshPro>();
+        txtPro.SetText(newDefenseScoreModifier.ToString());
     }
-    public void SetDefenseScoreModifier(int defenseScoreModifier)
+    public string GetLevelUpCondition() => LevelUpCondition.GetComponent<TextMeshPro>().text;
+    public void SetLevelUpCondition(string newLevelUpCondition)
     {
-        TextMeshPro txtPro = DefenseScoreModifier.GetComponent<TextMeshPro>();
-        txtPro.SetText(defenseScoreModifier.ToString());
+        TextMeshPro txtPro = LevelUpCondition.GetComponent<TextMeshPro>();
+        txtPro.SetText(newLevelUpCondition);
     }
-    public string GetXPCondition() => XPCondition.GetComponent<TextMeshPro>().text;
-    public void SetXPCondition(string xpCondition)
-    {
-        TextMeshPro txtPro = XPCondition.GetComponent<TextMeshPro>();
-        txtPro.SetText(xpCondition);
-    }
-    public int GetCurrentXP() => CurrentXP;
-    public void SetCurrentXP(int currentXP) // THIS METHOD MIGHT CAUSE A VISUAL STUTTER WHEN currentXP > 0 ??
-    {
-        CurrentXP = currentXP;
-
-        XP1.SetActive(false);
-        XP2.SetActive(false);
-        XP3.SetActive(false);
-        XP4.SetActive(false);
-
-        switch (currentXP)
-        {
-            case 0:
-                break;
-            case 1:
-                XP1.SetActive(true);
-                break;
-            case 2:
-                XP2.SetActive(true);
-                goto case 1;
-            case 3:
-                XP3.SetActive(true);
-                goto case 2;
-            case 4:
-                XP4.SetActive(true);
-                goto case 3;
-        }
-    }
-
-    
 }

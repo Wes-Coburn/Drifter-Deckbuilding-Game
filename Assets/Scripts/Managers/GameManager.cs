@@ -28,24 +28,24 @@ public class GameManager : MonoBehaviour
     private UIManager UIManager;
     
     /* REPUTATION */
-    private int playerReputation;
-    public int PlayerReputation
+    private int playerHealth;
+    public int PlayerHealth
     {
-        get => playerReputation;
+        get => playerHealth;
         set
         {
-            playerReputation = value;
-            UIManager.UpdatePlayerHealth(PlayerReputation);
+            playerHealth = value;
+            UIManager.UpdatePlayerHealth(PlayerHealth);
         }
     }
-    private int enemyReputation;
-    public int EnemyReputation
+    private int enemyHealth;
+    public int EnemyHealth
     {
-        get => enemyReputation;
+        get => enemyHealth;
         set
         {
-            enemyReputation = value;
-            UIManager.UpdateEnemyHealth(EnemyReputation);
+            enemyHealth = value;
+            UIManager.UpdateEnemyHealth(EnemyHealth);
         }
     }
 
@@ -84,19 +84,6 @@ public class GameManager : MonoBehaviour
         enemyManager = EnemyManager.Instance;
         UIManager = UIManager.Instance;
         cardManager = CardManager.Instance;
-
-        PlayerActionsLeft = STARTING_ACTIONS;
-        EnemyActionsLeft = STARTING_ACTIONS;
-        EnemyReputation = 0;
-        PlayerReputation = 0;
-
-        StartGame(); // TESTING
-    }
-
-    public void UpdateActionsLeft () // REMOVE THIS EVENTUALLY
-    {
-        PlayerActionsLeft = playerActionsLeft;
-        EnemyActionsLeft = enemyActionsLeft;
     }
 
     /******
@@ -107,42 +94,51 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        UIManager.Instance.UpdatePlayerHealth(10); // Unnecessary
-        UIManager.Instance.UpdateEnemyHealth(10); // Unnecessary
+        PlayerActionsLeft = STARTING_ACTIONS;
+        EnemyActionsLeft = STARTING_ACTIONS;
+        EnemyHealth = 0;
+        PlayerHealth = 0;
 
         cardManager.DrawHand(PLAYER);
-        cardManager.DrawHand(ENEMY);
         StartTurn(PLAYER);
     }
     public void EndGame()
     {
-        // game end animation
+        // VICTORY or DEFEAT animation
     }
-    
-    
+
     /******
      * *****
      * ****** START/END_TURN
      * *****
      *****/
-    private void StartTurn(string player)
+    private void StartTurn(string activePlayer)
     {
-        if (player == PLAYER)
+        if (activePlayer == PLAYER)
         {
             playerManager.IsMyTurn = true;
             enemyManager.IsMyTurn = false;
+            UIManager.UpdateEndTurnButton(playerManager.IsMyTurn);
             PlayerActionsLeft += ACTIONS_PER_TURN;
+            cardManager.DrawCard(activePlayer);
+            cardManager.RefreshCards(activePlayer);
         }
-        else if (player == ENEMY)
+        else if (activePlayer == ENEMY)
         {
             playerManager.IsMyTurn = false;
             enemyManager.IsMyTurn = true;
+            UIManager.UpdateEndTurnButton(playerManager.IsMyTurn);
             EnemyActionsLeft += ACTIONS_PER_TURN;
-        }
+            cardManager.DrawCard(activePlayer);
+            cardManager.RefreshCards(activePlayer);
 
-        cardManager.RefreshCards(player);
-        UIManager.UpdateEndTurnButton(playerManager.IsMyTurn);
-        cardManager.DrawCard(player);
+            UIManager.Instance.OnWaitForSecondsCallback = () =>
+            {
+                CardManager.Instance.PlayCard(null, ENEMY);
+                EndTurn(ENEMY);
+            };
+            UIManager.Instance.WaitForSeconds(1.5f);
+        }
     }
     public void EndTurn(string player)
     {

@@ -1,8 +1,5 @@
 using System;
-//using System.Collections;
-//using System.Collections.Generic;
 using UnityEngine;
-//using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
@@ -26,18 +23,51 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public Sound[] sounds;
-    public void StartStopSound (string name, bool start = true)
+    private void Start()
     {
-        Debug.Log("Play sound: " + name);
-        Sound s = Array.Find(sounds, sound => sound.name == name);
-        if (s == null)
+        //StartStopSound("Soundtrack_MenuScene", SoundType.Soundtrack);
+    }
+
+    public Sound CurrentSoundscape { get; set; }
+    public Sound CurrentSoundtrack { get; set; }
+    public Sound[] sounds;
+    public enum SoundType
+    {
+        SFX,
+        Soundscape,
+        Soundtrack
+    }
+
+    public void StartStopSound (string name, SoundType soundType, bool isEndSound = false)
+    {
+        Sound currentSound = Array.Find(sounds, sound => sound.name == name);
+        if (currentSound == null)
         {
-            Debug.LogError("Sound: " + s.name + " not found!");
+            Debug.LogError("Sound: " + name + " not found!");
             return;
         }
 
-        if (start) s.source.Play();
-        else s.source.Stop();
+        if (isEndSound)
+        {
+            currentSound.source.Stop();
+            return;
+        }
+
+        switch (soundType)
+        {
+            case SoundType.SFX:
+                break;
+            case SoundType.Soundscape:
+                if (CurrentSoundscape == currentSound) return; // TESTING
+                if (CurrentSoundscape != null) CurrentSoundscape.source.Stop();
+                CurrentSoundscape = currentSound;
+                break;
+            case SoundType.Soundtrack:
+                if (CurrentSoundtrack == currentSound) return; // TESTING
+                if (CurrentSoundtrack != null) CurrentSoundtrack.source.Stop();
+                CurrentSoundtrack = currentSound;
+                break;
+        }
+        currentSound.source.Play();
     }
 }

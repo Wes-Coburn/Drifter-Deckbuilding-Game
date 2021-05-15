@@ -10,5 +10,4 @@ public class HeroCard : Card
     public int DefenseScore;
     public List<CardAbility> Level1Abilities;
     public List<CardAbility> Level2Abiliites;
-    public List<CardAbility> Level3Abilities;
 }

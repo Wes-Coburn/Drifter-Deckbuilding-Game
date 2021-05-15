@@ -8,6 +8,8 @@ public class CardZoom : MonoBehaviour
     private const string PLAYER_ZONE = CardManagerData.PLAYER_ZONE;
     private const string ENEMY_HAND = CardManagerData.ENEMY_HAND;
     private const string ENEMY_ZONE = CardManagerData.ENEMY_ZONE;
+    private const string PLAYER_CARD = CardManagerData.PLAYER_CARD;
+    private const string ENEMY_CARD = CardManagerData.ENEMY_CARD;
 
     /* CHANGE_LAYER_DATA */
     private const string ZOOM_LAYER = ChangeLayerData.ZOOM_LAYER;
@@ -33,7 +35,6 @@ public class CardZoom : MonoBehaviour
         // NEXT_LEVEL_PREFABS
     [SerializeField] private GameObject nextLevelBox;
     [SerializeField] private GameObject level2Popup;
-    [SerializeField] private GameObject level3Popup;
 
         // LORE_PREFAB
     [SerializeField] private GameObject lorePopup;
@@ -87,7 +88,7 @@ public class CardZoom : MonoBehaviour
         HeroCardDisplay heroCardDisplay = (HeroCardDisplay)cardDisplay;
         HeroCard heroCard = (HeroCard)heroCardDisplay.CardScript;
 
-        CreateNextLevelPopup(new Vector2(POPUP_X_VALUE, 0), POPUP_SCALE_VALUE, heroCard.Level2Abiliites, heroCard.Level3Abilities);
+        CreateNextLevelPopup(new Vector2(POPUP_X_VALUE, 0), POPUP_SCALE_VALUE, heroCard.Level2Abiliites);
         CreateLorePopup(new Vector2(-600, 0), POPUP_SCALE_VALUE);
     }
 
@@ -195,17 +196,11 @@ public class CardZoom : MonoBehaviour
      * ****** CREATE_NEXT_LEVEL_POPUP
      * *****
      *****/
-    private void CreateNextLevelPopup(Vector2 vec2, float scaleValue, List<CardAbility> level2Abilities, List<CardAbility> level3Abilities)
+    private void CreateNextLevelPopup(Vector2 vec2, float scaleValue, List<CardAbility> level2Abilities)
     {
         NextLevelPopup = CreateZoomObject(nextLevelBox, new Vector3(vec2.x, vec2.y, -4), background.transform, scaleValue);
         CreateZoomObject(level2Popup, new Vector2(0, 0), NextLevelPopup.transform, scaleValue / 3);
         foreach (CardAbility cardAbility in level2Abilities)
-        {
-            if (cardAbility == null) continue;
-            CreateZoomAbilityIcon(cardAbility, NextLevelPopup.transform, scaleValue);
-        }
-        CreateZoomObject(level3Popup, new Vector2(0, 0), NextLevelPopup.transform, scaleValue / 3);
-        foreach (CardAbility cardAbility in level3Abilities)
         {
             if (cardAbility == null) continue;
             CreateZoomAbilityIcon(cardAbility, NextLevelPopup.transform, scaleValue);
