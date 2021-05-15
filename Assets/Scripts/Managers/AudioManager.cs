@@ -25,7 +25,7 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        //StartStopSound("Soundtrack_MenuScene", SoundType.Soundtrack);
+        StartStopSound("Soundtrack_MenuScene", SoundType.Soundtrack);
     }
 
     public Sound CurrentSoundscape { get; set; }
