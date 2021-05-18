@@ -132,14 +132,11 @@ public class GameManager : MonoBehaviour
             cardManager.DrawCard(activePlayer);
             cardManager.RefreshCards(activePlayer);
 
-            UIManager.Instance.OnWaitForSecondsCallback = () =>
-            {
-                CardManager.Instance.PlayCard(null, ENEMY);
-                EndTurn(ENEMY);
-            };
-            UIManager.Instance.WaitForSeconds(1.5f);
+            FunctionTimer.Create(() => CardManager.Instance.PlayCard(null, ENEMY), 1.5f);
+            FunctionTimer.Create(() => EndTurn(ENEMY), 4f);
         }
     }
+
     public void EndTurn(string player)
     {
         // end of turn effects
