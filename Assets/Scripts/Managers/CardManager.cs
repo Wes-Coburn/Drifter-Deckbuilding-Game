@@ -246,7 +246,7 @@ public class CardManager : MonoBehaviour
         if (playerActionsLeft >= actionCost) return true;
         else
         {
-            Debug.Log("[IsPlayable() in CardManager] COULD NOT PLAY! // ActionCost: " + actionCost + " // PlayerActionsLeft: " + GameManager.Instance.PlayerActionsLeft);
+            Debug.Log("[IsPlayable() in CardManager] COULD NOT PLAY! */*/* ActionCost: " + actionCost + " */*/* PlayerActionsLeft: " + GameManager.Instance.PlayerActionsLeft);
             return false;
         }
     }
