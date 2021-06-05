@@ -68,7 +68,6 @@ public class CardManager : MonoBehaviour
     public void SetExhausted(GameObject heroCard, bool exhausted)
     {
         heroCard.GetComponent<HeroCardDisplay>().CanAttack = !exhausted;
-        heroCard.GetComponent<Animator>().SetBool("Exhausted", exhausted);
     }
 
     public void RefreshCards(string player)

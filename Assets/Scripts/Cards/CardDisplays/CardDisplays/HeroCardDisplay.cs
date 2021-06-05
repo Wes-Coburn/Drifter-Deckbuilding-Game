@@ -20,7 +20,7 @@ public class HeroCardDisplay : CardDisplay
     [SerializeField] private GameObject defenseScore;
     [SerializeField] private GameObject defenseScoreModifier;
     [SerializeField] private GameObject maxDefenseScoreDisplay;
-
+    
     private int currentDefenseScore;
     public int CurrentDefenseScore
     {
@@ -49,9 +49,9 @@ public class HeroCardDisplay : CardDisplay
     public List<CardAbility> CurrentAbilities;
     public List<GameObject> AbilityIcons;
     [SerializeField] private GameObject CurrentAbilitiesDisplay;
+    
     /* EXHAUSTED_ICON */
-    [SerializeField] private GameObject ExhaustedIcon;
-
+    [SerializeField] private GameObject exhaustedIcon;
     private bool canAttack = false;
     public bool CanAttack
     {
@@ -59,7 +59,7 @@ public class HeroCardDisplay : CardDisplay
         set
         {
             canAttack = value;
-            gameObject.GetComponent<Animator>().SetBool("Exhausted", !CanAttack);
+            exhaustedIcon.SetActive(!CanAttack);
         }
     }
 
@@ -72,7 +72,7 @@ public class HeroCardDisplay : CardDisplay
     {
         base.DisplayCard();
         heroCard = (HeroCard)CardScript;
-        SetLevelUpCondition("Gain XP: " + heroCard.XPCondition);
+        SetLevelUpCondition("Level Up: " + heroCard.XPCondition);
         SetAttackScore(heroCard.AttackScore);
 
         MaxDefenseScore = heroCard.DefenseScore; // TESTING

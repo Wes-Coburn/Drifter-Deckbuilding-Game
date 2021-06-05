@@ -37,7 +37,6 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -1823945212839801328}
-  - {fileID: -8926070282129666061}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -63,8 +62,7 @@ AnimatorState:
   m_Name: Revealed
   m_Speed: 1
   m_CycleOffset: 0
-  m_Transitions:
-  - {fileID: 5241463588707434649}
+  m_Transitions: []
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -87,10 +85,7 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 2
-    m_ConditionEvent: Exhausted
-    m_EventTreshold: 0
+  m_Conditions: []
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6365190943923490077}
   m_Solo: 0
@@ -189,10 +184,7 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 2
-    m_ConditionEvent: Exhausted
-    m_EventTreshold: 0
+  m_Conditions: []
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6365190943923490077}
   m_Solo: 0
@@ -215,13 +207,7 @@ AnimatorController:
   m_PrefabAsset: {fileID: 0}
   m_Name: HeroCard
   serializedVersion: 5
-  m_AnimatorParameters:
-  - m_Name: Exhausted
-    m_Type: 4
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+  m_AnimatorParameters: []
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -272,7 +258,6 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -5185044483380597665}
-  - {fileID: -2059838286722992599}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -299,22 +284,19 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -7779116954018563469}
-    m_Position: {x: 790, y: 230, z: 0}
+    m_Position: {x: 730, y: 60, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6365190943923490077}
-    m_Position: {x: 590, y: -120, z: 0}
+    m_Position: {x: 730, y: -120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7872825003500778820}
-    m_Position: {x: 730, y: -220, z: 0}
+    m_Position: {x: 740, y: -230, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4199158034785830012}
-    m_Position: {x: 500, y: 80, z: 0}
+    m_Position: {x: 510, y: 0, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7807892552097983945}
-    m_Position: {x: 1000, y: 80, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: -3407868306604484213}
-    m_Position: {x: 900, y: -120, z: 0}
+    m_Position: {x: 960, y: 0, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -357,10 +339,7 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 2
-    m_ConditionEvent: Exhausted
-    m_EventTreshold: 0
+  m_Conditions: []
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6365190943923490077}
   m_Solo: 0
@@ -387,7 +366,6 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 5356367039723344381}
-  - {fileID: 2898893996088563159}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
