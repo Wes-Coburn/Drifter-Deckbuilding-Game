@@ -23,17 +23,17 @@ public class DragDrop : MonoBehaviour
     private GameObject enemyZone;
 
     /* STATIC CLASS VARIABLES */
-    public static bool CardIsDragging = false;
+    public static bool CardIsDragging;
 
     /* CLASS VARIABLES */
     private GameObject enemy;
-    private bool isOverEnemy = false;
-    private bool isOverDropZone = false;
+    private bool isOverEnemy;
+    private bool isOverDropZone;
     private GameObject startParent;
     private Vector2 startPosition;
     private int startIndex;
 
-    private bool isDragging = false;
+    private bool isDragging;
     public bool IsDragging
     {
         get => isDragging;
@@ -43,7 +43,7 @@ public class DragDrop : MonoBehaviour
             CardIsDragging = IsDragging;
         }
     }
-    private bool isPlayed = false;
+    private bool isPlayed;
 
     void Start()
     {
@@ -54,6 +54,12 @@ public class DragDrop : MonoBehaviour
         background = GameObject.Find(BACKGROUND);
         playerZone = GameObject.Find(PLAYER_ZONE);
         enemyZone = GameObject.Find(ENEMY_ZONE);
+
+        CardIsDragging = false;
+        isOverEnemy = false;
+        isOverDropZone = false;
+        IsDragging = false;
+        isPlayed = false;
     }
 
     void Update()

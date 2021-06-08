@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -26,7 +25,7 @@ public class UIManager : MonoBehaviour
     public GameObject CurrentBackground { get; set; }
     public GameObject CurrentCanvas { get; set; }
 
-    /* REPUTATION */
+    /* HEALTH */
     private GameObject playerHealth;
     private GameObject enemyHealth;
 
@@ -37,16 +36,20 @@ public class UIManager : MonoBehaviour
     /* END_TURN_BUTTON */
     private GameObject endTurnButton;
 
-    /* CLASS_VARAIBLES */
+    /* SCREEN_DIMMER */
     private GameObject screenDimmer;
 
     /* WAIT_FOR_SECONDS */
-    public Action OnWaitForSecondsCallback;
+    public Action OnWaitForSecondsCallback { get; set; }
+
+    /* PLAYER_IS_TARGETING */
+    public bool PlayerIsTargetting { get; set; } // TESTING
 
     public void Start()
     {
         CurrentBackground = GameObject.Find("Background");
         CurrentCanvas = GameObject.Find("Canvas");
+        PlayerIsTargetting = false; // TESTING
     }
 
     public void LoadGameScene()

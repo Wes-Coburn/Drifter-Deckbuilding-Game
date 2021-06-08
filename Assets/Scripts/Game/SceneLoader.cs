@@ -28,7 +28,7 @@ public static class SceneLoader
         onSceneUpdateCallback = () =>
         {
             UIManager.Instance.Start();
-            UIManager.Instance.LoadGameScene(); // FOR TESTING ONLY
+            UIManager.Instance.LoadGameScene();
             CardManager.Instance.StartGame(); // FOR TESTING ONLY
             GameManager.Instance.StartGame(); // FOR TESTING ONLY
             //AudioManager.Instance.StartStopSound("Soundscape_" + scene.ToString(), AudioManager.SoundType.Soundscape);

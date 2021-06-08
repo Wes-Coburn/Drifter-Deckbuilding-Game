@@ -37,7 +37,7 @@ public class AbilityPopupDisplay : MonoBehaviour
         }
         else if (AbilityScript is KeywordAbility)
         {
-            KeywordAbility keywordAbility = (KeywordAbility)AbilityScript;
+            KeywordAbility keywordAbility = AbilityScript as KeywordAbility;
             KeywordTrigger keywordTrigger = keywordAbility.KeywordTrigger;
 
             abilityName = keywordTrigger.AbilityName;

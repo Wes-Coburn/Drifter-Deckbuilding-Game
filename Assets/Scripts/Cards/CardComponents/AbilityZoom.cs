@@ -9,11 +9,16 @@ public class AbilityZoom : MonoBehaviour
     public static GameObject AbilityPopup { get; set; }
 
     /* CLASS_VARIABLES */
-    private bool isHovering = false;
+    private bool isHovering;
+
+    private void Start()
+    {
+        isHovering = false;
+    }
 
     private void Update()
     {
-        if (AbilityPopup == null) isHovering = false; // WATCH
+        if (AbilityPopup == null && isHovering == true) isHovering = false; // WATCH
         
         if (isHovering)
         {

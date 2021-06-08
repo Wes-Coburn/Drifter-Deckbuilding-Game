@@ -71,12 +71,12 @@ public class HeroCardDisplay : CardDisplay
     protected override void DisplayCard()
     {
         base.DisplayCard();
-        heroCard = (HeroCard)CardScript;
+        heroCard = CardScript as HeroCard;
         SetLevelUpCondition("Level Up: " + heroCard.XPCondition);
         SetAttackScore(heroCard.AttackScore);
 
-        MaxDefenseScore = heroCard.DefenseScore; // TESTING
-        CurrentDefenseScore = MaxDefenseScore; // TESTING
+        MaxDefenseScore = heroCard.DefenseScore;
+        CurrentDefenseScore = MaxDefenseScore;
         
         foreach (CardAbility cardAbility in heroCard.Level1Abilities)
         {
