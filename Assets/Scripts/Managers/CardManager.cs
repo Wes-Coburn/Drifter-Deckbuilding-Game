@@ -36,9 +36,9 @@ public class CardManager : MonoBehaviour
     /* CARD LISTS */
     private List<int> playerDeck = new List<int>();
     private List<int> enemyDeck = new List<int>();
-    List<GameObject> playerZoneCards = new List<GameObject>();
-    List<GameObject> enemyZoneCards = new List<GameObject>();
-    List<GameObject> enemyHandCards = new List<GameObject>();
+    public List<GameObject> playerZoneCards;
+    public List<GameObject> enemyZoneCards;
+    public List<GameObject> enemyHandCards;
 
     /* GAME ZONES */
     public GameObject PlayerHand { get; private set; }
@@ -47,7 +47,13 @@ public class CardManager : MonoBehaviour
     public GameObject EnemyZone { get; private set; }
     public GameObject PlayerDiscard { get; private set; }
     public GameObject EnemyDiscard { get; private set; }
-
+    
+    private void Start()
+    {
+        playerZoneCards = new List<GameObject>();
+        enemyZoneCards = new List<GameObject>();
+        enemyHandCards = new List<GameObject>();
+    }
     public void StartGame()
     {
         /* GAME_ZONES */
@@ -64,6 +70,25 @@ public class CardManager : MonoBehaviour
     //public ActionCardDisplay GetActionCardDisplay(GameObject actionCard) => (ActionCardDisplay)GetCardDisplay(actionCard);
 
     public int DeckCount() => playerDeck.Count;
+
+    public void TriggerCardAbility(GameObject card, string triggerName) // TESTING
+    {
+        Debug.Log(">>>TriggerCardAbility()<<<");
+        foreach(CardAbility cardAbility in card.GetComponent<HeroCardDisplay>().CurrentAbilities)
+        {
+            if (cardAbility is TriggeredAbility)
+            {
+                Debug.Log("Triggered ability found: *" + cardAbility.AbilityName + "*");
+
+                TriggeredAbility kwa = cardAbility as TriggeredAbility;
+                if (kwa.KeywordTrigger.AbilityName == triggerName)
+                {
+                    Debug.Log("Trigger found: *" + triggerName + "*");
+                    EffectManager.Instance.StartNewEffectGroup(kwa.EffectGroup);
+                }
+            }
+        }
+    }
 
     public void SetExhausted(GameObject heroCard, bool exhausted)
     {
@@ -113,9 +138,11 @@ public class CardManager : MonoBehaviour
                 break;
             case ENEMY_HAND:
                 zoneTran = EnemyHand.transform;
+                enemyHandCards.Add(card);
                 break;
             case ENEMY_ZONE:
                 zoneTran = EnemyZone.transform;
+                enemyHandCards.Remove(card);
                 enemyZoneCards.Add(card);
                 AnimationManager.Instance.PlayedState(card);
                 break;
@@ -156,7 +183,7 @@ public class CardManager : MonoBehaviour
         
         if (deck.Count < 1)
         {
-            Debug.Log("[CardManager.DrawCard()] NO CARDS LEFT!!!");
+            Debug.LogWarning("[CardManager.DrawCard()] NO CARDS LEFT!");
             return;
         }
 
@@ -178,33 +205,28 @@ public class CardManager : MonoBehaviour
      *****/
     public void PlayCard(GameObject card, string player)
     {
-        switch (player)
+        if (player == PLAYER)
         {
-            case PLAYER:
-                GameManager.Instance.PlayerActionsLeft -= card.GetComponent<CardDisplay>().GetActionCost();
-                ChangeCardZone(card, PLAYER_ZONE);
-                break;
-            case ENEMY:
-                card = enemyHandCards[0]; // TESTING
-                enemyHandCards.RemoveAt(0); // TESTING
-                
-                GameManager.Instance.EnemyActionsLeft -= card.GetComponent<CardDisplay>().GetActionCost();
-                ChangeCardZone(card, ENEMY_ZONE);
-                break;
+            GameManager.Instance.PlayerActionsLeft -= card.GetComponent<CardDisplay>().GetActionCost();
+            ChangeCardZone(card, PLAYER_ZONE);
+
+            TriggerCardAbility(card, "Play"); // TESTING
+        }
+        else if (player == ENEMY)
+        {
+            card = enemyHandCards[0]; // TESTING
+
+            GameManager.Instance.EnemyActionsLeft -= card.GetComponent<CardDisplay>().GetActionCost();
+            ChangeCardZone(card, ENEMY_ZONE);
         }
     }
 
     public void DiscardCard(GameObject card, string player)
     {
-        switch (player)
-        {
-            case PLAYER:
-                ChangeCardZone(card, PLAYER_DISCARD);
-                break;
-            case ENEMY:
-                ChangeCardZone(card, ENEMY_DISCARD);
-                break;
-        }
+        Debug.Log(">>>Discard Card: " + player + "<<<");
+
+        if (player == PLAYER) ChangeCardZone(card, PLAYER_DISCARD);
+        else if (player == ENEMY) ChangeCardZone(card, ENEMY_DISCARD);
     }
 
     /******
@@ -232,8 +254,8 @@ public class CardManager : MonoBehaviour
 
         if (newDefenseScore < 1)
         {
-            if (heroCard.CompareTag("PlayerCard")) DiscardCard(heroCard, PLAYER_DISCARD);
-            else DiscardCard(heroCard, ENEMY_DISCARD);
+            if (heroCard.CompareTag("PlayerCard")) DiscardCard(heroCard, PLAYER);
+            else DiscardCard(heroCard, ENEMY);
         }
     }
 
@@ -245,15 +267,16 @@ public class CardManager : MonoBehaviour
         if (playerActionsLeft >= actionCost) return true;
         else
         {
-            Debug.Log("[IsPlayable() in CardManager] COULD NOT PLAY! */*/* ActionCost: " + actionCost + " */*/* PlayerActionsLeft: " + GameManager.Instance.PlayerActionsLeft);
+            Debug.LogWarning("[IsPlayable() in CardManager] COULD NOT PLAY! */*/* ActionCost: "
+            + actionCost + " */*/* PlayerActionsLeft: " + GameManager.Instance.PlayerActionsLeft);
             return false;
         }
     }
     public bool CanAttack(GameObject heroCard)
     {
-        if (GameManager.Instance.PlayerActionsLeft < 1 || !heroCard.GetComponent<HeroCardDisplay>().CanAttack)
+        if (!heroCard.GetComponent<HeroCardDisplay>().CanAttack)
         {
-            Debug.Log("[CanAttack() in CardManager] CanAttack = FALSE!");
+            Debug.LogWarning("[CanAttack() in CardManager] CanAttack = FALSE!");
             return false;
         }
         else return true;

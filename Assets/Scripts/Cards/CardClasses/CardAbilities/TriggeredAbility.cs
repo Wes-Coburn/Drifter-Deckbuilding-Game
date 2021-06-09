@@ -3,8 +3,8 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Keyword Ability", menuName = "Card Abilities/Keyword Ability")]
 
-public class KeywordAbility : CardAbility
+public class TriggeredAbility : CardAbility
 {
-    public KeywordTrigger KeywordTrigger;
-    public List<Effect> Effects;
+    public AbilityTrigger KeywordTrigger;
+    public List<Effect> EffectGroup;
 }

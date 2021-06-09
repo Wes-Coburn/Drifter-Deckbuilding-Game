@@ -122,4 +122,18 @@ public class UIManager : MonoBehaviour
         }
         else Destroy(screenDimmer);
     }
+
+    /******
+     * *****
+     * ****** CREATE_CENTER_SCREEN_POPUP
+     * *****
+     *****/
+    public void CreateCenterSceenPopup(string message)
+    {
+        if (centerScreenPopup != null)
+        {
+            Destroy(centerScreenPopup);
+            centerScreenPopup = null;
+        }
+    }
 }

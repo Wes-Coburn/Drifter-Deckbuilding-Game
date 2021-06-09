@@ -79,7 +79,7 @@ public class CardZoom : MonoBehaviour
     public void OnClick()
     {
         if (transform.parent.gameObject == enemyHand) return; // HIDE THE ENEMY HAND
-        if (DragDrop.CardIsDragging || ZoomCardIsCentered) return;
+        if (DragDrop.CardIsDragging || ZoomCardIsCentered || UIManager.Instance.PlayerIsTargetting) return;
         
         UIManager.SetScreenDimmer(true);
         ZoomCardIsCentered = true;
@@ -99,8 +99,7 @@ public class CardZoom : MonoBehaviour
      *****/
     public void OnPointerEnter()
     {
-        //if (UIManager.CardIsDragging || UIManager.ZoomCardIsCentered) return;
-        if (DragDrop.CardIsDragging || ZoomCardIsCentered) return;
+        if (DragDrop.CardIsDragging || ZoomCardIsCentered || UIManager.Instance.PlayerIsTargetting) return;
 
         float yPos;
         RectTransform rect;
@@ -132,7 +131,7 @@ public class CardZoom : MonoBehaviour
      *****/
     public void OnPointerExit()
     {
-        if (ZoomCardIsCentered) return;
+        if (DragDrop.CardIsDragging || ZoomCardIsCentered || UIManager.Instance.PlayerIsTargetting) return;
         UIManager.DestroyAllZoomObjects();
     }
 

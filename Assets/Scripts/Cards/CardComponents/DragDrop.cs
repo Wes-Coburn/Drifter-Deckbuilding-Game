@@ -82,7 +82,7 @@ public class DragDrop : MonoBehaviour
         }
         else
         {
-            if (collisionObject.CompareTag(ENEMY_CARD) && collisionObjectParent == enemyZone)
+            if (collisionObject.CompareTag(ENEMY_CARD) && collisionObjectParent == enemyZone) // change collisionObjectParent = enemyZone to IsPlayed ?
             {
                 isOverEnemy = true;
                 enemy = collisionObject;
@@ -116,9 +116,9 @@ public class DragDrop : MonoBehaviour
     public void StartDrag()
     {
         UIManager.DestroyAllZoomObjects();
-        if (CompareTag(ENEMY_CARD) || !playerManager.IsMyTurn) return;
-
+        if (!playerManager.IsMyTurn || CompareTag(ENEMY_CARD)) return;
         IsDragging = true;
+
         startParent = transform.parent.gameObject;
         startPosition = transform.position;
         startIndex = transform.GetSiblingIndex();
@@ -127,9 +127,9 @@ public class DragDrop : MonoBehaviour
 
     public void EndDrag()
     {
-        if (CompareTag(ENEMY_CARD) || !playerManager.IsMyTurn) return;
-
+        if (!IsDragging || !playerManager.IsMyTurn || CompareTag(ENEMY_CARD)) return;
         IsDragging = false;
+
         if (!isPlayed)
         {
             if (isOverDropZone && cardManager.IsPlayable(gameObject))
