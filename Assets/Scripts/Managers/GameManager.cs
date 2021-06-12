@@ -74,8 +74,8 @@ public class GameManager : MonoBehaviour
             enemyManager.IsMyTurn = false;
             UIManager.UpdateEndTurnButton(playerManager.IsMyTurn);
             PlayerManager.Instance.PlayerActionsLeft += ACTIONS_PER_TURN;
-            cardManager.DrawCard(activePlayer);
             cardManager.RefreshCards(activePlayer);
+            FunctionTimer.Create(() => cardManager.DrawCard(activePlayer), 1f);
         }
         else if (activePlayer == ENEMY)
         {
@@ -83,10 +83,9 @@ public class GameManager : MonoBehaviour
             enemyManager.IsMyTurn = true;
             UIManager.UpdateEndTurnButton(playerManager.IsMyTurn);
             EnemyManager.Instance.EnemyActionsLeft += ACTIONS_PER_TURN;
-            cardManager.DrawCard(activePlayer);
             cardManager.RefreshCards(activePlayer);
-
-            FunctionTimer.Create(() => CardManager.Instance.PlayCard(null, ENEMY), 1.5f);
+            FunctionTimer.Create(() => cardManager.DrawCard(activePlayer), 1f);
+            FunctionTimer.Create(() => CardManager.Instance.PlayCard(null, ENEMY), 2f);
             FunctionTimer.Create(() => EndTurn(ENEMY), 4f);
         }
     }

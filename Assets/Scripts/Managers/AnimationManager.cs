@@ -14,9 +14,9 @@ public class AnimationManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    private void ChangeAnimationState (GameObject card, string animationState)
+    public void ChangeAnimationState(GameObject go, string animationState)
     {
-        Animator anim = card.GetComponent<Animator>();
+        Animator anim = go.GetComponent<Animator>();
         anim.Play(animationState);
     }
     //public void HiddenState (GameObject card) => ChangeAnimationState(card, HIDDEN_STATE);

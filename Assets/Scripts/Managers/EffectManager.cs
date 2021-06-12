@@ -148,7 +148,7 @@ public class EffectManager : MonoBehaviour
     {
         Debug.Log(">>>StartTargetEffect()<<<");
         UIManager.Instance.PlayerIsTargetting = true;
-        // UIManager CenterScreenPopup
+        UIManager.Instance.CreateInfoPopup("Choose an " + effect.Targets.ToLower());
 
         foreach (GameObject target in legalTargets[currentEffect])
         {
@@ -179,7 +179,7 @@ public class EffectManager : MonoBehaviour
         else if (effect.Targets == "Enemy")
         {
             Debug.Log("Effect target is " + effect.TargetNumber + " ENEMY(S)!");
-            Debug.Log("<<< LEGAL TARGETS >>>");
+            Debug.Log("/*/*/ LEGAL TARGETS /*/*/");
             int i = 1;
             foreach (GameObject card in CardManager.Instance.enemyZoneCards)
             {
@@ -232,14 +232,11 @@ public class EffectManager : MonoBehaviour
             }
         }
 
-        if (acceptedTargets[currentEffect].Count == targetNumber)
-        {
-            ConfirmTargetEffect();
-        }
+        if (acceptedTargets[currentEffect].Count == targetNumber) ConfirmTargetEffect();
         else if (acceptedTargets[currentEffect].Count > targetNumber) 
             Debug.LogError("ERROR: acceptedTargets[currentEffect].Count > targetNumber: " + acceptedTargets[currentEffect].Count + " > " + targetNumber);
     }
-    private void RejectEffectTarget() // TESTING
+    private void RejectEffectTarget()
     {
         Debug.Log(">>>RejectEffectTarget()<<<");
         // UIManager CenterScreenPopup
@@ -255,10 +252,11 @@ public class EffectManager : MonoBehaviour
         Debug.Log(">>>ConfirmNonTargetEffect()<<");
         StartNextEffect();
     }
-    private void ConfirmTargetEffect() // TESTING
+    private void ConfirmTargetEffect()
     {
         Debug.Log(">>>ConfirmTargetEffect()<<");
         UIManager.Instance.PlayerIsTargetting = false;
+        UIManager.Instance.DismissInfoPopup();
 
         foreach (GameObject target in legalTargets[currentEffect])
         {
@@ -272,11 +270,11 @@ public class EffectManager : MonoBehaviour
      * ****** RESOLVE_EFFECTS
      * *****
      *****/
-    private void ResolveNonTargetEffect(Effect effect) // TESTING
+    private void ResolveNonTargetEffect(Effect effect)
     {
         Debug.LogWarning(">>>ResolveNonTargetEffect()<<");
     }
-    private void ResolveTargetEffect(List<GameObject> targets, Effect effect) // TESTING
+    private void ResolveTargetEffect(List<GameObject> targets, Effect effect)
     {
         Debug.LogWarning(">>>ResolveTargetEffect()<<");
         if (effect is DrawEffect)
@@ -308,7 +306,7 @@ public class EffectManager : MonoBehaviour
      * ****** RESOLVE_EFFECT_GROUP
      * *****
      *****/
-    private void ResolveEffectGroup() // TESTING
+    private void ResolveEffectGroup()
     {
         Debug.LogWarning(">>>ResolveEffectGroup()<<<");
 
@@ -332,10 +330,10 @@ public class EffectManager : MonoBehaviour
      * ****** ABORT_EFFECT_GROUP
      * *****
      *****/
-    private void AbortEffectGroup() // TESTING
+    private void AbortEffectGroup()
     {
         Debug.LogWarning(">>>AbortEffectGroup()<<<");
-        FinishEffectGroup();
+        FinishEffectGroup(true);
     }
 
     /******
@@ -343,9 +341,10 @@ public class EffectManager : MonoBehaviour
      * ****** FINISH_EFFECT_GROUP
      * *****
      *****/
-    private void FinishEffectGroup() // TESTING
+    private void FinishEffectGroup(bool wasAborted = false)
     {
-        Debug.LogWarning(">>>FinishEffectGroup()<<<");
+        if (wasAborted) Debug.LogWarning(">>>FinishEffectGroup(wasAborted = true)<<<");
+        else Debug.LogWarning(">>>FinishEffectGroup(wasAborted = false)<<<");
         currentEffect = 0;
         currentEffectGroup = null;
         legalTargets = null;

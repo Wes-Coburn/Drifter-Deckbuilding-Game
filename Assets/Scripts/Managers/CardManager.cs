@@ -223,7 +223,10 @@ public class CardManager : MonoBehaviour
     }
     public void DrawHand(string player)
     {
-        for (int i = 0; i < STARTING_HAND_SIZE; i++) DrawCard(player);
+        for (int i = 0; i < STARTING_HAND_SIZE; i++)
+        {
+            FunctionTimer.Create(() => DrawCard(player), i);
+        }
     }
 
     /******
@@ -359,7 +362,6 @@ public class CardManager : MonoBehaviour
                 TriggeredAbility kwa = cardAbility as TriggeredAbility;
                 if (kwa.AbilityTrigger.AbilityName == triggerName)
                 {
-                    Debug.Log("AbilityTrigger found: *" + triggerName + "*");
                     EffectManager.Instance.StartNewEffectGroup(kwa.EffectGroup);
                 }
             }

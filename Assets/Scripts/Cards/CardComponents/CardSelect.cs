@@ -7,7 +7,6 @@ public class CardSelect : MonoBehaviour
     {
         if (UIManager.Instance.PlayerIsTargetting)
         {
-            Debug.Log("Card Select OnClick()!");
             EffectManager.Instance.SelectTarget(gameObject);
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -16,11 +17,7 @@ public class UIManager : MonoBehaviour
         }
         else Destroy(gameObject);
     }
-
-    /* PREFABS */
-    [SerializeField] private GameObject screenDimmerPrefab;
-    [SerializeField] private GameObject centerScreenPopup;
-
+        
     /* GAME ZONES */
     public GameObject CurrentBackground { get; set; }
     public GameObject CurrentCanvas { get; set; }
@@ -37,19 +34,24 @@ public class UIManager : MonoBehaviour
     private GameObject endTurnButton;
 
     /* SCREEN_DIMMER */
+    [SerializeField] private GameObject screenDimmerPrefab;
     private GameObject screenDimmer;
+
+    /* INFO_POPUP */
+    [SerializeField] private GameObject infoPopupPrefab;
+    private GameObject infoPopup;
 
     /* WAIT_FOR_SECONDS */
     public Action OnWaitForSecondsCallback { get; set; }
 
     /* PLAYER_IS_TARGETING */
-    public bool PlayerIsTargetting { get; set; } // TESTING
+    public bool PlayerIsTargetting { get; set; }
 
     public void Start()
     {
         CurrentBackground = GameObject.Find("Background");
         CurrentCanvas = GameObject.Find("Canvas");
-        PlayerIsTargetting = false; // TESTING
+        PlayerIsTargetting = false;
     }
 
     public void LoadGameScene()
@@ -83,8 +85,14 @@ public class UIManager : MonoBehaviour
      *****/
     public void UpdatePlayerHealth(int health) => playerHealth.GetComponent<TextMeshProUGUI>().SetText("Health: " + health);
     public void UpdateEnemyHealth(int health) => enemyHealth.GetComponent<TextMeshProUGUI>().SetText("Health: " + health);
-    public void UpdatePlayerActionsLeft(int playerActionsLeft) => this.playerActionsLeft.GetComponent<TextMeshProUGUI>().SetText("Actions: " + playerActionsLeft.ToString());
-    public void UpdateEnemyActionsLeft(int enemyActionsLeft) => this.enemyActionsLeft.GetComponent<TextMeshProUGUI>().SetText("Actions: " + enemyActionsLeft.ToString());
+    public void UpdatePlayerActionsLeft(int newPlayerActionsLeft)
+    {
+        playerActionsLeft.GetComponent<TextMeshProUGUI>().SetText("Actions: " + newPlayerActionsLeft.ToString());
+    }
+    public void UpdateEnemyActionsLeft(int newEnemyActionsLeft)
+    {
+        enemyActionsLeft.GetComponent<TextMeshProUGUI>().SetText("Actions: " + newEnemyActionsLeft.ToString());
+    }
     public void UpdateEndTurnButton(bool isMyTurn)
     {
         BoxCollider2D boxCollider = endTurnButton.GetComponent<BoxCollider2D>();
@@ -95,17 +103,31 @@ public class UIManager : MonoBehaviour
 
     /******
      * *****
-     * ****** DESTROY_ZOOM_OBJECT(S)
+     * ****** DESTROY_ALL_ZOOM_OBJECT(S)
      * *****
      *****/
     public void DestroyAllZoomObjects()
     {
         SetScreenDimmer(false);
         CardZoom.ZoomCardIsCentered = false;
-        Destroy(CardZoom.NextLevelPopup);
-        Destroy(CardZoom.LorePopup);
-        Destroy(CardZoom.CurrentZoomCard);
-        Destroy(AbilityZoom.AbilityPopup);
+
+        List<GameObject> objectsToDestroy = new List<GameObject>
+        {
+            CardZoom.NextLevelPopup,
+            CardZoom.LorePopup,
+            CardZoom.CurrentZoomCard,
+            AbilityZoom.AbilityPopup
+        };
+
+        foreach (GameObject go in objectsToDestroy)
+        {
+            if (go != null) DestroyObject(go);
+        }
+        void DestroyObject(GameObject go)
+        {
+            Destroy(go);
+            go = null;
+        }
     }
 
     /******
@@ -115,25 +137,45 @@ public class UIManager : MonoBehaviour
      *****/
     public void SetScreenDimmer(bool screenIsDimmed)
     {
+        if (screenDimmer != null)
+        {
+            Destroy(screenDimmer);
+            screenDimmer = null;
+        }
         if (screenIsDimmed)
         {
-            screenDimmer = Instantiate(screenDimmerPrefab, new Vector3(0, 0, -3), Quaternion.identity);
-            screenDimmer.transform.SetParent(CurrentBackground.transform);
+            screenDimmer = Instantiate(screenDimmerPrefab, new Vector3(0, 0, -3), Quaternion.identity, CurrentBackground.transform);
         }
-        else Destroy(screenDimmer);
     }
 
     /******
      * *****
-     * ****** CREATE_CENTER_SCREEN_POPUP
+     * ****** CREATE_INFO_POPUP
      * *****
      *****/
-    public void CreateCenterSceenPopup(string message)
+    public void CreateInfoPopup(string message)
     {
-        if (centerScreenPopup != null)
+        DestroyInfoPopup();
+        infoPopup = Instantiate(infoPopupPrefab, new Vector2(680, 0), Quaternion.identity, CurrentBackground.transform);
+        infoPopup.GetComponent<InfoPopupDisplay>().DisplayInfoPopup(message);
+    }
+
+    /******
+     * *****
+     * ****** DISMISS/DESTROY_INFO_POPUP
+     * *****
+     *****/
+    public void DismissInfoPopup()
+    {
+        if (infoPopup != null)
+            AnimationManager.Instance.ChangeAnimationState(infoPopup, "Exit");
+    }
+    public void DestroyInfoPopup()
+    {
+        if (infoPopup != null)
         {
-            Destroy(centerScreenPopup);
-            centerScreenPopup = null;
+            Destroy(infoPopup);
+            infoPopup = null;
         }
     }
 }
