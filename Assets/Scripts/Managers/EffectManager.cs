@@ -16,7 +16,7 @@ public class EffectManager : MonoBehaviour
     }
 
     /* CLASS_VARIABLES */
-    private List<Effect> currentEffectList;
+    private List<Effect> currentEffectGroup;
     private int currentEffect;
     private List<List<GameObject>> legalTargets;
     private List<List<GameObject>> acceptedTargets;
@@ -29,15 +29,15 @@ public class EffectManager : MonoBehaviour
      *                                                            |
      *                                                    StartNextEffect
      *                                                            |
+     *                                                      GetLegalTargets
+     *                                                            |
      *                                     StartNonTargetEffect ------ StartTargetEffect
      *                                              |                           |
-     *                                    ConfirmNonTargetEffect        GetLegalTargets
-     *                                                                         |
-     *                                                                  __SelectTarget__
+     *                                    ConfirmNonTargetEffect        __SelectTarget__
      *                                                                 |                |
      *                                                            AcceptTarget     RejectTarget
      *                                                                 |
-     *                                               [When all targets have been selected]
+     *                                               [When all targets have been accepted]
      *                                                                 |
      *                                                         ConfirmTargetEffect
      *                                                         
@@ -45,7 +45,7 @@ public class EffectManager : MonoBehaviour
      *                                                            |
      *                                                     StartNextEffect
      *                                                            |
-     *                                            [When all effects have been confirmed]
+     *                                           [When all effects have been confirmed]
      *                                                            |
      *                                                ____ResolveEffectGroup____
      *                                               |                          |
@@ -65,10 +65,10 @@ public class EffectManager : MonoBehaviour
      * ****** START_NEW_EFFECT_GROUP
      * *****
      *****/
-    public void StartNewEffectGroup(List<Effect> effectGroup)
+    public void StartNewEffectGroup(List<Effect> effectGroup, GameObject effectSource = null) // effectSource is unused
     {
-        Debug.Log(">>>StartNewEffectGroup()<<<");
-        currentEffectList = effectGroup;
+        Debug.LogWarning(">>>StartNewEffectGroup()<<<");
+        currentEffectGroup = effectGroup;
         currentEffect = 0;
         legalTargets = new List<List<GameObject>>();
         acceptedTargets = new List<List<GameObject>>();
@@ -79,7 +79,19 @@ public class EffectManager : MonoBehaviour
             acceptedTargets.Add(new List<GameObject>());
         }
 
-        Debug.LogWarning("Legal/accepted targets counts = " + legalTargets.Count + " / " + acceptedTargets.Count);
+        int n = 0;
+        foreach (Effect effect in currentEffectGroup)
+        {
+            if (IsTargetEffect(effect))
+            {
+                if (!GetLegalTargets(effect, n))
+                {
+                    AbortEffectGroup();
+                    return;
+                }
+            }
+            n++;
+        }
         StartNextEffect(true);
     }
 
@@ -90,10 +102,7 @@ public class EffectManager : MonoBehaviour
      *****/
     private bool IsTargetEffect(Effect effect)
     {
-        if (effect.Targets == "Self" || effect.Targets == "Opponent")
-        {
-            return false;
-        }
+        if (effect.TargetsAll || effect.Targets == "Self" || effect.Targets == "Opponent") return false; // TESTING
         else return true;
     }
 
@@ -107,13 +116,14 @@ public class EffectManager : MonoBehaviour
         Debug.Log(">>>StartNextEffect()<<<");
         if (!isFirstEffect) currentEffect++;
 
-        if (currentEffect >= currentEffectList.Count)
+        if (currentEffect == currentEffectGroup.Count)
         {
             ResolveEffectGroup();
             return;
         }
+        else if (currentEffect > currentEffectGroup.Count) Debug.LogError("ERROR: CurrentEffect > currentEffectGroup.Count");
 
-        Effect effect = currentEffectList[currentEffect];
+        Effect effect = currentEffectGroup[currentEffect];
         if (IsTargetEffect(effect)) StartTargetEffect(effect);
         else StartNonTargetEffect(effect);
     }
@@ -125,6 +135,7 @@ public class EffectManager : MonoBehaviour
      *****/
     private void StartNonTargetEffect(Effect effect)
     {
+        Debug.Log(">>>StartNonTargetEffect()<<<");
         ConfirmNonTargetEffect();
     }
 
@@ -137,8 +148,12 @@ public class EffectManager : MonoBehaviour
     {
         Debug.Log(">>>StartTargetEffect()<<<");
         UIManager.Instance.PlayerIsTargetting = true;
-        GetLegalTargets(effect); // get legal targets
         // UIManager CenterScreenPopup
+
+        foreach (GameObject target in legalTargets[currentEffect])
+        {
+            target.GetComponent<CardSelect>().CardOutline.SetActive(true);
+        }
     }
 
     /******
@@ -146,41 +161,42 @@ public class EffectManager : MonoBehaviour
      * ****** GET/CLEAR/SELECT_LEGAL_TARGETS
      * *****
      *****/
-    private void GetLegalTargets(Effect effect)
+    private bool GetLegalTargets(Effect effect, int currentEffect)
     {
         Debug.Log(">>>GetLegalTargets()<<<");
 
         if (effect.Targets == "Ally")
         {
-            Debug.Log("Legal target is an ALLY!");
+            Debug.Log("Effect target is " + effect.TargetNumber + " ALLY(S)!");
+            Debug.Log("<<< LEGAL TARGETS >>>");
+            int i = 1;
             foreach (GameObject card in CardManager.Instance.playerZoneCards)
             {
                 legalTargets[currentEffect].Add(card);
+                Debug.Log(i++ + ") " + card.GetComponent<HeroCardDisplay>().GetCardName());
             }
         }
         else if (effect.Targets == "Enemy")
         {
-            Debug.Log("Legal target is an ENEMY!");
+            Debug.Log("Effect target is " + effect.TargetNumber + " ENEMY(S)!");
+            Debug.Log("<<< LEGAL TARGETS >>>");
+            int i = 1;
             foreach (GameObject card in CardManager.Instance.enemyZoneCards)
             {
                 legalTargets[currentEffect].Add(card);
+                Debug.Log(i++ + ") " + card.GetComponent<HeroCardDisplay>().GetCardName());
             }
         }
 
-        Debug.LogWarning("*/*/* Legal Targets */*/*");
-        int i = 1;
-        foreach (GameObject card in legalTargets[currentEffect]) // FOR TESTING ONLY
-        {
-            Debug.Log(i++ + ") " + card.GetComponent<HeroCardDisplay>().GetCardName());
-        }
-        
+        if (legalTargets[currentEffect].Count < 1) return false;
+        else if (effect.IsRequired && legalTargets[currentEffect].Count < effect.TargetNumber) return false;
+
+        return true;
     }
-    private void ClearLegalTargets() // TESTING
-    {
-        legalTargets.Clear();
-    }
+
     public void SelectTarget(GameObject selectedCard)
     {
+        Debug.Log(">>>SelectTarget()<<<");
         foreach (GameObject card in legalTargets[currentEffect])
         {
             if (card == selectedCard)
@@ -201,10 +217,27 @@ public class EffectManager : MonoBehaviour
     {
         Debug.Log(">>>AcceptEffectTarget()<<<");
         acceptedTargets[currentEffect].Add(card);
-        if (acceptedTargets[currentEffect].Count == currentEffectList[currentEffect].TargetNumber)
+        legalTargets[currentEffect].Remove(card);
+        card.GetComponent<CardSelect>().CardOutline.SetActive(false);
+
+        Debug.LogWarning("Legal targets remaining: " + legalTargets[currentEffect].Count);
+
+        int targetNumber = currentEffectGroup[currentEffect].TargetNumber;
+        
+        if (!currentEffectGroup[currentEffect].IsRequired)
+        {
+            if ((legalTargets[currentEffect].Count + acceptedTargets[currentEffect].Count) < targetNumber)
+            {
+                targetNumber = (legalTargets[currentEffect].Count + acceptedTargets[currentEffect].Count);
+            }
+        }
+
+        if (acceptedTargets[currentEffect].Count == targetNumber)
         {
             ConfirmTargetEffect();
         }
+        else if (acceptedTargets[currentEffect].Count > targetNumber) 
+            Debug.LogError("ERROR: acceptedTargets[currentEffect].Count > targetNumber: " + acceptedTargets[currentEffect].Count + " > " + targetNumber);
     }
     private void RejectEffectTarget() // TESTING
     {
@@ -225,7 +258,12 @@ public class EffectManager : MonoBehaviour
     private void ConfirmTargetEffect() // TESTING
     {
         Debug.Log(">>>ConfirmTargetEffect()<<");
-        ClearLegalTargets();
+        UIManager.Instance.PlayerIsTargetting = false;
+
+        foreach (GameObject target in legalTargets[currentEffect])
+        {
+            target.GetComponent<CardSelect>().CardOutline.SetActive(false);
+        }
         StartNextEffect();
     }
 
@@ -236,14 +274,24 @@ public class EffectManager : MonoBehaviour
      *****/
     private void ResolveNonTargetEffect(Effect effect) // TESTING
     {
-        Debug.Log(">>>ResolveNonTargetEffect()<<");
+        Debug.LogWarning(">>>ResolveNonTargetEffect()<<");
     }
     private void ResolveTargetEffect(List<GameObject> targets, Effect effect) // TESTING
     {
-        Debug.Log(">>>ResolveTargetEffect()<<");
-        if (effect is DamageEffect)
+        Debug.LogWarning(">>>ResolveTargetEffect()<<");
+        if (effect is DrawEffect)
         {
-
+            for (int i= 0; i < effect.Value; i++)
+            {
+                CardManager.Instance.DrawCard(effect.Targets);
+            }
+        }
+        else if (effect is DamageEffect)
+        {
+            foreach (GameObject target in targets)
+            {
+                CardManager.Instance.TakeDamage(target, effect.Value);
+            }
         }
         else if (effect is HealingEffect)
         {
@@ -262,20 +310,31 @@ public class EffectManager : MonoBehaviour
      *****/
     private void ResolveEffectGroup() // TESTING
     {
-        Debug.Log(">>>ResolveEffectGroup()<<<");
+        Debug.LogWarning(">>>ResolveEffectGroup()<<<");
 
         // iterate through currentEffectList and resolve each effect
 
         currentEffect = 0;
-        foreach (Effect effect in currentEffectList)
+        foreach (Effect effect in currentEffectGroup)
         {
             if (IsTargetEffect(effect))
             {
-                ResolveTargetEffect(acceptedTargets[currentEffect++], effect);
+                ResolveTargetEffect(acceptedTargets[currentEffect], effect);
             }
             else ResolveNonTargetEffect(effect);
+            currentEffect++;
         }
+        FinishEffectGroup();
+    }
 
+    /******
+     * *****
+     * ****** ABORT_EFFECT_GROUP
+     * *****
+     *****/
+    private void AbortEffectGroup() // TESTING
+    {
+        Debug.LogWarning(">>>AbortEffectGroup()<<<");
         FinishEffectGroup();
     }
 
@@ -286,6 +345,10 @@ public class EffectManager : MonoBehaviour
      *****/
     private void FinishEffectGroup() // TESTING
     {
-        Debug.Log(">>>FinishEffectGroup()<<<");
+        Debug.LogWarning(">>>FinishEffectGroup()<<<");
+        currentEffect = 0;
+        currentEffectGroup = null;
+        legalTargets = null;
+        acceptedTargets = null;
     }
 }

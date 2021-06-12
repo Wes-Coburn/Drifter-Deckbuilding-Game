@@ -3,14 +3,14 @@
 public class DragDrop : MonoBehaviour
 {
     /* CARD_MANAGER_DATA */
-    private const string PLAYER_ZONE = CardManagerData.PLAYER_ZONE;
-    private const string ENEMY_ZONE = CardManagerData.ENEMY_ZONE;
-    private const string ENEMY_CARD = CardManagerData.ENEMY_CARD;
-    private const string BACKGROUND = CardManagerData.BACKGROUND;
+    private const string PLAYER_ZONE = CardManager.PLAYER_ZONE;
+    private const string ENEMY_ZONE = CardManager.ENEMY_ZONE;
+    private const string ENEMY_CARD = CardManager.ENEMY_CARD;
+    private const string BACKGROUND = CardManager.BACKGROUND;
 
     /* GAME_MANAGER_DATA */
-    private const string PLAYER = GameManagerData.PLAYER;
-    private const string ENEMY = GameManagerData.ENEMY;
+    private const string PLAYER = "Player";
+    private const string ENEMY = "Enemy";
 
     /* MANAGERS */
     private PlayerManager playerManager;

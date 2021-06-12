@@ -14,24 +14,32 @@ public class CardManager : MonoBehaviour
         }
         else Destroy(gameObject);
 
-        while (playerDeck.Count < 30) playerDeck.Add(1); // Player Deck
-        while (enemyDeck.Count < 30) enemyDeck.Add(2); // Enemy Deck
+        while (playerDeck.Count < 30) playerDeck.Add(1); // FOR TESTING ONLY
+        while (enemyDeck.Count < 30) enemyDeck.Add(2); // FOR TESTING ONLY
     }
 
     /* CARD_MANAGER_DATA */
-    private const string PLAYER_CARD = CardManagerData.PLAYER_CARD;
-    private const string ENEMY_CARD = CardManagerData.ENEMY_CARD;
-    private const string PLAYER_HAND = CardManagerData.PLAYER_HAND;
-    private const string PLAYER_ZONE = CardManagerData.PLAYER_ZONE;
-    private const string PLAYER_DISCARD = CardManagerData.PLAYER_DISCARD;
-    private const string ENEMY_HAND = CardManagerData.ENEMY_HAND;
-    private const string ENEMY_ZONE = CardManagerData.ENEMY_ZONE;
-    private const string ENEMY_DISCARD = CardManagerData.ENEMY_DISCARD;
+    public const string BACKGROUND = "Background";
+
+    public const string PLAYER_CARD = "PlayerCard";
+    public const string ENEMY_CARD = "EnemyCard";
+
+    public const string HAND_ZONE = "HandZone";
+    public const string PLAY_ZONE = "PlayZone";
+    public const string DISCARD_ZONE = "DiscardZone";
+
+    public const string PLAYER_HAND = "PlayerHand";
+    public const string PLAYER_ZONE = "PlayerZone";
+    public const string PLAYER_DISCARD = "PlayerDiscard";
+
+    public const string ENEMY_HAND = "EnemyHand";
+    public const string ENEMY_ZONE = "EnemyZone";
+    public const string ENEMY_DISCARD = "EnemyDiscard";
 
     /* GAME_MANAGER_DATA */
-    private const string PLAYER = GameManagerData.PLAYER;
-    private const string ENEMY = GameManagerData.ENEMY;
-    private const int STARTING_HAND_SIZE = GameManagerData.STARTING_HAND_SIZE;
+    private const string PLAYER = "Player";
+    private const string ENEMY = "Enemy";
+    private const int STARTING_HAND_SIZE = 3;
     
     /* CARD LISTS */
     private List<int> playerDeck = new List<int>();
@@ -65,36 +73,24 @@ public class CardManager : MonoBehaviour
         EnemyDiscard = GameObject.Find(ENEMY_DISCARD);
     }
 
+    /******
+     * *****
+     * ****** GET_CARD_DISPLAYS
+     * *****
+     *****/
     private CardDisplay GetCardDisplay(GameObject card) => card.GetComponent<CardDisplay>();
     public HeroCardDisplay GetHeroCardDisplay(GameObject heroCard) => (HeroCardDisplay)GetCardDisplay(heroCard);
     //public ActionCardDisplay GetActionCardDisplay(GameObject actionCard) => (ActionCardDisplay)GetCardDisplay(actionCard);
 
-    public int DeckCount() => playerDeck.Count;
-
-    public void TriggerCardAbility(GameObject card, string triggerName) // TESTING
-    {
-        Debug.Log(">>>TriggerCardAbility()<<<");
-        foreach(CardAbility cardAbility in card.GetComponent<HeroCardDisplay>().CurrentAbilities)
-        {
-            if (cardAbility is TriggeredAbility)
-            {
-                Debug.Log("Triggered ability found: *" + cardAbility.AbilityName + "*");
-
-                TriggeredAbility kwa = cardAbility as TriggeredAbility;
-                if (kwa.KeywordTrigger.AbilityName == triggerName)
-                {
-                    Debug.Log("Trigger found: *" + triggerName + "*");
-                    EffectManager.Instance.StartNewEffectGroup(kwa.EffectGroup);
-                }
-            }
-        }
-    }
-
+    /******
+     * *****
+     * ****** SET_EXHAUSTED/REFRESH_CARDS
+     * *****
+     *****/
     public void SetExhausted(GameObject heroCard, bool exhausted)
     {
         heroCard.GetComponent<HeroCardDisplay>().CanAttack = !exhausted;
     }
-
     public void RefreshCards(string player)
     {
         List<GameObject> cardZoneList = null;
@@ -103,6 +99,39 @@ public class CardManager : MonoBehaviour
         foreach (GameObject card in cardZoneList) SetExhausted(card, false);
     }
 
+    /******
+     * *****
+     * ****** IS_PLAYABLE/CAN_ATTACK
+     * *****
+     *****/
+    public bool IsPlayable(GameObject card)
+    {
+        int actionCost = card.GetComponent<CardDisplay>().GetActionCost();
+        int playerActionsLeft = PlayerManager.Instance.PlayerActionsLeft;
+
+        if (playerActionsLeft >= actionCost) return true;
+        else
+        {
+            Debug.LogWarning("[IsPlayable() in CardManager] COULD NOT PLAY! */*/* ActionCost: "
+            + actionCost + " */*/* PlayerActionsLeft: " + PlayerManager.Instance.PlayerActionsLeft);
+            return false;
+        }
+    }
+    public bool CanAttack(GameObject heroCard)
+    {
+        if (!heroCard.GetComponent<HeroCardDisplay>().CanAttack)
+        {
+            Debug.LogWarning("[CanAttack() in CardManager] CanAttack = FALSE!");
+            return false;
+        }
+        else return true;
+    }
+
+    /******
+     * *****
+     * ****** SET_CARD_PARENT
+     * *****
+     *****/
     public void SetCardParent(GameObject card, Transform parentTransform)
     {
         card.transform.SetParent(parentTransform, false);
@@ -112,6 +141,11 @@ public class CardManager : MonoBehaviour
         card.GetComponent<ChangeLayer>().CardsLayer(); // Unnecessary?
     }
 
+    /******
+     * *****
+     * ****** CHANGE_CARD_ZONE
+     * *****
+     *****/
     public void ChangeCardZone(GameObject card, string zone)
     {
         if (card.TryGetComponent<HeroCardDisplay>(out HeroCardDisplay heroCardDisplay))
@@ -129,26 +163,20 @@ public class CardManager : MonoBehaviour
                 break;
             case PLAYER_ZONE:
                 zoneTran = PlayerZone.transform;
-                playerZoneCards.Add(card);
                 AnimationManager.Instance.PlayedState(card);
                 break;
             case PLAYER_DISCARD:
                 zoneTran = PlayerDiscard.transform;
-                playerZoneCards.Remove(card);
                 break;
             case ENEMY_HAND:
                 zoneTran = EnemyHand.transform;
-                enemyHandCards.Add(card);
                 break;
             case ENEMY_ZONE:
                 zoneTran = EnemyZone.transform;
-                enemyHandCards.Remove(card);
-                enemyZoneCards.Add(card);
                 AnimationManager.Instance.PlayedState(card);
                 break;
             case ENEMY_DISCARD:
                 zoneTran = EnemyDiscard.transform;
-                enemyZoneCards.Remove(card);
                 break;
         }
         SetCardParent(card, zoneTran);
@@ -200,33 +228,63 @@ public class CardManager : MonoBehaviour
 
     /******
      * *****
-     * ****** PLAY_CARD
+     * ****** PLAY_CARD [HAND >>> PLAY]
      * *****
      *****/
     public void PlayCard(GameObject card, string player)
     {
         if (player == PLAYER)
         {
-            GameManager.Instance.PlayerActionsLeft -= card.GetComponent<CardDisplay>().GetActionCost();
+            PlayerManager.Instance.PlayerActionsLeft -= card.GetComponent<CardDisplay>().GetActionCost();
             ChangeCardZone(card, PLAYER_ZONE);
-
+            playerZoneCards.Add(card);
             TriggerCardAbility(card, "Play"); // TESTING
         }
         else if (player == ENEMY)
         {
-            card = enemyHandCards[0]; // TESTING
-
-            GameManager.Instance.EnemyActionsLeft -= card.GetComponent<CardDisplay>().GetActionCost();
+            card = enemyHandCards[0];
+            enemyHandCards.Remove(card);
+            enemyZoneCards.Add(card);
+            EnemyManager.Instance.EnemyActionsLeft -= card.GetComponent<CardDisplay>().GetActionCost();
             ChangeCardZone(card, ENEMY_ZONE);
         }
     }
 
+    /******
+     * *****
+     * ****** DESTROY_CARD [PLAY >>> DISCARD]
+     * *****
+     *****/
+    public void DestroyCard(GameObject card, string player)
+    {
+        if (player == PLAYER)
+        {
+            ChangeCardZone(card, PLAYER_DISCARD);
+            playerZoneCards.Remove(card);
+        }
+        else if (player == ENEMY)
+        {
+            ChangeCardZone(card, ENEMY_DISCARD);
+            enemyZoneCards.Remove(card);
+        }
+    }
+
+    /******
+     * *****
+     * ****** DISCARD_CARD [HAND >>> DISCARD]
+     * *****
+     *****/
     public void DiscardCard(GameObject card, string player)
     {
-        Debug.Log(">>>Discard Card: " + player + "<<<");
-
-        if (player == PLAYER) ChangeCardZone(card, PLAYER_DISCARD);
-        else if (player == ENEMY) ChangeCardZone(card, ENEMY_DISCARD);
+        if (player == PLAYER)
+        {
+            ChangeCardZone(card, PLAYER_DISCARD);
+        }
+        else if (player == ENEMY)
+        {
+            ChangeCardZone(card, ENEMY_DISCARD);
+            enemyHandCards.Remove(card);
+        }
     }
 
     /******
@@ -241,44 +299,70 @@ public class CardManager : MonoBehaviour
         SetExhausted(AttackingHeroCard, true);
     }
 
-    public void TakeDamage(GameObject heroCard, int damage)
+    /******
+     * *****
+     * ****** TAKE_DAMAGE
+     * *****
+     *****/
+    public void TakeDamage(GameObject heroCard, int damageValue)
     {
-        if (damage < 1) return;
+        if (damageValue < 1) return;
 
-        int defenseScore = GetHeroCardDisplay(heroCard).CurrentDefenseScore; // TESTING
-        int newDefenseScore = defenseScore - damage;
+        int defenseScore = GetHeroCardDisplay(heroCard).CurrentDefenseScore;
+        int newDefenseScore = defenseScore - damageValue;
         if (newDefenseScore < 0) newDefenseScore = 0;
-        GetHeroCardDisplay(heroCard).CurrentDefenseScore = newDefenseScore; // TESTING
-        GetHeroCardDisplay(heroCard).SetDefenseScoreModifier(-damage);
+        GetHeroCardDisplay(heroCard).CurrentDefenseScore = newDefenseScore;
+        GetHeroCardDisplay(heroCard).SetDefenseScoreModifier(-damageValue);
         AnimationManager.Instance.ModifyDefenseState(heroCard);
 
         if (newDefenseScore < 1)
         {
-            if (heroCard.CompareTag("PlayerCard")) DiscardCard(heroCard, PLAYER);
-            else DiscardCard(heroCard, ENEMY);
+            if (heroCard.CompareTag("PlayerCard")) DestroyCard(heroCard, PLAYER);
+            else DestroyCard(heroCard, ENEMY);
         }
     }
 
-    public bool IsPlayable(GameObject card)
+    /******
+     * *****
+     * ****** HEAL_DAMAGE
+     * *****
+     *****/
+    public void HealDamage(GameObject heroCard, int healingValue)
     {
-        int actionCost = card.GetComponent<CardDisplay>().GetActionCost();
-        int playerActionsLeft = GameManager.Instance.PlayerActionsLeft;
+        if (healingValue < 1) return;
 
-        if (playerActionsLeft >= actionCost) return true;
-        else
+        int defenseScore = GetHeroCardDisplay(heroCard).CurrentDefenseScore;
+        int newDefenseScore = defenseScore + healingValue;
+        if (newDefenseScore > GetHeroCardDisplay(heroCard).MaxDefenseScore)
         {
-            Debug.LogWarning("[IsPlayable() in CardManager] COULD NOT PLAY! */*/* ActionCost: "
-            + actionCost + " */*/* PlayerActionsLeft: " + GameManager.Instance.PlayerActionsLeft);
-            return false;
+            newDefenseScore = GetHeroCardDisplay(heroCard).MaxDefenseScore;
         }
+        GetHeroCardDisplay(heroCard).CurrentDefenseScore = newDefenseScore;
+        GetHeroCardDisplay(heroCard).SetDefenseScoreModifier(healingValue);
+        AnimationManager.Instance.ModifyDefenseState(heroCard);
     }
-    public bool CanAttack(GameObject heroCard)
+
+    /******
+     * *****
+     * ****** TRIGGER_CARD_ABILITY
+     * *****
+     *****/
+    public void TriggerCardAbility(GameObject card, string triggerName) // TESTING
     {
-        if (!heroCard.GetComponent<HeroCardDisplay>().CanAttack)
+        Debug.Log(">>>TriggerCardAbility()<<<");
+        foreach (CardAbility cardAbility in card.GetComponent<HeroCardDisplay>().CurrentAbilities)
         {
-            Debug.LogWarning("[CanAttack() in CardManager] CanAttack = FALSE!");
-            return false;
+            if (cardAbility is TriggeredAbility)
+            {
+                Debug.LogWarning("TriggeredAbility found: *" + cardAbility.AbilityName + "*");
+
+                TriggeredAbility kwa = cardAbility as TriggeredAbility;
+                if (kwa.AbilityTrigger.AbilityName == triggerName)
+                {
+                    Debug.Log("AbilityTrigger found: *" + triggerName + "*");
+                    EffectManager.Instance.StartNewEffectGroup(kwa.EffectGroup);
+                }
+            }
         }
-        else return true;
     }
 }

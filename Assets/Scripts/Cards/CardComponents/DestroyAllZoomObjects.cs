@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class DestroyZoomCard : MonoBehaviour
+public class DestroyAllZoomObjects : MonoBehaviour
 {
     public void OnClick() => UIManager.Instance.DestroyAllZoomObjects();
 }

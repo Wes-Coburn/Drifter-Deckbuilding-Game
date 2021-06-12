@@ -1,25 +1,24 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class CardZoom : MonoBehaviour
+public class CardZoom : MonoBehaviour, IPointerClickHandler
 {
     /* CARD_MANAGER_DATA */
-    private const string PLAYER_HAND = CardManagerData.PLAYER_HAND;
-    private const string PLAYER_ZONE = CardManagerData.PLAYER_ZONE;
-    private const string ENEMY_HAND = CardManagerData.ENEMY_HAND;
-    private const string ENEMY_ZONE = CardManagerData.ENEMY_ZONE;
-    private const string PLAYER_CARD = CardManagerData.PLAYER_CARD;
-    private const string ENEMY_CARD = CardManagerData.ENEMY_CARD;
+    private const string PLAYER_HAND = CardManager.PLAYER_HAND;
+    private const string PLAYER_ZONE = CardManager.PLAYER_ZONE;
+    private const string ENEMY_HAND = CardManager.ENEMY_HAND;
+    private const string ENEMY_ZONE = CardManager.ENEMY_ZONE;
 
     /* CHANGE_LAYER_DATA */
-    private const string ZOOM_LAYER = ChangeLayerData.ZOOM_LAYER;
+    private const string ZOOM_LAYER = "Zoom";
 
     /* ZOOMCARD_DATA */
-    private const float ZOOM_BUFFER = ZoomCardData.ZOOM_BUFFER;
-    private const float ZOOM_SCALE_VALUE = ZoomCardData.ZOOM_SCALE_VALUE;
-    private const float CENTER_SCALE_VALUE = ZoomCardData.CENTER_SCALE_VALUE;
-    private const float POPUP_SCALE_VALUE = ZoomCardData.POPUP_SCALE_VALUE;
-    private const float POPUP_X_VALUE = ZoomCardData.POPUP_X_VALUE;
+    private const float ZOOM_BUFFER        =  350;
+    private const float ZOOM_SCALE_VALUE   =  4;
+    private const float CENTER_SCALE_VALUE =  6;
+    private const float POPUP_SCALE_VALUE  =  3;
+    private const float POPUP_X_VALUE      =  590;
 
     /* MANAGERS */
     private UIManager UIManager;
@@ -76,8 +75,9 @@ public class CardZoom : MonoBehaviour
      * ****** ON_CLICK
      * *****
      *****/
-    public void OnClick()
+    public void OnPointerClick(PointerEventData pointerEventData)
     {
+        if (pointerEventData.button != PointerEventData.InputButton.Right) return;
         if (transform.parent.gameObject == enemyHand) return; // HIDE THE ENEMY HAND
         if (DragDrop.CardIsDragging || ZoomCardIsCentered || UIManager.Instance.PlayerIsTargetting) return;
         
@@ -175,8 +175,6 @@ public class CardZoom : MonoBehaviour
     public void CreateZoomAbilityIcon(CardAbility cardAbility, Transform parentTransform, float scaleValue)
     {
         GameObject abilityIconPrefab = gameObject.GetComponent<HeroCardDisplay>().AbilityIconPrefab;
-        //GameObject abilityIcon = CreateZoomObject(abilityIconPrefab, new Vector3(0, 0, 0), parentTransform, scaleValue);
-
         GameObject abilityIcon = Instantiate(abilityIconPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         Transform popTran = abilityIcon.transform;
         popTran.SetParent(parentTransform, true);
@@ -185,8 +183,6 @@ public class CardZoom : MonoBehaviour
         abilityIcon.GetComponent<ChangeLayer>().ZoomLayer();
         abilityIcon.layer = LayerMask.NameToLayer(ZOOM_LAYER);
         foreach (Transform child in abilityIcon.transform) child.gameObject.layer = LayerMask.NameToLayer(ZOOM_LAYER);
-
-        abilityIcon.GetComponent<AbilityIconEvents>().IsZoomIcon = true;
         abilityIcon.GetComponent<AbilityIconDisplay>().AbilityScript = cardAbility;
     }
 

@@ -15,63 +15,17 @@ public class GameManager : MonoBehaviour
     }
 
     /* GAME_MANAGER_DATA */
-    private const int STARTING_ACTIONS = GameManagerData.STARTING_ACTIONS;
-    private const int ACTIONS_PER_TURN = GameManagerData.ACTIONS_PER_TURN;
-    private const int MAXIMUM_ACTIONS = GameManagerData.MAXIMUM_ACTIONS;
-    private const string PLAYER = GameManagerData.PLAYER;
-    private const string ENEMY = GameManagerData.ENEMY;
+    public const int STARTING_ACTIONS = 0;
+    public const int ACTIONS_PER_TURN = 2;
+    public const int MAXIMUM_ACTIONS = 6;
+    private const string PLAYER = "Player";
+    private const string ENEMY = "Enemy";
 
     /* MANAGERS */
     private PlayerManager playerManager;
     private EnemyManager enemyManager;
     private CardManager cardManager;
     private UIManager UIManager;
-    
-    /* REPUTATION */
-    private int playerHealth;
-    public int PlayerHealth
-    {
-        get => playerHealth;
-        set
-        {
-            playerHealth = value;
-            UIManager.UpdatePlayerHealth(PlayerHealth);
-        }
-    }
-    private int enemyHealth;
-    public int EnemyHealth
-    {
-        get => enemyHealth;
-        set
-        {
-            enemyHealth = value;
-            UIManager.UpdateEnemyHealth(EnemyHealth);
-        }
-    }
-
-    /* ACTIONS_LEFT */
-    private int playerActionsLeft;
-    public int PlayerActionsLeft
-    {
-        get => playerActionsLeft;
-        set
-        {
-            playerActionsLeft = value;
-            if (playerActionsLeft > MAXIMUM_ACTIONS) playerActionsLeft = MAXIMUM_ACTIONS;
-            UIManager.UpdatePlayerActionsLeft(PlayerActionsLeft);
-        }
-    }
-    private int enemyActionsLeft;
-    public int EnemyActionsLeft
-    {
-        get => enemyActionsLeft;
-        set
-        {
-            enemyActionsLeft = value;
-            if (enemyActionsLeft > MAXIMUM_ACTIONS) enemyActionsLeft = MAXIMUM_ACTIONS;
-            UIManager.UpdateEnemyActionsLeft(EnemyActionsLeft);
-        }
-    }
 
     /******
      * *****
@@ -94,13 +48,13 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        PlayerActionsLeft = STARTING_ACTIONS;
-        EnemyActionsLeft = STARTING_ACTIONS;
-        EnemyHealth = 0;
-        PlayerHealth = 0;
+        PlayerManager.Instance.PlayerHealth = 10;
+        EnemyManager.Instance.EnemyHealth = 10;
+        PlayerManager.Instance.PlayerActionsLeft = STARTING_ACTIONS;
+        EnemyManager.Instance.EnemyActionsLeft = STARTING_ACTIONS;
 
-        cardManager.DrawHand(PLAYER);
-        StartTurn(PLAYER);
+        FunctionTimer.Create(() => CardManager.Instance.DrawHand(GameManager.PLAYER), 1f);
+        FunctionTimer.Create(() => StartTurn(PLAYER), 3f);
     }
     public void EndGame()
     {
@@ -119,7 +73,7 @@ public class GameManager : MonoBehaviour
             playerManager.IsMyTurn = true;
             enemyManager.IsMyTurn = false;
             UIManager.UpdateEndTurnButton(playerManager.IsMyTurn);
-            PlayerActionsLeft += ACTIONS_PER_TURN;
+            PlayerManager.Instance.PlayerActionsLeft += ACTIONS_PER_TURN;
             cardManager.DrawCard(activePlayer);
             cardManager.RefreshCards(activePlayer);
         }
@@ -128,7 +82,7 @@ public class GameManager : MonoBehaviour
             playerManager.IsMyTurn = false;
             enemyManager.IsMyTurn = true;
             UIManager.UpdateEndTurnButton(playerManager.IsMyTurn);
-            EnemyActionsLeft += ACTIONS_PER_TURN;
+            EnemyManager.Instance.EnemyActionsLeft += ACTIONS_PER_TURN;
             cardManager.DrawCard(activePlayer);
             cardManager.RefreshCards(activePlayer);
 
@@ -140,15 +94,7 @@ public class GameManager : MonoBehaviour
     public void EndTurn(string player)
     {
         // end of turn effects
-        string otherPlayer = null;
-        if (player == PLAYER)
-        {
-            otherPlayer = ENEMY;
-        }
-        else if (player == ENEMY)
-        {
-            otherPlayer = PLAYER;
-        }
-        StartTurn(otherPlayer);
+        if (player == PLAYER) StartTurn(ENEMY);
+        else if (player == ENEMY) StartTurn(PLAYER);
     }
 }

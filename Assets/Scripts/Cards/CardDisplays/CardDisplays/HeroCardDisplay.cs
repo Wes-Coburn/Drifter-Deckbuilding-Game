@@ -140,6 +140,7 @@ public class HeroCardDisplay : CardDisplay
     public GameObject CreateAbilityIcon(CardAbility cardAbility)
     {
         GameObject abilityIcon = Instantiate(AbilityIconPrefab, new Vector2(0, 0), Quaternion.identity);
+        Destroy(abilityIcon.GetComponent<BoxCollider2D>());
         abilityIcon.GetComponent<AbilityIconDisplay>().AbilityScript = cardAbility;
         abilityIcon.transform.SetParent(CurrentAbilitiesDisplay.transform, false);
         return abilityIcon;

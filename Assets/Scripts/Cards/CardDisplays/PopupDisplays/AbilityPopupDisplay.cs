@@ -38,7 +38,7 @@ public class AbilityPopupDisplay : MonoBehaviour
         else if (AbilityScript is TriggeredAbility)
         {
             TriggeredAbility keywordAbility = AbilityScript as TriggeredAbility;
-            AbilityTrigger keywordTrigger = keywordAbility.KeywordTrigger;
+            AbilityTrigger keywordTrigger = keywordAbility.AbilityTrigger;
 
             abilityName = keywordTrigger.AbilityName;
             abilityDescription = "Does something when " + keywordTrigger.AbilityDescription;

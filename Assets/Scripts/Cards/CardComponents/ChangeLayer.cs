@@ -4,8 +4,8 @@ using TMPro;
 public class ChangeLayer : MonoBehaviour
 {
     /* CHANGE_LAYER_DATA */
-    private const string CARDS_LAYER = ChangeLayerData.CARDS_LAYER;
-    private const string ZOOM_LAYER = ChangeLayerData.ZOOM_LAYER;
+    private const string CARDS_LAYER = "Cards";
+    private const string ZOOM_LAYER = "Zoom";
 
     private string renderLayer;
     public string RenderLayer

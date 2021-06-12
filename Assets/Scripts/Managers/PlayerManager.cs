@@ -1,6 +1,4 @@
-﻿//using System.Collections;
-//using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -18,4 +16,29 @@ public class PlayerManager : MonoBehaviour
 
     public bool IsMyTurn;
     private void Start() => IsMyTurn = true;
+
+    /* ACTIONS_LEFT */
+    private int playerActionsLeft;
+    public int PlayerActionsLeft
+    {
+        get => playerActionsLeft;
+        set
+        {
+            playerActionsLeft = value;
+            if (playerActionsLeft > GameManager.MAXIMUM_ACTIONS) playerActionsLeft = GameManager.MAXIMUM_ACTIONS;
+            UIManager.Instance.UpdatePlayerActionsLeft(PlayerActionsLeft);
+        }
+    }
+
+    /* HEALTH */
+    private int playerHealth;
+    public int PlayerHealth
+    {
+        get => playerHealth;
+        set
+        {
+            playerHealth = value;
+            UIManager.Instance.UpdatePlayerHealth(PlayerHealth);
+        }
+    }
 }
