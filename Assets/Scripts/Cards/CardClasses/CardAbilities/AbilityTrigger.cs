@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Keyword Trigger", menuName = "Card Abilities/Keyword Trigger")]
+[CreateAssetMenu(fileName = "New Ability Trigger", menuName = "Card Abilities/Ability Trigger")]
 public class AbilityTrigger : CardAbility
 {
     // blank
