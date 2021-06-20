@@ -19,10 +19,18 @@ public class AnimationManager : MonoBehaviour
         Animator anim = go.GetComponent<Animator>();
         anim.Play(animationState);
     }
-    //public void HiddenState (GameObject card) => ChangeAnimationState(card, HIDDEN_STATE);
-    public void ExhaustedState(GameObject card) => ChangeAnimationState(card, "Hidden");
-    public void RevealedState (GameObject card) => ChangeAnimationState(card, "Revealed");
-    public void PlayedState (GameObject card) => ChangeAnimationState(card, "Played");
+    public void HiddenState(GameObject card)
+    {
+        card.GetComponent<CardDisplay>().SetCardArt(CardManager.Instance.CardBackSprite);
+        ChangeAnimationState(card, "Hidden");
+    }
+    public void RevealedHandState (GameObject card) => ChangeAnimationState(card, "Revealed_Hand");
+    public void RevealedPlayState (GameObject card) => ChangeAnimationState(card, "Revealed_Play");
+    public void PlayedState (GameObject card)
+    {
+        card.GetComponent<CardDisplay>().SetCardArt(card.GetComponent<CardDisplay>().CardScript.CardArt);
+        ChangeAnimationState(card, "Played");
+    }
     //public void ModifyAttackState(GameObject card) => ChangeAnimationState(card, Modify_Attack);
     public void ModifyDefenseState(GameObject card) => ChangeAnimationState(card, "Modify_Defense");
 }

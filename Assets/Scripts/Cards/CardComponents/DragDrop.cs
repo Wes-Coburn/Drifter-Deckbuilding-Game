@@ -3,24 +3,17 @@
 public class DragDrop : MonoBehaviour
 {
     /* CARD_MANAGER_DATA */
-    private const string PLAYER_ZONE = CardManager.PLAYER_ZONE;
-    private const string ENEMY_ZONE = CardManager.ENEMY_ZONE;
+    private const string PLAYER_CARD = CardManager.PLAYER_CARD;
     private const string ENEMY_CARD = CardManager.ENEMY_CARD;
-    private const string BACKGROUND = CardManager.BACKGROUND;
 
     /* GAME_MANAGER_DATA */
-    private const string PLAYER = "Player";
-    private const string ENEMY = "Enemy";
+    private const string PLAYER = GameManager.PLAYER;
+    private const string ENEMY = GameManager.ENEMY;
 
     /* MANAGERS */
     private PlayerManager playerManager;
     private CardManager cardManager;
     private UIManager UIManager;
-
-    /* ZONES */
-    private GameObject background;
-    private GameObject playerZone;
-    private GameObject enemyZone;
 
     /* STATIC CLASS VARIABLES */
     public static bool CardIsDragging;
@@ -51,10 +44,6 @@ public class DragDrop : MonoBehaviour
         cardManager = CardManager.Instance;
         UIManager = UIManager.Instance;
 
-        background = GameObject.Find(BACKGROUND);
-        playerZone = GameObject.Find(PLAYER_ZONE);
-        enemyZone = GameObject.Find(ENEMY_ZONE);
-
         CardIsDragging = false;
         isOverEnemy = false;
         isOverDropZone = false;
@@ -68,21 +57,22 @@ public class DragDrop : MonoBehaviour
         {
             Vector3 dragPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             transform.position = new Vector3(dragPoint.x, dragPoint.y, -2);
-            transform.SetParent(background.transform, true);
+            transform.SetParent(UIManager.Instance.CurrentBackground.transform, true);
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log("OnCollisionEnter2D!");
         GameObject collisionObject = collision.gameObject;
         GameObject collisionObjectParent = collisionObject.transform.parent.gameObject;
         if (!isPlayed)
         {
-            if (collisionObject == playerZone) isOverDropZone = true;
+            if (collisionObject == CardManager.Instance.PlayerZone) isOverDropZone = true;
         }
         else
         {
-            if (collisionObject.CompareTag(ENEMY_CARD) && collisionObjectParent == enemyZone) // change collisionObjectParent = enemyZone to IsPlayed ?
+            if (collisionObjectParent == CardManager.Instance.EnemyZone || collisionObject == CardManager.Instance.EnemyChampion)
             {
                 isOverEnemy = true;
                 enemy = collisionObject;
@@ -94,7 +84,7 @@ public class DragDrop : MonoBehaviour
         GameObject collisionObject = collision.gameObject;
         if (!isPlayed)
         {
-            if (collisionObject == playerZone) isOverDropZone = false;
+            if (collisionObject == CardManager.Instance.PlayerZone) isOverDropZone = false;
         }
         else
         {
@@ -135,7 +125,7 @@ public class DragDrop : MonoBehaviour
             if (isOverDropZone && cardManager.IsPlayable(gameObject))
             {
                 isPlayed = true;
-                if (gameObject.CompareTag("PlayerCard")) cardManager.PlayCard(gameObject, PLAYER);
+                if (gameObject.CompareTag(PLAYER_CARD)) cardManager.PlayCard(gameObject, PLAYER);
                 else cardManager.PlayCard(gameObject, ENEMY);
             }
             else ResetPosition();

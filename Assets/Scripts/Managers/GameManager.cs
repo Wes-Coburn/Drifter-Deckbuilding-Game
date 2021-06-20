@@ -15,11 +15,13 @@ public class GameManager : MonoBehaviour
     }
 
     /* GAME_MANAGER_DATA */
+    public const int STARTING_HEALTH = 10;
     public const int STARTING_ACTIONS = 0;
+    public const int STARTING_HAND_SIZE = 3;
     public const int ACTIONS_PER_TURN = 2;
     public const int MAXIMUM_ACTIONS = 6;
-    private const string PLAYER = "Player";
-    private const string ENEMY = "Enemy";
+    public const string PLAYER = "Player";
+    public const string ENEMY = "Enemy";
 
     /* MANAGERS */
     private PlayerManager playerManager;
@@ -48,12 +50,13 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        PlayerManager.Instance.PlayerHealth = 10;
-        EnemyManager.Instance.EnemyHealth = 10;
+        PlayerManager.Instance.PlayerHealth = STARTING_HEALTH;
+        EnemyManager.Instance.EnemyHealth = STARTING_HEALTH;
         PlayerManager.Instance.PlayerActionsLeft = STARTING_ACTIONS;
         EnemyManager.Instance.EnemyActionsLeft = STARTING_ACTIONS;
 
         FunctionTimer.Create(() => CardManager.Instance.DrawHand(GameManager.PLAYER), 1f);
+        FunctionTimer.Create(() => CardManager.Instance.DrawHand(GameManager.ENEMY), 1f); // FOR TESTING ONLY
         FunctionTimer.Create(() => StartTurn(PLAYER), 3f);
     }
     public void EndGame()

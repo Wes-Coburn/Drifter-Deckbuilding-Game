@@ -31,15 +31,17 @@ public class CardManager : MonoBehaviour
     public const string PLAYER_HAND = "PlayerHand";
     public const string PLAYER_ZONE = "PlayerZone";
     public const string PLAYER_DISCARD = "PlayerDiscard";
+    public const string PLAYER_CHAMPION = "PlayerChampion";
 
     public const string ENEMY_HAND = "EnemyHand";
     public const string ENEMY_ZONE = "EnemyZone";
     public const string ENEMY_DISCARD = "EnemyDiscard";
+    public const string ENEMY_CHAMPION = "EnemyChampion";
 
     /* GAME_MANAGER_DATA */
-    private const string PLAYER = "Player";
-    private const string ENEMY = "Enemy";
-    private const int STARTING_HAND_SIZE = 3;
+    private const string PLAYER = GameManager.PLAYER;
+    private const string ENEMY = GameManager.ENEMY;
+    private const int STARTING_HAND_SIZE = GameManager.STARTING_HAND_SIZE;
     
     /* CARD LISTS */
     private List<int> playerDeck = new List<int>();
@@ -48,13 +50,25 @@ public class CardManager : MonoBehaviour
     public List<GameObject> enemyZoneCards;
     public List<GameObject> enemyHandCards;
 
+    /* CARD BACK SPRITE */
+    [SerializeField] private Sprite cardBackSprite;
+    public Sprite CardBackSprite
+    {
+        get => cardBackSprite;
+        private set => cardBackSprite = value;
+    }
+
     /* GAME ZONES */
+    // PLAYER
     public GameObject PlayerHand { get; private set; }
-    public GameObject EnemyHand { get; private set; }
     public GameObject PlayerZone { get; private set; }
-    public GameObject EnemyZone { get; private set; }
     public GameObject PlayerDiscard { get; private set; }
+    public GameObject PlayerChampion { get; private set; }
+    // ENEMY
     public GameObject EnemyDiscard { get; private set; }
+    public GameObject EnemyHand { get; private set; }
+    public GameObject EnemyZone { get; private set; }
+    public GameObject EnemyChampion { get; private set; }
     
     private void Start()
     {
@@ -62,15 +76,17 @@ public class CardManager : MonoBehaviour
         enemyZoneCards = new List<GameObject>();
         enemyHandCards = new List<GameObject>();
     }
-    public void StartGame()
+    public void StartGameScene()
     {
         /* GAME_ZONES */
         PlayerHand = GameObject.Find(PLAYER_HAND);
         PlayerZone = GameObject.Find(PLAYER_ZONE);
         PlayerDiscard = GameObject.Find(PLAYER_DISCARD);
+        PlayerChampion = GameObject.Find(PLAYER_CHAMPION);
         EnemyHand = GameObject.Find(ENEMY_HAND);
         EnemyZone = GameObject.Find(ENEMY_ZONE);
         EnemyDiscard = GameObject.Find(ENEMY_DISCARD);
+        EnemyChampion = GameObject.Find(ENEMY_CHAMPION);
     }
 
     /******
@@ -159,7 +175,7 @@ public class CardManager : MonoBehaviour
         {
             case PLAYER_HAND:
                 zoneTran = PlayerHand.transform;
-                AnimationManager.Instance.RevealedState(card);
+                AnimationManager.Instance.RevealedHandState(card);
                 break;
             case PLAYER_ZONE:
                 zoneTran = PlayerZone.transform;
@@ -167,9 +183,11 @@ public class CardManager : MonoBehaviour
                 break;
             case PLAYER_DISCARD:
                 zoneTran = PlayerDiscard.transform;
+                AnimationManager.Instance.RevealedPlayState(card);
                 break;
             case ENEMY_HAND:
                 zoneTran = EnemyHand.transform;
+                AnimationManager.Instance.HiddenState(card);
                 break;
             case ENEMY_ZONE:
                 zoneTran = EnemyZone.transform;
@@ -177,6 +195,7 @@ public class CardManager : MonoBehaviour
                 break;
             case ENEMY_DISCARD:
                 zoneTran = EnemyDiscard.transform;
+                AnimationManager.Instance.RevealedPlayState(card);
                 break;
         }
         SetCardParent(card, zoneTran);
@@ -295,11 +314,11 @@ public class CardManager : MonoBehaviour
      * ****** ATTACK
      * *****
      *****/
-    public void Attack(GameObject AttackingHeroCard, GameObject DefendingHeroCard)
+    public void Attack(GameObject attacker, GameObject defender)
     {
-        int AttackingHeroAttackScore = GetHeroCardDisplay(AttackingHeroCard).GetAttackScore();
-        TakeDamage(DefendingHeroCard, AttackingHeroAttackScore);
-        SetExhausted(AttackingHeroCard, true);
+        int AttackingHeroAttackScore = GetHeroCardDisplay(attacker).GetAttackScore();
+        TakeDamage(defender, AttackingHeroAttackScore);
+        SetExhausted(attacker, true);
     }
 
     /******
@@ -307,21 +326,34 @@ public class CardManager : MonoBehaviour
      * ****** TAKE_DAMAGE
      * *****
      *****/
-    public void TakeDamage(GameObject heroCard, int damageValue)
+    public void TakeDamage(GameObject target, int damageValue)
     {
         if (damageValue < 1) return;
 
-        int defenseScore = GetHeroCardDisplay(heroCard).CurrentDefenseScore;
-        int newDefenseScore = defenseScore - damageValue;
-        if (newDefenseScore < 0) newDefenseScore = 0;
-        GetHeroCardDisplay(heroCard).CurrentDefenseScore = newDefenseScore;
-        GetHeroCardDisplay(heroCard).SetDefenseScoreModifier(-damageValue);
-        AnimationManager.Instance.ModifyDefenseState(heroCard);
+        // damage modifications
 
-        if (newDefenseScore < 1)
+        if (target == PlayerChampion)
         {
-            if (heroCard.CompareTag("PlayerCard")) DestroyCard(heroCard, PLAYER);
-            else DestroyCard(heroCard, ENEMY);
+            PlayerManager.Instance.PlayerHealth -= damageValue;
+        }
+        else if (target == EnemyChampion)
+        {
+            EnemyManager.Instance.EnemyHealth -= damageValue;
+        }
+        else
+        {
+            int defenseScore = GetHeroCardDisplay(target).CurrentDefenseScore;
+            int newDefenseScore = defenseScore - damageValue;
+            if (newDefenseScore < 0) newDefenseScore = 0;
+            GetHeroCardDisplay(target).CurrentDefenseScore = newDefenseScore;
+            GetHeroCardDisplay(target).SetDefenseScoreModifier(-damageValue);
+            AnimationManager.Instance.ModifyDefenseState(target);
+
+            if (newDefenseScore < 1)
+            {
+                if (target.CompareTag(PLAYER_CARD)) DestroyCard(target, PLAYER);
+                else DestroyCard(target, ENEMY);
+            }
         }
     }
 

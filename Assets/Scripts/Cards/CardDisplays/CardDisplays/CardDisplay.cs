@@ -64,6 +64,7 @@ public abstract class CardDisplay : MonoBehaviour
      * *****
      *****/
     public void SetCardName(string cardName) => CardName.GetComponent<TextMeshPro>().text = cardName;
+    public void SetCardArt(Sprite cardArt) => CardArt.GetComponent<SpriteRenderer>().sprite = cardArt;
     public string GetCardName() => CardName.GetComponent<TextMeshPro>().text;
     public void SetCardTypeLine(string cardType, string cardSubType) => CardTypeLine.GetComponent<TextMeshPro>().text = cardType + " - " + cardSubType;
     public string GetCardType() => CardScript.CardType;

@@ -29,7 +29,7 @@ public static class SceneLoader
         {
             UIManager.Instance.Start();
             UIManager.Instance.LoadGameScene();
-            CardManager.Instance.StartGame(); // FOR TESTING ONLY
+            CardManager.Instance.StartGameScene(); // FOR TESTING ONLY
             GameManager.Instance.StartGame(); // FOR TESTING ONLY
             //AudioManager.Instance.StartStopSound("Soundscape_" + scene.ToString(), AudioManager.SoundType.Soundscape);
             //AudioManager.Instance.StartStopSound("Soundtrack_WorldTheme", AudioManager.SoundType.Soundtrack);
