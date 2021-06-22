@@ -289,6 +289,11 @@ public class CardManager : MonoBehaviour
             ChangeCardZone(card, ENEMY_DISCARD);
             enemyZoneCards.Remove(card);
         }
+
+        HeroCardDisplay hcd = GetHeroCardDisplay(card);
+        HeroCard hc = (HeroCard)hcd.CardScript;
+        hcd.SetAttackScore(hc.AttackScore);
+        hcd.SetDefenseScore(hc.DefenseScore);
     }
 
     /******
@@ -346,7 +351,6 @@ public class CardManager : MonoBehaviour
             int newDefenseScore = defenseScore - damageValue;
             if (newDefenseScore < 0) newDefenseScore = 0;
             GetHeroCardDisplay(target).CurrentDefenseScore = newDefenseScore;
-            GetHeroCardDisplay(target).SetDefenseScoreModifier(-damageValue);
             AnimationManager.Instance.ModifyDefenseState(target);
 
             if (newDefenseScore < 1)
@@ -373,7 +377,6 @@ public class CardManager : MonoBehaviour
             newDefenseScore = GetHeroCardDisplay(heroCard).MaxDefenseScore;
         }
         GetHeroCardDisplay(heroCard).CurrentDefenseScore = newDefenseScore;
-        GetHeroCardDisplay(heroCard).SetDefenseScoreModifier(healingValue);
         AnimationManager.Instance.ModifyDefenseState(heroCard);
     }
 

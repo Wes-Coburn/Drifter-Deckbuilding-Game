@@ -15,10 +15,8 @@ public class HeroCardDisplay : CardDisplay
     [SerializeField] private GameObject LevelUpCondition;
     /* ATTACK_SCORE */
     [SerializeField] private GameObject attackScore;
-    [SerializeField] private GameObject attackScoreModifier;
     /* DEFENSE_SCORE */
     [SerializeField] private GameObject defenseScore;
-    [SerializeField] private GameObject defenseScoreModifier;
     [SerializeField] private GameObject maxDefenseScoreDisplay;
     
     private int currentDefenseScore;
@@ -28,8 +26,7 @@ public class HeroCardDisplay : CardDisplay
         set
         {
             currentDefenseScore = value;
-            TextMeshPro txtPro = defenseScore.GetComponent<TextMeshPro>();
-            txtPro.SetText(CurrentDefenseScore.ToString());
+            SetDefenseScore(currentDefenseScore);
         }
     }
     private int maxDefenseScore;
@@ -151,21 +148,17 @@ public class HeroCardDisplay : CardDisplay
      * ****** GETTERS/SETTERS
      * *****
      *****/
+    public int GetDefenseScore() => System.Convert.ToInt32(defenseScore.GetComponent<TextMeshPro>().text);
+    public void SetDefenseScore(int newDefenseSCore)
+    {
+        TextMeshPro txtPro = defenseScore.GetComponent<TextMeshPro>();
+        txtPro.SetText(newDefenseSCore.ToString());
+    }
     public int GetAttackScore() => System.Convert.ToInt32(attackScore.GetComponent<TextMeshPro>().text);
     public void SetAttackScore(int newAttackScore)
     {
         TextMeshPro txtPro = attackScore.GetComponent<TextMeshPro>();
         txtPro.SetText(newAttackScore.ToString());
-    }
-    public void SetAttackScoreModifier(int newAttackScoreModifier)
-    {
-        TextMeshPro txtPro = attackScoreModifier.GetComponent<TextMeshPro>();
-        txtPro.SetText(newAttackScoreModifier.ToString());
-    }
-    public void SetDefenseScoreModifier(int newDefenseScoreModifier)
-    {
-        TextMeshPro txtPro = defenseScoreModifier.GetComponent<TextMeshPro>();
-        txtPro.SetText(newDefenseScoreModifier.ToString());
     }
     public string GetLevelUpCondition() => LevelUpCondition.GetComponent<TextMeshPro>().text;
     public void SetLevelUpCondition(string newLevelUpCondition)

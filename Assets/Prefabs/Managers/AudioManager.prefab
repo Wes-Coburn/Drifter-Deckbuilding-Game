@@ -43,4 +43,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09d953a9c24572b45bf18f638d997eb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds: []
+  sounds:
+  - name: Soundtrack_MenuScene
+    clip: {fileID: 8300000, guid: 15fee4f51d0061941a8130562fd81781, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: Soundtrack_GameScene
+    clip: {fileID: 8300000, guid: 27125866967536445bc7ff154891f139, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}

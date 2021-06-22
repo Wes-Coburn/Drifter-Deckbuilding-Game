@@ -83,15 +83,15 @@ public class UIManager : MonoBehaviour
      * ****** SETTERS
      * *****
      *****/
-    public void UpdatePlayerHealth(int health) => playerHealth.GetComponent<TextMeshProUGUI>().SetText("Health: " + health);
-    public void UpdateEnemyHealth(int health) => enemyHealth.GetComponent<TextMeshProUGUI>().SetText("Health: " + health);
+    public void UpdatePlayerHealth(int health) => playerHealth.GetComponent<TextMeshProUGUI>().SetText("" + health);
+    public void UpdateEnemyHealth(int health) => enemyHealth.GetComponent<TextMeshProUGUI>().SetText("" + health);
     public void UpdatePlayerActionsLeft(int newPlayerActionsLeft)
     {
-        playerActionsLeft.GetComponent<TextMeshProUGUI>().SetText("Actions: " + newPlayerActionsLeft.ToString());
+        playerActionsLeft.GetComponent<TextMeshProUGUI>().SetText("" + newPlayerActionsLeft.ToString());
     }
     public void UpdateEnemyActionsLeft(int newEnemyActionsLeft)
     {
-        enemyActionsLeft.GetComponent<TextMeshProUGUI>().SetText("Actions: " + newEnemyActionsLeft.ToString());
+        enemyActionsLeft.GetComponent<TextMeshProUGUI>().SetText("" + newEnemyActionsLeft.ToString());
     }
     public void UpdateEndTurnButton(bool isMyTurn)
     {
