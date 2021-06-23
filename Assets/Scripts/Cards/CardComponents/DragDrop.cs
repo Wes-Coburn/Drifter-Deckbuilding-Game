@@ -63,7 +63,7 @@ public class DragDrop : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("OnCollisionEnter2D!");
+        if (!IsDragging) return;
         GameObject collisionObject = collision.gameObject;
         GameObject collisionObjectParent = collisionObject.transform.parent.gameObject;
         if (!isPlayed)
@@ -74,8 +74,22 @@ public class DragDrop : MonoBehaviour
         {
             if (collisionObjectParent == CardManager.Instance.EnemyZone || collisionObject == CardManager.Instance.EnemyChampion)
             {
+                CardSelect cs = null;
+                if (enemy != null)
+                {
+                    if (enemy.TryGetComponent<CardSelect>(out cs))
+                    {
+                        cs.CardOutline.SetActive(false);
+                    }
+                }
+
                 isOverEnemy = true;
                 enemy = collisionObject;
+
+                if (enemy.TryGetComponent<CardSelect>(out cs))
+                {
+                    cs.CardOutline.SetActive(true);
+                }
             }
         }
     }
@@ -90,6 +104,11 @@ public class DragDrop : MonoBehaviour
         {
             if (collisionObject == enemy)
             {
+                if (enemy.TryGetComponent<CardSelect>(out CardSelect cs))
+                {
+                    cs.CardOutline.SetActive(false);
+                }
+
                 isOverEnemy = false;
                 enemy = null;
             }
@@ -101,23 +120,27 @@ public class DragDrop : MonoBehaviour
         transform.position = startPosition;
         cardManager.SetCardParent(gameObject, startParent.transform);
         transform.SetSiblingIndex(startIndex);
+
+        if (isPlayed) AnimationManager.Instance.RevealedPlayState(gameObject);
+        else AnimationManager.Instance.RevealedHandState(gameObject);
     }
 
     public void StartDrag()
     {
         UIManager.DestroyAllZoomObjects();
-        if (!playerManager.IsMyTurn || CompareTag(ENEMY_CARD)) return;
+        if (!playerManager.IsMyTurn || CompareTag(ENEMY_CARD) || UIManager.Instance.PlayerIsTargetting) return;
         IsDragging = true;
 
         startParent = transform.parent.gameObject;
         startPosition = transform.position;
         startIndex = transform.GetSiblingIndex();
         gameObject.GetComponent<ChangeLayer>().ZoomLayer();
+        AnimationManager.Instance.RevealedDragState(gameObject);
     }
 
     public void EndDrag()
     {
-        if (!IsDragging || !playerManager.IsMyTurn || CompareTag(ENEMY_CARD)) return;
+        if (!IsDragging || !playerManager.IsMyTurn || CompareTag(ENEMY_CARD) || UIManager.Instance.PlayerIsTargetting) return;
         IsDragging = false;
 
         if (!isPlayed)
