@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
@@ -56,7 +57,7 @@ public class GameManager : MonoBehaviour
         EnemyManager.Instance.EnemyActionsLeft = STARTING_ACTIONS;
 
         FunctionTimer.Create(() => CardManager.Instance.DrawHand(GameManager.PLAYER), 1f);
-        FunctionTimer.Create(() => CardManager.Instance.DrawHand(GameManager.ENEMY), 1f); // FOR TESTING ONLY
+        FunctionTimer.Create(() => CardManager.Instance.DrawHand(GameManager.ENEMY), 1f);
         FunctionTimer.Create(() => StartTurn(PLAYER), 3f);
     }
     public void EndGame()
@@ -87,9 +88,32 @@ public class GameManager : MonoBehaviour
             UIManager.UpdateEndTurnButton(playerManager.IsMyTurn);
             EnemyManager.Instance.EnemyActionsLeft += ACTIONS_PER_TURN;
             cardManager.RefreshCards(activePlayer);
+
+            // Timed Actions
             FunctionTimer.Create(() => cardManager.DrawCard(activePlayer), 1f);
-            FunctionTimer.Create(() => CardManager.Instance.PlayCard(null, ENEMY), 2f);
-            FunctionTimer.Create(() => EndTurn(ENEMY), 4f);
+            FunctionTimer.Create(() => cardManager.PlayCard(null, ENEMY), 2f);
+
+            // ENEMY ATTACK
+            float delay = 4f;
+            
+            void EnemyAttack(GameObject enemyHero)
+            {
+                if (cardManager.playerZoneCards.Count > 0)
+                {
+                    cardManager.Attack(enemyHero, cardManager.playerZoneCards[0]);
+                }
+            }
+            void EndTurnDelay(float delay) => FunctionTimer.Create(() => EndTurn(ENEMY), delay);
+
+            foreach (GameObject enemyHero in cardManager.enemyZoneCards)
+            {
+                if (cardManager.CanAttack(enemyHero))
+                {
+                    FunctionTimer.Create(() => EnemyAttack(enemyHero), delay);
+                    delay += 2f;
+                }
+            }
+            EndTurnDelay(delay);
         }
     }
 

@@ -103,7 +103,7 @@ public class CardManager : MonoBehaviour
      * ****** SET_EXHAUSTED/REFRESH_CARDS
      * *****
      *****/
-    public void SetExhausted(GameObject heroCard, bool exhausted)
+    private void SetExhausted(GameObject heroCard, bool exhausted)
     {
         heroCard.GetComponent<HeroCardDisplay>().CanAttack = !exhausted;
     }
@@ -113,6 +113,22 @@ public class CardManager : MonoBehaviour
         if (player == PLAYER) cardZoneList = playerZoneCards;
         else if (player == ENEMY) cardZoneList = enemyZoneCards;
         foreach (GameObject card in cardZoneList) SetExhausted(card, false);
+    }
+
+    /******
+     * *****
+     * ****** RESET_HERO_CARD
+     * *****
+     *****/
+    private void ResetHeroCard(GameObject card)
+    {
+        HeroCardDisplay hcd = GetHeroCardDisplay(card);
+        HeroCard hc = (HeroCard)hcd.CardScript;
+
+        hcd.SetAttackScore(hc.AttackScore);
+        hcd.SetDefenseScore(hc.DefenseScore);
+        hcd.CanAttack = false;
+        card.GetComponent<DragDrop>().IsPlayed = false;
     }
 
     /******
@@ -164,12 +180,6 @@ public class CardManager : MonoBehaviour
      *****/
     public void ChangeCardZone(GameObject card, string zone)
     {
-        if (card.TryGetComponent<HeroCardDisplay>(out HeroCardDisplay heroCardDisplay))
-        {
-            heroCardDisplay.CanAttack = false;
-            // RESET ATTACK AND DEFENSE
-        }
-
         Transform zoneTran = null;
         switch (zone)
         {
@@ -199,6 +209,11 @@ public class CardManager : MonoBehaviour
                 break;
         }
         SetCardParent(card, zoneTran);
+
+        if (card.TryGetComponent<HeroCardDisplay>(out HeroCardDisplay hcd))
+        {
+            if (zone != PLAYER_ZONE && zone != ENEMY_ZONE) ResetHeroCard(card);
+        }
     }
 
     /******
@@ -283,17 +298,13 @@ public class CardManager : MonoBehaviour
         {
             ChangeCardZone(card, PLAYER_DISCARD);
             playerZoneCards.Remove(card);
+            Debug.Log("playerZoneCards.Count == " + playerZoneCards.Count);
         }
         else if (player == ENEMY)
         {
             ChangeCardZone(card, ENEMY_DISCARD);
             enemyZoneCards.Remove(card);
         }
-
-        HeroCardDisplay hcd = GetHeroCardDisplay(card);
-        HeroCard hc = (HeroCard)hcd.CardScript;
-        hcd.SetAttackScore(hc.AttackScore);
-        hcd.SetDefenseScore(hc.DefenseScore);
     }
 
     /******
