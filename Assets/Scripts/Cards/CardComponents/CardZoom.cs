@@ -35,8 +35,8 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     [SerializeField] private GameObject nextLevelBox;
     [SerializeField] private GameObject level2Popup;
 
-        // LORE_PREFAB
-    [SerializeField] private GameObject lorePopup;
+    // LORE_PREFAB
+    [SerializeField] private GameObject descriptionPopupPrefab;
 
     /* ZONES */
     private GameObject background;
@@ -49,7 +49,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     public static bool ZoomCardIsCentered = false;
     public static GameObject CurrentZoomCard { get; set; }
     public static GameObject NextLevelPopup { get; set; }
-    public static GameObject LorePopup { get; set; }
+    public static GameObject DescriptionPopup { get; set; }
     
     /* CLASS_VARIABLES */
     private CardDisplay cardDisplay;
@@ -89,7 +89,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         HeroCard heroCard = (HeroCard)heroCardDisplay.CardScript;
 
         CreateNextLevelPopup(new Vector2(POPUP_X_VALUE, 0), POPUP_SCALE_VALUE, heroCard.Level2Abiliites);
-        CreateLorePopup(new Vector2(-600, 0), POPUP_SCALE_VALUE);
+        CreateDescriptionPopup(new Vector2(-600, 0), POPUP_SCALE_VALUE);
     }
 
     /******
@@ -207,11 +207,9 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
      * ****** CREATE_LORE_POPUP
      * *****
      *****/
-    private void CreateLorePopup(Vector2 vec2, float scaleValue)
+    private void CreateDescriptionPopup(Vector2 vec2, float scaleValue)
     {
-        LorePopup = CreateZoomObject(lorePopup, new Vector3(vec2.x, vec2.y, 0), background.transform, scaleValue);
-        HeroCardDisplay heroCardDisplay = (HeroCardDisplay)cardDisplay;
-        HeroCard heroCard = (HeroCard)heroCardDisplay.CardScript;
-        LorePopup.GetComponent<LorePopupDisplay>().DisplayLorePopup(heroCard.HeroLore);
+        DescriptionPopup = CreateZoomObject(descriptionPopupPrefab, new Vector3(vec2.x, vec2.y, 0), background.transform, scaleValue);
+        DescriptionPopup.GetComponent<LorePopupDisplay>().DisplayLorePopup(cardDisplay.CardScript.CardDescription);
     }
 }

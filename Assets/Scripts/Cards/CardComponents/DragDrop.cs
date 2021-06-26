@@ -75,22 +75,10 @@ public class DragDrop : MonoBehaviour
             if (collisionObjectParent == CardManager.Instance.EnemyZone || 
                 collisionObject == CardManager.Instance.EnemyChampion)
             {
-                CardSelect cs = null;
-                if (enemy != null)
-                {
-                    if (enemy.TryGetComponent<CardSelect>(out cs))
-                    {
-                        cs.CardOutline.SetActive(false);
-                    }
-                }
-
                 isOverEnemy = true;
                 enemy = collisionObject;
 
-                if (enemy.TryGetComponent<CardSelect>(out cs))
-                {
-                    cs.CardOutline.SetActive(true);
-                }
+                UIManager.Instance.SelectEnemy(enemy, true);
             }
         }
     }
@@ -105,11 +93,8 @@ public class DragDrop : MonoBehaviour
         {
             if (collisionObject == enemy)
             {
-                if (enemy.TryGetComponent<CardSelect>(out CardSelect cs))
-                {
-                    cs.CardOutline.SetActive(false);
-                }
-
+                UIManager.Instance.SelectEnemy(enemy, false);
+                
                 isOverEnemy = false;
                 enemy = null;
             }

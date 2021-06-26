@@ -10,11 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 316076568181714229}
   - component: {fileID: 4447404091847219358}
-  - component: {fileID: 8627283403799946581}
   - component: {fileID: 1761005774493084261}
   - component: {fileID: 106633846193582386}
   m_Layer: 10
-  m_Name: LorePopup
+  m_Name: DescriptionPopup
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -54,6 +53,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -78,14 +78,7 @@ MeshRenderer:
   m_SortingLayerID: -1404842927
   m_SortingLayer: 3
   m_SortingOrder: 2
---- !u!222 &8627283403799946581
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3442971469020940581}
-  m_CullTransparentMesh: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &1761005774493084261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,6 +94,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

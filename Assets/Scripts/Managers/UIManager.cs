@@ -47,6 +47,9 @@ public class UIManager : MonoBehaviour
     /* PLAYER_IS_TARGETING */
     public bool PlayerIsTargetting { get; set; }
 
+    /* SELECTED_ENEMY */
+    private GameObject selectedEnemy;
+
     public void Start()
     {
         CurrentBackground = GameObject.Find("Background");
@@ -75,6 +78,27 @@ public class UIManager : MonoBehaviour
         {
             OnWaitForSecondsCallback();
             OnWaitForSecondsCallback = null;
+        }
+    }
+
+    /******
+     * *****
+     * ****** SELECT_ENEMY
+     * *****
+     *****/
+    public void SelectEnemy(GameObject enemy, bool enabled)
+    {
+        if (selectedEnemy != null && enabled == true) SelectEnemy(selectedEnemy, false);
+        if (enabled) selectedEnemy = enemy;
+        else selectedEnemy = null;
+
+        if (enemy.TryGetComponent<CardSelect>(out CardSelect cs))
+        {
+            cs.CardOutline.SetActive(enabled);
+        }
+        else if (enemy.TryGetComponent<ChampionSelect>(out ChampionSelect chs))
+        {
+            chs.TargetIcon.SetActive(enabled);
         }
     }
 
@@ -114,7 +138,7 @@ public class UIManager : MonoBehaviour
         List<GameObject> objectsToDestroy = new List<GameObject>
         {
             CardZoom.NextLevelPopup,
-            CardZoom.LorePopup,
+            CardZoom.DescriptionPopup,
             CardZoom.CurrentZoomCard,
             AbilityZoom.AbilityPopup
         };

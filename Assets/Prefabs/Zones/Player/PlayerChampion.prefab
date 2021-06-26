@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &373914479
 Transform:
   m_ObjectHideFlags: 0
@@ -70,7 +70,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1265489583
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 04bd973aaac14ca4e8e3e88f725402a9, type: 3}
   m_Color: {r: 1, g: 0, b: 0.9120097, a: 1}
   m_FlipX: 0
@@ -174,6 +174,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5292934362312869075}
   - component: {fileID: 3067044258458619034}
+  - component: {fileID: 1741124866610311041}
   m_Layer: 8
   m_Name: PlayerChampion
   m_TagString: Untagged
@@ -223,3 +224,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 400, y: 175}
   m_EdgeRadius: 0
+--- !u!114 &1741124866610311041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5292934362312869072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9909ab33305c5e94b8dbc583ea9ef420, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TargetIcon: {fileID: 373914478}
