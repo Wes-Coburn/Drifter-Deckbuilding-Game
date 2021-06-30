@@ -1736,15 +1736,13 @@ MonoBehaviour:
   ActionCost: {fileID: 1898300277847859935}
   AbilityIconPrefab: {fileID: 386389505813502122, guid: f0247b52cb371f84f9c5bc28522f5274,
     type: 3}
-  LevelUpCondition: {fileID: 730924673859241545}
-  attackScore: {fileID: 1832809122427536676}
-  attackScoreModifier: {fileID: 0}
-  defenseScore: {fileID: 6233680979956919925}
-  defenseScoreModifier: {fileID: 0}
+  levelUpCondition: {fileID: 730924673859241545}
+  attackScoreDisplay: {fileID: 1832809122427536676}
+  defenseScoreDisplay: {fileID: 6233680979956919925}
   maxDefenseScoreDisplay: {fileID: 138858506052574401}
   CurrentAbilities: []
   AbilityIcons: []
-  CurrentAbilitiesDisplay: {fileID: 7504388223987195692}
+  currentAbilitiesDisplay: {fileID: 7504388223987195692}
   exhaustedIcon: {fileID: 0}
 --- !u!114 &8121863126802653666
 MonoBehaviour:
@@ -1763,7 +1761,7 @@ MonoBehaviour:
   abilityPopupPrefab: {fileID: 0}
   nextLevelBox: {fileID: 0}
   level2Popup: {fileID: 0}
-  lorePopup: {fileID: 0}
+  descriptionPopupPrefab: {fileID: 0}
 --- !u!1 &7504388223987195692
 GameObject:
   m_ObjectHideFlags: 0

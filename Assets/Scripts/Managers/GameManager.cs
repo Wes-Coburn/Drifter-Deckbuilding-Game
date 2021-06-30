@@ -59,9 +59,11 @@ public class GameManager : MonoBehaviour
         FunctionTimer.Create(() => CardManager.Instance.DrawHand(GameManager.ENEMY), 1f);
         FunctionTimer.Create(() => StartTurn(PLAYER), 3f);
     }
-    public void EndGame()
+    public void EndGame(bool playerWins)
     {
         // VICTORY or DEFEAT animation
+        if (playerWins) Debug.LogWarning("PLAYER WINS!");
+        else Debug.LogWarning("ENEMY WINS!");
     }
 
     /******
@@ -97,14 +99,15 @@ public class GameManager : MonoBehaviour
             
             void EnemyAttack(GameObject enemyHero)
             {
-                if (cardManager.playerZoneCards.Count > 0)
+                if (cardManager.PlayerZoneCards.Count > 0)
                 {
-                    cardManager.Attack(enemyHero, cardManager.playerZoneCards[0]);
+                    cardManager.Attack(enemyHero, cardManager.PlayerZoneCards[0]);
                 }
+                else cardManager.Attack(enemyHero, cardManager.PlayerChampion);
             }
             void EndTurnDelay(float delay) => FunctionTimer.Create(() => EndTurn(ENEMY), delay);
 
-            foreach (GameObject enemyHero in cardManager.enemyZoneCards)
+            foreach (GameObject enemyHero in cardManager.EnemyZoneCards)
             {
                 if (cardManager.CanAttack(enemyHero))
                 {
@@ -118,8 +121,8 @@ public class GameManager : MonoBehaviour
 
     public void EndTurn(string player)
     {
-        // end of turn effects
-        if (player == PLAYER) StartTurn(ENEMY);
-        else if (player == ENEMY) StartTurn(PLAYER);
+        CardManager.Instance.RemoveTemporaryStats(player);
+        CardManager.Instance.RemoveTemporaryAbilities(player);
+        StartTurn(PLAYER);
     }
 }
