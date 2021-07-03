@@ -121,8 +121,10 @@ public class GameManager : MonoBehaviour
 
     public void EndTurn(string player)
     {
-        CardManager.Instance.RemoveTemporaryStats(player);
-        CardManager.Instance.RemoveTemporaryAbilities(player);
-        StartTurn(PLAYER);
+        //CardManager.Instance.RemoveTemporaryStats(player);
+        //CardManager.Instance.RemoveTemporaryAbilities(player);
+        if (player == "Enemy") StartTurn(PLAYER);
+        else if (player == "Player") StartTurn(ENEMY);
+        Debug.LogWarning("END TURN: " + player);
     }
 }

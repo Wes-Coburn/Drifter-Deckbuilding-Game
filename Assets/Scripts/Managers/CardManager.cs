@@ -240,7 +240,7 @@ public class CardManager : MonoBehaviour
             cardTag = ENEMY_CARD;
             cardZone = ENEMY_HAND;
         }
-        else Debug.LogError("player NOT FOUND!");
+        else Debug.LogError(player + " NOT FOUND!");
 
         int cardID = deck[0];
         deck.RemoveAt(0);
@@ -490,7 +490,7 @@ public class CardManager : MonoBehaviour
      *****/
     public void TriggerCardAbility(GameObject card, string triggerName) // TESTING
     {
-        Debug.Log(">>>TriggerCardAbility()<<<");
+        Debug.Log("TriggerCardAbility()");
         foreach (CardAbility cardAbility in card.GetComponent<HeroCardDisplay>().CurrentAbilities)
         {
             if (cardAbility is TriggeredAbility)

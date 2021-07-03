@@ -2,7 +2,7 @@
 using TMPro;
 
 public abstract class CardDisplay : MonoBehaviour
-{    
+{
     /* CARD_SCRIPTABLE_OBJECT */
     private Card cardScript;
     public Card CardScript
