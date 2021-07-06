@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
@@ -14,9 +15,19 @@ public class EnemyManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    public bool IsMyTurn { get; set; }
-    private void Start() => IsMyTurn = false;
+    private void Start()
+    {
+        EnemyDeck = new List<int>();
+        while (EnemyDeck.Count < 30) EnemyDeck.Add(2); // FOR TESTING ONLY
+    }
 
+    /* ENEMY_DECK */
+    public List<int> EnemyDeck { get; private set; }
+
+    /* IS_MY_TURN */
+    public bool IsMyTurn { get; set; }
+
+    /* HEALTH */
     private int enemyHealth;
     public int EnemyHealth
     {
@@ -28,6 +39,7 @@ public class EnemyManager : MonoBehaviour
         }
     }
     
+    /* ACTIONS_LEFT */
     private int enemyActionsLeft;
     public int EnemyActionsLeft
     {

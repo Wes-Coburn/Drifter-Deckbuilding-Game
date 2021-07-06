@@ -24,8 +24,8 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     private UIManager UIManager;
 
     /* PREFABS */
-    public GameObject HeroZoomCard;
-    //public GameObject ZoomActionCard;
+    [SerializeField] private GameObject heroZoomCard;
+    [SerializeField] private GameObject actionZoomCard;
 
         // ABILITY_PREFABS
     [SerializeField] private GameObject abilityBoxPrefab;
@@ -81,15 +81,18 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         if (transform.parent.gameObject == enemyHand) return; // HIDE THE ENEMY HAND
         if (DragDrop.CardIsDragging || ZoomCardIsCentered || UIManager.Instance.PlayerIsTargetting) return;
         
+        
         UIManager.SetScreenDimmer(true);
         ZoomCardIsCentered = true;
 
         CreateZoomCard(new Vector3(0, 50), CENTER_SCALE_VALUE);
-        HeroCardDisplay heroCardDisplay = (HeroCardDisplay)cardDisplay;
-        HeroCard heroCard = (HeroCard)heroCardDisplay.CardScript;
-
-        CreateNextLevelPopup(new Vector2(POPUP_X_VALUE, 0), POPUP_SCALE_VALUE, heroCard.Level2Abiliites);
-        CreateDescriptionPopup(new Vector2(-600, 0), POPUP_SCALE_VALUE);
+        
+        if (cardDisplay is HeroCardDisplay)
+        {
+            HeroCard hc = cardDisplay.CardScript as HeroCard;
+            CreateNextLevelPopup(new Vector2(POPUP_X_VALUE, 0), POPUP_SCALE_VALUE, hc.Level2Abiliites);
+            CreateDescriptionPopup(new Vector2(-600, 0), POPUP_SCALE_VALUE);
+        }
     }
 
     /******
@@ -132,7 +135,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     public void OnPointerExit()
     {
         if (DragDrop.CardIsDragging || ZoomCardIsCentered || UIManager.Instance.PlayerIsTargetting) return;
-        UIManager.DestroyAllZoomObjects();
+        UIManager.DestroyZoomObjects();
     }
 
     /******
@@ -159,8 +162,8 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     {
         if (CurrentZoomCard != null) Destroy(CurrentZoomCard);
         GameObject cardPrefab = null;
-        if (gameObject.GetComponent<CardDisplay>() is HeroCardDisplay) cardPrefab = HeroZoomCard;
-        //else if (gameObject.GetComponent<CardDisplay>() is ActionCardDisplay) cardPrefab = ActionZoomCard;
+        if (gameObject.GetComponent<CardDisplay>() is HeroCardDisplay) cardPrefab = heroZoomCard;
+        else if (gameObject.GetComponent<CardDisplay>() is ActionCardDisplay) cardPrefab = actionZoomCard;
         else Debug.Log("[CreateZoomCard() in CardZoom] CardDisplay TYPE NOT FOUND!");
 
         CurrentZoomCard = CreateZoomObject(cardPrefab, new Vector3(vec2.x, vec2.y, -4), background.transform, scaleValue);

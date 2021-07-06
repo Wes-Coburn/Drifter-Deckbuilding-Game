@@ -18,4 +18,8 @@ public abstract class Effect : ScriptableObject
     
     [Tooltip("The effect targets all possible targets")]
     public bool TargetsAll;
+
+    [Tooltip("The number of turns the effect lasts, 0 for permanent")]
+    [Range(0, 5)]
+    public int Countdown;
 }

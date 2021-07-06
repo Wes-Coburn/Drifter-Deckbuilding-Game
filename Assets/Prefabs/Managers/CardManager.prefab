@@ -44,9 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7373cbee29c916349af7e6b8470d4e29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerZoneCards: []
-  enemyZoneCards: []
-  enemyHandCards: []
+  PlayerZoneCards: []
+  EnemyZoneCards: []
+  PlayerHandCards: []
+  EnemyHandCards: []
   cardBackSprite: {fileID: 21300000, guid: 2287759a22d6f6e46a74d960e82ec409, type: 3}
 --- !u!114 &8654297799340217729
 MonoBehaviour:
@@ -62,7 +63,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HeroCardPrefab: {fileID: 7279803143792002406, guid: ec19b68285bd03847aafaae758ee7fee,
     type: 3}
+  ActionCardPrefab: {fileID: 7279803143792002406, guid: f0dc44236c7bc1d498863ec4eb0768f3,
+    type: 3}
   cardScripts:
   - {fileID: 11400000, guid: e9c08be6aaec2a74e85c3306c75c5df2, type: 2}
   - {fileID: 11400000, guid: babfe79328b1396459e443f9d4c2e7e9, type: 2}
   - {fileID: 11400000, guid: ecbd65ef947c578438366de31a6e8141, type: 2}
+  - {fileID: 11400000, guid: 59f9a8117b7c932489b52eb5b1543a53, type: 2}

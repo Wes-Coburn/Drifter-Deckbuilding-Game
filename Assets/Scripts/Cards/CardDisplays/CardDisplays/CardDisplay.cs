@@ -50,12 +50,12 @@ public abstract class CardDisplay : MonoBehaviour
      *****/
     public virtual void DisplayZoomCard(GameObject parentCard)
     {
-        CardDisplay parentCardDisplay = parentCard.GetComponent<CardDisplay>();
-        SetCardName(parentCardDisplay.GetCardName());
-        SetCardTypeLine(parentCardDisplay.GetCardType(), parentCardDisplay.GetCardSubType());
-        SetActionCost(parentCardDisplay.GetActionCost());
-        CardArt.GetComponent<SpriteRenderer>().sprite = parentCardDisplay.CardArt.GetComponent<SpriteRenderer>().sprite;
-        CardBorder.GetComponent<SpriteRenderer>().sprite = parentCardDisplay.CardBorder.GetComponent<SpriteRenderer>().sprite;
+        CardDisplay cd = parentCard.GetComponent<CardDisplay>();
+        SetCardName(cd.GetCardName());
+        SetCardTypeLine(cd.GetCardType(), cd.GetCardSubType());
+        SetActionCost(cd.GetActionCost());
+        CardArt.GetComponent<SpriteRenderer>().sprite = cd.CardArt.GetComponent<SpriteRenderer>().sprite;
+        CardBorder.GetComponent<SpriteRenderer>().sprite = cd.CardBorder.GetComponent<SpriteRenderer>().sprite;
     }
 
     /******
@@ -66,7 +66,12 @@ public abstract class CardDisplay : MonoBehaviour
     public void SetCardName(string cardName) => CardName.GetComponent<TextMeshPro>().text = cardName;
     public void SetCardArt(Sprite cardArt) => CardArt.GetComponent<SpriteRenderer>().sprite = cardArt;
     public string GetCardName() => CardName.GetComponent<TextMeshPro>().text;
-    public void SetCardTypeLine(string cardType, string cardSubType) => CardTypeLine.GetComponent<TextMeshPro>().text = cardType + " - " + cardSubType;
+    public void SetCardTypeLine(string cardType, string cardSubType)
+    {
+        string separator = " ";
+        if (!string.IsNullOrEmpty(cardSubType)) separator = " - ";
+        CardTypeLine.GetComponent<TextMeshPro>().text = cardType + separator + cardSubType;
+    }
     public string GetCardType() => CardScript.CardType;
     public string GetCardSubType() => CardScript.CardSubType;
     public void SetActionCost(int actionCost) => ActionCost.GetComponent<TextMeshPro>().text = actionCost.ToString();

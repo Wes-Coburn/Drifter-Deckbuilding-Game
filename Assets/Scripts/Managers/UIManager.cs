@@ -127,10 +127,10 @@ public class UIManager : MonoBehaviour
 
     /******
      * *****
-     * ****** DESTROY_ALL_ZOOM_OBJECT(S)
+     * ****** DESTROY_ZOOM_OBJECT(S)
      * *****
      *****/
-    public void DestroyAllZoomObjects()
+    public void DestroyZoomObjects()
     {
         SetScreenDimmer(false);
         CardZoom.ZoomCardIsCentered = false;

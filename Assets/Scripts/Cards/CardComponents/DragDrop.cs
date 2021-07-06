@@ -107,13 +107,14 @@ public class DragDrop : MonoBehaviour
         cardManager.SetCardParent(gameObject, startParent.transform);
         transform.SetSiblingIndex(startIndex);
 
+        if (gameObject.GetComponent<CardDisplay>() is ActionCardDisplay) IsPlayed = false; // TESTING
         if (IsPlayed) AnimationManager.Instance.RevealedPlayState(gameObject);
         else AnimationManager.Instance.RevealedHandState(gameObject);
     }
 
     public void StartDrag()
     {
-        UIManager.DestroyAllZoomObjects();
+        UIManager.DestroyZoomObjects();
         if (!playerManager.IsMyTurn || CompareTag(ENEMY_CARD) || 
             UIManager.Instance.PlayerIsTargetting) return;
         IsDragging = true;

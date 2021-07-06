@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 51efad6bfc5b70344acf9c2c28efe1a1, type: 3}
-  m_Name: Card3
+  m_Name: Card4
   m_EditorClassIdentifier: 
   CardArt: {fileID: 21300000, guid: 6e6ba03ced6f1cd4face4fe583133f6b, type: 3}
   CardBorder: {fileID: 21300000, guid: da4d9c0ce8b0a5744aac584cd2e675b1, type: 3}
   animatorOverrideController: {fileID: 22100000, guid: 3e98eb671bc6abd4bad7001010bde3b5,
     type: 2}
-  CardName: Sharpen the Edges
+  CardName: 'TEST: Give Ally Stealth'
   CardType: Action
   CardSubType: Skill
   ActionCost: 0
-  CardDescription: Give an ally +1/+0 this turn.
+  CardDescription: Give an ally Stealth until your next turn.
   EffectGroup:
-  - {fileID: 11400000, guid: cf734b6661f205f49900de1ffecb4829, type: 2}
+  - {fileID: 11400000, guid: 6dd3059b1ad0c214295d12aadf901610, type: 2}

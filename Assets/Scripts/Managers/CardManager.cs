@@ -13,9 +13,6 @@ public class CardManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         else Destroy(gameObject);
-
-        while (playerDeck.Count < 30) playerDeck.Add(1); // FOR TESTING ONLY
-        while (enemyDeck.Count < 30) enemyDeck.Add(2); // FOR TESTING ONLY
     }
 
     /* CARD_MANAGER_DATA */
@@ -28,11 +25,13 @@ public class CardManager : MonoBehaviour
     public const string PLAY_ZONE = "PlayZone";
     public const string DISCARD_ZONE = "DiscardZone";
 
+    public const string PLAYER_ACTION_ZONE = "PlayerActionZone";
     public const string PLAYER_HAND = "PlayerHand";
     public const string PLAYER_ZONE = "PlayerZone";
     public const string PLAYER_DISCARD = "PlayerDiscard";
     public const string PLAYER_CHAMPION = "PlayerChampion";
 
+    //public const string ENEMY_ACTION_ZONE = "EnemyActionZone";
     public const string ENEMY_HAND = "EnemyHand";
     public const string ENEMY_ZONE = "EnemyZone";
     public const string ENEMY_DISCARD = "EnemyDiscard";
@@ -44,8 +43,6 @@ public class CardManager : MonoBehaviour
     private const int STARTING_HAND_SIZE = GameManager.STARTING_HAND_SIZE;
     
     /* CARD LISTS */
-    private List<int> playerDeck = new List<int>();
-    private List<int> enemyDeck = new List<int>();
     public List<GameObject> PlayerZoneCards;
     public List<GameObject> EnemyZoneCards;
     public List<GameObject> PlayerHandCards;
@@ -61,11 +58,13 @@ public class CardManager : MonoBehaviour
 
     /* GAME ZONES */
     // PLAYER
+    public GameObject PlayerActionZone { get; private set; }
     public GameObject PlayerHand { get; private set; }
     public GameObject PlayerZone { get; private set; }
     public GameObject PlayerDiscard { get; private set; }
     public GameObject PlayerChampion { get; private set; }
     // ENEMY
+    //public GameObject EnemyActionZone { get; private set; }
     public GameObject EnemyDiscard { get; private set; }
     public GameObject EnemyHand { get; private set; }
     public GameObject EnemyZone { get; private set; }
@@ -80,10 +79,13 @@ public class CardManager : MonoBehaviour
     public void StartGameScene()
     {
         /* GAME_ZONES */
+        PlayerActionZone = GameObject.Find(PLAYER_ACTION_ZONE);
         PlayerHand = GameObject.Find(PLAYER_HAND);
         PlayerZone = GameObject.Find(PLAYER_ZONE);
         PlayerDiscard = GameObject.Find(PLAYER_DISCARD);
         PlayerChampion = GameObject.Find(PLAYER_CHAMPION);
+
+        //EnemyActionZone = GameObject.Find(ENEMY_ACTION_ZONE);
         EnemyHand = GameObject.Find(ENEMY_HAND);
         EnemyZone = GameObject.Find(ENEMY_ZONE);
         EnemyDiscard = GameObject.Find(ENEMY_DISCARD);
@@ -96,8 +98,8 @@ public class CardManager : MonoBehaviour
      * *****
      *****/
     private CardDisplay GetCardDisplay(GameObject card) => card.GetComponent<CardDisplay>();
-    public HeroCardDisplay GetHeroCardDisplay(GameObject heroCard) => (HeroCardDisplay)GetCardDisplay(heroCard);
-    //public ActionCardDisplay GetActionCardDisplay(GameObject actionCard) => (ActionCardDisplay)GetCardDisplay(actionCard);
+    public HeroCardDisplay GetHeroCardDisplay(GameObject heroCard) => GetCardDisplay(heroCard) as HeroCardDisplay;
+    public ActionCardDisplay GetActionCardDisplay(GameObject actionCard) => GetCardDisplay(actionCard) as ActionCardDisplay;
 
     /******
      * *****
@@ -118,22 +120,6 @@ public class CardManager : MonoBehaviour
 
     /******
      * *****
-     * ****** RESET_HERO_CARD
-     * *****
-     *****/
-    private void ResetHeroCard(GameObject card)
-    {
-        HeroCardDisplay hcd = GetHeroCardDisplay(card);
-        HeroCard hc = (HeroCard)hcd.CardScript;
-
-        hcd.SetAttackScore(hc.AttackScore);
-        hcd.SetDefenseScore(hc.DefenseScore);
-        hcd.CanAttack = false;
-        card.GetComponent<DragDrop>().IsPlayed = false;
-    }
-
-    /******
-     * *****
      * ****** IS_PLAYABLE/CAN_ATTACK
      * *****
      *****/
@@ -141,12 +127,19 @@ public class CardManager : MonoBehaviour
     {
         int actionCost = card.GetComponent<CardDisplay>().GetActionCost();
         int playerActionsLeft = PlayerManager.Instance.PlayerActionsLeft;
+        
+        if (card.GetComponent<CardDisplay>() is ActionCardDisplay acd)
+        {
+            if (!EffectManager.Instance.CheckLegalTargets(acd.ActionCardScript.EffectGroup, true))
+                return false;
+        }
 
         if (playerActionsLeft >= actionCost) return true;
         else
         {
-            Debug.LogWarning("[IsPlayable() in CardManager] COULD NOT PLAY! */*/* ActionCost: "
-            + actionCost + " */*/* PlayerActionsLeft: " + PlayerManager.Instance.PlayerActionsLeft);
+            Debug.LogWarning("[IsPlayable() in CardManager] COULD NOT PLAY! // ActionCost: "
+            + actionCost + " // PlayerActionsLeft: " + PlayerManager.Instance.PlayerActionsLeft + 
+            " // IsMyTurn = " + PlayerManager.Instance.IsMyTurn);
             return false;
         }
     }
@@ -184,6 +177,10 @@ public class CardManager : MonoBehaviour
         Transform zoneTran = null;
         switch (zone)
         {
+            case PLAYER_ACTION_ZONE: // TESTING
+                zoneTran = PlayerActionZone.transform;
+                AnimationManager.Instance.PlayedState(card);
+                break;
             case PLAYER_HAND:
                 zoneTran = PlayerHand.transform;
                 AnimationManager.Instance.RevealedHandState(card);
@@ -196,6 +193,11 @@ public class CardManager : MonoBehaviour
                 zoneTran = PlayerDiscard.transform;
                 AnimationManager.Instance.RevealedPlayState(card);
                 break;
+            /*
+            case ENEMY_ACTION_ZONE:
+                zoneTran = EnemyActionZone.transform;
+                AnimationManager.Instance.PlayedState(card);
+            */
             case ENEMY_HAND:
                 zoneTran = EnemyHand.transform;
                 AnimationManager.Instance.HiddenState(card);
@@ -213,7 +215,7 @@ public class CardManager : MonoBehaviour
 
         if (card.TryGetComponent<HeroCardDisplay>(out HeroCardDisplay hcd))
         {
-            if (zone != PLAYER_ZONE && zone != ENEMY_ZONE) ResetHeroCard(card);
+            if (zone != PLAYER_ZONE && zone != ENEMY_ZONE) hcd.ResetHeroCard();
         }
     }
 
@@ -230,13 +232,13 @@ public class CardManager : MonoBehaviour
 
         if (player == PLAYER)
         {
-            deck = playerDeck;
+            deck = PlayerManager.Instance.PlayerDeck;
             cardTag = PLAYER_CARD;
             cardZone = PLAYER_HAND;
         }
         else if (player == ENEMY)
         {
-            deck = enemyDeck;
+            deck = EnemyManager.Instance.EnemyDeck;
             cardTag = ENEMY_CARD;
             cardZone = ENEMY_HAND;
         }
@@ -278,10 +280,20 @@ public class CardManager : MonoBehaviour
         if (player == PLAYER)
         {
             PlayerManager.Instance.PlayerActionsLeft -= card.GetComponent<CardDisplay>().GetActionCost();
-            ChangeCardZone(card, PLAYER_ZONE);
             PlayerHandCards.Remove(card);
-            PlayerZoneCards.Add(card);
-            TriggerCardAbility(card, "Play"); // TESTING
+
+            if (card.GetComponent<CardDisplay>() is HeroCardDisplay)
+            {
+                ChangeCardZone(card, PLAYER_ZONE);
+                PlayerZoneCards.Add(card);
+                TriggerCardAbility(card, "Play");
+            }
+            else if (card.GetComponent<CardDisplay>() is ActionCardDisplay)
+            {
+                ChangeCardZone(card, PLAYER_ACTION_ZONE);
+                ResolveActionCard(card);
+            }
+            else Debug.LogError("CardDisplay type not found!");
         }
         else if (player == ENEMY)
         {
@@ -291,6 +303,12 @@ public class CardManager : MonoBehaviour
             EnemyManager.Instance.EnemyActionsLeft -= card.GetComponent<CardDisplay>().GetActionCost();
             ChangeCardZone(card, ENEMY_ZONE);
         }
+    }
+
+    private void ResolveActionCard(GameObject card)
+    {
+        List<Effect> effectGroup = card.GetComponent<ActionCardDisplay>().ActionCardScript.EffectGroup;
+        EffectManager.Instance.StartEffectGroup(effectGroup, card);
     }
 
     /******
@@ -304,7 +322,6 @@ public class CardManager : MonoBehaviour
         {
             ChangeCardZone(card, PLAYER_DISCARD);
             PlayerZoneCards.Remove(card);
-            Debug.Log("playerZoneCards.Count == " + PlayerZoneCards.Count);
         }
         else if (player == ENEMY)
         {
@@ -416,32 +433,38 @@ public class CardManager : MonoBehaviour
 
     /******
      * *****
-     * ****** CHANGE_STATS
+     * ****** ADD_EFFECT
      * *****
      *****/
-    public void ChangeStats(GameObject heroCard, int changeValue, bool isDefenseChange, bool isTemporary)
+    public void AddEffect(GameObject heroCard, Effect effect) // TESTING
     {
-        if (isDefenseChange)
+        Debug.LogWarning("AddEffect()");
+        HeroCardDisplay hcd = GetHeroCardDisplay(heroCard);
+        // Check for TEMPORARY effect
+        if (effect.Countdown != 0)
         {
-            GetHeroCardDisplay(heroCard).CurrentDefenseScore += changeValue;
-            GetHeroCardDisplay(heroCard).MaxDefenseScore += changeValue;
+            hcd.TemporaryEffects.Add(effect);
+            hcd.EffectCountdowns.Add(effect.Countdown);
         }
-        else
+
+        // STAT_CHANGE_EFFECT
+        if (effect is StatChangeEffect sce)
         {
-            GetHeroCardDisplay(heroCard).CurrentAttackScore += changeValue;
-            if (isTemporary)
+            if (sce.IsDefenseChange)
             {
-                heroCard.GetComponent<HeroCardDisplay>().TemporaryAttackModifier = changeValue;
+                hcd.MaxDefenseScore += sce.Value;
+                hcd.CurrentDefenseScore += sce.Value;
             }
-        }            
+            else hcd.CurrentAttackScore += sce.Value;
+        }
     }
 
     /******
      * *****
-     * ****** REMOVE_TEMPORARY_STATS
+     * ****** REMOVE_TEMPORARY_EFFECTS
      * *****
      *****/
-    public void RemoveTemporaryStats(string player)
+    public void RemoveTemporaryEffects(string player) // TESTING
     {
         List<GameObject> cardZone;
         if (player == PLAYER) cardZone = PlayerZoneCards;
@@ -450,10 +473,38 @@ public class CardManager : MonoBehaviour
         foreach (GameObject go in cardZone)
         {
             HeroCardDisplay hcd = GetHeroCardDisplay(go);
-            if (hcd.TemporaryAttackModifier != 0)
+            if (hcd.TemporaryEffects.Count > 0)
             {
-                hcd.CurrentAttackScore -= hcd.TemporaryAttackModifier;
-                hcd.TemporaryAttackModifier = 0;
+                int countdown = 0;
+                List<int> expiredEffects = new List<int>();
+
+                foreach (Effect effect in hcd.TemporaryEffects)
+                {
+                    if (--hcd.EffectCountdowns[countdown] < 1)
+                    {
+                        expiredEffects.Add(countdown);
+
+                        // STAT_CHANGE_EFFECT
+                        if (effect is StatChangeEffect sce)
+                        {
+                            if (sce.IsDefenseChange)
+                            {
+                                hcd.CurrentDefenseScore -= sce.Value;
+                                hcd.MaxDefenseScore -= sce.Value;
+                            }
+                            else hcd.CurrentAttackScore -= sce.Value;
+                        }
+                    }
+                    countdown++;
+                    Debug.Log("COUNTDOWN for effect <" + effect.ToString() + "> = " + hcd.EffectCountdowns[countdown-1]);
+                }
+
+                expiredEffects.Reverse(); // REMOVE THE HIGHEST INDEXES FIRST, OTHERWISE RESULTS WILL BE INACCURATE
+                foreach (int effect in expiredEffects)
+                {
+                    hcd.CurrentEffects.RemoveAt(effect);
+                    hcd.TemporaryEffects.RemoveAt(effect);
+                }
             }
         }
     }
@@ -463,7 +514,7 @@ public class CardManager : MonoBehaviour
      * ****** REMOVE_TEMPORARY_ABILITIES
      * *****
      *****/
-    public void RemoveTemporaryAbilities(string player)
+    public void RemoveTemporaryAbilities(string player) // TESTING
     {
         List<GameObject> cardZone;
         if (player == PLAYER) cardZone = PlayerZoneCards;
@@ -474,11 +525,28 @@ public class CardManager : MonoBehaviour
             HeroCardDisplay hcd = GetHeroCardDisplay(go);
             if (hcd.TemporaryAbilities.Count > 0)
             {
+                int countdown = 0;
+                List<int> expiredAbilities = new List<int>();
+
                 foreach (CardAbility ca in hcd.TemporaryAbilities)
                 {
-                    hcd.RemoveCurrentAbility(ca);
+                    Debug.Log("Card Ability <" + ca.ToString() + ">");
+                    if (--hcd.AbilityCountdowns[countdown] < 1)
+                    {
+                        Debug.Log("Ability <" + ca.ToString() + "> EXPIRED!");
+                        expiredAbilities.Add(countdown);
+                    }
+                    countdown++;
+                    Debug.Log("COUNTDOWN for ability <" + ca.ToString() + "> = " + hcd.AbilityCountdowns[countdown - 1]);
                 }
-                hcd.TemporaryAbilities.Clear();
+
+                expiredAbilities.Reverse(); // REMOVE THE HIGHEST INDEXES FIRST, OTHERWISE RESULTS WILL BE INACCURATE
+                foreach (int effect in expiredAbilities)
+                {
+                    Debug.Log("Ability <" + hcd.TemporaryAbilities[effect].ToString() + "> REMOVED!");
+                    hcd.RemoveCurrentAbility(hcd.TemporaryAbilities[effect]);
+                    hcd.AbilityCountdowns.RemoveAt(effect);
+                }
             }
         }
     }
@@ -488,17 +556,16 @@ public class CardManager : MonoBehaviour
      * ****** TRIGGER_CARD_ABILITY
      * *****
      *****/
-    public void TriggerCardAbility(GameObject card, string triggerName) // TESTING
+    public void TriggerCardAbility(GameObject card, string triggerName)
     {
         Debug.Log("TriggerCardAbility()");
         foreach (CardAbility cardAbility in card.GetComponent<HeroCardDisplay>().CurrentAbilities)
         {
-            if (cardAbility is TriggeredAbility)
+            if (cardAbility is TriggeredAbility tra)
             {
-                TriggeredAbility tra = cardAbility as TriggeredAbility;
                 if (tra.AbilityTrigger.AbilityName == triggerName)
                 {
-                    EffectManager.Instance.StartNewEffectGroup(tra.EffectGroup); // FOR TESTING ONLY
+                    EffectManager.Instance.StartEffectGroup(tra.EffectGroup);
                 }
             }
         }

@@ -4,5 +4,4 @@ using UnityEngine;
 public class StatChangeEffect : Effect
 {
     public bool IsDefenseChange;
-    public bool IsTemporary;
 }

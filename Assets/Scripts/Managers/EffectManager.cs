@@ -21,6 +21,7 @@ public class EffectManager : MonoBehaviour
     /* CLASS_VARIABLES */
     private List<Effect> currentEffectGroup;
     private int currentEffect;
+    private GameObject currentEffectSource;
     private List<List<GameObject>> legalTargets;
     private List<List<GameObject>> acceptedTargets;
     private List<GameObject> newDrawnCards;
@@ -69,36 +70,59 @@ public class EffectManager : MonoBehaviour
      * ****** START_NEW_EFFECT_GROUP
      * *****
      *****/
-    public void StartNewEffectGroup(List<Effect> effectGroup)
+    public void StartEffectGroup(List<Effect> effectGroup, GameObject effectSource = null)
     {
         Debug.LogWarning("StartNewEffectGroup()");
+        currentEffectSource = effectSource; // TESTING
         currentEffectGroup = effectGroup;
         currentEffect = 0;
-        legalTargets = new List<List<GameObject>>();
-        acceptedTargets = new List<List<GameObject>>();
         newDrawnCards = new List<GameObject>();
 
-        for (int i = 0; i < currentEffectGroup.Count; i++)
+        if (!CheckLegalTargets(currentEffectGroup))
         {
-            Debug.Log("<Effect " + (i + 1) + "> " + currentEffectGroup[i].ToString());
+            AbortEffectGroup();
+            return;
+        }
+        StartNextEffect(true);
+    }
+
+    /******
+     * *****
+     * ****** CHECK_LEGAL_TARGETS
+     * *****
+     *****/
+    public bool CheckLegalTargets(List<Effect> effectGroup, bool preCheck = false)
+    {
+        legalTargets = new List<List<GameObject>>();
+        acceptedTargets = new List<List<GameObject>>();
+
+        for (int i = 0; i < effectGroup.Count; i++)
+        {
+            Debug.Log("<Effect " + (i + 1) + "> <" + effectGroup[i].ToString() + ">");
             legalTargets.Add(new List<GameObject>());
             acceptedTargets.Add(new List<GameObject>());
         }
 
         int n = 0;
-        foreach (Effect effect in currentEffectGroup)
+        foreach (Effect effect in effectGroup)
         {
             if (IsTargetEffect(effect))
             {
                 if (!GetLegalTargets(effect, n))
                 {
-                    AbortEffectGroup();
-                    return;
+                    legalTargets = null;
+                    Debug.LogWarning("CheckLegalTargets() returned FALSE");
+                    return false;
                 }
             }
             n++;
         }
-        StartNextEffect(true);
+        if (preCheck)
+        {
+            legalTargets = null;
+            acceptedTargets = null;
+        }
+        return true;
     }
 
     /******
@@ -108,7 +132,7 @@ public class EffectManager : MonoBehaviour
      *****/
     private bool IsTargetEffect(Effect effect)
     {
-        if (effect is DrawEffect && ((DrawEffect)effect).IsDiscardEffect) return true;
+        if (effect is DrawEffect de && de.IsDiscardEffect) return true;
         else if (effect is DrawEffect) return false;
         else if (effect.TargetsAll || effect.Targets == "Player" || effect.Targets == "Opponent") return false; // TESTING
         else return true;
@@ -122,11 +146,14 @@ public class EffectManager : MonoBehaviour
     private void StartNextEffect(bool isFirstEffect = false)
     {
         if (!isFirstEffect) currentEffect++;
-        Debug.LogWarning("StartNextEffect() #" + (currentEffect + 1) + "/" + currentEffectGroup.Count);
+        
         if (currentEffect < currentEffectGroup.Count)
-            Debug.Log("<Current Effect> " + currentEffectGroup[currentEffect].ToString());
+        {
+            Debug.Log("StartNextEffect() #" + (currentEffect + 1) + "/" + currentEffectGroup.Count + 
+                ": <" + currentEffectGroup[currentEffect].ToString() + ">");
+        }
 
-            if (currentEffect == currentEffectGroup.Count)
+        if (currentEffect == currentEffectGroup.Count)
         {
             ResolveEffectGroup();
             return;
@@ -186,7 +213,7 @@ public class EffectManager : MonoBehaviour
      *****/
     private bool GetLegalTargets(Effect effect, int currentEffect)
     {
-        Debug.LogWarning("GetLegalTargets() [" + effect.ToString() + "]");
+        Debug.Log("GetLegalTargets() <" + effect.ToString() + ">");
 
         List<GameObject> targetZoneCards = null;
 
@@ -254,7 +281,6 @@ public class EffectManager : MonoBehaviour
     private void RejectEffectTarget()
     {
         Debug.LogWarning("RejectEffectTarget()");
-        // UIManager InfoPopup
     }
 
     /******
@@ -300,13 +326,15 @@ public class EffectManager : MonoBehaviour
      *****/
     private void ResolveEffect(List<GameObject> targets, Effect effect)
     {
-        Debug.LogWarning("ResolveEffect()");
-        if (effect is DrawEffect)
+        Debug.Log("ResolveEffect() <" + effect.ToString() + ">");
+        
+        // DRAW
+        if (effect is DrawEffect de)
         {
-            if (((DrawEffect)effect).IsDiscardEffect)
+            if (de.IsDiscardEffect)
             {
                 string player;
-                if (effect.Targets == CardManager.PLAYER_HAND) player = GameManager.PLAYER;
+                if (de.Targets == CardManager.PLAYER_HAND) player = GameManager.PLAYER;
                 else player = GameManager.ENEMY;
                 foreach (GameObject target in targets)
                 {
@@ -314,6 +342,7 @@ public class EffectManager : MonoBehaviour
                 }
             }
         }
+        // DAMAGE
         else if (effect is DamageEffect)
         {
             foreach (GameObject target in targets)
@@ -321,36 +350,33 @@ public class EffectManager : MonoBehaviour
                 CardManager.Instance.TakeDamage(target, effect.Value);
             }
         }
+        // HEALING
         else if (effect is HealingEffect)
         {
 
         }
+        // MARK
         else if (effect is MarkEffect)
         {
 
         }
+        // STAT_CHANGE
         else if (effect is StatChangeEffect)
         {
-            StatChangeEffect sce = effect as StatChangeEffect;
-            if (sce.IsDefenseChange)
-            {
-                if (effect.Value < 0)
-                {
-                    Debug.LogError("StatChangeEffect shouldn't be used to decrease defense! Use TakeDamage() instead");
-                }
-            }
-
             foreach (GameObject target in targets)
             {
-                CardManager.Instance.ChangeStats(target, effect.Value, sce.IsDefenseChange, sce.IsTemporary);
+                CardManager.Instance.AddEffect(target, effect);
             }
         }
-        else if (effect is GiveAbilityEffect)
+        // GIVE_ABILITY
+        else if (effect is GiveAbilityEffect gae)
         {
-            GiveAbilityEffect gae = effect as GiveAbilityEffect;
             foreach (GameObject target in targets)
             {
-                target.GetComponent<HeroCardDisplay>().AddCurrentAbility(gae.CardAbility, gae.IsTemporary);
+                HeroCardDisplay hcd = target.GetComponent<HeroCardDisplay>();
+                if (gae.Countdown != 0) 
+                    hcd.AddTemporaryAbility(gae.CardAbility, gae.Countdown);
+                else hcd.AddCurrentAbility(gae.CardAbility);
             }
         }
     }
@@ -380,9 +406,18 @@ public class EffectManager : MonoBehaviour
     private void AbortEffectGroup()
     {
         Debug.LogWarning("AbortEffectGroup()");
+
+        if (currentEffectSource != null)
+        {
+            string zone;
+            if (currentEffectSource.CompareTag(CardManager.PLAYER_CARD)) zone = CardManager.PLAYER_HAND;
+            else zone = CardManager.ENEMY_HAND;
+            CardManager.Instance.ChangeCardZone(currentEffectSource, zone);
+            AnimationManager.Instance.RevealedHandState(currentEffectSource); // TESTING
+        }
         FinishEffectGroup(true);
     }
-
+    
     /******
      * *****
      * ****** FINISH_EFFECT_GROUP
@@ -390,8 +425,17 @@ public class EffectManager : MonoBehaviour
      *****/
     private void FinishEffectGroup(bool wasAborted = false)
     {
-        if (wasAborted) Debug.LogWarning("FinishEffectGroup(wasAborted = true)");
-        else Debug.LogWarning("FinishEffectGroup(wasAborted = false)");
+        Debug.LogWarning("FinishEffectGroup(wasAborted = " + wasAborted + ")");
+
+        if (currentEffectSource != null && !wasAborted)
+        {
+            string player;
+            if (currentEffectSource.CompareTag(CardManager.PLAYER_CARD)) player = GameManager.PLAYER;
+            else player = GameManager.ENEMY;
+            CardManager.Instance.DiscardCard(currentEffectSource, player);
+        }
+
+        currentEffectSource = null;
         currentEffect = 0;
         currentEffectGroup = null;
         legalTargets = null;

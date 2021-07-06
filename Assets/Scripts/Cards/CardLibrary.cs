@@ -16,8 +16,8 @@ public class CardLibrary : MonoBehaviour
     }
 
     /* CARD_PREFABS */
-    public GameObject HeroCardPrefab;
-    //public GameObject ActionCardPrefab;
+    [SerializeField] private GameObject HeroCardPrefab;
+    [SerializeField] private GameObject ActionCardPrefab;
 
     /* CARD_SCRIPTS_LIST */
     public List<Card> cardScripts = new List<Card>();
@@ -28,10 +28,11 @@ public class CardLibrary : MonoBehaviour
 
         GameObject cardPrefab = null;
         if (cardScript is HeroCard) cardPrefab = HeroCardPrefab;
-        //else if (cardScript is ActionCard) cardPrefab = ActionPrefab; // ActionCardPrefab NEEDED
+        else if (cardScript is ActionCard) cardPrefab = ActionCardPrefab;
 
         cardPrefab = Instantiate(cardPrefab, new Vector3(0, 0, -1), Quaternion.identity);
         cardPrefab.GetComponent<CardDisplay>().CardScript = cardScript;
         return cardPrefab;
     }
 }
+ 

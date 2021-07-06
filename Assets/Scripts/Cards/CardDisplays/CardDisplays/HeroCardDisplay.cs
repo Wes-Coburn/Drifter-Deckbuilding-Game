@@ -29,7 +29,6 @@ public class HeroCardDisplay : CardDisplay
             SetAttackScore(CurrentAttackScore);
         }
     }
-    public int TemporaryAttackModifier { get; set; }
 
     /* DEFENSE_SCORE */
     [SerializeField] private GameObject defenseScoreDisplay;
@@ -59,10 +58,17 @@ public class HeroCardDisplay : CardDisplay
         }
     }
 
+    /* EFFECTS */
+    public List<Effect> CurrentEffects; // TESTING
+    public List<Effect> TemporaryEffects; // TESTING
+    public List<int> EffectCountdowns; // TESTING
+
     /* ABILITIES */
     public List<CardAbility> CurrentAbilities;
     public List<GameObject> AbilityIcons;
     public List<CardAbility> TemporaryAbilities; // TESTING
+    public List<int> AbilityCountdowns; // TESTING
+
     [SerializeField] private GameObject currentAbilitiesDisplay;
     
     /* EXHAUSTED_ICON */
@@ -88,7 +94,6 @@ public class HeroCardDisplay : CardDisplay
         base.DisplayCard();
         SetLevelUpCondition("Level Up: " + HeroCardScript.XPCondition);
         SetAttackScore(HeroCardScript.AttackScore);
-        TemporaryAttackModifier = 0; // Necessary?
 
         MaxDefenseScore = HeroCardScript.DefenseScore;
         CurrentDefenseScore = MaxDefenseScore;
@@ -96,7 +101,7 @@ public class HeroCardDisplay : CardDisplay
         foreach (CardAbility cardAbility in HeroCardScript.Level1Abilities)
         {
             if (cardAbility == null) continue; // Skip empty abilities
-            AddCurrentAbility(cardAbility, false);
+            AddCurrentAbility(cardAbility);
         }
     }
 
@@ -112,8 +117,8 @@ public class HeroCardDisplay : CardDisplay
         SetLevelUpCondition(hcd.GetLevelUpCondition());
         SetAttackScore(hcd.GetAttackScore());
 
-        CurrentDefenseScore = hcd.CurrentDefenseScore;
         MaxDefenseScore = hcd.MaxDefenseScore;
+        CurrentDefenseScore = hcd.CurrentDefenseScore;
 
         foreach (CardAbility cardAbility in hcd.CurrentAbilities)
         {
@@ -124,15 +129,49 @@ public class HeroCardDisplay : CardDisplay
 
     /******
      * *****
+     * ****** RESET_HERO_CARD
+     * *****
+     *****/
+    public void ResetHeroCard() // TESTING
+    {
+        CanAttack = false;
+        gameObject.GetComponent<DragDrop>().IsPlayed = false;
+
+        foreach (GameObject go in AbilityIcons) Destroy(go);
+        CurrentEffects.Clear();
+        TemporaryEffects.Clear();
+        EffectCountdowns.Clear();
+        CurrentAbilities.Clear();
+        AbilityIcons.Clear();
+        TemporaryAbilities.Clear();
+        AbilityCountdowns.Clear();
+
+        DisplayCard();
+    }
+
+    /******
+     * *****
      * ****** ADD_CURRENT_ABILITY
      * *****
      *****/
-    public void AddCurrentAbility(CardAbility cardAbility, bool isTemporary)
+    public bool AddCurrentAbility(CardAbility ca)
     {
-        if (CurrentAbilities.Contains(cardAbility)) return; // TESTING
-        CurrentAbilities.Add(cardAbility);        
-        AbilityIcons.Add(CreateAbilityIcon(cardAbility));
-        if (isTemporary) TemporaryAbilities.Add(cardAbility); // TESTING
+        if (CurrentAbilities.Contains(ca)) return false;
+        CurrentAbilities.Add(ca);        
+        AbilityIcons.Add(CreateAbilityIcon(ca));
+        return true;
+    }
+
+    /******
+     * *****
+     * ****** ADD_TEMORARY_ABILITY
+     * *****
+     *****/
+    public void AddTemporaryAbility(CardAbility ca, int countdown) // TESTING
+    {
+        if (!AddCurrentAbility(ca)) return;
+        TemporaryAbilities.Add(ca);
+        AbilityCountdowns.Add(countdown);
     }
 
     /******
@@ -142,11 +181,12 @@ public class HeroCardDisplay : CardDisplay
      *****/
     public void RemoveCurrentAbility(CardAbility cardAbility)
     {
-        if (!CurrentAbilities.Contains(cardAbility)) return; // TESTING
+        if (!CurrentAbilities.Contains(cardAbility)) return;
         int abilityIndex = CurrentAbilities.FindIndex(x => x.AbilityName == cardAbility.AbilityName);
         Destroy(AbilityIcons[abilityIndex]);
         AbilityIcons.RemoveAt(abilityIndex);
         CurrentAbilities.RemoveAt(abilityIndex);
+        if (TemporaryAbilities.Contains(cardAbility)) TemporaryAbilities.Remove(cardAbility); // TESTING
     }
 
     /******

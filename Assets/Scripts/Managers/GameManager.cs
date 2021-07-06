@@ -71,32 +71,32 @@ public class GameManager : MonoBehaviour
      * ****** START/END_TURN
      * *****
      *****/
-    private void StartTurn(string activePlayer)
+    private void StartTurn(string player)
     {
-        if (activePlayer == PLAYER)
+        Debug.LogWarning("StartTurn(" + player + ")");
+        if (player == PLAYER)
         {
             playerManager.IsMyTurn = true;
             enemyManager.IsMyTurn = false;
             UIManager.UpdateEndTurnButton(playerManager.IsMyTurn);
             PlayerManager.Instance.PlayerActionsLeft += ACTIONS_PER_TURN;
-            cardManager.RefreshCards(activePlayer);
-            FunctionTimer.Create(() => cardManager.DrawCard(activePlayer), 1f);
+            cardManager.RefreshCards(player);
+            FunctionTimer.Create(() => cardManager.DrawCard(player), 1f);
         }
-        else if (activePlayer == ENEMY)
+        else if (player == ENEMY)
         {
             playerManager.IsMyTurn = false;
             enemyManager.IsMyTurn = true;
             UIManager.UpdateEndTurnButton(playerManager.IsMyTurn);
             EnemyManager.Instance.EnemyActionsLeft += ACTIONS_PER_TURN;
-            cardManager.RefreshCards(activePlayer);
+            cardManager.RefreshCards(player);
 
             // Timed Actions
-            FunctionTimer.Create(() => cardManager.DrawCard(activePlayer), 1f);
+            FunctionTimer.Create(() => cardManager.DrawCard(player), 1f);
             FunctionTimer.Create(() => cardManager.PlayCard(null, ENEMY), 2f);
 
             // ENEMY ATTACK
             float delay = 4f;
-            
             void EnemyAttack(GameObject enemyHero)
             {
                 if (cardManager.PlayerZoneCards.Count > 0)
@@ -121,10 +121,15 @@ public class GameManager : MonoBehaviour
 
     public void EndTurn(string player)
     {
-        //CardManager.Instance.RemoveTemporaryStats(player);
-        //CardManager.Instance.RemoveTemporaryAbilities(player);
+        Debug.LogWarning("EndTurn(" + player + ")");
+
+        CardManager.Instance.RemoveTemporaryEffects(PLAYER); // TESTING
+        CardManager.Instance.RemoveTemporaryAbilities(PLAYER); // TESTING
+
+        CardManager.Instance.RemoveTemporaryEffects(ENEMY); // TESTING
+        CardManager.Instance.RemoveTemporaryAbilities(ENEMY); // TESTING
+
         if (player == "Enemy") StartTurn(PLAYER);
         else if (player == "Player") StartTurn(ENEMY);
-        Debug.LogWarning("END TURN: " + player);
     }
 }

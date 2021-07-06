@@ -4,5 +4,4 @@ using UnityEngine;
 public class GiveAbilityEffect : Effect
 {
     public CardAbility CardAbility;
-    public bool IsTemporary;
 }
