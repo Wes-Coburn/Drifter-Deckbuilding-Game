@@ -356,7 +356,7 @@ public class CardManager : MonoBehaviour
      *****/
     public void Attack(GameObject attacker, GameObject defender)
     {
-        int AttackingHeroAttackScore = GetHeroCardDisplay(attacker).GetAttackScore();
+        int AttackingHeroAttackScore = GetHeroCardDisplay(attacker).CurrentAttackScore;
         TakeDamage(defender, AttackingHeroAttackScore);
         SetExhausted(attacker, true);
     }
@@ -436,7 +436,7 @@ public class CardManager : MonoBehaviour
      * ****** ADD_EFFECT
      * *****
      *****/
-    public void AddEffect(GameObject heroCard, Effect effect) // TESTING
+    public void AddEffect(GameObject heroCard, Effect effect)
     {
         Debug.LogWarning("AddEffect()");
         HeroCardDisplay hcd = GetHeroCardDisplay(heroCard);
@@ -450,13 +450,18 @@ public class CardManager : MonoBehaviour
         // STAT_CHANGE_EFFECT
         if (effect is StatChangeEffect sce)
         {
+            Debug.Log("StatChangeEffect! Value: " + sce.Value);
             if (sce.IsDefenseChange)
             {
                 hcd.MaxDefenseScore += sce.Value;
                 hcd.CurrentDefenseScore += sce.Value;
             }
-            else hcd.CurrentAttackScore += sce.Value;
+            else
+            {
+                hcd.CurrentAttackScore += sce.Value;
+            }
         }
+        else Debug.LogError("Effect type not found!");
     }
 
     /******
@@ -464,7 +469,7 @@ public class CardManager : MonoBehaviour
      * ****** REMOVE_TEMPORARY_EFFECTS
      * *****
      *****/
-    public void RemoveTemporaryEffects(string player) // TESTING
+    public void RemoveTemporaryEffects(string player)
     {
         List<GameObject> cardZone;
         if (player == PLAYER) cardZone = PlayerZoneCards;
@@ -496,14 +501,17 @@ public class CardManager : MonoBehaviour
                         }
                     }
                     countdown++;
-                    Debug.Log("COUNTDOWN for effect <" + effect.ToString() + "> = " + hcd.EffectCountdowns[countdown-1]);
+                    Debug.Log("COUNTDOWN FOR EFFECT <" + effect.ToString() + "> = " + hcd.EffectCountdowns[countdown-1]);
                 }
 
                 expiredEffects.Reverse(); // REMOVE THE HIGHEST INDEXES FIRST, OTHERWISE RESULTS WILL BE INACCURATE
                 foreach (int effect in expiredEffects)
                 {
-                    hcd.CurrentEffects.RemoveAt(effect);
+                    Debug.LogWarning("EFFECT REMOVED: <" + hcd.TemporaryEffects[effect].ToString() + ">");
+                    hcd.CurrentEffects.Remove(hcd.TemporaryEffects[effect]);
                     hcd.TemporaryEffects.RemoveAt(effect);
+                    hcd.EffectCountdowns.RemoveAt(effect);
+                    Debug.Log("Current Effects: " + hcd.CurrentEffects.Count + " // Temporary Effects: " + hcd.TemporaryEffects.Count + " // Effect Countdowns: " + hcd.EffectCountdowns.Count);
                 }
             }
         }
@@ -514,7 +522,7 @@ public class CardManager : MonoBehaviour
      * ****** REMOVE_TEMPORARY_ABILITIES
      * *****
      *****/
-    public void RemoveTemporaryAbilities(string player) // TESTING
+    public void RemoveTemporaryAbilities(string player)
     {
         List<GameObject> cardZone;
         if (player == PLAYER) cardZone = PlayerZoneCards;
@@ -530,22 +538,22 @@ public class CardManager : MonoBehaviour
 
                 foreach (CardAbility ca in hcd.TemporaryAbilities)
                 {
-                    Debug.Log("Card Ability <" + ca.ToString() + ">");
                     if (--hcd.AbilityCountdowns[countdown] < 1)
                     {
-                        Debug.Log("Ability <" + ca.ToString() + "> EXPIRED!");
+                        Debug.Log("ABILITY EXPIRED: <" + ca.ToString() + ">");
                         expiredAbilities.Add(countdown);
                     }
+                    Debug.Log("COUNTDOWN FOR ABILITY <" + ca.ToString() + "> = " + hcd.AbilityCountdowns[countdown]);
                     countdown++;
-                    Debug.Log("COUNTDOWN for ability <" + ca.ToString() + "> = " + hcd.AbilityCountdowns[countdown - 1]);
                 }
 
                 expiredAbilities.Reverse(); // REMOVE THE HIGHEST INDEXES FIRST, OTHERWISE RESULTS WILL BE INACCURATE
-                foreach (int effect in expiredAbilities)
+                foreach (int ability in expiredAbilities)
                 {
-                    Debug.Log("Ability <" + hcd.TemporaryAbilities[effect].ToString() + "> REMOVED!");
-                    hcd.RemoveCurrentAbility(hcd.TemporaryAbilities[effect]);
-                    hcd.AbilityCountdowns.RemoveAt(effect);
+                    Debug.Log("ABILITY REMOVED: " + hcd.TemporaryAbilities[ability].ToString() + ">");
+                    hcd.RemoveCurrentAbility(hcd.TemporaryAbilities[ability]);
+                    hcd.AbilityCountdowns.RemoveAt(ability);
+                    Debug.Log("Current Abilities: " + hcd.CurrentAbilities.Count + " // Temporary Abilities: " + hcd.TemporaryAbilities.Count + " // Abillity Countdowns: " + hcd.AbilityCountdowns.Count);
                 }
             }
         }

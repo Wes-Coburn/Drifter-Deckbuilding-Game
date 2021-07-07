@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7808091029000251774}
   - component: {fileID: 8363440358955206780}
-  - component: {fileID: 640734440168899779}
   m_Layer: 8
   m_Name: EnemyZone
   m_TagString: Untagged
@@ -61,29 +60,3 @@ MonoBehaviour:
   m_Spacing: {x: 110, y: 0}
   m_Constraint: 2
   m_ConstraintCount: 1
---- !u!61 &640734440168899779
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2202367453242762626}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1200, y: 100}
-  m_EdgeRadius: 0

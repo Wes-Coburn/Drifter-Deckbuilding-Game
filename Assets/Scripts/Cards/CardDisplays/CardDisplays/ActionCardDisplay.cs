@@ -19,6 +19,7 @@ public class ActionCardDisplay : CardDisplay
     protected override void DisplayCard()
     {
         base.DisplayCard();
+        /* CardDescription */
         cardDescription.GetComponent<TextMeshPro>().SetText(CardScript.CardDescription);
     }
 
@@ -30,7 +31,8 @@ public class ActionCardDisplay : CardDisplay
     public override void DisplayZoomCard(GameObject parentCard)
     {
         base.DisplayZoomCard(parentCard);
+        /* CardDescription */
         ActionCardDisplay acd = parentCard.GetComponent<CardDisplay>() as ActionCardDisplay;
-        acd.cardDescription.GetComponent<TextMeshPro>().SetText(acd.CardScript.CardDescription);
+        cardDescription.GetComponent<TextMeshPro>().SetText(acd.CardScript.CardDescription);
     }
 }

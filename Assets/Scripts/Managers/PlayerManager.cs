@@ -21,6 +21,7 @@ public class PlayerManager : MonoBehaviour
         while (PlayerDeck.Count < 30) // FOR TESTING ONLY
         {
             PlayerDeck.Add(1);
+            PlayerDeck.Add(3);
             PlayerDeck.Add(4);
         }
     }

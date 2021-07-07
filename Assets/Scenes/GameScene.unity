@@ -773,16 +773,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 920675848}
     m_Modifications:
-    - target: {fileID: -1680872685912370079, guid: 3750063164f865a4ebb8b9012fa96411,
-        type: 3}
-      propertyPath: sceneId
-      value: 1646070638
-      objectReference: {fileID: 0}
-    - target: {fileID: -1680872685912370079, guid: 3750063164f865a4ebb8b9012fa96411,
-        type: 3}
-      propertyPath: m_AssetId
-      value: 3750063164f865a4ebb8b9012fa96411
-      objectReference: {fileID: 0}
     - target: {fileID: 2202367453242762626, guid: 3750063164f865a4ebb8b9012fa96411,
         type: 3}
       propertyPath: m_Name
@@ -893,10 +883,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: -1680872685912370079, guid: 3750063164f865a4ebb8b9012fa96411, type: 3}
-    - {fileID: 3435328197140249821, guid: 3750063164f865a4ebb8b9012fa96411, type: 3}
-    - {fileID: 1184268768, guid: 3750063164f865a4ebb8b9012fa96411, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3750063164f865a4ebb8b9012fa96411, type: 3}
 --- !u!224 &1184268766 stripped
 RectTransform:
@@ -2705,6 +2692,36 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 8203696949116091934}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8203696949116091936 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1100925430530685197, guid: 59920ea9842fb3342bed09738989f03f,
+    type: 3}
+  m_PrefabInstance: {fileID: 8203696949116091934}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8203696949116091937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8203696949116091936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 100, y: 100}
+  m_Spacing: {x: 0, y: 0}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1001 &8692342332101200416
 PrefabInstance:
   m_ObjectHideFlags: 0

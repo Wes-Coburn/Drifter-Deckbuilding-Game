@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5007626745671263025}
-  - component: {fileID: 4449494400248180894}
-  - component: {fileID: 1504374510475040675}
+  - component: {fileID: 2910735252362079793}
+  - component: {fileID: 611680606333102166}
   m_Layer: 9
   m_Name: CardDescription
   m_TagString: Untagged
@@ -37,7 +37,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -30}
   m_SizeDelta: {x: 70, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!23 &4449494400248180894
+--- !u!23 &2910735252362079793
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -78,7 +78,7 @@ MeshRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 3
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1504374510475040675
+--- !u!114 &611680606333102166
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
-  m_renderer: {fileID: 4449494400248180894}
+  m_renderer: {fileID: 2910735252362079793}
   m_maskType: 0
   _SortingLayerID: 1345860719
   _SortingOrder: 3
@@ -884,11 +884,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1672ef909a81e8d44b4442c48a1b4fe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CardName: {fileID: 8062437269020620522}
-  CardArt: {fileID: 5007104075117306369}
-  CardBorder: {fileID: 5784151646588659182}
-  CardTypeLine: {fileID: 1882966409792126498}
-  ActionCost: {fileID: 7334756111360048637}
+  cardName: {fileID: 8062437269020620522}
+  cardArt: {fileID: 5007104075117306369}
+  cardBorder: {fileID: 5784151646588659182}
+  cardTypeLine: {fileID: 1882966409792126498}
+  actionCost: {fileID: 7334756111360048637}
   cardDescription: {fileID: 1692791760817870814}
 --- !u!1 &7334756111360048637
 GameObject:

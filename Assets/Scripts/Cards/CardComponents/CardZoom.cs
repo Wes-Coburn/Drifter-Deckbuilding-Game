@@ -207,12 +207,12 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
 
     /******
      * *****
-     * ****** CREATE_LORE_POPUP
+     * ****** CREATE_DESCRIPTION_POPUP
      * *****
      *****/
     private void CreateDescriptionPopup(Vector2 vec2, float scaleValue)
     {
         DescriptionPopup = CreateZoomObject(descriptionPopupPrefab, new Vector3(vec2.x, vec2.y, 0), background.transform, scaleValue);
-        DescriptionPopup.GetComponent<LorePopupDisplay>().DisplayLorePopup(cardDisplay.CardScript.CardDescription);
+        DescriptionPopup.GetComponent<DescriptionPopupDisplay>().DisplayDescriptionPopup(cardDisplay.CardScript.CardDescription);
     }
 }

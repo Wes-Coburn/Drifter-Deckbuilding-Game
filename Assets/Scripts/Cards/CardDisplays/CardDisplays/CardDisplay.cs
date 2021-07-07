@@ -16,12 +16,12 @@ public abstract class CardDisplay : MonoBehaviour
     }
     /* CARD_DATA */
     private Animator animator;
-    [SerializeField] private GameObject CardName;
-    [SerializeField] private GameObject CardArt;
-    [SerializeField] private GameObject CardBorder;
-    [SerializeField] private GameObject CardTypeLine;
-    [SerializeField] private GameObject ActionCost;
-
+    [SerializeField] private GameObject cardName;
+    [SerializeField] private GameObject cardArt;
+    [SerializeField] private GameObject cardBorder;
+    [SerializeField] private GameObject cardTypeLine;
+    [SerializeField] private GameObject actionCost;
+    
     /******
      * *****
      * ****** DISPLAY_CARD
@@ -36,8 +36,8 @@ public abstract class CardDisplay : MonoBehaviour
         /* ActionCost */
         SetActionCost(cardScript.ActionCost);
         /* Sprites */
-        CardArt.GetComponent<SpriteRenderer>().sprite = CardScript.CardArt;
-        CardBorder.GetComponent<SpriteRenderer>().sprite = CardScript.CardBorder;
+        cardArt.GetComponent<SpriteRenderer>().sprite = CardScript.CardArt;
+        cardBorder.GetComponent<SpriteRenderer>().sprite = CardScript.CardBorder;
         /* Animations */
         animator = gameObject.GetComponent<Animator>();
         animator.runtimeAnimatorController = CardScript.animatorOverrideController;
@@ -54,8 +54,8 @@ public abstract class CardDisplay : MonoBehaviour
         SetCardName(cd.GetCardName());
         SetCardTypeLine(cd.GetCardType(), cd.GetCardSubType());
         SetActionCost(cd.GetActionCost());
-        CardArt.GetComponent<SpriteRenderer>().sprite = cd.CardArt.GetComponent<SpriteRenderer>().sprite;
-        CardBorder.GetComponent<SpriteRenderer>().sprite = cd.CardBorder.GetComponent<SpriteRenderer>().sprite;
+        cardArt.GetComponent<SpriteRenderer>().sprite = cd.cardArt.GetComponent<SpriteRenderer>().sprite;
+        cardBorder.GetComponent<SpriteRenderer>().sprite = cd.cardBorder.GetComponent<SpriteRenderer>().sprite;
     }
 
     /******
@@ -63,17 +63,17 @@ public abstract class CardDisplay : MonoBehaviour
      * ****** SETTERS/GETTERS
      * *****
      *****/
-    public void SetCardName(string cardName) => CardName.GetComponent<TextMeshPro>().text = cardName;
-    public void SetCardArt(Sprite cardArt) => CardArt.GetComponent<SpriteRenderer>().sprite = cardArt;
-    public string GetCardName() => CardName.GetComponent<TextMeshPro>().text;
+    public void SetCardName(string cardName) => this.cardName.GetComponent<TextMeshPro>().text = cardName;
+    public void SetCardArt(Sprite cardArt) => this.cardArt.GetComponent<SpriteRenderer>().sprite = cardArt;
+    public string GetCardName() => cardName.GetComponent<TextMeshPro>().text;
     public void SetCardTypeLine(string cardType, string cardSubType)
     {
         string separator = " ";
         if (!string.IsNullOrEmpty(cardSubType)) separator = " - ";
-        CardTypeLine.GetComponent<TextMeshPro>().text = cardType + separator + cardSubType;
+        cardTypeLine.GetComponent<TextMeshPro>().text = cardType + separator + cardSubType;
     }
     public string GetCardType() => CardScript.CardType;
     public string GetCardSubType() => CardScript.CardSubType;
-    public void SetActionCost(int actionCost) => ActionCost.GetComponent<TextMeshPro>().text = actionCost.ToString();
-    public int GetActionCost() => System.Convert.ToInt32(ActionCost.GetComponent<TextMeshPro>().text);
+    public void SetActionCost(int actionCost) => this.actionCost.GetComponent<TextMeshPro>().text = actionCost.ToString();
+    public int GetActionCost() => System.Convert.ToInt32(actionCost.GetComponent<TextMeshPro>().text);
 }

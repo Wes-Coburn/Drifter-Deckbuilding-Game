@@ -93,8 +93,8 @@ public class HeroCardDisplay : CardDisplay
     {
         base.DisplayCard();
         SetLevelUpCondition("Level Up: " + HeroCardScript.XPCondition);
-        SetAttackScore(HeroCardScript.AttackScore);
-
+        
+        CurrentAttackScore = HeroCardScript.AttackScore;
         MaxDefenseScore = HeroCardScript.DefenseScore;
         CurrentDefenseScore = MaxDefenseScore;
         
@@ -115,8 +115,8 @@ public class HeroCardDisplay : CardDisplay
         base.DisplayZoomCard(parentCard);
         HeroCardDisplay hcd = parentCard.GetComponent<CardDisplay>() as HeroCardDisplay;
         SetLevelUpCondition(hcd.GetLevelUpCondition());
-        SetAttackScore(hcd.GetAttackScore());
-
+        
+        CurrentAttackScore = hcd.CurrentAttackScore;
         MaxDefenseScore = hcd.MaxDefenseScore;
         CurrentDefenseScore = hcd.CurrentDefenseScore;
 
@@ -186,7 +186,7 @@ public class HeroCardDisplay : CardDisplay
         Destroy(AbilityIcons[abilityIndex]);
         AbilityIcons.RemoveAt(abilityIndex);
         CurrentAbilities.RemoveAt(abilityIndex);
-        if (TemporaryAbilities.Contains(cardAbility)) TemporaryAbilities.Remove(cardAbility); // TESTING
+        if (TemporaryAbilities.Contains(cardAbility)) TemporaryAbilities.Remove(cardAbility);
     }
 
     /******
@@ -208,13 +208,11 @@ public class HeroCardDisplay : CardDisplay
      * ****** GETTERS/SETTERS
      * *****
      *****/
-    public int GetDefenseScore() => System.Convert.ToInt32(defenseScoreDisplay.GetComponent<TextMeshPro>().text);
     public void SetDefenseScore(int newScore)
     {
         TextMeshPro txtPro = defenseScoreDisplay.GetComponent<TextMeshPro>();
         txtPro.SetText(newScore.ToString());
     }
-    public int GetAttackScore() => System.Convert.ToInt32(attackScoreDisplay.GetComponent<TextMeshPro>().text);
     public void SetAttackScore(int newScore)
     {
         TextMeshPro txtPro = attackScoreDisplay.GetComponent<TextMeshPro>();
