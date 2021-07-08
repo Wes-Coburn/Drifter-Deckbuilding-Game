@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour
 
             foreach (GameObject enemyHero in cardManager.EnemyZoneCards)
             {
-                if (cardManager.CanAttack(enemyHero))
+                if (!enemyHero.GetComponent<FollowerCardDisplay>().IsExhausted)
                 {
                     FunctionTimer.Create(() => EnemyAttack(enemyHero), delay);
                     delay += 2f;

@@ -25,14 +25,29 @@ public class CardLibrary : MonoBehaviour
     {
         cardID--;
         Card cardScript = cardScripts[cardID];
+        Card cardInstance = null;
 
         GameObject cardPrefab = null;
-        if (cardScript is FollowerCard) cardPrefab = FollowerCardPrefab;
-        else if (cardScript is ActionCard) cardPrefab = ActionCardPrefab;
-        else Debug.LogError("Card Type NOT FOUND!");
+        if (cardScript is FollowerCard)
+        {
+            cardPrefab = FollowerCardPrefab;
+            cardInstance = ScriptableObject.CreateInstance<FollowerCard>();
+        }
+        else if (cardScript is ActionCard)
+        {
+            cardPrefab = ActionCardPrefab;
+            cardInstance = ScriptableObject.CreateInstance<ActionCard>();
+        }
+        else
+        {
+            Debug.LogError("Card Type NOT FOUND!");
+            return null;
+        }
+
+        cardInstance.LoadCard(cardScript);
 
         cardPrefab = Instantiate(cardPrefab, new Vector3(0, 0, -1), Quaternion.identity);
-        cardPrefab.GetComponent<CardDisplay>().CardScript = cardScript;
+        cardPrefab.GetComponent<CardDisplay>().CardScript = cardInstance;
         return cardPrefab;
     }
 }

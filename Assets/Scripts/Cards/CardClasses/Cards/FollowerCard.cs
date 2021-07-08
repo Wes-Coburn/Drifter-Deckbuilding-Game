@@ -23,4 +23,15 @@ public class FollowerCard : Card
 
     public List<CardAbility> Level2Abilities { get => level2Abiliites; }
     [SerializeField] private List<CardAbility> level2Abiliites;
+
+    public override void LoadCard(Card card)
+    {
+        base.LoadCard(card);
+        FollowerCard fc = card as FollowerCard;
+        levelUpCondition = fc.LevelUpCondition;
+        power = fc.StartPower;
+        defense = fc.StartDefense;
+        level1Abilities = fc.Level1Abilities;
+        level2Abiliites = fc.Level2Abilities;
+    }
 }

@@ -93,6 +93,12 @@ public class EffectManager : MonoBehaviour
      *****/
     public bool CheckLegalTargets(List<Effect> effectGroup, bool preCheck = false)
     {
+        if (effectGroup.Count < 1)
+        {
+            Debug.LogError("Effect Group is EMPTY!");
+            return false;
+        }
+
         legalTargets = new List<List<GameObject>>();
         acceptedTargets = new List<List<GameObject>>();
 

@@ -26,4 +26,16 @@ public abstract class Card : ScriptableObject
 
     public AnimatorOverrideController AnimatorOverrideController { get => animatorOverrideController; }
     [SerializeField] private AnimatorOverrideController animatorOverrideController;
+
+    public virtual void LoadCard(Card card)
+    {
+        cardArt = card.CardArt;
+        cardBorder = card.CardBorder;
+        actionCost = card.StartActionCost;
+        cardName = card.CardName;
+        cardType = card.CardType;
+        cardSubType = card.CardSubType;
+        cardDescription = card.CardDescription;
+        animatorOverrideController = card.AnimatorOverrideController;
+    }
 }

@@ -21,10 +21,6 @@ public class CardManager : MonoBehaviour
     public const string PLAYER_CARD = "PlayerCard";
     public const string ENEMY_CARD = "EnemyCard";
 
-    public const string HAND_ZONE = "HandZone";
-    public const string PLAY_ZONE = "PlayZone";
-    public const string DISCARD_ZONE = "DiscardZone";
-
     public const string PLAYER_ACTION_ZONE = "PlayerActionZone";
     public const string PLAYER_HAND = "PlayerHand";
     public const string PLAYER_ZONE = "PlayerZone";
@@ -92,6 +88,8 @@ public class CardManager : MonoBehaviour
         EnemyChampion = GameObject.Find(ENEMY_CHAMPION);
     }
 
+    public FollowerCardDisplay GetFollowerCardDisplay(GameObject card) => card.GetComponent<CardDisplay>() as FollowerCardDisplay;
+
     /******
      * *****
      * ****** ADD_CARD
@@ -99,58 +97,39 @@ public class CardManager : MonoBehaviour
      *****/
     public void AddCard(Card card, string player)
     {
-        List<CardDisplay> deck = null;
-        CardDisplay cd = null;
-
+        List<Card> deck = null;
+        Card cardInstance = null;
+        
         if (player == GameManager.PLAYER) deck = PlayerManager.Instance.PlayerDeck2;
         else if (player == GameManager.ENEMY) deck = EnemyManager.Instance.EnemyDeck2;
         else Debug.LogError("Player NOT FOUND!");
 
-        if (card is FollowerCard)
-        {
-            FollowerCardDisplay fcd = new FollowerCardDisplay();
-            cd = fcd;
-        }
-        else if (card is ActionCard)
-        {
-            ActionCardDisplay acd = new ActionCardDisplay();
-            cd = acd;
-        }
+        if (card is FollowerCard) cardInstance = ScriptableObject.CreateInstance<FollowerCard>();
+        else if (card is ActionCard) cardInstance = ScriptableObject.CreateInstance<ActionCard>();
         else Debug.LogError("Card Type NOT FOUND!");
 
-        if (deck != null && cd != null) deck.Add(cd);
-        else Debug.LogError("Deck or CardDisplay was NULL!");
-    }
+        cardInstance.LoadCard(card);
 
+        if (deck != null && cardInstance != null) deck.Add(cardInstance);
+        else Debug.LogError("Deck or Card was NULL!");
+    }
+        
     /******
      * *****
-     * ****** GET_CARD_DISPLAYS
+     * ****** REFRESH_CARDS
      * *****
      *****/
-    private CardDisplay GetCardDisplay(GameObject card) => card.GetComponent<CardDisplay>();
-    public FollowerCardDisplay GetFollowerCardDisplay(GameObject heroCard) => GetCardDisplay(heroCard) as FollowerCardDisplay;
-    public ActionCardDisplay GetActionCardDisplay(GameObject actionCard) => GetCardDisplay(actionCard) as ActionCardDisplay;
-
-    /******
-     * *****
-     * ****** SET_EXHAUSTED/REFRESH_CARDS
-     * *****
-     *****/
-    private void SetExhausted(GameObject heroCard, bool exhausted)
-    {
-        heroCard.GetComponent<FollowerCardDisplay>().IsExhausted = exhausted;
-    }
     public void RefreshCards(string player)
     {
         List<GameObject> cardZoneList = null;
         if (player == PLAYER) cardZoneList = PlayerZoneCards;
         else if (player == ENEMY) cardZoneList = EnemyZoneCards;
-        foreach (GameObject card in cardZoneList) SetExhausted(card, false);
+        foreach (GameObject card in cardZoneList) card.GetComponent<FollowerCardDisplay>().IsExhausted = false;
     }
 
     /******
      * *****
-     * ****** IS_PLAYABLE/CAN_ATTACK
+     * ****** IS_PLAYABLE/IS_EXHAUSTED
      * *****
      *****/
     public bool IsPlayable(GameObject card)
@@ -173,15 +152,6 @@ public class CardManager : MonoBehaviour
             return false;
         }
     }
-    public bool CanAttack(GameObject heroCard)
-    {
-        if (heroCard.GetComponent<FollowerCardDisplay>().IsExhausted)
-        {
-            Debug.LogWarning("[CanAttack() in CardManager] IsExhausted = TRUE!");
-            return false;
-        }
-        else return true;
-    }
 
     /******
      * *****
@@ -194,7 +164,17 @@ public class CardManager : MonoBehaviour
         float xPos = card.transform.position.x;
         float yPos = card.transform.position.y;
         card.transform.position = new Vector3(xPos, yPos, -2);
-        card.GetComponent<ChangeLayer>().CardsLayer(); // Unnecessary?
+
+        // UNNECESSARY???
+        if (card.TryGetComponent<FollowerCardDisplay>(out FollowerCardDisplay fcd))
+        {
+            card.GetComponent<ChangeLayer>().CardsLayer();
+        }
+        else if (card.TryGetComponent<ActionCardDisplay>(out ActionCardDisplay acd))
+        {
+            card.GetComponent<ChangeLayer>().ActionsLayer();
+        }
+        else Debug.LogError("Card Display NOT FOUND!");
     }
 
     /******
@@ -245,7 +225,8 @@ public class CardManager : MonoBehaviour
 
         if (card.TryGetComponent<FollowerCardDisplay>(out FollowerCardDisplay hcd))
         {
-            if (zone != PLAYER_ZONE && zone != ENEMY_ZONE) hcd.ResetHeroCard();
+            if (zone == PLAYER_DISCARD || zone == ENEMY_DISCARD) hcd.ResetFollowerCard(true);
+            else if (zone != PLAYER_ZONE && zone != ENEMY_ZONE) hcd.ResetFollowerCard();
         }
     }
 
@@ -392,9 +373,9 @@ public class CardManager : MonoBehaviour
      *****/
     public void Attack(GameObject attacker, GameObject defender)
     {
-        int AttackingHeroAttackScore = GetFollowerCardDisplay(attacker).CurrentPower;
-        TakeDamage(defender, AttackingHeroAttackScore);
-        SetExhausted(attacker, true);
+        int power = GetFollowerCardDisplay(attacker).CurrentPower;
+        TakeDamage(defender, power);
+        attacker.GetComponent<FollowerCardDisplay>().IsExhausted = true;
     }
 
     /******
@@ -405,34 +386,18 @@ public class CardManager : MonoBehaviour
     public void TakeDamage(GameObject target, int damageValue)
     {
         if (damageValue < 1) return;
-
         int targetValue;
         int newTargetValue;
+        PlayerManager pm = PlayerManager.Instance;
+        EnemyManager em = EnemyManager.Instance;
 
-        if (target == PlayerChampion)
-        {
-            targetValue = PlayerManager.Instance.PlayerHealth;
-        }
-        else if (target == EnemyChampion)
-        {
-            targetValue = PlayerManager.Instance.PlayerHealth;
-        }
-        else
-        {
-            targetValue = GetFollowerCardDisplay(target).CurrentDefense;
-        }
+        if (target == PlayerChampion) targetValue = pm.PlayerHealth;
+        else if (target == EnemyChampion) targetValue = pm.PlayerHealth;
+        else targetValue = GetFollowerCardDisplay(target).CurrentDefense;
 
         newTargetValue = targetValue - damageValue;
-        //if (newTargetValue < 0) newTargetValue = 0;
-
-        if (target == PlayerChampion)
-        {
-            PlayerManager.Instance.PlayerHealth = newTargetValue;
-        }
-        else if (target == EnemyChampion)
-        {
-            EnemyManager.Instance.EnemyHealth = newTargetValue;
-        }
+        if (target == PlayerChampion) pm.PlayerHealth = newTargetValue;
+        else if (target == EnemyChampion) em.EnemyHealth = newTargetValue;
         else
         {
             GetFollowerCardDisplay(target).CurrentDefense = newTargetValue;
@@ -456,14 +421,14 @@ public class CardManager : MonoBehaviour
     public void HealDamage(GameObject heroCard, int healingValue)
     {
         if (healingValue < 1) return;
-
-        int defenseScore = GetFollowerCardDisplay(heroCard).CurrentDefense;
+        FollowerCardDisplay fcd = GetFollowerCardDisplay(heroCard);
+        int defenseScore = fcd.CurrentDefense;
         int newDefenseScore = defenseScore + healingValue;
-        if (newDefenseScore > GetFollowerCardDisplay(heroCard).MaxDefense)
+        if (newDefenseScore > fcd.MaxDefense)
         {
-            newDefenseScore = GetFollowerCardDisplay(heroCard).MaxDefense;
+            newDefenseScore = fcd.MaxDefense;
         }
-        GetFollowerCardDisplay(heroCard).CurrentDefense = newDefenseScore;
+        fcd.CurrentDefense = newDefenseScore;
         AnimationManager.Instance.ModifyDefenseState(heroCard);
     }
 
@@ -513,15 +478,15 @@ public class CardManager : MonoBehaviour
 
         foreach (GameObject go in cardZone)
         {
-            FollowerCardDisplay hcd = GetFollowerCardDisplay(go);
-            if (hcd.TemporaryEffects.Count > 0)
+            FollowerCardDisplay fcd = GetFollowerCardDisplay(go);
+            if (fcd.TemporaryEffects.Count > 0)
             {
                 int countdown = 0;
                 List<int> expiredEffects = new List<int>();
 
-                foreach (Effect effect in hcd.TemporaryEffects)
+                foreach (Effect effect in fcd.TemporaryEffects)
                 {
-                    if (--hcd.EffectCountdowns[countdown] < 1)
+                    if (--fcd.EffectCountdowns[countdown] < 1)
                     {
                         expiredEffects.Add(countdown);
 
@@ -530,24 +495,24 @@ public class CardManager : MonoBehaviour
                         {
                             if (sce.IsDefenseChange)
                             {
-                                hcd.CurrentDefense -= sce.Value;
-                                hcd.MaxDefense -= sce.Value;
+                                fcd.CurrentDefense -= sce.Value;
+                                fcd.MaxDefense -= sce.Value;
                             }
-                            else hcd.CurrentPower -= sce.Value;
+                            else fcd.CurrentPower -= sce.Value;
                         }
                     }
                     countdown++;
-                    Debug.Log("COUNTDOWN FOR EFFECT <" + effect.ToString() + "> = " + hcd.EffectCountdowns[countdown-1]);
+                    Debug.Log("COUNTDOWN FOR EFFECT <" + effect.ToString() + "> = " + fcd.EffectCountdowns[countdown-1]);
                 }
 
                 expiredEffects.Reverse(); // REMOVE THE HIGHEST INDEXES FIRST, OTHERWISE RESULTS WILL BE INACCURATE
                 foreach (int effect in expiredEffects)
                 {
-                    Debug.LogWarning("EFFECT REMOVED: <" + hcd.TemporaryEffects[effect].ToString() + ">");
-                    hcd.CurrentEffects.Remove(hcd.TemporaryEffects[effect]);
-                    hcd.TemporaryEffects.RemoveAt(effect);
-                    hcd.EffectCountdowns.RemoveAt(effect);
-                    Debug.Log("Current Effects: " + hcd.CurrentEffects.Count + " // Temporary Effects: " + hcd.TemporaryEffects.Count + " // Effect Countdowns: " + hcd.EffectCountdowns.Count);
+                    Debug.LogWarning("EFFECT REMOVED: <" + fcd.TemporaryEffects[effect].ToString() + ">");
+                    fcd.CurrentEffects.Remove(fcd.TemporaryEffects[effect]);
+                    fcd.TemporaryEffects.RemoveAt(effect);
+                    fcd.EffectCountdowns.RemoveAt(effect);
+                    Debug.Log("Current Effects: " + fcd.CurrentEffects.Count + " // Temporary Effects: " + fcd.TemporaryEffects.Count + " // Effect Countdowns: " + fcd.EffectCountdowns.Count);
                 }
             }
         }
@@ -566,30 +531,30 @@ public class CardManager : MonoBehaviour
 
         foreach (GameObject go in cardZone)
         {
-            FollowerCardDisplay hcd = GetFollowerCardDisplay(go);
-            if (hcd.TemporaryAbilities.Count > 0)
+            FollowerCardDisplay fcd = GetFollowerCardDisplay(go);
+            if (fcd.TemporaryAbilities.Count > 0)
             {
                 int countdown = 0;
                 List<int> expiredAbilities = new List<int>();
 
-                foreach (CardAbility ca in hcd.TemporaryAbilities)
+                foreach (CardAbility ca in fcd.TemporaryAbilities)
                 {
-                    if (--hcd.AbilityCountdowns[countdown] < 1)
+                    if (--fcd.AbilityCountdowns[countdown] < 1)
                     {
                         Debug.Log("ABILITY EXPIRED: <" + ca.ToString() + ">");
                         expiredAbilities.Add(countdown);
                     }
-                    Debug.Log("COUNTDOWN FOR ABILITY <" + ca.ToString() + "> = " + hcd.AbilityCountdowns[countdown]);
+                    Debug.Log("COUNTDOWN FOR ABILITY <" + ca.ToString() + "> = " + fcd.AbilityCountdowns[countdown]);
                     countdown++;
                 }
 
                 expiredAbilities.Reverse(); // REMOVE THE HIGHEST INDEXES FIRST, OTHERWISE RESULTS WILL BE INACCURATE
                 foreach (int ability in expiredAbilities)
                 {
-                    Debug.Log("ABILITY REMOVED: " + hcd.TemporaryAbilities[ability].ToString() + ">");
-                    hcd.RemoveCurrentAbility(hcd.TemporaryAbilities[ability]);
-                    hcd.AbilityCountdowns.RemoveAt(ability);
-                    Debug.Log("Current Abilities: " + hcd.CurrentAbilities.Count + " // Temporary Abilities: " + hcd.TemporaryAbilities.Count + " // Abillity Countdowns: " + hcd.AbilityCountdowns.Count);
+                    Debug.Log("ABILITY REMOVED: " + fcd.TemporaryAbilities[ability].ToString() + ">");
+                    fcd.RemoveCurrentAbility(fcd.TemporaryAbilities[ability]);
+                    fcd.AbilityCountdowns.RemoveAt(ability);
+                    Debug.Log("Current Abilities: " + fcd.CurrentAbilities.Count + " // Temporary Abilities: " + fcd.TemporaryAbilities.Count + " // Abillity Countdowns: " + fcd.AbilityCountdowns.Count);
                 }
             }
         }
@@ -603,9 +568,9 @@ public class CardManager : MonoBehaviour
     public void TriggerCardAbility(GameObject card, string triggerName)
     {
         Debug.Log("TriggerCardAbility()");
-        foreach (CardAbility cardAbility in card.GetComponent<FollowerCardDisplay>().CurrentAbilities)
+        foreach (CardAbility ca in card.GetComponent<FollowerCardDisplay>().CurrentAbilities)
         {
-            if (cardAbility is TriggeredAbility tra)
+            if (ca is TriggeredAbility tra)
             {
                 if (tra.AbilityTrigger.AbilityName == triggerName)
                 {

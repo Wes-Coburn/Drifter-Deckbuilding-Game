@@ -107,22 +107,23 @@ public class UIManager : MonoBehaviour
      * ****** SETTERS
      * *****
      *****/
-    public void UpdatePlayerHealth(int health) => playerHealth.GetComponent<TextMeshProUGUI>().SetText("" + health);
-    public void UpdateEnemyHealth(int health) => enemyHealth.GetComponent<TextMeshProUGUI>().SetText("" + health);
-    public void UpdatePlayerActionsLeft(int newPlayerActionsLeft)
+    public void UpdatePlayerHealth(int health) => playerHealth.GetComponent<TextMeshProUGUI>().SetText(health.ToString());
+    public void UpdateEnemyHealth(int health) => enemyHealth.GetComponent<TextMeshProUGUI>().SetText(health.ToString());
+    public void UpdatePlayerActionsLeft(int actions)
     {
-        playerActionsLeft.GetComponent<TextMeshProUGUI>().SetText("" + newPlayerActionsLeft.ToString());
+        playerActionsLeft.GetComponent<TextMeshProUGUI>().SetText(actions.ToString());
     }
-    public void UpdateEnemyActionsLeft(int newEnemyActionsLeft)
+    public void UpdateEnemyActionsLeft(int actions)
     {
-        enemyActionsLeft.GetComponent<TextMeshProUGUI>().SetText("" + newEnemyActionsLeft.ToString());
+        enemyActionsLeft.GetComponent<TextMeshProUGUI>().SetText(actions.ToString());
     }
     public void UpdateEndTurnButton(bool isMyTurn)
     {
-        BoxCollider2D boxCollider = endTurnButton.GetComponent<BoxCollider2D>();
-        boxCollider.enabled = isMyTurn;
-        endTurnButton.GetComponent<EndTurnButtonDisplay>().EndTurnSide.SetActive(isMyTurn);
-        endTurnButton.GetComponent<EndTurnButtonDisplay>().OpponentTurnSide.SetActive(!isMyTurn);
+        BoxCollider2D bc = endTurnButton.GetComponent<BoxCollider2D>();
+        bc.enabled = isMyTurn;
+        EndTurnButtonDisplay etbd = endTurnButton.GetComponent<EndTurnButtonDisplay>();
+        etbd.EndTurnSide.SetActive(isMyTurn);
+        etbd.OpponentTurnSide.SetActive(!isMyTurn);
     }
 
     /******
@@ -147,7 +148,8 @@ public class UIManager : MonoBehaviour
         {
             if (go != null) DestroyObject(go);
         }
-        void DestroyObject(GameObject go)
+
+        static void DestroyObject(GameObject go)
         {
             Destroy(go);
             go = null;

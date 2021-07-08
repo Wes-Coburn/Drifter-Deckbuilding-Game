@@ -5,6 +5,7 @@ public class ChangeLayer : MonoBehaviour
 {
     /* CHANGE_LAYER_DATA */
     private const string CARDS_LAYER = "Cards";
+    private const string ACTIONS_LAYER = "Actions";
     private const string ZOOM_LAYER = "Zoom";
 
     private string renderLayer;
@@ -19,6 +20,7 @@ public class ChangeLayer : MonoBehaviour
     }
 
     public void CardsLayer() => RenderLayer = CARDS_LAYER;
+    public void ActionsLayer() => RenderLayer = ACTIONS_LAYER;
     public void ZoomLayer() => RenderLayer = ZOOM_LAYER;
     private void UpdateRenderLayer(Transform tran)
     {

@@ -26,7 +26,7 @@ public class EnemyManager : MonoBehaviour
 
     /* ENEMY_DECK */
     public List<int> EnemyDeck { get; private set; }
-    public List<CardDisplay> EnemyDeck2 { get; private set; }
+    public List<Card> EnemyDeck2 { get; private set; }
 
     /* IS_MY_TURN */
     public bool IsMyTurn { get; set; }

@@ -84,7 +84,7 @@ public class FollowerCardDisplay : CardDisplay
         set
         {
             FollowerCard.IsExhausted = value;
-            exhaustedIcon.SetActive(FollowerCard.IsExhausted);
+            exhaustedIcon.SetActive(value);
         }
     }
 
@@ -134,9 +134,10 @@ public class FollowerCardDisplay : CardDisplay
      * ****** RESET_HERO_CARD
      * *****
      *****/
-    public void ResetHeroCard() // TESTING
+    public void ResetFollowerCard(bool discarded = false)
     {
-        IsExhausted = true;
+        if (discarded) IsExhausted = false;
+        else IsExhausted = true;
         gameObject.GetComponent<DragDrop>().IsPlayed = false;
         foreach (GameObject go in AbilityIcons) Destroy(go);
         CurrentEffects.Clear();

@@ -31,7 +31,7 @@ public class PlayerManager : MonoBehaviour
 
     /* PLAYER_DECK */
     public List<int> PlayerDeck { get; private set; }
-    public List<CardDisplay> PlayerDeck2 { get; private set; }
+    public List<Card> PlayerDeck2 { get; private set; }
 
     /* IS_MY_TURN */
     public bool IsMyTurn { get; set; }

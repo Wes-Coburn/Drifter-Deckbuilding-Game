@@ -77,7 +77,6 @@ public class DragDrop : MonoBehaviour
             {
                 isOverEnemy = true;
                 enemy = collisionObject;
-
                 UIManager.Instance.SelectEnemy(enemy, true);
             }
         }
@@ -94,7 +93,6 @@ public class DragDrop : MonoBehaviour
             if (collisionObject == enemy)
             {
                 UIManager.Instance.SelectEnemy(enemy, false);
-                
                 isOverEnemy = false;
                 enemy = null;
             }
@@ -142,11 +140,15 @@ public class DragDrop : MonoBehaviour
             }
             else ResetPosition();
         }
-        else if (isOverEnemy && cardManager.CanAttack(gameObject))
+        else if (isOverEnemy && !gameObject.GetComponent<FollowerCardDisplay>().IsExhausted)
         {
             ResetPosition();
             cardManager.Attack(gameObject, enemy);
         }
-        else ResetPosition();
+        else
+        {
+            Debug.Log("EndDrag, NO ATTACK... IsExhausted = " + gameObject.GetComponent<FollowerCardDisplay>().IsExhausted);
+            ResetPosition();
+        }
     }
 }
