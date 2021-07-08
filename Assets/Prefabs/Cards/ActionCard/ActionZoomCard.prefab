@@ -630,8 +630,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7415242867258199381}
-  - component: {fileID: 1352609382858267287}
   - component: {fileID: 986080806631109180}
+  - component: {fileID: 1352609382858267287}
   m_Layer: 10
   m_Name: ActionZoomCard
   m_TagString: Untagged
@@ -661,6 +661,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 80, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &986080806631109180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7279803143792002406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1672ef909a81e8d44b4442c48a1b4fe0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardName: {fileID: 8062437269020620522}
+  cardArt: {fileID: 5007104075117306369}
+  cardBorder: {fileID: 5784151646588659182}
+  cardTypeLine: {fileID: 1882966409792126498}
+  actionCost: {fileID: 7334756111360048637}
+  cardDescription: {fileID: 1692791760817870814}
 --- !u!114 &1352609382858267287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -680,24 +698,6 @@ MonoBehaviour:
   nextLevelBox: {fileID: 0}
   level2Popup: {fileID: 0}
   descriptionPopupPrefab: {fileID: 0}
---- !u!114 &986080806631109180
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7279803143792002406}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1672ef909a81e8d44b4442c48a1b4fe0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardName: {fileID: 8062437269020620522}
-  cardArt: {fileID: 5007104075117306369}
-  cardBorder: {fileID: 5784151646588659182}
-  cardTypeLine: {fileID: 1882966409792126498}
-  actionCost: {fileID: 7334756111360048637}
-  cardDescription: {fileID: 1692791760817870814}
 --- !u!1 &7334756111360048637
 GameObject:
   m_ObjectHideFlags: 0

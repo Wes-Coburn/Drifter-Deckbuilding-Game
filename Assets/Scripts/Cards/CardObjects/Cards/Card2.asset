@@ -12,21 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120ae26cc4846f34db63edca720772b3, type: 3}
   m_Name: Card2
   m_EditorClassIdentifier: 
-  CardArt: {fileID: 21300000, guid: 1bd92dc3e46ad6a438bdc9b9d2a57f30, type: 3}
-  CardBorder: {fileID: 21300000, guid: 14ba384dc2d28d74d9bdad2182e18da6, type: 3}
+  cardArt: {fileID: 21300000, guid: 1bd92dc3e46ad6a438bdc9b9d2a57f30, type: 3}
+  cardBorder: {fileID: 21300000, guid: 14ba384dc2d28d74d9bdad2182e18da6, type: 3}
+  actionCost: 2
+  cardName: Ruthless Brute
+  cardType: Follower
+  cardSubType: Warrior
+  cardDescription: Card2 Description...
   animatorOverrideController: {fileID: 22100000, guid: 082abef859744a04b885776db870594b,
     type: 2}
-  CardName: Ruthless Avenger
-  CardDescription: The Ruthless Avenger is employed by the gangs that rule the outer
-    cities. They guard safehouses and are sometimes called on to collect oustanding
-    debts.
-  CardType: Hero
-  CardSubType: Warrior
-  ActionCost: 2
-  XPCondition: I deal 4 total damage
-  AttackScore: 2
-  DefenseScore: 3
-  Level1Abilities:
+  levelUpCondition: I deal 4 damage.
+  power: 1
+  defense: 3
+  level1Abilities:
   - {fileID: 11400000, guid: ea3240d3d6b88204c8166979a836ea6e, type: 2}
-  Level2Abiliites:
-  - {fileID: 11400000, guid: edfe3b459c9ebb14eb21ba3bb2f309a0, type: 2}
+  level2Abiliites:
+  - {fileID: 11400000, guid: 230ebe01b2a08ca4d910465608e0e636, type: 2}

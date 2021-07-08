@@ -12,21 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120ae26cc4846f34db63edca720772b3, type: 3}
   m_Name: Card1
   m_EditorClassIdentifier: 
-  CardArt: {fileID: 21300000, guid: 47433de6b9fd2e5499dd8e39949ee427, type: 3}
-  CardBorder: {fileID: 21300000, guid: 743e735f744cf494c9f9081b4ba9303f, type: 3}
+  cardArt: {fileID: 21300000, guid: 47433de6b9fd2e5499dd8e39949ee427, type: 3}
+  cardBorder: {fileID: 21300000, guid: 743e735f744cf494c9f9081b4ba9303f, type: 3}
+  actionCost: 2
+  cardName: Skyshroud Assassin
+  cardType: Follower
+  cardSubType: Rogue
+  cardDescription: Card1 Description...
   animatorOverrideController: {fileID: 22100000, guid: d09c16b56c208c1469ace2b881283e1c,
     type: 2}
-  CardName: Skyshroud Assassin
-  CardType: Hero
-  CardSubType: Rogue
-  ActionCost: 2
-  CardDescription: The Skyshroud Assassin lurks high above the city, preying on those
-    below. The only loyalty they have is to themselves, and to those who can afford
-    their services.
-  XPCondition: I strike twice
-  AttackScore: 1
-  DefenseScore: 2
-  Level1Abilities:
-  - {fileID: 11400000, guid: 9b80693130247ae46b1c2437e64a1c8e, type: 2}
-  Level2Abiliites:
-  - {fileID: 11400000, guid: 531e0a24d2733f043a3ae049896327a2, type: 2}
+  levelUpCondition: I strike twice.
+  power: 1
+  defense: 3
+  level1Abilities:
+  - {fileID: 11400000, guid: ea8bbf92057ca254aa8990f59e73dca5, type: 2}
+  level2Abiliites:
+  - {fileID: 11400000, guid: 47c699f384e8e6a48a965c0eee31751e, type: 2}

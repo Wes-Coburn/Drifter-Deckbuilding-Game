@@ -87,10 +87,10 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
 
         CreateZoomCard(new Vector3(0, 50), CENTER_SCALE_VALUE);
         
-        if (cardDisplay is HeroCardDisplay)
+        if (cardDisplay is FollowerCardDisplay)
         {
-            HeroCard hc = cardDisplay.CardScript as HeroCard;
-            CreateNextLevelPopup(new Vector2(POPUP_X_VALUE, 0), POPUP_SCALE_VALUE, hc.Level2Abiliites);
+            FollowerCard fc = cardDisplay.CardScript as FollowerCard;
+            CreateNextLevelPopup(new Vector2(POPUP_X_VALUE, 0), POPUP_SCALE_VALUE, fc.Level2Abilities);
             CreateDescriptionPopup(new Vector2(-600, 0), POPUP_SCALE_VALUE);
         }
     }
@@ -162,7 +162,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     {
         if (CurrentZoomCard != null) Destroy(CurrentZoomCard);
         GameObject cardPrefab = null;
-        if (gameObject.GetComponent<CardDisplay>() is HeroCardDisplay) cardPrefab = heroZoomCard;
+        if (gameObject.GetComponent<CardDisplay>() is FollowerCardDisplay) cardPrefab = heroZoomCard;
         else if (gameObject.GetComponent<CardDisplay>() is ActionCardDisplay) cardPrefab = actionZoomCard;
         else Debug.Log("[CreateZoomCard() in CardZoom] CardDisplay TYPE NOT FOUND!");
 
@@ -177,7 +177,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
      *****/
     public void CreateZoomAbilityIcon(CardAbility cardAbility, Transform parentTransform, float scaleValue)
     {
-        GameObject abilityIconPrefab = gameObject.GetComponent<HeroCardDisplay>().AbilityIconPrefab;
+        GameObject abilityIconPrefab = gameObject.GetComponent<FollowerCardDisplay>().AbilityIconPrefab;
         GameObject abilityIcon = Instantiate(abilityIconPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         Transform popTran = abilityIcon.transform;
         popTran.SetParent(parentTransform, true);

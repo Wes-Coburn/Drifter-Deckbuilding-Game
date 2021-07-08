@@ -16,10 +16,44 @@ public abstract class CardDisplay : MonoBehaviour
     }
     /* CARD_DATA */
     private Animator animator;
+
+    public string CardName
+    {
+        get => CardScript.CardName;
+        set => cardName.GetComponent<TextMeshPro>().text = value;
+    }
     [SerializeField] private GameObject cardName;
+
+    public Sprite CardArt
+    {
+        get => CardScript.CardArt;
+        set => cardArt.GetComponent<SpriteRenderer>().sprite = value;
+    }
     [SerializeField] private GameObject cardArt;
+
+    public Sprite CardBorder
+    {
+        get => CardScript.CardBorder;
+        set => cardBorder.GetComponent<SpriteRenderer>().sprite = value;
+    }
     [SerializeField] private GameObject cardBorder;
+
+    public string CardTypeLine
+    {
+        get => CardScript.CardType + " - " + CardScript.CardSubType;
+        set => cardTypeLine.GetComponent<TextMeshPro>().SetText(value);
+    }
     [SerializeField] private GameObject cardTypeLine;
+
+    public int CurrentActionCost
+    {
+        get => CardScript.CurrentActionCost;
+        set
+        {
+            CardScript.CurrentActionCost = value;
+            actionCost.GetComponent<TextMeshPro>().SetText(value.ToString());
+        }
+    }
     [SerializeField] private GameObject actionCost;
     
     /******
@@ -29,18 +63,15 @@ public abstract class CardDisplay : MonoBehaviour
      *****/
     protected virtual void DisplayCard()
     {
-        /* CardName */
-        SetCardName(CardScript.CardName);
-        /* CardType */
-        SetCardTypeLine(CardScript.CardType, CardScript.CardSubType);
-        /* ActionCost */
-        SetActionCost(cardScript.ActionCost);
-        /* Sprites */
-        cardArt.GetComponent<SpriteRenderer>().sprite = CardScript.CardArt;
-        cardBorder.GetComponent<SpriteRenderer>().sprite = CardScript.CardBorder;
-        /* Animations */
+        CardName = CardScript.CardName;
+        string spacer = "";
+        if (!string.IsNullOrEmpty(CardScript.CardSubType)) spacer = " - ";
+        CardTypeLine = CardScript.CardType + spacer + CardScript.CardSubType;
+        CurrentActionCost = CardScript.StartActionCost;
+        CardArt = CardScript.CardArt;
+        CardBorder = CardScript.CardBorder;
         animator = gameObject.GetComponent<Animator>();
-        animator.runtimeAnimatorController = CardScript.animatorOverrideController;
+        animator.runtimeAnimatorController = CardScript.AnimatorOverrideController;
     }
 
     /******
@@ -51,29 +82,11 @@ public abstract class CardDisplay : MonoBehaviour
     public virtual void DisplayZoomCard(GameObject parentCard)
     {
         CardDisplay cd = parentCard.GetComponent<CardDisplay>();
-        SetCardName(cd.GetCardName());
-        SetCardTypeLine(cd.GetCardType(), cd.GetCardSubType());
-        SetActionCost(cd.GetActionCost());
-        cardArt.GetComponent<SpriteRenderer>().sprite = cd.cardArt.GetComponent<SpriteRenderer>().sprite;
-        cardBorder.GetComponent<SpriteRenderer>().sprite = cd.cardBorder.GetComponent<SpriteRenderer>().sprite;
+        cardScript = cd.CardScript; // TESTING
+        CardName = cd.CardName;
+        CardTypeLine = cd.CardTypeLine;
+        CurrentActionCost = cd.CurrentActionCost;
+        CardArt = cd.CardArt;
+        CardBorder = cd.CardBorder;
     }
-
-    /******
-     * *****
-     * ****** SETTERS/GETTERS
-     * *****
-     *****/
-    public void SetCardName(string cardName) => this.cardName.GetComponent<TextMeshPro>().text = cardName;
-    public void SetCardArt(Sprite cardArt) => this.cardArt.GetComponent<SpriteRenderer>().sprite = cardArt;
-    public string GetCardName() => cardName.GetComponent<TextMeshPro>().text;
-    public void SetCardTypeLine(string cardType, string cardSubType)
-    {
-        string separator = " ";
-        if (!string.IsNullOrEmpty(cardSubType)) separator = " - ";
-        cardTypeLine.GetComponent<TextMeshPro>().text = cardType + separator + cardSubType;
-    }
-    public string GetCardType() => CardScript.CardType;
-    public string GetCardSubType() => CardScript.CardSubType;
-    public void SetActionCost(int actionCost) => this.actionCost.GetComponent<TextMeshPro>().text = actionCost.ToString();
-    public int GetActionCost() => System.Convert.ToInt32(actionCost.GetComponent<TextMeshPro>().text);
 }

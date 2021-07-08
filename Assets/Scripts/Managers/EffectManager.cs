@@ -373,7 +373,7 @@ public class EffectManager : MonoBehaviour
         {
             foreach (GameObject target in targets)
             {
-                HeroCardDisplay hcd = target.GetComponent<HeroCardDisplay>();
+                FollowerCardDisplay hcd = target.GetComponent<FollowerCardDisplay>();
                 if (gae.Countdown != 0) 
                     hcd.AddTemporaryAbility(gae.CardAbility, gae.Countdown);
                 else hcd.AddCurrentAbility(gae.CardAbility);

@@ -2,20 +2,28 @@
 
 public abstract class Card : ScriptableObject
 {
-    [Header("CARD SPRITES")]
-    public Sprite CardArt;
-    public Sprite CardBorder;
+    public Sprite CardArt { get => cardArt; }
+    [SerializeField] private Sprite cardArt;
+
+    public Sprite CardBorder { get => cardBorder; }
+    [SerializeField] private Sprite cardBorder;
+
+    public int StartActionCost { get => actionCost; }
+    [SerializeField] private int actionCost;
+    public int CurrentActionCost { get; set; }
+
+    public string CardName { get => cardName; }
+    [SerializeField] private string cardName;
     
-    [Header("ANIMATOR OVERRIDE CONTROLLER")]
-    public AnimatorOverrideController animatorOverrideController;
+    public string CardType { get => cardType; }
+    [SerializeField] private string cardType;
 
-    [Header("CARD DETAILS")]
-    public string CardName;
-    public string CardType;
-    public string CardSubType;
-    public int ActionCost;
+    public string CardSubType { get => cardSubType; }
+    [SerializeField] private string cardSubType;
 
-    [Header("CARD DESCRIPTION")]
-    [TextArea]
-    public string CardDescription;
+    public string CardDescription { get => cardDescription; }
+    [TextArea] [SerializeField] private string cardDescription;
+
+    public AnimatorOverrideController AnimatorOverrideController { get => animatorOverrideController; }
+    [SerializeField] private AnimatorOverrideController animatorOverrideController;
 }

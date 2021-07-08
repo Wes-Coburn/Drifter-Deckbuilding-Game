@@ -16,19 +16,20 @@ public class CardLibrary : MonoBehaviour
     }
 
     /* CARD_PREFABS */
-    [SerializeField] private GameObject HeroCardPrefab;
+    [SerializeField] private GameObject FollowerCardPrefab;
     [SerializeField] private GameObject ActionCardPrefab;
 
     /* CARD_SCRIPTS_LIST */
-    public List<Card> cardScripts = new List<Card>();
+    public List<Card> cardScripts;
     public GameObject GetCard(int cardID)
     {
         cardID--;
         Card cardScript = cardScripts[cardID];
 
         GameObject cardPrefab = null;
-        if (cardScript is HeroCard) cardPrefab = HeroCardPrefab;
+        if (cardScript is FollowerCard) cardPrefab = FollowerCardPrefab;
         else if (cardScript is ActionCard) cardPrefab = ActionCardPrefab;
+        else Debug.LogError("Card Type NOT FOUND!");
 
         cardPrefab = Instantiate(cardPrefab, new Vector3(0, 0, -1), Quaternion.identity);
         cardPrefab.GetComponent<CardDisplay>().CardScript = cardScript;

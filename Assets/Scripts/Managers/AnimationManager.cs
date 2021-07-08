@@ -21,7 +21,7 @@ public class AnimationManager : MonoBehaviour
     }
     public void HiddenState(GameObject card)
     {
-        card.GetComponent<CardDisplay>().SetCardArt(CardManager.Instance.CardBackSprite);
+        card.GetComponent<CardDisplay>().CardArt = CardManager.Instance.CardBackSprite;
         ChangeAnimationState(card, "Hidden");
     }
     public void RevealedHandState (GameObject card) => ChangeAnimationState(card, "Revealed_Hand");
@@ -29,7 +29,7 @@ public class AnimationManager : MonoBehaviour
     public void RevealedDragState(GameObject card) => ChangeAnimationState(card, "Revealed_Drag");
     public void PlayedState (GameObject card)
     {
-        card.GetComponent<CardDisplay>().SetCardArt(card.GetComponent<CardDisplay>().CardScript.CardArt);
+        card.GetComponent<CardDisplay>().CardArt = card.GetComponent<CardDisplay>().CardScript.CardArt;
         ChangeAnimationState(card, "Played");
     }
     //public void ModifyAttackState(GameObject card) => ChangeAnimationState(card, Modify_Attack);

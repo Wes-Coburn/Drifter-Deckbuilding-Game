@@ -26,8 +26,12 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    /* PLAYER_HERO */
+    public Hero PlayerHero { get; private set; } // UNUSED/TESTING
+
     /* PLAYER_DECK */
     public List<int> PlayerDeck { get; private set; }
+    public List<CardDisplay> PlayerDeck2 { get; private set; }
 
     /* IS_MY_TURN */
     public bool IsMyTurn { get; set; }

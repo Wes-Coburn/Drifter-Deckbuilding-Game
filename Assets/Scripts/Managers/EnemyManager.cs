@@ -21,8 +21,12 @@ public class EnemyManager : MonoBehaviour
         while (EnemyDeck.Count < 30) EnemyDeck.Add(2); // FOR TESTING ONLY
     }
 
+    /* PLAYER_HERO */
+    public Hero EnemyHero { get; private set; } // UNUSED/TESTING
+
     /* ENEMY_DECK */
     public List<int> EnemyDeck { get; private set; }
+    public List<CardDisplay> EnemyDeck2 { get; private set; }
 
     /* IS_MY_TURN */
     public bool IsMyTurn { get; set; }
