@@ -14,6 +14,10 @@ public class GameManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
+    /* TEST_HEROES */
+    [SerializeField] private Hero playerTestHero; // FOR TESTING ONLY
+    [SerializeField] private Hero enemyTestHero; // FOR TESTING ONLY
+
     /* GAME_MANAGER_DATA */
     public const int STARTING_HEALTH = 10;
     public const int STARTING_ACTIONS = 0;
@@ -40,26 +44,42 @@ public class GameManager : MonoBehaviour
         enemyManager = EnemyManager.Instance;
         UIManager = UIManager.Instance;
         cardManager = CardManager.Instance;
+
+        //PlayerManager.Instance.PlayerHero = playerTestHero; // TESTING
     }
 
     /******
      * *****
-     * ****** START/END_GAME
+     * ****** NEW_GAME
      * *****
      *****/
-
-    public void StartGame()
+    public void NewGame()
     {
-        PlayerManager.Instance.PlayerHealth = STARTING_HEALTH;
-        EnemyManager.Instance.EnemyHealth = STARTING_HEALTH;
-        PlayerManager.Instance.PlayerActionsLeft = STARTING_ACTIONS;
-        EnemyManager.Instance.EnemyActionsLeft = STARTING_ACTIONS;
+        StartCombat(/*enemyTestHero*/);
+    }
 
-        FunctionTimer.Create(() => CardManager.Instance.DrawHand(GameManager.PLAYER), 1f);
-        FunctionTimer.Create(() => CardManager.Instance.DrawHand(GameManager.ENEMY), 1f);
+    /******
+     * *****
+     * ****** START/END_COMBAT
+     * *****
+     *****/
+    private void StartCombat(/*Hero enemyHero*/)
+    {
+        PlayerManager pm = PlayerManager.Instance;
+        EnemyManager em = EnemyManager.Instance;
+
+        //em.EnemyHero = enemyHero; // TESTING
+
+        pm.PlayerHealth = STARTING_HEALTH;
+        pm.PlayerActionsLeft = STARTING_ACTIONS;
+        em.EnemyHealth = STARTING_HEALTH;
+        em.EnemyActionsLeft = STARTING_ACTIONS;
+
+        FunctionTimer.Create(() => CardManager.Instance.DrawHand(PLAYER), 1f);
+        FunctionTimer.Create(() => CardManager.Instance.DrawHand(ENEMY), 1f);
         FunctionTimer.Create(() => StartTurn(PLAYER), 3f);
     }
-    public void EndGame(bool playerWins)
+    public void EndCombat(bool playerWins)
     {
         // VICTORY or DEFEAT animation
         if (playerWins) Debug.LogWarning("PLAYER WINS!");
@@ -103,7 +123,7 @@ public class GameManager : MonoBehaviour
                 {
                     cardManager.Attack(enemyHero, cardManager.PlayerZoneCards[0]);
                 }
-                else cardManager.Attack(enemyHero, cardManager.PlayerChampion);
+                else cardManager.Attack(enemyHero, cardManager.PlayerHero);
             }
             void EndTurnDelay(float delay) => FunctionTimer.Create(() => EndTurn(ENEMY), delay);
 
@@ -129,7 +149,7 @@ public class GameManager : MonoBehaviour
         CardManager.Instance.RemoveTemporaryEffects(ENEMY); // TESTING
         CardManager.Instance.RemoveTemporaryAbilities(ENEMY); // TESTING
 
-        if (player == "Enemy") StartTurn(PLAYER);
-        else if (player == "Player") StartTurn(ENEMY);
+        if (player == ENEMY) StartTurn(PLAYER);
+        else if (player == PLAYER) StartTurn(ENEMY);
     }
 }

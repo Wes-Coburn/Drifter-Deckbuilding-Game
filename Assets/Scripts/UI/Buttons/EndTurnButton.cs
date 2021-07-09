@@ -6,7 +6,7 @@ public class EndTurnButton : MonoBehaviour
     {
         if (PlayerManager.Instance.IsMyTurn && !UIManager.Instance.PlayerIsTargetting)
         {
-            GameManager.Instance.EndTurn("Player");
+            GameManager.Instance.EndTurn(GameManager.PLAYER);
         }
     }
 }

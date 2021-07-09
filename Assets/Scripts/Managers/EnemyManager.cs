@@ -17,12 +17,37 @@ public class EnemyManager : MonoBehaviour
 
     private void Start()
     {
+        EnemyDeck2 = new List<Card>(); // TESTING
+        
+        // REMOVE ALL BELOW
         EnemyDeck = new List<int>();
-        while (EnemyDeck.Count < 30) EnemyDeck.Add(2); // FOR TESTING ONLY
+        while (EnemyDeck.Count < 30) EnemyDeck.Add(2);
     }
-
-    /* PLAYER_HERO */
-    public Hero EnemyHero { get; private set; } // UNUSED/TESTING
+    
+    /* ENEMY_HERO */
+    public Hero EnemyHero // TESTING
+    {
+        get => enemyHero;
+        set
+        {
+            enemyHero = value;
+            foreach (FollowerCard follower in enemyHero.HeroFollowers)
+            {
+                for (int i = 0; i < CardManager.ENEMY_START_FOLLOWERS; i++)
+                {
+                    CardManager.Instance.AddCard(follower, GameManager.ENEMY);
+                }
+            }
+            foreach (SkillCard skill in EnemyHero.HeroSkills)
+            {
+                for (int i = 0; i < CardManager.ENEMY_START_SKILLS; i++)
+                {
+                    CardManager.Instance.AddCard(skill, GameManager.ENEMY);
+                }
+            }
+        }
+    }
+    private Hero enemyHero;
 
     /* ENEMY_DECK */
     public List<int> EnemyDeck { get; private set; }

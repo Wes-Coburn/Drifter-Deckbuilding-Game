@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class CardLibrary : MonoBehaviour
+public class CardLibrary : MonoBehaviour // REMOVE THIS CLASS EVENTUALLY!!!
 {
     /* SINGELTON_PATTERN */
     public static CardLibrary Instance { get; private set; }
@@ -15,19 +15,16 @@ public class CardLibrary : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    /* CARD_PREFABS */
     [SerializeField] private GameObject FollowerCardPrefab;
     [SerializeField] private GameObject ActionCardPrefab;
-
-    /* CARD_SCRIPTS_LIST */
     public List<Card> cardScripts;
     public GameObject GetCard(int cardID)
     {
         cardID--;
         Card cardScript = cardScripts[cardID];
-        Card cardInstance = null;
+        Card cardInstance;
+        GameObject cardPrefab;
 
-        GameObject cardPrefab = null;
         if (cardScript is FollowerCard)
         {
             cardPrefab = FollowerCardPrefab;

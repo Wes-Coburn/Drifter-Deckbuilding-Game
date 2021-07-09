@@ -17,8 +17,11 @@ public class PlayerManager : MonoBehaviour
 
     private void Start()
     {
+        PlayerDeck2 = new List<Card>(); // TESTING
+
+        // REMOVE ALL BELOW
         PlayerDeck = new List<int>();
-        while (PlayerDeck.Count < 30) // FOR TESTING ONLY
+        while (PlayerDeck.Count < 30)
         {
             PlayerDeck.Add(1);
             PlayerDeck.Add(3);
@@ -27,7 +30,26 @@ public class PlayerManager : MonoBehaviour
     }
 
     /* PLAYER_HERO */
-    public Hero PlayerHero { get; private set; } // UNUSED/TESTING
+    public Hero PlayerHero
+    {
+        get => playerHero;
+        set
+        {
+            playerHero = value;
+            for (int i = 0; i < CardManager.PLAYER_START_FOLLOWERS; i++)
+            {
+                CardManager.Instance.AddCard(CardManager.Instance.StartPlayerFollower, GameManager.PLAYER);
+            }
+            foreach (SkillCard skill in PlayerHero.HeroSkills)
+            {
+                for (int i = 0; i < CardManager.PLAYER_START_SKILLS; i++)
+                {
+                    CardManager.Instance.AddCard(skill, GameManager.PLAYER);
+                }
+            }
+        }
+    }
+    private Hero playerHero;
 
     /* PLAYER_DECK */
     public List<int> PlayerDeck { get; private set; }

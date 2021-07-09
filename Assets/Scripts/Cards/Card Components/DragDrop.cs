@@ -73,7 +73,7 @@ public class DragDrop : MonoBehaviour
         else
         {
             if (collisionObjectParent == CardManager.Instance.EnemyZone || 
-                collisionObject == CardManager.Instance.EnemyChampion)
+                collisionObject == CardManager.Instance.EnemyHero)
             {
                 isOverEnemy = true;
                 enemy = collisionObject;

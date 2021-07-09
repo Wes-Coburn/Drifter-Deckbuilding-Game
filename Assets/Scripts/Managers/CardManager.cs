@@ -16,17 +16,19 @@ public class CardManager : MonoBehaviour
     }
 
     /* CARD_MANAGER_DATA */
-    public const string BACKGROUND = "Background";
+    public const int PLAYER_START_FOLLOWERS = 6; // TESTING
+    public const int PLAYER_START_SKILLS = 3; // TESTING
+    public const int ENEMY_START_FOLLOWERS = 6; // TESTING
+    public const int ENEMY_START_SKILLS = 3; // TESTING
 
+    public const string BACKGROUND = "Background";
     public const string PLAYER_CARD = "PlayerCard";
     public const string ENEMY_CARD = "EnemyCard";
-
     public const string PLAYER_ACTION_ZONE = "PlayerActionZone";
     public const string PLAYER_HAND = "PlayerHand";
     public const string PLAYER_ZONE = "PlayerZone";
     public const string PLAYER_DISCARD = "PlayerDiscard";
     public const string PLAYER_CHAMPION = "PlayerChampion";
-
     //public const string ENEMY_ACTION_ZONE = "EnemyActionZone";
     public const string ENEMY_HAND = "EnemyHand";
     public const string ENEMY_ZONE = "EnemyZone";
@@ -43,14 +45,28 @@ public class CardManager : MonoBehaviour
     public List<GameObject> EnemyZoneCards;
     public List<GameObject> PlayerHandCards;
     public List<GameObject> EnemyHandCards;
-    
+
+    /* CARD_PREFABS */
+    [SerializeField] private GameObject followerCardPrefab; // TESTING
+    [SerializeField] private GameObject actionCardPrefab; // TESTING
+
+    /* CARD_SCRIPTS */
+    public Card StartPlayerFollower // TESTING
+    {
+        get => startPlayerFollower;
+        set => startPlayerFollower = value;
+    }
+    [Header("STARTING PLAYER FOLLOWER")]
+    [SerializeField] private Card startPlayerFollower; // TESTING
+
+
     /* CARD BACK SPRITE */
-    [SerializeField] private Sprite cardBackSprite;
     public Sprite CardBackSprite
     {
         get => cardBackSprite;
         private set => cardBackSprite = value;
     }
+    [SerializeField] private Sprite cardBackSprite;
 
     /* GAME ZONES */
     // PLAYER
@@ -58,13 +74,13 @@ public class CardManager : MonoBehaviour
     public GameObject PlayerHand { get; private set; }
     public GameObject PlayerZone { get; private set; }
     public GameObject PlayerDiscard { get; private set; }
-    public GameObject PlayerChampion { get; private set; }
+    public GameObject PlayerHero { get; private set; }
     // ENEMY
     //public GameObject EnemyActionZone { get; private set; }
     public GameObject EnemyDiscard { get; private set; }
     public GameObject EnemyHand { get; private set; }
     public GameObject EnemyZone { get; private set; }
-    public GameObject EnemyChampion { get; private set; }
+    public GameObject EnemyHero { get; private set; }
     
     private void Start()
     {
@@ -79,23 +95,23 @@ public class CardManager : MonoBehaviour
         PlayerHand = GameObject.Find(PLAYER_HAND);
         PlayerZone = GameObject.Find(PLAYER_ZONE);
         PlayerDiscard = GameObject.Find(PLAYER_DISCARD);
-        PlayerChampion = GameObject.Find(PLAYER_CHAMPION);
+        PlayerHero = GameObject.Find(PLAYER_CHAMPION);
 
         //EnemyActionZone = GameObject.Find(ENEMY_ACTION_ZONE);
         EnemyHand = GameObject.Find(ENEMY_HAND);
         EnemyZone = GameObject.Find(ENEMY_ZONE);
         EnemyDiscard = GameObject.Find(ENEMY_DISCARD);
-        EnemyChampion = GameObject.Find(ENEMY_CHAMPION);
+        EnemyHero = GameObject.Find(ENEMY_CHAMPION);
     }
 
-    public FollowerCardDisplay GetFollowerCardDisplay(GameObject card) => card.GetComponent<CardDisplay>() as FollowerCardDisplay;
+    public FollowerCardDisplay GetFollowerDisplay(GameObject card) => card.GetComponent<CardDisplay>() as FollowerCardDisplay;
 
     /******
      * *****
      * ****** ADD_CARD
      * *****
      *****/
-    public void AddCard(Card card, string player)
+    public void AddCard(Card card, string player) // TESTING
     {
         List<Card> deck = null;
         Card cardInstance = null;
@@ -108,12 +124,92 @@ public class CardManager : MonoBehaviour
         else if (card is ActionCard) cardInstance = ScriptableObject.CreateInstance<ActionCard>();
         else Debug.LogError("Card Type NOT FOUND!");
 
-        cardInstance.LoadCard(card);
-
-        if (deck != null && cardInstance != null) deck.Add(cardInstance);
+        if (deck != null && cardInstance != null)
+        {
+            cardInstance.LoadCard(card);
+            deck.Add(cardInstance);
+        }
         else Debug.LogError("Deck or Card was NULL!");
     }
-        
+
+    /******
+     * *****
+     * ****** SHOW/HIDE_CARD
+     * *****
+     *****/
+    private GameObject ShowCard (Card card)
+    {
+        GameObject go = null;
+        if (card is FollowerCard) go = followerCardPrefab;
+        else if (card is ActionCard) go = actionCardPrefab;
+        else Debug.LogError("CARD TYPE NOT FOUND!");
+        go = Instantiate(go, new Vector3(0, 0, -1), Quaternion.identity);
+        go.GetComponent<CardDisplay>().CardScript = card;
+        return go;
+    }
+    private GameObject HideCard (Card card)
+    {
+        return null;
+    }
+
+    /******
+     * *****
+     * ****** DRAW_CARD
+     * *****
+     *****/
+    public GameObject DrawCard(string player)
+    {
+        List<int> deck = null;
+        string cardTag = null;
+        string cardZone = null;
+
+        if (player == PLAYER)
+        {
+            deck = PlayerManager.Instance.PlayerDeck;
+            cardTag = PLAYER_CARD;
+            cardZone = PLAYER_HAND;
+        }
+        else if (player == ENEMY)
+        {
+            deck = EnemyManager.Instance.EnemyDeck;
+            cardTag = ENEMY_CARD;
+            cardZone = ENEMY_HAND;
+        }
+        else Debug.LogError("PLAYER <" + player + "> NOT FOUND!");
+
+        int cardID = deck[0];
+        deck.RemoveAt(0);
+
+        if (deck.Count < 1)
+        {
+            Debug.LogWarning("[CardManager.DrawCard()] NO CARDS LEFT!");
+            return null;
+        }
+
+        GameObject newCard = CardLibrary.Instance.GetCard(cardID);
+
+        newCard.tag = cardTag;
+        ChangeCardZone(newCard, cardZone);
+
+        if (player == PLAYER) PlayerHandCards.Add(newCard);
+        else EnemyHandCards.Add(newCard);
+
+        if (newCard == null)
+        {
+            Debug.LogError("NewCard IS NULL!");
+            return null;
+        }
+
+        return newCard;
+    }
+    public void DrawHand(string player)
+    {
+        for (int i = 0; i < STARTING_HAND_SIZE; i++)
+        {
+            FunctionTimer.Create(() => DrawCard(player), i);
+        }
+    }
+
     /******
      * *****
      * ****** REFRESH_CARDS
@@ -232,63 +328,6 @@ public class CardManager : MonoBehaviour
 
     /******
      * *****
-     * ****** DRAW_CARD
-     * *****
-     *****/
-    public GameObject DrawCard(string player)
-    {
-        List<int> deck = null;
-        string cardTag = null;
-        string cardZone = null;
-
-        if (player == PLAYER)
-        {
-            deck = PlayerManager.Instance.PlayerDeck;
-            cardTag = PLAYER_CARD;
-            cardZone = PLAYER_HAND;
-        }
-        else if (player == ENEMY)
-        {
-            deck = EnemyManager.Instance.EnemyDeck;
-            cardTag = ENEMY_CARD;
-            cardZone = ENEMY_HAND;
-        }
-        else Debug.LogError(player + " NOT FOUND!");
-
-        int cardID = deck[0];
-        deck.RemoveAt(0);
-        
-        if (deck.Count < 1)
-        {
-            Debug.LogWarning("[CardManager.DrawCard()] NO CARDS LEFT!");
-            return null;
-        }
-
-        GameObject newCard = CardLibrary.Instance.GetCard(cardID);
-        newCard.tag = cardTag;
-        ChangeCardZone(newCard, cardZone);
-
-        if (player == PLAYER) PlayerHandCards.Add(newCard);
-        else EnemyHandCards.Add(newCard);
-
-        if (newCard == null)
-        {
-            Debug.LogError("NewCard is NULL!");
-            return null;
-        }
-
-        return newCard;
-    }
-    public void DrawHand(string player)
-    {
-        for (int i = 0; i < STARTING_HAND_SIZE; i++)
-        {
-            FunctionTimer.Create(() => DrawCard(player), i);
-        }
-    }
-
-    /******
-     * *****
      * ****** PLAY_CARD [HAND >>> PLAY]
      * *****
      *****/
@@ -373,7 +412,7 @@ public class CardManager : MonoBehaviour
      *****/
     public void Attack(GameObject attacker, GameObject defender)
     {
-        int power = GetFollowerCardDisplay(attacker).CurrentPower;
+        int power = GetFollowerDisplay(attacker).CurrentPower;
         TakeDamage(defender, power);
         attacker.GetComponent<FollowerCardDisplay>().IsExhausted = true;
     }
@@ -391,16 +430,16 @@ public class CardManager : MonoBehaviour
         PlayerManager pm = PlayerManager.Instance;
         EnemyManager em = EnemyManager.Instance;
 
-        if (target == PlayerChampion) targetValue = pm.PlayerHealth;
-        else if (target == EnemyChampion) targetValue = pm.PlayerHealth;
-        else targetValue = GetFollowerCardDisplay(target).CurrentDefense;
+        if (target == PlayerHero) targetValue = pm.PlayerHealth;
+        else if (target == EnemyHero) targetValue = pm.PlayerHealth;
+        else targetValue = GetFollowerDisplay(target).CurrentDefense;
 
         newTargetValue = targetValue - damageValue;
-        if (target == PlayerChampion) pm.PlayerHealth = newTargetValue;
-        else if (target == EnemyChampion) em.EnemyHealth = newTargetValue;
+        if (target == PlayerHero) pm.PlayerHealth = newTargetValue;
+        else if (target == EnemyHero) em.EnemyHealth = newTargetValue;
         else
         {
-            GetFollowerCardDisplay(target).CurrentDefense = newTargetValue;
+            GetFollowerDisplay(target).CurrentDefense = newTargetValue;
             AnimationManager.Instance.ModifyDefenseState(target);
         }
 
@@ -408,8 +447,8 @@ public class CardManager : MonoBehaviour
         {
             if (target.CompareTag(PLAYER_CARD)) DestroyCard(target, PLAYER);
             else if (target.CompareTag(ENEMY_CARD)) DestroyCard(target, ENEMY);
-            else if (target == PlayerChampion) GameManager.Instance.EndGame(false);
-            else if (target == EnemyChampion) GameManager.Instance.EndGame(true);
+            else if (target == PlayerHero) GameManager.Instance.EndCombat(false);
+            else if (target == EnemyHero) GameManager.Instance.EndCombat(true);
         }
     }
 
@@ -421,14 +460,11 @@ public class CardManager : MonoBehaviour
     public void HealDamage(GameObject heroCard, int healingValue)
     {
         if (healingValue < 1) return;
-        FollowerCardDisplay fcd = GetFollowerCardDisplay(heroCard);
-        int defenseScore = fcd.CurrentDefense;
-        int newDefenseScore = defenseScore + healingValue;
-        if (newDefenseScore > fcd.MaxDefense)
-        {
-            newDefenseScore = fcd.MaxDefense;
-        }
-        fcd.CurrentDefense = newDefenseScore;
+        FollowerCardDisplay fcd = GetFollowerDisplay(heroCard);
+        int def = fcd.CurrentDefense;
+        int newDef = def + healingValue;
+        if (newDef > fcd.MaxDefense) newDef = fcd.MaxDefense;
+        fcd.CurrentDefense = newDef;
         AnimationManager.Instance.ModifyDefenseState(heroCard);
     }
 
@@ -440,12 +476,12 @@ public class CardManager : MonoBehaviour
     public void AddEffect(GameObject heroCard, Effect effect)
     {
         Debug.LogWarning("AddEffect()");
-        FollowerCardDisplay hcd = GetFollowerCardDisplay(heroCard);
+        FollowerCardDisplay fcd = GetFollowerDisplay(heroCard);
         // Check for TEMPORARY effect
         if (effect.Countdown != 0)
         {
-            hcd.TemporaryEffects.Add(effect);
-            hcd.EffectCountdowns.Add(effect.Countdown);
+            fcd.TemporaryEffects.Add(effect);
+            fcd.EffectCountdowns.Add(effect.Countdown);
         }
 
         // STAT_CHANGE_EFFECT
@@ -454,13 +490,10 @@ public class CardManager : MonoBehaviour
             Debug.Log("StatChangeEffect! Value: " + sce.Value);
             if (sce.IsDefenseChange)
             {
-                hcd.MaxDefense += sce.Value;
-                hcd.CurrentDefense += sce.Value;
+                fcd.MaxDefense += sce.Value;
+                fcd.CurrentDefense += sce.Value;
             }
-            else
-            {
-                hcd.CurrentPower += sce.Value;
-            }
+            else fcd.CurrentPower += sce.Value;
         }
         else Debug.LogError("Effect type not found!");
     }
@@ -478,7 +511,7 @@ public class CardManager : MonoBehaviour
 
         foreach (GameObject go in cardZone)
         {
-            FollowerCardDisplay fcd = GetFollowerCardDisplay(go);
+            FollowerCardDisplay fcd = GetFollowerDisplay(go);
             if (fcd.TemporaryEffects.Count > 0)
             {
                 int countdown = 0;
@@ -512,7 +545,8 @@ public class CardManager : MonoBehaviour
                     fcd.CurrentEffects.Remove(fcd.TemporaryEffects[effect]);
                     fcd.TemporaryEffects.RemoveAt(effect);
                     fcd.EffectCountdowns.RemoveAt(effect);
-                    Debug.Log("Current Effects: " + fcd.CurrentEffects.Count + " // Temporary Effects: " + fcd.TemporaryEffects.Count + " // Effect Countdowns: " + fcd.EffectCountdowns.Count);
+                    Debug.Log("Current Effects: " + fcd.CurrentEffects.Count + " // Temporary Effects: " + 
+                        fcd.TemporaryEffects.Count + " // Effect Countdowns: " + fcd.EffectCountdowns.Count);
                 }
             }
         }
@@ -531,7 +565,7 @@ public class CardManager : MonoBehaviour
 
         foreach (GameObject go in cardZone)
         {
-            FollowerCardDisplay fcd = GetFollowerCardDisplay(go);
+            FollowerCardDisplay fcd = GetFollowerDisplay(go);
             if (fcd.TemporaryAbilities.Count > 0)
             {
                 int countdown = 0;
@@ -554,7 +588,8 @@ public class CardManager : MonoBehaviour
                     Debug.Log("ABILITY REMOVED: " + fcd.TemporaryAbilities[ability].ToString() + ">");
                     fcd.RemoveCurrentAbility(fcd.TemporaryAbilities[ability]);
                     fcd.AbilityCountdowns.RemoveAt(ability);
-                    Debug.Log("Current Abilities: " + fcd.CurrentAbilities.Count + " // Temporary Abilities: " + fcd.TemporaryAbilities.Count + " // Abillity Countdowns: " + fcd.AbilityCountdowns.Count);
+                    Debug.Log("Current Abilities: " + fcd.CurrentAbilities.Count + " // Temporary Abilities: " + 
+                        fcd.TemporaryAbilities.Count + " // Abillity Countdowns: " + fcd.AbilityCountdowns.Count);
                 }
             }
         }
