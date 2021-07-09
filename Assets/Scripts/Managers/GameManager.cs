@@ -142,13 +142,8 @@ public class GameManager : MonoBehaviour
     public void EndTurn(string player)
     {
         Debug.LogWarning("EndTurn(" + player + ")");
-
         CardManager.Instance.RemoveTemporaryEffects(PLAYER); // TESTING
-        CardManager.Instance.RemoveTemporaryAbilities(PLAYER); // TESTING
-
         CardManager.Instance.RemoveTemporaryEffects(ENEMY); // TESTING
-        CardManager.Instance.RemoveTemporaryAbilities(ENEMY); // TESTING
-
         if (player == ENEMY) StartTurn(PLAYER);
         else if (player == PLAYER) StartTurn(ENEMY);
     }

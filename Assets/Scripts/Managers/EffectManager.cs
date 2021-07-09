@@ -366,23 +366,12 @@ public class EffectManager : MonoBehaviour
         {
 
         }
-        // STAT_CHANGE
-        else if (effect is StatChangeEffect)
+        // STAT_CHANGE/GIVE_ABILITY
+        else // TESTING
         {
             foreach (GameObject target in targets)
             {
                 CardManager.Instance.AddEffect(target, effect);
-            }
-        }
-        // GIVE_ABILITY
-        else if (effect is GiveAbilityEffect gae)
-        {
-            foreach (GameObject target in targets)
-            {
-                FollowerCardDisplay hcd = target.GetComponent<FollowerCardDisplay>();
-                if (gae.Countdown != 0) 
-                    hcd.AddTemporaryAbility(gae.CardAbility, gae.Countdown);
-                else hcd.AddCurrentAbility(gae.CardAbility);
             }
         }
     }

@@ -66,16 +66,12 @@ public class FollowerCardDisplay : CardDisplay
 
     /* EFFECTS */
     public List<Effect> CurrentEffects;
-    public List<Effect> TemporaryEffects;
-    public List<int> EffectCountdowns;
 
     /* ABILITIES */
     [SerializeField] private GameObject currentAbilitiesDisplay;
     public List<CardAbility> CurrentAbilities;
     public List<GameObject> AbilityIcons;
-    public List<CardAbility> TemporaryAbilities;
-    public List<int> AbilityCountdowns;
-    
+        
     /* EXHAUSTED_ICON */
     [SerializeField] private GameObject exhaustedIcon;
     public bool IsExhausted
@@ -140,13 +136,9 @@ public class FollowerCardDisplay : CardDisplay
         else IsExhausted = true;
         gameObject.GetComponent<DragDrop>().IsPlayed = false;
         foreach (GameObject go in AbilityIcons) Destroy(go);
-        CurrentEffects.Clear();
-        TemporaryEffects.Clear();
-        EffectCountdowns.Clear();
-        CurrentAbilities.Clear();
         AbilityIcons.Clear();
-        TemporaryAbilities.Clear();
-        AbilityCountdowns.Clear();
+        CurrentEffects.Clear();
+        CurrentAbilities.Clear();
         DisplayCard();
     }
 
@@ -157,22 +149,15 @@ public class FollowerCardDisplay : CardDisplay
      *****/
     public bool AddCurrentAbility(CardAbility ca)
     {
-        if (CurrentAbilities.Contains(ca)) return false;
-        CurrentAbilities.Add(ca);        
+        int abilityIndex = CurrentAbilities.FindIndex(x => x.AbilityName == ca.AbilityName);
+        if (abilityIndex != -1)
+        {
+            Debug.LogWarning("ABILITY ALREADY EXISTS!");
+            return false;
+        }
+        CurrentAbilities.Add(ca); // Add an INSTANCE of the object? Doesn't really matter for abilities...
         AbilityIcons.Add(CreateAbilityIcon(ca));
         return true;
-    }
-
-    /******
-     * *****
-     * ****** ADD_TEMORARY_ABILITY
-     * *****
-     *****/
-    public void AddTemporaryAbility(CardAbility ca, int countdown) // TESTING
-    {
-        if (!AddCurrentAbility(ca)) return;
-        TemporaryAbilities.Add(ca);
-        AbilityCountdowns.Add(countdown);
     }
 
     /******
@@ -180,14 +165,17 @@ public class FollowerCardDisplay : CardDisplay
      * ****** REMOVE_CURRENT_ABILITY
      * *****
      *****/
-    public void RemoveCurrentAbility(CardAbility cardAbility)
+    public void RemoveCurrentAbility(CardAbility ca)
     {
-        if (!CurrentAbilities.Contains(cardAbility)) return;
-        int abilityIndex = CurrentAbilities.FindIndex(x => x.AbilityName == cardAbility.AbilityName);
+        int abilityIndex = CurrentAbilities.FindIndex(x => x.AbilityName == ca.AbilityName);
+        if (abilityIndex == -1)
+        {
+            Debug.LogWarning("ABILITY NOT FOUND!");
+            return;
+        }
         Destroy(AbilityIcons[abilityIndex]);
         AbilityIcons.RemoveAt(abilityIndex);
         CurrentAbilities.RemoveAt(abilityIndex);
-        if (TemporaryAbilities.Contains(cardAbility)) TemporaryAbilities.Remove(cardAbility);
     }
 
     /******

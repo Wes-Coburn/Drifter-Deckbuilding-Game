@@ -473,21 +473,32 @@ public class CardManager : MonoBehaviour
      * ****** ADD_EFFECT
      * *****
      *****/
-    public void AddEffect(GameObject heroCard, Effect effect)
+    public void AddEffect(GameObject card, Effect effect)
     {
-        Debug.LogWarning("AddEffect()");
-        FollowerCardDisplay fcd = GetFollowerDisplay(heroCard);
-        // Check for TEMPORARY effect
-        if (effect.Countdown != 0)
-        {
-            fcd.TemporaryEffects.Add(effect);
-            fcd.EffectCountdowns.Add(effect.Countdown);
-        }
+        Debug.LogWarning("AddEffect() Effect: " + effect.ToString());
+        FollowerCardDisplay fcd = GetFollowerDisplay(card);
 
+        // GIVE_ABILITY_EFFECT
+        if (effect is GiveAbilityEffect gae)
+        {
+            Debug.Log("GiveAbilityEffect! Ability: " + gae.CardAbility.ToString());
+
+            // TESTING TESTING TESTING
+            GiveAbilityEffect newGae = ScriptableObject.CreateInstance<GiveAbilityEffect>();
+            newGae.LoadEffect(gae);
+            fcd.CurrentEffects.Add(newGae);
+            fcd.AddCurrentAbility(newGae.CardAbility);
+        }
         // STAT_CHANGE_EFFECT
-        if (effect is StatChangeEffect sce)
+        else if (effect is StatChangeEffect sce)
         {
             Debug.Log("StatChangeEffect! Value: " + sce.Value);
+
+            // TESTING TESTING TESTING
+            StatChangeEffect newSce = ScriptableObject.CreateInstance<StatChangeEffect>();
+            newSce.LoadEffect(sce);
+            fcd.CurrentEffects.Add(newSce);
+
             if (sce.IsDefenseChange)
             {
                 fcd.MaxDefense += sce.Value;
@@ -512,86 +523,33 @@ public class CardManager : MonoBehaviour
         foreach (GameObject go in cardZone)
         {
             FollowerCardDisplay fcd = GetFollowerDisplay(go);
-            if (fcd.TemporaryEffects.Count > 0)
+            List<Effect> expiredEffects = new List<Effect>();
+
+            foreach (Effect effect in fcd.CurrentEffects)
             {
-                int countdown = 0;
-                List<int> expiredEffects = new List<int>();
-
-                foreach (Effect effect in fcd.TemporaryEffects)
+                if (effect.Countdown == 1) // Check for EXPIRED effects
                 {
-                    if (--fcd.EffectCountdowns[countdown] < 1)
+                    // GIVE_ABILITY_EFFECT
+                    if (effect is GiveAbilityEffect gae)
                     {
-                        expiredEffects.Add(countdown);
-
-                        // STAT_CHANGE_EFFECT
-                        if (effect is StatChangeEffect sce)
+                        fcd.RemoveCurrentAbility(gae.CardAbility);
+                    }
+                    // STAT_CHANGE_EFFECT
+                    else if (effect is StatChangeEffect sce)
+                    {
+                        if (sce.IsDefenseChange)
                         {
-                            if (sce.IsDefenseChange)
-                            {
-                                fcd.CurrentDefense -= sce.Value;
-                                fcd.MaxDefense -= sce.Value;
-                            }
-                            else fcd.CurrentPower -= sce.Value;
+                            fcd.CurrentDefense -= sce.Value;
+                            fcd.MaxDefense -= sce.Value;
                         }
+                        else fcd.CurrentPower -= sce.Value;
                     }
-                    countdown++;
-                    Debug.Log("COUNTDOWN FOR EFFECT <" + effect.ToString() + "> = " + fcd.EffectCountdowns[countdown-1]);
-                }
 
-                expiredEffects.Reverse(); // REMOVE THE HIGHEST INDEXES FIRST, OTHERWISE RESULTS WILL BE INACCURATE
-                foreach (int effect in expiredEffects)
-                {
-                    Debug.LogWarning("EFFECT REMOVED: <" + fcd.TemporaryEffects[effect].ToString() + ">");
-                    fcd.CurrentEffects.Remove(fcd.TemporaryEffects[effect]);
-                    fcd.TemporaryEffects.RemoveAt(effect);
-                    fcd.EffectCountdowns.RemoveAt(effect);
-                    Debug.Log("Current Effects: " + fcd.CurrentEffects.Count + " // Temporary Effects: " + 
-                        fcd.TemporaryEffects.Count + " // Effect Countdowns: " + fcd.EffectCountdowns.Count);
+                    expiredEffects.Add(effect);
                 }
+                else if (effect.Countdown != 0) effect.Countdown -= 1; // TESTING
             }
-        }
-    }
-
-    /******
-     * *****
-     * ****** REMOVE_TEMPORARY_ABILITIES
-     * *****
-     *****/
-    public void RemoveTemporaryAbilities(string player)
-    {
-        List<GameObject> cardZone;
-        if (player == PLAYER) cardZone = PlayerZoneCards;
-        else cardZone = EnemyZoneCards;
-
-        foreach (GameObject go in cardZone)
-        {
-            FollowerCardDisplay fcd = GetFollowerDisplay(go);
-            if (fcd.TemporaryAbilities.Count > 0)
-            {
-                int countdown = 0;
-                List<int> expiredAbilities = new List<int>();
-
-                foreach (CardAbility ca in fcd.TemporaryAbilities)
-                {
-                    if (--fcd.AbilityCountdowns[countdown] < 1)
-                    {
-                        Debug.Log("ABILITY EXPIRED: <" + ca.ToString() + ">");
-                        expiredAbilities.Add(countdown);
-                    }
-                    Debug.Log("COUNTDOWN FOR ABILITY <" + ca.ToString() + "> = " + fcd.AbilityCountdowns[countdown]);
-                    countdown++;
-                }
-
-                expiredAbilities.Reverse(); // REMOVE THE HIGHEST INDEXES FIRST, OTHERWISE RESULTS WILL BE INACCURATE
-                foreach (int ability in expiredAbilities)
-                {
-                    Debug.Log("ABILITY REMOVED: " + fcd.TemporaryAbilities[ability].ToString() + ">");
-                    fcd.RemoveCurrentAbility(fcd.TemporaryAbilities[ability]);
-                    fcd.AbilityCountdowns.RemoveAt(ability);
-                    Debug.Log("Current Abilities: " + fcd.CurrentAbilities.Count + " // Temporary Abilities: " + 
-                        fcd.TemporaryAbilities.Count + " // Abillity Countdowns: " + fcd.AbilityCountdowns.Count);
-                }
-            }
+            foreach (Effect effect in expiredEffects) fcd.CurrentEffects.Remove(effect);
         }
     }
 

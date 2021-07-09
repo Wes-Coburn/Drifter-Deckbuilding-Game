@@ -22,4 +22,14 @@ public abstract class Effect : ScriptableObject
     [Tooltip("The number of turns the effect lasts, 0 for permanent")]
     [Range(0, 5)]
     public int Countdown;
+
+    public virtual void LoadEffect(Effect effect)
+    {
+        IsRequired = effect.IsRequired;
+        Value = effect.Value;
+        Targets = effect.Targets;
+        TargetNumber = effect.TargetNumber;
+        TargetsAll = effect.TargetsAll;
+        Countdown = effect.Countdown;
+    }
 }
