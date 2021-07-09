@@ -17,16 +17,8 @@ public class PlayerManager : MonoBehaviour
 
     private void Start()
     {
-        PlayerDeck2 = new List<Card>(); // TESTING
-
-        // REMOVE ALL BELOW
-        PlayerDeck = new List<int>();
-        while (PlayerDeck.Count < 30)
-        {
-            PlayerDeck.Add(1);
-            PlayerDeck.Add(3);
-            PlayerDeck.Add(4);
-        }
+        PlayerDeckList = new List<Card>(); // TESTING
+        CurrentPlayerDeck = new List<Card>(); // TESTING
     }
 
     /* PLAYER_HERO */
@@ -52,8 +44,8 @@ public class PlayerManager : MonoBehaviour
     private Hero playerHero;
 
     /* PLAYER_DECK */
-    public List<int> PlayerDeck { get; private set; }
-    public List<Card> PlayerDeck2 { get; private set; }
+    public List<Card> PlayerDeckList { get; private set; }
+    public List<Card> CurrentPlayerDeck { get; private set; }
 
     /* IS_MY_TURN */
     public bool IsMyTurn { get; set; }

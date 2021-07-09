@@ -152,10 +152,10 @@ public class FollowerCardDisplay : CardDisplay
         int abilityIndex = CurrentAbilities.FindIndex(x => x.AbilityName == ca.AbilityName);
         if (abilityIndex != -1)
         {
-            Debug.LogWarning("ABILITY ALREADY EXISTS!");
+            Debug.LogWarning("ABILITY ALREADY EXISTS: <" + ca.ToString() + ">");
             return false;
         }
-        CurrentAbilities.Add(ca); // Add an INSTANCE of the object? Doesn't really matter for abilities...
+        CurrentAbilities.Add(ca); // Add instances instead of objects? Doesn't currently matter.
         AbilityIcons.Add(CreateAbilityIcon(ca));
         return true;
     }
@@ -170,7 +170,7 @@ public class FollowerCardDisplay : CardDisplay
         int abilityIndex = CurrentAbilities.FindIndex(x => x.AbilityName == ca.AbilityName);
         if (abilityIndex == -1)
         {
-            Debug.LogWarning("ABILITY NOT FOUND!");
+            Debug.LogWarning("ABILITY NOT FOUND: <" + ca.ToString() + ">");
             return;
         }
         Destroy(AbilityIcons[abilityIndex]);

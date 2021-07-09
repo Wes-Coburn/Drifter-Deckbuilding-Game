@@ -95,7 +95,7 @@ public class EffectManager : MonoBehaviour
     {
         if (effectGroup.Count < 1)
         {
-            Debug.LogError("Effect Group is EMPTY!");
+            Debug.LogError("EFFECT GROUP IS EMPTY!");
             return false;
         }
 
@@ -104,7 +104,7 @@ public class EffectManager : MonoBehaviour
 
         for (int i = 0; i < effectGroup.Count; i++)
         {
-            Debug.Log("<Effect " + (i + 1) + "> <" + effectGroup[i].ToString() + ">");
+            Debug.Log("<EFFECT #" + (i + 1) + "> <" + effectGroup[i].ToString() + ">");
             legalTargets.Add(new List<GameObject>());
             acceptedTargets.Add(new List<GameObject>());
         }
@@ -117,7 +117,7 @@ public class EffectManager : MonoBehaviour
                 if (!GetLegalTargets(effect, n))
                 {
                     legalTargets = null;
-                    Debug.LogWarning("CheckLegalTargets() returned FALSE");
+                    Debug.LogWarning("CheckLegalTargets() RETURNED FALSE!");
                     return false;
                 }
             }
@@ -155,8 +155,8 @@ public class EffectManager : MonoBehaviour
         
         if (currentEffect < currentEffectGroup.Count)
         {
-            Debug.Log("StartNextEffect() #" + (currentEffect + 1) + "/" + currentEffectGroup.Count + 
-                ": <" + currentEffectGroup[currentEffect].ToString() + ">");
+            Debug.Log("StartNextEffect() <EFFECT #" + (currentEffect + 1) + ">/<" + currentEffectGroup.Count + 
+                "> = <" + currentEffectGroup[currentEffect].ToString() + ">");
         }
 
         if (currentEffect == currentEffectGroup.Count)
@@ -164,7 +164,7 @@ public class EffectManager : MonoBehaviour
             ResolveEffectGroup();
             return;
         }
-        else if (currentEffect > currentEffectGroup.Count) Debug.LogError("ERROR: CurrentEffect > currentEffectGroup.Count");
+        else if (currentEffect > currentEffectGroup.Count) Debug.LogError("ERROR: CURRENT_EFFECT > CURRENT_EFFECT_GROUP");
 
         Effect effect = currentEffectGroup[currentEffect];
         if (IsTargetEffect(effect)) StartTargetEffect(effect);
@@ -219,7 +219,7 @@ public class EffectManager : MonoBehaviour
      *****/
     private bool GetLegalTargets(Effect effect, int currentEffect)
     {
-        Debug.Log("GetLegalTargets() <" + effect.ToString() + ">");
+        Debug.Log("GetLegalTargets() FOR EFFECT: <" + effect.ToString() + ">");
 
         List<GameObject> targetZoneCards = null;
 
@@ -282,7 +282,7 @@ public class EffectManager : MonoBehaviour
 
         if (acceptedTargets[currentEffect].Count == targetNumber) ConfirmTargetEffect();
         else if (acceptedTargets[currentEffect].Count > targetNumber) 
-            Debug.LogError("ERROR: acceptedTargets > targetNumber: " + acceptedTargets[currentEffect].Count + " > " + targetNumber);
+            Debug.LogError("ERROR: ACCEPTED_TARGETS > TARGET_NUMBER ::: " + acceptedTargets[currentEffect].Count + " > " + targetNumber);
     }
     private void RejectEffectTarget()
     {
@@ -300,13 +300,13 @@ public class EffectManager : MonoBehaviour
         Effect effect = currentEffectGroup[currentEffect];
         if (effect is DrawEffect)
         {
-            string player;
-            if (effect.Targets == CardManager.PLAYER_HAND) player = GameManager.PLAYER;
-            else player = GameManager.ENEMY;
+            string hero;
+            if (effect.Targets == CardManager.PLAYER_HAND) hero = GameManager.PLAYER;
+            else hero = GameManager.ENEMY;
 
             for (int i = 0; i < effect.Value; i++)
             {
-                GameObject card = CardManager.Instance.DrawCard(player);
+                GameObject card = CardManager.Instance.DrawCard(hero);
                 newDrawnCards.Add(card);
             }
         }
@@ -332,19 +332,19 @@ public class EffectManager : MonoBehaviour
      *****/
     private void ResolveEffect(List<GameObject> targets, Effect effect)
     {
-        Debug.Log("ResolveEffect() <" + effect.ToString() + ">");
+        Debug.Log("ResolveEffect() EFFECT: <" + effect.ToString() + ">");
         
         // DRAW
         if (effect is DrawEffect de)
         {
             if (de.IsDiscardEffect)
             {
-                string player;
-                if (de.Targets == CardManager.PLAYER_HAND) player = GameManager.PLAYER;
-                else player = GameManager.ENEMY;
+                string hero;
+                if (de.Targets == CardManager.PLAYER_HAND) hero = GameManager.PLAYER;
+                else hero = GameManager.ENEMY;
                 foreach (GameObject target in targets)
                 {
-                    CardManager.Instance.DiscardCard(target, player);
+                    CardManager.Instance.DiscardCard(target, hero);
                 }
             }
         }
@@ -365,6 +365,13 @@ public class EffectManager : MonoBehaviour
         else if (effect is MarkEffect)
         {
 
+        }
+        else if (effect is ExhaustEffect ee) // TESTING
+        {
+            foreach (GameObject target in targets)
+            {
+                target.GetComponent<FollowerCardDisplay>().IsExhausted = !ee.IsRefreshEffect;
+            }
         }
         // STAT_CHANGE/GIVE_ABILITY
         else // TESTING
@@ -420,14 +427,14 @@ public class EffectManager : MonoBehaviour
      *****/
     private void FinishEffectGroup(bool wasAborted = false)
     {
-        Debug.LogWarning("FinishEffectGroup(wasAborted = " + wasAborted + ")");
+        Debug.LogWarning("FinishEffectGroup() WAS_ABORTED = <" + wasAborted + ">");
 
         if (currentEffectSource != null && !wasAborted)
         {
-            string player;
-            if (currentEffectSource.CompareTag(CardManager.PLAYER_CARD)) player = GameManager.PLAYER;
-            else player = GameManager.ENEMY;
-            CardManager.Instance.DiscardCard(currentEffectSource, player);
+            string hero;
+            if (currentEffectSource.CompareTag(CardManager.PLAYER_CARD)) hero = GameManager.PLAYER;
+            else hero = GameManager.ENEMY;
+            CardManager.Instance.DiscardCard(currentEffectSource, hero);
         }
 
         currentEffectSource = null;

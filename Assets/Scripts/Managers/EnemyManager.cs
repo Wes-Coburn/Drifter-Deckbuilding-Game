@@ -14,16 +14,12 @@ public class EnemyManager : MonoBehaviour
         }
         else Destroy(gameObject);
     }
-
     private void Start()
     {
-        EnemyDeck2 = new List<Card>(); // TESTING
-        
-        // REMOVE ALL BELOW
-        EnemyDeck = new List<int>();
-        while (EnemyDeck.Count < 30) EnemyDeck.Add(2);
+        EnemyDeckList = new List<Card>(); // TESTING
+        CurrentEnemyDeck = new List<Card>(); // TESTING
     }
-    
+
     /* ENEMY_HERO */
     public Hero EnemyHero // TESTING
     {
@@ -50,8 +46,8 @@ public class EnemyManager : MonoBehaviour
     private Hero enemyHero;
 
     /* ENEMY_DECK */
-    public List<int> EnemyDeck { get; private set; }
-    public List<Card> EnemyDeck2 { get; private set; }
+    public List<Card> EnemyDeckList { get; private set; }
+    public List<Card> CurrentEnemyDeck { get; private set; }
 
     /* IS_MY_TURN */
     public bool IsMyTurn { get; set; }

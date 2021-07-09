@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
@@ -44,8 +45,6 @@ public class GameManager : MonoBehaviour
         enemyManager = EnemyManager.Instance;
         UIManager = UIManager.Instance;
         cardManager = CardManager.Instance;
-
-        //PlayerManager.Instance.PlayerHero = playerTestHero; // TESTING
     }
 
     /******
@@ -55,7 +54,8 @@ public class GameManager : MonoBehaviour
      *****/
     public void NewGame()
     {
-        StartCombat(/*enemyTestHero*/);
+        PlayerManager.Instance.PlayerHero = playerTestHero; // FOR TESTING ONLY
+        StartCombat(enemyTestHero); // FOR TESTING ONLY
     }
 
     /******
@@ -63,12 +63,15 @@ public class GameManager : MonoBehaviour
      * ****** START/END_COMBAT
      * *****
      *****/
-    private void StartCombat(/*Hero enemyHero*/)
+    private void StartCombat(Hero enemyHero)
     {
+        CardManager cm = CardManager.Instance;
         PlayerManager pm = PlayerManager.Instance;
         EnemyManager em = EnemyManager.Instance;
+        em.EnemyHero = enemyHero; // TESTING
 
-        //em.EnemyHero = enemyHero; // TESTING
+        cm.UpdateDeck(GameManager.PLAYER); // TESTING
+        cm.UpdateDeck(GameManager.ENEMY); // TESTING
 
         pm.PlayerHealth = STARTING_HEALTH;
         pm.PlayerActionsLeft = STARTING_ACTIONS;
@@ -93,7 +96,7 @@ public class GameManager : MonoBehaviour
      *****/
     private void StartTurn(string player)
     {
-        Debug.LogWarning("StartTurn(" + player + ")");
+        Debug.LogWarning("START TURN: " + player);
         if (player == PLAYER)
         {
             playerManager.IsMyTurn = true;
@@ -141,7 +144,7 @@ public class GameManager : MonoBehaviour
 
     public void EndTurn(string player)
     {
-        Debug.LogWarning("EndTurn(" + player + ")");
+        Debug.LogWarning("END TURN: " + player);
         CardManager.Instance.RemoveTemporaryEffects(PLAYER); // TESTING
         CardManager.Instance.RemoveTemporaryEffects(ENEMY); // TESTING
         if (player == ENEMY) StartTurn(PLAYER);

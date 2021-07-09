@@ -59,7 +59,6 @@ public class CardManager : MonoBehaviour
     [Header("STARTING PLAYER FOLLOWER")]
     [SerializeField] private Card startPlayerFollower; // TESTING
 
-
     /* CARD BACK SPRITE */
     public Sprite CardBackSprite
     {
@@ -108,28 +107,64 @@ public class CardManager : MonoBehaviour
 
     /******
      * *****
+     * ****** UPDATE_DECK
+     * *****
+     *****/
+    public void UpdateDeck(string hero)
+    {
+        List<Card> deckList;
+        List<Card> currentDeck;
+
+        if (hero == GameManager.PLAYER)
+        {
+            deckList = PlayerManager.Instance.PlayerDeckList;
+            currentDeck = PlayerManager.Instance.CurrentPlayerDeck;
+        }
+        else if (hero == GameManager.ENEMY)
+        {
+            deckList = EnemyManager.Instance.EnemyDeckList;
+            currentDeck = EnemyManager.Instance.CurrentEnemyDeck;
+        }
+        else
+        {
+            Debug.LogError("HERO NOT FOUND!");
+            return;
+        }
+
+        currentDeck.Clear();
+        foreach (Card card in deckList)
+        {
+            currentDeck.Add(card);
+        }
+
+        currentDeck.Shuffle(); // TESTING
+    }
+
+    /******
+     * *****
      * ****** ADD_CARD
      * *****
      *****/
-    public void AddCard(Card card, string player) // TESTING
+    public void AddCard(Card card, string hero) // TESTING
     {
         List<Card> deck = null;
         Card cardInstance = null;
         
-        if (player == GameManager.PLAYER) deck = PlayerManager.Instance.PlayerDeck2;
-        else if (player == GameManager.ENEMY) deck = EnemyManager.Instance.EnemyDeck2;
-        else Debug.LogError("Player NOT FOUND!");
+        if (hero == GameManager.PLAYER) deck = PlayerManager.Instance.PlayerDeckList;
+        else if (hero == GameManager.ENEMY) deck = EnemyManager.Instance.EnemyDeckList;
+        else Debug.LogError("HERO NOT FOUND!");
 
         if (card is FollowerCard) cardInstance = ScriptableObject.CreateInstance<FollowerCard>();
         else if (card is ActionCard) cardInstance = ScriptableObject.CreateInstance<ActionCard>();
-        else Debug.LogError("Card Type NOT FOUND!");
+        else Debug.LogError("CARD TYPE NOT FOUND!");
 
-        if (deck != null && cardInstance != null)
+        if (deck == null) Debug.LogError("DECK IS NULL!");
+        if (cardInstance == null) Debug.LogError("CARD IS NULL!");
+        else if (deck != null && cardInstance != null)
         {
             cardInstance.LoadCard(card);
             deck.Add(cardInstance);
         }
-        else Debug.LogError("Deck or Card was NULL!");
     }
 
     /******
@@ -147,7 +182,7 @@ public class CardManager : MonoBehaviour
         go.GetComponent<CardDisplay>().CardScript = card;
         return go;
     }
-    private GameObject HideCard (Card card)
+    private GameObject HideCard (Card card) // UNUSED!!!
     {
         return null;
     }
@@ -157,50 +192,48 @@ public class CardManager : MonoBehaviour
      * ****** DRAW_CARD
      * *****
      *****/
-    public GameObject DrawCard(string player)
+    public GameObject DrawCard(string hero)
     {
-        List<int> deck = null;
+        List<Card> deck = null;
         string cardTag = null;
         string cardZone = null;
 
-        if (player == PLAYER)
+        if (hero == PLAYER)
         {
-            deck = PlayerManager.Instance.PlayerDeck;
+            deck = PlayerManager.Instance.CurrentPlayerDeck;
             cardTag = PLAYER_CARD;
             cardZone = PLAYER_HAND;
         }
-        else if (player == ENEMY)
+        else if (hero == ENEMY)
         {
-            deck = EnemyManager.Instance.EnemyDeck;
+            deck = EnemyManager.Instance.CurrentEnemyDeck;
             cardTag = ENEMY_CARD;
             cardZone = ENEMY_HAND;
         }
-        else Debug.LogError("PLAYER <" + player + "> NOT FOUND!");
+        else Debug.LogError("PLAYER <" + hero + "> NOT FOUND!");
 
-        int cardID = deck[0];
-        deck.RemoveAt(0);
 
         if (deck.Count < 1)
         {
-            Debug.LogWarning("[CardManager.DrawCard()] NO CARDS LEFT!");
+            Debug.LogWarning("NO CARDS LEFT IN DECK!");
             return null;
         }
 
-        GameObject newCard = CardLibrary.Instance.GetCard(cardID);
+        GameObject card = ShowCard(deck[0]);
+        deck.RemoveAt(0);
 
-        newCard.tag = cardTag;
-        ChangeCardZone(newCard, cardZone);
+        card.tag = cardTag;
+        ChangeCardZone(card, cardZone);
 
-        if (player == PLAYER) PlayerHandCards.Add(newCard);
-        else EnemyHandCards.Add(newCard);
+        if (hero == PLAYER) PlayerHandCards.Add(card);
+        else EnemyHandCards.Add(card);
 
-        if (newCard == null)
+        if (card == null)
         {
-            Debug.LogError("NewCard IS NULL!");
+            Debug.LogError("CARD IS NULL!");
             return null;
         }
-
-        return newCard;
+        return card;
     }
     public void DrawHand(string player)
     {
@@ -215,11 +248,11 @@ public class CardManager : MonoBehaviour
      * ****** REFRESH_CARDS
      * *****
      *****/
-    public void RefreshCards(string player)
+    public void RefreshCards(string hero)
     {
         List<GameObject> cardZoneList = null;
-        if (player == PLAYER) cardZoneList = PlayerZoneCards;
-        else if (player == ENEMY) cardZoneList = EnemyZoneCards;
+        if (hero == PLAYER) cardZoneList = PlayerZoneCards;
+        else if (hero == ENEMY) cardZoneList = EnemyZoneCards;
         foreach (GameObject card in cardZoneList) card.GetComponent<FollowerCardDisplay>().IsExhausted = false;
     }
 
@@ -242,7 +275,7 @@ public class CardManager : MonoBehaviour
         if (playerActionsLeft >= actionCost) return true;
         else
         {
-            Debug.LogWarning("[IsPlayable() in CardManager] COULD NOT PLAY! // ActionCost: "
+            Debug.LogWarning("COULD NOT PLAY! // ActionCost: "
             + actionCost + " // PlayerActionsLeft: " + PlayerManager.Instance.PlayerActionsLeft + 
             " // IsMyTurn = " + PlayerManager.Instance.IsMyTurn);
             return false;
@@ -261,16 +294,17 @@ public class CardManager : MonoBehaviour
         float yPos = card.transform.position.y;
         card.transform.position = new Vector3(xPos, yPos, -2);
 
-        // UNNECESSARY???
-        if (card.TryGetComponent<FollowerCardDisplay>(out FollowerCardDisplay fcd))
+        // UNNECESSARY?
+        CardDisplay cd = card.GetComponent<CardDisplay>();
+        if (cd is FollowerCardDisplay)
         {
             card.GetComponent<ChangeLayer>().CardsLayer();
         }
-        else if (card.TryGetComponent<ActionCardDisplay>(out ActionCardDisplay acd))
+        else if (cd is ActionCardDisplay)
         {
             card.GetComponent<ChangeLayer>().ActionsLayer();
         }
-        else Debug.LogError("Card Display NOT FOUND!");
+        else Debug.LogError("CARD DISPLAY TYPE NOT FOUND!");
     }
 
     /******
@@ -283,7 +317,7 @@ public class CardManager : MonoBehaviour
         Transform zoneTran = null;
         switch (zone)
         {
-            case PLAYER_ACTION_ZONE: // TESTING
+            case PLAYER_ACTION_ZONE:
                 zoneTran = PlayerActionZone.transform;
                 AnimationManager.Instance.PlayedState(card);
                 break;
@@ -319,10 +353,10 @@ public class CardManager : MonoBehaviour
         }
         SetCardParent(card, zoneTran);
 
-        if (card.TryGetComponent<FollowerCardDisplay>(out FollowerCardDisplay hcd))
+        if (card.GetComponent<CardDisplay>() is FollowerCardDisplay fcd)
         {
-            if (zone == PLAYER_DISCARD || zone == ENEMY_DISCARD) hcd.ResetFollowerCard(true);
-            else if (zone != PLAYER_ZONE && zone != ENEMY_ZONE) hcd.ResetFollowerCard();
+            if (zone == PLAYER_DISCARD || zone == ENEMY_DISCARD) fcd.ResetFollowerCard(true);
+            else if (zone != PLAYER_ZONE && zone != ENEMY_ZONE) fcd.ResetFollowerCard();
         }
     }
 
@@ -331,9 +365,9 @@ public class CardManager : MonoBehaviour
      * ****** PLAY_CARD [HAND >>> PLAY]
      * *****
      *****/
-    public void PlayCard(GameObject card, string player)
+    public void PlayCard(GameObject card, string hero)
     {
-        if (player == PLAYER)
+        if (hero == PLAYER)
         {
             PlayerManager.Instance.PlayerActionsLeft -= card.GetComponent<CardDisplay>().CurrentActionCost;
             PlayerHandCards.Remove(card);
@@ -349,9 +383,9 @@ public class CardManager : MonoBehaviour
                 ChangeCardZone(card, PLAYER_ACTION_ZONE);
                 ResolveActionCard(card);
             }
-            else Debug.LogError("CardDisplay type not found!");
+            else Debug.LogError("CARDDISPLAY TYPE NOT FOUND!");
         }
-        else if (player == ENEMY)
+        else if (hero == ENEMY)
         {
             card = EnemyHandCards[0];
             EnemyHandCards.Remove(card);
@@ -372,14 +406,14 @@ public class CardManager : MonoBehaviour
      * ****** DESTROY_CARD [PLAY >>> DISCARD]
      * *****
      *****/
-    public void DestroyCard(GameObject card, string player)
+    public void DestroyCard(GameObject card, string hero)
     {
-        if (player == PLAYER)
+        if (hero == PLAYER)
         {
             ChangeCardZone(card, PLAYER_DISCARD);
             PlayerZoneCards.Remove(card);
         }
-        else if (player == ENEMY)
+        else if (hero == ENEMY)
         {
             ChangeCardZone(card, ENEMY_DISCARD);
             EnemyZoneCards.Remove(card);
@@ -391,14 +425,14 @@ public class CardManager : MonoBehaviour
      * ****** DISCARD_CARD [HAND >>> DISCARD]
      * *****
      *****/
-    public void DiscardCard(GameObject card, string player)
+    public void DiscardCard(GameObject card, string hero)
     {
-        if (player == PLAYER)
+        if (hero == PLAYER)
         {
             ChangeCardZone(card, PLAYER_DISCARD);
             PlayerHandCards.Remove(card);
         }
-        else if (player == ENEMY)
+        else if (hero == ENEMY)
         {
             ChangeCardZone(card, ENEMY_DISCARD);
             EnemyHandCards.Remove(card);
@@ -457,7 +491,7 @@ public class CardManager : MonoBehaviour
      * ****** HEAL_DAMAGE
      * *****
      *****/
-    public void HealDamage(GameObject heroCard, int healingValue)
+    public void HealDamage(GameObject heroCard, int healingValue) // UNUSED!!!
     {
         if (healingValue < 1) return;
         FollowerCardDisplay fcd = GetFollowerDisplay(heroCard);
@@ -475,24 +509,23 @@ public class CardManager : MonoBehaviour
      *****/
     public void AddEffect(GameObject card, Effect effect)
     {
-        Debug.LogWarning("AddEffect() Effect: " + effect.ToString());
+        Debug.LogWarning("EFFECT ADDED: <" + effect.ToString() + ">");
         FollowerCardDisplay fcd = GetFollowerDisplay(card);
 
         // GIVE_ABILITY_EFFECT
         if (effect is GiveAbilityEffect gae)
         {
-            Debug.Log("GiveAbilityEffect! Ability: " + gae.CardAbility.ToString());
+            Debug.Log("GiveAbilityEffect! <" + gae.CardAbility.ToString() + ">");
 
             // TESTING TESTING TESTING
             GiveAbilityEffect newGae = ScriptableObject.CreateInstance<GiveAbilityEffect>();
             newGae.LoadEffect(gae);
-            fcd.CurrentEffects.Add(newGae);
-            fcd.AddCurrentAbility(newGae.CardAbility);
+            if (fcd.AddCurrentAbility(newGae.CardAbility)) fcd.CurrentEffects.Add(newGae); 
         }
         // STAT_CHANGE_EFFECT
         else if (effect is StatChangeEffect sce)
         {
-            Debug.Log("StatChangeEffect! Value: " + sce.Value);
+            Debug.Log("StatChangeEffect! <" + sce.Value + ">");
 
             // TESTING TESTING TESTING
             StatChangeEffect newSce = ScriptableObject.CreateInstance<StatChangeEffect>();
@@ -506,7 +539,7 @@ public class CardManager : MonoBehaviour
             }
             else fcd.CurrentPower += sce.Value;
         }
-        else Debug.LogError("Effect type not found!");
+        else Debug.LogError("EFFECT TYPE NOT FOUND!");
     }
 
     /******
@@ -514,26 +547,32 @@ public class CardManager : MonoBehaviour
      * ****** REMOVE_TEMPORARY_EFFECTS
      * *****
      *****/
-    public void RemoveTemporaryEffects(string player)
+    public void RemoveTemporaryEffects(string hero)
     {
+        static void DestroyEffect(Effect effect)
+        {
+            Destroy(effect);
+            effect = null;
+        }
+
         List<GameObject> cardZone;
-        if (player == PLAYER) cardZone = PlayerZoneCards;
+        if (hero == PLAYER) cardZone = PlayerZoneCards;
         else cardZone = EnemyZoneCards;
 
-        foreach (GameObject go in cardZone)
+        foreach (GameObject card in cardZone)
         {
-            FollowerCardDisplay fcd = GetFollowerDisplay(go);
+            FollowerCardDisplay fcd = GetFollowerDisplay(card);
             List<Effect> expiredEffects = new List<Effect>();
 
             foreach (Effect effect in fcd.CurrentEffects)
             {
                 if (effect.Countdown == 1) // Check for EXPIRED effects
                 {
+                    Debug.LogWarning("EFFECT REMOVED: <" + effect.ToString() + ">");
+                    
                     // GIVE_ABILITY_EFFECT
-                    if (effect is GiveAbilityEffect gae)
-                    {
-                        fcd.RemoveCurrentAbility(gae.CardAbility);
-                    }
+                    if (effect is GiveAbilityEffect gae) fcd.RemoveCurrentAbility(gae.CardAbility);
+                    
                     // STAT_CHANGE_EFFECT
                     else if (effect is StatChangeEffect sce)
                     {
@@ -544,12 +583,22 @@ public class CardManager : MonoBehaviour
                         }
                         else fcd.CurrentPower -= sce.Value;
                     }
-
                     expiredEffects.Add(effect);
                 }
-                else if (effect.Countdown != 0) effect.Countdown -= 1; // TESTING
+                else if (effect.Countdown != 0)
+                {
+                    effect.Countdown -= 1;
+                    Debug.LogWarning("COUNTOWN FOR EFFECT <" + effect.ToString() + "> IS: " + effect.Countdown);
+                }
             }
-            foreach (Effect effect in expiredEffects) fcd.CurrentEffects.Remove(effect);
+            foreach (Effect effect in expiredEffects)
+            {
+                fcd.CurrentEffects.Remove(effect);
+                DestroyEffect(effect);
+            }
+
+            fcd = null;
+            expiredEffects = null;
         }
     }
 
@@ -560,7 +609,7 @@ public class CardManager : MonoBehaviour
      *****/
     public void TriggerCardAbility(GameObject card, string triggerName)
     {
-        Debug.Log("TriggerCardAbility()");
+        Debug.Log("CARD ABILITY TRIGGERED!");
         foreach (CardAbility ca in card.GetComponent<FollowerCardDisplay>().CurrentAbilities)
         {
             if (ca is TriggeredAbility tra)
