@@ -105,7 +105,7 @@ public class DragDrop : MonoBehaviour
         cardManager.SetCardParent(gameObject, startParent.transform);
         transform.SetSiblingIndex(startIndex);
 
-        if (gameObject.GetComponent<CardDisplay>() is ActionCardDisplay) IsPlayed = false; // TESTING
+        if (gameObject.GetComponent<CardDisplay>() is ActionCardDisplay) IsPlayed = false;
         if (IsPlayed) AnimationManager.Instance.RevealedPlayState(gameObject);
         else AnimationManager.Instance.RevealedHandState(gameObject);
     }

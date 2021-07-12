@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
@@ -68,10 +67,10 @@ public class GameManager : MonoBehaviour
         CardManager cm = CardManager.Instance;
         PlayerManager pm = PlayerManager.Instance;
         EnemyManager em = EnemyManager.Instance;
-        em.EnemyHero = enemyHero; // TESTING
+        em.EnemyHero = enemyHero;
 
-        cm.UpdateDeck(GameManager.PLAYER); // TESTING
-        cm.UpdateDeck(GameManager.ENEMY); // TESTING
+        cm.UpdateDeck(PLAYER);
+        cm.UpdateDeck(ENEMY);
 
         pm.PlayerHealth = STARTING_HEALTH;
         pm.PlayerActionsLeft = STARTING_ACTIONS;
@@ -146,8 +145,9 @@ public class GameManager : MonoBehaviour
     public void EndTurn(string player)
     {
         Debug.LogWarning("END TURN: " + player);
-        CardManager.Instance.RemoveTemporaryEffects(PLAYER); // TESTING
-        CardManager.Instance.RemoveTemporaryEffects(ENEMY); // TESTING
+        CardManager.Instance.RemoveTemporaryEffects(PLAYER);
+        CardManager.Instance.RemoveTemporaryEffects(ENEMY);
+        CardManager.Instance.RemoveGiveNextEffects(); // TESTING
         if (player == ENEMY) StartTurn(PLAYER);
         else if (player == PLAYER) StartTurn(ENEMY);
     }

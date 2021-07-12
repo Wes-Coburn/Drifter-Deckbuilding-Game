@@ -17,7 +17,7 @@ public class EffectManager : MonoBehaviour
 
     private void Start()
     {
-        giveNextEffects = new List<Effect>();
+        giveNextEffects = new List<GiveNextFollowerEffect>();
     }
 
     /* EFFECT_MANAGER_DATA */
@@ -31,12 +31,12 @@ public class EffectManager : MonoBehaviour
     private List<List<GameObject>> acceptedTargets;
     private List<GameObject> newDrawnCards;
 
-    public List<Effect> GiveNextEffects // TESTING
+    public List<GiveNextFollowerEffect> GiveNextEffects // TESTING
     {
         get => giveNextEffects;
         private set => giveNextEffects = value;
     }
-    private List<Effect> giveNextEffects;
+    private List<GiveNextFollowerEffect> giveNextEffects;
 
     /*
      *                                                      >>> START <<<
@@ -175,7 +175,8 @@ public class EffectManager : MonoBehaviour
             ResolveEffectGroup();
             return;
         }
-        else if (currentEffect > currentEffectGroup.Count) Debug.LogError("ERROR: CURRENT_EFFECT > CURRENT_EFFECT_GROUP");
+        else if (currentEffect > currentEffectGroup.Count) 
+            Debug.LogError("ERROR: CURRENT_EFFECT > CURRENT_EFFECT_GROUP");
 
         Effect effect = currentEffectGroup[currentEffect];
         if (IsTargetEffect(effect)) StartTargetEffect(effect);
@@ -219,7 +220,8 @@ public class EffectManager : MonoBehaviour
 
         foreach (GameObject target in legalTargets[currentEffect])
         {
-            target.GetComponent<CardSelect>().CardOutline.SetActive(true);
+            if (target != null) target.GetComponent<CardSelect>().CardOutline.SetActive(true);
+            else Debug.LogWarning("TARGET WAS NULL!");
         }
     }
 
@@ -257,7 +259,6 @@ public class EffectManager : MonoBehaviour
 
     public void SelectTarget(GameObject selectedCard)
     {
-        Debug.LogWarning("SelectTarget()");
         foreach (GameObject card in legalTargets[currentEffect])
         {
             if (card == selectedCard)
@@ -276,13 +277,11 @@ public class EffectManager : MonoBehaviour
      *****/
     private void AcceptEffectTarget(GameObject card)
     {
-        Debug.LogWarning("AcceptEffectTarget()");
         acceptedTargets[currentEffect].Add(card);
         legalTargets[currentEffect].Remove(card);
         card.GetComponent<CardSelect>().CardOutline.SetActive(false);
 
         int targetNumber = currentEffectGroup[currentEffect].TargetNumber;
-        
         if (!currentEffectGroup[currentEffect].IsRequired)
         {
             if ((legalTargets[currentEffect].Count + acceptedTargets[currentEffect].Count) < targetNumber)
@@ -293,11 +292,13 @@ public class EffectManager : MonoBehaviour
 
         if (acceptedTargets[currentEffect].Count == targetNumber) ConfirmTargetEffect();
         else if (acceptedTargets[currentEffect].Count > targetNumber) 
-            Debug.LogError("ERROR: ACCEPTED_TARGETS > TARGET_NUMBER ::: " + acceptedTargets[currentEffect].Count + " > " + targetNumber);
+            Debug.LogError("ERROR: ACCEPTED_TARGETS > TARGET_NUMBER ::: " + 
+                acceptedTargets[currentEffect].Count + " > " + targetNumber);
     }
     private void RejectEffectTarget()
     {
         Debug.LogWarning("RejectEffectTarget()");
+        // DISPLAY INFO POPUP
     }
 
     /******
@@ -305,9 +306,8 @@ public class EffectManager : MonoBehaviour
      * ****** CONFIRM_EFFECTS
      * *****
      *****/
-    private void ConfirmNonTargetEffect() // TESTING
+    private void ConfirmNonTargetEffect()
     {
-        Debug.LogWarning("ConfirmNonTargetEffect()");
         Effect effect = currentEffectGroup[currentEffect];
         if (effect is DrawEffect)
         {
@@ -325,7 +325,6 @@ public class EffectManager : MonoBehaviour
     }
     private void ConfirmTargetEffect()
     {
-        Debug.LogWarning("ConfirmTargetEffect()");
         UIManager.Instance.PlayerIsTargetting = false;
         UIManager.Instance.DismissInfoPopup();
 
@@ -387,7 +386,9 @@ public class EffectManager : MonoBehaviour
         else if (effect is GiveNextFollowerEffect gnfe)
         {
             Debug.Log("GIVE_NEXT_FOLLOWER_EFFECT!");
-            giveNextEffects.Add(gnfe.Effect); // TESTING
+            GiveNextFollowerEffect newGnfe = ScriptableObject.CreateInstance<GiveNextFollowerEffect>();
+            newGnfe.LoadEffect(gnfe);
+            giveNextEffects.Add(newGnfe); // TESTING
         }
         // STAT_CHANGE/GIVE_ABILITY
         else if (effect is StatChangeEffect || effect is GiveAbilityEffect)
@@ -424,8 +425,6 @@ public class EffectManager : MonoBehaviour
      *****/
     private void AbortEffectGroup()
     {
-        Debug.LogWarning("AbortEffectGroup()");
-
         if (currentEffectSource != null)
         {
             string zone;

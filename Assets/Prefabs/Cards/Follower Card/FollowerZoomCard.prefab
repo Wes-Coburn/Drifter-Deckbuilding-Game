@@ -1296,7 +1296,7 @@ SpriteRenderer:
   m_SortingLayerID: -1404842927
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6e6ba03ced6f1cd4face4fe583133f6b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 415d153b8f92a8449973445b24035cdd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1378,7 +1378,7 @@ SpriteRenderer:
   m_SortingLayerID: -1404842927
   m_SortingLayer: 4
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 743e735f744cf494c9f9081b4ba9303f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 14ba384dc2d28d74d9bdad2182e18da6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1688,6 +1688,7 @@ GameObject:
   - component: {fileID: 7415242867258199381}
   - component: {fileID: 3705638899255616276}
   - component: {fileID: 8121863126802653666}
+  - component: {fileID: 6729144174852632540}
   m_Layer: 10
   m_Name: FollowerZoomCard
   m_TagString: Untagged
@@ -1764,6 +1765,25 @@ MonoBehaviour:
   nextLevelBox: {fileID: 0}
   level2Popup: {fileID: 0}
   descriptionPopupPrefab: {fileID: 0}
+--- !u!95 &6729144174852632540
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7279803143792002406}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7504388223987195692
 GameObject:
   m_ObjectHideFlags: 0

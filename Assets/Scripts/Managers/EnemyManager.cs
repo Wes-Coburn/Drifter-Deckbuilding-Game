@@ -16,12 +16,12 @@ public class EnemyManager : MonoBehaviour
     }
     private void Start()
     {
-        EnemyDeckList = new List<Card>(); // TESTING
-        CurrentEnemyDeck = new List<Card>(); // TESTING
+        EnemyDeckList = new List<Card>();
+        CurrentEnemyDeck = new List<Card>();
     }
 
     /* ENEMY_HERO */
-    public Hero EnemyHero // TESTING
+    public Hero EnemyHero
     {
         get => enemyHero;
         set

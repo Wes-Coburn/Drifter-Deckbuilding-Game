@@ -19,7 +19,7 @@ public class PlayerManager : MonoBehaviour
     {
         PlayerDeckList = new List<Card>();
         CurrentPlayerDeck = new List<Card>();
-        HeroPowerUsed = false; // TESTING
+        HeroPowerUsed = false;
     }
 
     /* PLAYER_HERO */
@@ -87,6 +87,6 @@ public class PlayerManager : MonoBehaviour
             return;
         }
         HeroPowerUsed = true;
-        EffectManager.Instance.StartEffectGroup(PlayerHero.HeroAbility.EffectGroup); // TESTING
+        EffectManager.Instance.StartEffectGroup(PlayerHero.HeroAbility.EffectGroup);
     }
 }

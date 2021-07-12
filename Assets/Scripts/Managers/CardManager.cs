@@ -16,10 +16,12 @@ public class CardManager : MonoBehaviour
     }
 
     /* CARD_MANAGER_DATA */
-    public const int PLAYER_START_FOLLOWERS = 6; // TESTING
-    public const int PLAYER_START_SKILLS = 3; // TESTING
-    public const int ENEMY_START_FOLLOWERS = 6; // TESTING
-    public const int ENEMY_START_SKILLS = 3; // TESTING
+    public const int CARD_Z_POSITION = -2;
+
+    public const int PLAYER_START_FOLLOWERS = 6;
+    public const int PLAYER_START_SKILLS = 3;
+    public const int ENEMY_START_FOLLOWERS = 6;
+    public const int ENEMY_START_SKILLS = 3;
 
     public const string BACKGROUND = "Background";
     public const string PLAYER_CARD = "PlayerCard";
@@ -47,17 +49,17 @@ public class CardManager : MonoBehaviour
     public List<GameObject> EnemyHandCards;
 
     /* CARD_PREFABS */
-    [SerializeField] private GameObject followerCardPrefab; // TESTING
-    [SerializeField] private GameObject actionCardPrefab; // TESTING
+    [SerializeField] private GameObject followerCardPrefab;
+    [SerializeField] private GameObject actionCardPrefab;
 
     /* CARD_SCRIPTS */
-    public Card StartPlayerFollower // TESTING
+    public Card StartPlayerFollower
     {
         get => startPlayerFollower;
         set => startPlayerFollower = value;
     }
     [Header("STARTING PLAYER FOLLOWER")]
-    [SerializeField] private Card startPlayerFollower; // TESTING
+    [SerializeField] private Card startPlayerFollower;
 
     /* CARD BACK SPRITE */
     public Sprite CardBackSprite
@@ -103,7 +105,8 @@ public class CardManager : MonoBehaviour
         EnemyHero = GameObject.Find(ENEMY_CHAMPION);
     }
 
-    public FollowerCardDisplay GetFollowerDisplay(GameObject card) => card.GetComponent<CardDisplay>() as FollowerCardDisplay;
+    public FollowerCardDisplay GetFollowerDisplay(GameObject card)
+        => card.GetComponent<CardDisplay>() as FollowerCardDisplay;
 
     /******
      * *****
@@ -137,7 +140,7 @@ public class CardManager : MonoBehaviour
             currentDeck.Add(card);
         }
 
-        currentDeck.Shuffle(); // TESTING
+        currentDeck.Shuffle();
     }
 
     /******
@@ -145,7 +148,7 @@ public class CardManager : MonoBehaviour
      * ****** ADD_CARD
      * *****
      *****/
-    public void AddCard(Card card, string hero) // TESTING
+    public void AddCard(Card card, string hero)
     {
         List<Card> deck = null;
         Card cardInstance = null;
@@ -178,7 +181,7 @@ public class CardManager : MonoBehaviour
         if (card is FollowerCard) go = followerCardPrefab;
         else if (card is ActionCard) go = actionCardPrefab;
         else Debug.LogError("CARD TYPE NOT FOUND!");
-        go = Instantiate(go, new Vector3(0, 0, -1), Quaternion.identity);
+        go = Instantiate(go, new Vector3(0, 0, CARD_Z_POSITION), Quaternion.identity);
         go.GetComponent<CardDisplay>().CardScript = card;
         return go;
     }
@@ -292,7 +295,7 @@ public class CardManager : MonoBehaviour
         card.transform.SetParent(parentTransform, false);
         float xPos = card.transform.position.x;
         float yPos = card.transform.position.y;
-        card.transform.position = new Vector3(xPos, yPos, -2);
+        card.transform.position = new Vector3(xPos, yPos, CARD_Z_POSITION);
 
         // UNNECESSARY?
         CardDisplay cd = card.GetComponent<CardDisplay>();
@@ -355,8 +358,10 @@ public class CardManager : MonoBehaviour
 
         if (card.GetComponent<CardDisplay>() is FollowerCardDisplay fcd)
         {
-            if (zone == PLAYER_DISCARD || zone == ENEMY_DISCARD) fcd.ResetFollowerCard(true);
-            else if (zone != PLAYER_ZONE && zone != ENEMY_ZONE) fcd.ResetFollowerCard();
+            bool played;
+            if (zone == PLAYER_ZONE || zone == ENEMY_ZONE) played = true;
+            else played = false;
+            fcd.ResetFollowerCard(played);
         }
     }
 
@@ -377,6 +382,7 @@ public class CardManager : MonoBehaviour
                 ChangeCardZone(card, PLAYER_ZONE);
                 PlayerZoneCards.Add(card);
                 TriggerCardAbility(card, "Play");
+                TriggerGiveNextEffect(card);
             }
             else if (card.GetComponent<CardDisplay>() is ActionCardDisplay)
             {
@@ -395,6 +401,11 @@ public class CardManager : MonoBehaviour
         }
     }
 
+    /******
+     * *****
+     * ****** RESOLVE_ACTION_CARD
+     * *****
+     *****/
     private void ResolveActionCard(GameObject card)
     {
         List<Effect> effectGroup = card.GetComponent<ActionCardDisplay>().ActionCard.EffectGroup;
@@ -491,8 +502,9 @@ public class CardManager : MonoBehaviour
      * ****** HEAL_DAMAGE
      * *****
      *****/
-    public void HealDamage(GameObject heroCard, int healingValue) // UNUSED!!!
+    public void HealDefense(GameObject heroCard, int healingValue) // UNUSED!!!
     {
+        // ADD HEALING FOR HEROES
         if (healingValue < 1) return;
         FollowerCardDisplay fcd = GetFollowerDisplay(heroCard);
         int def = fcd.CurrentDefense;
@@ -618,25 +630,78 @@ public class CardManager : MonoBehaviour
 
     /******
      * *****
+     * ****** REMOVE_GIVE_NEXT_EFFECTS
+     * *****
+     *****/
+    public void TriggerGiveNextEffect(GameObject card)
+    {
+        Debug.Log("TriggerGiveNextEffect()");
+        static void DestroyEffect(Effect effect)
+        {
+            Destroy(effect);
+            effect = null;
+        }
+
+        // GIVE_NEXT_FOLLOWER_EFFECTS
+        List<GiveNextFollowerEffect> gnfe = EffectManager.Instance.GiveNextEffects;
+        List<GiveNextFollowerEffect> resolvedGnfe = new List<GiveNextFollowerEffect>();
+
+        if (gnfe.Count > 0)
+        {
+            List<GameObject> targets = new List<GameObject> { card };
+            foreach (GiveNextFollowerEffect gnfe2 in gnfe)
+            {
+                // CHECK FOR ALLY/ENEMY HERE
+                EffectManager.Instance.ResolveEffect(targets, gnfe2.Effect);
+                resolvedGnfe.Add(gnfe2);
+            }
+            foreach (GiveNextFollowerEffect rGnfe in resolvedGnfe)
+            {
+                gnfe.Remove(rGnfe);
+                DestroyEffect(rGnfe);
+            }
+        }
+    }
+
+    /******
+     * *****
+     * ****** REMOVE_GIVE_NEXT_EFFECTS
+     * *****
+     *****/
+    public void RemoveGiveNextEffects()
+    {
+        Debug.Log("RemoveGiveNextEffects()");
+        static void DestroyEffect(Effect effect)
+        {
+            Destroy(effect);
+            effect = null;
+        }
+
+        List<GiveNextFollowerEffect> gne = EffectManager.Instance.GiveNextEffects;
+        List<GiveNextFollowerEffect> expiredGne = new List<GiveNextFollowerEffect>();
+        foreach (GiveNextFollowerEffect gnfe in gne)
+        {
+            if (gnfe.Countdown == 1)
+            {
+                expiredGne.Add(gnfe);
+            }
+            else if (gnfe.Countdown != 0) gnfe.Countdown -= 1;
+        }
+        foreach (GiveNextFollowerEffect xGnfe in expiredGne)
+        {
+            gne.Remove(xGnfe);
+            DestroyEffect(xGnfe);
+        }
+    }
+
+    /******
+     * *****
      * ****** TRIGGER_CARD_ABILITY
      * *****
      *****/
     public void TriggerCardAbility(GameObject card, string triggerName)
     {
-        Debug.Log("CHECKING FOR GIVE_NEXT_FOLLOWER EFFECTS!");
-
-        List<Effect> gne = EffectManager.Instance.GiveNextEffects;
-        if (gne.Count > 0)
-        {
-            List<GameObject> targets = new List<GameObject> { card };
-            foreach (Effect e in gne)
-            {
-                EffectManager.Instance.ResolveEffect(targets, e);
-            }
-            gne.Clear();
-        }
-
-        Debug.Log("CHECKING FOR CARD TRIGGERED ABILITIES!");
+        Debug.Log("TriggerCardAbility()");
         foreach (CardAbility ca in card.GetComponent<FollowerCardDisplay>().CurrentAbilities)
         {
             if (ca is TriggeredAbility tra)

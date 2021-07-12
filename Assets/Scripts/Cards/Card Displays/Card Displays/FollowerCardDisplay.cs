@@ -130,11 +130,10 @@ public class FollowerCardDisplay : CardDisplay
      * ****** RESET_HERO_CARD
      * *****
      *****/
-    public void ResetFollowerCard(bool discarded = false)
+    public void ResetFollowerCard(bool played = false)
     {
-        if (discarded) IsExhausted = false;
-        else IsExhausted = true;
-        gameObject.GetComponent<DragDrop>().IsPlayed = false;
+        IsExhausted = played;
+        gameObject.GetComponent<DragDrop>().IsPlayed = played;
         foreach (GameObject go in AbilityIcons) Destroy(go);
         AbilityIcons.Clear();
         CurrentEffects.Clear();
