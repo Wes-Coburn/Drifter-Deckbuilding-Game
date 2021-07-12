@@ -520,13 +520,27 @@ public class CardManager : MonoBehaviour
             // TESTING TESTING TESTING
             GiveAbilityEffect newGae = ScriptableObject.CreateInstance<GiveAbilityEffect>();
             newGae.LoadEffect(gae);
-            if (fcd.AddCurrentAbility(newGae.CardAbility)) fcd.CurrentEffects.Add(newGae); 
+            if (!fcd.AddCurrentAbility(newGae.CardAbility))
+            {
+                foreach (Effect effect2 in fcd.CurrentEffects)
+                {
+                    if (effect2 is GiveAbilityEffect gae2)
+                    {
+                        if (gae2.CardAbility == newGae.CardAbility)
+                        {
+                            if (newGae.Countdown == 0 || newGae.Countdown > gae2.Countdown)
+                            {
+                                gae2.Countdown = newGae.Countdown;
+                            }
+                        }
+                    }
+                }
+            }
+            else fcd.CurrentEffects.Add(newGae);
         }
         // STAT_CHANGE_EFFECT
         else if (effect is StatChangeEffect sce)
         {
-            Debug.Log("StatChangeEffect! <" + sce.Value + ">");
-
             // TESTING TESTING TESTING
             StatChangeEffect newSce = ScriptableObject.CreateInstance<StatChangeEffect>();
             newSce.LoadEffect(sce);
@@ -609,7 +623,20 @@ public class CardManager : MonoBehaviour
      *****/
     public void TriggerCardAbility(GameObject card, string triggerName)
     {
-        Debug.Log("CARD ABILITY TRIGGERED!");
+        Debug.Log("CHECKING FOR GIVE_NEXT_FOLLOWER EFFECTS!");
+
+        List<Effect> gne = EffectManager.Instance.GiveNextEffects;
+        if (gne.Count > 0)
+        {
+            List<GameObject> targets = new List<GameObject> { card };
+            foreach (Effect e in gne)
+            {
+                EffectManager.Instance.ResolveEffect(targets, e);
+            }
+            gne.Clear();
+        }
+
+        Debug.Log("CHECKING FOR CARD TRIGGERED ABILITIES!");
         foreach (CardAbility ca in card.GetComponent<FollowerCardDisplay>().CurrentAbilities)
         {
             if (ca is TriggeredAbility tra)

@@ -17,8 +17,9 @@ public class PlayerManager : MonoBehaviour
 
     private void Start()
     {
-        PlayerDeckList = new List<Card>(); // TESTING
-        CurrentPlayerDeck = new List<Card>(); // TESTING
+        PlayerDeckList = new List<Card>();
+        CurrentPlayerDeck = new List<Card>();
+        HeroPowerUsed = false; // TESTING
     }
 
     /* PLAYER_HERO */
@@ -73,5 +74,19 @@ public class PlayerManager : MonoBehaviour
             if (playerActionsLeft > GameManager.MAXIMUM_ACTIONS) playerActionsLeft = GameManager.MAXIMUM_ACTIONS;
             UIManager.Instance.UpdatePlayerActionsLeft(PlayerActionsLeft);
         }
+    }
+
+    /* HERO_POWER */
+    public bool HeroPowerUsed { get; set; }
+    public void UseHeroPower()
+    {
+        Debug.Log("USE HERO POWER: " + PlayerHero.HeroAbility.PowerName);
+        if (HeroPowerUsed == true)
+        {
+            Debug.Log("HERO POWER ALREADY USED THIS TURN!");
+            return;
+        }
+        HeroPowerUsed = true;
+        EffectManager.Instance.StartEffectGroup(PlayerHero.HeroAbility.EffectGroup); // TESTING
     }
 }

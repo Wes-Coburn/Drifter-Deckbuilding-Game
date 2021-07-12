@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Follower Card", menuName = "Cards/Follower")]
@@ -11,7 +11,7 @@ public class FollowerCard : Card
 
     public string LevelUpCondition { get => levelUpCondition; }
     [SerializeField] private string levelUpCondition;
-    
+
     public int StartPower { get => power; }
     [SerializeField] private int power;
 

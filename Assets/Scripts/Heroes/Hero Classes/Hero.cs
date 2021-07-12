@@ -10,7 +10,7 @@ public class Hero : ScriptableObject
     [TextArea]
     public string HeroDescription;
     [Header("HERO ABILITY")]
-    public HeroAbiliity HeroAbility;
+    public HeroPower HeroAbility;
     [Header("HERO SKILLS")]
     public List<SkillCard> HeroSkills;
     [Header("HERO FOLLOWERS")]

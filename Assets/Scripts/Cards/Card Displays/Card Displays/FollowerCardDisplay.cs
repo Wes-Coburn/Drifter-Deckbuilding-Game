@@ -18,7 +18,7 @@ public class FollowerCardDisplay : CardDisplay
         set
         {
             TextMeshPro txtPro = levelUpCondition.GetComponent<TextMeshPro>();
-            txtPro.SetText(value);
+            txtPro.SetText("Level Up: " + value);
         }
     }
 
@@ -92,7 +92,7 @@ public class FollowerCardDisplay : CardDisplay
     protected override void DisplayCard()
     {
         base.DisplayCard();
-        LevelUpCondition = "Level Up: " + FollowerCard.LevelUpCondition;
+        LevelUpCondition = FollowerCard.LevelUpCondition;
         CurrentPower = FollowerCard.StartPower;
         MaxDefense = FollowerCard.StartDefense;
         CurrentDefense = MaxDefense;

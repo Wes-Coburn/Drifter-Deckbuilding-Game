@@ -328,7 +328,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Hero - Rogue
+  m_text: Hero - Warrior
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 35dcfebab0afaec44ba5df39248b9e4a, type: 2}
   m_sharedMaterial: {fileID: -6670439693667837105, guid: 35dcfebab0afaec44ba5df39248b9e4a,
@@ -356,8 +356,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 70
+  m_fontSizeBase: 70
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1409,7 +1409,7 @@ GameObject:
   - component: {fileID: 3228557276391121299}
   - component: {fileID: 4358102543679054720}
   m_Layer: 9
-  m_Name: HeroCard
+  m_Name: FollowerCard
   m_TagString: Untagged
   m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1632,15 +1632,11 @@ MonoBehaviour:
   levelUpCondition: {fileID: 3326996073713606165}
   attackScoreDisplay: {fileID: 1832809122427536676}
   defenseScoreDisplay: {fileID: 6233680979956919925}
-  maxDefenseScoreDisplay: {fileID: 0}
+  maxDefenseDisplay: {fileID: 0}
   CurrentEffects: []
-  TemporaryEffects: []
-  EffectCountdowns: 
+  currentAbilitiesDisplay: {fileID: 1622687361822966639}
   CurrentAbilities: []
   AbilityIcons: []
-  TemporaryAbilities: []
-  AbilityCountdowns: 
-  currentAbilitiesDisplay: {fileID: 1622687361822966639}
   exhaustedIcon: {fileID: 3882489080471417206}
 --- !u!114 &3921780675733765706
 MonoBehaviour:

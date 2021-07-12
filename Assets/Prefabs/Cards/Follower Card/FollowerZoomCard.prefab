@@ -204,8 +204,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 12, y: -5}
-  m_SizeDelta: {x: 50, y: 15}
+  m_AnchoredPosition: {x: 8, y: -5}
+  m_SizeDelta: {x: 60, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &8621782982548648156
 MeshRenderer:
@@ -268,7 +268,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Type - Subtype
+  m_text: Follower - Warrior
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 35dcfebab0afaec44ba5df39248b9e4a, type: 2}
   m_sharedMaterial: {fileID: -6670439693667837105, guid: 35dcfebab0afaec44ba5df39248b9e4a,
@@ -1741,13 +1741,9 @@ MonoBehaviour:
   defenseScoreDisplay: {fileID: 6233680979956919925}
   maxDefenseDisplay: {fileID: 138858506052574401}
   CurrentEffects: []
-  TemporaryEffects: []
-  EffectCountdowns: 
   currentAbilitiesDisplay: {fileID: 7504388223987195692}
   CurrentAbilities: []
   AbilityIcons: []
-  TemporaryAbilities: []
-  AbilityCountdowns: 
   exhaustedIcon: {fileID: 0}
 --- !u!114 &8121863126802653666
 MonoBehaviour:

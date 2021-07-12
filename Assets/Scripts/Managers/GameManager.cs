@@ -104,6 +104,7 @@ public class GameManager : MonoBehaviour
             UIManager.UpdateEndTurnButton(playerManager.IsMyTurn);
             PlayerManager.Instance.PlayerActionsLeft += ACTIONS_PER_TURN;
             cardManager.RefreshCards(player);
+            playerManager.HeroPowerUsed = false; // TESTING
             FunctionTimer.Create(() => cardManager.DrawCard(player), 1f);
         }
         else if (player == ENEMY)

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public abstract class Card : ScriptableObject
 {
@@ -14,7 +14,7 @@ public abstract class Card : ScriptableObject
 
     public string CardName { get => cardName; }
     [SerializeField] private string cardName;
-    
+
     public string CardType { get => cardType; }
     [SerializeField] private string cardType;
 

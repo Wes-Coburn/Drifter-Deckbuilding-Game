@@ -15,6 +15,11 @@ public class EffectManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
+    private void Start()
+    {
+        giveNextEffects = new List<Effect>();
+    }
+
     /* EFFECT_MANAGER_DATA */
     public const string ALLY = "Ally";
 
@@ -26,6 +31,12 @@ public class EffectManager : MonoBehaviour
     private List<List<GameObject>> acceptedTargets;
     private List<GameObject> newDrawnCards;
 
+    public List<Effect> GiveNextEffects // TESTING
+    {
+        get => giveNextEffects;
+        private set => giveNextEffects = value;
+    }
+    private List<Effect> giveNextEffects;
 
     /*
      *                                                      >>> START <<<
@@ -77,7 +88,7 @@ public class EffectManager : MonoBehaviour
         currentEffectGroup = effectGroup;
         currentEffect = 0;
         newDrawnCards = new List<GameObject>();
-
+        
         if (!CheckLegalTargets(currentEffectGroup))
         {
             AbortEffectGroup();
@@ -139,8 +150,8 @@ public class EffectManager : MonoBehaviour
     private bool IsTargetEffect(Effect effect)
     {
         if (effect is DrawEffect de && de.IsDiscardEffect) return true;
-        else if (effect is DrawEffect) return false;
-        else if (effect.TargetsAll || effect.Targets == "Player" || effect.Targets == "Opponent") return false; // TESTING
+        else if (effect is DrawEffect || effect is GiveNextFollowerEffect) return false;
+        else if (effect.TargetsAll || effect.Targets == "Player" || effect.Targets == "Opponent") return false;
         else return true;
     }
 
@@ -155,8 +166,8 @@ public class EffectManager : MonoBehaviour
         
         if (currentEffect < currentEffectGroup.Count)
         {
-            Debug.Log("StartNextEffect() <EFFECT #" + (currentEffect + 1) + ">/<" + currentEffectGroup.Count + 
-                "> = <" + currentEffectGroup[currentEffect].ToString() + ">");
+            Debug.Log("StartNextEffect() [EFFECT #" + (currentEffect + 1) + 
+                "] <" + currentEffectGroup[currentEffect].ToString() + ">");
         }
 
         if (currentEffect == currentEffectGroup.Count)
@@ -238,7 +249,7 @@ public class EffectManager : MonoBehaviour
 
         foreach (GameObject target in targetZoneCards) legalTargets[currentEffect].Add(target); 
 
-        if (effect is DrawEffect) return true;
+        if (effect is DrawEffect || effect is GiveNextFollowerEffect) return true;
         if (legalTargets[currentEffect].Count < 1) return false;
         if (effect.IsRequired && legalTargets[currentEffect].Count < effect.TargetNumber) return false;
         return true;
@@ -330,10 +341,10 @@ public class EffectManager : MonoBehaviour
      * ****** RESOLVE_EFFECTS
      * *****
      *****/
-    private void ResolveEffect(List<GameObject> targets, Effect effect)
+    public void ResolveEffect(List<GameObject> targets, Effect effect)
     {
-        Debug.Log("ResolveEffect() EFFECT: <" + effect.ToString() + ">");
-        
+        Debug.LogWarning("RESOLVE EFFECT: <" + effect.ToString() + ">");
+
         // DRAW
         if (effect is DrawEffect de)
         {
@@ -370,17 +381,23 @@ public class EffectManager : MonoBehaviour
         {
             foreach (GameObject target in targets)
             {
-                target.GetComponent<FollowerCardDisplay>().IsExhausted = !ee.IsRefreshEffect;
+                target.GetComponent<FollowerCardDisplay>().IsExhausted = ee.SetExhausted;
             }
         }
+        else if (effect is GiveNextFollowerEffect gnfe)
+        {
+            Debug.Log("GIVE_NEXT_FOLLOWER_EFFECT!");
+            giveNextEffects.Add(gnfe.Effect); // TESTING
+        }
         // STAT_CHANGE/GIVE_ABILITY
-        else // TESTING
+        else if (effect is StatChangeEffect || effect is GiveAbilityEffect)
         {
             foreach (GameObject target in targets)
             {
                 CardManager.Instance.AddEffect(target, effect);
             }
         }
+        else Debug.LogError("EFFECT TYPE NOT FOUND!");
     }
 
     /******
