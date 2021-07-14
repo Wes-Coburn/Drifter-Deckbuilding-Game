@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class HeroDisplay : MonoBehaviour
+public abstract class HeroDisplay : MonoBehaviour
 {
-    /* POWER_SCRIPTABLE_OBJECT */
+    /* HERO_SCRIPTABLE_OBJECT */
     private Hero heroScript;
     public Hero HeroScript
     {
@@ -10,17 +10,18 @@ public class HeroDisplay : MonoBehaviour
         set
         {
             heroScript = value;
-            DisplayPower();
+            DisplayHero();
         }
     }
-    public Sprite PowerImage
-    {
-        set => powerImage.GetComponent<SpriteRenderer>().sprite = value;
-    }
-    [SerializeField] private GameObject powerImage;
 
-    private void DisplayPower()
+    public Sprite HeroPortrait
     {
-        PowerImage = HeroScript.HeroPower.PowerSprite;
+        set => heroPortrait.GetComponent<SpriteRenderer>().sprite = value;
+    }
+    [SerializeField] private GameObject heroPortrait;
+
+    public virtual void DisplayHero()
+    {
+        //HeroPortrait = heroScript.HeroPortrait;
     }
 }

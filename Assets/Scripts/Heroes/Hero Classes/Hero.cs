@@ -6,6 +6,8 @@ public class Hero : ScriptableObject
 {
     [Header("HERO NAME")]
     public string HeroName;
+    [Header("HERO PORTRAIT")]
+    public Sprite HeroPortrait;
     [Header("HERO DESCRIPTION")]
     [TextArea]
     public string HeroDescription;

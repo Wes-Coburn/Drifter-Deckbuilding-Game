@@ -323,7 +323,7 @@ GameObject:
   - component: {fileID: 5292934362312869075}
   - component: {fileID: 3067044258458619034}
   - component: {fileID: 1741124866610311041}
-  - component: {fileID: 6532763088333612416}
+  - component: {fileID: 885093807765067690}
   m_Layer: 8
   m_Name: PlayerHero
   m_TagString: PlayerHero
@@ -387,7 +387,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TargetIcon: {fileID: 373914478}
---- !u!114 &6532763088333612416
+--- !u!114 &885093807765067690
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -396,9 +396,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5292934362312869072}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85b5e9f44ccb99c4c97716520967b686, type: 3}
+  m_Script: {fileID: 11500000, guid: 89725128aa380fa4fb252434a86b2fcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heroPortrait: {fileID: 2839987919561940282}
   powerImage: {fileID: 5995273572305166822}
 --- !u!1 &5995273572305166822
 GameObject:

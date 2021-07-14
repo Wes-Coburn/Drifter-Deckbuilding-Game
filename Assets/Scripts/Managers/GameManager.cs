@@ -84,7 +84,8 @@ public class GameManager : MonoBehaviour
         pm.PlayerActionsLeft = STARTING_ACTIONS;
         em.EnemyHealth = STARTING_HEALTH;
 
-        CardManager.Instance.PlayerHero.GetComponent<HeroDisplay>().HeroScript = pm.PlayerHero;
+        cm.PlayerHero.GetComponent<HeroDisplay>().HeroScript = pm.PlayerHero;
+        cm.EnemyHero.GetComponent<HeroDisplay>().HeroScript = em.EnemyHero;
         
         FunctionTimer.Create(() => CardManager.Instance.DrawHand(PLAYER, PLAYER_HAND_SIZE), 1f);
         FunctionTimer.Create(() => CardManager.Instance.DrawHand(ENEMY, ENEMY_HAND_SIZE), 1f);
@@ -138,6 +139,9 @@ public class GameManager : MonoBehaviour
             }
             if ((reinforcements + 1) < refoSched.Count) enemyManager.CurrentReinforcements++;
             else enemyManager.CurrentReinforcements = 0;
+
+            CardManager.Instance.EnemyHero.GetComponent<EnemyHeroDisplay>().NextReinforcements = 
+                refoSched[enemyManager.CurrentReinforcements];
 
             // ENEMY ATTACK
             delay += 3;
