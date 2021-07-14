@@ -6,6 +6,8 @@ public class HeroPower : ScriptableObject
 {
     [Header("POWER NAME")]
     public string PowerName;
+    [Header("POWER IMAGE")]
+    public Sprite PowerSprite;
     [Header("POWER DESCRIPTION")]
     [TextArea]
     public string PowerDescription;

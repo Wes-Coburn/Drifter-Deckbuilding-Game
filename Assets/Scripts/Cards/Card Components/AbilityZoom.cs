@@ -11,17 +11,18 @@ public class AbilityZoom : MonoBehaviour
     /* CLASS_VARIABLES */
     private bool isHovering;
 
-    private void Start()
-    {
-        isHovering = false;
-    }
+    private void Start() => isHovering = false;
 
     private void Update()
-    {
-        if (AbilityPopup == null && isHovering == true) isHovering = false; // WATCH
-        
+    {        
         if (isHovering)
         {
+            if (AbilityPopup == null)
+            {
+                isHovering = false;
+                return;
+            }
+
             Vector3 hoverPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             float yPos = hoverPoint.y + 100;
             AbilityPopup.transform.position = new Vector3(hoverPoint.x, yPos, -4);
@@ -30,7 +31,7 @@ public class AbilityZoom : MonoBehaviour
     public void OnPointerEnter()
     {
         if (!CardZoom.ZoomCardIsCentered || DragDrop.CardIsDragging || UIManager.Instance.PlayerIsTargetting) return;
-        if (AbilityPopup != null) Destroy(AbilityZoom.AbilityPopup);
+        if (AbilityPopup != null) Destroy(AbilityPopup);
         isHovering = true;
         CreateAbilityPopup();
     }
@@ -38,7 +39,7 @@ public class AbilityZoom : MonoBehaviour
     {
         if (!CardZoom.ZoomCardIsCentered || DragDrop.CardIsDragging || UIManager.Instance.PlayerIsTargetting) return;
         isHovering = false;
-        Destroy(AbilityZoom.AbilityPopup);
+        Destroy(AbilityPopup);
     }
 
     private void CreateAbilityPopup()

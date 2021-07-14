@@ -79,8 +79,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     {
         if (pointerEventData.button != PointerEventData.InputButton.Right) return;
         if (transform.parent.gameObject == enemyHand) return; // HIDE THE ENEMY HAND
-        if (DragDrop.CardIsDragging || ZoomCardIsCentered || UIManager.Instance.PlayerIsTargetting) return;
-        
+        if (DragDrop.CardIsDragging || ZoomCardIsCentered) return;
         
         UIManager.SetScreenDimmer(true);
         ZoomCardIsCentered = true;

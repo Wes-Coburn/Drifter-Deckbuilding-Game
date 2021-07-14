@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4864917047949088200}
   - component: {fileID: 2943218859410672359}
   - component: {fileID: 1042566164718157553}
+  - component: {fileID: 6646435828186806025}
   m_Layer: 8
   m_Name: HeroPower
   m_TagString: Untagged
@@ -89,6 +90,38 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6646435828186806025}
+          m_TargetAssemblyTypeName: PowerZoom, Assembly-CSharp
+          m_MethodName: OnPointerEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6646435828186806025}
+          m_TargetAssemblyTypeName: PowerZoom, Assembly-CSharp
+          m_MethodName: OnPointerExit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &1042566164718157553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,6 +134,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3829d4ae2f2b26f44999d438609e4c82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6646435828186806025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 291181612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0101bbb305aef514593f9d57f0724ffd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerPopupPrefab: {fileID: 268856669738850229, guid: 9bd64fd91392e5d44916291c1578d693,
+    type: 3}
 --- !u!1 &373914478
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,9 +323,10 @@ GameObject:
   - component: {fileID: 5292934362312869075}
   - component: {fileID: 3067044258458619034}
   - component: {fileID: 1741124866610311041}
+  - component: {fileID: 6532763088333612416}
   m_Layer: 8
   m_Name: PlayerHero
-  m_TagString: Untagged
+  m_TagString: PlayerHero
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -339,6 +387,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TargetIcon: {fileID: 373914478}
+--- !u!114 &6532763088333612416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5292934362312869072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85b5e9f44ccb99c4c97716520967b686, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerImage: {fileID: 5995273572305166822}
 --- !u!1 &5995273572305166822
 GameObject:
   m_ObjectHideFlags: 0
@@ -365,7 +426,7 @@ Transform:
   m_GameObject: {fileID: 5995273572305166822}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 291181613}
   m_RootOrder: 0
@@ -410,11 +471,11 @@ SpriteRenderer:
   m_SortingLayerID: -1265489583
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 04bd973aaac14ca4e8e3e88f725402a9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 790a6cb8dccc50344ac9d9b25272a4dc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 2
+  m_DrawMode: 0
   m_Size: {x: 100, y: 100}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0

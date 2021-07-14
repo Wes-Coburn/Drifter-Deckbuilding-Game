@@ -9,11 +9,13 @@ public class Hero : ScriptableObject
     [Header("HERO DESCRIPTION")]
     [TextArea]
     public string HeroDescription;
-    [Header("HERO ABILITY")]
-    public HeroPower HeroAbility;
+    [Header("HERO POWER")]
+    public HeroPower HeroPower;
     [Header("HERO SKILLS")]
     public List<SkillCard> HeroSkills;
     [Header("HERO FOLLOWERS")]
     [Tooltip("Only enemy heroes normally have followers")]
     public List<FollowerCard> HeroFollowers;
+    [Header("REINFORCEMENT SCHEDULE")]
+    public List<int> ReinforcementSchedule;
 }

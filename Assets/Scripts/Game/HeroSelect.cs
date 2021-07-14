@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ChampionSelect : MonoBehaviour
+public class HeroSelect : MonoBehaviour
 {
     public GameObject TargetIcon;
 }

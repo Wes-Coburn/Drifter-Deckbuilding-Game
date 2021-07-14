@@ -16,8 +16,17 @@ public class AbilityPopupDisplay : MonoBehaviour
     }
 
     /* ABILITY_DATA */
-    public GameObject AbilitySprite;
-    public GameObject AbilityDescription;
+    public Sprite AbilitySprite
+    {
+        set => abilitySprite.GetComponent<SpriteRenderer>().sprite = value;
+    }
+    [SerializeField] private GameObject abilitySprite;
+
+    public string AbilityDescription
+    {
+        set => abilityDescription.GetComponent<TextMeshPro>().SetText(value);
+    }
+    [SerializeField] private GameObject abilityDescription;
 
     /******
      * *****
@@ -28,11 +37,10 @@ public class AbilityPopupDisplay : MonoBehaviour
     {
         string abilityName = "";
         string abilityDescription = "";
-        Sprite abilitySprite = null;
         if (AbilityScript is StaticAbility)
         {
             abilityName = AbilityScript.AbilityName;
-            abilitySprite = AbilityScript.AbilitySprite;
+            AbilitySprite = AbilityScript.AbilitySprite;
             abilityDescription = AbilityScript.AbilityDescription;
         }
         else if (AbilityScript is TriggeredAbility)
@@ -42,21 +50,8 @@ public class AbilityPopupDisplay : MonoBehaviour
 
             abilityName = keywordTrigger.AbilityName;
             abilityDescription = "Does something when " + keywordTrigger.AbilityDescription;
-            abilitySprite = keywordTrigger.AbilitySprite;
+            AbilitySprite = keywordTrigger.AbilitySprite;
         }
-        SetAbilityDescription(abilityName + ": " + abilityDescription);
-        SetAbilitySprite(abilitySprite);
-    }
-
-    /******
-     * *****
-     * ****** SETTERS
-     * *****
-     *****/
-    private void SetAbilitySprite(Sprite abilityIcon) => AbilitySprite.GetComponent<SpriteRenderer>().sprite = abilityIcon;
-    private void SetAbilityDescription(string abilityDescription)
-    {
-        TextMeshPro txtPro = AbilityDescription.GetComponent<TextMeshPro>();
-        txtPro.SetText(abilityDescription);
+        AbilityDescription = abilityName + ": " + abilityDescription;
     }
 }

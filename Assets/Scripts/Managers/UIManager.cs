@@ -28,7 +28,6 @@ public class UIManager : MonoBehaviour
 
     /* ACTIONS_LEFT */
     private GameObject playerActionsLeft;
-    private GameObject enemyActionsLeft;
 
     /* END_TURN_BUTTON */
     private GameObject endTurnButton;
@@ -62,7 +61,6 @@ public class UIManager : MonoBehaviour
         playerHealth = GameObject.Find("PlayerHealth");
         enemyHealth = GameObject.Find("EnemyHealth");
         playerActionsLeft = GameObject.Find("PlayerActionsLeft");
-        enemyActionsLeft = GameObject.Find("EnemyActionsLeft");
         endTurnButton = GameObject.Find("EndTurnButton");
     }
     
@@ -96,7 +94,7 @@ public class UIManager : MonoBehaviour
         {
             cs.CardOutline.SetActive(enabled);
         }
-        else if (enemy.TryGetComponent<ChampionSelect>(out ChampionSelect chs))
+        else if (enemy.TryGetComponent<HeroSelect>(out HeroSelect chs))
         {
             chs.TargetIcon.SetActive(enabled);
         }
@@ -112,10 +110,6 @@ public class UIManager : MonoBehaviour
     public void UpdatePlayerActionsLeft(int actions)
     {
         playerActionsLeft.GetComponent<TextMeshProUGUI>().SetText(actions.ToString());
-    }
-    public void UpdateEnemyActionsLeft(int actions)
-    {
-        enemyActionsLeft.GetComponent<TextMeshProUGUI>().SetText(actions.ToString());
     }
     public void UpdateEndTurnButton(bool isMyTurn)
     {

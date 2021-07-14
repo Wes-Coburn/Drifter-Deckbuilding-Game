@@ -17,12 +17,6 @@ public class CardManager : MonoBehaviour
 
     /* CARD_MANAGER_DATA */
     public const int CARD_Z_POSITION = -2;
-
-    public const int PLAYER_START_FOLLOWERS = 6;
-    public const int PLAYER_START_SKILLS = 3;
-    public const int ENEMY_START_FOLLOWERS = 6;
-    public const int ENEMY_START_SKILLS = 3;
-
     public const string BACKGROUND = "Background";
     public const string PLAYER_CARD = "PlayerCard";
     public const string ENEMY_CARD = "EnemyCard";
@@ -30,23 +24,42 @@ public class CardManager : MonoBehaviour
     public const string PLAYER_HAND = "PlayerHand";
     public const string PLAYER_ZONE = "PlayerZone";
     public const string PLAYER_DISCARD = "PlayerDiscard";
-    public const string PLAYER_CHAMPION = "PlayerChampion";
+    public const string PLAYER_HERO = "PlayerHero";
+    public const string PLAYER_FOLLOWER = "PlayerFollower";
     //public const string ENEMY_ACTION_ZONE = "EnemyActionZone";
     public const string ENEMY_HAND = "EnemyHand";
     public const string ENEMY_ZONE = "EnemyZone";
     public const string ENEMY_DISCARD = "EnemyDiscard";
-    public const string ENEMY_CHAMPION = "EnemyChampion";
+    public const string ENEMY_HERO = "EnemyHero";
+    public const string ENEMY_FOLLOWER = "EnemyFollower";
 
     /* GAME_MANAGER_DATA */
     private const string PLAYER = GameManager.PLAYER;
     private const string ENEMY = GameManager.ENEMY;
-    private const int STARTING_HAND_SIZE = GameManager.STARTING_HAND_SIZE;
-    
+
     /* CARD LISTS */
-    public List<GameObject> PlayerZoneCards;
-    public List<GameObject> EnemyZoneCards;
-    public List<GameObject> PlayerHandCards;
-    public List<GameObject> EnemyHandCards;
+    // PLAYER
+    public List<GameObject> PlayerHandCards { get; private set; }
+    public List<GameObject> PlayerZoneCards { get; private set; }
+    public List<GameObject> PlayerDiscardCards { get; private set; }
+    // ENEMY
+    public List<GameObject> EnemyHandCards { get; private set; }
+    public List<GameObject> EnemyZoneCards { get; private set; }
+    public List<GameObject> EnemyDiscardCards { get; private set; }
+    
+    /* GAME ZONES */
+    // PLAYER
+    public GameObject PlayerActionZone { get; private set; }
+    public GameObject PlayerHand { get; private set; }
+    public GameObject PlayerZone { get; private set; }
+    public GameObject PlayerDiscard { get; private set; }
+    public GameObject PlayerHero { get; private set; }
+    // ENEMY
+    //public GameObject EnemyActionZone { get; private set; }
+    public GameObject EnemyDiscard { get; private set; }
+    public GameObject EnemyHand { get; private set; }
+    public GameObject EnemyZone { get; private set; }
+    public GameObject EnemyHero { get; private set; }
 
     /* CARD_PREFABS */
     [SerializeField] private GameObject followerCardPrefab;
@@ -69,25 +82,16 @@ public class CardManager : MonoBehaviour
     }
     [SerializeField] private Sprite cardBackSprite;
 
-    /* GAME ZONES */
-    // PLAYER
-    public GameObject PlayerActionZone { get; private set; }
-    public GameObject PlayerHand { get; private set; }
-    public GameObject PlayerZone { get; private set; }
-    public GameObject PlayerDiscard { get; private set; }
-    public GameObject PlayerHero { get; private set; }
-    // ENEMY
-    //public GameObject EnemyActionZone { get; private set; }
-    public GameObject EnemyDiscard { get; private set; }
-    public GameObject EnemyHand { get; private set; }
-    public GameObject EnemyZone { get; private set; }
-    public GameObject EnemyHero { get; private set; }
-    
     private void Start()
     {
+        // PLAYER
+        PlayerHandCards = new List<GameObject>();
         PlayerZoneCards = new List<GameObject>();
-        EnemyZoneCards = new List<GameObject>();
+        PlayerDiscardCards = new List<GameObject>();
+        // ENEMY
         EnemyHandCards = new List<GameObject>();
+        EnemyZoneCards = new List<GameObject>();
+        EnemyDiscardCards = new List<GameObject>();
     }
     public void StartGameScene()
     {
@@ -96,13 +100,13 @@ public class CardManager : MonoBehaviour
         PlayerHand = GameObject.Find(PLAYER_HAND);
         PlayerZone = GameObject.Find(PLAYER_ZONE);
         PlayerDiscard = GameObject.Find(PLAYER_DISCARD);
-        PlayerHero = GameObject.Find(PLAYER_CHAMPION);
+        PlayerHero = GameObject.Find(PLAYER_HERO);
 
         //EnemyActionZone = GameObject.Find(ENEMY_ACTION_ZONE);
         EnemyHand = GameObject.Find(ENEMY_HAND);
         EnemyZone = GameObject.Find(ENEMY_ZONE);
         EnemyDiscard = GameObject.Find(ENEMY_DISCARD);
-        EnemyHero = GameObject.Find(ENEMY_CHAMPION);
+        EnemyHero = GameObject.Find(ENEMY_HERO);
     }
 
     public FollowerCardDisplay GetFollowerDisplay(GameObject card)
@@ -185,9 +189,11 @@ public class CardManager : MonoBehaviour
         go.GetComponent<CardDisplay>().CardScript = card;
         return go;
     }
-    private GameObject HideCard (Card card) // UNUSED!!!
+    private Card HideCard (GameObject card)
     {
-        return null;
+        Card cardScript = card.GetComponent<CardDisplay>().CardScript;
+        Destroy(card);
+        return cardScript;
     }
 
     /******
@@ -197,9 +203,9 @@ public class CardManager : MonoBehaviour
      *****/
     public GameObject DrawCard(string hero)
     {
-        List<Card> deck = null;
-        string cardTag = null;
-        string cardZone = null;
+        List<Card> deck;
+        string cardTag;
+        string cardZone;
 
         if (hero == PLAYER)
         {
@@ -213,13 +219,30 @@ public class CardManager : MonoBehaviour
             cardTag = ENEMY_CARD;
             cardZone = ENEMY_HAND;
         }
-        else Debug.LogError("PLAYER <" + hero + "> NOT FOUND!");
-
-
-        if (deck.Count < 1)
+        else
         {
-            Debug.LogWarning("NO CARDS LEFT IN DECK!");
+            Debug.LogError("PLAYER <" + hero + "> NOT FOUND!");
             return null;
+        }
+
+        if (deck.Count < 1) // SHUFFLE DISCARD INTO DECK HERE
+        {
+            Debug.LogWarning("SHUFFLING DISCARD INTO DECK"!);
+
+            List<GameObject> discard;
+            if (hero == PLAYER) discard = PlayerDiscardCards;
+            else if (hero == ENEMY) discard = EnemyDiscardCards;
+            else
+            {
+                Debug.LogError("PLAYER <" + hero + "> NOT FOUND!");
+                return null;
+            }
+
+            foreach (GameObject go in discard)
+            {
+                deck.Add(HideCard(go));
+            }
+            discard.Clear();
         }
 
         GameObject card = ShowCard(deck[0]);
@@ -238,9 +261,9 @@ public class CardManager : MonoBehaviour
         }
         return card;
     }
-    public void DrawHand(string player)
+    public void DrawHand(string player, int handSize)
     {
-        for (int i = 0; i < STARTING_HAND_SIZE; i++)
+        for (int i = 0; i < handSize; i++)
         {
             FunctionTimer.Create(() => DrawCard(player), i);
         }
@@ -248,10 +271,10 @@ public class CardManager : MonoBehaviour
 
     /******
      * *****
-     * ****** REFRESH_CARDS
+     * ****** REFRESH_FOLLOWERS
      * *****
      *****/
-    public void RefreshCards(string hero)
+    public void RefreshFollowers(string hero)
     {
         List<GameObject> cardZoneList = null;
         if (hero == PLAYER) cardZoneList = PlayerZoneCards;
@@ -271,7 +294,7 @@ public class CardManager : MonoBehaviour
         
         if (card.GetComponent<CardDisplay>() is ActionCardDisplay acd)
         {
-            if (!EffectManager.Instance.CheckLegalTargets(acd.ActionCard.EffectGroup, true))
+            if (!EffectManager.Instance.CheckLegalTargets(acd.ActionCard.EffectGroup, card, true))
                 return false;
         }
 
@@ -283,6 +306,18 @@ public class CardManager : MonoBehaviour
             " // IsMyTurn = " + PlayerManager.Instance.IsMyTurn);
             return false;
         }
+    }
+
+    /******
+     * *****
+     * ****** SET_CARD_PARENT
+     * *****
+     *****/
+    public static int GetAbility(GameObject card, string ability)
+    {
+        FollowerCardDisplay fcd = card.GetComponent<FollowerCardDisplay>();
+        int abilityIndex = fcd.CurrentAbilities.FindIndex(x => x.AbilityName == ability);
+        return abilityIndex;
     }
 
     /******
@@ -320,10 +355,7 @@ public class CardManager : MonoBehaviour
         Transform zoneTran = null;
         switch (zone)
         {
-            case PLAYER_ACTION_ZONE:
-                zoneTran = PlayerActionZone.transform;
-                AnimationManager.Instance.PlayedState(card);
-                break;
+            // PLAYER
             case PLAYER_HAND:
                 zoneTran = PlayerHand.transform;
                 AnimationManager.Instance.RevealedHandState(card);
@@ -332,23 +364,28 @@ public class CardManager : MonoBehaviour
                 zoneTran = PlayerZone.transform;
                 AnimationManager.Instance.PlayedState(card);
                 break;
+            case PLAYER_ACTION_ZONE:
+                zoneTran = PlayerActionZone.transform;
+                AnimationManager.Instance.PlayedState(card);
+                break;
             case PLAYER_DISCARD:
                 zoneTran = PlayerDiscard.transform;
                 AnimationManager.Instance.RevealedPlayState(card);
+                break;
+            
+            // ENEMY
+            case ENEMY_HAND:
+                zoneTran = EnemyHand.transform;
+                break;
+            case ENEMY_ZONE:
+                zoneTran = EnemyZone.transform;
+                AnimationManager.Instance.PlayedState(card);
                 break;
             /*
             case ENEMY_ACTION_ZONE:
                 zoneTran = EnemyActionZone.transform;
                 AnimationManager.Instance.PlayedState(card);
             */
-            case ENEMY_HAND:
-                zoneTran = EnemyHand.transform;
-                AnimationManager.Instance.HiddenState(card);
-                break;
-            case ENEMY_ZONE:
-                zoneTran = EnemyZone.transform;
-                AnimationManager.Instance.PlayedState(card);
-                break;
             case ENEMY_DISCARD:
                 zoneTran = EnemyDiscard.transform;
                 AnimationManager.Instance.RevealedPlayState(card);
@@ -358,9 +395,8 @@ public class CardManager : MonoBehaviour
 
         if (card.GetComponent<CardDisplay>() is FollowerCardDisplay fcd)
         {
-            bool played;
+            bool played = false;
             if (zone == PLAYER_ZONE || zone == ENEMY_ZONE) played = true;
-            else played = false;
             fcd.ResetFollowerCard(played);
         }
     }
@@ -370,35 +406,41 @@ public class CardManager : MonoBehaviour
      * ****** PLAY_CARD [HAND >>> PLAY]
      * *****
      *****/
-    public void PlayCard(GameObject card, string hero)
+    public void PlayCard(GameObject card)
     {
-        if (hero == PLAYER)
+        // PLAYER
+        if (card.CompareTag(PLAYER_CARD))
         {
             PlayerManager.Instance.PlayerActionsLeft -= card.GetComponent<CardDisplay>().CurrentActionCost;
             PlayerHandCards.Remove(card);
 
             if (card.GetComponent<CardDisplay>() is FollowerCardDisplay)
             {
-                ChangeCardZone(card, PLAYER_ZONE);
                 PlayerZoneCards.Add(card);
+                ChangeCardZone(card, PLAYER_ZONE);
+
+                // Implement for enemy!
                 TriggerCardAbility(card, "Play");
                 TriggerGiveNextEffect(card);
             }
             else if (card.GetComponent<CardDisplay>() is ActionCardDisplay)
             {
+                // Implement for enemy!
                 ChangeCardZone(card, PLAYER_ACTION_ZONE);
                 ResolveActionCard(card);
             }
             else Debug.LogError("CARDDISPLAY TYPE NOT FOUND!");
         }
-        else if (hero == ENEMY)
+
+        // ENEMY
+        else if (card.CompareTag(ENEMY_CARD))
         {
-            card = EnemyHandCards[0];
             EnemyHandCards.Remove(card);
             EnemyZoneCards.Add(card);
-            EnemyManager.Instance.EnemyActionsLeft -= card.GetComponent<CardDisplay>().CurrentActionCost;
             ChangeCardZone(card, ENEMY_ZONE);
         }
+
+        else Debug.LogError("CARD TAG NOT FOUND!");
     }
 
     /******
@@ -423,11 +465,13 @@ public class CardManager : MonoBehaviour
         {
             ChangeCardZone(card, PLAYER_DISCARD);
             PlayerZoneCards.Remove(card);
+            PlayerDiscardCards.Add(card);
         }
         else if (hero == ENEMY)
         {
             ChangeCardZone(card, ENEMY_DISCARD);
             EnemyZoneCards.Remove(card);
+            EnemyDiscardCards.Add(card);
         }
     }
 
@@ -442,11 +486,13 @@ public class CardManager : MonoBehaviour
         {
             ChangeCardZone(card, PLAYER_DISCARD);
             PlayerHandCards.Remove(card);
+            PlayerDiscardCards.Add(card);
         }
         else if (hero == ENEMY)
         {
             ChangeCardZone(card, ENEMY_DISCARD);
             EnemyHandCards.Remove(card);
+            EnemyDiscardCards.Add(card);
         }
     }
 
@@ -457,9 +503,30 @@ public class CardManager : MonoBehaviour
      *****/
     public void Attack(GameObject attacker, GameObject defender)
     {
-        int power = GetFollowerDisplay(attacker).CurrentPower;
-        TakeDamage(defender, power);
+        Strike(attacker, defender);
         attacker.GetComponent<FollowerCardDisplay>().IsExhausted = true;
+
+        if (defender.CompareTag(ENEMY_CARD) || defender.CompareTag(PLAYER_CARD))
+        {
+            if (defender.GetComponent<FollowerCardDisplay>().CurrentDefense > 0)
+            {
+                if (GetAbility(defender, "Retaliate") != -1)
+                {
+                    Strike(defender, attacker);
+                }
+            }
+        }
+    }
+
+    /******
+     * *****
+     * ****** STRIKE
+     * *****
+     *****/
+    public void Strike(GameObject striker, GameObject defender)
+    {
+        int power = GetFollowerDisplay(striker).CurrentPower;
+        TakeDamage(defender, power);
     }
 
     /******
@@ -476,7 +543,7 @@ public class CardManager : MonoBehaviour
         EnemyManager em = EnemyManager.Instance;
 
         if (target == PlayerHero) targetValue = pm.PlayerHealth;
-        else if (target == EnemyHero) targetValue = pm.PlayerHealth;
+        else if (target == EnemyHero) targetValue = em.EnemyHealth;
         else targetValue = GetFollowerDisplay(target).CurrentDefense;
 
         newTargetValue = targetValue - damageValue;
@@ -529,9 +596,10 @@ public class CardManager : MonoBehaviour
         {
             Debug.Log("GiveAbilityEffect! <" + gae.CardAbility.ToString() + ">");
 
-            // TESTING TESTING TESTING
             GiveAbilityEffect newGae = ScriptableObject.CreateInstance<GiveAbilityEffect>();
             newGae.LoadEffect(gae);
+
+            // If ability already exists, update countdown instead of adding
             if (!fcd.AddCurrentAbility(newGae.CardAbility))
             {
                 foreach (Effect effect2 in fcd.CurrentEffects)
@@ -622,7 +690,6 @@ public class CardManager : MonoBehaviour
                 fcd.CurrentEffects.Remove(effect);
                 DestroyEffect(effect);
             }
-
             fcd = null;
             expiredEffects = null;
         }
@@ -630,12 +697,11 @@ public class CardManager : MonoBehaviour
 
     /******
      * *****
-     * ****** REMOVE_GIVE_NEXT_EFFECTS
+     * ****** TRIGGER_GIVE_NEXT_EFFECT
      * *****
      *****/
     public void TriggerGiveNextEffect(GameObject card)
     {
-        Debug.Log("TriggerGiveNextEffect()");
         static void DestroyEffect(Effect effect)
         {
             Destroy(effect);
@@ -670,7 +736,6 @@ public class CardManager : MonoBehaviour
      *****/
     public void RemoveGiveNextEffects()
     {
-        Debug.Log("RemoveGiveNextEffects()");
         static void DestroyEffect(Effect effect)
         {
             Destroy(effect);
@@ -681,10 +746,7 @@ public class CardManager : MonoBehaviour
         List<GiveNextFollowerEffect> expiredGne = new List<GiveNextFollowerEffect>();
         foreach (GiveNextFollowerEffect gnfe in gne)
         {
-            if (gnfe.Countdown == 1)
-            {
-                expiredGne.Add(gnfe);
-            }
+            if (gnfe.Countdown == 1) expiredGne.Add(gnfe);
             else if (gnfe.Countdown != 0) gnfe.Countdown -= 1;
         }
         foreach (GiveNextFollowerEffect xGnfe in expiredGne)
@@ -701,14 +763,13 @@ public class CardManager : MonoBehaviour
      *****/
     public void TriggerCardAbility(GameObject card, string triggerName)
     {
-        Debug.Log("TriggerCardAbility()");
         foreach (CardAbility ca in card.GetComponent<FollowerCardDisplay>().CurrentAbilities)
         {
             if (ca is TriggeredAbility tra)
             {
                 if (tra.AbilityTrigger.AbilityName == triggerName)
                 {
-                    EffectManager.Instance.StartEffectGroup(tra.EffectGroup);
+                    EffectManager.Instance.StartEffectGroup(tra.EffectGroup, PlayerHero);
                 }
             }
         }

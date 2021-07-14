@@ -132,13 +132,21 @@ public class FollowerCardDisplay : CardDisplay
      *****/
     public void ResetFollowerCard(bool played = false)
     {
-        IsExhausted = played;
+        if (played)
+        {
+            if (CardManager.GetAbility(gameObject, "Blitz") != -1) IsExhausted = false;
+            else IsExhausted = true;
+        }
+        else
+        {
+            IsExhausted = false;
+            foreach (GameObject go in AbilityIcons) Destroy(go);
+            AbilityIcons.Clear();
+            CurrentEffects.Clear();
+            CurrentAbilities.Clear();
+            DisplayCard();
+        }
         gameObject.GetComponent<DragDrop>().IsPlayed = played;
-        foreach (GameObject go in AbilityIcons) Destroy(go);
-        AbilityIcons.Clear();
-        CurrentEffects.Clear();
-        CurrentAbilities.Clear();
-        DisplayCard();
     }
 
     /******
@@ -148,14 +156,15 @@ public class FollowerCardDisplay : CardDisplay
      *****/
     public bool AddCurrentAbility(CardAbility ca)
     {
-        int abilityIndex = CurrentAbilities.FindIndex(x => x.AbilityName == ca.AbilityName);
-        if (abilityIndex != -1)
+        if (CardManager.GetAbility(gameObject, ca.AbilityName) != -1)
         {
             Debug.LogWarning("ABILITY ALREADY EXISTS: <" + ca.ToString() + ">");
             return false;
         }
         CurrentAbilities.Add(ca); // Add instances instead of objects? Doesn't currently matter.
         AbilityIcons.Add(CreateAbilityIcon(ca));
+
+        if (ca.AbilityName == "Blitz") IsExhausted = false;
         return true;
     }
 
@@ -166,10 +175,10 @@ public class FollowerCardDisplay : CardDisplay
      *****/
     public void RemoveCurrentAbility(CardAbility ca)
     {
-        int abilityIndex = CurrentAbilities.FindIndex(x => x.AbilityName == ca.AbilityName);
+        int abilityIndex = CardManager.GetAbility(gameObject, ca.AbilityName);
         if (abilityIndex == -1)
         {
-            Debug.LogWarning("ABILITY NOT FOUND: <" + ca.ToString() + ">");
+            Debug.LogError("ABILITY NOT FOUND: <" + ca.ToString() + ">");
             return;
         }
         Destroy(AbilityIcons[abilityIndex]);

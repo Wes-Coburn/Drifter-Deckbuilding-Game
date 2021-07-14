@@ -29,13 +29,13 @@ public class PlayerManager : MonoBehaviour
         set
         {
             playerHero = value;
-            for (int i = 0; i < CardManager.PLAYER_START_FOLLOWERS; i++)
+            for (int i = 0; i < GameManager.PLAYER_START_FOLLOWERS; i++)
             {
                 CardManager.Instance.AddCard(CardManager.Instance.StartPlayerFollower, GameManager.PLAYER);
             }
             foreach (SkillCard skill in PlayerHero.HeroSkills)
             {
-                for (int i = 0; i < CardManager.PLAYER_START_SKILLS; i++)
+                for (int i = 0; i < GameManager.PLAYER_START_SKILLS; i++)
                 {
                     CardManager.Instance.AddCard(skill, GameManager.PLAYER);
                 }
@@ -80,13 +80,22 @@ public class PlayerManager : MonoBehaviour
     public bool HeroPowerUsed { get; set; }
     public void UseHeroPower()
     {
-        Debug.Log("USE HERO POWER: " + PlayerHero.HeroAbility.PowerName);
+        Debug.Log("USE HERO POWER: " + PlayerHero.HeroPower.PowerName);
         if (HeroPowerUsed == true)
         {
             Debug.Log("HERO POWER ALREADY USED THIS TURN!");
             return;
         }
-        HeroPowerUsed = true;
-        EffectManager.Instance.StartEffectGroup(PlayerHero.HeroAbility.EffectGroup);
+        else if (PlayerActionsLeft < 1)
+        {
+            Debug.Log("NOT ENOUGH ACTIONS!");
+            return;
+        }
+        else
+        {
+            PlayerActionsLeft -= 1;
+            HeroPowerUsed = true;
+            EffectManager.Instance.StartEffectGroup(PlayerHero.HeroPower.EffectGroup, CardManager.Instance.PlayerHero);
+        }
     }
 }

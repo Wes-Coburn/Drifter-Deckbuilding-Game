@@ -9,7 +9,7 @@ public abstract class Effect : ScriptableObject
     [Range(1, 10)]
     public int Value;
 
-    [Tooltip("Targets: Player, Ally, Opponent, Enemy")]
+    [Tooltip("Targets: PlayerHero, EnemyHero, PlayerFollower, EnemyFollower, PlayerHand, EnemyHand")]
     public string Targets;
 
     [Tooltip("The number of targets (1-5)")]

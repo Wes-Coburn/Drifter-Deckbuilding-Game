@@ -13,16 +13,10 @@ public class AnimationManager : MonoBehaviour
         }
         else Destroy(gameObject);
     }
-
     public void ChangeAnimationState(GameObject go, string animationState)
     {
         Animator anim = go.GetComponent<Animator>();
         anim.Play(animationState);
-    }
-    public void HiddenState(GameObject card)
-    {
-        card.GetComponent<CardDisplay>().CardArt = CardManager.Instance.CardBackSprite;
-        ChangeAnimationState(card, "Hidden");
     }
     public void RevealedHandState (GameObject card) => ChangeAnimationState(card, "Revealed_Hand");
     public void RevealedPlayState (GameObject card) => ChangeAnimationState(card, "Revealed_Play");

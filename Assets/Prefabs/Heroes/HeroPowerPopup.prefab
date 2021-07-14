@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2609965229055549408}
-  - component: {fileID: 8166686964708738710}
+  - component: {fileID: 8425039826840421217}
   m_Layer: 10
-  m_Name: AbilityPopup
+  m_Name: HeroPowerPopup
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -39,7 +39,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 220, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8166686964708738710
+--- !u!114 &8425039826840421217
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -48,11 +48,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 268856669738850229}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfe71f5316bd3db4dbff0911720ca48a, type: 3}
+  m_Script: {fileID: 11500000, guid: 7bdad55bf395f5a49b45f5985ce4fce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilitySprite: {fileID: 6473662677271251308}
-  abilityDescription: {fileID: 4915463113152975002}
+  powerSprite: {fileID: 6473662677271251308}
+  powerDescription: {fileID: 4915463113152975002}
 --- !u!1 &670626867979860146
 GameObject:
   m_ObjectHideFlags: 0
@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 3195487088856188173}
   - component: {fileID: 1773397537469608342}
   m_Layer: 10
-  m_Name: AbilityDescription
+  m_Name: PowerDesription
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -238,7 +238,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Bloodthirst: Does something when I destroy another hero.'
+  m_text: 'Blitz Rider: Give the next follower you play this turn Blitz.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 35dcfebab0afaec44ba5df39248b9e4a, type: 2}
   m_sharedMaterial: {fileID: -6670439693667837105, guid: 35dcfebab0afaec44ba5df39248b9e4a,
@@ -266,7 +266,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 150
+  m_fontSize: 143.1
   m_fontSizeBase: 120
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -321,7 +321,7 @@ GameObject:
   - component: {fileID: 4349550140280096151}
   - component: {fileID: 9025921927976070267}
   m_Layer: 10
-  m_Name: AbilitySprite
+  m_Name: PowerSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -386,7 +386,7 @@ SpriteRenderer:
   m_SortingLayerID: -1404842927
   m_SortingLayer: 4
   m_SortingOrder: 21
-  m_Sprite: {fileID: 21300000, guid: ed26c654e01f1a344b46893e894d20b8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 790a6cb8dccc50344ac9d9b25272a4dc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

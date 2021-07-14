@@ -18,6 +18,7 @@ public class EnemyManager : MonoBehaviour
     {
         EnemyDeckList = new List<Card>();
         CurrentEnemyDeck = new List<Card>();
+        ReinforcementSchedule = new List<int>();
     }
 
     /* ENEMY_HERO */
@@ -29,18 +30,20 @@ public class EnemyManager : MonoBehaviour
             enemyHero = value;
             foreach (FollowerCard follower in enemyHero.HeroFollowers)
             {
-                for (int i = 0; i < CardManager.ENEMY_START_FOLLOWERS; i++)
+                for (int i = 0; i < GameManager.ENEMY_START_FOLLOWERS; i++)
                 {
                     CardManager.Instance.AddCard(follower, GameManager.ENEMY);
                 }
             }
             foreach (SkillCard skill in EnemyHero.HeroSkills)
             {
-                for (int i = 0; i < CardManager.ENEMY_START_SKILLS; i++)
+                for (int i = 0; i < GameManager.ENEMY_START_SKILLS; i++)
                 {
                     CardManager.Instance.AddCard(skill, GameManager.ENEMY);
                 }
             }
+            ReinforcementSchedule = EnemyHero.ReinforcementSchedule;
+            CurrentReinforcements = 0;
         }
     }
     private Hero enemyHero;
@@ -48,6 +51,8 @@ public class EnemyManager : MonoBehaviour
     /* ENEMY_DECK */
     public List<Card> EnemyDeckList { get; private set; }
     public List<Card> CurrentEnemyDeck { get; private set; }
+    public List<int> ReinforcementSchedule { get; private set; }
+    public int CurrentReinforcements { get; set; }
 
     /* IS_MY_TURN */
     public bool IsMyTurn { get; set; }
@@ -61,19 +66,6 @@ public class EnemyManager : MonoBehaviour
         {
             enemyHealth = value;
             UIManager.Instance.UpdateEnemyHealth(EnemyHealth);
-        }
-    }
-    
-    /* ACTIONS_LEFT */
-    private int enemyActionsLeft;
-    public int EnemyActionsLeft
-    {
-        get => enemyActionsLeft;
-        set
-        {
-            enemyActionsLeft = value;
-            if (enemyActionsLeft > GameManager.MAXIMUM_ACTIONS) enemyActionsLeft = GameManager.MAXIMUM_ACTIONS;
-            UIManager.Instance.UpdateEnemyActionsLeft(EnemyActionsLeft);
         }
     }
 }

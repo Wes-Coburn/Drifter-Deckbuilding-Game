@@ -8,7 +8,6 @@ public class DragDrop : MonoBehaviour
 
     /* GAME_MANAGER_DATA */
     private const string PLAYER = GameManager.PLAYER;
-    private const string ENEMY = GameManager.ENEMY;
 
     /* MANAGERS */
     private PlayerManager playerManager;
@@ -135,8 +134,7 @@ public class DragDrop : MonoBehaviour
             if (isOverDropZone && cardManager.IsPlayable(gameObject))
             {
                 IsPlayed = true;
-                if (gameObject.CompareTag(PLAYER_CARD)) cardManager.PlayCard(gameObject, PLAYER);
-                else cardManager.PlayCard(gameObject, ENEMY);
+                cardManager.PlayCard(gameObject);
             }
             else ResetPosition();
         }
@@ -147,7 +145,7 @@ public class DragDrop : MonoBehaviour
         }
         else
         {
-            Debug.Log("EndDrag, NO ATTACK... IsExhausted = " + gameObject.GetComponent<FollowerCardDisplay>().IsExhausted);
+            Debug.Log("EndDrag! (NO ATTACK) IsExhausted = " + gameObject.GetComponent<FollowerCardDisplay>().IsExhausted);
             ResetPosition();
         }
     }
