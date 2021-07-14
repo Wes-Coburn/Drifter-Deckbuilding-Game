@@ -82,11 +82,17 @@ public abstract class CardDisplay : MonoBehaviour
     public virtual void DisplayZoomCard(GameObject parentCard)
     {
         CardDisplay cd = parentCard.GetComponent<CardDisplay>();
-        cardScript = cd.CardScript; // TESTING
+        cardScript = cd.CardScript;
         CardName = cd.CardName;
         CardTypeLine = cd.CardTypeLine;
         CurrentActionCost = cd.CurrentActionCost;
         CardArt = cd.CardArt;
         CardBorder = cd.CardBorder;
+
+        if(gameObject.TryGetComponent<Animator>(out animator))
+        {
+            animator.runtimeAnimatorController = CardScript.AnimatorOverrideController;
+            AnimationManager.Instance.ZoomedState(gameObject);
+        }
     }
 }

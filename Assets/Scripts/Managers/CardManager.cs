@@ -144,7 +144,7 @@ public class CardManager : MonoBehaviour
             currentDeck.Add(card);
         }
 
-        currentDeck.Shuffle();
+        ShuffleDeck(currentDeck);
     }
 
     /******
@@ -225,10 +225,9 @@ public class CardManager : MonoBehaviour
             return null;
         }
 
-        if (deck.Count < 1) // SHUFFLE DISCARD INTO DECK HERE
+        // Shuffle discard into deck
+        if (deck.Count < 1)
         {
-            Debug.LogWarning("SHUFFLING DISCARD INTO DECK"!);
-
             List<GameObject> discard;
             if (hero == PLAYER) discard = PlayerDiscardCards;
             else if (hero == ENEMY) discard = EnemyDiscardCards;
@@ -243,6 +242,7 @@ public class CardManager : MonoBehaviour
                 deck.Add(HideCard(go));
             }
             discard.Clear();
+            ShuffleDeck(deck);
         }
 
         GameObject card = ShowCard(deck[0]);
@@ -267,6 +267,18 @@ public class CardManager : MonoBehaviour
         {
             FunctionTimer.Create(() => DrawCard(player), i);
         }
+    }
+
+    /******
+     * *****
+     * ****** SHUFFLE_DECK
+     * *****
+     *****/
+    public void ShuffleDeck(List<Card> deck)
+    {
+        Debug.Log("SHUFFLE DECK!");
+        deck.Shuffle();
+        // Shuffle sounds, animations
     }
 
     /******

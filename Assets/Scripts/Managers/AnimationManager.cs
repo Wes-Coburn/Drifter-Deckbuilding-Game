@@ -28,4 +28,5 @@ public class AnimationManager : MonoBehaviour
     }
     //public void ModifyAttackState(GameObject card) => ChangeAnimationState(card, Modify_Attack);
     public void ModifyDefenseState(GameObject card) => ChangeAnimationState(card, "Modify_Defense");
+    public void ZoomedState(GameObject card) => ChangeAnimationState(card, "Zoomed");
 }

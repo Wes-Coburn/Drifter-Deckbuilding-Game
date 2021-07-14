@@ -144,7 +144,7 @@ public class GameManager : MonoBehaviour
                 refoSched[enemyManager.CurrentReinforcements];
 
             // ENEMY ATTACK
-            delay += 3;
+            if (delay > 1) delay += 2;
             void EnemyAttack(GameObject enemyHero)
             {
                 if (cardManager.PlayerZoneCards.Count > 0)

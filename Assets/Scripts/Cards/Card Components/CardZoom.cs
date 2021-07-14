@@ -14,6 +14,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     private const string ZOOM_LAYER = "Zoom";
 
     /* ZOOMCARD_DATA */
+    private const int   ZOOM_Z_AXIS        =  -4;
     private const float ZOOM_BUFFER        =  350;
     private const float ZOOM_SCALE_VALUE   =  4;
     private const float CENTER_SCALE_VALUE =  6;
@@ -24,7 +25,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     private UIManager UIManager;
 
     /* PREFABS */
-    [SerializeField] private GameObject heroZoomCard;
+    [SerializeField] private GameObject followerZoomCard;
     [SerializeField] private GameObject actionZoomCard;
 
         // ABILITY_PREFABS
@@ -86,11 +87,11 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
 
         CreateZoomCard(new Vector3(0, 50), CENTER_SCALE_VALUE);
         
-        if (cardDisplay is FollowerCardDisplay)
+        if (cardDisplay is FollowerCardDisplay fcd)
         {
-            FollowerCard fc = cardDisplay.CardScript as FollowerCard;
+            FollowerCard fc = fcd.FollowerCard;
             CreateNextLevelPopup(new Vector2(POPUP_X_VALUE, 0), POPUP_SCALE_VALUE, fc.Level2Abilities);
-            CreateDescriptionPopup(new Vector2(-600, 0), POPUP_SCALE_VALUE);
+            CreateDescriptionPopup(new Vector2(-POPUP_X_VALUE, 0), POPUP_SCALE_VALUE);
         }
     }
 
@@ -142,13 +143,13 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
      * ****** CREATE_ZOOM_OBJECT
      * *****
      *****/
-    private GameObject CreateZoomObject(GameObject prefab, Vector3 vec3, Transform parentTransform, float scaleValue)
+    private GameObject CreateZoomObject(GameObject prefab, Vector3 vec2, Transform parentTransform, float scaleValue)
     {
-        GameObject zoomObject = Instantiate(prefab, vec3, Quaternion.identity);
-        Transform popTran = zoomObject.transform;
-        popTran.SetParent(parentTransform, true);
-        popTran.position = new Vector3(popTran.position.x, popTran.position.y, vec3.z);
-        popTran.localScale = new Vector2(scaleValue, scaleValue);
+        GameObject zoomObject = Instantiate(prefab, vec2, Quaternion.identity);
+        Transform tran = zoomObject.transform;
+        tran.SetParent(parentTransform, true);
+        tran.position = new Vector3(tran.position.x, tran.position.y, ZOOM_Z_AXIS);
+        tran.localScale = new Vector2(scaleValue, scaleValue);
         return zoomObject;
     }
 
@@ -160,12 +161,15 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     private void CreateZoomCard(Vector2 vec2, float scaleValue)
     {
         if (CurrentZoomCard != null) Destroy(CurrentZoomCard);
-        GameObject cardPrefab = null;
-        if (gameObject.GetComponent<CardDisplay>() is FollowerCardDisplay) cardPrefab = heroZoomCard;
+        GameObject cardPrefab;
+        if (gameObject.GetComponent<CardDisplay>() is FollowerCardDisplay) cardPrefab = followerZoomCard;
         else if (gameObject.GetComponent<CardDisplay>() is ActionCardDisplay) cardPrefab = actionZoomCard;
-        else Debug.Log("[CreateZoomCard() in CardZoom] CardDisplay TYPE NOT FOUND!");
-
-        CurrentZoomCard = CreateZoomObject(cardPrefab, new Vector3(vec2.x, vec2.y, -4), background.transform, scaleValue);
+        else
+        {
+            Debug.LogError("CARD DISPLAY TYPE NOT FOUND!");
+            return;
+        }
+        CurrentZoomCard = CreateZoomObject(cardPrefab, new Vector3(vec2.x, vec2.y), background.transform, scaleValue);
         CurrentZoomCard.GetComponent<CardDisplay>().DisplayZoomCard(gameObject);
     }
 
@@ -177,7 +181,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     public void CreateZoomAbilityIcon(CardAbility cardAbility, Transform parentTransform, float scaleValue)
     {
         GameObject abilityIconPrefab = gameObject.GetComponent<FollowerCardDisplay>().AbilityIconPrefab;
-        GameObject abilityIcon = Instantiate(abilityIconPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        GameObject abilityIcon = Instantiate(abilityIconPrefab, new Vector3(0, 0), Quaternion.identity);
         Transform popTran = abilityIcon.transform;
         popTran.SetParent(parentTransform, true);
         popTran.localScale = new Vector2(scaleValue, scaleValue);
@@ -195,7 +199,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
      *****/
     private void CreateNextLevelPopup(Vector2 vec2, float scaleValue, List<CardAbility> level2Abilities)
     {
-        NextLevelPopup = CreateZoomObject(nextLevelBox, new Vector3(vec2.x, vec2.y, -4), background.transform, scaleValue);
+        NextLevelPopup = CreateZoomObject(nextLevelBox, new Vector3(vec2.x, vec2.y), background.transform, scaleValue);
         CreateZoomObject(level2Popup, new Vector2(0, 0), NextLevelPopup.transform, scaleValue / 3);
         foreach (CardAbility cardAbility in level2Abilities)
         {
@@ -211,7 +215,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
      *****/
     private void CreateDescriptionPopup(Vector2 vec2, float scaleValue)
     {
-        DescriptionPopup = CreateZoomObject(descriptionPopupPrefab, new Vector3(vec2.x, vec2.y, 0), background.transform, scaleValue);
+        DescriptionPopup = CreateZoomObject(descriptionPopupPrefab, new Vector3(vec2.x, vec2.y), background.transform, scaleValue);
         DescriptionPopup.GetComponent<DescriptionPopupDisplay>().DisplayDescriptionPopup(cardDisplay.CardScript.CardDescription);
     }
 }
