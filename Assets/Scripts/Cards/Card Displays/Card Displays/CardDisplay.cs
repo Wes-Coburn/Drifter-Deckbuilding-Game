@@ -91,7 +91,7 @@ public abstract class CardDisplay : MonoBehaviour
 
         if(gameObject.TryGetComponent<Animator>(out animator))
         {
-            animator.runtimeAnimatorController = CardScript.AnimatorOverrideController;
+            animator.runtimeAnimatorController = CardScript.ZoomAOC;
             AnimationManager.Instance.ZoomedState(gameObject);
         }
     }

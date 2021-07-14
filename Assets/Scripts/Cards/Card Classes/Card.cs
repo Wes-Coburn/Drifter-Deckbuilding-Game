@@ -27,6 +27,9 @@ public abstract class Card : ScriptableObject
     public AnimatorOverrideController AnimatorOverrideController { get => animatorOverrideController; }
     [SerializeField] private AnimatorOverrideController animatorOverrideController;
 
+    public AnimatorOverrideController ZoomAOC { get => zoomAOC; }
+    [SerializeField] private AnimatorOverrideController zoomAOC;
+
     public virtual void LoadCard(Card card)
     {
         cardArt = card.CardArt;
@@ -37,5 +40,6 @@ public abstract class Card : ScriptableObject
         cardSubType = card.CardSubType;
         cardDescription = card.CardDescription;
         animatorOverrideController = card.AnimatorOverrideController;
+        zoomAOC = card.ZoomAOC;
     }
 }
