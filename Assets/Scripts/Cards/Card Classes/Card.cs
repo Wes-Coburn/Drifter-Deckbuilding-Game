@@ -24,11 +24,11 @@ public abstract class Card : ScriptableObject
     public string CardDescription { get => cardDescription; }
     [TextArea] [SerializeField] private string cardDescription;
 
-    public AnimatorOverrideController AnimatorOverrideController { get => animatorOverrideController; }
-    [SerializeField] private AnimatorOverrideController animatorOverrideController;
+    public AnimatorOverrideController OverController { get => overController; }
+    [SerializeField] private AnimatorOverrideController overController;
 
-    public AnimatorOverrideController ZoomAOC { get => zoomAOC; }
-    [SerializeField] private AnimatorOverrideController zoomAOC;
+    public AnimatorOverrideController ZoomOverController { get => zoomOverController; }
+    [SerializeField] private AnimatorOverrideController zoomOverController;
 
     public virtual void LoadCard(Card card)
     {
@@ -39,7 +39,7 @@ public abstract class Card : ScriptableObject
         cardType = card.CardType;
         cardSubType = card.CardSubType;
         cardDescription = card.CardDescription;
-        animatorOverrideController = card.AnimatorOverrideController;
-        zoomAOC = card.ZoomAOC;
+        overController = card.OverController;
+        zoomOverController = card.ZoomOverController;
     }
 }

@@ -19,8 +19,8 @@ MonoBehaviour:
   cardType: Action
   cardSubType: Skill
   cardDescription: Give an ally Retaliate until your next turn.
-  animatorOverrideController: {fileID: 22100000, guid: 3e98eb671bc6abd4bad7001010bde3b5,
-    type: 2}
+  overController: {fileID: 22100000, guid: 3e98eb671bc6abd4bad7001010bde3b5, type: 2}
+  zoomOverController: {fileID: 0}
   effectGroup:
   - {fileID: 11400000, guid: 336e78522647f1b4782c1cdaec6b790f, type: 2}
   Hero: {fileID: 11400000, guid: 2de3c75baa7d5f54fbe6c020c04073e9, type: 2}

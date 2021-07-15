@@ -15,8 +15,11 @@ public class AnimationManager : MonoBehaviour
     }
     public void ChangeAnimationState(GameObject go, string animationState)
     {
-        Animator anim = go.GetComponent<Animator>();
-        anim.Play(animationState);
+        if (go.TryGetComponent<Animator>(out Animator anim))
+        {
+            anim.Play(animationState);
+        }
+        else Debug.LogWarning("ANIMATOR NOT FOUND!");
     }
     public void RevealedHandState (GameObject card) => ChangeAnimationState(card, "Revealed_Hand");
     public void RevealedPlayState (GameObject card) => ChangeAnimationState(card, "Revealed_Play");

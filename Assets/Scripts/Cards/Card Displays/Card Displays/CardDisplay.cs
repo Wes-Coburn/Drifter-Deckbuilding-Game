@@ -71,7 +71,7 @@ public abstract class CardDisplay : MonoBehaviour
         CardArt = CardScript.CardArt;
         CardBorder = CardScript.CardBorder;
         animator = gameObject.GetComponent<Animator>();
-        animator.runtimeAnimatorController = CardScript.AnimatorOverrideController;
+        animator.runtimeAnimatorController = CardScript.OverController;
     }
 
     /******
@@ -89,10 +89,11 @@ public abstract class CardDisplay : MonoBehaviour
         CardArt = cd.CardArt;
         CardBorder = cd.CardBorder;
 
-        if(gameObject.TryGetComponent<Animator>(out animator))
+        if (gameObject.TryGetComponent<Animator>(out animator))
         {
-            animator.runtimeAnimatorController = CardScript.ZoomAOC;
+            animator.runtimeAnimatorController = CardScript.ZoomOverController;
             AnimationManager.Instance.ZoomedState(gameObject);
         }
+        else Debug.LogWarning("ANIMATOR NOT FOUND!");
     }
 }
