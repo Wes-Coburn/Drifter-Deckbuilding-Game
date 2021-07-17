@@ -19,7 +19,13 @@ public class EnemyManager : MonoBehaviour
         EnemyDeckList = new List<Card>();
         CurrentEnemyDeck = new List<Card>();
         ReinforcementSchedule = new List<int>();
+
+        cardMan = CardManager.Instance;
+        eveMan = EventManager.Instance;
     }
+
+    CardManager cardMan;
+    EventManager eveMan;
 
     /* ENEMY_HERO */
     public Hero EnemyHero
@@ -66,6 +72,74 @@ public class EnemyManager : MonoBehaviour
         {
             enemyHealth = value;
             UIManager.Instance.UpdateEnemyHealth(EnemyHealth);
+        }
+    }
+
+    /******
+     * *****
+     * ****** START_ENEMY_TURN
+     * *****
+     *****/
+    public void StartEnemyTurn()
+    {
+        int refo = CurrentReinforcements;
+        List<int> refoSched = ReinforcementSchedule;
+
+        // DELAYED ACTIONS
+        for (int i = 0; i < refoSched[refo]; i++)
+        {
+            eveMan.NewDelayedAction(() => CMDrawCard(GameManager.ENEMY), 1.5f);
+        }
+        for (int i = 0; i < refoSched[refo]; i++)
+        {
+            eveMan.NewDelayedAction(() => CMPlayCard(cardMan.EnemyHandCards[0]), 1.5f);
+        }
+        if ((refo + 1) < refoSched.Count) CurrentReinforcements++;
+        else CurrentReinforcements = 0;
+
+        cardMan.EnemyHero.GetComponent<EnemyHeroDisplay>().NextReinforcements =
+            refoSched[CurrentReinforcements];
+
+        eveMan.NewDelayedAction(() => CMBeginAttack(), 1f);
+
+        // INTERNAL METHODS
+        void FinishEvent() => eveMan.FinishDelayedAction();
+        void CMDrawCard(string hero)
+        {
+            cardMan.DrawCard(hero);
+            FinishEvent();
+        }
+        void CMPlayCard(GameObject card)
+        {
+            cardMan.PlayCard(card);
+            FinishEvent();
+        }
+        void CMBeginAttack()
+        {
+            foreach (GameObject enemyHero in cardMan.EnemyZoneCards)
+            {
+                if (!enemyHero.GetComponent<FollowerCardDisplay>().IsExhausted)
+                {
+                    eveMan.NewDelayedAction(() => CMAttack(enemyHero), 1f);
+                }
+            }
+            // END TURN
+            eveMan.NewDelayedAction(() => GMEndTurn(), 1f);
+            FinishEvent();
+        }
+        void CMAttack(GameObject hero)
+        {
+            if (cardMan.PlayerZoneCards.Count > 0)
+            {
+                cardMan.Attack(hero, cardMan.PlayerZoneCards[0]);
+            }
+            else cardMan.Attack(hero, cardMan.PlayerHero);
+            FinishEvent();
+        }
+        void GMEndTurn()
+        {
+            GameManager.Instance.EndTurn(GameManager.ENEMY);
+            FinishEvent();
         }
     }
 }

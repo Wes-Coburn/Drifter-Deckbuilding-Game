@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
@@ -22,7 +21,8 @@ public class GameManager : MonoBehaviour
     /* GAME_MANAGER_DATA */
     public const int STARTING_HEALTH = 15;
     public const int STARTING_ACTIONS = 0;
-    public const int ACTIONS_PER_TURN = 3;
+    public const int START_ACTIONS_PER_TURN = 1;
+    public const int MAX_ACTIONS_PER_TURN = 5;
     public const int MAXIMUM_ACTIONS = 5;
 
     public const string PLAYER = "Player";
@@ -75,20 +75,16 @@ public class GameManager : MonoBehaviour
     private void StartCombat(Hero enemyHero)
     {
         enemyManager.EnemyHero = enemyHero;
-
         cardManager.UpdateDeck(PLAYER);
         cardManager.UpdateDeck(ENEMY);
 
         playerManager.PlayerHealth = STARTING_HEALTH;
-        playerManager.PlayerActionsLeft = STARTING_ACTIONS;
         enemyManager.EnemyHealth = STARTING_HEALTH;
+        playerManager.PlayerActionsLeft = STARTING_ACTIONS;
+        playerManager.ActionsPerTurn = START_ACTIONS_PER_TURN;
 
         cardManager.PlayerHero.GetComponent<HeroDisplay>().HeroScript = playerManager.PlayerHero;
         cardManager.EnemyHero.GetComponent<HeroDisplay>().HeroScript = enemyManager.EnemyHero;
-
-        //FunctionTimer.Create(() => cm.DrawHand(PLAYER, PLAYER_HAND_SIZE), 1f);
-        //FunctionTimer.Create(() => cm.DrawHand(ENEMY, ENEMY_HAND_SIZE), 1f);
-        //FunctionTimer.Create(() => StartTurn(PLAYER), PLAYER_HAND_SIZE);
 
         void FinishEvent() => eventManager.FinishDelayedAction();
         void CMDrawCard(string hero)
@@ -135,11 +131,20 @@ public class GameManager : MonoBehaviour
             playerManager.IsMyTurn = true;
             enemyManager.IsMyTurn = false;
             UIManager.UpdateEndTurnButton(true);
-
-            PlayerManager.Instance.PlayerActionsLeft += ACTIONS_PER_TURN;
             playerManager.HeroPowerUsed = false;
 
-            FunctionTimer.Create(() => cardManager.DrawCard(PLAYER), 1f);
+            /* CUMULATIVE ACTION GAIN
+            playerManager.PlayerActionsLeft += playerManager.ActionsPerTurn;
+            if (playerManager.ActionsPerTurn < MAX_ACTIONS_PER_TURN)
+                playerManager.ActionsPerTurn++;
+            cardManager.DrawCard(PLAYER);
+            */
+
+            // LINEAR ACTION GAIN
+            playerManager.PlayerActionsLeft = playerManager.ActionsPerTurn;
+            if (playerManager.ActionsPerTurn < MAX_ACTIONS_PER_TURN)
+                playerManager.ActionsPerTurn++;
+            cardManager.DrawCard(PLAYER);
         }
 
         // ENEMY
@@ -149,64 +154,8 @@ public class GameManager : MonoBehaviour
             enemyManager.IsMyTurn = true;
             UIManager.UpdateEndTurnButton(false);
 
-            int refo = enemyManager.CurrentReinforcements;
-            List<int> refoSched = enemyManager.ReinforcementSchedule;
-
-            void FinishEvent() => eventManager.FinishDelayedAction();
-            void CMDrawCard(string hero)
-            {
-                cardManager.DrawCard(hero);
-                FinishEvent();
-            }
-            void CMPlayCard(GameObject card)
-            {
-                cardManager.PlayCard(card);
-                FinishEvent();
-            }
-            void CMBeginAttack()
-            {
-                foreach (GameObject enemyHero in cardManager.EnemyZoneCards)
-                {
-                    if (!enemyHero.GetComponent<FollowerCardDisplay>().IsExhausted)
-                    {
-                        eventManager.NewDelayedAction(() => CMEnemyAttack(enemyHero), 1f);
-                    }
-                }
-                // END TURN
-                eventManager.NewDelayedAction(() => GMEndTurn(ENEMY), 1f);
-                FinishEvent();
-            }
-            void CMEnemyAttack(GameObject hero)
-            {
-                if (cardManager.PlayerZoneCards.Count > 0)
-                {
-                    cardManager.Attack(hero, cardManager.PlayerZoneCards[0]);
-                }
-                else cardManager.Attack(hero, cardManager.PlayerHero);
-                FinishEvent();
-            }
-            void GMEndTurn(string hero)
-            {
-                EndTurn(hero);
-                FinishEvent();
-            }
-
-            // DELAYED ACTIONS
-            for (int i = 0; i < refoSched[refo]; i++)
-            {
-                eventManager.NewDelayedAction(() => CMDrawCard(ENEMY), 1f);
-            }
-            for (int i = 0; i < refoSched[refo]; i++)
-            {
-                eventManager.NewDelayedAction(() => CMPlayCard(CardManager.Instance.EnemyHandCards[0]), 2f);
-            }
-            if ((refo + 1) < refoSched.Count) enemyManager.CurrentReinforcements++;
-            else enemyManager.CurrentReinforcements = 0;
-
-            CardManager.Instance.EnemyHero.GetComponent<EnemyHeroDisplay>().NextReinforcements =
-                refoSched[enemyManager.CurrentReinforcements];
-
-            eventManager.NewDelayedAction(() => CMBeginAttack(), 1f);
+            // ENEMY TURN
+            EnemyManager.Instance.StartEnemyTurn();
         }
     }
 

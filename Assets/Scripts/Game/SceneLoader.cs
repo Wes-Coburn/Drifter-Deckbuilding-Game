@@ -32,7 +32,7 @@ public static class SceneLoader
             CardManager.Instance.StartGameScene(); // FOR TESTING ONLY
             GameManager.Instance.NewGame(); // FOR TESTING ONLY
             //AudioManager.Instance.StartStopSound("Soundscape_" + scene.ToString(), AudioManager.SoundType.Soundscape);
-            //AudioManager.Instance.StartStopSound("Soundtrack_WorldTheme", AudioManager.SoundType.Soundtrack);
+            AudioManager.Instance.StartStopSound("Soundtrack_" + scene.ToString(), AudioManager.SoundType.Soundtrack);
         };
         SceneManager.LoadScene(Scene.LoadingScene.ToString());
     }

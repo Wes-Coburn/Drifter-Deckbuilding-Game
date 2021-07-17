@@ -58,12 +58,12 @@ public class AudioManager : MonoBehaviour
             case SoundType.SFX:
                 break;
             case SoundType.Soundscape:
-                if (CurrentSoundscape == currentSound) return; // TESTING
+                if (CurrentSoundscape == currentSound) return;
                 if (CurrentSoundscape != null) CurrentSoundscape.source.Stop();
                 CurrentSoundscape = currentSound;
                 break;
             case SoundType.Soundtrack:
-                if (CurrentSoundtrack == currentSound) return; // TESTING
+                if (CurrentSoundtrack == currentSound) return;
                 if (CurrentSoundtrack != null) CurrentSoundtrack.source.Stop();
                 CurrentSoundtrack = currentSound;
                 break;

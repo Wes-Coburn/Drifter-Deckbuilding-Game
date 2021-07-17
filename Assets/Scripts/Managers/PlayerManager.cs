@@ -51,6 +51,9 @@ public class PlayerManager : MonoBehaviour
     /* IS_MY_TURN */
     public bool IsMyTurn { get; set; }
 
+    /* ACTIONS_PER_TURN */
+    public int ActionsPerTurn { get; set; }
+
     /* HEALTH */
     private int playerHealth;
     public int PlayerHealth
