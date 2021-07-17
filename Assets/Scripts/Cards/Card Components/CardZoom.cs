@@ -102,7 +102,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
      *****/
     public void OnPointerEnter()
     {
-        if (DragDrop.CardIsDragging || ZoomCardIsCentered || UIManager.Instance.PlayerIsTargetting) return;
+        if (DragDrop.CardIsDragging || ZoomCardIsCentered) return;
 
         float yPos;
         RectTransform rect;
@@ -134,7 +134,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
      *****/
     public void OnPointerExit()
     {
-        if (DragDrop.CardIsDragging || ZoomCardIsCentered || UIManager.Instance.PlayerIsTargetting) return;
+        if (DragDrop.CardIsDragging || ZoomCardIsCentered) return;
         UIManager.DestroyZoomObjects();
     }
 

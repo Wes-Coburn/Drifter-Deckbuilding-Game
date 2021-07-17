@@ -28,7 +28,7 @@ public class EffectManager : MonoBehaviour
     private List<List<GameObject>> acceptedTargets;
     private List<GameObject> newDrawnCards;
 
-    public List<GiveNextFollowerEffect> GiveNextEffects // TESTING
+    public List<GiveNextFollowerEffect> GiveNextEffects
     {
         get => giveNextEffects;
         private set => giveNextEffects = value;
@@ -81,7 +81,7 @@ public class EffectManager : MonoBehaviour
     public void StartEffectGroup(List<Effect> effectGroup, GameObject effectSource)
     {
         Debug.LogWarning("StartNewEffectGroup()");
-        currentEffectSource = effectSource; // TESTING
+        currentEffectSource = effectSource;
         currentEffectGroup = effectGroup;
         currentEffect = 0;
         newDrawnCards = new List<GameObject>();
@@ -103,7 +103,8 @@ public class EffectManager : MonoBehaviour
     {
         if (effect is DrawEffect de && de.IsDiscardEffect) return true;
         else if (effect is DrawEffect || effect is GiveNextFollowerEffect) return false;
-        else if (effect.TargetsAll || effect.Targets == CardManager.PLAYER_HERO || effect.Targets == CardManager.ENEMY_HERO) return false;
+        else if (effect.TargetsAll || effect.Targets == CardManager.PLAYER_HERO || 
+            effect.Targets == CardManager.ENEMY_HERO) return false;
         else return true;
     }
 
@@ -153,9 +154,23 @@ public class EffectManager : MonoBehaviour
     {
         UIManager.Instance.PlayerIsTargetting = true;
 
-        string infoText;
-        if (effect is DrawEffect) infoText = "Choose a card in your hand";
-        else infoText = "Choose an " + effect.Targets.ToLower();
+        string infoText = "Choose ";
+        switch (effect.Targets)
+        {
+            case Effect.PlayerFollower:
+                infoText += "an ally";
+                break;
+            case Effect.PlayerHand:
+                infoText += "a card in your hand";
+                break;
+            case Effect.EnemyFollower:
+                infoText += "an enemy";
+                break;
+            default:
+                Debug.LogError("TARGET TYPE NOT FOUND!");
+                return;
+        }
+
         UIManager.Instance.CreateInfoPopup(infoText);
 
         if (effect is DrawEffect)

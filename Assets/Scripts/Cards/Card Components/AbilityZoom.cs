@@ -30,7 +30,7 @@ public class AbilityZoom : MonoBehaviour
     }
     public void OnPointerEnter()
     {
-        if (!CardZoom.ZoomCardIsCentered || DragDrop.CardIsDragging || UIManager.Instance.PlayerIsTargetting) return;
+        if (!CardZoom.ZoomCardIsCentered || DragDrop.CardIsDragging) return;
         if (AbilityPopup != null) Destroy(AbilityPopup);
         isHovering = true;
         CreateAbilityPopup();

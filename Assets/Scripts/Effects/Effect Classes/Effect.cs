@@ -11,6 +11,11 @@ public abstract class Effect : ScriptableObject
 
     [Tooltip("Targets: PlayerHero, EnemyHero, PlayerFollower, EnemyFollower, PlayerHand, EnemyHand")]
     public string Targets;
+    public const string PlayerHero = "PlayerHero";
+    public const string PlayerFollower = "PlayerFollower";
+    public const string PlayerHand = "PlayerHand";
+    public const string EnemyHero = "EnemyHero";
+    public const string EnemyFollower = "EnemyFollower";
 
     [Tooltip("The number of targets (1-5)")]
     [Range(1, 5)]

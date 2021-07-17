@@ -22,8 +22,8 @@ public class GameManager : MonoBehaviour
     /* GAME_MANAGER_DATA */
     public const int STARTING_HEALTH = 15;
     public const int STARTING_ACTIONS = 0;
-    public const int ACTIONS_PER_TURN = 2;
-    public const int MAXIMUM_ACTIONS = 6;
+    public const int ACTIONS_PER_TURN = 3;
+    public const int MAXIMUM_ACTIONS = 5;
 
     public const string PLAYER = "Player";
     public const int PLAYER_HAND_SIZE = 4;
@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
     private EnemyManager enemyManager;
     private CardManager cardManager;
     private UIManager UIManager;
+    EventManager eventManager;
 
     /******
      * *****
@@ -50,8 +51,9 @@ public class GameManager : MonoBehaviour
     {
         playerManager = PlayerManager.Instance;
         enemyManager = EnemyManager.Instance;
-        UIManager = UIManager.Instance;
         cardManager = CardManager.Instance;
+        UIManager = UIManager.Instance;
+        eventManager = EventManager.Instance;
     }
 
     /******
@@ -72,24 +74,44 @@ public class GameManager : MonoBehaviour
      *****/
     private void StartCombat(Hero enemyHero)
     {
-        CardManager cm = CardManager.Instance;
-        PlayerManager pm = PlayerManager.Instance;
-        EnemyManager em = EnemyManager.Instance;
-        em.EnemyHero = enemyHero;
+        enemyManager.EnemyHero = enemyHero;
 
-        cm.UpdateDeck(PLAYER);
-        cm.UpdateDeck(ENEMY);
+        cardManager.UpdateDeck(PLAYER);
+        cardManager.UpdateDeck(ENEMY);
 
-        pm.PlayerHealth = STARTING_HEALTH;
-        pm.PlayerActionsLeft = STARTING_ACTIONS;
-        em.EnemyHealth = STARTING_HEALTH;
+        playerManager.PlayerHealth = STARTING_HEALTH;
+        playerManager.PlayerActionsLeft = STARTING_ACTIONS;
+        enemyManager.EnemyHealth = STARTING_HEALTH;
 
-        cm.PlayerHero.GetComponent<HeroDisplay>().HeroScript = pm.PlayerHero;
-        cm.EnemyHero.GetComponent<HeroDisplay>().HeroScript = em.EnemyHero;
-        
-        FunctionTimer.Create(() => CardManager.Instance.DrawHand(PLAYER, PLAYER_HAND_SIZE), 1f);
-        FunctionTimer.Create(() => CardManager.Instance.DrawHand(ENEMY, ENEMY_HAND_SIZE), 1f);
-        FunctionTimer.Create(() => StartTurn(PLAYER), PLAYER_HAND_SIZE);
+        cardManager.PlayerHero.GetComponent<HeroDisplay>().HeroScript = playerManager.PlayerHero;
+        cardManager.EnemyHero.GetComponent<HeroDisplay>().HeroScript = enemyManager.EnemyHero;
+
+        //FunctionTimer.Create(() => cm.DrawHand(PLAYER, PLAYER_HAND_SIZE), 1f);
+        //FunctionTimer.Create(() => cm.DrawHand(ENEMY, ENEMY_HAND_SIZE), 1f);
+        //FunctionTimer.Create(() => StartTurn(PLAYER), PLAYER_HAND_SIZE);
+
+        void FinishEvent() => eventManager.FinishDelayedAction();
+        void CMDrawCard(string hero)
+        {
+            CardManager cm = CardManager.Instance;
+            cm.DrawCard(hero);
+            FinishEvent();
+        }
+        void GMStartTurn(string hero)
+        {
+            StartTurn(hero);
+            FinishEvent();
+        }
+
+        for (int i = 0; i < PLAYER_HAND_SIZE; i++)
+        {
+            eventManager.NewDelayedAction(() => CMDrawCard(PLAYER), 1f);
+        }
+        for (int i = 0; i < ENEMY_HAND_SIZE; i++)
+        {
+            eventManager.NewDelayedAction(() => CMDrawCard(ENEMY), 1f);
+        }
+        eventManager.NewDelayedAction(() => GMStartTurn(PLAYER), 1f);
     }
     public void EndCombat(bool playerWins)
     {
@@ -127,43 +149,64 @@ public class GameManager : MonoBehaviour
             enemyManager.IsMyTurn = true;
             UIManager.UpdateEndTurnButton(false);
 
-            // ENEMY REINFORCEMENTS
-            int reinforcements = enemyManager.CurrentReinforcements;
+            int refo = enemyManager.CurrentReinforcements;
             List<int> refoSched = enemyManager.ReinforcementSchedule;
 
-            int delay;
-            for (delay = 1; delay < (refoSched[reinforcements] + 1); delay++)
+            void FinishEvent() => eventManager.FinishDelayedAction();
+            void CMDrawCard(string hero)
             {
-                FunctionTimer.Create(() => cardManager.DrawCard(ENEMY), delay);
-                FunctionTimer.Create(() => cardManager.PlayCard(CardManager.Instance.EnemyHandCards[0]), 2*delay);
+                cardManager.DrawCard(hero);
+                FinishEvent();
             }
-            if ((reinforcements + 1) < refoSched.Count) enemyManager.CurrentReinforcements++;
-            else enemyManager.CurrentReinforcements = 0;
-
-            CardManager.Instance.EnemyHero.GetComponent<EnemyHeroDisplay>().NextReinforcements = 
-                refoSched[enemyManager.CurrentReinforcements];
-
-            // ENEMY ATTACK
-            if (delay > 1) delay += 2;
-            void EnemyAttack(GameObject enemyHero)
+            void CMPlayCard(GameObject card)
+            {
+                cardManager.PlayCard(card);
+                FinishEvent();
+            }
+            void CMBeginAttack()
+            {
+                foreach (GameObject enemyHero in cardManager.EnemyZoneCards)
+                {
+                    if (!enemyHero.GetComponent<FollowerCardDisplay>().IsExhausted)
+                    {
+                        eventManager.NewDelayedAction(() => CMEnemyAttack(enemyHero), 1f);
+                    }
+                }
+                // END TURN
+                eventManager.NewDelayedAction(() => GMEndTurn(ENEMY), 1f);
+                FinishEvent();
+            }
+            void CMEnemyAttack(GameObject hero)
             {
                 if (cardManager.PlayerZoneCards.Count > 0)
                 {
-                    cardManager.Attack(enemyHero, cardManager.PlayerZoneCards[0]);
+                    cardManager.Attack(hero, cardManager.PlayerZoneCards[0]);
                 }
-                else cardManager.Attack(enemyHero, cardManager.PlayerHero);
+                else cardManager.Attack(hero, cardManager.PlayerHero);
+                FinishEvent();
             }
-            void EndTurnDelay(float delay) => FunctionTimer.Create(() => EndTurn(ENEMY), delay);
-
-            foreach (GameObject enemyHero in cardManager.EnemyZoneCards)
+            void GMEndTurn(string hero)
             {
-                if (!enemyHero.GetComponent<FollowerCardDisplay>().IsExhausted)
-                {
-                    FunctionTimer.Create(() => EnemyAttack(enemyHero), delay);
-                    delay += 2;
-                }
+                EndTurn(hero);
+                FinishEvent();
             }
-            EndTurnDelay(delay);
+
+            // DELAYED ACTIONS
+            for (int i = 0; i < refoSched[refo]; i++)
+            {
+                eventManager.NewDelayedAction(() => CMDrawCard(ENEMY), 1f);
+            }
+            for (int i = 0; i < refoSched[refo]; i++)
+            {
+                eventManager.NewDelayedAction(() => CMPlayCard(CardManager.Instance.EnemyHandCards[0]), 2f);
+            }
+            if ((refo + 1) < refoSched.Count) enemyManager.CurrentReinforcements++;
+            else enemyManager.CurrentReinforcements = 0;
+
+            CardManager.Instance.EnemyHero.GetComponent<EnemyHeroDisplay>().NextReinforcements =
+                refoSched[enemyManager.CurrentReinforcements];
+
+            eventManager.NewDelayedAction(() => CMBeginAttack(), 1f);
         }
     }
 
@@ -171,7 +214,7 @@ public class GameManager : MonoBehaviour
     {
         CardManager.Instance.RemoveTemporaryEffects(PLAYER);
         CardManager.Instance.RemoveTemporaryEffects(ENEMY);
-        CardManager.Instance.RemoveGiveNextEffects(); // TESTING
+        CardManager.Instance.RemoveGiveNextEffects();
         if (player == ENEMY) StartTurn(PLAYER);
         else if (player == PLAYER) StartTurn(ENEMY);
     }
