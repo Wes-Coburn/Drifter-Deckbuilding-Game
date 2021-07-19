@@ -31,7 +31,8 @@ public class PlayerManager : MonoBehaviour
             playerHero = value;
             for (int i = 0; i < GameManager.PLAYER_START_FOLLOWERS; i++)
             {
-                CardManager.Instance.AddCard(CardManager.Instance.StartPlayerFollower, GameManager.PLAYER);
+                CardManager.Instance.AddCard(CardManager.Instance.StartPlayerFollower_1, GameManager.PLAYER);
+                CardManager.Instance.AddCard(CardManager.Instance.StartPlayerFollower_2, GameManager.PLAYER);
             }
             foreach (SkillCard skill in PlayerHero.HeroSkills)
             {
@@ -98,7 +99,7 @@ public class PlayerManager : MonoBehaviour
         {
             PlayerActionsLeft -= 1;
             HeroPowerUsed = true;
-            EffectManager.Instance.StartEffectGroup(PlayerHero.HeroPower.EffectGroup, CardManager.Instance.PlayerHero);
+            EffectManager.Instance.StartEffectGroupList(PlayerHero.HeroPower.EffectGroupList, CardManager.Instance.PlayerHero);
         }
     }
 }

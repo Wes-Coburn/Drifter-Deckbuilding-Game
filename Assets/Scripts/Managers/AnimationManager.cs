@@ -17,7 +17,7 @@ public class AnimationManager : MonoBehaviour
     {
         if (go.TryGetComponent<Animator>(out Animator anim))
         {
-            anim.Play(animationState);
+            if (anim.enabled) anim.Play(animationState);
         }
         else Debug.LogWarning("ANIMATOR NOT FOUND!");
     }

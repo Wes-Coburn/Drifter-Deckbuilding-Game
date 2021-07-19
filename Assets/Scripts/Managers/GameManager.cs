@@ -86,28 +86,15 @@ public class GameManager : MonoBehaviour
         cardManager.PlayerHero.GetComponent<HeroDisplay>().HeroScript = playerManager.PlayerHero;
         cardManager.EnemyHero.GetComponent<HeroDisplay>().HeroScript = enemyManager.EnemyHero;
 
-        void FinishEvent() => eventManager.FinishDelayedAction();
-        void CMDrawCard(string hero)
-        {
-            CardManager cm = CardManager.Instance;
-            cm.DrawCard(hero);
-            FinishEvent();
-        }
-        void GMStartTurn(string hero)
-        {
-            StartTurn(hero);
-            FinishEvent();
-        }
-
         for (int i = 0; i < PLAYER_HAND_SIZE; i++)
         {
-            eventManager.NewDelayedAction(() => CMDrawCard(PLAYER), 1f);
+            eventManager.NewDelayedAction(() => cardManager.DrawCard(PLAYER), 1f);
         }
         for (int i = 0; i < ENEMY_HAND_SIZE; i++)
         {
-            eventManager.NewDelayedAction(() => CMDrawCard(ENEMY), 1f);
+            eventManager.NewDelayedAction(() => cardManager.DrawCard(ENEMY), 1f);
         }
-        eventManager.NewDelayedAction(() => GMStartTurn(PLAYER), 1f);
+        eventManager.NewDelayedAction(() => StartTurn(PLAYER), 1f);
     }
     public void EndCombat(bool playerWins)
     {

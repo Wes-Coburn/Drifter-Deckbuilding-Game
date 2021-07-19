@@ -18,7 +18,6 @@ public class EventManager : MonoBehaviour
 
         delayedActions = new List<DelayedAction>();
         DelayedAction.CurrentAction = 0;
-        actionIsFinished = false;
     }
 
     private class DelayedAction
@@ -28,7 +27,6 @@ public class EventManager : MonoBehaviour
         public static int CurrentAction;
     }
 
-    private bool actionIsFinished;
     private List<DelayedAction> delayedActions;
     
     public void NewDelayedAction(Action action, float delay)
@@ -42,15 +40,9 @@ public class EventManager : MonoBehaviour
         if (delayedActions.Count == 1) NextDelayedAction();
     }
 
-    public void FinishDelayedAction()
-    {
-        actionIsFinished = true;
-    }
-
     private void NextDelayedAction()
     {
         //Debug.Log("ACTION # " + DelayedAction.CurrentAction + " / " + delayedActions.Count);
-        actionIsFinished = false;
         if (DelayedAction.CurrentAction < delayedActions.Count)
         {
             StartCoroutine(ActionNumerator());
@@ -65,7 +57,6 @@ public class EventManager : MonoBehaviour
     IEnumerator ActionNumerator()
     {
         delayedActions[DelayedAction.CurrentAction].Action();
-        yield return new WaitUntil(() => actionIsFinished == true);
         yield return new WaitForSeconds(delayedActions[DelayedAction.CurrentAction++].Delay);
         NextDelayedAction();
     }

@@ -4,17 +4,17 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Action Card", menuName = "Cards/Action")]
 public class ActionCard : Card
 {
-    public List<Effect> EffectGroup
+    public List<EffectGroup> EffectGroupList
     {
-        get => effectGroup;
-        set => effectGroup = value;
+        get => effectGroupList;
+        set => effectGroupList = value;
     }
-    [SerializeField] private List<Effect> effectGroup;
+    [SerializeField] private List<EffectGroup> effectGroupList;
 
     public override void LoadCard(Card card)
     {
         base.LoadCard(card);
         ActionCard ac = card as ActionCard;
-        effectGroup = ac.EffectGroup;
+        effectGroupList = ac.EffectGroupList;
     }
 }

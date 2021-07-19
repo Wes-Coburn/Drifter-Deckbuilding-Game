@@ -66,13 +66,20 @@ public class CardManager : MonoBehaviour
     [SerializeField] private GameObject actionCardPrefab;
 
     /* CARD_SCRIPTS */
-    public Card StartPlayerFollower
+    public Card StartPlayerFollower_1
     {
-        get => startPlayerFollower;
-        set => startPlayerFollower = value;
+        get => startFollower1;
+        set => startFollower1 = value;
     }
     [Header("STARTING PLAYER FOLLOWER")]
-    [SerializeField] private Card startPlayerFollower;
+    [SerializeField] private Card startFollower1;
+
+    public Card StartPlayerFollower_2
+    {
+        get => startFollower2;
+        set => startFollower2 = value;
+    }
+    [SerializeField] private Card startFollower2;
 
     /* CARD BACK SPRITE */
     public Sprite CardBackSprite
@@ -306,7 +313,7 @@ public class CardManager : MonoBehaviour
         
         if (card.GetComponent<CardDisplay>() is ActionCardDisplay acd)
         {
-            if (!EffectManager.Instance.CheckLegalTargets(acd.ActionCard.EffectGroup, card, true))
+            if (!EffectManager.Instance.CheckLegalTargets(acd.ActionCard.EffectGroupList, card, true))
                 return false;
         }
 
@@ -462,8 +469,8 @@ public class CardManager : MonoBehaviour
      *****/
     private void ResolveActionCard(GameObject card)
     {
-        List<Effect> effectGroup = card.GetComponent<ActionCardDisplay>().ActionCard.EffectGroup;
-        EffectManager.Instance.StartEffectGroup(effectGroup, card);
+        List<EffectGroup> groupList = card.GetComponent<ActionCardDisplay>().ActionCard.EffectGroupList;
+        EffectManager.Instance.StartEffectGroupList(groupList, card);
     }
 
     /******
@@ -781,7 +788,7 @@ public class CardManager : MonoBehaviour
             {
                 if (tra.AbilityTrigger.AbilityName == triggerName)
                 {
-                    EffectManager.Instance.StartEffectGroup(tra.EffectGroup, PlayerHero);
+                    EffectManager.Instance.StartEffectGroupList(tra.EffectGroupList, PlayerHero);
                 }
             }
         }

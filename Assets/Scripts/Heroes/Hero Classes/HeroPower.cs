@@ -11,6 +11,6 @@ public class HeroPower : ScriptableObject
     [Header("POWER DESCRIPTION")]
     [TextArea]
     public string PowerDescription;
-    [Header("EFFECT GROUP")]
-    public List<Effect> EffectGroup;
+    [Header("EFFECT GROUPS")]
+    public List<EffectGroup> EffectGroupList;
 }

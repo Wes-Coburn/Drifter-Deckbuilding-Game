@@ -88,11 +88,11 @@ public class EnemyManager : MonoBehaviour
         // DELAYED ACTIONS
         for (int i = 0; i < refoSched[refo]; i++)
         {
-            eveMan.NewDelayedAction(() => CMDrawCard(GameManager.ENEMY), 1.5f);
+            eveMan.NewDelayedAction(() => cardMan.DrawCard(GameManager.ENEMY), 1.5f);
         }
         for (int i = 0; i < refoSched[refo]; i++)
         {
-            eveMan.NewDelayedAction(() => CMPlayCard(cardMan.EnemyHandCards[0]), 1.5f);
+            eveMan.NewDelayedAction(() => cardMan.PlayCard(cardMan.EnemyHandCards[0]), 1.5f);
         }
         if ((refo + 1) < refoSched.Count) CurrentReinforcements++;
         else CurrentReinforcements = 0;
@@ -102,18 +102,6 @@ public class EnemyManager : MonoBehaviour
 
         eveMan.NewDelayedAction(() => CMBeginAttack(), 1f);
 
-        // INTERNAL METHODS
-        void FinishEvent() => eveMan.FinishDelayedAction();
-        void CMDrawCard(string hero)
-        {
-            cardMan.DrawCard(hero);
-            FinishEvent();
-        }
-        void CMPlayCard(GameObject card)
-        {
-            cardMan.PlayCard(card);
-            FinishEvent();
-        }
         void CMBeginAttack()
         {
             foreach (GameObject enemyHero in cardMan.EnemyZoneCards)
@@ -124,9 +112,9 @@ public class EnemyManager : MonoBehaviour
                 }
             }
             // END TURN
-            eveMan.NewDelayedAction(() => GMEndTurn(), 1f);
-            FinishEvent();
+            eveMan.NewDelayedAction(() => GameManager.Instance.EndTurn(GameManager.ENEMY), 1f);
         }
+
         void CMAttack(GameObject hero)
         {
             if (cardMan.PlayerZoneCards.Count > 0)
@@ -134,12 +122,6 @@ public class EnemyManager : MonoBehaviour
                 cardMan.Attack(hero, cardMan.PlayerZoneCards[0]);
             }
             else cardMan.Attack(hero, cardMan.PlayerHero);
-            FinishEvent();
-        }
-        void GMEndTurn()
-        {
-            GameManager.Instance.EndTurn(GameManager.ENEMY);
-            FinishEvent();
         }
     }
 }

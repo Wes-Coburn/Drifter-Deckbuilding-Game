@@ -94,6 +94,5 @@ public abstract class CardDisplay : MonoBehaviour
             animator.runtimeAnimatorController = CardScript.ZoomOverController;
             AnimationManager.Instance.ZoomedState(gameObject);
         }
-        else Debug.LogWarning("ANIMATOR NOT FOUND!");
     }
 }

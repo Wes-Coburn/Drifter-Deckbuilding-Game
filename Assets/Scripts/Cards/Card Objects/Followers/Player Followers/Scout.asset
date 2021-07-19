@@ -10,19 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 120ae26cc4846f34db63edca720772b3, type: 3}
-  m_Name: Mega-Corp Grunt
+  m_Name: Scout
   m_EditorClassIdentifier: 
   cardArt: {fileID: 21300000, guid: 6e6ba03ced6f1cd4face4fe583133f6b, type: 3}
-  cardBorder: {fileID: 21300000, guid: 14ba384dc2d28d74d9bdad2182e18da6, type: 3}
-  actionCost: 0
-  cardName: Mega-Corp Grunt
+  cardBorder: {fileID: 21300000, guid: 743e735f744cf494c9f9081b4ba9303f, type: 3}
+  actionCost: 1
+  cardName: Scout
   cardType: Follower
-  cardSubType: Warrior
+  cardSubType: Rogue
   cardDescription: 
   overController: {fileID: 0}
   zoomOverController: {fileID: 0}
-  levelUpCondition: 
-  power: 2
-  defense: 4
-  level1Abilities: []
-  level2Abiliites: []
+  levelUpCondition: You play 3 followers
+  power: 1
+  defense: 2
+  level1Abilities:
+  - {fileID: 11400000, guid: ea8bbf92057ca254aa8990f59e73dca5, type: 2}
+  level2Abiliites:
+  - {fileID: 11400000, guid: 3fcf50fc3c6839d4897c996bc07e6098, type: 2}
