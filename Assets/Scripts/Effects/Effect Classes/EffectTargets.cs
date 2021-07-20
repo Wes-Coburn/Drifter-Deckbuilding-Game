@@ -12,10 +12,10 @@ public class EffectTargets : ScriptableObject
 
     [Header("PLAYER")]
     public bool PlayerHero;
-    public bool PlayerFollower;
+    public bool PlayerUnit;
     public bool PlayerHand;
 
     [Header("ENEMY")]
     public bool EnemyHero;
-    public bool EnemyFollower;
+    public bool EnemyUnit;
 }

@@ -34,7 +34,7 @@ public class EnemyManager : MonoBehaviour
         set
         {
             enemyHero = value;
-            foreach (FollowerCard follower in enemyHero.HeroFollowers)
+            foreach (UnitCard follower in enemyHero.HeroUnits)
             {
                 for (int i = 0; i < GameManager.ENEMY_START_FOLLOWERS; i++)
                 {
@@ -106,7 +106,7 @@ public class EnemyManager : MonoBehaviour
         {
             foreach (GameObject enemyHero in cardMan.EnemyZoneCards)
             {
-                if (!enemyHero.GetComponent<FollowerCardDisplay>().IsExhausted)
+                if (!enemyHero.GetComponent<UnitCardDisplay>().IsExhausted)
                 {
                     eveMan.NewDelayedAction(() => CMAttack(enemyHero), 1f);
                 }

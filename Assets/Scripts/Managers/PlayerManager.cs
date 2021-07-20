@@ -31,8 +31,8 @@ public class PlayerManager : MonoBehaviour
             playerHero = value;
             for (int i = 0; i < GameManager.PLAYER_START_FOLLOWERS; i++)
             {
-                CardManager.Instance.AddCard(CardManager.Instance.StartPlayerFollower_1, GameManager.PLAYER);
-                CardManager.Instance.AddCard(CardManager.Instance.StartPlayerFollower_2, GameManager.PLAYER);
+                CardManager.Instance.AddCard(CardManager.Instance.StartPlayerUnit_1, GameManager.PLAYER);
+                CardManager.Instance.AddCard(CardManager.Instance.StartPlayerUnit_2, GameManager.PLAYER);
             }
             foreach (SkillCard skill in PlayerHero.HeroSkills)
             {

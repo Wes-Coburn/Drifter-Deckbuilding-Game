@@ -27,6 +27,6 @@ public class ActionCardDisplay : CardDisplay
     {
         base.DisplayZoomCard(parentCard);
         ActionCardDisplay acd = parentCard.GetComponent<CardDisplay>() as ActionCardDisplay;
-        cardDescription.GetComponent<TextMeshPro>().SetText(acd.CardScript.CardDescription);
+        cardDescription.GetComponent<TextMeshPro>().SetText(acd.ActionCard.EffectDescription);
     }
 }

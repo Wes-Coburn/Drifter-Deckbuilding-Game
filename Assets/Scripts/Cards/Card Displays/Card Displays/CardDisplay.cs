@@ -40,7 +40,12 @@ public abstract class CardDisplay : MonoBehaviour
 
     public string CardTypeLine
     {
-        get => CardScript.CardType + " - " + CardScript.CardSubType;
+        get
+        {
+            string spacer = "";
+            if (!string.IsNullOrEmpty(CardScript.CardSubType)) spacer = " - ";
+            return CardScript.CardType + spacer + CardScript.CardSubType;
+        }
         set => cardTypeLine.GetComponent<TextMeshPro>().SetText(value);
     }
     [SerializeField] private GameObject cardTypeLine;

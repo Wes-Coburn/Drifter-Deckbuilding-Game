@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class CardZoom : MonoBehaviour, IPointerClickHandler
@@ -28,15 +27,10 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     [SerializeField] private GameObject followerZoomCard;
     [SerializeField] private GameObject actionZoomCard;
 
-        // ABILITY_PREFABS
     [SerializeField] private GameObject abilityBoxPrefab;
     [SerializeField] private GameObject abilityPopupPrefab;
-    
-        // NEXT_LEVEL_PREFABS
-    [SerializeField] private GameObject nextLevelBox;
-    [SerializeField] private GameObject level2Popup;
 
-    // LORE_PREFAB
+    [SerializeField] private GameObject abilityPopupBoxPrefab;
     [SerializeField] private GameObject descriptionPopupPrefab;
 
     /* ZONES */
@@ -49,8 +43,8 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     /* STATIC_CLASS_VARIABLES */
     public static bool ZoomCardIsCentered = false;
     public static GameObject CurrentZoomCard { get; set; }
-    public static GameObject NextLevelPopup { get; set; }
     public static GameObject DescriptionPopup { get; set; }
+    public static GameObject AbilityPopupBox { get; set; }
     
     /* CLASS_VARIABLES */
     private CardDisplay cardDisplay;
@@ -87,11 +81,10 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
 
         CreateZoomCard(new Vector3(0, 50), CENTER_SCALE_VALUE);
         
-        if (cardDisplay is FollowerCardDisplay fcd)
+        if (cardDisplay is UnitCardDisplay)
         {
-            FollowerCard fc = fcd.FollowerCard;
-            CreateNextLevelPopup(new Vector2(POPUP_X_VALUE, 0), POPUP_SCALE_VALUE, fc.Level2Abilities);
             CreateDescriptionPopup(new Vector2(-POPUP_X_VALUE, 0), POPUP_SCALE_VALUE);
+            CreateAbilityPopups(new Vector2(POPUP_X_VALUE, 0), POPUP_SCALE_VALUE);
         }
     }
 
@@ -162,7 +155,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     {
         if (CurrentZoomCard != null) Destroy(CurrentZoomCard);
         GameObject cardPrefab;
-        if (gameObject.GetComponent<CardDisplay>() is FollowerCardDisplay) cardPrefab = followerZoomCard;
+        if (gameObject.GetComponent<CardDisplay>() is UnitCardDisplay) cardPrefab = followerZoomCard;
         else if (gameObject.GetComponent<CardDisplay>() is ActionCardDisplay) cardPrefab = actionZoomCard;
         else
         {
@@ -180,32 +173,12 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
      *****/
     public void CreateZoomAbilityIcon(CardAbility cardAbility, Transform parentTransform, float scaleValue)
     {
-        GameObject abilityIconPrefab = gameObject.GetComponent<FollowerCardDisplay>().AbilityIconPrefab;
-        GameObject abilityIcon = Instantiate(abilityIconPrefab, new Vector3(0, 0), Quaternion.identity);
+        GameObject zoomIconPrefab = gameObject.GetComponent<UnitCardDisplay>().ZoomAbilityIconPrefab;
+        GameObject abilityIcon = Instantiate(zoomIconPrefab, new Vector3(0, 0), Quaternion.identity);
         Transform popTran = abilityIcon.transform;
         popTran.SetParent(parentTransform, true);
         popTran.localScale = new Vector2(scaleValue, scaleValue);
-
-        abilityIcon.GetComponent<ChangeLayer>().ZoomLayer();
-        abilityIcon.layer = LayerMask.NameToLayer(ZOOM_LAYER);
-        foreach (Transform child in abilityIcon.transform) child.gameObject.layer = LayerMask.NameToLayer(ZOOM_LAYER);
-        abilityIcon.GetComponent<AbilityIconDisplay>().AbilityScript = cardAbility;
-    }
-
-    /******
-     * *****
-     * ****** CREATE_NEXT_LEVEL_POPUP
-     * *****
-     *****/
-    private void CreateNextLevelPopup(Vector2 vec2, float scaleValue, List<CardAbility> level2Abilities)
-    {
-        NextLevelPopup = CreateZoomObject(nextLevelBox, new Vector3(vec2.x, vec2.y), background.transform, scaleValue);
-        CreateZoomObject(level2Popup, new Vector2(0, 0), NextLevelPopup.transform, scaleValue / 3);
-        foreach (CardAbility cardAbility in level2Abilities)
-        {
-            if (cardAbility == null) continue;
-            CreateZoomAbilityIcon(cardAbility, NextLevelPopup.transform, scaleValue);
-        }
+        abilityIcon.GetComponent<AbilityIconDisplay>().ZoomAbilityScript = cardAbility;
     }
 
     /******
@@ -217,5 +190,22 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     {
         DescriptionPopup = CreateZoomObject(descriptionPopupPrefab, new Vector3(vec2.x, vec2.y), background.transform, scaleValue);
         DescriptionPopup.GetComponent<DescriptionPopupDisplay>().DisplayDescriptionPopup(cardDisplay.CardScript.CardDescription);
+    }
+
+    /******
+     * *****
+     * ****** CREATE_ABILITY_POPUPS
+     * *****
+     *****/
+    private void CreateAbilityPopups(Vector2 vec2, float scaleValue)
+    {
+        AbilityPopupBox = CreateZoomObject(abilityPopupBoxPrefab, new Vector3(vec2.x, vec2.y), background.transform, scaleValue);
+
+        UnitCardDisplay ucd = cardDisplay as UnitCardDisplay;
+        foreach (CardAbility ca in ucd.CurrentAbilities)
+        {
+            GameObject abilityPopup = Instantiate(abilityPopupPrefab, AbilityPopupBox.transform);
+            abilityPopup.GetComponent<AbilityPopupDisplay>().AbilityScript = ca;
+        }
     }
 }

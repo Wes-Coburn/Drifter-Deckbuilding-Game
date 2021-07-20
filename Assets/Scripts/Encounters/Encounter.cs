@@ -9,7 +9,7 @@ public class Encounter : ScriptableObject
     private string developerNotes;
     //[Space] public DialogueClip SourceClip;
     [Space]
-    public List<FollowerCard> EnemyHeroes;
+    public List<UnitCard> EnemyHeroes;
     [Space]
     public List<SkillCard> EnemySkills;
 }

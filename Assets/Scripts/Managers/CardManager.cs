@@ -62,24 +62,23 @@ public class CardManager : MonoBehaviour
     public GameObject EnemyHero { get; private set; }
 
     /* CARD_PREFABS */
-    [SerializeField] private GameObject followerCardPrefab;
+    [SerializeField] private GameObject unitCardPrefab;
     [SerializeField] private GameObject actionCardPrefab;
 
     /* CARD_SCRIPTS */
-    public Card StartPlayerFollower_1
+    public Card StartPlayerUnit_1
     {
-        get => startFollower1;
-        set => startFollower1 = value;
+        get => startUnit1;
+        set => startUnit1 = value;
     }
-    [Header("STARTING PLAYER FOLLOWER")]
-    [SerializeField] private Card startFollower1;
-
-    public Card StartPlayerFollower_2
+    [Header("STARTING PLAYER UNITS")]
+    [SerializeField] private Card startUnit1;
+    public Card StartPlayerUnit_2
     {
-        get => startFollower2;
-        set => startFollower2 = value;
+        get => startUnit2;
+        set => startUnit2 = value;
     }
-    [SerializeField] private Card startFollower2;
+    [SerializeField] private Card startUnit2;
 
     /* CARD BACK SPRITE */
     public Sprite CardBackSprite
@@ -116,8 +115,8 @@ public class CardManager : MonoBehaviour
         EnemyHero = GameObject.Find(ENEMY_HERO);
     }
 
-    public FollowerCardDisplay GetFollowerDisplay(GameObject card)
-        => card.GetComponent<CardDisplay>() as FollowerCardDisplay;
+    public UnitCardDisplay GetUnitDisplay(GameObject card)
+        => card.GetComponent<CardDisplay>() as UnitCardDisplay;
 
     /******
      * *****
@@ -168,7 +167,7 @@ public class CardManager : MonoBehaviour
         else if (hero == GameManager.ENEMY) deck = EnemyManager.Instance.EnemyDeckList;
         else Debug.LogError("HERO NOT FOUND!");
 
-        if (card is FollowerCard) cardInstance = ScriptableObject.CreateInstance<FollowerCard>();
+        if (card is UnitCard) cardInstance = ScriptableObject.CreateInstance<UnitCard>();
         else if (card is ActionCard) cardInstance = ScriptableObject.CreateInstance<ActionCard>();
         else Debug.LogError("CARD TYPE NOT FOUND!");
 
@@ -189,7 +188,7 @@ public class CardManager : MonoBehaviour
     private GameObject ShowCard (Card card)
     {
         GameObject go = null;
-        if (card is FollowerCard) go = followerCardPrefab;
+        if (card is UnitCard) go = unitCardPrefab;
         else if (card is ActionCard) go = actionCardPrefab;
         else Debug.LogError("CARD TYPE NOT FOUND!");
         go = Instantiate(go, new Vector3(0, 0, CARD_Z_POSITION), Quaternion.identity);
@@ -298,7 +297,7 @@ public class CardManager : MonoBehaviour
         List<GameObject> cardZoneList = null;
         if (hero == PLAYER) cardZoneList = PlayerZoneCards;
         else if (hero == ENEMY) cardZoneList = EnemyZoneCards;
-        foreach (GameObject card in cardZoneList) card.GetComponent<FollowerCardDisplay>().IsExhausted = false;
+        foreach (GameObject card in cardZoneList) card.GetComponent<UnitCardDisplay>().IsExhausted = false;
     }
 
     /******
@@ -334,7 +333,7 @@ public class CardManager : MonoBehaviour
      *****/
     public static int GetAbility(GameObject card, string ability)
     {
-        FollowerCardDisplay fcd = card.GetComponent<FollowerCardDisplay>();
+        UnitCardDisplay fcd = card.GetComponent<UnitCardDisplay>();
         int abilityIndex = fcd.CurrentAbilities.FindIndex(x => x.AbilityName == ability);
         return abilityIndex;
     }
@@ -353,7 +352,7 @@ public class CardManager : MonoBehaviour
 
         // UNNECESSARY?
         CardDisplay cd = card.GetComponent<CardDisplay>();
-        if (cd is FollowerCardDisplay)
+        if (cd is UnitCardDisplay)
         {
             card.GetComponent<ChangeLayer>().CardsLayer();
         }
@@ -412,11 +411,11 @@ public class CardManager : MonoBehaviour
         }
         SetCardParent(card, zoneTran);
 
-        if (card.GetComponent<CardDisplay>() is FollowerCardDisplay fcd)
+        if (card.GetComponent<CardDisplay>() is UnitCardDisplay fcd)
         {
             bool played = false;
             if (zone == PLAYER_ZONE || zone == ENEMY_ZONE) played = true;
-            fcd.ResetFollowerCard(played);
+            fcd.ResetUnitCard(played);
         }
     }
 
@@ -433,7 +432,7 @@ public class CardManager : MonoBehaviour
             PlayerManager.Instance.PlayerActionsLeft -= card.GetComponent<CardDisplay>().CurrentActionCost;
             PlayerHandCards.Remove(card);
 
-            if (card.GetComponent<CardDisplay>() is FollowerCardDisplay)
+            if (card.GetComponent<CardDisplay>() is UnitCardDisplay)
             {
                 PlayerZoneCards.Add(card);
                 ChangeCardZone(card, PLAYER_ZONE);
@@ -523,11 +522,11 @@ public class CardManager : MonoBehaviour
     public void Attack(GameObject attacker, GameObject defender)
     {
         Strike(attacker, defender);
-        attacker.GetComponent<FollowerCardDisplay>().IsExhausted = true;
+        attacker.GetComponent<UnitCardDisplay>().IsExhausted = true;
 
         if (defender.CompareTag(ENEMY_CARD) || defender.CompareTag(PLAYER_CARD))
         {
-            if (defender.GetComponent<FollowerCardDisplay>().CurrentDefense > 0)
+            if (defender.GetComponent<UnitCardDisplay>().CurrentDefense > 0)
             {
                 if (GetAbility(attacker, "Ranged") == -1)
                 {
@@ -544,7 +543,7 @@ public class CardManager : MonoBehaviour
      *****/
     public void Strike(GameObject striker, GameObject defender)
     {
-        int power = GetFollowerDisplay(striker).CurrentPower;
+        int power = GetUnitDisplay(striker).CurrentPower;
         TakeDamage(defender, power);
     }
 
@@ -563,14 +562,14 @@ public class CardManager : MonoBehaviour
 
         if (target == PlayerHero) targetValue = pm.PlayerHealth;
         else if (target == EnemyHero) targetValue = em.EnemyHealth;
-        else targetValue = GetFollowerDisplay(target).CurrentDefense;
+        else targetValue = GetUnitDisplay(target).CurrentDefense;
 
         newTargetValue = targetValue - damageValue;
         if (target == PlayerHero) pm.PlayerHealth = newTargetValue;
         else if (target == EnemyHero) em.EnemyHealth = newTargetValue;
         else
         {
-            GetFollowerDisplay(target).CurrentDefense = newTargetValue;
+            GetUnitDisplay(target).CurrentDefense = newTargetValue;
             AnimationManager.Instance.ModifyDefenseState(target);
         }
 
@@ -592,7 +591,7 @@ public class CardManager : MonoBehaviour
     {
         // ADD HEALING FOR HEROES
         if (healingValue < 1) return;
-        FollowerCardDisplay fcd = GetFollowerDisplay(heroCard);
+        UnitCardDisplay fcd = GetUnitDisplay(heroCard);
         int def = fcd.CurrentDefense;
         int newDef = def + healingValue;
         if (newDef > fcd.MaxDefense) newDef = fcd.MaxDefense;
@@ -608,7 +607,7 @@ public class CardManager : MonoBehaviour
     public void AddEffect(GameObject card, Effect effect)
     {
         Debug.LogWarning("EFFECT ADDED: <" + effect.ToString() + ">");
-        FollowerCardDisplay fcd = GetFollowerDisplay(card);
+        UnitCardDisplay fcd = GetUnitDisplay(card);
 
         // GIVE_ABILITY_EFFECT
         if (effect is GiveAbilityEffect gae)
@@ -674,7 +673,7 @@ public class CardManager : MonoBehaviour
 
         foreach (GameObject card in cardZone)
         {
-            FollowerCardDisplay fcd = GetFollowerDisplay(card);
+            UnitCardDisplay fcd = GetUnitDisplay(card);
             List<Effect> expiredEffects = new List<Effect>();
 
             foreach (Effect effect in fcd.CurrentEffects)
@@ -728,19 +727,19 @@ public class CardManager : MonoBehaviour
         }
 
         // GIVE_NEXT_FOLLOWER_EFFECTS
-        List<GiveNextFollowerEffect> gnfe = EffectManager.Instance.GiveNextEffects;
-        List<GiveNextFollowerEffect> resolvedGnfe = new List<GiveNextFollowerEffect>();
+        List<GiveNextUnitEffect> gnfe = EffectManager.Instance.GiveNextEffects;
+        List<GiveNextUnitEffect> resolvedGnfe = new List<GiveNextUnitEffect>();
 
         if (gnfe.Count > 0)
         {
             List<GameObject> targets = new List<GameObject> { card };
-            foreach (GiveNextFollowerEffect gnfe2 in gnfe)
+            foreach (GiveNextUnitEffect gnfe2 in gnfe)
             {
                 // CHECK FOR ALLY/ENEMY HERE
                 EffectManager.Instance.ResolveEffect(targets, gnfe2.Effect);
                 resolvedGnfe.Add(gnfe2);
             }
-            foreach (GiveNextFollowerEffect rGnfe in resolvedGnfe)
+            foreach (GiveNextUnitEffect rGnfe in resolvedGnfe)
             {
                 gnfe.Remove(rGnfe);
                 DestroyEffect(rGnfe);
@@ -761,14 +760,14 @@ public class CardManager : MonoBehaviour
             effect = null;
         }
 
-        List<GiveNextFollowerEffect> gne = EffectManager.Instance.GiveNextEffects;
-        List<GiveNextFollowerEffect> expiredGne = new List<GiveNextFollowerEffect>();
-        foreach (GiveNextFollowerEffect gnfe in gne)
+        List<GiveNextUnitEffect> gne = EffectManager.Instance.GiveNextEffects;
+        List<GiveNextUnitEffect> expiredGne = new List<GiveNextUnitEffect>();
+        foreach (GiveNextUnitEffect gnfe in gne)
         {
             if (gnfe.Countdown == 1) expiredGne.Add(gnfe);
             else if (gnfe.Countdown != 0) gnfe.Countdown -= 1;
         }
-        foreach (GiveNextFollowerEffect xGnfe in expiredGne)
+        foreach (GiveNextUnitEffect xGnfe in expiredGne)
         {
             gne.Remove(xGnfe);
             DestroyEffect(xGnfe);
@@ -782,7 +781,7 @@ public class CardManager : MonoBehaviour
      *****/
     public void TriggerCardAbility(GameObject card, string triggerName)
     {
-        foreach (CardAbility ca in card.GetComponent<FollowerCardDisplay>().CurrentAbilities)
+        foreach (CardAbility ca in card.GetComponent<UnitCardDisplay>().CurrentAbilities)
         {
             if (ca is TriggeredAbility tra)
             {

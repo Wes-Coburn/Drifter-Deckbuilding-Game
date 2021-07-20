@@ -14,6 +14,15 @@ public class AbilityIconDisplay : MonoBehaviour
             DisplayAbilityIcon();
         }
     }
+    public CardAbility ZoomAbilityScript
+    {
+        get => abilityScript;
+        set
+        {
+            abilityScript = value;
+            DisplayZoomAbilityIcon();
+        }
+    }
 
     /* ABILITY_DATA */
     public GameObject AbilitySprite;
@@ -26,21 +35,48 @@ public class AbilityIconDisplay : MonoBehaviour
      *****/
     private void DisplayAbilityIcon()
     {
-        string abilityName = "";
-        Sprite abilitySprite = null;
+        Sprite abilitySprite;
+        if (AbilityScript is StaticAbility)
+        {
+            abilitySprite = AbilityScript.AbilitySprite;
+        }
+        else if (AbilityScript is TriggeredAbility ta)
+        {
+            AbilityTrigger trigger = ta.AbilityTrigger;
+            abilitySprite = trigger.AbilitySprite;
+        }
+        else
+        {
+            Debug.LogError("SCRIPT TYPE NOT FOUND!");
+            return;
+        }
+        SetAbilityIcon(abilitySprite);
+    }
+
+    /******
+     * *****
+     * ****** DISPLAY_ZOOM_ABILITY_ICON
+     * *****
+     *****/
+    private void DisplayZoomAbilityIcon()
+    {
+        DisplayAbilityIcon();
+        string abilityName;
         if (AbilityScript is StaticAbility)
         {
             abilityName = AbilityScript.AbilityName;
-            abilitySprite = AbilityScript.AbilitySprite;
         }
         else if (AbilityScript is TriggeredAbility keywordAbility)
         {
             AbilityTrigger keywordTrigger = keywordAbility.AbilityTrigger;
             abilityName = keywordTrigger.AbilityName + ": " + keywordAbility.AbilityDescription;
-            abilitySprite = keywordTrigger.AbilitySprite;
+        }
+        else
+        {
+            Debug.LogError("SCRIPT TYPE NOT FOUND!");
+            return;
         }
         SetAbilityName(abilityName);
-        SetAbilityIcon(abilitySprite);
     }
 
     /******

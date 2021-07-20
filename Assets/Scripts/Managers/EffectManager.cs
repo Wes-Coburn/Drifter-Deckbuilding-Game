@@ -17,7 +17,7 @@ public class EffectManager : MonoBehaviour
 
     private void Start()
     {
-        giveNextEffects = new List<GiveNextFollowerEffect>();
+        giveNextEffects = new List<GiveNextUnitEffect>();
     }
 
     /* CLASS_VARIABLES */
@@ -31,12 +31,12 @@ public class EffectManager : MonoBehaviour
     private List<List<GameObject>> acceptedTargets;
     private List<GameObject> newDrawnCards;
 
-    public List<GiveNextFollowerEffect> GiveNextEffects
+    public List<GiveNextUnitEffect> GiveNextEffects
     {
         get => giveNextEffects;
         private set => giveNextEffects = value;
     }
-    private List<GiveNextFollowerEffect> giveNextEffects;
+    private List<GiveNextUnitEffect> giveNextEffects;
 
     /******
      * *****
@@ -93,7 +93,7 @@ public class EffectManager : MonoBehaviour
         EffectGroup eg = effectGroupList[currentEffectGroup];
 
         if (effect is DrawEffect de && de.IsDiscardEffect) return true;
-        else if (effect is DrawEffect || effect is GiveNextFollowerEffect) return false;
+        else if (effect is DrawEffect || effect is GiveNextUnitEffect) return false;
         else if (eg.Targets.TargetsAll || 
             eg.Targets.PlayerHero || 
             eg.Targets.EnemyHero) return false;
@@ -241,15 +241,15 @@ public class EffectManager : MonoBehaviour
         {
             Debug.LogWarning("PLAYER TARGETTING!");
             if (targets.PlayerHand) targetZones.Add(CardManager.Instance.PlayerHandCards);
-            if (targets.PlayerFollower) targetZones.Add(CardManager.Instance.PlayerZoneCards);
-            if (targets.EnemyFollower) targetZones.Add(CardManager.Instance.EnemyZoneCards);
+            if (targets.PlayerUnit) targetZones.Add(CardManager.Instance.PlayerZoneCards);
+            if (targets.EnemyUnit) targetZones.Add(CardManager.Instance.EnemyZoneCards);
         }
         else
         {
             Debug.LogWarning("ENEMY TARGETTING!");
             if (targets.PlayerHand) targetZones.Add(CardManager.Instance.EnemyHandCards);
-            if (targets.PlayerFollower) targetZones.Add(CardManager.Instance.EnemyZoneCards);
-            if (targets.EnemyFollower) targetZones.Add(CardManager.Instance.PlayerZoneCards);
+            if (targets.PlayerUnit) targetZones.Add(CardManager.Instance.EnemyZoneCards);
+            if (targets.EnemyUnit) targetZones.Add(CardManager.Instance.PlayerZoneCards);
         }
 
         foreach (List<GameObject> zone in targetZones)
@@ -257,7 +257,7 @@ public class EffectManager : MonoBehaviour
             foreach (GameObject target in zone) legalTargets[currentEffectGroup].Add(target);
         }
 
-        if (effect is DrawEffect || effect is GiveNextFollowerEffect) return true;
+        if (effect is DrawEffect || effect is GiveNextUnitEffect) return true;
         if (legalTargets[currentEffect].Count < 1) return false;
         if (effect.IsRequired && legalTargets[currentEffectGroup].Count < 
             effectGroupList[currentEffectGroup].Targets.TargetNumber) return false;
@@ -400,12 +400,12 @@ public class EffectManager : MonoBehaviour
         {
             foreach (GameObject target in targets)
             {
-                target.GetComponent<FollowerCardDisplay>().IsExhausted = ee.SetExhausted;
+                target.GetComponent<UnitCardDisplay>().IsExhausted = ee.SetExhausted;
             }
         }
-        else if (effect is GiveNextFollowerEffect gnfe)
+        else if (effect is GiveNextUnitEffect gnfe)
         {
-            GiveNextFollowerEffect newGnfe = ScriptableObject.CreateInstance<GiveNextFollowerEffect>();
+            GiveNextUnitEffect newGnfe = ScriptableObject.CreateInstance<GiveNextUnitEffect>();
             newGnfe.LoadEffect(gnfe);
             giveNextEffects.Add(newGnfe);
         }

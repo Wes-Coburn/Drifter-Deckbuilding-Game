@@ -4,6 +4,13 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Action Card", menuName = "Cards/Action")]
 public class ActionCard : Card
 {
+    public string EffectDescription
+    {
+        get => effectDescription;
+        set => effectDescription = value;
+    }
+    [TextArea]
+    [SerializeField] private string effectDescription;
     public List<EffectGroup> EffectGroupList
     {
         get => effectGroupList;

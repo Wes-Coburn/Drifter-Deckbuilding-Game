@@ -35,23 +35,26 @@ public class AbilityPopupDisplay : MonoBehaviour
      *****/
     private void DisplayAbilityPopup()
     {
-        string abilityName = "";
-        string abilityDescription = "";
+        string name;
+        string description;
         if (AbilityScript is StaticAbility)
         {
-            abilityName = AbilityScript.AbilityName;
+            name = AbilityScript.AbilityName;
+            description = AbilityScript.AbilityDescription;
             AbilitySprite = AbilityScript.AbilitySprite;
-            abilityDescription = AbilityScript.AbilityDescription;
         }
-        else if (AbilityScript is TriggeredAbility)
+        else if (AbilityScript is TriggeredAbility ta)
         {
-            TriggeredAbility keywordAbility = AbilityScript as TriggeredAbility;
-            AbilityTrigger keywordTrigger = keywordAbility.AbilityTrigger;
-
-            abilityName = keywordTrigger.AbilityName;
-            abilityDescription = "Does something when " + keywordTrigger.AbilityDescription;
-            AbilitySprite = keywordTrigger.AbilitySprite;
+            AbilityTrigger trigger = ta.AbilityTrigger;
+            name = trigger.AbilityName;
+            description = "Does something when " + trigger.AbilityDescription;
+            AbilitySprite = trigger.AbilitySprite;
         }
-        AbilityDescription = abilityName + ": " + abilityDescription;
+        else
+        {
+            Debug.LogError("SCRIPT TYPE NOT FOUND!");
+            return;
+        }
+        AbilityDescription = name + ": " + description;
     }
 }

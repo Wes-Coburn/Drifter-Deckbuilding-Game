@@ -25,10 +25,10 @@ public class CardLibrary : MonoBehaviour // REMOVE THIS CLASS EVENTUALLY!!!
         Card cardInstance;
         GameObject cardPrefab;
 
-        if (cardScript is FollowerCard)
+        if (cardScript is UnitCard)
         {
             cardPrefab = FollowerCardPrefab;
-            cardInstance = ScriptableObject.CreateInstance<FollowerCard>();
+            cardInstance = ScriptableObject.CreateInstance<UnitCard>();
         }
         else if (cardScript is ActionCard)
         {

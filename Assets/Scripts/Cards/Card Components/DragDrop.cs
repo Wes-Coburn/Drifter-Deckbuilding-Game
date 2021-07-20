@@ -138,14 +138,14 @@ public class DragDrop : MonoBehaviour
             }
             else ResetPosition();
         }
-        else if (isOverEnemy && !gameObject.GetComponent<FollowerCardDisplay>().IsExhausted)
+        else if (isOverEnemy && !gameObject.GetComponent<UnitCardDisplay>().IsExhausted)
         {
             ResetPosition();
             cardManager.Attack(gameObject, enemy);
         }
         else
         {
-            Debug.Log("EndDrag! (NO ATTACK) IsExhausted = " + gameObject.GetComponent<FollowerCardDisplay>().IsExhausted);
+            Debug.Log("EndDrag! (NO ATTACK) IsExhausted = " + gameObject.GetComponent<UnitCardDisplay>().IsExhausted);
             ResetPosition();
         }
     }

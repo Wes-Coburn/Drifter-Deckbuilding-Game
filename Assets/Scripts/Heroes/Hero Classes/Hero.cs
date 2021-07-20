@@ -15,9 +15,9 @@ public class Hero : ScriptableObject
     public HeroPower HeroPower;
     [Header("HERO SKILLS")]
     public List<SkillCard> HeroSkills;
-    [Header("HERO FOLLOWERS")]
-    [Tooltip("Only enemy heroes normally have followers")]
-    public List<FollowerCard> HeroFollowers;
+    [Header("HERO UNITS")]
+    [Tooltip("Only enemy heroes normally have units")]
+    public List<UnitCard> HeroUnits;
     [Header("REINFORCEMENT SCHEDULE")]
     public List<int> ReinforcementSchedule;
 }
