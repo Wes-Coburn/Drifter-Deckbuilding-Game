@@ -6,4 +6,8 @@ public class EffectGroup : ScriptableObject
 {
     public EffectTargets Targets;
     public List<Effect> Effects;
+
+    [TextArea]
+    [Tooltip("Description of the effects")]
+    public string EffectsDescription;
 }

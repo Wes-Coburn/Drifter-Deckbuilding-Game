@@ -158,14 +158,9 @@ public class EffectManager : MonoBehaviour
         }
 
         UIManager.Instance.PlayerIsTargetting = true;
-
-        string infoText = "Choose ";
-        EffectTargets et = effectGroupList[currentEffectGroup].Targets;
-        if (et.PlayerFollower) infoText += "an ally";
-        else if (et.EnemyFollower) infoText += "an enemy";
-        else if (et.PlayerHero) infoText += "a card in your hand";
-
-        UIManager.Instance.CreateInfoPopup(infoText);
+        string targetDescription = effectGroupList[currentEffectGroup].EffectsDescription;
+        if (string.IsNullOrEmpty(targetDescription)) targetDescription = effectGroupList[currentEffectGroup].Effects[currentEffect].TargetDescription;
+        UIManager.Instance.CreateInfoPopup(targetDescription);
 
         if (effect is DrawEffect)
         {

@@ -529,7 +529,7 @@ public class CardManager : MonoBehaviour
         {
             if (defender.GetComponent<FollowerCardDisplay>().CurrentDefense > 0)
             {
-                if (GetAbility(defender, "Retaliate") != -1)
+                if (GetAbility(attacker, "Ranged") == -1)
                 {
                     Strike(defender, attacker);
                 }
