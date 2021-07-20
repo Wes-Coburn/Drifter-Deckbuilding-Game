@@ -109,7 +109,7 @@ public class UIManager : MonoBehaviour
     public void UpdateEnemyHealth(int health) => enemyHealth.GetComponent<TextMeshProUGUI>().SetText(health.ToString());
     public void UpdatePlayerActionsLeft(int actions)
     {
-        playerActionsLeft.GetComponent<TextMeshProUGUI>().SetText(actions.ToString());
+        playerActionsLeft.GetComponent<TextMeshProUGUI>().SetText(actions + "/" + PlayerManager.Instance.ActionsPerTurn);
     }
     public void UpdateEndTurnButton(bool isMyTurn)
     {

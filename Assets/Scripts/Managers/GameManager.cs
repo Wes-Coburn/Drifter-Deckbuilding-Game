@@ -129,8 +129,6 @@ public class GameManager : MonoBehaviour
 
             // LINEAR ACTION GAIN
             playerManager.PlayerActionsLeft = playerManager.ActionsPerTurn;
-            if (playerManager.ActionsPerTurn < MAX_ACTIONS_PER_TURN)
-                playerManager.ActionsPerTurn++;
             cardManager.DrawCard(PLAYER);
         }
 
@@ -152,6 +150,13 @@ public class GameManager : MonoBehaviour
         CardManager.Instance.RemoveTemporaryEffects(ENEMY);
         CardManager.Instance.RemoveGiveNextEffects();
         if (player == ENEMY) StartTurn(PLAYER);
-        else if (player == PLAYER) StartTurn(ENEMY);
+
+        else if (player == PLAYER)
+        {
+            if (playerManager.ActionsPerTurn < MAX_ACTIONS_PER_TURN)
+                playerManager.ActionsPerTurn++;
+
+            StartTurn(ENEMY);
+        }
     }
 }

@@ -267,7 +267,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Action
+  m_text: Action - Skill
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 35dcfebab0afaec44ba5df39248b9e4a, type: 2}
   m_sharedMaterial: {fileID: -6670439693667837105, guid: 35dcfebab0afaec44ba5df39248b9e4a,
@@ -712,6 +712,7 @@ GameObject:
   - component: {fileID: 7415242867258199381}
   - component: {fileID: 986080806631109180}
   - component: {fileID: 1352609382858267287}
+  - component: {fileID: 1879733439060571534}
   m_Layer: 10
   m_Name: ActionZoomCard
   m_TagString: Untagged
@@ -780,6 +781,25 @@ MonoBehaviour:
   nextLevelBox: {fileID: 0}
   level2Popup: {fileID: 0}
   descriptionPopupPrefab: {fileID: 0}
+--- !u!95 &1879733439060571534
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7279803143792002406}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 092787e92db6b2a459f76becfb7999b6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7334756111360048637
 GameObject:
   m_ObjectHideFlags: 0
