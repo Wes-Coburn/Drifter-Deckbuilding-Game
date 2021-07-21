@@ -18,7 +18,6 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     private const float ZOOM_SCALE_VALUE   =  4;
     private const float CENTER_SCALE_VALUE =  6;
     private const float POPUP_SCALE_VALUE  =  3;
-    private const float POPUP_X_VALUE      =  590;
 
     /* MANAGERS */
     private UIManager UIManager;
@@ -79,12 +78,12 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         UIManager.SetScreenDimmer(true);
         ZoomCardIsCentered = true;
 
-        CreateZoomCard(new Vector3(0, 50), CENTER_SCALE_VALUE);
+        CreateZoomCard(new Vector3(-150, 50), CENTER_SCALE_VALUE);
         
         if (cardDisplay is UnitCardDisplay)
         {
-            CreateDescriptionPopup(new Vector2(-POPUP_X_VALUE, 0), POPUP_SCALE_VALUE);
-            CreateAbilityPopups(new Vector2(POPUP_X_VALUE, 0), POPUP_SCALE_VALUE);
+            CreateDescriptionPopup(new Vector2(-650, 0), POPUP_SCALE_VALUE);
+            CreateAbilityPopups(new Vector2(590, 0), POPUP_SCALE_VALUE);
         }
     }
 

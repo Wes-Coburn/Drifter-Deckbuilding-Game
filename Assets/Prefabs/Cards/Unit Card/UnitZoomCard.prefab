@@ -981,7 +981,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &457681808997512170
 Transform:
   m_ObjectHideFlags: 0
@@ -1511,7 +1511,7 @@ GameObject:
   - component: {fileID: 8121863126802653666}
   - component: {fileID: 6729144174852632540}
   m_Layer: 10
-  m_Name: FollowerZoomCard
+  m_Name: UnitZoomCard
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1586,6 +1586,7 @@ MonoBehaviour:
   actionZoomCard: {fileID: 0}
   abilityBoxPrefab: {fileID: 0}
   abilityPopupPrefab: {fileID: 0}
+  abilityPopupBoxPrefab: {fileID: 0}
   descriptionPopupPrefab: {fileID: 0}
 --- !u!95 &6729144174852632540
 Animator:
@@ -1663,6 +1664,6 @@ MonoBehaviour:
   m_StartCorner: 0
   m_StartAxis: 1
   m_CellSize: {x: 50, y: 10}
-  m_Spacing: {x: 0, y: 0}
+  m_Spacing: {x: 0, y: 1}
   m_Constraint: 1
   m_ConstraintCount: 1

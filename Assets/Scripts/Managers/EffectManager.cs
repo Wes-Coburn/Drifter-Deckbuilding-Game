@@ -138,7 +138,6 @@ public class EffectManager : MonoBehaviour
     private void StartNonTargetEffect(Effect effect)
     {
         Debug.LogWarning("START NON_TARGET EFFECT");
-
         ConfirmNonTargetEffect();
     }
 

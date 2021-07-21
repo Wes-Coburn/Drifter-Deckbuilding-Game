@@ -38,7 +38,7 @@ public class AudioManager : MonoBehaviour
         Soundtrack
     }
 
-    public void StartStopSound (string name, SoundType soundType, bool isEndSound = false)
+    public void StartStopSound (string name, SoundType soundType = SoundType.SFX, bool isEndSound = false)
     {
         Sound currentSound = Array.Find(sounds, sound => sound.name == name);
         if (currentSound == null)

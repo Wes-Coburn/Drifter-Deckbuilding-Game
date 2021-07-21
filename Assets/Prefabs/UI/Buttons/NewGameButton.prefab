@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8505909306396083594}
   - component: {fileID: 8505909306396083588}
   - component: {fileID: 8505909306396083589}
+  - component: {fileID: 660070873}
   m_Layer: 5
   m_Name: NewGameButton
   m_TagString: Untagged
@@ -94,6 +95,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 660070873}
+        m_TargetAssemblyTypeName: SoundPlayer, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &8505909306396083589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,6 +119,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6f65e2a01dbd674c9a6a22ec0c378b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &660070873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8505909306396083595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2340c8fec396b2b43bf9a91052c5c90e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - SFX_Pointer_Click
 --- !u!1 &8505909306901872763
 GameObject:
   m_ObjectHideFlags: 0

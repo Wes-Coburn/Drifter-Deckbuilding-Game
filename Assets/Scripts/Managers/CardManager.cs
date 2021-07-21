@@ -436,29 +436,36 @@ public class CardManager : MonoBehaviour
             {
                 PlayerZoneCards.Add(card);
                 ChangeCardZone(card, PLAYER_ZONE);
-
-                // Implement for enemy!
                 TriggerCardAbility(card, "Play");
-                TriggerGiveNextEffect(card);
+                TriggerGiveNextEffect(card); // Implement for enemy!?
+                AudioManager.Instance.StartStopSound("SFX_PlayUnit", AudioManager.SoundType.SFX);
             }
             else if (card.GetComponent<CardDisplay>() is ActionCardDisplay)
             {
-                // Implement for enemy!
                 ChangeCardZone(card, PLAYER_ACTION_ZONE);
                 ResolveActionCard(card);
             }
-            else Debug.LogError("CARDDISPLAY TYPE NOT FOUND!");
+            else
+            {
+                Debug.LogError("CARDDISPLAY TYPE NOT FOUND!");
+                return;
+            }
         }
-
         // ENEMY
         else if (card.CompareTag(ENEMY_CARD))
         {
             EnemyHandCards.Remove(card);
             EnemyZoneCards.Add(card);
             ChangeCardZone(card, ENEMY_ZONE);
-        }
 
-        else Debug.LogError("CARD TAG NOT FOUND!");
+            if (card.GetComponent<CardDisplay>() is UnitCardDisplay)
+                TriggerCardAbility(card, "Play");
+        }
+        else
+        {
+            Debug.LogError("CARD TAG NOT FOUND!");
+            return;
+        }
     }
 
     /******
@@ -526,12 +533,14 @@ public class CardManager : MonoBehaviour
 
         if (defender.CompareTag(ENEMY_CARD) || defender.CompareTag(PLAYER_CARD))
         {
-            if (defender.GetComponent<UnitCardDisplay>().CurrentDefense > 0)
+            if (GetAbility(attacker, "Ranged") == -1)
             {
-                if (GetAbility(attacker, "Ranged") == -1)
-                {
-                    Strike(defender, attacker);
-                }
+                Strike(defender, attacker);
+                // play ranged attack sound
+            }
+            else
+            {
+                // play melee attack sound
             }
         }
     }
@@ -787,7 +796,7 @@ public class CardManager : MonoBehaviour
             {
                 if (tra.AbilityTrigger.AbilityName == triggerName)
                 {
-                    EffectManager.Instance.StartEffectGroupList(tra.EffectGroupList, PlayerHero);
+                    EffectManager.Instance.StartEffectGroupList(tra.EffectGroupList, card);
                 }
             }
         }
