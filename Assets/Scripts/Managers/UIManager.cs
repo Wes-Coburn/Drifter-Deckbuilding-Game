@@ -86,9 +86,15 @@ public class UIManager : MonoBehaviour
      *****/
     public void SelectEnemy(GameObject enemy, bool enabled)
     {
-        if (selectedEnemy != null && enabled == true) SelectEnemy(selectedEnemy, false);
+        if (selectedEnemy != null)
+        {
+            GameObject oldEnemy;
+            oldEnemy = selectedEnemy;
+            selectedEnemy = null;
+            SelectEnemy(oldEnemy, false);
+        }
+
         if (enabled) selectedEnemy = enemy;
-        else selectedEnemy = null;
 
         if (enemy.TryGetComponent<CardSelect>(out CardSelect cs))
         {
@@ -97,6 +103,11 @@ public class UIManager : MonoBehaviour
         else if (enemy.TryGetComponent<HeroSelect>(out HeroSelect chs))
         {
             chs.TargetIcon.SetActive(enabled);
+        }
+        else
+        {
+            Debug.LogError("TARGET SELECT SCRIPT NOT FOUND!");
+            return;
         }
     }
 

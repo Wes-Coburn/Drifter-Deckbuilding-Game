@@ -75,6 +75,8 @@ public class GameManager : MonoBehaviour
      *****/
     private void StartCombat(Hero enemyHero)
     {
+        AudioManager.Instance.StartStopSound("SFX_StartCombat");
+
         enemyManager.EnemyHero = enemyHero;
         cardManager.UpdateDeck(PLAYER);
         cardManager.UpdateDeck(ENEMY);

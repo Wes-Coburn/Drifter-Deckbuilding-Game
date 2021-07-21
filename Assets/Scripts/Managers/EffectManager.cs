@@ -112,12 +112,8 @@ public class EffectManager : MonoBehaviour
      *****/
     private void StartNextEffect(bool isFirstEffect = false)
     {
-        Debug.LogWarning("START NEXT EFFECT");
-
         EffectGroup eg = effectGroupList[currentEffectGroup];
-
         if (!isFirstEffect) currentEffect++;
-        
         if (currentEffect < eg.Effects.Count)
         {
             Debug.Log("[EFFECT #" + (currentEffect + 1) + 
@@ -154,16 +150,16 @@ public class EffectManager : MonoBehaviour
     private void StartTargetEffect(Effect effect)
     {
         Debug.LogWarning("START TARGET EFFECT");
-
         if (acceptedTargets[currentEffectGroup].Count > 0)
         {
-            StartNextEffectGroup(); // TESTING TESTING TESTING
+            StartNextEffectGroup();
             return;
         }
 
         UIManager.Instance.PlayerIsTargetting = true;
         string targetDescription = effectGroupList[currentEffectGroup].EffectsDescription;
-        if (string.IsNullOrEmpty(targetDescription)) targetDescription = effectGroupList[currentEffectGroup].Effects[currentEffect].TargetDescription;
+        if (string.IsNullOrEmpty(targetDescription)) targetDescription = 
+                effectGroupList[currentEffectGroup].Effects[currentEffect].TargetDescription;
         UIManager.Instance.CreateInfoPopup(targetDescription);
 
         if (effect is DrawEffect)
@@ -174,11 +170,10 @@ public class EffectManager : MonoBehaviour
             }
             newDrawnCards.Clear();
         }
-
         foreach (GameObject target in legalTargets[currentEffectGroup])
         {
             if (target != null) target.GetComponent<CardSelect>().CardOutline.SetActive(true);
-            else Debug.LogWarning("TARGET WAS NULL!");
+            else Debug.LogError("TARGET WAS NULL!");
         }
     }
 
@@ -348,10 +343,8 @@ public class EffectManager : MonoBehaviour
     private void ConfirmTargetEffect()
     {
         Debug.LogWarning("CONFIRM TARGET EFFECT");
-
         UIManager.Instance.PlayerIsTargetting = false;
         UIManager.Instance.DismissInfoPopup();
-
         foreach (GameObject target in legalTargets[currentEffectGroup])
         {
             target.GetComponent<CardSelect>().CardOutline.SetActive(false);

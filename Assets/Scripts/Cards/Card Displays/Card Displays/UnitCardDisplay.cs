@@ -134,6 +134,7 @@ public class UnitCardDisplay : CardDisplay
             DisplayCard();
         }
         gameObject.GetComponent<DragDrop>().IsPlayed = played;
+        gameObject.GetComponent<CardSelect>().CardOutline.SetActive(false);
     }
 
     /******

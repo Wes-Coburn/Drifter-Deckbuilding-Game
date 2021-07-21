@@ -8,6 +8,8 @@ public class HeroPower : ScriptableObject
     public string PowerName;
     [Header("POWER IMAGE")]
     public Sprite PowerSprite;
+    [Header("POWER SOUND")]
+    public string PowerSound;
     [Header("POWER DESCRIPTION")]
     [TextArea]
     public string PowerDescription;

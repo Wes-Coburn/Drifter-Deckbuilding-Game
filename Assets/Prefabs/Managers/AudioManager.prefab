@@ -45,13 +45,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - name: Soundtrack_MenuScene
-    clip: {fileID: 8300000, guid: 27125866967536445bc7ff154891f139, type: 3}
-    volume: 0.4
+    clip: {fileID: 8300000, guid: fa4d89460fab0424fa8b75b8da409e4c, type: 3}
+    volume: 0.5
     pitch: 1
     source: {fileID: 0}
   - name: Soundtrack_GameScene
-    clip: {fileID: 8300000, guid: 43adf7fc3e8922c49af63d8d33209682, type: 3}
-    volume: 0.2
+    clip: {fileID: 8300000, guid: 27125866967536445bc7ff154891f139, type: 3}
+    volume: 0.3
     pitch: 1
     source: {fileID: 0}
   - name: SFX_ButtonClick1
@@ -59,8 +59,18 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
+  - name: SFX_HeroPowerKili
+    clip: {fileID: 8300000, guid: eb97ca14ff340b140a3c381c4c55e343, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_StartCombat
+    clip: {fileID: 8300000, guid: 3b0c8067fd742cc44bd0564345f2a13e, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
   - name: SFX_ActionRefill
-    clip: {fileID: 8300000, guid: 728fd049608b1d440b03ccb9d85b7af4, type: 3}
+    clip: {fileID: 8300000, guid: b00ceba2d7ae95d4b934b6100f38e63a, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}
@@ -90,7 +100,37 @@ MonoBehaviour:
     pitch: 1
     source: {fileID: 0}
   - name: SFX_AttackRanged
-    clip: {fileID: 8300000, guid: c25464401586f944eb0a5e6d779094b0, type: 3}
+    clip: {fileID: 8300000, guid: 45f3a6795562d55489a34f69e862183e, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_GainBlitz
+    clip: {fileID: 8300000, guid: 2f36a13ee96aabd488fd61774ba59019, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_LoseBlitz
+    clip: {fileID: 8300000, guid: d04739e889d26fa4f8f73833a3abfcef, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_GainRanged
+    clip: {fileID: 8300000, guid: 8704a0cb4dc429d4bb2eef855b66cf21, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_LoseRanged
+    clip: {fileID: 8300000, guid: 7aa358863566ddb4c877602a1b0e17a2, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_GainShield
+    clip: {fileID: 8300000, guid: 716ea86e40be63848b124ee34b50f41c, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_LoseShield
+    clip: {fileID: 8300000, guid: 9036b94225f246f4c88187285af10797, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}

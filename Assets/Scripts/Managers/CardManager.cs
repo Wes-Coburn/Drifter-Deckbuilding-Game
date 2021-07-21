@@ -432,6 +432,19 @@ public class CardManager : MonoBehaviour
      *****/
     public void PlayCard(GameObject card)
     {
+        void PlayUnit()
+        {
+            AudioManager.Instance.StartStopSound("SFX_PlayUnit", AudioManager.SoundType.SFX);
+            FunctionTimer.Create(() => TriggerGiveNextEffect(card), 0.5f);
+            FunctionTimer.Create(() => TriggerCardAbility(card, "Play"), 1f);
+
+        }
+        void PlayAction()
+        {
+            AudioManager.Instance.StartStopSound("SFX_PlayAction", AudioManager.SoundType.SFX);
+            ResolveActionCard(card);
+        }
+
         // PLAYER
         if (card.CompareTag(PLAYER_CARD))
         {
@@ -442,15 +455,12 @@ public class CardManager : MonoBehaviour
             {
                 PlayerZoneCards.Add(card);
                 ChangeCardZone(card, PLAYER_ZONE);
-                TriggerCardAbility(card, "Play");
-                TriggerGiveNextEffect(card); // Implement for enemy!?
-                AudioManager.Instance.StartStopSound("SFX_PlayUnit", AudioManager.SoundType.SFX);
+                PlayUnit();
             }
             else if (card.GetComponent<CardDisplay>() is ActionCardDisplay)
             {
                 ChangeCardZone(card, PLAYER_ACTION_ZONE);
-                ResolveActionCard(card);
-                AudioManager.Instance.StartStopSound("SFX_PlayAction", AudioManager.SoundType.SFX);
+                PlayAction();
             }
             else
             {
@@ -462,18 +472,20 @@ public class CardManager : MonoBehaviour
         else if (card.CompareTag(ENEMY_CARD))
         {
             EnemyHandCards.Remove(card);
-            EnemyZoneCards.Add(card);
-            ChangeCardZone(card, ENEMY_ZONE);
 
             if (card.GetComponent<CardDisplay>() is UnitCardDisplay)
             {
-                TriggerCardAbility(card, "Play");
-                AudioManager.Instance.StartStopSound("SFX_PlayUnit", AudioManager.SoundType.SFX);
+                EnemyZoneCards.Add(card);
+                ChangeCardZone(card, ENEMY_ZONE);
+                PlayUnit();
             }
+            /* Enemies don't have action cards
             else if (card.GetComponent<CardDisplay>() is ActionCardDisplay)
             {
-                AudioManager.Instance.StartStopSound("SFX_PlayAction", AudioManager.SoundType.SFX);
+                ChangeCardZone(card, ENEMY_ACTION_ZONE);
+                PlayAction();
             }
+            */
             else
             {
                 Debug.LogError("CARDDISPLAY TYPE NOT FOUND!");
@@ -638,7 +650,6 @@ public class CardManager : MonoBehaviour
         if (effect is GiveAbilityEffect gae)
         {
             Debug.Log("GiveAbilityEffect! <" + gae.CardAbility.ToString() + ">");
-
             GiveAbilityEffect newGae = ScriptableObject.CreateInstance<GiveAbilityEffect>();
             newGae.LoadEffect(gae);
 
@@ -706,10 +717,8 @@ public class CardManager : MonoBehaviour
                 if (effect.Countdown == 1) // Check for EXPIRED effects
                 {
                     Debug.LogWarning("EFFECT REMOVED: <" + effect.ToString() + ">");
-                    
                     // GIVE_ABILITY_EFFECT
                     if (effect is GiveAbilityEffect gae) fcd.RemoveCurrentAbility(gae.CardAbility);
-                    
                     // STAT_CHANGE_EFFECT
                     else if (effect is StatChangeEffect sce)
                     {
