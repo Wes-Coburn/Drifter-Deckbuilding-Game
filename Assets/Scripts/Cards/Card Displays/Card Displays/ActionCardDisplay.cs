@@ -3,7 +3,7 @@ using TMPro;
 
 public class ActionCardDisplay : CardDisplay
 {
-    /* HERO_CARD_SCRIPTABLE_OBJECT */
+    /* ACTION_CARD_SCRIPTABLE_OBJECT */
     public ActionCard ActionCard { get => CardScript as ActionCard; }
     [SerializeField] private GameObject cardDescription;
 
@@ -15,7 +15,7 @@ public class ActionCardDisplay : CardDisplay
     protected override void DisplayCard()
     {
         base.DisplayCard();
-        cardDescription.GetComponent<TextMeshPro>().SetText(CardScript.CardDescription);
+        cardDescription.GetComponent<TextMeshPro>().SetText(ActionCard.EffectDescription);
     }
 
     /******

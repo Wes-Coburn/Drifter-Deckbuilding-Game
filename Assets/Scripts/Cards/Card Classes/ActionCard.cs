@@ -22,6 +22,7 @@ public class ActionCard : Card
     {
         base.LoadCard(card);
         ActionCard ac = card as ActionCard;
+        effectDescription = ac.EffectDescription;
         effectGroupList = ac.EffectGroupList;
     }
 }

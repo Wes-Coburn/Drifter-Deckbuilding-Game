@@ -150,6 +150,11 @@ public class UnitCardDisplay : CardDisplay
         }
         CurrentAbilities.Add(ca); // Add instances instead of objects? (Doesn't matter yet)
         AbilityIcons.Add(CreateAbilityIcon(ca));
+        
+        if (ca is StaticAbility sa)
+        {
+            AudioManager.Instance.StartStopSound(sa.GainAbilitySound);
+        }
 
         if (ca.AbilityName == "Blitz") IsExhausted = false;
         return true;
@@ -171,6 +176,11 @@ public class UnitCardDisplay : CardDisplay
         Destroy(AbilityIcons[abilityIndex]);
         AbilityIcons.RemoveAt(abilityIndex);
         CurrentAbilities.RemoveAt(abilityIndex);
+
+        if (ca is StaticAbility sa)
+        {
+            AudioManager.Instance.StartStopSound(sa.LoseAbilitySound);
+        }
     }
 
     /******

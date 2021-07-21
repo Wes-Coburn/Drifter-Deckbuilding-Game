@@ -14,6 +14,14 @@ public class AbilityPopupDisplay : MonoBehaviour
             DisplayAbilityPopup();
         }
     }
+    public CardAbility ZoomAbilityScript
+    {
+        set
+        {
+            abilityScript = value;
+            DisplayAbilityPopup(true);
+        }
+    }
 
     /* ABILITY_DATA */
     public Sprite AbilitySprite
@@ -33,22 +41,40 @@ public class AbilityPopupDisplay : MonoBehaviour
      * ****** DISPLAY_ABILITY_POPUP
      * *****
      *****/
-    private void DisplayAbilityPopup()
+    private void DisplayAbilityPopup(bool isAbilityZoom = false)
     {
         string name;
         string description;
+        
         if (AbilityScript is StaticAbility)
         {
-            name = AbilityScript.AbilityName;
-            description = AbilityScript.AbilityDescription;
             AbilitySprite = AbilityScript.AbilitySprite;
+            if (isAbilityZoom)
+            {
+                AbilityDescription = AbilityScript.AbilityName;
+                return;
+            }
+            else
+            {
+                name = AbilityScript.AbilityName;
+                description = AbilityScript.AbilityDescription;
+            }
         }
         else if (AbilityScript is TriggeredAbility ta)
         {
             AbilityTrigger trigger = ta.AbilityTrigger;
-            name = trigger.AbilityName;
-            description = "Does something when " + trigger.AbilityDescription;
             AbilitySprite = trigger.AbilitySprite;
+            
+            if (isAbilityZoom)
+            {
+                AbilityDescription = AbilityScript.AbilityName;
+                return;
+            }
+            else
+            {
+                name = trigger.AbilityName;
+                description = "Does something when " + trigger.AbilityDescription;
+            }   
         }
         else
         {

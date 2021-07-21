@@ -78,11 +78,11 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         UIManager.SetScreenDimmer(true);
         ZoomCardIsCentered = true;
 
-        CreateZoomCard(new Vector3(-150, 50), CENTER_SCALE_VALUE);
+        CreateZoomCard(new Vector3(0, 50), CENTER_SCALE_VALUE);
         
         if (cardDisplay is UnitCardDisplay)
         {
-            CreateDescriptionPopup(new Vector2(-650, 0), POPUP_SCALE_VALUE);
+            CreateDescriptionPopup(new Vector2(-590, 0), POPUP_SCALE_VALUE);
             CreateAbilityPopups(new Vector2(590, 0), POPUP_SCALE_VALUE);
         }
     }
@@ -205,6 +205,12 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         {
             GameObject abilityPopup = Instantiate(abilityPopupPrefab, AbilityPopupBox.transform);
             abilityPopup.GetComponent<AbilityPopupDisplay>().AbilityScript = ca;
+
+            foreach (CardAbility linkCa in ca.LinkedAbilites)
+            {
+                abilityPopup = Instantiate(abilityPopupPrefab, AbilityPopupBox.transform);
+                abilityPopup.GetComponent<AbilityPopupDisplay>().AbilityScript = linkCa;
+            }
         }
     }
 }

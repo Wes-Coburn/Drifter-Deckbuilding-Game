@@ -29,6 +29,11 @@ public class EffectManager : MonoBehaviour
 
     private List<List<GameObject>> legalTargets;
     private List<List<GameObject>> acceptedTargets;
+    public List<GameObject> NewDrawnCards
+    {
+        get => newDrawnCards;
+        private set => newDrawnCards = value;
+    }
     private List<GameObject> newDrawnCards;
 
     public List<GiveNextUnitEffect> GiveNextEffects
@@ -294,12 +299,15 @@ public class EffectManager : MonoBehaviour
 
         if (!eg.Effects[currentEffect].IsRequired)
         {
-            int possibleTargets = (legalTargets[currentEffectGroup].Count + acceptedTargets[currentEffectGroup].Count);
+            int possibleTargets = (legalTargets[currentEffectGroup].Count + 
+                acceptedTargets[currentEffectGroup].Count);
 
-            if (possibleTargets < targetNumber && possibleTargets > 0) targetNumber = possibleTargets;
+            if (possibleTargets < targetNumber && possibleTargets > 0) 
+                targetNumber = possibleTargets;
         }
 
-        Debug.LogWarning("ACCEPTED TARGETS: <" + acceptedTargets[currentEffectGroup].Count + "> // TARGET NUMBER: <" + targetNumber + ">");
+        Debug.LogWarning("ACCEPTED TARGETS: <" + acceptedTargets[currentEffectGroup].Count +
+            "> // TARGET NUMBER: <" + targetNumber + ">");
 
         if (acceptedTargets[currentEffectGroup].Count == targetNumber) ConfirmTargetEffect();
         
@@ -332,9 +340,7 @@ public class EffectManager : MonoBehaviour
 
             for (int i = 0; i < effect.Value; i++)
             {
-                GameObject card = CardManager.Instance.DrawCard(hero);
-                if (card != null) newDrawnCards.Add(card);
-                else Debug.LogError("CARD IS NULL!");
+                CardManager.Instance.DrawCard(hero);
             }
         }
         StartNextEffect();

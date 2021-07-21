@@ -207,7 +207,7 @@ public class CardManager : MonoBehaviour
      * ****** DRAW_CARD
      * *****
      *****/
-    public GameObject DrawCard(string hero)
+    public void DrawCard(string hero)
     {
         List<Card> deck;
         string cardTag;
@@ -228,7 +228,7 @@ public class CardManager : MonoBehaviour
         else
         {
             Debug.LogError("PLAYER <" + hero + "> NOT FOUND!");
-            return null;
+            return;
         }
 
         // Shuffle discard into deck
@@ -240,7 +240,7 @@ public class CardManager : MonoBehaviour
             else
             {
                 Debug.LogError("PLAYER <" + hero + "> NOT FOUND!");
-                return null;
+                return;
             }
 
             foreach (GameObject go in discard)
@@ -252,21 +252,26 @@ public class CardManager : MonoBehaviour
         }
 
         GameObject card = ShowCard(deck[0]);
-        deck.RemoveAt(0);
-
-        card.tag = cardTag;
-        ChangeCardZone(card, cardZone);
-
-        if (hero == PLAYER) PlayerHandCards.Add(card);
-        else EnemyHandCards.Add(card);
 
         if (card == null)
         {
             Debug.LogError("CARD IS NULL!");
-            return null;
+            return;
         }
+
+        deck.RemoveAt(0);
+        card.tag = cardTag;
+        ChangeCardZone(card, cardZone);
+
+        if (hero == PLAYER)
+        {
+            PlayerHandCards.Add(card);
+            List<GameObject> newDrawnCards = EffectManager.Instance.NewDrawnCards;
+            if (newDrawnCards != null) newDrawnCards.Add(card);
+        }
+        else EnemyHandCards.Add(card);
+
         AudioManager.Instance.StartStopSound("SFX_DrawCard");
-        return card;
     }
     public void DrawHand(string player, int handSize)
     {

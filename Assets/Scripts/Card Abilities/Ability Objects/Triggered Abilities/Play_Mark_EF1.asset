@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44c307312f791a64788051778519ac70, type: 3}
-  m_Name: Play_Draw1_Discard1
+  m_Name: Play_Mark_EF1
   m_EditorClassIdentifier: 
-  AbilityName: 'Play: Draw 1, then discard 1'
-  AbilityDescription: Draw 1, discard 1
-  AbilitySprite: {fileID: 21300000, guid: 3455d52fe8d195a42870812c269cc676, type: 3}
-  LinkedAbilites: []
+  AbilityName: 'Play: Mark an enemy'
+  AbilityDescription: Mark an enemy unit
+  AbilitySprite: {fileID: 0}
+  LinkedAbilites:
+  - {fileID: 11400000, guid: 67b65f6bf1f93db43afb76d61b1435b2, type: 2}
   AbilityTrigger: {fileID: 11400000, guid: c74c9ac6a33f86347a6ac56840c5c7cc, type: 2}
   EffectGroupList:
-  - {fileID: 11400000, guid: bb0661d3c998e1f47b5b8c0afb36e6bb, type: 2}
+  - {fileID: 11400000, guid: dbdec723e07d1bb409809d8053c199a5, type: 2}

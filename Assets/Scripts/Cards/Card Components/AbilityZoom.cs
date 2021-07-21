@@ -50,6 +50,7 @@ public class AbilityZoom : MonoBehaviour
 
         AbilityPopup = Instantiate(abilityPopupPrefab, spawnPoint, Quaternion.identity);
         AbilityPopup.transform.localScale = new Vector2(2.5f, 2.5f);
-        AbilityPopup.GetComponent<AbilityPopupDisplay>().AbilityScript = gameObject.GetComponent<AbilityIconDisplay>().AbilityScript;
+        AbilityPopup.GetComponent<AbilityPopupDisplay>().ZoomAbilityScript = 
+            gameObject.GetComponent<AbilityIconDisplay>().AbilityScript;
     }
 }

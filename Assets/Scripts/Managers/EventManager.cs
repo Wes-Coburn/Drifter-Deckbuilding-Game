@@ -56,8 +56,8 @@ public class EventManager : MonoBehaviour
 
     IEnumerator ActionNumerator()
     {
-        delayedActions[DelayedAction.CurrentAction].Action();
-        yield return new WaitForSeconds(delayedActions[DelayedAction.CurrentAction++].Delay);
+        yield return new WaitForSeconds(delayedActions[DelayedAction.CurrentAction].Delay);
+        delayedActions[DelayedAction.CurrentAction++].Action();
         NextDelayedAction();
     }
 }

@@ -13,5 +13,9 @@ MonoBehaviour:
   m_Name: Blitz
   m_EditorClassIdentifier: 
   AbilityName: Blitz
-  AbilityDescription: Is not exhausted when played.
+  AbilityDescription: Is not exhausted when played
   AbilitySprite: {fileID: 21300000, guid: f5b69fe212c42a442a664dc1c4c0e67a, type: 3}
+  LinkedAbilites:
+  - {fileID: 11400000, guid: da9edd80a7b529542b04b632f79005de, type: 2}
+  GainAbilitySound: SFX_GainBlitz
+  LoseAbilitySound: SFX_LoseBlitz
