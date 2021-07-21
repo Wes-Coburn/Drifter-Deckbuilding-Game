@@ -10,6 +10,7 @@ public class EndTurnButton : MonoBehaviour, IPointerClickHandler
         if (PlayerManager.Instance.IsMyTurn && !UIManager.Instance.PlayerIsTargetting)
         {
             GameManager.Instance.EndTurn(GameManager.PLAYER);
+            AudioManager.Instance.StartStopSound("SFX_EndTurn");
         }
     }
 }

@@ -142,7 +142,7 @@ public class UnitCardDisplay : CardDisplay
      * ****** ADD_CURRENT_ABILITY
      * *****
      *****/
-    public bool AddCurrentAbility(CardAbility ca)
+    public bool AddCurrentAbility(CardAbility ca, bool isPlayed = false)
     {
         if (CardManager.GetAbility(gameObject, ca.AbilityName) != -1)
         {
@@ -152,9 +152,10 @@ public class UnitCardDisplay : CardDisplay
         CurrentAbilities.Add(ca); // Add instances instead of objects? (Doesn't matter yet)
         AbilityIcons.Add(CreateAbilityIcon(ca));
         
-        if (ca is StaticAbility sa)
+        if (isPlayed)
         {
-            AudioManager.Instance.StartStopSound(sa.GainAbilitySound);
+            if (ca is StaticAbility sa)
+                AudioManager.Instance.StartStopSound(sa.GainAbilitySound);
         }
 
         if (ca.AbilityName == "Blitz") IsExhausted = false;
@@ -174,14 +175,13 @@ public class UnitCardDisplay : CardDisplay
             Debug.LogError("ABILITY NOT FOUND: <" + ca.ToString() + ">");
             return;
         }
+        else Debug.Log("ABILITY REMOVED: <" + ca.ToString() + ">");
         Destroy(AbilityIcons[abilityIndex]);
         AbilityIcons.RemoveAt(abilityIndex);
         CurrentAbilities.RemoveAt(abilityIndex);
 
-        if (ca is StaticAbility sa)
-        {
+        if (ca is StaticAbility sa) 
             AudioManager.Instance.StartStopSound(sa.LoseAbilitySound);
-        }
     }
 
     /******

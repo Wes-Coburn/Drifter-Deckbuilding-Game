@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public static class SceneLoader
@@ -7,7 +8,7 @@ public static class SceneLoader
     {
         LoadingScene,
         MenuScene,
-        GameScene
+        CombatScene
     }
 
     private static Action onSceneLoaderCallback;
@@ -28,11 +29,20 @@ public static class SceneLoader
         onSceneUpdateCallback = () =>
         {
             UIManager.Instance.Start();
-            UIManager.Instance.LoadGameScene();
-            CardManager.Instance.StartGameScene(); // FOR TESTING ONLY
-            GameManager.Instance.NewGame(); // FOR TESTING ONLY
-            //AudioManager.Instance.StartStopSound("Soundscape_" + scene.ToString(), AudioManager.SoundType.Soundscape);
-            AudioManager.Instance.StartStopSound("Soundtrack_" + scene.ToString(), AudioManager.SoundType.Soundtrack);
+            switch (scene)
+            {
+                case Scene.MenuScene:
+                    AudioManager.Instance.StartStopSound("Soundtrack_MenuScene", AudioManager.SoundType.Soundtrack);
+                    break;
+                case Scene.CombatScene:
+                    UIManager.Instance.StartCombatScene();
+                    CardManager.Instance.StartCombatScene();
+                    GameManager.Instance.NewGame(); // FOR TESTING ONLY
+                    break;
+                default:
+                    Debug.LogError("SCENE NOT FOUND!");
+                    break;
+            }
         };
         SceneManager.LoadScene(Scene.LoadingScene.ToString());
     }

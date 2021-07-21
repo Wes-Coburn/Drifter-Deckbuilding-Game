@@ -56,7 +56,7 @@ public class UIManager : MonoBehaviour
         PlayerIsTargetting = false;
     }
 
-    public void LoadGameScene()
+    public void StartCombatScene()
     {
         playerHealth = GameObject.Find("PlayerHealth");
         enemyHealth = GameObject.Find("EnemyHealth");

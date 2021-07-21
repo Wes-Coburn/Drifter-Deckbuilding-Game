@@ -99,7 +99,7 @@ public class CardManager : MonoBehaviour
         EnemyZoneCards = new List<GameObject>();
         EnemyDiscardCards = new List<GameObject>();
     }
-    public void StartGameScene()
+    public void StartCombatScene()
     {
         /* GAME_ZONES */
         PlayerActionZone = GameObject.Find(PLAYER_ACTION_ZONE);
@@ -435,9 +435,20 @@ public class CardManager : MonoBehaviour
         void PlayUnit()
         {
             AudioManager.Instance.StartStopSound("SFX_PlayUnit", AudioManager.SoundType.SFX);
+            FunctionTimer.Create(() => PlayAbilitySounds(), 0f);
             FunctionTimer.Create(() => TriggerGiveNextEffect(card), 0.5f);
             FunctionTimer.Create(() => TriggerCardAbility(card, "Play"), 1f);
-
+        }
+        void PlayAbilitySounds()
+        {
+            foreach (CardAbility ca in card.GetComponent<UnitCardDisplay>().CurrentAbilities)
+            {
+                if (ca is StaticAbility sa)
+                {
+                    FunctionTimer.Create(() => 
+                    AudioManager.Instance.StartStopSound(sa.GainAbilitySound), 0.3f);
+                }
+            }
         }
         void PlayAction()
         {
@@ -536,7 +547,7 @@ public class CardManager : MonoBehaviour
      * ****** DISCARD_CARD [HAND >>> DISCARD]
      * *****
      *****/
-    public void DiscardCard(GameObject card, string hero)
+    public void DiscardCard(GameObject card, string hero, bool isAction = false)
     {
         if (hero == PLAYER)
         {
@@ -550,6 +561,7 @@ public class CardManager : MonoBehaviour
             EnemyHandCards.Remove(card);
             EnemyDiscardCards.Add(card);
         }
+        if (!isAction) AudioManager.Instance.StartStopSound("SFX_DiscardCard");
     }
 
     /******
@@ -567,6 +579,10 @@ public class CardManager : MonoBehaviour
             if (GetAbility(attacker, "Ranged") == -1) 
                 Strike(defender, attacker);
         }
+
+        if (GetAbility(attacker, "Ranged") == -1)
+            AudioManager.Instance.StartStopSound("SFX_AttackMelee");
+        else AudioManager.Instance.StartStopSound("SFX_AttackRanged");
     }
 
     /******
@@ -578,10 +594,6 @@ public class CardManager : MonoBehaviour
     {
         int power = GetUnitDisplay(striker).CurrentPower;
         TakeDamage(defender, power);
-
-        if (GetAbility(striker, "Ranged") == -1) 
-            AudioManager.Instance.StartStopSound("SFX_AttackMelee");
-        else AudioManager.Instance.StartStopSound("SFX_AttackRanged");
     }
 
     /******
@@ -654,7 +666,7 @@ public class CardManager : MonoBehaviour
             newGae.LoadEffect(gae);
 
             // If ability already exists, update countdown instead of adding
-            if (!fcd.AddCurrentAbility(newGae.CardAbility))
+            if (!fcd.AddCurrentAbility(newGae.CardAbility, true))
             {
                 foreach (Effect effect2 in fcd.CurrentEffects)
                 {
@@ -687,7 +699,12 @@ public class CardManager : MonoBehaviour
             }
             else fcd.CurrentPower += sce.Value;
         }
-        else Debug.LogError("EFFECT TYPE NOT FOUND!");
+        else
+        {
+            Debug.LogError("EFFECT TYPE NOT FOUND!");
+            return;
+        }
+        AudioManager.Instance.StartStopSound(effect.EffectSound);
     }
 
     /******

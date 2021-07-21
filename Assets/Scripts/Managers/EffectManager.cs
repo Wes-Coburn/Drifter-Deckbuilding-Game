@@ -138,7 +138,6 @@ public class EffectManager : MonoBehaviour
      *****/
     private void StartNonTargetEffect(Effect effect)
     {
-        Debug.LogWarning("START NON_TARGET EFFECT");
         ConfirmNonTargetEffect();
     }
 
@@ -149,7 +148,6 @@ public class EffectManager : MonoBehaviour
      *****/
     private void StartTargetEffect(Effect effect)
     {
-        Debug.LogWarning("START TARGET EFFECT");
         if (acceptedTargets[currentEffectGroup].Count > 0)
         {
             StartNextEffectGroup();
@@ -184,8 +182,6 @@ public class EffectManager : MonoBehaviour
      *****/
     public bool CheckLegalTargets(List<EffectGroup> groupList, GameObject source, bool isPreCheck = false)
     {
-        Debug.LogWarning("CHECK LEGAL TARGETS");
-
         void ClearTargets()
         {
             effectGroupList = null;
@@ -213,7 +209,6 @@ public class EffectManager : MonoBehaviour
                 {
                     if (!GetLegalTargets(effect, eg.Targets))
                     {
-                        ClearTargets();
                         Debug.LogWarning("NO VALID TARGETS!");
                         return false;
                     }
@@ -232,8 +227,6 @@ public class EffectManager : MonoBehaviour
      *****/
     private bool GetLegalTargets(Effect effect, EffectTargets targets)
     {
-        Debug.LogWarning("GET LEGAL TARGETS");
-
         List<List<GameObject>> targetZones = new List<List<GameObject>>();
 
         if (effectSource.CompareTag(CardManager.PLAYER_CARD) || effectSource.CompareTag(CardManager.PLAYER_HERO))
@@ -312,6 +305,7 @@ public class EffectManager : MonoBehaviour
     private void RejectEffectTarget()
     {
         Debug.LogWarning("RejectEffectTarget()");
+        AudioManager.Instance.StartStopSound("SFX_Error");
         // DISPLAY INFO POPUP
     }
 
@@ -322,8 +316,6 @@ public class EffectManager : MonoBehaviour
      *****/
     private void ConfirmNonTargetEffect()
     {
-        Debug.LogWarning("CONFIRM NON_TARGET EFFECT");
-
         EffectGroup eg = effectGroupList[currentEffectGroup];
         Effect effect = eg.Effects[currentEffect];
         if (effect is DrawEffect)
@@ -342,7 +334,6 @@ public class EffectManager : MonoBehaviour
     }
     private void ConfirmTargetEffect()
     {
-        Debug.LogWarning("CONFIRM TARGET EFFECT");
         UIManager.Instance.PlayerIsTargetting = false;
         UIManager.Instance.DismissInfoPopup();
         foreach (GameObject target in legalTargets[currentEffectGroup])
@@ -359,8 +350,6 @@ public class EffectManager : MonoBehaviour
      *****/
     public void ResolveEffect(List<GameObject> targets, Effect effect)
     {
-        Debug.LogWarning("RESOLVE EFFECT");
-
         // DRAW
         if (effect is DrawEffect de)
         {
@@ -448,8 +437,6 @@ public class EffectManager : MonoBehaviour
      *****/
     private void AbortEffectGroup()
     {
-        Debug.LogWarning("ABORT EFFECT GROUP");
-
         if (effectSource.TryGetComponent<ActionCardDisplay>(out _))
         {
             string zone;
@@ -468,8 +455,6 @@ public class EffectManager : MonoBehaviour
      *****/
     private void FinishEffectGroup(bool wasAborted = false)
     {
-        Debug.LogWarning("FINISH EFFECT GROUP");
-
         Debug.LogWarning("FinishEffectGroup() WAS_ABORTED = <" + wasAborted + ">");
 
         if (!wasAborted && effectSource.TryGetComponent<ActionCardDisplay>(out _))
@@ -477,7 +462,7 @@ public class EffectManager : MonoBehaviour
             string hero;
             if (effectSource.CompareTag(CardManager.PLAYER_CARD)) hero = GameManager.PLAYER;
             else hero = GameManager.ENEMY;
-            CardManager.Instance.DiscardCard(effectSource, hero);
+            CardManager.Instance.DiscardCard(effectSource, hero, true);
         }
 
         effectGroupList = null;

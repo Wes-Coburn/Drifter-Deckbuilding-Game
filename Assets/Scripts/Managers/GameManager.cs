@@ -75,7 +75,8 @@ public class GameManager : MonoBehaviour
      *****/
     private void StartCombat(Hero enemyHero)
     {
-        AudioManager.Instance.StartStopSound("SFX_StartCombat");
+        AudioManager.Instance.StartStopSound("Soundtrack_Combat1", AudioManager.SoundType.Soundtrack);
+        FunctionTimer.Create(() => AudioManager.Instance.StartStopSound("SFX_StartCombat"), 1f);
 
         enemyManager.EnemyHero = enemyHero;
         cardManager.UpdateDeck(PLAYER);
@@ -133,7 +134,7 @@ public class GameManager : MonoBehaviour
                 AudioManager.Instance.StartStopSound("SFX_ActionRefill");
             }
             // LINEAR ACTION GAIN
-            EventManager.Instance.NewDelayedAction(() => RefillPlayerActions(), 1f);
+            EventManager.Instance.NewDelayedAction(() => RefillPlayerActions(), 0f);
             EventManager.Instance.NewDelayedAction(() => cardManager.DrawCard(PLAYER), 1f);
         }
 

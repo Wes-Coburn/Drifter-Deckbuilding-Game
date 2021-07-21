@@ -49,9 +49,14 @@ MonoBehaviour:
     volume: 0.5
     pitch: 1
     source: {fileID: 0}
-  - name: Soundtrack_GameScene
+  - name: Soundtrack_Combat1
     clip: {fileID: 8300000, guid: 27125866967536445bc7ff154891f139, type: 3}
     volume: 0.3
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_Error
+    clip: {fileID: 8300000, guid: 8926dcfc3f6d1184ab407e843696003c, type: 3}
+    volume: 1
     pitch: 1
     source: {fileID: 0}
   - name: SFX_ButtonClick1
@@ -61,6 +66,21 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: SFX_HeroPowerKili
     clip: {fileID: 8300000, guid: eb97ca14ff340b140a3c381c4c55e343, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_DrawCard
+    clip: {fileID: 8300000, guid: 73ad563366170384ca1ddd81edcea392, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_DiscardCard
+    clip: {fileID: 8300000, guid: 43c04aa0fda48484b89aaa541c7e38ed, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_ShuffleDeck
+    clip: {fileID: 8300000, guid: 316afc38249f0624dac9b73494c8e9e0, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}
@@ -74,13 +94,8 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
-  - name: SFX_DrawCard
-    clip: {fileID: 8300000, guid: 73ad563366170384ca1ddd81edcea392, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: SFX_ShuffleDeck
-    clip: {fileID: 8300000, guid: 316afc38249f0624dac9b73494c8e9e0, type: 3}
+  - name: SFX_EndTurn
+    clip: {fileID: 8300000, guid: c8741b8a7a5f49145a89a3af3c9dadb5, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}
@@ -95,7 +110,7 @@ MonoBehaviour:
     pitch: 1
     source: {fileID: 0}
   - name: SFX_AttackMelee
-    clip: {fileID: 8300000, guid: c0eda1bc636fc244fb391e8c27ee1ae5, type: 3}
+    clip: {fileID: 8300000, guid: 8a946886de2cb0246b97d833312ca999, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}
@@ -131,6 +146,26 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: SFX_LoseShield
     clip: {fileID: 8300000, guid: 9036b94225f246f4c88187285af10797, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_GainStealth
+    clip: {fileID: 8300000, guid: 744373fb05f91cf4fb5397c4b2f07739, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_LoseStealth
+    clip: {fileID: 8300000, guid: 45e0ff3290c51f34588d4787b0f9ac0d, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_StatPlus
+    clip: {fileID: 8300000, guid: 728fd049608b1d440b03ccb9d85b7af4, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_StatMinus
+    clip: {fileID: 8300000, guid: 9489dfa96b84ac04d9eae12a3f4560ad, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}
