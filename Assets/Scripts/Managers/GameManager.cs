@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Hero enemyTestHero; // FOR TESTING ONLY
 
     /* GAME_MANAGER_DATA */
-    public const int STARTING_HEALTH = 15;
+    public const int STARTING_HEALTH = 20;
     public const int STARTING_ACTIONS = 0;
     public const int START_ACTIONS_PER_TURN = 1;
     public const int MAX_ACTIONS_PER_TURN = 5;
@@ -130,6 +130,8 @@ public class GameManager : MonoBehaviour
             // LINEAR ACTION GAIN
             playerManager.PlayerActionsLeft = playerManager.ActionsPerTurn;
             cardManager.DrawCard(PLAYER);
+
+            AudioManager.Instance.StartStopSound("SFX_ActionRefill");
         }
 
         // ENEMY

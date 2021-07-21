@@ -265,6 +265,7 @@ public class CardManager : MonoBehaviour
             Debug.LogError("CARD IS NULL!");
             return null;
         }
+        AudioManager.Instance.StartStopSound("SFX_DrawCard");
         return card;
     }
     public void DrawHand(string player, int handSize)
@@ -284,7 +285,7 @@ public class CardManager : MonoBehaviour
     {
         Debug.Log("SHUFFLE DECK!");
         deck.Shuffle();
-        // Shuffle sounds, animations
+        AudioManager.Instance.StartStopSound("SFX_ShuffleDeck");
     }
 
     /******
@@ -444,6 +445,7 @@ public class CardManager : MonoBehaviour
             {
                 ChangeCardZone(card, PLAYER_ACTION_ZONE);
                 ResolveActionCard(card);
+                AudioManager.Instance.StartStopSound("SFX_PlayAction", AudioManager.SoundType.SFX);
             }
             else
             {
@@ -459,7 +461,19 @@ public class CardManager : MonoBehaviour
             ChangeCardZone(card, ENEMY_ZONE);
 
             if (card.GetComponent<CardDisplay>() is UnitCardDisplay)
+            {
                 TriggerCardAbility(card, "Play");
+                AudioManager.Instance.StartStopSound("SFX_PlayUnit", AudioManager.SoundType.SFX);
+            }
+            else if (card.GetComponent<CardDisplay>() is ActionCardDisplay)
+            {
+                AudioManager.Instance.StartStopSound("SFX_PlayAction", AudioManager.SoundType.SFX);
+            }
+            else
+            {
+                Debug.LogError("CARDDISPLAY TYPE NOT FOUND!");
+                return;
+            }
         }
         else
         {
@@ -533,15 +547,8 @@ public class CardManager : MonoBehaviour
 
         if (defender.CompareTag(ENEMY_CARD) || defender.CompareTag(PLAYER_CARD))
         {
-            if (GetAbility(attacker, "Ranged") == -1)
-            {
+            if (GetAbility(attacker, "Ranged") == -1) 
                 Strike(defender, attacker);
-                // play ranged attack sound
-            }
-            else
-            {
-                // play melee attack sound
-            }
         }
     }
 
@@ -554,6 +561,10 @@ public class CardManager : MonoBehaviour
     {
         int power = GetUnitDisplay(striker).CurrentPower;
         TakeDamage(defender, power);
+
+        if (GetAbility(striker, "Ranged") == -1) 
+            AudioManager.Instance.StartStopSound("SFX_AttackMelee");
+        else AudioManager.Instance.StartStopSound("SFX_AttackRanged");
     }
 
     /******

@@ -46,12 +46,32 @@ MonoBehaviour:
   sounds:
   - name: Soundtrack_MenuScene
     clip: {fileID: 8300000, guid: 27125866967536445bc7ff154891f139, type: 3}
-    volume: 1
+    volume: 0.4
     pitch: 1
     source: {fileID: 0}
   - name: Soundtrack_GameScene
     clip: {fileID: 8300000, guid: 43adf7fc3e8922c49af63d8d33209682, type: 3}
-    volume: 0.5
+    volume: 0.2
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_ButtonClick1
+    clip: {fileID: 8300000, guid: a450edaa20ccbbc419f0442ba67250f2, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_ActionRefill
+    clip: {fileID: 8300000, guid: 728fd049608b1d440b03ccb9d85b7af4, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_DrawCard
+    clip: {fileID: 8300000, guid: 73ad563366170384ca1ddd81edcea392, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_ShuffleDeck
+    clip: {fileID: 8300000, guid: 316afc38249f0624dac9b73494c8e9e0, type: 3}
+    volume: 1
     pitch: 1
     source: {fileID: 0}
   - name: SFX_PlayUnit
@@ -59,8 +79,18 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
-  - name: SFX_Pointer_Click
-    clip: {fileID: 8300000, guid: 4135ee8c87b18fa4797163b5524d8e49, type: 3}
+  - name: SFX_PlayAction
+    clip: {fileID: 8300000, guid: 0229562812cedfe4886b6b9ec561ce38, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_AttackMelee
+    clip: {fileID: 8300000, guid: c0eda1bc636fc244fb391e8c27ee1ae5, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_AttackRanged
+    clip: {fileID: 8300000, guid: c25464401586f944eb0a5e6d779094b0, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}
