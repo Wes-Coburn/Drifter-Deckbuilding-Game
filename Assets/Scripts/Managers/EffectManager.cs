@@ -404,7 +404,12 @@ public class EffectManager : MonoBehaviour
                 CardManager.Instance.AddEffect(target, effect);
             }
         }
-        else Debug.LogError("EFFECT TYPE NOT FOUND!");
+        else
+        {
+            Debug.LogError("EFFECT TYPE NOT FOUND!");
+            return;
+        }
+        AudioManager.Instance.StartStopSound(effectGroupList[currentEffectGroup].EffectGroupSound);
     }
 
     /******

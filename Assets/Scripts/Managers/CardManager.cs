@@ -687,7 +687,6 @@ public class CardManager : MonoBehaviour
         // STAT_CHANGE_EFFECT
         else if (effect is StatChangeEffect sce)
         {
-            // TESTING TESTING TESTING
             StatChangeEffect newSce = ScriptableObject.CreateInstance<StatChangeEffect>();
             newSce.LoadEffect(sce);
             fcd.CurrentEffects.Add(newSce);
@@ -704,7 +703,6 @@ public class CardManager : MonoBehaviour
             Debug.LogError("EFFECT TYPE NOT FOUND!");
             return;
         }
-        AudioManager.Instance.StartStopSound(effect.EffectSound);
     }
 
     /******

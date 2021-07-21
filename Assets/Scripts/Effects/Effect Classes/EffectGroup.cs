@@ -10,4 +10,8 @@ public class EffectGroup : ScriptableObject
     [TextArea]
     [Tooltip("Description of the effects")]
     public string EffectsDescription;
+
+    [Header("EFFECT GROUP SOUND")]
+    [Tooltip("The sound played when this effect group resolves")]
+    public string EffectGroupSound;
 }

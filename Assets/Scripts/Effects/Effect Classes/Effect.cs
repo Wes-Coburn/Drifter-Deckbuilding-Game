@@ -18,10 +18,6 @@ public abstract class Effect : ScriptableObject
     [TextArea]
     public string TargetDescription;
 
-    [Header("Effect Sound")]
-    [Tooltip("The sound played when this effect resolves")]
-    public string EffectSound;
-
     public virtual void LoadEffect(Effect effect)
     {
         IsRequired = effect.IsRequired;
