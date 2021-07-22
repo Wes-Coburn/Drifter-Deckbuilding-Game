@@ -409,7 +409,6 @@ public class EffectManager : MonoBehaviour
             Debug.LogError("EFFECT TYPE NOT FOUND!");
             return;
         }
-        AudioManager.Instance.StartStopSound(effectGroupList[currentEffectGroup].EffectGroupSound);
     }
 
     /******
@@ -426,6 +425,7 @@ public class EffectManager : MonoBehaviour
 
         foreach (EffectGroup eg in effectGroupList)
         {
+            AudioManager.Instance.StartStopSound(eg.EffectGroupSound);
             foreach (Effect effect in eg.Effects)
             {
                 ResolveEffect(acceptedTargets[currentEffectGroup], effect);

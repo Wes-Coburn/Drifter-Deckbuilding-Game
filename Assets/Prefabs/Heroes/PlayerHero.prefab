@@ -28,13 +28,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 291181612}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -140, y: -140, z: 0}
+  m_LocalPosition: {x: -240, y: 130, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4232762507295335843}
   - {fileID: 3293657085920266441}
   m_Father: {fileID: 5292934362312869075}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2943218859410672359
 MonoBehaviour:
@@ -353,12 +353,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4373366777536296366}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 140, y: -140, z: 0}
+  m_LocalPosition: {x: -105, y: -130, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6208066110190857914}
   m_Father: {fileID: 5292934362312869075}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4573380672645534793
 GameObject:
@@ -466,13 +466,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4697018046286746607}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3, y: -140, z: 0}
+  m_LocalPosition: {x: -390, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2859656795214897437}
   - {fileID: 6970443901804922595}
   m_Father: {fileID: 5292934362312869075}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5292934362312869072
 GameObject:
@@ -505,9 +505,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5245409028044283946}
+  - {fileID: 291181613}
   - {fileID: 7936198838667304182}
   - {fileID: 2585756836255760725}
-  - {fileID: 291181613}
   - {fileID: 373914479}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -536,7 +536,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 400, y: 175}
+  m_Size: {x: 350, y: 350}
   m_EdgeRadius: 0
 --- !u!114 &1741124866610311041
 MonoBehaviour:
