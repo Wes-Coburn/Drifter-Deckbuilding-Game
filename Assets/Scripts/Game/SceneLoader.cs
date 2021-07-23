@@ -32,7 +32,7 @@ public static class SceneLoader
             switch (scene)
             {
                 case Scene.MenuScene:
-                    AudioManager.Instance.StartStopSound("Soundtrack_MenuScene", AudioManager.SoundType.Soundtrack);
+                    AudioManager.Instance.StartStopSound("Soundtrack_MenuScene", null, AudioManager.SoundType.Soundtrack);
                     break;
                 case Scene.CombatScene:
                     UIManager.Instance.StartCombatScene();

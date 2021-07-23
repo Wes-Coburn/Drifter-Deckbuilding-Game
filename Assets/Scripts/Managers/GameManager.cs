@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
      *****/
     private void StartCombat(Hero enemyHero)
     {
-        AudioManager.Instance.StartStopSound("Soundtrack_Combat1", AudioManager.SoundType.Soundtrack);
+        AudioManager.Instance.StartStopSound("Soundtrack_Combat1", null, AudioManager.SoundType.Soundtrack);
         FunctionTimer.Create(() => AudioManager.Instance.StartStopSound("SFX_StartCombat"), 1f);
 
         enemyManager.EnemyHero = enemyHero;
@@ -106,12 +106,13 @@ public class GameManager : MonoBehaviour
         if (playerWins)
         {
             Debug.LogWarning("PLAYER WINS!");
-            AudioManager.Instance.StartStopSound(PlayerManager.Instance.PlayerHero.HeroWin);
+            AudioManager.Instance.StartStopSound(null, PlayerManager.Instance.PlayerHero.HeroWin);
         }
         else
         {
             Debug.LogWarning("ENEMY WINS!");
-            AudioManager.Instance.StartStopSound(PlayerManager.Instance.PlayerHero.HeroLose);
+            AudioManager.Instance.StartStopSound(null, PlayerManager.Instance.PlayerHero.HeroLose);
+
         }
     }
 

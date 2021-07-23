@@ -3,7 +3,6 @@
 public class DragDrop : MonoBehaviour
 {
     /* CARD_MANAGER_DATA */
-    private const string PLAYER_CARD = CardManager.PLAYER_CARD;
     private const string ENEMY_CARD = CardManager.ENEMY_CARD;
 
     /* MANAGERS */
@@ -122,7 +121,9 @@ public class DragDrop : MonoBehaviour
         startPosition = transform.position;
         startIndex = transform.GetSiblingIndex();
         gameObject.GetComponent<ChangeLayer>().ZoomLayer();
-        AnimationManager.Instance.RevealedDragState(gameObject);
+
+        if (IsPlayed) AnimationManager.Instance.DragPlayedState(gameObject);
+        else AnimationManager.Instance.RevealedDragState(gameObject);
     }
 
     public void EndDrag()

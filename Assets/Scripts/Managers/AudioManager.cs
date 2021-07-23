@@ -14,18 +14,12 @@ public class AudioManager : MonoBehaviour
         }
         else Destroy(gameObject);
 
-        foreach (Sound sound in sounds)
-        {
-            sound.source = gameObject.AddComponent<AudioSource>();
-            sound.source.clip = sound.clip;
-            sound.source.volume = sound.volume;
-            sound.source.pitch = sound.pitch;
-        }
+        foreach (Sound sound in sounds) AddSoundSource(sound);
     }
 
     private void Start()
     {
-        StartStopSound("Soundtrack_MenuScene", SoundType.Soundtrack);
+        StartStopSound("Soundtrack_MenuScene", null, SoundType.Soundtrack);
     }
 
     public Sound CurrentSoundscape { get; set; }
@@ -38,7 +32,15 @@ public class AudioManager : MonoBehaviour
         Soundtrack
     }
 
-    public void StartStopSound (string name, SoundType soundType = SoundType.SFX, bool isEndSound = false, Sound sound = null)
+    private void AddSoundSource(Sound sound)
+    {
+        sound.source = gameObject.AddComponent<AudioSource>();
+        sound.source.clip = sound.clip;
+        sound.source.volume = sound.volume;
+        sound.source.pitch = sound.pitch;
+    }
+
+    public void StartStopSound (string name, Sound sound = null, SoundType soundType = SoundType.SFX, bool isEndSound = false)
     {
         Sound currentSound;
         if (sound == null)
@@ -50,7 +52,11 @@ public class AudioManager : MonoBehaviour
                 return;
             }
         }
-        else currentSound = sound;
+        else
+        {
+            AddSoundSource(sound);
+            currentSound = sound;
+        }
 
         if (isEndSound)
         {

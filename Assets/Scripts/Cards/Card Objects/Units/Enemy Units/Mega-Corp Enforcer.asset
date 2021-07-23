@@ -21,8 +21,18 @@ MonoBehaviour:
   cardDescription: The Mega-Corp enforcer...
   overController: {fileID: 22100000, guid: 082abef859744a04b885776db870594b, type: 2}
   zoomOverController: {fileID: 22100000, guid: bd8133d5bc7178d43bd56723204cf84a, type: 2}
-  cardPlaySound: SFX_PlayUnitEnforcer
-  unitDeathSound: SFX_UnitDeathScout
+  cardPlaySound:
+    name: 
+    clip: {fileID: 8300000, guid: 65ae5107034c5a1469c2b191e6a916d2, type: 3}
+    volume: 0.8
+    pitch: 1
+    source: {fileID: 0}
+  unitDeathSound:
+    name: 
+    clip: {fileID: 8300000, guid: e822913379ce59b49a61ad1d0c54aad4, type: 3}
+    volume: 0.8
+    pitch: 1
+    source: {fileID: 0}
   power: 2
   defense: 1
   startingAbilities:

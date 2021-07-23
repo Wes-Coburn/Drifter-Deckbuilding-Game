@@ -19,10 +19,35 @@ MonoBehaviour:
   HeroSkills:
   - {fileID: 11400000, guid: b14d7b90f22f51648940e1b9630f745e, type: 2}
   - {fileID: 11400000, guid: a0400ff467e9aae44ba879f21eafa017, type: 2}
-  HeroWin: SFX_HeroWinKili
-  HeroLose: SFX_HeroLoseKili
-  Emote1: SFX_HeroEmote1Kili
-  Emote2: 
-  Emote3: 
+  HeroWin:
+    name: 
+    clip: {fileID: 8300000, guid: 69ce975669cdb274599caa86a00ea416, type: 3}
+    volume: 0.8
+    pitch: 1
+    source: {fileID: 0}
+  HeroLose:
+    name: 
+    clip: {fileID: 8300000, guid: 841174339e5bccb438a0836df75ccec1, type: 3}
+    volume: 0.8
+    pitch: 1
+    source: {fileID: 0}
+  Emote1:
+    name: 
+    clip: {fileID: 8300000, guid: d4202c7ac8aee3b4f8ac8dfe658b87d6, type: 3}
+    volume: 0.8
+    pitch: 1
+    source: {fileID: 0}
+  Emote2:
+    name: 
+    clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    source: {fileID: 0}
+  Emote3:
+    name: 
+    clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    source: {fileID: 0}
   HeroUnits: []
   ReinforcementSchedule: 

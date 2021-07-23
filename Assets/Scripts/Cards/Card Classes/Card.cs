@@ -30,8 +30,9 @@ public abstract class Card : ScriptableObject
     public AnimatorOverrideController ZoomOverController { get => zoomOverController; }
     [SerializeField] private AnimatorOverrideController zoomOverController;
 
-    public string CardPlaySound { get => cardPlaySound; }
-    [SerializeField] private string cardPlaySound;
+    public Sound CardPlaySound { get => cardPlaySound; }
+    [SerializeField] private Sound cardPlaySound;
+
     public virtual void LoadCard(Card card)
     {
         cardArt = card.CardArt;

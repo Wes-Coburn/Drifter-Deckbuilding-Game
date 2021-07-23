@@ -9,8 +9,8 @@ public class UnitCard : Card
     public int MaxDefense { get; set; }
     public bool IsExhausted { get; set; }
 
-    public string UnitDeathSound { get => unitDeathSound; }
-    [SerializeField] private string unitDeathSound;
+    public Sound UnitDeathSound { get => unitDeathSound; }
+    [SerializeField] private Sound unitDeathSound;
 
     public int StartPower { get => power; }
     [SerializeField] private int power;

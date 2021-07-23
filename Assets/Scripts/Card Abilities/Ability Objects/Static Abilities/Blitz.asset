@@ -17,5 +17,15 @@ MonoBehaviour:
   AbilitySprite: {fileID: 21300000, guid: f5b69fe212c42a442a664dc1c4c0e67a, type: 3}
   LinkedAbilites:
   - {fileID: 11400000, guid: da9edd80a7b529542b04b632f79005de, type: 2}
-  GainAbilitySound: SFX_GainBlitz
-  LoseAbilitySound: SFX_LoseBlitz
+  GainAbilitySound:
+    name: 
+    clip: {fileID: 8300000, guid: 77669a6a47263f84ea04f46d913c53a7, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  LoseAbilitySound:
+    name: 
+    clip: {fileID: 8300000, guid: a5c354a88d6c9ac4795cf7eea6aebd5d, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}

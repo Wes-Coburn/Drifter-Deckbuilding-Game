@@ -16,11 +16,11 @@ public class Hero : ScriptableObject
     [Header("HERO SKILLS")]
     public List<SkillCard> HeroSkills;
     [Header("HERO SOUNDS")]
-    public string HeroWin;
-    public string HeroLose;
-    public string Emote1;
-    public string Emote2;
-    public string Emote3;
+    public Sound HeroWin;
+    public Sound HeroLose;
+    public Sound Emote1;
+    public Sound Emote2;
+    public Sound Emote3;
     [Header("HERO UNITS")]
     [Tooltip("Only enemy heroes normally have units")]
     public List<UnitCard> HeroUnits;

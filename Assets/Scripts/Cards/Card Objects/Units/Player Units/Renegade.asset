@@ -21,8 +21,18 @@ MonoBehaviour:
   cardDescription: The Renegade is...
   overController: {fileID: 22100000, guid: d09c16b56c208c1469ace2b881283e1c, type: 2}
   zoomOverController: {fileID: 22100000, guid: dddb7a9b3a7f2504ebf2ca15baed1857, type: 2}
-  cardPlaySound: SFX_PlayUnitRenegade
-  unitDeathSound: SFX_UnitDeathRenegade
+  cardPlaySound:
+    name: 
+    clip: {fileID: 8300000, guid: 82aa462aafd3ef6489d5db3ae21cf69f, type: 3}
+    volume: 0.8
+    pitch: 1
+    source: {fileID: 0}
+  unitDeathSound:
+    name: 
+    clip: {fileID: 8300000, guid: a2687d6bc92ccb049b68af2f31201ed6, type: 3}
+    volume: 0.8
+    pitch: 1
+    source: {fileID: 0}
   power: 2
   defense: 3
   startingAbilities:

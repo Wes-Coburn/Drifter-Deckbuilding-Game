@@ -446,9 +446,9 @@ public class CardManager : MonoBehaviour
         }
         void PlayCardSound()
         {
-            string playSound = card.GetComponent<CardDisplay>().CardScript.CardPlaySound;
+            Sound playSound = card.GetComponent<CardDisplay>().CardScript.CardPlaySound;
             FunctionTimer.Create(() => 
-            AudioManager.Instance.StartStopSound(playSound, AudioManager.SoundType.SFX), 0.2f);
+            AudioManager.Instance.StartStopSound(null, playSound), 0.2f);
         }
         void PlayAbilitySounds()
         {
@@ -458,7 +458,7 @@ public class CardManager : MonoBehaviour
                 if (ca is StaticAbility sa)
                 {
                     FunctionTimer.Create(() => 
-                    AudioManager.Instance.StartStopSound(sa.GainAbilitySound), delay);
+                    AudioManager.Instance.StartStopSound(null, sa.GainAbilitySound), delay);
                 }
                 delay += 0.3f;
             }
@@ -645,8 +645,8 @@ public class CardManager : MonoBehaviour
             if (target == PlayerHero || target == EnemyHero) return false;
             else
             {
-                string deathSound = target.GetComponent<UnitCardDisplay>().UnitCard.UnitDeathSound;
-                AudioManager.Instance.StartStopSound(deathSound);
+                Sound deathSound = target.GetComponent<UnitCardDisplay>().UnitCard.UnitDeathSound;
+                AudioManager.Instance.StartStopSound(null, deathSound);
                 return true;
             }
         }

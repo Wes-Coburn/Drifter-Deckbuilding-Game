@@ -99,8 +99,8 @@ public class PlayerManager : MonoBehaviour
             PlayerActionsLeft -= 1;
             HeroPowerUsed = true;
             EffectManager.Instance.StartEffectGroupList(PlayerHero.HeroPower.EffectGroupList, CardManager.Instance.PlayerHero);
-            AudioManager.Instance.StartStopSound(PlayerHero.HeroPower.PowerSound);
-            AudioManager.Instance.StartStopSound(PlayerHero.Emote1);
+            AudioManager.Instance.StartStopSound(null, PlayerHero.HeroPower.PowerSound);
+            AudioManager.Instance.StartStopSound(null, PlayerHero.Emote1);
         }
     }
 }

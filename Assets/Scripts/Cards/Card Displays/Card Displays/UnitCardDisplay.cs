@@ -155,7 +155,7 @@ public class UnitCardDisplay : CardDisplay
         if (isPlayed)
         {
             if (ca is StaticAbility sa)
-                AudioManager.Instance.StartStopSound(sa.GainAbilitySound);
+                AudioManager.Instance.StartStopSound(null, sa.GainAbilitySound);
         }
 
         if (ca.AbilityName == "Blitz") IsExhausted = false;
@@ -181,7 +181,7 @@ public class UnitCardDisplay : CardDisplay
         CurrentAbilities.RemoveAt(abilityIndex);
 
         if (ca is StaticAbility sa) 
-            AudioManager.Instance.StartStopSound(sa.LoseAbilitySound);
+            AudioManager.Instance.StartStopSound(null, sa.LoseAbilitySound);
     }
 
     /******
