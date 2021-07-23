@@ -38,14 +38,19 @@ public class AudioManager : MonoBehaviour
         Soundtrack
     }
 
-    public void StartStopSound (string name, SoundType soundType = SoundType.SFX, bool isEndSound = false)
+    public void StartStopSound (string name, SoundType soundType = SoundType.SFX, bool isEndSound = false, Sound sound = null)
     {
-        Sound currentSound = Array.Find(sounds, sound => sound.name == name);
-        if (currentSound == null)
+        Sound currentSound;
+        if (sound == null)
         {
-            //Debug.LogWarning("SOUND <" + name + "> NOT FOUND!");
-            return;
+            currentSound = Array.Find(sounds, sound => sound.name == name);
+            if (currentSound == null)
+            {
+                //Debug.LogWarning("SOUND <" + name + "> NOT FOUND!");
+                return;
+            }
         }
+        else currentSound = sound;
 
         if (isEndSound)
         {
