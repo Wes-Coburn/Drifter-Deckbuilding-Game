@@ -42,7 +42,7 @@ public class AudioManager : MonoBehaviour
 
     public void StartStopSound (string name, Sound sound = null, SoundType soundType = SoundType.SFX, bool isEndSound = false)
     {
-        Sound currentSound;
+        Sound currentSound = null;
         if (sound == null)
         {
             currentSound = Array.Find(sounds, sound => sound.name == name);
@@ -54,8 +54,17 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-            AddSoundSource(sound);
-            currentSound = sound;
+            foreach (Sound s in sounds)
+            {
+                if (s == sound) currentSound = s;
+                break;
+            }
+
+            if (currentSound == null)
+            {
+                AddSoundSource(sound);
+                currentSound = sound;
+            }
         }
 
         if (isEndSound)
