@@ -30,14 +30,14 @@ public class PowerZoom : MonoBehaviour
     }
     public void OnPointerEnter()
     {
-        if (CardZoom.ZoomCardIsCentered || DragDrop.CardIsDragging || UIManager.Instance.PlayerIsTargetting) return;
+        if (CardZoom.ZoomCardIsCentered || DragDrop.CardIsDragging) return;
         if (PowerPopup != null) Destroy(PowerPopup);
         isHovering = true;
         CreatePowerPopup();
     }
     public void OnPointerExit()
     {
-        if (CardZoom.ZoomCardIsCentered || DragDrop.CardIsDragging || UIManager.Instance.PlayerIsTargetting) return;
+        if (CardZoom.ZoomCardIsCentered || DragDrop.CardIsDragging) return;
         isHovering = false;
         Destroy(PowerPopup);
     }

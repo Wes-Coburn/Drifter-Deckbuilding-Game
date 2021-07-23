@@ -138,6 +138,12 @@ public class UIManager : MonoBehaviour
      *****/
     public void DestroyZoomObjects()
     {
+        static void DestroyObject(GameObject go)
+        {
+            Destroy(go);
+            go = null;
+        }
+
         SetScreenDimmer(false);
         CardZoom.ZoomCardIsCentered = false;
 
@@ -152,12 +158,6 @@ public class UIManager : MonoBehaviour
         foreach (GameObject go in objectsToDestroy)
         {
             if (go != null) DestroyObject(go);
-        }
-
-        static void DestroyObject(GameObject go)
-        {
-            Destroy(go);
-            go = null;
         }
     }
 

@@ -103,8 +103,16 @@ public class GameManager : MonoBehaviour
     public void EndCombat(bool playerWins)
     {
         // VICTORY or DEFEAT animation
-        if (playerWins) Debug.LogWarning("PLAYER WINS!");
-        else Debug.LogWarning("ENEMY WINS!");
+        if (playerWins)
+        {
+            Debug.LogWarning("PLAYER WINS!");
+            AudioManager.Instance.StartStopSound(PlayerManager.Instance.PlayerHero.HeroWin);
+        }
+        else
+        {
+            Debug.LogWarning("ENEMY WINS!");
+            AudioManager.Instance.StartStopSound(PlayerManager.Instance.PlayerHero.HeroLose);
+        }
     }
 
     /******

@@ -50,7 +50,6 @@ public class EffectManager : MonoBehaviour
      *****/
     public void StartEffectGroupList(List<EffectGroup> groupList, GameObject source)
     {
-        Debug.LogWarning("START GROUP LIST");
         effectGroupList = groupList;
         effectSource = source;
 
@@ -70,8 +69,6 @@ public class EffectManager : MonoBehaviour
      *****/
     private void StartNextEffectGroup(bool isFirstGroup = false)
     {
-        Debug.LogWarning("START NEXT GROUP");
-
         if (!isFirstGroup) currentEffectGroup++;
 
         if (currentEffectGroup < effectGroupList.Count)
@@ -138,6 +135,18 @@ public class EffectManager : MonoBehaviour
      *****/
     private void StartNonTargetEffect(Effect effect)
     {
+        EffectTargets et = effectGroupList[currentEffectGroup].Targets;
+
+        if (effectSource.CompareTag(CardManager.PLAYER_CARD) || effectSource.CompareTag(CardManager.PLAYER_HERO))
+        {
+            if (et.PlayerHero) acceptedTargets[currentEffectGroup].Add(CardManager.Instance.PlayerHero);
+            if (et.EnemyHero) acceptedTargets[currentEffectGroup].Add(CardManager.Instance.EnemyHero);
+        }
+        else if (effectSource.CompareTag(CardManager.ENEMY_CARD) || effectSource.CompareTag(CardManager.ENEMY_HERO))
+        {
+            if (et.EnemyHero) acceptedTargets[currentEffectGroup].Add(CardManager.Instance.PlayerHero);
+            if (et.PlayerHero) acceptedTargets[currentEffectGroup].Add(CardManager.Instance.EnemyHero);
+        }
         ConfirmNonTargetEffect();
     }
 
@@ -209,13 +218,12 @@ public class EffectManager : MonoBehaviour
                 {
                     if (!GetLegalTargets(effect, eg.Targets))
                     {
-                        Debug.LogWarning("NO VALID TARGETS!");
+                        Debug.LogWarning("NO LEGAL TARGETS!");
                         return false;
                     }
                 }
             }
         }
-
         if (isPreCheck) ClearTargets();
         return true;
     }
@@ -231,17 +239,23 @@ public class EffectManager : MonoBehaviour
 
         if (effectSource.CompareTag(CardManager.PLAYER_CARD) || effectSource.CompareTag(CardManager.PLAYER_HERO))
         {
-            Debug.LogWarning("PLAYER TARGETTING!");
             if (targets.PlayerHand) targetZones.Add(CardManager.Instance.PlayerHandCards);
             if (targets.PlayerUnit) targetZones.Add(CardManager.Instance.PlayerZoneCards);
             if (targets.EnemyUnit) targetZones.Add(CardManager.Instance.EnemyZoneCards);
+
+            // TESTING
+            if (targets.PlayerHero) legalTargets[currentEffectGroup].Add(CardManager.Instance.PlayerHero);
+            if (targets.EnemyHero) legalTargets[currentEffectGroup].Add(CardManager.Instance.EnemyHero);
         }
         else
         {
-            Debug.LogWarning("ENEMY TARGETTING!");
             if (targets.PlayerHand) targetZones.Add(CardManager.Instance.EnemyHandCards);
             if (targets.PlayerUnit) targetZones.Add(CardManager.Instance.EnemyZoneCards);
             if (targets.EnemyUnit) targetZones.Add(CardManager.Instance.PlayerZoneCards);
+
+            // TESTING
+            if (targets.EnemyHero) legalTargets[currentEffectGroup].Add(CardManager.Instance.PlayerHero);
+            if (targets.PlayerHero) legalTargets[currentEffectGroup].Add(CardManager.Instance.EnemyHero);
         }
 
         foreach (List<GameObject> zone in targetZones)
@@ -250,7 +264,7 @@ public class EffectManager : MonoBehaviour
         }
 
         if (effect is DrawEffect || effect is GiveNextUnitEffect) return true;
-        if (legalTargets[currentEffect].Count < 1) return false;
+        if (legalTargets[currentEffectGroup].Count < 1) return false;
         if (effect.IsRequired && legalTargets[currentEffectGroup].Count < 
             effectGroupList[currentEffectGroup].Targets.TargetNumber) return false;
         return true;
@@ -274,13 +288,12 @@ public class EffectManager : MonoBehaviour
      * ****** ACCEPT/REJECT_TARGET
      * *****
      *****/
-    private void AcceptEffectTarget(GameObject card)
+    private void AcceptEffectTarget(GameObject target)
     {
-        Debug.LogWarning("ACCEPT EFFECT TARGET");
-
-        acceptedTargets[currentEffectGroup].Add(card);
-        legalTargets[currentEffectGroup].Remove(card);
-        card.GetComponent<CardSelect>().CardOutline.SetActive(false);
+        AudioManager.Instance.StartStopSound("SFX_AcceptTarget");
+        acceptedTargets[currentEffectGroup].Add(target);
+        legalTargets[currentEffectGroup].Remove(target);
+        target.GetComponent<CardSelect>().CardOutline.SetActive(false);
         
         EffectGroup eg = effectGroupList[currentEffectGroup];
         int targetNumber = eg.Targets.TargetNumber;
@@ -289,16 +302,13 @@ public class EffectManager : MonoBehaviour
         {
             int possibleTargets = (legalTargets[currentEffectGroup].Count + 
                 acceptedTargets[currentEffectGroup].Count);
-
             if (possibleTargets < targetNumber && possibleTargets > 0) 
                 targetNumber = possibleTargets;
         }
-
         Debug.LogWarning("ACCEPTED TARGETS: <" + acceptedTargets[currentEffectGroup].Count +
             "> // TARGET NUMBER: <" + targetNumber + ">");
 
         if (acceptedTargets[currentEffectGroup].Count == targetNumber) ConfirmTargetEffect();
-        
         else if (acceptedTargets[currentEffectGroup].Count > targetNumber)
             Debug.LogError("Accepted Targets > Target Number!");
     }
@@ -368,6 +378,7 @@ public class EffectManager : MonoBehaviour
         // DAMAGE
         else if (effect is DamageEffect)
         {
+            Debug.Log("DAMAGE EFFECT TARGETS = " + targets.Count);
             foreach (GameObject target in targets)
             {
                 CardManager.Instance.TakeDamage(target, effect.Value);
@@ -418,8 +429,6 @@ public class EffectManager : MonoBehaviour
      *****/
     private void ResolveEffectGroupList()
     {
-        Debug.LogWarning("RESOLVE GROUP LIST");
-
         currentEffectGroup = 0;
         currentEffect = 0; // Unnecessary
 

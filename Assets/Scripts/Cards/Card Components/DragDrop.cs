@@ -6,9 +6,6 @@ public class DragDrop : MonoBehaviour
     private const string PLAYER_CARD = CardManager.PLAYER_CARD;
     private const string ENEMY_CARD = CardManager.ENEMY_CARD;
 
-    /* GAME_MANAGER_DATA */
-    private const string PLAYER = GameManager.PLAYER;
-
     /* MANAGERS */
     private PlayerManager playerManager;
     private CardManager cardManager;
@@ -100,6 +97,11 @@ public class DragDrop : MonoBehaviour
 
     private void ResetPosition()
     {
+        if (enemy != null) // Unnecessary?
+        {
+            UIManager.Instance.SelectEnemy(enemy, false);
+        }
+
         transform.position = startPosition;
         cardManager.SetCardParent(gameObject, startParent.transform);
         transform.SetSiblingIndex(startIndex);
@@ -140,7 +142,7 @@ public class DragDrop : MonoBehaviour
         }
         else if (isOverEnemy && !gameObject.GetComponent<UnitCardDisplay>().IsExhausted)
         {
-            ResetPosition();
+            ResetPosition(); // NEEDS TO COME BEFORE ATTACK
             cardManager.Attack(gameObject, enemy);
         }
         else

@@ -9,6 +9,9 @@ public class UnitCard : Card
     public int MaxDefense { get; set; }
     public bool IsExhausted { get; set; }
 
+    public string UnitDeathSound { get => unitDeathSound; }
+    [SerializeField] private string unitDeathSound;
+
     public int StartPower { get => power; }
     [SerializeField] private int power;
 
@@ -25,5 +28,6 @@ public class UnitCard : Card
         power = fc.StartPower;
         defense = fc.StartDefense;
         startingAbilities = fc.StartingAbilities;
+        unitDeathSound = fc.UnitDeathSound;
     }
 }

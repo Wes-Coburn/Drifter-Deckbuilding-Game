@@ -54,8 +54,28 @@ MonoBehaviour:
     volume: 0.3
     pitch: 1
     source: {fileID: 0}
+  - name: SFX_HeroPowerKili
+    clip: {fileID: 8300000, guid: ff36974b34ec23442900d8e50752f1c1, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_HeroWinKili
+    clip: {fileID: 8300000, guid: 69ce975669cdb274599caa86a00ea416, type: 3}
+    volume: 0.8
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_HeroLoseKili
+    clip: {fileID: 8300000, guid: 841174339e5bccb438a0836df75ccec1, type: 3}
+    volume: 0.8
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_HeroEmote1Kili
+    clip: {fileID: 8300000, guid: d4202c7ac8aee3b4f8ac8dfe658b87d6, type: 3}
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
   - name: SFX_Error
-    clip: {fileID: 8300000, guid: 8926dcfc3f6d1184ab407e843696003c, type: 3}
+    clip: {fileID: 8300000, guid: 6bbdd5c643a7567498f65892e1d44c09, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}
@@ -64,8 +84,8 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
-  - name: SFX_HeroPowerKili
-    clip: {fileID: 8300000, guid: eb97ca14ff340b140a3c381c4c55e343, type: 3}
+  - name: SFX_AcceptTarget
+    clip: {fileID: 8300000, guid: 0f84285cd46d77d458257286c42ca2f5, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}
@@ -99,18 +119,8 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
-  - name: SFX_PlayUnit
-    clip: {fileID: 8300000, guid: a97a3710fcce72e41bb435320d255cab, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: SFX_PlayAction
-    clip: {fileID: 8300000, guid: 0229562812cedfe4886b6b9ec561ce38, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
   - name: SFX_AttackMelee
-    clip: {fileID: 8300000, guid: 8a946886de2cb0246b97d833312ca999, type: 3}
+    clip: {fileID: 8300000, guid: f8920bf3830a51640a2ba95684b1a38b, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}
@@ -119,13 +129,18 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
+  - name: SFX_DealDamage1
+    clip: {fileID: 8300000, guid: 50a78bb499d888a42a412345077507d1, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
   - name: SFX_GainBlitz
-    clip: {fileID: 8300000, guid: 2f36a13ee96aabd488fd61774ba59019, type: 3}
+    clip: {fileID: 8300000, guid: 77669a6a47263f84ea04f46d913c53a7, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}
   - name: SFX_LoseBlitz
-    clip: {fileID: 8300000, guid: d04739e889d26fa4f8f73833a3abfcef, type: 3}
+    clip: {fileID: 8300000, guid: a5c354a88d6c9ac4795cf7eea6aebd5d, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}
@@ -140,7 +155,7 @@ MonoBehaviour:
     pitch: 1
     source: {fileID: 0}
   - name: SFX_GainShield
-    clip: {fileID: 8300000, guid: 716ea86e40be63848b124ee34b50f41c, type: 3}
+    clip: {fileID: 8300000, guid: 7170331b2f198824ab4e7715d82a2acc, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}
@@ -165,7 +180,37 @@ MonoBehaviour:
     pitch: 1
     source: {fileID: 0}
   - name: SFX_StatMinus
-    clip: {fileID: 8300000, guid: 9489dfa96b84ac04d9eae12a3f4560ad, type: 3}
+    clip: {fileID: 8300000, guid: 48071fe1f7a4872469cda89a144c93c5, type: 3}
     volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_PlayUnitScout
+    clip: {fileID: 8300000, guid: 325f4512896942745a46747bdaae59d1, type: 3}
+    volume: 0.8
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_PlayUnitRenegade
+    clip: {fileID: 8300000, guid: 82aa462aafd3ef6489d5db3ae21cf69f, type: 3}
+    volume: 0.8
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_PlayUnitTrooper
+    clip: {fileID: 8300000, guid: 80943d010a847b049840a9487c18fadc, type: 3}
+    volume: 0.8
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_PlayUnitEnforcer
+    clip: {fileID: 8300000, guid: 65ae5107034c5a1469c2b191e6a916d2, type: 3}
+    volume: 0.8
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_UnitDeathScout
+    clip: {fileID: 8300000, guid: e822913379ce59b49a61ad1d0c54aad4, type: 3}
+    volume: 0.8
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_UnitDeathRenegade
+    clip: {fileID: 8300000, guid: a2687d6bc92ccb049b68af2f31201ed6, type: 3}
+    volume: 0.8
     pitch: 1
     source: {fileID: 0}

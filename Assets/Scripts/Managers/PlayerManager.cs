@@ -84,7 +84,6 @@ public class PlayerManager : MonoBehaviour
     public bool HeroPowerUsed { get; set; }
     public void UseHeroPower()
     {
-        Debug.Log("USE HERO POWER: " + PlayerHero.HeroPower.PowerName);
         if (HeroPowerUsed == true)
         {
             Debug.Log("HERO POWER ALREADY USED THIS TURN!");
@@ -101,6 +100,7 @@ public class PlayerManager : MonoBehaviour
             HeroPowerUsed = true;
             EffectManager.Instance.StartEffectGroupList(PlayerHero.HeroPower.EffectGroupList, CardManager.Instance.PlayerHero);
             AudioManager.Instance.StartStopSound(PlayerHero.HeroPower.PowerSound);
+            AudioManager.Instance.StartStopSound(PlayerHero.Emote1);
         }
     }
 }

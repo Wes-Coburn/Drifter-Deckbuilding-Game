@@ -434,27 +434,36 @@ public class CardManager : MonoBehaviour
     {
         void PlayUnit()
         {
-            AudioManager.Instance.StartStopSound("SFX_PlayUnit", AudioManager.SoundType.SFX);
-            FunctionTimer.Create(() => PlayAbilitySounds(), 0f);
-            FunctionTimer.Create(() => TriggerGiveNextEffect(card), 0.5f);
-            FunctionTimer.Create(() => TriggerCardAbility(card, "Play"), 1f);
+            FunctionTimer.Create(() => PlayCardSound(), 0f);
+            FunctionTimer.Create(() => PlayAbilitySounds(), 0.4f);
+            FunctionTimer.Create(() => TriggerGiveNextEffect(card), 0.4f);
+            FunctionTimer.Create(() => TriggerCardAbility(card, "Play"), 0.8f);
+        }
+        void PlayAction()
+        {
+            FunctionTimer.Create(() => PlayCardSound(), 0f);
+            ResolveActionCard(card);
+        }
+        void PlayCardSound()
+        {
+            string playSound = card.GetComponent<CardDisplay>().CardScript.CardPlaySound;
+            FunctionTimer.Create(() => 
+            AudioManager.Instance.StartStopSound(playSound, AudioManager.SoundType.SFX), 0.2f);
         }
         void PlayAbilitySounds()
         {
+            float delay = 0.3f;
             foreach (CardAbility ca in card.GetComponent<UnitCardDisplay>().CurrentAbilities)
             {
                 if (ca is StaticAbility sa)
                 {
                     FunctionTimer.Create(() => 
-                    AudioManager.Instance.StartStopSound(sa.GainAbilitySound), 0.3f);
+                    AudioManager.Instance.StartStopSound(sa.GainAbilitySound), delay);
                 }
+                delay += 0.3f;
             }
         }
-        void PlayAction()
-        {
-            AudioManager.Instance.StartStopSound("SFX_PlayAction", AudioManager.SoundType.SFX);
-            ResolveActionCard(card);
-        }
+        
 
         // PLAYER
         if (card.CompareTag(PLAYER_CARD))
@@ -593,7 +602,11 @@ public class CardManager : MonoBehaviour
     public void Strike(GameObject striker, GameObject defender)
     {
         int power = GetUnitDisplay(striker).CurrentPower;
-        TakeDamage(defender, power);
+
+        if (TakeDamage(defender, power))
+        {
+            TriggerCardAbility(striker, "Deathblow");
+        }
     }
 
     /******
@@ -601,9 +614,9 @@ public class CardManager : MonoBehaviour
      * ****** TAKE_DAMAGE
      * *****
      *****/
-    public void TakeDamage(GameObject target, int damageValue)
+    public bool TakeDamage(GameObject target, int damageValue)
     {
-        if (damageValue < 1) return;
+        if (damageValue < 1) return false;
         int targetValue;
         int newTargetValue;
         PlayerManager pm = PlayerManager.Instance;
@@ -628,7 +641,16 @@ public class CardManager : MonoBehaviour
             else if (target.CompareTag(ENEMY_CARD)) DestroyCard(target, ENEMY);
             else if (target == PlayerHero) GameManager.Instance.EndCombat(false);
             else if (target == EnemyHero) GameManager.Instance.EndCombat(true);
+
+            if (target == PlayerHero || target == EnemyHero) return false;
+            else
+            {
+                string deathSound = target.GetComponent<UnitCardDisplay>().UnitCard.UnitDeathSound;
+                AudioManager.Instance.StartStopSound(deathSound);
+                return true;
+            }
         }
+        else return false;
     }
 
     /******
