@@ -78,7 +78,8 @@ public class AbilityPopupDisplay : MonoBehaviour
         }
         else
         {
-            Debug.LogError("SCRIPT TYPE NOT FOUND!");
+            if (AbilityScript == null) Debug.LogError("SCRIPT IS NULL!");
+            else Debug.LogError("SCRIPT TYPE NOT FOUND!");
             return;
         }
         AbilityDescription = name + ": " + description;
