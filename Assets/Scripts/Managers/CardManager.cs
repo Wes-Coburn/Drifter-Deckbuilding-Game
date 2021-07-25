@@ -185,7 +185,7 @@ public class CardManager : MonoBehaviour
      * ****** SHOW/HIDE_CARD
      * *****
      *****/
-    private GameObject ShowCard (Card card)
+    public GameObject ShowCard (Card card)
     {
         GameObject go = null;
         if (card is UnitCard) go = unitCardPrefab;
