@@ -22,6 +22,6 @@ public abstract class HeroDisplay : MonoBehaviour
 
     public virtual void DisplayHero()
     {
-        //HeroPortrait = heroScript.HeroPortrait;
+        HeroPortrait = heroScript.HeroPortrait;
     }
 }

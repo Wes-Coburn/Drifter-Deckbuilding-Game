@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Biochemical Elixir
   m_EditorClassIdentifier: 
   PowerName: Biochemical Elixir
-  PowerSprite: {fileID: 21300000, guid: 0e47ead4ba6d26b46b5268e0a5cdec75, type: 3}
-  PowerDescription: Heal an ally 1
-  EffectGroupList: []
+  PowerSprite: {fileID: 21300000, guid: 25f2c3732283300459c625b731ef7c71, type: 3}
+  PowerSounds: []
+  PowerDescription: Give an ally +0/+1
+  EffectGroupList:
+  - {fileID: 11400000, guid: ff9c6aafaaf800a4f96eeaf51553428c, type: 2}

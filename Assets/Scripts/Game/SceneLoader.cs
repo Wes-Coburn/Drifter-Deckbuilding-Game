@@ -8,6 +8,7 @@ public static class SceneLoader
     {
         LoadingScene,
         MenuScene,
+        NewGameScene,
         CombatScene
     }
 
@@ -33,6 +34,9 @@ public static class SceneLoader
             {
                 case Scene.MenuScene:
                     AudioManager.Instance.StartStopSound("Soundtrack_MenuScene", null, AudioManager.SoundType.Soundtrack);
+                    break;
+                case Scene.NewGameScene:
+                    // blank
                     break;
                 case Scene.CombatScene:
                     UIManager.Instance.StartCombatScene();

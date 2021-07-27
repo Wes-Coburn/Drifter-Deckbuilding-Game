@@ -9,9 +9,6 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     private const string ENEMY_HAND = CardManager.ENEMY_HAND;
     private const string ENEMY_ZONE = CardManager.ENEMY_ZONE;
 
-    /* CHANGE_LAYER_DATA */
-    private const string ZOOM_LAYER = "Zoom";
-
     /* ZOOMCARD_DATA */
     private const int   ZOOM_Z_AXIS        =  -4;
     private const float ZOOM_BUFFER        =  350;
@@ -33,7 +30,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     [SerializeField] private GameObject descriptionPopupPrefab;
 
     /* ZONES */
-    private GameObject background;
+    private GameObject worldSpace;
     private GameObject playerHand;
     private GameObject playerZone;
     private GameObject enemyHand;
@@ -56,7 +53,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     public void Awake()
     {
         UIManager = UIManager.Instance;
-        background = GameObject.Find("Background");
+        worldSpace = GameObject.Find(CardManager.WORLD_SPACE);
         playerHand = GameObject.Find(PLAYER_HAND);
         playerZone = GameObject.Find(PLAYER_ZONE);
         enemyHand = GameObject.Find(ENEMY_HAND);
@@ -78,7 +75,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         UIManager.SetScreenDimmer(true);
         ZoomCardIsCentered = true;
 
-        CreateZoomCard(new Vector3(0, 50), CENTER_SCALE_VALUE);
+        CreateZoomCard(new Vector2(0, 50), CENTER_SCALE_VALUE);
         
         if (cardDisplay is UnitCardDisplay)
         {
@@ -94,7 +91,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
      *****/
     public void OnPointerEnter()
     {
-        if (DragDrop.CardIsDragging || ZoomCardIsCentered) return;
+        if (DragDrop.CardIsDragging || ZoomCardIsCentered || UIManager.Instance.PlayerIsTargetting) return;
 
         float yPos;
         RectTransform rect;
@@ -116,7 +113,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         }
         else return;
         Vector3 vec3 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        CreateZoomCard(new Vector3(vec3.x, yPos), ZOOM_SCALE_VALUE);
+        CreateZoomCard(new Vector2(vec3.x, yPos), ZOOM_SCALE_VALUE);
     }
 
     /******
@@ -161,7 +158,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
             Debug.LogError("CARD DISPLAY TYPE NOT FOUND!");
             return;
         }
-        CurrentZoomCard = CreateZoomObject(cardPrefab, new Vector3(vec2.x, vec2.y), background.transform, scaleValue);
+        CurrentZoomCard = CreateZoomObject(cardPrefab, new Vector3(vec2.x, vec2.y), worldSpace.transform, scaleValue);
         CurrentZoomCard.GetComponent<CardDisplay>().DisplayZoomCard(gameObject);
     }
 
@@ -187,7 +184,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
      *****/
     private void CreateDescriptionPopup(Vector2 vec2, float scaleValue)
     {
-        DescriptionPopup = CreateZoomObject(descriptionPopupPrefab, new Vector3(vec2.x, vec2.y), background.transform, scaleValue);
+        DescriptionPopup = CreateZoomObject(descriptionPopupPrefab, new Vector3(vec2.x, vec2.y), worldSpace.transform, scaleValue);
         DescriptionPopup.GetComponent<DescriptionPopupDisplay>().DisplayDescriptionPopup(cardDisplay.CardScript.CardDescription);
     }
 
@@ -198,7 +195,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
      *****/
     private void CreateAbilityPopups(Vector2 vec2, float scaleValue)
     {
-        AbilityPopupBox = CreateZoomObject(abilityPopupBoxPrefab, new Vector3(vec2.x, vec2.y), background.transform, scaleValue);
+        AbilityPopupBox = CreateZoomObject(abilityPopupBoxPrefab, new Vector3(vec2.x, vec2.y), worldSpace.transform, scaleValue);
 
         UnitCardDisplay ucd = cardDisplay as UnitCardDisplay;
         foreach (CardAbility ca in ucd.CurrentAbilities)

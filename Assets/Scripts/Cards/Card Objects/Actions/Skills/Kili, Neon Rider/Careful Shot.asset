@@ -18,9 +18,15 @@ MonoBehaviour:
   cardName: Careful Shot
   cardType: Action
   cardSubType: Skill
-  cardDescription: Careful Shot...
+  cardDescription: Careful Shot is...
   overController: {fileID: 0}
   zoomOverController: {fileID: 0}
+  cardPlaySound:
+    name: 
+    clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    source: {fileID: 0}
   effectDescription: Give an ally +1/+0 and Ranged this turn
   effectGroupList:
   - {fileID: 11400000, guid: e924cd726381fbb46aeace3a2e4b9128, type: 2}

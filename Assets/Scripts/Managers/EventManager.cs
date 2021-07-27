@@ -20,16 +20,17 @@ public class EventManager : MonoBehaviour
         DelayedAction.CurrentAction = 0;
     }
 
-    private class DelayedAction
+    public class DelayedAction
     {
         public Action Action;
         public float Delay;
         public static int CurrentAction;
     }
 
+    public List<DelayedAction> DelayedActions { get => delayedActions; }
     private List<DelayedAction> delayedActions;
     
-    public void NewDelayedAction(Action action, float delay)
+    public DelayedAction NewDelayedAction(Action action, float delay)
     {
         DelayedAction da = new DelayedAction
         {
@@ -38,15 +39,14 @@ public class EventManager : MonoBehaviour
         };
         delayedActions.Add(da);
         if (delayedActions.Count == 1) NextDelayedAction();
+        return da;
     }
 
     private void NextDelayedAction()
     {
         //Debug.Log("ACTION # " + DelayedAction.CurrentAction + " / " + delayedActions.Count);
         if (DelayedAction.CurrentAction < delayedActions.Count)
-        {
             StartCoroutine(ActionNumerator());
-        }
         else
         {
             delayedActions.Clear();

@@ -18,9 +18,15 @@ MonoBehaviour:
   cardName: Weapons Upgrade
   cardType: Action
   cardSubType: Skill
-  cardDescription: Weapons upgrade...
+  cardDescription: Weapons upgrade is...
   overController: {fileID: 0}
   zoomOverController: {fileID: 0}
+  cardPlaySound:
+    name: 
+    clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    source: {fileID: 0}
   effectDescription: Give an ally +2/+1
   effectGroupList:
   - {fileID: 11400000, guid: 4617fd83bf40fed4ab47d84b55713254, type: 2}

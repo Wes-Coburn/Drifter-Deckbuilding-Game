@@ -15,8 +15,8 @@ public class GameManager : MonoBehaviour
     }
 
     /* TEST_HEROES */
-    [SerializeField] private Hero playerTestHero; // FOR TESTING ONLY
-    [SerializeField] private Hero enemyTestHero; // FOR TESTING ONLY
+    [SerializeField] private PlayerHero playerTestHero; // FOR TESTING ONLY
+    [SerializeField] private EnemyHero enemyTestHero; // FOR TESTING ONLY
 
     /* GAME_MANAGER_DATA */
     public const int STARTING_ACTIONS = 0;
@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
      *****/
     public void NewGame()
     {
-        PlayerManager.Instance.PlayerHero = playerTestHero; // FOR TESTING ONLY
+        //PlayerManager.Instance.PlayerHero = playerTestHero; // FOR TESTING ONLY
         StartCombat(enemyTestHero); // FOR TESTING ONLY
     }
 
@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
      * ****** START/END_COMBAT
      * *****
      *****/
-    private void StartCombat(Hero enemyHero)
+    private void StartCombat(EnemyHero enemyHero)
     {
         AudioManager.Instance.StartStopSound("Soundtrack_Combat1", null, AudioManager.SoundType.Soundtrack);
         FunctionTimer.Create(() => AudioManager.Instance.StartStopSound("SFX_StartCombat"), 1f);

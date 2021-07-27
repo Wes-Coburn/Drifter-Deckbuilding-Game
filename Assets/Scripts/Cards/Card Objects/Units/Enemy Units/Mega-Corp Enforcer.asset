@@ -18,12 +18,13 @@ MonoBehaviour:
   cardName: Mega-Corp Enforcer
   cardType: Warrior
   cardSubType: 
-  cardDescription: The Mega-Corp enforcer...
+  cardDescription: The Mega-Corp Trooper is the lowest ranking soldier in the corporate
+    army...
   overController: {fileID: 22100000, guid: 082abef859744a04b885776db870594b, type: 2}
   zoomOverController: {fileID: 22100000, guid: bd8133d5bc7178d43bd56723204cf84a, type: 2}
   cardPlaySound:
     name: 
-    clip: {fileID: 8300000, guid: 65ae5107034c5a1469c2b191e6a916d2, type: 3}
+    clip: {fileID: 8300000, guid: 80943d010a847b049840a9487c18fadc, type: 3}
     volume: 0.8
     pitch: 1
     source: {fileID: 0}
@@ -34,7 +35,6 @@ MonoBehaviour:
     pitch: 1
     source: {fileID: 0}
   power: 2
-  defense: 1
+  defense: 4
   startingAbilities:
-  - {fileID: 11400000, guid: 3e5874c35dad2f34d96f6d4b9d15a4dd, type: 2}
-  - {fileID: 11400000, guid: ea3240d3d6b88204c8166979a836ea6e, type: 2}
+  - {fileID: 11400000, guid: fdf322a6ecc336e41b78897135d56d0d, type: 2}

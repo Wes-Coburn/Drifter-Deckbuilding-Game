@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44c307312f791a64788051778519ac70, type: 3}
-  m_Name: Play_Deal1_EF1
+  m_Name: Play_Mark_EU1
   m_EditorClassIdentifier: 
-  AbilityName: 'Play: Deal 1 to an enemy unit'
-  AbilityDescription: Deal 1 to an enemy unit
+  AbilityName: 'Play: Mark an enemy'
+  AbilityDescription: Mark an enemy unit
   AbilitySprite: {fileID: 0}
-  LinkedAbilites: []
+  LinkedAbilites:
+  - {fileID: 11400000, guid: 67b65f6bf1f93db43afb76d61b1435b2, type: 2}
   AbilityTrigger: {fileID: 11400000, guid: c74c9ac6a33f86347a6ac56840c5c7cc, type: 2}
   EffectGroupList:
   - {fileID: 11400000, guid: dbdec723e07d1bb409809d8053c199a5, type: 2}

@@ -19,7 +19,7 @@ public class UIManager : MonoBehaviour
     }
         
     /* GAME ZONES */
-    public GameObject CurrentBackground { get; set; }
+    public GameObject CurrentWorldSpace { get; set; }
     public GameObject CurrentCanvas { get; set; }
 
     /* HEALTH */
@@ -51,7 +51,7 @@ public class UIManager : MonoBehaviour
 
     public void Start()
     {
-        CurrentBackground = GameObject.Find("Background");
+        CurrentWorldSpace = GameObject.Find("WorldSpace");
         CurrentCanvas = GameObject.Find("Canvas");
         PlayerIsTargetting = false;
     }
@@ -175,7 +175,7 @@ public class UIManager : MonoBehaviour
         }
         if (screenIsDimmed)
         {
-            screenDimmer = Instantiate(screenDimmerPrefab, new Vector3(0, 0, -3), Quaternion.identity, CurrentBackground.transform);
+            screenDimmer = Instantiate(screenDimmerPrefab, new Vector3(0, 0, -3), Quaternion.identity, CurrentWorldSpace.transform);
         }
     }
 
@@ -187,7 +187,7 @@ public class UIManager : MonoBehaviour
     public void CreateInfoPopup(string message)
     {
         DestroyInfoPopup();
-        infoPopup = Instantiate(infoPopupPrefab, new Vector2(680, 0), Quaternion.identity, CurrentBackground.transform);
+        infoPopup = Instantiate(infoPopupPrefab, new Vector2(680, 0), Quaternion.identity, CurrentWorldSpace.transform);
         infoPopup.GetComponent<InfoPopupDisplay>().DisplayInfoPopup(message);
     }
 

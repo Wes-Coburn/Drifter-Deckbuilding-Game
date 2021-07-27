@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PlayerHeroDisplay : HeroDisplay
 {
+    public PlayerHero PlayerHero { get => HeroScript as PlayerHero; }
+
     public Sprite PowerImage
     {
         set => powerImage.GetComponent<SpriteRenderer>().sprite = value;
@@ -11,6 +13,6 @@ public class PlayerHeroDisplay : HeroDisplay
     public override void DisplayHero()
     {
         base.DisplayHero();
-        PowerImage = HeroScript.HeroPower.PowerSprite;
+        PowerImage = PlayerHero.HeroPower.PowerSprite;
     }
 }

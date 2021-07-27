@@ -17,7 +17,7 @@ public class CardManager : MonoBehaviour
 
     /* CARD_MANAGER_DATA */
     public const int CARD_Z_POSITION = -2;
-    public const string BACKGROUND = "Background";
+    public const string WORLD_SPACE = "WorldSpace";
     public const string PLAYER_CARD = "PlayerCard";
     public const string ENEMY_CARD = "EnemyCard";
     public const string PLAYER_ACTION_ZONE = "PlayerActionZone";
@@ -537,6 +537,8 @@ public class CardManager : MonoBehaviour
      *****/
     public void DestroyCard(GameObject card, string hero)
     {
+        TriggerCardAbility(card, "Revenge");
+
         if (hero == PLAYER)
         {
             ChangeCardZone(card, PLAYER_DISCARD);
@@ -858,6 +860,7 @@ public class CardManager : MonoBehaviour
             {
                 if (tra.AbilityTrigger.AbilityName == triggerName)
                 {
+                    Debug.Log("ABILITY TRIGGERED: " + triggerName);
                     EffectManager.Instance.StartEffectGroupList(tra.EffectGroupList, card);
                 }
             }

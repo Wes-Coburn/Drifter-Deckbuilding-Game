@@ -42,7 +42,7 @@ public class EffectManager : MonoBehaviour
         private set => giveNextEffects = value;
     }
     private List<GiveNextUnitEffect> giveNextEffects;
-
+    
     /******
      * *****
      * ****** START_EFFECT_GROUP_LIST
@@ -141,11 +141,39 @@ public class EffectManager : MonoBehaviour
         {
             if (et.PlayerHero) acceptedTargets[currentEffectGroup].Add(CardManager.Instance.PlayerHero);
             if (et.EnemyHero) acceptedTargets[currentEffectGroup].Add(CardManager.Instance.EnemyHero);
+
+            if (et.TargetsAll)
+            {
+                if (et.PlayerUnit)
+                {
+                    foreach (GameObject card in CardManager.Instance.PlayerZoneCards)
+                        acceptedTargets[currentEffectGroup].Add(card);
+                }
+                if (et.EnemyUnit)
+                {
+                    foreach (GameObject card in CardManager.Instance.EnemyZoneCards)
+                        acceptedTargets[currentEffectGroup].Add(card);
+                }
+            }
         }
         else if (effectSource.CompareTag(CardManager.ENEMY_CARD) || effectSource.CompareTag(CardManager.ENEMY_HERO))
         {
             if (et.EnemyHero) acceptedTargets[currentEffectGroup].Add(CardManager.Instance.PlayerHero);
             if (et.PlayerHero) acceptedTargets[currentEffectGroup].Add(CardManager.Instance.EnemyHero);
+
+            if (et.TargetsAll)
+            {
+                if (et.PlayerUnit)
+                {
+                    foreach (GameObject card in CardManager.Instance.EnemyZoneCards)
+                        acceptedTargets[currentEffectGroup].Add(card);
+                }
+                if (et.EnemyUnit)
+                {
+                    foreach (GameObject card in CardManager.Instance.PlayerZoneCards)
+                        acceptedTargets[currentEffectGroup].Add(card);
+                }
+            }
         }
         ConfirmNonTargetEffect();
     }

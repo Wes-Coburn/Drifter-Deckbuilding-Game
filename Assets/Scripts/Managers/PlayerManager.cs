@@ -23,7 +23,7 @@ public class PlayerManager : MonoBehaviour
     }
 
     /* PLAYER_HERO */
-    public Hero PlayerHero
+    public PlayerHero PlayerHero
     {
         get => playerHero;
         set
@@ -43,7 +43,7 @@ public class PlayerManager : MonoBehaviour
             }
         }
     }
-    private Hero playerHero;
+    private PlayerHero playerHero;
 
     /* PLAYER_DECK */
     public List<Card> PlayerDeckList { get; private set; }
@@ -99,8 +99,9 @@ public class PlayerManager : MonoBehaviour
             PlayerActionsLeft -= 1;
             HeroPowerUsed = true;
             EffectManager.Instance.StartEffectGroupList(PlayerHero.HeroPower.EffectGroupList, CardManager.Instance.PlayerHero);
-            AudioManager.Instance.StartStopSound(null, PlayerHero.HeroPower.PowerSound);
-            AudioManager.Instance.StartStopSound(null, PlayerHero.Emote1);
+            
+            foreach (Sound s in PlayerHero.HeroPower.PowerSounds)
+                AudioManager.Instance.StartStopSound(null, s);
         }
     }
 }

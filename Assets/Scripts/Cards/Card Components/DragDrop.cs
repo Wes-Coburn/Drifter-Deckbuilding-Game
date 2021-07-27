@@ -52,7 +52,7 @@ public class DragDrop : MonoBehaviour
         {
             Vector3 dragPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             transform.position = new Vector3(dragPoint.x, dragPoint.y, -2);
-            transform.SetParent(UIManager.Instance.CurrentBackground.transform, true);
+            transform.SetParent(UIManager.Instance.CurrentWorldSpace.transform, true);
         }
     }
 

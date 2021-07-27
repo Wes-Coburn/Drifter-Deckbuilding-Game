@@ -45,7 +45,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillCard_1: {fileID: 0}
   skillCard_2: {fileID: 0}
-  selected_Hero_Portrait: {fileID: 0}
-  hero_Kili: {fileID: 11400000, guid: 2de3c75baa7d5f54fbe6c020c04073e9, type: 2}
-  hero_Shaydra: {fileID: 11400000, guid: a24d59d756babcb4a83bb4308ecc4501, type: 2}
-  hero_Fentis: {fileID: 11400000, guid: 76764665189980440999b757af606c0a, type: 2}
+  hero_Portrait: {fileID: 0}
+  hero_Description: {fileID: 0}
+  playerHeroes:
+  - {fileID: 11400000, guid: 2de3c75baa7d5f54fbe6c020c04073e9, type: 2}
+  - {fileID: 11400000, guid: 7ec381d799404eb4abf4d674191a948b, type: 2}
+  - {fileID: 11400000, guid: 14df74eab3a27eb4397e917831e0abb1, type: 2}
