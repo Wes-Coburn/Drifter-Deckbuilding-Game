@@ -29,17 +29,16 @@ public class PlayerManager : MonoBehaviour
         set
         {
             playerHero = value;
+            CardManager cm = CardManager.Instance;
             for (int i = 0; i < GameManager.PLAYER_START_FOLLOWERS; i++)
             {
-                CardManager.Instance.AddCard(CardManager.Instance.StartPlayerUnit_1, GameManager.PLAYER);
-                CardManager.Instance.AddCard(CardManager.Instance.StartPlayerUnit_2, GameManager.PLAYER);
+                foreach (UnitCard uc in cm.PlayerStartUnits)
+                    cm.AddCard(uc, GameManager.PLAYER);
             }
             foreach (SkillCard skill in PlayerHero.HeroSkills)
             {
                 for (int i = 0; i < GameManager.PLAYER_START_SKILLS; i++)
-                {
-                    CardManager.Instance.AddCard(skill, GameManager.PLAYER);
-                }
+                    cm.AddCard(skill, GameManager.PLAYER);
             }
         }
     }
@@ -84,22 +83,25 @@ public class PlayerManager : MonoBehaviour
     public bool HeroPowerUsed { get; set; }
     public void UseHeroPower()
     {
-        if (HeroPowerUsed == true)
+        if (UIManager.Instance.PlayerIsTargetting) return;
+        else if (HeroPowerUsed == true)
         {
             Debug.Log("HERO POWER ALREADY USED THIS TURN!");
+            // Create fleeting info popup
             return;
         }
-        else if (PlayerActionsLeft < 1)
+        else if (PlayerActionsLeft < playerHero.HeroPower.PowerCost)
         {
             Debug.Log("NOT ENOUGH ACTIONS!");
+            // Create fleeting info popup
             return;
         }
         else
         {
-            PlayerActionsLeft -= 1;
+            PlayerActionsLeft -= playerHero.HeroPower.PowerCost;
             HeroPowerUsed = true;
             EffectManager.Instance.StartEffectGroupList(PlayerHero.HeroPower.EffectGroupList, CardManager.Instance.PlayerHero);
-            
+
             foreach (Sound s in PlayerHero.HeroPower.PowerSounds)
                 AudioManager.Instance.StartStopSound(null, s);
         }

@@ -50,7 +50,7 @@ public class PowerZoom : MonoBehaviour
 
         PowerPopup = Instantiate(powerPopupPrefab, spawnPoint, Quaternion.identity);
         PowerPopup.transform.localScale = new Vector2(2.5f, 2.5f);
-
-        PowerPopup.GetComponent<PowerPopupDisplay>().PowerScript = gameObject.GetComponentInParent<PlayerHeroDisplay>().PlayerHero.HeroPower;
+        PowerPopup.GetComponent<PowerPopupDisplay>().PowerScript = 
+            gameObject.GetComponentInParent<PlayerHeroDisplay>().PlayerHero.HeroPower;
     }
 }

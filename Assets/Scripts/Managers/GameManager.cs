@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     public const string PLAYER = "Player";
     public const int PLAYER_STARTING_HEALTH = 15;
     public const int PLAYER_HAND_SIZE = 4;
-    public const int PLAYER_START_FOLLOWERS = 6;
+    public const int PLAYER_START_FOLLOWERS = 3;
     public const int PLAYER_START_SKILLS = 2;
 
     public const string ENEMY = "Enemy";

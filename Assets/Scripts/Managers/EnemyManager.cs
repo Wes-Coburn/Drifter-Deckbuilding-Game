@@ -19,9 +19,6 @@ public class EnemyManager : MonoBehaviour
         EnemyDeckList = new List<Card>();
         CurrentEnemyDeck = new List<Card>();
         ReinforcementSchedule = new List<int>();
-
-        cardMan = CardManager.Instance;
-        eveMan = EventManager.Instance;
     }
 
     CardManager cardMan;
@@ -75,6 +72,9 @@ public class EnemyManager : MonoBehaviour
      *****/
     public void StartEnemyTurn()
     {
+        cardMan = CardManager.Instance;
+        eveMan = EventManager.Instance;
+
         int refo = CurrentReinforcements;
         List<int> refoSched = ReinforcementSchedule;
 
@@ -107,8 +107,9 @@ public class EnemyManager : MonoBehaviour
 
         void CMAttack(GameObject enemyUnit)
         {
-            UnitCardDisplay ucd = enemyUnit.GetComponent<UnitCardDisplay>();
-            if (ucd.CurrentDefense > 0 && cardMan.PlayerZoneCards.Count > 0)
+            bool isPlayed = cardMan.EnemyZoneCards.Contains(enemyUnit);
+            if (!isPlayed) return;
+            if (cardMan.PlayerZoneCards.Count > 0)
                 cardMan.Attack(enemyUnit, cardMan.PlayerZoneCards[0]);
             else cardMan.Attack(enemyUnit, cardMan.PlayerHero);
         }

@@ -6,6 +6,8 @@ public class HeroPower : ScriptableObject
 {
     [Header("POWER NAME")]
     public string PowerName;
+    [Header("POWER COST")]
+    public int PowerCost;
     [Header("POWER IMAGE")]
     public Sprite PowerSprite;
     [Header("POWER SOUND")]

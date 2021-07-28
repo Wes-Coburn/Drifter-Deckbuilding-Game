@@ -30,7 +30,14 @@ public class PowerPopupDisplay : MonoBehaviour
     private void DisplayHeroPower()
     {
         PowerSprite = PowerScript.PowerSprite;
-        string description = PowerScript.PowerName + " (1 Action, 1/Turn): " + PowerScript.PowerDescription;
+
+        int cost = powerScript.PowerCost;
+        string actions;
+        if (cost > 1) actions = "actions";
+        else actions = "action";
+
+        string description = PowerScript.PowerName + 
+            " (" + cost + " " + actions + ", 1/Turn): " + PowerScript.PowerDescription;
         PowerDescription = description;
     }
 }

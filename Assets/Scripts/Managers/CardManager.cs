@@ -66,19 +66,8 @@ public class CardManager : MonoBehaviour
     [SerializeField] private GameObject actionCardPrefab;
 
     /* CARD_SCRIPTS */
-    public Card StartPlayerUnit_1
-    {
-        get => startUnit1;
-        set => startUnit1 = value;
-    }
-    [Header("STARTING PLAYER UNITS")]
-    [SerializeField] private Card startUnit1;
-    public Card StartPlayerUnit_2
-    {
-        get => startUnit2;
-        set => startUnit2 = value;
-    }
-    [SerializeField] private Card startUnit2;
+    public UnitCard[] PlayerStartUnits { get => playerStartUnits; }
+    [SerializeField] private UnitCard[] playerStartUnits;
 
     /* CARD BACK SPRITE */
     public Sprite CardBackSprite
@@ -334,10 +323,23 @@ public class CardManager : MonoBehaviour
 
     /******
      * *****
-     * ****** SET_CARD_PARENT
+     * ****** GET_ABILITY
      * *****
      *****/
-    public static int GetAbility(GameObject card, string ability)
+    public static bool GetAbility(GameObject card, string ability)
+    {
+        UnitCardDisplay fcd = card.GetComponent<UnitCardDisplay>();
+        int abilityIndex = fcd.CurrentAbilities.FindIndex(x => x.AbilityName == ability);
+        if (abilityIndex == -1) return false;
+        else return true;
+    }
+
+    /******
+     * *****
+     * ****** GET_ABILITY_INDEX
+     * *****
+     *****/
+    public static int GetAbilityIndex(GameObject card, string ability)
     {
         UnitCardDisplay fcd = card.GetComponent<UnitCardDisplay>();
         int abilityIndex = fcd.CurrentAbilities.FindIndex(x => x.AbilityName == ability);
@@ -587,11 +589,11 @@ public class CardManager : MonoBehaviour
 
         if (defender.CompareTag(ENEMY_CARD) || defender.CompareTag(PLAYER_CARD))
         {
-            if (GetAbility(attacker, "Ranged") == -1) 
+            if (!GetAbility(attacker, "Ranged")) 
                 Strike(defender, attacker);
         }
 
-        if (GetAbility(attacker, "Ranged") == -1)
+        if (!GetAbility(attacker, "Ranged"))
             AudioManager.Instance.StartStopSound("SFX_AttackMelee");
         else AudioManager.Instance.StartStopSound("SFX_AttackRanged");
     }
@@ -627,14 +629,21 @@ public class CardManager : MonoBehaviour
         if (target == PlayerHero) targetValue = pm.PlayerHealth;
         else if (target == EnemyHero) targetValue = em.EnemyHealth;
         else targetValue = GetUnitDisplay(target).CurrentDefense;
-
         newTargetValue = targetValue - damageValue;
         if (target == PlayerHero) pm.PlayerHealth = newTargetValue;
         else if (target == EnemyHero) em.EnemyHealth = newTargetValue;
-        else
+        else // Damage to Units
         {
-            GetUnitDisplay(target).CurrentDefense = newTargetValue;
-            AnimationManager.Instance.ModifyDefenseState(target);
+            if (GetAbility(target, "Shield"))
+            {
+                target.GetComponent<UnitCardDisplay>().RemoveCurrentAbility(null, "Shield");
+                return false;
+            }
+            else
+            {
+                GetUnitDisplay(target).CurrentDefense = newTargetValue;
+                AnimationManager.Instance.ModifyDefenseState(target);
+            }
         }
 
         if (newTargetValue < 1)

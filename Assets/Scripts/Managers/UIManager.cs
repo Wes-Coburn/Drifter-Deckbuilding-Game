@@ -97,13 +97,9 @@ public class UIManager : MonoBehaviour
         if (enabled) selectedEnemy = enemy;
 
         if (enemy.TryGetComponent<CardSelect>(out CardSelect cs))
-        {
             cs.CardOutline.SetActive(enabled);
-        }
         else if (enemy.TryGetComponent<HeroSelect>(out HeroSelect chs))
-        {
             chs.TargetIcon.SetActive(enabled);
-        }
         else
         {
             Debug.LogError("TARGET SELECT SCRIPT NOT FOUND!");
@@ -175,7 +171,9 @@ public class UIManager : MonoBehaviour
         }
         if (screenIsDimmed)
         {
-            screenDimmer = Instantiate(screenDimmerPrefab, new Vector3(0, 0, -3), Quaternion.identity, CurrentWorldSpace.transform);
+            GameObject prefab = screenDimmerPrefab;
+            GameObject parent = CurrentWorldSpace;
+            screenDimmer = Instantiate(prefab, new Vector3(0, 0, -3), Quaternion.identity, parent.transform);
         }
     }
 

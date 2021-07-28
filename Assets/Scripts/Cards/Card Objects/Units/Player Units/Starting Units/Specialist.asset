@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 120ae26cc4846f34db63edca720772b3, type: 3}
+  m_Name: Specialist
+  m_EditorClassIdentifier: 
+  cardArt: {fileID: 21300000, guid: 47433de6b9fd2e5499dd8e39949ee427, type: 3}
+  cardBorder: {fileID: 21300000, guid: 743e735f744cf494c9f9081b4ba9303f, type: 3}
+  actionCost: 2
+  cardName: Specialist
+  cardType: Engineer
+  cardSubType: 
+  cardDescription: The Specialist is...
+  overController: {fileID: 22100000, guid: d09c16b56c208c1469ace2b881283e1c, type: 2}
+  zoomOverController: {fileID: 22100000, guid: dddb7a9b3a7f2504ebf2ca15baed1857, type: 2}
+  cardPlaySound:
+    name: 
+    clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    source: {fileID: 0}
+  unitDeathSound:
+    name: 
+    clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    source: {fileID: 0}
+  power: 2
+  defense: 1
+  startingAbilities:
+  - {fileID: 11400000, guid: 44eb684e5e3c70e4f830456effa3f6b6, type: 2}

@@ -121,7 +121,7 @@ public class UnitCardDisplay : CardDisplay
     {
         if (played)
         {
-            if (CardManager.GetAbility(gameObject, "Blitz") != -1) IsExhausted = false;
+            if (CardManager.GetAbility(gameObject, "Blitz")) IsExhausted = false;
             else IsExhausted = true;
         }
         else
@@ -144,7 +144,7 @@ public class UnitCardDisplay : CardDisplay
      *****/
     public bool AddCurrentAbility(CardAbility ca, bool isPlayed = false)
     {
-        if (CardManager.GetAbility(gameObject, ca.AbilityName) != -1)
+        if (CardManager.GetAbility(gameObject, ca.AbilityName))
         {
             Debug.LogWarning("ABILITY ALREADY EXISTS: <" + ca.ToString() + ">");
             return false;
@@ -167,15 +167,19 @@ public class UnitCardDisplay : CardDisplay
      * ****** REMOVE_CURRENT_ABILITY
      * *****
      *****/
-    public void RemoveCurrentAbility(CardAbility ca)
+    public void RemoveCurrentAbility(CardAbility ca, string caString = null)
     {
-        int abilityIndex = CardManager.GetAbility(gameObject, ca.AbilityName);
+        string abilityName;
+        if (caString != null) abilityName = caString;
+        else abilityName = ca.AbilityName;
+
+        int abilityIndex = CardManager.GetAbilityIndex(gameObject, abilityName);
         if (abilityIndex == -1)
         {
-            Debug.LogError("ABILITY NOT FOUND: <" + ca.ToString() + ">");
+            Debug.LogError("ABILITY NOT FOUND!");
             return;
         }
-        else Debug.Log("ABILITY REMOVED: <" + ca.ToString() + ">");
+        else Debug.Log("ABILITY REMOVED!");
         Destroy(AbilityIcons[abilityIndex]);
         AbilityIcons.RemoveAt(abilityIndex);
         CurrentAbilities.RemoveAt(abilityIndex);

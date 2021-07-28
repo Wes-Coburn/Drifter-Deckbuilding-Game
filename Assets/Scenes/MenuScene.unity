@@ -941,6 +941,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 986900921, guid: f349a13ec4969bc43bd2f853c21c912d, type: 3}
+      propertyPath: m_Name
+      value: ExitButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427227695, guid: f349a13ec4969bc43bd2f853c21c912d, type: 3}
+      propertyPath: m_Name
+      value: UI_Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427227696, guid: f349a13ec4969bc43bd2f853c21c912d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427227696, guid: f349a13ec4969bc43bd2f853c21c912d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427227696, guid: f349a13ec4969bc43bd2f853c21c912d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427227696, guid: f349a13ec4969bc43bd2f853c21c912d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1427227699, guid: f349a13ec4969bc43bd2f853c21c912d, type: 3}
       propertyPath: m_Camera
       value: 
@@ -1457,30 +1481,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 172547843}
     m_Modifications:
-    - target: {fileID: 660070873, guid: ce36a7ba8ab729447a4c86e30cf9ce8a, type: 3}
-      propertyPath: sounds.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 660070873, guid: ce36a7ba8ab729447a4c86e30cf9ce8a, type: 3}
-      propertyPath: sounds2.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 660070873, guid: ce36a7ba8ab729447a4c86e30cf9ce8a, type: 3}
-      propertyPath: sounds2.Array.data[0].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: a450edaa20ccbbc419f0442ba67250f2, type: 3}
-    - target: {fileID: 660070873, guid: ce36a7ba8ab729447a4c86e30cf9ce8a, type: 3}
-      propertyPath: sounds2.Array.data[0].name
-      value: SFX_ButtonClick1
-      objectReference: {fileID: 0}
-    - target: {fileID: 660070873, guid: ce36a7ba8ab729447a4c86e30cf9ce8a, type: 3}
-      propertyPath: sounds2.Array.data[0].pitch
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 660070873, guid: ce36a7ba8ab729447a4c86e30cf9ce8a, type: 3}
-      propertyPath: sounds2.Array.data[0].volume
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8505909306396083594, guid: ce36a7ba8ab729447a4c86e30cf9ce8a,
         type: 3}
       propertyPath: m_Pivot.x
