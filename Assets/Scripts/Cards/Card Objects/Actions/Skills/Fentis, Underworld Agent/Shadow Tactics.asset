@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: befaa541343256949b44a33f6e1a5f50, type: 3}
+  m_Name: Shadow Tactics
+  m_EditorClassIdentifier: 
+  cardArt: {fileID: 21300000, guid: 7ba424149c8a9e94baa701706fdefe08, type: 3}
+  cardBorder: {fileID: 21300000, guid: da4d9c0ce8b0a5744aac584cd2e675b1, type: 3}
+  actionCost: 2
+  cardName: Shadow Tactics
+  cardType: Action
+  cardSubType: Skill
+  cardDescription: Give an ally Shield and Stealth
+  overController: {fileID: 0}
+  zoomOverController: {fileID: 0}
+  cardPlaySound:
+    name: 
+    clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    source: {fileID: 0}
+  effectDescription: Give an ally Shield and Stealth
+  effectGroupList:
+  - {fileID: 11400000, guid: aec0026e271cfe84d9e70d4e412cac55, type: 2}

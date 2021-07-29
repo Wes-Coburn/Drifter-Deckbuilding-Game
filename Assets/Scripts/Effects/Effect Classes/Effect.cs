@@ -8,6 +8,7 @@ public abstract class Effect : ScriptableObject
     [Tooltip("The value of the effect (1-10)")]
     [Range(1, 10)]
     public int Value;
+    public bool IsNegative;
 
     [Tooltip("The number of turns the effect lasts, 0 for permanent")]
     [Range(0, 5)]
@@ -22,6 +23,7 @@ public abstract class Effect : ScriptableObject
     {
         IsRequired = effect.IsRequired;
         Value = effect.Value;
+        IsNegative = effect.IsNegative;
         Countdown = effect.Countdown;
         TargetDescription = effect.TargetDescription;
     }

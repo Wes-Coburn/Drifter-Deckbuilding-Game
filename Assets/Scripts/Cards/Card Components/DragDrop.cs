@@ -141,7 +141,7 @@ public class DragDrop : MonoBehaviour
             }
             else ResetPosition();
         }
-        else if (isOverEnemy && !gameObject.GetComponent<UnitCardDisplay>().IsExhausted)
+        else if (isOverEnemy && cardManager.CanAttack(gameObject, enemy))
         {
             ResetPosition(); // NEEDS TO COME BEFORE ATTACK
             cardManager.Attack(gameObject, enemy);

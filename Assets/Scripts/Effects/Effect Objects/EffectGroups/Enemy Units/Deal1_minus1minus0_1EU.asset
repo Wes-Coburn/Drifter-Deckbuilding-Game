@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a22d7123f6ee007468cbdc6e9b6fe2b0, type: 3}
+  m_Name: Deal1_minus1minus0_1EU
+  m_EditorClassIdentifier: 
+  Targets: {fileID: 11400000, guid: 878f131356ce5eb4dade11e2fe3691eb, type: 2}
+  Effects:
+  - {fileID: 11400000, guid: 4d3f33925dcfef44588efad39d21b2f3, type: 2}
+  - {fileID: 11400000, guid: 0cfb6eefc70b8f444bc1600f28c45a0b, type: 2}
+  EffectsDescription: Deal to an enemy and give it -1/-0 until your next turn
+  EffectGroupSound: 

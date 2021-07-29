@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fentis, Underworld Agent
   m_EditorClassIdentifier: 
   HeroName: Fentis, Underworld Agent
-  HeroPortrait: {fileID: 21300000, guid: 6e6ba03ced6f1cd4face4fe583133f6b, type: 3}
+  HeroPortrait: {fileID: 21300000, guid: 49b1bb6488f4cec49a92b808400b5c3a, type: 3}
   HeroDescription: Fentis, the Underworld Agent is...
   HeroWin:
     name: 
@@ -27,5 +27,7 @@ MonoBehaviour:
     volume: 0
     pitch: 0
     source: {fileID: 0}
-  HeroPower: {fileID: 0}
-  HeroSkills: []
+  HeroPower: {fileID: 11400000, guid: 5b55828862e034244817521d89529ba9, type: 2}
+  HeroSkills:
+  - {fileID: 11400000, guid: f7c13c69accabb0419771d8ba657e4f7, type: 2}
+  - {fileID: 11400000, guid: 2dd34371ad1300b4b8562e9c9647e8a0, type: 2}

@@ -11,8 +11,6 @@ public class SelectHeroButton : MonoBehaviour
             return;
         }
         gameObject.GetComponent<SoundPlayer>().PlaySound(0);
-        PlayerHero ph = NewGameSceneDisplay.GetComponent<NewGameSceneDisplay>().SelectedHero;
-        PlayerManager.Instance.PlayerHero = ph;
-        SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);
+        NewGameSceneDisplay.GetComponent<NewGameSceneDisplay>().ConfirmSelection();
     }
 }

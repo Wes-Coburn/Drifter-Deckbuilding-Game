@@ -539,6 +539,7 @@ public class CardManager : MonoBehaviour
      *****/
     public void DestroyCard(GameObject card, string hero)
     {
+        if (GetAbility(card, "Marked")) CardManager.Instance.DrawCard(PLAYER);
         TriggerCardAbility(card, "Revenge");
 
         if (hero == PLAYER)
@@ -582,10 +583,25 @@ public class CardManager : MonoBehaviour
      * ****** ATTACK
      * *****
      *****/
+    public bool CanAttack(GameObject attacker, GameObject defender)
+    {
+        if (GetUnitDisplay(attacker).IsExhausted) return false;
+        if (defender != PlayerHero && defender != EnemyHero)
+            if (GetAbility(defender, "Stealth")) return false;
+        return true;
+    }
+
+    /******
+     * *****
+     * ****** ATTACK
+     * *****
+     *****/
     public void Attack(GameObject attacker, GameObject defender)
     {
         Strike(attacker, defender);
         attacker.GetComponent<UnitCardDisplay>().IsExhausted = true;
+        if (GetAbility(attacker, "Stealth"))
+            attacker.GetComponent<UnitCardDisplay>().RemoveCurrentAbility(null, "Stealth");
 
         if (defender.CompareTag(ENEMY_CARD) || defender.CompareTag(PLAYER_CARD))
         {
@@ -724,12 +740,15 @@ public class CardManager : MonoBehaviour
             newSce.LoadEffect(sce);
             fcd.CurrentEffects.Add(newSce);
 
+            int statChange = sce.Value;
+            if (sce.IsNegative) statChange = -statChange;
+
             if (sce.IsDefenseChange)
             {
-                fcd.MaxDefense += sce.Value;
-                fcd.CurrentDefense += sce.Value;
+                fcd.MaxDefense += statChange;
+                fcd.CurrentDefense += statChange;
             }
-            else fcd.CurrentPower += sce.Value;
+            else fcd.CurrentPower += statChange;
         }
         else
         {
@@ -770,12 +789,15 @@ public class CardManager : MonoBehaviour
                     // STAT_CHANGE_EFFECT
                     else if (effect is StatChangeEffect sce)
                     {
+                        int statChange = sce.Value;
+                        if (sce.IsNegative) statChange = -statChange;
+
                         if (sce.IsDefenseChange)
                         {
-                            fcd.CurrentDefense -= sce.Value;
-                            fcd.MaxDefense -= sce.Value;
+                            fcd.CurrentDefense -= statChange;
+                            fcd.MaxDefense -= statChange;
                         }
-                        else fcd.CurrentPower -= sce.Value;
+                        else fcd.CurrentPower -= statChange;
                     }
                     expiredEffects.Add(effect);
                 }

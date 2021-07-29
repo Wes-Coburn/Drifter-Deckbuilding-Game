@@ -44,6 +44,13 @@ public class PlayerManager : MonoBehaviour
     }
     private PlayerHero playerHero;
 
+    public List<HeroAugment> HeroAugments
+    {
+        get => heroAugments;
+        set => heroAugments = value;
+    }
+    private List<HeroAugment> heroAugments;
+
     /* PLAYER_DECK */
     public List<Card> PlayerDeckList { get; private set; }
     public List<Card> CurrentPlayerDeck { get; private set; }
@@ -98,9 +105,15 @@ public class PlayerManager : MonoBehaviour
         }
         else
         {
+            EffectManager em = EffectManager.Instance;
+            CardManager cm = CardManager.Instance;
+            List<EffectGroup> groupList = PlayerHero.HeroPower.EffectGroupList;
+
+            if (!em.CheckLegalTargets(groupList, cm.PlayerHero, true)) return;
+            em.StartEffectGroupList(groupList, cm.PlayerHero);
+
             PlayerActionsLeft -= playerHero.HeroPower.PowerCost;
             HeroPowerUsed = true;
-            EffectManager.Instance.StartEffectGroupList(PlayerHero.HeroPower.EffectGroupList, CardManager.Instance.PlayerHero);
 
             foreach (Sound s in PlayerHero.HeroPower.PowerSounds)
                 AudioManager.Instance.StartStopSound(null, s);

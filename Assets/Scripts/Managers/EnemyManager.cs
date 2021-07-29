@@ -98,7 +98,7 @@ public class EnemyManager : MonoBehaviour
             foreach (GameObject enemyUnit in cardMan.EnemyZoneCards)
             {
                 UnitCardDisplay ucd = enemyUnit.GetComponent<UnitCardDisplay>();
-                if (!ucd.IsExhausted)
+                if (!ucd.IsExhausted && ucd.CurrentPower > 0)
                     eveMan.NewDelayedAction(() => CMAttack(enemyUnit), 1f);
             }
             // END TURN
@@ -110,8 +110,17 @@ public class EnemyManager : MonoBehaviour
             bool isPlayed = cardMan.EnemyZoneCards.Contains(enemyUnit);
             if (!isPlayed) return;
             if (cardMan.PlayerZoneCards.Count > 0)
-                cardMan.Attack(enemyUnit, cardMan.PlayerZoneCards[0]);
-            else cardMan.Attack(enemyUnit, cardMan.PlayerHero);
+            {
+                foreach (GameObject playerUnit in cardMan.PlayerZoneCards)
+                {
+                    if (!CardManager.GetAbility(playerUnit, "Stealth"))
+                    {
+                        cardMan.Attack(enemyUnit, playerUnit);
+                        return;
+                    }
+                }
+            }
+            cardMan.Attack(enemyUnit, cardMan.PlayerHero);
         }
     }
 }

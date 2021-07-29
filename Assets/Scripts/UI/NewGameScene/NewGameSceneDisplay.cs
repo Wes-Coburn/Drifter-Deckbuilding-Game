@@ -4,47 +4,102 @@ using TMPro;
 
 public class NewGameSceneDisplay : MonoBehaviour
 {
+    [SerializeField] private GameObject selectedHero;
     [SerializeField] private GameObject skillCard_1;
     [SerializeField] private GameObject skillCard_2;
     [SerializeField] private GameObject heroPortrait;
     [SerializeField] private GameObject heroDescription;
+    [SerializeField] private GameObject heroPowerImage;
+    [SerializeField] private GameObject heroPowerDescription;
+
+    [SerializeField] private GameObject selectedAugment;
+    [SerializeField] private GameObject augmentImage;
+    [SerializeField] private GameObject augmentDescription;
 
     private GameObject currentSkill_1;
     private GameObject currentSkill_2;
 
     [SerializeField] private PlayerHero[] playerHeroes;
-    private int selectedHero;
-    public PlayerHero SelectedHero { get => playerHeroes[selectedHero]; }
+    [SerializeField] private HeroAugment[] heroAugments;
+    private int currentSelection;
+    private bool heroSelected;
+    public PlayerHero SelectedHero { get => playerHeroes[currentSelection]; }
+    public HeroAugment SelectedAugment { get => heroAugments[currentSelection]; }
 
     private void Start()
     {
-        selectedHero = 0;
+        currentSelection = 0;
+        heroSelected = false;
         DisplaySelectedHero();
     }
 
-    public void NextHeroRight() => SelectNextHero(RightOrLeft.Right);
-    public void NextHeroLeft() => SelectNextHero(RightOrLeft.Left);
-
-    public enum RightOrLeft { Right, Left }
-    private void SelectNextHero(RightOrLeft rol)
+    public void SelectRightArrow() => NextSelection(RightOrLeft.Right);
+    public void SelectLeftArrow() => NextSelection(RightOrLeft.Left);
+    public void ConfirmSelection()
     {
-        int lastHero = playerHeroes.Length - 1;
-        if (rol == RightOrLeft.Right)
+        PlayerManager pm = PlayerManager.Instance;
+        if (!heroSelected)
         {
-            if (++selectedHero > lastHero) selectedHero = 0;
+            PlayerHero ph = SelectedHero;
+            pm.PlayerHero = ph;
+            heroSelected = true;
+            currentSelection = 0;
+            DisplaySelectedAugment();
         }
         else
         {
-            if (--selectedHero < 0) selectedHero = lastHero;
+            HeroAugment ha = SelectedAugment;
+            pm.HeroAugments.Add(ha);
+            SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);
         }
-        DisplaySelectedHero();
     }
+
+    public enum RightOrLeft { Right, Left }
+    private void NextSelection(RightOrLeft rol)
+    {
+        int lastSelection;
+        if (!heroSelected) lastSelection = playerHeroes.Length - 1;
+        else lastSelection = heroAugments.Length - 1;
+        if (rol == RightOrLeft.Right)
+        {
+            if (++currentSelection > lastSelection) currentSelection = 0;
+        }
+        else
+        {
+            if (--currentSelection < 0) currentSelection = lastSelection;
+        }
+        if (!heroSelected) DisplaySelectedHero();
+        else DisplaySelectedAugment();
+    }
+
+    private void DisplaySelectedAugment()
+    {
+        selectedAugment.SetActive(true);
+        selectedHero.SetActive(false);
+        skillCard_1.SetActive(false);
+        skillCard_2.SetActive(false);
+
+        augmentImage.GetComponent<Image>().sprite = SelectedAugment.AugmentImage;
+        augmentDescription.GetComponent<TextMeshProUGUI>().SetText(SelectedAugment.AugmentDescription);
+    }
+
     private void DisplaySelectedHero()
     {
+        selectedHero.SetActive(true);
+        selectedAugment.SetActive(false);
+
         heroPortrait.GetComponent<Image>().sprite = SelectedHero.HeroPortrait;
         heroDescription.GetComponent<TextMeshProUGUI>().SetText(SelectedHero.HeroDescription);
+        heroPowerImage.GetComponent<SpriteRenderer>().sprite = SelectedHero.HeroPower.PowerSprite;
 
-        if (selectedHero > 1) return; // FOR TESTING ONLY
+        int cost = SelectedHero.HeroPower.PowerCost;
+        string actions;
+        if (cost > 1) actions = "actions";
+        else actions = "action";
+        string description = " (" + cost + " " + actions + ", 1/turn): ";
+
+        heroPowerDescription.GetComponent<TextMeshPro>().SetText(SelectedHero.HeroPower.PowerName +
+            description + SelectedHero.HeroPower.PowerDescription);
 
         if (currentSkill_1 != null)
         {

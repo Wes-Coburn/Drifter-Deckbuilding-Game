@@ -144,7 +144,8 @@ public class UnitCardDisplay : CardDisplay
      *****/
     public bool AddCurrentAbility(CardAbility ca, bool isPlayed = false)
     {
-        if (CardManager.GetAbility(gameObject, ca.AbilityName))
+        if (ca is StaticAbility &&
+            CardManager.GetAbility(gameObject, ca.AbilityName))
         {
             Debug.LogWarning("ABILITY ALREADY EXISTS: <" + ca.ToString() + ">");
             return false;

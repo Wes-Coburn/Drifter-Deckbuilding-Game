@@ -43,11 +43,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 026ad851d25a41246b8b8ae0a3e22c1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectedHero: {fileID: 0}
   skillCard_1: {fileID: 0}
   skillCard_2: {fileID: 0}
-  hero_Portrait: {fileID: 0}
-  hero_Description: {fileID: 0}
+  heroPortrait: {fileID: 0}
+  heroDescription: {fileID: 0}
+  heroPowerImage: {fileID: 0}
+  heroPowerDescription: {fileID: 0}
+  selectedAugment: {fileID: 0}
+  augmentImage: {fileID: 0}
+  augmentDescription: {fileID: 0}
   playerHeroes:
   - {fileID: 11400000, guid: 2de3c75baa7d5f54fbe6c020c04073e9, type: 2}
   - {fileID: 11400000, guid: 7ec381d799404eb4abf4d674191a948b, type: 2}
   - {fileID: 11400000, guid: 14df74eab3a27eb4397e917831e0abb1, type: 2}
+  heroAugments: []
