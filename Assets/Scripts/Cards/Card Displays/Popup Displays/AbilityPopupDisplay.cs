@@ -74,7 +74,22 @@ public class AbilityPopupDisplay : MonoBehaviour
             {
                 name = trigger.AbilityName;
                 description = "Does something when " + trigger.AbilityDescription;
-            }   
+            }
+        }
+        else if (abilityScript is AbilityTrigger at)
+        {
+            AbilitySprite = at.AbilitySprite;
+
+            if (isAbilityZoom)
+            {
+                AbilityDescription = AbilityScript.AbilityName;
+                return;
+            }
+            else
+            {
+                name = at.AbilityName;
+                description = "Does something when " + at.AbilityDescription;
+            }
         }
         else
         {

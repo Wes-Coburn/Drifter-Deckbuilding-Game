@@ -428,7 +428,7 @@ public class EffectManager : MonoBehaviour
             }
         }
         // HEALING
-        else if (effect is HealingEffect)
+        else if (effect is HealEffect)
         {
             foreach (GameObject target in targets)
             {

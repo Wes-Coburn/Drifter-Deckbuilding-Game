@@ -4,19 +4,25 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Action Card", menuName = "Cards/Action")]
 public class ActionCard : Card
 {
+    [TextArea] [SerializeField] private string effectDescription;
+    [SerializeField] private List<EffectGroup> effectGroupList;
+    [SerializeField] private List<CardAbility> linkedAbilities;
+
     public string EffectDescription
     {
         get => effectDescription;
         set => effectDescription = value;
     }
-    [TextArea]
-    [SerializeField] private string effectDescription;
     public List<EffectGroup> EffectGroupList
     {
         get => effectGroupList;
         set => effectGroupList = value;
     }
-    [SerializeField] private List<EffectGroup> effectGroupList;
+    public List<CardAbility> LinkedAbilities
+    {
+        get => linkedAbilities;
+        set => linkedAbilities = value;
+    }
 
     public override void LoadCard(Card card)
     {
@@ -24,5 +30,6 @@ public class ActionCard : Card
         ActionCard ac = card as ActionCard;
         effectDescription = ac.EffectDescription;
         effectGroupList = ac.EffectGroupList;
+        linkedAbilities = ac.LinkedAbilities;
     }
 }

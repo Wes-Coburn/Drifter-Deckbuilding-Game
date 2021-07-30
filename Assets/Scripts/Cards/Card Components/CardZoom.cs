@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class CardZoom : MonoBehaviour, IPointerClickHandler
@@ -10,11 +11,12 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     private const string ENEMY_ZONE = CardManager.ENEMY_ZONE;
 
     /* ZOOMCARD_DATA */
-    private const int   ZOOM_Z_VALUE       =  -4;
-    private const float ZOOM_BUFFER        =  350;
-    private const float ZOOM_SCALE_VALUE   =  4;
-    private const float CENTER_SCALE_VALUE =  6;
-    private const float POPUP_SCALE_VALUE  =  3;
+    private const int   ZOOM_Z_VALUE                =  -4;
+    private const float ZOOM_BUFFER                 =  350;
+    private const float ZOOM_SCALE_VALUE            =  4;
+    private const float CENTER_SCALE_VALUE          =  6;
+    private const float POPUP_SCALE_VALUE           =  3;
+    private const float SMALL_POPUP_SCALE_VALUE     =  2;
 
     /* MANAGERS */
     private UIManager UIManager;
@@ -71,18 +73,13 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         if (pointerEventData.button != PointerEventData.InputButton.Right) return;
         if (transform.parent.gameObject == enemyHand) return; // HIDE THE ENEMY HAND
         if (DragDrop.CardIsDragging || ZoomCardIsCentered) return;
-
         
         ZoomCardIsCentered = true;
         UIManager.SetScreenDimmer(true);
 
         CreateZoomCard(new Vector2(0, 50), CENTER_SCALE_VALUE);
-        
-        if (cardDisplay is UnitCardDisplay)
-        {
-            CreateDescriptionPopup(new Vector2(-590, 0), POPUP_SCALE_VALUE);
-            CreateAbilityPopups(new Vector2(590, 0), POPUP_SCALE_VALUE);
-        }
+        CreateDescriptionPopup(new Vector2(-590, 0), POPUP_SCALE_VALUE);
+        CreateAbilityPopups(new Vector2(590, 0), POPUP_SCALE_VALUE);
     }
 
     /******
@@ -94,27 +91,31 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     {
         if (DragDrop.CardIsDragging || ZoomCardIsCentered || UIManager.Instance.PlayerIsTargetting) return;
 
-        float yPos;
+        float cardYPos;
+        float popupXPos;
+
         RectTransform rect;
         if (transform.parent.gameObject == playerHand)
         {
             rect = playerHand.GetComponent<RectTransform>();
-            yPos = rect.position.y + ZOOM_BUFFER;
+            cardYPos = rect.position.y + ZOOM_BUFFER;
         }
         else if (transform.parent.gameObject == playerZone)
         {
             rect = playerZone.GetComponent<RectTransform>();
-            yPos = rect.position.y + ZOOM_BUFFER;
+            cardYPos = rect.position.y + ZOOM_BUFFER;
         }
         else if (transform.parent.gameObject == enemyHand) return; // HIDE THE ENEMY HAND
         else if (transform.parent.gameObject == enemyZone)
         {
             rect = enemyZone.GetComponent<RectTransform>();
-            yPos = (int)rect.position.y - ZOOM_BUFFER;
+            cardYPos = (int)rect.position.y - ZOOM_BUFFER;
         }
         else return;
         Vector3 vec3 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        CreateZoomCard(new Vector2(vec3.x, yPos), ZOOM_SCALE_VALUE);
+        popupXPos = vec3.x + 400;
+        CreateZoomCard(new Vector2(vec3.x, cardYPos), ZOOM_SCALE_VALUE);
+        CreateAbilityPopups(new Vector2(popupXPos, cardYPos), SMALL_POPUP_SCALE_VALUE);
     }
 
     /******
@@ -150,7 +151,17 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
      *****/
     private void CreateZoomCard(Vector2 vec2, float scaleValue)
     {
-        if (CurrentZoomCard != null) Destroy(CurrentZoomCard);
+        if (CurrentZoomCard != null)
+        {
+            Destroy(CurrentZoomCard);
+            CurrentZoomCard = null;
+        }
+        if (AbilityPopupBox != null)
+        {
+            Destroy(AbilityPopupBox);
+            AbilityPopupBox = null;
+        }
+
         GameObject cardPrefab;
         if (gameObject.GetComponent<CardDisplay>() is UnitCardDisplay) cardPrefab = followerZoomCard;
         else if (gameObject.GetComponent<CardDisplay>() is ActionCardDisplay) cardPrefab = actionZoomCard;
@@ -196,10 +207,22 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
      *****/
     private void CreateAbilityPopups(Vector2 vec2, float scaleValue)
     {
-        AbilityPopupBox = CreateZoomObject(abilityPopupBoxPrefab, new Vector3(vec2.x, vec2.y), worldSpace.transform, scaleValue);
+        AbilityPopupBox = CreateZoomObject(abilityPopupBoxPrefab, 
+            new Vector3(vec2.x, vec2.y), worldSpace.transform, scaleValue);
 
-        UnitCardDisplay ucd = cardDisplay as UnitCardDisplay;
-        foreach (CardAbility ca in ucd.CurrentAbilities)
+        List<CardAbility> abilityList;
+        if (cardDisplay is UnitCardDisplay ucd)
+            abilityList = ucd.CurrentAbilities;
+        else if (cardDisplay is ActionCardDisplay acd)
+            abilityList = acd.ActionCard.LinkedAbilities;
+        else
+        {
+            if (cardDisplay == null) Debug.LogError("DISPLAY IS NULL!");
+            else Debug.LogError("DISPLAY TYPE NOT FOUND!");
+            return;
+        }
+
+        foreach (CardAbility ca in abilityList)
         {
             GameObject abilityPopup = Instantiate(abilityPopupPrefab, AbilityPopupBox.transform);
             abilityPopup.GetComponent<AbilityPopupDisplay>().AbilityScript = ca;

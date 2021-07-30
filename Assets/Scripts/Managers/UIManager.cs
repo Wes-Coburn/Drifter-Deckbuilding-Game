@@ -145,9 +145,9 @@ public class UIManager : MonoBehaviour
 
         List<GameObject> objectsToDestroy = new List<GameObject>
         {
+            CardZoom.CurrentZoomCard,
             CardZoom.DescriptionPopup,
             CardZoom.AbilityPopupBox,
-            CardZoom.CurrentZoomCard,
             AbilityZoom.AbilityPopup
         };
 
