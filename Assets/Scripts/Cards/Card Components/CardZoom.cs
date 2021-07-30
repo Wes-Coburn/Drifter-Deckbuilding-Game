@@ -113,7 +113,8 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         }
         else return;
         Vector3 vec3 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        popupXPos = vec3.x + 400;
+        if (vec3.x > 0) popupXPos = vec3.x + 400;
+        else popupXPos = vec3.x - 400;
         CreateZoomCard(new Vector2(vec3.x, cardYPos), ZOOM_SCALE_VALUE);
         CreateAbilityPopups(new Vector2(popupXPos, cardYPos), SMALL_POPUP_SCALE_VALUE);
     }
