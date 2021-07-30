@@ -9,13 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3018fea1b5ec92c4f941c7a6a9dd49d7, type: 3}
-  m_Name: GiveNext_Blitz_1turn
+  m_Script: {fileID: 11500000, guid: 64bbb3283eff66646a1722eef8a565b3, type: 3}
+  m_Name: ChgDef_plus2
   m_EditorClassIdentifier: 
   IsRequired: 0
-  Value: 1
+  Value: 2
   IsNegative: 0
-  Countdown: 1
+  Countdown: 0
   TargetDescription: 
-  Effects:
-  - {fileID: 11400000, guid: 1a141f4c3e5f88b4a816eaf2d14867b7, type: 2}
+  IsDefenseChange: 1

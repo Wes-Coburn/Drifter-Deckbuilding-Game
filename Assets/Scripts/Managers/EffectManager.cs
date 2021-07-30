@@ -422,7 +422,6 @@ public class EffectManager : MonoBehaviour
         // DAMAGE
         else if (effect is DamageEffect)
         {
-            Debug.Log("DAMAGE EFFECT TARGETS = " + targets.Count);
             foreach (GameObject target in targets)
             {
                 CardManager.Instance.TakeDamage(target, effect.Value);
@@ -431,7 +430,10 @@ public class EffectManager : MonoBehaviour
         // HEALING
         else if (effect is HealingEffect)
         {
-
+            foreach (GameObject target in targets)
+            {
+                CardManager.Instance.HealDamage(target, effect.Value);
+            }
         }
         // MARK
         else if (effect is MarkEffect)

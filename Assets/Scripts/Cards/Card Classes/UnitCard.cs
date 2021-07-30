@@ -13,9 +13,11 @@ public class UnitCard : Card
     [SerializeField] private Sound unitDeathSound;
 
     public int StartPower { get => power; }
+    [Header("POWER")]
     [SerializeField] private int power;
 
     public int StartDefense { get => defense; }
+    [Header("DEFENSE")]
     [SerializeField] private int defense;
 
     public List<CardAbility> StartingAbilities { get => startingAbilities; }

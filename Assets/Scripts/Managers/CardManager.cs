@@ -683,16 +683,36 @@ public class CardManager : MonoBehaviour
      * ****** HEAL_DAMAGE
      * *****
      *****/
-    public void HealDefense(GameObject heroCard, int healingValue) // UNUSED!!!
+    public void HealDamage(GameObject target, int healingValue)
     {
-        // ADD HEALING FOR HEROES
-        if (healingValue < 1) return;
-        UnitCardDisplay fcd = GetUnitDisplay(heroCard);
-        int def = fcd.CurrentDefense;
-        int newDef = def + healingValue;
-        if (newDef > fcd.MaxDefense) newDef = fcd.MaxDefense;
-        fcd.CurrentDefense = newDef;
-        AnimationManager.Instance.ModifyDefenseState(heroCard);
+        int targetValue;
+        int maxValue;
+        int newTargetValue;
+        PlayerManager pm = PlayerManager.Instance;
+        EnemyManager em = EnemyManager.Instance;
+
+        if (target == PlayerHero)
+        {
+            targetValue = pm.PlayerHealth;
+            maxValue = GameManager.PLAYER_STARTING_HEALTH;
+        }
+        else if (target == EnemyHero)
+        {
+            targetValue = em.EnemyHealth;
+            maxValue = GameManager.ENEMY_STARTING_HEALTH;
+        }
+        else
+        {
+            targetValue = GetUnitDisplay(target).CurrentDefense;
+            maxValue = GetUnitDisplay(target).MaxDefense;
+        }
+        newTargetValue = targetValue + healingValue;
+        if (newTargetValue > maxValue) newTargetValue = maxValue;
+
+        if (target == PlayerHero) pm.PlayerHealth = newTargetValue;
+        else if (target == EnemyHero) em.EnemyHealth = newTargetValue;
+        else GetUnitDisplay(target).CurrentDefense = newTargetValue;
+        AnimationManager.Instance.ModifyDefenseState(target);
     }
 
     /******
@@ -838,7 +858,10 @@ public class CardManager : MonoBehaviour
             foreach (GiveNextUnitEffect gnfe2 in gnfe)
             {
                 // CHECK FOR ALLY/ENEMY HERE
-                EffectManager.Instance.ResolveEffect(targets, gnfe2.Effect);
+                foreach (Effect e in gnfe2.Effects)
+                {
+                    EffectManager.Instance.ResolveEffect(targets, e);
+                }
                 resolvedGnfe.Add(gnfe2);
             }
             foreach (GiveNextUnitEffect rGnfe in resolvedGnfe)

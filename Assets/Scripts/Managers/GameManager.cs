@@ -15,8 +15,11 @@ public class GameManager : MonoBehaviour
     }
 
     /* TEST_HEROES */
-    [SerializeField] private PlayerHero playerTestHero; // FOR TESTING ONLY
     [SerializeField] private EnemyHero enemyTestHero; // FOR TESTING ONLY
+
+    /* AUGMENT_EFFECTS */
+    [SerializeField] private GiveNextUnitEffect augmentBiogenEffect;
+
 
     /* GAME_MANAGER_DATA */
     public const int START_ACTIONS_PER_TURN = 1;
@@ -24,13 +27,13 @@ public class GameManager : MonoBehaviour
     public const int MAXIMUM_ACTIONS = 5;
 
     public const string PLAYER = "Player";
-    public const int PLAYER_STARTING_HEALTH = 15;
+    public const int PLAYER_STARTING_HEALTH = 20;
     public const int PLAYER_HAND_SIZE = 4;
     public const int PLAYER_START_FOLLOWERS = 3;
     public const int PLAYER_START_SKILLS = 2;
 
     public const string ENEMY = "Enemy";
-    public const int ENEMY_STARTING_HEALTH = 15;
+    public const int ENEMY_STARTING_HEALTH = 20;
     public const int ENEMY_HAND_SIZE = 0;
     public const int ENEMY_START_FOLLOWERS = 8;
     public const int ENEMY_START_SKILLS = 2;
@@ -98,6 +101,14 @@ public class GameManager : MonoBehaviour
         /* HERO_DISPLAYS */
         cardManager.PlayerHero.GetComponent<HeroDisplay>().HeroScript = playerManager.PlayerHero;
         cardManager.EnemyHero.GetComponent<HeroDisplay>().HeroScript = enemyManager.EnemyHero;
+
+        /* OTHER AUGMENTS */
+        if (playerManager.GetAugment("Biogenic Enhancer"))
+        {
+            GiveNextUnitEffect gnue = ScriptableObject.CreateInstance<GiveNextUnitEffect>();
+            gnue.LoadEffect(augmentBiogenEffect);
+            EffectManager.Instance.GiveNextEffects.Add(gnue);
+        }
 
         for (int i = 0; i < PLAYER_HAND_SIZE; i++)
         {
