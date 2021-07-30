@@ -14,14 +14,13 @@ public class PlayerManager : MonoBehaviour
         }
         else Destroy(gameObject);
     }
-
     private void Start()
     {
         PlayerDeckList = new List<Card>();
         CurrentPlayerDeck = new List<Card>();
+        HeroAugments = new List<HeroAugment>();
         HeroPowerUsed = false;
     }
-
     /* PLAYER_HERO */
     public PlayerHero PlayerHero
     {
@@ -43,24 +42,15 @@ public class PlayerManager : MonoBehaviour
         }
     }
     private PlayerHero playerHero;
-
-    public List<HeroAugment> HeroAugments
-    {
-        get => heroAugments;
-        set => heroAugments = value;
-    }
-    private List<HeroAugment> heroAugments;
-
+    /* HERO_AUGMENTS */
+    public List<HeroAugment> HeroAugments { get; private set; }
     /* PLAYER_DECK */
     public List<Card> PlayerDeckList { get; private set; }
     public List<Card> CurrentPlayerDeck { get; private set; }
-
     /* IS_MY_TURN */
     public bool IsMyTurn { get; set; }
-
     /* ACTIONS_PER_TURN */
     public int ActionsPerTurn { get; set; }
-
     /* HEALTH */
     private int playerHealth;
     public int PlayerHealth
@@ -72,7 +62,6 @@ public class PlayerManager : MonoBehaviour
             UIManager.Instance.UpdatePlayerHealth(PlayerHealth);
         }
     }
-
     /* ACTIONS_LEFT */
     private int playerActionsLeft;
     public int PlayerActionsLeft
@@ -85,7 +74,6 @@ public class PlayerManager : MonoBehaviour
             UIManager.Instance.UpdatePlayerActionsLeft(PlayerActionsLeft);
         }
     }
-
     /* HERO_POWER */
     public bool HeroPowerUsed { get; set; }
     public void UseHeroPower()
@@ -118,5 +106,13 @@ public class PlayerManager : MonoBehaviour
             foreach (Sound s in PlayerHero.HeroPower.PowerSounds)
                 AudioManager.Instance.StartStopSound(null, s);
         }
+    }
+
+    /* GET_AUGMENT */
+    public bool GetAugment(string augment)
+    {
+        int augmentIndex = HeroAugments.FindIndex(x => x.AugmentName == augment);
+        if (augmentIndex == -1) return false;
+        else return true;
     }
 }

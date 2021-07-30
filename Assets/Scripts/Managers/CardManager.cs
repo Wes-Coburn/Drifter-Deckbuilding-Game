@@ -622,11 +622,9 @@ public class CardManager : MonoBehaviour
     public void Strike(GameObject striker, GameObject defender)
     {
         int power = GetUnitDisplay(striker).CurrentPower;
-
+        TriggerCardAbility(striker, "Strike");
         if (TakeDamage(defender, power))
-        {
             TriggerCardAbility(striker, "Deathblow");
-        }
     }
 
     /******

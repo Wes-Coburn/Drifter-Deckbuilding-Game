@@ -7,8 +7,12 @@ public class EffectTargets : ScriptableObject
     [Range(1, 10)]
     public int TargetNumber;
 
-    [Header("TARGETS ALL POSSIBLE (for the selected heroes)")]
+    [Header("TARGETS ALL POSSIBLE")]
     public bool TargetsAll;
+
+    [Header("TARGETS SELF")]
+    [Tooltip("Used for Units with effects that target themselves")]
+    public bool TargetsSelf;
 
     [Header("PLAYER")]
     public bool PlayerHero;

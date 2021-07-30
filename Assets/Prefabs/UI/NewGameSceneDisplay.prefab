@@ -47,14 +47,19 @@ MonoBehaviour:
   skillCard_1: {fileID: 0}
   skillCard_2: {fileID: 0}
   heroPortrait: {fileID: 0}
+  heroName: {fileID: 0}
   heroDescription: {fileID: 0}
   heroPowerImage: {fileID: 0}
   heroPowerDescription: {fileID: 0}
   selectedAugment: {fileID: 0}
+  augmentName: {fileID: 0}
   augmentImage: {fileID: 0}
   augmentDescription: {fileID: 0}
   playerHeroes:
   - {fileID: 11400000, guid: 2de3c75baa7d5f54fbe6c020c04073e9, type: 2}
   - {fileID: 11400000, guid: 7ec381d799404eb4abf4d674191a948b, type: 2}
   - {fileID: 11400000, guid: 14df74eab3a27eb4397e917831e0abb1, type: 2}
-  heroAugments: []
+  heroAugments:
+  - {fileID: 11400000, guid: 513ae22f8600da948bfb3c4a73aa33a7, type: 2}
+  - {fileID: 11400000, guid: 57fe36df3e9c87e499ab987a471e140b, type: 2}
+  - {fileID: 11400000, guid: 1e409eadbe09b7c40865988c6f7c0dea, type: 2}

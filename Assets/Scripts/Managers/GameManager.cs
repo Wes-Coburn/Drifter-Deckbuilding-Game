@@ -19,7 +19,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private EnemyHero enemyTestHero; // FOR TESTING ONLY
 
     /* GAME_MANAGER_DATA */
-    public const int STARTING_ACTIONS = 0;
     public const int START_ACTIONS_PER_TURN = 1;
     public const int MAX_ACTIONS_PER_TURN = 5;
     public const int MAXIMUM_ACTIONS = 5;
@@ -31,7 +30,7 @@ public class GameManager : MonoBehaviour
     public const int PLAYER_START_SKILLS = 2;
 
     public const string ENEMY = "Enemy";
-    public const int ENEMY_STARTING_HEALTH = 25;
+    public const int ENEMY_STARTING_HEALTH = 15;
     public const int ENEMY_HAND_SIZE = 0;
     public const int ENEMY_START_FOLLOWERS = 8;
     public const int ENEMY_START_SKILLS = 2;
@@ -82,11 +81,21 @@ public class GameManager : MonoBehaviour
         cardManager.UpdateDeck(PLAYER);
         cardManager.UpdateDeck(ENEMY);
 
-        playerManager.PlayerHealth = PLAYER_STARTING_HEALTH;
-        enemyManager.EnemyHealth = ENEMY_STARTING_HEALTH;
-        playerManager.PlayerActionsLeft = STARTING_ACTIONS;
-        playerManager.ActionsPerTurn = START_ACTIONS_PER_TURN;
+        /* PLAYER_HEALTH */
+        int bonusHealth = 0;
+        if (playerManager.GetAugment("Kinetic Regulator")) bonusHealth = 5;
+        playerManager.PlayerHealth = PLAYER_STARTING_HEALTH + bonusHealth;
 
+        /* PLAYER_ACTIONS */
+        playerManager.PlayerActionsLeft = 0;
+        int bonusActions = 0;
+        if (playerManager.GetAugment("Synaptic Stabilizer")) bonusActions = 1;
+        playerManager.ActionsPerTurn = START_ACTIONS_PER_TURN + bonusActions;
+
+        /* ENEMY_HEALTH */
+        enemyManager.EnemyHealth = ENEMY_STARTING_HEALTH;
+
+        /* HERO_DISPLAYS */
         cardManager.PlayerHero.GetComponent<HeroDisplay>().HeroScript = playerManager.PlayerHero;
         cardManager.EnemyHero.GetComponent<HeroDisplay>().HeroScript = enemyManager.EnemyHero;
 

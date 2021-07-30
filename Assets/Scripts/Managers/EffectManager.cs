@@ -95,8 +95,9 @@ public class EffectManager : MonoBehaviour
         if (effect is DrawEffect de && de.IsDiscardEffect) return true;
         else if (effect is DrawEffect || effect is GiveNextUnitEffect) return false;
         else if (group.Targets.TargetsAll ||
-            group.Targets.PlayerHero ||
-            group.Targets.EnemyHero) return false;
+                 group.Targets.PlayerHero ||
+                 group.Targets.EnemyHero  ||
+                 group.Targets.TargetsSelf) return false;
         else return true;
     }
 
@@ -136,6 +137,13 @@ public class EffectManager : MonoBehaviour
     private void StartNonTargetEffect(Effect effect)
     {
         EffectTargets et = effectGroupList[currentEffectGroup].Targets;
+
+        if (et.TargetsSelf)
+        {
+            acceptedTargets[currentEffectGroup].Add(effectSource);
+            ConfirmNonTargetEffect();
+            return;
+        }
 
         if (effectSource.CompareTag(CardManager.PLAYER_CARD) || effectSource.CompareTag(CardManager.PLAYER_HERO))
         {

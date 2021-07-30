@@ -8,11 +8,13 @@ public class NewGameSceneDisplay : MonoBehaviour
     [SerializeField] private GameObject skillCard_1;
     [SerializeField] private GameObject skillCard_2;
     [SerializeField] private GameObject heroPortrait;
+    [SerializeField] private GameObject heroName;
     [SerializeField] private GameObject heroDescription;
     [SerializeField] private GameObject heroPowerImage;
     [SerializeField] private GameObject heroPowerDescription;
 
     [SerializeField] private GameObject selectedAugment;
+    [SerializeField] private GameObject augmentName;
     [SerializeField] private GameObject augmentImage;
     [SerializeField] private GameObject augmentDescription;
 
@@ -60,14 +62,12 @@ public class NewGameSceneDisplay : MonoBehaviour
         int lastSelection;
         if (!heroSelected) lastSelection = playerHeroes.Length - 1;
         else lastSelection = heroAugments.Length - 1;
+        
         if (rol == RightOrLeft.Right)
-        {
-            if (++currentSelection > lastSelection) currentSelection = 0;
-        }
+        { if (++currentSelection > lastSelection) currentSelection = 0; }
         else
-        {
-            if (--currentSelection < 0) currentSelection = lastSelection;
-        }
+        { if (--currentSelection < 0) currentSelection = lastSelection; }
+        
         if (!heroSelected) DisplaySelectedHero();
         else DisplaySelectedAugment();
     }
@@ -79,6 +79,7 @@ public class NewGameSceneDisplay : MonoBehaviour
         skillCard_1.SetActive(false);
         skillCard_2.SetActive(false);
 
+        augmentName.GetComponent<TextMeshProUGUI>().SetText(SelectedAugment.AugmentName);
         augmentImage.GetComponent<Image>().sprite = SelectedAugment.AugmentImage;
         augmentDescription.GetComponent<TextMeshProUGUI>().SetText(SelectedAugment.AugmentDescription);
     }
@@ -88,9 +89,10 @@ public class NewGameSceneDisplay : MonoBehaviour
         selectedHero.SetActive(true);
         selectedAugment.SetActive(false);
 
+        heroName.GetComponent<TextMeshProUGUI>().SetText(SelectedHero.HeroName);
         heroPortrait.GetComponent<Image>().sprite = SelectedHero.HeroPortrait;
         heroDescription.GetComponent<TextMeshProUGUI>().SetText(SelectedHero.HeroDescription);
-        heroPowerImage.GetComponent<SpriteRenderer>().sprite = SelectedHero.HeroPower.PowerSprite;
+        heroPowerImage.GetComponent<Image>().sprite = SelectedHero.HeroPower.PowerSprite;
 
         int cost = SelectedHero.HeroPower.PowerCost;
         string actions;
@@ -98,7 +100,7 @@ public class NewGameSceneDisplay : MonoBehaviour
         else actions = "action";
         string description = " (" + cost + " " + actions + ", 1/turn): ";
 
-        heroPowerDescription.GetComponent<TextMeshPro>().SetText(SelectedHero.HeroPower.PowerName +
+        heroPowerDescription.GetComponent<TextMeshProUGUI>().SetText(SelectedHero.HeroPower.PowerName +
             description + SelectedHero.HeroPower.PowerDescription);
 
         if (currentSkill_1 != null)

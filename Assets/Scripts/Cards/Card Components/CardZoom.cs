@@ -10,7 +10,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     private const string ENEMY_ZONE = CardManager.ENEMY_ZONE;
 
     /* ZOOMCARD_DATA */
-    private const int   ZOOM_Z_AXIS        =  -4;
+    private const int   ZOOM_Z_VALUE       =  -4;
     private const float ZOOM_BUFFER        =  350;
     private const float ZOOM_SCALE_VALUE   =  4;
     private const float CENTER_SCALE_VALUE =  6;
@@ -138,7 +138,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         GameObject zoomObject = Instantiate(prefab, vec2, Quaternion.identity);
         Transform tran = zoomObject.transform;
         tran.SetParent(parentTransform, true);
-        tran.position = new Vector3(tran.position.x, tran.position.y, ZOOM_Z_AXIS);
+        tran.position = new Vector3(tran.position.x, tran.position.y, ZOOM_Z_VALUE);
         tran.localScale = new Vector2(scaleValue, scaleValue);
         return zoomObject;
     }
