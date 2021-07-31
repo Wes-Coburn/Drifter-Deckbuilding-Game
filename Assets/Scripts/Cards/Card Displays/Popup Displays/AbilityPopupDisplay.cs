@@ -49,14 +49,14 @@ public class AbilityPopupDisplay : MonoBehaviour
         if (AbilityScript is StaticAbility)
         {
             AbilitySprite = AbilityScript.AbilitySprite;
-            if (isAbilityZoom)
+            if (!isAbilityZoom)
             {
-                AbilityDescription = AbilityScript.AbilityName;
-                return;
+                name = AbilityScript.AbilityName;
+                description = AbilityScript.AbilityDescription;
             }
             else
             {
-                name = AbilityScript.AbilityName;
+                name = "";
                 description = AbilityScript.AbilityDescription;
             }
         }
@@ -65,30 +65,30 @@ public class AbilityPopupDisplay : MonoBehaviour
             AbilityTrigger trigger = ta.AbilityTrigger;
             AbilitySprite = trigger.AbilitySprite;
             
-            if (isAbilityZoom)
-            {
-                AbilityDescription = AbilityScript.AbilityName;
-                return;
-            }
-            else
+            if (!isAbilityZoom)
             {
                 name = trigger.AbilityName;
                 description = "Does something when " + trigger.AbilityDescription;
+            }
+            else
+            {
+                name = "";
+                description = ta.AbilityName;
             }
         }
         else if (abilityScript is AbilityTrigger at)
         {
             AbilitySprite = at.AbilitySprite;
 
-            if (isAbilityZoom)
-            {
-                AbilityDescription = AbilityScript.AbilityName;
-                return;
-            }
-            else
+            if (!isAbilityZoom)
             {
                 name = at.AbilityName;
                 description = "Does something when " + at.AbilityDescription;
+            }
+            else
+            {
+                name = "";
+                description = at.AbilityDescription;
             }
         }
         else
@@ -97,6 +97,7 @@ public class AbilityPopupDisplay : MonoBehaviour
             else Debug.LogError("SCRIPT TYPE NOT FOUND!");
             return;
         }
-        AbilityDescription = name + ": " + description;
+        if (!string.IsNullOrEmpty(name)) name += ": ";
+        AbilityDescription = name + description;
     }
 }

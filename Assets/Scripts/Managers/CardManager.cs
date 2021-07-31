@@ -32,10 +32,18 @@ public class CardManager : MonoBehaviour
     public const string ENEMY_DISCARD = "EnemyDiscard";
     public const string ENEMY_HERO = "EnemyHero";
     public const string ENEMY_FOLLOWER = "EnemyFollower";
-
     /* GAME_MANAGER_DATA */
     private const string PLAYER = GameManager.PLAYER;
     private const string ENEMY = GameManager.ENEMY;
+
+    /* PREFABS */
+    [SerializeField] private GameObject unitCardPrefab;
+    [SerializeField] private GameObject actionCardPrefab;
+    [SerializeField] private GameObject newCardPopupPrefab;
+    /* START_UNITS */
+    [SerializeField] private UnitCard[] playerStartUnits;
+    /* CARD_BACK_SPRITE */
+    [SerializeField] private Sprite cardBackSprite;
 
     /* CARD LISTS */
     // PLAYER
@@ -60,22 +68,13 @@ public class CardManager : MonoBehaviour
     public GameObject EnemyHand { get; private set; }
     public GameObject EnemyZone { get; private set; }
     public GameObject EnemyHero { get; private set; }
-
-    /* CARD_PREFABS */
-    [SerializeField] private GameObject unitCardPrefab;
-    [SerializeField] private GameObject actionCardPrefab;
-
+    
     /* CARD_SCRIPTS */
     public UnitCard[] PlayerStartUnits { get => playerStartUnits; }
-    [SerializeField] private UnitCard[] playerStartUnits;
-
     /* CARD BACK SPRITE */
-    public Sprite CardBackSprite
-    {
-        get => cardBackSprite;
-        private set => cardBackSprite = value;
-    }
-    [SerializeField] private Sprite cardBackSprite;
+    public Sprite CardBackSprite { get => cardBackSprite; }
+    /* NEW_CARD_POPUP */
+    private GameObject newCardPopup;
 
     private void Start()
     {
@@ -147,7 +146,7 @@ public class CardManager : MonoBehaviour
      * ****** ADD_CARD
      * *****
      *****/
-    public void AddCard(Card card, string hero)
+    public void AddCard(Card card, string hero, bool isStartingCard = true)
     {
         List<Card> deck = null;
         Card cardInstance = null;
@@ -166,6 +165,12 @@ public class CardManager : MonoBehaviour
         {
             cardInstance.LoadCard(card);
             deck.Add(cardInstance);
+        }
+
+        if (!isStartingCard)
+        {
+            newCardPopup = Instantiate(newCardPopupPrefab, UIManager.Instance.CurrentWorldSpace.transform);
+            // play sounds
         }
     }
 
@@ -438,7 +443,6 @@ public class CardManager : MonoBehaviour
         {
             FunctionTimer.Create(() => PlayCardSound(), 0f);
             FunctionTimer.Create(() => PlayAbilitySounds(), 0.4f);
-            FunctionTimer.Create(() => TriggerGiveNextEffect(card), 0.4f);
             FunctionTimer.Create(() => TriggerCardAbility(card, "Play"), 0.8f);
         }
         void PlayAction()
@@ -478,6 +482,7 @@ public class CardManager : MonoBehaviour
                 PlayerZoneCards.Add(card);
                 ChangeCardZone(card, PLAYER_ZONE);
                 PlayUnit();
+                FunctionTimer.Create(() => TriggerGiveNextEffect(card), 0.4f);
             }
             else if (card.GetComponent<CardDisplay>() is ActionCardDisplay)
             {
@@ -849,24 +854,24 @@ public class CardManager : MonoBehaviour
         }
 
         // GIVE_NEXT_FOLLOWER_EFFECTS
-        List<GiveNextUnitEffect> gnfe = EffectManager.Instance.GiveNextEffects;
+        List<GiveNextUnitEffect> gnfeList = EffectManager.Instance.GiveNextEffects;
         List<GiveNextUnitEffect> resolvedGnfe = new List<GiveNextUnitEffect>();
 
-        if (gnfe.Count > 0)
+        if (gnfeList.Count > 0)
         {
             List<GameObject> targets = new List<GameObject> { card };
-            foreach (GiveNextUnitEffect gnfe2 in gnfe)
+            foreach (GiveNextUnitEffect gnfe in gnfeList)
             {
                 // CHECK FOR ALLY/ENEMY HERE
-                foreach (Effect e in gnfe2.Effects)
+                foreach (Effect e in gnfe.Effects)
                 {
                     EffectManager.Instance.ResolveEffect(targets, e);
                 }
-                resolvedGnfe.Add(gnfe2);
+                if (--gnfe.Multiplier < 1) resolvedGnfe.Add(gnfe);
             }
             foreach (GiveNextUnitEffect rGnfe in resolvedGnfe)
             {
-                gnfe.Remove(rGnfe);
+                gnfeList.Remove(rGnfe);
                 DestroyEffect(rGnfe);
             }
         }

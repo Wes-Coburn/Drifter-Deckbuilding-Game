@@ -69,7 +69,7 @@ public class AbilityIconDisplay : MonoBehaviour
         else if (AbilityScript is TriggeredAbility keywordAbility)
         {
             AbilityTrigger keywordTrigger = keywordAbility.AbilityTrigger;
-            abilityName = keywordTrigger.AbilityName + ": " + keywordAbility.AbilityDescription;
+            abilityName = keywordAbility.AbilityDescription;
         }
         else
         {

@@ -37,6 +37,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     private GameObject playerZone;
     private GameObject enemyHand;
     private GameObject enemyZone;
+    private GameObject heroSkills;
 
     /* STATIC_CLASS_VARIABLES */
     public static bool ZoomCardIsCentered = false;
@@ -60,6 +61,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         playerZone = GameObject.Find(PLAYER_ZONE);
         enemyHand = GameObject.Find(ENEMY_HAND);
         enemyZone = GameObject.Find(ENEMY_ZONE);
+        heroSkills = GameObject.Find("HeroSkills");
         cardDisplay = gameObject.GetComponent<CardDisplay>();
     }
 
@@ -111,7 +113,16 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
             rect = enemyZone.GetComponent<RectTransform>();
             cardYPos = (int)rect.position.y - ZOOM_BUFFER;
         }
-        else return;
+        else if (transform.parent.parent.gameObject == heroSkills)
+        {
+            CreateAbilityPopups(new Vector2(0, 150), ZOOM_SCALE_VALUE);
+            return;
+        }
+        else
+        {
+            CreateAbilityPopups(new Vector2(500, 0), POPUP_SCALE_VALUE);
+            return;
+        }
         Vector3 vec3 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (vec3.x > 0) popupXPos = vec3.x + 400;
         else popupXPos = vec3.x - 400;
