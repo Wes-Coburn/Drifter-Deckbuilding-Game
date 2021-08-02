@@ -18,16 +18,11 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     private const float POPUP_SCALE_VALUE           =  3;
     private const float SMALL_POPUP_SCALE_VALUE     =  2;
 
-    /* MANAGERS */
-    private UIManager UIManager;
-
     /* PREFABS */
     [SerializeField] private GameObject followerZoomCard;
     [SerializeField] private GameObject actionZoomCard;
-
     [SerializeField] private GameObject abilityBoxPrefab;
     [SerializeField] private GameObject abilityPopupPrefab;
-
     [SerializeField] private GameObject abilityPopupBoxPrefab;
     [SerializeField] private GameObject descriptionPopupPrefab;
 
@@ -39,7 +34,6 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     private GameObject enemyZone;
     private GameObject heroSkills;
 
-    /* STATIC_CLASS_VARIABLES */
     public static bool ZoomCardIsCentered = false;
     public static GameObject CurrentZoomCard { get; set; }
     public static GameObject DescriptionPopup { get; set; }
@@ -50,19 +44,18 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     
     /******
      * *****
-     * ****** AWAKE
+     * ****** START
      * *****
      *****/
-    public void Awake()
+    public void Start()
     {
-        UIManager = UIManager.Instance;
-        worldSpace = GameObject.Find(CardManager.WORLD_SPACE);
-        playerHand = GameObject.Find(PLAYER_HAND);
-        playerZone = GameObject.Find(PLAYER_ZONE);
-        enemyHand = GameObject.Find(ENEMY_HAND);
-        enemyZone = GameObject.Find(ENEMY_ZONE);
-        heroSkills = GameObject.Find("HeroSkills");
+        worldSpace = UIManager.Instance.CurrentWorldSpace;
+        playerHand = CardManager.Instance.PlayerHand;
+        playerZone = CardManager.Instance.PlayerZone;
+        enemyHand = CardManager.Instance.EnemyHand;
+        enemyZone = CardManager.Instance.EnemyZone;
         cardDisplay = gameObject.GetComponent<CardDisplay>();
+        heroSkills = GameObject.Find("HeroSkills");
     }
 
     /******
@@ -77,7 +70,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         if (DragDrop.CardIsDragging || ZoomCardIsCentered) return;
         
         ZoomCardIsCentered = true;
-        UIManager.SetScreenDimmer(true);
+        UIManager.Instance.SetScreenDimmer(true);
 
         CreateZoomCard(new Vector2(0, 50), CENTER_SCALE_VALUE);
         CreateDescriptionPopup(new Vector2(-590, 0), POPUP_SCALE_VALUE);
@@ -91,7 +84,8 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
      *****/
     public void OnPointerEnter()
     {
-        if (DragDrop.CardIsDragging || ZoomCardIsCentered || UIManager.Instance.PlayerIsTargetting) return;
+        if (DragDrop.CardIsDragging || ZoomCardIsCentered || 
+            UIManager.Instance.PlayerIsTargetting) return;
 
         float cardYPos;
         float popupXPos;
@@ -107,7 +101,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
             rect = playerZone.GetComponent<RectTransform>();
             cardYPos = rect.position.y + ZOOM_BUFFER;
         }
-        else if (transform.parent.gameObject == enemyHand) return; // HIDE THE ENEMY HAND
+        else if (transform.parent.gameObject == enemyHand) return; // HIDE ENEMY HAND
         else if (transform.parent.gameObject == enemyZone)
         {
             rect = enemyZone.GetComponent<RectTransform>();
@@ -138,7 +132,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     public void OnPointerExit()
     {
         if (DragDrop.CardIsDragging || ZoomCardIsCentered) return;
-        UIManager.DestroyZoomObjects();
+        UIManager.Instance.DestroyZoomObjects();
     }
 
     /******

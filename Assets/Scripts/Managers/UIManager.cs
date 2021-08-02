@@ -17,37 +17,21 @@ public class UIManager : MonoBehaviour
         }
         else Destroy(gameObject);
     }
-        
-    /* GAME ZONES */
-    public GameObject CurrentWorldSpace { get; set; }
-    public GameObject CurrentCanvas { get; set; }
 
-    /* HEALTH */
+    [SerializeField] private GameObject screenDimmerPrefab;
+    [SerializeField] private GameObject infoPopupPrefab;
+    private GameObject screenDimmer;
+    private GameObject infoPopup;
+    private GameObject selectedEnemy;
     private GameObject playerHealth;
     private GameObject enemyHealth;
-
-    /* ACTIONS_LEFT */
     private GameObject playerActionsLeft;
-
-    /* END_TURN_BUTTON */
     private GameObject endTurnButton;
 
-    /* SCREEN_DIMMER */
-    [SerializeField] private GameObject screenDimmerPrefab;
-    private GameObject screenDimmer;
-
-    /* INFO_POPUP */
-    [SerializeField] private GameObject infoPopupPrefab;
-    private GameObject infoPopup;
-
-    /* WAIT_FOR_SECONDS */
     public Action OnWaitForSecondsCallback { get; set; }
-
-    /* PLAYER_IS_TARGETING */
     public bool PlayerIsTargetting { get; set; }
-
-    /* SELECTED_ENEMY */
-    private GameObject selectedEnemy;
+    public GameObject CurrentWorldSpace { get; set; }
+    public GameObject CurrentCanvas { get; set; }
 
     public void Start()
     {
@@ -95,7 +79,6 @@ public class UIManager : MonoBehaviour
         }
 
         if (enabled) selectedEnemy = enemy;
-
         if (enemy.TryGetComponent<CardSelect>(out CardSelect cs))
             cs.CardOutline.SetActive(enabled);
         else if (enemy.TryGetComponent<HeroSelect>(out HeroSelect chs))

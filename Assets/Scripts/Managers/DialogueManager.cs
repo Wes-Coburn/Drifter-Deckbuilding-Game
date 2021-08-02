@@ -21,18 +21,17 @@ public class DialogueManager : MonoBehaviour
         ActiveDialoguePools = new List<DialoguePool>();
     }
     public GameObject EngagedCharacterObject { get; private set; }
-    public Character EngagedCharacter { get; private set; }
+    public NPCHero EngagedHero { get; private set; }
     public List<DialoguePool> ActiveDialoguePools;
     private DialogueClip currentDialogueClip;
     private DialogueSceneDisplay dialogueDisplay;
 
-    public void StartDialogue(GameObject characterObject, Character character)
+    public void StartDialogue(GameObject characterObject, NPCHero hero)
     {
         dialogueDisplay = GameObject.FindObjectOfType<DialogueSceneDisplay>(); // TESTING
-
-        EngagedCharacter = character;
+        EngagedHero = hero;
         EngagedCharacterObject = characterObject;
-        currentDialogueClip = character.NextDialogueClip;
+        currentDialogueClip = hero.NextDialogueClip;
         if (currentDialogueClip is DialoguePool dp)
             currentDialogueClip = DialoguePool(dp);
         DisplayDialoguePopup();
@@ -41,10 +40,10 @@ public class DialogueManager : MonoBehaviour
 
     public void EndDialogue(DialogueClip nextClip = null)
     {
-        Debug.Log(EngagedCharacter.CharacterName + " NEXTCLIP is " + EngagedCharacter.NextDialogueClip.name);
-        if (nextClip != null) EngagedCharacter.NextDialogueClip = nextClip;
+        Debug.Log(EngagedHero.HeroName + " NEXTCLIP is " + EngagedHero.NextDialogueClip.name);
+        if (nextClip != null) EngagedHero.NextDialogueClip = nextClip;
         EngagedCharacterObject.GetComponent<Button>().enabled = true;
-        EngagedCharacter = null;
+        EngagedHero = null;
         currentDialogueClip = null;
         //UIManager.Instance.StopTimedText();
     }
@@ -80,7 +79,7 @@ public class DialogueManager : MonoBehaviour
         switch (response)
         {
             case 1:
-                EngagedCharacter.RespectScore += currentDialogueClip.Response_1_Amiability;
+                EngagedHero.RespectScore += currentDialogueClip.Response_1_Respect;
                 DialogueClip dc1 = currentDialogueClip.Response_1_NextClip;
                 if (currentDialogueClip.Response_1_isExit)
                 {
@@ -90,7 +89,7 @@ public class DialogueManager : MonoBehaviour
                 currentDialogueClip = dc1;
                 break;
             case 2:
-                EngagedCharacter.RespectScore += currentDialogueClip.Response_2_Amiability;
+                EngagedHero.RespectScore += currentDialogueClip.Response_2_Respect;
                 DialogueClip dc2 = currentDialogueClip.Response_2_NextClip;
                 if (currentDialogueClip.Response_2_isExit)
                 {
@@ -100,7 +99,7 @@ public class DialogueManager : MonoBehaviour
                 currentDialogueClip = dc2;
                 break;
             case 3:
-                EngagedCharacter.RespectScore += currentDialogueClip.Response_3_Amiability;
+                EngagedHero.RespectScore += currentDialogueClip.Response_3_Amiability;
                 DialogueClip dc3 = currentDialogueClip.Response_3_NextClip;
                 if (currentDialogueClip.Response_3_isExit)
                 {
@@ -110,10 +109,8 @@ public class DialogueManager : MonoBehaviour
                 currentDialogueClip = dc3;
                 break;
         }
-
         if (currentDialogueClip is DialogueFork) currentDialogueClip = DialogueFork();
         else if (currentDialogueClip is DialoguePool dPool) currentDialogueClip = DialoguePool(dPool);
-
         DisplayDialoguePopup();
     }
 
@@ -123,7 +120,7 @@ public class DialogueManager : MonoBehaviour
         DialogueClip nextClip = null;
         if (dialogueFork.IsRespectCondition)
         {
-            int amiabilityScore = EngagedCharacter.RespectScore;
+            int amiabilityScore = EngagedHero.RespectScore;
             if (amiabilityScore <= dialogueFork.Response_1_Condition_Value) nextClip = dialogueFork.Response_1_NextClip;
             else if (amiabilityScore <= dialogueFork.Response_2_Condition_Value) nextClip = dialogueFork.Response_2_NextClip;
             else nextClip = dialogueFork.Response_3_NextClip;

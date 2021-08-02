@@ -2,14 +2,9 @@
 
 public class AbilityZoom : MonoBehaviour
 {
-    /* PREFABS */
     [SerializeField] private GameObject abilityPopupPrefab;
-    
-    /* STATIC_CLASS_VARIABLES */
-    public static GameObject AbilityPopup { get; set; }
-
-    /* CLASS_VARIABLES */
     private bool isHovering;
+    public static GameObject AbilityPopup { get; set; }
 
     private void Start() => isHovering = false;
 

@@ -36,45 +36,33 @@ public class CardManager : MonoBehaviour
     private const string PLAYER = GameManager.PLAYER;
     private const string ENEMY = GameManager.ENEMY;
 
-    /* PREFABS */
     [SerializeField] private GameObject unitCardPrefab;
     [SerializeField] private GameObject actionCardPrefab;
     [SerializeField] private GameObject newCardPopupPrefab;
-    /* START_UNITS */
     [SerializeField] private UnitCard[] playerStartUnits;
-    /* CARD_BACK_SPRITE */
     [SerializeField] private Sprite cardBackSprite;
+    private GameObject newCardPopup; // UNUSED
 
+    public UnitCard[] PlayerStartUnits { get => playerStartUnits; }
+    public Sprite CardBackSprite { get => cardBackSprite; }
     /* CARD LISTS */
-    // PLAYER
     public List<GameObject> PlayerHandCards { get; private set; }
     public List<GameObject> PlayerZoneCards { get; private set; }
     public List<GameObject> PlayerDiscardCards { get; private set; }
-    // ENEMY
     public List<GameObject> EnemyHandCards { get; private set; }
     public List<GameObject> EnemyZoneCards { get; private set; }
     public List<GameObject> EnemyDiscardCards { get; private set; }
-    
     /* GAME ZONES */
-    // PLAYER
     public GameObject PlayerActionZone { get; private set; }
     public GameObject PlayerHand { get; private set; }
     public GameObject PlayerZone { get; private set; }
     public GameObject PlayerDiscard { get; private set; }
     public GameObject PlayerHero { get; private set; }
-    // ENEMY
     //public GameObject EnemyActionZone { get; private set; }
     public GameObject EnemyDiscard { get; private set; }
     public GameObject EnemyHand { get; private set; }
     public GameObject EnemyZone { get; private set; }
     public GameObject EnemyHero { get; private set; }
-    
-    /* CARD_SCRIPTS */
-    public UnitCard[] PlayerStartUnits { get => playerStartUnits; }
-    /* CARD BACK SPRITE */
-    public Sprite CardBackSprite { get => cardBackSprite; }
-    /* NEW_CARD_POPUP */
-    private GameObject newCardPopup;
 
     private void Start()
     {
