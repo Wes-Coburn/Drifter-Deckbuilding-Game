@@ -270,7 +270,6 @@ public class CardManager : MonoBehaviour
      *****/
     public void ShuffleDeck(List<Card> deck)
     {
-        Debug.Log("SHUFFLE DECK!");
         deck.Shuffle();
         AudioManager.Instance.StartStopSound("SFX_ShuffleDeck");
     }

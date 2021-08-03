@@ -9,6 +9,7 @@ public static class SceneLoader
         LoadingScene,
         MenuScene,
         NewGameScene,
+        DialogueScene,
         CombatScene
     }
 
@@ -38,10 +39,14 @@ public static class SceneLoader
                 case Scene.NewGameScene:
                     // blank
                     break;
+                case Scene.DialogueScene:
+                    GameManager.Instance.NewGame(); // FOR TESTING ONLY!!!
+                    break;
                 case Scene.CombatScene:
                     UIManager.Instance.StartCombatScene();
                     CardManager.Instance.StartCombatScene();
-                    GameManager.Instance.NewGame(); // FOR TESTING ONLY
+                    GameManager.Instance.StartCombat();
+                    DialogueManager.Instance.EndDialogue(); // TESTING
                     break;
                 default:
                     Debug.LogError("SCENE NOT FOUND!");

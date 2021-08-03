@@ -1,0 +1,26 @@
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "New Dialogue Response", menuName = "Dialogue/Dialogue Response")]
+public class DialogueResponse : ScriptableObject
+{
+    [TextArea]
+    [SerializeField] private string responseText;
+    [SerializeField] [Range(-5, 5)] protected int response_Respect;
+    [SerializeField] private DialogueClip response_NextClip;
+    [SerializeField] private bool response_IsExit;
+    [SerializeField] private bool response_IsCombatStart;
+    public string ResponseText { get => responseText; }
+    public int Response_Respect { get => response_Respect; }
+    public DialogueClip Response_NextClip { get => response_NextClip; }
+    public bool Response_IsExit { get => response_IsExit; }
+    public bool Response_IsCombatStart { get => response_IsCombatStart; }
+
+    public void LoadResponse(DialogueResponse dr)
+    {
+        responseText = dr.ResponseText;
+        response_Respect = dr.Response_Respect;
+        response_NextClip = dr.Response_NextClip;
+        response_IsExit = dr.Response_IsExit;
+        response_IsCombatStart = dr.Response_IsCombatStart;
+    }
+}

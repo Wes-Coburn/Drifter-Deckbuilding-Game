@@ -8,4 +8,12 @@ public class PlayerHero : Hero
     public HeroPower HeroPower;
     [Header("HERO SKILLS")]
     public List<SkillCard> HeroSkills;
+
+    public override void LoadHero(Hero hero)
+    {
+        base.LoadHero(hero);
+        PlayerHero ph = hero as PlayerHero;
+        HeroPower = ph.HeroPower;
+        HeroSkills = ph.HeroSkills;
+    }
 }

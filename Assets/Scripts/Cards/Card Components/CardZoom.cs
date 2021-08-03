@@ -4,12 +4,6 @@ using UnityEngine.EventSystems;
 
 public class CardZoom : MonoBehaviour, IPointerClickHandler
 {
-    /* CARD_MANAGER_DATA */
-    private const string PLAYER_HAND = CardManager.PLAYER_HAND;
-    private const string PLAYER_ZONE = CardManager.PLAYER_ZONE;
-    private const string ENEMY_HAND = CardManager.ENEMY_HAND;
-    private const string ENEMY_ZONE = CardManager.ENEMY_ZONE;
-
     /* ZOOMCARD_DATA */
     private const int   ZOOM_Z_VALUE                =  -4;
     private const float ZOOM_BUFFER                 =  350;
@@ -47,7 +41,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
      * ****** START
      * *****
      *****/
-    public void Start()
+    private void Start()
     {
         worldSpace = UIManager.Instance.CurrentWorldSpace;
         playerHand = CardManager.Instance.PlayerHand;
@@ -213,6 +207,8 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
      *****/
     private void CreateAbilityPopups(Vector2 vec2, float scaleValue)
     {
+        if (worldSpace == null) worldSpace = UIManager.Instance.CurrentWorldSpace; // for new game scene
+
         AbilityPopupBox = CreateZoomObject(abilityPopupBoxPrefab, 
             new Vector3(vec2.x, vec2.y), worldSpace.transform, scaleValue);
 

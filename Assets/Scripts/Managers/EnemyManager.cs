@@ -31,11 +31,11 @@ public class EnemyManager : MonoBehaviour
         set
         {
             enemyHero = value;
-            foreach (UnitCard follower in enemyHero.Reinforcements[0].ReinforcementUnits)
+            foreach (UnitCard unit in enemyHero.Reinforcements[0].ReinforcementUnits)
             {
                 for (int i = 0; i < GameManager.ENEMY_START_FOLLOWERS; i++)
                 {
-                    CardManager.Instance.AddCard(follower, GameManager.ENEMY);
+                    CardManager.Instance.AddCard(unit, GameManager.ENEMY);
                 }
             }
             ReinforcementSchedule = EnemyHero.Reinforcements[0].ReinforcementSchedule;

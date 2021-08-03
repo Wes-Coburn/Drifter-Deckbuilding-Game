@@ -26,35 +26,35 @@ public class DialogueSceneDisplay : MonoBehaviour
     {
         set
         {
-            playerHeroName.GetComponent<TextMeshPro>().SetText(value);
+            playerHeroName.GetComponent<TextMeshProUGUI>().SetText(value);
         }
     }
     public string PlayerHeroSpeech
     {
         set
         {
-            playerHeroSpeech.GetComponent<TextMeshPro>().SetText(value);
+            playerHeroSpeech.GetComponent<TextMeshProUGUI>().SetText(value);
         }
     }
     public string Response_1
     {
         set
         {
-            response_1.GetComponent<TextMeshPro>().SetText(value);
+            response_1.GetComponent<TextMeshProUGUI>().SetText(value);
         }
     }
     public string Response_2
     {
         set
         {
-            response_2.GetComponent<TextMeshPro>().SetText(value);
+            response_2.GetComponent<TextMeshProUGUI>().SetText(value);
         }
     }
     public string Response_3
     {
         set
         {
-            response_3.GetComponent<TextMeshPro>().SetText(value);
+            response_3.GetComponent<TextMeshProUGUI>().SetText(value);
         }
     }
     public Sprite OtherHeroPortrait
@@ -68,14 +68,14 @@ public class DialogueSceneDisplay : MonoBehaviour
     {
         set
         {
-            otherHeroName.GetComponent<TextMeshPro>().SetText(value);
+            otherHeroName.GetComponent<TextMeshProUGUI>().SetText(value);
         }
     }
     public string OtherHeroSpeech
     {
         set
         {
-            otherHeroSpeech.GetComponent<TextMeshPro>().SetText(value);
+            otherHeroSpeech.GetComponent<TextMeshProUGUI>().SetText(value);
         }
     }
 }

@@ -81,8 +81,8 @@ public class UIManager : MonoBehaviour
         if (enabled) selectedEnemy = enemy;
         if (enemy.TryGetComponent<CardSelect>(out CardSelect cs))
             cs.CardOutline.SetActive(enabled);
-        else if (enemy.TryGetComponent<HeroSelect>(out HeroSelect chs))
-            chs.TargetIcon.SetActive(enabled);
+        else if (enemy.TryGetComponent<HeroSelect>(out HeroSelect hs))
+            hs.TargetIcon.SetActive(enabled);
         else
         {
             Debug.LogError("TARGET SELECT SCRIPT NOT FOUND!");
@@ -97,10 +97,8 @@ public class UIManager : MonoBehaviour
      *****/
     public void UpdatePlayerHealth(int health) => playerHealth.GetComponent<TextMeshProUGUI>().SetText(health.ToString());
     public void UpdateEnemyHealth(int health) => enemyHealth.GetComponent<TextMeshProUGUI>().SetText(health.ToString());
-    public void UpdatePlayerActionsLeft(int actions)
-    {
+    public void UpdatePlayerActionsLeft(int actions) =>
         playerActionsLeft.GetComponent<TextMeshProUGUI>().SetText(actions + "/" + PlayerManager.Instance.ActionsPerTurn);
-    }
     public void UpdateEndTurnButton(bool isMyTurn)
     {
         BoxCollider2D bc = endTurnButton.GetComponent<BoxCollider2D>();

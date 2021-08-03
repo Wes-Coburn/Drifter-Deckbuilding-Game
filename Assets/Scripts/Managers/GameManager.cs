@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
      *****/
     public void NewGame()
     {
-        StartCombat(enemyTestHero); // FOR TESTING ONLY
+        DialogueManager.Instance.StartDialogue(enemyTestHero); // FOR TESTING ONLY
     }
 
     /******
@@ -73,8 +73,11 @@ public class GameManager : MonoBehaviour
      * ****** START_COMBAT
      * *****
      *****/
-    private void StartCombat(EnemyHero enemyHero)
+    public void StartCombat()
     {
+        EnemyHero enemyHero = DialogueManager.Instance.EngagedHero as EnemyHero;
+        if (enemyHero == null) Debug.LogError("ENEMY HERO IS NULL!");
+
         AudioManager.Instance.StartStopSound("Soundtrack_Combat1", null, AudioManager.SoundType.Soundtrack);
         FunctionTimer.Create(() => AudioManager.Instance.StartStopSound("SFX_StartCombat"), 1f);
 
