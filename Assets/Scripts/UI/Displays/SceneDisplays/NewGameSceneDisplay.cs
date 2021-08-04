@@ -42,8 +42,9 @@ public class NewGameSceneDisplay : MonoBehaviour
         PlayerManager pm = PlayerManager.Instance;
         if (!heroSelected)
         {
-            PlayerHero ph = SelectedHero;
-            pm.PlayerHero = ph;
+            PlayerHero newPH = ScriptableObject.CreateInstance<PlayerHero>();
+            newPH.LoadHero(SelectedHero);
+            pm.PlayerHero = newPH;
             heroSelected = true;
             currentSelection = 0;
             DisplaySelectedAugment();

@@ -60,9 +60,11 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData pointerEventData)
     {
         if (pointerEventData.button != PointerEventData.InputButton.Right) return;
-        if (transform.parent.gameObject == enemyHand) return; // HIDE THE ENEMY HAND
         if (DragDrop.CardIsDragging || ZoomCardIsCentered) return;
-        
+        if (transform.parent.gameObject == enemyHand) return; // HIDE THE ENEMY HAND
+
+        Debug.LogWarning("OnPointerClick!");
+
         ZoomCardIsCentered = true;
         UIManager.Instance.SetScreenDimmer(true);
 
@@ -101,7 +103,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
             rect = enemyZone.GetComponent<RectTransform>();
             cardYPos = (int)rect.position.y - ZOOM_BUFFER;
         }
-        else if (transform.parent.parent.gameObject == heroSkills)
+        else if (heroSkills != null && transform.parent.parent.gameObject == heroSkills)
         {
             CreateAbilityPopups(new Vector2(0, 150), ZOOM_SCALE_VALUE);
             return;

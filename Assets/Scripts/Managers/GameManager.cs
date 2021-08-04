@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System;
+using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,6 +19,9 @@ public class GameManager : MonoBehaviour
     /* TEST_HEROES */
     [SerializeField] private EnemyHero enemyTestHero; // FOR TESTING ONLY
 
+    /* ACTIVE_NPCS */
+    private List<NPCHero> ActiveNPCHeroes;
+
     /* AUGMENT_EFFECTS */
     [SerializeField] private GiveNextUnitEffect augmentBiogenEffect;
 
@@ -28,13 +33,13 @@ public class GameManager : MonoBehaviour
     public const string PLAYER = "Player";
     public const int PLAYER_STARTING_HEALTH = 20;
     public const int PLAYER_HAND_SIZE = 4;
-    public const int PLAYER_START_FOLLOWERS = 3;
+    public const int PLAYER_START_FOLLOWERS = 2;
     public const int PLAYER_START_SKILLS = 2;
 
     public const string ENEMY = "Enemy";
     public const int ENEMY_STARTING_HEALTH = 20;
     public const int ENEMY_HAND_SIZE = 0;
-    public const int ENEMY_START_FOLLOWERS = 8;
+    public const int ENEMY_START_FOLLOWERS = 5;
     public const int ENEMY_START_SKILLS = 2;
 
     /* MANAGERS */
@@ -56,6 +61,24 @@ public class GameManager : MonoBehaviour
         cardManager = CardManager.Instance;
         UIManager = UIManager.Instance;
         eventManager = EventManager.Instance;
+        ActiveNPCHeroes = new List<NPCHero>();
+    }
+
+    public NPCHero GetActiveNPC(NPCHero npc)
+    {
+        int activeNPC;
+        activeNPC = ActiveNPCHeroes.FindIndex(x => x.ToString() == npc.ToString());
+
+        if (activeNPC != -1) return ActiveNPCHeroes[activeNPC];
+        else
+        {
+            NPCHero newNPC;
+            if (npc is EnemyHero) newNPC = ScriptableObject.CreateInstance<EnemyHero>();
+            else newNPC = ScriptableObject.CreateInstance<NPCHero>();
+            newNPC.LoadHero(npc);
+            ActiveNPCHeroes.Add(newNPC);
+            return newNPC;
+        }
     }
 
     /******
@@ -65,7 +88,7 @@ public class GameManager : MonoBehaviour
      *****/
     public void NewGame()
     {
-        DialogueManager.Instance.StartDialogue(enemyTestHero); // FOR TESTING ONLY
+        DialogueManager.Instance.StartDialogue(GetActiveNPC(enemyTestHero)); // FOR TESTING ONLY
     }
 
     /******

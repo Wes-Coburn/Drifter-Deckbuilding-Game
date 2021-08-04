@@ -9,6 +9,7 @@ public class DialogueResponse : ScriptableObject
     [SerializeField] private DialogueClip response_NextClip;
     [SerializeField] private bool response_IsExit;
     [SerializeField] private bool response_IsCombatStart;
+
     public string ResponseText { get => responseText; }
     public int Response_Respect { get => response_Respect; }
     public DialogueClip Response_NextClip { get => response_NextClip; }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class DialogueSceneDisplay : MonoBehaviour
@@ -19,7 +20,7 @@ public class DialogueSceneDisplay : MonoBehaviour
     {
         set
         {
-            playerHeroPortrait.GetComponent<SpriteRenderer>().sprite = value;
+            playerHeroPortrait.GetComponent<Image>().sprite = value;
         }
     }
     public string PlayerHeroName
@@ -61,7 +62,7 @@ public class DialogueSceneDisplay : MonoBehaviour
     {
         set
         {
-            otherHeroPortrait.GetComponent<SpriteRenderer>().sprite = value;
+            otherHeroPortrait.GetComponent<Image>().sprite = value;
         }
     }
     public string OtherHeroName

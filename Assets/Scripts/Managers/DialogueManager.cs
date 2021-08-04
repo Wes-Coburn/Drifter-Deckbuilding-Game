@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -20,11 +18,21 @@ public class DialogueManager : MonoBehaviour
     private DialogueClip currentDialogueClip;
     private DialogueSceneDisplay dialogueDisplay;
 
+    private void DisplayCurrentHeroes(NPCHero hero)
+    {
+        PlayerManager pm = PlayerManager.Instance;
+        dialogueDisplay.PlayerHeroPortrait = pm.PlayerHero.HeroPortrait;
+        dialogueDisplay.PlayerHeroName = pm.PlayerHero.HeroName;
+        dialogueDisplay.OtherHeroPortrait = hero.HeroPortrait;
+        dialogueDisplay.OtherHeroName = hero.HeroName;
+
+    }
     public void StartDialogue(NPCHero hero)
     {
-        dialogueDisplay = FindObjectOfType<DialogueSceneDisplay>(); // TESTING
+        dialogueDisplay = FindObjectOfType<DialogueSceneDisplay>();
         EngagedHero = hero;
         currentDialogueClip = hero.NextDialogueClip;
+        DisplayCurrentHeroes(hero);
         DisplayDialoguePopup();
     }
 
@@ -38,7 +46,7 @@ public class DialogueManager : MonoBehaviour
     }
 
     private void DisplayDialoguePopup()
-    {   // TESTING
+    {
         dialogueDisplay.OtherHeroSpeech = currentDialogueClip.DialoguePrompt;
         dialogueDisplay.PlayerHeroSpeech = "...";
 
@@ -66,6 +74,7 @@ public class DialogueManager : MonoBehaviour
 
     public void DialogueResponse(int response)
     {
+        if (CardManager.Instance.NewCardPopup != null) return;
         /*
         if (UIManager.Instance.CurrentTypedTextRoutine != null)
         {
@@ -73,7 +82,6 @@ public class DialogueManager : MonoBehaviour
             return;
         }
         */
-
         DialogueResponse dr = null;
         switch (response)
         {
@@ -87,8 +95,8 @@ public class DialogueManager : MonoBehaviour
                 dr = currentDialogueClip.DialogueResponse3;
                 break;
         }
+        if (dr == null) return;
         DialogueClip dc = dr.Response_NextClip;
-        if (dc == null) return;
         EngagedHero.RespectScore += dr.Response_Respect;
         if (dr.Response_IsExit)
         {
@@ -100,6 +108,18 @@ public class DialogueManager : MonoBehaviour
             SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);
             return;
         }
+
+        if (dc.NewEngagedHero != null) // TESTING
+        {
+            EngagedHero.NextDialogueClip = currentDialogueClip;
+            EngagedHero = GameManager.Instance.GetActiveNPC(dc.NewEngagedHero);
+            DisplayCurrentHeroes(EngagedHero);
+        }
+        if (dc.NewCard != null) // TESTING
+        {
+            CardManager.Instance.AddCard(dc.NewCard, GameManager.PLAYER, false);
+        }
+
         currentDialogueClip = dc;
         if (currentDialogueClip is DialogueFork) currentDialogueClip = DialogueFork();
         DisplayDialoguePopup();

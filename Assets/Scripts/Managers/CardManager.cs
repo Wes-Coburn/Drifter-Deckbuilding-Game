@@ -41,7 +41,7 @@ public class CardManager : MonoBehaviour
     [SerializeField] private GameObject newCardPopupPrefab;
     [SerializeField] private UnitCard[] playerStartUnits;
     [SerializeField] private Sprite cardBackSprite;
-    private GameObject newCardPopup; // UNUSED
+    public GameObject NewCardPopup { get; private set; }
 
     public UnitCard[] PlayerStartUnits { get => playerStartUnits; }
     public Sprite CardBackSprite { get => cardBackSprite; }
@@ -136,29 +136,52 @@ public class CardManager : MonoBehaviour
      *****/
     public void AddCard(Card card, string hero, bool isStartingCard = true)
     {
-        List<Card> deck = null;
-        Card cardInstance = null;
+        List<Card> deck;
+        Card cardInstance;
         
         if (hero == GameManager.PLAYER) deck = PlayerManager.Instance.PlayerDeckList;
         else if (hero == GameManager.ENEMY) deck = EnemyManager.Instance.EnemyDeckList;
-        else Debug.LogError("HERO NOT FOUND!");
+        else
+        {
+            Debug.LogError("HERO NOT FOUND!");
+            return;
+        }
 
         if (card is UnitCard) cardInstance = ScriptableObject.CreateInstance<UnitCard>();
         else if (card is ActionCard) cardInstance = ScriptableObject.CreateInstance<ActionCard>();
-        else Debug.LogError("CARD TYPE NOT FOUND!");
-
-        if (deck == null) Debug.LogError("DECK IS NULL!");
-        if (cardInstance == null) Debug.LogError("CARD IS NULL!");
-        else if (deck != null && cardInstance != null)
+        else
         {
-            cardInstance.LoadCard(card);
-            deck.Add(cardInstance);
+            Debug.LogError("CARD TYPE NOT FOUND!");
+            return;
         }
+
+        cardInstance.LoadCard(card);
+        deck.Add(cardInstance);
 
         if (!isStartingCard)
         {
-            newCardPopup = Instantiate(newCardPopupPrefab, UIManager.Instance.CurrentWorldSpace.transform);
-            // play sounds
+            DestroyNewCardPopup();
+            CreateNewCardPopup(cardInstance);
+        }
+    }
+
+    /******
+     * *****
+     * ****** CREATE/DESTROY_NEW_CARD_POPUP
+     * *****
+     *****/
+    private void CreateNewCardPopup(Card card)
+    {
+        NewCardPopup = Instantiate(newCardPopupPrefab, UIManager.Instance.CurrentCanvas.transform);
+        NewCardPopup.GetComponent<NewCardPopupDisplay>().CurrentCard = card;
+        // play sounds
+    }
+    public void DestroyNewCardPopup()
+    {
+        if (NewCardPopup != null)
+        {
+            Destroy(NewCardPopup);
+            NewCardPopup = null;
         }
     }
 

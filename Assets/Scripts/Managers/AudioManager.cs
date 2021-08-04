@@ -19,7 +19,7 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        StartStopSound("Soundtrack_MenuScene", null, SoundType.Soundtrack);
+        StartStopSound("Soundtrack_TitleScene", null, SoundType.Soundtrack);
     }
 
     public Sound CurrentSoundscape { get; set; }
@@ -40,26 +40,28 @@ public class AudioManager : MonoBehaviour
         sound.source.pitch = sound.pitch;
     }
 
-    public void StartStopSound (string name, Sound sound = null, SoundType soundType = SoundType.SFX, bool isEndSound = false)
+    public void StartStopSound (string sName, Sound sound = null, SoundType soundType = SoundType.SFX, bool isEndSound = false)
     {
         Sound currentSound = null;
         if (sound == null)
         {
-            currentSound = Array.Find(sounds, sound => sound.name == name);
+            currentSound = Array.Find(sounds, x => x.name == sName);
             if (currentSound == null)
             {
-                //Debug.LogWarning("SOUND <" + name + "> NOT FOUND!");
+                Debug.LogWarning("SOUND <" + sName + "> NOT FOUND!");
                 return;
             }
         }
         else
         {
+            /*
             foreach (Sound s in sounds)
             {
-                if (s == sound) currentSound = s;
+                if (s.ToString() == sound.ToString()) currentSound = s;
                 break;
             }
-
+            */
+            currentSound = Array.Find(sounds, x => x.clip.ToString() == sound.clip.ToString());
             if (currentSound == null)
             {
                 AddSoundSource(sound);
@@ -76,16 +78,19 @@ public class AudioManager : MonoBehaviour
         switch (soundType)
         {
             case SoundType.SFX:
+                // blank
                 break;
             case SoundType.Soundscape:
                 if (CurrentSoundscape == currentSound) return;
                 if (CurrentSoundscape != null) CurrentSoundscape.source.Stop();
                 CurrentSoundscape = currentSound;
+                CurrentSoundscape.source.loop = true;
                 break;
             case SoundType.Soundtrack:
                 if (CurrentSoundtrack == currentSound) return;
                 if (CurrentSoundtrack != null) CurrentSoundtrack.source.Stop();
                 CurrentSoundtrack = currentSound;
+                CurrentSoundtrack.source.loop = true;
                 break;
         }
         currentSound.source.Play();

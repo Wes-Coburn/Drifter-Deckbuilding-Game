@@ -7,7 +7,7 @@ public static class SceneLoader
     public enum Scene
     {
         LoadingScene,
-        MenuScene,
+        TitleScene,
         NewGameScene,
         DialogueScene,
         CombatScene
@@ -33,8 +33,8 @@ public static class SceneLoader
             UIManager.Instance.Start();
             switch (scene)
             {
-                case Scene.MenuScene:
-                    AudioManager.Instance.StartStopSound("Soundtrack_MenuScene", null, AudioManager.SoundType.Soundtrack);
+                case Scene.TitleScene:
+                    AudioManager.Instance.StartStopSound("Soundtrack_TitleScene", null, AudioManager.SoundType.Soundtrack);
                     break;
                 case Scene.NewGameScene:
                     // blank
