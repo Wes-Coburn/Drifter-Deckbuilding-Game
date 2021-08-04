@@ -261,6 +261,7 @@ public class EffectManager : MonoBehaviour
                     if (!GetLegalTargets(group, effect, eg.Targets))
                     {
                         Debug.LogWarning("NO LEGAL TARGETS!");
+                        ClearTargets();
                         return false;
                     }
                 }

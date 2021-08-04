@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     }
 
     /* TEST_HEROES */
-    [SerializeField] private EnemyHero enemyTestHero; // FOR TESTING ONLY
+    [SerializeField] private NPCHero NPCTestHero; // FOR TESTING ONLY
 
     /* ACTIVE_NPCS */
     private List<NPCHero> ActiveNPCHeroes;
@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour
      *****/
     public void NewGame()
     {
-        DialogueManager.Instance.StartDialogue(GetActiveNPC(enemyTestHero)); // FOR TESTING ONLY
+        DialogueManager.Instance.StartDialogue(GetActiveNPC(NPCTestHero)); // FOR TESTING ONLY
     }
 
     /******
