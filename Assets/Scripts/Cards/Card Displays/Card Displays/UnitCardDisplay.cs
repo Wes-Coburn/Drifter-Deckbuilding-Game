@@ -100,12 +100,13 @@ public class UnitCardDisplay : CardDisplay
     public override void DisplayZoomCard(GameObject parentCard)
     {
         base.DisplayZoomCard(parentCard);
-        UnitCardDisplay fcd = parentCard.GetComponent<CardDisplay>() as UnitCardDisplay;
-        CurrentPower = fcd.CurrentPower;
-        MaxDefense = fcd.MaxDefense;
-        CurrentDefense = fcd.CurrentDefense;
+        UnitCardDisplay ucd = parentCard.GetComponent<CardDisplay>() as UnitCardDisplay;
 
-        foreach (CardAbility cardAbility in fcd.CurrentAbilities)
+        CurrentPower = ucd.CurrentPower;
+        MaxDefense = ucd.MaxDefense;
+        CurrentDefense = ucd.CurrentDefense;
+
+        foreach (CardAbility cardAbility in ucd.CurrentAbilities)
         {
             if (cardAbility == null) continue; // Skip empty abilities
             gameObject.GetComponent<CardZoom>().CreateZoomAbilityIcon(cardAbility, currentAbilitiesDisplay.transform, 1);

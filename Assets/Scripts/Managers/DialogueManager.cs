@@ -49,22 +49,22 @@ public class DialogueManager : MonoBehaviour
     {
         dialogueDisplay.OtherHeroSpeech = currentDialogueClip.DialoguePrompt;
         dialogueDisplay.PlayerHeroSpeech = "...";
-
+        // Response 1
         if (currentDialogueClip.DialogueResponse1 == null)
             dialogueDisplay.Response_1 = "";
         else
             dialogueDisplay.Response_1 = currentDialogueClip.DialogueResponse1.ResponseText;
-
+        // Response 2
         if (currentDialogueClip.DialogueResponse2 == null)
             dialogueDisplay.Response_2 = "";
         else
             dialogueDisplay.Response_2 = currentDialogueClip.DialogueResponse2.ResponseText;
-
+        // Response 3
         if (currentDialogueClip.DialogueResponse3 == null)
             dialogueDisplay.Response_3 = "";
         else
             dialogueDisplay.Response_3 = currentDialogueClip.DialogueResponse3.ResponseText;
-
+        // Journal Notes
         if (currentDialogueClip.JournalNotes.Count > 0)
         {
             Debug.LogWarning("NEW JOURNAL NOTE!");
@@ -98,24 +98,27 @@ public class DialogueManager : MonoBehaviour
         if (dr == null) return;
         DialogueClip dc = dr.Response_NextClip;
         EngagedHero.RespectScore += dr.Response_Respect;
+        // Exit
         if (dr.Response_IsExit)
         {
             EndDialogue(dc);
             return;
         }
+        // Combat Start
         if (dr.Response_IsCombatStart)
         {
             SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);
             return;
         }
-
-        if (dc.NewEngagedHero != null) // TESTING
+        // New Engaged Hero
+        if (dc.NewEngagedHero != null)
         {
             EngagedHero.NextDialogueClip = currentDialogueClip;
             EngagedHero = GameManager.Instance.GetActiveNPC(dc.NewEngagedHero);
             DisplayCurrentHeroes(EngagedHero);
         }
-        if (dc.NewCard != null) // TESTING
+        // New Card
+        if (dc.NewCard != null)
         {
             CardManager.Instance.AddCard(dc.NewCard, GameManager.PLAYER, false);
         }
@@ -125,7 +128,7 @@ public class DialogueManager : MonoBehaviour
         DisplayDialoguePopup();
     }
 
-    private DialogueClip DialogueFork() // Consider altering with the new format of responses
+    private DialogueClip DialogueFork()
     {
         DialogueFork dialogueFork = (DialogueFork)currentDialogueClip;
         DialogueClip nextClip = null;

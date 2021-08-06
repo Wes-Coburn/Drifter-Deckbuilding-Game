@@ -46,7 +46,7 @@ public static class SceneLoader
                     UIManager.Instance.StartCombatScene();
                     CardManager.Instance.StartCombatScene();
                     GameManager.Instance.StartCombat();
-                    DialogueManager.Instance.EndDialogue(); // TESTING
+                    //DialogueManager.Instance.EndDialogue(); // TESTING
                     break;
                 default:
                     Debug.LogError("SCENE NOT FOUND!");

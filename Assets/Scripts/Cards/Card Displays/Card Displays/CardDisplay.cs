@@ -14,6 +14,7 @@ public abstract class CardDisplay : MonoBehaviour
             DisplayCard();
         }
     }
+
     /* CARD_DATA */
     private Animator animator;
 
@@ -87,10 +88,10 @@ public abstract class CardDisplay : MonoBehaviour
     public virtual void DisplayZoomCard(GameObject parentCard)
     {
         CardDisplay cd = parentCard.GetComponent<CardDisplay>();
-        cardScript = cd.CardScript;
-        CardName = cd.CardName;
+        cardScript = cd.CardScript; // MUST COME FIRST
         CardTypeLine = cd.CardTypeLine;
         CurrentActionCost = cd.CurrentActionCost;
+        CardName = cd.CardName;
         CardArt = cd.CardArt;
         CardBorder = cd.CardBorder;
 

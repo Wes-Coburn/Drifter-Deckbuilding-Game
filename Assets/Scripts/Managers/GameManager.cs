@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -37,7 +36,8 @@ public class GameManager : MonoBehaviour
     public const int PLAYER_START_SKILLS = 2;
 
     public const string ENEMY = "Enemy";
-    public const int ENEMY_STARTING_HEALTH = 20;
+    //public const int ENEMY_STARTING_HEALTH = 20;
+    public const int ENEMY_STARTING_HEALTH = 1;
     public const int ENEMY_HAND_SIZE = 0;
     public const int ENEMY_START_FOLLOWERS = 5;
     public const int ENEMY_START_SKILLS = 2;
@@ -158,8 +158,8 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogWarning("ENEMY WINS!");
             AudioManager.Instance.StartStopSound(null, PlayerManager.Instance.PlayerHero.HeroLose);
-
         }
+        UIManager.CreateCombatEndPopup(playerWins);
     }
 
     /******

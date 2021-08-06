@@ -20,8 +20,11 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private GameObject screenDimmerPrefab;
     [SerializeField] private GameObject infoPopupPrefab;
+    [SerializeField] private GameObject combatEndPopupPrefab;
+
     private GameObject screenDimmer;
     private GameObject infoPopup;
+    private GameObject combatEndPopup;
     private GameObject selectedEnemy;
     private GameObject playerHealth;
     private GameObject enemyHealth;
@@ -187,5 +190,17 @@ public class UIManager : MonoBehaviour
             Destroy(infoPopup);
             infoPopup = null;
         }
+    }
+
+    /******
+     * *****
+     * ****** CREATE_COMBAT_END_POPUP
+     * *****
+     *****/
+    public void CreateCombatEndPopup(bool playerWins)
+    {
+        combatEndPopup = Instantiate(combatEndPopupPrefab, CurrentCanvas.transform);
+        combatEndPopup.GetComponent<CombatEndPopupDisplay>().VictoryText.SetActive(playerWins);
+        combatEndPopup.GetComponent<CombatEndPopupDisplay>().DefeatText.SetActive(!playerWins);
     }
 }

@@ -195,7 +195,6 @@ public class CardManager : MonoBehaviour
         GameObject go = null;
         if (card is UnitCard) go = unitCardPrefab;
         else if (card is ActionCard) go = actionCardPrefab;
-        else Debug.LogError("CARD TYPE NOT FOUND!");
         go = Instantiate(go, new Vector3(0, 0, CARD_Z_POSITION), Quaternion.identity);
         go.GetComponent<CardDisplay>().CardScript = card;
         return go;

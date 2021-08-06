@@ -25,21 +25,21 @@ public class NewCardPopupDisplay : MonoBehaviour
         ignoreCardButton.SetActive(false);
     }
 
-    public void DisplayCard()
+    public void DisplayNewCard()
     {
         newCardChest.SetActive(false);
         addCardButton.SetActive(true);
         ignoreCardButton.SetActive(true);
-        GameObject newCard = CardManager.Instance.ShowCard(CurrentCard);
+
+        GameObject newCard = CardManager.Instance.ShowCard(CurrentCard); // NEED TO DISPLAY ABILITIES
+
         newCard.transform.SetParent(newCardZone.transform, false);
         AnimationManager.Instance.RevealedHandState(newCard);
-        if (newCard.TryGetComponent<UnitCardDisplay>(out UnitCardDisplay ucd))
-            ucd.IsExhausted = false;
+         if (newCard.TryGetComponent<UnitCardDisplay>(out UnitCardDisplay ucd)) ucd.IsExhausted = false;
     }
 
     public void AddCard()
     {
-        // already added
         CardManager.Instance.DestroyNewCardPopup();
     }
 

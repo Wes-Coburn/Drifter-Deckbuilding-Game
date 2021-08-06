@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 986900925}
   - component: {fileID: 4088670050114604853}
   m_Layer: 0
-  m_Name: UI_2
+  m_Name: ExitButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 1427227698}
   - component: {fileID: 1427227697}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: UI_Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -160,8 +160,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1427227695}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 90}
-  m_LocalScale: {x: 0.99814814, y: 0.99814814, z: 0.99814814}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 986900922}
   m_Father: {fileID: 4558383039621509701}
@@ -279,7 +279,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   screenDimmerPrefab: {fileID: 3904396488695468663, guid: 8dff4e257f708a643994ae8d9821d0ab,
     type: 3}
-  screenDimmerUIPrefab: {fileID: 358952132196546133, guid: f192381cba877d148b6d908172b37331,
-    type: 3}
   infoPopupPrefab: {fileID: 268856669738850229, guid: 731785fa233c48c448fcc1fe809c4ec1,
+    type: 3}
+  combatEndPopupPrefab: {fileID: 8907915894081644005, guid: c23ee06f0103c5c4386f7362d380b574,
     type: 3}

@@ -13,12 +13,15 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     private const float SMALL_POPUP_SCALE_VALUE     =  2;
 
     /* PREFABS */
-    [SerializeField] private GameObject followerZoomCard;
-    [SerializeField] private GameObject actionZoomCard;
+    [SerializeField] private GameObject unitZoomCardPrefab;
+    [SerializeField] private GameObject actionZoomCardPrefab;
     [SerializeField] private GameObject abilityBoxPrefab;
     [SerializeField] private GameObject abilityPopupPrefab;
     [SerializeField] private GameObject abilityPopupBoxPrefab;
     [SerializeField] private GameObject descriptionPopupPrefab;
+
+    public GameObject UnitZoomCardPrefab { get => unitZoomCardPrefab; }
+    public GameObject ActionZoomCardPrefab { get => actionZoomCardPrefab; }
 
     /* ZONES */
     private GameObject worldSpace;
@@ -28,13 +31,13 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     private GameObject enemyZone;
     private GameObject heroSkills;
 
+    /* CARD_DISPLAY */
+    private CardDisplay cardDisplay;
+
     public static bool ZoomCardIsCentered = false;
     public static GameObject CurrentZoomCard { get; set; }
     public static GameObject DescriptionPopup { get; set; }
     public static GameObject AbilityPopupBox { get; set; }
-    
-    /* CLASS_VARIABLES */
-    private CardDisplay cardDisplay;
     
     /******
      * *****
@@ -165,8 +168,8 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         }
 
         GameObject cardPrefab;
-        if (gameObject.GetComponent<CardDisplay>() is UnitCardDisplay) cardPrefab = followerZoomCard;
-        else if (gameObject.GetComponent<CardDisplay>() is ActionCardDisplay) cardPrefab = actionZoomCard;
+        if (gameObject.GetComponent<CardDisplay>() is UnitCardDisplay) cardPrefab = unitZoomCardPrefab;
+        else if (gameObject.GetComponent<CardDisplay>() is ActionCardDisplay) cardPrefab = actionZoomCardPrefab;
         else
         {
             Debug.LogError("CARD DISPLAY TYPE NOT FOUND!");
