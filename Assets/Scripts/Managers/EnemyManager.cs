@@ -61,7 +61,7 @@ public class EnemyManager : MonoBehaviour
         set
         {
             enemyHealth = value;
-            UIManager.Instance.UpdateEnemyHealth(EnemyHealth);
+            CardManager.Instance.EnemyHero.GetComponent<HeroDisplay>().HeroHealth = enemyHealth;
         }
     }
 

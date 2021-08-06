@@ -6,8 +6,7 @@ public class DialogueSceneDisplay : MonoBehaviour
 {
     [SerializeField] private GameObject playerHeroPortrait;
     [SerializeField] private GameObject playerHeroName;
-    [SerializeField] private GameObject playerHeroSpeech;
-
+    
     [SerializeField] private GameObject response_1;
     [SerializeField] private GameObject response_2;
     [SerializeField] private GameObject response_3;
@@ -28,13 +27,6 @@ public class DialogueSceneDisplay : MonoBehaviour
         set
         {
             playerHeroName.GetComponent<TextMeshProUGUI>().SetText(value);
-        }
-    }
-    public string PlayerHeroSpeech
-    {
-        set
-        {
-            playerHeroSpeech.GetComponent<TextMeshProUGUI>().SetText(value);
         }
     }
     public string Response_1

@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public abstract class HeroDisplay : MonoBehaviour
 {
@@ -19,6 +20,12 @@ public abstract class HeroDisplay : MonoBehaviour
         set => heroPortrait.GetComponent<SpriteRenderer>().sprite = value;
     }
     [SerializeField] private GameObject heroPortrait;
+
+    public int HeroHealth
+    {
+        set => heroHealth.GetComponent<TextMeshPro>().SetText(value.ToString());
+    }
+    [SerializeField] private GameObject heroHealth;
 
     public virtual void DisplayHero()
     {

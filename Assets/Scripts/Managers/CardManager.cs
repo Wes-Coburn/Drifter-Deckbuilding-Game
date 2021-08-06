@@ -41,10 +41,11 @@ public class CardManager : MonoBehaviour
     [SerializeField] private GameObject newCardPopupPrefab;
     [SerializeField] private UnitCard[] playerStartUnits;
     [SerializeField] private Sprite cardBackSprite;
+    
     public GameObject NewCardPopup { get; private set; }
-
     public UnitCard[] PlayerStartUnits { get => playerStartUnits; }
-    public Sprite CardBackSprite { get => cardBackSprite; }
+    //public Sprite CardBackSprite { get => cardBackSprite; }
+
     /* CARD LISTS */
     public List<GameObject> PlayerHandCards { get; private set; }
     public List<GameObject> PlayerZoneCards { get; private set; }
@@ -64,31 +65,27 @@ public class CardManager : MonoBehaviour
     public GameObject EnemyZone { get; private set; }
     public GameObject EnemyHero { get; private set; }
 
-    private void Start()
-    {
-        // PLAYER
-        PlayerHandCards = new List<GameObject>();
-        PlayerZoneCards = new List<GameObject>();
-        PlayerDiscardCards = new List<GameObject>();
-        // ENEMY
-        EnemyHandCards = new List<GameObject>();
-        EnemyZoneCards = new List<GameObject>();
-        EnemyDiscardCards = new List<GameObject>();
-    }
     public void StartCombatScene()
     {
-        /* GAME_ZONES */
+        // GAME_ZONES
         PlayerActionZone = GameObject.Find(PLAYER_ACTION_ZONE);
         PlayerHand = GameObject.Find(PLAYER_HAND);
         PlayerZone = GameObject.Find(PLAYER_ZONE);
         PlayerDiscard = GameObject.Find(PLAYER_DISCARD);
         PlayerHero = GameObject.Find(PLAYER_HERO);
-
         //EnemyActionZone = GameObject.Find(ENEMY_ACTION_ZONE);
         EnemyHand = GameObject.Find(ENEMY_HAND);
         EnemyZone = GameObject.Find(ENEMY_ZONE);
         EnemyDiscard = GameObject.Find(ENEMY_DISCARD);
         EnemyHero = GameObject.Find(ENEMY_HERO);
+
+        // GAME_ZONE_LISTS
+        PlayerHandCards = new List<GameObject>();
+        PlayerZoneCards = new List<GameObject>();
+        PlayerDiscardCards = new List<GameObject>();
+        EnemyHandCards = new List<GameObject>();
+        EnemyZoneCards = new List<GameObject>();
+        EnemyDiscardCards = new List<GameObject>();
     }
 
     public UnitCardDisplay GetUnitDisplay(GameObject card)
@@ -262,7 +259,6 @@ public class CardManager : MonoBehaviour
             Debug.LogError("CARD IS NULL!");
             return;
         }
-
         deck.RemoveAt(0);
         card.tag = cardTag;
         ChangeCardZone(card, cardZone);

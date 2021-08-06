@@ -59,7 +59,7 @@ public class PlayerManager : MonoBehaviour
         set
         {
             playerHealth = value;
-            UIManager.Instance.UpdatePlayerHealth(PlayerHealth);
+            CardManager.Instance.PlayerHero.GetComponent<HeroDisplay>().HeroHealth = playerHealth;
         }
     }
     /* ACTIONS_LEFT */
@@ -71,7 +71,8 @@ public class PlayerManager : MonoBehaviour
         {
             playerActionsLeft = value;
             if (playerActionsLeft > GameManager.MAXIMUM_ACTIONS) playerActionsLeft = GameManager.MAXIMUM_ACTIONS;
-            UIManager.Instance.UpdatePlayerActionsLeft(PlayerActionsLeft);
+            CardManager.Instance.PlayerHero.GetComponent<PlayerHeroDisplay>().PlayerActions = 
+                playerActionsLeft + "/" + ActionsPerTurn;
         }
     }
     /* HERO_POWER */

@@ -15,7 +15,7 @@ public class EffectManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    private void Start() => giveNextEffects = new List<GiveNextUnitEffect>();
+    private void Start() => giveNextEffects = new List<GiveNextUnitEffect>(); // STATIC
 
     /* CLASS_VARIABLES */
     private List<EffectGroup> effectGroupList;
@@ -38,7 +38,7 @@ public class EffectManager : MonoBehaviour
         get => giveNextEffects;
         private set => giveNextEffects = value;
     }
-    private List<GiveNextUnitEffect> giveNextEffects;
+    private static List<GiveNextUnitEffect> giveNextEffects;
     
     /******
      * *****
@@ -261,7 +261,9 @@ public class EffectManager : MonoBehaviour
                     if (!GetLegalTargets(group, effect, eg.Targets))
                     {
                         Debug.LogWarning("NO LEGAL TARGETS!");
+                        GameObject tempSource = effectSource;
                         ClearTargets();
+                        effectSource = tempSource;
                         return false;
                     }
                 }
@@ -498,6 +500,11 @@ public class EffectManager : MonoBehaviour
      *****/
     private void AbortEffectGroup()
     {
+        if (effectSource == null)
+        {
+            Debug.LogError("EFFECT SOURCE IS NULL!");
+            return;
+        }
         if (effectSource.TryGetComponent<ActionCardDisplay>(out _))
         {
             string zone;

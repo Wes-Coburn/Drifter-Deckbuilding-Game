@@ -16,8 +16,7 @@ public class EventManager : MonoBehaviour
         }
         else Destroy(gameObject);
 
-        delayedActions = new List<DelayedAction>();
-        DelayedAction.CurrentAction = 0;
+        delayedActions = new List<DelayedAction>(); // STATIC
     }
 
     public class DelayedAction
@@ -27,8 +26,8 @@ public class EventManager : MonoBehaviour
         public static int CurrentAction;
     }
 
-    public List<DelayedAction> DelayedActions { get => delayedActions; }
-    private List<DelayedAction> delayedActions;
+    //public List<DelayedAction> DelayedActions { get => delayedActions; }
+    private static List<DelayedAction> delayedActions;
     
     public DelayedAction NewDelayedAction(Action action, float delay)
     {
@@ -37,6 +36,7 @@ public class EventManager : MonoBehaviour
             Action = action,
             Delay = delay
         };
+
         delayedActions.Add(da);
         if (delayedActions.Count == 1) NextDelayedAction();
         return da;
@@ -47,11 +47,13 @@ public class EventManager : MonoBehaviour
         //Debug.Log("ACTION # " + DelayedAction.CurrentAction + " / " + delayedActions.Count);
         if (DelayedAction.CurrentAction < delayedActions.Count)
             StartCoroutine(ActionNumerator());
-        else
-        {
-            delayedActions.Clear();
-            DelayedAction.CurrentAction = 0;
-        }
+        else ClearDelayedActions();
+    }
+
+    public void ClearDelayedActions()
+    {
+        delayedActions.Clear();
+        DelayedAction.CurrentAction = 0;
     }
 
     IEnumerator ActionNumerator()

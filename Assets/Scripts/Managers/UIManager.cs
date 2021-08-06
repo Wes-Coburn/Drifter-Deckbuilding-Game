@@ -26,9 +26,6 @@ public class UIManager : MonoBehaviour
     private GameObject infoPopup;
     private GameObject combatEndPopup;
     private GameObject selectedEnemy;
-    private GameObject playerHealth;
-    private GameObject enemyHealth;
-    private GameObject playerActionsLeft;
     private GameObject endTurnButton;
 
     public Action OnWaitForSecondsCallback { get; set; }
@@ -45,9 +42,6 @@ public class UIManager : MonoBehaviour
 
     public void StartCombatScene()
     {
-        playerHealth = GameObject.Find("PlayerHealth");
-        enemyHealth = GameObject.Find("EnemyHealth");
-        playerActionsLeft = GameObject.Find("PlayerActionsLeft");
         endTurnButton = GameObject.Find("EndTurnButton");
     }
     
@@ -98,10 +92,6 @@ public class UIManager : MonoBehaviour
      * ****** SETTERS
      * *****
      *****/
-    public void UpdatePlayerHealth(int health) => playerHealth.GetComponent<TextMeshProUGUI>().SetText(health.ToString());
-    public void UpdateEnemyHealth(int health) => enemyHealth.GetComponent<TextMeshProUGUI>().SetText(health.ToString());
-    public void UpdatePlayerActionsLeft(int actions) =>
-        playerActionsLeft.GetComponent<TextMeshProUGUI>().SetText(actions + "/" + PlayerManager.Instance.ActionsPerTurn);
     public void UpdateEndTurnButton(bool isMyTurn)
     {
         BoxCollider2D bc = endTurnButton.GetComponent<BoxCollider2D>();

@@ -29,6 +29,7 @@ public class DialogueManager : MonoBehaviour
     }
     public void StartDialogue(NPCHero hero)
     {
+        AudioManager.Instance.StartStopSound("Soundtrack_DialogueScene", null, AudioManager.SoundType.Soundtrack);
         dialogueDisplay = FindObjectOfType<DialogueSceneDisplay>();
         EngagedHero = hero;
         currentDialogueClip = hero.NextDialogueClip;
@@ -47,7 +48,6 @@ public class DialogueManager : MonoBehaviour
     private void DisplayDialoguePopup()
     {
         dialogueDisplay.OtherHeroSpeech = currentDialogueClip.DialoguePrompt;
-        dialogueDisplay.PlayerHeroSpeech = "...";
         // Response 1
         if (currentDialogueClip.DialogueResponse1 == null)
             dialogueDisplay.Response_1 = "";
