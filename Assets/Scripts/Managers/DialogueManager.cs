@@ -38,7 +38,6 @@ public class DialogueManager : MonoBehaviour
 
     public void EndDialogue(DialogueClip nextClip = null)
     {
-        Debug.Log(EngagedHero.HeroName + " NEXTCLIP is " + EngagedHero.NextDialogueClip.name);
         if (nextClip != null) EngagedHero.NextDialogueClip = nextClip;
         EngagedHero = null;
         currentDialogueClip = null;
@@ -107,13 +106,14 @@ public class DialogueManager : MonoBehaviour
         // Combat Start
         if (dr.Response_IsCombatStart)
         {
+            EngagedHero.NextDialogueClip = dr.Response_NextClip; // TESTING
             SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);
             return;
         }
         // New Engaged Hero
         if (dc.NewEngagedHero != null)
         {
-            EngagedHero.NextDialogueClip = currentDialogueClip;
+            EngagedHero.NextDialogueClip = dc;
             EngagedHero = GameManager.Instance.GetActiveNPC(dc.NewEngagedHero);
             DisplayCurrentHeroes(EngagedHero);
         }

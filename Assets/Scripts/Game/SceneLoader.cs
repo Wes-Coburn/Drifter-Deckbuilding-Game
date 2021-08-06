@@ -40,7 +40,12 @@ public static class SceneLoader
                     // blank
                     break;
                 case Scene.DialogueScene:
-                    GameManager.Instance.NewGame(); // FOR TESTING ONLY!!!
+                    if (DialogueManager.Instance.EngagedHero == null) 
+                        GameManager.Instance.NewGame(); // FOR TESTING ONLY!
+                    else
+                    {
+                        DialogueManager.Instance.StartDialogue(DialogueManager.Instance.EngagedHero); // TESTING!
+                    }
                     break;
                 case Scene.CombatScene:
                     UIManager.Instance.StartCombatScene();

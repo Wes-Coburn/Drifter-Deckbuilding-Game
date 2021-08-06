@@ -11,6 +11,5 @@ public class CombatEndPopupDisplay : MonoBehaviour
     public void OnClick()
     {
         SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene);
-        DialogueManager.Instance.StartDialogue(DialogueManager.Instance.EngagedHero); // TESTING!!!
     }
 }

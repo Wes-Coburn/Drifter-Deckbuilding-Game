@@ -67,11 +67,12 @@ public class GameManager : MonoBehaviour
     public NPCHero GetActiveNPC(NPCHero npc)
     {
         int activeNPC;
-        activeNPC = ActiveNPCHeroes.FindIndex(x => x.ToString() == npc.ToString());
+        activeNPC = ActiveNPCHeroes.FindIndex(x => x.HeroName == npc.HeroName);
 
         if (activeNPC != -1) return ActiveNPCHeroes[activeNPC];
         else
         {
+            Debug.Log("Creating new NPC instance!");
             NPCHero newNPC;
             if (npc is EnemyHero) newNPC = ScriptableObject.CreateInstance<EnemyHero>();
             else newNPC = ScriptableObject.CreateInstance<NPCHero>();
