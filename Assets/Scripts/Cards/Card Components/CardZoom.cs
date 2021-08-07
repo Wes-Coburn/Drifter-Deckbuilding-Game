@@ -66,8 +66,6 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         if (DragDrop.CardIsDragging || ZoomCardIsCentered) return;
         if (transform.parent.gameObject == enemyHand) return; // HIDE THE ENEMY HAND
 
-        Debug.LogWarning("OnPointerClick!");
-
         ZoomCardIsCentered = true;
         UIManager.Instance.SetScreenDimmer(true);
 

@@ -48,11 +48,13 @@ public class EffectManager : MonoBehaviour
     public void StartEffectGroupList(List<EffectGroup> groupList, GameObject source)
     {
         // TESTING TESTING TESTING
+        /*
         if (effectSource != null)
         {
             EventManager.Instance.NewDelayedAction(() => StartEffectGroupList(groupList, source), 1f);
             return;
         }
+        */
 
         effectGroupList = groupList;
         effectSource = source;
@@ -213,9 +215,6 @@ public class EffectManager : MonoBehaviour
             newDrawnCards.Clear();
         }
 
-        Debug.LogWarning("LEGAL TARGETS FOR GROUP " + (currentEffectGroup+1) + 
-            " EFFECT " + (currentEffect+1) + ": " + legalTargets[currentEffectGroup].Count);
-
         foreach (GameObject target in legalTargets[currentEffectGroup])
         {
             if (target != null) target.GetComponent<CardSelect>().CardOutline.SetActive(true);
@@ -252,10 +251,8 @@ public class EffectManager : MonoBehaviour
         int group = 0;
         foreach (EffectGroup eg in effectGroupList)
         {
-            Debug.Log(eg.ToString());
             foreach (Effect effect in eg.Effects)
             {
-                Debug.Log(effect.ToString());
                 if (IsTargetEffect(eg, effect))
                 {
                     if (!GetLegalTargets(group, effect, eg.Targets))
@@ -281,7 +278,6 @@ public class EffectManager : MonoBehaviour
      *****/
     private bool GetLegalTargets(int currentGroup, Effect effect, EffectTargets targets)
     {
-        Debug.Log(effect.ToString() + " // " + targets.ToString());
         List<List<GameObject>> targetZones = new List<List<GameObject>>();
 
         if (effectSource.CompareTag(CardManager.PLAYER_CARD) || effectSource.CompareTag(CardManager.PLAYER_HERO))
@@ -352,7 +348,7 @@ public class EffectManager : MonoBehaviour
             if (possibleTargets < targetNumber && possibleTargets > 0) 
                 targetNumber = possibleTargets;
         }
-        Debug.LogWarning("ACCEPTED TARGETS: <" + acceptedTargets[currentEffectGroup].Count +
+        Debug.Log("ACCEPTED TARGETS: <" + acceptedTargets[currentEffectGroup].Count +
             "> // TARGET NUMBER: <" + targetNumber + ">");
 
         if (acceptedTargets[currentEffectGroup].Count == targetNumber) ConfirmTargetEffect();
@@ -377,15 +373,11 @@ public class EffectManager : MonoBehaviour
         Effect effect = eg.Effects[currentEffect];
         if (effect is DrawEffect)
         {
-            Debug.LogWarning("DRAW EFFECT!");
             string hero;
             if (eg.Targets.PlayerHand) hero = GameManager.PLAYER;
             else hero = GameManager.ENEMY;
-
             for (int i = 0; i < effect.Value; i++)
-            {
                 CardManager.Instance.DrawCard(hero);
-            }
         }
         StartNextEffect();
     }

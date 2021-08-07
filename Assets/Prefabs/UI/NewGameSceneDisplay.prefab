@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6899003070272150785}
   - component: {fileID: 367514772}
+  - component: {fileID: 6899003068923499867}
   m_Layer: 0
   m_Name: NewGameSceneDisplay
   m_TagString: Untagged
@@ -63,3 +64,22 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 513ae22f8600da948bfb3c4a73aa33a7, type: 2}
   - {fileID: 11400000, guid: 57fe36df3e9c87e499ab987a471e140b, type: 2}
   - {fileID: 11400000, guid: 1e409eadbe09b7c40865988c6f7c0dea, type: 2}
+--- !u!114 &6899003068923499867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6899003070272150784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2340c8fec396b2b43bf9a91052c5c90e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds: []
+  sounds2:
+  - name: 
+    clip: {fileID: 8300000, guid: a580b904278a5fd4fba9563d4096bd3d, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}

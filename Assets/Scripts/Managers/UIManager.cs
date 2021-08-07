@@ -190,7 +190,9 @@ public class UIManager : MonoBehaviour
     public void CreateCombatEndPopup(bool playerWins)
     {
         combatEndPopup = Instantiate(combatEndPopupPrefab, CurrentCanvas.transform);
-        combatEndPopup.GetComponent<CombatEndPopupDisplay>().VictoryText.SetActive(playerWins);
-        combatEndPopup.GetComponent<CombatEndPopupDisplay>().DefeatText.SetActive(!playerWins);
+        CombatEndPopupDisplay cepd = combatEndPopup.GetComponent<CombatEndPopupDisplay>();
+        cepd.VictoryText.SetActive(playerWins);
+        cepd.DefeatText.SetActive(!playerWins);
+        cepd.GetComponent<SoundPlayer>().PlaySound(0);
     }
 }

@@ -101,12 +101,13 @@ public class DialogueManager : MonoBehaviour
         if (dr.Response_IsExit)
         {
             EndDialogue(dc);
+            GameManager.Instance.EndGame(); // FOR TESTING ONLY
             return;
         }
         // Combat Start
         if (dr.Response_IsCombatStart)
         {
-            EngagedHero.NextDialogueClip = dr.Response_NextClip; // TESTING
+            EngagedHero.NextDialogueClip = dr.Response_NextClip;
             SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);
             return;
         }

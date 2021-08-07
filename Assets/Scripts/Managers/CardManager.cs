@@ -78,7 +78,6 @@ public class CardManager : MonoBehaviour
         EnemyZone = GameObject.Find(ENEMY_ZONE);
         EnemyDiscard = GameObject.Find(ENEMY_DISCARD);
         EnemyHero = GameObject.Find(ENEMY_HERO);
-
         // GAME_ZONE_LISTS
         PlayerHandCards = new List<GameObject>();
         PlayerZoneCards = new List<GameObject>();
@@ -118,11 +117,7 @@ public class CardManager : MonoBehaviour
         }
 
         currentDeck.Clear();
-        foreach (Card card in deckList)
-        {
-            currentDeck.Add(card);
-        }
-
+        foreach (Card card in deckList) currentDeck.Add(card);
         ShuffleDeck(currentDeck);
     }
 
@@ -244,10 +239,8 @@ public class CardManager : MonoBehaviour
                 return;
             }
 
-            foreach (GameObject go in discard)
-            {
+            foreach (GameObject go in discard) 
                 deck.Add(HideCard(go));
-            }
             discard.Clear();
             ShuffleDeck(deck);
         }
@@ -270,15 +263,12 @@ public class CardManager : MonoBehaviour
             if (newDrawnCards != null) newDrawnCards.Add(card);
         }
         else EnemyHandCards.Add(card);
-
         AudioManager.Instance.StartStopSound("SFX_DrawCard");
     }
     public void DrawHand(string player, int handSize)
     {
-        for (int i = 0; i < handSize; i++)
-        {
+        for (int i = 0; i < handSize; i++) 
             FunctionTimer.Create(() => DrawCard(player), i);
-        }
     }
 
     /******
@@ -371,13 +361,9 @@ public class CardManager : MonoBehaviour
         // UNNECESSARY?
         CardDisplay cd = card.GetComponent<CardDisplay>();
         if (cd is UnitCardDisplay)
-        {
             card.GetComponent<ChangeLayer>().CardsLayer();
-        }
         else if (cd is ActionCardDisplay)
-        {
             card.GetComponent<ChangeLayer>().ActionsLayer();
-        }
         else Debug.LogError("CARD DISPLAY TYPE NOT FOUND!");
     }
 
@@ -732,7 +718,7 @@ public class CardManager : MonoBehaviour
      *****/
     public void AddEffect(GameObject card, Effect effect)
     {
-        Debug.LogWarning("EFFECT ADDED: <" + effect.ToString() + ">");
+        Debug.Log("EFFECT ADDED: <" + effect.ToString() + ">");
         UnitCardDisplay fcd = GetUnitDisplay(card);
 
         // GIVE_ABILITY_EFFECT
@@ -917,15 +903,8 @@ public class CardManager : MonoBehaviour
     public void TriggerCardAbility(GameObject card, string triggerName)
     {
         foreach (CardAbility ca in card.GetComponent<UnitCardDisplay>().CurrentAbilities)
-        {
             if (ca is TriggeredAbility tra)
-            {
                 if (tra.AbilityTrigger.AbilityName == triggerName)
-                {
-                    Debug.Log("ABILITY TRIGGERED: " + triggerName);
                     EffectManager.Instance.StartEffectGroupList(tra.EffectGroupList, card);
-                }
-            }
-        }
     }
 }

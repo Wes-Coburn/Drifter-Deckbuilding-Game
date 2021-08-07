@@ -14,7 +14,7 @@ public class EnemyManager : MonoBehaviour
         }
         else Destroy(gameObject);
     }
-    private void Start()
+    public void StartCombat()
     {
         EnemyDeckList = new List<Card>();
         CurrentEnemyDeck = new List<Card>();
@@ -31,13 +31,10 @@ public class EnemyManager : MonoBehaviour
         set
         {
             enemyHero = value;
+            EnemyDeckList.Clear();
             foreach (UnitCard unit in enemyHero.Reinforcements[0].ReinforcementUnits)
-            {
                 for (int i = 0; i < GameManager.ENEMY_START_FOLLOWERS; i++)
-                {
                     CardManager.Instance.AddCard(unit, GameManager.ENEMY);
-                }
-            }
             ReinforcementSchedule = EnemyHero.Reinforcements[0].ReinforcementSchedule;
             CurrentReinforcements = 0;
         }

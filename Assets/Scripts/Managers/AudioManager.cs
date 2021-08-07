@@ -1,4 +1,4 @@
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -13,7 +13,6 @@ public class AudioManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         else Destroy(gameObject);
-
         foreach (Sound sound in sounds) AddSoundSource(sound);
     }
 
@@ -24,7 +23,8 @@ public class AudioManager : MonoBehaviour
 
     public Sound CurrentSoundscape { get; set; }
     public Sound CurrentSoundtrack { get; set; }
-    public Sound[] sounds;
+    [SerializeField] private Sound[] sounds;
+    private static readonly List<Sound> activeSounds = new List<Sound>();
     public enum SoundType
     {
         SFX,
@@ -32,41 +32,48 @@ public class AudioManager : MonoBehaviour
         Soundtrack
     }
 
-    private void AddSoundSource(Sound sound)
+    private Sound AddSoundSource(Sound sound)
     {
-        sound.source = gameObject.AddComponent<AudioSource>();
-        sound.source.clip = sound.clip;
-        sound.source.volume = sound.volume;
-        sound.source.pitch = sound.pitch;
+        Sound newSound = new Sound
+        {
+            source = gameObject.AddComponent<AudioSource>(),
+            name = sound.name,
+        };
+        newSound.source.clip = sound.clip;
+        newSound.source.volume = sound.volume;
+        newSound.source.pitch = sound.pitch;
+        activeSounds.Add(newSound);
+        return newSound;
+    }
+
+    public void CleanAudioSources()
+    {
+        List<Sound> noSource = new List<Sound>();
+        foreach (Sound s in activeSounds) if (s.source == null) noSource.Add(s);
+        Debug.LogWarning("CLEANING <" + noSource.Count + "> SOUNDS!");
+        foreach (Sound s in noSource) activeSounds.Remove(s);
     }
 
     public void StartStopSound (string sName, Sound sound = null, SoundType soundType = SoundType.SFX, bool isEndSound = false)
     {
+        int soundIndex;
         Sound currentSound = null;
+
         if (sound == null)
         {
-            currentSound = Array.Find(sounds, x => x.name == sName);
-            if (currentSound == null)
+            soundIndex = activeSounds.FindIndex(x => x.name == sName);
+            if (soundIndex == -1)
             {
                 Debug.LogWarning("SOUND <" + sName + "> NOT FOUND!");
                 return;
             }
+            else currentSound = activeSounds[soundIndex];
         }
         else
         {
-            /*
-            foreach (Sound s in sounds)
-            {
-                if (s.ToString() == sound.ToString()) currentSound = s;
-                break;
-            }
-            */
-            currentSound = Array.Find(sounds, x => x.clip.ToString() == sound.clip.ToString());
-            if (currentSound == null)
-            {
-                AddSoundSource(sound);
-                currentSound = sound;
-            }
+            soundIndex = activeSounds.FindIndex(x => x.source.clip == sound.clip);
+            if (soundIndex != -1) currentSound = activeSounds[soundIndex];
+            else currentSound = AddSoundSource(sound);
         }
 
         if (isEndSound)

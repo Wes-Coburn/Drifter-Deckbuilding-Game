@@ -17,12 +17,10 @@ public class GameManager : MonoBehaviour
 
     /* TEST_HEROES */
     [SerializeField] private NPCHero NPCTestHero; // FOR TESTING ONLY
-
-    /* ACTIVE_NPCS */
-    private static List<NPCHero> ActiveNPCHeroes;
-
     /* AUGMENT_EFFECTS */
     [SerializeField] private GiveNextUnitEffect augmentBiogenEffect;
+    /* ACTIVE_NPCS */
+    private static List<NPCHero> ActiveNPCHeroes;
 
     /* GAME_MANAGER_DATA */
     public const int START_ACTIONS_PER_TURN = 1;
@@ -96,17 +94,34 @@ public class GameManager : MonoBehaviour
 
     /******
      * *****
+     * ****** END_GAME
+     * *****
+     *****/
+    public void EndGame()
+    {
+        foreach (NPCHero npc in ActiveNPCHeroes) Destroy(npc);
+        ActiveNPCHeroes.Clear();
+        SceneLoader.LoadScene(SceneLoader.Scene.TitleScene);
+    }
+
+    /******
+     * *****
      * ****** START_COMBAT
      * *****
      *****/
     public void StartCombat()
     {
+        enemyManager.StartCombat();
         EnemyHero enemyHero = DialogueManager.Instance.EngagedHero as EnemyHero;
-        if (enemyHero == null) Debug.LogError("ENEMY HERO IS NULL!");
+        if (enemyHero == null)
+        {
+            Debug.LogError("ENEMY HERO IS NULL!");
+            return;
+        }
 
         AudioManager.Instance.StartStopSound("Soundtrack_Combat1", null, AudioManager.SoundType.Soundtrack);
         FunctionTimer.Create(() => AudioManager.Instance.StartStopSound("SFX_StartCombat"), 1f);
-
+        
         /* UPDATE_DECKS */
         enemyManager.EnemyHero = enemyHero;
         cardManager.UpdateDeck(PLAYER);
@@ -151,18 +166,12 @@ public class GameManager : MonoBehaviour
      *****/
     public void EndCombat(bool playerWins)
     {
-        // VICTORY or DEFEAT animation
         if (playerWins)
-        {
-            Debug.LogWarning("PLAYER WINS!");
             AudioManager.Instance.StartStopSound(null, PlayerManager.Instance.PlayerHero.HeroWin);
-        }
         else
-        {
-            Debug.LogWarning("ENEMY WINS!");
             AudioManager.Instance.StartStopSound(null, PlayerManager.Instance.PlayerHero.HeroLose);
-        }
         UIManager.CreateCombatEndPopup(playerWins);
+        // VICTORY or DEFEAT animation
     }
 
     /******

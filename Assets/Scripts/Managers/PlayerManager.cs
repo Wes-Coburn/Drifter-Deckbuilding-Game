@@ -28,17 +28,14 @@ public class PlayerManager : MonoBehaviour
         set
         {
             playerHero = value;
+            PlayerDeckList.Clear();
             CardManager cm = CardManager.Instance;
             for (int i = 0; i < GameManager.PLAYER_START_FOLLOWERS; i++)
-            {
                 foreach (UnitCard uc in cm.PlayerStartUnits)
                     cm.AddCard(uc, GameManager.PLAYER);
-            }
             foreach (SkillCard skill in PlayerHero.HeroSkills)
-            {
                 for (int i = 0; i < GameManager.PLAYER_START_SKILLS; i++)
                     cm.AddCard(skill, GameManager.PLAYER);
-            }
         }
     }
     private PlayerHero playerHero;

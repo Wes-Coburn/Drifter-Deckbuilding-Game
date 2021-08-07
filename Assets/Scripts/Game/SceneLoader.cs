@@ -31,6 +31,7 @@ public static class SceneLoader
         onSceneUpdateCallback = () =>
         {
             UIManager.Instance.Start();
+            AudioManager.Instance.CleanAudioSources();
             switch (scene)
             {
                 case Scene.TitleScene:
@@ -43,15 +44,12 @@ public static class SceneLoader
                     if (DialogueManager.Instance.EngagedHero == null) 
                         GameManager.Instance.NewGame(); // FOR TESTING ONLY!
                     else
-                    {
-                        DialogueManager.Instance.StartDialogue(DialogueManager.Instance.EngagedHero); // TESTING!
-                    }
+                        DialogueManager.Instance.StartDialogue(DialogueManager.Instance.EngagedHero);
                     break;
                 case Scene.CombatScene:
                     UIManager.Instance.StartCombatScene();
                     CardManager.Instance.StartCombatScene();
                     GameManager.Instance.StartCombat();
-                    //DialogueManager.Instance.EndDialogue(); // TESTING
                     break;
                 default:
                     Debug.LogError("SCENE NOT FOUND!");
