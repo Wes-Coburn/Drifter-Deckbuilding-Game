@@ -73,7 +73,6 @@ public class DialogueManager : MonoBehaviour
 
     public void DialogueResponse(int response)
     {
-        if (CardManager.Instance.NewCardPopup != null) return;
         /*
         if (UIManager.Instance.CurrentTypedTextRoutine != null)
         {

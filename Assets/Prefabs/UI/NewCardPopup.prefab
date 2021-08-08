@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 24541475171586346}
   - component: {fileID: 9012311016108672408}
   - component: {fileID: 689910870626323153}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 7595360387252000183}
   - component: {fileID: 4520669112367872940}
   - component: {fileID: 370467317271265329}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 20}
-  m_SizeDelta: {x: 230, y: 150}
+  m_SizeDelta: {x: 450, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4520669112367872940
 CanvasRenderer:
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Right click a card for more information!
+  m_text: Right click on cards for more information!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -167,8 +167,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 45
+  m_fontSizeBase: 45
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -220,8 +220,8 @@ GameObject:
   - component: {fileID: 4663049881641053863}
   - component: {fileID: 6265692597946578648}
   - component: {fileID: 5082621156950482299}
-  m_Layer: 0
-  m_Name: Text
+  m_Layer: 5
+  m_Name: NewCardText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -243,8 +243,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 330}
-  m_SizeDelta: {x: 500, y: 150}
+  m_AnchoredPosition: {x: 0, y: 350}
+  m_SizeDelta: {x: 375, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6265692597946578648
 CanvasRenderer:
@@ -302,8 +302,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 100
-  m_fontSizeBase: 100
+  m_fontSize: 85
+  m_fontSizeBase: 85
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -356,7 +356,7 @@ GameObject:
   - component: {fileID: 1089590481517582537}
   - component: {fileID: 3476099716606158888}
   - component: {fileID: 8512944431664403139}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: NewCardChest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -499,7 +499,7 @@ GameObject:
   - component: {fileID: 595991814847218112}
   - component: {fileID: 6407113712639716784}
   - component: {fileID: 1013781826794353008}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -633,7 +633,7 @@ GameObject:
   - component: {fileID: 3557825134249883778}
   - component: {fileID: 8722741405858366947}
   - component: {fileID: 4408658483606401799}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -657,7 +657,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 375, y: 260}
+  m_SizeDelta: {x: 700, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8722741405858366947
 CanvasRenderer:
@@ -707,7 +707,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6478025775204866251}
   - component: {fileID: 2903002274987226995}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: AddCardButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -786,18 +786,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 6035789947311284719}
-        m_TargetAssemblyTypeName: SoundPlayer, Assembly-CSharp
-        m_MethodName: PlaySound
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &5881579798696332084
 GameObject:
   m_ObjectHideFlags: 0
@@ -809,7 +797,7 @@ GameObject:
   - component: {fileID: 7657331667644090067}
   - component: {fileID: 5742780878199511096}
   - component: {fileID: 8287750576286560656}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1018,7 +1006,7 @@ GameObject:
   - component: {fileID: 7360444653983088115}
   - component: {fileID: 3956708612523190296}
   - component: {fileID: 6035789947311284719}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: NewCardPopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1106,7 +1094,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7360444654505460195}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: NewCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1122,7 +1110,7 @@ Transform:
   m_GameObject: {fileID: 7360444654505460192}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 1}
   m_Children: []
   m_Father: {fileID: 7360444653983088115}
   m_RootOrder: 1
@@ -1138,7 +1126,7 @@ GameObject:
   - component: {fileID: 2700103288585685396}
   - component: {fileID: 657219061382748472}
   - component: {fileID: 8485009923737823124}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1212,7 +1200,7 @@ GameObject:
   m_Component:
   - component: {fileID: 976093854791492117}
   - component: {fileID: 3195449396245941866}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: IgnoreButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1291,18 +1279,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 6035789947311284719}
-        m_TargetAssemblyTypeName: SoundPlayer, Assembly-CSharp
-        m_MethodName: PlaySound
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 3
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &7940125020918992346
 GameObject:
   m_ObjectHideFlags: 0
@@ -1312,7 +1288,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5939411475297415597}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Tooltip
   m_TagString: Untagged
   m_Icon: {fileID: 0}

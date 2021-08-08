@@ -78,16 +78,14 @@ public class EnemyManager : MonoBehaviour
         // DELAYED ACTIONS
         for (int i = 0; i < refoSched[refo]; i++)
             eveMan.NewDelayedAction(() => cardMan.DrawCard(GameManager.ENEMY), 1.5f);
-
         for (int i = 0; i < refoSched[refo]; i++)
             eveMan.NewDelayedAction(() => cardMan.PlayCard(cardMan.EnemyHandCards[0]), 1.5f);
-
+        
         if ((refo + 1) < refoSched.Count) CurrentReinforcements++;
         else CurrentReinforcements = 0;
 
         cardMan.EnemyHero.GetComponent<EnemyHeroDisplay>().NextReinforcements =
             refoSched[CurrentReinforcements];
-
         eveMan.NewDelayedAction(() => CMBeginAttack(), 1f);
 
         void CMBeginAttack()
@@ -109,13 +107,11 @@ public class EnemyManager : MonoBehaviour
             if (cardMan.PlayerZoneCards.Count > 0)
             {
                 foreach (GameObject playerUnit in cardMan.PlayerZoneCards)
-                {
                     if (!CardManager.GetAbility(playerUnit, "Stealth"))
                     {
                         cardMan.Attack(enemyUnit, playerUnit);
                         return;
                     }
-                }
             }
             cardMan.Attack(enemyUnit, cardMan.PlayerHero);
         }

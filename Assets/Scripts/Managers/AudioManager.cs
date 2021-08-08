@@ -61,6 +61,7 @@ public class AudioManager : MonoBehaviour
 
         if (sound == null)
         {
+            if (string.IsNullOrEmpty(sName)) return;
             soundIndex = activeSounds.FindIndex(x => x.name == sName);
             if (soundIndex == -1)
             {

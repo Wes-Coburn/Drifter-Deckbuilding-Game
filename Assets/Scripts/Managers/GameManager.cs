@@ -28,15 +28,15 @@ public class GameManager : MonoBehaviour
     public const int MAXIMUM_ACTIONS = 5;
 
     public const string PLAYER = "Player";
-    //public const int PLAYER_STARTING_HEALTH = 20;
-    public const int PLAYER_STARTING_HEALTH = 1; // FOR TESTING ONLY
+    public const int PLAYER_STARTING_HEALTH = 20;
+    //public const int PLAYER_STARTING_HEALTH = 1; // FOR TESTING ONLY
     public const int PLAYER_HAND_SIZE = 4;
     public const int PLAYER_START_FOLLOWERS = 2;
     public const int PLAYER_START_SKILLS = 2;
 
     public const string ENEMY = "Enemy";
-    //public const int ENEMY_STARTING_HEALTH = 20;
-    public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
+    public const int ENEMY_STARTING_HEALTH = 20;
+    //public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
     public const int ENEMY_HAND_SIZE = 0;
     public const int ENEMY_START_FOLLOWERS = 5;
     public const int ENEMY_START_SKILLS = 2;
@@ -131,10 +131,10 @@ public class GameManager : MonoBehaviour
         if (playerManager.GetAugment("Kinetic Regulator")) bonusHealth = 5;
         playerManager.PlayerHealth = PLAYER_STARTING_HEALTH + bonusHealth;
         /* PLAYER_ACTIONS */
-        playerManager.PlayerActionsLeft = 0;
         int bonusActions = 0;
         if (playerManager.GetAugment("Synaptic Stabilizer")) bonusActions = 1;
         playerManager.ActionsPerTurn = START_ACTIONS_PER_TURN + bonusActions;
+        playerManager.PlayerActionsLeft = 0;
         /* ENEMY_HEALTH */
         enemyManager.EnemyHealth = ENEMY_STARTING_HEALTH;
         /* HERO_DISPLAYS */
@@ -149,13 +149,9 @@ public class GameManager : MonoBehaviour
         }
         /* DELAYED_ACTIONS */
         for (int i = 0; i < PLAYER_HAND_SIZE; i++)
-        {
             eventManager.NewDelayedAction(() => cardManager.DrawCard(PLAYER), 1f);
-        }
         for (int i = 0; i < ENEMY_HAND_SIZE; i++)
-        {
             eventManager.NewDelayedAction(() => cardManager.DrawCard(ENEMY), 1f);
-        }
         eventManager.NewDelayedAction(() => StartTurn(PLAYER), 1f);
     }
 

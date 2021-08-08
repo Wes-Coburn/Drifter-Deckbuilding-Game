@@ -43,12 +43,26 @@ public class NewCardPopupDisplay : MonoBehaviour
 
     public void AddCard()
     {
+        if (!CatchScreenDimmer()) return;
+        gameObject.GetComponent<SoundPlayer>().PlaySound(2);
         CardManager.Instance.DestroyNewCardPopup();
     }
 
     public void IgnoreCard()
     {
+        if (!CatchScreenDimmer()) return;
+        gameObject.GetComponent<SoundPlayer>().PlaySound(3);
         PlayerManager.Instance.PlayerDeckList.Remove(CurrentCard);
         CardManager.Instance.DestroyNewCardPopup();
+    }
+
+    private bool CatchScreenDimmer()
+    {
+        if (CardZoom.ZoomCardIsCentered)
+        {
+            UIManager.Instance.DestroyZoomObjects();
+            return false;
+        }
+        else return true;
     }
 }
