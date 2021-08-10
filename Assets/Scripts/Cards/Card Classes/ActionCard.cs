@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Action Card", menuName = "Cards/Action")]
+[CreateAssetMenu(fileName = "New Action Card", menuName = "Cards/Action/Action")]
 public class ActionCard : Card
 {
     [TextArea] [SerializeField] private string effectDescription;

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Draw Effect", menuName = "Effects/Draw")]
+[CreateAssetMenu(fileName = "New Draw Effect", menuName = "Effects/Effect/Draw")]
 public class DrawEffect : Effect
 {
     public bool IsDiscardEffect;

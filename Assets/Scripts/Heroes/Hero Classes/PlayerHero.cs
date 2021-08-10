@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Player Hero", menuName = "Heroes/Player Hero")]
+[CreateAssetMenu(fileName = "New Player Hero", menuName = "Heroes/Player/Player Hero")]
 public class PlayerHero : Hero
 {
     [Header("HERO POWER")]

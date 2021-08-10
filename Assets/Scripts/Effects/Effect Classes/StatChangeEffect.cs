@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Stat Change Effect", menuName = "Effects/StatChange")]
+[CreateAssetMenu(fileName = "New Stat Change Effect", menuName = "Effects/Effect/StatChange")]
 public class StatChangeEffect : Effect
 {
     public bool IsDefenseChange;

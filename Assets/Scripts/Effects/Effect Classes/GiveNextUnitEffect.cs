@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New GiveNextUnit Effect", menuName = "Effects/GiveNextUnit")]
+[CreateAssetMenu(fileName = "New GiveNextUnit Effect", menuName = "Effects/Effect/GiveNextUnit")]
 public class GiveNextUnitEffect : Effect
 {
     public Effect[] Effects;

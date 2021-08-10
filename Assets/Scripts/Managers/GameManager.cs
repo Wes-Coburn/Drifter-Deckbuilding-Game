@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
     private EnemyManager enemyManager;
     private CardManager cardManager;
     private UIManager UIManager;
-    EventManager eventManager;
+    private EventManager eventManager;
 
     /******
      * *****

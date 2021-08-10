@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Hero Augment", menuName = "Heroes/Hero Augment")]
+[CreateAssetMenu(fileName = "New Hero Augment", menuName = "Heroes/Player/Hero Augment")]
 public class HeroAugment : ScriptableObject
 {
     [Header("AUGMENT NAME")]

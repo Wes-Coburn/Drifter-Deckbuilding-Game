@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Give Ability Effect", menuName = "Effects/GiveAbility")]
+[CreateAssetMenu(fileName = "New Give Ability Effect", menuName = "Effects/Effect/GiveAbility")]
 public class GiveAbilityEffect : Effect
 {
     public CardAbility CardAbility;

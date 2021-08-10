@@ -13,7 +13,7 @@ public class DialogueManager : MonoBehaviour
         }
         else Destroy(gameObject);
     }
-
+    
     public NPCHero EngagedHero { get; private set; }
     private DialogueClip currentDialogueClip;
     private DialogueSceneDisplay dialogueDisplay;
@@ -47,24 +47,26 @@ public class DialogueManager : MonoBehaviour
 
     private void DisplayDialoguePopup()
     {
-        dialogueDisplay.OtherHeroSpeech = currentDialogueClip.DialoguePrompt;
+        DialoguePrompt dpr = currentDialogueClip as DialoguePrompt;
+
+        dialogueDisplay.OtherHeroSpeech = dpr.DialoguePromptText;
         // Response 1
-        if (currentDialogueClip.DialogueResponse1 == null)
+        if (dpr.DialogueResponse1 == null)
             dialogueDisplay.Response_1 = "";
         else
-            dialogueDisplay.Response_1 = currentDialogueClip.DialogueResponse1.ResponseText;
+            dialogueDisplay.Response_1 = dpr.DialogueResponse1.ResponseText;
         // Response 2
-        if (currentDialogueClip.DialogueResponse2 == null)
+        if (dpr.DialogueResponse2 == null)
             dialogueDisplay.Response_2 = "";
         else
-            dialogueDisplay.Response_2 = currentDialogueClip.DialogueResponse2.ResponseText;
+            dialogueDisplay.Response_2 = dpr.DialogueResponse2.ResponseText;
         // Response 3
-        if (currentDialogueClip.DialogueResponse3 == null)
+        if (dpr.DialogueResponse3 == null)
             dialogueDisplay.Response_3 = "";
         else
-            dialogueDisplay.Response_3 = currentDialogueClip.DialogueResponse3.ResponseText;
+            dialogueDisplay.Response_3 = dpr.DialogueResponse3.ResponseText;
         // Journal Notes
-        if (currentDialogueClip.JournalNotes.Count > 0)
+        if (dpr.JournalNotes.Count > 0)
         {
             Debug.LogWarning("NEW JOURNAL NOTE!");
             //JournalManager.Instance.NewJournalNote(currentDialogueClip.JournalNotes);
@@ -80,17 +82,18 @@ public class DialogueManager : MonoBehaviour
             return;
         }
         */
+        DialoguePrompt dpr = currentDialogueClip as DialoguePrompt;
         DialogueResponse dr = null;
         switch (response)
         {
             case 1:
-                dr = currentDialogueClip.DialogueResponse1;
+                dr = dpr.DialogueResponse1;
                 break;
             case 2:
-                dr = currentDialogueClip.DialogueResponse2;
+                dr = dpr.DialogueResponse2;
                 break;
             case 3:
-                dr = currentDialogueClip.DialogueResponse3;
+                dr = dpr.DialogueResponse3;
                 break;
         }
         if (dr == null) return;
@@ -110,19 +113,22 @@ public class DialogueManager : MonoBehaviour
             SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);
             return;
         }
-        // New Engaged Hero
-        if (dc.NewEngagedHero != null)
-        {
-            EngagedHero.NextDialogueClip = dc;
-            EngagedHero = GameManager.Instance.GetActiveNPC(dc.NewEngagedHero);
-            DisplayCurrentHeroes(EngagedHero);
-        }
-        // New Card
-        if (dc.NewCard != null)
-        {
-            CardManager.Instance.AddCard(dc.NewCard, GameManager.PLAYER, false);
-        }
 
+        if (dc is DialoguePrompt)
+        {
+            // New Engaged Hero
+            if (dpr.NewEngagedHero != null)
+            {
+                EngagedHero.NextDialogueClip = dc;
+                EngagedHero = GameManager.Instance.GetActiveNPC(dpr.NewEngagedHero);
+                DisplayCurrentHeroes(EngagedHero);
+            }
+            // New Card
+            if (dpr.NewCard != null)
+            {
+                CardManager.Instance.AddCard(dpr.NewCard, GameManager.PLAYER, false);
+            }
+        }
         currentDialogueClip = dc;
         if (currentDialogueClip is DialogueFork) currentDialogueClip = DialogueFork();
         DisplayDialoguePopup();
@@ -130,14 +136,14 @@ public class DialogueManager : MonoBehaviour
 
     private DialogueClip DialogueFork()
     {
-        DialogueFork dialogueFork = (DialogueFork)currentDialogueClip;
+        DialogueFork df = currentDialogueClip as DialogueFork;
         DialogueClip nextClip = null;
-        if (dialogueFork.IsRespectCondition)
+        if (df.IsRespectCondition)
         {
             int respect = EngagedHero.RespectScore;
-            if (respect <= dialogueFork.Response_2_Condition_Value) nextClip = dialogueFork.DialogueResponse1.Response_NextClip;
-            else if (respect <= dialogueFork.Response_2_Condition_Value) nextClip = dialogueFork.DialogueResponse2.Response_NextClip;
-            else nextClip = dialogueFork.DialogueResponse3.Response_NextClip;
+            if (respect <= df.Clip_2_Condition_Value) nextClip = df.Clip_1;
+            else if (respect <= df.Clip_2_Condition_Value) nextClip = df.Clip_2;
+            else nextClip = df.Clip_3;
         }
         return nextClip;
     }

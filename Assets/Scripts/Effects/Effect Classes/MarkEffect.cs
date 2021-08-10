@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Mark Effect", menuName = "Effects/Mark")]
+[CreateAssetMenu(fileName = "New Mark Effect", menuName = "Effects/Effect/Mark")]
 public class MarkEffect : Effect
 {
     // blank

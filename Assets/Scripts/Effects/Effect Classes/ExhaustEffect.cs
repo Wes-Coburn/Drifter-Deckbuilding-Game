@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Exhaust Effect", menuName = "Effects/Exhaust")]
+[CreateAssetMenu(fileName = "New Exhaust Effect", menuName = "Effects/Effect/Exhaust")]
 public class ExhaustEffect : Effect
 {
     public bool SetExhausted;

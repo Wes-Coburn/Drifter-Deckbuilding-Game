@@ -5,25 +5,32 @@ public abstract class Hero : ScriptableObject
     [Header("DEVELOPER NOTES")]
     [TextArea]
     [SerializeField]
-    private string DeveloperNotes;
-
+    private string developerNotes;
     [Header("HERO NAME")]
-    public string HeroName;
+    private string heroName;
     [Header("HERO PORTRAIT")]
-    public Sprite HeroPortrait;
+    private Sprite heroPortrait;
     [Header("HERO DESCRIPTION")]
     [TextArea]
-    public string HeroDescription;
+    private string heroDescription;
     [Header("HERO SOUNDS")]
-    public Sound HeroWin;
-    public Sound HeroLose;
+    private Sound heroWin;
+    private Sound heroLose;
+
+    private string DeveloperNotes { get => developerNotes; }
+    public string HeroName { get => heroName; }
+    public Sprite HeroPortrait { get => heroPortrait; }
+    public string HeroDescription { get => heroDescription; }
+    public Sound HeroWin { get => heroWin; }
+    public Sound HeroLose { get => heroLose; }
 
     public virtual void LoadHero(Hero hero)
     {
-        HeroName = hero.HeroName;
-        HeroPortrait = hero.HeroPortrait;
-        HeroDescription = hero.HeroDescription;
-        HeroWin = hero.HeroWin;
-        HeroLose = hero.HeroLose;
+        developerNotes = hero.DeveloperNotes;
+        heroName = hero.HeroName;
+        heroPortrait = hero.HeroPortrait;
+        heroDescription = hero.HeroDescription;
+        heroWin = hero.HeroWin;
+        heroLose = hero.HeroLose;
     }
 }
