@@ -1,10 +1,9 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Dialogue Response", menuName = "Dialogue/Dialogue Response")]
-public class DialogueResponse : ScriptableObject
+[System.Serializable]
+public class DialogueResponse
 {
-    [TextArea]
-    [SerializeField] private string responseText;
+    [TextArea] [SerializeField] private string responseText;
     [SerializeField] [Range(-5, 5)] protected int response_Respect;
     [SerializeField] private DialogueClip response_NextClip;
     [SerializeField] private bool response_IsExit;

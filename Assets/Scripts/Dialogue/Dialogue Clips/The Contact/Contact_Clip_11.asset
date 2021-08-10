@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20959b6bd01e1ba47ab1f4df99ff8721, type: 3}
+  m_Name: Contact_Clip_11
+  m_EditorClassIdentifier: 
+  journalNotes: []
+  dialoguePrompt: 'You''re a fool.
+
+    *Turns to leave.*'
+  dialogueResponse1:
+    responseText: I've been called worse.
+    response_Respect: 0
+    response_NextClip: {fileID: 11400000, guid: 94ec6405408cff340a097a9797c15373,
+      type: 2}
+    response_IsExit: 0
+    response_IsCombatStart: 0
+  dialogueResponse2:
+    responseText: It takes one to know one, fool.
+    response_Respect: 0
+    response_NextClip: {fileID: 11400000, guid: 94ec6405408cff340a097a9797c15373,
+      type: 2}
+    response_IsExit: 0
+    response_IsCombatStart: 0
+  dialogueResponse3:
+    responseText: I think I'm done asking. *Attack*
+    response_Respect: -5
+    response_NextClip: {fileID: 11400000, guid: 9f23477a446a52941b2972d49c2b35eb,
+      type: 2}
+    response_IsExit: 0
+    response_IsCombatStart: 0
+  newEngagedHero: {fileID: 0}
+  newCard: {fileID: 0}

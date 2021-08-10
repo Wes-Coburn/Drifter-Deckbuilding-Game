@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20959b6bd01e1ba47ab1f4df99ff8721, type: 3}
+  m_Name: Contact_Clip_8
+  m_EditorClassIdentifier: 
+  journalNotes: []
+  dialoguePrompt: 'I can''t say much, the details are incredibly sensitive.
+
+    The
+    pay is 5,000 credits.'
+  dialogueResponse1:
+    responseText: Where do I sign?
+    response_Respect: 0
+    response_NextClip: {fileID: 11400000, guid: 78f69fef19ab7894ba4e968f47ad1b92,
+      type: 2}
+    response_IsExit: 0
+    response_IsCombatStart: 0
+  dialogueResponse2:
+    responseText: I need more information.
+    response_Respect: 0
+    response_NextClip: {fileID: 11400000, guid: f05a5e9e6ef55d34da1f374bf223704c,
+      type: 2}
+    response_IsExit: 0
+    response_IsCombatStart: 0
+  dialogueResponse3:
+    responseText: No way in hell I'm doin that.
+    response_Respect: 0
+    response_NextClip: {fileID: 11400000, guid: 5ef518978036801479a4213040ed647a,
+      type: 2}
+    response_IsExit: 0
+    response_IsCombatStart: 0
+  newEngagedHero: {fileID: 0}
+  newCard: {fileID: 0}

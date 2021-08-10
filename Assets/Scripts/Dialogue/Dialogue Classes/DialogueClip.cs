@@ -28,18 +28,14 @@ public class DialogueClip : ScriptableObject
 
     public virtual void LoadDialogueClip(DialogueClip dc)
     {
-        static DialogueResponse ResponseInstance(DialogueResponse dr)
-        {
-            DialogueResponse newDR = ScriptableObject.CreateInstance<DialogueResponse>();
-            newDR.LoadResponse(dr);
-            return newDR;
-        }
         journalNotes = new List<JournalNote>();
         foreach (JournalNote jn in dc.JournalNotes)
             journalNotes.Add(jn);
-        dialogueResponse1 = ResponseInstance(dc.DialogueResponse1);
-        dialogueResponse2 = ResponseInstance(dc.DialogueResponse2);
-        dialogueResponse3 = ResponseInstance(dc.DialogueResponse3);
+
+        dialogueResponse1.LoadResponse(dc.dialogueResponse1);
+        dialogueResponse2.LoadResponse(dc.dialogueResponse2);
+        dialogueResponse3.LoadResponse(dc.dialogueResponse3);
+
         dialoguePrompt = dc.DialoguePrompt;
         newEngagedHero = dc.NewEngagedHero;
         newCard = dc.NewCard;

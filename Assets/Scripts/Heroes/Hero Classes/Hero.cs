@@ -2,6 +2,11 @@ using UnityEngine;
 
 public abstract class Hero : ScriptableObject
 {
+    [Header("DEVELOPER NOTES")]
+    [TextArea]
+    [SerializeField]
+    private string DeveloperNotes;
+
     [Header("HERO NAME")]
     public string HeroName;
     [Header("HERO PORTRAIT")]
