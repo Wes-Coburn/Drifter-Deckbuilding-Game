@@ -293,6 +293,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5217999959209188416}
   - component: {fileID: 3193458857498256037}
+  - component: {fileID: 5329944867766404357}
   - component: {fileID: 4432880307613655561}
   - component: {fileID: 7680700372928423665}
   m_Layer: 8
@@ -346,6 +347,25 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 495, y: 375}
   m_EdgeRadius: 0
+--- !u!95 &5329944867766404357
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476387090063462357}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6757ee2224bd2244b962b6ddd717f490, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &4432880307613655561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -466,7 +486,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6355004549195075848}
   m_Layer: 8
-  m_Name: EnemyHealthImage
+  m_Name: HeroHealth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -775,7 +795,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 80, y: 80}
+  m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &5864734920649012691
 MeshRenderer:

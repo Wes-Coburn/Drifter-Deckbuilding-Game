@@ -53,7 +53,6 @@ public class DialogueManager : MonoBehaviour
     private void DisplayDialoguePopup()
     {
         DialoguePrompt dpr = currentDialogueClip as DialoguePrompt;
-
         dialogueDisplay.OtherHeroSpeech = dpr.DialoguePromptText;
         // Response 1
         if (dpr.DialogueResponse1 == null)
@@ -101,8 +100,10 @@ public class DialogueManager : MonoBehaviour
                 dr = dpr.DialogueResponse3;
                 break;
         }
-        if (dr == null) return;
+
         DialogueClip dc = dr.Response_NextClip;
+        if (dc == null) return;
+
         EngagedHero.RespectScore += dr.Response_Respect;
         // Exit
         if (dr.Response_IsExit)

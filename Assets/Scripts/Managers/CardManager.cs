@@ -640,8 +640,18 @@ public class CardManager : MonoBehaviour
         else if (target == EnemyHero) targetValue = em.EnemyHealth;
         else targetValue = GetUnitDisplay(target).CurrentDefense;
         newTargetValue = targetValue - damageValue;
-        if (target == PlayerHero) pm.PlayerHealth = newTargetValue;
-        else if (target == EnemyHero) em.EnemyHealth = newTargetValue;
+        
+        // Damage to heroes
+        if (target == PlayerHero)
+        {
+            pm.PlayerHealth = newTargetValue;
+            AnimationManager.Instance.ModifyHealthState(target);
+        }
+        else if (target == EnemyHero)
+        {
+            em.EnemyHealth = newTargetValue;
+            AnimationManager.Instance.ModifyHealthState(target);
+        }
         else // Damage to Units
         {
             if (GetAbility(target, "Shield"))

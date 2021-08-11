@@ -13,19 +13,26 @@ public class AnimationManager : MonoBehaviour
         }
         else Destroy(gameObject);
     }
+
     public void ChangeAnimationState(GameObject go, string animationState)
     {
         if (go.TryGetComponent<Animator>(out Animator anim))
         {
-            if (anim.enabled) anim.Play(animationState);
+            if (anim.enabled)
+                anim.Play(animationState);
         }
         else Debug.LogWarning("ANIMATOR NOT FOUND!");
     }
-    public void RevealedHandState (GameObject card) => ChangeAnimationState(card, "Revealed_Hand");
-    public void RevealedPlayState (GameObject card) => ChangeAnimationState(card, "Revealed_Play");
+
+    /* HERO_ANIMATIONS */
+    public void ModifyHealthState(GameObject hero) => ChangeAnimationState(hero, "Modify_Health");
+
+    /* UNIT_ANIMATIONS */
+    public void RevealedHandState(GameObject card) => ChangeAnimationState(card, "Revealed_Hand");
+    public void RevealedPlayState(GameObject card) => ChangeAnimationState(card, "Revealed_Play");
     public void RevealedDragState(GameObject card) => ChangeAnimationState(card, "Revealed_Drag");
     public void DragPlayedState(GameObject card) => ChangeAnimationState(card, "Drag_Played");
-    public void PlayedState (GameObject card)
+    public void PlayedState(GameObject card)
     {
         card.GetComponent<CardDisplay>().CardArt = card.GetComponent<CardDisplay>().CardScript.CardArt;
         ChangeAnimationState(card, "Played");
