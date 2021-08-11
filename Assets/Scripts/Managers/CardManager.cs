@@ -581,9 +581,17 @@ public class CardManager : MonoBehaviour
      *****/
     public bool CanAttack(GameObject attacker, GameObject defender)
     {
-        if (GetUnitDisplay(attacker).IsExhausted) return false;
-        if (defender != PlayerHero && defender != EnemyHero)
-            if (GetAbility(defender, "Stealth")) return false;
+        if (GetUnitDisplay(attacker).IsExhausted)
+        {
+            UIManager.Instance.CreateFleetinInfoPopup("Exhausted units can't attack!");
+            return false;
+        }
+        else if (defender != PlayerHero && defender != EnemyHero)
+            if (GetAbility(defender, "Stealth"))
+            {
+                UIManager.Instance.CreateFleetinInfoPopup("Units with Stealth can't be attacked!");
+                return false;
+            } 
         return true;
     }
 

@@ -353,7 +353,7 @@ public class EffectManager : MonoBehaviour
     {
         Debug.LogWarning("RejectEffectTarget()");
         AudioManager.Instance.StartStopSound("SFX_Error");
-        // DISPLAY FLEETING INFO POPUP
+        UIManager.Instance.CreateFleetinInfoPopup("You can't target that!");
     }
 
     /******

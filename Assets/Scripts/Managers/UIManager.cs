@@ -163,6 +163,12 @@ public class UIManager : MonoBehaviour
         infoPopup.GetComponent<InfoPopupDisplay>().DisplayInfoPopup(message);
     }
 
+    public void CreateFleetinInfoPopup(string message)
+    {
+        CreateInfoPopup(message);
+        AnimationManager.Instance.ChangeAnimationState(infoPopup, "Enter_Exit");
+    }
+
     /******
      * *****
      * ****** DISMISS/DESTROY_INFO_POPUP
