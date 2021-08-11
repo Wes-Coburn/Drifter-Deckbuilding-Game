@@ -4,8 +4,7 @@ using UnityEngine;
 public class NPCHero : Hero
 {
     [Header("FIRST DIALOGUE CLIP")]
-    [SerializeField]
-    private DialogueClip firstDialogueClip;
+    [SerializeField] private DialogueClip firstDialogueClip;
 
     public DialogueClip FirstDialogueClip { get => firstDialogueClip; }
     public DialogueClip NextDialogueClip { get; set; }
@@ -16,9 +15,9 @@ public class NPCHero : Hero
     public override void LoadHero(Hero hero)
     {
         base.LoadHero(hero);
-        NPCHero npcH = hero as NPCHero;
-        firstDialogueClip = npcH.FirstDialogueClip;
-        NextDialogueClip = npcH.NextDialogueClip;
-        RespectScore = npcH.RespectScore;
+        NPCHero npc = hero as NPCHero;
+        firstDialogueClip = npc.FirstDialogueClip;
+        NextDialogueClip = npc.NextDialogueClip;
+        RespectScore = npc.RespectScore;
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 public class DialogueResponse
 {
     [TextArea] [SerializeField] private string responseText;
-    [SerializeField] [Range(-5, 5)] protected int response_Respect;
+    [SerializeField] [Range(-10, 10)] protected int response_Respect;
     [SerializeField] private DialogueClip response_NextClip;
     [SerializeField] private bool response_IsExit;
     [SerializeField] private bool response_IsCombatStart;

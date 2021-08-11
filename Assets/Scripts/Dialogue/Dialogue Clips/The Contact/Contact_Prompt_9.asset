@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25b107ecdac65374f8c56b3212c061ce, type: 3}
+  m_Name: Contact_Prompt_9
+  m_EditorClassIdentifier: 
+  developerNotes: 
+  journalNotes: []
+  dialoguePromptText: I'll call you tomorrow. Be ready. That's all you need to know.
+  dialogueResponse1:
+    responseText: I'll be ready.
+    response_Respect: 0
+    response_NextClip: {fileID: 11400000, guid: 24080dc64a8865442a18dee5c747b19f,
+      type: 2}
+    response_IsExit: 0
+    response_IsCombatStart: 0
+  dialogueResponse2:
+    responseText: I need more information.
+    response_Respect: 0
+    response_NextClip: {fileID: 11400000, guid: 54379133f3bc3594ca0fc1a7ae8f477c,
+      type: 2}
+    response_IsExit: 0
+    response_IsCombatStart: 0
+  dialogueResponse3:
+    responseText: I've changed my mind. I'll have to pass.
+    response_Respect: 0
+    response_NextClip: {fileID: 11400000, guid: 5a8cb6a8e9c94ca49b32b3fc3c5e31ac,
+      type: 2}
+    response_IsExit: 0
+    response_IsCombatStart: 0
+  newEngagedHero: {fileID: 0}
+  newCard: {fileID: 0}

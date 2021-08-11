@@ -12,22 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a7f7b2ee0c588b4880372b94623cf06, type: 3}
   m_Name: Yergov, Biochemist
   m_EditorClassIdentifier: 
-  HeroName: Yergov, Biochemist
-  HeroPortrait: {fileID: 21300000, guid: 3a15cb9c022007e4aa3c93bedcd27476, type: 3}
-  HeroDescription: Yergov, the Biochemist is...
-  HeroWin:
+  developerNotes: 
+  heroName: Yergov, Biochemist
+  heroPortrait: {fileID: 21300000, guid: 3a15cb9c022007e4aa3c93bedcd27476, type: 3}
+  heroDescription: Yergov, Biochemist is...
+  heroWin:
     name: 
     clip: {fileID: 0}
     volume: 0
     pitch: 0
     source: {fileID: 0}
-  HeroLose:
+  heroLose:
     name: 
-    clip: {fileID: 8300000, guid: 70a99011a3be2f04ab8a75fc5689ed16, type: 3}
-    volume: 0.8
-    pitch: 1
+    clip: {fileID: 0}
+    volume: 0
+    pitch: 0
     source: {fileID: 0}
-  HeroPower: {fileID: 11400000, guid: 8d0e298eaa6016e40ac8ec50c9a92d69, type: 2}
-  HeroSkills:
+  heroPower: {fileID: 11400000, guid: 8d0e298eaa6016e40ac8ec50c9a92d69, type: 2}
+  heroSkills:
   - {fileID: 11400000, guid: 321f20ba2be7a294ca921a21247535d2, type: 2}
   - {fileID: 11400000, guid: e3c1fa916514de64c899907ba6866cad, type: 2}

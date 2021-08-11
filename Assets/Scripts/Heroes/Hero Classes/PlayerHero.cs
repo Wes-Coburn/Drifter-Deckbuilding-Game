@@ -5,15 +5,17 @@ using UnityEngine;
 public class PlayerHero : Hero
 {
     [Header("HERO POWER")]
-    public HeroPower HeroPower;
+    [SerializeField] private HeroPower heroPower;
     [Header("HERO SKILLS")]
-    public List<SkillCard> HeroSkills;
+    [SerializeField] private List<SkillCard> heroSkills;
 
+    public List<SkillCard> HeroSkills { get => heroSkills; }
+    public HeroPower HeroPower { get => heroPower; }
     public override void LoadHero(Hero hero)
     {
         base.LoadHero(hero);
         PlayerHero ph = hero as PlayerHero;
-        HeroPower = ph.HeroPower;
-        HeroSkills = ph.HeroSkills;
+        heroPower = ph.HeroPower;
+        heroSkills = ph.HeroSkills;
     }
 }

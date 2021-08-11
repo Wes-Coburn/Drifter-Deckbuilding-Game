@@ -25,15 +25,20 @@ public class DialogueManager : MonoBehaviour
         dialogueDisplay.PlayerHeroName = pm.PlayerHero.HeroName;
         dialogueDisplay.OtherHeroPortrait = hero.HeroPortrait;
         dialogueDisplay.OtherHeroName = hero.HeroName;
-
     }
-    public void StartDialogue(NPCHero hero)
+
+    public void StartDialogue(NPCHero npc)
     {
         AudioManager.Instance.StartStopSound("Soundtrack_DialogueScene", null, AudioManager.SoundType.Soundtrack);
         dialogueDisplay = FindObjectOfType<DialogueSceneDisplay>();
-        EngagedHero = hero;
-        currentDialogueClip = hero.NextDialogueClip;
-        DisplayCurrentHeroes(hero);
+        EngagedHero = npc;
+        currentDialogueClip = npc.NextDialogueClip;
+        if (currentDialogueClip == null)
+        {
+            Debug.LogError("CLIP IS NULL!");
+            return;
+        }
+        DisplayCurrentHeroes(npc);
         DisplayDialoguePopup();
     }
 

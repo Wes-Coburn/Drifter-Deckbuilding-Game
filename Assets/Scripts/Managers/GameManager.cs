@@ -77,6 +77,7 @@ public class GameManager : MonoBehaviour
             if (npc is EnemyHero) newNPC = ScriptableObject.CreateInstance<EnemyHero>();
             else newNPC = ScriptableObject.CreateInstance<NPCHero>();
             newNPC.LoadHero(npc);
+            newNPC.NextDialogueClip = npc.FirstDialogueClip;
             ActiveNPCHeroes.Add(newNPC);
             return newNPC;
         }

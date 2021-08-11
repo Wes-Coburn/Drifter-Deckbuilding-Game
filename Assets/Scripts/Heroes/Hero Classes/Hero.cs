@@ -2,20 +2,18 @@ using UnityEngine;
 
 public abstract class Hero : ScriptableObject
 {
-    [Header("DEVELOPER NOTES")]
     [TextArea]
-    [SerializeField]
-    private string developerNotes;
+    [SerializeField] private string developerNotes;
     [Header("HERO NAME")]
-    private string heroName;
+    [SerializeField] private string heroName;
     [Header("HERO PORTRAIT")]
-    private Sprite heroPortrait;
+    [SerializeField] private Sprite heroPortrait;
     [Header("HERO DESCRIPTION")]
     [TextArea]
-    private string heroDescription;
+    [SerializeField] private string heroDescription;
     [Header("HERO SOUNDS")]
-    private Sound heroWin;
-    private Sound heroLose;
+    [SerializeField] private Sound heroWin;
+    [SerializeField] private Sound heroLose;
 
     private string DeveloperNotes { get => developerNotes; }
     public string HeroName { get => heroName; }
