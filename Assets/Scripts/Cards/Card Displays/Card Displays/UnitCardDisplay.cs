@@ -60,7 +60,7 @@ public class UnitCardDisplay : CardDisplay
     [SerializeField] private GameObject currentAbilitiesDisplay;
     public List<CardAbility> CurrentAbilities;
     public List<GameObject> AbilityIcons;
-        
+
     /* EXHAUSTED_ICON */
     [SerializeField] private GameObject exhaustedIcon;
     public bool IsExhausted
@@ -97,19 +97,36 @@ public class UnitCardDisplay : CardDisplay
      * ****** DISPLAY_ZOOM_CARD
      * *****
      *****/
-    public override void DisplayZoomCard(GameObject parentCard)
+    public override void DisplayZoomCard(GameObject parentCard, Card card = null)
     {
-        base.DisplayZoomCard(parentCard);
-        UnitCardDisplay ucd = parentCard.GetComponent<CardDisplay>() as UnitCardDisplay;
+        base.DisplayZoomCard(parentCard, card);
 
-        CurrentPower = ucd.CurrentPower;
-        MaxDefense = ucd.MaxDefense;
-        CurrentDefense = ucd.CurrentDefense;
-
-        foreach (CardAbility cardAbility in ucd.CurrentAbilities)
+        if (card == null)
         {
-            if (cardAbility == null) continue; // Skip empty abilities
-            gameObject.GetComponent<CardZoom>().CreateZoomAbilityIcon(cardAbility, currentAbilitiesDisplay.transform, 1);
+            UnitCardDisplay ucd = parentCard.GetComponent<CardDisplay>() as UnitCardDisplay;
+            CurrentPower = ucd.CurrentPower;
+            MaxDefense = ucd.MaxDefense;
+            CurrentDefense = ucd.CurrentDefense;
+            foreach (CardAbility cardAbility in ucd.CurrentAbilities)
+            {
+                if (cardAbility == null) continue; // Skip empty abilities
+                gameObject.GetComponent<CardZoom>().CreateZoomAbilityIcon(cardAbility, 
+                    currentAbilitiesDisplay.transform, 1);
+            }
+        }
+        else
+        {
+            UnitCard uc = card as UnitCard;
+            CurrentPower = uc.StartPower;
+            MaxDefense = uc.StartDefense;
+            CurrentDefense = uc.StartDefense;
+            foreach (CardAbility ca in uc.StartingAbilities) CurrentAbilities.Add(ca);
+            foreach (CardAbility cardAbility in uc.StartingAbilities)
+            {
+                if (cardAbility == null) continue;
+                gameObject.GetComponent<CardZoom>().CreateZoomAbilityIcon(cardAbility, 
+                    currentAbilitiesDisplay.transform, 1);
+            }
         }
     }
 

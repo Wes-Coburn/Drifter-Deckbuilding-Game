@@ -138,7 +138,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
      * *****
      *****/
     private GameObject CreateZoomObject(GameObject prefab, Vector3 vec2, Transform parentTransform, float scaleValue)
-    {
+    {        
         GameObject zoomObject = Instantiate(prefab, vec2, Quaternion.identity);
         Transform tran = zoomObject.transform;
         tran.SetParent(parentTransform, true);
@@ -184,6 +184,12 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
      *****/
     public void CreateZoomAbilityIcon(CardAbility cardAbility, Transform parentTransform, float scaleValue)
     {
+        if (worldSpace == null) // NEW GAME SCENE
+        {
+            worldSpace = UIManager.Instance.CurrentWorldSpace;
+            cardDisplay = gameObject.GetComponent<CardDisplay>();
+        }
+
         GameObject zoomIconPrefab = gameObject.GetComponent<UnitCardDisplay>().ZoomAbilityIconPrefab;
         GameObject abilityIcon = Instantiate(zoomIconPrefab, new Vector3(0, 0), Quaternion.identity);
         Transform popTran = abilityIcon.transform;
@@ -197,8 +203,14 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
      * ****** CREATE_DESCRIPTION_POPUP
      * *****
      *****/
-    private void CreateDescriptionPopup(Vector2 vec2, float scaleValue)
+    public void CreateDescriptionPopup(Vector2 vec2, float scaleValue)
     {
+        if (worldSpace == null) // NEW GAME SCENE
+        {
+            worldSpace = UIManager.Instance.CurrentWorldSpace;
+            cardDisplay = gameObject.GetComponent<CardDisplay>();
+        }
+
         DescriptionPopup = CreateZoomObject(descriptionPopupPrefab, new Vector3(vec2.x, vec2.y), worldSpace.transform, scaleValue);
         DescriptionPopup.GetComponent<DescriptionPopupDisplay>().DisplayDescriptionPopup(cardDisplay.CardScript.CardDescription);
     }
@@ -208,10 +220,14 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
      * ****** CREATE_ABILITY_POPUPS
      * *****
      *****/
-    private void CreateAbilityPopups(Vector2 vec2, float scaleValue)
+    public void CreateAbilityPopups(Vector2 vec2, float scaleValue)
     {
-        if (worldSpace == null) worldSpace = UIManager.Instance.CurrentWorldSpace; // for new game scene
-
+        if (worldSpace == null)
+        {
+            worldSpace = UIManager.Instance.CurrentWorldSpace;
+            cardDisplay = gameObject.GetComponent<CardDisplay>();
+        }
+        
         AbilityPopupBox = CreateZoomObject(abilityPopupBoxPrefab, 
             new Vector3(vec2.x, vec2.y), worldSpace.transform, scaleValue);
 
@@ -231,7 +247,6 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         {
             GameObject abilityPopup = Instantiate(abilityPopupPrefab, AbilityPopupBox.transform);
             abilityPopup.GetComponent<AbilityPopupDisplay>().AbilityScript = ca;
-
             foreach (CardAbility linkCa in ca.LinkedAbilites)
             {
                 abilityPopup = Instantiate(abilityPopupPrefab, AbilityPopupBox.transform);

@@ -23,10 +23,19 @@ public class ActionCardDisplay : CardDisplay
      * ****** DISPLAY_ZOOM_CARD
      * *****
      *****/
-    public override void DisplayZoomCard(GameObject parentCard)
+    public override void DisplayZoomCard(GameObject parentCard, Card card = null)
     {
-        base.DisplayZoomCard(parentCard);
-        ActionCardDisplay acd = parentCard.GetComponent<CardDisplay>() as ActionCardDisplay;
-        cardDescription.GetComponent<TextMeshPro>().SetText(acd.ActionCard.EffectDescription);
+        base.DisplayZoomCard(parentCard, card);
+
+        if (card == null)
+        {
+            ActionCardDisplay acd = parentCard.GetComponent<CardDisplay>() as ActionCardDisplay;
+            cardDescription.GetComponent<TextMeshPro>().SetText(acd.ActionCard.EffectDescription);
+        }
+        else
+        {
+            ActionCard ac = card as ActionCard;
+            cardDescription.GetComponent<TextMeshPro>().SetText(ac.EffectDescription);
+        }
     }
 }

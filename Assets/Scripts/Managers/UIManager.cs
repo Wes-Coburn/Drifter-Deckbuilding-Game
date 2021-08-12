@@ -116,7 +116,6 @@ public class UIManager : MonoBehaviour
 
         SetScreenDimmer(false);
         CardZoom.ZoomCardIsCentered = false;
-
         List<GameObject> objectsToDestroy = new List<GameObject>
         {
             CardZoom.CurrentZoomCard,
@@ -124,7 +123,6 @@ public class UIManager : MonoBehaviour
             CardZoom.AbilityPopupBox,
             AbilityZoom.AbilityPopup
         };
-
         foreach (GameObject go in objectsToDestroy)
         {
             if (go != null) DestroyObject(go);

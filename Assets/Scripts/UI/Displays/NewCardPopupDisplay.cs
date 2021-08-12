@@ -6,8 +6,7 @@ public class NewCardPopupDisplay : MonoBehaviour
     [SerializeField] private GameObject newCardChest;
     [SerializeField] private GameObject addCardButton;
     [SerializeField] private GameObject ignoreCardButton;
-    [SerializeField] private GameObject toolip;
-
+    
     private Card currentCard;
     public Card CurrentCard
     {
@@ -25,7 +24,6 @@ public class NewCardPopupDisplay : MonoBehaviour
         newCardChest.SetActive(true);
         addCardButton.SetActive(false);
         ignoreCardButton.SetActive(false);
-        toolip.SetActive(false);
     }
 
     public void DisplayNewCard()
@@ -33,12 +31,22 @@ public class NewCardPopupDisplay : MonoBehaviour
         newCardChest.SetActive(false);
         addCardButton.SetActive(true);
         ignoreCardButton.SetActive(true);
-        toolip.SetActive(true);
 
-        GameObject newCard = CardManager.Instance.ShowCard(CurrentCard);
+        // Card Popup
+        GameObject newCard = CardManager.Instance.ShowCard(CurrentCard, true);
+        CardZoom cz = newCard.GetComponent<CardZoom>();
         newCard.transform.SetParent(newCardZone.transform, false);
-        AnimationManager.Instance.RevealedHandState(newCard);
-         if (newCard.TryGetComponent<UnitCardDisplay>(out UnitCardDisplay ucd)) ucd.IsExhausted = false;
+        // Description Popup
+        cz.CreateDescriptionPopup(new Vector2(-500, 0), 3);
+        CardZoom.DescriptionPopup.transform.SetParent(newCardZone.transform, true);
+        // Ability Popups
+        cz.CreateAbilityPopups(new Vector2(500, 0), 3);
+        CardZoom.AbilityPopupBox.transform.SetParent(newCardZone.transform, true);
+
+        // Prevent DestroyZoomObjects() on ZoomAbilityIcon
+        CardZoom.CurrentZoomCard = null;
+        CardZoom.DescriptionPopup = null;
+        CardZoom.AbilityPopupBox = null;
     }
 
     public void AddCard()

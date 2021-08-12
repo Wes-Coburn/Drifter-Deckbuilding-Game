@@ -182,14 +182,26 @@ public class CardManager : MonoBehaviour
      * ****** SHOW/HIDE_CARD
      * *****
      *****/
-    public GameObject ShowCard (Card card)
+    public GameObject ShowCard (Card card, bool isShowcase = false)
     {
-        GameObject go = null;
-        if (card is UnitCard) go = unitCardPrefab;
-        else if (card is ActionCard) go = actionCardPrefab;
-        go = Instantiate(go, new Vector3(0, 0, CARD_Z_POSITION), Quaternion.identity);
-        go.GetComponent<CardDisplay>().CardScript = card;
-        return go;
+        GameObject prefab = null;
+        if (card is UnitCard)
+        {
+            prefab = unitCardPrefab;
+            if (isShowcase)
+                prefab = prefab.GetComponent<CardZoom>().UnitZoomCardPrefab;
+        }
+        else if (card is ActionCard)
+        {
+            prefab = actionCardPrefab;
+            if (isShowcase)
+                prefab = prefab.GetComponent<CardZoom>().ActionZoomCardPrefab;
+        }
+
+        prefab = Instantiate(prefab, new Vector3(0, 0, CARD_Z_POSITION), Quaternion.identity);
+        if (isShowcase) prefab.GetComponent<CardDisplay>().DisplayZoomCard(null, card);
+        else prefab.GetComponent<CardDisplay>().CardScript = card;
+        return prefab;
     }
     private Card HideCard (GameObject card)
     {
@@ -303,22 +315,22 @@ public class CardManager : MonoBehaviour
     public bool IsPlayable(GameObject card)
     {
         int actionCost = card.GetComponent<CardDisplay>().CurrentActionCost;
-        int playerActionsLeft = PlayerManager.Instance.PlayerActionsLeft;
-        
-        if (card.GetComponent<CardDisplay>() is ActionCardDisplay acd)
-        {
-            if (!EffectManager.Instance.CheckLegalTargets(acd.ActionCard.EffectGroupList, card, true))
-                return false;
-        }
+        int playerActions = PlayerManager.Instance.PlayerActionsLeft;
 
-        if (playerActionsLeft >= actionCost) return true;
-        else
+        if (playerActions < actionCost)
         {
-            Debug.LogWarning("COULD NOT PLAY! // ActionCost: "
-            + actionCost + " // PlayerActionsLeft: " + PlayerManager.Instance.PlayerActionsLeft + 
-            " // IsMyTurn = " + PlayerManager.Instance.IsMyTurn);
+            UIManager.Instance.CreateFleetinInfoPopup("Not enough action points!");
             return false;
         }
+
+        if (card.GetComponent<CardDisplay>() is ActionCardDisplay acd)
+            if (!EffectManager.Instance.CheckLegalTargets(acd.ActionCard.EffectGroupList, card, true))
+            {
+                UIManager.Instance.CreateFleetinInfoPopup("You can't play that right now!");
+                return false;
+            }
+
+        return true;
     }
 
     /******
