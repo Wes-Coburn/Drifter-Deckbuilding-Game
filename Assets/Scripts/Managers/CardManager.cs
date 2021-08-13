@@ -547,21 +547,27 @@ public class CardManager : MonoBehaviour
      *****/
     public void DestroyCard(GameObject card, string hero)
     {
-        if (GetAbility(card, "Marked")) CardManager.Instance.DrawCard(PLAYER);
-        TriggerCardAbility(card, "Revenge");
+        void MoveCard()
+        {
+            TriggerCardAbility(card, "Revenge");
+            if (GetAbility(card, "Marked"))
+                CardManager.Instance.DrawCard(PLAYER);
 
-        if (hero == PLAYER)
-        {
-            ChangeCardZone(card, PLAYER_DISCARD);
-            PlayerZoneCards.Remove(card);
-            PlayerDiscardCards.Add(card);
+            if (hero == PLAYER)
+            {
+                ChangeCardZone(card, PLAYER_DISCARD);
+                PlayerZoneCards.Remove(card);
+                PlayerDiscardCards.Add(card);
+            }
+            else if (hero == ENEMY)
+            {
+                ChangeCardZone(card, ENEMY_DISCARD);
+                EnemyZoneCards.Remove(card);
+                EnemyDiscardCards.Add(card);
+            }
         }
-        else if (hero == ENEMY)
-        {
-            ChangeCardZone(card, ENEMY_DISCARD);
-            EnemyZoneCards.Remove(card);
-            EnemyDiscardCards.Add(card);
-        }
+        //EventManager.Instance.NewDelayedAction(() => MoveCard(), 1f);
+        FunctionTimer.Create(() => MoveCard(), 1f);
     }
 
     /******
@@ -930,11 +936,15 @@ public class CardManager : MonoBehaviour
      * ****** TRIGGER_CARD_ABILITY
      * *****
      *****/
-    public void TriggerCardAbility(GameObject card, string triggerName)
+    public bool TriggerCardAbility(GameObject card, string triggerName)
     {
         foreach (CardAbility ca in card.GetComponent<UnitCardDisplay>().CurrentAbilities)
             if (ca is TriggeredAbility tra)
                 if (tra.AbilityTrigger.AbilityName == triggerName)
+                {
                     EffectManager.Instance.StartEffectGroupList(tra.EffectGroupList, card);
+                    return true;
+                }
+        return false;
     }
 }
