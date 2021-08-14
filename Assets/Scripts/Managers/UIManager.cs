@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 public class UIManager : MonoBehaviour
 {
@@ -39,11 +38,6 @@ public class UIManager : MonoBehaviour
         CurrentCanvas = GameObject.Find("Canvas");
         PlayerIsTargetting = false;
     }
-
-    public void StartCombatScene()
-    {
-        endTurnButton = GameObject.Find("EndTurnButton");
-    }
     
     public void WaitForSeconds(float delay) => StartCoroutine(WaitForSecondsNumerator(delay));
     private IEnumerator WaitForSecondsNumerator(float delay)
@@ -58,6 +52,16 @@ public class UIManager : MonoBehaviour
             OnWaitForSecondsCallback();
             OnWaitForSecondsCallback = null;
         }
+    }
+
+    /******
+     * *****
+     * ****** START_COMBAT_SCENE
+     * *****
+     *****/
+    public void StartCombatScene()
+    {
+        endTurnButton = GameObject.Find("EndTurnButton");
     }
 
     /******

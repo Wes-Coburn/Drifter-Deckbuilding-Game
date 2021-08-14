@@ -60,7 +60,6 @@ public class GameManager : MonoBehaviour
         cardManager = CardManager.Instance;
         UIManager = UIManager.Instance;
         eventManager = EventManager.Instance;
-        
         ActiveNPCHeroes = new List<NPCHero>(); // STATIC
     }
 

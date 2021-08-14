@@ -401,7 +401,7 @@ GameObject:
   m_Component:
   - component: {fileID: 190046128}
   m_Layer: 0
-  m_Name: OtherSpeech
+  m_Name: NPCSpeech
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2332,7 +2332,7 @@ GameObject:
   - component: {fileID: 1795825796}
   - component: {fileID: 1795825798}
   m_Layer: 5
-  m_Name: OtherHero
+  m_Name: NPCHero
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2969,9 +2969,14 @@ PrefabInstance:
       objectReference: {fileID: 936590699}
     - target: {fileID: 8458519023704426165, guid: 01b71bbdae432884ea81be4944b31df2,
         type: 3}
-      propertyPath: otherHeroName
+      propertyPath: npcHeroName
       value: 
       objectReference: {fileID: 1525299756}
+    - target: {fileID: 8458519023704426165, guid: 01b71bbdae432884ea81be4944b31df2,
+        type: 3}
+      propertyPath: npcHeroSpeech
+      value: 
+      objectReference: {fileID: 1395335937}
     - target: {fileID: 8458519023704426165, guid: 01b71bbdae432884ea81be4944b31df2,
         type: 3}
       propertyPath: playerHeroName
@@ -2979,17 +2984,7 @@ PrefabInstance:
       objectReference: {fileID: 457108020}
     - target: {fileID: 8458519023704426165, guid: 01b71bbdae432884ea81be4944b31df2,
         type: 3}
-      propertyPath: otherHeroSpeech
-      value: 
-      objectReference: {fileID: 1395335937}
-    - target: {fileID: 8458519023704426165, guid: 01b71bbdae432884ea81be4944b31df2,
-        type: 3}
-      propertyPath: playerHeroSpeech
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8458519023704426165, guid: 01b71bbdae432884ea81be4944b31df2,
-        type: 3}
-      propertyPath: otherHeroPortrait
+      propertyPath: npcHeroPortrait
       value: 
       objectReference: {fileID: 1051413052}
     - target: {fileID: 8458519023704426165, guid: 01b71bbdae432884ea81be4944b31df2,

@@ -18,13 +18,15 @@ public class DialogueManager : MonoBehaviour
     private DialogueClip currentDialogueClip;
     private DialogueSceneDisplay dialogueDisplay;
 
+    //private Coroutine typedTextRoutine;
+
     private void DisplayCurrentHeroes(NPCHero hero)
     {
         PlayerManager pm = PlayerManager.Instance;
         dialogueDisplay.PlayerHeroPortrait = pm.PlayerHero.HeroPortrait;
         dialogueDisplay.PlayerHeroName = pm.PlayerHero.HeroName;
-        dialogueDisplay.OtherHeroPortrait = hero.HeroPortrait;
-        dialogueDisplay.OtherHeroName = hero.HeroName;
+        dialogueDisplay.NPCHeroPortrait = hero.HeroPortrait;
+        dialogueDisplay.NPCHeroName = hero.HeroName;
     }
 
     public void StartDialogue(NPCHero npc)
@@ -47,13 +49,13 @@ public class DialogueManager : MonoBehaviour
         if (nextClip != null) EngagedHero.NextDialogueClip = nextClip;
         EngagedHero = null;
         currentDialogueClip = null;
-        //UIManager.Instance.StopTimedText();
+        //StopTimedText();
     }
 
     private void DisplayDialoguePopup()
     {
         DialoguePrompt dpr = currentDialogueClip as DialoguePrompt;
-        dialogueDisplay.OtherHeroSpeech = dpr.DialoguePromptText;
+        dialogueDisplay.NPCHeroSpeech = dpr.DialoguePromptText;
         // Response 1
         if (dpr.DialogueResponse1 == null)
             dialogueDisplay.Response_1 = "";
@@ -80,9 +82,9 @@ public class DialogueManager : MonoBehaviour
     public void DialogueResponse(int response)
     {
         /*
-        if (UIManager.Instance.CurrentTypedTextRoutine != null)
+        if (TypedTextRoutine != null)
         {
-            UIManager.Instance.StopTimedText(true);
+            StopTimedText(true);
             return;
         }
         */
@@ -131,9 +133,7 @@ public class DialogueManager : MonoBehaviour
             }
             // New Card
             if (dpr.NewCard != null)
-            {
                 CardManager.Instance.AddCard(dpr.NewCard, GameManager.PLAYER, false);
-            }
         }
         currentDialogueClip = dc;
         if (currentDialogueClip is DialogueFork) currentDialogueClip = DialogueFork();

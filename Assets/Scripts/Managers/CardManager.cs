@@ -444,9 +444,9 @@ public class CardManager : MonoBehaviour
     {
         void PlayUnit()
         {
+            TriggerCardAbility(card, "Play");
             FunctionTimer.Create(() => PlayCardSound(), 0f);
             FunctionTimer.Create(() => PlayAbilitySounds(), 0.4f);
-            FunctionTimer.Create(() => TriggerCardAbility(card, "Play"), 0.8f);
         }
         void PlayAction()
         {

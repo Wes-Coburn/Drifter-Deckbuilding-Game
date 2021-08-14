@@ -282,8 +282,6 @@ public class EffectManager : MonoBehaviour
             if (targets.PlayerHand) targetZones.Add(cm.PlayerHandCards);
             if (targets.PlayerUnit) targetZones.Add(cm.PlayerZoneCards);
             if (targets.EnemyUnit) targetZones.Add(cm.EnemyZoneCards);
-
-            // TESTING
             if (targets.PlayerHero) legalTargets[currentGroup].Add(cm.PlayerHero);
             if (targets.EnemyHero) legalTargets[currentGroup].Add(cm.EnemyHero);
         }
@@ -292,15 +290,16 @@ public class EffectManager : MonoBehaviour
             if (targets.PlayerHand) targetZones.Add(cm.EnemyHandCards);
             if (targets.PlayerUnit) targetZones.Add(cm.EnemyZoneCards);
             if (targets.EnemyUnit) targetZones.Add(cm.PlayerZoneCards);
-
-            // TESTING
             if (targets.EnemyHero) legalTargets[currentGroup].Add(cm.PlayerHero);
             if (targets.PlayerHero) legalTargets[currentGroup].Add(cm.EnemyHero);
         }
 
         foreach (List<GameObject> zone in targetZones)
-            foreach (GameObject target in zone) 
-                legalTargets[currentGroup].Add(target);
+            foreach (GameObject target in zone)
+            {
+                if (target != effectSource) // TESTING
+                    legalTargets[currentGroup].Add(target);
+            }
 
         if (effect is DrawEffect || effect is GiveNextUnitEffect) return true;
         if (legalTargets[currentGroup].Count < 1) return false;
