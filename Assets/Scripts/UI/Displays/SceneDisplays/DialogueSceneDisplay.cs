@@ -41,6 +41,7 @@ public class DialogueSceneDisplay : MonoBehaviour
             npcHeroName.GetComponent<TextMeshProUGUI>().SetText(value);
         }
     }
+    public GameObject NPCHeroSpeechObject { get => npcHeroSpeech; }
     public string NPCHeroSpeech
     {
         set

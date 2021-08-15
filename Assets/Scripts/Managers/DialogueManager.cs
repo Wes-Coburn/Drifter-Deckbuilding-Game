@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using TMPro;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -18,7 +20,10 @@ public class DialogueManager : MonoBehaviour
     private DialogueClip currentDialogueClip;
     private DialogueSceneDisplay dialogueDisplay;
 
-    //private Coroutine typedTextRoutine;
+    public Coroutine CurrentTextRoutine { get; private set; }
+    private string currentTypedText;
+    private TextMeshProUGUI currentTmPro;
+    private float typedTextDelay;
 
     private void DisplayCurrentHeroes(NPCHero hero)
     {
@@ -31,6 +36,7 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(NPCHero npc)
     {
+        typedTextDelay = 0.05f; // TESTING
         AudioManager.Instance.StartStopSound("Soundtrack_DialogueScene", null, AudioManager.SoundType.Soundtrack);
         dialogueDisplay = FindObjectOfType<DialogueSceneDisplay>();
         EngagedHero = npc;
@@ -56,6 +62,10 @@ public class DialogueManager : MonoBehaviour
     {
         DialoguePrompt dpr = currentDialogueClip as DialoguePrompt;
         dialogueDisplay.NPCHeroSpeech = dpr.DialoguePromptText;
+
+        TimedText(dpr.DialoguePromptText, 
+            dialogueDisplay.NPCHeroSpeechObject.GetComponent<TextMeshProUGUI>());
+
         // Response 1
         if (dpr.DialogueResponse1 == null)
             dialogueDisplay.Response_1 = "";
@@ -78,16 +88,49 @@ public class DialogueManager : MonoBehaviour
             //JournalManager.Instance.NewJournalNote(currentDialogueClip.JournalNotes);
         }
     }
+    
+    public void TimedText(string text, TextMeshProUGUI tmPro) // TESTING
+    {
+        StopTimedText();
+        CurrentTextRoutine = StartCoroutine(TimedTextNumerator(text, tmPro));
+    }
+    public void StopTimedText(bool finishText = false)
+    {
+        if (CurrentTextRoutine != null)
+        {
+            StopCoroutine(CurrentTextRoutine);
+            if (finishText) currentTmPro.SetText(currentTypedText);
+            CurrentTextRoutine = null;
+            currentTypedText = null;
+            currentTmPro = null;
+            //AudioManager.Instance.StartStopSound("");
+        }
+    }
+    private IEnumerator TimedTextNumerator(string text, TextMeshProUGUI tmPro)
+    {
+        currentTypedText = text;
+        currentTmPro = tmPro;
+        float delay = typedTextDelay;
+        string fullText = text;
+        string currentText;
+        for (int i = 0; i < fullText.Length + 1; i++)
+        {
+            //AudioManager.Instance.StartStopSound("SFX_Keypress_4");
+            currentText = fullText.Substring(0, i);
+            tmPro.SetText(currentText);
+            yield return new WaitForSeconds(delay);
+        }
+        //AudioManager.Instance.StartStopSound("SFX_CarriageReturn");
+        CurrentTextRoutine = null;
+    }
 
     public void DialogueResponse(int response)
     {
-        /*
-        if (TypedTextRoutine != null)
+        if (CurrentTextRoutine != null)
         {
             StopTimedText(true);
             return;
         }
-        */
         DialoguePrompt dpr = currentDialogueClip as DialoguePrompt;
         DialogueResponse dr = null;
         switch (response)

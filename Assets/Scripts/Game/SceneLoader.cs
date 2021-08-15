@@ -56,6 +56,7 @@ public static class SceneLoader
                     break;
             }
         };
+        DialogueManager.Instance.StopTimedText(); // TESTING
         SceneManager.LoadScene(Scene.LoadingScene.ToString());
     }
 
