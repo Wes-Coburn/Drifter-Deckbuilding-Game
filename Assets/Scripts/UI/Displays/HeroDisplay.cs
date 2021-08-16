@@ -17,7 +17,16 @@ public abstract class HeroDisplay : MonoBehaviour
 
     public Sprite HeroPortrait
     {
-        set => heroPortrait.GetComponent<SpriteRenderer>().sprite = value;
+        set
+        {
+            heroPortrait.GetComponent<SpriteRenderer>().sprite = value;
+            if (this is HeroDisplay)
+            {
+                Vector3 vec3 = UIManager.Instance.GetPortraitPosition
+                    (HeroScript.HeroName, SceneLoader.Scene.CombatScene);
+                heroPortrait.transform.localPosition = vec3;
+            }
+        }
     }
     [SerializeField] private GameObject heroPortrait;
 

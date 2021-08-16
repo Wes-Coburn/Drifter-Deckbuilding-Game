@@ -54,6 +54,7 @@ public class NewCardPopupDisplay : MonoBehaviour
         if (!CatchScreenDimmer()) return;
         gameObject.GetComponent<SoundPlayer>().PlaySound(2);
         CardManager.Instance.DestroyNewCardPopup();
+        DialogueManager.Instance.DisplayDialoguePopup();
     }
 
     public void IgnoreCard()
@@ -62,6 +63,7 @@ public class NewCardPopupDisplay : MonoBehaviour
         gameObject.GetComponent<SoundPlayer>().PlaySound(3);
         PlayerManager.Instance.PlayerDeckList.Remove(CurrentCard);
         CardManager.Instance.DestroyNewCardPopup();
+        DialogueManager.Instance.DisplayDialoguePopup();
     }
 
     private bool CatchScreenDimmer()

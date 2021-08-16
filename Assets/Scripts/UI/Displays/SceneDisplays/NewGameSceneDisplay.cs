@@ -53,7 +53,6 @@ public class NewGameSceneDisplay : MonoBehaviour
         {
             HeroAugment ha = SelectedAugment;
             pm.HeroAugments.Add(ha);
-            //SceneLoader.LoadScene(SceneLoader.Scene.CombatScene); // FOR TESTING ONLY!!!
             SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene); // FOR TESTING ONLY!!!
         }
     }

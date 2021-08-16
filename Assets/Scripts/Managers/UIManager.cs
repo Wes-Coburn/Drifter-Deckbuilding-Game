@@ -203,4 +203,47 @@ public class UIManager : MonoBehaviour
         cepd.DefeatText.SetActive(!playerWins);
         cepd.GetComponent<SoundPlayer>().PlaySound(0);
     }
+
+    public Vector3 GetPortraitPosition(string heroName, SceneLoader.Scene scene)
+    {
+        Vector3 vec3 = new Vector3(0, 0, 0);
+        switch (heroName)
+        {
+            // KILI
+            case "Kili, Neon Rider":
+                switch(scene)
+                {
+                    case SceneLoader.Scene.DialogueScene:
+                        vec3.Set(-90, -325, 0);
+                        break;
+                    case SceneLoader.Scene.CombatScene:
+                        vec3.Set(-25, -75, 0);
+                        break;
+                }
+                break;
+            // YERGOV
+            case "Yergov, Biochemist":
+                switch (scene)
+                {
+                    case SceneLoader.Scene.DialogueScene:
+                        vec3.Set(-290, -290, 0);
+                        break;
+                    case SceneLoader.Scene.CombatScene:
+                        vec3.Set(-73, -70, 0);
+                        break;
+                }
+                break;
+            // FENTIS
+            case "Fentis, Underworld Agent":
+                switch (scene)
+                {
+                    case SceneLoader.Scene.DialogueScene:
+                        break;
+                    case SceneLoader.Scene.CombatScene:
+                        break;
+                }
+                break;
+        }
+        return vec3;
+    }
 }

@@ -58,7 +58,7 @@ public class DialogueManager : MonoBehaviour
         //StopTimedText();
     }
 
-    private void DisplayDialoguePopup()
+    public void DisplayDialoguePopup()
     {
         DialoguePrompt dpr = currentDialogueClip as DialoguePrompt;
         dialogueDisplay.NPCHeroSpeech = dpr.DialoguePromptText;
@@ -81,15 +81,17 @@ public class DialogueManager : MonoBehaviour
             dialogueDisplay.Response_3 = "";
         else
             dialogueDisplay.Response_3 = dpr.DialogueResponse3.ResponseText;
+        /*
         // Journal Notes
         if (dpr.JournalNotes.Count > 0)
         {
             Debug.LogWarning("NEW JOURNAL NOTE!");
             //JournalManager.Instance.NewJournalNote(currentDialogueClip.JournalNotes);
         }
+        */
     }
     
-    public void TimedText(string text, TextMeshProUGUI tmPro) // TESTING
+    public void TimedText(string text, TextMeshProUGUI tmPro)
     {
         StopTimedText();
         CurrentTextRoutine = StartCoroutine(TimedTextNumerator(text, tmPro));
@@ -115,7 +117,7 @@ public class DialogueManager : MonoBehaviour
         string currentText;
         for (int i = 0; i < fullText.Length + 1; i++)
         {
-            //AudioManager.Instance.StartStopSound("SFX_Keypress_4");
+            AudioManager.Instance.StartStopSound("SFX_Typing");
             currentText = fullText.Substring(0, i);
             tmPro.SetText(currentText);
             yield return new WaitForSeconds(delay);
@@ -180,7 +182,8 @@ public class DialogueManager : MonoBehaviour
         }
         currentDialogueClip = dc;
         if (currentDialogueClip is DialogueFork) currentDialogueClip = DialogueFork();
-        DisplayDialoguePopup();
+        if (dpr.NewCard == null)
+            DisplayDialoguePopup();
     }
 
     private DialogueClip DialogueFork()
