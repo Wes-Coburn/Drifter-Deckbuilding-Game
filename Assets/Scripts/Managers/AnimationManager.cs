@@ -40,10 +40,8 @@ public class AnimationManager : MonoBehaviour
     public void ModifyDefenseState(GameObject card) => ChangeAnimationState(card, "Modify_Defense");
     public void ZoomedState(GameObject card) => ChangeAnimationState(card, "Zoomed");
     /* UNIT_ATTACK */
-    public void UnitAttack(GameObject attacker, GameObject defender, bool defenderIsUnit)
-    {
+    public void UnitAttack(GameObject attacker, GameObject defender, bool defenderIsUnit) => 
         StartCoroutine(AttackNumerator(attacker, defender, defenderIsUnit));
-    }
 
     private IEnumerator AttackNumerator(GameObject attacker, GameObject defender, bool defenderIsUnit = true)
     {
@@ -54,14 +52,14 @@ public class AnimationManager : MonoBehaviour
         // UNIT
         if (defenderIsUnit)
         {
-            bufferDistance = 1f;
-            attackDelay = 0.05f;
-            retreatDelay = 0.1f;
+            bufferDistance = 250f;
+            attackDelay = 0.04f;
+            retreatDelay = 0.08f;
         }
         // HERO
         else
         {
-            bufferDistance = 5f;
+            bufferDistance = 500f;
             attackDelay = 0.02f;
             retreatDelay = 0.04f;
         }
@@ -74,9 +72,7 @@ public class AnimationManager : MonoBehaviour
         attacker.transform.SetParent(UIManager.Instance.CurrentWorldSpace.transform);
         DragPlayedState(attacker);
         attacker.GetComponent<ChangeLayer>().ZoomLayer();
-
-        Debug.Log("Start Position: " + atkStartPos.x + ", " + atkStartPos.y);
-        
+        // ATTACK
         do
         {
             distance = Vector2.Distance(attacker.transform.position, defPos);
@@ -84,19 +80,19 @@ public class AnimationManager : MonoBehaviour
             yield return new WaitForSeconds(attackDelay);
         }
         while (distance > bufferDistance);
-
+        // RETREAT
         do
         {
             distance = Vector2.Distance(attacker.transform.position, atkStartPos);
             attacker.transform.position = Vector2.MoveTowards(attacker.transform.position, atkStartPos, 100f);
             yield return new WaitForSeconds(retreatDelay);
         }
-        while (distance > bufferDistance);
+        while (distance > 0);
 
         RevealedPlayState(attacker);
         attacker.GetComponent<ChangeLayer>().CardsLayer();
         attacker.transform.SetParent(atkStartParent);
-        attacker.transform.position = atkStartPos;
+        attacker.transform.position = new Vector3(atkStartPos.x, atkStartPos.y, CardManager.CARD_Z_POSITION);
         attacker.transform.SetSiblingIndex(atkIndex);
     }
 }

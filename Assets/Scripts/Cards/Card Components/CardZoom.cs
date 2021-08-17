@@ -69,6 +69,8 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         if (DragDrop.CardIsDragging || ZoomCardIsCentered) return;
         if (transform.parent.gameObject == enemyHand) return; // HIDE THE ENEMY HAND
 
+        FunctionTimer.StopTimer(ZOOM_CARD_TIMER);
+        FunctionTimer.StopTimer(ABILITY_POPUP_TIMER);
         ZoomCardIsCentered = true;
         UIManager.Instance.SetScreenDimmer(true);
 
@@ -90,7 +92,8 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         float cardYPos;
         float popupXPos;
 
-        FunctionTimer.Create(() => ShowZoomCard(), 0.5f, ZOOM_CARD_TIMER);
+        if (transform.parent.gameObject == playerHand) ShowZoomCard();
+        else FunctionTimer.Create(() => ShowZoomCard(), 0.5f, ZOOM_CARD_TIMER);
 
         void ShowZoomCard()
         {

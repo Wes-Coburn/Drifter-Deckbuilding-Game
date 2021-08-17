@@ -13,6 +13,7 @@ public static class SceneLoader
         CombatScene
     }
 
+    public static float SCENE_LOADER_DELAY = 3.5f;
     private static Action onSceneLoaderCallback;
     private static Action onSceneUpdateCallback;
 
@@ -25,7 +26,7 @@ public static class SceneLoader
         
         onSceneLoaderCallback = () =>
         {
-            UIManager.Instance.WaitForSeconds(3.5f);
+            UIManager.Instance.WaitForSeconds(SCENE_LOADER_DELAY);
         };
 
         onSceneUpdateCallback = () =>
