@@ -63,7 +63,8 @@ public class DragDrop : MonoBehaviour
         GameObject collisionObjectParent = collisionObject.transform.parent.gameObject;
         if (!IsPlayed)
         {
-            if (collisionObject == CardManager.Instance.PlayerZone) isOverDropZone = true;
+            if (collisionObject == CardManager.Instance.PlayerZone) 
+                isOverDropZone = true;
         }
         else
         {
@@ -81,7 +82,8 @@ public class DragDrop : MonoBehaviour
         GameObject collisionObject = collision.gameObject;
         if (!IsPlayed)
         {
-            if (collisionObject == CardManager.Instance.PlayerZone) isOverDropZone = false;
+            if (collisionObject == CardManager.Instance.PlayerZone) 
+                isOverDropZone = false;
         }
         else
         {
@@ -97,12 +99,10 @@ public class DragDrop : MonoBehaviour
     private void ResetPosition()
     {
         if (enemy != null) // Unnecessary?
-        {
             UIManager.Instance.SelectEnemy(enemy, false);
-        }
 
-        transform.position = startPosition;
         cardManager.SetCardParent(gameObject, startParent.transform);
+        transform.position = startPosition;
         transform.SetSiblingIndex(startIndex);
 
         if (gameObject.GetComponent<CardDisplay>() is ActionCardDisplay) IsPlayed = false;

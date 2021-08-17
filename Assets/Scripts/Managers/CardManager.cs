@@ -472,7 +472,6 @@ public class CardManager : MonoBehaviour
                 delay += 0.3f;
             }
         }
-        
 
         // PLAYER
         if (card.CompareTag(PLAYER_CARD))
@@ -566,7 +565,6 @@ public class CardManager : MonoBehaviour
                 EnemyDiscardCards.Add(card);
             }
         }
-        //EventManager.Instance.NewDelayedAction(() => MoveCard(), 1f);
         FunctionTimer.Create(() => MoveCard(), 1f);
     }
 
@@ -594,7 +592,7 @@ public class CardManager : MonoBehaviour
 
     /******
      * *****
-     * ****** ATTACK
+     * ****** CAN_ATTACK
      * *****
      *****/
     public bool CanAttack(GameObject attacker, GameObject defender)
@@ -621,15 +619,15 @@ public class CardManager : MonoBehaviour
     public void Attack(GameObject attacker, GameObject defender)
     {
         Strike(attacker, defender);
+        AnimationManager.Instance.UnitAttack(attacker, defender); // TESTING
+
         attacker.GetComponent<UnitCardDisplay>().IsExhausted = true;
         if (GetAbility(attacker, "Stealth"))
             attacker.GetComponent<UnitCardDisplay>().RemoveCurrentAbility(null, "Stealth");
 
         if (defender.CompareTag(ENEMY_CARD) || defender.CompareTag(PLAYER_CARD))
-        {
-            if (!GetAbility(attacker, "Ranged")) 
+            if (!GetAbility(attacker, "Ranged"))
                 Strike(defender, attacker);
-        }
 
         if (!GetAbility(attacker, "Ranged"))
             AudioManager.Instance.StartStopSound("SFX_AttackMelee");

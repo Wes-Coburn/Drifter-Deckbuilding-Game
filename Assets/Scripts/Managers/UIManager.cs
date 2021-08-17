@@ -128,9 +128,7 @@ public class UIManager : MonoBehaviour
             AbilityZoom.AbilityPopup
         };
         foreach (GameObject go in objectsToDestroy)
-        {
             if (go != null) DestroyObject(go);
-        }
     }
 
     /******
