@@ -619,15 +619,20 @@ public class CardManager : MonoBehaviour
     public void Attack(GameObject attacker, GameObject defender)
     {
         Strike(attacker, defender);
-        AnimationManager.Instance.UnitAttack(attacker, defender); // TESTING
-
         attacker.GetComponent<UnitCardDisplay>().IsExhausted = true;
+
         if (GetAbility(attacker, "Stealth"))
             attacker.GetComponent<UnitCardDisplay>().RemoveCurrentAbility(null, "Stealth");
 
+        bool defenderIsUnit;
         if (defender.CompareTag(ENEMY_CARD) || defender.CompareTag(PLAYER_CARD))
+        {
+            defenderIsUnit = true;
             if (!GetAbility(attacker, "Ranged"))
                 Strike(defender, attacker);
+        }
+        else defenderIsUnit = false;
+        AnimationManager.Instance.UnitAttack(attacker, defender, defenderIsUnit); // TESTING
 
         if (!GetAbility(attacker, "Ranged"))
             AudioManager.Instance.StartStopSound("SFX_AttackMelee");

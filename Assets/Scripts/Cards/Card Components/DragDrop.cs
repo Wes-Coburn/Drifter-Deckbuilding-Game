@@ -115,8 +115,8 @@ public class DragDrop : MonoBehaviour
         UIManager.DestroyZoomObjects();
         if (!playerManager.IsMyTurn || CardIsDragging || CompareTag(ENEMY_CARD) || 
             UIManager.Instance.PlayerIsTargetting) return;
+        
         IsDragging = true;
-
         startParent = transform.parent.gameObject;
         startPosition = transform.position;
         startIndex = transform.GetSiblingIndex();

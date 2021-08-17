@@ -16,7 +16,7 @@ public class DialogueManager : MonoBehaviour
         else Destroy(gameObject);
     }
     
-    public NPCHero EngagedHero { get; private set; }
+    public NPCHero EngagedHero { get; set; } // PUBLIC SET FOR TESTING ONLY
     private DialogueClip currentDialogueClip;
     private DialogueSceneDisplay dialogueDisplay;
 

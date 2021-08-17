@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 7690491648749093260}
   - component: {fileID: 7690491648749093250}
   - component: {fileID: 7690491648749093251}
+  - component: {fileID: 1847435902558288596}
+  - component: {fileID: 2915200777654768093}
   m_Layer: 5
   m_Name: ContinueButton
   m_TagString: Untagged
@@ -82,10 +84,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7690491648749093251}
-        m_TargetAssemblyTypeName: NewGameButton, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 1847435902558288596}
+        m_TargetAssemblyTypeName: CombatTestButton, Assembly-CSharp
+        m_MethodName: OnClick
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2915200777654768093}
+        m_TargetAssemblyTypeName: SoundPlayer, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -106,6 +120,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6f65e2a01dbd674c9a6a22ec0c378b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1847435902558288596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7690491648749093261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7219d0b0647b06943b317352c5d081a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTestHero: {fileID: 11400000, guid: 2de3c75baa7d5f54fbe6c020c04073e9, type: 2}
+  enemyTestHero: {fileID: 11400000, guid: ed56caa2b8e79a140817f8ea728a8444, type: 2}
+--- !u!114 &2915200777654768093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7690491648749093261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2340c8fec396b2b43bf9a91052c5c90e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds: []
+  sounds2:
+  - name: 
+    clip: {fileID: 8300000, guid: a450edaa20ccbbc419f0442ba67250f2, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
 --- !u!1 &7690491650316076157
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,7 +187,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 950, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 700, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7690491650316076146
@@ -171,7 +218,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: --- Continue ---
+  m_text: --- Combat Test ---
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 35dcfebab0afaec44ba5df39248b9e4a, type: 2}
   m_sharedMaterial: {fileID: -6670439693667837105, guid: 35dcfebab0afaec44ba5df39248b9e4a,
@@ -199,7 +246,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 147.25
+  m_fontSize: 119.9
   m_fontSizeBase: 300
   m_fontWeight: 400
   m_enableAutoSizing: 1
