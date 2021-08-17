@@ -201,6 +201,8 @@ public class GameManager : MonoBehaviour
             UIManager.UpdateEndTurnButton(false);
             EnemyManager.Instance.StartEnemyTurn();
         }
+
+        UIManager.CreateTurnPopup(playerManager.IsMyTurn); // TESTING
     }
 
     /******

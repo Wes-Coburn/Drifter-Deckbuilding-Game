@@ -5,12 +5,15 @@ using UnityEngine.EventSystems;
 public class CardZoom : MonoBehaviour, IPointerClickHandler
 {
     /* ZOOMCARD_DATA */
-    private const int   ZOOM_Z_VALUE                =  -4;
-    private const float ZOOM_BUFFER                 =  350;
-    private const float ZOOM_SCALE_VALUE            =  4;
-    private const float CENTER_SCALE_VALUE          =  6;
-    private const float POPUP_SCALE_VALUE           =  3;
-    private const float SMALL_POPUP_SCALE_VALUE     =  2;
+    private const int    ZOOM_Z_VALUE                =  -4;
+    private const float  ZOOM_BUFFER                 =  350;
+    private const float  ZOOM_SCALE_VALUE            =  4;
+    private const float  CENTER_SCALE_VALUE          =  6;
+    private const float  POPUP_SCALE_VALUE           =  3;
+    private const float  SMALL_POPUP_SCALE_VALUE     =  2;
+
+    private const string ZOOM_CARD_TIMER            =  "ZoomCardTimer";
+    private const string ABILITY_POPUP_TIMER        =  "AbilityPopupTimer";
 
     /* PREFABS */
     [SerializeField] private GameObject unitZoomCardPrefab;
@@ -87,38 +90,46 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         float cardYPos;
         float popupXPos;
 
-        RectTransform rect;
-        if (transform.parent.gameObject == playerHand)
+        FunctionTimer.Create(() => ShowZoomCard(), 0.5f, ZOOM_CARD_TIMER);
+
+        void ShowZoomCard()
         {
-            rect = playerHand.GetComponent<RectTransform>();
-            cardYPos = rect.position.y + ZOOM_BUFFER;
+            RectTransform rect;
+            if (transform.parent.gameObject == playerHand)
+            {
+                rect = playerHand.GetComponent<RectTransform>();
+                cardYPos = rect.position.y + ZOOM_BUFFER;
+            }
+            else if (transform.parent.gameObject == playerZone)
+            {
+                rect = playerZone.GetComponent<RectTransform>();
+                cardYPos = rect.position.y + ZOOM_BUFFER;
+            }
+            else if (transform.parent.gameObject == enemyHand) return; // HIDE ENEMY HAND
+            else if (transform.parent.gameObject == enemyZone)
+            {
+                rect = enemyZone.GetComponent<RectTransform>();
+                cardYPos = (int)rect.position.y - ZOOM_BUFFER;
+            }
+            else if (heroSkills != null && transform.parent.parent.gameObject == heroSkills)
+            {
+                CreateAbilityPopups(new Vector2(0, 150), ZOOM_SCALE_VALUE);
+                return;
+            }
+            else
+            {
+                CreateAbilityPopups(new Vector2(500, 0), POPUP_SCALE_VALUE);
+                return;
+            }
+            Vector3 vec3 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if (vec3.x > 0) popupXPos = vec3.x - 400;
+            else popupXPos = vec3.x + 400;
+
+            CreateZoomCard(new Vector2(vec3.x, cardYPos), ZOOM_SCALE_VALUE);
+            FunctionTimer.Create(() => ShowAbilityPopup(), 0.75f, ABILITY_POPUP_TIMER);
         }
-        else if (transform.parent.gameObject == playerZone)
-        {
-            rect = playerZone.GetComponent<RectTransform>();
-            cardYPos = rect.position.y + ZOOM_BUFFER;
-        }
-        else if (transform.parent.gameObject == enemyHand) return; // HIDE ENEMY HAND
-        else if (transform.parent.gameObject == enemyZone)
-        {
-            rect = enemyZone.GetComponent<RectTransform>();
-            cardYPos = (int)rect.position.y - ZOOM_BUFFER;
-        }
-        else if (heroSkills != null && transform.parent.parent.gameObject == heroSkills)
-        {
-            CreateAbilityPopups(new Vector2(0, 150), ZOOM_SCALE_VALUE);
-            return;
-        }
-        else
-        {
-            CreateAbilityPopups(new Vector2(500, 0), POPUP_SCALE_VALUE);
-            return;
-        }
-        Vector3 vec3 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        if (vec3.x > 0) popupXPos = vec3.x + 400;
-        else popupXPos = vec3.x - 400;
-        CreateZoomCard(new Vector2(vec3.x, cardYPos), ZOOM_SCALE_VALUE);
-        CreateAbilityPopups(new Vector2(popupXPos, cardYPos), SMALL_POPUP_SCALE_VALUE);
+
+        void ShowAbilityPopup() => CreateAbilityPopups(new Vector2(popupXPos, cardYPos), SMALL_POPUP_SCALE_VALUE);
     }
 
     /******
@@ -130,6 +141,8 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     {
         if (DragDrop.CardIsDragging || ZoomCardIsCentered) return;
         UIManager.Instance.DestroyZoomObjects();
+        FunctionTimer.StopTimer(ZOOM_CARD_TIMER);
+        FunctionTimer.StopTimer(ABILITY_POPUP_TIMER);
     }
 
     /******

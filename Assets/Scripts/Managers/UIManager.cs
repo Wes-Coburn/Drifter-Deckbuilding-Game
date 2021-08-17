@@ -20,12 +20,14 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject screenDimmerPrefab;
     [SerializeField] private GameObject infoPopupPrefab;
     [SerializeField] private GameObject combatEndPopupPrefab;
+    [SerializeField] private GameObject turnPopupPrefab;
 
     private GameObject screenDimmer;
     private GameObject infoPopup;
     private GameObject combatEndPopup;
     private GameObject selectedEnemy;
     private GameObject endTurnButton;
+    private GameObject turnPopup;
 
     public Action OnWaitForSecondsCallback { get; set; }
     public bool PlayerIsTargetting { get; set; }
@@ -153,7 +155,7 @@ public class UIManager : MonoBehaviour
 
     /******
      * *****
-     * ****** CREATE_INFO_POPUP
+     * ****** INFO_POPUP
      * *****
      *****/
     public void CreateInfoPopup(string message)
@@ -162,18 +164,11 @@ public class UIManager : MonoBehaviour
         infoPopup = Instantiate(infoPopupPrefab, new Vector2(680, 0), Quaternion.identity, CurrentWorldSpace.transform);
         infoPopup.GetComponent<InfoPopupDisplay>().DisplayInfoPopup(message);
     }
-
     public void CreateFleetinInfoPopup(string message)
     {
         CreateInfoPopup(message);
         AnimationManager.Instance.ChangeAnimationState(infoPopup, "Enter_Exit");
     }
-
-    /******
-     * *****
-     * ****** DISMISS/DESTROY_INFO_POPUP
-     * *****
-     *****/
     public void DismissInfoPopup()
     {
         if (infoPopup != null)
@@ -185,6 +180,26 @@ public class UIManager : MonoBehaviour
         {
             Destroy(infoPopup);
             infoPopup = null;
+        }
+    }
+
+    /******
+     * *****
+     * ****** TURN_POPUP
+     * *****
+     *****/
+    public void CreateTurnPopup(bool isPlayerTurn)
+    {
+        DestroyTurnPopup();
+        turnPopup = Instantiate(turnPopupPrefab, CurrentCanvas.transform);
+        turnPopup.GetComponent<TurnPopupDisplay>().DisplayTurnPopup(isPlayerTurn);
+    }
+    public void DestroyTurnPopup()
+    {
+        if (turnPopup != null)
+        {
+            Destroy(turnPopup);
+            turnPopup = null;
         }
     }
 
