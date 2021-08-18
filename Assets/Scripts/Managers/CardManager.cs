@@ -299,7 +299,7 @@ public class CardManager : MonoBehaviour
      * ****** REFRESH_FOLLOWERS
      * *****
      *****/
-    public void RefreshFollowers(string hero)
+    public void PrepareAllies(string hero)
     {
         List<GameObject> cardZoneList = null;
         if (hero == PLAYER) cardZoneList = PlayerZoneCards;
@@ -758,7 +758,7 @@ public class CardManager : MonoBehaviour
     public void AddEffect(GameObject card, Effect effect)
     {
         Debug.Log("EFFECT ADDED: <" + effect.ToString() + ">");
-        UnitCardDisplay fcd = GetUnitDisplay(card);
+        UnitCardDisplay ucd = GetUnitDisplay(card);
 
         // GIVE_ABILITY_EFFECT
         if (effect is GiveAbilityEffect gae)
@@ -768,40 +768,32 @@ public class CardManager : MonoBehaviour
             newGae.LoadEffect(gae);
 
             // If ability already exists, update countdown instead of adding
-            if (!fcd.AddCurrentAbility(newGae.CardAbility, true))
+            if (!ucd.AddCurrentAbility(newGae.CardAbility, true))
             {
-                foreach (Effect effect2 in fcd.CurrentEffects)
-                {
+                foreach (Effect effect2 in ucd.CurrentEffects)
                     if (effect2 is GiveAbilityEffect gae2)
-                    {
                         if (gae2.CardAbility == newGae.CardAbility)
-                        {
                             if (newGae.Countdown == 0 || newGae.Countdown > gae2.Countdown)
-                            {
                                 gae2.Countdown = newGae.Countdown;
-                            }
-                        }
-                    }
-                }
             }
-            else fcd.CurrentEffects.Add(newGae);
+            else ucd.CurrentEffects.Add(newGae);
         }
         // STAT_CHANGE_EFFECT
         else if (effect is StatChangeEffect sce)
         {
             StatChangeEffect newSce = ScriptableObject.CreateInstance<StatChangeEffect>();
             newSce.LoadEffect(sce);
-            fcd.CurrentEffects.Add(newSce);
+            ucd.CurrentEffects.Add(newSce);
 
             int statChange = sce.Value;
             if (sce.IsNegative) statChange = -statChange;
 
             if (sce.IsDefenseChange)
             {
-                fcd.MaxDefense += statChange;
-                fcd.CurrentDefense += statChange;
+                ucd.MaxDefense += statChange;
+                ucd.CurrentDefense += statChange;
             }
-            else fcd.CurrentPower += statChange;
+            else ucd.CurrentPower += statChange;
         }
         else
         {
@@ -894,9 +886,7 @@ public class CardManager : MonoBehaviour
             {
                 // CHECK FOR ALLY/ENEMY HERE
                 foreach (Effect e in gnfe.Effects)
-                {
                     EffectManager.Instance.ResolveEffect(targets, e);
-                }
                 if (--gnfe.Multiplier < 1) resolvedGnfe.Add(gnfe);
             }
             foreach (GiveNextUnitEffect rGnfe in resolvedGnfe)
@@ -923,10 +913,8 @@ public class CardManager : MonoBehaviour
         List<GiveNextUnitEffect> gne = EffectManager.Instance.GiveNextEffects;
         List<GiveNextUnitEffect> expiredGne = new List<GiveNextUnitEffect>();
         foreach (GiveNextUnitEffect gnfe in gne)
-        {
             if (gnfe.Countdown == 1) expiredGne.Add(gnfe);
             else if (gnfe.Countdown != 0) gnfe.Countdown -= 1;
-        }
         foreach (GiveNextUnitEffect xGnfe in expiredGne)
         {
             gne.Remove(xGnfe);

@@ -104,10 +104,25 @@ public class UnitCardDisplay : CardDisplay
         if (card == null)
         {
             UnitCardDisplay ucd = parentCard.GetComponent<CardDisplay>() as UnitCardDisplay;
-            CurrentPower = ucd.CurrentPower;
-            MaxDefense = ucd.MaxDefense;
-            CurrentDefense = ucd.CurrentDefense;
-            foreach (CardAbility cardAbility in ucd.CurrentAbilities)
+            List<CardAbility> abilityList;
+
+            if (CardZoom.ZoomCardIsCentered)
+            {
+                UnitCard uc = ucd.UnitCard;
+                abilityList = uc.StartingAbilities;
+                CurrentPower = uc.StartPower;
+                MaxDefense = uc.StartDefense;
+                CurrentDefense = uc.StartDefense;
+            }
+            else
+            {
+                abilityList = ucd.CurrentAbilities;
+                CurrentPower = ucd.CurrentPower;
+                MaxDefense = ucd.MaxDefense;
+                CurrentDefense = ucd.CurrentDefense;
+            }
+
+            foreach (CardAbility cardAbility in abilityList)
             {
                 if (cardAbility == null) continue; // Skip empty abilities
                 gameObject.GetComponent<CardZoom>().CreateZoomAbilityIcon(cardAbility, 

@@ -28,15 +28,15 @@ public class GameManager : MonoBehaviour
     public const int MAXIMUM_ACTIONS = 5;
 
     public const string PLAYER = "Player";
-    //public const int PLAYER_STARTING_HEALTH = 20;
-    public const int PLAYER_STARTING_HEALTH = 1; // FOR TESTING ONLY
+    public const int PLAYER_STARTING_HEALTH = 20;
+    //public const int PLAYER_STARTING_HEALTH = 1; // FOR TESTING ONLY
     public const int PLAYER_HAND_SIZE = 4;
     public const int PLAYER_START_FOLLOWERS = 2;
     public const int PLAYER_START_SKILLS = 2;
 
     public const string ENEMY = "Enemy";
-    //public const int ENEMY_STARTING_HEALTH = 20;
-    public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
+    public const int ENEMY_STARTING_HEALTH = 20;
+    //public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
     public const int ENEMY_HAND_SIZE = 0;
     public const int ENEMY_START_FOLLOWERS = 5;
     public const int ENEMY_START_SKILLS = 2;
@@ -177,7 +177,7 @@ public class GameManager : MonoBehaviour
      *****/
     private void StartTurn(string player)
     {
-        cardManager.RefreshFollowers(player);
+        cardManager.PrepareAllies(player);
         // PLAYER
         if (player == PLAYER)
         {
@@ -201,8 +201,7 @@ public class GameManager : MonoBehaviour
             UIManager.UpdateEndTurnButton(false);
             EnemyManager.Instance.StartEnemyTurn();
         }
-
-        UIManager.CreateTurnPopup(playerManager.IsMyTurn); // TESTING
+        UIManager.CreateTurnPopup(playerManager.IsMyTurn);
     }
 
     /******

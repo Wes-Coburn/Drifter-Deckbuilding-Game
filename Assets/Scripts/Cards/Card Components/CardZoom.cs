@@ -249,7 +249,10 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
 
         List<CardAbility> abilityList;
         if (cardDisplay is UnitCardDisplay ucd)
-            abilityList = ucd.CurrentAbilities;
+        {
+            if (CardZoom.ZoomCardIsCentered) abilityList = ucd.UnitCard.StartingAbilities;
+            else abilityList = ucd.CurrentAbilities;
+        }
         else if (cardDisplay is ActionCardDisplay acd)
             abilityList = acd.ActionCard.LinkedAbilities;
         else
