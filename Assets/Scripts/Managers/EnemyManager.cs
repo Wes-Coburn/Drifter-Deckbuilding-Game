@@ -29,6 +29,11 @@ public class EnemyManager : MonoBehaviour
         {
             enemyHero = value;
             EnemyDeckList.Clear();
+            if (value == null)
+            {
+                CurrentEnemyDeck.Clear();
+                return;
+            }
             foreach (UnitCard unit in enemyHero.Reinforcements[ReinforcementGroup].ReinforcementUnits)
                 for (int i = 0; i < GameManager.ENEMY_START_FOLLOWERS; i++)
                     CardManager.Instance.AddCard(unit, GameManager.ENEMY);

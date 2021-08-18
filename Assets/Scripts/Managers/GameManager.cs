@@ -16,7 +16,8 @@ public class GameManager : MonoBehaviour
     }
 
     /* TEST_HEROES */
-    [SerializeField] private NPCHero NPCTestHero; // FOR TESTING ONLY
+    [SerializeField] private NPCHero npcTestHero; // FOR TESTING ONLY
+    public NPCHero NPCTestHero { get => npcTestHero; } // FOR TESTING ONLY
     /* AUGMENT_EFFECTS */
     [SerializeField] private GiveNextUnitEffect augmentBiogenEffect;
     /* ACTIVE_NPCS */
@@ -28,15 +29,15 @@ public class GameManager : MonoBehaviour
     public const int MAXIMUM_ACTIONS = 5;
 
     public const string PLAYER = "Player";
-    public const int PLAYER_STARTING_HEALTH = 20;
-    //public const int PLAYER_STARTING_HEALTH = 1; // FOR TESTING ONLY
+    //public const int PLAYER_STARTING_HEALTH = 20;
+    public const int PLAYER_STARTING_HEALTH = 1; // FOR TESTING ONLY
     public const int PLAYER_HAND_SIZE = 4;
     public const int PLAYER_START_FOLLOWERS = 2;
     public const int PLAYER_START_SKILLS = 2;
 
     public const string ENEMY = "Enemy";
-    public const int ENEMY_STARTING_HEALTH = 20;
-    //public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
+    //public const int ENEMY_STARTING_HEALTH = 20;
+    public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
     public const int ENEMY_HAND_SIZE = 0;
     public const int ENEMY_START_FOLLOWERS = 5;
     public const int ENEMY_START_SKILLS = 2;
@@ -63,6 +64,11 @@ public class GameManager : MonoBehaviour
         ActiveNPCHeroes = new List<NPCHero>(); // STATIC
     }
 
+    /******
+     * *****
+     * ****** GET_ACTIVE_NPC
+     * *****
+     *****/
     public NPCHero GetActiveNPC(NPCHero npc)
     {
         int activeNPC;
@@ -89,7 +95,7 @@ public class GameManager : MonoBehaviour
      *****/
     public void NewGame()
     {
-        DialogueManager.Instance.StartDialogue(GetActiveNPC(NPCTestHero)); // FOR TESTING ONLY
+        SceneLoader.LoadScene(SceneLoader.Scene.NewGameScene);
     }
 
     /******
@@ -99,10 +105,40 @@ public class GameManager : MonoBehaviour
      *****/
     public void EndGame()
     {
+        // Game Manager
         foreach (NPCHero npc in ActiveNPCHeroes) Destroy(npc);
         ActiveNPCHeroes.Clear();
+        // Player Manager
+        Destroy(playerManager.PlayerHero);
+        playerManager.PlayerHero = null;
+        // Enemy Manager
+        Destroy(enemyManager.EnemyHero);
+        enemyManager.EnemyHero = null;
+        // Dialogue Manager
+        DialogueManager.Instance.EngagedHero = null;
+        // Effect Manager
+        EffectManager em = EffectManager.Instance;
+        foreach (Effect e in em.GiveNextEffects) Destroy(e);
+        em.GiveNextEffects.Clear();
+        // Scene Loader
         SceneLoader.LoadScene(SceneLoader.Scene.TitleScene);
     }
+
+    /******
+     * *****
+     * ****** START/END_NARRATIVE
+     * *****
+     *****/
+    public void StartNarrative()
+    {
+        //AudioManager.Instance.StartStopSound("Soundtrack_Combat1", null, AudioManager.SoundType.Soundtrack);
+        Debug.Log("START NARRATIVE!");
+    }
+    public void EndNarrative()
+    {
+        SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene); // FOR TESTING ONLY
+    }
+
 
     /******
      * *****
@@ -150,8 +186,10 @@ public class GameManager : MonoBehaviour
         /* DELAYED_ACTIONS */
         for (int i = 0; i < PLAYER_HAND_SIZE; i++)
             eventManager.NewDelayedAction(() => cardManager.DrawCard(PLAYER), 1f);
+        /* Enemies don't draw starting hands
         for (int i = 0; i < ENEMY_HAND_SIZE; i++)
             eventManager.NewDelayedAction(() => cardManager.DrawCard(ENEMY), 1f);
+        */
         eventManager.NewDelayedAction(() => StartTurn(PLAYER), 1f);
     }
 
@@ -162,6 +200,8 @@ public class GameManager : MonoBehaviour
      *****/
     public void EndCombat(bool playerWins)
     {
+        EffectManager.Instance.GiveNextEffects.Clear();
+
         if (playerWins)
             AudioManager.Instance.StartStopSound(null, PlayerManager.Instance.PlayerHero.HeroWin);
         else

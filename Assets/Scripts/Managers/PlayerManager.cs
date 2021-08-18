@@ -29,6 +29,11 @@ public class PlayerManager : MonoBehaviour
         {
             playerHero = value;
             PlayerDeckList.Clear();
+            if (value == null)
+            {
+                CurrentPlayerDeck.Clear();
+                return;
+            }
             CardManager cm = CardManager.Instance;
             for (int i = 0; i < GameManager.PLAYER_START_FOLLOWERS; i++)
                 foreach (UnitCard uc in cm.PlayerStartUnits)

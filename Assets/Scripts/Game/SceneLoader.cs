@@ -9,6 +9,7 @@ public static class SceneLoader
         LoadingScene,
         TitleScene,
         NewGameScene,
+        NarrativeScene,
         DialogueScene,
         CombatScene
     }
@@ -41,9 +42,15 @@ public static class SceneLoader
                 case Scene.NewGameScene:
                     // blank
                     break;
+                case Scene.NarrativeScene:
+                    GameManager.Instance.StartNarrative();
+                    break;
                 case Scene.DialogueScene:
-                    if (DialogueManager.Instance.EngagedHero == null) 
-                        GameManager.Instance.NewGame(); // FOR TESTING ONLY!
+                    if (DialogueManager.Instance.EngagedHero == null)
+                    {
+                        DialogueManager.Instance.StartDialogue
+                        (GameManager.Instance.GetActiveNPC(GameManager.Instance.NPCTestHero)); // FOR TESTING ONLY
+                    }
                     else
                         DialogueManager.Instance.StartDialogue(DialogueManager.Instance.EngagedHero);
                     break;

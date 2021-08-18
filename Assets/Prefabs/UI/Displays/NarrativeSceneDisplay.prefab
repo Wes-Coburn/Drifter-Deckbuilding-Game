@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7366453145632001178
+--- !u!1 &6258885697502500163
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7366453145632001176}
-  - component: {fileID: 2905654371754264081}
+  - component: {fileID: 6258885697502500173}
+  - component: {fileID: 6258885697502500162}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: NarrativeSceneDisplay
   m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7366453145632001176
+--- !u!4 &6258885697502500173
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7366453145632001178}
+  m_GameObject: {fileID: 6258885697502500163}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,18 +31,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2905654371754264081
+--- !u!114 &6258885697502500162
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7366453145632001178}
+  m_GameObject: {fileID: 6258885697502500163}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4f2a081891608e489f43757f227fb42, type: 3}
+  m_Script: {fileID: 11500000, guid: bd038fda195dc344e9cb87c98018688f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcTestHero: {fileID: 11400000, guid: 6a05b7a64160c5a4dbc5cdf0c93e64d6, type: 2}
-  augmentBiogenEffect: {fileID: 11400000, guid: 5e530aa7bb7864c41a581b9f6844b324,
-    type: 2}
+  narrative: {fileID: 11400000, guid: 924a9523a017de947b1b4f12ad15c19e, type: 2}
+  narrativeText: {fileID: 0}

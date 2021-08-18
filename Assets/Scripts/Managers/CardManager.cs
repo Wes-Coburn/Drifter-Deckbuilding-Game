@@ -115,7 +115,7 @@ public class CardManager : MonoBehaviour
             Debug.LogError("HERO NOT FOUND!");
             return;
         }
-
+        
         currentDeck.Clear();
         foreach (Card card in deckList) currentDeck.Add(card);
         ShuffleDeck(currentDeck);
@@ -277,11 +277,6 @@ public class CardManager : MonoBehaviour
         else EnemyHandCards.Add(card);
         AudioManager.Instance.StartStopSound("SFX_DrawCard");
     }
-    public void DrawHand(string player, int handSize)
-    {
-        for (int i = 0; i < handSize; i++) 
-            FunctionTimer.Create(() => DrawCard(player), i);
-    }
 
     /******
      * *****
@@ -304,7 +299,8 @@ public class CardManager : MonoBehaviour
         List<GameObject> cardZoneList = null;
         if (hero == PLAYER) cardZoneList = PlayerZoneCards;
         else if (hero == ENEMY) cardZoneList = EnemyZoneCards;
-        foreach (GameObject card in cardZoneList) card.GetComponent<UnitCardDisplay>().IsExhausted = false;
+        foreach (GameObject card in cardZoneList) 
+            card.GetComponent<UnitCardDisplay>().IsExhausted = false;
     }
 
     /******
@@ -322,14 +318,12 @@ public class CardManager : MonoBehaviour
             UIManager.Instance.CreateFleetinInfoPopup("Not enough action points!");
             return false;
         }
-
         if (card.GetComponent<CardDisplay>() is ActionCardDisplay acd)
             if (!EffectManager.Instance.CheckLegalTargets(acd.ActionCard.EffectGroupList, card, true))
             {
                 UIManager.Instance.CreateFleetinInfoPopup("You can't play that right now!");
                 return false;
             }
-
         return true;
     }
 
@@ -369,7 +363,6 @@ public class CardManager : MonoBehaviour
         float xPos = card.transform.position.x;
         float yPos = card.transform.position.y;
         card.transform.position = new Vector3(xPos, yPos, CARD_Z_POSITION);
-
         // UNNECESSARY?
         CardDisplay cd = card.GetComponent<CardDisplay>();
         if (cd is UnitCardDisplay)
@@ -406,7 +399,6 @@ public class CardManager : MonoBehaviour
                 zoneTran = PlayerDiscard.transform;
                 AnimationManager.Instance.RevealedPlayState(card);
                 break;
-            
             // ENEMY
             case ENEMY_HAND:
                 zoneTran = EnemyHand.transform;
@@ -508,7 +500,7 @@ public class CardManager : MonoBehaviour
                 ChangeCardZone(card, ENEMY_ZONE);
                 PlayUnit();
             }
-            /* Enemies don't have action cards
+            /* Enemies don't play action cards
             else if (card.GetComponent<CardDisplay>() is ActionCardDisplay)
             {
                 ChangeCardZone(card, ENEMY_ACTION_ZONE);
