@@ -14,5 +14,6 @@ public class CombatTestButton : MonoBehaviour
         DialogueManager.Instance.EngagedHero = eh;
         PlayerManager.Instance.PlayerHero = ph;
         SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);
+        GameManager.Instance.IsCombatTest = true;
     }
 }

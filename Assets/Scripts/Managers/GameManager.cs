@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     /* TEST_HEROES */
     [SerializeField] private NPCHero npcTestHero; // FOR TESTING ONLY
     public NPCHero NPCTestHero { get => npcTestHero; } // FOR TESTING ONLY
+    public bool IsCombatTest; // FOR TESTING ONLY
+
     /* AUGMENT_EFFECTS */
     [SerializeField] private GiveNextUnitEffect augmentBiogenEffect;
     /* ACTIVE_NPCS */
@@ -96,6 +98,7 @@ public class GameManager : MonoBehaviour
     public void NewGame()
     {
         SceneLoader.LoadScene(SceneLoader.Scene.NewGameScene);
+        IsCombatTest = false; // FOR TESTING ONLY
     }
 
     /******
@@ -200,12 +203,12 @@ public class GameManager : MonoBehaviour
      *****/
     public void EndCombat(bool playerWins)
     {
-        EffectManager.Instance.GiveNextEffects.Clear();
-
         if (playerWins)
             AudioManager.Instance.StartStopSound(null, PlayerManager.Instance.PlayerHero.HeroWin);
         else
             AudioManager.Instance.StartStopSound(null, PlayerManager.Instance.PlayerHero.HeroLose);
+
+        EffectManager.Instance.GiveNextEffects.Clear();
         UIManager.CreateCombatEndPopup(playerWins);
         // VICTORY or DEFEAT animation
     }

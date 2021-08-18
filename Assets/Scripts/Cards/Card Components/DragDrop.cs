@@ -102,7 +102,7 @@ public class DragDrop : MonoBehaviour
             UIManager.Instance.SelectEnemy(enemy, false);
 
         cardManager.SetCardParent(gameObject, startParent.transform);
-        transform.position = startPosition;
+        transform.position.Set(startPosition.x, startPosition.y, CardManager.CARD_Z_POSITION);
         transform.SetSiblingIndex(startIndex);
 
         if (gameObject.GetComponent<CardDisplay>() is ActionCardDisplay) IsPlayed = false;

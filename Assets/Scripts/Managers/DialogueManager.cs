@@ -16,7 +16,7 @@ public class DialogueManager : MonoBehaviour
         else Destroy(gameObject);
     }
     
-    public NPCHero EngagedHero { get; set; } // PUBLIC SET FOR TESTING ONLY
+    public NPCHero EngagedHero { get; set; } // PUBLIC SET FOR COMBAT TEST BUTTON
     private DialogueClip currentDialogueClip;
     private DialogueSceneDisplay dialogueDisplay;
 
@@ -36,7 +36,6 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(NPCHero npc)
     {
-        typedTextDelay = 0.05f; // TESTING
         AudioManager.Instance.StartStopSound("Soundtrack_DialogueScene", null, AudioManager.SoundType.Soundtrack);
         dialogueDisplay = FindObjectOfType<DialogueSceneDisplay>();
         EngagedHero = npc;
@@ -93,6 +92,7 @@ public class DialogueManager : MonoBehaviour
     
     public void TimedText(string text, TextMeshProUGUI tmPro)
     {
+        typedTextDelay = 0.05f; // TESTING
         StopTimedText();
         CurrentTextRoutine = StartCoroutine(TimedTextNumerator(text, tmPro));
     }
@@ -105,7 +105,6 @@ public class DialogueManager : MonoBehaviour
             CurrentTextRoutine = null;
             currentTypedText = null;
             currentTmPro = null;
-            //AudioManager.Instance.StartStopSound("");
         }
     }
     private IEnumerator TimedTextNumerator(string text, TextMeshProUGUI tmPro)
@@ -122,12 +121,13 @@ public class DialogueManager : MonoBehaviour
             tmPro.SetText(currentText);
             yield return new WaitForSeconds(delay);
         }
-        //AudioManager.Instance.StartStopSound("SFX_CarriageReturn");
         CurrentTextRoutine = null;
     }
 
     public void DialogueResponse(int response)
     {
+        if (currentDialogueClip == null) return; // TESTING
+
         if (CurrentTextRoutine != null)
         {
             StopTimedText(true);

@@ -25,6 +25,7 @@ public class NewGameSceneDisplay : MonoBehaviour
     private GameObject currentSkill_2;
     private int currentSelection;
     private bool heroSelected;
+    private bool augmentSelected;
     public PlayerHero SelectedHero { get => playerHeroes[currentSelection]; }
     public HeroAugment SelectedAugment { get => heroAugments[currentSelection]; }
 
@@ -32,6 +33,7 @@ public class NewGameSceneDisplay : MonoBehaviour
     {
         currentSelection = 0;
         heroSelected = false;
+        augmentSelected = false;
         DisplaySelectedHero();
     }
 
@@ -49,12 +51,14 @@ public class NewGameSceneDisplay : MonoBehaviour
             currentSelection = 0;
             DisplaySelectedAugment();
         }
-        else
+        else if (!augmentSelected)
         {
             HeroAugment ha = SelectedAugment;
             pm.HeroAugments.Add(ha);
+            augmentSelected = true;
             SceneLoader.LoadScene(SceneLoader.Scene.NarrativeScene); // FOR TESTING ONLY!!!
         }
+        else Debug.LogWarning("HERO + AUGMENT already confirmed!");
     }
 
     public enum RightOrLeft { Right, Left }

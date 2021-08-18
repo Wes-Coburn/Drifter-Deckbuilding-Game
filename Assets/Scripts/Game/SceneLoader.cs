@@ -14,24 +14,26 @@ public static class SceneLoader
         CombatScene
     }
 
-    public static float SCENE_LOADER_DELAY = 3.5f;
+    public static bool SceneIsLoading = false;
     private static Action onSceneLoaderCallback;
     private static Action onSceneUpdateCallback;
 
     public static void LoadScene(Scene scene)
     {
-        UIManager.Instance.OnWaitForSecondsCallback = () =>
-        {
-            SceneManager.LoadScene(scene.ToString());
-        };
-        
+        if (SceneIsLoading) return; // TESTING
+        SceneIsLoading = true;
+
+        // TESTING!!!
         onSceneLoaderCallback = () =>
         {
-            UIManager.Instance.WaitForSeconds(SCENE_LOADER_DELAY);
+            FunctionTimer.Create(() => UIManager.Instance.SetSceneFader(true), 3f);
+            FunctionTimer.Create(() => SceneManager.LoadScene(scene.ToString()), 5f);
+            FunctionTimer.Create(() => UIManager.Instance.SetSceneFader(false), 5f);
         };
 
         onSceneUpdateCallback = () =>
         {
+            SceneIsLoading = false;
             UIManager.Instance.Start();
             AudioManager.Instance.CleanAudioSources();
             switch (scene)
@@ -64,8 +66,13 @@ public static class SceneLoader
                     break;
             }
         };
-        DialogueManager.Instance.StopTimedText(); // TESTING
-        SceneManager.LoadScene(Scene.LoadingScene.ToString());
+
+        DialogueManager.Instance.StopTimedText();
+
+        // TESTING!
+        FunctionTimer.Create(() => UIManager.Instance.SetSceneFader(true), 0f);
+        FunctionTimer.Create(() => SceneManager.LoadScene(Scene.LoadingScene.ToString()), 1.5f);
+        FunctionTimer.Create(() => UIManager.Instance.SetSceneFader(false), 1.5f);
     }
 
     public static void SceneLoaderCallback()

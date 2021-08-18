@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject infoPopupPrefab;
     [SerializeField] private GameObject combatEndPopupPrefab;
     [SerializeField] private GameObject turnPopupPrefab;
+    [SerializeField] private GameObject sceneFader;
 
     private GameObject screenDimmer;
     private GameObject infoPopup;
@@ -28,8 +30,7 @@ public class UIManager : MonoBehaviour
     private GameObject selectedEnemy;
     private GameObject endTurnButton;
     private GameObject turnPopup;
-
-    public Action OnWaitForSecondsCallback { get; set; }
+    
     public bool PlayerIsTargetting { get; set; }
     public GameObject CurrentWorldSpace { get; set; }
     public GameObject CurrentCanvas { get; set; }
@@ -40,21 +41,40 @@ public class UIManager : MonoBehaviour
         CurrentCanvas = GameObject.Find("Canvas");
         PlayerIsTargetting = false;
     }
-    
-    public void WaitForSeconds(float delay) => StartCoroutine(WaitForSecondsNumerator(delay));
-    private IEnumerator WaitForSecondsNumerator(float delay)
+
+    public void SetSceneFader(bool fadeOut) => 
+        StartCoroutine(FadeSceneNumerator(fadeOut));
+
+    private IEnumerator FadeSceneNumerator(bool fadeOut)
     {
-        yield return new WaitForSeconds(delay);
-        WaitForSecondsCallback();
-    }
-    private void WaitForSecondsCallback()
-    {
-        if (OnWaitForSecondsCallback != null)
+        Image img = sceneFader.GetComponent<Image>();
+        float alphaChange = 0.01f;
+        float changeDelay = 0.01f;
+
+        if (fadeOut)
         {
-            OnWaitForSecondsCallback();
-            OnWaitForSecondsCallback = null;
+            while (img.color.a < 1)
+            {
+                var tempColor = img.color;
+                tempColor.a = img.color.a + alphaChange;
+                if (tempColor.a > 1) yield break;
+                img.color = tempColor;
+                yield return new WaitForSeconds(changeDelay);
+            }
+        }
+        else
+        {
+            while (img.color.a > 0)
+            {
+                var tempColor = img.color;
+                tempColor.a = img.color.a - alphaChange;
+                if (tempColor.a < 0) yield break;
+                img.color = tempColor;
+                yield return new WaitForSeconds(changeDelay);
+            }
         }
     }
+
 
     /******
      * *****

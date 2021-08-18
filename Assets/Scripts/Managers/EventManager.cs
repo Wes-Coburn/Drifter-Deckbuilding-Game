@@ -25,8 +25,7 @@ public class EventManager : MonoBehaviour
         public float Delay;
         public static int CurrentAction;
     }
-
-    //public List<DelayedAction> DelayedActions { get => delayedActions; }
+    
     private static List<DelayedAction> delayedActions;
     
     public DelayedAction NewDelayedAction(Action action, float delay)
@@ -38,15 +37,21 @@ public class EventManager : MonoBehaviour
         };
 
         delayedActions.Add(da);
-        if (delayedActions.Count == 1) NextDelayedAction();
+        if (delayedActions.Count == 1)
+        {
+            DelayedAction.CurrentAction = 0;
+            NextDelayedAction();
+        }
         return da;
     }
 
     private void NextDelayedAction()
     {
-        //Debug.Log("ACTION # " + DelayedAction.CurrentAction + " / " + delayedActions.Count);
         if (DelayedAction.CurrentAction < delayedActions.Count)
+        {
+            Debug.Log("ACTION # " + (DelayedAction.CurrentAction + 1) + " / " + delayedActions.Count);
             StartCoroutine(ActionNumerator());
+        }
         else ClearDelayedActions();
     }
 

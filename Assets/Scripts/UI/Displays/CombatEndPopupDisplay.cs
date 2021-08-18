@@ -10,7 +10,12 @@ public class CombatEndPopupDisplay : MonoBehaviour
 
     public void OnClick()
     {
-        if (victoryText.activeSelf == true) SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene);
-        else GameManager.Instance.EndGame();
+        GameManager gm = GameManager.Instance;
+        if (victoryText.activeSelf == true)
+        {
+            if (gm.IsCombatTest) gm.EndGame();
+            else SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene);
+        }
+        else gm.EndGame();
     }
 }

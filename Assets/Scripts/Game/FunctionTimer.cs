@@ -46,17 +46,15 @@ public class FunctionTimer
     public class MonoBehaviourHook: MonoBehaviour
     {
         public Action onUpdate;
-        private void Update()
-        {
-            if (onUpdate != null) onUpdate();
-        }
+        private void Update() => onUpdate?.Invoke();
     }
 
-    private Action action;
+    private readonly Action action;
     private float timer;
-    private string timerName;
-    private GameObject gameObject;
+    private readonly string timerName;
+    private readonly GameObject gameObject;
     private bool isDestroyed;
+
     private FunctionTimer(Action action, float timer, string timerName, GameObject gameObject)
     {
         this.action = action;
