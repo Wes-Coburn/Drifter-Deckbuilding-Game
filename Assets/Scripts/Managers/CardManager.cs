@@ -271,8 +271,16 @@ public class CardManager : MonoBehaviour
         if (hero == PLAYER)
         {
             PlayerHandCards.Add(card);
-            List<GameObject> newDrawnCards = EffectManager.Instance.NewDrawnCards;
-            if (newDrawnCards != null) newDrawnCards.Add(card);
+            EffectManager em = EffectManager.Instance;
+            em.NewDrawnCards.Add(card);
+
+            if (UIManager.Instance.PlayerIsTargetting && 
+                em.CurrentEffect is DrawEffect)
+            {
+                if (!em.CurrentLegalTargets.Contains(card))
+                    em.CurrentLegalTargets.Add(card);
+                card.GetComponent<CardSelect>().CardOutline.SetActive(true);
+            }
         }
         else EnemyHandCards.Add(card);
         AudioManager.Instance.StartStopSound("SFX_DrawCard");
@@ -624,11 +632,12 @@ public class CardManager : MonoBehaviour
                 Strike(defender, attacker);
         }
         else defenderIsUnit = false;
-        AnimationManager.Instance.UnitAttack(attacker, defender, defenderIsUnit); // TESTING
 
         if (!GetAbility(attacker, "Ranged"))
             AudioManager.Instance.StartStopSound("SFX_AttackMelee");
         else AudioManager.Instance.StartStopSound("SFX_AttackRanged");
+
+        AnimationManager.Instance.UnitAttack(attacker, defender, defenderIsUnit); // TESTING
     }
 
     /******

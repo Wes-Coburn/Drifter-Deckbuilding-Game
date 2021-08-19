@@ -26,8 +26,8 @@ public class NewGameSceneDisplay : MonoBehaviour
     private int currentSelection;
     private bool heroSelected;
     private bool augmentSelected;
-    public PlayerHero SelectedHero { get => playerHeroes[currentSelection]; }
-    public HeroAugment SelectedAugment { get => heroAugments[currentSelection]; }
+    private PlayerHero SelectedHero { get => playerHeroes[currentSelection]; }
+    private HeroAugment SelectedAugment { get => heroAugments[currentSelection]; }
 
     private void Start()
     {
@@ -37,6 +37,19 @@ public class NewGameSceneDisplay : MonoBehaviour
         DisplaySelectedHero();
     }
 
+    public void SelectBackButton()
+    {
+        if (heroSelected)
+        {
+            heroSelected = false;
+            PlayerManager pm = PlayerManager.Instance;
+            Destroy(pm.PlayerHero);
+            pm.PlayerHero = null;
+            currentSelection = 0;
+            DisplaySelectedHero();
+        }
+        else GameManager.Instance.EndGame();
+    }
     public void SelectRightArrow() => NextSelection(RightOrLeft.Right);
     public void SelectLeftArrow() => NextSelection(RightOrLeft.Left);
     public void ConfirmSelection()
@@ -93,6 +106,8 @@ public class NewGameSceneDisplay : MonoBehaviour
     {
         selectedHero.SetActive(true);
         selectedAugment.SetActive(false);
+        skillCard_1.SetActive(true);
+        skillCard_2.SetActive(true);
 
         heroName.GetComponent<TextMeshProUGUI>().SetText(SelectedHero.HeroName);
         heroPortrait.GetComponent<Image>().sprite = SelectedHero.HeroPortrait;

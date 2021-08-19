@@ -54,7 +54,7 @@ public class DialogueManager : MonoBehaviour
         if (nextClip != null) EngagedHero.NextDialogueClip = nextClip;
         EngagedHero = null;
         currentDialogueClip = null;
-        //StopTimedText();
+        StopTimedText();
     }
 
     public void DisplayDialoguePopup()
@@ -155,7 +155,6 @@ public class DialogueManager : MonoBehaviour
         // Exit
         if (dr.Response_IsExit)
         {
-            EndDialogue(dc);
             GameManager.Instance.EndGame(); // FOR TESTING ONLY
             return;
         }

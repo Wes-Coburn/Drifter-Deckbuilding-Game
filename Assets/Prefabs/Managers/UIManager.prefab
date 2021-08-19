@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 986900924}
   - component: {fileID: 986900923}
   - component: {fileID: 986900925}
-  - component: {fileID: 4088670050114604853}
+  - component: {fileID: 3800111370661799970}
+  - component: {fileID: 7680993469718281654}
   m_Layer: 0
-  m_Name: ExitButton
+  m_Name: MenuButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -120,8 +121,20 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 986900923}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
---- !u!114 &4088670050114604853
+      m_Calls:
+      - m_Target: {fileID: 3800111370661799970}
+        m_TargetAssemblyTypeName: SoundPlayer, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3800111370661799970
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,7 +143,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 986900921}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9d766a94b4b4d54b85ba246e37db2ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 2340c8fec396b2b43bf9a91052c5c90e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds: []
+  sounds2:
+  - name: 
+    clip: {fileID: 8300000, guid: a580b904278a5fd4fba9563d4096bd3d, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+--- !u!114 &7680993469718281654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 986900921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb669d7cca488294f97650c71d4b2bf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1427227695
@@ -190,7 +222,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 692114287
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -362,3 +394,5 @@ MonoBehaviour:
   turnPopupPrefab: {fileID: 4849220570171292864, guid: 99743549cd6e15140a5f56e6916d84ca,
     type: 3}
   sceneFader: {fileID: 1625156631375219772}
+  menuPopupPrefab: {fileID: 9043051785176521042, guid: 8192d4bafb812aa40a56f2831bbfbe89,
+    type: 3}

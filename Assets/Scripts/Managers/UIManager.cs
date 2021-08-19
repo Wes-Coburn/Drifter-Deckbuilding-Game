@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,13 +22,18 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject combatEndPopupPrefab;
     [SerializeField] private GameObject turnPopupPrefab;
     [SerializeField] private GameObject sceneFader;
+    [SerializeField] private GameObject menuPopupPrefab;
 
     private GameObject screenDimmer;
     private GameObject infoPopup;
     private GameObject combatEndPopup;
+    private GameObject turnPopup;
+
+    private GameObject menuPopup;
     private GameObject selectedEnemy;
     private GameObject endTurnButton;
-    private GameObject turnPopup;
+
+    private Coroutine sceneFadeRoutine;
     
     public bool PlayerIsTargetting { get; set; }
     public GameObject CurrentWorldSpace { get; set; }
@@ -42,9 +46,20 @@ public class UIManager : MonoBehaviour
         PlayerIsTargetting = false;
     }
 
-    public void SetSceneFader(bool fadeOut) => 
-        StartCoroutine(FadeSceneNumerator(fadeOut));
-
+    /******
+     * *****
+     * ****** SET_SCENE_FADER
+     * *****
+     *****/
+    public void SetSceneFader(bool fadeOut)
+    {
+        if (sceneFadeRoutine != null)
+        {
+            StopCoroutine(sceneFadeRoutine);
+            sceneFadeRoutine = null;
+        }
+        sceneFadeRoutine = StartCoroutine(FadeSceneNumerator(fadeOut));
+    }
     private IEnumerator FadeSceneNumerator(bool fadeOut)
     {
         Image img = sceneFader.GetComponent<Image>();
@@ -57,7 +72,7 @@ public class UIManager : MonoBehaviour
             {
                 var tempColor = img.color;
                 tempColor.a = img.color.a + alphaChange;
-                if (tempColor.a > 1) yield break;
+                if (tempColor.a > 1) tempColor.a = 1;
                 img.color = tempColor;
                 yield return new WaitForSeconds(changeDelay);
             }
@@ -68,13 +83,33 @@ public class UIManager : MonoBehaviour
             {
                 var tempColor = img.color;
                 tempColor.a = img.color.a - alphaChange;
-                if (tempColor.a < 0) yield break;
+                if (tempColor.a < 0) tempColor.a = 0;
                 img.color = tempColor;
                 yield return new WaitForSeconds(changeDelay);
             }
         }
+        sceneFadeRoutine = null;
     }
 
+    /******
+     * *****
+     * ****** CREATE_DESTROY_MENU_POPUP
+     * *****
+     *****/
+    public void CreateMenuPopup()
+    {
+        if (menuPopup != null) return;
+        GameObject uiCanvas = GameObject.Find("UI_Canvas");
+        menuPopup = Instantiate(menuPopupPrefab, uiCanvas.transform);
+    }
+    public void DestroyMenuPopup()
+    {
+        if (menuPopup != null)
+        {
+            Destroy(menuPopup);
+            menuPopup = null;
+        }
+    }
 
     /******
      * *****

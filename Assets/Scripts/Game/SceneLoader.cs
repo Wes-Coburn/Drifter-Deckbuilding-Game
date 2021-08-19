@@ -20,10 +20,10 @@ public static class SceneLoader
 
     public static void LoadScene(Scene scene)
     {
-        if (SceneIsLoading) return; // TESTING
+        if (SceneManager.GetActiveScene().name == scene.ToString()) return;
+        if (SceneIsLoading) return;
         SceneIsLoading = true;
 
-        // TESTING!!!
         onSceneLoaderCallback = () =>
         {
             FunctionTimer.Create(() => UIManager.Instance.SetSceneFader(true), 3f);
@@ -68,8 +68,6 @@ public static class SceneLoader
         };
 
         DialogueManager.Instance.StopTimedText();
-
-        // TESTING!
         FunctionTimer.Create(() => UIManager.Instance.SetSceneFader(true), 0f);
         FunctionTimer.Create(() => SceneManager.LoadScene(Scene.LoadingScene.ToString()), 1.5f);
         FunctionTimer.Create(() => UIManager.Instance.SetSceneFader(false), 1.5f);

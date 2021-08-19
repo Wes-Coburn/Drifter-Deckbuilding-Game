@@ -28,6 +28,7 @@ public class PlayerManager : MonoBehaviour
         set
         {
             playerHero = value;
+            if (PlayerDeckList == null || CurrentPlayerDeck == null) return; // TESTING
             PlayerDeckList.Clear();
             if (value == null)
             {

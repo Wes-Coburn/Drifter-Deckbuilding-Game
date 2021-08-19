@@ -52,14 +52,14 @@ public class AnimationManager : MonoBehaviour
         // UNIT
         if (defenderIsUnit)
         {
-            bufferDistance = 200f;
+            bufferDistance = 150;
             attackDelay = 0.01f;
             retreatDelay = 0.02f;
         }
         // HERO
         else
         {
-            bufferDistance = 400f;
+            bufferDistance = 350;
             attackDelay = 0.002f;
             retreatDelay = 0.005f;
         }
@@ -70,14 +70,14 @@ public class AnimationManager : MonoBehaviour
         Vector3 atkStartPos = attacker.transform.position;
         Vector2 defPos = defender.transform.position;
         attacker.transform.SetParent(UIManager.Instance.CurrentWorldSpace.transform);
-        attacker.GetComponent<ChangeLayer>().ZoomLayer();
         DragPlayedState(attacker);
+        attacker.GetComponent<ChangeLayer>().ZoomLayer();
 
         // ATTACK
         do
         {
             distance = Vector2.Distance(attacker.transform.position, defPos);
-            attacker.transform.position = Vector2.MoveTowards(attacker.transform.position, defPos, 20f);
+            attacker.transform.position = Vector3.MoveTowards(attacker.transform.position, defPos, 20f);
             yield return new WaitForSeconds(attackDelay);
         }
         while (distance > bufferDistance);
@@ -85,15 +85,18 @@ public class AnimationManager : MonoBehaviour
         do
         {
             distance = Vector2.Distance(attacker.transform.position, atkStartPos);
-            attacker.transform.position = Vector2.MoveTowards(attacker.transform.position, atkStartPos, 20f);
+            attacker.transform.position = Vector3.MoveTowards(attacker.transform.position, atkStartPos, 20f);
             yield return new WaitForSeconds(retreatDelay);
         }
         while (distance > 0);
 
-        RevealedPlayState(attacker);
-        attacker.GetComponent<ChangeLayer>().CardsLayer();
         attacker.transform.SetParent(atkStartParent);
         attacker.transform.SetSiblingIndex(atkIndex);
+
+        //attacker.transform.position = atkStartPos;
         attacker.transform.position = new Vector3(atkStartPos.x, atkStartPos.y, CardManager.CARD_Z_POSITION);
+
+        RevealedPlayState(attacker);
+        attacker.GetComponent<ChangeLayer>().CardsLayer();
     }
 }

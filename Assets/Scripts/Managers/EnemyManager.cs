@@ -28,6 +28,7 @@ public class EnemyManager : MonoBehaviour
         set
         {
             enemyHero = value;
+            if (EnemyDeckList == null || CurrentEnemyDeck == null) return; // TESTING
             EnemyDeckList.Clear();
             if (value == null)
             {
