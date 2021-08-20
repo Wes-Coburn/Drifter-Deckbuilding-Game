@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     /* TEST_HEROES */
     [SerializeField] private NPCHero npcTestHero; // FOR TESTING ONLY
     public NPCHero NPCTestHero { get => npcTestHero; } // FOR TESTING ONLY
-    public bool IsCombatTest; // FOR TESTING ONLY
+    public bool IsCombatTest { get; set; } // FOR TESTING ONLY
 
     /* AUGMENT_EFFECTS */
     [SerializeField] private GiveNextUnitEffect augmentBiogenEffect;
@@ -32,14 +32,14 @@ public class GameManager : MonoBehaviour
 
     public const string PLAYER = "Player";
     public const int PLAYER_STARTING_HEALTH = 20;
-    //public const int PLAYER_STARTING_HEALTH = 1; // FOR TESTING ONLY
+    //public const int PLAYER_STARTING_HEALTH = 5; // FOR TESTING ONLY
     public const int PLAYER_HAND_SIZE = 4;
     public const int PLAYER_START_FOLLOWERS = 2;
     public const int PLAYER_START_SKILLS = 2;
 
     public const string ENEMY = "Enemy";
     public const int ENEMY_STARTING_HEALTH = 20;
-    //public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
+    //public const int ENEMY_STARTING_HEALTH = 5; // FOR TESTING ONLY
     public const int ENEMY_HAND_SIZE = 0;
     public const int ENEMY_START_FOLLOWERS = 5;
     public const int ENEMY_START_SKILLS = 2;
@@ -203,13 +203,15 @@ public class GameManager : MonoBehaviour
      *****/
     public void EndCombat(bool playerWins)
     {
-        if (playerWins)
-            AudioManager.Instance.StartStopSound(null, PlayerManager.Instance.PlayerHero.HeroWin);
-        else
-            AudioManager.Instance.StartStopSound(null, PlayerManager.Instance.PlayerHero.HeroLose);
+        if (playerWins) AudioManager.Instance.StartStopSound
+                (null, PlayerManager.Instance.PlayerHero.HeroWin);
+        else AudioManager.Instance.StartStopSound
+                (null, PlayerManager.Instance.PlayerHero.HeroLose);
 
+        PlayerManager.Instance.IsMyTurn = false;
         EffectManager.Instance.GiveNextEffects.Clear();
-        UIManager.CreateCombatEndPopup(playerWins);
+        EventManager.Instance.ClearDelayedActions();
+        FunctionTimer.Create(() => UIManager.CreateCombatEndPopup(playerWins), 2f);
         // VICTORY or DEFEAT animation
     }
 

@@ -31,7 +31,10 @@ public class NarrativeSceneDisplay : MonoBehaviour
     public void PreviousNarrative()
     {
         if (DialogueManager.Instance.CurrentTextRoutine != null)
-            DialogueManager.Instance.StopTimedText();
+        {
+            DialogueManager.Instance.StopTimedText(true);
+            return;
+        }
         if (--currentNarrative < 0) currentNarrative = 0;
         else SetCurrentNarrative(currentNarrative);
     }

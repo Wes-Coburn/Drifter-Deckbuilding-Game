@@ -38,19 +38,10 @@ public class UnitCardDisplay : CardDisplay
     }
     
     /* MAX_DEFENSE_SCORE */
-    [SerializeField] private GameObject maxDefenseDisplay;
     public int MaxDefense
     {
         get => UnitCard.MaxDefense;
-        set
-        {
-            UnitCard.MaxDefense = value;
-            if (maxDefenseDisplay != null)
-            {
-                TextMeshPro txtPro = maxDefenseDisplay.GetComponent<TextMeshPro>();
-                txtPro.SetText(MaxDefense.ToString());
-            }
-        }
+        set => UnitCard.MaxDefense = value;
     }
 
     /* EFFECTS */
@@ -104,25 +95,12 @@ public class UnitCardDisplay : CardDisplay
         if (card == null)
         {
             UnitCardDisplay ucd = parentCard.GetComponent<CardDisplay>() as UnitCardDisplay;
-            List<CardAbility> abilityList;
+            UnitCard uc = ucd.UnitCard;
+            CurrentPower = uc.StartPower;
+            MaxDefense = uc.StartDefense;
+            CurrentDefense = uc.StartDefense;
 
-            if (CardZoom.ZoomCardIsCentered)
-            {
-                UnitCard uc = ucd.UnitCard;
-                abilityList = uc.StartingAbilities;
-                CurrentPower = uc.StartPower;
-                MaxDefense = uc.StartDefense;
-                CurrentDefense = uc.StartDefense;
-            }
-            else
-            {
-                abilityList = ucd.CurrentAbilities;
-                CurrentPower = ucd.CurrentPower;
-                MaxDefense = ucd.MaxDefense;
-                CurrentDefense = ucd.CurrentDefense;
-            }
-
-            foreach (CardAbility cardAbility in abilityList)
+            foreach (CardAbility cardAbility in uc.StartingAbilities)
             {
                 if (cardAbility == null) continue; // Skip empty abilities
                 gameObject.GetComponent<CardZoom>().CreateZoomAbilityIcon(cardAbility, 
