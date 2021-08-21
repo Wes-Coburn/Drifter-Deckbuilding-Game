@@ -12,8 +12,8 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     private const float  POPUP_SCALE_VALUE           =  3;
     private const float  SMALL_POPUP_SCALE_VALUE     =  2;
 
-    private const string ZOOM_CARD_TIMER            =  "ZoomCardTimer";
-    private const string ABILITY_POPUP_TIMER        =  "AbilityPopupTimer";
+    public const string ZOOM_CARD_TIMER            =  "ZoomCardTimer";
+    public const string ABILITY_POPUP_TIMER        =  "AbilityPopupTimer";
 
     /* PREFABS */
     [SerializeField] private GameObject unitZoomCardPrefab;
@@ -95,6 +95,9 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         if (transform.parent.gameObject == playerHand) ShowZoomCard();
         else FunctionTimer.Create(() => ShowZoomCard(), 0.5f, ZOOM_CARD_TIMER);
 
+        void ShowAbilityPopup() =>
+            CreateAbilityPopups(new Vector2(popupXPos, cardYPos), SMALL_POPUP_SCALE_VALUE);
+
         void ShowZoomCard()
         {
             RectTransform rect;
@@ -131,8 +134,6 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
             CreateZoomCard(new Vector2(vec3.x, cardYPos), ZOOM_SCALE_VALUE);
             FunctionTimer.Create(() => ShowAbilityPopup(), 0.75f, ABILITY_POPUP_TIMER);
         }
-
-        void ShowAbilityPopup() => CreateAbilityPopups(new Vector2(popupXPos, cardYPos), SMALL_POPUP_SCALE_VALUE);
     }
 
     /******

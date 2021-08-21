@@ -126,20 +126,20 @@ public class UIManager : MonoBehaviour
      * ****** SELECT_ENEMY
      * *****
      *****/
-    public void SelectEnemy(GameObject enemy, bool enabled)
+    public void SelectEnemy(GameObject enemy, bool enabled, bool isSelected = false)
     {
-        if (selectedEnemy != null)
-        {
-            GameObject oldEnemy;
-            oldEnemy = selectedEnemy;
-            selectedEnemy = null;
-            SelectEnemy(oldEnemy, false);
-        }
-
         if (enabled) selectedEnemy = enemy;
-        if (enemy.TryGetComponent<CardSelect>(out CardSelect cs))
+        if (enemy.TryGetComponent(out CardSelect cs))
+        {
             cs.CardOutline.SetActive(enabled);
-        else if (enemy.TryGetComponent<HeroSelect>(out HeroSelect hs))
+            SpriteRenderer sr = cs.CardOutline.GetComponent<SpriteRenderer>();
+            if (enabled)
+            {
+                if (isSelected) sr.color = cs.SelectedColor;
+                else sr.color = cs.HighlightedColor;
+            }
+        }
+        else if (enemy.TryGetComponent(out HeroSelect hs))
             hs.TargetIcon.SetActive(enabled);
         else
         {

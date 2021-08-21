@@ -63,17 +63,17 @@ public class DragDrop : MonoBehaviour
         GameObject collisionObjectParent = collisionObject.transform.parent.gameObject;
         if (!IsPlayed)
         {
-            if (collisionObject == CardManager.Instance.PlayerZone) 
+            if (collisionObject == cardManager.PlayerZone) 
                 isOverDropZone = true;
         }
         else
         {
-            if (collisionObjectParent == CardManager.Instance.EnemyZone || 
-                collisionObject == CardManager.Instance.EnemyHero)
+            if (collisionObjectParent == cardManager.EnemyZone || 
+                collisionObject == cardManager.EnemyHero)
             {
                 isOverEnemy = true;
                 enemy = collisionObject;
-                UIManager.Instance.SelectEnemy(enemy, true);
+                UIManager.SelectEnemy(enemy, true, true);
             }
         }
     }
@@ -82,14 +82,16 @@ public class DragDrop : MonoBehaviour
         GameObject collisionObject = collision.gameObject;
         if (!IsPlayed)
         {
-            if (collisionObject == CardManager.Instance.PlayerZone) 
+            if (collisionObject == cardManager.PlayerZone) 
                 isOverDropZone = false;
         }
         else
         {
             if (collisionObject == enemy)
             {
-                UIManager.Instance.SelectEnemy(enemy, false);
+                if (cardManager.CanAttack(gameObject, enemy, true)) 
+                    UIManager.Instance.SelectEnemy(enemy, true);
+                
                 isOverEnemy = false;
                 enemy = null;
             }
@@ -99,13 +101,11 @@ public class DragDrop : MonoBehaviour
     private void ResetPosition()
     {
         if (enemy != null) // Unnecessary?
-            UIManager.Instance.SelectEnemy(enemy, false);
+            UIManager.SelectEnemy(enemy, false);
 
         cardManager.SetCardParent(gameObject, startParent.transform);
         transform.SetSiblingIndex(startIndex);
-
         transform.position = new Vector3(startPosition.x, startPosition.y, CardManager.CARD_Z_POSITION);
-        //transform.position = startPosition;
 
         if (gameObject.GetComponent<CardDisplay>() is ActionCardDisplay) IsPlayed = false;
         if (IsPlayed) AnimationManager.Instance.RevealedPlayState(gameObject);
@@ -116,24 +116,37 @@ public class DragDrop : MonoBehaviour
     {
         UIManager.DestroyZoomObjects();
         if (!playerManager.IsMyTurn || CardIsDragging || CompareTag(ENEMY_CARD) || 
-            UIManager.Instance.PlayerIsTargetting) return;
-        
+            UIManager.PlayerIsTargetting) return;
+
+        FunctionTimer.StopTimer(CardZoom.ZOOM_CARD_TIMER);
+        FunctionTimer.StopTimer(CardZoom.ABILITY_POPUP_TIMER);
+
         IsDragging = true;
         startParent = transform.parent.gameObject;
         startPosition = transform.position;
         startIndex = transform.GetSiblingIndex();
         gameObject.GetComponent<ChangeLayer>().ZoomLayer();
 
-        if (IsPlayed) AnimationManager.Instance.DragPlayedState(gameObject);
+        if (IsPlayed)
+        {
+            AnimationManager.Instance.DragPlayedState(gameObject);
+
+            foreach(GameObject enemyUnit in CardManager.Instance.EnemyZoneCards)
+                if (cardManager.CanAttack(gameObject, enemyUnit, true))
+                    UIManager.SelectEnemy(enemyUnit, true);
+            if (cardManager.CanAttack(gameObject, cardManager.EnemyHero, true)) 
+                UIManager.SelectEnemy(cardManager.EnemyHero, true);
+        }
         else AnimationManager.Instance.RevealedDragState(gameObject);
     }
 
     public void EndDrag()
     {
         if (!IsDragging || !playerManager.IsMyTurn || 
-            CompareTag(ENEMY_CARD) || UIManager.Instance.PlayerIsTargetting) return;
+            CompareTag(ENEMY_CARD) || UIManager.PlayerIsTargetting) return;
         IsDragging = false;
 
+        // From Hand
         if (!IsPlayed)
         {
             if (isOverDropZone && cardManager.IsPlayable(gameObject))
@@ -142,8 +155,14 @@ public class DragDrop : MonoBehaviour
                 cardManager.PlayCard(gameObject);
             }
             else ResetPosition();
+            return;
         }
-        else if (isOverEnemy && cardManager.CanAttack(gameObject, enemy))
+        // In Play
+        foreach (GameObject enemyUnit in cardManager.EnemyZoneCards) 
+            UIManager.SelectEnemy(enemyUnit, false);
+        UIManager.SelectEnemy(cardManager.EnemyHero, false);
+
+        if (isOverEnemy && cardManager.CanAttack(gameObject, enemy))
         {
             ResetPosition(); // NEEDS TO COME BEFORE ATTACK
             cardManager.Attack(gameObject, enemy);

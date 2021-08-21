@@ -595,17 +595,19 @@ public class CardManager : MonoBehaviour
      * ****** CAN_ATTACK
      * *****
      *****/
-    public bool CanAttack(GameObject attacker, GameObject defender)
+    public bool CanAttack(GameObject attacker, GameObject defender, bool preCheck = false)
     {
         if (GetUnitDisplay(attacker).IsExhausted)
         {
-            UIManager.Instance.CreateFleetinInfoPopup("Exhausted units can't attack!");
+            if (!preCheck) 
+                UIManager.Instance.CreateFleetinInfoPopup("Exhausted units can't attack!");
             return false;
         }
         else if (defender != PlayerHero && defender != EnemyHero)
             if (GetAbility(defender, "Stealth"))
             {
-                UIManager.Instance.CreateFleetinInfoPopup("Units with Stealth can't be attacked!");
+                if (!preCheck)
+                    UIManager.Instance.CreateFleetinInfoPopup("Units with Stealth can't be attacked!");
                 return false;
             } 
         return true;
