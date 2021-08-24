@@ -10,47 +10,39 @@ public class DragDrop : MonoBehaviour
     private CardManager cardManager;
     private UIManager UIManager;
 
-    /* STATIC CLASS VARIABLES */
-    public static bool CardIsDragging;
+    /* DRAG ARROW */
+    [SerializeField] private GameObject dragArrowPrefab;
+    private GameObject dragArrow;
 
-    /* CLASS VARIABLES */
-    private GameObject enemy;
-    private bool isOverEnemy;
+    private bool isDragging;
     private bool isOverDropZone;
     private GameObject startParent;
     private Vector2 startPosition;
     private int startIndex;
 
-    private bool isDragging;
-    public bool IsDragging
-    {
-        get => isDragging;
-        private set
-        {
-            isDragging = value;
-            CardIsDragging = IsDragging;
-        }
-    }
     public bool IsPlayed { get; set; }
+    public static GameObject DraggingCard;
+    public static bool ArrowIsDragging;
+    public static GameObject Enemy;
 
     void Start()
     {
         playerManager = PlayerManager.Instance;
         cardManager = CardManager.Instance;
         UIManager = UIManager.Instance;
-
-        CardIsDragging = false;
-        isOverEnemy = false;
         isOverDropZone = false;
-        IsDragging = false;
+        isDragging = false;
         IsPlayed = false;
+
+        DraggingCard = null;
+        ArrowIsDragging = false;
     }
 
     void Update()
     {
-        if (IsDragging)
+        if (isDragging)
         {
-            Vector3 dragPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 dragPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);            
             transform.position = new Vector3(dragPoint.x, dragPoint.y, -2);
             transform.SetParent(UIManager.Instance.CurrentWorldSpace.transform, true);
         }
@@ -58,23 +50,12 @@ public class DragDrop : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!IsDragging) return;
+        if (!isDragging) return;
         GameObject collisionObject = collision.gameObject;
-        GameObject collisionObjectParent = collisionObject.transform.parent.gameObject;
         if (!IsPlayed)
         {
             if (collisionObject == cardManager.PlayerZone) 
                 isOverDropZone = true;
-        }
-        else
-        {
-            if (collisionObjectParent == cardManager.EnemyZone || 
-                collisionObject == cardManager.EnemyHero)
-            {
-                isOverEnemy = true;
-                enemy = collisionObject;
-                UIManager.SelectEnemy(enemy, true, true);
-            }
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
@@ -85,29 +66,15 @@ public class DragDrop : MonoBehaviour
             if (collisionObject == cardManager.PlayerZone) 
                 isOverDropZone = false;
         }
-        else
-        {
-            if (collisionObject == enemy)
-            {
-                if (cardManager.CanAttack(gameObject, enemy, true)) 
-                    UIManager.Instance.SelectEnemy(enemy, true);
-                
-                isOverEnemy = false;
-                enemy = null;
-            }
-        }
     }
 
     private void ResetPosition()
     {
-        if (enemy != null) // Unnecessary?
-            UIManager.SelectEnemy(enemy, false);
-
         cardManager.SetCardParent(gameObject, startParent.transform);
         transform.SetSiblingIndex(startIndex);
         transform.position = new Vector3(startPosition.x, startPosition.y, CardManager.CARD_Z_POSITION);
 
-        if (gameObject.GetComponent<CardDisplay>() is ActionCardDisplay) IsPlayed = false;
+        if (GetComponent<CardDisplay>() is ActionCardDisplay) IsPlayed = false;
         if (IsPlayed) AnimationManager.Instance.RevealedPlayState(gameObject);
         else AnimationManager.Instance.RevealedHandState(gameObject);
     }
@@ -115,40 +82,52 @@ public class DragDrop : MonoBehaviour
     public void StartDrag()
     {
         UIManager.DestroyZoomObjects();
-        if (!playerManager.IsMyTurn || CardIsDragging || CompareTag(ENEMY_CARD) || 
-            UIManager.PlayerIsTargetting) return;
+        if (DraggingCard || ArrowIsDragging || !playerManager.IsMyTurn || 
+            CompareTag(ENEMY_CARD) || UIManager.PlayerIsTargetting) return;
 
         FunctionTimer.StopTimer(CardZoom.ZOOM_CARD_TIMER);
         FunctionTimer.StopTimer(CardZoom.ABILITY_POPUP_TIMER);
 
-        IsDragging = true;
-        startParent = transform.parent.gameObject;
-        startPosition = transform.position;
-        startIndex = transform.GetSiblingIndex();
-        gameObject.GetComponent<ChangeLayer>().ZoomLayer();
+        DraggingCard = gameObject;
 
-        if (IsPlayed)
+        if (!IsPlayed)
         {
-            AnimationManager.Instance.DragPlayedState(gameObject);
+            isDragging = true;
+            startParent = transform.parent.gameObject;
+            startPosition = transform.position;
+            startIndex = transform.GetSiblingIndex();
+            GetComponent<ChangeLayer>().ZoomLayer();
+            AnimationManager.Instance.RevealedDragState(gameObject);
+        }
+        else
+        {
 
-            foreach(GameObject enemyUnit in CardManager.Instance.EnemyZoneCards)
+
+            ArrowIsDragging = true;
+            dragArrow = Instantiate(dragArrowPrefab, UIManager.Instance.CurrentWorldSpace.transform);
+            dragArrow.GetComponent<DragArrow>().SourceCard = gameObject;
+
+            foreach (GameObject enemyUnit in CardManager.Instance.EnemyZoneCards)
                 if (cardManager.CanAttack(gameObject, enemyUnit, true))
                     UIManager.SelectEnemy(enemyUnit, true);
+            
             if (cardManager.CanAttack(gameObject, cardManager.EnemyHero, true)) 
                 UIManager.SelectEnemy(cardManager.EnemyHero, true);
         }
-        else AnimationManager.Instance.RevealedDragState(gameObject);
     }
 
     public void EndDrag()
     {
-        if (!IsDragging || !playerManager.IsMyTurn || 
+        if ((!isDragging && !ArrowIsDragging) || !playerManager.IsMyTurn || 
             CompareTag(ENEMY_CARD) || UIManager.PlayerIsTargetting) return;
-        IsDragging = false;
+
+        DraggingCard = null;
 
         // From Hand
         if (!IsPlayed)
         {
+            isDragging = false;
+            
             if (isOverDropZone && cardManager.IsPlayable(gameObject))
             {
                 IsPlayed = true;
@@ -157,20 +136,23 @@ public class DragDrop : MonoBehaviour
             else ResetPosition();
             return;
         }
-        // In Play
-        foreach (GameObject enemyUnit in cardManager.EnemyZoneCards) 
-            UIManager.SelectEnemy(enemyUnit, false);
-        UIManager.SelectEnemy(cardManager.EnemyHero, false);
 
-        if (isOverEnemy && cardManager.CanAttack(gameObject, enemy))
-        {
-            ResetPosition(); // NEEDS TO COME BEFORE ATTACK
-            cardManager.Attack(gameObject, enemy);
-        }
+        // In Play
+        ArrowIsDragging = false;
+        Destroy(dragArrow);
+        dragArrow = null;
+
+        if (Enemy != null && cardManager.CanAttack(gameObject, Enemy))
+            cardManager.Attack(gameObject, Enemy);
         else
         {
-            Debug.Log("EndDrag! (NO ATTACK) IsExhausted = " + gameObject.GetComponent<UnitCardDisplay>().IsExhausted);
-            ResetPosition();
+            Debug.Log("EndDrag! (NO ATTACK) IsExhausted = " + 
+                GetComponent<UnitCardDisplay>().IsExhausted);
         }
+
+        foreach (GameObject enemyUnit in cardManager.EnemyZoneCards)
+            UIManager.SelectEnemy(enemyUnit, false);
+        
+        UIManager.SelectEnemy(cardManager.EnemyHero, false);
     }
 }

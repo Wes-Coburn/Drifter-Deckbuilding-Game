@@ -23,7 +23,6 @@ public class EffectManager : MonoBehaviour
     private List<List<GameObject>> legalTargets;
     private List<List<GameObject>> acceptedTargets;
 
-
     public Effect CurrentEffect
     {
         get
@@ -82,6 +81,7 @@ public class EffectManager : MonoBehaviour
         effectSource = source;
         currentEffectGroup = 0;
         currentEffectIndex = 0;
+        newDrawnCards.Clear(); // TESTING
 
         if (!CheckLegalTargets(effectGroupList, effectSource)) AbortEffectGroup();
         else StartNextEffectGroup(true);

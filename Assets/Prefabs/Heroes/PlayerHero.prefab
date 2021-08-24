@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 373914479}
   - component: {fileID: 373914480}
   m_Layer: 8
-  m_Name: TargetIcon
+  m_Name: HeroOutline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -741,7 +741,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9909ab33305c5e94b8dbc583ea9ef420, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetIcon: {fileID: 373914478}
+  heroOutline: {fileID: 373914478}
+  selectedColor: {r: 1, g: 1, b: 1, a: 1}
+  highlightedColor: {r: 1, g: 1, b: 0, a: 1}
 --- !u!114 &885093807765067690
 MonoBehaviour:
   m_ObjectHideFlags: 0

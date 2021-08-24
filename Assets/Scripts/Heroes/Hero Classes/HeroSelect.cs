@@ -1,12 +1,12 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CardSelect : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+public class HeroSelect : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private GameObject cardOutline;
+    [SerializeField] private GameObject heroOutline;
     [SerializeField] private Color selectedColor;
     [SerializeField] private Color highlightedColor;
-    public GameObject CardOutline { get => cardOutline; }
+    public GameObject HeroOutline { get => heroOutline; }
     public Color SelectedColor { get => selectedColor; }
     public Color HighlightedColor { get => highlightedColor; }
     public void OnPointerClick(PointerEventData pointerEventData)

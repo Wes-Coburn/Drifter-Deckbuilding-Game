@@ -140,7 +140,15 @@ public class UIManager : MonoBehaviour
             }
         }
         else if (enemy.TryGetComponent(out HeroSelect hs))
-            hs.TargetIcon.SetActive(enabled);
+        {
+            hs.HeroOutline.SetActive(enabled);
+            SpriteRenderer sr = hs.HeroOutline.GetComponent<SpriteRenderer>();
+            if (enabled)
+            {
+                if (isSelected) sr.color = hs.SelectedColor;
+                else sr.color = hs.HighlightedColor;
+            }
+        }
         else
         {
             Debug.LogError("TARGET SELECT SCRIPT NOT FOUND!");

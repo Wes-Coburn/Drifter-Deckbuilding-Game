@@ -25,14 +25,14 @@ public class AbilityZoom : MonoBehaviour
     }
     public void OnPointerEnter()
     {
-        if (!CardZoom.ZoomCardIsCentered || DragDrop.CardIsDragging) return;
+        if (!CardZoom.ZoomCardIsCentered || DragDrop.DraggingCard) return;
         if (AbilityPopup != null) Destroy(AbilityPopup);
         isHovering = true;
         CreateAbilityPopup();
     }
     public void OnPointerExit()
     {
-        if (!CardZoom.ZoomCardIsCentered || DragDrop.CardIsDragging || UIManager.Instance.PlayerIsTargetting) return;
+        if (!CardZoom.ZoomCardIsCentered || DragDrop.DraggingCard || UIManager.Instance.PlayerIsTargetting) return;
         isHovering = false;
         Destroy(AbilityPopup);
     }
