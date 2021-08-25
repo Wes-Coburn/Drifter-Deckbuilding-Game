@@ -3,19 +3,26 @@ using TMPro;
 
 public class NarrativeSceneDisplay : MonoBehaviour
 {
-    [SerializeField] Narrative narrative;
-    [SerializeField] GameObject narrativeText;
-
+    [SerializeField] private GameObject narrativeText;
+    private Narrative narrative;
     private int currentNarrative;
+    
+    public Narrative Narrative
+    {
+        get => narrative;
+        set
+        {
+            narrative = value;
+            SetCurrentNarrative(0);
+        }
+    }
+
     private void SetCurrentNarrative(int value)
     {
         currentNarrative = value;
-
         DialogueManager.Instance.TimedText(narrative.NarrativeText[value], 
             narrativeText.GetComponent<TextMeshProUGUI>());
     }
-
-    private void Awake() => SetCurrentNarrative(0);
 
     public void NextNarrative()
     {

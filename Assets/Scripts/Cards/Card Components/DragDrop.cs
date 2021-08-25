@@ -54,8 +54,11 @@ public class DragDrop : MonoBehaviour
         GameObject collisionObject = collision.gameObject;
         if (!IsPlayed)
         {
-            if (collisionObject == cardManager.PlayerZone) 
+            if (collisionObject == cardManager.PlayerZone)
+            {
                 isOverDropZone = true;
+                UIManager.SetPlayerZoneOutline(true, true);
+            }
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
@@ -63,8 +66,11 @@ public class DragDrop : MonoBehaviour
         GameObject collisionObject = collision.gameObject;
         if (!IsPlayed)
         {
-            if (collisionObject == cardManager.PlayerZone) 
+            if (collisionObject == cardManager.PlayerZone)
+            {
                 isOverDropZone = false;
+                UIManager.SetPlayerZoneOutline(true, false);
+            }
         }
     }
 
@@ -98,10 +104,15 @@ public class DragDrop : MonoBehaviour
             startIndex = transform.GetSiblingIndex();
             GetComponent<ChangeLayer>().ZoomLayer();
             AnimationManager.Instance.RevealedDragState(gameObject);
+            UIManager.SetPlayerZoneOutline(true, false);
         }
         else
         {
-
+            if (!cardManager.CanAttack(gameObject, null))
+            {
+                DraggingCard = null;
+                return;
+            }
 
             ArrowIsDragging = true;
             dragArrow = Instantiate(dragArrowPrefab, UIManager.Instance.CurrentWorldSpace.transform);
@@ -127,7 +138,7 @@ public class DragDrop : MonoBehaviour
         if (!IsPlayed)
         {
             isDragging = false;
-            
+            UIManager.SetPlayerZoneOutline(false, false);
             if (isOverDropZone && cardManager.IsPlayable(gameObject))
             {
                 IsPlayed = true;

@@ -24,26 +24,43 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject sceneFader;
     [SerializeField] private GameObject menuPopupPrefab;
 
+    [SerializeField] private Color highlightedColor;
+    [SerializeField] private Color selectedColor;
+
     private GameObject screenDimmer;
     private GameObject infoPopup;
     private GameObject combatEndPopup;
     private GameObject turnPopup;
-
     private GameObject menuPopup;
-    private GameObject selectedEnemy;
     private GameObject endTurnButton;
-
     private Coroutine sceneFadeRoutine;
-    
+
+    private GameObject playerZoneOutline;
     public bool PlayerIsTargetting { get; set; }
-    public GameObject CurrentWorldSpace { get; set; }
-    public GameObject CurrentCanvas { get; set; }
+    public GameObject CurrentWorldSpace { get; private set; }
+    public GameObject CurrentCanvas { get; private set; }
 
     public void Start()
     {
         CurrentWorldSpace = GameObject.Find("WorldSpace");
         CurrentCanvas = GameObject.Find("Canvas");
         PlayerIsTargetting = false;
+    }
+
+    /******
+     * *****
+     * ****** SET_PLAYER_ZONE_OUTLINE
+     * *****
+     *****/
+    public void SetPlayerZoneOutline(bool enabled, bool selected)
+    {
+        playerZoneOutline.SetActive(enabled);
+        if (enabled)
+        {
+            SpriteRenderer sr = playerZoneOutline.GetComponentInChildren<SpriteRenderer>();
+            if (selected) sr.color = selectedColor;
+            else sr.color = highlightedColor;
+        }
     }
 
     /******
@@ -119,6 +136,8 @@ public class UIManager : MonoBehaviour
     public void StartCombatScene()
     {
         endTurnButton = GameObject.Find("EndTurnButton");
+        playerZoneOutline = GameObject.Find("PlayerZoneOutline");
+        playerZoneOutline.SetActive(false);
     }
 
     /******
@@ -128,7 +147,6 @@ public class UIManager : MonoBehaviour
      *****/
     public void SelectEnemy(GameObject enemy, bool enabled, bool isSelected = false)
     {
-        if (enabled) selectedEnemy = enemy;
         if (enemy.TryGetComponent(out CardSelect cs))
         {
             cs.CardOutline.SetActive(enabled);
@@ -142,7 +160,7 @@ public class UIManager : MonoBehaviour
         else if (enemy.TryGetComponent(out HeroSelect hs))
         {
             hs.HeroOutline.SetActive(enabled);
-            SpriteRenderer sr = hs.HeroOutline.GetComponent<SpriteRenderer>();
+            SpriteRenderer sr = hs.HeroOutline.GetComponentInChildren<SpriteRenderer>();
             if (enabled)
             {
                 if (isSelected) sr.color = hs.SelectedColor;

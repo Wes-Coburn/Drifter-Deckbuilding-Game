@@ -22,6 +22,13 @@ public class GameManager : MonoBehaviour
 
     /* AUGMENT_EFFECTS */
     [SerializeField] private GiveNextUnitEffect augmentBiogenEffect;
+
+    /* NEW_GAME_NARRATIVE */
+    [SerializeField] private Narrative newGameNarrative;
+
+    /* NEXT_NARRATIVE */
+    public Narrative NextNarrative { get; set; }
+
     /* ACTIVE_NPCS */
     public static List<NPCHero> ActiveNPCHeroes { get; private set; }
 
@@ -64,6 +71,7 @@ public class GameManager : MonoBehaviour
         UIManager = UIManager.Instance;
         eventManager = EventManager.Instance;
         ActiveNPCHeroes = new List<NPCHero>(); // STATIC
+        NextNarrative = newGameNarrative;
     }
 
     /******
@@ -134,8 +142,10 @@ public class GameManager : MonoBehaviour
      *****/
     public void StartNarrative()
     {
-        //AudioManager.Instance.StartStopSound("Soundtrack_Combat1", null, AudioManager.SoundType.Soundtrack);
+        //AudioManager.Instance.StartStopSound("Soundtrack_xxx", null, AudioManager.SoundType.Soundtrack);
         Debug.Log("START NARRATIVE!");
+        NarrativeSceneDisplay nsd = FindObjectOfType<NarrativeSceneDisplay>();
+        nsd.Narrative = NextNarrative;
     }
     public void EndNarrative()
     {

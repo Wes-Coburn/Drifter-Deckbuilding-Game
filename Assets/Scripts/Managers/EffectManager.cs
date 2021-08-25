@@ -81,7 +81,7 @@ public class EffectManager : MonoBehaviour
         effectSource = source;
         currentEffectGroup = 0;
         currentEffectIndex = 0;
-        newDrawnCards.Clear(); // TESTING
+        newDrawnCards.Clear();
 
         if (!CheckLegalTargets(effectGroupList, effectSource)) AbortEffectGroup();
         else StartNextEffectGroup(true);
@@ -116,10 +116,8 @@ public class EffectManager : MonoBehaviour
     {
         if (effect is DrawEffect de && de.IsDiscardEffect) return true;
         else if (effect is DrawEffect || effect is GiveNextUnitEffect) return false;
-        else if (group.Targets.TargetsAll ||
-                 group.Targets.PlayerHero ||
-                 group.Targets.EnemyHero  ||
-                 group.Targets.TargetsSelf) return false;
+        else if (group.Targets.TargetsAll || group.Targets.PlayerHero || 
+            group.Targets.EnemyHero  || group.Targets.TargetsSelf) return false;
         else return true;
     }
 
@@ -439,11 +437,6 @@ public class EffectManager : MonoBehaviour
         {
             foreach (GameObject target in targets)
                 CardManager.Instance.HealDamage(target, effect.Value);
-        }
-        // MARK
-        else if (effect is MarkEffect)
-        {
-
         }
         else if (effect is ExhaustEffect ee)
         {
