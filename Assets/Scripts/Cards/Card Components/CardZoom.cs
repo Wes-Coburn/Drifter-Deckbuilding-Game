@@ -12,8 +12,8 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     private const float  POPUP_SCALE_VALUE           =  3;
     private const float  SMALL_POPUP_SCALE_VALUE     =  2;
 
-    public const string ZOOM_CARD_TIMER            =  "ZoomCardTimer";
-    public const string ABILITY_POPUP_TIMER        =  "AbilityPopupTimer";
+    public const string ZOOM_CARD_TIMER      =  "ZoomCardTimer";
+    public const string ABILITY_POPUP_TIMER  =  "AbilityPopupTimer";
 
     /* PREFABS */
     [SerializeField] private GameObject unitZoomCardPrefab;
@@ -117,11 +117,13 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
                 rect = enemyZone.GetComponent<RectTransform>();
                 cardYPos = (int)rect.position.y - ZOOM_BUFFER;
             }
+            // New Game Scene
             else if (heroSkills != null && transform.parent.parent.gameObject == heroSkills)
             {
                 CreateAbilityPopups(new Vector2(0, 150), ZOOM_SCALE_VALUE);
                 return;
             }
+            // New Card Popup
             else
             {
                 CreateAbilityPopups(new Vector2(500, 0), POPUP_SCALE_VALUE);

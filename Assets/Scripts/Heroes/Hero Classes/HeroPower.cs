@@ -17,4 +17,6 @@ public class HeroPower : ScriptableObject
     public string PowerDescription;
     [Header("EFFECT GROUPS")]
     public List<EffectGroup> EffectGroupList;
+    [Header("LINKED ABILITIES")]
+    public List<CardAbility> LinkedAbilities;
 }

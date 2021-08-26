@@ -2,9 +2,6 @@
 
 public class DragDrop : MonoBehaviour
 {
-    /* CARD_MANAGER_DATA */
-    private const string ENEMY_CARD = CardManager.ENEMY_CARD;
-
     /* MANAGERS */
     private PlayerManager playerManager;
     private CardManager cardManager;
@@ -33,7 +30,6 @@ public class DragDrop : MonoBehaviour
         isOverDropZone = false;
         isDragging = false;
         IsPlayed = false;
-
         DraggingCard = null;
         ArrowIsDragging = false;
     }
@@ -50,11 +46,9 @@ public class DragDrop : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!isDragging) return;
-        GameObject collisionObject = collision.gameObject;
-        if (!IsPlayed)
+        if (isDragging && !IsPlayed)
         {
-            if (collisionObject == cardManager.PlayerZone)
+            if (collision.gameObject == cardManager.PlayerZone)
             {
                 isOverDropZone = true;
                 UIManager.SetPlayerZoneOutline(true, true);
@@ -63,10 +57,9 @@ public class DragDrop : MonoBehaviour
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-        GameObject collisionObject = collision.gameObject;
-        if (!IsPlayed)
+        if (isDragging && !IsPlayed)
         {
-            if (collisionObject == cardManager.PlayerZone)
+            if (collision.gameObject == cardManager.PlayerZone)
             {
                 isOverDropZone = false;
                 UIManager.SetPlayerZoneOutline(true, false);
@@ -88,14 +81,13 @@ public class DragDrop : MonoBehaviour
     public void StartDrag()
     {
         UIManager.DestroyZoomObjects();
-        if (DraggingCard || ArrowIsDragging || !playerManager.IsMyTurn || 
-            CompareTag(ENEMY_CARD) || UIManager.PlayerIsTargetting) return;
+        if (DraggingCard != null || ArrowIsDragging || !playerManager.IsMyTurn || 
+            CompareTag(CardManager.ENEMY_CARD) || UIManager.PlayerIsTargetting) return;
 
         FunctionTimer.StopTimer(CardZoom.ZOOM_CARD_TIMER);
         FunctionTimer.StopTimer(CardZoom.ABILITY_POPUP_TIMER);
 
         DraggingCard = gameObject;
-
         if (!IsPlayed)
         {
             isDragging = true;
@@ -113,8 +105,8 @@ public class DragDrop : MonoBehaviour
                 DraggingCard = null;
                 return;
             }
-
             ArrowIsDragging = true;
+            if (dragArrow != null) Destroy(dragArrow);
             dragArrow = Instantiate(dragArrowPrefab, UIManager.Instance.CurrentWorldSpace.transform);
             dragArrow.GetComponent<DragArrow>().SourceCard = gameObject;
 
@@ -129,11 +121,9 @@ public class DragDrop : MonoBehaviour
 
     public void EndDrag()
     {
-        if ((!isDragging && !ArrowIsDragging) || !playerManager.IsMyTurn || 
-            CompareTag(ENEMY_CARD) || UIManager.PlayerIsTargetting) return;
+        if (!isDragging && !ArrowIsDragging) return;
 
         DraggingCard = null;
-
         // From Hand
         if (!IsPlayed)
         {

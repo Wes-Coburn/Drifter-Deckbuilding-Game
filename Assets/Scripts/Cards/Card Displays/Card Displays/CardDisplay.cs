@@ -92,10 +92,13 @@ public abstract class CardDisplay : MonoBehaviour
             CardDisplay cd = parentCard.GetComponent<CardDisplay>();
             cardScript = cd.CardScript; // MUST COME FIRST
             CardTypeLine = cd.CardTypeLine;
-            CurrentActionCost = cd.CurrentActionCost;
             CardName = cd.CardName;
             CardArt = cd.CardArt;
             CardBorder = cd.CardBorder;
+
+            if (CardZoom.ZoomCardIsCentered) 
+                CurrentActionCost = cd.cardScript.StartActionCost;
+            else CurrentActionCost = cd.CurrentActionCost;
         }
         else
         {
@@ -108,7 +111,7 @@ public abstract class CardDisplay : MonoBehaviour
             CardArt = card.CardArt;
             CardBorder = card.CardBorder;
         }
-
+        
         if (gameObject.TryGetComponent<Animator>(out animator))
         {
             animator.runtimeAnimatorController = CardScript.ZoomOverController;

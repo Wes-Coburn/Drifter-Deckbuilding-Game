@@ -597,7 +597,14 @@ public class CardManager : MonoBehaviour
      *****/
     public bool CanAttack(GameObject attacker, GameObject defender, bool preCheck = false)
     {
-        if (defender != null) if (attacker.CompareTag(defender.tag)) return false;
+        if (defender != null)
+        {
+            if (attacker.CompareTag(defender.tag)) return false;
+            if (attacker.CompareTag(CardManager.PLAYER_CARD))
+                if (defender == PlayerHero) return false;
+            else if (attacker.CompareTag(CardManager.ENEMY_CARD))
+                if (defender == EnemyHero) return false;
+        }
 
         if (GetUnitDisplay(attacker).IsExhausted)
         {
@@ -612,7 +619,7 @@ public class CardManager : MonoBehaviour
                 if (!preCheck)
                     UIManager.Instance.CreateFleetinInfoPopup("Units with Stealth can't be attacked!");
                 return false;
-            } 
+            }
         return true;
     }
 

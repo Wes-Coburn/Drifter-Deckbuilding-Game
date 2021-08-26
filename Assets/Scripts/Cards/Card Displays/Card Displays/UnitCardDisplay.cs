@@ -96,11 +96,24 @@ public class UnitCardDisplay : CardDisplay
         {
             UnitCardDisplay ucd = parentCard.GetComponent<CardDisplay>() as UnitCardDisplay;
             UnitCard uc = ucd.UnitCard;
-            CurrentPower = uc.StartPower;
-            MaxDefense = uc.StartDefense;
-            CurrentDefense = uc.StartDefense;
+            List<CardAbility> abilityList;
 
-            foreach (CardAbility cardAbility in uc.StartingAbilities)
+            if (CardZoom.ZoomCardIsCentered)
+            {
+                CurrentPower = uc.StartPower;
+                MaxDefense = uc.StartDefense;
+                CurrentDefense = uc.StartDefense;
+                abilityList = uc.StartingAbilities;
+            }
+            else
+            {
+                CurrentPower = uc.CurrentPower;
+                MaxDefense = uc.CurrentDefense;
+                CurrentDefense = uc.CurrentDefense;
+                abilityList = ucd.CurrentAbilities;
+            }
+
+            foreach (CardAbility cardAbility in abilityList)
             {
                 if (cardAbility == null) continue; // Skip empty abilities
                 gameObject.GetComponent<CardZoom>().CreateZoomAbilityIcon(cardAbility, 
@@ -128,9 +141,9 @@ public class UnitCardDisplay : CardDisplay
      * ****** RESET_UNIT_CARD
      * *****
      *****/
-    public void ResetUnitCard(bool played = false)
+    public void ResetUnitCard(bool isPlayed = false)
     {
-        if (played)
+        if (isPlayed)
         {
             if (CardManager.GetAbility(gameObject, "Blitz")) IsExhausted = false;
             else IsExhausted = true;
@@ -144,7 +157,7 @@ public class UnitCardDisplay : CardDisplay
             CurrentAbilities.Clear();
             DisplayCard();
         }
-        gameObject.GetComponent<DragDrop>().IsPlayed = played;
+        gameObject.GetComponent<DragDrop>().IsPlayed = isPlayed;
         gameObject.GetComponent<CardSelect>().CardOutline.SetActive(false);
     }
 

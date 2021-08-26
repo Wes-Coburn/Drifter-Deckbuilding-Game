@@ -5,10 +5,7 @@ public class DragArrow : MonoBehaviour
     public GameObject SourceCard { get; set; }
     private LineRenderer lineRend;
 
-    private void Awake()
-    {
-        lineRend = GetComponent<LineRenderer>();
-    }
+    private void Awake() => lineRend = GetComponent<LineRenderer>();
 
     private void Update()
     {
