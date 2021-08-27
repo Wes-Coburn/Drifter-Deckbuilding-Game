@@ -60,7 +60,8 @@ public class EventManager : MonoBehaviour
     {
         delayedActions.Clear();
         DelayedAction.CurrentAction = 0;
-        StopCoroutine(currentActionRoutine);
+        if (currentActionRoutine != null) 
+            StopCoroutine(currentActionRoutine);
     }
 
     IEnumerator ActionNumerator()

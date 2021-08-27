@@ -70,7 +70,7 @@ public class AnimationManager : MonoBehaviour
         Vector3 atkStartPos = attacker.transform.position;
         Vector2 defPos = defender.transform.position;
         attacker.transform.SetParent(UIManager.Instance.CurrentWorldSpace.transform);
-        DragPlayedState(attacker);
+        //DragPlayedState(attacker);
         attacker.GetComponent<ChangeLayer>().ZoomLayer();
 
         // ATTACK
@@ -92,11 +92,10 @@ public class AnimationManager : MonoBehaviour
 
         attacker.transform.SetParent(atkStartParent);
         attacker.transform.SetSiblingIndex(atkIndex);
-
-        //attacker.transform.position = atkStartPos;
         attacker.transform.position = new Vector3(atkStartPos.x, atkStartPos.y, CardManager.CARD_Z_POSITION);
 
-        RevealedPlayState(attacker);
+        //RevealedPlayState(attacker);
         attacker.GetComponent<ChangeLayer>().CardsLayer();
+        // Modify defense state here
     }
 }

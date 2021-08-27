@@ -133,55 +133,56 @@ public class DialogueManager : MonoBehaviour
             StopTimedText(true);
             return;
         }
-        DialoguePrompt dpr = currentDialogueClip as DialoguePrompt;
-        DialogueResponse dr = null;
+        DialoguePrompt prompt = currentDialogueClip as DialoguePrompt;
+        DialogueResponse dResponse = null;
         switch (response)
         {
             case 1:
-                dr = dpr.DialogueResponse1;
+                dResponse = prompt.DialogueResponse1;
                 break;
             case 2:
-                dr = dpr.DialogueResponse2;
+                dResponse = prompt.DialogueResponse2;
                 break;
             case 3:
-                dr = dpr.DialogueResponse3;
+                dResponse = prompt.DialogueResponse3;
                 break;
         }
 
-        DialogueClip dc = dr.Response_NextClip;
-        if (dc == null) return;
+        DialogueClip nextClip = dResponse.Response_NextClip;
+        if (nextClip == null) return;
 
-        EngagedHero.RespectScore += dr.Response_Respect;
+        EngagedHero.RespectScore += dResponse.Response_Respect;
         // Exit
-        if (dr.Response_IsExit)
+        if (dResponse.Response_IsExit)
         {
             GameManager.Instance.EndGame(); // FOR TESTING ONLY
             return;
         }
         // Combat Start
-        if (dr.Response_IsCombatStart)
+        if (dResponse.Response_IsCombatStart)
         {
-            EngagedHero.NextDialogueClip = dr.Response_NextClip;
+            EngagedHero.NextDialogueClip = dResponse.Response_NextClip;
             SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);
             return;
         }
 
-        if (dc is DialoguePrompt)
+        DialoguePrompt nextPrompt = nextClip as DialoguePrompt;
+        if (nextClip is DialoguePrompt)
         {
             // New Engaged Hero
-            if (dpr.NewEngagedHero != null)
+            if (nextPrompt.NewEngagedHero != null)
             {
-                EngagedHero.NextDialogueClip = dc;
-                EngagedHero = GameManager.Instance.GetActiveNPC(dpr.NewEngagedHero);
+                EngagedHero.NextDialogueClip = nextClip;
+                EngagedHero = GameManager.Instance.GetActiveNPC(nextPrompt.NewEngagedHero);
                 DisplayCurrentHeroes(EngagedHero);
             }
             // New Card
-            if (dpr.NewCard != null)
-                CardManager.Instance.AddCard(dpr.NewCard, GameManager.PLAYER, false);
+            if (nextPrompt.NewCard != null)
+                CardManager.Instance.AddCard(nextPrompt.NewCard, GameManager.PLAYER, false);
         }
-        currentDialogueClip = dc;
+        currentDialogueClip = nextClip;
         if (currentDialogueClip is DialogueFork) currentDialogueClip = DialogueFork();
-        if (dpr.NewCard == null)
+        if (nextPrompt.NewCard == null)
             DisplayDialoguePopup();
     }
 

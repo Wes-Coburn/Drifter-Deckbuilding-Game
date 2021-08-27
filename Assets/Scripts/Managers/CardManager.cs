@@ -626,7 +626,7 @@ public class CardManager : MonoBehaviour
         if (!GetAbility(attacker, "Ranged"))
             AudioManager.Instance.StartStopSound("SFX_AttackMelee");
         else AudioManager.Instance.StartStopSound("SFX_AttackRanged");
-        AnimationManager.Instance.UnitAttack(attacker, defender, defenderIsUnit); // TESTING
+        AnimationManager.Instance.UnitAttack(attacker, defender, defenderIsUnit);
     }
 
     /******
