@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
 
     /* MANAGERS */
     private PlayerManager pMan;
-    private EnemyManager eMan;
+    private EnemyManager enMan;
     private CardManager cMan;
     private UIManager uMan;
     private EventManager evMan;
@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         pMan = PlayerManager.Instance;
-        eMan = EnemyManager.Instance;
+        enMan = EnemyManager.Instance;
         cMan = CardManager.Instance;
         uMan = UIManager.Instance;
         evMan = EventManager.Instance;
@@ -123,8 +123,8 @@ public class GameManager : MonoBehaviour
         Destroy(pMan.PlayerHero);
         pMan.PlayerHero = null;
         // Enemy Manager
-        Destroy(eMan.EnemyHero);
-        eMan.EnemyHero = null;
+        Destroy(enMan.EnemyHero);
+        enMan.EnemyHero = null;
         // Dialogue Manager
         dMan.EndDialogue();
         // Effect Manager
@@ -169,19 +169,17 @@ public class GameManager : MonoBehaviour
      *****/
     public void StartCombat()
     {
-        eMan.StartCombat();
+        enMan.StartCombat();
         EnemyHero enemyHero = dMan.EngagedHero as EnemyHero;
         if (enemyHero == null)
         {
             Debug.LogError("ENEMY HERO IS NULL!");
             return;
         }
-
         auMan.StartStopSound("Soundtrack_Combat1", null, AudioManager.SoundType.Soundtrack);
         FunctionTimer.Create(() => auMan.StartStopSound("SFX_StartCombat"), 1f);
-        
         /* UPDATE_DECKS */
-        eMan.EnemyHero = enemyHero;
+        enMan.EnemyHero = enemyHero;
         cMan.UpdateDeck(PLAYER);
         cMan.UpdateDeck(ENEMY);
         /* PLAYER_HEALTH */
@@ -194,10 +192,10 @@ public class GameManager : MonoBehaviour
         pMan.ActionsPerTurn = START_ACTIONS_PER_TURN + bonusActions;
         pMan.PlayerActionsLeft = 0;
         /* ENEMY_HEALTH */
-        eMan.EnemyHealth = ENEMY_STARTING_HEALTH;
+        enMan.EnemyHealth = ENEMY_STARTING_HEALTH;
         /* HERO_DISPLAYS */
         cMan.PlayerHero.GetComponent<HeroDisplay>().HeroScript = pMan.PlayerHero;
-        cMan.EnemyHero.GetComponent<HeroDisplay>().HeroScript = eMan.EnemyHero;
+        cMan.EnemyHero.GetComponent<HeroDisplay>().HeroScript = enMan.EnemyHero;
         /* OTHER_AUGMENTS */
         if (pMan.GetAugment("Biogenic Enhancer"))
         {
@@ -223,7 +221,6 @@ public class GameManager : MonoBehaviour
                 (null, pMan.PlayerHero.HeroWin);
         else auMan.StartStopSound
                 (null, pMan.PlayerHero.HeroLose);
-
         pMan.IsMyTurn = false;
         efMan.GiveNextEffects.Clear();
         evMan.ClearDelayedActions();
@@ -237,31 +234,28 @@ public class GameManager : MonoBehaviour
      *****/
     private void StartTurn(string player)
     {
-        cMan.PrepareAllies(player);
-        // PLAYER
+        evMan.NewDelayedAction(() => cMan.PrepareAllies(player), 0.5f);
         if (player == PLAYER)
         {
             pMan.IsMyTurn = true;
-            eMan.IsMyTurn = false;
-            uMan.UpdateEndTurnButton(true);
+            enMan.IsMyTurn = false;
             pMan.HeroPowerUsed = false;
-            void RefillPlayerActions ()
+            evMan.NewDelayedAction(() => RefillPlayerActions(), 0.5f);
+            evMan.NewDelayedAction(() => cMan.DrawCard(PLAYER), 1f);
+            void RefillPlayerActions()
             {
                 pMan.PlayerActionsLeft = pMan.ActionsPerTurn;
                 auMan.StartStopSound("SFX_ActionRefill");
             }
-            evMan.NewDelayedAction(() => RefillPlayerActions(), 0f);
-            evMan.NewDelayedAction(() => cMan.DrawCard(PLAYER), 1f);
         }
-        // ENEMY
         else if (player == ENEMY)
         {
             pMan.IsMyTurn = false;
-            eMan.IsMyTurn = true;
-            uMan.UpdateEndTurnButton(false);
-            eMan.StartEnemyTurn();
+            enMan.IsMyTurn = true;
+            evMan.NewDelayedAction(() => enMan.StartEnemyTurn(), 0f);
         }
-        uMan.CreateTurnPopup(pMan.IsMyTurn);
+        uMan.UpdateEndTurnButton(pMan.IsMyTurn);
+        FunctionTimer.Create(() => uMan.CreateTurnPopup(pMan.IsMyTurn), 1f);
     }
 
     /******
@@ -271,9 +265,13 @@ public class GameManager : MonoBehaviour
      *****/
     public void EndTurn(string player)
     {
-        cMan.RemoveTemporaryEffects(PLAYER);
-        cMan.RemoveTemporaryEffects(ENEMY);
-        cMan.RemoveGiveNextEffects();
+        void RemoveEffects()
+        {
+            cMan.RemoveTemporaryEffects(PLAYER);
+            cMan.RemoveTemporaryEffects(ENEMY);
+            cMan.RemoveGiveNextEffects();
+        }
+        evMan.NewDelayedAction(() => RemoveEffects(), 0.5f);
         if (player == ENEMY) StartTurn(PLAYER);
         else if (player == PLAYER)
         {

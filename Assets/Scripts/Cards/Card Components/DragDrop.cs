@@ -2,20 +2,19 @@
 
 public class DragDrop : MonoBehaviour
 {
-    /* MANAGERS */
-    private PlayerManager playerManager;
-    private CardManager cardManager;
-    private UIManager UIManager;
-
-    /* DRAG ARROW */
-    [SerializeField] private GameObject dragArrowPrefab;
+    private PlayerManager pMan;
+    private CardManager cMan;
+    private UIManager uMan;
+    private AudioManager auMan;
     private GameObject dragArrow;
-
     private bool isDragging;
     private bool isOverDropZone;
     private GameObject startParent;
     private Vector2 startPosition;
     private int startIndex;
+    private const string SFX_DRAG_CARD = "SFX_DragCard";
+
+    [SerializeField] private GameObject dragArrowPrefab;
 
     public bool IsPlayed { get; set; }
     public static GameObject DraggingCard;
@@ -24,9 +23,10 @@ public class DragDrop : MonoBehaviour
 
     void Start()
     {
-        playerManager = PlayerManager.Instance;
-        cardManager = CardManager.Instance;
-        UIManager = UIManager.Instance;
+        pMan = PlayerManager.Instance;
+        cMan = CardManager.Instance;
+        uMan = UIManager.Instance;
+        auMan = AudioManager.Instance;
         isOverDropZone = false;
         isDragging = false;
         IsPlayed = false;
@@ -48,10 +48,10 @@ public class DragDrop : MonoBehaviour
     {
         if (isDragging && !IsPlayed)
         {
-            if (collision.gameObject == cardManager.PlayerZone)
+            if (collision.gameObject == cMan.PlayerZone)
             {
                 isOverDropZone = true;
-                UIManager.SetPlayerZoneOutline(true, true);
+                uMan.SetPlayerZoneOutline(true, true);
             }
         }
     }
@@ -59,17 +59,17 @@ public class DragDrop : MonoBehaviour
     {
         if (isDragging && !IsPlayed)
         {
-            if (collision.gameObject == cardManager.PlayerZone)
+            if (collision.gameObject == cMan.PlayerZone)
             {
                 isOverDropZone = false;
-                UIManager.SetPlayerZoneOutline(true, false);
+                uMan.SetPlayerZoneOutline(true, false);
             }
         }
     }
 
     private void ResetPosition()
     {
-        cardManager.SetCardParent(gameObject, startParent.transform);
+        cMan.SetCardParent(gameObject, startParent.transform);
         transform.SetSiblingIndex(startIndex);
         transform.position = new Vector3(startPosition.x, startPosition.y, CardManager.CARD_Z_POSITION);
 
@@ -80,9 +80,9 @@ public class DragDrop : MonoBehaviour
 
     public void StartDrag()
     {
-        UIManager.DestroyZoomObjects();
-        if (DraggingCard != null || ArrowIsDragging || !playerManager.IsMyTurn || 
-            CompareTag(CardManager.ENEMY_CARD) || UIManager.PlayerIsTargetting) return;
+        uMan.DestroyZoomObjects();
+        if (DraggingCard != null || ArrowIsDragging || !pMan.IsMyTurn || 
+            CompareTag(CardManager.ENEMY_CARD) || uMan.PlayerIsTargetting) return;
 
         FunctionTimer.StopTimer(CardZoom.ZOOM_CARD_TIMER);
         FunctionTimer.StopTimer(CardZoom.ABILITY_POPUP_TIMER);
@@ -96,11 +96,11 @@ public class DragDrop : MonoBehaviour
             startIndex = transform.GetSiblingIndex();
             GetComponent<ChangeLayer>().ZoomLayer();
             AnimationManager.Instance.RevealedDragState(gameObject);
-            UIManager.SetPlayerZoneOutline(true, false);
+            uMan.SetPlayerZoneOutline(true, false);
         }
         else
         {
-            if (!cardManager.CanAttack(gameObject, null))
+            if (!cMan.CanAttack(gameObject, null))
             {
                 DraggingCard = null;
                 return;
@@ -111,28 +111,30 @@ public class DragDrop : MonoBehaviour
             dragArrow.GetComponent<DragArrow>().SourceCard = gameObject;
 
             foreach (GameObject enemyUnit in CardManager.Instance.EnemyZoneCards)
-                if (cardManager.CanAttack(gameObject, enemyUnit, true))
-                    UIManager.SelectTarget(enemyUnit, true);
+                if (cMan.CanAttack(gameObject, enemyUnit, true))
+                    uMan.SelectTarget(enemyUnit, true);
             
-            if (cardManager.CanAttack(gameObject, cardManager.EnemyHero, true)) 
-                UIManager.SelectTarget(cardManager.EnemyHero, true);
+            if (cMan.CanAttack(gameObject, cMan.EnemyHero, true)) 
+                uMan.SelectTarget(cMan.EnemyHero, true);
         }
+        auMan.StartStopSound(SFX_DRAG_CARD, null, AudioManager.SoundType.SFX, false, true);
     }
 
     public void EndDrag()
     {
         if (!isDragging && !ArrowIsDragging) return;
 
+        auMan.StartStopSound(SFX_DRAG_CARD, null, AudioManager.SoundType.SFX, true);
         DraggingCard = null;
         // From Hand
         if (!IsPlayed)
         {
             isDragging = false;
-            UIManager.SetPlayerZoneOutline(false, false);
-            if (isOverDropZone && cardManager.IsPlayable(gameObject))
+            uMan.SetPlayerZoneOutline(false, false);
+            if (isOverDropZone && cMan.IsPlayable(gameObject))
             {
                 IsPlayed = true;
-                cardManager.PlayCard(gameObject);
+                cMan.PlayCard(gameObject);
             }
             else ResetPosition();
             return;
@@ -143,17 +145,17 @@ public class DragDrop : MonoBehaviour
         Destroy(dragArrow);
         dragArrow = null;
 
-        if (Enemy != null && cardManager.CanAttack(gameObject, Enemy))
-            cardManager.Attack(gameObject, Enemy);
+        if (Enemy != null && cMan.CanAttack(gameObject, Enemy))
+            cMan.Attack(gameObject, Enemy);
         else
         {
             Debug.Log("EndDrag! (NO ATTACK) IsExhausted = " + 
                 GetComponent<UnitCardDisplay>().IsExhausted);
         }
 
-        foreach (GameObject enemyUnit in cardManager.EnemyZoneCards)
-            UIManager.SelectTarget(enemyUnit, false);
+        foreach (GameObject enemyUnit in cMan.EnemyZoneCards)
+            uMan.SelectTarget(enemyUnit, false);
         
-        UIManager.SelectTarget(cardManager.EnemyHero, false);
+        uMan.SelectTarget(cMan.EnemyHero, false);
     }
 }

@@ -54,7 +54,8 @@ public class AudioManager : MonoBehaviour
         foreach (Sound s in noSource) activeSounds.Remove(s);
     }
 
-    public void StartStopSound (string sName, Sound sound = null, SoundType soundType = SoundType.SFX, bool isEndSound = false)
+    public void StartStopSound(string sName, Sound sound = null, 
+        SoundType soundType = SoundType.SFX, bool isEndSound = false, bool isLooped = false)
     {
         int soundIndex;
         Sound currentSound = null;
@@ -101,6 +102,7 @@ public class AudioManager : MonoBehaviour
                 CurrentSoundtrack.source.loop = true;
                 break;
         }
+        currentSound.source.loop = isLooped;
         currentSound.source.Play();
     }
 }
