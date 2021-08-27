@@ -4,15 +4,18 @@ using TMPro;
 
 public class UnitCardDisplay : CardDisplay
 {
-    /* HERO_CARD_SCRIPTABLE_OBJECT */
-    public UnitCard UnitCard { get => CardScript as UnitCard; }
+    [SerializeField] private GameObject currentAbilitiesDisplay;
+    [SerializeField] private GameObject exhaustedIcon;
+    [SerializeField] private GameObject attackScoreDisplay;
+    [SerializeField] private GameObject defenseScoreDisplay;
 
-    /* ABILITY_ICON_PREFAB */
     public GameObject AbilityIconPrefab;
     public GameObject ZoomAbilityIconPrefab;
+    public List<Effect> CurrentEffects;
+    public List<GameObject> AbilityIcons;
 
-    /* POWER */
-    [SerializeField] private GameObject attackScoreDisplay;
+    public UnitCard UnitCard { get => CardScript as UnitCard; }
+    public List<CardAbility> CurrentAbilities;
     public int CurrentPower
     {
         get => UnitCard.CurrentPower;
@@ -23,9 +26,6 @@ public class UnitCardDisplay : CardDisplay
             txtPro.SetText(UnitCard.CurrentPower.ToString());
         }
     }
-
-    /* DEFENSE */
-    [SerializeField] private GameObject defenseScoreDisplay;
     public int CurrentDefense
     {
         get => UnitCard.CurrentDefense;
@@ -35,25 +35,12 @@ public class UnitCardDisplay : CardDisplay
             TextMeshPro txtPro = defenseScoreDisplay.GetComponent<TextMeshPro>();
             txtPro.SetText(UnitCard.CurrentDefense.ToString());
         }
-    }
-    
-    /* MAX_DEFENSE_SCORE */
+    }    
     public int MaxDefense
     {
         get => UnitCard.MaxDefense;
         set => UnitCard.MaxDefense = value;
     }
-
-    /* EFFECTS */
-    public List<Effect> CurrentEffects;
-
-    /* ABILITIES */
-    [SerializeField] private GameObject currentAbilitiesDisplay;
-    public List<CardAbility> CurrentAbilities;
-    public List<GameObject> AbilityIcons;
-
-    /* EXHAUSTED_ICON */
-    [SerializeField] private GameObject exhaustedIcon;
     public bool IsExhausted
     {
         get => UnitCard.IsExhausted;
@@ -129,7 +116,7 @@ public class UnitCardDisplay : CardDisplay
             foreach (CardAbility ca in uc.StartingAbilities) CurrentAbilities.Add(ca);
             foreach (CardAbility cardAbility in uc.StartingAbilities)
             {
-                if (cardAbility == null) continue;
+                if (cardAbility == null) continue; // Skip empty abilities
                 gameObject.GetComponent<CardZoom>().CreateZoomAbilityIcon(cardAbility, 
                     currentAbilitiesDisplay.transform, 1);
             }
@@ -192,19 +179,17 @@ public class UnitCardDisplay : CardDisplay
      * ****** REMOVE_CURRENT_ABILITY
      * *****
      *****/
-    public void RemoveCurrentAbility(CardAbility ca, string caString = null)
+    public void RemoveCurrentAbility(string abilityName)
     {
-        string abilityName;
-        if (caString != null) abilityName = caString;
-        else abilityName = ca.AbilityName;
-
         int abilityIndex = CardManager.GetAbilityIndex(gameObject, abilityName);
         if (abilityIndex == -1)
         {
             Debug.LogError("ABILITY NOT FOUND!");
             return;
         }
-        else Debug.Log("ABILITY REMOVED!");
+        else Debug.Log("ABILITY <" + abilityName + "> REMOVED!");
+
+        CardAbility ca = CurrentAbilities[abilityIndex];
         Destroy(AbilityIcons[abilityIndex]);
         AbilityIcons.RemoveAt(abilityIndex);
         CurrentAbilities.RemoveAt(abilityIndex);

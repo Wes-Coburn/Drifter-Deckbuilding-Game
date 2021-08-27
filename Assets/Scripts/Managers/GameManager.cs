@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     /* AUGMENT_EFFECTS */
     [SerializeField] private GiveNextUnitEffect augmentBiogenEffect;
 
+    /* SETTING_NARRATIVE */
+    [SerializeField] private Narrative settingNarrative;
     /* NEW_GAME_NARRATIVE */
     [SerializeField] private Narrative newGameNarrative;
 
@@ -57,6 +59,9 @@ public class GameManager : MonoBehaviour
     private CardManager cardManager;
     private UIManager UIManager;
     private EventManager eventManager;
+    private EffectManager effectManager;
+    private AudioManager audioManager;
+    private DialogueManager dialogueManager;
 
     /******
      * *****
@@ -70,8 +75,10 @@ public class GameManager : MonoBehaviour
         cardManager = CardManager.Instance;
         UIManager = UIManager.Instance;
         eventManager = EventManager.Instance;
+        effectManager = EffectManager.Instance;
+        audioManager = AudioManager.Instance;
+        dialogueManager = DialogueManager.Instance;
         ActiveNPCHeroes = new List<NPCHero>(); // STATIC
-        NextNarrative = newGameNarrative;
     }
 
     /******
@@ -105,8 +112,9 @@ public class GameManager : MonoBehaviour
      *****/
     public void NewGame()
     {
-        SceneLoader.LoadScene(SceneLoader.Scene.NewGameScene);
         IsCombatTest = false; // FOR TESTING ONLY
+        NextNarrative = settingNarrative;
+        SceneLoader.LoadScene(SceneLoader.Scene.NarrativeScene);
     }
 
     /******
@@ -126,11 +134,10 @@ public class GameManager : MonoBehaviour
         Destroy(enemyManager.EnemyHero);
         enemyManager.EnemyHero = null;
         // Dialogue Manager
-        DialogueManager.Instance.EndDialogue();
+        dialogueManager.EndDialogue();
         // Effect Manager
-        EffectManager em = EffectManager.Instance;
-        foreach (Effect e in em.GiveNextEffects) Destroy(e);
-        em.GiveNextEffects.Clear();
+        foreach (Effect e in effectManager.GiveNextEffects) Destroy(e);
+        effectManager.GiveNextEffects.Clear();
         // Scene Loader
         SceneLoader.LoadScene(SceneLoader.Scene.TitleScene);
     }
@@ -146,10 +153,18 @@ public class GameManager : MonoBehaviour
         Debug.Log("START NARRATIVE!");
         NarrativeSceneDisplay nsd = FindObjectOfType<NarrativeSceneDisplay>();
         nsd.Narrative = NextNarrative;
+        if (NextNarrative == newGameNarrative) NextNarrative = null;
     }
     public void EndNarrative()
     {
-        SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene); // FOR TESTING ONLY
+        if (NextNarrative == settingNarrative) 
+            SceneLoader.LoadScene(SceneLoader.Scene.NewGameScene);
+        else if (NextNarrative == playerManager.PlayerHero.HeroBackstory)
+        {
+            NextNarrative = newGameNarrative;
+            SceneLoader.LoadScene(SceneLoader.Scene.NarrativeScene, true);
+        }
+        else SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene);
     }
 
 
@@ -161,15 +176,15 @@ public class GameManager : MonoBehaviour
     public void StartCombat()
     {
         enemyManager.StartCombat();
-        EnemyHero enemyHero = DialogueManager.Instance.EngagedHero as EnemyHero;
+        EnemyHero enemyHero = dialogueManager.EngagedHero as EnemyHero;
         if (enemyHero == null)
         {
             Debug.LogError("ENEMY HERO IS NULL!");
             return;
         }
 
-        AudioManager.Instance.StartStopSound("Soundtrack_Combat1", null, AudioManager.SoundType.Soundtrack);
-        FunctionTimer.Create(() => AudioManager.Instance.StartStopSound("SFX_StartCombat"), 1f);
+        audioManager.StartStopSound("Soundtrack_Combat1", null, AudioManager.SoundType.Soundtrack);
+        FunctionTimer.Create(() => audioManager.StartStopSound("SFX_StartCombat"), 1f);
         
         /* UPDATE_DECKS */
         enemyManager.EnemyHero = enemyHero;
@@ -194,15 +209,12 @@ public class GameManager : MonoBehaviour
         {
             GiveNextUnitEffect gnue = ScriptableObject.CreateInstance<GiveNextUnitEffect>();
             gnue.LoadEffect(augmentBiogenEffect);
-            EffectManager.Instance.GiveNextEffects.Add(gnue);
+            effectManager.GiveNextEffects.Add(gnue);
         }
         /* DELAYED_ACTIONS */
         for (int i = 0; i < PLAYER_HAND_SIZE; i++)
             eventManager.NewDelayedAction(() => cardManager.DrawCard(PLAYER), 1f);
-        /* Enemies don't draw starting hands
-        for (int i = 0; i < ENEMY_HAND_SIZE; i++)
-            eventManager.NewDelayedAction(() => cardManager.DrawCard(ENEMY), 1f);
-        */
+        /* START_TURN */
         eventManager.NewDelayedAction(() => StartTurn(PLAYER), 1f);
     }
 
@@ -213,16 +225,15 @@ public class GameManager : MonoBehaviour
      *****/
     public void EndCombat(bool playerWins)
     {
-        if (playerWins) AudioManager.Instance.StartStopSound
-                (null, PlayerManager.Instance.PlayerHero.HeroWin);
-        else AudioManager.Instance.StartStopSound
-                (null, PlayerManager.Instance.PlayerHero.HeroLose);
+        if (playerWins) audioManager.StartStopSound
+                (null, playerManager.PlayerHero.HeroWin);
+        else audioManager.StartStopSound
+                (null, playerManager.PlayerHero.HeroLose);
 
-        PlayerManager.Instance.IsMyTurn = false;
-        EffectManager.Instance.GiveNextEffects.Clear();
-        EventManager.Instance.ClearDelayedActions();
+        playerManager.IsMyTurn = false;
+        effectManager.GiveNextEffects.Clear();
+        eventManager.ClearDelayedActions();
         FunctionTimer.Create(() => UIManager.CreateCombatEndPopup(playerWins), 2f);
-        // VICTORY or DEFEAT animation
     }
 
     /******
@@ -243,10 +254,10 @@ public class GameManager : MonoBehaviour
             void RefillPlayerActions ()
             {
                 playerManager.PlayerActionsLeft = playerManager.ActionsPerTurn;
-                AudioManager.Instance.StartStopSound("SFX_ActionRefill");
+                audioManager.StartStopSound("SFX_ActionRefill");
             }
-            EventManager.Instance.NewDelayedAction(() => RefillPlayerActions(), 0f);
-            EventManager.Instance.NewDelayedAction(() => cardManager.DrawCard(PLAYER), 1f);
+            eventManager.NewDelayedAction(() => RefillPlayerActions(), 0f);
+            eventManager.NewDelayedAction(() => cardManager.DrawCard(PLAYER), 1f);
         }
         // ENEMY
         else if (player == ENEMY)
@@ -254,7 +265,7 @@ public class GameManager : MonoBehaviour
             playerManager.IsMyTurn = false;
             enemyManager.IsMyTurn = true;
             UIManager.UpdateEndTurnButton(false);
-            EnemyManager.Instance.StartEnemyTurn();
+            enemyManager.StartEnemyTurn();
         }
         UIManager.CreateTurnPopup(playerManager.IsMyTurn);
     }
@@ -266,9 +277,9 @@ public class GameManager : MonoBehaviour
      *****/
     public void EndTurn(string player)
     {
-        CardManager.Instance.RemoveTemporaryEffects(PLAYER);
-        CardManager.Instance.RemoveTemporaryEffects(ENEMY);
-        CardManager.Instance.RemoveGiveNextEffects();
+        cardManager.RemoveTemporaryEffects(PLAYER);
+        cardManager.RemoveTemporaryEffects(ENEMY);
+        cardManager.RemoveGiveNextEffects();
         if (player == ENEMY) StartTurn(PLAYER);
         else if (player == PLAYER)
         {

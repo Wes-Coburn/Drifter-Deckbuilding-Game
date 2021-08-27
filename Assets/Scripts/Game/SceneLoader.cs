@@ -18,48 +18,53 @@ public static class SceneLoader
     private static Action onSceneLoaderCallback;
     private static Action onSceneUpdateCallback;
 
-    public static void LoadScene(Scene scene)
+    public static void LoadScene(Scene scene, bool loadSameScene = false)
     {
-        if (SceneManager.GetActiveScene().name == scene.ToString()) return;
         if (SceneIsLoading) return;
+        if (!loadSameScene && SceneManager.GetActiveScene().name == scene.ToString()) return;
         SceneIsLoading = true;
+
+        UIManager uMan = UIManager.Instance;
+        AudioManager auMan = AudioManager.Instance;
+        GameManager gMan = GameManager.Instance;
+        DialogueManager dMan = DialogueManager.Instance;
+        CardManager cMan = CardManager.Instance;
 
         onSceneLoaderCallback = () =>
         {
-            FunctionTimer.Create(() => UIManager.Instance.SetSceneFader(true), 3f);
+            FunctionTimer.Create(() => uMan.SetSceneFader(true), 3f);
             FunctionTimer.Create(() => SceneManager.LoadScene(scene.ToString()), 5f);
-            FunctionTimer.Create(() => UIManager.Instance.SetSceneFader(false), 5f);
+            FunctionTimer.Create(() => uMan.SetSceneFader(false), 5f);
         };
 
         onSceneUpdateCallback = () =>
         {
             SceneIsLoading = false;
-            UIManager.Instance.Start();
-            AudioManager.Instance.CleanAudioSources();
+            uMan.Start();
+            auMan.CleanAudioSources();
             switch (scene)
             {
                 case Scene.TitleScene:
-                    AudioManager.Instance.StartStopSound("Soundtrack_TitleScene", null, AudioManager.SoundType.Soundtrack);
+                    auMan.StartStopSound("Soundtrack_TitleScene", null, AudioManager.SoundType.Soundtrack);
                     break;
                 case Scene.NewGameScene:
                     // blank
                     break;
                 case Scene.NarrativeScene:
-                    GameManager.Instance.StartNarrative();
+                    gMan.StartNarrative();
                     break;
                 case Scene.DialogueScene:
-                    if (DialogueManager.Instance.EngagedHero == null)
+                    if (dMan.EngagedHero == null)
                     {
-                        DialogueManager.Instance.StartDialogue
-                        (GameManager.Instance.GetActiveNPC(GameManager.Instance.NPCTestHero)); // FOR TESTING ONLY
+                        dMan.StartDialogue (gMan.GetActiveNPC(gMan.NPCTestHero)); // FOR TESTING ONLY
                     }
                     else
-                        DialogueManager.Instance.StartDialogue(DialogueManager.Instance.EngagedHero);
+                        dMan.StartDialogue(dMan.EngagedHero);
                     break;
                 case Scene.CombatScene:
-                    UIManager.Instance.StartCombatScene();
-                    CardManager.Instance.StartCombatScene();
-                    GameManager.Instance.StartCombat();
+                    uMan.StartCombatScene();
+                    cMan.StartCombatScene();
+                    gMan.StartCombat();
                     break;
                 default:
                     Debug.LogError("SCENE NOT FOUND!");
@@ -67,10 +72,10 @@ public static class SceneLoader
             }
         };
 
-        DialogueManager.Instance.StopTimedText();
-        FunctionTimer.Create(() => UIManager.Instance.SetSceneFader(true), 0f);
+        dMan.StopTimedText();
+        FunctionTimer.Create(() => uMan.SetSceneFader(true), 0f);
         FunctionTimer.Create(() => SceneManager.LoadScene(Scene.LoadingScene.ToString()), 1.5f);
-        FunctionTimer.Create(() => UIManager.Instance.SetSceneFader(false), 1.5f);
+        FunctionTimer.Create(() => uMan.SetSceneFader(false), 1.5f);
     }
 
     public static void SceneLoaderCallback()

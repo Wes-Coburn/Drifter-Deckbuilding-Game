@@ -69,7 +69,8 @@ public class NewGameSceneDisplay : MonoBehaviour
             HeroAugment ha = SelectedAugment;
             pm.HeroAugments.Add(ha);
             augmentSelected = true;
-            SceneLoader.LoadScene(SceneLoader.Scene.NarrativeScene); // FOR TESTING ONLY!!!
+            GameManager.Instance.NextNarrative = pm.PlayerHero.HeroBackstory;
+            SceneLoader.LoadScene(SceneLoader.Scene.NarrativeScene);
         }
         else Debug.LogWarning("HERO + AUGMENT already confirmed!");
     }

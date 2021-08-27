@@ -31,6 +31,7 @@ public abstract class Hero : ScriptableObject
         heroName = hero.HeroName;
         heroPortrait = hero.HeroPortrait;
         heroDescription = hero.HeroDescription;
+        heroBackstory = hero.HeroBackstory;
         heroWin = hero.HeroWin;
         heroLose = hero.HeroLose;
     }

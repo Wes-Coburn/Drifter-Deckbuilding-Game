@@ -49,10 +49,10 @@ public class CardManager : MonoBehaviour
     /* CARD LISTS */
     public List<GameObject> PlayerHandCards { get; private set; }
     public List<GameObject> PlayerZoneCards { get; private set; }
-    public List<GameObject> PlayerDiscardCards { get; private set; }
+    public List<Card> PlayerDiscardCards { get; private set; }
     public List<GameObject> EnemyHandCards { get; private set; }
     public List<GameObject> EnemyZoneCards { get; private set; }
-    public List<GameObject> EnemyDiscardCards { get; private set; }
+    public List<Card> EnemyDiscardCards { get; private set; }
     /* GAME ZONES */
     public GameObject PlayerActionZone { get; private set; }
     public GameObject PlayerHand { get; private set; }
@@ -81,10 +81,13 @@ public class CardManager : MonoBehaviour
         // GAME_ZONE_LISTS
         PlayerHandCards = new List<GameObject>();
         PlayerZoneCards = new List<GameObject>();
-        PlayerDiscardCards = new List<GameObject>();
+        PlayerDiscardCards = new List<Card>();
         EnemyHandCards = new List<GameObject>();
         EnemyZoneCards = new List<GameObject>();
-        EnemyDiscardCards = new List<GameObject>();
+        EnemyDiscardCards = new List<Card>();
+
+        UIManager.Instance.SelectTarget(PlayerHero, false);
+        UIManager.Instance.SelectTarget(EnemyHero, false);
     }
 
     public UnitCardDisplay GetUnitDisplay(GameObject card)
@@ -242,7 +245,7 @@ public class CardManager : MonoBehaviour
         // Shuffle discard into deck
         if (deck.Count < 1)
         {
-            List<GameObject> discard;
+            List<Card> discard;
             if (hero == PLAYER) discard = PlayerDiscardCards;
             else if (hero == ENEMY) discard = EnemyDiscardCards;
             else
@@ -251,8 +254,8 @@ public class CardManager : MonoBehaviour
                 return;
             }
 
-            foreach (GameObject go in discard) 
-                deck.Add(HideCard(go));
+            foreach (Card c in discard) 
+                deck.Add(c);
             discard.Clear();
             ShuffleDeck(deck);
         }
@@ -546,7 +549,7 @@ public class CardManager : MonoBehaviour
      *****/
     public void DestroyCard(GameObject card, string hero)
     {
-        void MoveCard()
+        void Destroy()
         {
             TriggerCardAbility(card, "Revenge");
             if (GetAbility(card, "Marked"))
@@ -554,18 +557,16 @@ public class CardManager : MonoBehaviour
 
             if (hero == PLAYER)
             {
-                ChangeCardZone(card, PLAYER_DISCARD);
                 PlayerZoneCards.Remove(card);
-                PlayerDiscardCards.Add(card);
+                PlayerDiscardCards.Add(HideCard(card));
             }
             else if (hero == ENEMY)
             {
-                ChangeCardZone(card, ENEMY_DISCARD);
                 EnemyZoneCards.Remove(card);
-                EnemyDiscardCards.Add(card);
+                EnemyDiscardCards.Add(HideCard(card));
             }
         }
-        FunctionTimer.Create(() => MoveCard(), 1f);
+        FunctionTimer.Create(() => Destroy(), 1f);
     }
 
     /******
@@ -577,15 +578,13 @@ public class CardManager : MonoBehaviour
     {
         if (hero == PLAYER)
         {
-            ChangeCardZone(card, PLAYER_DISCARD);
             PlayerHandCards.Remove(card);
-            PlayerDiscardCards.Add(card);
+            PlayerDiscardCards.Add(HideCard(card));
         }
         else if (hero == ENEMY)
         {
-            ChangeCardZone(card, ENEMY_DISCARD);
             EnemyHandCards.Remove(card);
-            EnemyDiscardCards.Add(card);
+            EnemyDiscardCards.Add(HideCard(card));
         }
         if (!isAction) AudioManager.Instance.StartStopSound("SFX_DiscardCard");
     }
@@ -631,10 +630,10 @@ public class CardManager : MonoBehaviour
     public void Attack(GameObject attacker, GameObject defender)
     {
         Strike(attacker, defender);
-        attacker.GetComponent<UnitCardDisplay>().IsExhausted = true;
+        GetUnitDisplay(attacker).IsExhausted = true;
 
         if (GetAbility(attacker, "Stealth"))
-            attacker.GetComponent<UnitCardDisplay>().RemoveCurrentAbility(null, "Stealth");
+            attacker.GetComponent<UnitCardDisplay>().RemoveCurrentAbility("Stealth");
 
         bool defenderIsUnit;
         if (defender.CompareTag(ENEMY_CARD) || defender.CompareTag(PLAYER_CARD))
@@ -698,7 +697,7 @@ public class CardManager : MonoBehaviour
         {
             if (GetAbility(target, "Shield"))
             {
-                target.GetComponent<UnitCardDisplay>().RemoveCurrentAbility(null, "Shield");
+                target.GetComponent<UnitCardDisplay>().RemoveCurrentAbility("Shield");
                 return false;
             }
             else
@@ -843,7 +842,8 @@ public class CardManager : MonoBehaviour
                 {
                     Debug.LogWarning("EFFECT REMOVED: <" + effect.ToString() + ">");
                     // GIVE_ABILITY_EFFECT
-                    if (effect is GiveAbilityEffect gae) fcd.RemoveCurrentAbility(gae.CardAbility);
+                    if (effect is GiveAbilityEffect gae) 
+                        fcd.RemoveCurrentAbility(gae.CardAbility.AbilityName);
                     // STAT_CHANGE_EFFECT
                     else if (effect is StatChangeEffect sce)
                     {

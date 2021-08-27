@@ -112,10 +112,10 @@ public class DragDrop : MonoBehaviour
 
             foreach (GameObject enemyUnit in CardManager.Instance.EnemyZoneCards)
                 if (cardManager.CanAttack(gameObject, enemyUnit, true))
-                    UIManager.SelectEnemy(enemyUnit, true);
+                    UIManager.SelectTarget(enemyUnit, true);
             
             if (cardManager.CanAttack(gameObject, cardManager.EnemyHero, true)) 
-                UIManager.SelectEnemy(cardManager.EnemyHero, true);
+                UIManager.SelectTarget(cardManager.EnemyHero, true);
         }
     }
 
@@ -152,8 +152,8 @@ public class DragDrop : MonoBehaviour
         }
 
         foreach (GameObject enemyUnit in cardManager.EnemyZoneCards)
-            UIManager.SelectEnemy(enemyUnit, false);
+            UIManager.SelectTarget(enemyUnit, false);
         
-        UIManager.SelectEnemy(cardManager.EnemyHero, false);
+        UIManager.SelectTarget(cardManager.EnemyHero, false);
     }
 }

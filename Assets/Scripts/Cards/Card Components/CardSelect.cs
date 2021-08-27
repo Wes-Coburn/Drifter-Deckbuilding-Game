@@ -22,7 +22,7 @@ public class CardSelect : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         if (CardManager.Instance.CanAttack(DragDrop.DraggingCard, gameObject, true))
         {
             DragDrop.Enemy = gameObject;
-            UIManager.Instance.SelectEnemy(gameObject, true, true);
+            UIManager.Instance.SelectTarget(gameObject, true, true);
         }
     }
 
@@ -32,7 +32,7 @@ public class CardSelect : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         if (CardManager.Instance.CanAttack(DragDrop.DraggingCard, gameObject, true))
         {
             DragDrop.Enemy = null;
-            UIManager.Instance.SelectEnemy(gameObject, true);
+            UIManager.Instance.SelectTarget(gameObject, true);
         }
     }
 }

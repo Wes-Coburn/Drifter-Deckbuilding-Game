@@ -142,12 +142,12 @@ public class UIManager : MonoBehaviour
 
     /******
      * *****
-     * ****** SELECT_ENEMY
+     * ****** SELECT_TARGET
      * *****
      *****/
-    public void SelectEnemy(GameObject enemy, bool enabled, bool isSelected = false)
+    public void SelectTarget(GameObject target, bool enabled, bool isSelected = false)
     {
-        if (enemy.TryGetComponent(out CardSelect cs))
+        if (target.TryGetComponent(out CardSelect cs))
         {
             cs.CardOutline.SetActive(enabled);
             SpriteRenderer sr = cs.CardOutline.GetComponent<SpriteRenderer>();
@@ -157,7 +157,7 @@ public class UIManager : MonoBehaviour
                 else sr.color = cs.HighlightedColor;
             }
         }
-        else if (enemy.TryGetComponent(out HeroSelect hs))
+        else if (target.TryGetComponent(out HeroSelect hs))
         {
             hs.HeroOutline.SetActive(enabled);
             SpriteRenderer sr = hs.HeroOutline.GetComponentInChildren<SpriteRenderer>();

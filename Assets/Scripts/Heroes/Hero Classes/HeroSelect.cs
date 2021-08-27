@@ -21,7 +21,7 @@ public class HeroSelect : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         if (!DragDrop.ArrowIsDragging) return;
         DragDrop.Enemy = gameObject;
         if (CardManager.Instance.CanAttack(DragDrop.DraggingCard, gameObject, true))
-            UIManager.Instance.SelectEnemy(gameObject, true, true);
+            UIManager.Instance.SelectTarget(gameObject, true, true);
     }
 
     public void OnPointerExit(PointerEventData pointerEventData)
@@ -29,6 +29,6 @@ public class HeroSelect : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         if (!DragDrop.ArrowIsDragging) return;
         DragDrop.Enemy = null;
         if (CardManager.Instance.CanAttack(DragDrop.DraggingCard, gameObject, true))
-            UIManager.Instance.SelectEnemy(gameObject, true);
+            UIManager.Instance.SelectTarget(gameObject, true);
     }
 }
