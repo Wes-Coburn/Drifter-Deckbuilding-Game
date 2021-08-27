@@ -4,6 +4,9 @@ using UnityEngine.SceneManagement;
 
 public static class SceneLoader
 {
+    private static Action onSceneLoaderCallback;
+    private static Action onSceneUpdateCallback;
+
     public enum Scene
     {
         LoadingScene,
@@ -13,10 +16,7 @@ public static class SceneLoader
         DialogueScene,
         CombatScene
     }
-
     public static bool SceneIsLoading = false;
-    private static Action onSceneLoaderCallback;
-    private static Action onSceneUpdateCallback;
 
     public static void LoadScene(Scene scene, bool loadSameScene = false)
     {

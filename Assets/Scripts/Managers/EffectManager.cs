@@ -22,6 +22,8 @@ public class EffectManager : MonoBehaviour
     private int currentEffectIndex;
     private List<List<GameObject>> legalTargets;
     private List<List<GameObject>> acceptedTargets;
+    private List<GameObject> newDrawnCards;
+    private List<GiveNextUnitEffect> giveNextEffects;
 
     public Effect CurrentEffect
     {
@@ -39,21 +41,16 @@ public class EffectManager : MonoBehaviour
             return legalTargets[currentEffectGroup];
         }
     }
-
-
     public List<GameObject> NewDrawnCards
     {
         get => newDrawnCards;
         private set => newDrawnCards = value;
     }
-    private List<GameObject> newDrawnCards;
-
     public List<GiveNextUnitEffect> GiveNextEffects
     {
         get => giveNextEffects;
         private set => giveNextEffects = value;
     }
-    private List<GiveNextUnitEffect> giveNextEffects;
 
     private void Start()
     {
@@ -76,13 +73,11 @@ public class EffectManager : MonoBehaviour
             return;
         }
         */
-
         effectGroupList = groupList;
         effectSource = source;
         currentEffectGroup = 0;
         currentEffectIndex = 0;
         newDrawnCards.Clear();
-
         if (!CheckLegalTargets(effectGroupList, effectSource)) AbortEffectGroup();
         else StartNextEffectGroup(true);
     }
@@ -95,7 +90,6 @@ public class EffectManager : MonoBehaviour
     private void StartNextEffectGroup(bool isFirstGroup = false)
     {
         if (!isFirstGroup) currentEffectGroup++;
-
         if (currentEffectGroup < effectGroupList.Count)
         {
             Debug.Log("[GROUP #" + (currentEffectGroup + 1) +
@@ -157,7 +151,6 @@ public class EffectManager : MonoBehaviour
     private void StartNonTargetEffect(Effect effect)
     {
         EffectTargets et = effectGroupList[currentEffectGroup].Targets;
-
         if (et.TargetsSelf)
         {
             acceptedTargets[currentEffectGroup].Add(effectSource);
@@ -170,7 +163,6 @@ public class EffectManager : MonoBehaviour
         {
             if (et.PlayerHero) acceptedTargets[currentEffectGroup].Add(CardManager.Instance.PlayerHero);
             if (et.EnemyHero) acceptedTargets[currentEffectGroup].Add(CardManager.Instance.EnemyHero);
-
             if (et.TargetsAll)
             {
                 if (et.PlayerUnit)
@@ -190,7 +182,6 @@ public class EffectManager : MonoBehaviour
         {
             if (et.EnemyHero) acceptedTargets[currentEffectGroup].Add(CardManager.Instance.PlayerHero);
             if (et.PlayerHero) acceptedTargets[currentEffectGroup].Add(CardManager.Instance.EnemyHero);
-
             if (et.TargetsAll)
             {
                 if (et.PlayerUnit)
@@ -220,7 +211,6 @@ public class EffectManager : MonoBehaviour
             StartNextEffectGroup();
             return;
         }
-
         UIManager.Instance.PlayerIsTargetting = true;
         string targetDescription = effectGroupList[currentEffectGroup].EffectsDescription;
         if (string.IsNullOrEmpty(targetDescription)) targetDescription = 
@@ -233,7 +223,6 @@ public class EffectManager : MonoBehaviour
                 legalTargets[currentEffectGroup].Add(newTarget);
             newDrawnCards.Clear();
         }
-
         foreach (GameObject target in legalTargets[currentEffectGroup])
         {
             if (target != null) target.GetComponent<CardSelect>().CardOutline.SetActive(true);
@@ -255,18 +244,15 @@ public class EffectManager : MonoBehaviour
             legalTargets = null;
             acceptedTargets = null;
         }
-
         effectGroupList = groupList;
         effectSource = source;
         legalTargets = new List<List<GameObject>>();
         acceptedTargets = new List<List<GameObject>>();
-
         for (int i = 0; i < effectGroupList.Count; i++)
         {
             legalTargets.Add(new List<GameObject>());
             acceptedTargets.Add(new List<GameObject>());
         }
-
         int group = 0;
         foreach (EffectGroup eg in effectGroupList)
         {
@@ -295,7 +281,6 @@ public class EffectManager : MonoBehaviour
     {
         CardManager cm = CardManager.Instance;
         List<List<GameObject>> targetZones = new List<List<GameObject>>();
-
         if (effectSource.CompareTag(CardManager.PLAYER_CARD) || 
             effectSource.CompareTag(CardManager.PLAYER_HERO))
         {
@@ -313,14 +298,12 @@ public class EffectManager : MonoBehaviour
             if (targets.EnemyHero) legalTargets[currentGroup].Add(cm.PlayerHero);
             if (targets.PlayerHero) legalTargets[currentGroup].Add(cm.EnemyHero);
         }
-
         foreach (List<GameObject> zone in targetZones)
             foreach (GameObject target in zone)
             {
                 if (target != effectSource) // TESTING
                     legalTargets[currentGroup].Add(target);
             }
-
         if (effect is DrawEffect || effect is GiveNextUnitEffect) return true;
         if (legalTargets[currentGroup].Count < 1) return false;
         if (effect.IsRequired && legalTargets[currentGroup].Count < 
@@ -350,10 +333,8 @@ public class EffectManager : MonoBehaviour
         acceptedTargets[currentEffectGroup].Add(target);
         legalTargets[currentEffectGroup].Remove(target);
         target.GetComponent<CardSelect>().CardOutline.SetActive(false);
-        
         EffectGroup eg = effectGroupList[currentEffectGroup];
         int targetNumber = eg.Targets.TargetNumber;
-
         if (!eg.Effects[currentEffectIndex].IsRequired)
         {
             int possibleTargets = (legalTargets[currentEffectGroup].Count + 
@@ -471,7 +452,6 @@ public class EffectManager : MonoBehaviour
     {
         currentEffectGroup = 0;
         currentEffectIndex = 0; // Unnecessary
-
         foreach (EffectGroup eg in effectGroupList)
         {
             AudioManager.Instance.StartStopSound(eg.EffectGroupSound);
@@ -513,7 +493,6 @@ public class EffectManager : MonoBehaviour
     private void FinishEffectGroup(bool wasAborted = false)
     {
         Debug.LogWarning("FinishEffectGroup() WAS_ABORTED = <" + wasAborted + ">");
-
         if (!wasAborted && effectSource.TryGetComponent<ActionCardDisplay>(out _))
         {
             string hero;
@@ -521,7 +500,6 @@ public class EffectManager : MonoBehaviour
             else hero = GameManager.ENEMY;
             CardManager.Instance.DiscardCard(effectSource, hero, true);
         }
-
         newDrawnCards.Clear();
         effectGroupList = null;
         effectSource = null;

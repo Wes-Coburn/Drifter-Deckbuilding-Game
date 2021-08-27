@@ -15,13 +15,17 @@ public class EnemyManager : MonoBehaviour
         else Destroy(gameObject);
     }
     
-    private CardManager cm;
-    private EventManager em;
+    private CardManager cMan;
+    private EventManager eMan;
+    private EnemyHero enemyHero;
+    private int enemyHealth;
 
-    /* IS_MY_TURN */
     public bool IsMyTurn { get; set; }
-
-    /* ENEMY_HERO */
+    public List<Card> EnemyDeckList { get; private set; }
+    public List<Card> CurrentEnemyDeck { get; private set; }
+    public List<int> ReinforcementSchedule { get; private set; }
+    public int ReinforcementGroup { get; set; }
+    public int CurrentReinforcements { get; set; }
     public EnemyHero EnemyHero
     {
         get => enemyHero;
@@ -42,17 +46,6 @@ public class EnemyManager : MonoBehaviour
             CurrentReinforcements = 0;
         }
     }
-    private EnemyHero enemyHero;
-
-    /* ENEMY_DECK */
-    public List<Card> EnemyDeckList { get; private set; }
-    public List<Card> CurrentEnemyDeck { get; private set; }
-    public List<int> ReinforcementSchedule { get; private set; }
-    public int ReinforcementGroup { get; set; }
-    public int CurrentReinforcements { get; set; }
-
-    /* ENEMY_HEALTH */
-    private int enemyHealth;
     public int EnemyHealth
     {
         get => enemyHealth;
@@ -83,51 +76,51 @@ public class EnemyManager : MonoBehaviour
      *****/
     public void StartEnemyTurn()
     {
-        cm = CardManager.Instance;
-        em = EventManager.Instance;
+        cMan = CardManager.Instance;
+        eMan = EventManager.Instance;
 
         int refo = CurrentReinforcements;
         List<int> refoSched = ReinforcementSchedule;
 
         // DELAYED ACTIONS
         for (int i = 0; i < refoSched[refo]; i++)
-            em.NewDelayedAction(() => cm.DrawCard(GameManager.ENEMY), 1f);
+            eMan.NewDelayedAction(() => cMan.DrawCard(GameManager.ENEMY), 1f);
         for (int i = 0; i < refoSched[refo]; i++)
-            em.NewDelayedAction(() => cm.PlayCard(cm.EnemyHandCards[0]), 2f);
+            eMan.NewDelayedAction(() => cMan.PlayCard(cMan.EnemyHandCards[0]), 2f);
         
         if ((refo + 1) < refoSched.Count) CurrentReinforcements++;
         else CurrentReinforcements = 0;
 
-        cm.EnemyHero.GetComponent<EnemyHeroDisplay>().NextReinforcements =
+        cMan.EnemyHero.GetComponent<EnemyHeroDisplay>().NextReinforcements =
             refoSched[CurrentReinforcements];
-        em.NewDelayedAction(() => CMBeginAttack(), 1f);
+        eMan.NewDelayedAction(() => CMBeginAttack(), 1f);
 
         void CMBeginAttack()
         {
-            foreach (GameObject enemyUnit in cm.EnemyZoneCards)
+            foreach (GameObject enemyUnit in cMan.EnemyZoneCards)
             {
                 UnitCardDisplay ucd = enemyUnit.GetComponent<UnitCardDisplay>();
                 if (!ucd.IsExhausted && ucd.CurrentPower > 0)
-                    em.NewDelayedAction(() => CMAttack(enemyUnit), 1f);
+                    eMan.NewDelayedAction(() => CMAttack(enemyUnit), 1f);
             }
             // END TURN
-            em.NewDelayedAction(() => GameManager.Instance.EndTurn(GameManager.ENEMY), 2f);
+            eMan.NewDelayedAction(() => GameManager.Instance.EndTurn(GameManager.ENEMY), 2f);
         }
 
         void CMAttack(GameObject enemyUnit)
         {
-            bool isPlayed = cm.EnemyZoneCards.Contains(enemyUnit);
+            bool isPlayed = cMan.EnemyZoneCards.Contains(enemyUnit);
             if (!isPlayed) return;
-            if (cm.PlayerZoneCards.Count > 0)
+            if (cMan.PlayerZoneCards.Count > 0)
             {
-                foreach (GameObject playerUnit in cm.PlayerZoneCards)
+                foreach (GameObject playerUnit in cMan.PlayerZoneCards)
                     if (!CardManager.GetAbility(playerUnit, "Stealth"))
                     {
-                        cm.Attack(enemyUnit, playerUnit);
+                        cMan.Attack(enemyUnit, playerUnit);
                         return;
                     }
             }
-            cm.Attack(enemyUnit, cm.PlayerHero);
+            cMan.Attack(enemyUnit, cMan.PlayerHero);
         }
     }
 }

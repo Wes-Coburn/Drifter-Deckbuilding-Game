@@ -15,6 +15,12 @@ public class CardManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
+    [SerializeField] private GameObject unitCardPrefab;
+    [SerializeField] private GameObject actionCardPrefab;
+    [SerializeField] private GameObject newCardPopupPrefab;
+    [SerializeField] private UnitCard[] playerStartUnits;
+    [SerializeField] private Sprite cardBackSprite;
+
     /* CARD_MANAGER_DATA */
     public const int CARD_Z_POSITION = -2;
     public const string WORLD_SPACE = "WorldSpace";
@@ -35,17 +41,9 @@ public class CardManager : MonoBehaviour
     /* GAME_MANAGER_DATA */
     private const string PLAYER = GameManager.PLAYER;
     private const string ENEMY = GameManager.ENEMY;
-
-    [SerializeField] private GameObject unitCardPrefab;
-    [SerializeField] private GameObject actionCardPrefab;
-    [SerializeField] private GameObject newCardPopupPrefab;
-    [SerializeField] private UnitCard[] playerStartUnits;
-    [SerializeField] private Sprite cardBackSprite;
     
     public GameObject NewCardPopup { get; private set; }
     public UnitCard[] PlayerStartUnits { get => playerStartUnits; }
-    //public Sprite CardBackSprite { get => cardBackSprite; }
-
     /* CARD LISTS */
     public List<GameObject> PlayerHandCards { get; private set; }
     public List<GameObject> PlayerZoneCards { get; private set; }
@@ -85,11 +83,9 @@ public class CardManager : MonoBehaviour
         EnemyHandCards = new List<GameObject>();
         EnemyZoneCards = new List<GameObject>();
         EnemyDiscardCards = new List<Card>();
-
         UIManager.Instance.SelectTarget(PlayerHero, false);
         UIManager.Instance.SelectTarget(EnemyHero, false);
     }
-
     public UnitCardDisplay GetUnitDisplay(GameObject card)
         => card.GetComponent<CardDisplay>() as UnitCardDisplay;
 
@@ -133,7 +129,6 @@ public class CardManager : MonoBehaviour
     {
         List<Card> deck;
         Card cardInstance;
-        
         if (hero == GameManager.PLAYER) deck = PlayerManager.Instance.PlayerDeckList;
         else if (hero == GameManager.ENEMY) deck = EnemyManager.Instance.EnemyDeckList;
         else
@@ -141,7 +136,6 @@ public class CardManager : MonoBehaviour
             Debug.LogError("HERO NOT FOUND!");
             return;
         }
-
         if (card is UnitCard) cardInstance = ScriptableObject.CreateInstance<UnitCard>();
         else if (card is ActionCard) cardInstance = ScriptableObject.CreateInstance<ActionCard>();
         else
@@ -149,10 +143,8 @@ public class CardManager : MonoBehaviour
             Debug.LogError("CARD TYPE NOT FOUND!");
             return;
         }
-
         cardInstance.LoadCard(card);
         deck.Add(cardInstance);
-
         if (!isStartingCard)
         {
             DestroyNewCardPopup();
@@ -200,7 +192,6 @@ public class CardManager : MonoBehaviour
             if (isShowcase)
                 prefab = prefab.GetComponent<CardZoom>().ActionZoomCardPrefab;
         }
-
         prefab = Instantiate(prefab, new Vector3(0, 0, CARD_Z_POSITION), Quaternion.identity);
         if (isShowcase) prefab.GetComponent<CardDisplay>().DisplayZoomCard(null, card);
         else prefab.GetComponent<CardDisplay>().CardScript = card;
@@ -223,7 +214,6 @@ public class CardManager : MonoBehaviour
         List<Card> deck;
         string cardTag;
         string cardZone;
-
         if (hero == PLAYER)
         {
             deck = PlayerManager.Instance.CurrentPlayerDeck;
@@ -241,7 +231,6 @@ public class CardManager : MonoBehaviour
             Debug.LogError("PLAYER <" + hero + "> NOT FOUND!");
             return;
         }
-
         // Shuffle discard into deck
         if (deck.Count < 1)
         {
@@ -259,9 +248,7 @@ public class CardManager : MonoBehaviour
             discard.Clear();
             ShuffleDeck(deck);
         }
-
         GameObject card = ShowCard(deck[0]);
-
         if (card == null)
         {
             Debug.LogError("CARD IS NULL!");
@@ -270,7 +257,6 @@ public class CardManager : MonoBehaviour
         deck.RemoveAt(0);
         card.tag = cardTag;
         ChangeCardZone(card, cardZone);
-
         if (hero == PLAYER)
         {
             PlayerHandCards.Add(card);
@@ -323,7 +309,6 @@ public class CardManager : MonoBehaviour
     {
         int actionCost = card.GetComponent<CardDisplay>().CurrentActionCost;
         int playerActions = PlayerManager.Instance.PlayerActionsLeft;
-
         if (playerActions < actionCost)
         {
             UIManager.Instance.CreateFleetinInfoPopup("Not enough action points!");
@@ -429,7 +414,6 @@ public class CardManager : MonoBehaviour
                 break;
         }
         SetCardParent(card, zoneTran);
-
         if (card.GetComponent<CardDisplay>() is UnitCardDisplay fcd)
         {
             bool played = false;
@@ -475,7 +459,6 @@ public class CardManager : MonoBehaviour
                 delay += 0.3f;
             }
         }
-
         // PLAYER
         if (card.CompareTag(PLAYER_CARD))
         {
@@ -604,7 +587,6 @@ public class CardManager : MonoBehaviour
             else if (attacker.CompareTag(CardManager.ENEMY_CARD))
                 if (defender == EnemyHero) return false;
         }
-
         if (GetUnitDisplay(attacker).IsExhausted)
         {
             if (!preCheck) 
@@ -631,10 +613,8 @@ public class CardManager : MonoBehaviour
     {
         Strike(attacker, defender);
         GetUnitDisplay(attacker).IsExhausted = true;
-
         if (GetAbility(attacker, "Stealth"))
             attacker.GetComponent<UnitCardDisplay>().RemoveCurrentAbility("Stealth");
-
         bool defenderIsUnit;
         if (defender.CompareTag(ENEMY_CARD) || defender.CompareTag(PLAYER_CARD))
         {
@@ -643,11 +623,9 @@ public class CardManager : MonoBehaviour
                 Strike(defender, attacker);
         }
         else defenderIsUnit = false;
-
         if (!GetAbility(attacker, "Ranged"))
             AudioManager.Instance.StartStopSound("SFX_AttackMelee");
         else AudioManager.Instance.StartStopSound("SFX_AttackRanged");
-
         AnimationManager.Instance.UnitAttack(attacker, defender, defenderIsUnit); // TESTING
     }
 
@@ -676,12 +654,10 @@ public class CardManager : MonoBehaviour
         int newTargetValue;
         PlayerManager pm = PlayerManager.Instance;
         EnemyManager em = EnemyManager.Instance;
-
         if (target == PlayerHero) targetValue = pm.PlayerHealth;
         else if (target == EnemyHero) targetValue = em.EnemyHealth;
         else targetValue = GetUnitDisplay(target).CurrentDefense;
         newTargetValue = targetValue - damageValue;
-        
         // Damage to heroes
         if (target == PlayerHero)
         {
@@ -706,7 +682,6 @@ public class CardManager : MonoBehaviour
                 AnimationManager.Instance.ModifyDefenseState(target);
             }
         }
-
         if (newTargetValue < 1)
         {
             if (target.CompareTag(PLAYER_CARD)) DestroyCard(target, PLAYER);
@@ -737,7 +712,6 @@ public class CardManager : MonoBehaviour
         int newTargetValue;
         PlayerManager pm = PlayerManager.Instance;
         EnemyManager em = EnemyManager.Instance;
-
         if (target == PlayerHero)
         {
             targetValue = pm.PlayerHealth;
@@ -755,7 +729,6 @@ public class CardManager : MonoBehaviour
         }
         newTargetValue = targetValue + healingValue;
         if (newTargetValue > maxValue) newTargetValue = maxValue;
-
         if (target == PlayerHero) pm.PlayerHealth = newTargetValue;
         else if (target == EnemyHero) em.EnemyHealth = newTargetValue;
         else GetUnitDisplay(target).CurrentDefense = newTargetValue;
@@ -771,7 +744,6 @@ public class CardManager : MonoBehaviour
     {
         Debug.Log("EFFECT ADDED: <" + effect.ToString() + ">");
         UnitCardDisplay ucd = GetUnitDisplay(card);
-
         // GIVE_ABILITY_EFFECT
         if (effect is GiveAbilityEffect gae)
         {
@@ -796,10 +768,8 @@ public class CardManager : MonoBehaviour
             StatChangeEffect newSce = ScriptableObject.CreateInstance<StatChangeEffect>();
             newSce.LoadEffect(sce);
             ucd.CurrentEffects.Add(newSce);
-
             int statChange = sce.Value;
             if (sce.IsNegative) statChange = -statChange;
-
             if (sce.IsDefenseChange)
             {
                 ucd.MaxDefense += statChange;
@@ -826,16 +796,13 @@ public class CardManager : MonoBehaviour
             Destroy(effect);
             effect = null;
         }
-
         List<GameObject> cardZone;
         if (hero == PLAYER) cardZone = PlayerZoneCards;
         else cardZone = EnemyZoneCards;
-
         foreach (GameObject card in cardZone)
         {
             UnitCardDisplay fcd = GetUnitDisplay(card);
             List<Effect> expiredEffects = new List<Effect>();
-
             foreach (Effect effect in fcd.CurrentEffects)
             {
                 if (effect.Countdown == 1) // Check for EXPIRED effects
@@ -887,25 +854,23 @@ public class CardManager : MonoBehaviour
             Destroy(effect);
             effect = null;
         }
-
         // GIVE_NEXT_FOLLOWER_EFFECTS
-        List<GiveNextUnitEffect> gnfeList = EffectManager.Instance.GiveNextEffects;
-        List<GiveNextUnitEffect> resolvedGnfe = new List<GiveNextUnitEffect>();
-
-        if (gnfeList.Count > 0)
+        List<GiveNextUnitEffect> gnueList = EffectManager.Instance.GiveNextEffects;
+        List<GiveNextUnitEffect> resolvedGnue = new List<GiveNextUnitEffect>();
+        if (gnueList.Count > 0)
         {
             List<GameObject> targets = new List<GameObject> { card };
-            foreach (GiveNextUnitEffect gnfe in gnfeList)
+            foreach (GiveNextUnitEffect gnue in gnueList)
             {
                 // CHECK FOR ALLY/ENEMY HERE
-                foreach (Effect e in gnfe.Effects)
+                foreach (Effect e in gnue.Effects)
                     EffectManager.Instance.ResolveEffect(targets, e);
-                if (--gnfe.Multiplier < 1) resolvedGnfe.Add(gnfe);
+                if (--gnue.Multiplier < 1) resolvedGnue.Add(gnue);
             }
-            foreach (GiveNextUnitEffect rGnfe in resolvedGnfe)
+            foreach (GiveNextUnitEffect rGnue in resolvedGnue)
             {
-                gnfeList.Remove(rGnfe);
-                DestroyEffect(rGnfe);
+                gnueList.Remove(rGnue);
+                DestroyEffect(rGnue);
             }
         }
     }
@@ -922,7 +887,6 @@ public class CardManager : MonoBehaviour
             Destroy(effect);
             effect = null;
         }
-
         List<GiveNextUnitEffect> gne = EffectManager.Instance.GiveNextEffects;
         List<GiveNextUnitEffect> expiredGne = new List<GiveNextUnitEffect>();
         foreach (GiveNextUnitEffect gnfe in gne)

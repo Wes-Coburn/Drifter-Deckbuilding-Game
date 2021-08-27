@@ -14,14 +14,17 @@ public class PlayerManager : MonoBehaviour
         }
         else Destroy(gameObject);
     }
-    private void Start()
-    {
-        PlayerDeckList = new List<Card>();
-        CurrentPlayerDeck = new List<Card>();
-        HeroAugments = new List<HeroAugment>();
-        HeroPowerUsed = false;
-    }
-    /* PLAYER_HERO */
+
+    private PlayerHero playerHero;
+    private int playerHealth;
+    private int playerActionsLeft;
+
+    public List<HeroAugment> HeroAugments { get; private set; }
+    public List<Card> PlayerDeckList { get; private set; }
+    public List<Card> CurrentPlayerDeck { get; private set; }
+    public bool IsMyTurn { get; set; }
+    public int ActionsPerTurn { get; set; }
+    public bool HeroPowerUsed { get; set; }
     public PlayerHero PlayerHero
     {
         get => playerHero;
@@ -44,18 +47,6 @@ public class PlayerManager : MonoBehaviour
                     cm.AddCard(skill, GameManager.PLAYER);
         }
     }
-    private PlayerHero playerHero;
-    /* HERO_AUGMENTS */
-    public List<HeroAugment> HeroAugments { get; private set; }
-    /* PLAYER_DECK */
-    public List<Card> PlayerDeckList { get; private set; }
-    public List<Card> CurrentPlayerDeck { get; private set; }
-    /* IS_MY_TURN */
-    public bool IsMyTurn { get; set; }
-    /* ACTIONS_PER_TURN */
-    public int ActionsPerTurn { get; set; }
-    /* HEALTH */
-    private int playerHealth;
     public int PlayerHealth
     {
         get => playerHealth;
@@ -65,8 +56,6 @@ public class PlayerManager : MonoBehaviour
             CardManager.Instance.PlayerHero.GetComponent<HeroDisplay>().HeroHealth = playerHealth;
         }
     }
-    /* ACTIONS_LEFT */
-    private int playerActionsLeft;
     public int PlayerActionsLeft
     {
         get => playerActionsLeft;
@@ -78,8 +67,15 @@ public class PlayerManager : MonoBehaviour
                 playerActionsLeft + "/" + ActionsPerTurn;
         }
     }
-    /* HERO_POWER */
-    public bool HeroPowerUsed { get; set; }
+
+    private void Start()
+    {
+        PlayerDeckList = new List<Card>();
+        CurrentPlayerDeck = new List<Card>();
+        HeroAugments = new List<HeroAugment>();
+        HeroPowerUsed = false;
+    }
+
     public void UseHeroPower()
     {
         if (UIManager.Instance.PlayerIsTargetting) return;
@@ -112,7 +108,6 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    /* GET_AUGMENT */
     public bool GetAugment(string augment)
     {
         int augmentIndex = HeroAugments.FindIndex(x => x.AugmentName == augment);

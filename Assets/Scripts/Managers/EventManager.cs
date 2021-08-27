@@ -27,6 +27,7 @@ public class EventManager : MonoBehaviour
     }
     
     private static List<DelayedAction> delayedActions;
+    private Coroutine currentActionRoutine;
     
     public DelayedAction NewDelayedAction(Action action, float delay)
     {
@@ -50,7 +51,7 @@ public class EventManager : MonoBehaviour
         if (DelayedAction.CurrentAction < delayedActions.Count)
         {
             Debug.Log("ACTION # " + (DelayedAction.CurrentAction + 1) + " / " + delayedActions.Count);
-            StartCoroutine(ActionNumerator());
+            currentActionRoutine = StartCoroutine(ActionNumerator());
         }
         else ClearDelayedActions();
     }
@@ -59,6 +60,7 @@ public class EventManager : MonoBehaviour
     {
         delayedActions.Clear();
         DelayedAction.CurrentAction = 0;
+        StopCoroutine(currentActionRoutine);
     }
 
     IEnumerator ActionNumerator()
