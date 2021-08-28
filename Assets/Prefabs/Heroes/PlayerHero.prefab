@@ -133,6 +133,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerPopupPrefab: {fileID: 268856669738850229, guid: 9bd64fd91392e5d44916291c1578d693,
     type: 3}
+  abilityPopupBoxPrefab: {fileID: 3442971469020940581, guid: 13c9afbffebdf1c41a9efdf81f271f8b,
+    type: 3}
+  abilityPopupPrefab: {fileID: 268856669738850229, guid: fec2d97833bbcc441874baf0490606f3,
+    type: 3}
 --- !u!1 &373914478
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,7 +448,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tooltipPopupPrefab: {fileID: 7177373728927392186, guid: 6363c5ece3ab74f41ab0a33c7358b5cb,
     type: 3}
-  tooltipText: Your ACTIONS remaining and your total this turn.
+  tooltipText: Your ACTIONS remaining and your current total.
   tooltipPosition: {x: 300, y: -375}
 --- !u!1 &4573380672645534793
 GameObject:
@@ -602,7 +606,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tooltipPopupPrefab: {fileID: 7177373728927392186, guid: 6363c5ece3ab74f41ab0a33c7358b5cb,
     type: 3}
-  tooltipText: Your hero's HEALTH. If this is reduced to 0, you lose.
+  tooltipText: Your hero's HEALTH. If it reaches 0, you lose.
   tooltipPosition: {x: 300, y: -375}
 --- !u!1 &4697489652902391323
 GameObject:

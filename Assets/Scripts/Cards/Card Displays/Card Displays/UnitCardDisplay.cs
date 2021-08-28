@@ -103,7 +103,7 @@ public class UnitCardDisplay : CardDisplay
             foreach (CardAbility cardAbility in abilityList)
             {
                 if (cardAbility == null) continue; // Skip empty abilities
-                gameObject.GetComponent<CardZoom>().CreateZoomAbilityIcon(cardAbility, 
+                GetComponent<CardZoom>().CreateZoomAbilityIcon(cardAbility, 
                     currentAbilitiesDisplay.transform, 1);
             }
         }
@@ -117,7 +117,7 @@ public class UnitCardDisplay : CardDisplay
             foreach (CardAbility cardAbility in uc.StartingAbilities)
             {
                 if (cardAbility == null) continue; // Skip empty abilities
-                gameObject.GetComponent<CardZoom>().CreateZoomAbilityIcon(cardAbility, 
+                GetComponent<CardZoom>().CreateZoomAbilityIcon(cardAbility, 
                     currentAbilitiesDisplay.transform, 1);
             }
         }
@@ -144,8 +144,8 @@ public class UnitCardDisplay : CardDisplay
             CurrentAbilities.Clear();
             DisplayCard();
         }
-        gameObject.GetComponent<DragDrop>().IsPlayed = isPlayed;
-        gameObject.GetComponent<CardSelect>().CardOutline.SetActive(false);
+        GetComponent<DragDrop>().IsPlayed = isPlayed;
+        GetComponent<CardSelect>().CardOutline.SetActive(false);
     }
 
     /******
@@ -203,7 +203,7 @@ public class UnitCardDisplay : CardDisplay
      * ****** CREATE_ABILITY_ICON
      * *****
      *****/
-    public GameObject CreateAbilityIcon(CardAbility cardAbility)
+    private GameObject CreateAbilityIcon(CardAbility cardAbility)
     {
         GameObject abilityIcon = Instantiate(AbilityIconPrefab, new Vector2(0, 0), Quaternion.identity);
         abilityIcon.GetComponent<AbilityIconDisplay>().AbilityScript = cardAbility;

@@ -202,20 +202,17 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
      * ****** CREATE_ZOOM_ABILLITY_ICON
      * *****
      *****/
-    public void CreateZoomAbilityIcon(CardAbility cardAbility, Transform parentTransform, float scaleValue)
+    public void CreateZoomAbilityIcon(CardAbility ca, Transform parent, float scaleValue)
     {
         if (worldSpace == null) // NEW GAME SCENE
         {
             worldSpace = UIManager.Instance.CurrentWorldSpace;
             cardDisplay = GetComponent<CardDisplay>();
         }
-
         GameObject zoomIconPrefab = GetComponent<UnitCardDisplay>().ZoomAbilityIconPrefab;
-        GameObject abilityIcon = Instantiate(zoomIconPrefab, new Vector3(0, 0), Quaternion.identity);
-        Transform popTran = abilityIcon.transform;
-        popTran.SetParent(parentTransform, true);
-        popTran.localScale = new Vector2(scaleValue, scaleValue);
-        abilityIcon.GetComponent<AbilityIconDisplay>().ZoomAbilityScript = cardAbility;
+        GameObject zoomAbilityIcon = Instantiate(zoomIconPrefab, parent);
+        zoomAbilityIcon.transform.localScale = new Vector2(scaleValue, scaleValue);
+        zoomAbilityIcon.GetComponent<AbilityIconDisplay>().ZoomAbilityScript = ca;
     }
 
     /******
