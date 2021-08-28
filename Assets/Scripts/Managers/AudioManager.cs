@@ -16,20 +16,21 @@ public class AudioManager : MonoBehaviour
         foreach (Sound sound in sounds) AddSoundSource(sound);
     }
 
-    private void Start()
-    {
-        StartStopSound("Soundtrack_TitleScene", null, SoundType.Soundtrack);
-    }
+    private static readonly List<Sound> activeSounds = new List<Sound>();
+    [SerializeField] private Sound[] sounds;
 
     public Sound CurrentSoundscape { get; set; }
     public Sound CurrentSoundtrack { get; set; }
-    [SerializeField] private Sound[] sounds;
-    private static readonly List<Sound> activeSounds = new List<Sound>();
     public enum SoundType
     {
         SFX,
         Soundscape,
         Soundtrack
+    }
+
+    private void Start()
+    {
+        StartStopSound("Soundtrack_TitleScene", null, SoundType.Soundtrack);
     }
 
     private Sound AddSoundSource(Sound sound)

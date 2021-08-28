@@ -673,7 +673,8 @@ public class CardManager : MonoBehaviour
         {
             if (GetAbility(target, "Shield"))
             {
-                target.GetComponent<UnitCardDisplay>().RemoveCurrentAbility("Shield");
+                FunctionTimer.Create(() => 
+                target.GetComponent<UnitCardDisplay>().RemoveCurrentAbility("Shield"), 0.5f);
                 return false;
             }
             else

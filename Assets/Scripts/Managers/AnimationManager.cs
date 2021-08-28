@@ -26,6 +26,7 @@ public class AnimationManager : MonoBehaviour
 
     /* HERO_ANIMATIONS */
     public void ModifyHealthState(GameObject hero) => ChangeAnimationState(hero, "Modify_Health");
+    public void ReinforcementsState(GameObject enemyHero) => ChangeAnimationState(enemyHero, "Reinforcements");
     /* UNIT_ANIMATIONS */
     public void RevealedHandState(GameObject card) => ChangeAnimationState(card, "Revealed_Hand");
     public void RevealedPlayState(GameObject card) => ChangeAnimationState(card, "Revealed_Play");

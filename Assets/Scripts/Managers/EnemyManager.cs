@@ -16,7 +16,7 @@ public class EnemyManager : MonoBehaviour
     }
     
     private CardManager cMan;
-    private EventManager eMan;
+    private EventManager evMan;
     private EnemyHero enemyHero;
     private int enemyHealth;
 
@@ -56,11 +56,12 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    /******
-     * *****
-     * ****** START_COMBAT
-     * *****
-     *****/
+    private void Start()
+    {
+        cMan = CardManager.Instance;
+        evMan = EventManager.Instance;
+    }
+
     public void StartCombat()
     {
         EnemyDeckList = new List<Card>();
@@ -69,44 +70,50 @@ public class EnemyManager : MonoBehaviour
         ReinforcementGroup = 0; // FOR TESTING ONLY
     }
 
-    /******
-     * *****
-     * ****** START_ENEMY_TURN
-     * *****
-     *****/
     public void StartEnemyTurn()
     {
-        cMan = CardManager.Instance;
-        eMan = EventManager.Instance;
-
         int refo = CurrentReinforcements;
         List<int> refoSched = ReinforcementSchedule;
 
-        // DELAYED ACTIONS
-        for (int i = 0; i < refoSched[refo]; i++)
-            eMan.NewDelayedAction(() => cMan.DrawCard(GameManager.ENEMY), 1f);
-        for (int i = 0; i < refoSched[refo]; i++)
-            eMan.NewDelayedAction(() => cMan.PlayCard(cMan.EnemyHandCards[0]), 2f);
-        
+        float refoDelay = 1f;
+        if (refoSched[refo] > 0)
+        {
+            evMan.NewDelayedAction(() => Reinforcements(), 1f);
+            refoDelay = 4f;
+        }
+
         if ((refo + 1) < refoSched.Count) CurrentReinforcements++;
         else CurrentReinforcements = 0;
 
-        cMan.EnemyHero.GetComponent<EnemyHeroDisplay>().NextReinforcements =
-            refoSched[CurrentReinforcements];
-        eMan.NewDelayedAction(() => CMBeginAttack(), 1f);
+        evMan.NewDelayedAction(() => NextReinforcements(), refoDelay);
+        for (int i = 0; i < refoSched[refo]; i++)
+            evMan.NewDelayedAction(() => cMan.DrawCard(GameManager.ENEMY), 1f);
+        for (int i = 0; i < refoSched[refo]; i++)
+            evMan.NewDelayedAction(() => cMan.PlayCard(cMan.EnemyHandCards[0]), 2f);
+        evMan.NewDelayedAction(() => CMBeginAttack(), 1f);
 
+        void Reinforcements()
+        {
+            AnimationManager.Instance.ReinforcementsState(cMan.EnemyHero);
+            AudioManager.Instance.StartStopSound("SFX_Reinforcements");
+        }
+        void NextReinforcements()
+        {
+            cMan.EnemyHero.GetComponent<EnemyHeroDisplay>().NextReinforcements = 
+                refoSched[CurrentReinforcements];
+        }
         void CMBeginAttack()
         {
             foreach (GameObject enemyUnit in cMan.EnemyZoneCards)
             {
                 UnitCardDisplay ucd = enemyUnit.GetComponent<UnitCardDisplay>();
                 if (!ucd.IsExhausted && ucd.CurrentPower > 0)
-                    eMan.NewDelayedAction(() => CMAttack(enemyUnit), 1f);
+                    evMan.NewDelayedAction(() => CMAttack(enemyUnit), 1f);
             }
             // END TURN
-            eMan.NewDelayedAction(() => GameManager.Instance.EndTurn(GameManager.ENEMY), 2f);
+            evMan.NewDelayedAction(() => 
+            GameManager.Instance.EndTurn(GameManager.ENEMY), 2f);
         }
-
         void CMAttack(GameObject enemyUnit)
         {
             bool isPlayed = cMan.EnemyZoneCards.Contains(enemyUnit);

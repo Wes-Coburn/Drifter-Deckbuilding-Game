@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5432363719024561124}
   - component: {fileID: 8621782982548648156}
   - component: {fileID: 8935358941858958801}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: CardTypeLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 7908756059059020336}
   - component: {fileID: 6445356373119034839}
   - component: {fileID: 752394789504509527}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: CurrentPower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -351,7 +351,7 @@ GameObject:
   - component: {fileID: 2445920528237114896}
   - component: {fileID: 3502187595642583686}
   - component: {fileID: 8523849611980702282}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: ActionCost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -519,7 +519,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7759307479915815839}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: CardText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -554,7 +554,7 @@ GameObject:
   - component: {fileID: 3699875958816895544}
   - component: {fileID: 2068264291541470552}
   - component: {fileID: 7729745720848653434}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: CardName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -723,7 +723,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7945969180168429696}
   - component: {fileID: 1121099896771186352}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: CardArt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -805,7 +805,7 @@ GameObject:
   m_Component:
   - component: {fileID: 457681808997512170}
   - component: {fileID: 7973755792682007454}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: CardBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -887,7 +887,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2706031822677927956}
   - component: {fileID: 9140768747093710238}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: CardBorder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -970,7 +970,7 @@ GameObject:
   - component: {fileID: 9022880296297562194}
   - component: {fileID: 5030939709106299019}
   - component: {fileID: 7296751443205057197}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: CurrentDefense
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1138,7 +1138,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 475164448740666798}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Stats
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1171,7 +1171,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2943041187178307875}
   - component: {fileID: 1873400330976276134}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: CardFrame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1256,7 +1256,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6999810316292477267}
   - component: {fileID: 43041932794528857}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ArtMask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1339,7 +1339,7 @@ GameObject:
   - component: {fileID: 3705638899255616276}
   - component: {fileID: 8121863126802653666}
   - component: {fileID: 6729144174852632540}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: UnitZoomCard
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
@@ -1387,18 +1387,17 @@ MonoBehaviour:
   cardBorder: {fileID: 5784151646588659182}
   cardTypeLine: {fileID: 240640442672302795}
   actionCost: {fileID: 1898300277847859935}
+  currentAbilitiesDisplay: {fileID: 7504388223987195692}
+  exhaustedIcon: {fileID: 0}
+  attackScoreDisplay: {fileID: 1832809122427536676}
+  defenseScoreDisplay: {fileID: 6233680979956919925}
   AbilityIconPrefab: {fileID: 386389505813502122, guid: 1cbace94178eb2d4ab7bb5bd55ae9d11,
     type: 3}
   ZoomAbilityIconPrefab: {fileID: 386389505813502122, guid: f0247b52cb371f84f9c5bc28522f5274,
     type: 3}
-  attackScoreDisplay: {fileID: 1832809122427536676}
-  defenseScoreDisplay: {fileID: 6233680979956919925}
-  maxDefenseDisplay: {fileID: 0}
   CurrentEffects: []
-  currentAbilitiesDisplay: {fileID: 7504388223987195692}
-  CurrentAbilities: []
   AbilityIcons: []
-  exhaustedIcon: {fileID: 0}
+  CurrentAbilities: []
 --- !u!114 &8121863126802653666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1451,7 +1450,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1987251729773291172}
   - component: {fileID: 1696470216465479566}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: CurrentAbilities
   m_TagString: Untagged
   m_Icon: {fileID: 0}

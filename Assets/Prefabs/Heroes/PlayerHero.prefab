@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4864917047949088200}
   - component: {fileID: 1042566164718157553}
   - component: {fileID: 6646435828186806025}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: HeroPower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,7 +142,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 373914479}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: HeroOutline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1515396950}
   - component: {fileID: 1515396951}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,7 +261,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1584662863}
   - component: {fileID: 1584662864}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: ColorScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -347,7 +347,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5245409028044283946}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: HeroPortrait
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -379,7 +379,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2585756836255760725}
-  m_Layer: 8
+  - component: {fileID: 5292934361495569889}
+  - component: {fileID: 5292934361495569888}
+  m_Layer: 0
   m_Name: PlayerActions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -402,6 +404,48 @@ Transform:
   m_Father: {fileID: 5292934362312869075}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &5292934361495569889
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4373366777536296366}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 125, y: 125}
+  m_EdgeRadius: 0
+--- !u!114 &5292934361495569888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4373366777536296366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa007eff4e492ba4bad63f21cbf4c4d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltipPopupPrefab: {fileID: 7177373728927392186, guid: 6363c5ece3ab74f41ab0a33c7358b5cb,
+    type: 3}
+  tooltipText: Your ACTIONS remaining and your total this turn.
+  tooltipPosition: {x: 300, y: -375}
 --- !u!1 &4573380672645534793
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,7 +456,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2859656795214897437}
   - component: {fileID: 4786433787446234867}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -493,7 +537,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7936198838667304182}
-  m_Layer: 8
+  - component: {fileID: 5292934361495569891}
+  - component: {fileID: 5292934361495569890}
+  m_Layer: 0
   m_Name: HeroHealth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -516,6 +562,48 @@ Transform:
   m_Father: {fileID: 5292934362312869075}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &5292934361495569891
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4697018046286746607}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 125, y: 125}
+  m_EdgeRadius: 0
+--- !u!114 &5292934361495569890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4697018046286746607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa007eff4e492ba4bad63f21cbf4c4d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltipPopupPrefab: {fileID: 7177373728927392186, guid: 6363c5ece3ab74f41ab0a33c7358b5cb,
+    type: 3}
+  tooltipText: Your hero's HEALTH. If this is reduced to 0, you lose.
+  tooltipPosition: {x: 300, y: -375}
 --- !u!1 &4697489652902391323
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,7 +615,7 @@ GameObject:
   - component: {fileID: 7765625712592978532}
   - component: {fileID: 8257180960128098232}
   - component: {fileID: 8453490262893708791}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: HealthValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -698,7 +786,7 @@ GameObject:
   - component: {fileID: 8303420959267361057}
   - component: {fileID: 1741124866610311041}
   - component: {fileID: 885093807765067690}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: PlayerHero
   m_TagString: PlayerHero
   m_Icon: {fileID: 0}
@@ -811,7 +899,7 @@ GameObject:
   - component: {fileID: 5152010016712766256}
   - component: {fileID: 439440142559845989}
   - component: {fileID: 466427137203586126}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: ActionValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -979,7 +1067,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3293657085920266441}
   - component: {fileID: 5292934361495569887}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1061,7 +1149,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7245248735115782708}
   - component: {fileID: 1487571302837730264}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1141,7 +1229,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3085575494033034790}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: PortraitImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1180,7 +1268,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3638954338944986404}
   - component: {fileID: 1918983794584859628}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1262,7 +1350,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6208066110190857914}
   - component: {fileID: 4693891654376206178}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1344,7 +1432,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4232762507295335843}
   - component: {fileID: 1411905083988949009}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1426,7 +1514,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6239203256426266815}
   - component: {fileID: 5856839199922799528}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1508,7 +1596,7 @@ GameObject:
   m_Component:
   - component: {fileID: 468312483978840954}
   - component: {fileID: 8973840587943847317}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}

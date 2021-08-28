@@ -29,11 +29,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Narrative settingNarrative;
     [SerializeField] private Narrative newGameNarrative;
 
-    /* FOR_TESTING_ONLY */
+    /* !FOR_TESTING_ONLY! */
     public NPCHero NPCTestHero { get => npcTestHero; }
     public bool IsCombatTest { get; set; }
     [SerializeField] private NPCHero npcTestHero;
-    /* FOR_TESTING_ONLY */
+    /* !FOR_TESTING_ONLY! */
 
     public Narrative NextNarrative { get; set; }
     public static List<NPCHero> ActiveNPCHeroes { get; private set; }
