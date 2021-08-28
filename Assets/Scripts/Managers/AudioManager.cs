@@ -59,7 +59,6 @@ public class AudioManager : MonoBehaviour
     {
         int soundIndex;
         Sound currentSound = null;
-
         if (sound == null)
         {
             if (string.IsNullOrEmpty(sName)) return;
@@ -77,13 +76,11 @@ public class AudioManager : MonoBehaviour
             if (soundIndex != -1) currentSound = activeSounds[soundIndex];
             else currentSound = AddSoundSource(sound);
         }
-
         if (isEndSound)
         {
             currentSound.source.Stop();
             return;
         }
-
         switch (soundType)
         {
             case SoundType.SFX:
@@ -102,7 +99,7 @@ public class AudioManager : MonoBehaviour
                 CurrentSoundtrack.source.loop = true;
                 break;
         }
-        currentSound.source.loop = isLooped;
+        if (isLooped) currentSound.source.loop = true;
         currentSound.source.Play();
     }
 }

@@ -14,7 +14,7 @@ public class AnimationManager : MonoBehaviour
         }
         else Destroy(gameObject);
     }
-    
+
     public void ChangeAnimationState(GameObject go, string animationState)
     {
         if (go.TryGetComponent<ActionCardDisplay>(out _)) return;
@@ -48,22 +48,18 @@ public class AnimationManager : MonoBehaviour
         float bufferDistance;
         float attackDelay;
         float retreatDelay;
-
-        // UNIT
         if (defenderIsUnit)
         {
             bufferDistance = 150;
             attackDelay = 0.01f;
             retreatDelay = 0.02f;
         }
-        // HERO
         else
         {
             bufferDistance = 350;
             attackDelay = 0.002f;
             retreatDelay = 0.005f;
         }
-
         float distance;
         int atkIndex = attacker.transform.GetSiblingIndex();
         Transform atkStartParent = attacker.transform.parent;
@@ -72,7 +68,6 @@ public class AnimationManager : MonoBehaviour
         attacker.transform.SetParent(UIManager.Instance.CurrentWorldSpace.transform);
         //DragPlayedState(attacker);
         attacker.GetComponent<ChangeLayer>().ZoomLayer();
-
         // ATTACK
         do
         {
@@ -93,9 +88,7 @@ public class AnimationManager : MonoBehaviour
         attacker.transform.SetParent(atkStartParent);
         attacker.transform.SetSiblingIndex(atkIndex);
         attacker.transform.position = new Vector3(atkStartPos.x, atkStartPos.y, CardManager.CARD_Z_POSITION);
-
         //RevealedPlayState(attacker);
         attacker.GetComponent<ChangeLayer>().CardsLayer();
-        // Modify defense state here
     }
 }

@@ -688,7 +688,6 @@ public class CardManager : MonoBehaviour
             else if (target.CompareTag(ENEMY_CARD)) DestroyCard(target, ENEMY);
             else if (target == PlayerHero) GameManager.Instance.EndCombat(false);
             else if (target == EnemyHero) GameManager.Instance.EndCombat(true);
-
             if (target == PlayerHero || target == EnemyHero) return false;
             else
             {
@@ -750,7 +749,6 @@ public class CardManager : MonoBehaviour
             Debug.Log("GiveAbilityEffect! <" + gae.CardAbility.ToString() + ">");
             GiveAbilityEffect newGae = ScriptableObject.CreateInstance<GiveAbilityEffect>();
             newGae.LoadEffect(gae);
-
             // If ability already exists, update countdown instead of adding
             if (!ucd.AddCurrentAbility(newGae.CardAbility, true))
             {
@@ -816,7 +814,6 @@ public class CardManager : MonoBehaviour
                     {
                         int statChange = sce.Value;
                         if (sce.IsNegative) statChange = -statChange;
-
                         if (sce.IsDefenseChange)
                         {
                             fcd.CurrentDefense -= statChange;

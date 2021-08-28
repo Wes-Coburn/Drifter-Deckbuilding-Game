@@ -344,7 +344,6 @@ public class EffectManager : MonoBehaviour
         }
         Debug.Log("ACCEPTED TARGETS: <" + acceptedTargets[currentEffectGroup].Count +
             "> // TARGET NUMBER: <" + targetNumber + ">");
-
         if (acceptedTargets[currentEffectGroup].Count == targetNumber) ConfirmTargetEffect();
         else if (acceptedTargets[currentEffectGroup].Count > targetNumber)
             Debug.LogError("Accepted Targets > Target Number!");
@@ -393,7 +392,6 @@ public class EffectManager : MonoBehaviour
     {
         foreach (GameObject t in targets)
             if (t == null) targets.Remove(t);
-         
         // DRAW
         if (effect is DrawEffect de)
         {

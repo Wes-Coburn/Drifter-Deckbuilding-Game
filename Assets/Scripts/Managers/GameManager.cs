@@ -196,17 +196,14 @@ public class GameManager : MonoBehaviour
         /* HERO_DISPLAYS */
         cMan.PlayerHero.GetComponent<HeroDisplay>().HeroScript = pMan.PlayerHero;
         cMan.EnemyHero.GetComponent<HeroDisplay>().HeroScript = enMan.EnemyHero;
-        /* OTHER_AUGMENTS */
         if (pMan.GetAugment("Biogenic Enhancer"))
         {
             GiveNextUnitEffect gnue = ScriptableObject.CreateInstance<GiveNextUnitEffect>();
             gnue.LoadEffect(augmentBiogenEffect);
             efMan.GiveNextEffects.Add(gnue);
         }
-        /* DELAYED_ACTIONS */
         for (int i = 0; i < PLAYER_HAND_SIZE; i++)
             evMan.NewDelayedAction(() => cMan.DrawCard(PLAYER), 1f);
-        /* START_TURN */
         evMan.NewDelayedAction(() => StartTurn(PLAYER), 1f);
     }
 
