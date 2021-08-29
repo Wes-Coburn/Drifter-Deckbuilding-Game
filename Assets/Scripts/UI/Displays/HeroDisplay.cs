@@ -20,11 +20,12 @@ public abstract class HeroDisplay : MonoBehaviour
         set
         {
             heroPortrait.GetComponent<SpriteRenderer>().sprite = value;
-            if (this is HeroDisplay)
+            if (this is PlayerHeroDisplay)
             {
-                Vector3 vec3 = UIManager.Instance.GetPortraitPosition
+                UIManager.PositionAndScale pas = UIManager.Instance.GetPortraitPosition
                     (HeroScript.HeroName, SceneLoader.Scene.CombatScene);
-                heroPortrait.transform.localPosition = vec3;
+                heroPortrait.transform.localPosition = pas.Position;
+                heroPortrait.transform.localScale = pas.Scale;
             }
         }
     }

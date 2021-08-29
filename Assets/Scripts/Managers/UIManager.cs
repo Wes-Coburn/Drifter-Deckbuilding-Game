@@ -297,9 +297,20 @@ public class UIManager : MonoBehaviour
         cepd.GetComponent<SoundPlayer>().PlaySound(0);
     }
 
-    public Vector3 GetPortraitPosition(string heroName, SceneLoader.Scene scene)
+    public class PositionAndScale
     {
-        Vector3 vec3 = new Vector3(0, 0, 0);
+        public PositionAndScale(Vector2 position, Vector2 scale)
+        {
+            Position = position;
+            Scale = scale;
+        }
+        public Vector2 Position;
+        public Vector2 Scale;
+    }
+    public PositionAndScale GetPortraitPosition(string heroName, SceneLoader.Scene scene)
+    {
+        Vector2 position = new Vector2();
+        Vector2 scale = new Vector2();
         switch (heroName)
         {
             // KILI
@@ -307,10 +318,12 @@ public class UIManager : MonoBehaviour
                 switch(scene)
                 {
                     case SceneLoader.Scene.DialogueScene:
-                        vec3.Set(-90, -325, 0);
+                        position.Set(-90, -325);
+                        scale.Set(3, 3);
                         break;
                     case SceneLoader.Scene.CombatScene:
-                        vec3.Set(-25, -75, 0);
+                        position.Set(-60, -190);
+                        scale.Set(2.5f, 2.5f);
                         break;
                 }
                 break;
@@ -319,10 +332,12 @@ public class UIManager : MonoBehaviour
                 switch (scene)
                 {
                     case SceneLoader.Scene.DialogueScene:
-                        vec3.Set(-290, -290, 0);
+                        position.Set(-145, -145);
+                        scale.Set(2, 2);
                         break;
                     case SceneLoader.Scene.CombatScene:
-                        vec3.Set(-73, -70, 0);
+                        position.Set(-100, -110);
+                        scale.Set(2, 2);
                         break;
                 }
                 break;
@@ -331,12 +346,19 @@ public class UIManager : MonoBehaviour
                 switch (scene)
                 {
                     case SceneLoader.Scene.DialogueScene:
+                        position.Set(0, 0);
+                        scale.Set(1, 1);
                         break;
                     case SceneLoader.Scene.CombatScene:
+                        position.Set(0, 0);
+                        scale.Set(3, 3);
                         break;
                 }
                 break;
+            default:
+                Debug.LogError("HERO NOT FOUND!");
+                return null;
         }
-        return vec3;
+        return new PositionAndScale(position, scale);
     }
 }

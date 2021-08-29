@@ -238,7 +238,7 @@ public class GameManager : MonoBehaviour
             enMan.IsMyTurn = false;
             pMan.HeroPowerUsed = false;
             evMan.NewDelayedAction(() => RefillPlayerActions(), 0.5f);
-            evMan.NewDelayedAction(() => cMan.DrawCard(PLAYER), 1f);
+            evMan.NewDelayedAction(() => cMan.DrawCard(PLAYER), 1);
             void RefillPlayerActions()
             {
                 pMan.PlayerActionsLeft = pMan.ActionsPerTurn;
@@ -249,10 +249,15 @@ public class GameManager : MonoBehaviour
         {
             pMan.IsMyTurn = false;
             enMan.IsMyTurn = true;
-            evMan.NewDelayedAction(() => enMan.StartEnemyTurn(), 0f);
+            evMan.NewDelayedAction(() => enMan.StartEnemyTurn(), 0);
+        }
+        else
+        {
+            Debug.LogError("PLAYER NOT FOUND!");
+            return;
         }
         uMan.UpdateEndTurnButton(pMan.IsMyTurn);
-        FunctionTimer.Create(() => uMan.CreateTurnPopup(pMan.IsMyTurn), 1f);
+        FunctionTimer.Create(() => uMan.CreateTurnPopup(pMan.IsMyTurn), 1);
     }
 
     /******

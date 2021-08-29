@@ -18,9 +18,10 @@ public class DialogueSceneDisplay : MonoBehaviour
         set
         {
             playerHeroPortrait.GetComponent<Image>().sprite = value;
-            Vector3 vec3 = UIManager.Instance.GetPortraitPosition
+            UIManager.PositionAndScale pas = UIManager.Instance.GetPortraitPosition
                 (PlayerManager.Instance.PlayerHero.HeroName, SceneLoader.Scene.DialogueScene);
-            playerHeroPortrait.transform.localPosition = vec3;
+            playerHeroPortrait.transform.localPosition = pas.Position;
+            playerHeroPortrait.transform.localScale = pas.Scale;
         }
     }
     public string PlayerHeroName
