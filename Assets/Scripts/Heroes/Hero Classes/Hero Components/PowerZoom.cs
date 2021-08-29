@@ -5,6 +5,8 @@ public class PowerZoom : MonoBehaviour
     [SerializeField] private GameObject powerPopupPrefab;
     [SerializeField] private GameObject abilityPopupBoxPrefab;
     [SerializeField] private GameObject abilityPopupPrefab;
+    [SerializeField] private bool abilityPopupOnly;
+    public HeroPower LoadedPower { get; set; }
 
     private GameObject powerPopup;
     private GameObject abilityPopupBox;
@@ -16,7 +18,8 @@ public class PowerZoom : MonoBehaviour
     {
         if (CardZoom.ZoomCardIsCentered || DragDrop.DraggingCard) return;
         if (powerPopup != null) Destroy(powerPopup);
-        FunctionTimer.Create(() => CreatePowerPopup(), 1f, POWER_POPUP_TIMER);
+        if (!abilityPopupOnly) FunctionTimer.Create(() => CreatePowerPopup(), 1, POWER_POPUP_TIMER);
+        else FunctionTimer.Create(() => ShowLinkedAbilities(LoadedPower, 3), 0.5f, POWER_POPUP_TIMER);
     }
     public void OnPointerExit()
     {
@@ -53,7 +56,10 @@ public class PowerZoom : MonoBehaviour
         abilityPopupBox = Instantiate(abilityPopupBoxPrefab, 
             UIManager.Instance.CurrentWorldSpace.transform);
         Transform tran = abilityPopupBox.transform;
-        tran.localPosition = new Vector2(0, -100);
+        Vector2 position = new Vector2();
+        if (!abilityPopupOnly) position.Set(0, -100);
+        else position.Set(350, -50);
+        tran.localPosition = position;
         tran.localScale = new Vector2(scaleValue, scaleValue);
         foreach (CardAbility ca in hp.LinkedAbilities) 
             CreateAbilityPopup(ca, abilityPopupBox.transform, 1);

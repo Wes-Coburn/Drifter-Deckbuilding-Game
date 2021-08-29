@@ -115,6 +115,8 @@ public class NewGameSceneDisplay : MonoBehaviour
         heroDescription.GetComponent<TextMeshProUGUI>().SetText(SelectedHero.HeroDescription);
         heroPowerImage.GetComponent<Image>().sprite = SelectedHero.HeroPower.PowerSprite;
 
+        heroPowerImage.GetComponentInParent<PowerZoom>().LoadedPower = SelectedHero.HeroPower; // TESTING
+
         int cost = SelectedHero.HeroPower.PowerCost;
         string actions;
         if (cost > 1) actions = "actions";
