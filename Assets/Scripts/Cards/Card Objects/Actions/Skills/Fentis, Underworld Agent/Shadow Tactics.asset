@@ -18,7 +18,7 @@ MonoBehaviour:
   cardName: Shadow Tactics
   cardType: Action
   cardSubType: Skill
-  cardDescription: Give an ally Shield and Stealth
+  cardDescription: Give an ally +0/+1 and Shield
   overController: {fileID: 0}
   zoomOverController: {fileID: 0}
   cardPlaySound:
@@ -27,9 +27,8 @@ MonoBehaviour:
     volume: 0
     pitch: 0
     source: {fileID: 0}
-  effectDescription: Give an ally Shield and Stealth
+  effectDescription: Give an ally +0/+1 and Shield
   effectGroupList:
   - {fileID: 11400000, guid: aec0026e271cfe84d9e70d4e412cac55, type: 2}
   linkedAbilities:
   - {fileID: 11400000, guid: 44eb684e5e3c70e4f830456effa3f6b6, type: 2}
-  - {fileID: 11400000, guid: edfe3b459c9ebb14eb21ba3bb2f309a0, type: 2}

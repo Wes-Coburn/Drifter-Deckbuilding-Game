@@ -36,7 +36,7 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(NPCHero npc)
     {
-        AudioManager.Instance.StartStopSound("Soundtrack_DialogueScene", null, AudioManager.SoundType.Soundtrack);
+        AudioManager.Instance.StartStopSound("Soundtrack_Dialogue1", null, AudioManager.SoundType.Soundtrack);
         dialogueDisplay = FindObjectOfType<DialogueSceneDisplay>();
         EngagedHero = npc;
         currentDialogueClip = npc.NextDialogueClip;

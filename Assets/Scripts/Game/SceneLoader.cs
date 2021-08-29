@@ -22,13 +22,15 @@ public static class SceneLoader
     {
         if (SceneIsLoading) return;
         if (!loadSameScene && SceneManager.GetActiveScene().name == scene.ToString()) return;
-        SceneIsLoading = true;
 
         UIManager uMan = UIManager.Instance;
         AudioManager auMan = AudioManager.Instance;
         GameManager gMan = GameManager.Instance;
         DialogueManager dMan = DialogueManager.Instance;
         CardManager cMan = CardManager.Instance;
+        SceneIsLoading = true;
+        FunctionTimer.Create(() => 
+        auMan.StartStopSound("SFX_SceneLoading", null, AudioManager.SoundType.SFX, false, true), 1f);
 
         onSceneLoaderCallback = () =>
         {
@@ -40,6 +42,7 @@ public static class SceneLoader
         onSceneUpdateCallback = () =>
         {
             SceneIsLoading = false;
+            auMan.StartStopSound("SFX_SceneLoading", null, AudioManager.SoundType.SFX, true);
             uMan.Start();
             auMan.CleanAudioSources();
             switch (scene)

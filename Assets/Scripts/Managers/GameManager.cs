@@ -145,6 +145,7 @@ public class GameManager : MonoBehaviour
     {
         //AudioManager.Instance.StartStopSound("Soundtrack_xxx", null, AudioManager.SoundType.Soundtrack);
         Debug.Log("START NARRATIVE!");
+        auMan.StartStopSound("Soundtrack_Narrative1", null, AudioManager.SoundType.Soundtrack);
         NarrativeSceneDisplay nsd = FindObjectOfType<NarrativeSceneDisplay>();
         nsd.Narrative = NextNarrative;
         if (NextNarrative == newGameNarrative) NextNarrative = null;
