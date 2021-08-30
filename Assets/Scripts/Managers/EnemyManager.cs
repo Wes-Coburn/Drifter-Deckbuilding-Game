@@ -15,7 +15,7 @@ public class EnemyManager : MonoBehaviour
         else Destroy(gameObject);
     }
     
-    private CardManager cMan;
+    private CombatManager coMan;
     private EventManager evMan;
     private EnemyHero enemyHero;
     private int enemyHealth;
@@ -52,13 +52,13 @@ public class EnemyManager : MonoBehaviour
         set
         {
             enemyHealth = value;
-            CardManager.Instance.EnemyHero.GetComponent<HeroDisplay>().HeroHealth = enemyHealth;
+            CombatManager.Instance.EnemyHero.GetComponent<HeroDisplay>().HeroHealth = enemyHealth;
         }
     }
 
     private void Start()
     {
-        cMan = CardManager.Instance;
+        coMan = CombatManager.Instance;
         evMan = EventManager.Instance;
     }
 
@@ -87,24 +87,24 @@ public class EnemyManager : MonoBehaviour
 
         evMan.NewDelayedAction(() => NextReinforcements(), refoDelay);
         for (int i = 0; i < refoSched[refo]; i++)
-            evMan.NewDelayedAction(() => cMan.DrawCard(GameManager.ENEMY), 1f);
+            evMan.NewDelayedAction(() => coMan.DrawCard(GameManager.ENEMY), 1f);
         for (int i = 0; i < refoSched[refo]; i++)
-            evMan.NewDelayedAction(() => cMan.PlayCard(cMan.EnemyHandCards[0]), 2f);
+            evMan.NewDelayedAction(() => coMan.PlayCard(coMan.EnemyHandCards[0]), 2f);
         evMan.NewDelayedAction(() => CMBeginAttack(), 1f);
 
         void Reinforcements()
         {
-            AnimationManager.Instance.ReinforcementsState(cMan.EnemyHero);
+            AnimationManager.Instance.ReinforcementsState(coMan.EnemyHero);
             AudioManager.Instance.StartStopSound("SFX_Reinforcements");
         }
         void NextReinforcements()
         {
-            cMan.EnemyHero.GetComponent<EnemyHeroDisplay>().NextReinforcements = 
+            coMan.EnemyHero.GetComponent<EnemyHeroDisplay>().NextReinforcements = 
                 refoSched[CurrentReinforcements];
         }
         void CMBeginAttack()
         {
-            foreach (GameObject enemyUnit in cMan.EnemyZoneCards)
+            foreach (GameObject enemyUnit in coMan.EnemyZoneCards)
             {
                 UnitCardDisplay ucd = enemyUnit.GetComponent<UnitCardDisplay>();
                 if (!ucd.IsExhausted && ucd.CurrentPower > 0)
@@ -116,18 +116,18 @@ public class EnemyManager : MonoBehaviour
         }
         void CMAttack(GameObject enemyUnit)
         {
-            bool isPlayed = cMan.EnemyZoneCards.Contains(enemyUnit);
+            bool isPlayed = coMan.EnemyZoneCards.Contains(enemyUnit);
             if (!isPlayed) return;
-            if (cMan.PlayerZoneCards.Count > 0)
+            if (coMan.PlayerZoneCards.Count > 0)
             {
-                foreach (GameObject playerUnit in cMan.PlayerZoneCards)
+                foreach (GameObject playerUnit in coMan.PlayerZoneCards)
                     if (!CardManager.GetAbility(playerUnit, "Stealth"))
                     {
-                        cMan.Attack(enemyUnit, playerUnit);
+                        coMan.Attack(enemyUnit, playerUnit);
                         return;
                     }
             }
-            cMan.Attack(enemyUnit, cMan.PlayerHero);
+            coMan.Attack(enemyUnit, coMan.PlayerHero);
         }
     }
 }

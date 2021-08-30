@@ -49,12 +49,13 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
      *****/
     private void Start()
     {
+        CombatManager coMan = CombatManager.Instance;
         worldSpace = UIManager.Instance.CurrentWorldSpace;
-        playerHand = CardManager.Instance.PlayerHand;
-        playerZone = CardManager.Instance.PlayerZone;
-        enemyHand = CardManager.Instance.EnemyHand;
-        enemyZone = CardManager.Instance.EnemyZone;
-        cardDisplay = gameObject.GetComponent<CardDisplay>();
+        playerHand = coMan.PlayerHand;
+        playerZone = coMan.PlayerZone;
+        enemyHand = coMan.EnemyHand;
+        enemyZone = coMan.EnemyZone;
+        cardDisplay = GetComponent<CardDisplay>();
         heroSkills = GameObject.Find("HeroSkills");
     }
 
@@ -86,8 +87,8 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
      *****/
     public void OnPointerEnter()
     {
-        if (DragDrop.DraggingCard != null || ZoomCardIsCentered || 
-            UIManager.Instance.PlayerIsTargetting) return;
+        if (DragDrop.DraggingCard != null || ZoomCardIsCentered) return;
+        if (UIManager.Instance.PlayerIsTargetting) if (!UIManager.Instance.PlayerIsDiscarding) return;
 
         GameObject parent = transform.parent.gameObject;
         if (parent == enemyHand) return; // HIDE THE ENEMY HAND
@@ -103,6 +104,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
 
         void ShowZoomCard(GameObject parent)
         {
+            if (parent == null) return; // If Unit has been destroyed
             RectTransform rect;
             if (parent == playerHand)
             {

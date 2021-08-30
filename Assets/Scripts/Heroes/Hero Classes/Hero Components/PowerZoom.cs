@@ -39,7 +39,7 @@ public class PowerZoom : MonoBehaviour
 
     private void CreatePowerPopup()
     {
-        Transform tran = CardManager.Instance.PlayerHero.transform;
+        Transform tran = CombatManager.Instance.PlayerHero.transform;
         float newX = tran.position.x - 200;
         float newY = tran.position.y + 250;
         Vector3 spawnPoint = new Vector2(newX, newY);

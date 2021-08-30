@@ -27,7 +27,7 @@ public static class SceneLoader
         AudioManager auMan = AudioManager.Instance;
         GameManager gMan = GameManager.Instance;
         DialogueManager dMan = DialogueManager.Instance;
-        CardManager cMan = CardManager.Instance;
+        CombatManager coMan = CombatManager.Instance;
         SceneIsLoading = true;
         FunctionTimer.Create(() => 
         auMan.StartStopSound("SFX_SceneLoading", null, AudioManager.SoundType.SFX, false, true), 1f);
@@ -66,7 +66,7 @@ public static class SceneLoader
                     break;
                 case Scene.CombatScene:
                     uMan.StartCombatScene();
-                    cMan.StartCombatScene();
+                    coMan.StartCombatScene();
                     gMan.StartCombat();
                     break;
                 default:

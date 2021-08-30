@@ -19,7 +19,7 @@ public class CardSelect : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
         if (!DragDrop.ArrowIsDragging || DragDrop.DraggingCard == gameObject) return;
-        if (CardManager.Instance.CanAttack(DragDrop.DraggingCard, gameObject, true))
+        if (CombatManager.Instance.CanAttack(DragDrop.DraggingCard, gameObject, true))
         {
             DragDrop.Enemy = gameObject;
             UIManager.Instance.SelectTarget(gameObject, true, true);
@@ -29,7 +29,7 @@ public class CardSelect : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     public void OnPointerExit(PointerEventData pointerEventData)
     {
         if (!DragDrop.ArrowIsDragging || DragDrop.DraggingCard == gameObject) return;
-        if (CardManager.Instance.CanAttack(DragDrop.DraggingCard, gameObject, true))
+        if (CombatManager.Instance.CanAttack(DragDrop.DraggingCard, gameObject, true))
         {
             DragDrop.Enemy = null;
             UIManager.Instance.SelectTarget(gameObject, true);

@@ -33,7 +33,7 @@ public class NewCardPopupDisplay : MonoBehaviour
         ignoreCardButton.SetActive(true);
 
         // Card Popup
-        GameObject newCard = CardManager.Instance.ShowCard(CurrentCard, true);
+        GameObject newCard = CombatManager.Instance.ShowCard(CurrentCard, true);
         CardZoom cz = newCard.GetComponent<CardZoom>();
         newCard.transform.SetParent(newCardZone.transform, false);
         // Description Popup

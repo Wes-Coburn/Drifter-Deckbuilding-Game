@@ -24,7 +24,6 @@ public class ChangeLayer : MonoBehaviour
     public void ZoomLayer() => RenderLayer = ZOOM_LAYER;
     private void UpdateRenderLayer(Transform tran)
     {
-        //SyncLayer(tran);
         foreach (Transform tranChild in tran)
         {
             SyncLayer(tranChild);
@@ -33,18 +32,20 @@ public class ChangeLayer : MonoBehaviour
     }
     private void SyncLayer(Transform tran)
     {   
-        if (tran.TryGetComponent<SpriteRenderer>(out SpriteRenderer spriteRend))
+        if (tran.TryGetComponent(out SpriteRenderer render))
         {
-            if (!spriteRend.sortingLayerName.Equals(RenderLayer)) spriteRend.sortingLayerName = RenderLayer;
+            if (!render.sortingLayerName.Equals(RenderLayer)) 
+                render.sortingLayerName = RenderLayer;
         }
-        else if (tran.TryGetComponent<TextMeshPro>(out TextMeshPro txtPro))
+        else if (tran.TryGetComponent(out TextMeshPro txtPro))
         {
-            if (!SortingLayer.IDToName(txtPro.sortingLayerID).Equals(RenderLayer)) txtPro.sortingLayerID = SortingLayer.NameToID(RenderLayer);
+            if (!SortingLayer.IDToName(txtPro.sortingLayerID).Equals(RenderLayer)) 
+                txtPro.sortingLayerID = SortingLayer.NameToID(RenderLayer);
         }
-        else if (tran.TryGetComponent<MeshRenderer>(out MeshRenderer meshRend))
+        else if (tran.TryGetComponent(out MeshRenderer mesh))
         {
-            if (!meshRend.sortingLayerName.Equals(RenderLayer)) meshRend.sortingLayerName = RenderLayer;
+            if (!mesh.sortingLayerName.Equals(RenderLayer)) 
+                mesh.sortingLayerName = RenderLayer;
         }
-        //Debug.Log("[" + tran.gameObject.name + "] PREVIOUS LAYER WAS/NEXT LAYER IS [" + meshRend.sortingLayerName + "]");
     }
 }

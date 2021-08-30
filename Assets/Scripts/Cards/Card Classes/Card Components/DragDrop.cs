@@ -3,7 +3,7 @@
 public class DragDrop : MonoBehaviour
 {
     private PlayerManager pMan;
-    private CardManager cMan;
+    private CombatManager coMan;
     private UIManager uMan;
     private AudioManager auMan;
     private GameObject dragArrow;
@@ -24,14 +24,12 @@ public class DragDrop : MonoBehaviour
     void Start()
     {
         pMan = PlayerManager.Instance;
-        cMan = CardManager.Instance;
+        coMan = CombatManager.Instance;
         uMan = UIManager.Instance;
         auMan = AudioManager.Instance;
         isOverDropZone = false;
         isDragging = false;
         IsPlayed = false;
-        DraggingCard = null;
-        ArrowIsDragging = false;
     }
 
     void Update()
@@ -47,7 +45,7 @@ public class DragDrop : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (isDragging && !IsPlayed)
-            if (collision.gameObject == cMan.PlayerZone)
+            if (collision.gameObject == coMan.PlayerZone)
             {
                 isOverDropZone = true;
                 uMan.SetPlayerZoneOutline(true, true);
@@ -56,7 +54,7 @@ public class DragDrop : MonoBehaviour
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (isDragging && !IsPlayed)
-            if (collision.gameObject == cMan.PlayerZone)
+            if (collision.gameObject == coMan.PlayerZone)
             {
                 isOverDropZone = false;
                 uMan.SetPlayerZoneOutline(true, false);
@@ -65,9 +63,9 @@ public class DragDrop : MonoBehaviour
 
     private void ResetPosition()
     {
-        cMan.SetCardParent(gameObject, startParent.transform);
+        coMan.SetCardParent(gameObject, startParent.transform);
         transform.SetSiblingIndex(startIndex);
-        transform.position = new Vector3(startPosition.x, startPosition.y, CardManager.CARD_Z_POSITION);
+        transform.position = new Vector3(startPosition.x, startPosition.y, CombatManager.CARD_Z_POSITION);
         if (GetComponent<CardDisplay>() is ActionCardDisplay) IsPlayed = false;
         if (IsPlayed) AnimationManager.Instance.RevealedPlayState(gameObject);
         else AnimationManager.Instance.RevealedHandState(gameObject);
@@ -77,7 +75,7 @@ public class DragDrop : MonoBehaviour
     {
         uMan.DestroyZoomObjects();
         if (DraggingCard != null || ArrowIsDragging || !pMan.IsMyTurn || 
-            CompareTag(CardManager.ENEMY_CARD) || uMan.PlayerIsTargetting) return;
+            CompareTag(CombatManager.ENEMY_CARD) || uMan.PlayerIsTargetting) return;
         FunctionTimer.StopTimer(CardZoom.ZOOM_CARD_TIMER);
         FunctionTimer.StopTimer(CardZoom.ABILITY_POPUP_TIMER);
         DraggingCard = gameObject;
@@ -93,7 +91,7 @@ public class DragDrop : MonoBehaviour
         }
         else
         {
-            if (!cMan.CanAttack(gameObject, null))
+            if (!coMan.CanAttack(gameObject, null))
             {
                 DraggingCard = null;
                 return;
@@ -102,11 +100,11 @@ public class DragDrop : MonoBehaviour
             if (dragArrow != null) Destroy(dragArrow);
             dragArrow = Instantiate(dragArrowPrefab, UIManager.Instance.CurrentWorldSpace.transform);
             dragArrow.GetComponent<DragArrow>().SourceCard = gameObject;
-            foreach (GameObject enemyUnit in CardManager.Instance.EnemyZoneCards)
-                if (cMan.CanAttack(gameObject, enemyUnit, true))
+            foreach (GameObject enemyUnit in coMan.EnemyZoneCards)
+                if (coMan.CanAttack(gameObject, enemyUnit, true))
                     uMan.SelectTarget(enemyUnit, true);
-            if (cMan.CanAttack(gameObject, cMan.EnemyHero, true)) 
-                uMan.SelectTarget(cMan.EnemyHero, true);
+            if (coMan.CanAttack(gameObject, coMan.EnemyHero, true)) 
+                uMan.SelectTarget(coMan.EnemyHero, true);
         }
         auMan.StartStopSound(SFX_DRAG_CARD, null, AudioManager.SoundType.SFX, false, true);
     }
@@ -121,10 +119,10 @@ public class DragDrop : MonoBehaviour
         {
             isDragging = false;
             uMan.SetPlayerZoneOutline(false, false);
-            if (isOverDropZone && cMan.IsPlayable(gameObject))
+            if (isOverDropZone && coMan.IsPlayable(gameObject))
             {
                 IsPlayed = true;
-                cMan.PlayCard(gameObject);
+                coMan.PlayCard(gameObject);
             }
             else ResetPosition();
             return;
@@ -133,15 +131,15 @@ public class DragDrop : MonoBehaviour
         ArrowIsDragging = false;
         Destroy(dragArrow);
         dragArrow = null;
-        if (Enemy != null && cMan.CanAttack(gameObject, Enemy))
-            cMan.Attack(gameObject, Enemy);
+        if (Enemy != null && coMan.CanAttack(gameObject, Enemy))
+            coMan.Attack(gameObject, Enemy);
         else
         {
             Debug.Log("EndDrag! (NO ATTACK) IsExhausted = " + 
                 GetComponent<UnitCardDisplay>().IsExhausted);
         }
-        foreach (GameObject enemyUnit in cMan.EnemyZoneCards)
+        foreach (GameObject enemyUnit in coMan.EnemyZoneCards)
             uMan.SelectTarget(enemyUnit, false);
-        uMan.SelectTarget(cMan.EnemyHero, false);
+        uMan.SelectTarget(coMan.EnemyHero, false);
     }
 }

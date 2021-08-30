@@ -53,7 +53,7 @@ public class PlayerManager : MonoBehaviour
         set
         {
             playerHealth = value;
-            CardManager.Instance.PlayerHero.GetComponent<HeroDisplay>().HeroHealth = playerHealth;
+            CombatManager.Instance.PlayerHero.GetComponent<HeroDisplay>().HeroHealth = playerHealth;
         }
     }
     public int PlayerActionsLeft
@@ -63,7 +63,7 @@ public class PlayerManager : MonoBehaviour
         {
             playerActionsLeft = value;
             if (playerActionsLeft > GameManager.MAXIMUM_ACTIONS) playerActionsLeft = GameManager.MAXIMUM_ACTIONS;
-            CardManager.Instance.PlayerHero.GetComponent<PlayerHeroDisplay>().PlayerActions = 
+            CombatManager.Instance.PlayerHero.GetComponent<PlayerHeroDisplay>().PlayerActions = 
                 playerActionsLeft + "/" + ActionsPerTurn;
         }
     }
@@ -94,11 +94,11 @@ public class PlayerManager : MonoBehaviour
         else
         {
             EffectManager em = EffectManager.Instance;
-            CardManager cm = CardManager.Instance;
+            CombatManager coMan = CombatManager.Instance;
             List<EffectGroup> groupList = PlayerHero.HeroPower.EffectGroupList;
 
-            if (!em.CheckLegalTargets(groupList, cm.PlayerHero, true)) return;
-            em.StartEffectGroupList(groupList, cm.PlayerHero);
+            if (!em.CheckLegalTargets(groupList, coMan.PlayerHero, true)) return;
+            em.StartEffectGroupList(groupList, coMan.PlayerHero);
 
             PlayerActionsLeft -= playerHero.HeroPower.PowerCost;
             HeroPowerUsed = true;

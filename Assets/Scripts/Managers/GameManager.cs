@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     /* MANAGERS */
     private PlayerManager pMan;
     private EnemyManager enMan;
-    private CardManager cMan;
+    private CombatManager coMan;
     private UIManager uMan;
     private EventManager evMan;
     private EffectManager efMan;
@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
     {
         pMan = PlayerManager.Instance;
         enMan = EnemyManager.Instance;
-        cMan = CardManager.Instance;
+        coMan = CombatManager.Instance;
         uMan = UIManager.Instance;
         evMan = EventManager.Instance;
         efMan = EffectManager.Instance;
@@ -181,8 +181,8 @@ public class GameManager : MonoBehaviour
         FunctionTimer.Create(() => auMan.StartStopSound("SFX_StartCombat"), 1f);
         /* UPDATE_DECKS */
         enMan.EnemyHero = enemyHero;
-        cMan.UpdateDeck(PLAYER);
-        cMan.UpdateDeck(ENEMY);
+        coMan.UpdateDeck(PLAYER);
+        coMan.UpdateDeck(ENEMY);
         /* PLAYER_HEALTH */
         int bonusHealth = 0;
         if (pMan.GetAugment("Kinetic Regulator")) bonusHealth = 5;
@@ -195,8 +195,8 @@ public class GameManager : MonoBehaviour
         /* ENEMY_HEALTH */
         enMan.EnemyHealth = ENEMY_STARTING_HEALTH;
         /* HERO_DISPLAYS */
-        cMan.PlayerHero.GetComponent<HeroDisplay>().HeroScript = pMan.PlayerHero;
-        cMan.EnemyHero.GetComponent<HeroDisplay>().HeroScript = enMan.EnemyHero;
+        coMan.PlayerHero.GetComponent<HeroDisplay>().HeroScript = pMan.PlayerHero;
+        coMan.EnemyHero.GetComponent<HeroDisplay>().HeroScript = enMan.EnemyHero;
         if (pMan.GetAugment("Biogenic Enhancer"))
         {
             GiveNextUnitEffect gnue = ScriptableObject.CreateInstance<GiveNextUnitEffect>();
@@ -204,7 +204,7 @@ public class GameManager : MonoBehaviour
             efMan.GiveNextEffects.Add(gnue);
         }
         for (int i = 0; i < PLAYER_HAND_SIZE; i++)
-            evMan.NewDelayedAction(() => cMan.DrawCard(PLAYER), 1f);
+            evMan.NewDelayedAction(() => coMan.DrawCard(PLAYER), 1f);
         evMan.NewDelayedAction(() => StartTurn(PLAYER), 1f);
     }
 
@@ -232,14 +232,14 @@ public class GameManager : MonoBehaviour
      *****/
     private void StartTurn(string player)
     {
-        evMan.NewDelayedAction(() => cMan.PrepareAllies(player), 0.5f);
+        evMan.NewDelayedAction(() => coMan.PrepareAllies(player), 0.5f);
         if (player == PLAYER)
         {
             pMan.IsMyTurn = true;
             enMan.IsMyTurn = false;
             pMan.HeroPowerUsed = false;
             evMan.NewDelayedAction(() => RefillPlayerActions(), 0.5f);
-            evMan.NewDelayedAction(() => cMan.DrawCard(PLAYER), 1);
+            evMan.NewDelayedAction(() => coMan.DrawCard(PLAYER), 1);
             void RefillPlayerActions()
             {
                 pMan.PlayerActionsLeft = pMan.ActionsPerTurn;
@@ -270,9 +270,9 @@ public class GameManager : MonoBehaviour
     {
         void RemoveEffects()
         {
-            cMan.RemoveTemporaryEffects(PLAYER);
-            cMan.RemoveTemporaryEffects(ENEMY);
-            cMan.RemoveGiveNextEffects();
+            efMan.RemoveTemporaryEffects(PLAYER);
+            efMan.RemoveTemporaryEffects(ENEMY);
+            efMan.RemoveGiveNextEffects();
         }
         evMan.NewDelayedAction(() => RemoveEffects(), 0.5f);
         if (player == ENEMY) StartTurn(PLAYER);

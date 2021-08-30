@@ -36,6 +36,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Color selectedColor;
     
     public bool PlayerIsTargetting { get; set; }
+    public bool PlayerIsDiscarding { get; set; }
     public GameObject CurrentWorldSpace { get; private set; }
     public GameObject CurrentCanvas { get; private set; }
 
@@ -297,6 +298,11 @@ public class UIManager : MonoBehaviour
         cepd.GetComponent<SoundPlayer>().PlaySound(0);
     }
 
+    /******
+     * *****
+     * ****** GET_PORTRAIT_POSITION
+     * *****
+     *****/
     public class PositionAndScale
     {
         public PositionAndScale(Vector2 position, Vector2 scale)

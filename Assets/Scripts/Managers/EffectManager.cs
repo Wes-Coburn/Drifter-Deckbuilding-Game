@@ -15,7 +15,9 @@ public class EffectManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    /* CLASS_VARIABLES */
+    private CombatManager coMan;
+    private UIManager uMan;
+
     private List<EffectGroup> effectGroupList;
     private GameObject effectSource;
     private int currentEffectGroup;
@@ -24,6 +26,7 @@ public class EffectManager : MonoBehaviour
     private List<List<GameObject>> acceptedTargets;
     private List<GameObject> newDrawnCards;
     private List<GiveNextUnitEffect> giveNextEffects;
+
 
     public Effect CurrentEffect
     {
@@ -54,6 +57,8 @@ public class EffectManager : MonoBehaviour
 
     private void Start()
     {
+        coMan = CombatManager.Instance;
+        uMan = UIManager.Instance;
         giveNextEffects = new List<GiveNextUnitEffect>();
         newDrawnCards = new List<GameObject>();
     }
@@ -65,8 +70,7 @@ public class EffectManager : MonoBehaviour
      *****/
     public void StartEffectGroupList(List<EffectGroup> groupList, GameObject source)
     {
-        // TESTING TESTING TESTING
-        /*
+        /* Effect Delay
         if (effectSource != null)
         {
             EventManager.Instance.NewDelayedAction(() => StartEffectGroupList(groupList, source), 1f);
@@ -158,40 +162,40 @@ public class EffectManager : MonoBehaviour
             return;
         }
 
-        if (effectSource.CompareTag(CardManager.PLAYER_CARD) || 
-            effectSource.CompareTag(CardManager.PLAYER_HERO))
+        if (effectSource.CompareTag(CombatManager.PLAYER_CARD) || 
+            effectSource.CompareTag(CombatManager.PLAYER_HERO))
         {
-            if (et.PlayerHero) acceptedTargets[currentEffectGroup].Add(CardManager.Instance.PlayerHero);
-            if (et.EnemyHero) acceptedTargets[currentEffectGroup].Add(CardManager.Instance.EnemyHero);
+            if (et.PlayerHero) acceptedTargets[currentEffectGroup].Add(coMan.PlayerHero);
+            if (et.EnemyHero) acceptedTargets[currentEffectGroup].Add(coMan.EnemyHero);
             if (et.TargetsAll)
             {
                 if (et.PlayerUnit)
                 {
-                    foreach (GameObject card in CardManager.Instance.PlayerZoneCards)
+                    foreach (GameObject card in coMan.PlayerZoneCards)
                         acceptedTargets[currentEffectGroup].Add(card);
                 }
                 if (et.EnemyUnit)
                 {
-                    foreach (GameObject card in CardManager.Instance.EnemyZoneCards)
+                    foreach (GameObject card in coMan.EnemyZoneCards)
                         acceptedTargets[currentEffectGroup].Add(card);
                 }
             }
         }
-        else if (effectSource.CompareTag(CardManager.ENEMY_CARD) || 
-                 effectSource.CompareTag(CardManager.ENEMY_HERO))
+        else if (effectSource.CompareTag(CombatManager.ENEMY_CARD) || 
+                 effectSource.CompareTag(CombatManager.ENEMY_HERO))
         {
-            if (et.EnemyHero) acceptedTargets[currentEffectGroup].Add(CardManager.Instance.PlayerHero);
-            if (et.PlayerHero) acceptedTargets[currentEffectGroup].Add(CardManager.Instance.EnemyHero);
+            if (et.EnemyHero) acceptedTargets[currentEffectGroup].Add(coMan.PlayerHero);
+            if (et.PlayerHero) acceptedTargets[currentEffectGroup].Add(coMan.EnemyHero);
             if (et.TargetsAll)
             {
                 if (et.PlayerUnit)
                 {
-                    foreach (GameObject card in CardManager.Instance.EnemyZoneCards)
+                    foreach (GameObject card in coMan.EnemyZoneCards)
                         acceptedTargets[currentEffectGroup].Add(card);
                 }
                 if (et.EnemyUnit)
                 {
-                    foreach (GameObject card in CardManager.Instance.PlayerZoneCards)
+                    foreach (GameObject card in coMan.PlayerZoneCards)
                         acceptedTargets[currentEffectGroup].Add(card);
                 }
             }
@@ -211,14 +215,15 @@ public class EffectManager : MonoBehaviour
             StartNextEffectGroup();
             return;
         }
-        UIManager.Instance.PlayerIsTargetting = true;
-        string targetDescription = effectGroupList[currentEffectGroup].EffectsDescription;
-        if (string.IsNullOrEmpty(targetDescription)) targetDescription = 
+        uMan.PlayerIsTargetting = true;
+        string description = effectGroupList[currentEffectGroup].EffectsDescription;
+        if (string.IsNullOrEmpty(description)) description = 
                 effectGroupList[currentEffectGroup].Effects[currentEffectIndex].TargetDescription;
-        UIManager.Instance.CreateInfoPopup(targetDescription);
+        uMan.CreateInfoPopup(description);
 
-        if (effect is DrawEffect) // Discard effect
+        if (effect is DrawEffect de && de.IsDiscardEffect) // Discard effect
         {
+            AnimationManager.Instance.ShiftPlayerHand(true);
             foreach (GameObject newTarget in newDrawnCards)
                 legalTargets[currentEffectGroup].Add(newTarget);
             newDrawnCards.Clear();
@@ -279,24 +284,23 @@ public class EffectManager : MonoBehaviour
      *****/
     private bool GetLegalTargets(int currentGroup, Effect effect, EffectTargets targets)
     {
-        CardManager cm = CardManager.Instance;
         List<List<GameObject>> targetZones = new List<List<GameObject>>();
-        if (effectSource.CompareTag(CardManager.PLAYER_CARD) || 
-            effectSource.CompareTag(CardManager.PLAYER_HERO))
+        if (effectSource.CompareTag(CombatManager.PLAYER_CARD) || 
+            effectSource.CompareTag(CombatManager.PLAYER_HERO))
         {
-            if (targets.PlayerHand) targetZones.Add(cm.PlayerHandCards);
-            if (targets.PlayerUnit) targetZones.Add(cm.PlayerZoneCards);
-            if (targets.EnemyUnit) targetZones.Add(cm.EnemyZoneCards);
-            if (targets.PlayerHero) legalTargets[currentGroup].Add(cm.PlayerHero);
-            if (targets.EnemyHero) legalTargets[currentGroup].Add(cm.EnemyHero);
+            if (targets.PlayerHand) targetZones.Add(coMan.PlayerHandCards);
+            if (targets.PlayerUnit) targetZones.Add(coMan.PlayerZoneCards);
+            if (targets.EnemyUnit) targetZones.Add(coMan.EnemyZoneCards);
+            if (targets.PlayerHero) legalTargets[currentGroup].Add(coMan.PlayerHero);
+            if (targets.EnemyHero) legalTargets[currentGroup].Add(coMan.EnemyHero);
         }
         else
         {
-            if (targets.PlayerHand) targetZones.Add(cm.EnemyHandCards);
-            if (targets.PlayerUnit) targetZones.Add(cm.EnemyZoneCards);
-            if (targets.EnemyUnit) targetZones.Add(cm.PlayerZoneCards);
-            if (targets.EnemyHero) legalTargets[currentGroup].Add(cm.PlayerHero);
-            if (targets.PlayerHero) legalTargets[currentGroup].Add(cm.EnemyHero);
+            if (targets.PlayerHand) targetZones.Add(coMan.EnemyHandCards);
+            if (targets.PlayerUnit) targetZones.Add(coMan.EnemyZoneCards);
+            if (targets.EnemyUnit) targetZones.Add(coMan.PlayerZoneCards);
+            if (targets.EnemyHero) legalTargets[currentGroup].Add(coMan.PlayerHero);
+            if (targets.PlayerHero) legalTargets[currentGroup].Add(coMan.EnemyHero);
         }
         foreach (List<GameObject> zone in targetZones)
             foreach (GameObject target in zone)
@@ -370,16 +374,24 @@ public class EffectManager : MonoBehaviour
             if (eg.Targets.PlayerHand) hero = GameManager.PLAYER;
             else hero = GameManager.ENEMY;
             for (int i = 0; i < effect.Value; i++)
-                CardManager.Instance.DrawCard(hero);
+                coMan.DrawCard(hero);
         }
         StartNextEffect();
     }
     private void ConfirmTargetEffect()
     {
-        UIManager.Instance.PlayerIsTargetting = false;
-        UIManager.Instance.DismissInfoPopup();
+        uMan.PlayerIsTargetting = false;
+        uMan.DismissInfoPopup();
         foreach (GameObject target in legalTargets[currentEffectGroup])
             target.GetComponent<CardSelect>().CardOutline.SetActive(false);
+
+        if (effectGroupList[currentEffectGroup].Effects[currentEffectIndex] is DrawEffect de)
+        {
+            if (de.IsDiscardEffect)
+            {
+                AnimationManager.Instance.ShiftPlayerHand(false);
+            }
+        }
         StartNextEffect();
     }
 
@@ -402,20 +414,20 @@ public class EffectManager : MonoBehaviour
                 if (eg.Targets.PlayerHand) hero = GameManager.PLAYER;
                 else hero = GameManager.ENEMY;
                 foreach (GameObject target in targets)
-                    CardManager.Instance.DiscardCard(target, hero);
+                    coMan.DiscardCard(target, hero);
             }
         }
         // DAMAGE
         else if (effect is DamageEffect)
         {
             foreach (GameObject target in targets)
-                CardManager.Instance.TakeDamage(target, effect.Value);
+                coMan.TakeDamage(target, effect.Value);
         }
         // HEALING
         else if (effect is HealEffect)
         {
             foreach (GameObject target in targets)
-                CardManager.Instance.HealDamage(target, effect.Value);
+                coMan.HealDamage(target, effect.Value);
         }
         else if (effect is ExhaustEffect ee)
         {
@@ -432,7 +444,7 @@ public class EffectManager : MonoBehaviour
         else if (effect is StatChangeEffect || effect is GiveAbilityEffect)
         {
             foreach (GameObject target in targets)
-                CardManager.Instance.AddEffect(target, effect);
+                AddEffect(target, effect);
         }
         else
         {
@@ -475,9 +487,9 @@ public class EffectManager : MonoBehaviour
         if (effectSource.TryGetComponent<ActionCardDisplay>(out _))
         {
             string zone;
-            if (effectSource.CompareTag(CardManager.PLAYER_CARD)) zone = CardManager.PLAYER_HAND;
-            else zone = CardManager.ENEMY_HAND;
-            CardManager.Instance.ChangeCardZone(effectSource, zone);
+            if (effectSource.CompareTag(CombatManager.PLAYER_CARD)) zone = CombatManager.PLAYER_HAND;
+            else zone = CombatManager.ENEMY_HAND;
+            coMan.ChangeCardZone(effectSource, zone);
             AnimationManager.Instance.RevealedHandState(effectSource);
         }
         FinishEffectGroup(true);
@@ -494,16 +506,176 @@ public class EffectManager : MonoBehaviour
         if (!wasAborted && effectSource.TryGetComponent<ActionCardDisplay>(out _))
         {
             string hero;
-            if (effectSource.CompareTag(CardManager.PLAYER_CARD)) hero = GameManager.PLAYER;
+            if (effectSource.CompareTag(CombatManager.PLAYER_CARD)) hero = GameManager.PLAYER;
             else hero = GameManager.ENEMY;
-            CardManager.Instance.DiscardCard(effectSource, hero, true);
+            coMan.DiscardCard(effectSource, hero, true);
         }
         newDrawnCards.Clear();
-        effectGroupList = null;
-        effectSource = null;
         currentEffectIndex = 0;
         currentEffectGroup = 0;
+        effectGroupList = null;
+        effectSource = null;
         legalTargets = null;
         acceptedTargets = null;
+    }
+
+    /******
+     * *****
+     * ****** ADD_EFFECT
+     * *****
+     *****/
+    public void AddEffect(GameObject card, Effect effect)
+    {
+        Debug.Log("EFFECT ADDED: <" + effect.ToString() + ">");
+        UnitCardDisplay ucd = coMan.GetUnitDisplay(card);
+        // GIVE_ABILITY_EFFECT
+        if (effect is GiveAbilityEffect gae)
+        {
+            GiveAbilityEffect newGae = ScriptableObject.CreateInstance<GiveAbilityEffect>();
+            newGae.LoadEffect(gae);
+            // If ability already exists, update countdown instead of adding
+            if (!ucd.AddCurrentAbility(newGae.CardAbility, true))
+            {
+                foreach (Effect effect2 in ucd.CurrentEffects)
+                    if (effect2 is GiveAbilityEffect gae2)
+                        if (gae2.CardAbility == newGae.CardAbility)
+                            if (newGae.Countdown == 0 || newGae.Countdown > gae2.Countdown)
+                                gae2.Countdown = newGae.Countdown;
+            }
+            else ucd.CurrentEffects.Add(newGae);
+        }
+        // STAT_CHANGE_EFFECT
+        else if (effect is StatChangeEffect sce)
+        {
+            StatChangeEffect newSce = ScriptableObject.CreateInstance<StatChangeEffect>();
+            newSce.LoadEffect(sce);
+            ucd.CurrentEffects.Add(newSce);
+            int statChange = sce.Value;
+            if (sce.IsNegative) statChange = -statChange;
+            if (sce.IsDefenseChange)
+            {
+                ucd.MaxDefense += statChange;
+                ucd.CurrentDefense += statChange;
+            }
+            else ucd.CurrentPower += statChange;
+        }
+        else
+        {
+            Debug.LogError("EFFECT TYPE NOT FOUND!");
+            return;
+        }
+    }
+
+    /******
+     * *****
+     * ****** REMOVE_TEMPORARY_EFFECTS
+     * *****
+     *****/
+    public void RemoveTemporaryEffects(string hero)
+    {
+        static void DestroyEffect(Effect effect)
+        {
+            Destroy(effect);
+            effect = null;
+        }
+        List<GameObject> cardZone;
+        if (hero == GameManager.PLAYER) cardZone = coMan.PlayerZoneCards;
+        else cardZone = coMan.EnemyZoneCards;
+        foreach (GameObject card in cardZone)
+        {
+            UnitCardDisplay fcd = coMan.GetUnitDisplay(card);
+            List<Effect> expiredEffects = new List<Effect>();
+            foreach (Effect effect in fcd.CurrentEffects)
+            {
+                if (effect.Countdown == 1) // Check for EXPIRED effects
+                {
+                    Debug.LogWarning("EFFECT REMOVED: <" + effect.ToString() + ">");
+                    // GIVE_ABILITY_EFFECT
+                    if (effect is GiveAbilityEffect gae)
+                        fcd.RemoveCurrentAbility(gae.CardAbility.AbilityName);
+                    // STAT_CHANGE_EFFECT
+                    else if (effect is StatChangeEffect sce)
+                    {
+                        int statChange = sce.Value;
+                        if (sce.IsNegative) statChange = -statChange;
+                        if (sce.IsDefenseChange)
+                        {
+                            fcd.CurrentDefense -= statChange;
+                            fcd.MaxDefense -= statChange;
+                        }
+                        else fcd.CurrentPower -= statChange;
+                    }
+                    expiredEffects.Add(effect);
+                }
+                else if (effect.Countdown != 0)
+                {
+                    effect.Countdown -= 1;
+                    Debug.LogWarning("COUNTOWN FOR EFFECT <" + effect.ToString() + "> IS: " + effect.Countdown);
+                }
+            }
+            foreach (Effect effect in expiredEffects)
+            {
+                fcd.CurrentEffects.Remove(effect);
+                DestroyEffect(effect);
+            }
+            fcd = null;
+            expiredEffects = null;
+        }
+    }
+
+    /******
+     * *****
+     * ****** TRIGGER_GIVE_NEXT_EFFECT
+     * *****
+     *****/
+    public void TriggerGiveNextEffect(GameObject card)
+    {
+        static void DestroyEffect(Effect effect)
+        {
+            Destroy(effect);
+            effect = null;
+        }
+        // GIVE_NEXT_FOLLOWER_EFFECTS
+        List<GiveNextUnitEffect> resolvedGnue = new List<GiveNextUnitEffect>();
+        if (GiveNextEffects.Count > 0)
+        {
+            List<GameObject> targets = new List<GameObject> { card };
+            foreach (GiveNextUnitEffect gnue in GiveNextEffects)
+            {
+                // CHECK FOR ALLY/ENEMY HERE
+                foreach (Effect e in gnue.Effects)
+                    ResolveEffect(targets, e);
+                if (--gnue.Multiplier < 1) resolvedGnue.Add(gnue);
+            }
+            foreach (GiveNextUnitEffect rGnue in resolvedGnue)
+            {
+                GiveNextEffects.Remove(rGnue);
+                DestroyEffect(rGnue);
+            }
+        }
+    }
+
+    /******
+     * *****
+     * ****** REMOVE_GIVE_NEXT_EFFECTS
+     * *****
+     *****/
+    public void RemoveGiveNextEffects()
+    {
+        static void DestroyEffect(Effect effect)
+        {
+            Destroy(effect);
+            effect = null;
+        }
+        List<GiveNextUnitEffect> gne = EffectManager.Instance.GiveNextEffects;
+        List<GiveNextUnitEffect> expiredGne = new List<GiveNextUnitEffect>();
+        foreach (GiveNextUnitEffect gnfe in gne)
+            if (gnfe.Countdown == 1) expiredGne.Add(gnfe);
+            else if (gnfe.Countdown != 0) gnfe.Countdown -= 1;
+        foreach (GiveNextUnitEffect xGnfe in expiredGne)
+        {
+            gne.Remove(xGnfe);
+            DestroyEffect(xGnfe);
+        }
     }
 }

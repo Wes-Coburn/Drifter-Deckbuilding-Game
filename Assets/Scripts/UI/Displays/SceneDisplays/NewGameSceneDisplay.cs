@@ -21,6 +21,7 @@ public class NewGameSceneDisplay : MonoBehaviour
     [SerializeField] private PlayerHero[] playerHeroes;
     [SerializeField] private HeroAugment[] heroAugments;
 
+    private CombatManager coMan;
     private GameObject currentSkill_1;
     private GameObject currentSkill_2;
     private int currentSelection;
@@ -31,6 +32,7 @@ public class NewGameSceneDisplay : MonoBehaviour
 
     private void Start()
     {
+        coMan = CombatManager.Instance;
         currentSelection = 0;
         heroSelected = false;
         augmentSelected = false;
@@ -114,8 +116,10 @@ public class NewGameSceneDisplay : MonoBehaviour
         heroPortrait.GetComponent<Image>().sprite = SelectedHero.HeroPortrait;
         heroDescription.GetComponent<TextMeshProUGUI>().SetText(SelectedHero.HeroDescription);
         heroPowerImage.GetComponent<Image>().sprite = SelectedHero.HeroPower.PowerSprite;
+        heroPowerImage.GetComponentInParent<PowerZoom>().LoadedPower = SelectedHero.HeroPower;
 
-        heroPowerImage.GetComponentInParent<PowerZoom>().LoadedPower = SelectedHero.HeroPower; // TESTING
+        Sound[] snd = SelectedHero.HeroPower.PowerSounds;
+        foreach (Sound s in snd) AudioManager.Instance.StartStopSound(null, s);
 
         int cost = SelectedHero.HeroPower.PowerCost;
         string actions;
@@ -137,8 +141,8 @@ public class NewGameSceneDisplay : MonoBehaviour
             currentSkill_2 = null;
         }
 
-        currentSkill_1 = CardManager.Instance.ShowCard(SelectedHero.HeroSkills[0]);
-        currentSkill_2 = CardManager.Instance.ShowCard(SelectedHero.HeroSkills[1]);
+        currentSkill_1 = coMan.ShowCard(SelectedHero.HeroSkills[0]);
+        currentSkill_2 = coMan.ShowCard(SelectedHero.HeroSkills[1]);
         currentSkill_1.transform.SetParent(skillCard_1.transform, false);
         currentSkill_2.transform.SetParent(skillCard_2.transform, false);
         Vector2 vec2 = new Vector2(4, 4);
