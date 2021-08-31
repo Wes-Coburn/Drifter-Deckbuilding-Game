@@ -14,7 +14,11 @@ public class CombatEndPopupDisplay : MonoBehaviour
         if (victoryText.activeSelf == true)
         {
             if (gm.IsCombatTest) gm.EndGame();
-            else SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene);
+            else
+            {
+                // Show rewards, new card popup
+                SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene);
+            }
         }
         else gm.EndGame();
     }

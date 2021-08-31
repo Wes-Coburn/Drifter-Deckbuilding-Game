@@ -16,7 +16,7 @@ public class CombatManager : MonoBehaviour
     }
 
     private GameManager gMan;
-    private CardManager cMan;
+    private CardManager caMan;
     private AudioManager auMan;
     private EffectManager efMan;
     private UIManager uMan;
@@ -64,7 +64,7 @@ public class CombatManager : MonoBehaviour
     private void Start()
     {
         gMan = GameManager.Instance;
-        cMan = CardManager.Instance;
+        caMan = CardManager.Instance;
         auMan = AudioManager.Instance;
         efMan = EffectManager.Instance;
         uMan = UIManager.Instance;
@@ -146,13 +146,13 @@ public class CombatManager : MonoBehaviour
         GameObject prefab = null;
         if (card is UnitCard)
         {
-            prefab = cMan.UnitCardPrefab;
+            prefab = caMan.UnitCardPrefab;
             if (isShowcase)
                 prefab = prefab.GetComponent<CardZoom>().UnitZoomCardPrefab;
         }
         else if (card is ActionCard)
         {
-            prefab = cMan.ActionCardPrefab;
+            prefab = caMan.ActionCardPrefab;
             if (isShowcase)
                 prefab = prefab.GetComponent<CardZoom>().ActionZoomCardPrefab;
         }
@@ -290,19 +290,16 @@ public class CombatManager : MonoBehaviour
      * ****** SET_CARD_PARENT
      * *****
      *****/
-    public void SetCardParent(GameObject card, Transform parent)
+    public void SetCardParent(GameObject card, Transform parent, bool isInHand = false)
     {
         card.transform.SetParent(parent, false);
         float xPos = card.transform.position.x;
         float yPos = card.transform.position.y;
-        card.transform.position = new Vector3(xPos, yPos, CARD_Z_POSITION);
-        // UNNECESSARY?
-        CardDisplay cd = card.GetComponent<CardDisplay>();
-        if (cd is UnitCardDisplay) 
-            card.GetComponent<ChangeLayer>().CardsLayer();
-        else if (cd is ActionCardDisplay)
-            card.GetComponent<ChangeLayer>().ActionsLayer();
-        else Debug.LogError("CARD DISPLAY TYPE NOT FOUND!");
+        int zPos;
+        if (isInHand) zPos = -3;
+        else zPos = CARD_Z_POSITION;
+        card.transform.position = 
+            new Vector3(xPos, yPos, zPos);        
     }
 
     /******
@@ -312,50 +309,51 @@ public class CombatManager : MonoBehaviour
      *****/
     public void ChangeCardZone(GameObject card, string zone)
     {
+        ChangeLayer chgLyr = card.GetComponent<ChangeLayer>();
         Transform zoneTran = null;
+        bool isInHand = false;
         switch (zone)
         {
             // PLAYER
             case PLAYER_HAND:
                 zoneTran = PlayerHand.transform;
                 anMan.RevealedHandState(card);
+                chgLyr.HandLayer(); // TESTING
+                isInHand = true; // TESTING
                 break;
             case PLAYER_ZONE:
                 zoneTran = PlayerZone.transform;
                 anMan.PlayedState(card);
+                chgLyr.CardsLayer(); // TESTING
                 break;
             case PLAYER_ACTION_ZONE:
                 zoneTran = PlayerActionZone.transform;
                 anMan.PlayedState(card);
-                break;
-            case PLAYER_DISCARD:
-                zoneTran = PlayerDiscard.transform;
-                anMan.RevealedPlayState(card);
+                chgLyr.ActionsLayer(); // TESTING
                 break;
             // ENEMY
             case ENEMY_HAND:
                 zoneTran = EnemyHand.transform;
+                chgLyr.HandLayer(); // TESTING
+                isInHand = true; // TESTING
                 break;
             case ENEMY_ZONE:
                 zoneTran = EnemyZone.transform;
                 anMan.PlayedState(card);
+                chgLyr.CardsLayer(); // TESTING
                 break;
             /*
             case ENEMY_ACTION_ZONE:
                 zoneTran = EnemyActionZone.transform;
                 AnimationManager.Instance.PlayedState(card);
             */
-            case ENEMY_DISCARD:
-                zoneTran = EnemyDiscard.transform;
-                anMan.RevealedPlayState(card);
-                break;
         }
-        SetCardParent(card, zoneTran);
-        if (card.GetComponent<CardDisplay>() is UnitCardDisplay fcd)
+        SetCardParent(card, zoneTran, isInHand);
+        if (card.GetComponent<CardDisplay>() is UnitCardDisplay ucd)
         {
             bool played = false;
             if (zone == PLAYER_ZONE || zone == ENEMY_ZONE) played = true;
-            fcd.ResetUnitCard(played);
+            ucd.ResetUnitCard(played);
         }
     }
 
@@ -368,7 +366,7 @@ public class CombatManager : MonoBehaviour
     {
         void PlayUnit()
         {
-            cMan.TriggerCardAbility(card, "Play");
+            caMan.TriggerCardAbility(card, "Play");
             FunctionTimer.Create(() => PlayCardSound(), 0f);
             FunctionTimer.Create(() => PlayAbilitySounds(), 0.4f);
         }
@@ -471,7 +469,7 @@ public class CombatManager : MonoBehaviour
     {
         void Destroy()
         {
-            cMan.TriggerCardAbility(card, "Revenge");
+            caMan.TriggerCardAbility(card, "Revenge");
             if (CardManager.GetAbility(card, "Marked"))
                 DrawCard(PLAYER);
 
@@ -519,10 +517,8 @@ public class CombatManager : MonoBehaviour
         if (defender != null)
         {
             if (attacker.CompareTag(defender.tag)) return false;
-            if (attacker.CompareTag(PLAYER_CARD))
+            if (attacker.CompareTag(PLAYER_CARD)) 
                 if (defender == PlayerHero) return false;
-                else if (attacker.CompareTag(ENEMY_CARD))
-                    if (defender == EnemyHero) return false;
         }
         if (GetUnitDisplay(attacker).IsExhausted)
         {
@@ -531,13 +527,16 @@ public class CombatManager : MonoBehaviour
             return false;
         }
         if (defender == null) return true; // For StartDrag in DragDrop
-        else if (defender != PlayerHero && defender != EnemyHero)
+        else if (defender.TryGetComponent(out UnitCardDisplay ucd))
+        {
+            if (ucd.CurrentDefense < 1) return false; // Destroyed units that haven't left play yet
             if (CardManager.GetAbility(defender, "Stealth"))
             {
                 if (!preCheck)
                     uMan.CreateFleetinInfoPopup("Units with Stealth can't be attacked!");
                 return false;
             }
+        }
         return true;
     }
 
@@ -577,9 +576,9 @@ public class CombatManager : MonoBehaviour
     public void Strike(GameObject striker, GameObject defender)
     {
         int power = GetUnitDisplay(striker).CurrentPower;
-        cMan.TriggerCardAbility(striker, "Strike");
+        caMan.TriggerCardAbility(striker, "Strike");
         if (TakeDamage(defender, power))
-            cMan.TriggerCardAbility(striker, "Deathblow");
+            caMan.TriggerCardAbility(striker, "Deathblow");
     }
 
     /******

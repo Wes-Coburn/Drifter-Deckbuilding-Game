@@ -18,7 +18,7 @@ MonoBehaviour:
   cardName: Scout
   cardType: Rogue
   cardSubType: 
-  cardDescription: The Scout is...
+  cardDescription: "\u201CInformation is power, and the power is mine.\u201D"
   overController: {fileID: 22100000, guid: d09c16b56c208c1469ace2b881283e1c, type: 2}
   zoomOverController: {fileID: 22100000, guid: dddb7a9b3a7f2504ebf2ca15baed1857, type: 2}
   cardPlaySound:
@@ -27,13 +27,13 @@ MonoBehaviour:
     volume: 0.8
     pitch: 1
     source: {fileID: 0}
+  power: 1
+  defense: 2
+  startingAbilities:
+  - {fileID: 11400000, guid: ea8bbf92057ca254aa8990f59e73dca5, type: 2}
   unitDeathSound:
     name: 
     clip: {fileID: 8300000, guid: e822913379ce59b49a61ad1d0c54aad4, type: 3}
     volume: 0.8
     pitch: 1
     source: {fileID: 0}
-  power: 1
-  defense: 2
-  startingAbilities:
-  - {fileID: 11400000, guid: ea8bbf92057ca254aa8990f59e73dca5, type: 2}

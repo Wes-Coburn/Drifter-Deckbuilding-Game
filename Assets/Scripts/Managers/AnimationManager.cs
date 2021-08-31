@@ -56,7 +56,7 @@ public class AnimationManager : MonoBehaviour
         {
             distance = Vector2.Distance(hand.transform.position, target);
             hand.transform.position = 
-                Vector2.MoveTowards(hand.transform.position, target, 20);
+                Vector2.MoveTowards(hand.transform.position, target, 30);
             yield return new WaitForFixedUpdate();
         }
         while (distance > 0);

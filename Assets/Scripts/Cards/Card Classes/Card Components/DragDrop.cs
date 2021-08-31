@@ -66,9 +66,9 @@ public class DragDrop : MonoBehaviour
         coMan.SetCardParent(gameObject, startParent.transform);
         transform.SetSiblingIndex(startIndex);
         transform.position = new Vector3(startPosition.x, startPosition.y, CombatManager.CARD_Z_POSITION);
-        if (GetComponent<CardDisplay>() is ActionCardDisplay) IsPlayed = false;
-        if (IsPlayed) AnimationManager.Instance.RevealedPlayState(gameObject);
-        else AnimationManager.Instance.RevealedHandState(gameObject);
+        if (TryGetComponent(out ActionCardDisplay _)) IsPlayed = false;
+        AnimationManager.Instance.RevealedHandState(gameObject);
+        GetComponent<ChangeLayer>().HandLayer(); // TESTING
     }
 
     public void StartDrag()
