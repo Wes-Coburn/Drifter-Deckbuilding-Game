@@ -30,13 +30,15 @@ public static class SceneLoader
         GameManager gMan = GameManager.Instance;
         DialogueManager dMan = DialogueManager.Instance;
         CombatManager coMan = CombatManager.Instance;
+        PlayerManager pMan = PlayerManager.Instance;
         FunctionTimer.Create(() => 
         auMan.StartStopSound("SFX_SceneLoading", null, AudioManager.SoundType.SFX, false, true), 1f);
 
         onSceneLoaderCallback = () =>
         {
             string chapterText;
-            if (scene == Scene.CombatScene) chapterText = "Combat!";
+            if (scene == Scene.CombatScene) chapterText = "COMBAT";
+            else if (scene == Scene.WorldMapScene) chapterText = "WORLD MAP";
             else chapterText = gMan.NextChapter;
             UnityEngine.Object.FindObjectOfType<LoadingSceneDisplay>().ChapterText = chapterText;
             FunctionTimer.Create(() => uMan.SetSceneFader(true), 5f);

@@ -53,14 +53,14 @@ public class GameManager : MonoBehaviour
     public const int MAX_ACTIONS_PER_TURN = 5;
     public const int MAXIMUM_ACTIONS = 5;
     public const string PLAYER = "Player";
-    public const int PLAYER_STARTING_HEALTH = 20;
-    //public const int PLAYER_STARTING_HEALTH = 5; // FOR TESTING ONLY
+    //public const int PLAYER_STARTING_HEALTH = 20;
+    public const int PLAYER_STARTING_HEALTH = 5; // FOR TESTING ONLY
     public const int PLAYER_HAND_SIZE = 4;
     public const int PLAYER_START_FOLLOWERS = 2;
     public const int PLAYER_START_SKILLS = 2;
     public const string ENEMY = "Enemy";
-    public const int ENEMY_STARTING_HEALTH = 20;
-    //public const int ENEMY_STARTING_HEALTH = 5; // FOR TESTING ONLY
+    //public const int ENEMY_STARTING_HEALTH = 20;
+    public const int ENEMY_STARTING_HEALTH = 5; // FOR TESTING ONLY
     public const int ENEMY_HAND_SIZE = 0;
     public const int ENEMY_START_FOLLOWERS = 5;
     public const int ENEMY_START_SKILLS = 2;
@@ -158,33 +158,21 @@ public class GameManager : MonoBehaviour
         auMan.StartStopSound("Soundtrack_Narrative1", null, AudioManager.SoundType.Soundtrack);
         NarrativeSceneDisplay nsd = FindObjectOfType<NarrativeSceneDisplay>();
         nsd.Narrative = NextNarrative;
-        //if (NextNarrative == newGameNarrative) NextNarrative = null;
-        Debug.LogWarning("START NARRATIVE: " + NextNarrative.ToString());
+        Debug.Log("START NARRATIVE: " + NextNarrative.ToString());
     }
     public void EndNarrative()
     {
-        if (NextNarrative == settingNarrative) // settingNarrative => NewGameScene
-        {
-            Debug.Log("settingNarrative => NewGameScene");
+        if (NextNarrative == settingNarrative) 
             SceneLoader.LoadScene(SceneLoader.Scene.NewGameScene);
-        }
-        else if (NextNarrative == pMan.PlayerHero.HeroBackstory) // heroBackstoryNarrative => newGameNarrative
+        else if (NextNarrative == pMan.PlayerHero.HeroBackstory)
         {
-            Debug.Log("heroBackstoryNarrative => newGameNarrative");
             NextNarrative = newGameNarrative;
             SceneLoader.LoadScene(SceneLoader.Scene.NarrativeScene, true);
         }
-        else if (NextNarrative == newGameNarrative) // newGameNarrative => DialogueScene
-        {
-            Debug.Log("newGameNarrative => DialogueScene");
-            SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene);
-        }
-        else
-        {
-            Debug.LogError("NO CONDITIONS MATCHED!");
-        }
+        else if (NextNarrative == newGameNarrative) 
+            SceneLoader.LoadScene(SceneLoader.Scene.WorldMapScene);
+        else Debug.LogError("NO CONDITIONS MATCHED!");
     }
-
 
     /******
      * *****
