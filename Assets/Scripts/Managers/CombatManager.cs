@@ -133,7 +133,6 @@ public class CombatManager : MonoBehaviour
 
         currentDeck.Clear();
         foreach (Card card in deckList) currentDeck.Add(card);
-        ShuffleDeck(currentDeck);
     }
 
     /******
@@ -553,7 +552,8 @@ public class CombatManager : MonoBehaviour
         Strike(attacker, defender);
         GetUnitDisplay(attacker).IsExhausted = true;
         if (CardManager.GetAbility(attacker, STEALTH))
-            attacker.GetComponent<UnitCardDisplay>().RemoveCurrentAbility(STEALTH);
+            FunctionTimer.Create(() => 
+            attacker.GetComponent<UnitCardDisplay>().RemoveCurrentAbility(STEALTH), 0.5f);
         bool defenderIsUnit;
         if (defender.CompareTag(ENEMY_CARD) || defender.CompareTag(PLAYER_CARD))
         {

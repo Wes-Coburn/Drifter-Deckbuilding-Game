@@ -24,7 +24,9 @@ public class GameManager : MonoBehaviour
     private EffectManager efMan;
     private AudioManager auMan;
     private DialogueManager dMan;
+    private int currentChapter;
 
+    [SerializeField] string[] gameChapters;
     [SerializeField] private GiveNextUnitEffect augmentBiogenEffect;
     [SerializeField] private Narrative settingNarrative;
     [SerializeField] private Narrative newGameNarrative;
@@ -35,6 +37,19 @@ public class GameManager : MonoBehaviour
     [SerializeField] private NPCHero npcTestHero;
     /* !FOR_TESTING_ONLY! */
 
+    public string NextChapter
+    {
+        get
+        {
+            if (currentChapter > (gameChapters.Length - 1)) return null;
+            else
+            {
+                string text = "Chapter " + (currentChapter + 1) + 
+                    ": " + gameChapters[currentChapter++];
+                return text;
+            }
+        }
+    }
     public Narrative NextNarrative { get; set; }
     public static List<NPCHero> ActiveNPCHeroes { get; private set; }
 
@@ -105,6 +120,7 @@ public class GameManager : MonoBehaviour
     public void NewGame()
     {
         IsCombatTest = false; // FOR TESTING ONLY
+        currentChapter = 0;
         NextNarrative = settingNarrative;
         SceneLoader.LoadScene(SceneLoader.Scene.NarrativeScene);
     }
@@ -117,6 +133,7 @@ public class GameManager : MonoBehaviour
     public void EndGame()
     {
         // Game Manager
+        currentChapter = 0; // Unnecessary
         foreach (NPCHero npc in ActiveNPCHeroes) Destroy(npc);
         ActiveNPCHeroes.Clear();
         // Player Manager
@@ -178,7 +195,6 @@ public class GameManager : MonoBehaviour
             return;
         }
         auMan.StartStopSound("Soundtrack_Combat1", null, AudioManager.SoundType.Soundtrack);
-        FunctionTimer.Create(() => auMan.StartStopSound("SFX_StartCombat"), 1f);
         /* UPDATE_DECKS */
         enMan.EnemyHero = enemyHero;
         coMan.UpdateDeck(PLAYER);
@@ -203,9 +219,18 @@ public class GameManager : MonoBehaviour
             gnue.LoadEffect(augmentBiogenEffect);
             efMan.GiveNextEffects.Add(gnue);
         }
-        for (int i = 0; i < PLAYER_HAND_SIZE; i++)
-            evMan.NewDelayedAction(() => coMan.DrawCard(PLAYER), 1f);
+        
+        AudioManager.Instance.StartStopSound("SFX_StartCombat");
+        evMan.NewDelayedAction(() => AnimationManager.Instance.CombatIntro(), 1f);
+        evMan.NewDelayedAction(() => CombatStart(), 4f);
         evMan.NewDelayedAction(() => StartTurn(PLAYER), 1f);
+
+        void CombatStart()
+        {
+            coMan.ShuffleDeck(pMan.CurrentPlayerDeck);
+            for (int i = 0; i < PLAYER_HAND_SIZE; i++)
+                evMan.NewDelayedAction(() => coMan.DrawCard(PLAYER), 0.5f);
+        }
     }
 
     /******

@@ -15,6 +15,14 @@ public class AnimationManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
+    private CombatManager coMan;
+    private Vector2 playerHandStart;
+
+    private void Start()
+    {
+        coMan = CombatManager.Instance;
+    }
+
     public void ChangeAnimationState(GameObject go, string animationState)
     {
         if (go.TryGetComponent<ActionCardDisplay>(out _)) return;
@@ -39,29 +47,96 @@ public class AnimationManager : MonoBehaviour
     //public void ModifyAttackState(GameObject card) => ChangeAnimationState(card, Modify_Attack);
     public void ModifyDefenseState(GameObject card) => ChangeAnimationState(card, "Modify_Defense");
     public void ZoomedState(GameObject card) => ChangeAnimationState(card, "Zoomed");
-    
+
+    /******
+     * *****
+     * ****** SHIFT_PLAYER_HAND
+     * *****
+     *****/
     public void ShiftPlayerHand(bool isUpShift)
     {
-        int yTarget;
-        if (isUpShift) yTarget = -350;
-        else yTarget = -550;
-        Vector2 target = new Vector2(0, yTarget);
-        GameObject hand = CombatManager.Instance.PlayerHand;
-        StartCoroutine(ShiftPlayerHandNumerator(hand, target));
+        StartCoroutine(HandShiftNumerator(isUpShift));
     }
-    private IEnumerator ShiftPlayerHandNumerator(GameObject hand, Vector2 target)
+    private IEnumerator HandShiftNumerator(bool isUpShift)
     {
         float distance;
+        float yTarget;
+        GameObject hand = coMan.PlayerHand;
+        if (isUpShift)
+        {
+            yTarget = -350;
+            playerHandStart = hand.transform.position;
+        }
+        else yTarget = playerHandStart.y;
+        Vector2 target = new Vector2(0, yTarget);
+
         do
         {
             distance = Vector2.Distance(hand.transform.position, target);
-            hand.transform.position = 
-                Vector2.MoveTowards(hand.transform.position, target, 30);
+            hand.transform.position = Vector2.MoveTowards(hand.transform.position, target, 30);
             yield return new WaitForFixedUpdate();
         }
         while (distance > 0);
         UIManager uMan = UIManager.Instance;
         uMan.PlayerIsDiscarding = uMan.PlayerIsTargetting;
+    }
+
+
+    /******
+     * *****
+     * ****** COMBAT_INTRO
+     * *****
+     *****/
+    public void CombatIntro()
+    {
+        StartCoroutine(CombatIntroNumerator());
+    }
+    private IEnumerator CombatIntroNumerator()
+    {
+        float distance;
+        GameObject pFrame = coMan.PlayerHero.GetComponent<HeroDisplay>().HeroFrame;
+        GameObject eFrame = coMan.EnemyHero.GetComponent<HeroDisplay>().HeroFrame;
+        Vector2 playerStart = pFrame.transform.position;
+        Vector2 enemyStart = eFrame.transform.position;
+        float scaleSpeed = 0.1f;
+        float fScale = 1;
+        float fZoomScale = 1.5f;
+        Vector2 scaleVec = new Vector2();
+
+        do
+        {
+            distance = Vector2.Distance(pFrame.transform.position, eFrame.transform.position);
+            pFrame.transform.position = Vector2.MoveTowards(pFrame.transform.position, eFrame.transform.position, 30);
+            eFrame.transform.position = Vector2.MoveTowards(eFrame.transform.position, pFrame.transform.position, 30);
+
+            if (fScale < fZoomScale) fScale += scaleSpeed;
+            else if (fScale > fZoomScale) fScale = fZoomScale;
+            scaleVec.Set(fScale, fScale);
+            pFrame.transform.localScale = scaleVec;
+            eFrame.transform.localScale = scaleVec;
+
+            yield return new WaitForFixedUpdate();
+        }
+        while (distance > 700);
+
+        UIManager.Instance.CreateVersusPopup();
+        yield return new WaitForSeconds(3f);
+
+        do
+        {
+            distance = Vector2.Distance(pFrame.transform.position, playerStart);
+            pFrame.transform.position = Vector2.MoveTowards(pFrame.transform.position, playerStart, 20);
+            eFrame.transform.position = Vector2.MoveTowards(eFrame.transform.position, enemyStart, 20);
+
+            if (fScale > 1) fScale -= scaleSpeed;
+            else if (fScale < 1) fScale = 1;
+            scaleVec.Set(fScale, fScale);
+            pFrame.transform.localScale = scaleVec;
+            eFrame.transform.localScale = scaleVec;
+
+            yield return new WaitForFixedUpdate();
+        }
+        while (distance > 0);
     }
 
     /******

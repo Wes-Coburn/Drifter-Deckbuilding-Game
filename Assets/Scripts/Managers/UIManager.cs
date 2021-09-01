@@ -30,6 +30,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject infoPopupPrefab;
     [SerializeField] private GameObject combatEndPopupPrefab;
     [SerializeField] private GameObject turnPopupPrefab;
+    [SerializeField] private GameObject versusPopupPrefab;
     [SerializeField] private GameObject sceneFader;
     [SerializeField] private GameObject menuPopupPrefab;
     [SerializeField] private Color highlightedColor;
@@ -282,6 +283,17 @@ public class UIManager : MonoBehaviour
             Destroy(turnPopup);
             turnPopup = null;
         }
+    }
+
+    /******
+     * *****
+     * ****** VERSUS_POPUP
+     * *****
+     *****/
+    public void CreateVersusPopup()
+    {
+        DestroyTurnPopup();
+        turnPopup = Instantiate(versusPopupPrefab, CurrentCanvas.transform);
     }
 
     /******

@@ -15,6 +15,9 @@ public abstract class HeroDisplay : MonoBehaviour
         }
     }
 
+    public GameObject HeroFrame { get => heroFrame; }
+    [SerializeField] private GameObject heroFrame;
+
     public Sprite HeroPortrait
     {
         set

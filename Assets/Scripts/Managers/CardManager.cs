@@ -79,15 +79,20 @@ public class CardManager : MonoBehaviour
      *****/
     public static bool GetAbility(GameObject card, string ability)
     {
-        UnitCardDisplay fcd = card.GetComponent<UnitCardDisplay>();
-        int abilityIndex = fcd.CurrentAbilities.FindIndex(x => x.AbilityName == ability);
+        if (card == null)
+        {
+            Debug.LogError("CARD IS NULL!");
+            return false;
+        }
+        UnitCardDisplay ucd = card.GetComponent<UnitCardDisplay>();
+        int abilityIndex = ucd.CurrentAbilities.FindIndex(x => x.AbilityName == ability);
         if (abilityIndex == -1) return false;
         else return true;
     }
     public static int GetAbilityIndex(GameObject card, string ability)
     {
-        UnitCardDisplay fcd = card.GetComponent<UnitCardDisplay>();
-        int abilityIndex = fcd.CurrentAbilities.FindIndex(x => x.AbilityName == ability);
+        UnitCardDisplay ucd = card.GetComponent<UnitCardDisplay>();
+        int abilityIndex = ucd.CurrentAbilities.FindIndex(x => x.AbilityName == ability);
         return abilityIndex;
     }
     public bool TriggerCardAbility(GameObject card, string triggerName)

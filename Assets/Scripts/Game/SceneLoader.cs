@@ -34,6 +34,7 @@ public static class SceneLoader
 
         onSceneLoaderCallback = () =>
         {
+            UnityEngine.Object.FindObjectOfType<LoadingSceneDisplay>().ChapterText = gMan.NextChapter;
             FunctionTimer.Create(() => uMan.SetSceneFader(true), 3f);
             FunctionTimer.Create(() => SceneManager.LoadScene(scene.ToString()), 5f);
             FunctionTimer.Create(() => uMan.SetSceneFader(false), 5f);
@@ -59,7 +60,7 @@ public static class SceneLoader
                 case Scene.DialogueScene:
                     if (dMan.EngagedHero == null)
                     {
-                        dMan.StartDialogue (gMan.GetActiveNPC(gMan.NPCTestHero)); // FOR TESTING ONLY
+                        dMan.StartDialogue(gMan.GetActiveNPC(gMan.NPCTestHero)); // FOR TESTING ONLY
                     }
                     else
                         dMan.StartDialogue(dMan.EngagedHero);

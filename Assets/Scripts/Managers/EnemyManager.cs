@@ -75,11 +75,11 @@ public class EnemyManager : MonoBehaviour
         int refo = CurrentReinforcements;
         List<int> refoSched = ReinforcementSchedule;
 
-        float refoDelay = 1f;
+        float refoDelay = 1;
         if (refoSched[refo] > 0)
         {
             evMan.NewDelayedAction(() => Reinforcements(), 1f);
-            refoDelay = 4f;
+            refoDelay = 4;
         }
 
         if ((refo + 1) < refoSched.Count) CurrentReinforcements++;
@@ -87,10 +87,10 @@ public class EnemyManager : MonoBehaviour
 
         evMan.NewDelayedAction(() => NextReinforcements(), refoDelay);
         for (int i = 0; i < refoSched[refo]; i++)
-            evMan.NewDelayedAction(() => coMan.DrawCard(GameManager.ENEMY), 1f);
+            evMan.NewDelayedAction(() => coMan.DrawCard(GameManager.ENEMY), 0.5f);
         for (int i = 0; i < refoSched[refo]; i++)
             evMan.NewDelayedAction(() => coMan.PlayCard(coMan.EnemyHandCards[0]), 2f);
-        evMan.NewDelayedAction(() => CMBeginAttack(), 1f);
+        evMan.NewDelayedAction(() => BeginAttack(), 1f);
 
         void Reinforcements()
         {
@@ -102,19 +102,19 @@ public class EnemyManager : MonoBehaviour
             coMan.EnemyHero.GetComponent<EnemyHeroDisplay>().NextReinforcements = 
                 refoSched[CurrentReinforcements];
         }
-        void CMBeginAttack()
+        void BeginAttack()
         {
             foreach (GameObject enemyUnit in coMan.EnemyZoneCards)
             {
                 UnitCardDisplay ucd = enemyUnit.GetComponent<UnitCardDisplay>();
                 if (!ucd.IsExhausted && ucd.CurrentPower > 0)
-                    evMan.NewDelayedAction(() => CMAttack(enemyUnit), 1f);
+                    evMan.NewDelayedAction(() => FinishAttack(enemyUnit), 1f);
             }
             // END TURN
             evMan.NewDelayedAction(() => 
             GameManager.Instance.EndTurn(GameManager.ENEMY), 2f);
         }
-        void CMAttack(GameObject enemyUnit)
+        void FinishAttack(GameObject enemyUnit)
         {
             bool isPlayed = coMan.EnemyZoneCards.Contains(enemyUnit);
             if (!isPlayed) return;
