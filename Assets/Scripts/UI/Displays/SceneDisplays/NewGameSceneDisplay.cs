@@ -54,29 +54,6 @@ public class NewGameSceneDisplay : MonoBehaviour
     }
     public void SelectRightArrow() => NextSelection(RightOrLeft.Right);
     public void SelectLeftArrow() => NextSelection(RightOrLeft.Left);
-    public void ConfirmSelection()
-    {
-        PlayerManager pm = PlayerManager.Instance;
-        if (!heroSelected)
-        {
-            PlayerHero newPH = ScriptableObject.CreateInstance<PlayerHero>();
-            newPH.LoadHero(SelectedHero);
-            pm.PlayerHero = newPH;
-            heroSelected = true;
-            currentSelection = 0;
-            DisplaySelectedAugment();
-        }
-        else if (!augmentSelected)
-        {
-            HeroAugment ha = SelectedAugment;
-            pm.HeroAugments.Add(ha);
-            augmentSelected = true;
-            GameManager.Instance.NextNarrative = pm.PlayerHero.HeroBackstory;
-            SceneLoader.LoadScene(SceneLoader.Scene.NarrativeScene);
-        }
-        else Debug.LogWarning("HERO + AUGMENT already confirmed!");
-    }
-
     public enum RightOrLeft { Right, Left }
     private void NextSelection(RightOrLeft rol)
     {
@@ -148,5 +125,28 @@ public class NewGameSceneDisplay : MonoBehaviour
         Vector2 vec2 = new Vector2(4, 4);
         currentSkill_1.transform.localScale = vec2;
         currentSkill_2.transform.localScale = vec2;
+    }
+
+    public void ConfirmSelection()
+    {
+        PlayerManager pm = PlayerManager.Instance;
+        if (!heroSelected)
+        {
+            PlayerHero newPH = ScriptableObject.CreateInstance<PlayerHero>();
+            newPH.LoadHero(SelectedHero);
+            pm.PlayerHero = newPH;
+            heroSelected = true;
+            currentSelection = 0;
+            DisplaySelectedAugment();
+        }
+        else if (!augmentSelected)
+        {
+            HeroAugment ha = SelectedAugment;
+            pm.HeroAugments.Add(ha);
+            augmentSelected = true;
+            GameManager.Instance.NextNarrative = pm.PlayerHero.HeroBackstory;
+            SceneLoader.LoadScene(SceneLoader.Scene.NarrativeScene);
+        }
+        else Debug.LogWarning("HERO + AUGMENT already confirmed!");
     }
 }

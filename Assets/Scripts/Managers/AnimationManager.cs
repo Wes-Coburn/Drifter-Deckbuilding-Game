@@ -79,6 +79,7 @@ public class AnimationManager : MonoBehaviour
         while (distance > 0);
         UIManager uMan = UIManager.Instance;
         uMan.PlayerIsDiscarding = uMan.PlayerIsTargetting;
+        uMan.DestroyZoomObjects();
     }
 
 

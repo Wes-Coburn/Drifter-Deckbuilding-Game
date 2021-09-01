@@ -9,7 +9,8 @@ public class LoadingSceneDisplay : MonoBehaviour
     {
         set
         {
-            chapterText.GetComponent<TextMeshProUGUI>().SetText(value);
+            string bookend = " --- ";
+            chapterText.GetComponent<TextMeshProUGUI>().SetText(bookend + value + bookend);
         }
     }
 }

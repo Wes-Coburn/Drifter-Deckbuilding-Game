@@ -23,7 +23,7 @@ public class NarrativeSceneDisplay : MonoBehaviour
         DialogueManager.Instance.TimedText(narrative.NarrativeText[value], 
             narrativeText.GetComponent<TextMeshProUGUI>());
     }
-
+    
     public void NextNarrative()
     {
         if (DialogueManager.Instance.CurrentTextRoutine != null)

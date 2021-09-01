@@ -13,6 +13,7 @@ public static class SceneLoader
         TitleScene,
         NewGameScene,
         NarrativeScene,
+        WorldMapScene,
         DialogueScene,
         CombatScene
     }
@@ -22,30 +23,34 @@ public static class SceneLoader
     {
         if (SceneIsLoading) return;
         if (!loadSameScene && SceneManager.GetActiveScene().name == scene.ToString()) return;
+        SceneIsLoading = true;
 
         UIManager uMan = UIManager.Instance;
         AudioManager auMan = AudioManager.Instance;
         GameManager gMan = GameManager.Instance;
         DialogueManager dMan = DialogueManager.Instance;
         CombatManager coMan = CombatManager.Instance;
-        SceneIsLoading = true;
         FunctionTimer.Create(() => 
         auMan.StartStopSound("SFX_SceneLoading", null, AudioManager.SoundType.SFX, false, true), 1f);
 
         onSceneLoaderCallback = () =>
         {
-            UnityEngine.Object.FindObjectOfType<LoadingSceneDisplay>().ChapterText = gMan.NextChapter;
-            FunctionTimer.Create(() => uMan.SetSceneFader(true), 3f);
-            FunctionTimer.Create(() => SceneManager.LoadScene(scene.ToString()), 5f);
-            FunctionTimer.Create(() => uMan.SetSceneFader(false), 5f);
+            string chapterText;
+            if (scene == Scene.CombatScene) chapterText = "Combat!";
+            else chapterText = gMan.NextChapter;
+            UnityEngine.Object.FindObjectOfType<LoadingSceneDisplay>().ChapterText = chapterText;
+            FunctionTimer.Create(() => uMan.SetSceneFader(true), 5f);
+            FunctionTimer.Create(() => SceneManager.LoadScene(scene.ToString()), 7f);
+            FunctionTimer.Create(() => uMan.SetSceneFader(false), 7f);
         };
 
         onSceneUpdateCallback = () =>
         {
-            SceneIsLoading = false;
             auMan.StartStopSound("SFX_SceneLoading", null, AudioManager.SoundType.SFX, true);
             uMan.Start();
             auMan.CleanAudioSources();
+            SceneIsLoading = false;
+
             switch (scene)
             {
                 case Scene.TitleScene:
@@ -56,6 +61,9 @@ public static class SceneLoader
                     break;
                 case Scene.NarrativeScene:
                     gMan.StartNarrative();
+                    break;
+                case Scene.WorldMapScene:
+                    // blank
                     break;
                 case Scene.DialogueScene:
                     if (dMan.EngagedHero == null)

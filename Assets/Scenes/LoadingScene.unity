@@ -159,7 +159,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -400}
-  m_SizeDelta: {x: 600, y: 150}
+  m_SizeDelta: {x: 600, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &68517309
 MonoBehaviour:
@@ -193,13 +193,13 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
+  m_enableVertexGradient: 1
+  m_colorMode: 2
   m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+    topLeft: {r: 0.9433962, g: 0.6484564, b: 0.031149892, a: 1}
+    topRight: {r: 0.9433962, g: 0.6484564, b: 0.031149892, a: 1}
+    bottomLeft: {r: 0, g: 0, b: 0, a: 1}
+    bottomRight: {r: 0, g: 0, b: 0, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
@@ -209,10 +209,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 150
-  m_fontSizeBase: 36
+  m_fontSize: 125
+  m_fontSizeBase: 125
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 500
   m_fontStyle: 0
@@ -388,7 +388,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 250}
-  m_SizeDelta: {x: 800, y: 500}
+  m_SizeDelta: {x: 800, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &842322814
 MonoBehaviour:
@@ -438,10 +438,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 309.35
-  m_fontSizeBase: 36
+  m_fontSize: 275
+  m_fontSizeBase: 275
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 500
   m_fontStyle: 0
@@ -523,7 +523,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -100}
-  m_SizeDelta: {x: 1000, y: 200}
+  m_SizeDelta: {x: 1200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &915951153
 MonoBehaviour:

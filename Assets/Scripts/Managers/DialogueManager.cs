@@ -147,11 +147,12 @@ public class DialogueManager : MonoBehaviour
                 dResponse = prompt.DialogueResponse3;
                 break;
         }
-
         DialogueClip nextClip = dResponse.Response_NextClip;
         if (nextClip == null) return;
-
+        DialoguePrompt nextPrompt = nextClip as DialoguePrompt;
+        EngagedHero.NextDialogueClip = nextClip;
         EngagedHero.RespectScore += dResponse.Response_Respect;
+
         // Exit
         if (dResponse.Response_IsExit)
         {
@@ -161,18 +162,20 @@ public class DialogueManager : MonoBehaviour
         // Combat Start
         if (dResponse.Response_IsCombatStart)
         {
-            EngagedHero.NextDialogueClip = dResponse.Response_NextClip;
             SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);
             return;
         }
-
-        DialoguePrompt nextPrompt = nextClip as DialoguePrompt;
+        // World Map Start
+        if (dResponse.Response_IsWorldMapStart)
+        {
+            SceneLoader.LoadScene(SceneLoader.Scene.WorldMapScene);
+            return;
+        }
         if (nextClip is DialoguePrompt)
         {
             // New Engaged Hero
             if (nextPrompt.NewEngagedHero != null)
             {
-                EngagedHero.NextDialogueClip = nextClip;
                 EngagedHero = GameManager.Instance.GetActiveNPC(nextPrompt.NewEngagedHero);
                 DisplayCurrentHeroes(EngagedHero);
             }
@@ -180,10 +183,10 @@ public class DialogueManager : MonoBehaviour
             if (nextPrompt.NewCard != null)
                 CardManager.Instance.AddCard(nextPrompt.NewCard, GameManager.PLAYER, false);
         }
+        // Next Prompt
         currentDialogueClip = nextClip;
         if (currentDialogueClip is DialogueFork) currentDialogueClip = DialogueFork();
-        if (nextPrompt.NewCard == null)
-            DisplayDialoguePopup();
+        if (nextPrompt.NewCard == null) DisplayDialoguePopup();
     }
 
     private DialogueClip DialogueFork()

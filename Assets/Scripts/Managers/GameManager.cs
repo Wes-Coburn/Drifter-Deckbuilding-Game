@@ -42,12 +42,7 @@ public class GameManager : MonoBehaviour
         get
         {
             if (currentChapter > (gameChapters.Length - 1)) return null;
-            else
-            {
-                string text = "Chapter " + (currentChapter + 1) + 
-                    ": " + gameChapters[currentChapter++];
-                return text;
-            }
+            else return gameChapters[currentChapter++];
         }
     }
     public Narrative NextNarrative { get; set; }
@@ -160,23 +155,34 @@ public class GameManager : MonoBehaviour
      *****/
     public void StartNarrative()
     {
-        //AudioManager.Instance.StartStopSound("Soundtrack_xxx", null, AudioManager.SoundType.Soundtrack);
-        Debug.Log("START NARRATIVE!");
         auMan.StartStopSound("Soundtrack_Narrative1", null, AudioManager.SoundType.Soundtrack);
         NarrativeSceneDisplay nsd = FindObjectOfType<NarrativeSceneDisplay>();
         nsd.Narrative = NextNarrative;
-        if (NextNarrative == newGameNarrative) NextNarrative = null;
+        //if (NextNarrative == newGameNarrative) NextNarrative = null;
+        Debug.LogWarning("START NARRATIVE: " + NextNarrative.ToString());
     }
     public void EndNarrative()
     {
-        if (NextNarrative == settingNarrative) 
-            SceneLoader.LoadScene(SceneLoader.Scene.NewGameScene);
-        else if (NextNarrative == pMan.PlayerHero.HeroBackstory)
+        if (NextNarrative == settingNarrative) // settingNarrative => NewGameScene
         {
+            Debug.Log("settingNarrative => NewGameScene");
+            SceneLoader.LoadScene(SceneLoader.Scene.NewGameScene);
+        }
+        else if (NextNarrative == pMan.PlayerHero.HeroBackstory) // heroBackstoryNarrative => newGameNarrative
+        {
+            Debug.Log("heroBackstoryNarrative => newGameNarrative");
             NextNarrative = newGameNarrative;
             SceneLoader.LoadScene(SceneLoader.Scene.NarrativeScene, true);
         }
-        else SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene);
+        else if (NextNarrative == newGameNarrative) // newGameNarrative => DialogueScene
+        {
+            Debug.Log("newGameNarrative => DialogueScene");
+            SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene);
+        }
+        else
+        {
+            Debug.LogError("NO CONDITIONS MATCHED!");
+        }
     }
 
 
