@@ -22,6 +22,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     [SerializeField] private GameObject abilityPopupPrefab;
     [SerializeField] private GameObject abilityPopupBoxPrefab;
     [SerializeField] private GameObject descriptionPopupPrefab;
+    [SerializeField] private CardAbility exhaustedAbility;
 
     public GameObject UnitZoomCardPrefab { get => unitZoomCardPrefab; }
     public GameObject ActionZoomCardPrefab { get => actionZoomCardPrefab; }
@@ -253,7 +254,11 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         if (cardDisplay is UnitCardDisplay ucd)
         {
             if (ZoomCardIsCentered) abilityList = ucd.UnitCard.StartingAbilities;
-            else abilityList = ucd.CurrentAbilities;
+            else
+            {
+                abilityList = ucd.CurrentAbilities;
+                if (ucd.IsExhausted) CreatePopup(exhaustedAbility);
+            }
         }
         else if (cardDisplay is ActionCardDisplay acd)
             abilityList = acd.ActionCard.LinkedAbilities;
@@ -263,16 +268,17 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
             else Debug.LogError("DISPLAY TYPE NOT FOUND!");
             return;
         }
-
         foreach (CardAbility ca in abilityList)
+        {
+            CreatePopup(ca);
+            foreach (CardAbility linkCa in ca.LinkedAbilites) 
+                CreatePopup(linkCa);
+        }
+
+        void CreatePopup(CardAbility ca)
         {
             GameObject abilityPopup = Instantiate(abilityPopupPrefab, AbilityPopupBox.transform);
             abilityPopup.GetComponent<AbilityPopupDisplay>().AbilityScript = ca;
-            foreach (CardAbility linkCa in ca.LinkedAbilites)
-            {
-                abilityPopup = Instantiate(abilityPopupPrefab, AbilityPopupBox.transform);
-                abilityPopup.GetComponent<AbilityPopupDisplay>().AbilityScript = linkCa;
-            }
         }
     }
 }
