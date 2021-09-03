@@ -53,14 +53,14 @@ public class GameManager : MonoBehaviour
     public const int MAX_ACTIONS_PER_TURN = 5;
     public const int MAXIMUM_ACTIONS = 5;
     public const string PLAYER = "Player";
-    public const int PLAYER_STARTING_HEALTH = 20;
-    //public const int PLAYER_STARTING_HEALTH = 5; // FOR TESTING ONLY
+    //public const int PLAYER_STARTING_HEALTH = 20;
+    public const int PLAYER_STARTING_HEALTH = 1; // FOR TESTING ONLY
     public const int PLAYER_HAND_SIZE = 4;
     public const int PLAYER_START_FOLLOWERS = 2;
     public const int PLAYER_START_SKILLS = 2;
     public const string ENEMY = "Enemy";
-    public const int ENEMY_STARTING_HEALTH = 20;
-    //public const int ENEMY_STARTING_HEALTH = 5; // FOR TESTING ONLY
+    //public const int ENEMY_STARTING_HEALTH = 20;
+    public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
     public const int ENEMY_HAND_SIZE = 0;
     public const int ENEMY_START_FOLLOWERS = 5;
     public const int ENEMY_START_SKILLS = 2;
@@ -163,7 +163,7 @@ public class GameManager : MonoBehaviour
     public void EndNarrative()
     {
         if (NextNarrative == settingNarrative) 
-            SceneLoader.LoadScene(SceneLoader.Scene.NewGameScene);
+            SceneLoader.LoadScene(SceneLoader.Scene.HeroSelectScene);
         else if (NextNarrative == pMan.PlayerHero.HeroBackstory)
         {
             NextNarrative = newGameNarrative;
@@ -181,6 +181,12 @@ public class GameManager : MonoBehaviour
      *****/
     public void StartCombat()
     {
+        HeroDisplay pHD = coMan.PlayerHero.GetComponent<HeroDisplay>();
+        HeroDisplay eHD = coMan.EnemyHero.GetComponent<HeroDisplay>();
+        pHD.HeroStats.SetActive(false);
+        eHD.HeroStats.SetActive(false);
+
+        coMan.IsInCombat = true;
         enMan.StartCombat();
         EnemyHero enemyHero = dMan.EngagedHero as EnemyHero;
         if (enemyHero == null)
@@ -214,10 +220,10 @@ public class GameManager : MonoBehaviour
             efMan.GiveNextEffects.Add(gnue);
         }
         
-        AudioManager.Instance.StartStopSound("SFX_StartCombat");
         evMan.NewDelayedAction(() => AnimationManager.Instance.CombatIntro(), 1f);
         evMan.NewDelayedAction(() => CombatStart(), 4f);
         evMan.NewDelayedAction(() => StartTurn(PLAYER), 1f);
+        AudioManager.Instance.StartStopSound("SFX_StartCombat");
 
         void CombatStart()
         {

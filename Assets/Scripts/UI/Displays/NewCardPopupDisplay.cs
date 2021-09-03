@@ -2,6 +2,11 @@ using UnityEngine;
 
 public class NewCardPopupDisplay : MonoBehaviour
 {
+    CardManager caMan;
+    CombatManager coMan;
+    PlayerManager pMan;
+    DialogueManager dMan;
+
     [SerializeField] private GameObject newCardZone;
     [SerializeField] private GameObject newCardChest;
     [SerializeField] private GameObject addCardButton;
@@ -18,6 +23,14 @@ public class NewCardPopupDisplay : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        caMan = CardManager.Instance;
+        coMan = CombatManager.Instance;
+        pMan = PlayerManager.Instance;
+        dMan = DialogueManager.Instance;
+    }
+
     private void DisplayNewCardChest()
     {
         gameObject.GetComponent<SoundPlayer>().PlaySound(0);
@@ -31,7 +44,6 @@ public class NewCardPopupDisplay : MonoBehaviour
         newCardChest.SetActive(false);
         addCardButton.SetActive(true);
         ignoreCardButton.SetActive(true);
-
         // Card Popup
         GameObject newCard = CombatManager.Instance.ShowCard(CurrentCard, true);
         CardZoom cz = newCard.GetComponent<CardZoom>();
@@ -43,6 +55,17 @@ public class NewCardPopupDisplay : MonoBehaviour
         cz.CreateAbilityPopups(new Vector2(500, 0), 3);
         CardZoom.AbilityPopupBox.transform.SetParent(newCardZone.transform, true);
 
+        if (CombatManager.Instance.IsInCombat) // TESTING
+        {
+            if (newCard.TryGetComponent(out ChangeLayer cl)) { }
+            else cl = newCard.AddComponent<ChangeLayer>();
+            cl.UILayer();
+
+            if (CardZoom.DescriptionPopup.TryGetComponent(out cl)) { }
+            else cl = CardZoom.DescriptionPopup.AddComponent<ChangeLayer>();
+            cl.UILayer();
+        }
+
         // Prevent DestroyZoomObjects() on ZoomAbilityIcon
         CardZoom.CurrentZoomCard = null;
         CardZoom.DescriptionPopup = null;
@@ -52,18 +75,34 @@ public class NewCardPopupDisplay : MonoBehaviour
     public void AddCard()
     {
         if (!CatchScreenDimmer()) return;
-        gameObject.GetComponent<SoundPlayer>().PlaySound(2);
-        CardManager.Instance.DestroyNewCardPopup();
-        DialogueManager.Instance.DisplayDialoguePopup();
+        GetComponent<SoundPlayer>().PlaySound(2);
+        caMan.DestroyNewCardPopup();
+        if (!coMan.IsInCombat) dMan.DisplayDialoguePopup();
+        else if (dMan.EngagedHero.NextDialogueClip is CombatRewardClip crc)
+        {
+            //if (crc.AetherCells != null)
+            dMan.EngagedHero.NextDialogueClip = crc.NextDialogueClip;
+            SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene);
+            coMan.IsInCombat = false;
+        }
+        else Debug.LogError("NEXT CLIP IS NOT COMBAT_REWARD_CLIP!");
     }
 
     public void IgnoreCard()
     {
         if (!CatchScreenDimmer()) return;
-        gameObject.GetComponent<SoundPlayer>().PlaySound(3);
-        PlayerManager.Instance.PlayerDeckList.Remove(CurrentCard);
-        CardManager.Instance.DestroyNewCardPopup();
-        DialogueManager.Instance.DisplayDialoguePopup();
+        GetComponent<SoundPlayer>().PlaySound(3);
+        pMan.PlayerDeckList.Remove(CurrentCard);
+        caMan.DestroyNewCardPopup();
+        if (!coMan.IsInCombat) dMan.DisplayDialoguePopup();
+        else if (dMan.EngagedHero.NextDialogueClip is CombatRewardClip crc)
+        {
+            //if (crc.AetherCells != null)
+            dMan.EngagedHero.NextDialogueClip = crc.NextDialogueClip;
+            SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene);
+            coMan.IsInCombat = false;
+        }
+        else Debug.LogError("NEXT CLIP IS NOT COMBAT_REWARD_CLIP!");
     }
 
     private bool CatchScreenDimmer()

@@ -11,7 +11,7 @@ public static class SceneLoader
     {
         LoadingScene,
         TitleScene,
-        NewGameScene,
+        HeroSelectScene,
         NarrativeScene,
         WorldMapScene,
         DialogueScene,
@@ -37,9 +37,21 @@ public static class SceneLoader
         onSceneLoaderCallback = () =>
         {
             string chapterText;
-            if (scene == Scene.CombatScene) chapterText = "COMBAT";
-            else if (scene == Scene.WorldMapScene) chapterText = "WORLD MAP";
-            else chapterText = gMan.NextChapter;
+            switch (scene)
+            {
+                case Scene.TitleScene:
+                    chapterText = "MAIN MENU";
+                    break;
+                case Scene.WorldMapScene:
+                    chapterText = "WORLD MAP";
+                    break;
+                case Scene.CombatScene:
+                    chapterText = "COMBAT";
+                    break;
+                default:
+                    chapterText = gMan.NextChapter;
+                    break;
+            }
             UnityEngine.Object.FindObjectOfType<LoadingSceneDisplay>().ChapterText = chapterText;
             FunctionTimer.Create(() => uMan.SetSceneFader(true), 5f);
             FunctionTimer.Create(() => SceneManager.LoadScene(scene.ToString()), 7f);
@@ -58,7 +70,7 @@ public static class SceneLoader
                 case Scene.TitleScene:
                     auMan.StartStopSound("Soundtrack_TitleScene", null, AudioManager.SoundType.Soundtrack);
                     break;
-                case Scene.NewGameScene:
+                case Scene.HeroSelectScene:
                     // blank
                     break;
                 case Scene.NarrativeScene:

@@ -547,6 +547,7 @@ public class EffectManager : MonoBehaviour
         // STAT_CHANGE_EFFECT
         else if (effect is StatChangeEffect sce)
         {
+            if (ucd.CurrentDefense < 1) return; // TESTING
             StatChangeEffect newSce = ScriptableObject.CreateInstance<StatChangeEffect>();
             newSce.LoadEffect(sce);
             ucd.CurrentEffects.Add(newSce);

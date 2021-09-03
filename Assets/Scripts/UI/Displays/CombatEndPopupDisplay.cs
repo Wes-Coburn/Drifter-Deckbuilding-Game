@@ -10,16 +10,29 @@ public class CombatEndPopupDisplay : MonoBehaviour
 
     public void OnClick()
     {
-        GameManager gm = GameManager.Instance;
+        GameManager gMan = GameManager.Instance;
+        DialogueManager dMan = DialogueManager.Instance;
         if (victoryText.activeSelf == true)
         {
-            if (gm.IsCombatTest) gm.EndGame();
+            if (gMan.IsCombatTest) gMan.EndGame();
             else
             {
-                // Show rewards, new card popup
-                SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene);
+                if (dMan.EngagedHero.NextDialogueClip is CombatRewardClip crc)
+                {
+                    if (crc.NewCard != null)
+                        CardManager.Instance.AddCard(crc.NewCard, GameManager.PLAYER, false);
+                    //else if (crc.AetherCells != null)
+                    else
+                    {
+                        dMan.EngagedHero.NextDialogueClip = crc.NextDialogueClip;
+                        SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene);
+                        CombatManager.Instance.IsInCombat = false;
+                    }
+                }
+                else Debug.LogError("NEXT CLIP IS NOT COMBAT_REWARD_CLIP!");
             }
         }
-        else gm.EndGame();
+        else gMan.EndGame(); // Keep this or change to restart combat
+        UIManager.Instance.DestroyCombatEndPopup(); // TESTING
     }
 }

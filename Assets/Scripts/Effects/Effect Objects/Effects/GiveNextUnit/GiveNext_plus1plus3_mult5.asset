@@ -9,9 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d70a0bdb5fcf4c14283d5c9c693fefb6, type: 3}
-  m_Name: Biogenic Enhancer
+  m_Script: {fileID: 11500000, guid: 3018fea1b5ec92c4f941c7a6a9dd49d7, type: 3}
+  m_Name: GiveNext_plus1plus3_mult5
   m_EditorClassIdentifier: 
-  AugmentName: Biogenic Enhancer
-  AugmentImage: {fileID: 21300000, guid: db8686449c5431e49ace3c27a0eade1a, type: 3}
-  AugmentDescription: Give the first five units you play +1/+0
+  IsRequired: 0
+  Value: 1
+  IsNegative: 0
+  Countdown: 0
+  TargetDescription: 
+  Effects:
+  - {fileID: 11400000, guid: 0cd1541fc82f10940ade9a20fbe37caa, type: 2}
+  Multiplier: 5

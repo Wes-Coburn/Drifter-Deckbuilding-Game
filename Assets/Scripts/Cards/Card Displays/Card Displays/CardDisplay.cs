@@ -104,7 +104,7 @@ public abstract class CardDisplay : MonoBehaviour
         {
             cardScript = card;
             string spacer = "";
-            if (string.IsNullOrEmpty(card.CardSubType)) spacer = " - ";
+            if (!string.IsNullOrEmpty(card.CardSubType)) spacer = " - ";
             CardTypeLine = card.CardType + spacer + card.CardSubType;
             CurrentActionCost = card.StartActionCost;
             CardName = card.CardName;
@@ -112,7 +112,7 @@ public abstract class CardDisplay : MonoBehaviour
             CardBorder = card.CardBorder;
         }
         
-        if (gameObject.TryGetComponent<Animator>(out animator))
+        if (gameObject.TryGetComponent(out animator))
         {
             animator.runtimeAnimatorController = CardScript.ZoomOverController;
             AnimationManager.Instance.ZoomedState(gameObject);

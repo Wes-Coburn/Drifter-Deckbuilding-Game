@@ -113,7 +113,8 @@ public class UnitCardDisplay : CardDisplay
             CurrentPower = uc.StartPower;
             MaxDefense = uc.StartDefense;
             CurrentDefense = uc.StartDefense;
-            foreach (CardAbility ca in uc.StartingAbilities) CurrentAbilities.Add(ca);
+            foreach (CardAbility ca in uc.StartingAbilities) 
+                CurrentAbilities.Add(ca);
             foreach (CardAbility cardAbility in uc.StartingAbilities)
             {
                 if (cardAbility == null) continue; // Skip empty abilities

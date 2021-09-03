@@ -309,6 +309,14 @@ public class UIManager : MonoBehaviour
         cepd.DefeatText.SetActive(!playerWins);
         cepd.GetComponent<SoundPlayer>().PlaySound(0);
     }
+    public void DestroyCombatEndPopup()
+    {
+        if (combatEndPopup != null)
+        {
+            Destroy(combatEndPopup);
+            combatEndPopup = null;
+        }
+    }
 
     /******
      * *****
@@ -360,7 +368,7 @@ public class UIManager : MonoBehaviour
                 }
                 break;
             // FENTIS
-            case "Fentis, Underworld Agent":
+            case "Fentis, Cyborg Hunter":
                 switch (scene)
                 {
                     case SceneLoader.Scene.DialogueScene:
@@ -374,7 +382,7 @@ public class UIManager : MonoBehaviour
                 }
                 break;
             default:
-                Debug.LogError("HERO NOT FOUND!");
+                Debug.LogError("HERO NAME NOT FOUND!");
                 return null;
         }
         return new PositionAndScale(position, scale);

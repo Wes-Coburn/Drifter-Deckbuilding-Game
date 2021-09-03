@@ -61,6 +61,8 @@ public class CombatManager : MonoBehaviour
     //public GameObject EnemyActionZone { get; private set; }
     public GameObject EnemyDiscard { get; private set; }
 
+    public bool IsInCombat { get; set; }
+
     private void Start()
     {
         gMan = GameManager.Instance;
@@ -466,12 +468,17 @@ public class CombatManager : MonoBehaviour
      *****/
     public void DestroyCard(GameObject card, string hero)
     {
-        void Destroy()
+        FunctionTimer.Create(() => Triggers(), 0.5f);
+        FunctionTimer.Create(() => Destroy(), 1);
+
+        void Triggers()
         {
             caMan.TriggerCardAbility(card, "Revenge");
             if (CardManager.GetAbility(card, "Marked"))
                 DrawCard(PLAYER);
-
+        }
+        void Destroy()
+        {
             if (hero == PLAYER)
             {
                 PlayerZoneCards.Remove(card);
@@ -483,7 +490,6 @@ public class CombatManager : MonoBehaviour
                 EnemyDiscardCards.Add(HideCard(card));
             }
         }
-        FunctionTimer.Create(() => Destroy(), 1f);
     }
 
     /******
@@ -589,6 +595,8 @@ public class CombatManager : MonoBehaviour
     public bool TakeDamage(GameObject target, int damageValue)
     {
         if (damageValue < 1) return false;
+        string SHIELD = "Shield";
+
         int targetValue;
         int newTargetValue;
         if (target == PlayerHero) targetValue = pMan.PlayerHealth;
@@ -608,10 +616,10 @@ public class CombatManager : MonoBehaviour
         }
         else // Damage to Units
         {
-            if (CardManager.GetAbility(target, "Shield"))
+            if (GetUnitDisplay(target).CurrentDefense < 1) return false;
+            if (CardManager.GetAbility(target, SHIELD))
             {
-                FunctionTimer.Create(() =>
-                target.GetComponent<UnitCardDisplay>().RemoveCurrentAbility("Shield"), 0.5f);
+                GetUnitDisplay(target).RemoveCurrentAbility(SHIELD);
                 return false;
             }
             else

@@ -95,21 +95,30 @@ public class AnimationManager : MonoBehaviour
     private IEnumerator CombatIntroNumerator()
     {
         float distance;
-        GameObject pFrame = coMan.PlayerHero.GetComponent<HeroDisplay>().HeroFrame;
-        GameObject eFrame = coMan.EnemyHero.GetComponent<HeroDisplay>().HeroFrame;
-        Vector2 playerStart = pFrame.transform.position;
-        Vector2 enemyStart = eFrame.transform.position;
+        HeroDisplay pHD = coMan.PlayerHero.GetComponent<HeroDisplay>();
+        HeroDisplay eHD = coMan.EnemyHero.GetComponent<HeroDisplay>();
+        GameObject pFrame = pHD.HeroFrame;
+        GameObject eFrame = eHD.HeroFrame;
+        GameObject pStats = pHD.HeroStats;
+        GameObject eStats = eHD.HeroStats;
+        Vector2 pFrameStart = pFrame.transform.position;
+        Vector2 eFrameStart = eFrame.transform.position;
+        Vector2 pStatsStart = pStats.transform.localPosition;
+        Vector2 eStatsStart = eStats.transform.localPosition;
         float scaleSpeed = 0.1f;
         float fScale = 1;
         float fZoomScale = 1.5f;
         Vector2 scaleVec = new Vector2();
+        pStats.SetActive(true);
+        eStats.SetActive(true);
+        pStats.transform.localPosition = new Vector2(pStatsStart.x, -450);
+        eStats.transform.localPosition = new Vector2(eStatsStart.x, 450);
 
         do
         {
             distance = Vector2.Distance(pFrame.transform.position, eFrame.transform.position);
             pFrame.transform.position = Vector2.MoveTowards(pFrame.transform.position, eFrame.transform.position, 30);
             eFrame.transform.position = Vector2.MoveTowards(eFrame.transform.position, pFrame.transform.position, 30);
-
             if (fScale < fZoomScale) fScale += scaleSpeed;
             else if (fScale > fZoomScale) fScale = fZoomScale;
             scaleVec.Set(fScale, fScale);
@@ -125,16 +134,23 @@ public class AnimationManager : MonoBehaviour
 
         do
         {
-            distance = Vector2.Distance(pFrame.transform.position, playerStart);
-            pFrame.transform.position = Vector2.MoveTowards(pFrame.transform.position, playerStart, 20);
-            eFrame.transform.position = Vector2.MoveTowards(eFrame.transform.position, enemyStart, 20);
-
+            distance = Vector2.Distance(pFrame.transform.position, pFrameStart);
+            pFrame.transform.position = Vector2.MoveTowards(pFrame.transform.position, pFrameStart, 20);
+            eFrame.transform.position = Vector2.MoveTowards(eFrame.transform.position, eFrameStart, 20);
             if (fScale > 1) fScale -= scaleSpeed;
             else if (fScale < 1) fScale = 1;
             scaleVec.Set(fScale, fScale);
             pFrame.transform.localScale = scaleVec;
             eFrame.transform.localScale = scaleVec;
+            yield return new WaitForFixedUpdate();
+        }
+        while (distance > 0);
 
+        do
+        {
+            distance = Vector2.Distance(pStats.transform.localPosition, pStatsStart);
+            pStats.transform.localPosition = Vector2.MoveTowards(pStats.transform.localPosition, pStatsStart, 20);
+            eStats.transform.localPosition = Vector2.MoveTowards(eStats.transform.localPosition, eStatsStart, 20);
             yield return new WaitForFixedUpdate();
         }
         while (distance > 0);

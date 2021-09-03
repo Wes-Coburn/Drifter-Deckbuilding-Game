@@ -196,7 +196,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
             Debug.LogError("CARD DISPLAY TYPE NOT FOUND!");
             return;
         }
-        CurrentZoomCard = CreateZoomObject(cardPrefab, new Vector3(vec2.x, vec2.y), worldSpace.transform, scaleValue);
+        CurrentZoomCard = CreateZoomObject(cardPrefab, new Vector2(vec2.x, vec2.y), worldSpace.transform, scaleValue);
         CurrentZoomCard.GetComponent<CardDisplay>().DisplayZoomCard(gameObject);
     }
 
@@ -230,7 +230,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
             worldSpace = UIManager.Instance.CurrentWorldSpace;
             cardDisplay = GetComponent<CardDisplay>();
         }
-        DescriptionPopup = CreateZoomObject(descriptionPopupPrefab, new Vector3(vec2.x, vec2.y), worldSpace.transform, scaleValue);
+        DescriptionPopup = CreateZoomObject(descriptionPopupPrefab, new Vector2(vec2.x, vec2.y), worldSpace.transform, scaleValue);
         DescriptionPopup.GetComponent<DescriptionPopupDisplay>().DisplayDescriptionPopup(cardDisplay.CardScript.CardDescription);
     }
 
@@ -248,7 +248,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         }
         
         AbilityPopupBox = CreateZoomObject(abilityPopupBoxPrefab, 
-            new Vector3(vec2.x, vec2.y), worldSpace.transform, scaleValue);
+            new Vector2(vec2.x, vec2.y), worldSpace.transform, scaleValue);
 
         List<CardAbility> abilityList;
         if (cardDisplay is UnitCardDisplay ucd)
@@ -279,6 +279,13 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         {
             GameObject abilityPopup = Instantiate(abilityPopupPrefab, AbilityPopupBox.transform);
             abilityPopup.GetComponent<AbilityPopupDisplay>().AbilityScript = ca;
+
+            if (CombatManager.Instance.IsInCombat) // TESTING
+            {
+                if (abilityPopup.TryGetComponent(out ChangeLayer cl)) { }
+                else cl = abilityPopup.AddComponent<ChangeLayer>();
+                cl.UILayer();
+            }
         }
     }
 }

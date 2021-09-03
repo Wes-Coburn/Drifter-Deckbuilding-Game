@@ -26,16 +26,18 @@ public class ActionCardDisplay : CardDisplay
     public override void DisplayZoomCard(GameObject parentCard, Card card = null)
     {
         base.DisplayZoomCard(parentCard, card);
-
+        TextMeshPro tmPro = cardDescription.GetComponent<TextMeshPro>();
+        string description;
         if (card == null)
         {
             ActionCardDisplay acd = parentCard.GetComponent<CardDisplay>() as ActionCardDisplay;
-            cardDescription.GetComponent<TextMeshPro>().SetText(acd.ActionCard.EffectDescription);
+            description = acd.ActionCard.EffectDescription;
         }
         else
         {
             ActionCard ac = card as ActionCard;
-            cardDescription.GetComponent<TextMeshPro>().SetText(ac.EffectDescription);
+            description = ac.EffectDescription;
         }
+        tmPro.SetText(description);
     }
 }

@@ -78,7 +78,7 @@ public class EnemyManager : MonoBehaviour
         float refoDelay = 1;
         if (refoSched[refo] > 0)
         {
-            evMan.NewDelayedAction(() => Reinforcements(), 1f);
+            evMan.NewDelayedAction(() => Reinforcements(), 1);
             refoDelay = 4;
         }
 
@@ -87,10 +87,10 @@ public class EnemyManager : MonoBehaviour
 
         evMan.NewDelayedAction(() => NextReinforcements(), refoDelay);
         for (int i = 0; i < refoSched[refo]; i++)
-            evMan.NewDelayedAction(() => coMan.DrawCard(GameManager.ENEMY), 0.5f);
+            evMan.NewDelayedAction(() => coMan.DrawCard(GameManager.ENEMY), 1);
         for (int i = 0; i < refoSched[refo]; i++)
-            evMan.NewDelayedAction(() => coMan.PlayCard(coMan.EnemyHandCards[0]), 2f);
-        evMan.NewDelayedAction(() => BeginAttack(), 1f);
+            evMan.NewDelayedAction(() => coMan.PlayCard(coMan.EnemyHandCards[0]), 2);
+        evMan.NewDelayedAction(() => BeginAttack(), 1);
 
         void Reinforcements()
         {
@@ -108,11 +108,11 @@ public class EnemyManager : MonoBehaviour
             {
                 UnitCardDisplay ucd = enemyUnit.GetComponent<UnitCardDisplay>();
                 if (!ucd.IsExhausted && ucd.CurrentPower > 0)
-                    evMan.NewDelayedAction(() => FinishAttack(enemyUnit), 1f);
+                    evMan.NewDelayedAction(() => FinishAttack(enemyUnit), 1);
             }
             // END TURN
             evMan.NewDelayedAction(() => 
-            GameManager.Instance.EndTurn(GameManager.ENEMY), 2f);
+            GameManager.Instance.EndTurn(GameManager.ENEMY), 2);
         }
         void FinishAttack(GameObject enemyUnit)
         {

@@ -8,6 +8,7 @@ public class ChangeLayer : MonoBehaviour
     private const string ACTIONS_LAYER = "Actions";
     private const string ZOOM_LAYER = "Zoom";
     private const string HAND_LAYER = "Hand";
+    private const string UI_LAYER = "UI";
 
     private string renderLayer;
     public string RenderLayer
@@ -16,7 +17,7 @@ public class ChangeLayer : MonoBehaviour
         set
         {
             renderLayer = value;
-            UpdateRenderLayer(gameObject.transform);
+            UpdateRenderLayer(transform);
         }
     }
 
@@ -24,6 +25,7 @@ public class ChangeLayer : MonoBehaviour
     public void ActionsLayer() => RenderLayer = ACTIONS_LAYER;
     public void HandLayer() => RenderLayer = HAND_LAYER;
     public void ZoomLayer() => RenderLayer = ZOOM_LAYER;
+    public void UILayer() => RenderLayer = UI_LAYER;
     private void UpdateRenderLayer(Transform tran)
     {
         foreach (Transform tranChild in tran)

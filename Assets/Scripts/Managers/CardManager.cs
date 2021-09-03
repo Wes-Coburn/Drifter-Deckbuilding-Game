@@ -60,7 +60,8 @@ public class CardManager : MonoBehaviour
     private void CreateNewCardPopup(Card card)
     {
         NewCardPopup = Instantiate(newCardPopupPrefab, UIManager.Instance.CurrentCanvas.transform);
-        NewCardPopup.GetComponent<NewCardPopupDisplay>().CurrentCard = card;
+        NewCardPopupDisplay ncpd = NewCardPopup.GetComponent<NewCardPopupDisplay>();
+        ncpd.CurrentCard = card;
         // play sounds
     }
     public void DestroyNewCardPopup()
@@ -91,12 +92,22 @@ public class CardManager : MonoBehaviour
     }
     public static int GetAbilityIndex(GameObject card, string ability)
     {
+        if (card == null)
+        {
+            Debug.LogError("CARD IS NULL!");
+            return -1;
+        }
         UnitCardDisplay ucd = card.GetComponent<UnitCardDisplay>();
         int abilityIndex = ucd.CurrentAbilities.FindIndex(x => x.AbilityName == ability);
         return abilityIndex;
     }
     public bool TriggerCardAbility(GameObject card, string triggerName)
     {
+        if (card == null)
+        {
+            Debug.LogError("CARD IS NULL!");
+            return false;
+        }
         foreach (CardAbility ca in card.GetComponent<UnitCardDisplay>().CurrentAbilities)
             if (ca is TriggeredAbility tra)
                 if (tra.AbilityTrigger.AbilityName == triggerName)
