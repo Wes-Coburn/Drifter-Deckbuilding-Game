@@ -23,9 +23,12 @@ public class CombatManager : MonoBehaviour
     private AnimationManager anMan;
     private PlayerManager pMan;
     private EnemyManager enMan;
-
     private const string PLAYER = GameManager.PLAYER;
     private const string ENEMY = GameManager.ENEMY;
+
+    [SerializeField] private GameObject dragArrowPrefab;
+    public GameObject DragArrowPrefab { get => dragArrowPrefab; }
+
     public const int CARD_Z_POSITION = -2;
     public const string PLAYER_CARD = "PlayerCard";
     public const string ENEMY_CARD = "EnemyCard";

@@ -14,8 +14,6 @@ public class DragDrop : MonoBehaviour
     private int startIndex;
     private const string SFX_DRAG_CARD = "SFX_DragCard";
 
-    [SerializeField] private GameObject dragArrowPrefab;
-
     public bool IsPlayed { get; set; }
     public static GameObject DraggingCard;
     public static bool ArrowIsDragging;
@@ -98,7 +96,8 @@ public class DragDrop : MonoBehaviour
             }
             ArrowIsDragging = true;
             if (dragArrow != null) Destroy(dragArrow);
-            dragArrow = Instantiate(dragArrowPrefab, UIManager.Instance.CurrentWorldSpace.transform);
+            dragArrow = Instantiate(CombatManager.Instance.DragArrowPrefab, 
+                UIManager.Instance.CurrentWorldSpace.transform);
             dragArrow.GetComponent<DragArrow>().SourceCard = gameObject;
             foreach (GameObject enemyUnit in coMan.EnemyZoneCards)
                 if (coMan.CanAttack(gameObject, enemyUnit, true))

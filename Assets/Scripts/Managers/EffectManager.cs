@@ -26,7 +26,7 @@ public class EffectManager : MonoBehaviour
     private List<List<GameObject>> acceptedTargets;
     private List<GameObject> newDrawnCards;
     private List<GiveNextUnitEffect> giveNextEffects;
-
+    private GameObject dragArrow;
 
     public Effect CurrentEffect
     {
@@ -228,10 +228,16 @@ public class EffectManager : MonoBehaviour
                 legalTargets[currentEffectGroup].Add(newTarget);
             newDrawnCards.Clear();
         }
+        else // TESTING
+        {
+            if (dragArrow != null) Destroy(dragArrow);
+            dragArrow = Instantiate(coMan.DragArrowPrefab, uMan.CurrentWorldSpace.transform);
+            dragArrow.GetComponent<DragArrow>().SourceCard = effectSource;
+        }
         foreach (GameObject target in legalTargets[currentEffectGroup])
         {
             if (target != null) target.GetComponent<CardSelect>().CardOutline.SetActive(true);
-            else Debug.LogError("TARGET WAS NULL!");
+            else Debug.LogError("TARGET IS NULL!");
         }
     }
 
@@ -391,6 +397,11 @@ public class EffectManager : MonoBehaviour
             {
                 AnimationManager.Instance.ShiftPlayerHand(false);
             }
+        }
+        else // TESTING
+        {
+            Destroy(dragArrow);
+            dragArrow = null;
         }
         StartNextEffect();
     }

@@ -81,8 +81,7 @@ public class UIManager : MonoBehaviour
     private IEnumerator FadeSceneNumerator(bool fadeOut)
     {
         Image img = sceneFader.GetComponent<Image>();
-        float alphaChange = 0.01f;
-        float changeDelay = 0.01f;
+        float alphaChange = 0.015f;
 
         if (fadeOut)
         {
@@ -92,7 +91,7 @@ public class UIManager : MonoBehaviour
                 tempColor.a = img.color.a + alphaChange;
                 if (tempColor.a > 1) tempColor.a = 1;
                 img.color = tempColor;
-                yield return new WaitForSeconds(changeDelay);
+                yield return new WaitForFixedUpdate();
             }
         }
         else
@@ -103,7 +102,7 @@ public class UIManager : MonoBehaviour
                 tempColor.a = img.color.a - alphaChange;
                 if (tempColor.a < 0) tempColor.a = 0;
                 img.color = tempColor;
-                yield return new WaitForSeconds(changeDelay);
+                yield return new WaitForFixedUpdate();
             }
         }
         sceneFadeRoutine = null;
@@ -368,7 +367,7 @@ public class UIManager : MonoBehaviour
                 }
                 break;
             // FENTIS
-            case "Fentis, Cyborg Hunter":
+            case "Fentis, Rogue Cyborg":
                 switch (scene)
                 {
                     case SceneLoader.Scene.DialogueScene:
