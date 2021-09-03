@@ -16,10 +16,10 @@ public class StudioSplashFader : MonoBehaviour
     }
     private IEnumerator FadeSplashNumerator()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(5f); // NORMALLY !<2>!
         UIManager.Instance.SetSceneFader(false);
         GetComponent<SoundPlayer>().PlaySound(0);
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(4f);
         while (splashGroup.alpha > 0)
         {
             splashGroup.alpha -= 0.01f;

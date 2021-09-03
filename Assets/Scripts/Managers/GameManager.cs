@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private NPCHero npcTestHero;
     /* !FOR_TESTING_ONLY! */
 
+    public bool HideExplicitLanguage { get; private set; }
     public string NextChapter
     {
         get
@@ -112,9 +113,10 @@ public class GameManager : MonoBehaviour
      * ****** NEW_GAME
      * *****
      *****/
-    public void NewGame()
+    public void NewGame(bool hideExplicitLanguage)
     {
         IsCombatTest = false; // FOR TESTING ONLY
+        HideExplicitLanguage = hideExplicitLanguage;
         currentChapter = 0;
         NextNarrative = settingNarrative;
         SceneLoader.LoadScene(SceneLoader.Scene.NarrativeScene);

@@ -69,17 +69,20 @@ public class DialogueManager : MonoBehaviour
         if (dpr.DialogueResponse1 == null)
             dialogueDisplay.Response_1 = "";
         else
-            dialogueDisplay.Response_1 = dpr.DialogueResponse1.ResponseText;
+            dialogueDisplay.Response_1 = 
+                FilterText(dpr.DialogueResponse1.ResponseText);
         // Response 2
         if (dpr.DialogueResponse2 == null)
             dialogueDisplay.Response_2 = "";
         else
-            dialogueDisplay.Response_2 = dpr.DialogueResponse2.ResponseText;
+            dialogueDisplay.Response_2 = 
+                FilterText(dpr.DialogueResponse2.ResponseText);
         // Response 3
         if (dpr.DialogueResponse3 == null)
             dialogueDisplay.Response_3 = "";
         else
-            dialogueDisplay.Response_3 = dpr.DialogueResponse3.ResponseText;
+            dialogueDisplay.Response_3 = 
+                FilterText(dpr.DialogueResponse3.ResponseText);
         /*
         // Journal Notes
         if (dpr.JournalNotes.Count > 0)
@@ -90,11 +93,47 @@ public class DialogueManager : MonoBehaviour
         */
     }
     
+    private string FilterText(string text)
+    {
+        if (!GameManager.Instance.HideExplicitLanguage) 
+            return text;
+        string[] filterWords =
+        {
+            "fucking", "Fucking",
+            "fucked", "Fucked",
+            "fucks", "Fucks",
+            "fuck", "Fuck",
+
+            "bitching", "Bitching",
+            "bitches", "Bitches",
+            "bitch", "Bitch",
+
+            "assholes", "Assholes",
+            "asshole", "Asshole",
+
+            "shitting", "Shitting",
+            "shits", "Shits",
+            "shit", "Shit"
+        };
+
+        string newText = text;
+        foreach (string s in filterWords)
+        {
+            string stars = "";
+            for (int i = 0; i < s.Length; i++) 
+                stars += "*";
+            newText = newText.Replace(s, stars);
+        }
+        return newText;
+    }
+
     public void TimedText(string text, TextMeshProUGUI tmPro)
     {
-        typedTextDelay = 0.05f; // TESTING
+        typedTextDelay = 0.05f;
         StopTimedText();
-        CurrentTextRoutine = StartCoroutine(TimedTextNumerator(text, tmPro));
+        string filteredText = FilterText(text);
+        CurrentTextRoutine = 
+            StartCoroutine(TimedTextNumerator(filteredText, tmPro));
     }
     public void StopTimedText(bool finishText = false)
     {

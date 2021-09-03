@@ -1,5 +1,10 @@
 using UnityEngine;
+using UnityEngine.UI;
 public class NewGameButton : MonoBehaviour
 {
-    public void OnClick() => GameManager.Instance.NewGame();
+    public void OnClick()
+    {
+        UIManager.Instance.CreateExplicitLanguagePopup();
+        GetComponent<Button>().interactable = false;
+    }
 }

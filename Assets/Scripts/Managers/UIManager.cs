@@ -33,8 +33,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject versusPopupPrefab;
     [SerializeField] private GameObject sceneFader;
     [SerializeField] private GameObject menuPopupPrefab;
+    [SerializeField] private GameObject explicitLanguagePopupPrefab;
     [SerializeField] private Color highlightedColor;
     [SerializeField] private Color selectedColor;
+
+    public GameObject ExplicitLanguagePopup { get; private set; }
     
     public bool PlayerIsTargetting { get; set; }
     public bool PlayerIsDiscarding { get; set; }
@@ -106,6 +109,25 @@ public class UIManager : MonoBehaviour
             }
         }
         sceneFadeRoutine = null;
+    }
+
+    /******
+     * *****
+     * ****** CREATE_DESTROY_EXPLICIT_LANGUAGE_POPUP
+     * *****
+     *****/
+    public void CreateExplicitLanguagePopup()
+    {
+        if (ExplicitLanguagePopup != null) return;
+        ExplicitLanguagePopup = Instantiate(explicitLanguagePopupPrefab, CurrentCanvas.transform);
+    }
+    public void DestroyExplicitLanguagePopup()
+    {
+        if (ExplicitLanguagePopup != null)
+        {
+            Destroy(ExplicitLanguagePopup);
+            ExplicitLanguagePopup = null;
+        }
     }
 
     /******
