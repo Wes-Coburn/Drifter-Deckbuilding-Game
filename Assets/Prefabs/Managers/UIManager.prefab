@@ -513,7 +513,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 800, y: 400}
+  m_SizeDelta: {x: 800, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2023161540
 CanvasRenderer:
@@ -698,6 +698,8 @@ MonoBehaviour:
     type: 3}
   sceneFader: {fileID: 1625156631375219772}
   menuPopupPrefab: {fileID: 9043051785176521042, guid: 8192d4bafb812aa40a56f2831bbfbe89,
+    type: 3}
+  explicitLanguagePopupPrefab: {fileID: 369909982322349126, guid: 65e967fe6f664a54db84bb91a331ad40,
     type: 3}
   highlightedColor: {r: 1, g: 1, b: 0, a: 0.39215687}
   selectedColor: {r: 1, g: 1, b: 1, a: 0.39215687}

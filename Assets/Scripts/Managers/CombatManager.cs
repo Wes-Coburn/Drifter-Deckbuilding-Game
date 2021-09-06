@@ -138,6 +138,7 @@ public class CombatManager : MonoBehaviour
 
         currentDeck.Clear();
         foreach (Card card in deckList) currentDeck.Add(card);
+        currentDeck.Shuffle();
     }
 
     /******

@@ -66,7 +66,7 @@ public class DragDrop : MonoBehaviour
         transform.position = new Vector3(startPosition.x, startPosition.y, CombatManager.CARD_Z_POSITION);
         if (TryGetComponent(out ActionCardDisplay _)) IsPlayed = false;
         AnimationManager.Instance.RevealedHandState(gameObject);
-        GetComponent<ChangeLayer>().HandLayer(); // TESTING
+        GetComponent<ChangeLayer>().HandLayer();
     }
 
     public void StartDrag()
@@ -130,8 +130,12 @@ public class DragDrop : MonoBehaviour
         ArrowIsDragging = false;
         Destroy(dragArrow);
         dragArrow = null;
-        if (Enemy != null && coMan.CanAttack(gameObject, Enemy))
-            coMan.Attack(gameObject, Enemy);
+        if (Enemy != null)
+        {
+            if (coMan.CanAttack(gameObject, Enemy)) 
+                coMan.Attack(gameObject, Enemy);
+            Enemy = null;
+        }
         else
         {
             Debug.Log("EndDrag! (NO ATTACK) IsExhausted = " + 
