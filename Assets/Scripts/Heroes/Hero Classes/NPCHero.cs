@@ -9,15 +9,12 @@ public class NPCHero : Hero
     public DialogueClip FirstDialogueClip { get => firstDialogueClip; }
     public DialogueClip NextDialogueClip { get; set; }
     public int RespectScore { get; set; }
-
-    private void Awake() => NextDialogueClip = FirstDialogueClip;
-
+    
     public override void LoadHero(Hero hero)
     {
         base.LoadHero(hero);
         NPCHero npc = hero as NPCHero;
         firstDialogueClip = npc.FirstDialogueClip;
-        NextDialogueClip = npc.NextDialogueClip;
         RespectScore = npc.RespectScore;
     }
 }

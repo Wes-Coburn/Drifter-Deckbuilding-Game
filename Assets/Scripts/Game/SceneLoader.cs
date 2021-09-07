@@ -77,15 +77,11 @@ public static class SceneLoader
                     gMan.StartNarrative();
                     break;
                 case Scene.WorldMapScene:
-                    // blank
+                    uMan.StartWorldMapScene(); // TESTING
+                    gMan.EnterWorldMap(); // TESTING
                     break;
                 case Scene.DialogueScene:
-                    if (dMan.EngagedHero == null)
-                    {
-                        dMan.StartDialogue(gMan.GetActiveNPC(gMan.NPCTestHero)); // FOR TESTING ONLY
-                    }
-                    else
-                        dMan.StartDialogue(dMan.EngagedHero);
+                    dMan.StartDialogue(dMan.EngagedHero); // TESTING
                     break;
                 case Scene.CombatScene:
                     uMan.StartCombatScene();

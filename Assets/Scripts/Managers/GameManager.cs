@@ -26,17 +26,14 @@ public class GameManager : MonoBehaviour
     private DialogueManager dMan;
     private int currentChapter;
 
+    [SerializeField] GameObject locationIconPrefab; // Chnage to ICON
     [SerializeField] string[] gameChapters;
     [SerializeField] private GiveNextUnitEffect augmentBiogenEffect;
     [SerializeField] private Narrative settingNarrative;
     [SerializeField] private Narrative newGameNarrative;
+    [SerializeField] private Location firstLocation;
 
-    /* !FOR_TESTING_ONLY! */
-    public NPCHero NPCTestHero { get => npcTestHero; }
-    public bool IsCombatTest { get; set; }
-    [SerializeField] private NPCHero npcTestHero;
-    /* !FOR_TESTING_ONLY! */
-
+    public bool IsCombatTest { get; set; } // FOR TESTING ONLY
     public bool HideExplicitLanguage { get; private set; }
     public string NextChapter
     {
@@ -47,7 +44,8 @@ public class GameManager : MonoBehaviour
         }
     }
     public Narrative NextNarrative { get; set; }
-    public static List<NPCHero> ActiveNPCHeroes { get; private set; }
+    public List<NPCHero> ActiveNPCHeroes { get; private set; }
+    public List<Location> ActiveLocations { get; private set; }
 
     /* GAME_MANAGER_DATA */
     public const int START_ACTIONS_PER_TURN = 1;
@@ -81,7 +79,8 @@ public class GameManager : MonoBehaviour
         efMan = EffectManager.Instance;
         auMan = AudioManager.Instance;
         dMan = DialogueManager.Instance;
-        ActiveNPCHeroes = new List<NPCHero>(); // STATIC
+        ActiveNPCHeroes = new List<NPCHero>();
+        ActiveLocations = new List<Location>();
     }
 
     /******
@@ -93,7 +92,6 @@ public class GameManager : MonoBehaviour
     {
         int activeNPC;
         activeNPC = ActiveNPCHeroes.FindIndex(x => x.HeroName == npc.HeroName);
-
         if (activeNPC != -1) return ActiveNPCHeroes[activeNPC];
         else
         {
@@ -103,8 +101,29 @@ public class GameManager : MonoBehaviour
             else newNPC = ScriptableObject.CreateInstance<NPCHero>();
             newNPC.LoadHero(npc);
             newNPC.NextDialogueClip = npc.FirstDialogueClip;
+            if (newNPC.NextDialogueClip == null) Debug.LogError("NEXT_CLIP IS NULL!");
             ActiveNPCHeroes.Add(newNPC);
             return newNPC;
+        }
+    }
+
+    /******
+     * *****
+     * ****** GET_ACTIVE_LOCATION
+     * *****
+     *****/
+    public Location GetActiveLocation(Location location)
+    {
+        int activeLocation;
+        activeLocation = ActiveLocations.FindIndex(x => x.LocationName == location.LocationName);
+        if (activeLocation != -1) return ActiveLocations[activeLocation];
+        else
+        {
+            Location newLocation = ScriptableObject.CreateInstance<Location>();
+            newLocation.LoadLocation(location);
+            newLocation.CurrentNPC = GetActiveNPC(location.FirstNPC);
+            ActiveLocations.Add(newLocation);
+            return newLocation;
         }
     }
 
@@ -119,6 +138,7 @@ public class GameManager : MonoBehaviour
         HideExplicitLanguage = hideExplicitLanguage;
         currentChapter = 0;
         NextNarrative = settingNarrative;
+        GetActiveLocation(firstLocation); // TESTING
         SceneLoader.LoadScene(SceneLoader.Scene.NarrativeScene);
     }
 
@@ -148,6 +168,28 @@ public class GameManager : MonoBehaviour
         evMan.ClearDelayedActions();
         // Scene Loader
         SceneLoader.LoadScene(SceneLoader.Scene.TitleScene);
+    }
+
+    /******
+     * *****
+     * ****** ENTER/EXIT_WORLD_MAP
+     * *****
+     *****/
+    public void EnterWorldMap()
+    {
+        Debug.Log("ENTER WORLD MAP!");
+        foreach (Location loc in ActiveLocations)
+        {
+            GameObject location = Instantiate(locationIconPrefab, uMan.CurrentCanvas.transform);
+            LocationIcon icon = location.GetComponent<LocationIcon>();
+            icon.Location = loc;
+            icon.LocationName = loc.LocationName;
+        }
+    }
+
+    public void ExitWorldMap()
+    {
+        Debug.Log("EXIT WORLD MAP!");
     }
 
     /******

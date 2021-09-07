@@ -53,6 +53,28 @@ public class UIManager : MonoBehaviour
 
     /******
      * *****
+     * ****** START_COMBAT_SCENE
+     * *****
+     *****/
+    public void StartCombatScene()
+    {
+        endTurnButton = GameObject.Find("EndTurnButton");
+        playerZoneOutline = GameObject.Find("PlayerZoneOutline");
+        playerZoneOutline.SetActive(false);
+    }
+
+    /******
+     * *****
+     * ****** START_WORLD_MAP_SCENE
+     * *****
+     *****/
+    public void StartWorldMapScene()
+    {
+        // blank
+    }
+
+    /******
+     * *****
      * ****** SET_PLAYER_ZONE_OUTLINE
      * *****
      *****/
@@ -148,18 +170,6 @@ public class UIManager : MonoBehaviour
             Destroy(menuPopup);
             menuPopup = null;
         }
-    }
-
-    /******
-     * *****
-     * ****** START_COMBAT_SCENE
-     * *****
-     *****/
-    public void StartCombatScene()
-    {
-        endTurnButton = GameObject.Find("EndTurnButton");
-        playerZoneOutline = GameObject.Find("PlayerZoneOutline");
-        playerZoneOutline.SetActive(false);
     }
 
     /******
