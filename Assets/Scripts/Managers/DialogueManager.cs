@@ -16,21 +16,21 @@ public class DialogueManager : MonoBehaviour
         else Destroy(gameObject);
     }
     
-    public NPCHero EngagedHero { get; set; } // PUBLIC SET FOR COMBAT TEST BUTTON
     private DialogueClip currentDialogueClip;
     private DialogueSceneDisplay dialogueDisplay;
-
-    public Coroutine CurrentTextRoutine { get; private set; }
     private string currentTypedText;
     private TextMeshProUGUI currentTmPro;
     private float typedTextDelay;
 
+    public NPCHero EngagedHero { get; set; } // PUBLIC SET FOR COMBAT TEST BUTTON
+    public Coroutine CurrentTextRoutine { get; private set; }
+
     private void DisplayCurrentHeroes(NPCHero hero)
     {
         PlayerManager pm = PlayerManager.Instance;
-        dialogueDisplay.PlayerHeroPortrait = pm.PlayerHero.HeroPortrait;
+        dialogueDisplay.PlayerHeroImage = pm.PlayerHero.HeroPortrait;
         dialogueDisplay.PlayerHeroName = pm.PlayerHero.HeroName;
-        dialogueDisplay.NPCHeroPortrait = hero.HeroPortrait;
+        dialogueDisplay.NPCHeroImage = hero.HeroPortrait;
         dialogueDisplay.NPCHeroName = hero.HeroName;
     }
 
@@ -38,6 +38,9 @@ public class DialogueManager : MonoBehaviour
     {
         AudioManager.Instance.StartStopSound("Soundtrack_Dialogue1", null, AudioManager.SoundType.Soundtrack);
         dialogueDisplay = FindObjectOfType<DialogueSceneDisplay>();
+        dialogueDisplay.PlayerHeroPortrait.SetActive(false);
+        dialogueDisplay.NPCHeroPortrait.SetActive(false);
+
         currentDialogueClip = npc.NextDialogueClip;
         if (currentDialogueClip == null)
         {
@@ -46,6 +49,7 @@ public class DialogueManager : MonoBehaviour
         }
         DisplayCurrentHeroes(npc);
         DisplayDialoguePopup();
+        AnimationManager.Instance.DialogueIntro();
     }
 
     public void EndDialogue(DialogueClip nextClip = null)

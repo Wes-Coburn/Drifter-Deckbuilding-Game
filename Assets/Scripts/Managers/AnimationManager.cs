@@ -26,7 +26,7 @@ public class AnimationManager : MonoBehaviour
     public void ChangeAnimationState(GameObject go, string animationState)
     {
         if (go.TryGetComponent<ActionCardDisplay>(out _)) return;
-        if (go.TryGetComponent<Animator>(out Animator anim))
+        if (go.TryGetComponent(out Animator anim))
             if (anim.enabled)
                 anim.Play(animationState);
             else Debug.LogWarning("ANIMATOR NOT FOUND!");
@@ -82,6 +82,38 @@ public class AnimationManager : MonoBehaviour
         uMan.DestroyZoomObjects();
     }
 
+    /******
+     * *****
+     * ****** DIALOGUE_INTRO
+     * *****
+     *****/
+    public void DialogueIntro()
+    {
+        StartCoroutine(DialogueIntroNumerator());
+    }
+    private IEnumerator DialogueIntroNumerator()
+    {
+        float distance;
+        DialogueSceneDisplay dsp = FindObjectOfType<DialogueSceneDisplay>();
+        GameObject playerPortrait = dsp.PlayerHeroPortrait;
+        GameObject npcPortrait = dsp.NPCHeroPortrait;
+        Vector2 pPortStart = playerPortrait.transform.localPosition;
+        Vector2 nPortStart = npcPortrait.transform.localPosition;
+        playerPortrait.SetActive(true);
+        npcPortrait.SetActive(true);
+        playerPortrait.transform.localPosition = new Vector2(600, pPortStart.y);
+        npcPortrait.transform.localPosition = new Vector2(-600, nPortStart.y);
+
+        yield return new WaitForSeconds(0.5f);
+        do
+        {
+            distance = Vector2.Distance(playerPortrait.transform.position, pPortStart);
+            playerPortrait.transform.localPosition = Vector2.MoveTowards(playerPortrait.transform.localPosition, pPortStart, 30);
+            npcPortrait.transform.localPosition = Vector2.MoveTowards(npcPortrait.transform.localPosition, nPortStart, 30);
+            yield return new WaitForFixedUpdate();
+        }
+        while (distance > 0);
+    }
 
     /******
      * *****

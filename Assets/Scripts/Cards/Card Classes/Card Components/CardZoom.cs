@@ -68,8 +68,8 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData pointerEventData)
     {
         if (pointerEventData.button != PointerEventData.InputButton.Right) return;
-        if (DragDrop.DraggingCard != null || ZoomCardIsCentered) return;
-        if (transform.parent.gameObject == enemyHand) return; // HIDE THE ENEMY HAND
+        if (DragDrop.DraggingCard != null || ZoomCardIsCentered || 
+            UIManager.Instance.PlayerIsTargetting || transform.parent.gameObject == enemyHand) return;
 
         FunctionTimer.StopTimer(ZOOM_CARD_TIMER);
         FunctionTimer.StopTimer(ABILITY_POPUP_TIMER);

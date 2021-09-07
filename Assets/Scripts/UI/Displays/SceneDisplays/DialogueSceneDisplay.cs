@@ -5,24 +5,27 @@ using TMPro;
 public class DialogueSceneDisplay : MonoBehaviour
 {
     [SerializeField] private GameObject playerHeroPortrait;
+    [SerializeField] private GameObject playerHeroImage;
     [SerializeField] private GameObject playerHeroName;
     [SerializeField] private GameObject npcHeroPortrait;
+    [SerializeField] private GameObject npcHeroImage;
     [SerializeField] private GameObject npcHeroName;
     [SerializeField] private GameObject npcHeroSpeech;
     [SerializeField] private GameObject response_1;
     [SerializeField] private GameObject response_2;
     [SerializeField] private GameObject response_3;
 
-    public Sprite PlayerHeroPortrait
+    public GameObject PlayerHeroPortrait { get => playerHeroPortrait; }
+    public Sprite PlayerHeroImage
     {
         set
         {
-            playerHeroPortrait.GetComponent<Image>().sprite = value;
+            playerHeroImage.GetComponent<Image>().sprite = value;
             UIManager.PositionAndScale pas = UIManager.Instance.GetPortraitPosition
                 (PlayerManager.Instance.PlayerHero.HeroName, SceneLoader.Scene.DialogueScene);
             if (pas == null) return;
-            playerHeroPortrait.transform.localPosition = pas.Position;
-            playerHeroPortrait.transform.localScale = pas.Scale;
+            playerHeroImage.transform.localPosition = pas.Position;
+            playerHeroImage.transform.localScale = pas.Scale;
         }
     }
     public string PlayerHeroName
@@ -32,11 +35,12 @@ public class DialogueSceneDisplay : MonoBehaviour
             playerHeroName.GetComponent<TextMeshProUGUI>().SetText(value);
         }
     }
-    public Sprite NPCHeroPortrait
+    public GameObject NPCHeroPortrait { get => npcHeroPortrait; }
+    public Sprite NPCHeroImage
     {
         set
         {
-            npcHeroPortrait.GetComponent<Image>().sprite = value;
+            npcHeroImage.GetComponent<Image>().sprite = value;
         }
     }
     public string NPCHeroName
