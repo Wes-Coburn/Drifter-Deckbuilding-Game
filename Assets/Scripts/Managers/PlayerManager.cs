@@ -19,6 +19,7 @@ public class PlayerManager : MonoBehaviour
     private int playerHealth;
     private int playerActionsLeft;
 
+    public int AetherCells { get; set; }
     public List<HeroAugment> HeroAugments { get; private set; }
     public List<Card> PlayerDeckList { get; private set; }
     public List<Card> CurrentPlayerDeck { get; private set; }
@@ -31,13 +32,14 @@ public class PlayerManager : MonoBehaviour
         set
         {
             playerHero = value;
-            if (PlayerDeckList == null || CurrentPlayerDeck == null) return; // TESTING
+            if (PlayerDeckList == null || CurrentPlayerDeck == null) return;
             PlayerDeckList.Clear();
             if (value == null)
             {
                 CurrentPlayerDeck.Clear();
                 return;
             }
+            AetherCells = 0; // TESTING
             CardManager cm = CardManager.Instance;
             for (int i = 0; i < GameManager.PLAYER_START_FOLLOWERS; i++)
                 foreach (UnitCard uc in cm.PlayerStartUnits)

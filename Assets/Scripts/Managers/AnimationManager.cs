@@ -94,7 +94,7 @@ public class AnimationManager : MonoBehaviour
     private IEnumerator DialogueIntroNumerator()
     {
         float distance;
-        DialogueSceneDisplay dsp = FindObjectOfType<DialogueSceneDisplay>();
+        DialogueSceneDisplay dsp = DialogueManager.Instance.DialogueDisplay;
         GameObject playerPortrait = dsp.PlayerHeroPortrait;
         GameObject npcPortrait = dsp.NPCHeroPortrait;
         Vector2 pPortStart = playerPortrait.transform.localPosition;
@@ -107,12 +107,13 @@ public class AnimationManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         do
         {
-            distance = Vector2.Distance(playerPortrait.transform.position, pPortStart);
+            distance = Vector2.Distance(playerPortrait.transform.localPosition, pPortStart);
             playerPortrait.transform.localPosition = Vector2.MoveTowards(playerPortrait.transform.localPosition, pPortStart, 30);
             npcPortrait.transform.localPosition = Vector2.MoveTowards(npcPortrait.transform.localPosition, nPortStart, 30);
             yield return new WaitForFixedUpdate();
         }
         while (distance > 0);
+        // PLAY SOUND
     }
 
     /******
@@ -145,7 +146,7 @@ public class AnimationManager : MonoBehaviour
         eStats.SetActive(true);
         pStats.transform.localPosition = new Vector2(pStatsStart.x, -450);
         eStats.transform.localPosition = new Vector2(eStatsStart.x, 450);
-
+        
         do
         {
             distance = Vector2.Distance(pFrame.transform.position, eFrame.transform.position);
@@ -163,7 +164,6 @@ public class AnimationManager : MonoBehaviour
 
         UIManager.Instance.CreateVersusPopup();
         yield return new WaitForSeconds(3f);
-
         do
         {
             distance = Vector2.Distance(pFrame.transform.position, pFrameStart);

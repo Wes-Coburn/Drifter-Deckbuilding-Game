@@ -22,6 +22,8 @@ public class UIManager : MonoBehaviour
     private GameObject combatEndPopup;
     private GameObject turnPopup;
     private GameObject menuPopup;
+    private GameObject explicitLanguagePopup;
+    private GameObject aetherCellPopup;
     private GameObject endTurnButton;
     private Coroutine sceneFadeRoutine;
     private GameObject playerZoneOutline;
@@ -34,10 +36,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject sceneFader;
     [SerializeField] private GameObject menuPopupPrefab;
     [SerializeField] private GameObject explicitLanguagePopupPrefab;
+    [SerializeField] private GameObject aetherCellPopupPrefab;
     [SerializeField] private Color highlightedColor;
     [SerializeField] private Color selectedColor;
-
-    public GameObject ExplicitLanguagePopup { get; private set; }
     
     public bool PlayerIsTargetting { get; set; }
     public bool PlayerIsDiscarding { get; set; }
@@ -53,7 +54,7 @@ public class UIManager : MonoBehaviour
 
     /******
      * *****
-     * ****** START_COMBAT_SCENE
+     * ****** START_SCENE
      * *****
      *****/
     public void StartCombatScene()
@@ -62,12 +63,6 @@ public class UIManager : MonoBehaviour
         playerZoneOutline = GameObject.Find("PlayerZoneOutline");
         playerZoneOutline.SetActive(false);
     }
-
-    /******
-     * *****
-     * ****** START_WORLD_MAP_SCENE
-     * *****
-     *****/
     public void StartWorldMapScene()
     {
         // blank
@@ -135,26 +130,26 @@ public class UIManager : MonoBehaviour
 
     /******
      * *****
-     * ****** CREATE_DESTROY_EXPLICIT_LANGUAGE_POPUP
+     * ****** CREATE/DESTROY_EXPLICIT_LANGUAGE_POPUP
      * *****
      *****/
     public void CreateExplicitLanguagePopup()
     {
-        if (ExplicitLanguagePopup != null) return;
-        ExplicitLanguagePopup = Instantiate(explicitLanguagePopupPrefab, CurrentCanvas.transform);
+        if (explicitLanguagePopup != null) return;
+        explicitLanguagePopup = Instantiate(explicitLanguagePopupPrefab, CurrentCanvas.transform);
     }
     public void DestroyExplicitLanguagePopup()
     {
-        if (ExplicitLanguagePopup != null)
+        if (explicitLanguagePopup != null)
         {
-            Destroy(ExplicitLanguagePopup);
-            ExplicitLanguagePopup = null;
+            Destroy(explicitLanguagePopup);
+            explicitLanguagePopup = null;
         }
     }
 
     /******
      * *****
-     * ****** CREATE_DESTROY_MENU_POPUP
+     * ****** CREATE/DESTROY_MENU_POPUP
      * *****
      *****/
     public void CreateMenuPopup()
@@ -208,7 +203,7 @@ public class UIManager : MonoBehaviour
 
     /******
      * *****
-     * ****** SETTERS
+     * ****** UPDATE_END_TURN_BUTTON
      * *****
      *****/
     public void UpdateEndTurnButton(bool isMyTurn)
@@ -268,7 +263,7 @@ public class UIManager : MonoBehaviour
 
     /******
      * *****
-     * ****** INFO_POPUP
+     * ****** CREATE/DISMISS/DESTROY_[FLEETING]_INFO_POPUP
      * *****
      *****/
     public void CreateInfoPopup(string message)
@@ -298,7 +293,7 @@ public class UIManager : MonoBehaviour
 
     /******
      * *****
-     * ****** TURN_POPUP
+     * ****** CREATE/DESTROY_TURN_POPUP
      * *****
      *****/
     public void CreateTurnPopup(bool isPlayerTurn)
@@ -318,7 +313,7 @@ public class UIManager : MonoBehaviour
 
     /******
      * *****
-     * ****** VERSUS_POPUP
+     * ****** CREATE_VERSUS_POPUP
      * *****
      *****/
     public void CreateVersusPopup()
@@ -329,7 +324,7 @@ public class UIManager : MonoBehaviour
 
     /******
      * *****
-     * ****** CREATE_COMBAT_END_POPUP
+     * ****** CREATE/DESTROY_COMBAT_END_POPUP
      * *****
      *****/
     public void CreateCombatEndPopup(bool playerWins)
@@ -346,6 +341,27 @@ public class UIManager : MonoBehaviour
         {
             Destroy(combatEndPopup);
             combatEndPopup = null;
+        }
+    }
+
+    /******
+     * *****
+     * ****** CREATE/DESTROY_AETHER_CELL_POPUP
+     * *****
+     *****/
+    public void CreateAetherCellPopup(int quanity, int total)
+    {
+        aetherCellPopup = Instantiate(aetherCellPopupPrefab, CurrentCanvas.transform);
+        AetherCellPopupDisplay acpd = aetherCellPopup.GetComponent<AetherCellPopupDisplay>();
+        acpd.AetherQuantity = quanity;
+        acpd.TotalAether = total;
+    }
+    public void DestroyAetherCellPopup()
+    {
+        if (aetherCellPopup != null)
+        {
+            Destroy(aetherCellPopup);
+            aetherCellPopup = null;
         }
     }
 

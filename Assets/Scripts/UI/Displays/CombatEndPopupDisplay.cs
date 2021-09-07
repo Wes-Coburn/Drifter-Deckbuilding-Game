@@ -21,7 +21,12 @@ public class CombatEndPopupDisplay : MonoBehaviour
                 {
                     if (crc.NewCard != null)
                         CardManager.Instance.AddCard(crc.NewCard, GameManager.PLAYER, false);
-                    //else if (crc.AetherCells != null)
+                    else if (crc.AetherCells > 0)
+                    {
+                        int newAether = crc.AetherCells;
+                        int newTotal = newAether + PlayerManager.Instance.AetherCells;
+                        UIManager.Instance.CreateAetherCellPopup(newAether, newTotal);
+                    }
                     else
                     {
                         dMan.EngagedHero.NextDialogueClip = crc.NextDialogueClip;

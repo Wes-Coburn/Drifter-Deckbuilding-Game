@@ -24,6 +24,7 @@ MonoBehaviour:
       type: 2}
     response_IsExit: 0
     response_IsCombatStart: 0
+    response_IsWorldMapStart: 0
   dialogueResponse2:
     responseText: How do I know I can trust you?
     response_Respect: 0
@@ -31,6 +32,7 @@ MonoBehaviour:
       type: 2}
     response_IsExit: 0
     response_IsCombatStart: 0
+    response_IsWorldMapStart: 0
   dialogueResponse3:
     responseText: I'm good over here, thanks.
     response_Respect: -1
@@ -38,5 +40,7 @@ MonoBehaviour:
       type: 2}
     response_IsExit: 0
     response_IsCombatStart: 0
+    response_IsWorldMapStart: 0
   newEngagedHero: {fileID: 0}
   newCard: {fileID: 0}
+  aetherCells: 1

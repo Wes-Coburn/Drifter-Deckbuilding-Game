@@ -19,6 +19,7 @@ public class DialoguePrompt : DialogueClip
     [SerializeField] private DialogueResponse dialogueResponse3;
     [SerializeField] private NPCHero newEngagedHero;
     [SerializeField] private Card newCard;
+    [SerializeField] [Range(0, 5)] private int aetherCells;
 
     public List<JournalNote> JournalNotes { get => journalNotes; }
     public string DialoguePromptText { get => dialoguePromptText; }
@@ -27,6 +28,7 @@ public class DialoguePrompt : DialogueClip
     public DialogueResponse DialogueResponse3 { get => dialogueResponse3; }
     public NPCHero NewEngagedHero { get => newEngagedHero; }
     public Card NewCard { get => newCard; }
+    public int AetherCells { get => aetherCells; }
 
     public override void LoadDialogueClip(DialogueClip dc)
     {

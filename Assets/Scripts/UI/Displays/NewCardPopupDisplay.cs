@@ -6,6 +6,7 @@ public class NewCardPopupDisplay : MonoBehaviour
     CombatManager coMan;
     PlayerManager pMan;
     DialogueManager dMan;
+    UIManager uMan;
 
     [SerializeField] private GameObject newCardZone;
     [SerializeField] private GameObject newCardChest;
@@ -29,6 +30,7 @@ public class NewCardPopupDisplay : MonoBehaviour
         coMan = CombatManager.Instance;
         pMan = PlayerManager.Instance;
         dMan = DialogueManager.Instance;
+        uMan = UIManager.Instance;
     }
 
     private void DisplayNewCardChest()
@@ -45,7 +47,7 @@ public class NewCardPopupDisplay : MonoBehaviour
         addCardButton.SetActive(true);
         ignoreCardButton.SetActive(true);
         // Card Popup
-        GameObject newCard = CombatManager.Instance.ShowCard(CurrentCard, true);
+        GameObject newCard = coMan.ShowCard(CurrentCard, true);
         CardZoom cz = newCard.GetComponent<CardZoom>();
         newCard.transform.SetParent(newCardZone.transform, false);
         // Description Popup
@@ -55,7 +57,7 @@ public class NewCardPopupDisplay : MonoBehaviour
         cz.CreateAbilityPopups(new Vector2(500, 0), 3);
         CardZoom.AbilityPopupBox.transform.SetParent(newCardZone.transform, true);
 
-        if (CombatManager.Instance.IsInCombat) // TESTING
+        if (coMan.IsInCombat) // TESTING
         {
             if (newCard.TryGetComponent(out ChangeLayer cl)) { }
             else cl = newCard.AddComponent<ChangeLayer>();
@@ -77,13 +79,32 @@ public class NewCardPopupDisplay : MonoBehaviour
         if (!CatchScreenDimmer()) return;
         GetComponent<SoundPlayer>().PlaySound(2);
         caMan.DestroyNewCardPopup();
-        if (!coMan.IsInCombat) dMan.DisplayDialoguePopup();
-        else if (dMan.EngagedHero.NextDialogueClip is CombatRewardClip crc)
+        DialogueClip nextClip = dMan.EngagedHero.NextDialogueClip;
+        if (!coMan.IsInCombat)
         {
-            //if (crc.AetherCells != null)
-            dMan.EngagedHero.NextDialogueClip = crc.NextDialogueClip;
-            SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene);
-            coMan.IsInCombat = false;
+            DialoguePrompt dp = nextClip as DialoguePrompt;
+            if (dp.AetherCells > 0)
+            {
+                int newAether = dp.AetherCells;
+                int newTotal = newAether + pMan.AetherCells;
+                uMan.CreateAetherCellPopup(newAether, newTotal);
+            }
+            else dMan.DisplayDialoguePopup();
+        }
+        else if (nextClip is CombatRewardClip crc)
+        {
+            if (crc.AetherCells > 0)
+            {
+                int newAether = crc.AetherCells;
+                int newTotal = newAether + pMan.AetherCells;
+                uMan.CreateAetherCellPopup(newAether, newTotal);
+            }
+            else
+            {
+                dMan.EngagedHero.NextDialogueClip = crc.NextDialogueClip;
+                SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene);
+                coMan.IsInCombat = false;
+            }
         }
         else Debug.LogError("NEXT CLIP IS NOT COMBAT_REWARD_CLIP!");
     }
@@ -94,13 +115,32 @@ public class NewCardPopupDisplay : MonoBehaviour
         GetComponent<SoundPlayer>().PlaySound(3);
         pMan.PlayerDeckList.Remove(CurrentCard);
         caMan.DestroyNewCardPopup();
-        if (!coMan.IsInCombat) dMan.DisplayDialoguePopup();
+        DialogueClip nextClip = dMan.EngagedHero.NextDialogueClip;
+        if (!coMan.IsInCombat)
+        {
+            DialoguePrompt dp = nextClip as DialoguePrompt;
+            if (dp.AetherCells > 0)
+            {
+                int newAether = dp.AetherCells;
+                int newTotal = newAether + pMan.AetherCells;
+                uMan.CreateAetherCellPopup(newAether, newTotal);
+            }
+            else dMan.DisplayDialoguePopup();
+        }
         else if (dMan.EngagedHero.NextDialogueClip is CombatRewardClip crc)
         {
-            //if (crc.AetherCells != null)
-            dMan.EngagedHero.NextDialogueClip = crc.NextDialogueClip;
-            SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene);
-            coMan.IsInCombat = false;
+            if (crc.AetherCells > 0)
+            {
+                int newAether = crc.AetherCells;
+                int newTotal = newAether + pMan.AetherCells;
+                uMan.CreateAetherCellPopup(newAether, newTotal);
+            }
+            else
+            {
+                dMan.EngagedHero.NextDialogueClip = crc.NextDialogueClip;
+                SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene);
+                coMan.IsInCombat = false;
+            }
         }
         else Debug.LogError("NEXT CLIP IS NOT COMBAT_REWARD_CLIP!");
     }
@@ -109,7 +149,7 @@ public class NewCardPopupDisplay : MonoBehaviour
     {
         if (CardZoom.ZoomCardIsCentered)
         {
-            UIManager.Instance.DestroyZoomObjects();
+            uMan.DestroyZoomObjects();
             return false;
         }
         else return true;

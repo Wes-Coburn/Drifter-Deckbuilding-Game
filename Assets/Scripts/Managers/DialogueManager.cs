@@ -22,6 +22,7 @@ public class DialogueManager : MonoBehaviour
     private TextMeshProUGUI currentTmPro;
     private float typedTextDelay;
 
+    public DialogueSceneDisplay DialogueDisplay { get => dialogueDisplay; }
     public NPCHero EngagedHero { get; set; } // PUBLIC SET FOR COMBAT TEST BUTTON
     public Coroutine CurrentTextRoutine { get; private set; }
 
@@ -224,11 +225,17 @@ public class DialogueManager : MonoBehaviour
             // New Card
             if (nextPrompt.NewCard != null)
                 CardManager.Instance.AddCard(nextPrompt.NewCard, GameManager.PLAYER, false);
+            else if (nextPrompt.AetherCells > 0)
+            {
+                int newAether = nextPrompt.AetherCells;
+                int newTotal = newAether + PlayerManager.Instance.AetherCells;
+                UIManager.Instance.CreateAetherCellPopup(newAether, newTotal);
+            }
         }
         // Next Prompt
         currentDialogueClip = nextClip;
         if (currentDialogueClip is DialogueFork) currentDialogueClip = DialogueFork();
-        if (nextPrompt.NewCard == null) DisplayDialoguePopup();
+        if (nextPrompt.NewCard == null && nextPrompt.AetherCells < 1) DisplayDialoguePopup();
     }
 
     private DialogueClip DialogueFork()
