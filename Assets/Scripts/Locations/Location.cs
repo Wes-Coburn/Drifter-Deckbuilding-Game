@@ -9,6 +9,7 @@ public class Location : ScriptableObject
     [SerializeField] private string firstObjective;
     [SerializeField] private Vector2 worldMapPosition;
     [SerializeField] private NPCHero firstNPC;
+    [SerializeField] private bool isHomeBase;
 
     public string LocationName { get => locationName; }
     public string LocationFullName { get => locationFullName; }
@@ -16,6 +17,8 @@ public class Location : ScriptableObject
     public string FirstObjective { get => firstObjective; }
     public Vector2 WorldMapPosition { get => worldMapPosition; }
     public NPCHero FirstNPC { get => firstNPC; }
+    public bool IsHomeBase { get => isHomeBase; }
+
     public NPCHero CurrentNPC { get; set; }
 
     public void LoadLocation(Location location)
@@ -26,5 +29,6 @@ public class Location : ScriptableObject
         firstObjective = location.FirstObjective;
         worldMapPosition = location.WorldMapPosition;
         firstNPC = location.FirstNPC;
+        isHomeBase = location.IsHomeBase;
     }
 }

@@ -10,7 +10,7 @@ public class DialogueResponse
     [SerializeField] private bool response_IsCombatStart;
     //[SerializeField] private bool response_IsNarrativeStart;
     [SerializeField] private bool response_IsWorldMapStart;
-
+    
     public string ResponseText { get => responseText; }
     public int Response_Respect { get => response_Respect; }
     public DialogueClip Response_NextClip { get => response_NextClip; }
