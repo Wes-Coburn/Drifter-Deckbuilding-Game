@@ -15,7 +15,10 @@ public class DialogueManager : MonoBehaviour
         }
         else Destroy(gameObject);
     }
-    
+
+    private GameManager gMan;
+    private PlayerManager pMan;
+
     private DialogueClip currentDialogueClip;
     private DialogueSceneDisplay dialogueDisplay;
     private string currentTypedText;
@@ -26,11 +29,16 @@ public class DialogueManager : MonoBehaviour
     public NPCHero EngagedHero { get; set; } // PUBLIC SET FOR COMBAT TEST BUTTON
     public Coroutine CurrentTextRoutine { get; private set; }
 
+    private void Start()
+    {
+        gMan = GameManager.Instance;
+        pMan = PlayerManager.Instance;
+    }
+
     private void DisplayCurrentHeroes(NPCHero hero)
     {
-        PlayerManager pm = PlayerManager.Instance;
-        dialogueDisplay.PlayerHeroImage = pm.PlayerHero.HeroPortrait;
-        dialogueDisplay.PlayerHeroName = pm.PlayerHero.HeroName;
+        dialogueDisplay.PlayerHeroImage = pMan.PlayerHero.HeroPortrait;
+        dialogueDisplay.PlayerHeroName = pMan.PlayerHero.HeroName;
         dialogueDisplay.NPCHeroImage = hero.HeroPortrait;
         dialogueDisplay.NPCHeroName = hero.HeroName;
     }
@@ -87,14 +95,6 @@ public class DialogueManager : MonoBehaviour
         else
             dialogueDisplay.Response_3 = 
                 FilterText(dpr.DialogueResponse3.ResponseText);
-        /*
-        // Journal Notes
-        if (dpr.JournalNotes.Count > 0)
-        {
-            Debug.LogWarning("NEW JOURNAL NOTE!");
-            //JournalManager.Instance.NewJournalNote(currentDialogueClip.JournalNotes);
-        }
-        */
     }
     
     private string FilterText(string text)
@@ -170,7 +170,6 @@ public class DialogueManager : MonoBehaviour
     public void DialogueResponse(int response)
     {
         if (currentDialogueClip == null) return; // TESTING
-
         if (CurrentTextRoutine != null)
         {
             StopTimedText(true);
@@ -192,14 +191,25 @@ public class DialogueManager : MonoBehaviour
         }
         DialogueClip nextClip = dResponse.Response_NextClip;
         if (nextClip == null) return;
-        DialoguePrompt nextPrompt = nextClip as DialoguePrompt;
+
+        DialoguePrompt nextPrompt = null;
+        if (nextClip is DialoguePrompt)
+        {
+            nextPrompt = nextClip as DialoguePrompt;
+            // New Locations
+            if (nextPrompt.NewLocations.Length > 0) // TESTING
+            {
+                foreach (Location loc in nextPrompt.NewLocations) 
+                    gMan.ActiveLocations.Add(gMan.GetActiveLocation(loc));
+            }
+        }
         EngagedHero.NextDialogueClip = nextClip;
         EngagedHero.RespectScore += dResponse.Response_Respect;
 
         // Exit
         if (dResponse.Response_IsExit)
         {
-            GameManager.Instance.EndGame(); // FOR TESTING ONLY
+            gMan.EndGame(); // FOR TESTING ONLY
             return;
         }
         // Combat Start
@@ -214,12 +224,12 @@ public class DialogueManager : MonoBehaviour
             SceneLoader.LoadScene(SceneLoader.Scene.WorldMapScene);
             return;
         }
-        if (nextClip is DialoguePrompt)
+        if (nextPrompt != null)
         {
             // New Engaged Hero
             if (nextPrompt.NewEngagedHero != null)
             {
-                EngagedHero = GameManager.Instance.GetActiveNPC(nextPrompt.NewEngagedHero);
+                EngagedHero = gMan.GetActiveNPC(nextPrompt.NewEngagedHero);
                 DisplayCurrentHeroes(EngagedHero);
             }
             // New Card
@@ -228,14 +238,15 @@ public class DialogueManager : MonoBehaviour
             else if (nextPrompt.AetherCells > 0)
             {
                 int newAether = nextPrompt.AetherCells;
-                int newTotal = newAether + PlayerManager.Instance.AetherCells;
+                int newTotal = newAether + pMan.AetherCells;
                 UIManager.Instance.CreateAetherCellPopup(newAether, newTotal);
             }
         }
-        // Next Prompt
+        // Next Clip
         currentDialogueClip = nextClip;
         if (currentDialogueClip is DialogueFork) currentDialogueClip = DialogueFork();
-        if (nextPrompt.NewCard == null && nextPrompt.AetherCells < 1) DisplayDialoguePopup();
+        if (nextPrompt != null && nextPrompt.NewCard == null &&
+            nextPrompt.AetherCells < 1) DisplayDialoguePopup();
     }
 
     private DialogueClip DialogueFork()

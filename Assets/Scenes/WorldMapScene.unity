@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
+  m_IgnoreReversedGraphics: 0
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
@@ -234,7 +234,7 @@ GameObject:
   m_Component:
   - component: {fileID: 260724441}
   m_Layer: 5
-  m_Name: LocationMap
+  m_Name: LocationsMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -258,10 +258,10 @@ RectTransform:
   m_Father: {fileID: 148127897}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &657858181
 PrefabInstance:
@@ -557,12 +557,12 @@ PrefabInstance:
     - target: {fileID: 7001515754728082526, guid: 66d6680aaf145824992863dceab07391,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 600
+      value: 675
       objectReference: {fileID: 0}
     - target: {fileID: 7001515754728082526, guid: 66d6680aaf145824992863dceab07391,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -250
+      value: -350
       objectReference: {fileID: 0}
     - target: {fileID: 7001515754728082526, guid: 66d6680aaf145824992863dceab07391,
         type: 3}
@@ -933,12 +933,12 @@ PrefabInstance:
     - target: {fileID: 7001515754728082526, guid: 66d6680aaf145824992863dceab07391,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -135
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7001515754728082526, guid: 66d6680aaf145824992863dceab07391,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 145
+      value: -150
       objectReference: {fileID: 0}
     - target: {fileID: 7001515754728082526, guid: 66d6680aaf145824992863dceab07391,
         type: 3}

@@ -27,14 +27,13 @@ MonoBehaviour:
     volume: 0.8
     pitch: 1
     source: {fileID: 0}
+  power: 3
+  defense: 2
+  startingAbilities:
+  - {fileID: 11400000, guid: ed819bcbfaacbc540b27892c521a581c, type: 2}
   unitDeathSound:
     name: 
     clip: {fileID: 8300000, guid: 816b0bf833f93c5408ad8072e072cb67, type: 3}
     volume: 0.8
     pitch: 1
     source: {fileID: 0}
-  power: 3
-  defense: 1
-  startingAbilities:
-  - {fileID: 11400000, guid: 3e5874c35dad2f34d96f6d4b9d15a4dd, type: 2}
-  - {fileID: 11400000, guid: ed819bcbfaacbc540b27892c521a581c, type: 2}

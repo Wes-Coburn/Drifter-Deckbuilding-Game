@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     private DialogueManager dMan;
     private int currentChapter;
 
-    [SerializeField] GameObject locationIconPrefab; // Chnage to ICON
+    [SerializeField] GameObject locationIconPrefab;
     [SerializeField] string[] gameChapters;
     [SerializeField] private GiveNextUnitEffect augmentBiogenEffect;
     [SerializeField] private Narrative settingNarrative;
@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
     public Narrative NextNarrative { get; set; }
     public List<NPCHero> ActiveNPCHeroes { get; private set; }
     public List<Location> ActiveLocations { get; private set; }
+    public Location CurrentLocation { get; set; } // TESTING
 
     /* GAME_MANAGER_DATA */
     public const int START_ACTIONS_PER_TURN = 1;
@@ -138,7 +139,7 @@ public class GameManager : MonoBehaviour
         HideExplicitLanguage = hideExplicitLanguage;
         currentChapter = 0;
         NextNarrative = settingNarrative;
-        GetActiveLocation(firstLocation); // TESTING
+        CurrentLocation = GetActiveLocation(firstLocation); // TESTING
         SceneLoader.LoadScene(SceneLoader.Scene.NarrativeScene);
     }
 
@@ -184,6 +185,7 @@ public class GameManager : MonoBehaviour
             LocationIcon icon = location.GetComponent<LocationIcon>();
             icon.Location = loc;
             icon.LocationName = loc.LocationName;
+            icon.WorldMapPosition = loc.WorldMapPosition;
         }
     }
 

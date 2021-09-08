@@ -42,15 +42,24 @@ public static class SceneLoader
                 case Scene.TitleScene:
                     chapterText = "MAIN MENU";
                     break;
+                case Scene.HeroSelectScene:
+                    chapterText = gMan.NextChapter;
+                    break;
+                case Scene.NarrativeScene:
+                    chapterText = gMan.NextChapter;
+                    break;
                 case Scene.WorldMapScene:
                     chapterText = "WORLD MAP";
+                    break;
+                case Scene.DialogueScene:
+                    chapterText = gMan.CurrentLocation.LocationFullName;
                     break;
                 case Scene.CombatScene:
                     chapterText = "COMBAT";
                     break;
                 default:
-                    chapterText = gMan.NextChapter;
-                    break;
+                    Debug.LogError("SCENE TYPE NOT FOUND!");
+                    return;
             }
             UnityEngine.Object.FindObjectOfType<LoadingSceneDisplay>().ChapterText = chapterText;
             FunctionTimer.Create(() => uMan.SetSceneFader(true), 5f);
@@ -77,11 +86,11 @@ public static class SceneLoader
                     gMan.StartNarrative();
                     break;
                 case Scene.WorldMapScene:
-                    uMan.StartWorldMapScene(); // TESTING
+                    uMan.StartWorldMapScene();
                     gMan.EnterWorldMap(); // TESTING
                     break;
                 case Scene.DialogueScene:
-                    dMan.StartDialogue(dMan.EngagedHero); // TESTING
+                    dMan.StartDialogue(dMan.EngagedHero);
                     break;
                 case Scene.CombatScene:
                     uMan.StartCombatScene();
