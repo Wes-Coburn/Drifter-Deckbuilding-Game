@@ -12,24 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120ae26cc4846f34db63edca720772b3, type: 3}
   m_Name: Iron-Clan Hunter
   m_EditorClassIdentifier: 
-  cardArt: {fileID: 21300000, guid: 1bd92dc3e46ad6a438bdc9b9d2a57f30, type: 3}
+  cardArt: {fileID: 21300000, guid: 147b1688d7b017141aa4d5b1640c02a0, type: 3}
   cardBorder: {fileID: 21300000, guid: 14ba384dc2d28d74d9bdad2182e18da6, type: 3}
   actionCost: 0
   cardName: Iron-Clan Hunter
   cardType: Warrior
   cardSubType: 
   cardDescription: The Iron-Clan Hunter is...
-  overController: {fileID: 22100000, guid: 082abef859744a04b885776db870594b, type: 2}
-  zoomOverController: {fileID: 22100000, guid: bd8133d5bc7178d43bd56723204cf84a, type: 2}
+  overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
+  zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
   cardPlaySound:
     name: 
     clip: {fileID: 8300000, guid: c1aaa84d5907c954ab4e6a37b11d417b, type: 3}
-    volume: 0.8
-    pitch: 1
-    source: {fileID: 0}
-  unitDeathSound:
-    name: 
-    clip: {fileID: 8300000, guid: 816b0bf833f93c5408ad8072e072cb67, type: 3}
     volume: 0.8
     pitch: 1
     source: {fileID: 0}
@@ -37,3 +31,9 @@ MonoBehaviour:
   defense: 3
   startingAbilities:
   - {fileID: 11400000, guid: ea3240d3d6b88204c8166979a836ea6e, type: 2}
+  unitDeathSound:
+    name: 
+    clip: {fileID: 8300000, guid: 816b0bf833f93c5408ad8072e072cb67, type: 3}
+    volume: 0.8
+    pitch: 1
+    source: {fileID: 0}
