@@ -30,7 +30,7 @@ public class ActionCardDisplay : CardDisplay
         string description;
         if (card == null)
         {
-            ActionCardDisplay acd = parentCard.GetComponent<CardDisplay>() as ActionCardDisplay;
+            ActionCardDisplay acd = parentCard.GetComponent<ActionCardDisplay>();
             description = acd.ActionCard.EffectDescription;
         }
         else

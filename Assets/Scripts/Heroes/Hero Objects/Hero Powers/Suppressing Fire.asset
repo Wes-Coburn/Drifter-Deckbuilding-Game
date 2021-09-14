@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 024a223818b76d04b90b880bd4d0c3a0, type: 3}
+  m_Name: Suppressing Fire
+  m_EditorClassIdentifier: 
+  PowerName: Suppressing Fire
+  PowerCost: 2
+  PowerSprite: {fileID: 21300000, guid: 704542b6b854d2a4d84bcb980dcbd671, type: 3}
+  PowerSounds:
+  - name: 
+    clip: {fileID: 8300000, guid: bdcccbf7c396e5240aeb1a4f99459748, type: 3}
+    volume: 0.8
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: 245fc645ef8fb7846a2c57345d3ec1f6, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  PowerDescription: Give an enemy -2/-0 this turn.
+  EffectGroupList:
+  - {fileID: 11400000, guid: aae81688104f6c9489052e54614c0a9f, type: 2}
+  LinkedAbilities: []

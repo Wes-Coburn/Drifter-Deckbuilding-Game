@@ -11,9 +11,8 @@ public class ChangeLayer : MonoBehaviour
     private const string UI_LAYER = "UI";
 
     private string renderLayer;
-    public string RenderLayer
+    private string RenderLayer
     {
-        get => renderLayer;
         set
         {
             renderLayer = value;
@@ -21,9 +20,12 @@ public class ChangeLayer : MonoBehaviour
         }
     }
 
-    public void CardsLayer() => RenderLayer = CARDS_LAYER;
-    public void ActionsLayer() => RenderLayer = ACTIONS_LAYER;
-    public void HandLayer() => RenderLayer = HAND_LAYER;
+    public void CardsLayer()
+    {
+        if (GetComponent<CardDisplay>() is UnitCardDisplay) 
+            RenderLayer = CARDS_LAYER;
+        else RenderLayer = ACTIONS_LAYER;
+    }
     public void ZoomLayer() => RenderLayer = ZOOM_LAYER;
     public void UILayer() => RenderLayer = UI_LAYER;
     private void UpdateRenderLayer(Transform tran)
@@ -36,20 +38,16 @@ public class ChangeLayer : MonoBehaviour
     }
     private void SyncLayer(Transform tran)
     {   
-        if (tran.TryGetComponent(out SpriteRenderer render))
+        if (tran.TryGetComponent(out SpriteRenderer render)) 
+            render.sortingLayerName = renderLayer;
+        else if (tran.TryGetComponent(out SpriteMask sMask))
         {
-            if (!render.sortingLayerName.Equals(RenderLayer)) 
-                render.sortingLayerName = RenderLayer;
+            sMask.frontSortingLayerID = SortingLayer.NameToID(renderLayer);
+            sMask.backSortingLayerID = SortingLayer.NameToID(renderLayer);
         }
-        else if (tran.TryGetComponent(out TextMeshPro txtPro))
-        {
-            if (!SortingLayer.IDToName(txtPro.sortingLayerID).Equals(RenderLayer)) 
-                txtPro.sortingLayerID = SortingLayer.NameToID(RenderLayer);
-        }
-        else if (tran.TryGetComponent(out MeshRenderer mesh))
-        {
-            if (!mesh.sortingLayerName.Equals(RenderLayer)) 
-                mesh.sortingLayerName = RenderLayer;
-        }
+        else if (tran.TryGetComponent(out TextMeshPro txtPro)) 
+            txtPro.sortingLayerID = SortingLayer.NameToID(renderLayer);
+        else if (tran.TryGetComponent(out MeshRenderer mesh)) 
+            mesh.sortingLayerName = renderLayer;
     }
 }

@@ -66,7 +66,7 @@ public class DragDrop : MonoBehaviour
         transform.position = new Vector3(startPosition.x, startPosition.y, CombatManager.CARD_Z_POSITION);
         if (TryGetComponent(out ActionCardDisplay _)) IsPlayed = false;
         AnimationManager.Instance.RevealedHandState(gameObject);
-        GetComponent<ChangeLayer>().HandLayer();
+        GetComponent<ChangeLayer>().CardsLayer();
     }
 
     public void StartDrag()

@@ -44,7 +44,7 @@ public class PlayerManager : MonoBehaviour
             for (int i = 0; i < GameManager.PLAYER_START_FOLLOWERS; i++)
                 foreach (UnitCard uc in cm.PlayerStartUnits)
                     cm.AddCard(uc, GameManager.PLAYER);
-            foreach (SkillCard skill in PlayerHero.HeroSkills)
+            foreach (SkillCard skill in PlayerHero.HeroStartSkills)
                 for (int i = 0; i < GameManager.PLAYER_START_SKILLS; i++)
                     cm.AddCard(skill, GameManager.PLAYER);
         }

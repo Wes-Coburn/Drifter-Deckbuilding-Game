@@ -33,11 +33,11 @@ public class AnimationManager : MonoBehaviour
     }
 
     /* HERO_ANIMATIONS */
-    public void ModifyHealthState(GameObject hero) => ChangeAnimationState(hero, "Modify_Health");
+    public void ModifyHeroHealthState(GameObject hero) => ChangeAnimationState(hero, "Modify_Health");
     public void ReinforcementsState(GameObject enemyHero) => ChangeAnimationState(enemyHero, "Reinforcements");
     /* UNIT_ANIMATIONS */
     public void RevealedHandState(GameObject card) => ChangeAnimationState(card, "Revealed_Hand");
-    public void RevealedPlayState(GameObject card) => ChangeAnimationState(card, "Revealed_Play");
+    //public void RevealedPlayState(GameObject card) => ChangeAnimationState(card, "Revealed_Play");
     public void RevealedDragState(GameObject card) => ChangeAnimationState(card, "Revealed_Drag");
     public void PlayedState(GameObject card)
     {
@@ -45,7 +45,7 @@ public class AnimationManager : MonoBehaviour
         ChangeAnimationState(card, "Played");
     }
     //public void ModifyAttackState(GameObject card) => ChangeAnimationState(card, Modify_Attack);
-    public void ModifyDefenseState(GameObject card) => ChangeAnimationState(card, "Modify_Defense");
+    public void ModifyUnitHealthState(GameObject card) => ChangeAnimationState(card, "Modify_Health");
     public void ZoomedState(GameObject card) => ChangeAnimationState(card, "Zoomed");
 
     /******

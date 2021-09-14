@@ -1,0 +1,1565 @@
+Using pre-set license
+Built from '2020.3/staging' branch; Version is '2020.3.5f1 (8095aa901b9b) revision 8426922'; Using compiler version '192528614'; Build Type 'Release'
+OS: 'Windows 10 Home; OS build 19042.1165; Version 2009; 64bit' Language: 'en' Physical Memory: 16204 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+
+ COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\2020.3.5f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker0
+-projectPath
+C:/Users/wgCob/OneDrive/Documents/Programming/Unity/Drifter (Unity 2D)
+-logFile
+Logs/AssetImportWorker0.log
+-srvPort
+51448
+Successfully changed project path to: C:/Users/wgCob/OneDrive/Documents/Programming/Unity/Drifter (Unity 2D)
+C:/Users/wgCob/OneDrive/Documents/Programming/Unity/Drifter (Unity 2D)
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 74.98 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2020.3.5f1 (8095aa901b9b)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/wgCob/OneDrive/Documents/Programming/Unity/Drifter (Unity 2D)/Assets
+GfxDevice: creating device client; threaded=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce RTX 2060 (ID=0x1f15)
+    Vendor:   
+    VRAM:     5980 MB
+    Driver:   27.21.14.5167
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56192
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.002135 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 75.61 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.945 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.001407 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 82.12 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.860 seconds
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.03 seconds
+Refreshing native plugins compatible for Editor in 0.81 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1921 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 92.7 MB.
+System memory in use after: 92.8 MB.
+
+Unloading 18 unused Assets to reduce memory usage. Loaded Objects now: 2372.
+Total: 2.102300 ms (FindLiveObjects: 0.281200 ms CreateObjectMapping: 0.101500 ms MarkObjects: 1.699600 ms  DeleteObjects: 0.019300 ms)
+
+========================================================================
+Received Import Request.
+  path: Assets/Scripts/Heroes/Hero Objects/Hero Powers/Caustic Mutagen.asset
+  artifactKey: Guid(8d0e298eaa6016e40ac8ec50c9a92d69) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Heroes/Hero Objects/Hero Powers/Caustic Mutagen.asset using Guid(8d0e298eaa6016e40ac8ec50c9a92d69) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bfe765bbef55611ba128e523e6dd7150') in 0.031622 seconds
+  Import took 0.037669 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 11.306540 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Deal1_plus1plus0_1PU_1turn.asset
+  artifactKey: Guid(b848d16f930fb12459a96ad2305edc2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Deal1_plus1plus0_1PU_1turn.asset using Guid(b848d16f930fb12459a96ad2305edc2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c8ef811814ccc226be992f1685dd0ae6') in 0.003023 seconds
+  Import took 0.009996 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 15.949074 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Deal1_plus1plus0_1PU_1turn.asset
+  artifactKey: Guid(b848d16f930fb12459a96ad2305edc2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Deal1_plus1plus0_1PU_1turn.asset using Guid(b848d16f930fb12459a96ad2305edc2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2ace1377d98f8508f05bdb8cecd13881') in 0.003497 seconds
+  Import took 0.010925 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 13.760095 seconds.
+  path: Assets/Scripts/Heroes/Hero Objects/Hero Powers/Caustic Mutagen.asset
+  artifactKey: Guid(8d0e298eaa6016e40ac8ec50c9a92d69) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Heroes/Hero Objects/Hero Powers/Caustic Mutagen.asset using Guid(8d0e298eaa6016e40ac8ec50c9a92d69) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd0b283999646b570e298ad347719108a') in 0.003858 seconds
+  Import took 0.016027 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.002083 seconds.
+  path: Assets/Scripts/Heroes/Hero Objects/Hero Powers/Caustic Mutagen.asset
+  artifactKey: Guid(8d0e298eaa6016e40ac8ec50c9a92d69) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Heroes/Hero Objects/Hero Powers/Caustic Mutagen.asset using Guid(8d0e298eaa6016e40ac8ec50c9a92d69) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd0b283999646b570e298ad347719108a') in 0.003886 seconds
+  Import took 0.012174 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 35.861717 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Deal1_plus1plus0_1PU_1turn.asset
+  artifactKey: Guid(b848d16f930fb12459a96ad2305edc2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Deal1_plus1plus0_1PU_1turn.asset using Guid(b848d16f930fb12459a96ad2305edc2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '060860a636b08678f6780ebf3eb5ab48') in 0.002963 seconds
+  Import took 0.010236 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 214.909306 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal1_1EU.asset
+  artifactKey: Guid(dbdec723e07d1bb409809d8053c199a5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal1_1EU.asset using Guid(dbdec723e07d1bb409809d8053c199a5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '333e1892fe6ef6d9780332889a3dfedf') in 0.003121 seconds
+  Import took 0.011741 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 18.634537 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Give1EU_Marked.asset
+  artifactKey: Guid(8c97eaa77ec4d354eb714cc53d9d41aa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Give1EU_Marked.asset using Guid(8c97eaa77ec4d354eb714cc53d9d41aa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ed78cc3ea7f4fe872d5037b1df98005c') in 0.007588 seconds
+  Import took 0.016825 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 33.277271 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hero/Deal2_PH.asset
+  artifactKey: Guid(e00541aabcef4a740ac83a41be1d3ffb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hero/Deal2_PH.asset using Guid(e00541aabcef4a740ac83a41be1d3ffb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ec1a33adad618bb51ef502e90c6e350d') in 0.003181 seconds
+  Import took 0.011575 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.585423 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hero/Heal1_PH.asset
+  artifactKey: Guid(8dddb9efd6ef74c4db2f5d9e922b45c9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hero/Heal1_PH.asset using Guid(8dddb9efd6ef74c4db2f5d9e922b45c9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a83d8982dba4c2f8ee13ae12999019de') in 0.006929 seconds
+  Import took 0.015103 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000745 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hero/Heal1_PH.asset
+  artifactKey: Guid(8dddb9efd6ef74c4db2f5d9e922b45c9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hero/Heal1_PH.asset using Guid(8dddb9efd6ef74c4db2f5d9e922b45c9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a83d8982dba4c2f8ee13ae12999019de') in 0.002619 seconds
+  Import took 0.009912 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.167712 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hero/Heal2_PH.asset
+  artifactKey: Guid(71e4fa3c24c227041b24dc29d11c62d6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hero/Heal2_PH.asset using Guid(71e4fa3c24c227041b24dc29d11c62d6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '041313688372a63ed69e15098ba50720') in 0.005474 seconds
+  Import took 0.013581 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.927040 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hero/Deal1_PH.asset
+  artifactKey: Guid(c0e854f5a9a4abe4486aaa3a89e324c1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hero/Deal1_PH.asset using Guid(c0e854f5a9a4abe4486aaa3a89e324c1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '91837fca9095a0dfe9947694403b4195') in 0.002999 seconds
+  Import took 0.015521 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001834 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hero/Deal1_PH.asset
+  artifactKey: Guid(c0e854f5a9a4abe4486aaa3a89e324c1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hero/Deal1_PH.asset using Guid(c0e854f5a9a4abe4486aaa3a89e324c1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '91837fca9095a0dfe9947694403b4195') in 0.003409 seconds
+  Import took 0.011153 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 58.341623 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_plus1plus0_Revenge_Draw1.asset
+  artifactKey: Guid(5d661bc6eef3f764588bd8f86efc4b86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_plus1plus0_Revenge_Draw1.asset using Guid(5d661bc6eef3f764588bd8f86efc4b86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '78018307f99c76be7c596757e9555f0c') in 0.005719 seconds
+  Import took 0.039038 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 30.153745 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Deal1_1PU_R.asset
+  artifactKey: Guid(9fbc4cb43b31a9b45a4252e405ce35d3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Deal1_1PU_R.asset using Guid(9fbc4cb43b31a9b45a4252e405ce35d3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c326b0bbedfae869c6e06ec20ceb1408') in 0.003060 seconds
+  Import took 0.017056 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001212 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Deal1_1PU_R.asset
+  artifactKey: Guid(9fbc4cb43b31a9b45a4252e405ce35d3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Deal1_1PU_R.asset using Guid(9fbc4cb43b31a9b45a4252e405ce35d3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c326b0bbedfae869c6e06ec20ceb1408') in 0.003339 seconds
+  Import took 0.014924 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 43.445468 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Revenge_Draw1.asset
+  artifactKey: Guid(f2beaa81d896c344b8b26ce05eb1ca5f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Revenge_Draw1.asset using Guid(f2beaa81d896c344b8b26ce05eb1ca5f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '858f0e8c9ae42259a9fac6c59fe09b02') in 0.003938 seconds
+  Import took 0.016142 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 18.010654 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/StatChange/ChgDef_plus3.asset
+  artifactKey: Guid(1e7007238aa630a4db92ed52fc36239e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/StatChange/ChgDef_plus3.asset using Guid(1e7007238aa630a4db92ed52fc36239e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4be22a76de7b0b552f6dd35039a808d4') in 0.003292 seconds
+  Import took 0.012907 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 4.690522 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectTargets/EU_2.asset
+  artifactKey: Guid(cc9b0c336c15e5940b4b56d5eb5288ea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectTargets/EU_2.asset using Guid(cc9b0c336c15e5940b4b56d5eb5288ea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '36ab4a5dfc7b737d7d4d28cb7b15fabf') in 0.003766 seconds
+  Import took 0.012872 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001411 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectTargets/EU_2.asset
+  artifactKey: Guid(cc9b0c336c15e5940b4b56d5eb5288ea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectTargets/EU_2.asset using Guid(cc9b0c336c15e5940b4b56d5eb5288ea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '36ab4a5dfc7b737d7d4d28cb7b15fabf') in 0.002948 seconds
+  Import took 0.010936 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 425.086033 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Deal1_plus1plus0_1PU.asset
+  artifactKey: Guid(b848d16f930fb12459a96ad2305edc2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Deal1_plus1plus0_1PU.asset using Guid(b848d16f930fb12459a96ad2305edc2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '43772b42f07d44abcec158385040d163') in 0.003461 seconds
+  Import took 0.011610 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 5.493479 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Deal1_plus1plus0_1PU.asset
+  artifactKey: Guid(b848d16f930fb12459a96ad2305edc2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Deal1_plus1plus0_1PU.asset using Guid(b848d16f930fb12459a96ad2305edc2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3daf1e6fb6e4c22fef2544963c7ee5ae') in 0.002818 seconds
+  Import took 0.010444 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 15.788646 seconds.
+  path: Assets/Scripts/Heroes/Hero Objects/Hero Powers/Caustic Mutagen.asset
+  artifactKey: Guid(8d0e298eaa6016e40ac8ec50c9a92d69) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Heroes/Hero Objects/Hero Powers/Caustic Mutagen.asset using Guid(8d0e298eaa6016e40ac8ec50c9a92d69) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'de06f31d79205c7735220153df713586') in 0.004091 seconds
+  Import took 0.011809 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 126.683322 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_plus1plus0_Revenge_Draw1.asset
+  artifactKey: Guid(5d661bc6eef3f764588bd8f86efc4b86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_plus1plus0_Revenge_Draw1.asset using Guid(5d661bc6eef3f764588bd8f86efc4b86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9e5000c06e6f36f44e26c79b0a90a2e6') in 0.005421 seconds
+  Import took 0.015172 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 52.248979 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Revenge_Draw1.asset
+  artifactKey: Guid(5d661bc6eef3f764588bd8f86efc4b86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Revenge_Draw1.asset using Guid(5d661bc6eef3f764588bd8f86efc4b86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3edf333623db17b76449aee4ef614a76') in 0.005081 seconds
+  Import took 0.013586 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 18.177350 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Revenge_Draw1_Heal2_PH.asset
+  artifactKey: Guid(5d661bc6eef3f764588bd8f86efc4b86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Revenge_Draw1_Heal2_PH.asset using Guid(5d661bc6eef3f764588bd8f86efc4b86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '97fa2f5e7ebdc35bcb193e3e3d48ec4e') in 0.004629 seconds
+  Import took 0.013307 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.292380 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Revenge_Draw1_HealPH_2.asset
+  artifactKey: Guid(5d661bc6eef3f764588bd8f86efc4b86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Revenge_Draw1_HealPH_2.asset using Guid(5d661bc6eef3f764588bd8f86efc4b86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '336a9ac00c21fa48a2b411e46cabd781') in 0.005277 seconds
+  Import took 0.016846 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.141710 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Revenge_Draw1_HealPH2.asset
+  artifactKey: Guid(5d661bc6eef3f764588bd8f86efc4b86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Revenge_Draw1_HealPH2.asset using Guid(5d661bc6eef3f764588bd8f86efc4b86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6e2d38bdc3aab0d381c9a32f0ad4511b') in 0.004788 seconds
+  Import took 0.013382 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 11.862082 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Revenge_Draw1_HealPH2.asset
+  artifactKey: Guid(5d661bc6eef3f764588bd8f86efc4b86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Revenge_Draw1_HealPH2.asset using Guid(5d661bc6eef3f764588bd8f86efc4b86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd4f5d024cfc4a943e4d949cbdd2fe3e0') in 0.004683 seconds
+  Import took 0.012910 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 46.914195 seconds.
+  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Revenge_Draw1.asset
+  artifactKey: Guid(3b34695ae00f47e49a1dac8611c4395e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Revenge_Draw1.asset using Guid(3b34695ae00f47e49a1dac8611c4395e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c2bc9865b2c5a71b3aeccd779b4fc128') in 0.004317 seconds
+  Import took 0.014831 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.005499 seconds.
+  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Revenge_Draw1.asset
+  artifactKey: Guid(3b34695ae00f47e49a1dac8611c4395e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Revenge_Draw1.asset using Guid(3b34695ae00f47e49a1dac8611c4395e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c2bc9865b2c5a71b3aeccd779b4fc128') in 0.003662 seconds
+  Import took 0.012597 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 15.341824 seconds.
+  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Revenge_Draw1_HealPH_2.asset
+  artifactKey: Guid(3b34695ae00f47e49a1dac8611c4395e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Revenge_Draw1_HealPH_2.asset using Guid(3b34695ae00f47e49a1dac8611c4395e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e9bdc36cae8694b0cd4d59301adb681b') in 0.003517 seconds
+  Import took 0.012555 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 10.740721 seconds.
+  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Revenge_Draw1_HealPH_2.asset
+  artifactKey: Guid(3b34695ae00f47e49a1dac8611c4395e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Revenge_Draw1_HealPH_2.asset using Guid(3b34695ae00f47e49a1dac8611c4395e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '29a1d907e0e4a6040c301e5e58c851bd') in 0.004546 seconds
+  Import took 0.011664 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 4.570834 seconds.
+  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Revenge_Draw1_Heal2_PH.asset
+  artifactKey: Guid(3b34695ae00f47e49a1dac8611c4395e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Revenge_Draw1_Heal2_PH.asset using Guid(3b34695ae00f47e49a1dac8611c4395e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '613a86e5652046e2c1f8208a2c7717a9') in 0.004862 seconds
+  Import took 0.013120 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 17.500501 seconds.
+  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Revenge_Draw1_Heal2_PH.asset
+  artifactKey: Guid(3b34695ae00f47e49a1dac8611c4395e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Revenge_Draw1_Heal2_PH.asset using Guid(3b34695ae00f47e49a1dac8611c4395e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6e4b1c6cdcbf2ad2d092836415a7f004') in 0.004807 seconds
+  Import took 0.013229 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 11.820752 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Revenge_Draw1_HealPH2.asset
+  artifactKey: Guid(5d661bc6eef3f764588bd8f86efc4b86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Revenge_Draw1_HealPH2.asset using Guid(5d661bc6eef3f764588bd8f86efc4b86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c118012275b0c4566e384bc7f5008886') in 0.005294 seconds
+  Import took 0.016970 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000825 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Revenge_Draw1_HealPH2.asset
+  artifactKey: Guid(5d661bc6eef3f764588bd8f86efc4b86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Revenge_Draw1_HealPH2.asset using Guid(5d661bc6eef3f764588bd8f86efc4b86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c118012275b0c4566e384bc7f5008886') in 0.005333 seconds
+  Import took 0.012741 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 27.656901 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Revenge_Draw1_Heal2_PH.asset
+  artifactKey: Guid(f2beaa81d896c344b8b26ce05eb1ca5f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Revenge_Draw1_Heal2_PH.asset using Guid(f2beaa81d896c344b8b26ce05eb1ca5f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6cef1d7c015a6c5c855cf96b2cbf420a') in 0.005176 seconds
+  Import took 0.013026 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 10.230930 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Revenge_Draw1_Heal2_PH.asset
+  artifactKey: Guid(f2beaa81d896c344b8b26ce05eb1ca5f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Revenge_Draw1_Heal2_PH.asset using Guid(f2beaa81d896c344b8b26ce05eb1ca5f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6b5ed0be8bc953dcceda8440dc0c0ea1') in 0.004916 seconds
+  Import took 0.012869 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 24.065484 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Revenge_Draw1_HealPH2.asset
+  artifactKey: Guid(5d661bc6eef3f764588bd8f86efc4b86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Revenge_Draw1_HealPH2.asset using Guid(5d661bc6eef3f764588bd8f86efc4b86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9743900b6b8e7040697d8e7c5af6238b') in 0.005203 seconds
+  Import took 0.017817 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.590583 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Revenge_Draw1_Heal2_PH.asset
+  artifactKey: Guid(5d661bc6eef3f764588bd8f86efc4b86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Revenge_Draw1_Heal2_PH.asset using Guid(5d661bc6eef3f764588bd8f86efc4b86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f79ba5e434600f08c5f080264a9e32fc') in 0.005574 seconds
+  Import took 0.014080 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 117.386180 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Deal1_plus3plus0_1PU_1turn.asset
+  artifactKey: Guid(5eeb79a4cb4968148a399621413bd6f3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Deal1_plus3plus0_1PU_1turn.asset using Guid(5eeb79a4cb4968148a399621413bd6f3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9d6fdd176b76c8aa677f0ff2943e5264') in 0.003842 seconds
+  Import took 0.012098 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.779598 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_plus0plus2.asset
+  artifactKey: Guid(ff9c6aafaaf800a4f96eeaf51553428c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_plus0plus2.asset using Guid(ff9c6aafaaf800a4f96eeaf51553428c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1a8b95abf0744ee5118d4ec1973e94e0') in 0.003080 seconds
+  Import took 0.012385 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 6.844260 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_plus1plus0_Ranged_1turn.asset
+  artifactKey: Guid(e924cd726381fbb46aeace3a2e4b9128) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_plus1plus0_Ranged_1turn.asset using Guid(e924cd726381fbb46aeace3a2e4b9128) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b2872a25444f75e4536feb1980b89fef') in 0.008657 seconds
+  Import took 0.017080 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000390 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_plus1plus0_Ranged_1turn.asset
+  artifactKey: Guid(e924cd726381fbb46aeace3a2e4b9128) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_plus1plus0_Ranged_1turn.asset using Guid(e924cd726381fbb46aeace3a2e4b9128) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b2872a25444f75e4536feb1980b89fef') in 0.004533 seconds
+  Import took 0.012728 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.436469 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_plus1plus0_Shield.asset
+  artifactKey: Guid(aec0026e271cfe84d9e70d4e412cac55) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_plus1plus0_Shield.asset using Guid(aec0026e271cfe84d9e70d4e412cac55) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '782e47a82af6739bec9fca553ceaae58') in 0.004660 seconds
+  Import took 0.012819 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.330637 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_plus2plus1.asset
+  artifactKey: Guid(4617fd83bf40fed4ab47d84b55713254) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_plus2plus1.asset using Guid(4617fd83bf40fed4ab47d84b55713254) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9cfe8f4c21c4024d99fa5461436d2413') in 0.006077 seconds
+  Import took 0.015516 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000422 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_plus2plus1.asset
+  artifactKey: Guid(4617fd83bf40fed4ab47d84b55713254) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_plus2plus1.asset using Guid(4617fd83bf40fed4ab47d84b55713254) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9cfe8f4c21c4024d99fa5461436d2413') in 0.003075 seconds
+  Import took 0.010725 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 13.037431 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Hero/Deal1_EH.asset
+  artifactKey: Guid(894403a43df25f847af0d87bbb1d4900) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Hero/Deal1_EH.asset using Guid(894403a43df25f847af0d87bbb1d4900) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '37ad93cdd0ce00a08506e75436634373') in 0.002903 seconds
+  Import took 0.014669 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001971 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Hero/Deal1_EH.asset
+  artifactKey: Guid(894403a43df25f847af0d87bbb1d4900) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Hero/Deal1_EH.asset using Guid(894403a43df25f847af0d87bbb1d4900) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '37ad93cdd0ce00a08506e75436634373') in 0.003118 seconds
+  Import took 0.010737 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.511244 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Hero/Deal2_EH.asset
+  artifactKey: Guid(19dfee7ff5b0df24ea3722ba5c8b42fe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Hero/Deal2_EH.asset using Guid(19dfee7ff5b0df24ea3722ba5c8b42fe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '04bef61ce39b3861c3377402694c2e10') in 0.003076 seconds
+  Import took 0.015355 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.002199 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Hero/Deal2_EH.asset
+  artifactKey: Guid(19dfee7ff5b0df24ea3722ba5c8b42fe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Hero/Deal2_EH.asset using Guid(19dfee7ff5b0df24ea3722ba5c8b42fe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '04bef61ce39b3861c3377402694c2e10') in 0.002919 seconds
+  Import took 0.011573 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 9.057900 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal1_ALLEU.asset
+  artifactKey: Guid(1c3be4bb504b5d84787480a59e8a6ef4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal1_ALLEU.asset using Guid(1c3be4bb504b5d84787480a59e8a6ef4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1d4c82e5137ede92648b2a3d61185fe4') in 0.003053 seconds
+  Import took 0.015172 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.002007 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal1_ALLEU.asset
+  artifactKey: Guid(1c3be4bb504b5d84787480a59e8a6ef4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal1_ALLEU.asset using Guid(1c3be4bb504b5d84787480a59e8a6ef4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1d4c82e5137ede92648b2a3d61185fe4') in 0.003859 seconds
+  Import took 0.012357 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.921025 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal2_2EU.asset
+  artifactKey: Guid(9129387b8749605438638ab15b4365f3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal2_2EU.asset using Guid(9129387b8749605438638ab15b4365f3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5346e351aaa979d2d2bfa32eb5b75792') in 0.005925 seconds
+  Import took 0.014275 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001186 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal2_2EU.asset
+  artifactKey: Guid(9129387b8749605438638ab15b4365f3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal2_2EU.asset using Guid(9129387b8749605438638ab15b4365f3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5346e351aaa979d2d2bfa32eb5b75792') in 0.003265 seconds
+  Import took 0.010361 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.519999 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal3_1EU.asset
+  artifactKey: Guid(3f5e29227abaf364ab3788c458659832) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal3_1EU.asset using Guid(3f5e29227abaf364ab3788c458659832) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '65574d0d55947babf6f8e1b10abe488c') in 0.003092 seconds
+  Import took 0.012582 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 4.163250 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Give1PU_plus1plus0_Revenge_Deal1_EUALL.asset
+  artifactKey: Guid(840d2c9f3fe88464d8f359d7b1712279) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Give1PU_plus1plus0_Revenge_Deal1_EUALL.asset using Guid(840d2c9f3fe88464d8f359d7b1712279) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fe8a72f2198468d55946e3bb85556667') in 0.005969 seconds
+  Import took 0.016267 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000820 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Give1PU_plus1plus0_Revenge_Deal1_EUALL.asset
+  artifactKey: Guid(840d2c9f3fe88464d8f359d7b1712279) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Give1PU_plus1plus0_Revenge_Deal1_EUALL.asset using Guid(840d2c9f3fe88464d8f359d7b1712279) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fe8a72f2198468d55946e3bb85556667') in 0.004565 seconds
+  Import took 0.012504 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 23.235315 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/Starting Skills/Dark Experiments.asset
+  artifactKey: Guid(321f20ba2be7a294ca921a21247535d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/Starting Skills/Dark Experiments.asset using Guid(321f20ba2be7a294ca921a21247535d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5ad8eb4ff9a04cb49142e30302528569') in 0.007372 seconds
+  Import took 0.015340 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 74.430827 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Ranged_1turn.asset
+  artifactKey: Guid(e924cd726381fbb46aeace3a2e4b9128) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Ranged_1turn.asset using Guid(e924cd726381fbb46aeace3a2e4b9128) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5691cde2fc72a3ed6ed60e6e8678e99d') in 0.004719 seconds
+  Import took 0.013948 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 5.549072 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Ranged_1turn.asset
+  artifactKey: Guid(e924cd726381fbb46aeace3a2e4b9128) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Ranged_1turn.asset using Guid(e924cd726381fbb46aeace3a2e4b9128) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fb92a20678792e239a4dc339a33d8741') in 0.003530 seconds
+  Import took 0.012864 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 5.281867 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Ranged_1turn.asset
+  artifactKey: Guid(e924cd726381fbb46aeace3a2e4b9128) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Ranged_1turn.asset using Guid(e924cd726381fbb46aeace3a2e4b9128) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8a0091b24e59e138430562179aed2258') in 0.003635 seconds
+  Import took 0.012498 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 8.168881 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Ranged_1turn.asset
+  artifactKey: Guid(e924cd726381fbb46aeace3a2e4b9128) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Ranged_1turn.asset using Guid(e924cd726381fbb46aeace3a2e4b9128) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '825e07f0fbb1b3e4e8d6567eaad11269') in 0.003731 seconds
+  Import took 0.012389 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 12.644286 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Kili, Neon Rider/Starting Skills/Careful Shot.asset
+  artifactKey: Guid(b14d7b90f22f51648940e1b9630f745e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Kili, Neon Rider/Starting Skills/Careful Shot.asset using Guid(b14d7b90f22f51648940e1b9630f745e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9825558d1eecc9c1045e071d44952638') in 0.004666 seconds
+  Import took 0.017385 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001246 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Kili, Neon Rider/Starting Skills/Careful Shot.asset
+  artifactKey: Guid(b14d7b90f22f51648940e1b9630f745e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Kili, Neon Rider/Starting Skills/Careful Shot.asset using Guid(b14d7b90f22f51648940e1b9630f745e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9825558d1eecc9c1045e071d44952638') in 0.004607 seconds
+  Import took 0.012205 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 41.145860 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_plus2plus0.asset
+  artifactKey: Guid(4617fd83bf40fed4ab47d84b55713254) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_plus2plus0.asset using Guid(4617fd83bf40fed4ab47d84b55713254) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '18988c3bd125e124a9b7be1d63c88818') in 0.003059 seconds
+  Import took 0.011369 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.664525 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_plus2plus0.asset
+  artifactKey: Guid(4617fd83bf40fed4ab47d84b55713254) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_plus2plus0.asset using Guid(4617fd83bf40fed4ab47d84b55713254) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dbd8bf83d7aed1f433932bbe97b1e966') in 0.002779 seconds
+  Import took 0.010955 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.642879 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_plus2plus0.asset
+  artifactKey: Guid(4617fd83bf40fed4ab47d84b55713254) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_plus2plus0.asset using Guid(4617fd83bf40fed4ab47d84b55713254) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd179febd9ee2d469898cb65979ee1851') in 0.003011 seconds
+  Import took 0.010815 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 10.784491 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Kili, Neon Rider/Starting Skills/Weapons Upgrade.asset
+  artifactKey: Guid(a0400ff467e9aae44ba879f21eafa017) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Kili, Neon Rider/Starting Skills/Weapons Upgrade.asset using Guid(a0400ff467e9aae44ba879f21eafa017) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '16e28e9254fad518de3758516e0562aa') in 0.004649 seconds
+  Import took 0.013576 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 43.440556 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Give1PU_Revenge_Deal1_EUALL.asset
+  artifactKey: Guid(840d2c9f3fe88464d8f359d7b1712279) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Give1PU_Revenge_Deal1_EUALL.asset using Guid(840d2c9f3fe88464d8f359d7b1712279) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '702ae1ea8f05eeb97c9632de7feecd95') in 0.004971 seconds
+  Import took 0.012987 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 11.331520 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Give1PU_Revenge_Deal1_EUALL.asset
+  artifactKey: Guid(840d2c9f3fe88464d8f359d7b1712279) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Give1PU_Revenge_Deal1_EUALL.asset using Guid(840d2c9f3fe88464d8f359d7b1712279) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c470cd5b9239f98af478c8a7c73d0a43') in 0.004315 seconds
+  Import took 0.012217 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 8.546011 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/Starting Skills/Unstable Formula.asset
+  artifactKey: Guid(e3c1fa916514de64c899907ba6866cad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/Starting Skills/Unstable Formula.asset using Guid(e3c1fa916514de64c899907ba6866cad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '24e86727d440b3d0aca3098698eaba58') in 0.005723 seconds
+  Import took 0.018713 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001825 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/Starting Skills/Unstable Formula.asset
+  artifactKey: Guid(e3c1fa916514de64c899907ba6866cad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/Starting Skills/Unstable Formula.asset using Guid(e3c1fa916514de64c899907ba6866cad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '24e86727d440b3d0aca3098698eaba58') in 0.005270 seconds
+  Import took 0.012934 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 90.200391 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Faydra, Rogue Cyborg/Starting Skills/Death Notice.asset
+  artifactKey: Guid(f7c13c69accabb0419771d8ba657e4f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Faydra, Rogue Cyborg/Starting Skills/Death Notice.asset using Guid(f7c13c69accabb0419771d8ba657e4f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '95992a3c88230a29710168614a6b8b85') in 0.003548 seconds
+  Import took 0.012821 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 17.325315 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Faydra, Rogue Cyborg/Starting Skills/Death Notice.asset
+  artifactKey: Guid(f7c13c69accabb0419771d8ba657e4f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Faydra, Rogue Cyborg/Starting Skills/Death Notice.asset using Guid(f7c13c69accabb0419771d8ba657e4f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '990482e0904161de96c5f9d67d55cc5c') in 0.003719 seconds
+  Import took 0.011678 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 26.526945 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Faydra, Rogue Cyborg/Starting Skills/Death Notice.asset
+  artifactKey: Guid(f7c13c69accabb0419771d8ba657e4f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Faydra, Rogue Cyborg/Starting Skills/Death Notice.asset using Guid(f7c13c69accabb0419771d8ba657e4f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '75bbf9316d55052d2a634c64d2149752') in 0.005384 seconds
+  Import took 0.013661 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 5.463628 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Faydra, Rogue Cyborg/Starting Skills/Death Notice.asset
+  artifactKey: Guid(f7c13c69accabb0419771d8ba657e4f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Faydra, Rogue Cyborg/Starting Skills/Death Notice.asset using Guid(f7c13c69accabb0419771d8ba657e4f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dc2cdc0b16a074f06d123cc0193a962f') in 0.005888 seconds
+  Import took 0.014117 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 20.026073 seconds.
+  path: Assets/Scripts/Heroes/Hero Objects/Hero Powers/Suppressing Fire.asset
+  artifactKey: Guid(5b55828862e034244817521d89529ba9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Heroes/Hero Objects/Hero Powers/Suppressing Fire.asset using Guid(5b55828862e034244817521d89529ba9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8e486d7302741c3a63e45b9c85123ca8') in 0.005943 seconds
+  Import took 0.014444 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 41.976591 seconds.
+  path: Assets/Dependencies/Sci-Fi Sounds/Weapons/Weapon 14 Foley 1 (Flamethrower).wav
+  artifactKey: Guid(654dc18042a739e48a3b5f9f0389d8f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Sci-Fi Sounds/Weapons/Weapon 14 Foley 1 (Flamethrower).wav using Guid(654dc18042a739e48a3b5f9f0389d8f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '41ef36498f5d61fca51ebab2362cc83d') in 0.104132 seconds
+  Import took 0.111827 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 58.807425 seconds.
+  path: Assets/Scripts/Heroes/Hero Objects/Hero Powers/Suppressing Fire.asset
+  artifactKey: Guid(5b55828862e034244817521d89529ba9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Heroes/Hero Objects/Hero Powers/Suppressing Fire.asset using Guid(5b55828862e034244817521d89529ba9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4db10a202ec62e5695375923583e1096') in 0.006100 seconds
+  Import took 0.013377 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 18.491828 seconds.
+  path: Assets/Scripts/Heroes/Hero Objects/Hero Powers/Suppressing Fire.asset
+  artifactKey: Guid(5b55828862e034244817521d89529ba9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Heroes/Hero Objects/Hero Powers/Suppressing Fire.asset using Guid(5b55828862e034244817521d89529ba9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bd38027afeac76de35f58cb3a1f10f98') in 0.005968 seconds
+  Import took 0.014160 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 20.436550 seconds.
+  path: Assets/Scripts/Heroes/Hero Objects/Hero Powers/Suppressing Fire.asset
+  artifactKey: Guid(5b55828862e034244817521d89529ba9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Heroes/Hero Objects/Hero Powers/Suppressing Fire.asset using Guid(5b55828862e034244817521d89529ba9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c48d0ce98dfc270839039185d6023715') in 0.003684 seconds
+  Import took 0.011684 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 34.927558 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Faydra, Rogue Cyborg/Starting Skills/Plasma Shielding.asset
+  artifactKey: Guid(2dd34371ad1300b4b8562e9c9647e8a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Faydra, Rogue Cyborg/Starting Skills/Plasma Shielding.asset using Guid(2dd34371ad1300b4b8562e9c9647e8a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '768432cc0e2029550726a6c519824926') in 0.004911 seconds
+  Import took 0.012785 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 103.265240 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Faydra, Rogue Cyborg/Starting Skills/Death Notice.asset
+  artifactKey: Guid(f7c13c69accabb0419771d8ba657e4f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Faydra, Rogue Cyborg/Starting Skills/Death Notice.asset using Guid(f7c13c69accabb0419771d8ba657e4f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c9d2fcce64fefb2f68559a5e86eba748') in 0.005338 seconds
+  Import took 0.016167 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 56.106340 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal1_ 1EU_Give_Marked.asset
+  artifactKey: Guid(8c97eaa77ec4d354eb714cc53d9d41aa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal1_ 1EU_Give_Marked.asset using Guid(8c97eaa77ec4d354eb714cc53d9d41aa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd961c945182eefb4581af62b40e609cc') in 0.004438 seconds
+  Import took 0.012326 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 11.091237 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal1_ 1EU_Give_Marked.asset
+  artifactKey: Guid(8c97eaa77ec4d354eb714cc53d9d41aa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal1_ 1EU_Give_Marked.asset using Guid(8c97eaa77ec4d354eb714cc53d9d41aa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f58cdc0be547049013ebe2c88c7e68ee') in 0.003875 seconds
+  Import took 0.011959 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 9.085557 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal1_ 1EU_Give_Marked.asset
+  artifactKey: Guid(8c97eaa77ec4d354eb714cc53d9d41aa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal1_ 1EU_Give_Marked.asset using Guid(8c97eaa77ec4d354eb714cc53d9d41aa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '61321f9163d0e481e5f3c5bfe9fc657e') in 0.004097 seconds
+  Import took 0.013018 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.708774 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal1_ 1EU_Give_Marked.asset
+  artifactKey: Guid(8c97eaa77ec4d354eb714cc53d9d41aa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal1_ 1EU_Give_Marked.asset using Guid(8c97eaa77ec4d354eb714cc53d9d41aa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '958c6fc9e1b48c1348a08394da72fc34') in 0.004092 seconds
+  Import took 0.012472 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 21.435637 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Faydra, Rogue Cyborg/Starting Skills/Death Notice.asset
+  artifactKey: Guid(f7c13c69accabb0419771d8ba657e4f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Faydra, Rogue Cyborg/Starting Skills/Death Notice.asset using Guid(f7c13c69accabb0419771d8ba657e4f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b1472d04eba2d9d6122676abbbc5ba07') in 0.005447 seconds
+  Import took 0.018156 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.002831 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Faydra, Rogue Cyborg/Starting Skills/Death Notice.asset
+  artifactKey: Guid(f7c13c69accabb0419771d8ba657e4f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Faydra, Rogue Cyborg/Starting Skills/Death Notice.asset using Guid(f7c13c69accabb0419771d8ba657e4f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b1472d04eba2d9d6122676abbbc5ba07') in 0.005338 seconds
+  Import took 0.012034 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 298.550123 seconds.
+  path: Assets/Scripts/Heroes/Hero Objects/Hero Powers/Suppressing Fire.asset
+  artifactKey: Guid(5b55828862e034244817521d89529ba9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Heroes/Hero Objects/Hero Powers/Suppressing Fire.asset using Guid(5b55828862e034244817521d89529ba9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dcef3bd0bbecc268adb544e729a10e53') in 0.004381 seconds
+  Import took 0.013354 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 10.148018 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Give1EU_minus2minus0_1turn.asset
+  artifactKey: Guid(aae81688104f6c9489052e54614c0a9f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Give1EU_minus2minus0_1turn.asset using Guid(aae81688104f6c9489052e54614c0a9f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1f1ccc5abeb16c4066d7f87986fc100a') in 0.003110 seconds
+  Import took 0.012895 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 5.912395 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Give1EU_minus2minus0_1turn.asset
+  artifactKey: Guid(aae81688104f6c9489052e54614c0a9f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Give1EU_minus2minus0_1turn.asset using Guid(aae81688104f6c9489052e54614c0a9f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9d752efd5e6dab431da26cbe5099a998') in 0.002558 seconds
+  Import took 0.011164 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.504598 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/StatChange/ChgPow_minus2_1turn.asset
+  artifactKey: Guid(0cfb6eefc70b8f444bc1600f28c45a0b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/StatChange/ChgPow_minus2_1turn.asset using Guid(0cfb6eefc70b8f444bc1600f28c45a0b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '45453d42e7e1b8ed4b1b5c9132c6a8b8') in 0.003217 seconds
+  Import took 0.011399 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 4.298901 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/StatChange/ChgPow_minus2_1turn.asset
+  artifactKey: Guid(0cfb6eefc70b8f444bc1600f28c45a0b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/StatChange/ChgPow_minus2_1turn.asset using Guid(0cfb6eefc70b8f444bc1600f28c45a0b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '36dcf412d7e5eb0e451a1c695b011b6d') in 0.002427 seconds
+  Import took 0.013860 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 9.309212 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/StatChange/ChgPow_minus2_1turn.asset
+  artifactKey: Guid(0cfb6eefc70b8f444bc1600f28c45a0b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/StatChange/ChgPow_minus2_1turn.asset using Guid(0cfb6eefc70b8f444bc1600f28c45a0b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cadef36795cb7f8a8c914e52429cc0fa') in 0.002158 seconds
+  Import took 0.010596 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.005132 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.00 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.285 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.50 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1899 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 94.2 MB.
+System memory in use after: 94.3 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2384.
+Total: 3.147300 ms (FindLiveObjects: 0.424900 ms CreateObjectMapping: 0.163100 ms MarkObjects: 2.533800 ms  DeleteObjects: 0.023900 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.001330 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.79 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.701 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.82 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1899 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 94.2 MB.
+System memory in use after: 94.3 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2387.
+Total: 1.541500 ms (FindLiveObjects: 0.173900 ms CreateObjectMapping: 0.065400 ms MarkObjects: 1.291800 ms  DeleteObjects: 0.009800 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 343.835396 seconds.
+  path: Assets/Sprites/Heroes/Hero Powers/Hidden_Blade.PNG
+  artifactKey: Guid(6198eba672f4b0f4098d08a3ac023d46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Heroes/Hero Powers/Hidden_Blade.PNG using Guid(6198eba672f4b0f4098d08a3ac023d46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '55d2c86506aa57f5ce8e26bcfe3e2c4f') in 0.049146 seconds
+  Import took 0.055856 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 14.077658 seconds.
+  path: Assets/Sprites/Cards/Action Cards/Hero_Power_Faydra.PNG
+  artifactKey: Guid(704542b6b854d2a4d84bcb980dcbd671) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Cards/Action Cards/Hero_Power_Faydra.PNG using Guid(704542b6b854d2a4d84bcb980dcbd671) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2e826f762a5b3388b3377ef4b0fa180a') in 0.013334 seconds
+  Import took 0.020177 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 11.248833 seconds.
+  path: Assets/Sprites/Heroes/Hero Powers/HeroPower_Faydra.PNG
+  artifactKey: Guid(704542b6b854d2a4d84bcb980dcbd671) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Heroes/Hero Powers/HeroPower_Faydra.PNG using Guid(704542b6b854d2a4d84bcb980dcbd671) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fc97fbe92818d0e5e7604888ae4af89d') in 0.015233 seconds
+  Import took 0.022943 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.162190 seconds.
+  path: Assets/Scripts/Heroes/Hero Objects/Hero Powers/Suppressing Fire.asset
+  artifactKey: Guid(5b55828862e034244817521d89529ba9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Heroes/Hero Objects/Hero Powers/Suppressing Fire.asset using Guid(5b55828862e034244817521d89529ba9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b2987da111824557269c5871094cf84b') in 0.008249 seconds
+  Import took 0.021478 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.001377 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.84 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.756 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.82 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1899 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 94.2 MB.
+System memory in use after: 94.3 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2393.
+Total: 1.829400 ms (FindLiveObjects: 0.249100 ms CreateObjectMapping: 0.106800 ms MarkObjects: 1.430800 ms  DeleteObjects: 0.042100 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.001477 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.84 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.755 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.83 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1899 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 94.2 MB.
+System memory in use after: 94.4 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2396.
+Total: 1.748300 ms (FindLiveObjects: 0.204800 ms CreateObjectMapping: 0.086200 ms MarkObjects: 1.422400 ms  DeleteObjects: 0.034200 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002928 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.88 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.743 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.82 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1899 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 94.3 MB.
+System memory in use after: 94.4 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2399.
+Total: 1.740000 ms (FindLiveObjects: 0.287700 ms CreateObjectMapping: 0.137400 ms MarkObjects: 1.261200 ms  DeleteObjects: 0.033000 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.001460 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.83 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.753 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.85 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1899 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 94.3 MB.
+System memory in use after: 94.4 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2402.
+Total: 1.916200 ms (FindLiveObjects: 0.259200 ms CreateObjectMapping: 0.076900 ms MarkObjects: 1.546400 ms  DeleteObjects: 0.032900 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 1396.835623 seconds.
+  path: Assets/Scripts/Cards/Card Classes/Card Components/CardZoom.cs
+  artifactKey: Guid(6cfcca6b67ff95149a4ae27102ddc3ac) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Classes/Card Components/CardZoom.cs using Guid(6cfcca6b67ff95149a4ae27102ddc3ac) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e9b768787a6c8604089e8cea5f4424ca') in 0.014700 seconds
+  Import took 0.022024 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 76.476057 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Revenge_Deal1_EUALL.asset
+  artifactKey: Guid(d2143d1271999fb459cb344febcda211) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Revenge_Deal1_EUALL.asset using Guid(d2143d1271999fb459cb344febcda211) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8106f8c07b6d1dd0134ad4ba11e7f5d2') in 0.015281 seconds
+  Import took 0.024484 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002629 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.14 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.906 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.83 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1899 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 94.3 MB.
+System memory in use after: 94.4 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2405.
+Total: 1.756400 ms (FindLiveObjects: 0.213600 ms CreateObjectMapping: 0.066500 ms MarkObjects: 1.460300 ms  DeleteObjects: 0.015300 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 4599.708577 seconds.
+  path: Assets/Scripts/Managers/EffectManager.cs
+  artifactKey: Guid(52ff3e14a0cc1d74b84392753cdfb0e4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Managers/EffectManager.cs using Guid(52ff3e14a0cc1d74b84392753cdfb0e4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e1f5d7f1814b5f7f7ab418e0763e7171') in 0.074330 seconds
+  Import took 0.128214 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 18.474208 seconds.
+  path: Assets/Scripts/Effects/Effect Classes/DestroyEffect.cs
+  artifactKey: Guid(ba4cb839e88769c48ae6cfc7885fb01e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Classes/DestroyEffect.cs using Guid(ba4cb839e88769c48ae6cfc7885fb01e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cbb56d97228b47e9c4e537825e93cab7') in 0.004635 seconds
+  Import took 0.015134 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.001896 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.38 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.910 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.38 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1900 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 94.3 MB.
+System memory in use after: 94.4 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2409.
+Total: 2.031800 ms (FindLiveObjects: 0.300800 ms CreateObjectMapping: 0.124800 ms MarkObjects: 1.588000 ms  DeleteObjects: 0.016700 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002382 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.07 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.864 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.84 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1900 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 94.3 MB.
+System memory in use after: 94.4 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2412.
+Total: 1.908700 ms (FindLiveObjects: 0.302000 ms CreateObjectMapping: 0.127400 ms MarkObjects: 1.442100 ms  DeleteObjects: 0.035700 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 33.040708 seconds.
+  path: Assets/Scripts/Effects/Effect Classes/DestroyEffect.cs
+  artifactKey: Guid(ba4cb839e88769c48ae6cfc7885fb01e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Classes/DestroyEffect.cs using Guid(ba4cb839e88769c48ae6cfc7885fb01e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0b3f484a495a5f7034a417224b3f012e') in 0.004440 seconds
+  Import took 0.013253 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.207030 seconds.
+  path: Assets/Scripts/Effects/Effect Classes/Effect.cs
+  artifactKey: Guid(9d9964960e4db824faf990b8b5e47ae6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Classes/Effect.cs using Guid(9d9964960e4db824faf990b8b5e47ae6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a5f4a9f629d4870ef9dac64587f5878a') in 0.003696 seconds
+  Import took 0.012481 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.001775 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.83 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.826 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.82 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1900 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 94.3 MB.
+System memory in use after: 94.4 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2415.
+Total: 4.323300 ms (FindLiveObjects: 0.808900 ms CreateObjectMapping: 0.322400 ms MarkObjects: 3.173800 ms  DeleteObjects: 0.016500 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 348.036691 seconds.
+  path: Assets/Scripts/Effects/Effect Classes/DrawEffect.cs
+  artifactKey: Guid(6905d9529a6c1f048b40c0cd80a097d3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Classes/DrawEffect.cs using Guid(6905d9529a6c1f048b40c0cd80a097d3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '37c5ec99b5313c7d5f2867f5ee3855e1') in 0.005137 seconds
+  Import took 0.014814 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 34.310946 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/Destroy
+  artifactKey: Guid(a622ed54b4605024a81238e1eb79de90) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/Destroy using Guid(a622ed54b4605024a81238e1eb79de90) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9f1092fb762ba7fd5fcc9220573a493c') in 0.003973 seconds
+  Import took 0.012925 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 16.694535 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/Destroy/Destroy.asset
+  artifactKey: Guid(7b3658ca09fb3044e8d86306f715957d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/Destroy/Destroy.asset using Guid(7b3658ca09fb3044e8d86306f715957d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6ed3f458acb52d876c65b46fedbfcb7c') in 0.010741 seconds
+  Import took 0.023629 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 112.791486 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Destroy_1PU.asset
+  artifactKey: Guid(c62ff9d98eab5fa4496f5227951c153f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Destroy_1PU.asset using Guid(c62ff9d98eab5fa4496f5227951c153f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5bf74b235b98caaa8cd3f689e7667da9') in 0.006166 seconds
+  Import took 0.018185 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 6.599101 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Destroy_1PU.asset
+  artifactKey: Guid(c62ff9d98eab5fa4496f5227951c153f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Destroy_1PU.asset using Guid(c62ff9d98eab5fa4496f5227951c153f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b4eb53a898589ccc7087e815bc527626') in 0.003855 seconds
+  Import took 0.016407 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 6.677560 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Destroy_1PU.asset
+  artifactKey: Guid(c62ff9d98eab5fa4496f5227951c153f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Destroy_1PU.asset using Guid(c62ff9d98eab5fa4496f5227951c153f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ff397fb872b2458f36a6ae03d693e52c') in 0.003176 seconds
+  Import took 0.012557 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 16.763156 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Destroy_1PU.asset
+  artifactKey: Guid(c62ff9d98eab5fa4496f5227951c153f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Destroy_1PU.asset using Guid(c62ff9d98eab5fa4496f5227951c153f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '44b6b4fb286b4c990483ee794ff0e561') in 0.005299 seconds
+  Import took 0.016945 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 200.166081 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/Starting Skills/Dark Experiments.asset
+  artifactKey: Guid(321f20ba2be7a294ca921a21247535d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/Starting Skills/Dark Experiments.asset using Guid(321f20ba2be7a294ca921a21247535d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '26a489ea764ded9286bbece890959b94') in 0.012087 seconds
+  Import took 0.023450 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 42.094285 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hero/Heal2_PH 1.asset
+  artifactKey: Guid(9ff6fa8e950e6e64a8da7c3e78b19bde) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hero/Heal2_PH 1.asset using Guid(9ff6fa8e950e6e64a8da7c3e78b19bde) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3fda38466c6f200610575238bf6bd6ac') in 0.004966 seconds
+  Import took 0.018964 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 4.533987 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hero/Heal3_PH.asset
+  artifactKey: Guid(9ff6fa8e950e6e64a8da7c3e78b19bde) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hero/Heal3_PH.asset using Guid(9ff6fa8e950e6e64a8da7c3e78b19bde) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '14f453da5300c328f6de8d074dd6a0d1') in 0.004145 seconds
+  Import took 0.016449 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.709253 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/Starting Skills/Dark Experiments.asset
+  artifactKey: Guid(321f20ba2be7a294ca921a21247535d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/Starting Skills/Dark Experiments.asset using Guid(321f20ba2be7a294ca921a21247535d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dbd93d453292761928ba1e2e13f02743') in 0.034239 seconds
+  Import took 0.047114 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 4.318969 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/Starting Skills/Dark Experiments.asset
+  artifactKey: Guid(321f20ba2be7a294ca921a21247535d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/Starting Skills/Dark Experiments.asset using Guid(321f20ba2be7a294ca921a21247535d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '97748bd8909c7ff0be5a43309831feb1') in 0.005381 seconds
+  Import took 0.015215 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 47.751754 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/Destroy_R.asset
+  artifactKey: Guid(7b3658ca09fb3044e8d86306f715957d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/Destroy_R.asset using Guid(7b3658ca09fb3044e8d86306f715957d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b4563dc1f4393c90faf8922e035c4217') in 0.003741 seconds
+  Import took 0.016489 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 9.817769 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/Destroy_R.asset
+  artifactKey: Guid(7b3658ca09fb3044e8d86306f715957d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/Destroy_R.asset using Guid(7b3658ca09fb3044e8d86306f715957d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2c82a8820463e37a0730debebb0bb59e') in 0.002858 seconds
+  Import took 0.013668 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.001610 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.83 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.839 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.86 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1900 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 94.3 MB.
+System memory in use after: 94.5 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2418.
+Total: 2.444400 ms (FindLiveObjects: 0.281700 ms CreateObjectMapping: 0.116600 ms MarkObjects: 2.025500 ms  DeleteObjects: 0.018900 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002569 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.66 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.091 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.26 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1900 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 94.4 MB.
+System memory in use after: 94.5 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2421.
+Total: 3.433100 ms (FindLiveObjects: 0.437200 ms CreateObjectMapping: 0.332400 ms MarkObjects: 2.623900 ms  DeleteObjects: 0.036000 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.001645 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.84 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.812 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.09 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1900 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 94.4 MB.
+System memory in use after: 94.5 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2424.
+Total: 2.048300 ms (FindLiveObjects: 0.251200 ms CreateObjectMapping: 0.149000 ms MarkObjects: 1.634000 ms  DeleteObjects: 0.013200 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002056 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.35 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.086 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.66 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1900 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 94.4 MB.
+System memory in use after: 94.5 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2427.
+Total: 4.505000 ms (FindLiveObjects: 0.714200 ms CreateObjectMapping: 0.226800 ms MarkObjects: 3.520600 ms  DeleteObjects: 0.039800 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.001988 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.03 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.808 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.79 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1900 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 94.4 MB.
+System memory in use after: 94.5 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2430.
+Total: 1.629500 ms (FindLiveObjects: 0.243100 ms CreateObjectMapping: 0.076100 ms MarkObjects: 1.276500 ms  DeleteObjects: 0.032900 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 891.024672 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/Starting Skills/Unstable Formula.asset
+  artifactKey: Guid(e3c1fa916514de64c899907ba6866cad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/Starting Skills/Unstable Formula.asset using Guid(e3c1fa916514de64c899907ba6866cad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '55d30c35255a11fd024646328097bfda') in 0.022627 seconds
+  Import took 0.033288 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.666288 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hero/Heal3_PH.asset
+  artifactKey: Guid(9ff6fa8e950e6e64a8da7c3e78b19bde) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hero/Heal3_PH.asset using Guid(9ff6fa8e950e6e64a8da7c3e78b19bde) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'de6de32822650716fa5f01a25c5c2f42') in 0.004416 seconds
+  Import took 0.013289 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.002590 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hero/Heal3_PH.asset
+  artifactKey: Guid(9ff6fa8e950e6e64a8da7c3e78b19bde) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hero/Heal3_PH.asset using Guid(9ff6fa8e950e6e64a8da7c3e78b19bde) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'de6de32822650716fa5f01a25c5c2f42') in 0.003104 seconds
+  Import took 0.012741 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.001766 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.73 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.831 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.88 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1900 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 94.4 MB.
+System memory in use after: 94.5 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2433.
+Total: 1.662400 ms (FindLiveObjects: 0.219000 ms CreateObjectMapping: 0.071000 ms MarkObjects: 1.358200 ms  DeleteObjects: 0.013100 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 10.997839 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/Heal/Heal2 1.asset
+  artifactKey: Guid(15af0a633b4be1b4688ba7662f03fa6c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/Heal/Heal2 1.asset using Guid(15af0a633b4be1b4688ba7662f03fa6c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c20768f2864a13f9a9ebcc0be3e0562a') in 0.012584 seconds
+  Import took 0.023448 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.680179 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/Heal/Heal3.asset
+  artifactKey: Guid(15af0a633b4be1b4688ba7662f03fa6c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/Heal/Heal3.asset using Guid(15af0a633b4be1b4688ba7662f03fa6c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1e9a63061865952e943c92697924ef73') in 0.003410 seconds
+  Import took 0.013295 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 4.737101 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/Heal/Heal3.asset
+  artifactKey: Guid(15af0a633b4be1b4688ba7662f03fa6c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/Heal/Heal3.asset using Guid(15af0a633b4be1b4688ba7662f03fa6c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd115dbdeed7cc13091a36c1de7a852c7') in 0.003051 seconds
+  Import took 0.013766 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 15.250136 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hero/Heal3_PH.asset
+  artifactKey: Guid(9ff6fa8e950e6e64a8da7c3e78b19bde) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hero/Heal3_PH.asset using Guid(9ff6fa8e950e6e64a8da7c3e78b19bde) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e2deb2821c54ac04d1259665af7b9af5') in 0.004188 seconds
+  Import took 0.016242 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.487874 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hero/Heal3_PH.asset
+  artifactKey: Guid(9ff6fa8e950e6e64a8da7c3e78b19bde) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hero/Heal3_PH.asset using Guid(9ff6fa8e950e6e64a8da7c3e78b19bde) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '25a2124ae25c32ed30bc5aaec04a2e3f') in 0.003177 seconds
+  Import took 0.014190 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 603.010683 seconds.
+  path: Assets/Animations/Cards/Card (Base Controller)/Card_Modify_Attack.anim
+  artifactKey: Guid(e36d4dd2d338c1c4dbf0f8a158857a4c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animations/Cards/Card (Base Controller)/Card_Modify_Attack.anim using Guid(e36d4dd2d338c1c4dbf0f8a158857a4c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7b8cacc991bb0cee9ada0892c34a91bb') in 0.007704 seconds
+  Import took 0.017344 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000637 seconds.
+  path: Assets/Animations/Cards/Card (Base Controller)/Card_Modify_Attack.anim
+  artifactKey: Guid(e36d4dd2d338c1c4dbf0f8a158857a4c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animations/Cards/Card (Base Controller)/Card_Modify_Attack.anim using Guid(e36d4dd2d338c1c4dbf0f8a158857a4c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7b8cacc991bb0cee9ada0892c34a91bb') in 0.004091 seconds
+  Import took 0.016013 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 4.030477 seconds.
+  path: Assets/Animations/Cards/Card (Base Controller)/Card_Hidden.anim
+  artifactKey: Guid(31334588dcdd5414ea1af5885fb349c1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animations/Cards/Card (Base Controller)/Card_Hidden.anim using Guid(31334588dcdd5414ea1af5885fb349c1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cf4de63b03e24f8ad18a5e2cbf11d81a') in 0.006660 seconds
+  Import took 0.020566 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 38.862851 seconds.
+  path: Assets/Prefabs/Cards/Unit Card/UnitCard.prefab
+  artifactKey: Guid(ec19b68285bd03847aafaae758ee7fee) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Cards/Unit Card/UnitCard.prefab using Guid(ec19b68285bd03847aafaae758ee7fee) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9017d59bb8ae6358a2c2e0c1682de4a3') in 0.217527 seconds
+  Import took 0.229766 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1308.296089 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Draw1 1.asset
+  artifactKey: Guid(6538b1cc9f995494da722600b289e291) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Draw1 1.asset using Guid(6538b1cc9f995494da722600b289e291) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0c78f318f9abfc9897fc1f1cae9cbaa4') in 0.004880 seconds
+  Import took 0.016303 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.416477 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Draw2.asset
+  artifactKey: Guid(6538b1cc9f995494da722600b289e291) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Draw2.asset using Guid(6538b1cc9f995494da722600b289e291) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ae9890e42f64b8a0216f8e37598f5e17') in 0.003903 seconds
+  Import took 0.014304 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 4.401355 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/Starting Skills/Dark Experiments.asset
+  artifactKey: Guid(321f20ba2be7a294ca921a21247535d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/Starting Skills/Dark Experiments.asset using Guid(321f20ba2be7a294ca921a21247535d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '37059ba6655d83d49fc404f87477c5a6') in 0.007003 seconds
+  Import took 0.020120 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 22.117990 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/Draw/Draw_1 1.asset
+  artifactKey: Guid(52f1b0112b81152499175712bb4ee58c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/Draw/Draw_1 1.asset using Guid(52f1b0112b81152499175712bb4ee58c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2b3745cc9f63f9e2acc7b13f3b8e4d92') in 0.003681 seconds
+  Import took 0.017215 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001262 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/Draw/Draw_1 1.asset
+  artifactKey: Guid(52f1b0112b81152499175712bb4ee58c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/Draw/Draw_1 1.asset using Guid(52f1b0112b81152499175712bb4ee58c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2b3745cc9f63f9e2acc7b13f3b8e4d92') in 0.002723 seconds
+  Import took 0.012106 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.419688 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/Draw/Draw_2.asset
+  artifactKey: Guid(52f1b0112b81152499175712bb4ee58c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/Draw/Draw_2.asset using Guid(52f1b0112b81152499175712bb4ee58c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '23b47deffa5e4dd8d73b932595356f7f') in 0.004020 seconds
+  Import took 0.013755 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.734171 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/Starting Skills/Dark Experiments.asset
+  artifactKey: Guid(321f20ba2be7a294ca921a21247535d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/Starting Skills/Dark Experiments.asset using Guid(321f20ba2be7a294ca921a21247535d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e8d7a1c4b48a0d3a189afd89555cf0e7') in 0.006552 seconds
+  Import took 0.018228 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001282 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/Starting Skills/Dark Experiments.asset
+  artifactKey: Guid(321f20ba2be7a294ca921a21247535d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/Starting Skills/Dark Experiments.asset using Guid(321f20ba2be7a294ca921a21247535d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e8d7a1c4b48a0d3a189afd89555cf0e7') in 0.005811 seconds
+  Import took 0.018818 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 4.702931 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Draw2.asset
+  artifactKey: Guid(6538b1cc9f995494da722600b289e291) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Draw2.asset using Guid(6538b1cc9f995494da722600b289e291) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1b46094576294249a4742ba6ab88f335') in 0.003774 seconds
+  Import took 0.013267 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 8.428141 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Draw_2.asset
+  artifactKey: Guid(6538b1cc9f995494da722600b289e291) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Draw_2.asset using Guid(6538b1cc9f995494da722600b289e291) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2765d9db36506980b40b5f0dab28c1d1') in 0.022873 seconds
+  Import took 0.032699 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 15.309462 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/Starting Skills/Dark Experiments.asset
+  artifactKey: Guid(321f20ba2be7a294ca921a21247535d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/Starting Skills/Dark Experiments.asset using Guid(321f20ba2be7a294ca921a21247535d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '33d0da13842284f026423dc031dc18ab') in 0.005772 seconds
+  Import took 0.015832 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 208.307074 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/Starting Skills/Dark Experiments.asset
+  artifactKey: Guid(321f20ba2be7a294ca921a21247535d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/Starting Skills/Dark Experiments.asset using Guid(321f20ba2be7a294ca921a21247535d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6e80c6efaa0da9fbe9ae33b4db924e1c') in 0.006945 seconds
+  Import took 0.018311 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 4.882325 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/Starting Skills/Dark Experiments.asset
+  artifactKey: Guid(321f20ba2be7a294ca921a21247535d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/Starting Skills/Dark Experiments.asset using Guid(321f20ba2be7a294ca921a21247535d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f47efb1b1bf8451d53bf50c8bb308c19') in 0.005094 seconds
+  Import took 0.015242 seconds .
+
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file

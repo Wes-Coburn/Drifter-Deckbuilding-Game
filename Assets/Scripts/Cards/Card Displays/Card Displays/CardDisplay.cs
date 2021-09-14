@@ -112,7 +112,7 @@ public abstract class CardDisplay : MonoBehaviour
             CardBorder = card.CardBorder;
         }
         
-        if (gameObject.TryGetComponent(out animator))
+        if (TryGetComponent(out animator))
         {
             animator.runtimeAnimatorController = CardScript.ZoomOverController;
             AnimationManager.Instance.ZoomedState(gameObject);

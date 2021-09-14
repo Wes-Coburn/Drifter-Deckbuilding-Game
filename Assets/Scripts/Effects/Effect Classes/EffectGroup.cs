@@ -12,6 +12,8 @@ public class EffectGroup : ScriptableObject
     public string EffectsDescription;
 
     [Header("EFFECT GROUP SOUND")]
-    [Tooltip("The sound played when this effect group resolves")]
+    [Tooltip("Sound will be played unless Sound2 is not null")]
     public string EffectGroupSound;
+    [Tooltip("Sound2 will be played only unless null")]
+    public Sound EffectGroupSound2;
 }

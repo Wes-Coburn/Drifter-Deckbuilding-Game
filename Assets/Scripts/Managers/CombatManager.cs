@@ -323,29 +323,31 @@ public class CombatManager : MonoBehaviour
             case PLAYER_HAND:
                 zoneTran = PlayerHand.transform;
                 anMan.RevealedHandState(card);
-                chgLyr.HandLayer(); // TESTING
-                isInHand = true; // TESTING
+                //chgLyr.HandLayer(); // TESTING
+                chgLyr.CardsLayer(); // TESTING
+                isInHand = true;
                 break;
             case PLAYER_ZONE:
                 zoneTran = PlayerZone.transform;
                 anMan.PlayedState(card);
-                chgLyr.CardsLayer(); // TESTING
+                chgLyr.CardsLayer();
                 break;
             case PLAYER_ACTION_ZONE:
                 zoneTran = PlayerActionZone.transform;
                 anMan.PlayedState(card);
-                chgLyr.ActionsLayer(); // TESTING
+                chgLyr.CardsLayer(); // TESTING
                 break;
             // ENEMY
             case ENEMY_HAND:
                 zoneTran = EnemyHand.transform;
-                chgLyr.HandLayer(); // TESTING
-                isInHand = true; // TESTING
+                //chgLyr.HandLayer(); // TESTING
+                chgLyr.CardsLayer(); // TESTING
+                isInHand = true;
                 break;
             case ENEMY_ZONE:
                 zoneTran = EnemyZone.transform;
                 anMan.PlayedState(card);
-                chgLyr.CardsLayer(); // TESTING
+                chgLyr.CardsLayer();
                 break;
             /*
             case ENEMY_ACTION_ZONE:
@@ -470,10 +472,27 @@ public class CombatManager : MonoBehaviour
      * ****** DESTROY_CARD [PLAY >>> DISCARD]
      * *****
      *****/
-    public void DestroyCard(GameObject card, string hero)
+    public void DestroyUnit(GameObject card, bool isDelayed = true)
     {
-        FunctionTimer.Create(() => Triggers(), 0.5f);
-        FunctionTimer.Create(() => Destroy(), 1);
+        if (efMan.CurrentEffect != null) // TESTING
+        {
+            efMan.UnitsToDestroy.Add(card);
+            return;
+        }
+        if (efMan.UnitsToDestroy.Contains(card)) // TESTING
+            efMan.UnitsToDestroy.Remove(card);
+
+        string cardTag = card.tag;
+        if (isDelayed)
+        {
+            FunctionTimer.Create(() => Triggers(), 0.5f);
+            FunctionTimer.Create(() => Destroy(), 1);
+        }
+        else
+        {
+            Triggers();
+            Destroy();
+        }
 
         void Triggers()
         {
@@ -483,16 +502,22 @@ public class CombatManager : MonoBehaviour
         }
         void Destroy()
         {
-            if (hero == PLAYER)
+            Sound deathSound = GetUnitDisplay(card).UnitCard.UnitDeathSound;
+            AudioManager.Instance.StartStopSound(null, deathSound);
+
+            if (cardTag == PLAYER_CARD)
             {
                 PlayerZoneCards.Remove(card);
                 PlayerDiscardCards.Add(HideCard(card));
             }
-            else if (hero == ENEMY)
+            else if (cardTag == ENEMY_CARD)
             {
                 EnemyZoneCards.Remove(card);
                 EnemyDiscardCards.Add(HideCard(card));
             }
+
+            if (efMan.UnitsToDestroy.Count > 0) // TESTING
+                DestroyUnit(efMan.UnitsToDestroy[0], isDelayed);
         }
     }
 
@@ -538,7 +563,7 @@ public class CombatManager : MonoBehaviour
         if (defender == null) return true; // For StartDrag in DragDrop
         else if (defender.TryGetComponent(out UnitCardDisplay ucd))
         {
-            if (ucd.CurrentDefense < 1) return false; // Destroyed units that haven't left play yet
+            if (ucd.CurrentHealth < 1) return false; // Destroyed units that haven't left play yet
             if (CardManager.GetAbility(defender, "Stealth"))
             {
                 if (!preCheck)
@@ -605,22 +630,22 @@ public class CombatManager : MonoBehaviour
         int newTargetValue;
         if (target == PlayerHero) targetValue = pMan.PlayerHealth;
         else if (target == EnemyHero) targetValue = enMan.EnemyHealth;
-        else targetValue = GetUnitDisplay(target).CurrentDefense;
+        else targetValue = GetUnitDisplay(target).CurrentHealth;
         newTargetValue = targetValue - damageValue;
         // Damage to heroes
         if (target == PlayerHero)
         {
             pMan.PlayerHealth = newTargetValue;
-            anMan.ModifyHealthState(target);
+            anMan.ModifyHeroHealthState(target);
         }
         else if (target == EnemyHero)
         {
             enMan.EnemyHealth = newTargetValue;
-            anMan.ModifyHealthState(target);
+            anMan.ModifyHeroHealthState(target);
         }
         else // Damage to Units
         {
-            if (GetUnitDisplay(target).CurrentDefense < 1) return false;
+            if (GetUnitDisplay(target).CurrentHealth < 1) return false;
             if (CardManager.GetAbility(target, SHIELD))
             {
                 GetUnitDisplay(target).RemoveCurrentAbility(SHIELD);
@@ -628,23 +653,17 @@ public class CombatManager : MonoBehaviour
             }
             else
             {
-                GetUnitDisplay(target).CurrentDefense = newTargetValue;
-                anMan.ModifyDefenseState(target);
+                GetUnitDisplay(target).CurrentHealth = newTargetValue;
+                anMan.ModifyUnitHealthState(target);
             }
         }
         if (newTargetValue < 1)
         {
-            if (target.CompareTag(PLAYER_CARD)) DestroyCard(target, PLAYER);
-            else if (target.CompareTag(ENEMY_CARD)) DestroyCard(target, ENEMY);
+            if (target.TryGetComponent<UnitCardDisplay>(out _)) DestroyUnit(target);
             else if (target == PlayerHero) gMan.EndCombat(false);
             else if (target == EnemyHero) gMan.EndCombat(true);
             if (target == PlayerHero || target == EnemyHero) return false;
-            else
-            {
-                Sound deathSound = target.GetComponent<UnitCardDisplay>().UnitCard.UnitDeathSound;
-                AudioManager.Instance.StartStopSound(null, deathSound);
-                return true;
-            }
+            else  return true;
         }
         else return false;
     }
@@ -671,14 +690,14 @@ public class CombatManager : MonoBehaviour
         }
         else
         {
-            targetValue = GetUnitDisplay(target).CurrentDefense;
-            maxValue = GetUnitDisplay(target).MaxDefense;
+            targetValue = GetUnitDisplay(target).CurrentHealth;
+            maxValue = GetUnitDisplay(target).MaxHealth;
         }
         newTargetValue = targetValue + healingValue;
         if (newTargetValue > maxValue) newTargetValue = maxValue;
         if (target == PlayerHero) pMan.PlayerHealth = newTargetValue;
         else if (target == EnemyHero) enMan.EnemyHealth = newTargetValue;
-        else GetUnitDisplay(target).CurrentDefense = newTargetValue;
-        anMan.ModifyDefenseState(target);
+        else GetUnitDisplay(target).CurrentHealth = newTargetValue;
+        anMan.ModifyUnitHealthState(target);
     }
 }

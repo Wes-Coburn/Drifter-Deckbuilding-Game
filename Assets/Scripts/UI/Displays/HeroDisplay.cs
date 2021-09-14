@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public abstract class HeroDisplay : MonoBehaviour
@@ -24,7 +25,8 @@ public abstract class HeroDisplay : MonoBehaviour
     {
         set
         {
-            heroPortrait.GetComponent<SpriteRenderer>().sprite = value;
+            heroPortrait.GetComponent<Image>().sprite = value;
+            
             if (this is PlayerHeroDisplay)
             {
                 UIManager.PositionAndScale pas = UIManager.Instance.GetPortraitPosition
@@ -38,7 +40,7 @@ public abstract class HeroDisplay : MonoBehaviour
 
     public int HeroHealth
     {
-        set => heroHealth.GetComponent<TextMeshPro>().SetText(value.ToString());
+        set => heroHealth.GetComponent<TextMeshProUGUI>().SetText(value.ToString());
     }
     [SerializeField] private GameObject heroHealth;
 

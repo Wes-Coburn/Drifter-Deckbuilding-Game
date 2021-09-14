@@ -62,7 +62,11 @@ public class AudioManager : MonoBehaviour
         Sound currentSound = null;
         if (sound == null)
         {
-            if (string.IsNullOrEmpty(sName)) return;
+            if (string.IsNullOrEmpty(sName))
+            {
+                Debug.LogWarning("SOUND NAME IS EMPTY!");
+                return;
+            }
             soundIndex = activeSounds.FindIndex(x => x.name == sName);
             if (soundIndex == -1)
             {

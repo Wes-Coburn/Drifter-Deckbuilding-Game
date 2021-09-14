@@ -187,11 +187,11 @@ public class UIManager : MonoBehaviour
         else if (target.TryGetComponent(out HeroSelect hs))
         {
             hs.HeroOutline.SetActive(enabled);
-            SpriteRenderer sr = hs.HeroOutline.GetComponentInChildren<SpriteRenderer>();
+            Image image = hs.HeroOutline.GetComponentInChildren<Image>();
             if (enabled)
             {
-                if (isSelected) sr.color = hs.SelectedColor;
-                else sr.color = hs.HighlightedColor;
+                if (isSelected) image.color = hs.SelectedColor;
+                else image.color = hs.HighlightedColor;
             }
         }
         else
@@ -208,8 +208,8 @@ public class UIManager : MonoBehaviour
      *****/
     public void UpdateEndTurnButton(bool isMyTurn)
     {
-        BoxCollider2D bc = endTurnButton.GetComponent<BoxCollider2D>();
-        bc.enabled = isMyTurn;
+        Button button = endTurnButton.GetComponent<Button>();
+        button.interactable = isMyTurn;
         EndTurnButtonDisplay etbd = endTurnButton.GetComponent<EndTurnButtonDisplay>();
         etbd.EndTurnSide.SetActive(isMyTurn);
         etbd.OpponentTurnSide.SetActive(!isMyTurn);
@@ -415,7 +415,7 @@ public class UIManager : MonoBehaviour
                 }
                 break;
             // FENTIS
-            case "Fentis, Rogue Cyborg":
+            case "Faydra, Rogue Cyborg":
                 switch (scene)
                 {
                     case SceneLoader.Scene.DialogueScene:

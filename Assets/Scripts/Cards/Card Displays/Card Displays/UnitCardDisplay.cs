@@ -7,7 +7,7 @@ public class UnitCardDisplay : CardDisplay
     [SerializeField] private GameObject currentAbilitiesDisplay;
     [SerializeField] private GameObject exhaustedIcon;
     [SerializeField] private GameObject attackScoreDisplay;
-    [SerializeField] private GameObject defenseScoreDisplay;
+    [SerializeField] private GameObject healthScoreDisplay;
 
     public GameObject AbilityIconPrefab;
     public GameObject ZoomAbilityIconPrefab;
@@ -26,20 +26,20 @@ public class UnitCardDisplay : CardDisplay
             txtPro.SetText(UnitCard.CurrentPower.ToString());
         }
     }
-    public int CurrentDefense
+    public int CurrentHealth
     {
-        get => UnitCard.CurrentDefense;
+        get => UnitCard.CurrentHealth;
         set
         {
-            UnitCard.CurrentDefense = value;
-            TextMeshPro txtPro = defenseScoreDisplay.GetComponent<TextMeshPro>();
-            txtPro.SetText(UnitCard.CurrentDefense.ToString());
+            UnitCard.CurrentHealth = value;
+            TextMeshPro txtPro = healthScoreDisplay.GetComponent<TextMeshPro>();
+            txtPro.SetText(UnitCard.CurrentHealth.ToString());
         }
-    }    
-    public int MaxDefense
+    }
+    public int MaxHealth
     {
-        get => UnitCard.MaxDefense;
-        set => UnitCard.MaxDefense = value;
+        get => UnitCard.MaxHealth;
+        set => UnitCard.MaxHealth = value;
     }
     public bool IsExhausted
     {
@@ -60,8 +60,8 @@ public class UnitCardDisplay : CardDisplay
     {
         base.DisplayCard();
         CurrentPower = UnitCard.StartPower;
-        MaxDefense = UnitCard.StartDefense;
-        CurrentDefense = MaxDefense;
+        MaxHealth = UnitCard.StartHealth;
+        CurrentHealth = MaxHealth;
         
         foreach (CardAbility cardAbility in UnitCard.StartingAbilities)
         {
@@ -81,22 +81,22 @@ public class UnitCardDisplay : CardDisplay
 
         if (card == null)
         {
-            UnitCardDisplay ucd = parentCard.GetComponent<CardDisplay>() as UnitCardDisplay;
+            UnitCardDisplay ucd = parentCard.GetComponent<UnitCardDisplay>();
             UnitCard uc = ucd.UnitCard;
             List<CardAbility> abilityList;
 
             if (CardZoom.ZoomCardIsCentered)
             {
                 CurrentPower = uc.StartPower;
-                MaxDefense = uc.StartDefense;
-                CurrentDefense = uc.StartDefense;
+                MaxHealth = uc.StartHealth;
+                CurrentHealth = MaxHealth;
                 abilityList = uc.StartingAbilities;
             }
             else
             {
                 CurrentPower = uc.CurrentPower;
-                MaxDefense = uc.CurrentDefense;
-                CurrentDefense = uc.CurrentDefense;
+                MaxHealth = uc.MaxHealth;
+                CurrentHealth = uc.CurrentHealth;
                 abilityList = ucd.CurrentAbilities;
             }
 
@@ -111,8 +111,8 @@ public class UnitCardDisplay : CardDisplay
         {
             UnitCard uc = card as UnitCard;
             CurrentPower = uc.StartPower;
-            MaxDefense = uc.StartDefense;
-            CurrentDefense = uc.StartDefense;
+            MaxHealth = uc.StartHealth;
+            CurrentHealth = uc.StartHealth;
             foreach (CardAbility ca in uc.StartingAbilities) 
                 CurrentAbilities.Add(ca);
             foreach (CardAbility cardAbility in uc.StartingAbilities)

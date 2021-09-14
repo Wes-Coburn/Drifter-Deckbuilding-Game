@@ -123,7 +123,8 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
                 cardYPos = (int)rect.position.y - ZOOM_BUFFER;
             }
             // New Game Scene
-            else if (heroSkills != null && transform.parent.parent.gameObject == heroSkills)
+            else if (heroSkills != null && 
+                transform.parent.parent.gameObject == heroSkills)
             {
                 CreateAbilityPopups(new Vector2(0, 150), ZOOM_SCALE_VALUE);
                 return;
@@ -268,11 +269,22 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
             else Debug.LogError("DISPLAY TYPE NOT FOUND!");
             return;
         }
+
+        List<CardAbility> singleList = new List<CardAbility>();
         foreach (CardAbility ca in abilityList)
         {
-            CreatePopup(ca);
-            foreach (CardAbility linkCa in ca.LinkedAbilites) 
-                CreatePopup(linkCa);
+            AddSingle(ca);
+            foreach (CardAbility linkCa in ca.LinkedAbilites)
+                AddSingle(linkCa);
+        }
+        
+        foreach (CardAbility singleCA in singleList) 
+            CreatePopup(singleCA);
+
+        void AddSingle(CardAbility ca)
+        {
+            if (!singleList.Contains(ca))
+                singleList.Add(ca);
         }
 
         void CreatePopup(CardAbility ca)

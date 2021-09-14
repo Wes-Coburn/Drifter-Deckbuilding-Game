@@ -6,18 +6,18 @@ public class UnitCard : Card
 {
     [Header("POWER")]
     [SerializeField] private int power;
-    [Header("DEFENSE")]
-    [SerializeField] private int defense;
+    [Header("HEALTH")]
+    [SerializeField] private int health;
     [SerializeField] private List<CardAbility> startingAbilities;
     [SerializeField] private Sound unitDeathSound;
 
     // POWER
     public int StartPower { get => power; }
     public int CurrentPower { get; set; }
-    // DEFENSE
-    public int StartDefense { get => defense; }
-    public int CurrentDefense { get; set; }
-    public int MaxDefense { get; set; }
+    // HEALTH
+    public int StartHealth { get => health; }
+    public int CurrentHealth { get; set; }
+    public int MaxHealth { get; set; }
     // ABILITIES
     public List<CardAbility> StartingAbilities { get => startingAbilities; }
     // SOUNDS
@@ -30,7 +30,7 @@ public class UnitCard : Card
         base.LoadCard(card);
         UnitCard uc = card as UnitCard;
         power = uc.StartPower;
-        defense = uc.StartDefense;
+        health = uc.StartHealth;
         unitDeathSound = uc.UnitDeathSound;
         startingAbilities = uc.StartingAbilities;
     }

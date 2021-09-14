@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class PlayerHeroDisplay : HeroDisplay
@@ -7,13 +8,13 @@ public class PlayerHeroDisplay : HeroDisplay
 
     public Sprite PowerImage
     {
-        set => powerImage.GetComponent<SpriteRenderer>().sprite = value;
+        set => powerImage.GetComponent<Image>().sprite = value;
     }
     [SerializeField] private GameObject powerImage;
 
     public string PlayerActions
     {
-        set => playerActions.GetComponent<TextMeshPro>().SetText(value);
+        set => playerActions.GetComponent<TextMeshProUGUI>().SetText(value);
     }
     [SerializeField] private GameObject playerActions;
 

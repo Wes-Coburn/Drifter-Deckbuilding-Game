@@ -6,12 +6,10 @@ public class StudioSplashFader : MonoBehaviour
 {
     private CanvasGroup splashGroup;
     [SerializeField] private Image logoImage;
-    //private float logoScale;
 
     private void Start()
     {
         splashGroup = GetComponentInParent<CanvasGroup>();
-        //logoScale = logoImage.transform.localScale.x;
         StartCoroutine(FadeSplashNumerator());
     }
     private IEnumerator FadeSplashNumerator()
@@ -23,8 +21,6 @@ public class StudioSplashFader : MonoBehaviour
         while (splashGroup.alpha > 0)
         {
             splashGroup.alpha -= 0.02f;
-            //if (logoScale > 0) logoScale -= 0.01f;
-            //logoImage.transform.localScale = new Vector2(logoScale, logoScale);
             yield return new WaitForFixedUpdate();
         }
         Destroy(gameObject);

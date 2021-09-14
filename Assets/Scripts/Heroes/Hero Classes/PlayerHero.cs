@@ -7,11 +7,13 @@ public class PlayerHero : Hero
     [Header("HERO POWER")]
     [SerializeField] private HeroPower heroPower;
     [Header("HERO SKILLS")]
-    [SerializeField] private List<SkillCard> heroSkills;
+    [SerializeField] private List<SkillCard> heroStartSkills;
+    [SerializeField] private List<SkillCard> heroMoreSkills;
     [Header("HERO BACKSTORY")]
     [SerializeField] private Narrative heroBackstory;
 
-    public List<SkillCard> HeroSkills { get => heroSkills; }
+    public List<SkillCard> HeroStartSkills { get => heroStartSkills; }
+    public List<SkillCard> HeroMoreSkills { get => heroMoreSkills; }
     public HeroPower HeroPower { get => heroPower; }
     public Narrative HeroBackstory { get => heroBackstory; }
 
@@ -21,7 +23,8 @@ public class PlayerHero : Hero
         base.LoadHero(hero);
         PlayerHero ph = hero as PlayerHero;
         heroPower = ph.HeroPower;
-        heroSkills = ph.HeroSkills;
+        heroStartSkills = ph.HeroStartSkills;
+        heroMoreSkills = ph.HeroMoreSkills;
         heroBackstory = ph.HeroBackstory;
     }
 }

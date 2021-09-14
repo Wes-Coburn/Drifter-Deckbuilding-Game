@@ -3,11 +3,12 @@ using TMPro;
 
 public class EnemyHeroDisplay : HeroDisplay
 {
+    [SerializeField] private GameObject nextReinforcements;
+    
     public int NextReinforcements
     {
-        set => nextReinforcements.GetComponent<TextMeshPro>().SetText(value.ToString());
+        set => nextReinforcements.GetComponent<TextMeshProUGUI>().SetText(value.ToString());
     }
-    [SerializeField] private GameObject nextReinforcements;
 
     public override void DisplayHero()
     {

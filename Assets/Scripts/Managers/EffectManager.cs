@@ -17,16 +17,18 @@ public class EffectManager : MonoBehaviour
 
     private CombatManager coMan;
     private UIManager uMan;
+    private AudioManager auMan;
 
+    private GameObject dragArrow;
     private List<EffectGroup> effectGroupList;
     private GameObject effectSource;
     private int currentEffectGroup;
     private int currentEffectIndex;
     private List<List<GameObject>> legalTargets;
     private List<List<GameObject>> acceptedTargets;
-    private List<GameObject> newDrawnCards;
     private List<GiveNextUnitEffect> giveNextEffects;
-    private GameObject dragArrow;
+    private List<GameObject> newDrawnCards;
+    private List<GameObject> unitsToDestroy;
 
     public Effect CurrentEffect
     {
@@ -54,13 +56,21 @@ public class EffectManager : MonoBehaviour
         get => giveNextEffects;
         private set => giveNextEffects = value;
     }
+    public List<GameObject> UnitsToDestroy
+    {
+        get => unitsToDestroy;
+        private set => unitsToDestroy = value;
+    }
+
 
     private void Start()
     {
         coMan = CombatManager.Instance;
         uMan = UIManager.Instance;
+        auMan = AudioManager.Instance;
         giveNextEffects = new List<GiveNextUnitEffect>();
         newDrawnCards = new List<GameObject>();
+        unitsToDestroy = new List<GameObject>();
     }
 
     /******
@@ -144,7 +154,7 @@ public class EffectManager : MonoBehaviour
 
         Effect effect = eg.Effects[currentEffectIndex];
         if (IsTargetEffect(eg, effect)) StartTargetEffect(effect);
-        else StartNonTargetEffect(effect);
+        else StartNonTargetEffect();
     }
     
     /******
@@ -152,7 +162,7 @@ public class EffectManager : MonoBehaviour
      * ****** START_NON_TARGET_EFFECT
      * *****
      *****/
-    private void StartNonTargetEffect(Effect effect)
+    private void StartNonTargetEffect()
     {
         EffectTargets et = effectGroupList[currentEffectGroup].Targets;
         if (et.TargetsSelf)
@@ -228,7 +238,7 @@ public class EffectManager : MonoBehaviour
                 legalTargets[currentEffectGroup].Add(newTarget);
             newDrawnCards.Clear();
         }
-        else // TESTING
+        else
         {
             if (dragArrow != null) Destroy(dragArrow);
             dragArrow = Instantiate(coMan.DragArrowPrefab, uMan.CurrentWorldSpace.transform);
@@ -434,6 +444,11 @@ public class EffectManager : MonoBehaviour
             foreach (GameObject target in targets)
                 coMan.TakeDamage(target, effect.Value);
         }
+        else if (effect is DestroyEffect)
+        {
+            foreach (GameObject target in targets)
+                coMan.DestroyUnit(target, false);
+        }
         // HEALING
         else if (effect is HealEffect)
         {
@@ -475,7 +490,9 @@ public class EffectManager : MonoBehaviour
         currentEffectIndex = 0; // Unnecessary
         foreach (EffectGroup eg in effectGroupList)
         {
-            AudioManager.Instance.StartStopSound(eg.EffectGroupSound);
+            if (eg.EffectGroupSound2.clip != null) 
+                auMan.StartStopSound(null, eg.EffectGroupSound2);
+            else auMan.StartStopSound(eg.EffectGroupSound);
             foreach (Effect effect in eg.Effects)
                 ResolveEffect(acceptedTargets[currentEffectGroup], effect);
             currentEffectGroup++;
@@ -528,6 +545,9 @@ public class EffectManager : MonoBehaviour
         effectSource = null;
         legalTargets = null;
         acceptedTargets = null;
+
+        if (!wasAborted && UnitsToDestroy.Count > 0) // TESTING
+            coMan.DestroyUnit(UnitsToDestroy[0]);
     }
 
     /******
@@ -558,7 +578,7 @@ public class EffectManager : MonoBehaviour
         // STAT_CHANGE_EFFECT
         else if (effect is StatChangeEffect sce)
         {
-            if (ucd.CurrentDefense < 1) return; // TESTING
+            if (ucd.CurrentHealth < 1) return; // TESTING
             StatChangeEffect newSce = ScriptableObject.CreateInstance<StatChangeEffect>();
             newSce.LoadEffect(sce);
             ucd.CurrentEffects.Add(newSce);
@@ -566,8 +586,8 @@ public class EffectManager : MonoBehaviour
             if (sce.IsNegative) statChange = -statChange;
             if (sce.IsDefenseChange)
             {
-                ucd.MaxDefense += statChange;
-                ucd.CurrentDefense += statChange;
+                ucd.MaxHealth += statChange;
+                ucd.CurrentHealth += statChange;
             }
             else ucd.CurrentPower += statChange;
         }
@@ -612,8 +632,8 @@ public class EffectManager : MonoBehaviour
                         if (sce.IsNegative) statChange = -statChange;
                         if (sce.IsDefenseChange)
                         {
-                            fcd.CurrentDefense -= statChange;
-                            fcd.MaxDefense -= statChange;
+                            fcd.CurrentHealth -= statChange;
+                            fcd.MaxHealth -= statChange;
                         }
                         else fcd.CurrentPower -= statChange;
                     }
