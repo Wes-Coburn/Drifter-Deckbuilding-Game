@@ -314,7 +314,6 @@ public class CombatManager : MonoBehaviour
      *****/
     public void ChangeCardZone(GameObject card, string zone)
     {
-        ChangeLayer chgLyr = card.GetComponent<ChangeLayer>();
         Transform zoneTran = null;
         bool isInHand = false;
         switch (zone)
@@ -323,31 +322,24 @@ public class CombatManager : MonoBehaviour
             case PLAYER_HAND:
                 zoneTran = PlayerHand.transform;
                 anMan.RevealedHandState(card);
-                //chgLyr.HandLayer(); // TESTING
-                chgLyr.CardsLayer(); // TESTING
                 isInHand = true;
                 break;
             case PLAYER_ZONE:
                 zoneTran = PlayerZone.transform;
                 anMan.PlayedState(card);
-                chgLyr.CardsLayer();
                 break;
             case PLAYER_ACTION_ZONE:
                 zoneTran = PlayerActionZone.transform;
                 anMan.PlayedState(card);
-                chgLyr.CardsLayer(); // TESTING
                 break;
             // ENEMY
             case ENEMY_HAND:
                 zoneTran = EnemyHand.transform;
-                //chgLyr.HandLayer(); // TESTING
-                chgLyr.CardsLayer(); // TESTING
                 isInHand = true;
                 break;
             case ENEMY_ZONE:
                 zoneTran = EnemyZone.transform;
                 anMan.PlayedState(card);
-                chgLyr.CardsLayer();
                 break;
             /*
             case ENEMY_ACTION_ZONE:
@@ -356,6 +348,7 @@ public class CombatManager : MonoBehaviour
             */
         }
         SetCardParent(card, zoneTran, isInHand);
+        card.GetComponent<CardSelect>().CardOutline.SetActive(false);
         if (card.GetComponent<CardDisplay>() is UnitCardDisplay ucd)
         {
             bool played = false;

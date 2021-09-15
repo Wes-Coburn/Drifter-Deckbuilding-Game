@@ -36,7 +36,7 @@ public class DragDrop : MonoBehaviour
         {
             Vector3 dragPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);            
             transform.position = new Vector3(dragPoint.x, dragPoint.y, -2);
-            transform.SetParent(UIManager.Instance.CurrentWorldSpace.transform, true);
+            transform.SetParent(UIManager.Instance.CurrentCanvas.transform, true);
         }
     }
 
@@ -66,7 +66,7 @@ public class DragDrop : MonoBehaviour
         transform.position = new Vector3(startPosition.x, startPosition.y, CombatManager.CARD_Z_POSITION);
         if (TryGetComponent(out ActionCardDisplay _)) IsPlayed = false;
         AnimationManager.Instance.RevealedHandState(gameObject);
-        GetComponent<ChangeLayer>().CardsLayer();
+        //GetComponent<ChangeLayer>().CardsLayer();
     }
 
     public void StartDrag()
@@ -83,7 +83,7 @@ public class DragDrop : MonoBehaviour
             startParent = transform.parent.gameObject;
             startPosition = transform.position;
             startIndex = transform.GetSiblingIndex();
-            GetComponent<ChangeLayer>().ZoomLayer();
+            //GetComponent<ChangeLayer>().ZoomLayer();
             AnimationManager.Instance.RevealedDragState(gameObject);
             uMan.SetPlayerZoneOutline(true, false);
         }
@@ -97,7 +97,7 @@ public class DragDrop : MonoBehaviour
             ArrowIsDragging = true;
             if (dragArrow != null) Destroy(dragArrow);
             dragArrow = Instantiate(CombatManager.Instance.DragArrowPrefab, 
-                UIManager.Instance.CurrentWorldSpace.transform);
+                UIManager.Instance.CurrentCanvas.transform);
             dragArrow.GetComponent<DragArrow>().SourceCard = gameObject;
             foreach (GameObject enemyUnit in coMan.EnemyZoneCards)
                 if (coMan.CanAttack(gameObject, enemyUnit, true))

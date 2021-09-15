@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class AbilityPopupDisplay : MonoBehaviour
@@ -26,13 +27,13 @@ public class AbilityPopupDisplay : MonoBehaviour
     /* ABILITY_DATA */
     public Sprite AbilitySprite
     {
-        set => abilitySprite.GetComponent<SpriteRenderer>().sprite = value;
+        set => abilitySprite.GetComponent<Image>().sprite = value;
     }
     [SerializeField] private GameObject abilitySprite;
 
     public string AbilityDescription
     {
-        set => abilityDescription.GetComponent<TextMeshPro>().SetText(value);
+        set => abilityDescription.GetComponent<TextMeshProUGUI>().SetText(value);
     }
     [SerializeField] private GameObject abilityDescription;
 

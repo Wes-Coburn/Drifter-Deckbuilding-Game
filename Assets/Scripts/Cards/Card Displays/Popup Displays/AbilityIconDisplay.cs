@@ -1,10 +1,15 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class AbilityIconDisplay : MonoBehaviour
 {
     /* ABILITY_SCRIPTABLE_OBJECT */
     private CardAbility abilityScript;
+
+    [SerializeField] private GameObject abilitySprite;
+    [SerializeField] private GameObject abilityName;
+
     public CardAbility AbilityScript
     {
         get => abilityScript;
@@ -24,10 +29,6 @@ public class AbilityIconDisplay : MonoBehaviour
         }
     }
 
-    /* ABILITY_DATA */
-    public GameObject AbilitySprite;
-    public GameObject AbilityName;
-
     /******
      * *****
      * ****** DISPLAY_ABILITY_ICON
@@ -35,20 +36,20 @@ public class AbilityIconDisplay : MonoBehaviour
      *****/
     private void DisplayAbilityIcon()
     {
-        Sprite abilitySprite;
+        Sprite sprite;
         if (AbilityScript is StaticAbility) 
-            abilitySprite = AbilityScript.AbilitySprite;
+            sprite = AbilityScript.AbilitySprite;
         else if (AbilityScript is TriggeredAbility ta)
         {
             AbilityTrigger trigger = ta.AbilityTrigger;
-            abilitySprite = trigger.AbilitySprite;
+            sprite = trigger.AbilitySprite;
         }
         else
         {
             Debug.LogError("SCRIPT TYPE NOT FOUND!");
             return;
         }
-        SetAbilityIcon(abilitySprite);
+        SetAbilityIcon(sprite);
     }
 
     /******
@@ -77,10 +78,8 @@ public class AbilityIconDisplay : MonoBehaviour
      * ****** SETTERS
      * *****
      *****/
-    private void SetAbilityIcon(Sprite abilitySprite) => AbilitySprite.GetComponent<SpriteRenderer>().sprite = abilitySprite;
-    private void SetAbilityName(string abilityDescription)
-    {
-        TextMeshPro txtPro = AbilityName.GetComponent<TextMeshPro>();
-        txtPro.SetText(abilityDescription);
-    }
+    private void SetAbilityIcon(Sprite sprite) => 
+        abilitySprite.GetComponent<Image>().sprite = sprite;
+    private void SetAbilityName(string abilityDescription) => 
+        abilityName.GetComponent<TextMeshProUGUI>().SetText(abilityDescription);
 }

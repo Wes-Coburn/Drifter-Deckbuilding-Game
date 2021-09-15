@@ -42,7 +42,9 @@ public class AbilityZoom : MonoBehaviour
         float yPos = vec3.y + 100;
         Vector3 spawnPoint = new Vector3(vec3.x, yPos, -2);
         AbilityPopup = Instantiate(abilityPopupPrefab, spawnPoint, Quaternion.identity);
-        AbilityPopup.transform.localScale = new Vector2(2.5f, 2.5f);
+        Transform tran = AbilityPopup.transform;
+        tran.localScale = new Vector2(2.5f, 2.5f);
+        tran.SetParent(UIManager.Instance.CurrentCanvas.transform);
         CardAbility ca = gameObject.GetComponent<AbilityIconDisplay>().AbilityScript;
         AbilityPopup.GetComponent<AbilityPopupDisplay>().ZoomAbilityScript = ca;
     }

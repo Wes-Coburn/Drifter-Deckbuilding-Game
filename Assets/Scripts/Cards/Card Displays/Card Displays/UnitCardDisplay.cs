@@ -22,7 +22,7 @@ public class UnitCardDisplay : CardDisplay
         set
         {
             UnitCard.CurrentPower = value;
-            TextMeshPro txtPro = attackScoreDisplay.GetComponent<TextMeshPro>();
+            TextMeshProUGUI txtPro = attackScoreDisplay.GetComponent<TextMeshProUGUI>();
             txtPro.SetText(UnitCard.CurrentPower.ToString());
         }
     }
@@ -32,7 +32,7 @@ public class UnitCardDisplay : CardDisplay
         set
         {
             UnitCard.CurrentHealth = value;
-            TextMeshPro txtPro = healthScoreDisplay.GetComponent<TextMeshPro>();
+            TextMeshProUGUI txtPro = healthScoreDisplay.GetComponent<TextMeshProUGUI>();
             txtPro.SetText(UnitCard.CurrentHealth.ToString());
         }
     }

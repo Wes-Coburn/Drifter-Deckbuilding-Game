@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class DestroyZoomObjects : MonoBehaviour
+public class DestroyZoomObjects : MonoBehaviour, IPointerClickHandler
 {
-    public void OnClick() => UIManager.Instance.DestroyZoomObjects();
+    public void OnPointerClick(PointerEventData eventData) => 
+        UIManager.Instance.DestroyZoomObjects();
 }

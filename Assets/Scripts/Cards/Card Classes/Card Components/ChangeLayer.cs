@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using TMPro;
 
-public class ChangeLayer : MonoBehaviour
+public class ChangeLayer : MonoBehaviour // UNUSED CLASS
 {
     /* CHANGE_LAYER_DATA */
     private const string CARDS_LAYER = "Cards";
@@ -19,7 +19,7 @@ public class ChangeLayer : MonoBehaviour
             UpdateRenderLayer(transform);
         }
     }
-
+    
     public void CardsLayer()
     {
         if (GetComponent<CardDisplay>() is UnitCardDisplay) 
@@ -28,6 +28,7 @@ public class ChangeLayer : MonoBehaviour
     }
     public void ZoomLayer() => RenderLayer = ZOOM_LAYER;
     public void UILayer() => RenderLayer = UI_LAYER;
+
     private void UpdateRenderLayer(Transform tran)
     {
         foreach (Transform tranChild in tran)

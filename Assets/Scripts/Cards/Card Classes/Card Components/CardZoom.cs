@@ -29,6 +29,8 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
 
     /* ZONES */
     private GameObject worldSpace;
+    private GameObject canvas;
+
     private GameObject playerHand;
     private GameObject playerZone;
     private GameObject enemyHand;
@@ -52,6 +54,8 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     {
         CombatManager coMan = CombatManager.Instance;
         worldSpace = UIManager.Instance.CurrentWorldSpace;
+        canvas = UIManager.Instance.CurrentCanvas;
+
         playerHand = coMan.PlayerHand;
         playerZone = coMan.PlayerZone;
         enemyHand = coMan.EnemyHand;
@@ -197,7 +201,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
             Debug.LogError("CARD DISPLAY TYPE NOT FOUND!");
             return;
         }
-        CurrentZoomCard = CreateZoomObject(cardPrefab, new Vector2(vec2.x, vec2.y), worldSpace.transform, scaleValue);
+        CurrentZoomCard = CreateZoomObject(cardPrefab, new Vector2(vec2.x, vec2.y), canvas.transform, scaleValue);
         CurrentZoomCard.GetComponent<CardDisplay>().DisplayZoomCard(gameObject);
     }
 
@@ -208,9 +212,9 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
      *****/
     public void CreateZoomAbilityIcon(CardAbility ca, Transform parent, float scaleValue)
     {
-        if (worldSpace == null) // NEW GAME SCENE
+        if (canvas == null) // NEW GAME SCENE
         {
-            worldSpace = UIManager.Instance.CurrentWorldSpace;
+            canvas = UIManager.Instance.CurrentCanvas;
             cardDisplay = GetComponent<CardDisplay>();
         }
         GameObject zoomIconPrefab = GetComponent<UnitCardDisplay>().ZoomAbilityIconPrefab;
@@ -226,12 +230,12 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
      *****/
     public void CreateDescriptionPopup(Vector2 vec2, float scaleValue)
     {
-        if (worldSpace == null) // NEW GAME SCENE
+        if (canvas == null) // NEW GAME SCENE
         {
-            worldSpace = UIManager.Instance.CurrentWorldSpace;
+            canvas = UIManager.Instance.CurrentCanvas;
             cardDisplay = GetComponent<CardDisplay>();
         }
-        DescriptionPopup = CreateZoomObject(descriptionPopupPrefab, new Vector2(vec2.x, vec2.y), worldSpace.transform, scaleValue);
+        DescriptionPopup = CreateZoomObject(descriptionPopupPrefab, new Vector2(vec2.x, vec2.y), canvas.transform, scaleValue);
         DescriptionPopup.GetComponent<DescriptionPopupDisplay>().DisplayDescriptionPopup(cardDisplay.CardScript.CardDescription);
     }
 
@@ -242,14 +246,14 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
      *****/
     public void CreateAbilityPopups(Vector2 vec2, float scaleValue)
     {
-        if (worldSpace == null)
+        if (canvas == null) // NEW GAME SCENE
         {
-            worldSpace = UIManager.Instance.CurrentWorldSpace;
-            cardDisplay = gameObject.GetComponent<CardDisplay>();
+            canvas = UIManager.Instance.CurrentCanvas;
+            cardDisplay = GetComponent<CardDisplay>();
         }
-        
+
         AbilityPopupBox = CreateZoomObject(abilityPopupBoxPrefab, 
-            new Vector2(vec2.x, vec2.y), worldSpace.transform, scaleValue);
+            new Vector2(vec2.x, vec2.y), canvas.transform, scaleValue);
 
         List<CardAbility> abilityList;
         if (cardDisplay is UnitCardDisplay ucd)
@@ -291,13 +295,6 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         {
             GameObject abilityPopup = Instantiate(abilityPopupPrefab, AbilityPopupBox.transform);
             abilityPopup.GetComponent<AbilityPopupDisplay>().AbilityScript = ca;
-
-            if (CombatManager.Instance.IsInCombat) // TESTING
-            {
-                if (abilityPopup.TryGetComponent(out ChangeLayer cl)) { }
-                else cl = abilityPopup.AddComponent<ChangeLayer>();
-                cl.UILayer();
-            }
         }
     }
 }

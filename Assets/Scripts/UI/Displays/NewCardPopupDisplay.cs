@@ -57,17 +57,6 @@ public class NewCardPopupDisplay : MonoBehaviour
         cz.CreateAbilityPopups(new Vector2(500, 0), 3);
         CardZoom.AbilityPopupBox.transform.SetParent(newCardZone.transform, true);
 
-        if (coMan.IsInCombat) // TESTING
-        {
-            if (newCard.TryGetComponent(out ChangeLayer cl)) { }
-            else cl = newCard.AddComponent<ChangeLayer>();
-            cl.UILayer();
-
-            if (CardZoom.DescriptionPopup.TryGetComponent(out cl)) { }
-            else cl = CardZoom.DescriptionPopup.AddComponent<ChangeLayer>();
-            cl.UILayer();
-        }
-
         // Prevent DestroyZoomObjects() on ZoomAbilityIcon
         CardZoom.CurrentZoomCard = null;
         CardZoom.DescriptionPopup = null;

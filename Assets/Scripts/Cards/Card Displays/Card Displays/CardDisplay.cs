@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public abstract class CardDisplay : MonoBehaviour
@@ -21,21 +22,21 @@ public abstract class CardDisplay : MonoBehaviour
     public string CardName
     {
         get => CardScript.CardName;
-        set => cardName.GetComponent<TextMeshPro>().text = value;
+        set => cardName.GetComponent<TextMeshProUGUI>().text = value;
     }
     [SerializeField] private GameObject cardName;
 
     public Sprite CardArt
     {
         get => CardScript.CardArt;
-        set => cardArt.GetComponent<SpriteRenderer>().sprite = value;
+        set => cardArt.GetComponent<Image>().sprite = value;
     }
     [SerializeField] private GameObject cardArt;
 
     public Sprite CardBorder
     {
         get => CardScript.CardBorder;
-        set => cardBorder.GetComponent<SpriteRenderer>().sprite = value;
+        set => cardBorder.GetComponent<Image>().sprite = value;
     }
     [SerializeField] private GameObject cardBorder;
 
@@ -47,7 +48,7 @@ public abstract class CardDisplay : MonoBehaviour
             if (!string.IsNullOrEmpty(CardScript.CardSubType)) spacer = " - ";
             return CardScript.CardType + spacer + CardScript.CardSubType;
         }
-        set => cardTypeLine.GetComponent<TextMeshPro>().SetText(value);
+        set => cardTypeLine.GetComponent<TextMeshProUGUI>().SetText(value);
     }
     [SerializeField] private GameObject cardTypeLine;
 
@@ -57,7 +58,7 @@ public abstract class CardDisplay : MonoBehaviour
         set
         {
             CardScript.CurrentActionCost = value;
-            actionCost.GetComponent<TextMeshPro>().SetText(value.ToString());
+            actionCost.GetComponent<TextMeshProUGUI>().SetText(value.ToString());
         }
     }
     [SerializeField] private GameObject actionCost;

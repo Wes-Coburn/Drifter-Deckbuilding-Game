@@ -177,11 +177,11 @@ public class UIManager : MonoBehaviour
         if (target.TryGetComponent(out CardSelect cs))
         {
             cs.CardOutline.SetActive(enabled);
-            SpriteRenderer sr = cs.CardOutline.GetComponent<SpriteRenderer>();
+            Image image = cs.CardOutline.GetComponent<Image>();
             if (enabled)
             {
-                if (isSelected) sr.color = cs.SelectedColor;
-                else sr.color = cs.HighlightedColor;
+                if (isSelected) image.color = cs.SelectedColor;
+                else image.color = cs.HighlightedColor;
             }
         }
         else if (target.TryGetComponent(out HeroSelect hs))
@@ -256,7 +256,7 @@ public class UIManager : MonoBehaviour
         if (screenIsDimmed)
         {
             GameObject prefab = screenDimmerPrefab;
-            GameObject parent = CurrentWorldSpace;
+            GameObject parent = CurrentCanvas;
             screenDimmer = Instantiate(prefab, new Vector3(0, 0, -3), Quaternion.identity, parent.transform);
         }
     }

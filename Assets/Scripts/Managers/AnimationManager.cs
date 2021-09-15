@@ -218,8 +218,8 @@ public class AnimationManager : MonoBehaviour
         Transform atkStartParent = attacker.transform.parent;
         Vector3 atkStartPos = attacker.transform.position;
         Vector2 defPos = defender.transform.position;
-        attacker.transform.SetParent(UIManager.Instance.CurrentWorldSpace.transform);
-        attacker.GetComponent<ChangeLayer>().ZoomLayer();
+        attacker.transform.SetParent(UIManager.Instance.CurrentCanvas.transform);
+        attacker.transform.SetAsLastSibling(); // TESTING
         // ATTACK
         do
         {
@@ -240,6 +240,5 @@ public class AnimationManager : MonoBehaviour
         attacker.transform.SetParent(atkStartParent);
         attacker.transform.SetSiblingIndex(atkIndex);
         attacker.transform.position = new Vector3(atkStartPos.x, atkStartPos.y, CombatManager.CARD_Z_POSITION);
-        attacker.GetComponent<ChangeLayer>().CardsLayer();
     }
 }
