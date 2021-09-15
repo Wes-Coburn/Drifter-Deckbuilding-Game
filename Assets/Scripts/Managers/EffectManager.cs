@@ -18,7 +18,6 @@ public class EffectManager : MonoBehaviour
     private CombatManager coMan;
     private UIManager uMan;
     private AudioManager auMan;
-
     private GameObject dragArrow;
     private List<EffectGroup> effectGroupList;
     private GameObject effectSource;

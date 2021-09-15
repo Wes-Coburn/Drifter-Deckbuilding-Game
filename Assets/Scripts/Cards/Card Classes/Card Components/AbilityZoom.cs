@@ -3,7 +3,9 @@
 public class AbilityZoom : MonoBehaviour
 {
     [SerializeField] private GameObject abilityPopupPrefab;
+
     private bool isHovering;
+
     public static GameObject AbilityPopup { get; set; }
 
     private void Start() => isHovering = false;

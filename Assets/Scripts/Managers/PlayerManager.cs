@@ -26,6 +26,7 @@ public class PlayerManager : MonoBehaviour
     public bool IsMyTurn { get; set; }
     public int ActionsPerTurn { get; set; }
     public bool HeroPowerUsed { get; set; }
+
     public PlayerHero PlayerHero
     {
         get => playerHero;

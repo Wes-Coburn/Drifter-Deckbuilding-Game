@@ -15,7 +15,13 @@ public class GameManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    /* MANAGERS */
+    [SerializeField] GameObject locationIconPrefab;
+    [SerializeField] string[] gameChapters;
+    [SerializeField] private GiveNextUnitEffect augmentBiogenEffect;
+    [SerializeField] private Narrative settingNarrative;
+    [SerializeField] private Narrative newGameNarrative;
+    [SerializeField] private Location firstLocation;
+    
     private PlayerManager pMan;
     private EnemyManager enMan;
     private CombatManager coMan;
@@ -25,13 +31,6 @@ public class GameManager : MonoBehaviour
     private AudioManager auMan;
     private DialogueManager dMan;
     private int currentChapter;
-
-    [SerializeField] GameObject locationIconPrefab;
-    [SerializeField] string[] gameChapters;
-    [SerializeField] private GiveNextUnitEffect augmentBiogenEffect;
-    [SerializeField] private Narrative settingNarrative;
-    [SerializeField] private Narrative newGameNarrative;
-    [SerializeField] private Location firstLocation;
 
     public bool IsCombatTest { get; set; } // FOR TESTING ONLY
     public bool HideExplicitLanguage { get; private set; }

@@ -19,15 +19,15 @@ public class EventManager : MonoBehaviour
         delayedActions = new List<DelayedAction>(); // STATIC
     }
 
+    private static List<DelayedAction> delayedActions;
+    private Coroutine currentActionRoutine;
+
     public class DelayedAction
     {
         public Action Action;
         public float Delay;
         public static int CurrentAction;
     }
-    
-    private static List<DelayedAction> delayedActions;
-    private Coroutine currentActionRoutine;
     
     public DelayedAction NewDelayedAction(Action action, float delay)
     {

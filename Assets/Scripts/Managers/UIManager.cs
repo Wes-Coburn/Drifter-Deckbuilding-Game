@@ -17,17 +17,6 @@ public class UIManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    private GameObject screenDimmer;
-    private GameObject infoPopup;
-    private GameObject combatEndPopup;
-    private GameObject turnPopup;
-    private GameObject menuPopup;
-    private GameObject explicitLanguagePopup;
-    private GameObject aetherCellPopup;
-    private GameObject endTurnButton;
-    private Coroutine sceneFadeRoutine;
-    private GameObject playerZoneOutline;
-
     [SerializeField] private GameObject screenDimmerPrefab;
     [SerializeField] private GameObject infoPopupPrefab;
     [SerializeField] private GameObject combatEndPopupPrefab;
@@ -39,6 +28,17 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject aetherCellPopupPrefab;
     [SerializeField] private Color highlightedColor;
     [SerializeField] private Color selectedColor;
+
+    private GameObject screenDimmer;
+    private GameObject infoPopup;
+    private GameObject combatEndPopup;
+    private GameObject turnPopup;
+    private GameObject menuPopup;
+    private GameObject explicitLanguagePopup;
+    private GameObject aetherCellPopup;
+    private GameObject endTurnButton;
+    private Coroutine sceneFadeRoutine;
+    private GameObject playerZoneOutline;
     
     public bool PlayerIsTargetting { get; set; }
     public bool PlayerIsDiscarding { get; set; }

@@ -18,10 +18,7 @@ public class AnimationManager : MonoBehaviour
     private CombatManager coMan;
     private Vector2 playerHandStart;
 
-    private void Start()
-    {
-        coMan = CombatManager.Instance;
-    }
+    private void Start() => coMan = CombatManager.Instance;
 
     public void ChangeAnimationState(GameObject go, string animationState)
     {

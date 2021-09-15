@@ -16,8 +16,9 @@ public class AudioManager : MonoBehaviour
         foreach (Sound sound in sounds) AddSoundSource(sound);
     }
 
-    private static readonly List<Sound> activeSounds = new List<Sound>();
     [SerializeField] private Sound[] sounds;
+
+    private static readonly List<Sound> activeSounds = new List<Sound>();
 
     public Sound CurrentSoundscape { get; set; }
     public Sound CurrentSoundtrack { get; set; }

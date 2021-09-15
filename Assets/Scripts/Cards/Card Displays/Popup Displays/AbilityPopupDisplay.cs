@@ -4,8 +4,11 @@ using TMPro;
 
 public class AbilityPopupDisplay : MonoBehaviour
 {
-    /* ABILITY_SCRIPTABLE_OBJECT */
+    [SerializeField] private GameObject abilitySprite;
+    [SerializeField] private GameObject abilityDescription;
+
     private CardAbility abilityScript;
+
     public CardAbility AbilityScript
     {
         get => abilityScript;
@@ -23,18 +26,14 @@ public class AbilityPopupDisplay : MonoBehaviour
             DisplayAbilityPopup(true);
         }
     }
-
     public Sprite AbilitySprite
     {
         set => abilitySprite.GetComponent<Image>().sprite = value;
     }
-    [SerializeField] private GameObject abilitySprite;
-
     public string AbilityDescription
     {
         set => abilityDescription.GetComponent<TextMeshProUGUI>().SetText(value);
     }
-    [SerializeField] private GameObject abilityDescription;
 
     /******
      * *****

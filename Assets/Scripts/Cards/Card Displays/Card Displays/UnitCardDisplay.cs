@@ -16,6 +16,7 @@ public class UnitCardDisplay : CardDisplay
 
     public UnitCard UnitCard { get => CardScript as UnitCard; }
     public List<CardAbility> CurrentAbilities;
+
     public int CurrentPower
     {
         get => UnitCard.CurrentPower;

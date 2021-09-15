@@ -18,7 +18,6 @@ public class DialogueManager : MonoBehaviour
 
     private GameManager gMan;
     private PlayerManager pMan;
-
     private DialogueClip currentDialogueClip;
     private DialogueSceneDisplay dialogueDisplay;
     private string currentTypedText;

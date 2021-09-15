@@ -26,6 +26,7 @@ public class EnemyManager : MonoBehaviour
     public List<int> ReinforcementSchedule { get; private set; }
     public int ReinforcementGroup { get; set; }
     public int CurrentReinforcements { get; set; }
+
     public EnemyHero EnemyHero
     {
         get => enemyHero;

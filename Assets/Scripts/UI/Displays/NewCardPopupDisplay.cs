@@ -2,18 +2,18 @@ using UnityEngine;
 
 public class NewCardPopupDisplay : MonoBehaviour
 {
-    CardManager caMan;
-    CombatManager coMan;
-    PlayerManager pMan;
-    DialogueManager dMan;
-    UIManager uMan;
-
     [SerializeField] private GameObject newCardZone;
     [SerializeField] private GameObject newCardChest;
     [SerializeField] private GameObject addCardButton;
     [SerializeField] private GameObject ignoreCardButton;
-    
+
+    private CardManager caMan;
+    private CombatManager coMan;
+    private PlayerManager pMan;
+    private DialogueManager dMan;
+    private UIManager uMan;
     private Card currentCard;
+
     public Card CurrentCard
     {
         get => currentCard;
@@ -56,7 +56,8 @@ public class NewCardPopupDisplay : MonoBehaviour
         // Ability Popups
         cz.CreateAbilityPopups(new Vector2(500, 0), 3);
         CardZoom.AbilityPopupBox.transform.SetParent(newCardZone.transform, true);
-
+        // Card Popup
+        newCard.transform.SetAsLastSibling();
         // Prevent DestroyZoomObjects() on ZoomAbilityIcon
         CardZoom.CurrentZoomCard = null;
         CardZoom.DescriptionPopup = null;

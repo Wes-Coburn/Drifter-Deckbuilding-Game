@@ -15,6 +15,8 @@ public class CombatManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
+    [SerializeField] private GameObject dragArrowPrefab;
+
     private GameManager gMan;
     private CardManager caMan;
     private AudioManager auMan;
@@ -26,8 +28,6 @@ public class CombatManager : MonoBehaviour
     private const string PLAYER = GameManager.PLAYER;
     private const string ENEMY = GameManager.ENEMY;
 
-    [SerializeField] private GameObject dragArrowPrefab;
-    public GameObject DragArrowPrefab { get => dragArrowPrefab; }
 
     public const int CARD_Z_POSITION = -2;
     public const string PLAYER_CARD = "PlayerCard";
@@ -43,6 +43,9 @@ public class CombatManager : MonoBehaviour
     public const string ENEMY_ZONE = "EnemyZone";
     //public const string ENEMY_ACTION_ZONE = "EnemyActionZone";
     public const string ENEMY_DISCARD = "EnemyDiscard";
+
+    public GameObject DragArrowPrefab { get => dragArrowPrefab; }
+    public bool IsInCombat { get; set; }
 
     /* CARD LISTS */
     public List<GameObject> PlayerHandCards { get; private set; }
@@ -64,7 +67,6 @@ public class CombatManager : MonoBehaviour
     //public GameObject EnemyActionZone { get; private set; }
     public GameObject EnemyDiscard { get; private set; }
 
-    public bool IsInCombat { get; set; }
 
     private void Start()
     {

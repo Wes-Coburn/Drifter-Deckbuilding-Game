@@ -12,12 +12,10 @@ public class NewGameSceneDisplay : MonoBehaviour
     [SerializeField] private GameObject heroDescription;
     [SerializeField] private GameObject heroPowerImage;
     [SerializeField] private GameObject heroPowerDescription;
-
     [SerializeField] private GameObject selectedAugment;
     [SerializeField] private GameObject augmentName;
     [SerializeField] private GameObject augmentImage;
     [SerializeField] private GameObject augmentDescription;
-
     [SerializeField] private PlayerHero[] playerHeroes;
     [SerializeField] private HeroAugment[] heroAugments;
 
@@ -27,6 +25,7 @@ public class NewGameSceneDisplay : MonoBehaviour
     private int currentSelection;
     private bool heroSelected;
     private bool augmentSelected;
+
     private PlayerHero SelectedHero { get => playerHeroes[currentSelection]; }
     private HeroAugment SelectedAugment { get => heroAugments[currentSelection]; }
 

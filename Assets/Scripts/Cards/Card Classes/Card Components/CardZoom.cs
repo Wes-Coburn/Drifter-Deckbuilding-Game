@@ -4,7 +4,14 @@ using UnityEngine.EventSystems;
 
 public class CardZoom : MonoBehaviour, IPointerClickHandler
 {
-    /* ZOOMCARD_DATA */
+    [SerializeField] private GameObject unitZoomCardPrefab;
+    [SerializeField] private GameObject actionZoomCardPrefab;
+    [SerializeField] private GameObject abilityBoxPrefab;
+    [SerializeField] private GameObject abilityPopupPrefab;
+    [SerializeField] private GameObject abilityPopupBoxPrefab;
+    [SerializeField] private GameObject descriptionPopupPrefab;
+    [SerializeField] private CardAbility exhaustedAbility;
+    
     private const int    ZOOM_Z_VALUE                =  -4;
     private const float  ZOOM_BUFFER                 =  350;
     private const float  ZOOM_SCALE_VALUE            =  4;
@@ -15,22 +22,11 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     public const string ZOOM_CARD_TIMER      =  "ZoomCardTimer";
     public const string ABILITY_POPUP_TIMER  =  "AbilityPopupTimer";
 
-    /* PREFABS */
-    [SerializeField] private GameObject unitZoomCardPrefab;
-    [SerializeField] private GameObject actionZoomCardPrefab;
-    [SerializeField] private GameObject abilityBoxPrefab;
-    [SerializeField] private GameObject abilityPopupPrefab;
-    [SerializeField] private GameObject abilityPopupBoxPrefab;
-    [SerializeField] private GameObject descriptionPopupPrefab;
-    [SerializeField] private CardAbility exhaustedAbility;
-
     public GameObject UnitZoomCardPrefab { get => unitZoomCardPrefab; }
     public GameObject ActionZoomCardPrefab { get => actionZoomCardPrefab; }
 
     /* ZONES */
-    private GameObject worldSpace;
     private GameObject canvas;
-
     private GameObject playerHand;
     private GameObject playerZone;
     private GameObject enemyHand;
@@ -53,9 +49,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     private void Start()
     {
         CombatManager coMan = CombatManager.Instance;
-        worldSpace = UIManager.Instance.CurrentWorldSpace;
         canvas = UIManager.Instance.CurrentCanvas;
-
         playerHand = coMan.PlayerHand;
         playerZone = coMan.PlayerZone;
         enemyHand = coMan.EnemyHand;

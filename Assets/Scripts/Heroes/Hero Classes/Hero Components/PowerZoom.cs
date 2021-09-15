@@ -6,13 +6,13 @@ public class PowerZoom : MonoBehaviour
     [SerializeField] private GameObject abilityPopupBoxPrefab;
     [SerializeField] private GameObject abilityPopupPrefab;
     [SerializeField] private bool abilityPopupOnly;
-    public HeroPower LoadedPower { get; set; }
 
     private GameObject powerPopup;
     private GameObject abilityPopupBox;
-
     private const string POWER_POPUP_TIMER = "PowerPopupTimer";
     private const string ABILITY_POPUP_TIMER = "AbilityBoxTimer";
+
+    public HeroPower LoadedPower { get; set; }
 
     public void OnPointerEnter()
     {
