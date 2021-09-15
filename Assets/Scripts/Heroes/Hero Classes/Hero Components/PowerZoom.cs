@@ -41,12 +41,12 @@ public class PowerZoom : MonoBehaviour
     {
         Transform tran = CombatManager.Instance.PlayerHero.transform;
         float newX = tran.position.x - 200;
-        float newY = tran.position.y + 250;
+        float newY = tran.position.y + 300;
         Vector3 spawnPoint = new Vector2(newX, newY);
         float scaleValue = 2.5f;
         powerPopup = Instantiate(powerPopupPrefab, spawnPoint, Quaternion.identity);
         powerPopup.transform.localScale = new Vector2(scaleValue, scaleValue);
-        HeroPower hp = gameObject.GetComponentInParent<PlayerHeroDisplay>().PlayerHero.HeroPower;
+        HeroPower hp = GetComponentInParent<PlayerHeroDisplay>().PlayerHero.HeroPower;
         powerPopup.GetComponent<PowerPopupDisplay>().PowerScript = hp;
         FunctionTimer.Create(() => ShowLinkedAbilities(hp, scaleValue), 1.5f, ABILITY_POPUP_TIMER);
     }
@@ -54,13 +54,12 @@ public class PowerZoom : MonoBehaviour
     private void ShowLinkedAbilities(HeroPower hp, float scaleValue)
     {
         abilityPopupBox = Instantiate(abilityPopupBoxPrefab, 
-            UIManager.Instance.CurrentWorldSpace.transform);
-        Transform tran = abilityPopupBox.transform;
+            UIManager.Instance.CurrentCanvas.transform);
         Vector2 position = new Vector2();
-        if (!abilityPopupOnly) position.Set(0, -100);
+        if (!abilityPopupOnly) position.Set(-75, -50);
         else position.Set(350, -50);
-        tran.localPosition = position;
-        tran.localScale = new Vector2(scaleValue, scaleValue);
+        abilityPopupBox.transform.localPosition = position;
+        abilityPopupBox.transform.localScale = new Vector2(scaleValue, scaleValue);
         foreach (CardAbility ca in hp.LinkedAbilities) 
             CreateAbilityPopup(ca, abilityPopupBox.transform, 1);
     }

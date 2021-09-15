@@ -24,7 +24,6 @@ public class AbilityPopupDisplay : MonoBehaviour
         }
     }
 
-    /* ABILITY_DATA */
     public Sprite AbilitySprite
     {
         set => abilitySprite.GetComponent<Image>().sprite = value;

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1042566164718157553}
   - component: {fileID: 6646435828186806025}
   - component: {fileID: 9154860543355994908}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HeroPower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +108,7 @@ MonoBehaviour:
     type: 3}
   abilityPopupBoxPrefab: {fileID: 3442971469020940581, guid: 13c9afbffebdf1c41a9efdf81f271f8b,
     type: 3}
-  abilityPopupPrefab: {fileID: 268856669738850229, guid: fec2d97833bbcc441874baf0490606f3,
+  abilityPopupPrefab: {fileID: 268856669738850229, guid: 5c61e8afecb13104c85071fbcc357ece,
     type: 3}
   abilityPopupOnly: 0
 --- !u!114 &9154860543355994908
@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: 9174137481348062401}
   - component: {fileID: 6188131767439365869}
   - component: {fileID: 1910938391050108114}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HeroOutline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -240,7 +240,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1515396950}
   - component: {fileID: 3182385231485864802}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -293,7 +293,7 @@ GameObject:
   - component: {fileID: 1584662863}
   - component: {fileID: 5976059371886747742}
   - component: {fileID: 6752342586900951350}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ColorScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -366,7 +366,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5245409028044283946}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HeroPortrait
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -401,7 +401,7 @@ GameObject:
   - component: {fileID: 2585756836255760725}
   - component: {fileID: 5292934361495569888}
   - component: {fileID: 1962485270576166505}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PlayerActions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -438,7 +438,7 @@ MonoBehaviour:
   tooltipPopupPrefab: {fileID: 7177373728927392186, guid: 6363c5ece3ab74f41ab0a33c7358b5cb,
     type: 3}
   tooltipText: Your ACTIONS remaining and your current total.
-  tooltipPosition: {x: 300, y: -375}
+  tooltipPosition: {x: 200, y: -350}
 --- !u!114 &1962485270576166505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -494,7 +494,7 @@ GameObject:
   - component: {fileID: 362832986992993669}
   - component: {fileID: 6056937243942358236}
   - component: {fileID: 6455259786996533481}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -570,7 +570,7 @@ GameObject:
   - component: {fileID: 7936198838667304182}
   - component: {fileID: 5292934361495569890}
   - component: {fileID: 4265178721936503875}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HeroHealth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -607,7 +607,7 @@ MonoBehaviour:
   tooltipPopupPrefab: {fileID: 7177373728927392186, guid: 6363c5ece3ab74f41ab0a33c7358b5cb,
     type: 3}
   tooltipText: Your hero's HEALTH. If it reaches 0, you lose.
-  tooltipPosition: {x: 300, y: -375}
+  tooltipPosition: {x: 200, y: -350}
 --- !u!114 &4265178721936503875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -663,7 +663,7 @@ GameObject:
   - component: {fileID: 7765625712592978532}
   - component: {fileID: 1782290517728473340}
   - component: {fileID: 1987197905819768260}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HealthValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -798,7 +798,7 @@ GameObject:
   - component: {fileID: 8303420959267361057}
   - component: {fileID: 1741124866610311041}
   - component: {fileID: 885093807765067690}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PlayerHero
   m_TagString: PlayerHero
   m_Icon: {fileID: 0}
@@ -885,7 +885,7 @@ GameObject:
   - component: {fileID: 5152010016712766256}
   - component: {fileID: 9101247069750237856}
   - component: {fileID: 8473143133184487325}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ActionValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1019,7 +1019,7 @@ GameObject:
   - component: {fileID: 3790229706560898082}
   - component: {fileID: 6458495364605882950}
   - component: {fileID: 4501440613922100378}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1092,7 +1092,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1063577264261833944}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PortraitImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1125,7 +1125,7 @@ GameObject:
   - component: {fileID: 9071589562637181390}
   - component: {fileID: 7784421153954384002}
   - component: {fileID: 7266219534840229486}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1200,7 +1200,7 @@ GameObject:
   - component: {fileID: 8174038188690132485}
   - component: {fileID: 6469247852670653}
   - component: {fileID: 6168485849657478114}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1274,7 +1274,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5932618201995275424}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HeroStats
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1309,7 +1309,7 @@ GameObject:
   - component: {fileID: 894368540347866990}
   - component: {fileID: 6120364421912784496}
   - component: {fileID: 565513998140913414}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1385,7 +1385,7 @@ GameObject:
   - component: {fileID: 3157187804878751521}
   - component: {fileID: 6479966339229774578}
   - component: {fileID: 3536496257832826583}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1460,7 +1460,7 @@ GameObject:
   - component: {fileID: 833661157357917595}
   - component: {fileID: 8226442210487803129}
   - component: {fileID: 6692629734853695874}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
