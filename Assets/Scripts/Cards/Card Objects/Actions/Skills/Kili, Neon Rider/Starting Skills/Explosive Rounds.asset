@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: befaa541343256949b44a33f6e1a5f50, type: 3}
-  m_Name: Death Notice
+  m_Name: Explosive Rounds
   m_EditorClassIdentifier: 
-  cardArt: {fileID: 21300000, guid: 6198eba672f4b0f4098d08a3ac023d46, type: 3}
+  cardArt: {fileID: 21300000, guid: 55338ea8369108840a0302c3f9160f46, type: 3}
   cardBorder: {fileID: 21300000, guid: da4d9c0ce8b0a5744aac584cd2e675b1, type: 3}
-  actionCost: 1
-  cardName: Death Notice
+  actionCost: 2
+  cardName: Explosive Rounds
   cardType: Action
   cardSubType: Skill
-  cardDescription: Death Notice is...
+  cardDescription: Explosive Rounds is...
   overController: {fileID: 0}
   zoomOverController: {fileID: 0}
   cardPlaySound:
@@ -27,8 +27,7 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
-  effectDescription: Mark an enemy and deal 1 to it.
+  effectDescription: Give an ally +2/+0.
   effectGroupList:
-  - {fileID: 11400000, guid: 8c97eaa77ec4d354eb714cc53d9d41aa, type: 2}
-  linkedAbilities:
-  - {fileID: 11400000, guid: 67b65f6bf1f93db43afb76d61b1435b2, type: 2}
+  - {fileID: 11400000, guid: 4617fd83bf40fed4ab47d84b55713254, type: 2}
+  linkedAbilities: []

@@ -4,11 +4,8 @@ using UnityEngine.EventSystems;
 public class HeroSelect : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private GameObject heroOutline;
-    [SerializeField] private Color selectedColor;
-    [SerializeField] private Color highlightedColor;
     public GameObject HeroOutline { get => heroOutline; }
-    public Color SelectedColor { get => selectedColor; }
-    public Color HighlightedColor { get => highlightedColor; }
+
     public void OnPointerClick(PointerEventData pointerEventData)
     {
         if (pointerEventData.button != PointerEventData.InputButton.Left) return;

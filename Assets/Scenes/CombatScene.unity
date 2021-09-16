@@ -219,7 +219,7 @@ PrefabInstance:
     - target: {fileID: 5446008764874339798, guid: 15b991f82a0eeb24dac406cd6e8b77a6,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 550
+      value: 440
       objectReference: {fileID: 0}
     - target: {fileID: 5446008764874339798, guid: 15b991f82a0eeb24dac406cd6e8b77a6,
         type: 3}
@@ -472,6 +472,32 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7266219534840229486, guid: 82ee73e4f6edaf843822483120ad9f13,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 844bac76c1c3a0b4f8c75660ded8940f,
+        type: 3}
+    - target: {fileID: 9071589562637181390, guid: 82ee73e4f6edaf843822483120ad9f13,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9071589562637181390, guid: 82ee73e4f6edaf843822483120ad9f13,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9071589562637181390, guid: 82ee73e4f6edaf843822483120ad9f13,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9071589562637181390, guid: 82ee73e4f6edaf843822483120ad9f13,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 82ee73e4f6edaf843822483120ad9f13, type: 3}
 --- !u!4 &899503882 stripped
@@ -621,29 +647,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1097139900}
     m_Modifications:
-    - target: {fileID: 30025797, guid: 9389e98de85537740b3863f44e24c91e, type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1520583646266840572, guid: 9389e98de85537740b3863f44e24c91e,
-        type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1520583647069971668, guid: 9389e98de85537740b3863f44e24c91e,
-        type: 3}
-      propertyPath: m_Layer
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 2939696497564258498, guid: 9389e98de85537740b3863f44e24c91e,
         type: 3}
       propertyPath: m_Name
       value: EndTurnButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 2939696497564258498, guid: 9389e98de85537740b3863f44e24c91e,
-        type: 3}
-      propertyPath: m_Layer
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3467831545320043799, guid: 9389e98de85537740b3863f44e24c91e,
         type: 3}
@@ -1455,7 +1462,7 @@ PrefabInstance:
     - target: {fileID: 5107558964815384543, guid: 0e6b9b172a948534594b6e4b4a3d6245,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5107558964815384543, guid: 0e6b9b172a948534594b6e4b4a3d6245,
         type: 3}

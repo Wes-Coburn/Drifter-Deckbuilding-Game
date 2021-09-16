@@ -369,9 +369,8 @@ public class EffectManager : MonoBehaviour
     }
     private void RejectEffectTarget()
     {
-        Debug.LogWarning("RejectEffectTarget()");
-        AudioManager.Instance.StartStopSound("SFX_Error");
         UIManager.Instance.CreateFleetinInfoPopup("You can't target that!");
+        AudioManager.Instance.StartStopSound("SFX_Error");
     }
 
     /******

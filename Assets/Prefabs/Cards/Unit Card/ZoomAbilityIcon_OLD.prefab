@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1693464140972581618}
   - component: {fileID: 1955182120736026480}
   m_Layer: 8
-  m_Name: ZoomAbilityIcon
+  m_Name: ZoomAbilityIcon_OLD
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -56,8 +56,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 026a89e7ce91d9642883ada27e4ec320, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AbilitySprite: {fileID: 4049664989794929945}
-  AbilityName: {fileID: 5469242817878834312}
+  abilitySprite: {fileID: 0}
+  abilityName: {fileID: 0}
 --- !u!61 &5788512770324125875
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -491,12 +491,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30.85
-  m_fontSizeBase: 55
+  m_fontSize: 25
+  m_fontSizeBase: 29.14
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 60
+  m_fontSizeMax: 25
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512

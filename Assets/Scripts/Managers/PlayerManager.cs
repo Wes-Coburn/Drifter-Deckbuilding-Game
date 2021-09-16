@@ -15,6 +15,8 @@ public class PlayerManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
+    private UIManager uMan;
+    private AudioManager auMan;
     private PlayerHero playerHero;
     private int playerHealth;
     private int playerActionsLeft;
@@ -73,6 +75,8 @@ public class PlayerManager : MonoBehaviour
 
     private void Start()
     {
+        uMan = UIManager.Instance;
+        auMan = AudioManager.Instance;
         PlayerDeckList = new List<Card>();
         CurrentPlayerDeck = new List<Card>();
         HeroAugments = new List<HeroAugment>();
@@ -81,17 +85,16 @@ public class PlayerManager : MonoBehaviour
 
     public void UseHeroPower()
     {
-        if (UIManager.Instance.PlayerIsTargetting) return;
-        else if (HeroPowerUsed == true)
+        if (HeroPowerUsed == true)
         {
-            Debug.Log("HERO POWER ALREADY USED THIS TURN!");
-            // Create fleeting info popup
+            uMan.CreateFleetinInfoPopup("Hero power already used this turn!");
+            ErrorSound();
             return;
         }
         else if (PlayerActionsLeft < playerHero.HeroPower.PowerCost)
         {
-            Debug.Log("NOT ENOUGH ACTIONS!");
-            // Create fleeting info popup
+            uMan.CreateFleetinInfoPopup("Not enough actions!");
+            ErrorSound();
             return;
         }
         else
@@ -100,7 +103,12 @@ public class PlayerManager : MonoBehaviour
             CombatManager coMan = CombatManager.Instance;
             List<EffectGroup> groupList = PlayerHero.HeroPower.EffectGroupList;
 
-            if (!em.CheckLegalTargets(groupList, coMan.PlayerHero, true)) return;
+            if (!em.CheckLegalTargets(groupList, coMan.PlayerHero, true))
+            {
+                uMan.CreateFleetinInfoPopup("You can't do that right now!");
+                ErrorSound();
+                return;
+            }
             em.StartEffectGroupList(groupList, coMan.PlayerHero);
 
             PlayerActionsLeft -= playerHero.HeroPower.PowerCost;
@@ -109,6 +117,8 @@ public class PlayerManager : MonoBehaviour
             foreach (Sound s in PlayerHero.HeroPower.PowerSounds)
                 AudioManager.Instance.StartStopSound(null, s);
         }
+
+        void ErrorSound() => auMan.StartStopSound("SFX_Error");
     }
 
     public bool GetAugment(string augment)

@@ -271,25 +271,28 @@ public class CombatManager : MonoBehaviour
 
     /******
      * *****
-     * ****** IS_PLAYABLE/IS_EXHAUSTED
+     * ****** IS_PLAYABLE
      * *****
      *****/
     public bool IsPlayable(GameObject card)
     {
         int actionCost = card.GetComponent<CardDisplay>().CurrentActionCost;
         int playerActions = pMan.PlayerActionsLeft;
-        if (playerActions < actionCost)
-        {
-            uMan.CreateFleetinInfoPopup("Not enough action points!");
-            return false;
-        }
         if (card.GetComponent<CardDisplay>() is ActionCardDisplay acd)
             if (!efMan.CheckLegalTargets(acd.ActionCard.EffectGroupList, card, true))
             {
                 uMan.CreateFleetinInfoPopup("You can't play that right now!");
+                ErrorSound();
                 return false;
             }
+        if (playerActions < actionCost)
+        {
+            uMan.CreateFleetinInfoPopup("Not enough actions!");
+            ErrorSound();
+            return false;
+        }
         return true;
+        void ErrorSound() => auMan.StartStopSound("SFX_Error");
     }
 
     /******

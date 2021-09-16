@@ -28,6 +28,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject aetherCellPopupPrefab;
     [SerializeField] private Color highlightedColor;
     [SerializeField] private Color selectedColor;
+    [SerializeField] private Color rejectedColor;
 
     private GameObject screenDimmer;
     private GameObject infoPopup;
@@ -172,32 +173,31 @@ public class UIManager : MonoBehaviour
      * ****** SELECT_TARGET
      * *****
      *****/
-    public void SelectTarget(GameObject target, bool enabled, bool isSelected = false)
+    public void SelectTarget(GameObject target, bool enabled, bool isSelected = false, bool isRejected = false)
     {
         if (target.TryGetComponent(out CardSelect cs))
         {
             cs.CardOutline.SetActive(enabled);
             Image image = cs.CardOutline.GetComponent<Image>();
-            if (enabled)
-            {
-                if (isSelected) image.color = cs.SelectedColor;
-                else image.color = cs.HighlightedColor;
-            }
+            if (enabled) SetColor(image);
         }
         else if (target.TryGetComponent(out HeroSelect hs))
         {
             hs.HeroOutline.SetActive(enabled);
             Image image = hs.HeroOutline.GetComponentInChildren<Image>();
-            if (enabled)
-            {
-                if (isSelected) image.color = hs.SelectedColor;
-                else image.color = hs.HighlightedColor;
-            }
+            if (enabled) SetColor(image);
         }
         else
         {
             Debug.LogError("TARGET SELECT SCRIPT NOT FOUND!");
             return;
+        }
+
+        void SetColor(Image image)
+        {
+            if (isSelected) image.color = selectedColor;
+            else if (isRejected) image.color = rejectedColor;
+            else image.color = highlightedColor;
         }
     }
 
@@ -269,7 +269,7 @@ public class UIManager : MonoBehaviour
     public void CreateInfoPopup(string message)
     {
         DestroyInfoPopup();
-        infoPopup = Instantiate(infoPopupPrefab, new Vector2(680, 0), Quaternion.identity, CurrentWorldSpace.transform);
+        infoPopup = Instantiate(infoPopupPrefab, new Vector2(680, 50), Quaternion.identity, CurrentWorldSpace.transform);
         infoPopup.GetComponent<InfoPopupDisplay>().DisplayInfoPopup(message);
     }
     public void CreateFleetinInfoPopup(string message)
@@ -419,11 +419,11 @@ public class UIManager : MonoBehaviour
                 switch (scene)
                 {
                     case SceneLoader.Scene.DialogueScene:
-                        position.Set(0, 0);
-                        scale.Set(1, 1);
+                        position.Set(-150, -75);
+                        scale.Set(2.5f, 2.5f);
                         break;
                     case SceneLoader.Scene.CombatScene:
-                        position.Set(0, 0);
+                        position.Set(-120, -120);
                         scale.Set(3, 3);
                         break;
                 }

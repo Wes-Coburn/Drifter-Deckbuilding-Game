@@ -9,15 +9,24 @@ public class PowerZoom : MonoBehaviour
 
     private GameObject powerPopup;
     private GameObject abilityPopupBox;
-    private const string POWER_POPUP_TIMER = "PowerPopupTimer";
-    private const string ABILITY_POPUP_TIMER = "AbilityBoxTimer";
+    public const string POWER_POPUP_TIMER = "PowerPopupTimer";
+    public const string ABILITY_POPUP_TIMER = "AbilityBoxTimer";
 
     public HeroPower LoadedPower { get; set; }
+
+    public void DestroyPowerPopup()
+    {
+        if (powerPopup != null)
+        {
+            Destroy(powerPopup);
+            powerPopup = null;
+        }
+    }
 
     public void OnPointerEnter()
     {
         if (CardZoom.ZoomCardIsCentered || DragDrop.DraggingCard) return;
-        if (powerPopup != null) Destroy(powerPopup);
+        DestroyPowerPopup();
         if (!abilityPopupOnly) FunctionTimer.Create(() => CreatePowerPopup(), 1, POWER_POPUP_TIMER);
         else FunctionTimer.Create(() => ShowLinkedAbilities(LoadedPower, 3), 0.5f, POWER_POPUP_TIMER);
     }
@@ -25,11 +34,7 @@ public class PowerZoom : MonoBehaviour
     {
         FunctionTimer.StopTimer(POWER_POPUP_TIMER);
         FunctionTimer.StopTimer(ABILITY_POPUP_TIMER);
-        if (powerPopup != null)
-        {
-            Destroy(powerPopup);
-            powerPopup = null;
-        }
+        DestroyPowerPopup();
         if (abilityPopupBox != null)
         {
             Destroy(abilityPopupBox);

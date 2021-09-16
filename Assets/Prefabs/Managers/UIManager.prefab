@@ -609,7 +609,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -703,8 +703,9 @@ MonoBehaviour:
     type: 3}
   aetherCellPopupPrefab: {fileID: 4073479709359096583, guid: e037262130c35f440ba9d2d2ee87c44b,
     type: 3}
-  highlightedColor: {r: 1, g: 1, b: 0, a: 0.39215687}
-  selectedColor: {r: 1, g: 1, b: 1, a: 0.39215687}
+  highlightedColor: {r: 1, g: 1, b: 0, a: 1}
+  selectedColor: {r: 1, g: 1, b: 1, a: 1}
+  rejectedColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &9197854835668440406
 GameObject:
   m_ObjectHideFlags: 0
