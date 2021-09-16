@@ -137,7 +137,8 @@ public class UIManager : MonoBehaviour
     public void CreateExplicitLanguagePopup()
     {
         if (explicitLanguagePopup != null) return;
-        explicitLanguagePopup = Instantiate(explicitLanguagePopupPrefab, CurrentCanvas.transform);
+        explicitLanguagePopup = Instantiate(explicitLanguagePopupPrefab, 
+            CurrentCanvas.transform);
     }
     public void DestroyExplicitLanguagePopup()
     {
@@ -173,7 +174,8 @@ public class UIManager : MonoBehaviour
      * ****** SELECT_TARGET
      * *****
      *****/
-    public void SelectTarget(GameObject target, bool enabled, bool isSelected = false, bool isRejected = false)
+    public void SelectTarget(GameObject target, 
+        bool enabled, bool isSelected = false, bool isRejected = false)
     {
         if (target.TryGetComponent(out CardSelect cs))
         {
@@ -210,7 +212,8 @@ public class UIManager : MonoBehaviour
     {
         Button button = endTurnButton.GetComponent<Button>();
         button.interactable = isMyTurn;
-        EndTurnButtonDisplay etbd = endTurnButton.GetComponent<EndTurnButtonDisplay>();
+        EndTurnButtonDisplay etbd = 
+            endTurnButton.GetComponent<EndTurnButtonDisplay>();
         etbd.EndTurnSide.SetActive(isMyTurn);
         etbd.OpponentTurnSide.SetActive(!isMyTurn);
     }
@@ -257,7 +260,8 @@ public class UIManager : MonoBehaviour
         {
             GameObject prefab = screenDimmerPrefab;
             GameObject parent = CurrentCanvas;
-            screenDimmer = Instantiate(prefab, new Vector3(0, 0, -3), Quaternion.identity, parent.transform);
+            screenDimmer = Instantiate(prefab, 
+                new Vector3(0, 0, -3), Quaternion.identity, parent.transform);
         }
     }
 
@@ -269,7 +273,8 @@ public class UIManager : MonoBehaviour
     public void CreateInfoPopup(string message)
     {
         DestroyInfoPopup();
-        infoPopup = Instantiate(infoPopupPrefab, new Vector2(680, 50), Quaternion.identity, CurrentWorldSpace.transform);
+        infoPopup = Instantiate(infoPopupPrefab, new Vector2(680, 50), 
+            Quaternion.identity, CurrentWorldSpace.transform);
         infoPopup.GetComponent<InfoPopupDisplay>().DisplayInfoPopup(message);
     }
     public void CreateFleetinInfoPopup(string message)
