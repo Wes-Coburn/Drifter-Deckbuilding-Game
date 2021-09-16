@@ -15,6 +15,8 @@ public class PlayerManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
+    private CombatManager coMan;
+    private EffectManager efMan;
     private UIManager uMan;
     private AudioManager auMan;
     private PlayerHero playerHero;
@@ -75,6 +77,8 @@ public class PlayerManager : MonoBehaviour
 
     private void Start()
     {
+        efMan = EffectManager.Instance;
+        coMan = CombatManager.Instance;
         uMan = UIManager.Instance;
         auMan = AudioManager.Instance;
         PlayerDeckList = new List<Card>();
@@ -91,31 +95,30 @@ public class PlayerManager : MonoBehaviour
             ErrorSound();
             return;
         }
-        else if (PlayerActionsLeft < playerHero.HeroPower.PowerCost)
-        {
-            uMan.CreateFleetinInfoPopup("Not enough actions!");
-            ErrorSound();
-            return;
-        }
         else
         {
-            EffectManager em = EffectManager.Instance;
-            CombatManager coMan = CombatManager.Instance;
             List<EffectGroup> groupList = PlayerHero.HeroPower.EffectGroupList;
-
-            if (!em.CheckLegalTargets(groupList, coMan.PlayerHero, true))
+            if (!efMan.CheckLegalTargets(groupList, coMan.PlayerHero, true))
             {
                 uMan.CreateFleetinInfoPopup("You can't do that right now!");
                 ErrorSound();
-                return;
             }
-            em.StartEffectGroupList(groupList, coMan.PlayerHero);
-
-            PlayerActionsLeft -= playerHero.HeroPower.PowerCost;
-            HeroPowerUsed = true;
-
-            foreach (Sound s in PlayerHero.HeroPower.PowerSounds)
-                AudioManager.Instance.StartStopSound(null, s);
+            else
+            {
+                if (PlayerActionsLeft < playerHero.HeroPower.PowerCost)
+                {
+                    uMan.CreateFleetinInfoPopup("Not enough actions!");
+                    ErrorSound();
+                }
+                else
+                {
+                    efMan.StartEffectGroupList(groupList, coMan.PlayerHero);
+                    PlayerActionsLeft -= playerHero.HeroPower.PowerCost;
+                    HeroPowerUsed = true;
+                    foreach (Sound s in PlayerHero.HeroPower.PowerSounds)
+                        AudioManager.Instance.StartStopSound(null, s);
+                }
+            }
         }
 
         void ErrorSound() => auMan.StartStopSound("SFX_Error");

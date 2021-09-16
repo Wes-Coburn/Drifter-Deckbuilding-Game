@@ -40,6 +40,7 @@ public class AnimationManager : MonoBehaviour
     {
         card.GetComponent<CardDisplay>().CardArt = card.GetComponent<CardDisplay>().CardScript.CardArt;
         ChangeAnimationState(card, "Played");
+        //card.transform.SetAsLastSibling(); // TESTING
     }
     //public void ModifyAttackState(GameObject card) => ChangeAnimationState(card, Modify_Attack);
     public void ModifyUnitHealthState(GameObject card) => ChangeAnimationState(card, "Modify_Health");

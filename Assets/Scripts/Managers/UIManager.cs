@@ -233,6 +233,9 @@ public class UIManager : MonoBehaviour
 
         SetScreenDimmer(false);
         CardZoom.ZoomCardIsCentered = false;
+        FunctionTimer.StopTimer(CardZoom.ZOOM_CARD_TIMER);
+        FunctionTimer.StopTimer(CardZoom.ABILITY_POPUP_TIMER);
+
         List<GameObject> objectsToDestroy = new List<GameObject>
         {
             CardZoom.CurrentZoomCard,

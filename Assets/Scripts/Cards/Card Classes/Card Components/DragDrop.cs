@@ -66,7 +66,6 @@ public class DragDrop : MonoBehaviour
         transform.position = new Vector3(startPosition.x, startPosition.y, CombatManager.CARD_Z_POSITION);
         if (TryGetComponent(out ActionCardDisplay _)) IsPlayed = false;
         AnimationManager.Instance.RevealedHandState(gameObject);
-        //GetComponent<ChangeLayer>().CardsLayer();
     }
 
     public void StartDrag()
@@ -83,7 +82,6 @@ public class DragDrop : MonoBehaviour
             startParent = transform.parent.gameObject;
             startPosition = transform.position;
             startIndex = transform.GetSiblingIndex();
-            //GetComponent<ChangeLayer>().ZoomLayer();
             AnimationManager.Instance.RevealedDragState(gameObject);
             uMan.SetPlayerZoneOutline(true, false);
         }
@@ -134,6 +132,7 @@ public class DragDrop : MonoBehaviour
         {
             if (coMan.CanAttack(gameObject, Enemy)) 
                 coMan.Attack(gameObject, Enemy);
+            uMan.SelectTarget(Enemy, false); // TESTING
             Enemy = null;
         }
         else

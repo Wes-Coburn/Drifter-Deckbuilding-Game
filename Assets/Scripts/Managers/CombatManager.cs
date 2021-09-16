@@ -537,6 +537,7 @@ public class CombatManager : MonoBehaviour
             EnemyDiscardCards.Add(HideCard(card));
         }
         if (!isAction) auMan.StartStopSound("SFX_DiscardCard");
+        //uMan.DestroyZoomObjects(); // TESTING
     }
 
     /******
