@@ -15,6 +15,8 @@ public class UIManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         else Destroy(gameObject);
+
+        StartCoroutine(WaitForSplash()); // TESTING
     }
 
     [SerializeField] private GameObject screenDimmerPrefab;
@@ -51,6 +53,14 @@ public class UIManager : MonoBehaviour
         CurrentWorldSpace = GameObject.Find("WorldSpace");
         CurrentCanvas = GameObject.Find("Canvas");
         PlayerIsTargetting = false;
+    }
+
+    private IEnumerator WaitForSplash()
+    {
+        while (!UnityEngine.Rendering.SplashScreen.isFinished) 
+            yield return null;
+        yield return new WaitForSeconds(1);
+        SetSceneFader(false);
     }
 
     /******

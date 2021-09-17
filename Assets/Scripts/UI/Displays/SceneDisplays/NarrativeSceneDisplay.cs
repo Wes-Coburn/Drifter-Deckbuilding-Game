@@ -4,9 +4,12 @@ using TMPro;
 public class NarrativeSceneDisplay : MonoBehaviour
 {
     [SerializeField] private GameObject narrativeText;
+    [SerializeField] private GameObject clipCounter;
+
     private Narrative narrative;
     private int currentNarrative;
-    
+    private TextMeshProUGUI clipCounterText;
+
     public Narrative Narrative
     {
         get => narrative;
@@ -17,9 +20,14 @@ public class NarrativeSceneDisplay : MonoBehaviour
         }
     }
 
+    private void Start() => 
+        clipCounterText = clipCounter.GetComponent<TextMeshProUGUI>();
+
     private void SetCurrentNarrative(int value)
     {
         currentNarrative = value;
+        clipCounterText.SetText(currentNarrative + 1 + "/" + 
+            narrative.NarrativeText.Length);
         DialogueManager.Instance.TimedText(narrative.NarrativeText[value], 
             narrativeText.GetComponent<TextMeshProUGUI>());
     }
