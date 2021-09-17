@@ -15,11 +15,11 @@ C:/Users/wgCob/OneDrive/Documents/Programming/Unity/Drifter (Unity 2D)
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-55015
+55044
 Successfully changed project path to: C:/Users/wgCob/OneDrive/Documents/Programming/Unity/Drifter (Unity 2D)
 C:/Users/wgCob/OneDrive/Documents/Programming/Unity/Drifter (Unity 2D)
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 71.51 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 69.56 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.5f1 (8095aa901b9b)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/Resources/UnitySubsystems
@@ -35,359 +35,1815 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56896
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56652
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.002014 seconds.
+Registered in 0.001903 seconds.
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 75.29 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 81.63 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.956 seconds
+- Completed reload, in  0.942 seconds
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.001812 seconds.
+Registered in 0.001482 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 75.77 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 82.64 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.800 seconds
+- Completed reload, in  0.845 seconds
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.03 seconds
-Refreshing native plugins compatible for Editor in 0.86 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 0.89 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1922 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 92.7 MB.
-System memory in use after: 92.8 MB.
+Unloading 1923 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 93.0 MB.
+System memory in use after: 93.1 MB.
 
-Unloading 18 unused Assets to reduce memory usage. Loaded Objects now: 2373.
-Total: 2.471800 ms (FindLiveObjects: 0.258000 ms CreateObjectMapping: 0.095600 ms MarkObjects: 2.090900 ms  DeleteObjects: 0.026100 ms)
+Unloading 18 unused Assets to reduce memory usage. Loaded Objects now: 2374.
+Total: 2.111200 ms (FindLiveObjects: 0.224000 ms CreateObjectMapping: 0.094800 ms MarkObjects: 1.735300 ms  DeleteObjects: 0.056100 ms)
 
 ========================================================================
 Received Import Request.
+  path: Assets/Dependencies/Cyberpunk_RPG_UI/UI_Parts
+  artifactKey: Guid(4de3af681fa90cc40bf52dd82200122b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cyberpunk_RPG_UI/UI_Parts using Guid(4de3af681fa90cc40bf52dd82200122b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '031f4bf2e9008e3b43c5179b1d0f7858') in 0.005727 seconds
+  Import took 0.016427 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.866532 seconds.
+  path: Assets/Dependencies/Scifi Cursors/00_basic (01).png
+  artifactKey: Guid(6076c03f2909e1845a593aa7acdb087f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/00_basic (01).png using Guid(6076c03f2909e1845a593aa7acdb087f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '97fe7e7948068fd7b72eb5bda02b6be0') in 0.082650 seconds
+  Import took 0.097739 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000338 seconds.
+  path: Assets/Dependencies/Scifi Cursors/00_basic (03).png
+  artifactKey: Guid(15542b5d34f3d3a459e1722c6dd2b1d9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/00_basic (03).png using Guid(15542b5d34f3d3a459e1722c6dd2b1d9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1058f2eb2912d61c6308dc8f52d529e2') in 0.012823 seconds
+  Import took 0.026923 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000443 seconds.
+  path: Assets/Dependencies/Scifi Cursors/01_basic.png
+  artifactKey: Guid(696edb72c31ab2947bf04af7f8eed449) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/01_basic.png using Guid(696edb72c31ab2947bf04af7f8eed449) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1d2f9f55e8efa887be5ad01b6315286f') in 0.010901 seconds
+  Import took 0.043802 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000374 seconds.
+  path: Assets/Dependencies/Scifi Cursors/10_basic_Bot.png
+  artifactKey: Guid(569cb65cebe3d304583b8801dacd7199) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/10_basic_Bot.png using Guid(569cb65cebe3d304583b8801dacd7199) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6d04365cc55948433f5f9ed3b43b7957') in 0.033877 seconds
+  Import took 0.050063 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000336 seconds.
+  path: Assets/Dependencies/Scifi Cursors/12_basic.png
+  artifactKey: Guid(3608bad0b2ba0114c85abb27317fc428) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/12_basic.png using Guid(3608bad0b2ba0114c85abb27317fc428) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3f08045fd4fb1c43eb79c7a774936708') in 0.030350 seconds
+  Import took 0.044591 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000315 seconds.
+  path: Assets/Dependencies/Scifi Cursors/09_basic_Top.png
+  artifactKey: Guid(f4017ff3f208bda4385d017d88f3cd67) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/09_basic_Top.png using Guid(f4017ff3f208bda4385d017d88f3cd67) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5752e4d57820415e58820e40f7e967bf') in 0.012419 seconds
+  Import took 0.024860 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000319 seconds.
+  path: Assets/Dependencies/Scifi Cursors/18_basic_Left-right.png
+  artifactKey: Guid(17214bd808def9c45a35a0f5ece31250) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/18_basic_Left-right.png using Guid(17214bd808def9c45a35a0f5ece31250) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8fbec5c5fb848e8dfa5823fdb4342727') in 0.014226 seconds
+  Import took 0.030564 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000424 seconds.
+  path: Assets/Dependencies/Scifi Cursors/26_Bonus.png
+  artifactKey: Guid(fb0f5a80790a05e479b8bc49bd672d3e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/26_Bonus.png using Guid(fb0f5a80790a05e479b8bc49bd672d3e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3e0b445f4b304b6eb0b2b8ef5c3153a0') in 0.016873 seconds
+  Import took 0.032330 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000410 seconds.
+  path: Assets/Dependencies/Scifi Cursors/14_basic.png
+  artifactKey: Guid(175f7dcf5400cab4795eeb6f0fbe0a45) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/14_basic.png using Guid(175f7dcf5400cab4795eeb6f0fbe0a45) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '99dcf78420e13afe3235ea14b7775293') in 0.013529 seconds
+  Import took 0.026871 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000304 seconds.
+  path: Assets/Dependencies/Scifi Cursors/24_Bonus.png
+  artifactKey: Guid(df44c0b3c6e915f4ebffdb1441ea4264) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/24_Bonus.png using Guid(df44c0b3c6e915f4ebffdb1441ea4264) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7ff6f30b577d1a9aa3b08cdd99fa5817') in 0.010720 seconds
+  Import took 0.025487 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000334 seconds.
+  path: Assets/Dependencies/Scifi Cursors/08_basic_Left.png
+  artifactKey: Guid(aee03d5790c823e4f8ff9d78328527c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/08_basic_Left.png using Guid(aee03d5790c823e4f8ff9d78328527c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8bdbee85367b5a3b62fc06e961ba7eaa') in 0.011891 seconds
+  Import took 0.027860 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000491 seconds.
+  path: Assets/Dependencies/Scifi Cursors/23_Bonus.png
+  artifactKey: Guid(2d987855b3ebc0e4e9d36d2fdb17b96d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/23_Bonus.png using Guid(2d987855b3ebc0e4e9d36d2fdb17b96d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c64bb1503b1be1d12c6a680758fc3cc4') in 0.012703 seconds
+  Import took 0.025808 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000336 seconds.
+  path: Assets/Dependencies/Scifi Cursors/08_basic_Left.png
+  artifactKey: Guid(aee03d5790c823e4f8ff9d78328527c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/08_basic_Left.png using Guid(aee03d5790c823e4f8ff9d78328527c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8bdbee85367b5a3b62fc06e961ba7eaa') in 0.031416 seconds
+  Import took 0.044609 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000332 seconds.
+  path: Assets/Dependencies/Scifi Cursors/00_basic (02).png
+  artifactKey: Guid(498206334bcf6c64e8253db851532f46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/00_basic (02).png using Guid(498206334bcf6c64e8253db851532f46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8864fe11dc35cf1072c64ef38e371742') in 0.010377 seconds
+  Import took 0.022720 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000294 seconds.
+  path: Assets/Dependencies/Scifi Cursors/27_Bonus.png
+  artifactKey: Guid(ee4fdca663e05474697a1f3ed1916043) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/27_Bonus.png using Guid(ee4fdca663e05474697a1f3ed1916043) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '68dd1d5e1f6af7a616254edfd2cbb2b9') in 0.011409 seconds
+  Import took 0.027011 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000339 seconds.
+  path: Assets/Dependencies/Scifi Cursors/07_basic_Right.png
+  artifactKey: Guid(63df60637a6a21e499dc3d575e327b24) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/07_basic_Right.png using Guid(63df60637a6a21e499dc3d575e327b24) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '61570b2271481ff00bd0d562c6eabea6') in 0.014206 seconds
+  Import took 0.025662 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000508 seconds.
+  path: Assets/Dependencies/Scifi Cursors/04_basic_Q.png
+  artifactKey: Guid(c0e031f454e27d34dbc58c2596cfcf64) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/04_basic_Q.png using Guid(c0e031f454e27d34dbc58c2596cfcf64) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c9326a8a9df76a14b2477e7d0b170176') in 0.012622 seconds
+  Import took 0.024874 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000303 seconds.
+  path: Assets/Dependencies/Scifi Cursors/28_Bonus.png
+  artifactKey: Guid(026c5dcebd3465245ab9ac96483820dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/28_Bonus.png using Guid(026c5dcebd3465245ab9ac96483820dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a8ec3d129903194a5ef825200a12f99a') in 0.012309 seconds
+  Import took 0.027509 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000306 seconds.
+  path: Assets/Dependencies/Scifi Cursors/05_basic_P.png
+  artifactKey: Guid(43f35a2c080ee5343bf032583a3c386c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/05_basic_P.png using Guid(43f35a2c080ee5343bf032583a3c386c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a4d62c53be6175b3478978935f45aac2') in 0.011875 seconds
+  Import took 0.024262 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000328 seconds.
+  path: Assets/Dependencies/Scifi Cursors/00_basic ATTACK.png
+  artifactKey: Guid(2adbfd4868175544e8514c5b2b63f0c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/00_basic ATTACK.png using Guid(2adbfd4868175544e8514c5b2b63f0c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3c8f7ffee1edf79d3b4f748e199256ad') in 0.025231 seconds
+  Import took 0.041664 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000336 seconds.
+  path: Assets/Dependencies/Scifi Cursors/25_Bonus.png
+  artifactKey: Guid(c272aab9557036b438db1a8cc9e54b6c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/25_Bonus.png using Guid(c272aab9557036b438db1a8cc9e54b6c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c0bf8939c81dc5507b8cb29c8b0d553f') in 0.010875 seconds
+  Import took 0.023778 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000295 seconds.
+  path: Assets/Dependencies/Scifi Cursors/06_basic_L.png
+  artifactKey: Guid(87f7cd037b2b30547b6e1fcc175f2347) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/06_basic_L.png using Guid(87f7cd037b2b30547b6e1fcc175f2347) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd28ecc664dd86e979560db11ac842869') in 0.010932 seconds
+  Import took 0.026000 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000527 seconds.
+  path: Assets/Dependencies/Scifi Cursors/03_basic_Red.png
+  artifactKey: Guid(a859837e4fc267e4782f7b66bd2a7863) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/03_basic_Red.png using Guid(a859837e4fc267e4782f7b66bd2a7863) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b037497b3f108f58a8d15b1986468c14') in 0.016050 seconds
+  Import took 0.035232 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000314 seconds.
+  path: Assets/Dependencies/Scifi Cursors/02_basic_Blue.png
+  artifactKey: Guid(03d731f20bdba2f4dbe6638507430193) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/02_basic_Blue.png using Guid(03d731f20bdba2f4dbe6638507430193) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7234c368dc3f3d188e8f9a12d062c6d5') in 0.013957 seconds
+  Import took 0.029256 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000341 seconds.
+  path: Assets/Dependencies/Scifi Cursors/20_Bonus.png
+  artifactKey: Guid(f4c33c6b0302daa4ea66a1b101136d7b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/20_Bonus.png using Guid(f4c33c6b0302daa4ea66a1b101136d7b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b4a102cf7270bf2b108a208cf0de2f79') in 0.037389 seconds
+  Import took 0.051007 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000455 seconds.
+  path: Assets/Dependencies/Scifi Cursors/19_basic_Left-right.png
+  artifactKey: Guid(58e6eee3bbec34a4e99b997832521d86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/19_basic_Left-right.png using Guid(58e6eee3bbec34a4e99b997832521d86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '53b8e211ae14867c01065b582070df77') in 0.012512 seconds
+  Import took 0.025138 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000803 seconds.
+  path: Assets/Dependencies/Scifi Cursors/17_basic_Top-Bot.png
+  artifactKey: Guid(7d13cc3c20f250d4bbaa40063966b1b5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/17_basic_Top-Bot.png using Guid(7d13cc3c20f250d4bbaa40063966b1b5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7aeaf0ddcf0fe50d340e165b60807172') in 0.013321 seconds
+  Import took 0.026212 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000506 seconds.
+  path: Assets/Dependencies/Scifi Cursors/16_basic_Plus.png
+  artifactKey: Guid(64acd8126abf529419d115367430b800) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/16_basic_Plus.png using Guid(64acd8126abf529419d115367430b800) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '58c1d65d1b4b3aea7dad99502f8ed3a2') in 0.010951 seconds
+  Import took 0.024933 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000291 seconds.
+  path: Assets/Dependencies/Scifi Cursors/21_Bonus.png
+  artifactKey: Guid(a16ea54c5f6947e4dbbcd6e80e844b34) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/21_Bonus.png using Guid(a16ea54c5f6947e4dbbcd6e80e844b34) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '38eefa4ee82292f236f2b0bbc9085d56') in 0.011977 seconds
+  Import took 0.025627 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000308 seconds.
+  path: Assets/Dependencies/Scifi Cursors/13_basic.png
+  artifactKey: Guid(192de87727ce71c4ab7cc76e22e3a9bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/13_basic.png using Guid(192de87727ce71c4ab7cc76e22e3a9bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ab0b8c3b05bb29a63b1e48a6afa685cb') in 0.011676 seconds
+  Import took 0.025243 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000324 seconds.
+  path: Assets/Dependencies/Scifi Cursors/22_Bonus.png
+  artifactKey: Guid(525a419b96fd372489c02b5dfcb1e6a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/22_Bonus.png using Guid(525a419b96fd372489c02b5dfcb1e6a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6ac0b9d2dd617bf8219ee5d7a17eb2f2') in 0.010620 seconds
+  Import took 0.023192 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000307 seconds.
+  path: Assets/Dependencies/Scifi Cursors/11_basic.png
+  artifactKey: Guid(ffa9fc70a1eea41409d2e8bea17370a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/11_basic.png using Guid(ffa9fc70a1eea41409d2e8bea17370a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a25fe3ada63d768698a749a895cb6396') in 0.016552 seconds
+  Import took 0.028464 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000367 seconds.
+  path: Assets/Dependencies/Scifi Cursors/15_basic_Plus.png
+  artifactKey: Guid(06cc7cb2027b0dd489d7431d158b00bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/15_basic_Plus.png using Guid(06cc7cb2027b0dd489d7431d158b00bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9dfa76328d89c27d2cada2aa3552046b') in 0.014410 seconds
+  Import took 0.025878 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000503 seconds.
+  path: Assets/Dependencies/Scifi Cursors/11_basic.png
+  artifactKey: Guid(ffa9fc70a1eea41409d2e8bea17370a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/11_basic.png using Guid(ffa9fc70a1eea41409d2e8bea17370a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a25fe3ada63d768698a749a895cb6396') in 0.010044 seconds
+  Import took 0.020846 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 16.544739 seconds.
   path: Assets/Dependencies/Cyberpunk_RPG_UI/Icons_256_256/01_Aim.png
   artifactKey: Guid(a091c418f8c56f34dbd11906cb879af2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Cyberpunk_RPG_UI/Icons_256_256/01_Aim.png using Guid(a091c418f8c56f34dbd11906cb879af2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '95a6522324588a69993ebeae5e985106') in 0.053400 seconds
-  Import took 0.073265 seconds .
+Start importing Assets/Dependencies/Cyberpunk_RPG_UI/Icons_256_256/01_Aim.png using Guid(a091c418f8c56f34dbd11906cb879af2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b90835a377b492a1dd9fb2f8d29059e0') in 0.033389 seconds
+  Import took 0.045885 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 11.875355 seconds.
+  path: Assets/Dependencies/Scifi Cursors/29_Bonus.png
+  artifactKey: Guid(5ad12b0f6e7c32145a455f4d26954715) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/29_Bonus.png using Guid(5ad12b0f6e7c32145a455f4d26954715) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6232b4b85fc15e13b40b5e371cd7ff43') in 0.016994 seconds
+  Import took 0.029415 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000315 seconds.
+  path: Assets/Dependencies/Scifi Cursors/38_Bonus.png
+  artifactKey: Guid(ecc786df123acee46bff1f95e5364621) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/38_Bonus.png using Guid(ecc786df123acee46bff1f95e5364621) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '86a5b6d150e12cb39182b2beb22c82a5') in 0.013966 seconds
+  Import took 0.026354 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000335 seconds.
+  path: Assets/Dependencies/Scifi Cursors/29_Bonus.png
+  artifactKey: Guid(5ad12b0f6e7c32145a455f4d26954715) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/29_Bonus.png using Guid(5ad12b0f6e7c32145a455f4d26954715) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6232b4b85fc15e13b40b5e371cd7ff43') in 0.031771 seconds
+  Import took 0.042727 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000407 seconds.
+  path: Assets/Dependencies/Scifi Cursors/33_Bonus.png
+  artifactKey: Guid(e8f665a110798f543b0fd75491f50ffe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/33_Bonus.png using Guid(e8f665a110798f543b0fd75491f50ffe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd181f54a676cca80d19fd5b3d29b41f2') in 0.011143 seconds
+  Import took 0.024848 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000349 seconds.
+  path: Assets/Dependencies/Scifi Cursors/34_Bonus.png
+  artifactKey: Guid(8ce6ad54eaf78b345b5ac2fb89f32673) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/34_Bonus.png using Guid(8ce6ad54eaf78b345b5ac2fb89f32673) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd8bacaca5ef5198492228492b9999d91') in 0.011639 seconds
+  Import took 0.023878 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000314 seconds.
+  path: Assets/Dependencies/Scifi Cursors/35_Bonus.png
+  artifactKey: Guid(a24f64a37afd06a47a5979cf974b3407) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/35_Bonus.png using Guid(a24f64a37afd06a47a5979cf974b3407) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '380fa7d071bd64656057193568d8e6d1') in 0.015960 seconds
+  Import took 0.026955 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000346 seconds.
+  path: Assets/Dependencies/Scifi Cursors/30_Bonus.png
+  artifactKey: Guid(c6678c6b9f8352e4b935c70b3614db7e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/30_Bonus.png using Guid(c6678c6b9f8352e4b935c70b3614db7e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a363ba0b82313ebf9d2f502c71cc11f4') in 0.014340 seconds
+  Import took 0.030013 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000336 seconds.
+  path: Assets/Dependencies/Scifi Cursors/37_Bonus.png
+  artifactKey: Guid(30fc7732d90d67c4f81c07f9b5224393) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/37_Bonus.png using Guid(30fc7732d90d67c4f81c07f9b5224393) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4080121d47fc1eb036a2ba569895259c') in 0.012444 seconds
+  Import took 0.024633 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000318 seconds.
+  path: Assets/Dependencies/Scifi Cursors/40_Bonus.png
+  artifactKey: Guid(8de85c5cac3c60f4b9b4296b63d56f18) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/40_Bonus.png using Guid(8de85c5cac3c60f4b9b4296b63d56f18) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '091cde0c0d8f9302f9a199bbd4b6879f') in 0.031073 seconds
+  Import took 0.059352 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000478 seconds.
+  path: Assets/Dependencies/Scifi Cursors/39_Bonus.png
+  artifactKey: Guid(bef5defd88cd2c247a0837b708ae0ccf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/39_Bonus.png using Guid(bef5defd88cd2c247a0837b708ae0ccf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e253d3f31e19f3c64cdca46bb9489278') in 0.028489 seconds
+  Import took 0.038605 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000365 seconds.
+  path: Assets/Dependencies/Scifi Cursors/32_Bonus.png
+  artifactKey: Guid(d19f7965f2b4b6a41abd2bb2df28d287) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/32_Bonus.png using Guid(d19f7965f2b4b6a41abd2bb2df28d287) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '796820fca6c6efe3b2098c8c7f3c2e70') in 0.010552 seconds
+  Import took 0.022533 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000331 seconds.
+  path: Assets/Dependencies/Scifi Cursors/31_Bonus.png
+  artifactKey: Guid(73551d5bde2de09418978491d72fc022) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/31_Bonus.png using Guid(73551d5bde2de09418978491d72fc022) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9f3475e04484522948c38c8cec36a958') in 0.028698 seconds
+  Import took 0.040008 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000295 seconds.
+  path: Assets/Dependencies/Scifi Cursors/36_Bonus.png
+  artifactKey: Guid(709dacb0d6f8b5f448e3baabed0d93e1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/36_Bonus.png using Guid(709dacb0d6f8b5f448e3baabed0d93e1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3170922666543198e47a1ca2515a3f6b') in 0.013107 seconds
+  Import took 0.025766 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.004321 seconds.
+  path: Assets/Dependencies/Scifi Cursors/36_Bonus.png
+  artifactKey: Guid(709dacb0d6f8b5f448e3baabed0d93e1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/36_Bonus.png using Guid(709dacb0d6f8b5f448e3baabed0d93e1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3170922666543198e47a1ca2515a3f6b') in 0.014085 seconds
+  Import took 0.026262 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 4.437503 seconds.
+  path: Assets/Dependencies/Scifi Cursors/41_Bonus.png
+  artifactKey: Guid(27758f7212d41894ca8fd316c784f997) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/41_Bonus.png using Guid(27758f7212d41894ca8fd316c784f997) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '169ba92dd992d57091bc87a904589eee') in 0.012148 seconds
+  Import took 0.024911 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000338 seconds.
+  path: Assets/Dependencies/Scifi Cursors/basic_bot.png
+  artifactKey: Guid(c0a8b75a337757a47a3e26efeb16cb76) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/basic_bot.png using Guid(c0a8b75a337757a47a3e26efeb16cb76) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e772023e9c380ddc4771be3189388d91') in 0.010937 seconds
+  Import took 0.027653 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000358 seconds.
+  path: Assets/Dependencies/Scifi Cursors/43_Bonus.png
+  artifactKey: Guid(be95006fcb76f4e4cb8d2e1549fe76e0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/43_Bonus.png using Guid(be95006fcb76f4e4cb8d2e1549fe76e0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '34c537e32673a038f026098be508ed3b') in 0.013668 seconds
+  Import took 0.028656 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000541 seconds.
+  path: Assets/Dependencies/Scifi Cursors/45_Bonus.png
+  artifactKey: Guid(17f5957946a80a549b9da0c4d3ae6ad3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/45_Bonus.png using Guid(17f5957946a80a549b9da0c4d3ae6ad3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '36e29e817c691ea8ecbc9b7a5e5e28c1') in 0.013754 seconds
+  Import took 0.030224 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000349 seconds.
+  path: Assets/Dependencies/Scifi Cursors/basic_right.png
+  artifactKey: Guid(bf41461a6954bd34ca461296655ebaa2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/basic_right.png using Guid(bf41461a6954bd34ca461296655ebaa2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '67a05139461d4d9c1e42fd875a231582') in 0.011435 seconds
+  Import took 0.036394 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000310 seconds.
+  path: Assets/Dependencies/Scifi Cursors/basic_left.png
+  artifactKey: Guid(7afbd72664123004d91e895895468954) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/basic_left.png using Guid(7afbd72664123004d91e895895468954) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '890b562648548ebfcf01ea9b9f0509db') in 0.014528 seconds
+  Import took 0.027422 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000360 seconds.
+  path: Assets/Dependencies/Scifi Cursors/44_Bonus.png
+  artifactKey: Guid(a2355d16ebe874e4287ac116906436c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/44_Bonus.png using Guid(a2355d16ebe874e4287ac116906436c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '93a562391282f793a9347677a9fc996d') in 0.011628 seconds
+  Import took 0.024140 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000359 seconds.
+  path: Assets/Dependencies/Scifi Cursors/42_Bonus.png
+  artifactKey: Guid(27e6b7c14cb6a734e846da698e82b9da) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/42_Bonus.png using Guid(27e6b7c14cb6a734e846da698e82b9da) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1bbe2ac23997d0e4d55aaca5161a568d') in 0.026523 seconds
+  Import took 0.038889 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000303 seconds.
+  path: Assets/Dependencies/Scifi Cursors/basic_top.png
+  artifactKey: Guid(cfb02150ae0e87a4bbb78ab7751b76e3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/basic_top.png using Guid(cfb02150ae0e87a4bbb78ab7751b76e3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c0f35e76249c582c8b8060d5b535b841') in 0.010711 seconds
+  Import took 0.022987 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000351 seconds.
+  path: Assets/Dependencies/Scifi Cursors/47_Bonus.png
+  artifactKey: Guid(2875a3e4fb0e87642af88aa23adb9c5f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/47_Bonus.png using Guid(2875a3e4fb0e87642af88aa23adb9c5f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3730f690b0a048dc005f45613939657b') in 0.015197 seconds
+  Import took 0.025007 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000382 seconds.
+  path: Assets/Dependencies/Scifi Cursors/46_Bonus.png
+  artifactKey: Guid(aa4f7be5606241b49aa90945a5dd7c85) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/46_Bonus.png using Guid(aa4f7be5606241b49aa90945a5dd7c85) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2d62ad40ddce6fcdf015f9cfbd3304ea') in 0.055388 seconds
+  Import took 0.066363 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000328 seconds.
+  path: Assets/Dependencies/Scifi Cursors/47_Bonus.png
+  artifactKey: Guid(2875a3e4fb0e87642af88aa23adb9c5f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/47_Bonus.png using Guid(2875a3e4fb0e87642af88aa23adb9c5f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3730f690b0a048dc005f45613939657b') in 0.009346 seconds
+  Import took 0.020361 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.639071 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_01(B).png
+  artifactKey: Guid(f9d68cb6c807e3d49a09de685d4faa0d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_01(B).png using Guid(f9d68cb6c807e3d49a09de685d4faa0d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2d84fa92f8034e81bd346e2045a1dc0d') in 0.031480 seconds
+  Import took 0.070220 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000757 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_01(R).png
+  artifactKey: Guid(3621cf1ede67c844698a8f00b5e0cbb6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_01(R).png using Guid(3621cf1ede67c844698a8f00b5e0cbb6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ec9d582725a8c34a809bb9111fd3aab9') in 0.011357 seconds
+  Import took 0.026104 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000490 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_03(R).png
+  artifactKey: Guid(54ffdebdbb8f05749a99445c1ee26db8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_03(R).png using Guid(54ffdebdbb8f05749a99445c1ee26db8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0caab68dd7817e0a83ef29ab1929b132') in 0.010987 seconds
+  Import took 0.023943 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000307 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_03(B).png
+  artifactKey: Guid(a5094df48f30ce14eacef28d78e85ae5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_03(B).png using Guid(a5094df48f30ce14eacef28d78e85ae5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0c993105f8be4a64c31bea52dcf27243') in 0.013858 seconds
+  Import took 0.026596 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000309 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_02.png
+  artifactKey: Guid(f1b9d0bdea4aaba44b681e7886c7e747) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_02.png using Guid(f1b9d0bdea4aaba44b681e7886c7e747) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7983e1fb7da52df19e9eb5f5b0aa2ca6') in 0.009582 seconds
+  Import took 0.021668 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000316 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_01(B).png
+  artifactKey: Guid(f9d68cb6c807e3d49a09de685d4faa0d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_01(B).png using Guid(f9d68cb6c807e3d49a09de685d4faa0d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2d84fa92f8034e81bd346e2045a1dc0d') in 0.009485 seconds
+  Import took 0.022293 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000561 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_01(G).png
+  artifactKey: Guid(6e8b9c66a65dadf49b26c855eb087670) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_01(G).png using Guid(6e8b9c66a65dadf49b26c855eb087670) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9ce58d5c75ef8ea2228eab4b0d8bec87') in 0.009449 seconds
+  Import took 0.022477 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000336 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_04.png
+  artifactKey: Guid(5b58b5c227ddbaa40a73be1f42c0fb38) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_04.png using Guid(5b58b5c227ddbaa40a73be1f42c0fb38) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '123e400b4b8b5a81a42a449a3c7c3625') in 0.030893 seconds
+  Import took 0.041208 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000413 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_05.png
+  artifactKey: Guid(3e2263dd4210a0e4fbd5a8f2e5870265) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_05.png using Guid(3e2263dd4210a0e4fbd5a8f2e5870265) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f2602dbafcda197e0ee7d59698dcd3fc') in 0.010885 seconds
+  Import took 0.022689 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000336 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_03.png
+  artifactKey: Guid(8d3d8aa0265f3494e899567d43d7efd1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_03.png using Guid(8d3d8aa0265f3494e899567d43d7efd1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a29f2a0166ad2c196265950ae0d9b27d') in 0.011127 seconds
+  Import took 0.024786 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000303 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_04(B).png
+  artifactKey: Guid(1d24926df80d69248a57cc93540f0dbe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_04(B).png using Guid(1d24926df80d69248a57cc93540f0dbe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '06a703de02e971f7e76c2783ad816443') in 0.011239 seconds
+  Import took 0.023391 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000384 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_05(B).png
+  artifactKey: Guid(f87016b07f87e3843a0c6f13029a65b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_05(B).png using Guid(f87016b07f87e3843a0c6f13029a65b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '16c8fa743104779207e7ca6a06f58924') in 0.014599 seconds
+  Import took 0.029094 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000309 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_06(B).png
+  artifactKey: Guid(9593749bee1de3647b31f1c7fd82831f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_06(B).png using Guid(9593749bee1de3647b31f1c7fd82831f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '54c0417751d7b7ab3642027eed94dd94') in 0.011179 seconds
+  Import took 0.023046 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000310 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_02(B).png
+  artifactKey: Guid(14e921b77434e83439a707518a88d895) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_02(B).png using Guid(14e921b77434e83439a707518a88d895) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '79701d3a0d64793f8263ffffdd10cb66') in 0.011605 seconds
+  Import took 0.027851 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000408 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_03(G).png
+  artifactKey: Guid(ffb637d2329354d47bca699003b1fea6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_03(G).png using Guid(ffb637d2329354d47bca699003b1fea6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5a095e4248113e752ddd7c3616d76594') in 0.011614 seconds
+  Import took 0.026384 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000307 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_05(G).png
+  artifactKey: Guid(9172c4f30053d0c4db15eca7806cf7e3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_05(G).png using Guid(9172c4f30053d0c4db15eca7806cf7e3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c2b6d6ce4844fe4c46b698f3aac03b30') in 0.011294 seconds
+  Import took 0.025064 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000495 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_02(R).png
+  artifactKey: Guid(1d418db704afb9a4a8771d4deb378512) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_02(R).png using Guid(1d418db704afb9a4a8771d4deb378512) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c3c3d651405bdaf528e349944ab967a4') in 0.013780 seconds
+  Import took 0.029614 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000300 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_01.png
+  artifactKey: Guid(427fc2d5805a57045a446defb5a05947) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_01.png using Guid(427fc2d5805a57045a446defb5a05947) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '13ba2662c0a5ce672b796204e048ed4b') in 0.010138 seconds
+  Import took 0.021343 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000350 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_05(R).png
+  artifactKey: Guid(49e2feb98fc3856438ba882c5fc1a10c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_05(R).png using Guid(49e2feb98fc3856438ba882c5fc1a10c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1a0b88a74521096e9b01da306e34bfe6') in 0.014058 seconds
+  Import took 0.026045 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000336 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_04(R).png
+  artifactKey: Guid(fcbccdf1a5acf5e40b7df5d0496a4485) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_04(R).png using Guid(fcbccdf1a5acf5e40b7df5d0496a4485) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c9d0014a2ac18201eca33669913d001d') in 0.011730 seconds
+  Import took 0.023233 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000322 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_07.png
+  artifactKey: Guid(b3460948c124c1e4ba871e010ec32d2d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_07.png using Guid(b3460948c124c1e4ba871e010ec32d2d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '528777be85b9faee0dc2de2af39f4456') in 0.011540 seconds
+  Import took 0.024232 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000313 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_06(R).png
+  artifactKey: Guid(9ddae54c6f7001845a9eabe7118da719) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_06(R).png using Guid(9ddae54c6f7001845a9eabe7118da719) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '389aeff30ea09fce27771c544e2d1838') in 0.026665 seconds
+  Import took 0.038745 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000343 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_08(G).png
+  artifactKey: Guid(eeb240ef1c0cdc444982bf8c64d295ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_08(G).png using Guid(eeb240ef1c0cdc444982bf8c64d295ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd937cac03359aa1e467638ef403ac743') in 0.031726 seconds
+  Import took 0.044242 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000358 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_11.png
+  artifactKey: Guid(6c197297152b10e468bc287e22b5affc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_11.png using Guid(6c197297152b10e468bc287e22b5affc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c2d664fddce47bc420ea6247a8c32e4e') in 0.009790 seconds
+  Import took 0.024234 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000541 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_09.png
+  artifactKey: Guid(a8c2bb21175da9242937465a69e8590c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_09.png using Guid(a8c2bb21175da9242937465a69e8590c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2cacfc546d6728d44dde91c47ce6f4e0') in 0.010292 seconds
+  Import took 0.022661 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000320 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_09(R).png
+  artifactKey: Guid(e6d366446a33503438889d5fc8eb4a49) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_09(R).png using Guid(e6d366446a33503438889d5fc8eb4a49) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '45c7f7f0e7c8c907c0f283c41b0bdee9') in 0.009640 seconds
+  Import took 0.019715 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000368 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_11(R).png
+  artifactKey: Guid(ebafcfaacbcbb504e8f041c350d02426) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_11(R).png using Guid(ebafcfaacbcbb504e8f041c350d02426) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b7fb504fb364fc076b378238b36e3f1c') in 0.009208 seconds
+  Import took 0.020901 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000510 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_07(R).png
+  artifactKey: Guid(0d659e50f1d7de140914c5d1a935dfb3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_07(R).png using Guid(0d659e50f1d7de140914c5d1a935dfb3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bd98f4cfe93a6be3132bec2e645855c2') in 0.009121 seconds
+  Import took 0.019075 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000310 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_10.png
+  artifactKey: Guid(fa7a8eb33b880d04dbe0acc7c3ed8690) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_10.png using Guid(fa7a8eb33b880d04dbe0acc7c3ed8690) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '17d70ab69ced5793aa24edcb4ecae066') in 0.009432 seconds
+  Import took 0.020556 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000353 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_09(B).png
+  artifactKey: Guid(51ee7c5bbb3044041bde83ed1fda0674) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_09(B).png using Guid(51ee7c5bbb3044041bde83ed1fda0674) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1e3349031236b1dc1186508cad9067fb') in 0.010001 seconds
+  Import took 0.027066 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000324 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_08.png
+  artifactKey: Guid(232e09333ca36b54dbe78314835d18a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_08.png using Guid(232e09333ca36b54dbe78314835d18a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c46117065340a152476ac5be012b0ce4') in 0.009980 seconds
+  Import took 0.020721 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000298 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_06.png
+  artifactKey: Guid(84c3be67efbee374cb90bc6885611302) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_06.png using Guid(84c3be67efbee374cb90bc6885611302) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ee81788c15d03bfde527a6eea3246fb8') in 0.011416 seconds
+  Import took 0.026479 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000492 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_08(B).png
+  artifactKey: Guid(f338a9699747e334585e05388c87ca10) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_08(B).png using Guid(f338a9699747e334585e05388c87ca10) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '48c09f06e4fbd4177b47875b69def675') in 0.011023 seconds
+  Import took 0.023474 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000373 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_08(R).png
+  artifactKey: Guid(840c2c2fc56588a4784349207dc48e13) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_08(R).png using Guid(840c2c2fc56588a4784349207dc48e13) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6307f3f07628cc866508c1cd7dbbe4d3') in 0.011468 seconds
+  Import took 0.025916 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000334 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_07(G).png
+  artifactKey: Guid(8966d3c95c598eb48958995aa4d2740e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_07(G).png using Guid(8966d3c95c598eb48958995aa4d2740e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0dcfb692f6ca908cda66bf9e00181cfd') in 0.011873 seconds
+  Import took 0.023325 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000359 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_10(B).png
+  artifactKey: Guid(37eaa82efee9e8748ae6edffa9f6ebef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_10(B).png using Guid(37eaa82efee9e8748ae6edffa9f6ebef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9cb6782358482e9bd4e4a393ee26d275') in 0.009630 seconds
+  Import took 0.021598 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000315 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_02(G).png
+  artifactKey: Guid(c778438c5c4a64c4dbcf12c241c0c304) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_02(G).png using Guid(c778438c5c4a64c4dbcf12c241c0c304) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '46ff1200d574aa40e36e5a4dee7216c8') in 0.012640 seconds
+  Import took 0.023856 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000503 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_06(G).png
+  artifactKey: Guid(b2af62636d4f91c4f9a6c4b73388f631) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_06(G).png using Guid(b2af62636d4f91c4f9a6c4b73388f631) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '477ce7f49875fc25c3e31e0f9e1ab9f8') in 0.011055 seconds
+  Import took 0.023772 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000371 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_10(R).png
+  artifactKey: Guid(3bb5a4f49ee33a140802c95a1099ecd3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_10(R).png using Guid(3bb5a4f49ee33a140802c95a1099ecd3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6763232dcdac8478e8549bc1eb9240f0') in 0.009964 seconds
+  Import took 0.020276 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000335 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_11(B).png
+  artifactKey: Guid(0734a34447239a746afbb5a604bcedc0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_11(B).png using Guid(0734a34447239a746afbb5a604bcedc0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b58853cfdde488e352d479c00d013e49') in 0.014159 seconds
+  Import took 0.026403 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000601 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_10(G).png
+  artifactKey: Guid(0c3693d0d099cb344a505993f2f0b983) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_10(G).png using Guid(0c3693d0d099cb344a505993f2f0b983) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '19ca27959310e69782c463eab220ff5e') in 0.011386 seconds
+  Import took 0.023197 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000385 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_11(G).png
+  artifactKey: Guid(eeac2e7bbf01d4a42b0510441cc284a7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_11(G).png using Guid(eeac2e7bbf01d4a42b0510441cc284a7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ca919207c81acee78b9e37e981f2d42b') in 0.012019 seconds
+  Import took 0.024547 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000425 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_04(G).png
+  artifactKey: Guid(147bf7980450c874783542a1b7bab750) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_04(G).png using Guid(147bf7980450c874783542a1b7bab750) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6909bc8a446e9384c220a68d877cfb62') in 0.014494 seconds
+  Import took 0.025628 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000436 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_09(G).png
+  artifactKey: Guid(b7edd0e4b84b4a74fbdc789518e92355) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_09(G).png using Guid(b7edd0e4b84b4a74fbdc789518e92355) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3ec432ecfd777b5575dd7498cff83965') in 0.010731 seconds
+  Import took 0.022311 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000325 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_07(B).png
+  artifactKey: Guid(c095a8c94a86ed742a597fc4eb7f0178) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_07(B).png using Guid(c095a8c94a86ed742a597fc4eb7f0178) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '112a80c7d95654640c862fa50c9b271e') in 0.012566 seconds
+  Import took 0.023396 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.097314 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_12(B).png
+  artifactKey: Guid(f4811b90be5791d49a94e69a9d8e7404) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_12(B).png using Guid(f4811b90be5791d49a94e69a9d8e7404) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5e8f97559bee32488b7ca24f36bbff0e') in 0.011928 seconds
+  Import took 0.023545 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000367 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_12(G).png
+  artifactKey: Guid(c10c2240f45e5614db739b0a983890ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_12(G).png using Guid(c10c2240f45e5614db739b0a983890ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a6d9f2384f1d68f3a98e148a17f4b602') in 0.011407 seconds
+  Import took 0.021647 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000766 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_12(B).png
+  artifactKey: Guid(f4811b90be5791d49a94e69a9d8e7404) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_12(B).png using Guid(f4811b90be5791d49a94e69a9d8e7404) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5e8f97559bee32488b7ca24f36bbff0e') in 0.011959 seconds
+  Import took 0.025207 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000292 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_12(G).png
+  artifactKey: Guid(c10c2240f45e5614db739b0a983890ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_12(G).png using Guid(c10c2240f45e5614db739b0a983890ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a6d9f2384f1d68f3a98e148a17f4b602') in 0.010626 seconds
+  Import took 0.022775 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000391 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_12(R).png
+  artifactKey: Guid(c5c18afd8d4c61847ad1f9b1c7c79b2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_12(R).png using Guid(c5c18afd8d4c61847ad1f9b1c7c79b2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1a5a52e8611bfa18c3d073007ab87d41') in 0.011507 seconds
+  Import took 0.024034 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000461 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_12.png
+  artifactKey: Guid(118196715ab93cd4bb319a0aa5732b2e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_12.png using Guid(118196715ab93cd4bb319a0aa5732b2e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '15d9e150be90d18565163960fbd6da23') in 0.010504 seconds
+  Import took 0.023262 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 28.754224 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_03(G).png
+  artifactKey: Guid(ffb637d2329354d47bca699003b1fea6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_03(G).png using Guid(ffb637d2329354d47bca699003b1fea6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1732e408423f44d92346d350b77f1320') in 0.007380 seconds
+  Import took 0.017957 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000995 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_03(G).png
+  artifactKey: Guid(ffb637d2329354d47bca699003b1fea6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_03(G).png using Guid(ffb637d2329354d47bca699003b1fea6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1732e408423f44d92346d350b77f1320') in 0.007562 seconds
+  Import took 0.018763 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.676755 seconds.
+  path: Assets/Dependencies/Scifi Cursors/00_basic (03).png
+  artifactKey: Guid(15542b5d34f3d3a459e1722c6dd2b1d9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/00_basic (03).png using Guid(15542b5d34f3d3a459e1722c6dd2b1d9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '09fbfaefa00236f61f4bd70e827dcf5c') in 0.008780 seconds
+  Import took 0.023974 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 4.628568 seconds.
+  path: Assets/Dependencies/Scifi Cursors/00_basic (01).png
+  artifactKey: Guid(6076c03f2909e1845a593aa7acdb087f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/00_basic (01).png using Guid(6076c03f2909e1845a593aa7acdb087f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6fe66daba16b3a5f21e0a39dc604c73d') in 0.034287 seconds
+  Import took 0.049109 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000368 seconds.
+  path: Assets/Dependencies/Scifi Cursors/01_basic.png
+  artifactKey: Guid(696edb72c31ab2947bf04af7f8eed449) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/01_basic.png using Guid(696edb72c31ab2947bf04af7f8eed449) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8edc3f5e1304eb327b02aa6251fe9f78') in 0.032265 seconds
+  Import took 0.044473 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000345 seconds.
+  path: Assets/Dependencies/Scifi Cursors/10_basic_Bot.png
+  artifactKey: Guid(569cb65cebe3d304583b8801dacd7199) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/10_basic_Bot.png using Guid(569cb65cebe3d304583b8801dacd7199) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a0912d584eb172f5c1c069129ab945ee') in 0.047815 seconds
+  Import took 0.058283 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000567 seconds.
+  path: Assets/Dependencies/Scifi Cursors/12_basic.png
+  artifactKey: Guid(3608bad0b2ba0114c85abb27317fc428) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/12_basic.png using Guid(3608bad0b2ba0114c85abb27317fc428) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b3ee350e400cc35a27d0eea0435a6fa1') in 0.008411 seconds
+  Import took 0.018820 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000376 seconds.
+  path: Assets/Dependencies/Scifi Cursors/09_basic_Top.png
+  artifactKey: Guid(f4017ff3f208bda4385d017d88f3cd67) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/09_basic_Top.png using Guid(f4017ff3f208bda4385d017d88f3cd67) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a28904c599b202c122a98373743b962d') in 0.009027 seconds
+  Import took 0.021176 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000634 seconds.
+  path: Assets/Dependencies/Scifi Cursors/18_basic_Left-right.png
+  artifactKey: Guid(17214bd808def9c45a35a0f5ece31250) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/18_basic_Left-right.png using Guid(17214bd808def9c45a35a0f5ece31250) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '413fe6463cfc5fd277a9188dff4c71f6') in 0.013082 seconds
+  Import took 0.024894 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000341 seconds.
+  path: Assets/Dependencies/Scifi Cursors/26_Bonus.png
+  artifactKey: Guid(fb0f5a80790a05e479b8bc49bd672d3e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/26_Bonus.png using Guid(fb0f5a80790a05e479b8bc49bd672d3e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '58f81fa4106a14d6a1003713b6010f18') in 0.008804 seconds
+  Import took 0.018854 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000291 seconds.
+  path: Assets/Dependencies/Scifi Cursors/14_basic.png
+  artifactKey: Guid(175f7dcf5400cab4795eeb6f0fbe0a45) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/14_basic.png using Guid(175f7dcf5400cab4795eeb6f0fbe0a45) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '678c53482b28e0c858df331c104d6871') in 0.024810 seconds
+  Import took 0.040053 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000381 seconds.
+  path: Assets/Dependencies/Scifi Cursors/24_Bonus.png
+  artifactKey: Guid(df44c0b3c6e915f4ebffdb1441ea4264) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/24_Bonus.png using Guid(df44c0b3c6e915f4ebffdb1441ea4264) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '95cb4a22ff05224d93a6203d48c8d4f5') in 0.031614 seconds
+  Import took 0.044061 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000480 seconds.
+  path: Assets/Dependencies/Scifi Cursors/08_basic_Left.png
+  artifactKey: Guid(aee03d5790c823e4f8ff9d78328527c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/08_basic_Left.png using Guid(aee03d5790c823e4f8ff9d78328527c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8d436bbbc595e7a1a2efa95944751a23') in 0.007825 seconds
+  Import took 0.016680 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000374 seconds.
+  path: Assets/Dependencies/Scifi Cursors/23_Bonus.png
+  artifactKey: Guid(2d987855b3ebc0e4e9d36d2fdb17b96d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/23_Bonus.png using Guid(2d987855b3ebc0e4e9d36d2fdb17b96d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '737ed981100e569665770dd4b59fa34f') in 0.032622 seconds
+  Import took 0.043072 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000334 seconds.
+  path: Assets/Dependencies/Scifi Cursors/00_basic (02).png
+  artifactKey: Guid(498206334bcf6c64e8253db851532f46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/00_basic (02).png using Guid(498206334bcf6c64e8253db851532f46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f874d646935ac6d0afe8471124c121de') in 0.007494 seconds
+  Import took 0.023111 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000447 seconds.
+  path: Assets/Dependencies/Scifi Cursors/27_Bonus.png
+  artifactKey: Guid(ee4fdca663e05474697a1f3ed1916043) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/27_Bonus.png using Guid(ee4fdca663e05474697a1f3ed1916043) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aa74499a585fd03555215c8030e0e64c') in 0.025370 seconds
+  Import took 0.039287 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000298 seconds.
+  path: Assets/Dependencies/Scifi Cursors/07_basic_Right.png
+  artifactKey: Guid(63df60637a6a21e499dc3d575e327b24) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/07_basic_Right.png using Guid(63df60637a6a21e499dc3d575e327b24) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bc4f2e840b30cd9ee834a197ba1d56c7') in 0.011076 seconds
+  Import took 0.023722 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000375 seconds.
+  path: Assets/Dependencies/Scifi Cursors/04_basic_Q.png
+  artifactKey: Guid(c0e031f454e27d34dbc58c2596cfcf64) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/04_basic_Q.png using Guid(c0e031f454e27d34dbc58c2596cfcf64) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '45d6c02611451ac0939814bf6b28bf3f') in 0.010461 seconds
+  Import took 0.022761 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000345 seconds.
+  path: Assets/Dependencies/Scifi Cursors/28_Bonus.png
+  artifactKey: Guid(026c5dcebd3465245ab9ac96483820dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/28_Bonus.png using Guid(026c5dcebd3465245ab9ac96483820dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2d2b884913d5a35b0edd6d15e510651f') in 0.008407 seconds
+  Import took 0.019556 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000295 seconds.
+  path: Assets/Dependencies/Scifi Cursors/05_basic_P.png
+  artifactKey: Guid(43f35a2c080ee5343bf032583a3c386c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/05_basic_P.png using Guid(43f35a2c080ee5343bf032583a3c386c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1d2c144271b259c386ebd6c75a1f9ea2') in 0.010482 seconds
+  Import took 0.025122 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000291 seconds.
+  path: Assets/Dependencies/Scifi Cursors/00_basic ATTACK.png
+  artifactKey: Guid(2adbfd4868175544e8514c5b2b63f0c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/00_basic ATTACK.png using Guid(2adbfd4868175544e8514c5b2b63f0c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4730d5599468917d258120162b7ede1f') in 0.012548 seconds
+  Import took 0.025826 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000327 seconds.
+  path: Assets/Dependencies/Scifi Cursors/25_Bonus.png
+  artifactKey: Guid(c272aab9557036b438db1a8cc9e54b6c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/25_Bonus.png using Guid(c272aab9557036b438db1a8cc9e54b6c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b666d222ccc124f38bd894b09f3ff0aa') in 0.007993 seconds
+  Import took 0.018839 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000355 seconds.
+  path: Assets/Dependencies/Scifi Cursors/00_basic (01).png
+  artifactKey: Guid(6076c03f2909e1845a593aa7acdb087f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/00_basic (01).png using Guid(6076c03f2909e1845a593aa7acdb087f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6fe66daba16b3a5f21e0a39dc604c73d') in 0.007041 seconds
+  Import took 0.017462 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000298 seconds.
+  path: Assets/Dependencies/Scifi Cursors/06_basic_L.png
+  artifactKey: Guid(87f7cd037b2b30547b6e1fcc175f2347) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/06_basic_L.png using Guid(87f7cd037b2b30547b6e1fcc175f2347) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0b230cb647f26d57cc63f95bd258f91d') in 0.010478 seconds
+  Import took 0.021444 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000327 seconds.
+  path: Assets/Dependencies/Scifi Cursors/03_basic_Red.png
+  artifactKey: Guid(a859837e4fc267e4782f7b66bd2a7863) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/03_basic_Red.png using Guid(a859837e4fc267e4782f7b66bd2a7863) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f8fe9c1f60b021e44edd747923280bf0') in 0.008541 seconds
+  Import took 0.019699 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000319 seconds.
+  path: Assets/Dependencies/Scifi Cursors/02_basic_Blue.png
+  artifactKey: Guid(03d731f20bdba2f4dbe6638507430193) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/02_basic_Blue.png using Guid(03d731f20bdba2f4dbe6638507430193) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ed6053eea0ba55148798f7edadafa3d0') in 0.008139 seconds
+  Import took 0.019986 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000549 seconds.
+  path: Assets/Dependencies/Scifi Cursors/20_Bonus.png
+  artifactKey: Guid(f4c33c6b0302daa4ea66a1b101136d7b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/20_Bonus.png using Guid(f4c33c6b0302daa4ea66a1b101136d7b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1d318c1e5f8f921a07226c546e77c5bc') in 0.008990 seconds
+  Import took 0.020013 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000517 seconds.
+  path: Assets/Dependencies/Scifi Cursors/19_basic_Left-right.png
+  artifactKey: Guid(58e6eee3bbec34a4e99b997832521d86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/19_basic_Left-right.png using Guid(58e6eee3bbec34a4e99b997832521d86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '67068d0f49b71e4fa7324ab080f86d2d') in 0.009489 seconds
+  Import took 0.022155 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000510 seconds.
+  path: Assets/Dependencies/Scifi Cursors/17_basic_Top-Bot.png
+  artifactKey: Guid(7d13cc3c20f250d4bbaa40063966b1b5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/17_basic_Top-Bot.png using Guid(7d13cc3c20f250d4bbaa40063966b1b5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '67edad406b6f0ba7a1474e2924fff216') in 0.008480 seconds
+  Import took 0.021603 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000318 seconds.
+  path: Assets/Dependencies/Scifi Cursors/16_basic_Plus.png
+  artifactKey: Guid(64acd8126abf529419d115367430b800) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/16_basic_Plus.png using Guid(64acd8126abf529419d115367430b800) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'de4981e28916a3dab3a3ee5a855896be') in 0.008374 seconds
+  Import took 0.018122 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000543 seconds.
+  path: Assets/Dependencies/Scifi Cursors/21_Bonus.png
+  artifactKey: Guid(a16ea54c5f6947e4dbbcd6e80e844b34) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/21_Bonus.png using Guid(a16ea54c5f6947e4dbbcd6e80e844b34) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8889588e634a43f2b240cd0c7e009d48') in 0.007633 seconds
+  Import took 0.016827 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000485 seconds.
+  path: Assets/Dependencies/Scifi Cursors/13_basic.png
+  artifactKey: Guid(192de87727ce71c4ab7cc76e22e3a9bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/13_basic.png using Guid(192de87727ce71c4ab7cc76e22e3a9bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7359aca20b61ee056788db0b50165863') in 0.007826 seconds
+  Import took 0.017129 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000462 seconds.
+  path: Assets/Dependencies/Scifi Cursors/22_Bonus.png
+  artifactKey: Guid(525a419b96fd372489c02b5dfcb1e6a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/22_Bonus.png using Guid(525a419b96fd372489c02b5dfcb1e6a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aeda6ccc7383722fbc0819305b70e961') in 0.009808 seconds
+  Import took 0.019116 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000354 seconds.
+  path: Assets/Dependencies/Scifi Cursors/11_basic.png
+  artifactKey: Guid(ffa9fc70a1eea41409d2e8bea17370a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/11_basic.png using Guid(ffa9fc70a1eea41409d2e8bea17370a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '546f33e121dba01854d942d272935cb2') in 0.008917 seconds
+  Import took 0.018895 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000446 seconds.
+  path: Assets/Dependencies/Scifi Cursors/15_basic_Plus.png
+  artifactKey: Guid(06cc7cb2027b0dd489d7431d158b00bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/15_basic_Plus.png using Guid(06cc7cb2027b0dd489d7431d158b00bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '88af1e54b123ffba987fa0d55c4bd510') in 0.007869 seconds
+  Import took 0.016868 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 11.882192 seconds.
+  path: Assets/Dependencies/Scifi Cursors/basic_bot.png
+  artifactKey: Guid(c0a8b75a337757a47a3e26efeb16cb76) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/basic_bot.png using Guid(c0a8b75a337757a47a3e26efeb16cb76) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fa61bda55cd28b2fbd5e43a4d58b0abd') in 0.027495 seconds
+  Import took 0.036819 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000399 seconds.
+  path: Assets/Dependencies/Scifi Cursors/basic_right.png
+  artifactKey: Guid(bf41461a6954bd34ca461296655ebaa2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/basic_right.png using Guid(bf41461a6954bd34ca461296655ebaa2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bf46218e6104b0cc0dd2b0ad7e2b2a2b') in 0.008545 seconds
+  Import took 0.017894 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000315 seconds.
+  path: Assets/Dependencies/Scifi Cursors/basic_left.png
+  artifactKey: Guid(7afbd72664123004d91e895895468954) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/basic_left.png using Guid(7afbd72664123004d91e895895468954) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9a571cb4ce7d32bf746b10675ea008d6') in 0.008618 seconds
+  Import took 0.019346 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000340 seconds.
+  path: Assets/Dependencies/Scifi Cursors/basic_top.png
+  artifactKey: Guid(cfb02150ae0e87a4bbb78ab7751b76e3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/basic_top.png using Guid(cfb02150ae0e87a4bbb78ab7751b76e3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '53e9ae27494df8e1b8f78dd39abf44ef') in 0.010578 seconds
+  Import took 0.019907 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.001335 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.01 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.727 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.85 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1900 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 91.0 MB.
-System memory in use after: 91.1 MB.
-
-Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2378.
-Total: 1.582600 ms (FindLiveObjects: 0.158200 ms CreateObjectMapping: 0.063800 ms MarkObjects: 1.348100 ms  DeleteObjects: 0.011900 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001835 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.99 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.742 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.86 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1900 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 91.1 MB.
-System memory in use after: 91.2 MB.
-
-Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2381.
-Total: 1.911300 ms (FindLiveObjects: 0.210900 ms CreateObjectMapping: 0.065600 ms MarkObjects: 1.621100 ms  DeleteObjects: 0.012600 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001777 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.88 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.758 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.82 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1900 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 91.1 MB.
-System memory in use after: 91.2 MB.
-
-Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2384.
-Total: 1.791700 ms (FindLiveObjects: 0.205400 ms CreateObjectMapping: 0.058100 ms MarkObjects: 1.515300 ms  DeleteObjects: 0.011900 ms)
-
-========================================================================
-Received Prepare
-Refreshing native plugins compatible for Editor in 4.45 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 53.7 MB.
-System memory in use after: 53.8 MB.
-
-Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 2384.
-Total: 2.964000 ms (FindLiveObjects: 0.283300 ms CreateObjectMapping: 0.131500 ms MarkObjects: 2.530200 ms  DeleteObjects: 0.016400 ms)
-
-========================================================================
-Received Prepare
-Refreshing native plugins compatible for Editor in 2.65 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 53.7 MB.
-System memory in use after: 53.8 MB.
-
-Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 2384.
-Total: 1.937000 ms (FindLiveObjects: 0.232200 ms CreateObjectMapping: 0.098600 ms MarkObjects: 1.591200 ms  DeleteObjects: 0.013200 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001666 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.84 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.711 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.82 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1900 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 91.1 MB.
-System memory in use after: 91.2 MB.
-
-Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2387.
-Total: 1.824700 ms (FindLiveObjects: 0.220000 ms CreateObjectMapping: 0.063100 ms MarkObjects: 1.528600 ms  DeleteObjects: 0.012100 ms)
-
-========================================================================
-Received Prepare
-Refreshing native plugins compatible for Editor in 2.44 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 53.7 MB.
-System memory in use after: 53.8 MB.
-
-Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 2387.
-Total: 1.731800 ms (FindLiveObjects: 0.226000 ms CreateObjectMapping: 0.063200 ms MarkObjects: 1.429800 ms  DeleteObjects: 0.011900 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001918 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.83 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.761 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.82 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1900 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 91.1 MB.
-System memory in use after: 91.2 MB.
-
-Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2390.
-Total: 1.821700 ms (FindLiveObjects: 0.247200 ms CreateObjectMapping: 0.066200 ms MarkObjects: 1.495400 ms  DeleteObjects: 0.012100 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001671 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.84 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.690 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.86 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1900 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 91.1 MB.
-System memory in use after: 91.2 MB.
-
-Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2393.
-Total: 1.699100 ms (FindLiveObjects: 0.181100 ms CreateObjectMapping: 0.061900 ms MarkObjects: 1.441200 ms  DeleteObjects: 0.013600 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001588 seconds.
+Registered in 0.001849 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
 Refreshing native plugins compatible for Editor in 0.87 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.714 seconds
+- Completed reload, in  0.712 seconds
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.84 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 0.85 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 1900 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 91.1 MB.
-System memory in use after: 91.3 MB.
+System memory in use before: 94.4 MB.
+System memory in use after: 94.5 MB.
 
-Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2396.
-Total: 2.128300 ms (FindLiveObjects: 0.307100 ms CreateObjectMapping: 0.135900 ms MarkObjects: 1.645500 ms  DeleteObjects: 0.038700 ms)
-
-========================================================================
-Received Prepare
-Refreshing native plugins compatible for Editor in 2.43 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 53.7 MB.
-System memory in use after: 53.8 MB.
-
-Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 2396.
-Total: 1.689400 ms (FindLiveObjects: 0.203900 ms CreateObjectMapping: 0.079700 ms MarkObjects: 1.392400 ms  DeleteObjects: 0.012200 ms)
-
-========================================================================
-Received Prepare
-Refreshing native plugins compatible for Editor in 2.34 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 53.7 MB.
-System memory in use after: 53.8 MB.
-
-Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 2396.
-Total: 2.320100 ms (FindLiveObjects: 0.293900 ms CreateObjectMapping: 0.142500 ms MarkObjects: 1.870000 ms  DeleteObjects: 0.013000 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001539 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.83 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.698 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.83 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1900 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 91.2 MB.
-System memory in use after: 91.3 MB.
-
-Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2399.
-Total: 1.768800 ms (FindLiveObjects: 0.189700 ms CreateObjectMapping: 0.050700 ms MarkObjects: 1.495600 ms  DeleteObjects: 0.032200 ms)
-
-========================================================================
-Received Prepare
-Refreshing native plugins compatible for Editor in 2.53 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 53.7 MB.
-System memory in use after: 53.8 MB.
-
-Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 2399.
-Total: 2.030700 ms (FindLiveObjects: 0.237400 ms CreateObjectMapping: 0.120600 ms MarkObjects: 1.658100 ms  DeleteObjects: 0.013600 ms)
+Unloading 9 unused Assets to reduce memory usage. Loaded Objects now: 2382.
+Total: 1.894500 ms (FindLiveObjects: 0.242500 ms CreateObjectMapping: 0.058900 ms MarkObjects: 1.508600 ms  DeleteObjects: 0.082800 ms)
 
 ========================================================================
 Received Import Request.
-  Time since last request: 1200.946700 seconds.
-  path: Assets/Dependencies/Military Voice Pack PRO/Female/Female Area Secure 2.wav
-  artifactKey: Guid(66871ea9830fa6945b82acce2545192b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Military Voice Pack PRO/Female/Female Area Secure 2.wav using Guid(66871ea9830fa6945b82acce2545192b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'debc650539be0767bdf5671af8b93d88') in 1.105574 seconds
-  Import took 1.122456 seconds .
+  Time since last request: 108.772718 seconds.
+  path: Assets/Dependencies/Scifi Cursors/29_Bonus.png
+  artifactKey: Guid(5ad12b0f6e7c32145a455f4d26954715) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/29_Bonus.png using Guid(5ad12b0f6e7c32145a455f4d26954715) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '36e3f7d1cec18c858e1ae50401b57821') in 0.052520 seconds
+  Import took 0.063192 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000390 seconds.
-  path: Assets/Dependencies/Military Voice Pack PRO/Male/Male Area Secure 1.wav
-  artifactKey: Guid(326f031cc491169479123d50ada1e1a1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Military Voice Pack PRO/Male/Male Area Secure 1.wav using Guid(326f031cc491169479123d50ada1e1a1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2312b288af7cd1b4bdb298ca1323ca43') in 1.615579 seconds
-  Import took 1.630038 seconds .
+  Time since last request: 0.000388 seconds.
+  path: Assets/Dependencies/Scifi Cursors/33_Bonus.png
+  artifactKey: Guid(e8f665a110798f543b0fd75491f50ffe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/33_Bonus.png using Guid(e8f665a110798f543b0fd75491f50ffe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5c5a613a9c8c1c50d5ee914b551d7309') in 0.008249 seconds
+  Import took 0.017222 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000345 seconds.
-  path: Assets/Dependencies/Military Voice Pack PRO/Male/Male Area Secure 2.wav
-  artifactKey: Guid(85e3379c432898f46b76d3744d0cb86a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Military Voice Pack PRO/Male/Male Area Secure 2.wav using Guid(85e3379c432898f46b76d3744d0cb86a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5cb360d4f094d5a70511782d744a76e7') in 0.594086 seconds
-  Import took 0.610482 seconds .
+  Time since last request: 0.000354 seconds.
+  path: Assets/Dependencies/Scifi Cursors/34_Bonus.png
+  artifactKey: Guid(8ce6ad54eaf78b345b5ac2fb89f32673) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/34_Bonus.png using Guid(8ce6ad54eaf78b345b5ac2fb89f32673) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '559cef89a4cf3f35402fb476d2ebb12c') in 0.008583 seconds
+  Import took 0.017965 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000293 seconds.
-  path: Assets/Dependencies/Military Voice Pack PRO/Female Radio/Radio - Female Area Secure 1.wav
-  artifactKey: Guid(e648c2abfa0b74249b8e1e2d2c616632) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Military Voice Pack PRO/Female Radio/Radio - Female Area Secure 1.wav using Guid(e648c2abfa0b74249b8e1e2d2c616632) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '127a7cde6facd5592d9be97e6cbc8534') in 0.619099 seconds
-  Import took 0.633915 seconds .
+  Time since last request: 0.000325 seconds.
+  path: Assets/Dependencies/Scifi Cursors/38_Bonus.png
+  artifactKey: Guid(ecc786df123acee46bff1f95e5364621) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/38_Bonus.png using Guid(ecc786df123acee46bff1f95e5364621) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dfa05b7674e1552f4a8b0fbf7d0f1a73') in 0.009614 seconds
+  Import took 0.021022 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000387 seconds.
-  path: Assets/Dependencies/Military Voice Pack PRO/Male/Male Area Secure 3.wav
-  artifactKey: Guid(6d9dc7bfcb0fa324c8a28c112464f169) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Military Voice Pack PRO/Male/Male Area Secure 3.wav using Guid(6d9dc7bfcb0fa324c8a28c112464f169) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0a94e8307c23098e0971b7b40e13a573') in 0.613739 seconds
-  Import took 0.638455 seconds .
+  Time since last request: 0.000367 seconds.
+  path: Assets/Dependencies/Scifi Cursors/35_Bonus.png
+  artifactKey: Guid(a24f64a37afd06a47a5979cf974b3407) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/35_Bonus.png using Guid(a24f64a37afd06a47a5979cf974b3407) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7f42becc304082480a9bfd8acde2eb6c') in 0.016680 seconds
+  Import took 0.027290 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000331 seconds.
-  path: Assets/Dependencies/Military Voice Pack PRO/Male Radio/Radio - Male Area Secure 1.wav
-  artifactKey: Guid(98ea5241c1fd4a9438912726693961d6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Military Voice Pack PRO/Male Radio/Radio - Male Area Secure 1.wav using Guid(98ea5241c1fd4a9438912726693961d6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b107e598553625469788367907b4397d') in 0.605852 seconds
-  Import took 0.624313 seconds .
+  Time since last request: 0.000324 seconds.
+  path: Assets/Dependencies/Scifi Cursors/30_Bonus.png
+  artifactKey: Guid(c6678c6b9f8352e4b935c70b3614db7e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/30_Bonus.png using Guid(c6678c6b9f8352e4b935c70b3614db7e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '662677a6ff0bfb9e8f84900b842c6a6d') in 0.007695 seconds
+  Import took 0.016544 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000343 seconds.
-  path: Assets/Dependencies/Military Voice Pack PRO/Male Radio/Radio - Male Area Secure 3.wav
-  artifactKey: Guid(9117e6059b8a35d4ca991cefd055c681) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Military Voice Pack PRO/Male Radio/Radio - Male Area Secure 3.wav using Guid(9117e6059b8a35d4ca991cefd055c681) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '981de6ea3f7a1c251d7abda2e044a233') in 0.608388 seconds
-  Import took 0.623833 seconds .
+  Time since last request: 0.000311 seconds.
+  path: Assets/Dependencies/Scifi Cursors/41_Bonus.png
+  artifactKey: Guid(27758f7212d41894ca8fd316c784f997) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/41_Bonus.png using Guid(27758f7212d41894ca8fd316c784f997) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'df8340ef9b6a477c1b98996bee75f629') in 0.016035 seconds
+  Import took 0.025180 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000323 seconds.
-  path: Assets/Dependencies/Military Voice Pack PRO/Female Radio/Radio - Female Area Secure 2.wav
-  artifactKey: Guid(5b2e040615fc61648b9d849d210c09fa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Military Voice Pack PRO/Female Radio/Radio - Female Area Secure 2.wav using Guid(5b2e040615fc61648b9d849d210c09fa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8fa40f8a1055fb598137e5096457b02d') in 0.630181 seconds
-  Import took 0.645656 seconds .
+  Time since last request: 0.000328 seconds.
+  path: Assets/Dependencies/Scifi Cursors/43_Bonus.png
+  artifactKey: Guid(be95006fcb76f4e4cb8d2e1549fe76e0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/43_Bonus.png using Guid(be95006fcb76f4e4cb8d2e1549fe76e0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd6f77e294e6bdf8ecc365877dd4dea47') in 0.026079 seconds
+  Import took 0.034687 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000554 seconds.
+  path: Assets/Dependencies/Scifi Cursors/44_Bonus.png
+  artifactKey: Guid(a2355d16ebe874e4287ac116906436c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/44_Bonus.png using Guid(a2355d16ebe874e4287ac116906436c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '067828381c4d28caada541386acb84ad') in 0.020886 seconds
+  Import took 0.030031 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000328 seconds.
+  path: Assets/Dependencies/Scifi Cursors/42_Bonus.png
+  artifactKey: Guid(27e6b7c14cb6a734e846da698e82b9da) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/42_Bonus.png using Guid(27e6b7c14cb6a734e846da698e82b9da) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '704c828189d51200cbdc4ec5f9ff881f') in 0.007900 seconds
+  Import took 0.017548 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000427 seconds.
+  path: Assets/Dependencies/Scifi Cursors/37_Bonus.png
+  artifactKey: Guid(30fc7732d90d67c4f81c07f9b5224393) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/37_Bonus.png using Guid(30fc7732d90d67c4f81c07f9b5224393) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8505fc2f4b7706d21f848995e4c8f783') in 0.008675 seconds
+  Import took 0.020609 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000565 seconds.
+  path: Assets/Dependencies/Scifi Cursors/40_Bonus.png
+  artifactKey: Guid(8de85c5cac3c60f4b9b4296b63d56f18) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/40_Bonus.png using Guid(8de85c5cac3c60f4b9b4296b63d56f18) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c0af0897523d58992475c206d755d63c') in 0.006941 seconds
+  Import took 0.018328 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000671 seconds.
+  path: Assets/Dependencies/Scifi Cursors/39_Bonus.png
+  artifactKey: Guid(bef5defd88cd2c247a0837b708ae0ccf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/39_Bonus.png using Guid(bef5defd88cd2c247a0837b708ae0ccf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cdb84855b917346475de5d722d1fa1f5') in 0.010371 seconds
+  Import took 0.019516 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000629 seconds.
+  path: Assets/Dependencies/Scifi Cursors/32_Bonus.png
+  artifactKey: Guid(d19f7965f2b4b6a41abd2bb2df28d287) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/32_Bonus.png using Guid(d19f7965f2b4b6a41abd2bb2df28d287) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5a4d8670aadbde21eaf6faa94e7d83e6') in 0.008638 seconds
+  Import took 0.020786 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000470 seconds.
+  path: Assets/Dependencies/Scifi Cursors/31_Bonus.png
+  artifactKey: Guid(73551d5bde2de09418978491d72fc022) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/31_Bonus.png using Guid(73551d5bde2de09418978491d72fc022) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '48667919cb1392b078ed7b8364ad026c') in 0.007558 seconds
+  Import took 0.018084 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000324 seconds.
+  path: Assets/Dependencies/Scifi Cursors/36_Bonus.png
+  artifactKey: Guid(709dacb0d6f8b5f448e3baabed0d93e1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/36_Bonus.png using Guid(709dacb0d6f8b5f448e3baabed0d93e1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5cf5876a764800ac0cf366880954c61a') in 0.007749 seconds
+  Import took 0.017234 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.059782 seconds.
+  path: Assets/Dependencies/Scifi Cursors/45_Bonus.png
+  artifactKey: Guid(17f5957946a80a549b9da0c4d3ae6ad3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/45_Bonus.png using Guid(17f5957946a80a549b9da0c4d3ae6ad3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b79e2e8bd7472e77e7186c7c775c8f70') in 0.025416 seconds
+  Import took 0.035023 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000307 seconds.
+  path: Assets/Dependencies/Scifi Cursors/47_Bonus.png
+  artifactKey: Guid(2875a3e4fb0e87642af88aa23adb9c5f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/47_Bonus.png using Guid(2875a3e4fb0e87642af88aa23adb9c5f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '82726184727cdd63e63ad1c6129ec6e9') in 0.008326 seconds
+  Import took 0.017386 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000671 seconds.
+  path: Assets/Dependencies/Scifi Cursors/45_Bonus.png
+  artifactKey: Guid(17f5957946a80a549b9da0c4d3ae6ad3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/45_Bonus.png using Guid(17f5957946a80a549b9da0c4d3ae6ad3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b79e2e8bd7472e77e7186c7c775c8f70') in 0.033240 seconds
+  Import took 0.045560 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000324 seconds.
+  path: Assets/Dependencies/Scifi Cursors/46_Bonus.png
+  artifactKey: Guid(aa4f7be5606241b49aa90945a5dd7c85) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/46_Bonus.png using Guid(aa4f7be5606241b49aa90945a5dd7c85) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f2df5a3aa809ddd16e2b48bd872624b6') in 0.048006 seconds
+  Import took 0.061590 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 10.710637 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_01(B).png
+  artifactKey: Guid(f9d68cb6c807e3d49a09de685d4faa0d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_01(B).png using Guid(f9d68cb6c807e3d49a09de685d4faa0d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ceb5c7ae6ca46362576c1412c654576f') in 0.029853 seconds
+  Import took 0.041008 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000391 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_01(R).png
+  artifactKey: Guid(3621cf1ede67c844698a8f00b5e0cbb6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_01(R).png using Guid(3621cf1ede67c844698a8f00b5e0cbb6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e173c468fd4f62361d5e61fd81e279a4') in 0.013855 seconds
+  Import took 0.044909 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000454 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_03(R).png
+  artifactKey: Guid(54ffdebdbb8f05749a99445c1ee26db8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_03(R).png using Guid(54ffdebdbb8f05749a99445c1ee26db8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'caf81536c996dfee5db27072ebb8bb8d') in 0.005748 seconds
+  Import took 0.016040 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000324 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_02.png
+  artifactKey: Guid(f1b9d0bdea4aaba44b681e7886c7e747) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_02.png using Guid(f1b9d0bdea4aaba44b681e7886c7e747) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9419eccda5eb4bce32357c66e683d9e1') in 0.007335 seconds
+  Import took 0.016459 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000578 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_04.png
+  artifactKey: Guid(5b58b5c227ddbaa40a73be1f42c0fb38) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_04.png using Guid(5b58b5c227ddbaa40a73be1f42c0fb38) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f39665b4163d1c96af0bfa41b2003e09') in 0.005756 seconds
+  Import took 0.014474 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000445 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_05.png
+  artifactKey: Guid(3e2263dd4210a0e4fbd5a8f2e5870265) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_05.png using Guid(3e2263dd4210a0e4fbd5a8f2e5870265) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '65842b4d819e98db46611fd1110b9bd8') in 0.032314 seconds
+  Import took 0.042127 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000314 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_06(R).png
+  artifactKey: Guid(9ddae54c6f7001845a9eabe7118da719) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_06(R).png using Guid(9ddae54c6f7001845a9eabe7118da719) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd87dfc718e91472bf188cbcd61ef8c6c') in 0.020340 seconds
+  Import took 0.029063 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000309 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_06(B).png
+  artifactKey: Guid(9593749bee1de3647b31f1c7fd82831f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_06(B).png using Guid(9593749bee1de3647b31f1c7fd82831f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '185502b56745c42adf8d139c756f74f3') in 0.006571 seconds
+  Import took 0.016244 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000469 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_08(G).png
+  artifactKey: Guid(eeb240ef1c0cdc444982bf8c64d295ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_08(G).png using Guid(eeb240ef1c0cdc444982bf8c64d295ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c7c59d50da38563a3fb66ae07c6a8869') in 0.021248 seconds
+  Import took 0.031043 seconds .
 
 ========================================================================
 Received Import Request.
   Time since last request: 0.000376 seconds.
-  path: Assets/Dependencies/Military Voice Pack PRO/Male Radio/Radio - Male Area Secure 2.wav
-  artifactKey: Guid(b439ff13bb9341147b38a093bf640ffc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Military Voice Pack PRO/Male Radio/Radio - Male Area Secure 2.wav using Guid(b439ff13bb9341147b38a093bf640ffc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a9699974bd92ecd07d8fd133561b3343') in 0.613330 seconds
-  Import took 0.629335 seconds .
-
-========================================================================
-Received Prepare
-Refreshing native plugins compatible for Editor in 2.53 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 57.0 MB.
-System memory in use after: 57.1 MB.
-
-Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 2407.
-Total: 2.515200 ms (FindLiveObjects: 0.175000 ms CreateObjectMapping: 0.062700 ms MarkObjects: 2.263800 ms  DeleteObjects: 0.012500 ms)
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_09(R).png
+  artifactKey: Guid(e6d366446a33503438889d5fc8eb4a49) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_09(R).png using Guid(e6d366446a33503438889d5fc8eb4a49) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8838e9407f80b349bd3fbb4e4bd315e2') in 0.006254 seconds
+  Import took 0.016520 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 2267.933494 seconds.
-  path: Assets/Prefabs/UI/Popups/ExplicitLanguagePopup.prefab
-  artifactKey: Guid(65e967fe6f664a54db84bb91a331ad40) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/UI/Popups/ExplicitLanguagePopup.prefab using Guid(65e967fe6f664a54db84bb91a331ad40) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e144d72f6929223962e8da129effdb04') in 0.072489 seconds
-  Import took 0.090288 seconds .
+  Time since last request: 0.000360 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_07.png
+  artifactKey: Guid(b3460948c124c1e4ba871e010ec32d2d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_07.png using Guid(b3460948c124c1e4ba871e010ec32d2d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a56387768ee166666cef8c61bccfda2b') in 0.005768 seconds
+  Import took 0.015071 seconds .
 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000303 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_09.png
+  artifactKey: Guid(a8c2bb21175da9242937465a69e8590c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_09.png using Guid(a8c2bb21175da9242937465a69e8590c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '29b1bbd0edf4a4c1152cdcdaaa2a6473') in 0.005753 seconds
+  Import took 0.015323 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000394 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_12(G).png
+  artifactKey: Guid(c10c2240f45e5614db739b0a983890ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_12(G).png using Guid(c10c2240f45e5614db739b0a983890ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '75a1c74942deffc04d7178da40b5850f') in 0.046885 seconds
+  Import took 0.056996 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000337 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_06.png
+  artifactKey: Guid(84c3be67efbee374cb90bc6885611302) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_06.png using Guid(84c3be67efbee374cb90bc6885611302) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eab03435b64ea26b453a323db5849519') in 0.006393 seconds
+  Import took 0.016183 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000336 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_08(B).png
+  artifactKey: Guid(f338a9699747e334585e05388c87ca10) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_08(B).png using Guid(f338a9699747e334585e05388c87ca10) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9da25771092dfdafbd6c20d8caad6341') in 0.006701 seconds
+  Import took 0.015566 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000337 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_07(G).png
+  artifactKey: Guid(8966d3c95c598eb48958995aa4d2740e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_07(G).png using Guid(8966d3c95c598eb48958995aa4d2740e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bed8f386c6a1dec0299de864636e7a48') in 0.006369 seconds
+  Import took 0.015150 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000392 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_10(G).png
+  artifactKey: Guid(0c3693d0d099cb344a505993f2f0b983) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_10(G).png using Guid(0c3693d0d099cb344a505993f2f0b983) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2340103129fc72dd677eadd4b02db45e') in 0.006013 seconds
+  Import took 0.014953 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000365 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_11(G).png
+  artifactKey: Guid(eeac2e7bbf01d4a42b0510441cc284a7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_11(G).png using Guid(eeac2e7bbf01d4a42b0510441cc284a7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a99b8fa7eb85f5347ab0aae2917fd524') in 0.005886 seconds
+  Import took 0.014422 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000338 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_09(G).png
+  artifactKey: Guid(b7edd0e4b84b4a74fbdc789518e92355) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_09(G).png using Guid(b7edd0e4b84b4a74fbdc789518e92355) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5d51d90bb2af2114b21a854c452ef980') in 0.006642 seconds
+  Import took 0.017427 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000405 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_07(B).png
+  artifactKey: Guid(c095a8c94a86ed742a597fc4eb7f0178) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_07(B).png using Guid(c095a8c94a86ed742a597fc4eb7f0178) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '52d61611fd6a68585c1dd4952a544999') in 0.005872 seconds
+  Import took 0.014391 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000353 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_03(B).png
+  artifactKey: Guid(a5094df48f30ce14eacef28d78e85ae5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_03(B).png using Guid(a5094df48f30ce14eacef28d78e85ae5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '620f6f5403281dae9f1c2cdd6ea024f2') in 0.006968 seconds
+  Import took 0.016077 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000308 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_11.png
+  artifactKey: Guid(6c197297152b10e468bc287e22b5affc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_11.png using Guid(6c197297152b10e468bc287e22b5affc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0d07869346993ebb92ae6a3c8020d79a') in 0.005435 seconds
+  Import took 0.013547 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000517 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_12(B).png
+  artifactKey: Guid(f4811b90be5791d49a94e69a9d8e7404) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_12(B).png using Guid(f4811b90be5791d49a94e69a9d8e7404) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '67d6fee616628ac3722861bfc1368215') in 0.005809 seconds
+  Import took 0.014508 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000313 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_01(B).png
+  artifactKey: Guid(f9d68cb6c807e3d49a09de685d4faa0d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_01(B).png using Guid(f9d68cb6c807e3d49a09de685d4faa0d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ceb5c7ae6ca46362576c1412c654576f') in 0.006098 seconds
+  Import took 0.016396 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000383 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_01(G).png
+  artifactKey: Guid(6e8b9c66a65dadf49b26c855eb087670) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_01(G).png using Guid(6e8b9c66a65dadf49b26c855eb087670) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd44bc880edec9c2fe1400444063a3905') in 0.007359 seconds
+  Import took 0.017567 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000373 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_03.png
+  artifactKey: Guid(8d3d8aa0265f3494e899567d43d7efd1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_03.png using Guid(8d3d8aa0265f3494e899567d43d7efd1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fc8c2a5e619ba05520597b04a7c4245d') in 0.006010 seconds
+  Import took 0.014754 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000414 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_04(B).png
+  artifactKey: Guid(1d24926df80d69248a57cc93540f0dbe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_04(B).png using Guid(1d24926df80d69248a57cc93540f0dbe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e141e75cb6b7b9ea463a9d1125f80dc8') in 0.040657 seconds
+  Import took 0.049454 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000316 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_05(B).png
+  artifactKey: Guid(f87016b07f87e3843a0c6f13029a65b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_05(B).png using Guid(f87016b07f87e3843a0c6f13029a65b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0898f061dfaed776a7055d3c29b8350e') in 0.006406 seconds
+  Import took 0.015341 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000316 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_11(R).png
+  artifactKey: Guid(ebafcfaacbcbb504e8f041c350d02426) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_11(R).png using Guid(ebafcfaacbcbb504e8f041c350d02426) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c987aa0abfc6a1f9c707f241f9cdc265') in 0.006791 seconds
+  Import took 0.015849 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000299 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_02(B).png
+  artifactKey: Guid(14e921b77434e83439a707518a88d895) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_02(B).png using Guid(14e921b77434e83439a707518a88d895) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e3ac0d0208dd144072f35f8650df4cac') in 0.006323 seconds
+  Import took 0.015409 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000486 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_07(R).png
+  artifactKey: Guid(0d659e50f1d7de140914c5d1a935dfb3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_07(R).png using Guid(0d659e50f1d7de140914c5d1a935dfb3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7ea55fa2a25e1b633fd5c22788e52eac') in 0.007553 seconds
+  Import took 0.018285 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000321 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_09(B).png
+  artifactKey: Guid(51ee7c5bbb3044041bde83ed1fda0674) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_09(B).png using Guid(51ee7c5bbb3044041bde83ed1fda0674) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ada944ab6c7a59a2519778e8b90f4ef6') in 0.006022 seconds
+  Import took 0.014280 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000447 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_10.png
+  artifactKey: Guid(fa7a8eb33b880d04dbe0acc7c3ed8690) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_10.png using Guid(fa7a8eb33b880d04dbe0acc7c3ed8690) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c627d647622163780f954f5fe1eaad52') in 0.006645 seconds
+  Import took 0.016169 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000320 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_08.png
+  artifactKey: Guid(232e09333ca36b54dbe78314835d18a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_08.png using Guid(232e09333ca36b54dbe78314835d18a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b0d362f2a734818cc3c17a51442992ee') in 0.030360 seconds
+  Import took 0.039488 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000305 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_05(G).png
+  artifactKey: Guid(9172c4f30053d0c4db15eca7806cf7e3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_05(G).png using Guid(9172c4f30053d0c4db15eca7806cf7e3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd57465045225cf29b5d9eb519a7d932f') in 0.006482 seconds
+  Import took 0.015085 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000379 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_02(R).png
+  artifactKey: Guid(1d418db704afb9a4a8771d4deb378512) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_02(R).png using Guid(1d418db704afb9a4a8771d4deb378512) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a6ebae61d654a7cd91223c6ecd236003') in 0.005871 seconds
+  Import took 0.013534 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000310 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_08(R).png
+  artifactKey: Guid(840c2c2fc56588a4784349207dc48e13) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_08(R).png using Guid(840c2c2fc56588a4784349207dc48e13) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '251f83da358fbc6535424942abd9a16f') in 0.021158 seconds
+  Import took 0.030189 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000301 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_01.png
+  artifactKey: Guid(427fc2d5805a57045a446defb5a05947) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_01.png using Guid(427fc2d5805a57045a446defb5a05947) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7c9aad9ef892820ea791225d090a725f') in 0.022644 seconds
+  Import took 0.030402 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000300 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_05(R).png
+  artifactKey: Guid(49e2feb98fc3856438ba882c5fc1a10c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_05(R).png using Guid(49e2feb98fc3856438ba882c5fc1a10c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8631f3184135608dde56fb037b9c525f') in 0.006479 seconds
+  Import took 0.014602 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000417 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_12(R).png
+  artifactKey: Guid(c5c18afd8d4c61847ad1f9b1c7c79b2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_12(R).png using Guid(c5c18afd8d4c61847ad1f9b1c7c79b2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '33e6a25a9457954d5d1c78e29fdd2017') in 0.006891 seconds
+  Import took 0.015333 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000339 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_10(B).png
+  artifactKey: Guid(37eaa82efee9e8748ae6edffa9f6ebef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_10(B).png using Guid(37eaa82efee9e8748ae6edffa9f6ebef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd11cdfc2e8eecf56705edbb5f0db3eb1') in 0.005950 seconds
+  Import took 0.014625 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000576 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_04(R).png
+  artifactKey: Guid(fcbccdf1a5acf5e40b7df5d0496a4485) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_04(R).png using Guid(fcbccdf1a5acf5e40b7df5d0496a4485) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5537674f222c0308aa077539604a132b') in 0.006943 seconds
+  Import took 0.015826 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000455 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_12.png
+  artifactKey: Guid(118196715ab93cd4bb319a0aa5732b2e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_12.png using Guid(118196715ab93cd4bb319a0aa5732b2e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e4c2bdc19769ec95f7941ceadccb66d4') in 0.006796 seconds
+  Import took 0.014588 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000466 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_02(G).png
+  artifactKey: Guid(c778438c5c4a64c4dbcf12c241c0c304) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_02(G).png using Guid(c778438c5c4a64c4dbcf12c241c0c304) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3f22fd32cdefb899f7984be49e079fb7') in 0.006129 seconds
+  Import took 0.015456 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000685 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_06(G).png
+  artifactKey: Guid(b2af62636d4f91c4f9a6c4b73388f631) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_06(G).png using Guid(b2af62636d4f91c4f9a6c4b73388f631) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '554e3c09011d82aeb3243386f0a767c3') in 0.006573 seconds
+  Import took 0.014796 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000334 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_10(R).png
+  artifactKey: Guid(3bb5a4f49ee33a140802c95a1099ecd3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_10(R).png using Guid(3bb5a4f49ee33a140802c95a1099ecd3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '06ebf4eec7c4f60f64ac1080f3dd374f') in 0.006936 seconds
+  Import took 0.016050 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000352 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_11(B).png
+  artifactKey: Guid(0734a34447239a746afbb5a604bcedc0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_11(B).png using Guid(0734a34447239a746afbb5a604bcedc0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cd7c83bbe44a9ebe29a02cb7196e5116') in 0.005287 seconds
+  Import took 0.014254 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000493 seconds.
+  path: Assets/Dependencies/Scifi Cursors/CROSSHAIR_04(G).png
+  artifactKey: Guid(147bf7980450c874783542a1b7bab750) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Scifi Cursors/CROSSHAIR_04(G).png using Guid(147bf7980450c874783542a1b7bab750) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e30d1620ca7d1f43013fbbfc0096ef5d') in 0.006172 seconds
+  Import took 0.014800 seconds .
+
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
