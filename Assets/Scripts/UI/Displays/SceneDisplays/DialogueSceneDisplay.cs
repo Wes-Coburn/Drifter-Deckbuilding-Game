@@ -21,12 +21,11 @@ public class DialogueSceneDisplay : MonoBehaviour
         set
         {
             playerHeroImage.GetComponent<Image>().sprite = value;
-
-            UIManager.PositionAndScale pas = UIManager.Instance.GetPortraitPosition
-                (PlayerManager.Instance.PlayerHero.HeroName, SceneLoader.Scene.DialogueScene);
-            if (pas == null) return;
-            playerHeroImage.transform.localPosition = pas.Position;
-            playerHeroImage.transform.localScale = pas.Scale;
+            UIManager.Instance.GetPortraitPosition
+                (PlayerManager.Instance.PlayerHero.HeroName, 
+                out Vector2 position, out Vector2 scale, SceneLoader.Scene.DialogueScene);
+            playerHeroImage.transform.localPosition = position;
+            playerHeroImage.transform.localScale = scale;
         }
     }
     public string PlayerHeroName

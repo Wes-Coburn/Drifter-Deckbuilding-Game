@@ -388,26 +388,21 @@ public class UIManager : MonoBehaviour
      * ****** GET_PORTRAIT_POSITION
      * *****
      *****/
-    public class PositionAndScale
+    public void GetPortraitPosition(string heroName, out Vector2 position, 
+        out Vector2 scale, SceneLoader.Scene scene)
     {
-        public PositionAndScale(Vector2 position, Vector2 scale)
-        {
-            Position = position;
-            Scale = scale;
-        }
-        public Vector2 Position;
-        public Vector2 Scale;
-    }
-    public PositionAndScale GetPortraitPosition(string heroName, SceneLoader.Scene scene)
-    {
-        Vector2 position = new Vector2();
-        Vector2 scale = new Vector2();
+        position = new Vector2();
+        scale = new Vector2();
         switch (heroName)
         {
             // KILI
             case "Kili, Neon Rider":
                 switch(scene)
                 {
+                    case SceneLoader.Scene.HeroSelectScene:
+                        position.Set(0, -30);
+                        scale.Set(1.2f, 1.2f);
+                        break;
                     case SceneLoader.Scene.DialogueScene:
                         position.Set(-90, -325);
                         scale.Set(3, 3);
@@ -422,6 +417,10 @@ public class UIManager : MonoBehaviour
             case "Yergov, Biochemist":
                 switch (scene)
                 {
+                    case SceneLoader.Scene.HeroSelectScene:
+                        position.Set(-15, -35);
+                        scale.Set(1.3f, 1.3f);
+                        break;
                     case SceneLoader.Scene.DialogueScene:
                         position.Set(-145, -145);
                         scale.Set(2, 2);
@@ -436,6 +435,10 @@ public class UIManager : MonoBehaviour
             case "Faydra, Rogue Cyborg":
                 switch (scene)
                 {
+                    case SceneLoader.Scene.HeroSelectScene:
+                        position.Set(-40, 0);
+                        scale.Set(1.3f, 1.3f);
+                        break;
                     case SceneLoader.Scene.DialogueScene:
                         position.Set(-150, -75);
                         scale.Set(2.5f, 2.5f);
@@ -448,8 +451,7 @@ public class UIManager : MonoBehaviour
                 break;
             default:
                 Debug.LogError("HERO NAME NOT FOUND!");
-                return null;
+                return;
         }
-        return new PositionAndScale(position, scale);
     }
 }

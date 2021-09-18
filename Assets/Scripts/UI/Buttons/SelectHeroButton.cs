@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class SelectHeroButton : MonoBehaviour
 {
-    [SerializeField] private GameObject NewGameSceneDisplay;
     public void OnClick()
     {
         if (CardZoom.ZoomCardIsCentered)
@@ -11,6 +10,6 @@ public class SelectHeroButton : MonoBehaviour
             return;
         }
         gameObject.GetComponent<SoundPlayer>().PlaySound(0);
-        NewGameSceneDisplay.GetComponent<NewGameSceneDisplay>().ConfirmSelection();
+        FindObjectOfType<HeroSelectSceneDisplay>().ConfirmSelection();
     }
 }

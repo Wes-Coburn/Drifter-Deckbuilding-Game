@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class NewGameSceneDisplay : MonoBehaviour
+public class HeroSelectSceneDisplay : MonoBehaviour
 {
     [SerializeField] private GameObject selectedHero;
     [SerializeField] private GameObject skillCard_1;
@@ -90,6 +90,11 @@ public class NewGameSceneDisplay : MonoBehaviour
 
         heroName.GetComponent<TextMeshProUGUI>().SetText(SelectedHero.HeroName);
         heroPortrait.GetComponent<Image>().sprite = SelectedHero.HeroPortrait;
+        UIManager.Instance.GetPortraitPosition(SelectedHero.HeroName, 
+            out Vector2 position, out Vector2 scale, SceneLoader.Scene.HeroSelectScene);
+        heroPortrait.transform.localPosition = position;
+        heroPortrait.transform.localScale = scale;
+
         heroDescription.GetComponent<TextMeshProUGUI>().SetText(SelectedHero.HeroDescription);
         heroPowerImage.GetComponent<Image>().sprite = SelectedHero.HeroPower.PowerSprite;
         heroPowerImage.GetComponentInParent<PowerZoom>().LoadedPower = SelectedHero.HeroPower;

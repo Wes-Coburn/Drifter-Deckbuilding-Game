@@ -29,10 +29,10 @@ public abstract class HeroDisplay : MonoBehaviour
             
             if (this is PlayerHeroDisplay)
             {
-                UIManager.PositionAndScale pas = UIManager.Instance.GetPortraitPosition
-                    (HeroScript.HeroName, SceneLoader.Scene.CombatScene);
-                heroPortrait.transform.localPosition = pas.Position;
-                heroPortrait.transform.localScale = pas.Scale;
+                UIManager.Instance.GetPortraitPosition
+                    (HeroScript.HeroName, out Vector2 position, out Vector2 scale, SceneLoader.Scene.CombatScene);
+                heroPortrait.transform.localPosition = position;
+                heroPortrait.transform.localScale = scale;
             }
         }
     }
