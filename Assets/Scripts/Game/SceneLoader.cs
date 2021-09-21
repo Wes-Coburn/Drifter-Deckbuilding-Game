@@ -80,7 +80,7 @@ public static class SceneLoader
                     auMan.StartStopSound("Soundtrack_TitleScene", null, AudioManager.SoundType.Soundtrack);
                     break;
                 case Scene.HeroSelectScene:
-                    // blank
+                    UnityEngine.Object.FindObjectOfType<HeroSelectSceneDisplay>().DisplaySelectedHero();
                     break;
                 case Scene.NarrativeScene:
                     gMan.StartNarrative();

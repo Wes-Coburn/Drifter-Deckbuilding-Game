@@ -35,7 +35,6 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         currentSelection = 0;
         heroSelected = false;
         augmentSelected = false;
-        DisplaySelectedHero();
     }
 
     public void SelectBackButton()
@@ -81,7 +80,7 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         augmentDescription.GetComponent<TextMeshProUGUI>().SetText(SelectedAugment.AugmentDescription);
     }
 
-    private void DisplaySelectedHero()
+    public void DisplaySelectedHero()
     {
         selectedHero.SetActive(true);
         selectedAugment.SetActive(false);
@@ -122,13 +121,14 @@ public class HeroSelectSceneDisplay : MonoBehaviour
             currentSkill_2 = null;
         }
 
-        currentSkill_1 = coMan.ShowCard(SelectedHero.HeroStartSkills[0], new Vector2(0, 0));
-        currentSkill_2 = coMan.ShowCard(SelectedHero.HeroStartSkills[1], new Vector2(0, 0));
+        Vector2 vec2 = new Vector2();
+        currentSkill_1 = coMan.ShowCard(SelectedHero.HeroStartSkills[0], vec2);
+        currentSkill_2 = coMan.ShowCard(SelectedHero.HeroStartSkills[1], vec2);
         currentSkill_1.transform.SetParent(skillCard_1.transform, false);
         currentSkill_2.transform.SetParent(skillCard_2.transform, false);
-        Vector2 vec2 = new Vector2(4, 4);
-        currentSkill_1.transform.localScale = vec2;
-        currentSkill_2.transform.localScale = vec2;
+        Vector2 scaleVec = new Vector2(4, 4);
+        currentSkill_1.transform.localScale = scaleVec;
+        currentSkill_2.transform.localScale = scaleVec;
     }
 
     public void ConfirmSelection()

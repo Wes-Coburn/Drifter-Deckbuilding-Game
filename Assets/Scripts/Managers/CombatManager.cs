@@ -151,6 +151,12 @@ public class CombatManager : MonoBehaviour
      *****/
     public GameObject ShowCard(Card card, Vector2 position, bool isShowcase = false)
     {
+        if (card == null)
+        {
+            Debug.LogError("CARD IS NULL!");
+            return null;
+        }
+
         GameObject prefab = null;
         if (card is UnitCard)
         {
