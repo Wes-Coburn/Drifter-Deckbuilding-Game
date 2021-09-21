@@ -16,6 +16,7 @@ public class CombatManager : MonoBehaviour
     }
 
     [SerializeField] private GameObject dragArrowPrefab;
+    [SerializeField] private GameObject cardContainerPrefab;
 
     private GameManager gMan;
     private CardManager caMan;
@@ -148,7 +149,7 @@ public class CombatManager : MonoBehaviour
      * ****** SHOW/HIDE_CARD
      * *****
      *****/
-    public GameObject ShowCard(Card card, bool isShowcase = false)
+    public GameObject ShowCard(Card card, Vector2 position, bool isShowcase = false)
     {
         GameObject prefab = null;
         if (card is UnitCard)
@@ -163,15 +164,24 @@ public class CombatManager : MonoBehaviour
             if (isShowcase)
                 prefab = prefab.GetComponent<CardZoom>().ActionZoomCardPrefab;
         }
-        prefab = Instantiate(prefab, new Vector3(0, 0, CARD_Z_POSITION), Quaternion.identity);
+        prefab = Instantiate(prefab, uMan.CurrentCanvas.transform); // TESTING
         if (isShowcase) prefab.GetComponent<CardDisplay>().DisplayZoomCard(null, card);
-        else prefab.GetComponent<CardDisplay>().CardScript = card;
+        else
+        {
+            CardDisplay cd = prefab.GetComponent<CardDisplay>();
+            cd.CardScript = card;
+            cd.CardContainer = Instantiate(cardContainerPrefab, uMan.CurrentCanvas.transform); // TESTING
+            cd.CardContainer.transform.position = position;
+            CardContainer cc = cd.CardContainer.GetComponent<CardContainer>();
+            cc.Child = prefab;
+            prefab.transform.SetParent(cc.gameObject.transform, false);
+        }
         return prefab;
     }
     private Card HideCard(GameObject card)
     {
         Card cardScript = card.GetComponent<CardDisplay>().CardScript;
-        Destroy(card);
+        Destroy(card.GetComponentInParent<CardContainer>().gameObject); // TESTING
         return cardScript;
     }
 
@@ -185,17 +195,20 @@ public class CombatManager : MonoBehaviour
         List<Card> deck;
         string cardTag;
         string cardZone;
+        Vector2 position = new Vector2();
         if (hero == PLAYER)
         {
             deck = pMan.CurrentPlayerDeck;
             cardTag = PLAYER_CARD;
             cardZone = PLAYER_HAND;
+            position.Set(-750, -350);
         }
         else if (hero == ENEMY)
         {
             deck = enMan.CurrentEnemyDeck;
             cardTag = ENEMY_CARD;
             cardZone = ENEMY_HAND;
+            position.Set(685, 370);
         }
         else
         {
@@ -213,12 +226,11 @@ public class CombatManager : MonoBehaviour
                 Debug.LogError("PLAYER <" + hero + "> NOT FOUND!");
                 return;
             }
-
             foreach (Card c in discard) deck.Add(c);
             discard.Clear();
             ShuffleDeck(deck);
         }
-        GameObject card = ShowCard(deck[0]);
+        GameObject card = ShowCard(deck[0], position);
         if (card == null)
         {
             Debug.LogError("CARD IS NULL!");
@@ -300,16 +312,10 @@ public class CombatManager : MonoBehaviour
      * ****** SET_CARD_PARENT
      * *****
      *****/
-    public void SetCardParent(GameObject card, Transform parent, bool isInHand = false)
+    public void MoveCard(GameObject card, GameObject newParent)
     {
-        card.transform.SetParent(parent, false);
-        float xPos = card.transform.position.x;
-        float yPos = card.transform.position.y;
-        int zPos;
-        if (isInHand) zPos = -3;
-        else zPos = CARD_Z_POSITION;
-        card.transform.position = 
-            new Vector3(xPos, yPos, zPos);        
+        card.GetComponent<CardDisplay>().CardContainer.
+            GetComponent<CardContainer>().MoveContainer(newParent);
     }
 
     /******
@@ -317,33 +323,30 @@ public class CombatManager : MonoBehaviour
      * ****** CHANGE_CARD_ZONE
      * *****
      *****/
-    public void ChangeCardZone(GameObject card, string zone)
+    public void ChangeCardZone(GameObject card, string newZone)
     {
-        Transform zoneTran = null;
-        bool isInHand = false;
-        switch (zone)
+        GameObject zone = null;
+        switch (newZone)
         {
             // PLAYER
             case PLAYER_HAND:
-                zoneTran = PlayerHand.transform;
+                zone = PlayerHand;
                 anMan.RevealedHandState(card);
-                isInHand = true;
                 break;
             case PLAYER_ZONE:
-                zoneTran = PlayerZone.transform;
+                zone = PlayerZone;
                 anMan.PlayedState(card);
                 break;
             case PLAYER_ACTION_ZONE:
-                zoneTran = PlayerActionZone.transform;
+                zone = PlayerActionZone;
                 anMan.PlayedState(card);
                 break;
             // ENEMY
             case ENEMY_HAND:
-                zoneTran = EnemyHand.transform;
-                isInHand = true;
+                zone = EnemyHand;
                 break;
             case ENEMY_ZONE:
-                zoneTran = EnemyZone.transform;
+                zone = EnemyZone;
                 anMan.PlayedState(card);
                 break;
             /*
@@ -352,12 +355,12 @@ public class CombatManager : MonoBehaviour
                 AnimationManager.Instance.PlayedState(card);
             */
         }
-        SetCardParent(card, zoneTran, isInHand);
+        MoveCard(card, zone);
         card.GetComponent<CardSelect>().CardOutline.SetActive(false);
         if (card.GetComponent<CardDisplay>() is UnitCardDisplay ucd)
         {
             bool played = false;
-            if (zone == PLAYER_ZONE || zone == ENEMY_ZONE) played = true;
+            if (newZone == PLAYER_ZONE || newZone == ENEMY_ZONE) played = true;
             ucd.ResetUnitCard(played);
         }
     }

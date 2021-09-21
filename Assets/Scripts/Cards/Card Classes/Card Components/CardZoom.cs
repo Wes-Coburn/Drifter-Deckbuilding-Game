@@ -89,7 +89,8 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         if (DragDrop.DraggingCard != null || ZoomCardIsCentered) return;
         if (UIManager.Instance.PlayerIsTargetting) if (!UIManager.Instance.PlayerIsDiscarding) return;
 
-        GameObject parent = transform.parent.gameObject;
+        GameObject container = GetComponent<CardDisplay>().CardContainer;
+        GameObject parent = container.transform.parent.gameObject;
         if (parent == enemyHand) return; // HIDE THE ENEMY HAND
 
         float cardYPos;

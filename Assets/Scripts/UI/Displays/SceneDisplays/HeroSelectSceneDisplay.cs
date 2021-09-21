@@ -122,8 +122,8 @@ public class HeroSelectSceneDisplay : MonoBehaviour
             currentSkill_2 = null;
         }
 
-        currentSkill_1 = coMan.ShowCard(SelectedHero.HeroStartSkills[0]);
-        currentSkill_2 = coMan.ShowCard(SelectedHero.HeroStartSkills[1]);
+        currentSkill_1 = coMan.ShowCard(SelectedHero.HeroStartSkills[0], new Vector2(0, 0));
+        currentSkill_2 = coMan.ShowCard(SelectedHero.HeroStartSkills[1], new Vector2(0, 0));
         currentSkill_1.transform.SetParent(skillCard_1.transform, false);
         currentSkill_2.transform.SetParent(skillCard_2.transform, false);
         Vector2 vec2 = new Vector2(4, 4);

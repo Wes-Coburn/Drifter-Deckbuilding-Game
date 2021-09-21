@@ -16,9 +16,22 @@ public abstract class CardDisplay : MonoBehaviour
         }
     }
 
-    /* CARD_DATA */
+    private GameObject cardContainer;
     private Animator animator;
 
+    public GameObject CardContainer
+    {
+        get => cardContainer;
+        set
+        {
+            if (cardContainer != null)
+            {
+                Debug.LogError("CARD CONTAINER ALREADY EXISTS!");
+                return;
+            }
+            cardContainer = value;
+        }
+    }
     public string CardName
     {
         get => CardScript.CardName;
