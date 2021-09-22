@@ -128,6 +128,12 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
                 CreateAbilityPopups(new Vector2(0, 150), ZOOM_SCALE_VALUE);
                 return;
             }
+            // Card Page Popup
+            else if (UIManager.Instance.CardPagePopup != null)
+            {
+                CreateAbilityPopups(new Vector2(0, -300), POPUP_SCALE_VALUE);
+                return;
+            }
             // New Card Popup
             else
             {

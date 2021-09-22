@@ -28,6 +28,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject menuPopupPrefab;
     [SerializeField] private GameObject explicitLanguagePopupPrefab;
     [SerializeField] private GameObject aetherCellPopupPrefab;
+    [SerializeField] private GameObject cardPagePopupPrefab;
     [SerializeField] private Color highlightedColor;
     [SerializeField] private Color selectedColor;
     [SerializeField] private Color rejectedColor;
@@ -39,6 +40,7 @@ public class UIManager : MonoBehaviour
     private GameObject menuPopup;
     private GameObject explicitLanguagePopup;
     private GameObject aetherCellPopup;
+    private GameObject cardPagePopup;
     private GameObject endTurnButton;
     private Coroutine sceneFadeRoutine;
     private GameObject playerZoneOutline;
@@ -47,6 +49,7 @@ public class UIManager : MonoBehaviour
     public bool PlayerIsDiscarding { get; set; }
     public GameObject CurrentWorldSpace { get; private set; }
     public GameObject CurrentCanvas { get; private set; }
+    public GameObject CardPagePopup { get => cardPagePopup; }
 
     public void Start()
     {
@@ -76,7 +79,7 @@ public class UIManager : MonoBehaviour
     }
     public void StartWorldMapScene()
     {
-        // blank
+        Debug.LogWarning("BLANK!");
     }
 
     /******
@@ -141,9 +144,10 @@ public class UIManager : MonoBehaviour
 
     /******
      * *****
-     * ****** CREATE/DESTROY_EXPLICIT_LANGUAGE_POPUP
+     * ****** CREATE/DESTROY_POPUPS
      * *****
      *****/
+    // Explicit Language
     public void CreateExplicitLanguagePopup()
     {
         if (explicitLanguagePopup != null) return;
@@ -158,12 +162,7 @@ public class UIManager : MonoBehaviour
             explicitLanguagePopup = null;
         }
     }
-
-    /******
-     * *****
-     * ****** CREATE/DESTROY_MENU_POPUP
-     * *****
-     *****/
+    // Menu (Main)
     public void CreateMenuPopup()
     {
         if (menuPopup != null) return;
@@ -176,6 +175,20 @@ public class UIManager : MonoBehaviour
         {
             Destroy(menuPopup);
             menuPopup = null;
+        }
+    }
+    // Card Page
+    public void CreateCardPagePopup()
+    {
+        if (cardPagePopup != null) return;
+        cardPagePopup = Instantiate(cardPagePopupPrefab, CurrentCanvas.transform);
+    }
+    public void DestroyCardPagePopup()
+    {
+        if (cardPagePopup != null)
+        {
+            Destroy(cardPagePopup);
+            cardPagePopup = null;
         }
     }
 

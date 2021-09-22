@@ -14,6 +14,7 @@ public static class SceneLoader
         HeroSelectScene,
         NarrativeScene,
         WorldMapScene,
+        HomeBaseScene,
         DialogueScene,
         CombatScene
     }
@@ -50,6 +51,9 @@ public static class SceneLoader
                     break;
                 case Scene.WorldMapScene:
                     chapterText = "WORLD MAP";
+                    break;
+                case Scene.HomeBaseScene:
+                    chapterText = "YOUR SHIP";
                     break;
                 case Scene.DialogueScene:
                     chapterText = gMan.CurrentLocation.LocationFullName;
@@ -88,6 +92,9 @@ public static class SceneLoader
                 case Scene.WorldMapScene:
                     uMan.StartWorldMapScene();
                     gMan.EnterWorldMap(); // TESTING
+                    break;
+                case Scene.HomeBaseScene:
+                    Debug.LogWarning("BLANK!");
                     break;
                 case Scene.DialogueScene:
                     dMan.StartDialogue(dMan.EngagedHero);

@@ -187,7 +187,8 @@ public class CombatManager : MonoBehaviour
     private Card HideCard(GameObject card)
     {
         Card cardScript = card.GetComponent<CardDisplay>().CardScript;
-        Destroy(card.GetComponentInParent<CardContainer>().gameObject); // TESTING
+        Destroy(card.GetComponent<CardDisplay>().CardContainer); // TESTING
+        if (card != null) Destroy(card); // TESTING
         return cardScript;
     }
 
@@ -361,7 +362,19 @@ public class CombatManager : MonoBehaviour
                 AnimationManager.Instance.PlayedState(card);
             */
         }
+        /*
+        foreach (Transform tran in zone.transform)
+        {
+            tran.gameObject.GetComponent<CardContainer>().DetachChild(); // TESTING
+        }
+        */
         MoveCard(card, zone);
+        /*
+        foreach (Transform tran in zone.transform)
+        {
+            tran.gameObject.GetComponent<CardContainer>().SeekChild(); // TESTING
+        }
+        */
         card.GetComponent<CardSelect>().CardOutline.SetActive(false);
         if (card.GetComponent<CardDisplay>() is UnitCardDisplay ucd)
         {

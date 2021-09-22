@@ -37,7 +37,7 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         augmentSelected = false;
     }
 
-    public void SelectBackButton()
+    public void BackButton_OnClick()
     {
         if (heroSelected)
         {
@@ -50,8 +50,8 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         }
         else GameManager.Instance.EndGame();
     }
-    public void SelectRightArrow() => NextSelection(RightOrLeft.Right);
-    public void SelectLeftArrow() => NextSelection(RightOrLeft.Left);
+    public void RightArrow_OnClick() => NextSelection(RightOrLeft.Right);
+    public void LeftArrow_OnClick() => NextSelection(RightOrLeft.Left);
     public enum RightOrLeft { Right, Left }
     private void NextSelection(RightOrLeft rol)
     {

@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GiveNextUnitEffect augmentBiogenEffect;
     [SerializeField] private Narrative settingNarrative;
     [SerializeField] private Narrative newGameNarrative;
+    [SerializeField] private Location homeBaseLocation;
     [SerializeField] private Location firstLocation;
     
     private PlayerManager pMan;
@@ -138,7 +139,8 @@ public class GameManager : MonoBehaviour
         HideExplicitLanguage = hideExplicitLanguage;
         currentChapter = 0;
         NextNarrative = settingNarrative;
-        CurrentLocation = GetActiveLocation(firstLocation); // TESTING
+        GetActiveLocation(homeBaseLocation);
+        CurrentLocation = GetActiveLocation(firstLocation);
         SceneLoader.LoadScene(SceneLoader.Scene.NarrativeScene);
     }
 
@@ -226,11 +228,12 @@ public class GameManager : MonoBehaviour
      *****/
     public void StartCombat()
     {
+        auMan.StartStopSound("Soundtrack_Combat1", null, AudioManager.SoundType.Soundtrack);
+        auMan.StartStopSound("SFX_StartCombat");
         HeroDisplay pHD = coMan.PlayerHero.GetComponent<HeroDisplay>();
         HeroDisplay eHD = coMan.EnemyHero.GetComponent<HeroDisplay>();
         pHD.HeroStats.SetActive(false);
         eHD.HeroStats.SetActive(false);
-
         coMan.IsInCombat = true;
         enMan.StartCombat();
         EnemyHero enemyHero = dMan.EngagedHero as EnemyHero;
@@ -239,7 +242,6 @@ public class GameManager : MonoBehaviour
             Debug.LogError("ENEMY HERO IS NULL!");
             return;
         }
-        auMan.StartStopSound("Soundtrack_Combat1", null, AudioManager.SoundType.Soundtrack);
         /* UPDATE_DECKS */
         enMan.EnemyHero = enemyHero;
         coMan.UpdateDeck(PLAYER);
@@ -264,8 +266,6 @@ public class GameManager : MonoBehaviour
             gnue.LoadEffect(augmentBiogenEffect);
             efMan.GiveNextEffects.Add(gnue);
         }
-
-        AudioManager.Instance.StartStopSound("SFX_StartCombat");
         evMan.NewDelayedAction(() => AnimationManager.Instance.CombatIntro(), 1f);
         evMan.NewDelayedAction(() => CombatStart(), 4f);
         evMan.NewDelayedAction(() => StartTurn(PLAYER), 1f);

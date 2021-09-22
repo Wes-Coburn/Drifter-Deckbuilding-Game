@@ -21,7 +21,7 @@ public class AbilityZoom : MonoBehaviour
             }
             Vector3 hoverPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             float yPos = hoverPoint.y + 100;
-            AbilityPopup.transform.position = new Vector3(hoverPoint.x, yPos, -4);
+            AbilityPopup.transform.position = new Vector2(hoverPoint.x, yPos);
         }
     }
     public void OnPointerEnter()
@@ -42,7 +42,7 @@ public class AbilityZoom : MonoBehaviour
     {
         Vector3 vec3 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         float yPos = vec3.y + 100;
-        Vector3 spawnPoint = new Vector3(vec3.x, yPos, -2);
+        Vector3 spawnPoint = new Vector2(vec3.x, yPos);
         AbilityPopup = Instantiate(abilityPopupPrefab, spawnPoint, Quaternion.identity);
         Transform tran = AbilityPopup.transform;
         tran.localScale = new Vector2(2.5f, 2.5f);

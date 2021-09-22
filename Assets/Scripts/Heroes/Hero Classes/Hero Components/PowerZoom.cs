@@ -52,12 +52,22 @@ public class PowerZoom : MonoBehaviour
         powerPopup = Instantiate(powerPopupPrefab, spawnPoint, Quaternion.identity);
         powerPopup.transform.localScale = new Vector2(scaleValue, scaleValue);
         HeroPower hp = GetComponentInParent<PlayerHeroDisplay>().PlayerHero.HeroPower;
+        if (hp == null)
+        {
+            Debug.LogError("HERO POWER IS NULL!");
+            return;
+        }
         powerPopup.GetComponent<PowerPopupDisplay>().PowerScript = hp;
         FunctionTimer.Create(() => ShowLinkedAbilities(hp, scaleValue), 1.5f, ABILITY_POPUP_TIMER);
     }
 
     private void ShowLinkedAbilities(HeroPower hp, float scaleValue)
     {
+        if (hp == null)
+        {
+            Debug.LogError("HERO POWER IS NULL!");
+            return;
+        }
         abilityPopupBox = Instantiate(abilityPopupBoxPrefab, 
             UIManager.Instance.CurrentCanvas.transform);
         Vector2 position = new Vector2();

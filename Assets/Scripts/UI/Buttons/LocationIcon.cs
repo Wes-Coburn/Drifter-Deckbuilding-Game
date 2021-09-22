@@ -39,13 +39,18 @@ public class LocationIcon : MonoBehaviour
     public void OnClick()
     {
         gMan.CurrentLocation = Location;
+        if (Location.IsHomeBase)
+        {
+            SceneLoader.LoadScene(SceneLoader.Scene.HomeBaseScene);
+            return;
+        }
         if (Location.CurrentNPC == null)
         {
             Debug.LogError("CURRENT NPC IS NULL!");
             return;
         }
         dMan.EngagedHero = Location.CurrentNPC;
-        gMan.ExitWorldMap(); // TESTING
+        gMan.ExitWorldMap();
         SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene);
     }
 

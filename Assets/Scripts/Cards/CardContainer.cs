@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class CardContainer : MonoBehaviour
 {
+    private UIManager uMan;
     private Coroutine seekRoutine;
     private GameObject child;
     public GameObject Child
@@ -19,15 +20,26 @@ public class CardContainer : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        uMan = UIManager.Instance;
+    }
+
     public void MoveContainer(GameObject newParent)
     {
-        Child.transform.SetParent(UIManager.Instance.CurrentCanvas.transform);
+        Child.transform.SetParent(uMan.CurrentCanvas.transform);
         transform.SetParent(newParent.transform, false);
         transform.SetAsFirstSibling();
         SeekChild();
     }
 
-    private void SeekChild()
+    public void DetachChild()
+    {
+        if (seekRoutine != null) return;
+        Child.transform.SetParent(uMan.CurrentCanvas.transform);
+    }
+
+    public void SeekChild()
     {
         if (seekRoutine != null) return;
         seekRoutine = StartCoroutine(SeekChildNumerator());
