@@ -14,13 +14,16 @@ public class LearnSkillPopupDisplay : MonoBehaviour
             popupText.GetComponent<TextMeshProUGUI>().SetText(value);
         }
     }
+
     public SkillCard SkillCard
     {
         get => skillCard;
         set
         {
+            int aether = PlayerManager.Instance.AetherCells;
             skillCard = value;
-            string text = "Learn " + skillCard.CardName + " for 1 aether?";
+            string text = "Learn " + skillCard.CardName + 
+                " for 1 aether? (You have " + aether + " aether)";
             PopupText = text;
         }
     }

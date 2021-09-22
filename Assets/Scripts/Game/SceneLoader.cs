@@ -32,8 +32,8 @@ public static class SceneLoader
         DialogueManager dMan = DialogueManager.Instance;
         CombatManager coMan = CombatManager.Instance;
         PlayerManager pMan = PlayerManager.Instance;
-        FunctionTimer.Create(() => 
-        auMan.StartStopSound("SFX_SceneLoading", null, AudioManager.SoundType.SFX, false, true), 1f);
+        FunctionTimer.Create(() => auMan.StartStopSound("SFX_SceneLoading", null, 
+            AudioManager.SoundType.SFX, false, true), 1f);
 
         onSceneLoaderCallback = () =>
         {
@@ -81,7 +81,8 @@ public static class SceneLoader
             switch (scene)
             {
                 case Scene.TitleScene:
-                    auMan.StartStopSound("Soundtrack_TitleScene", null, AudioManager.SoundType.Soundtrack);
+                    auMan.StartStopSound("Soundtrack_TitleScene", null, 
+                        AudioManager.SoundType.Soundtrack);
                     break;
                 case Scene.HeroSelectScene:
                     UnityEngine.Object.FindObjectOfType<HeroSelectSceneDisplay>().DisplaySelectedHero();
@@ -91,7 +92,7 @@ public static class SceneLoader
                     break;
                 case Scene.WorldMapScene:
                     uMan.StartWorldMapScene();
-                    gMan.EnterWorldMap(); // TESTING
+                    gMan.EnterWorldMap();
                     break;
                 case Scene.HomeBaseScene:
                     Debug.LogWarning("BLANK!");

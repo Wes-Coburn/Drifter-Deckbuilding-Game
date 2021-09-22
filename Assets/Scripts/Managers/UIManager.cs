@@ -181,7 +181,8 @@ public class UIManager : MonoBehaviour
     public void CreateCardPagePopup()
     {
         if (cardPagePopup != null) return;
-        cardPagePopup = Instantiate(cardPagePopupPrefab, CurrentCanvas.transform);
+        cardPagePopup = Instantiate
+            (cardPagePopupPrefab, CurrentCanvas.transform);
     }
     public void DestroyCardPagePopup()
     {
@@ -286,8 +287,8 @@ public class UIManager : MonoBehaviour
         {
             GameObject prefab = screenDimmerPrefab;
             GameObject parent = CurrentCanvas;
-            screenDimmer = Instantiate(prefab, 
-                new Vector3(0, 0, -3), Quaternion.identity, parent.transform);
+            screenDimmer = Instantiate(prefab, new Vector3(0, 0, -3),
+                Quaternion.identity, parent.transform);
         }
     }
 
@@ -296,17 +297,23 @@ public class UIManager : MonoBehaviour
      * ****** CREATE/DISMISS/DESTROY_[FLEETING]_INFO_POPUP
      * *****
      *****/
-    public void CreateInfoPopup(string message)
+    public void CreateInfoPopup(string message, bool isCentered = false)
     {
         DestroyInfoPopup();
-        infoPopup = Instantiate(infoPopupPrefab, new Vector2(680, 50), 
+        Vector2 vec2 = new Vector2(0, 0);
+        if (!isCentered) vec2.Set(680, 50);
+        infoPopup = Instantiate(infoPopupPrefab, vec2, 
             Quaternion.identity, CurrentWorldSpace.transform);
         infoPopup.GetComponent<InfoPopupDisplay>().DisplayInfoPopup(message);
     }
-    public void CreateFleetinInfoPopup(string message)
+    public void CreateFleetinInfoPopup(string message, bool isCentered = false)
     {
-        CreateInfoPopup(message);
+        CreateInfoPopup(message, isCentered);
         AnimationManager.Instance.ChangeAnimationState(infoPopup, "Enter_Exit");
+    }
+    public void CreateCenteredInfoPopup(string message)
+    {
+        CreateFleetinInfoPopup(message, true);
     }
     public void DismissInfoPopup()
     {
@@ -361,7 +368,8 @@ public class UIManager : MonoBehaviour
     public void CreateCombatEndPopup(bool playerWins)
     {
         combatEndPopup = Instantiate(combatEndPopupPrefab, CurrentCanvas.transform);
-        CombatEndPopupDisplay cepd = combatEndPopup.GetComponent<CombatEndPopupDisplay>();
+        CombatEndPopupDisplay cepd =
+            combatEndPopup.GetComponent<CombatEndPopupDisplay>();
         cepd.VictoryText.SetActive(playerWins);
         cepd.DefeatText.SetActive(!playerWins);
         cepd.GetComponent<SoundPlayer>().PlaySound(0);
@@ -383,7 +391,8 @@ public class UIManager : MonoBehaviour
     public void CreateAetherCellPopup(int quanity, int total)
     {
         aetherCellPopup = Instantiate(aetherCellPopupPrefab, CurrentCanvas.transform);
-        AetherCellPopupDisplay acpd = aetherCellPopup.GetComponent<AetherCellPopupDisplay>();
+        AetherCellPopupDisplay acpd =
+            aetherCellPopup.GetComponent<AetherCellPopupDisplay>();
         acpd.AetherQuantity = quanity;
         acpd.TotalAether = total;
     }

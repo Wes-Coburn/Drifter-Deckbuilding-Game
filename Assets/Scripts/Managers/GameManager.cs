@@ -116,7 +116,8 @@ public class GameManager : MonoBehaviour
     public Location GetActiveLocation(Location location)
     {
         int activeLocation;
-        activeLocation = ActiveLocations.FindIndex(x => x.LocationName == location.LocationName);
+        activeLocation = ActiveLocations.FindIndex
+            (x => x.LocationName == location.LocationName);
         if (activeLocation != -1) return ActiveLocations[activeLocation];
         else
         {
@@ -153,7 +154,8 @@ public class GameManager : MonoBehaviour
     {
         // Game Manager
         currentChapter = 0; // Unnecessary
-        foreach (NPCHero npc in ActiveNPCHeroes) Destroy(npc);
+        foreach (NPCHero npc in ActiveNPCHeroes)
+            Destroy(npc);
         ActiveNPCHeroes.Clear();
         // Player Manager
         Destroy(pMan.PlayerHero);
@@ -164,7 +166,8 @@ public class GameManager : MonoBehaviour
         // Dialogue Manager
         dMan.EndDialogue();
         // Effect Manager
-        foreach (Effect e in efMan.GiveNextEffects) Destroy(e);
+        foreach (Effect e in efMan.GiveNextEffects)
+            Destroy(e);
         efMan.GiveNextEffects.Clear();
         // Event Manager
         evMan.ClearDelayedActions();
@@ -182,7 +185,8 @@ public class GameManager : MonoBehaviour
         Debug.Log("ENTER WORLD MAP!");
         foreach (Location loc in ActiveLocations)
         {
-            GameObject location = Instantiate(locationIconPrefab, uMan.CurrentCanvas.transform);
+            GameObject location = Instantiate(locationIconPrefab,
+                uMan.CurrentCanvas.transform);
             LocationIcon icon = location.GetComponent<LocationIcon>();
             icon.Location = loc;
             icon.LocationName = loc.LocationName;
@@ -202,7 +206,8 @@ public class GameManager : MonoBehaviour
      *****/
     public void StartNarrative()
     {
-        auMan.StartStopSound("Soundtrack_Narrative1", null, AudioManager.SoundType.Soundtrack);
+        auMan.StartStopSound("Soundtrack_Narrative1", null,
+            AudioManager.SoundType.Soundtrack);
         NarrativeSceneDisplay nsd = FindObjectOfType<NarrativeSceneDisplay>();
         nsd.Narrative = NextNarrative;
         Debug.Log("START NARRATIVE: " + NextNarrative.ToString());
@@ -228,7 +233,8 @@ public class GameManager : MonoBehaviour
      *****/
     public void StartCombat()
     {
-        auMan.StartStopSound("Soundtrack_Combat1", null, AudioManager.SoundType.Soundtrack);
+        auMan.StartStopSound("Soundtrack_Combat1", null,
+            AudioManager.SoundType.Soundtrack);
         auMan.StartStopSound("SFX_StartCombat");
         HeroDisplay pHD = coMan.PlayerHero.GetComponent<HeroDisplay>();
         HeroDisplay eHD = coMan.EnemyHero.GetComponent<HeroDisplay>();
@@ -262,7 +268,8 @@ public class GameManager : MonoBehaviour
         coMan.EnemyHero.GetComponent<HeroDisplay>().HeroScript = enMan.EnemyHero;
         if (pMan.GetAugment("Biogenic Enhancer"))
         {
-            GiveNextUnitEffect gnue = ScriptableObject.CreateInstance<GiveNextUnitEffect>();
+            GiveNextUnitEffect gnue =
+                ScriptableObject.CreateInstance<GiveNextUnitEffect>();
             gnue.LoadEffect(augmentBiogenEffect);
             efMan.GiveNextEffects.Add(gnue);
         }

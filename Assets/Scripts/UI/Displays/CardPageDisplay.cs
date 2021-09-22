@@ -12,6 +12,7 @@ public class CardPageDisplay : MonoBehaviour
     [SerializeField] private GameObject learnSkillPopupPrefab;
 
     private PlayerManager pMan;
+    private UIManager uMan;
     private List<SkillCard> cardGroupList;
     private List<GameObject> activeCards;
     private int currentPage;
@@ -29,6 +30,7 @@ public class CardPageDisplay : MonoBehaviour
     private void Start()
     {
         pMan = PlayerManager.Instance;
+        uMan = UIManager.Instance;
         cardGroupList = pMan.PlayerHero.HeroMoreSkills;
         List<SkillCard> redundancies = new List<SkillCard>();
         foreach (SkillCard skill in cardGroupList)
@@ -88,18 +90,14 @@ public class CardPageDisplay : MonoBehaviour
     {
         if (pMan.AetherCells > 0) 
             CreateLearnSkillPopup(skillCard);
-        else
-        {
-            // not enough aether popup
-            CreateLearnSkillPopup(skillCard); // FOR TESTING ONLY
-        }
+        else uMan.CreateCenteredInfoPopup("Not enough aether!");
     }
 
     private void CreateLearnSkillPopup(SkillCard skillCard)
     {
         DestroyLearnSkillPopup();
         learnSkillPopup = Instantiate(learnSkillPopupPrefab,
-                UIManager.Instance.CurrentCanvas.transform);
+                uMan.CurrentCanvas.transform);
         learnSkillPopup.GetComponent<LearnSkillPopupDisplay>().SkillCard = skillCard;
     }
 

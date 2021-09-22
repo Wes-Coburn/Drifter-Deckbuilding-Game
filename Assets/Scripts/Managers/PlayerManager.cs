@@ -124,9 +124,9 @@ public class PlayerManager : MonoBehaviour
         void ErrorSound() => auMan.StartStopSound("SFX_Error");
     }
 
-    public bool GetAugment(string augment)
+    public bool GetAugment(string augmentName)
     {
-        int augmentIndex = HeroAugments.FindIndex(x => x.AugmentName == augment);
+        int augmentIndex = HeroAugments.FindIndex(x => x.AugmentName == augmentName);
         if (augmentIndex == -1) return false;
         else return true;
     }
