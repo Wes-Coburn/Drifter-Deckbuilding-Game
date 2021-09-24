@@ -15,8 +15,7 @@ public class UIManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         else Destroy(gameObject);
-
-        StartCoroutine(WaitForSplash()); // TESTING
+        StartCoroutine(WaitForSplash());
     }
 
     [SerializeField] private GameObject screenDimmerPrefab;
@@ -29,6 +28,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject explicitLanguagePopupPrefab;
     [SerializeField] private GameObject aetherCellPopupPrefab;
     [SerializeField] private GameObject cardPagePopupPrefab;
+    [SerializeField] private GameObject learnSkillPopupPrefab;
+    [SerializeField] private GameObject acquireAugmentPopupPrefab;
+    [SerializeField] private GameObject removeCardPopupPrefab;
+    [Header("COLORS")]
     [SerializeField] private Color highlightedColor;
     [SerializeField] private Color selectedColor;
     [SerializeField] private Color rejectedColor;
@@ -41,6 +44,10 @@ public class UIManager : MonoBehaviour
     private GameObject explicitLanguagePopup;
     private GameObject aetherCellPopup;
     private GameObject cardPagePopup;
+    private GameObject learnSkillPopup;
+    private GameObject acquireAugmentPopup;
+    private GameObject removeCardPopup;
+
     private GameObject endTurnButton;
     private Coroutine sceneFadeRoutine;
     private GameObject playerZoneOutline;
@@ -81,10 +88,9 @@ public class UIManager : MonoBehaviour
     {
         Debug.LogWarning("BLANK!");
     }
-
     /******
      * *****
-     * ****** SET_PLAYER_ZONE_OUTLINE
+     * ****** PLAYER_ZONE_OUTLINE
      * *****
      *****/
     public void SetPlayerZoneOutline(bool enabled, bool selected)
@@ -97,10 +103,9 @@ public class UIManager : MonoBehaviour
             else sr.color = highlightedColor;
         }
     }
-
     /******
      * *****
-     * ****** SET_SCENE_FADER
+     * ****** SCENE_FADER
      * *****
      *****/
     public void SetSceneFader(bool fadeOut)
@@ -141,58 +146,26 @@ public class UIManager : MonoBehaviour
         }
         sceneFadeRoutine = null;
     }
-
     /******
      * *****
-     * ****** CREATE/DESTROY_POPUPS
+     * ****** SCREEN_DIMMER
      * *****
      *****/
-    // Explicit Language
-    public void CreateExplicitLanguagePopup()
+    public void SetScreenDimmer(bool screenIsDimmed)
     {
-        if (explicitLanguagePopup != null) return;
-        explicitLanguagePopup = Instantiate(explicitLanguagePopupPrefab, 
-            CurrentCanvas.transform);
-    }
-    public void DestroyExplicitLanguagePopup()
-    {
-        if (explicitLanguagePopup != null)
+        if (screenDimmer != null)
         {
-            Destroy(explicitLanguagePopup);
-            explicitLanguagePopup = null;
+            Destroy(screenDimmer);
+            screenDimmer = null;
+        }
+        if (screenIsDimmed)
+        {
+            GameObject prefab = screenDimmerPrefab;
+            GameObject parent = CurrentCanvas;
+            screenDimmer = Instantiate(prefab, new Vector3(0, 0, -3),
+                Quaternion.identity, parent.transform);
         }
     }
-    // Menu (Main)
-    public void CreateMenuPopup()
-    {
-        if (menuPopup != null) return;
-        GameObject uiCanvas = GameObject.Find("UI_Canvas");
-        menuPopup = Instantiate(menuPopupPrefab, uiCanvas.transform);
-    }
-    public void DestroyMenuPopup()
-    {
-        if (menuPopup != null)
-        {
-            Destroy(menuPopup);
-            menuPopup = null;
-        }
-    }
-    // Card Page
-    public void CreateCardPagePopup()
-    {
-        if (cardPagePopup != null) return;
-        cardPagePopup = Instantiate
-            (cardPagePopupPrefab, CurrentCanvas.transform);
-    }
-    public void DestroyCardPagePopup()
-    {
-        if (cardPagePopup != null)
-        {
-            Destroy(cardPagePopup);
-            cardPagePopup = null;
-        }
-    }
-
     /******
      * *****
      * ****** SELECT_TARGET
@@ -226,10 +199,9 @@ public class UIManager : MonoBehaviour
             else image.color = highlightedColor;
         }
     }
-
     /******
      * *****
-     * ****** UPDATE_END_TURN_BUTTON
+     * ****** END_TURN_BUTTON
      * *****
      *****/
     public void UpdateEndTurnButton(bool isMyTurn)
@@ -241,7 +213,6 @@ public class UIManager : MonoBehaviour
         etbd.EndTurnSide.SetActive(isMyTurn);
         etbd.OpponentTurnSide.SetActive(!isMyTurn);
     }
-
     /******
      * *****
      * ****** DESTROY_ZOOM_OBJECT(S)
@@ -270,147 +241,12 @@ public class UIManager : MonoBehaviour
         foreach (GameObject go in objectsToDestroy)
             if (go != null) DestroyObject(go);
     }
-
-    /******
-     * *****
-     * ****** SET_SCREEN_DIMMER
-     * *****
-     *****/
-    public void SetScreenDimmer(bool screenIsDimmed)
-    {
-        if (screenDimmer != null)
-        {
-            Destroy(screenDimmer);
-            screenDimmer = null;
-        }
-        if (screenIsDimmed)
-        {
-            GameObject prefab = screenDimmerPrefab;
-            GameObject parent = CurrentCanvas;
-            screenDimmer = Instantiate(prefab, new Vector3(0, 0, -3),
-                Quaternion.identity, parent.transform);
-        }
-    }
-
-    /******
-     * *****
-     * ****** CREATE/DISMISS/DESTROY_[FLEETING]_INFO_POPUP
-     * *****
-     *****/
-    public void CreateInfoPopup(string message, bool isCentered = false)
-    {
-        DestroyInfoPopup();
-        Vector2 vec2 = new Vector2(0, 0);
-        if (!isCentered) vec2.Set(680, 50);
-        infoPopup = Instantiate(infoPopupPrefab, vec2, 
-            Quaternion.identity, CurrentWorldSpace.transform);
-        infoPopup.GetComponent<InfoPopupDisplay>().DisplayInfoPopup(message);
-    }
-    public void CreateFleetinInfoPopup(string message, bool isCentered = false)
-    {
-        CreateInfoPopup(message, isCentered);
-        AnimationManager.Instance.ChangeAnimationState(infoPopup, "Enter_Exit");
-    }
-    public void CreateCenteredInfoPopup(string message)
-    {
-        CreateFleetinInfoPopup(message, true);
-    }
-    public void DismissInfoPopup()
-    {
-        if (infoPopup != null)
-            AnimationManager.Instance.ChangeAnimationState(infoPopup, "Exit");
-    }
-    public void DestroyInfoPopup()
-    {
-        if (infoPopup != null)
-        {
-            Destroy(infoPopup);
-            infoPopup = null;
-        }
-    }
-
-    /******
-     * *****
-     * ****** CREATE/DESTROY_TURN_POPUP
-     * *****
-     *****/
-    public void CreateTurnPopup(bool isPlayerTurn)
-    {
-        DestroyTurnPopup();
-        turnPopup = Instantiate(turnPopupPrefab, CurrentCanvas.transform);
-        turnPopup.GetComponent<TurnPopupDisplay>().DisplayTurnPopup(isPlayerTurn);
-    }
-    public void DestroyTurnPopup()
-    {
-        if (turnPopup != null)
-        {
-            Destroy(turnPopup);
-            turnPopup = null;
-        }
-    }
-
-    /******
-     * *****
-     * ****** CREATE_VERSUS_POPUP
-     * *****
-     *****/
-    public void CreateVersusPopup()
-    {
-        DestroyTurnPopup();
-        turnPopup = Instantiate(versusPopupPrefab, CurrentCanvas.transform);
-    }
-
-    /******
-     * *****
-     * ****** CREATE/DESTROY_COMBAT_END_POPUP
-     * *****
-     *****/
-    public void CreateCombatEndPopup(bool playerWins)
-    {
-        combatEndPopup = Instantiate(combatEndPopupPrefab, CurrentCanvas.transform);
-        CombatEndPopupDisplay cepd =
-            combatEndPopup.GetComponent<CombatEndPopupDisplay>();
-        cepd.VictoryText.SetActive(playerWins);
-        cepd.DefeatText.SetActive(!playerWins);
-        cepd.GetComponent<SoundPlayer>().PlaySound(0);
-    }
-    public void DestroyCombatEndPopup()
-    {
-        if (combatEndPopup != null)
-        {
-            Destroy(combatEndPopup);
-            combatEndPopup = null;
-        }
-    }
-
-    /******
-     * *****
-     * ****** CREATE/DESTROY_AETHER_CELL_POPUP
-     * *****
-     *****/
-    public void CreateAetherCellPopup(int quanity, int total)
-    {
-        aetherCellPopup = Instantiate(aetherCellPopupPrefab, CurrentCanvas.transform);
-        AetherCellPopupDisplay acpd =
-            aetherCellPopup.GetComponent<AetherCellPopupDisplay>();
-        acpd.AetherQuantity = quanity;
-        acpd.TotalAether = total;
-    }
-    public void DestroyAetherCellPopup()
-    {
-        if (aetherCellPopup != null)
-        {
-            Destroy(aetherCellPopup);
-            aetherCellPopup = null;
-        }
-    }
-
     /******
      * *****
      * ****** GET_PORTRAIT_POSITION
      * *****
      *****/
-    public void GetPortraitPosition(string heroName, out Vector2 position, 
+    public void GetPortraitPosition(string heroName, out Vector2 position,
         out Vector2 scale, SceneLoader.Scene scene)
     {
         position = new Vector2();
@@ -419,7 +255,7 @@ public class UIManager : MonoBehaviour
         {
             // KILI
             case "Kili, Neon Rider":
-                switch(scene)
+                switch (scene)
                 {
                     case SceneLoader.Scene.HeroSelectScene:
                         position.Set(0, -30);
@@ -474,6 +310,193 @@ public class UIManager : MonoBehaviour
             default:
                 Debug.LogError("HERO NAME NOT FOUND!");
                 return;
+        }
+    }
+    /******
+     * *****
+     * ****** _POPUPS_
+     * *****
+     *****/
+    // Explicit Language Popup
+    public void CreateExplicitLanguagePopup()
+    {
+        if (explicitLanguagePopup != null) return;
+        explicitLanguagePopup = Instantiate(explicitLanguagePopupPrefab,
+            CurrentCanvas.transform);
+    }
+    public void DestroyExplicitLanguagePopup()
+    {
+        if (explicitLanguagePopup != null)
+        {
+            Destroy(explicitLanguagePopup);
+            explicitLanguagePopup = null;
+        }
+    }
+    // Menu Popup
+    public void CreateMenuPopup()
+    {
+        if (menuPopup != null) return;
+        GameObject uiCanvas = GameObject.Find("UI_Canvas");
+        menuPopup = Instantiate(menuPopupPrefab, uiCanvas.transform);
+    }
+    public void DestroyMenuPopup()
+    {
+        if (menuPopup != null)
+        {
+            Destroy(menuPopup);
+            menuPopup = null;
+        }
+    }
+    // Info Popups
+    public void CreateInfoPopup(string message, bool isCentered = false)
+    {
+        DestroyInfoPopup();
+        Vector2 vec2 = new Vector2(0, 0);
+        if (!isCentered) vec2.Set(680, 50);
+        infoPopup = Instantiate(infoPopupPrefab, vec2, 
+            Quaternion.identity, CurrentWorldSpace.transform);
+        infoPopup.GetComponent<InfoPopupDisplay>().DisplayInfoPopup(message);
+    }
+    public void CreateFleetinInfoPopup(string message, bool isCentered = false)
+    {
+        CreateInfoPopup(message, isCentered);
+        AnimationManager.Instance.ChangeAnimationState(infoPopup, "Enter_Exit");
+    }
+    public void CreateCenteredInfoPopup(string message)
+    {
+        CreateFleetinInfoPopup(message, true);
+    }
+    public void InsufficientAetherPopup()
+    {
+        CreateCenteredInfoPopup("Not enough aether! (You have " + PlayerManager.Instance.AetherCells + " aether)");
+    }
+    public void DismissInfoPopup()
+    {
+        if (infoPopup != null)
+            AnimationManager.Instance.ChangeAnimationState(infoPopup, "Exit");
+    }
+    public void DestroyInfoPopup()
+    {
+        if (infoPopup != null)
+        {
+            Destroy(infoPopup);
+            infoPopup = null;
+        }
+    }
+    // Turn Popup
+    public void CreateTurnPopup(bool isPlayerTurn)
+    {
+        DestroyTurnPopup();
+        turnPopup = Instantiate(turnPopupPrefab, CurrentCanvas.transform);
+        turnPopup.GetComponent<TurnPopupDisplay>().DisplayTurnPopup(isPlayerTurn);
+    }
+    public void DestroyTurnPopup()
+    {
+        if (turnPopup != null)
+        {
+            Destroy(turnPopup);
+            turnPopup = null;
+        }
+    }
+    // Versus Popup
+    public void CreateVersusPopup()
+    {
+        DestroyTurnPopup();
+        turnPopup = Instantiate(versusPopupPrefab, CurrentCanvas.transform);
+    }
+    public void CreateCombatEndPopup(bool playerWins)
+    {
+        combatEndPopup = Instantiate(combatEndPopupPrefab, CurrentCanvas.transform);
+        CombatEndPopupDisplay cepd =
+            combatEndPopup.GetComponent<CombatEndPopupDisplay>();
+        cepd.VictoryText.SetActive(playerWins);
+        cepd.DefeatText.SetActive(!playerWins);
+        cepd.GetComponent<SoundPlayer>().PlaySound(0);
+    }
+    public void DestroyCombatEndPopup()
+    {
+        if (combatEndPopup != null)
+        {
+            Destroy(combatEndPopup);
+            combatEndPopup = null;
+        }
+    }
+    // Aether Cell Popup
+    public void CreateAetherCellPopup(int quanity, int total)
+    {
+        aetherCellPopup = Instantiate(aetherCellPopupPrefab, CurrentCanvas.transform);
+        AetherCellPopupDisplay acpd =
+            aetherCellPopup.GetComponent<AetherCellPopupDisplay>();
+        acpd.AetherQuantity = quanity;
+        acpd.TotalAether = total;
+    }
+    public void DestroyAetherCellPopup()
+    {
+        if (aetherCellPopup != null)
+        {
+            Destroy(aetherCellPopup);
+            aetherCellPopup = null;
+        }
+    }
+    // Card Page Popups
+    public void CreateCardPagePopup(bool isCardRemoval)
+    {
+        if (cardPagePopup != null) return;
+        cardPagePopup = Instantiate
+            (cardPagePopupPrefab, CurrentCanvas.transform);
+        cardPagePopup.GetComponent<CardPageDisplay>().DisplayCardPage(isCardRemoval);
+    }
+    public void DestroyCardPagePopup()
+    {
+        if (cardPagePopup != null)
+        {
+            Destroy(cardPagePopup);
+            cardPagePopup = null;
+        }
+    }
+    // Learn Skill Popup
+    public void CreateLearnSkillPopup(SkillCard skillCard)
+    {
+        DestroyLearnSkillPopup();
+        learnSkillPopup = Instantiate(learnSkillPopupPrefab, CurrentCanvas.transform);
+        learnSkillPopup.GetComponent<LearnSkillPopupDisplay>().SkillCard = skillCard;
+    }
+    public void DestroyLearnSkillPopup()
+    {
+        if (learnSkillPopup != null)
+        {
+            Destroy(learnSkillPopup);
+            learnSkillPopup = null;
+        }
+    }
+    // Acquire Augment Popup
+    public void CreateAcquireAugmentPopup(HeroAugment heroAugment)
+    {
+        DestroyLearnSkillPopup();
+        acquireAugmentPopup = Instantiate(acquireAugmentPopupPrefab, CurrentCanvas.transform);
+        acquireAugmentPopup.GetComponent<AcquireAugmentPopupDisplay>().HeroAugment = heroAugment;
+    }
+    public void DestroyAcquireAugmentPopup()
+    {
+        if (acquireAugmentPopup != null)
+        {
+            Destroy(acquireAugmentPopup);
+            acquireAugmentPopup = null;
+        }
+    }
+    // Remove Card Popup
+    public void CreateRemoveCardPopup(Card card)
+    {
+        DestroyRemoveCardPopup();
+        removeCardPopup = Instantiate(removeCardPopupPrefab, CurrentCanvas.transform);
+        removeCardPopup.GetComponent<RemoveCardPopupDisplay>().Card = card;
+    }
+    public void DestroyRemoveCardPopup()
+    {
+        if (removeCardPopup != null)
+        {
+            Destroy(removeCardPopup);
+            removeCardPopup = null;
         }
     }
 }

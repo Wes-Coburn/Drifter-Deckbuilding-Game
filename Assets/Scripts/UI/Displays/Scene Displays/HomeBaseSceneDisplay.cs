@@ -17,8 +17,11 @@ public class HomeBaseSceneDisplay : MonoBehaviour
     [SerializeField] private GameObject augmentName;
     [SerializeField] private GameObject augmentImage;
     [SerializeField] private GameObject augmentDescription;
+    [SerializeField] private GameObject confirmSpendPopup;
     [SerializeField] private HeroAugment[] availableAugments;
 
+    private PlayerManager pMan;
+    private UIManager uMan;
     private List<HeroAugment> accessibleAugments;
     private int currentAugment;
 
@@ -88,13 +91,14 @@ public class HomeBaseSceneDisplay : MonoBehaviour
 
     private void Start()
     {
+        pMan = PlayerManager.Instance;
+        uMan = UIManager.Instance;
         accessibleAugments = new List<HeroAugment>();
-        PlayerHero ph = PlayerManager.Instance.PlayerHero;
-        currentAugment = 0;
+        PlayerHero ph = pMan.PlayerHero;
         List<HeroAugment> redundancies = new List<HeroAugment>();
         foreach (HeroAugment aug in availableAugments)
         {
-            if (PlayerManager.Instance.GetAugment(aug.AugmentName)) 
+            if (pMan.GetAugment(aug.AugmentName)) 
                 redundancies.Add(aug);
         }
         foreach (HeroAugment aug in availableAugments) 
@@ -134,26 +138,37 @@ public class HomeBaseSceneDisplay : MonoBehaviour
         DisplayCurrentAugment();
     }
 
-    public void LearnSkillButton_OnClick()
-    {
-        UIManager.Instance.CreateCardPagePopup();
-    }
+    public void LearnSkillButton_OnClick() => 
+        uMan.CreateCardPagePopup(false);
 
     public void AcquireAugmentButton_OnClick()
     {
         playerHero.SetActive(false);
         selectedAugment.SetActive(true);
-        if (accessibleAugments.Count > 0)
+        currentAugment = 0;
+
+        if (accessibleAugments.Count < 1) 
+            Debug.LogWarning("NO ACCESSIBLE AUGMENTS!");
+        else
+        {
+            List<HeroAugment> redundancies = new List<HeroAugment>();
+            foreach (HeroAugment aug1 in accessibleAugments)
+            {
+                if (pMan.GetAugment(aug1.AugmentName))
+                    redundancies.Add(aug1);
+            }
+            foreach (HeroAugment aug2 in redundancies)
+                accessibleAugments.Remove(aug2);
+
             DisplayCurrentAugment();
-        else Debug.LogWarning("NO ACCESSIBLE AUGMENTS!");
+        }
     }
 
     public void SelectAugmentButton_OnClick()
     {
-        if (PlayerManager.Instance.AetherCells < 3)
-            UIManager.Instance.CreateCenteredInfoPopup("Not enough aether!");
-        else PlayerManager.Instance.HeroAugments.Add
-                (accessibleAugments[currentAugment]); // TESTING
+        if (pMan.AetherCells < 3)
+            uMan.InsufficientAetherPopup();
+        else uMan.CreateAcquireAugmentPopup(accessibleAugments[currentAugment]);
     }
 
     public void CloseAugmentsButton_OnClick()
@@ -162,13 +177,9 @@ public class HomeBaseSceneDisplay : MonoBehaviour
         playerHero.SetActive(true);
     }
 
-    public void RemoveCardButton_OnClick()
-    {
-        Debug.LogWarning("BLANK!");
-    }
+    public void RemoveCardButton_OnClick() => 
+        uMan.CreateCardPagePopup(true);
 
-    public void BackButton_OnClick()
-    {
+    public void BackButton_OnClick() => 
         SceneLoader.LoadScene(SceneLoader.Scene.WorldMapScene);
-    }
 }

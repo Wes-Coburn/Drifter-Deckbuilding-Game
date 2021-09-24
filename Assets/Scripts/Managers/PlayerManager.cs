@@ -14,7 +14,8 @@ public class PlayerManager : MonoBehaviour
         }
         else Destroy(gameObject);
     }
-
+    
+    private CardManager caMan;
     private CombatManager coMan;
     private EffectManager efMan;
     private UIManager uMan;
@@ -44,14 +45,13 @@ public class PlayerManager : MonoBehaviour
                 CurrentPlayerDeck.Clear();
                 return;
             }
-            AetherCells = 0; // TESTING
-            CardManager cm = CardManager.Instance;
-            for (int i = 0; i < GameManager.PLAYER_START_FOLLOWERS; i++)
-                foreach (UnitCard uc in cm.PlayerStartUnits)
-                    cm.AddCard(uc, GameManager.PLAYER);
+            AetherCells = 5; // NORMALLY <0>
+            foreach (UnitCard uc in caMan.PlayerStartUnits)
+                for (int i = 0; i < GameManager.PLAYER_START_FOLLOWERS; i++)
+                    caMan.AddCard(uc, GameManager.PLAYER);
             foreach (SkillCard skill in PlayerHero.HeroStartSkills)
                 for (int i = 0; i < GameManager.PLAYER_START_SKILLS; i++)
-                    cm.AddCard(skill, GameManager.PLAYER);
+                    caMan.AddCard(skill, GameManager.PLAYER);
         }
     }
     public int PlayerHealth
@@ -60,7 +60,7 @@ public class PlayerManager : MonoBehaviour
         set
         {
             playerHealth = value;
-            CombatManager.Instance.PlayerHero.GetComponent<HeroDisplay>().HeroHealth = playerHealth;
+            coMan.PlayerHero.GetComponent<HeroDisplay>().HeroHealth = playerHealth;
         }
     }
     public int PlayerActionsLeft
@@ -69,16 +69,18 @@ public class PlayerManager : MonoBehaviour
         set
         {
             playerActionsLeft = value;
-            if (playerActionsLeft > GameManager.MAXIMUM_ACTIONS) playerActionsLeft = GameManager.MAXIMUM_ACTIONS;
-            CombatManager.Instance.PlayerHero.GetComponent<PlayerHeroDisplay>().PlayerActions = 
+            if (playerActionsLeft > GameManager.MAXIMUM_ACTIONS) 
+                playerActionsLeft = GameManager.MAXIMUM_ACTIONS;
+            coMan.PlayerHero.GetComponent<PlayerHeroDisplay>().PlayerActions = 
                 playerActionsLeft + "/" + ActionsPerTurn;
         }
     }
 
     private void Start()
     {
-        efMan = EffectManager.Instance;
+        caMan = CardManager.Instance;
         coMan = CombatManager.Instance;
+        efMan = EffectManager.Instance;
         uMan = UIManager.Instance;
         auMan = AudioManager.Instance;
         PlayerDeckList = new List<Card>();
@@ -87,8 +89,17 @@ public class PlayerManager : MonoBehaviour
         HeroPowerUsed = false;
     }
 
+    public bool GetAugment(string augmentName)
+    {
+        int augmentIndex = HeroAugments.FindIndex(x => x.AugmentName == augmentName);
+        if (augmentIndex == -1) return false;
+        else return true;
+    }
+
     public void UseHeroPower()
     {
+        void ErrorSound() => auMan.StartStopSound("SFX_Error");
+
         if (HeroPowerUsed == true)
         {
             uMan.CreateFleetinInfoPopup("Hero power already used this turn!");
@@ -120,14 +131,5 @@ public class PlayerManager : MonoBehaviour
                 }
             }
         }
-
-        void ErrorSound() => auMan.StartStopSound("SFX_Error");
-    }
-
-    public bool GetAugment(string augmentName)
-    {
-        int augmentIndex = HeroAugments.FindIndex(x => x.AugmentName == augmentName);
-        if (augmentIndex == -1) return false;
-        else return true;
     }
 }

@@ -5,6 +5,8 @@ public class LearnSkillPopupDisplay : MonoBehaviour
 {
     [SerializeField] private GameObject popupText;
 
+    private UIManager uMan;
+    private PlayerManager pMan;
     private SkillCard skillCard;
 
     private string PopupText
@@ -15,15 +17,20 @@ public class LearnSkillPopupDisplay : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        uMan = UIManager.Instance;
+        pMan = PlayerManager.Instance;
+    }
+
     public SkillCard SkillCard
     {
-        get => skillCard;
         set
         {
-            int aether = PlayerManager.Instance.AetherCells;
+            int aether = pMan.AetherCells;
             skillCard = value;
             string text = "Learn " + skillCard.CardName + 
-                " for 1 aether? (You have " + aether + " aether)";
+                " for 2 aether? (You have " + aether + " aether)";
             PopupText = text;
         }
     }
@@ -31,10 +38,12 @@ public class LearnSkillPopupDisplay : MonoBehaviour
     public void ConfirmButton_OnClick()
     {
         CardManager.Instance.AddCard(skillCard, GameManager.PLAYER);
+        pMan.AetherCells -= 2;
         CancelButton_OnClick();
+        uMan.DestroyCardPagePopup(); // Temporary fix, eventually reload the page
         // Card added popup
     }
 
     public void CancelButton_OnClick() => 
-        FindObjectOfType<CardPageDisplay>().DestroyLearnSkillPopup();
+        uMan.DestroyLearnSkillPopup();
 }

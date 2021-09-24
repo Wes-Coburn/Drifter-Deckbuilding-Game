@@ -170,13 +170,13 @@ public class CombatManager : MonoBehaviour
             if (isShowcase)
                 prefab = prefab.GetComponent<CardZoom>().ActionZoomCardPrefab;
         }
-        prefab = Instantiate(prefab, uMan.CurrentCanvas.transform); // TESTING
+        prefab = Instantiate(prefab, uMan.CurrentCanvas.transform);
         if (isShowcase) prefab.GetComponent<CardDisplay>().DisplayZoomCard(null, card);
         else
         {
             CardDisplay cd = prefab.GetComponent<CardDisplay>();
             cd.CardScript = card;
-            cd.CardContainer = Instantiate(cardContainerPrefab, uMan.CurrentCanvas.transform); // TESTING
+            cd.CardContainer = Instantiate(cardContainerPrefab, uMan.CurrentCanvas.transform);
             cd.CardContainer.transform.position = position;
             CardContainer cc = cd.CardContainer.GetComponent<CardContainer>();
             cc.Child = prefab;
@@ -187,8 +187,8 @@ public class CombatManager : MonoBehaviour
     private Card HideCard(GameObject card)
     {
         Card cardScript = card.GetComponent<CardDisplay>().CardScript;
-        Destroy(card.GetComponent<CardDisplay>().CardContainer); // TESTING
-        if (card != null) Destroy(card); // TESTING
+        Destroy(card.GetComponent<CardDisplay>().CardContainer);
+        if (card != null) Destroy(card);
         return cardScript;
     }
 

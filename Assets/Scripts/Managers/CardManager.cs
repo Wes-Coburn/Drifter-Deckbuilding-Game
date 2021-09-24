@@ -21,6 +21,7 @@ public class CardManager : MonoBehaviour
     [SerializeField] private UnitCard[] playerStartUnits;
     [SerializeField] private Sprite cardBackSprite;
 
+    private PlayerManager pMan;
     public GameObject UnitCardPrefab { get => unitCardPrefab; }
     public GameObject ActionCardPrefab { get => actionCardPrefab; }
     public GameObject NewCardPopup { get; private set; }
@@ -56,6 +57,10 @@ public class CardManager : MonoBehaviour
             DestroyNewCardPopup();
             CreateNewCardPopup(cardInstance);
         }
+    }
+    public void RemovePlayerCard(Card card)
+    {
+        PlayerManager.Instance.PlayerDeckList.Remove(card);
     }
     private void CreateNewCardPopup(Card card)
     {

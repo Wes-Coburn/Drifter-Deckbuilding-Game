@@ -133,8 +133,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 474325881912558030}
-        m_TargetAssemblyTypeName: LearnSkillPopupDisplay, Assembly-CSharp
+      - m_Target: {fileID: 507628648479933384}
+        m_TargetAssemblyTypeName: RemoveCardPopupDisplay, Assembly-CSharp
         m_MethodName: ConfirmButton_OnClick
         m_Mode: 1
         m_Arguments:
@@ -412,8 +412,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 474325881912558030}
-        m_TargetAssemblyTypeName: LearnSkillPopupDisplay, Assembly-CSharp
+      - m_Target: {fileID: 507628648479933384}
+        m_TargetAssemblyTypeName: RemoveCardPopupDisplay, Assembly-CSharp
         m_MethodName: CancelButton_OnClick
         m_Mode: 1
         m_Arguments:
@@ -569,10 +569,10 @@ GameObject:
   - component: {fileID: 6138206491920893476}
   - component: {fileID: 6138206491920893478}
   - component: {fileID: 6138206491920893477}
-  - component: {fileID: 474325881912558030}
   - component: {fileID: 6906006510671489734}
+  - component: {fileID: 507628648479933384}
   m_Layer: 0
-  m_Name: LearnSkillPopup
+  m_Name: RemoveCardPopup
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -638,19 +638,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &474325881912558030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6138206491920893483}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ca761e81b964564f915f57bead58cbd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  popupText: {fileID: 6138206492037975161}
 --- !u!114 &6906006510671489734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -675,6 +662,19 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
+--- !u!114 &507628648479933384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6138206491920893483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62b1320366d6b13448c40370d5a34945, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  popupText: {fileID: 6138206492037975161}
 --- !u!1 &6138206492037975161
 GameObject:
   m_ObjectHideFlags: 0
@@ -740,7 +740,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Learn SKILLNAME for 2 aether?
+  m_text: Remove CARDNAME for 1 aether?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

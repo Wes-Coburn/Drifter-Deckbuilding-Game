@@ -212,4 +212,11 @@ public class UnitCardDisplay : CardDisplay
         abilityIcon.transform.SetParent(currentAbilitiesDisplay.transform, false);
         return abilityIcon;
     }
+
+    public void DisableVisuals()
+    {
+        GetComponent<Animator>().enabled = false;
+        GetComponent<CardSelect>().CardOutline.SetActive(false);
+        exhaustedIcon.SetActive(false);
+    }
 }

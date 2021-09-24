@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
     public Narrative NextNarrative { get; set; }
     public List<NPCHero> ActiveNPCHeroes { get; private set; }
     public List<Location> ActiveLocations { get; private set; }
-    public Location CurrentLocation { get; set; } // TESTING
+    public Location CurrentLocation { get; set; }
 
     /* GAME_MANAGER_DATA */
     public const int START_ACTIONS_PER_TURN = 1;
@@ -196,7 +196,7 @@ public class GameManager : MonoBehaviour
 
     public void ExitWorldMap()
     {
-        Debug.Log("EXIT WORLD MAP!");
+        Debug.LogWarning("BLANK!");
     }
 
     /******
@@ -254,7 +254,7 @@ public class GameManager : MonoBehaviour
         coMan.UpdateDeck(ENEMY);
         /* PLAYER_HEALTH */
         int bonusHealth = 0;
-        if (pMan.GetAugment("Kinetic Regulator")) bonusHealth = 5;
+        if (pMan.GetAugment("Kinetic Amplifier")) bonusHealth = 5;
         pMan.PlayerHealth = PLAYER_STARTING_HEALTH + bonusHealth;
         /* PLAYER_ACTIONS */
         int bonusActions = 0;

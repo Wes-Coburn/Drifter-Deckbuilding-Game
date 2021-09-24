@@ -205,13 +205,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f80f6a37331f05642b17bb96b8af9cc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardCostPrefab: {fileID: 8327854555610186815, guid: 1510ae20ce0d95545a1a55379ada8815,
+  learnSkillButtonPrefab: {fileID: 8327854555610186815, guid: 1510ae20ce0d95545a1a55379ada8815,
+    type: 3}
+  removeCardButtonPrefab: {fileID: 8327854555610186815, guid: a68356a28967cad4caf03ddcbe7d3c33,
     type: 3}
   pageCounter: {fileID: 3366735516009158637}
   cardGroup: {fileID: 3366735515331463132}
   costGroup: {fileID: 3366735516951441864}
-  learnSkillPopupPrefab: {fileID: 6138206491920893483, guid: 9402cc5f74ac8ca41876694f0b7f5350,
-    type: 3}
 --- !u!1 &3366735516009158637
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,7 +468,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7280885061337757376}
         m_TargetAssemblyTypeName: CardPageDisplay, Assembly-CSharp
-        m_MethodName: PreviousPage
+        m_MethodName: PreviousPageButton_OnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -612,7 +612,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7280885061337757376}
         m_TargetAssemblyTypeName: CardPageDisplay, Assembly-CSharp
-        m_MethodName: NextPage
+        m_MethodName: NextPageButton_OnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
