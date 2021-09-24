@@ -11,6 +11,7 @@ public class CardPageDisplay : MonoBehaviour
     [SerializeField] private GameObject cardGroup;
     [SerializeField] private GameObject costGroup;
     [SerializeField] private GameObject pageTitle;
+    [SerializeField] private GameObject noCardsTooltip;
 
     private PlayerManager pMan;
     private UIManager uMan;
@@ -61,8 +62,17 @@ public class CardPageDisplay : MonoBehaviour
         pageTitle.GetComponent<TextMeshProUGUI>().SetText(titleText);
         activeCards = new List<GameObject>();
         currentPage = 1;
-        double result = cardGroupList.Count / 4.0;
-        totalPages = (int)Math.Ceiling(result);
+        if (cardGroupList.Count > 0)
+        {
+            noCardsTooltip.SetActive(false);
+            double result = cardGroupList.Count / 4.0;
+            totalPages = (int)Math.Ceiling(result);
+        }
+        else
+        {
+            noCardsTooltip.SetActive(true);
+            totalPages = 1;
+        }
         LoadCardPage();
     }
 

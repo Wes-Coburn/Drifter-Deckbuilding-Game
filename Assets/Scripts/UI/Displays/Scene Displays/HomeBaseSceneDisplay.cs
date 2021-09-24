@@ -44,6 +44,10 @@ public class HomeBaseSceneDisplay : MonoBehaviour
         set
         {
             heroImage.GetComponent<Image>().sprite = value;
+            uMan.GetPortraitPosition(pMan.PlayerHero.HeroName, out Vector2 position,
+                out Vector2 scale, SceneLoader.Scene.HeroSelectScene);
+            heroImage.transform.localPosition = position;
+            heroImage.transform.localScale = scale;
         }
     }
     private string HeroDescription
