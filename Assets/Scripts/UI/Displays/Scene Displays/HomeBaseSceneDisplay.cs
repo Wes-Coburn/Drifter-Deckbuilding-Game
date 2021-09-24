@@ -143,6 +143,11 @@ public class HomeBaseSceneDisplay : MonoBehaviour
 
     public void AcquireAugmentButton_OnClick()
     {
+        if (selectedAugment.activeSelf == true)
+        {
+            CloseAugmentsButton_OnClick();
+            return;
+        }
         playerHero.SetActive(false);
         selectedAugment.SetActive(true);
         currentAugment = 0;

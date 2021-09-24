@@ -29,7 +29,9 @@ public class CardContainer : MonoBehaviour
     {
         Child.transform.SetParent(uMan.CurrentCanvas.transform);
         transform.SetParent(newParent.transform, false);
-        transform.SetAsFirstSibling();
+        if (Child.CompareTag(CombatManager.PLAYER_CARD))
+            transform.SetAsFirstSibling();
+        else transform.SetAsLastSibling();
         SeekChild();
     }
 

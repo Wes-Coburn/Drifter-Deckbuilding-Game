@@ -70,6 +70,21 @@ public class UnitCardDisplay : CardDisplay
             AddCurrentAbility(cardAbility);
         }
     }
+    public void DisplayCardPageCard(UnitCard unitCard)
+    {
+        cardScript = unitCard;
+        base.DisplayCard();
+        CurrentPower = UnitCard.StartPower;
+        MaxHealth = UnitCard.StartHealth;
+        CurrentHealth = MaxHealth;
+
+        foreach (CardAbility cardAbility in UnitCard.StartingAbilities)
+        {
+            if (cardAbility == null) continue; // Skip empty abilities
+            GetComponent<CardZoom>().CreateZoomAbilityIcon(cardAbility,
+                currentAbilitiesDisplay.transform, 1);
+        }
+    }
 
     /******
      * *****

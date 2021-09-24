@@ -406,7 +406,7 @@ public class EffectManager : MonoBehaviour
                 AnimationManager.Instance.ShiftPlayerHand(false);
             }
         }
-        else // TESTING
+        else
         {
             Destroy(dragArrow);
             dragArrow = null;
@@ -513,7 +513,8 @@ public class EffectManager : MonoBehaviour
         if (effectSource.TryGetComponent<ActionCardDisplay>(out _))
         {
             string zone;
-            if (effectSource.CompareTag(CombatManager.PLAYER_CARD)) zone = CombatManager.PLAYER_HAND;
+            if (effectSource.CompareTag(CombatManager.PLAYER_CARD)) 
+                zone = CombatManager.PLAYER_HAND;
             else zone = CombatManager.ENEMY_HAND;
             coMan.ChangeCardZone(effectSource, zone);
             AnimationManager.Instance.RevealedHandState(effectSource);
@@ -532,7 +533,8 @@ public class EffectManager : MonoBehaviour
         if (!wasAborted && effectSource.TryGetComponent<ActionCardDisplay>(out _))
         {
             string hero;
-            if (effectSource.CompareTag(CombatManager.PLAYER_CARD)) hero = GameManager.PLAYER;
+            if (effectSource.CompareTag(CombatManager.PLAYER_CARD))
+                hero = GameManager.PLAYER;
             else hero = GameManager.ENEMY;
             coMan.DiscardCard(effectSource, hero, true);
         }
@@ -640,7 +642,8 @@ public class EffectManager : MonoBehaviour
                 else if (effect.Countdown != 0)
                 {
                     effect.Countdown -= 1;
-                    Debug.LogWarning("COUNTOWN FOR EFFECT <" + effect.ToString() + "> IS: " + effect.Countdown);
+                    Debug.LogWarning("COUNTOWN FOR EFFECT <" + 
+                        effect.ToString() + "> IS: " + effect.Countdown);
                 }
             }
             foreach (Effect effect in expiredEffects)
@@ -697,14 +700,13 @@ public class EffectManager : MonoBehaviour
             Destroy(effect);
             effect = null;
         }
-        List<GiveNextUnitEffect> gne = EffectManager.Instance.GiveNextEffects;
         List<GiveNextUnitEffect> expiredGne = new List<GiveNextUnitEffect>();
-        foreach (GiveNextUnitEffect gnfe in gne)
+        foreach (GiveNextUnitEffect gnfe in GiveNextEffects)
             if (gnfe.Countdown == 1) expiredGne.Add(gnfe);
             else if (gnfe.Countdown != 0) gnfe.Countdown -= 1;
         foreach (GiveNextUnitEffect xGnfe in expiredGne)
         {
-            gne.Remove(xGnfe);
+            GiveNextEffects.Remove(xGnfe);
             DestroyEffect(xGnfe);
         }
     }

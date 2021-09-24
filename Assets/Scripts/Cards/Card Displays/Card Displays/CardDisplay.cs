@@ -5,7 +5,7 @@ using TMPro;
 public abstract class CardDisplay : MonoBehaviour
 {
     /* CARD_SCRIPTABLE_OBJECT */
-    private Card cardScript;
+    protected Card cardScript;
     public Card CardScript
     {
         get => cardScript;
@@ -15,6 +15,12 @@ public abstract class CardDisplay : MonoBehaviour
             DisplayCard();
         }
     }
+
+    [SerializeField] private GameObject cardName;
+    [SerializeField] private GameObject cardArt;
+    [SerializeField] private GameObject cardBorder;
+    [SerializeField] private GameObject cardTypeLine;
+    [SerializeField] private GameObject actionCost;
 
     private GameObject cardContainer;
     private Animator animator;
@@ -37,22 +43,18 @@ public abstract class CardDisplay : MonoBehaviour
         get => CardScript.CardName;
         set => cardName.GetComponent<TextMeshProUGUI>().text = value;
     }
-    [SerializeField] private GameObject cardName;
 
     public Sprite CardArt
     {
         get => CardScript.CardArt;
         set => cardArt.GetComponent<Image>().sprite = value;
     }
-    [SerializeField] private GameObject cardArt;
 
     public Sprite CardBorder
     {
         get => CardScript.CardBorder;
         set => cardBorder.GetComponent<Image>().sprite = value;
     }
-    [SerializeField] private GameObject cardBorder;
-
     public string CardTypeLine
     {
         get
@@ -63,8 +65,6 @@ public abstract class CardDisplay : MonoBehaviour
         }
         set => cardTypeLine.GetComponent<TextMeshProUGUI>().SetText(value);
     }
-    [SerializeField] private GameObject cardTypeLine;
-
     public int CurrentActionCost
     {
         get => CardScript.CurrentActionCost;
@@ -74,7 +74,6 @@ public abstract class CardDisplay : MonoBehaviour
             actionCost.GetComponent<TextMeshProUGUI>().SetText(value.ToString());
         }
     }
-    [SerializeField] private GameObject actionCost;
     
     /******
      * *****

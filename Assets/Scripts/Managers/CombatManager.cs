@@ -149,7 +149,8 @@ public class CombatManager : MonoBehaviour
      * ****** SHOW/HIDE_CARD
      * *****
      *****/
-    public GameObject ShowCard(Card card, Vector2 position, bool isShowcase = false)
+    public GameObject ShowCard(Card card, Vector2 position, 
+        bool isShowcase = false, bool isCardPage = false)
     {
         if (card == null)
         {
@@ -175,7 +176,13 @@ public class CombatManager : MonoBehaviour
         else
         {
             CardDisplay cd = prefab.GetComponent<CardDisplay>();
-            cd.CardScript = card;
+            if (!isCardPage) cd.CardScript = card;
+            else
+            {
+                if (cd is UnitCardDisplay ucd)
+                    ucd.DisplayCardPageCard(card as UnitCard);
+                else cd.CardScript = card;
+            }
             cd.CardContainer = Instantiate(cardContainerPrefab, uMan.CurrentCanvas.transform);
             cd.CardContainer.transform.position = position;
             CardContainer cc = cd.CardContainer.GetComponent<CardContainer>();
@@ -362,19 +369,7 @@ public class CombatManager : MonoBehaviour
                 AnimationManager.Instance.PlayedState(card);
             */
         }
-        /*
-        foreach (Transform tran in zone.transform)
-        {
-            tran.gameObject.GetComponent<CardContainer>().DetachChild(); // TESTING
-        }
-        */
         MoveCard(card, zone);
-        /*
-        foreach (Transform tran in zone.transform)
-        {
-            tran.gameObject.GetComponent<CardContainer>().SeekChild(); // TESTING
-        }
-        */
         card.GetComponent<CardSelect>().CardOutline.SetActive(false);
         if (card.GetComponent<CardDisplay>() is UnitCardDisplay ucd)
         {

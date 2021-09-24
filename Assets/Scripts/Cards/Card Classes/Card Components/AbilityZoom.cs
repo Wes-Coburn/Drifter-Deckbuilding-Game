@@ -26,7 +26,8 @@ public class AbilityZoom : MonoBehaviour
     }
     public void OnPointerEnter()
     {
-        if (!CardZoom.ZoomCardIsCentered || DragDrop.DraggingCard != null) return;
+        //if (!CardZoom.ZoomCardIsCentered) return;
+        if (DragDrop.DraggingCard != null) return;
         isHovering = true;
         if (AbilityPopup != null) Destroy(AbilityPopup);
         CreateAbilityPopup();

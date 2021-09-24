@@ -10,6 +10,7 @@ public class CardPageDisplay : MonoBehaviour
     [SerializeField] private GameObject pageCounter;
     [SerializeField] private GameObject cardGroup;
     [SerializeField] private GameObject costGroup;
+    [SerializeField] private GameObject pageTitle;
 
     private PlayerManager pMan;
     private UIManager uMan;
@@ -33,14 +34,17 @@ public class CardPageDisplay : MonoBehaviour
         uMan = UIManager.Instance;
         this.isCardRemoval = isCardRemoval;
         cardGroupList = new List<Card>();
+        string titleText;
 
         if (isCardRemoval)
         {
+            titleText = "Remove a Card";
             foreach (Card c in pMan.PlayerDeckList)
                 cardGroupList.Add(c);
         }
         else
         {
+            titleText = "Learn a Skill";
             foreach (Card c in pMan.PlayerHero.HeroMoreSkills) 
                 cardGroupList.Add(c);
 
@@ -54,6 +58,7 @@ public class CardPageDisplay : MonoBehaviour
             foreach (SkillCard rSkill in redundancies)
                 cardGroupList.Remove(rSkill);
         }
+        pageTitle.GetComponent<TextMeshProUGUI>().SetText(titleText);
         activeCards = new List<GameObject>();
         currentPage = 1;
         double result = cardGroupList.Count / 4.0;
@@ -73,8 +78,8 @@ public class CardPageDisplay : MonoBehaviour
             index = firstIndex + i;
             if (index > cardGroupList.Count - 1) break;
             Card card = cardGroupList[firstIndex + i];
-            GameObject cardObj = CombatManager.Instance.ShowCard(card, new Vector2());
-            if (cardObj.TryGetComponent(out UnitCardDisplay ucd)) ucd.DisableVisuals();
+            GameObject cardObj = CombatManager.Instance.ShowCard(card, new Vector2(), false, true);
+            if (cardObj.TryGetComponent(out UnitCardDisplay ucd)) ucd.DisableVisuals(); // For non-zoom card only
             cardObj.transform.localScale = new Vector2(4, 4);
             cardObj.transform.SetParent(cardGroup.transform);
             activeCards.Add(cardObj);
@@ -114,7 +119,9 @@ public class CardPageDisplay : MonoBehaviour
 
     public void RemoveCardButton_OnClick(Card card)
     {
-        if (pMan.AetherCells < 1)
+        if (pMan.PlayerDeckList.Count <= 10)
+            uMan.CreateCenteredInfoPopup("You must have at least 10 cards in your deck!");
+        else if (pMan.AetherCells < 1)
             uMan.InsufficientAetherPopup();
         else uMan.CreateRemoveCardPopup(card);
     }

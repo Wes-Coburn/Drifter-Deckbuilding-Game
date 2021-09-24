@@ -45,7 +45,7 @@ public class PlayerManager : MonoBehaviour
                 CurrentPlayerDeck.Clear();
                 return;
             }
-            AetherCells = 5; // NORMALLY <0>
+            AetherCells = 0; // NORMALLY <0>
             foreach (UnitCard uc in caMan.PlayerStartUnits)
                 for (int i = 0; i < GameManager.PLAYER_START_FOLLOWERS; i++)
                     caMan.AddCard(uc, GameManager.PLAYER);
