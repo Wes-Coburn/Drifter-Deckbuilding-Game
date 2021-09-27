@@ -28,9 +28,7 @@ public class CombatManager : MonoBehaviour
     private EnemyManager enMan;
     private const string PLAYER = GameManager.PLAYER;
     private const string ENEMY = GameManager.ENEMY;
-
-
-    public const int CARD_Z_POSITION = -2;
+    
     public const string PLAYER_CARD = "PlayerCard";
     public const string ENEMY_CARD = "EnemyCard";
     public const string PLAYER_HERO = "PlayerHero";

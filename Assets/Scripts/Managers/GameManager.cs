@@ -91,6 +91,11 @@ public class GameManager : MonoBehaviour
      *****/
     public NPCHero GetActiveNPC(NPCHero npc)
     {
+        if (npc == null)
+        {
+            Debug.LogError("NPC IS NULL!");
+            return null;
+        }
         int activeNPC;
         activeNPC = ActiveNPCHeroes.FindIndex(x => x.HeroName == npc.HeroName);
         if (activeNPC != -1) return ActiveNPCHeroes[activeNPC];
@@ -115,6 +120,11 @@ public class GameManager : MonoBehaviour
      *****/
     public Location GetActiveLocation(Location location)
     {
+        if (location == null)
+        {
+            Debug.LogError("LOCATION IS NULL!");
+            return null;
+        }
         int activeLocation;
         activeLocation = ActiveLocations.FindIndex
             (x => x.LocationName == location.LocationName);

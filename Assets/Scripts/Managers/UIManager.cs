@@ -31,6 +31,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject learnSkillPopupPrefab;
     [SerializeField] private GameObject acquireAugmentPopupPrefab;
     [SerializeField] private GameObject removeCardPopupPrefab;
+    [SerializeField] private GameObject locationPopupPrefab;
     [Header("COLORS")]
     [SerializeField] private Color highlightedColor;
     [SerializeField] private Color selectedColor;
@@ -47,6 +48,8 @@ public class UIManager : MonoBehaviour
     private GameObject learnSkillPopup;
     private GameObject acquireAugmentPopup;
     private GameObject removeCardPopup;
+    private GameObject locationPopup;
+    private GameObject travelPopup;
 
     private GameObject endTurnButton;
     private Coroutine sceneFadeRoutine;
@@ -497,6 +500,41 @@ public class UIManager : MonoBehaviour
         {
             Destroy(removeCardPopup);
             removeCardPopup = null;
+        }
+    }
+    // Location Popup
+    public void CreateLocationPopup(Location location)
+    {
+        if (travelPopup != null) return;
+        locationPopup = Instantiate(locationPopupPrefab, CurrentCanvas.transform);
+        LocationPopupDisplay lpd = locationPopup.GetComponent<LocationPopupDisplay>();
+        lpd.Location = location;
+        lpd.TravelButtons.SetActive(false);
+    }
+    public void DestroyLocationPopup()
+    {
+        if (locationPopup != null)
+        {
+            Destroy(locationPopup);
+            locationPopup = null;
+        }
+    }
+    // Travel Popup
+    public void CreateTravelPopup(Location location)
+    {
+        Debug.LogWarning("TRAVEL POPUP!");
+        DestroyTravelPopup();
+        travelPopup = Instantiate(locationPopupPrefab, CurrentCanvas.transform);
+        LocationPopupDisplay lpd = travelPopup.GetComponent<LocationPopupDisplay>();
+        lpd.Location = location;
+        lpd.TravelButtons.SetActive(true);
+    }
+    public void DestroyTravelPopup()
+    {
+        if (travelPopup != null)
+        {
+            Destroy(travelPopup);
+            travelPopup = null;
         }
     }
 }

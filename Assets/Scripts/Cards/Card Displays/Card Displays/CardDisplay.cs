@@ -71,7 +71,10 @@ public abstract class CardDisplay : MonoBehaviour
         set
         {
             CardScript.CurrentActionCost = value;
-            actionCost.GetComponent<TextMeshProUGUI>().SetText(value.ToString());
+            string text;
+            if (value < 0) text = "";
+            else text = value.ToString();
+            actionCost.GetComponent<TextMeshProUGUI>().SetText(text);
         }
     }
     

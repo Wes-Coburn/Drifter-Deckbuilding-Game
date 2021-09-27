@@ -6,8 +6,26 @@ public class LocationPopupDisplay : MonoBehaviour
     [SerializeField] private GameObject locationName;
     [SerializeField] private GameObject locationDescription;
     [SerializeField] private GameObject objectivesDescription;
+    [SerializeField] private GameObject travelButtons;
 
-    public string LocationName
+    private GameManager gMan;
+    private UIManager uMan;
+    private DialogueManager dMan;
+
+    private Location location;
+    public Location Location
+    {
+        set
+        {
+            location = value;
+            LocationName = location.LocationFullName;
+            LocationDescription = location.LocationDescription;
+            ObjectivesDescription = location.FirstObjective;
+            WorldMapPosition = new Vector2(0, 0); // FOR TESTING ONLY?
+        }
+    }
+
+    private string LocationName
     {
         set
         {
@@ -15,7 +33,7 @@ public class LocationPopupDisplay : MonoBehaviour
         }
     }
 
-    public string LocationDescription
+    private string LocationDescription
     {
         set
         {
@@ -23,7 +41,7 @@ public class LocationPopupDisplay : MonoBehaviour
         }
     }
 
-    public string ObjectivesDescription
+    private string ObjectivesDescription
     {
         set
         {
@@ -31,11 +49,36 @@ public class LocationPopupDisplay : MonoBehaviour
         }
     }
 
-    public Vector2 WorldMapPosition
+    private Vector2 WorldMapPosition
     {
         set
         {
             transform.position = value;
         }
     }
+
+    public GameObject TravelButtons { get => travelButtons; }
+
+    private void Start()
+    {
+        gMan = GameManager.Instance;
+        uMan = UIManager.Instance;
+        dMan = DialogueManager.Instance;
+    }
+
+    public void TravelButton_OnClick()
+    {
+        if (location.IsHomeBase)
+        {
+            SceneLoader.LoadScene(SceneLoader.Scene.HomeBaseScene);
+            return;
+        }
+        gMan.CurrentLocation = gMan.GetActiveLocation(location);
+        gMan.ExitWorldMap();
+        dMan.EngagedHero = gMan.GetActiveNPC(location.CurrentNPC);
+        SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene);
+    }
+
+    public void CancelButton_OnClick() =>
+        uMan.DestroyTravelPopup();
 }

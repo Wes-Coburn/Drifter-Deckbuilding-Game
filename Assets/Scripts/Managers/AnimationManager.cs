@@ -237,6 +237,6 @@ public class AnimationManager : MonoBehaviour
 
         attacker.transform.SetParent(atkStartParent);
         attacker.transform.SetSiblingIndex(atkIndex);
-        attacker.transform.position = new Vector3(atkStartPos.x, atkStartPos.y, CombatManager.CARD_Z_POSITION);
+        attacker.transform.position = new Vector2(atkStartPos.x, atkStartPos.y);
     }
 }
