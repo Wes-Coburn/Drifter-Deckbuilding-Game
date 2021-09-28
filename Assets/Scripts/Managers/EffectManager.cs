@@ -18,6 +18,8 @@ public class EffectManager : MonoBehaviour
     private CombatManager coMan;
     private UIManager uMan;
     private AudioManager auMan;
+    private AnimationManager anMan;
+
     private GameObject dragArrow;
     private List<EffectGroup> effectGroupList;
     private GameObject effectSource;
@@ -61,12 +63,12 @@ public class EffectManager : MonoBehaviour
         private set => unitsToDestroy = value;
     }
 
-
     private void Start()
     {
         coMan = CombatManager.Instance;
         uMan = UIManager.Instance;
         auMan = AudioManager.Instance;
+        anMan = AnimationManager.Instance;
         giveNextEffects = new List<GiveNextUnitEffect>();
         newDrawnCards = new List<GameObject>();
         unitsToDestroy = new List<GameObject>();
@@ -79,13 +81,6 @@ public class EffectManager : MonoBehaviour
      *****/
     public void StartEffectGroupList(List<EffectGroup> groupList, GameObject source)
     {
-        /* Effect Delay
-        if (effectSource != null)
-        {
-            EventManager.Instance.NewDelayedAction(() => StartEffectGroupList(groupList, source), 1f);
-            return;
-        }
-        */
         effectGroupList = groupList;
         effectSource = source;
         currentEffectGroup = 0;
@@ -232,7 +227,7 @@ public class EffectManager : MonoBehaviour
 
         if (effect is DrawEffect de && de.IsDiscardEffect) // Discard effect
         {
-            AnimationManager.Instance.ShiftPlayerHand(true);
+            anMan.ShiftPlayerHand(true);
             foreach (GameObject newTarget in newDrawnCards)
                 legalTargets[currentEffectGroup].Add(newTarget);
             newDrawnCards.Clear();
@@ -243,10 +238,35 @@ public class EffectManager : MonoBehaviour
             dragArrow = Instantiate(coMan.DragArrowPrefab, uMan.CurrentWorldSpace.transform);
             dragArrow.GetComponent<DragArrow>().SourceCard = effectSource;
         }
+
+        // TESTING TESTING TESTING
+        List<GameObject> redundancies = new List<GameObject>();
         foreach (GameObject target in legalTargets[currentEffectGroup])
         {
-            if (target != null) target.GetComponent<CardSelect>().CardOutline.SetActive(true);
-            else Debug.LogError("TARGET IS NULL!");
+            if (target == null)
+            {
+                Debug.LogError("TARGET IS NULL!");
+                continue;
+            }
+
+            foreach (List<GameObject> targetList in acceptedTargets)
+            {
+                if (targetList.Contains(target))
+                    redundancies.Add(target);
+            }
+        }
+        foreach (GameObject target in redundancies)
+        {
+            if (target == null) continue;
+            foreach (List<GameObject> targetList in legalTargets)
+                targetList.Remove(target);
+        }
+        // TESTING TESTING TESTING
+
+        foreach (GameObject target in legalTargets[currentEffectGroup])
+        {
+            if (target == null) continue;
+            target.GetComponent<CardSelect>().CardOutline.SetActive(true);
         }
     }
 
@@ -278,7 +298,8 @@ public class EffectManager : MonoBehaviour
         {
             foreach (Effect effect in eg.Effects)
                 if (IsTargetEffect(eg, effect))
-                    if (!GetLegalTargets(group, effect, eg.Targets))
+                {
+                    if (!GetLegalTargets(group, effect, eg.Targets, GetAdditionalTargets(eg.Targets)))
                     {
                         Debug.LogWarning("NO LEGAL TARGETS!");
                         GameObject tempSource = effectSource;
@@ -286,10 +307,22 @@ public class EffectManager : MonoBehaviour
                         effectSource = tempSource;
                         return false;
                     }
+                }
             group++;
         }
         if (isPreCheck) ClearTargets();
         return true;
+
+        int GetAdditionalTargets(EffectTargets targets)
+        {
+            int counter = 0;
+            foreach (EffectGroup group in effectGroupList)
+            {
+                if (group.Targets.CompareTargets(targets)) counter++;
+            }
+            if (counter > 0) counter--;
+            return counter;
+        }
     }
 
     /******
@@ -297,7 +330,7 @@ public class EffectManager : MonoBehaviour
      * ****** GET/CLEAR/SELECT_LEGAL_TARGETS
      * *****
      *****/
-    private bool GetLegalTargets(int currentGroup, Effect effect, EffectTargets targets)
+    private bool GetLegalTargets(int currentGroup, Effect effect, EffectTargets targets, int additionalTargets)
     {
         List<List<GameObject>> targetZones = new List<List<GameObject>>();
         if (effectSource.CompareTag(CombatManager.PLAYER_CARD) || 
@@ -317,28 +350,26 @@ public class EffectManager : MonoBehaviour
             if (targets.EnemyHero) legalTargets[currentGroup].Add(coMan.PlayerHero);
             if (targets.PlayerHero) legalTargets[currentGroup].Add(coMan.EnemyHero);
         }
+
         foreach (List<GameObject> zone in targetZones)
             foreach (GameObject target in zone)
             {
-                if (target != effectSource) // TESTING
+                if (target != effectSource) 
                     legalTargets[currentGroup].Add(target);
             }
         if (effect is DrawEffect || effect is GiveNextUnitEffect) return true;
-        if (legalTargets[currentGroup].Count < 1) return false;
+        Debug.Log("ADDITIONAL TARGETS <" + additionalTargets + ">");
+        if (legalTargets[currentGroup].Count < 1 + additionalTargets) return false; // TESTING
         if (effect.IsRequired && legalTargets[currentGroup].Count < 
-            effectGroupList[currentGroup].Targets.TargetNumber) return false;
+            effectGroupList[currentGroup].Targets.TargetNumber + additionalTargets) return false; // TESTING
         return true;
     }
 
-    public void SelectTarget(GameObject selectedCard)
+    public void SelectTarget(GameObject selected)
     {
-        foreach (GameObject card in legalTargets[currentEffectGroup])
-            if (card == selectedCard)
-            {
-                AcceptEffectTarget(card);
-                return;
-            }
-        RejectEffectTarget();
+        if (legalTargets[currentEffectGroup].Contains(selected)) 
+            AcceptEffectTarget(selected);
+        else RejectEffectTarget();
     }
 
     /******
@@ -348,7 +379,7 @@ public class EffectManager : MonoBehaviour
      *****/
     private void AcceptEffectTarget(GameObject target)
     {
-        AudioManager.Instance.StartStopSound("SFX_AcceptTarget");
+        auMan.StartStopSound("SFX_AcceptTarget");
         acceptedTargets[currentEffectGroup].Add(target);
         legalTargets[currentEffectGroup].Remove(target);
         target.GetComponent<CardSelect>().CardOutline.SetActive(false);
@@ -369,8 +400,8 @@ public class EffectManager : MonoBehaviour
     }
     private void RejectEffectTarget()
     {
-        UIManager.Instance.CreateFleetinInfoPopup("You can't target that!");
-        AudioManager.Instance.StartStopSound("SFX_Error");
+        uMan.CreateFleetinInfoPopup("You can't target that!");
+        auMan.StartStopSound("SFX_Error");
     }
 
     /******
@@ -403,7 +434,7 @@ public class EffectManager : MonoBehaviour
         {
             if (de.IsDiscardEffect)
             {
-                AnimationManager.Instance.ShiftPlayerHand(false);
+                anMan.ShiftPlayerHand(false);
             }
         }
         else
@@ -517,7 +548,7 @@ public class EffectManager : MonoBehaviour
                 zone = CombatManager.PLAYER_HAND;
             else zone = CombatManager.ENEMY_HAND;
             coMan.ChangeCardZone(effectSource, zone);
-            AnimationManager.Instance.RevealedHandState(effectSource);
+            anMan.RevealedHandState(effectSource);
         }
         FinishEffectGroup(true);
     }
@@ -546,7 +577,7 @@ public class EffectManager : MonoBehaviour
         legalTargets = null;
         acceptedTargets = null;
 
-        if (!wasAborted && UnitsToDestroy.Count > 0) // TESTING
+        if (!wasAborted && UnitsToDestroy.Count > 0)
             coMan.DestroyUnit(UnitsToDestroy[0]);
     }
 

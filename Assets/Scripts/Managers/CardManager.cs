@@ -108,6 +108,7 @@ public class CardManager : MonoBehaviour
     }
     public bool TriggerCardAbility(GameObject card, string triggerName)
     {
+        bool effectFound = false;
         if (card == null)
         {
             Debug.LogError("CARD IS NULL!");
@@ -118,8 +119,8 @@ public class CardManager : MonoBehaviour
                 if (tra.AbilityTrigger.AbilityName == triggerName)
                 {
                     EffectManager.Instance.StartEffectGroupList(tra.EffectGroupList, card);
-                    return true;
+                    effectFound = true;
                 }
-        return false;
+        return effectFound;
     }
 }

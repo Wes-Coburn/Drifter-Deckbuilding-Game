@@ -15,11 +15,11 @@ C:/Users/wgCob/OneDrive/Documents/Programming/Unity/Drifter (Unity 2D)
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-59765
+51231
 Successfully changed project path to: C:/Users/wgCob/OneDrive/Documents/Programming/Unity/Drifter (Unity 2D)
 C:/Users/wgCob/OneDrive/Documents/Programming/Unity/Drifter (Unity 2D)
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 71.97 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 76.52 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.5f1 (8095aa901b9b)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/Resources/UnitySubsystems
@@ -35,95 +35,259 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56400
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56612
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
 Registered in 0.001928 seconds.
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 76.77 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 85.51 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.942 seconds
+- Completed reload, in  0.923 seconds
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.001350 seconds.
+Registered in 0.001417 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 75.36 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 79.67 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.819 seconds
+- Completed reload, in  0.828 seconds
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.03 seconds
-Refreshing native plugins compatible for Editor in 0.85 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 0.93 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1930 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 1929 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 93.1 MB.
 System memory in use after: 93.2 MB.
 
-Unloading 18 unused Assets to reduce memory usage. Loaded Objects now: 2381.
-Total: 2.441600 ms (FindLiveObjects: 0.314900 ms CreateObjectMapping: 0.253100 ms MarkObjects: 1.853600 ms  DeleteObjects: 0.019300 ms)
+Unloading 18 unused Assets to reduce memory usage. Loaded Objects now: 2380.
+Total: 3.412800 ms (FindLiveObjects: 0.588000 ms CreateObjectMapping: 0.213400 ms MarkObjects: 2.582400 ms  DeleteObjects: 0.027900 ms)
 
 ========================================================================
 Received Import Request.
-  path: Assets/Scripts/UI/Buttons/SelectHeroButton.cs
-  artifactKey: Guid(3aef8db305fc84d409a89a436946bbe4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/UI/Buttons/SelectHeroButton.cs using Guid(3aef8db305fc84d409a89a436946bbe4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'abe843d8f64d5dcd38811f32107663b0') in 0.023674 seconds
-  Import took 0.029029 seconds .
+  path: Assets/Scripts/Managers/EffectManager.cs
+  artifactKey: Guid(52ff3e14a0cc1d74b84392753cdfb0e4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Managers/EffectManager.cs using Guid(52ff3e14a0cc1d74b84392753cdfb0e4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1455d11133ef30de0d16d76e10755c2a') in 0.043265 seconds
+  Import took 0.049928 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 331.045224 seconds.
+  path: Assets/Scripts/Managers/EffectManager.cs
+  artifactKey: Guid(52ff3e14a0cc1d74b84392753cdfb0e4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Managers/EffectManager.cs using Guid(52ff3e14a0cc1d74b84392753cdfb0e4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e92680b9bb234b3defda73af60021758') in 0.003785 seconds
+  Import took 0.010162 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 96.442463 seconds.
+  path: Assets/Scripts/Managers/EffectManager.cs
+  artifactKey: Guid(52ff3e14a0cc1d74b84392753cdfb0e4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Managers/EffectManager.cs using Guid(52ff3e14a0cc1d74b84392753cdfb0e4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '22f821c91849c48b2d95af315170adc6') in 0.002610 seconds
+  Import took 0.009357 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.001931 seconds.
+Registered in 0.001809 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.09 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 0.82 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.794 seconds
+- Completed reload, in  0.753 seconds
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.84 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 0.88 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 1906 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 91.4 MB.
 System memory in use after: 91.5 MB.
 
-Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2384.
-Total: 2.087200 ms (FindLiveObjects: 0.673900 ms CreateObjectMapping: 0.065400 ms MarkObjects: 1.336000 ms  DeleteObjects: 0.011100 ms)
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2383.
+Total: 1.556500 ms (FindLiveObjects: 0.180200 ms CreateObjectMapping: 0.068700 ms MarkObjects: 1.294600 ms  DeleteObjects: 0.012100 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 62.761055 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Draw1.asset
+  artifactKey: Guid(023c2a13540808347adc8dfb99742db9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Draw1.asset using Guid(023c2a13540808347adc8dfb99742db9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '696743001961e144082da2c567fbad9d') in 0.018972 seconds
+  Import took 0.025772 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000370 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/GiveSelf_plus1plus0.asset
+  artifactKey: Guid(af2fb13f00060804f84ae4af6a1432f0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/GiveSelf_plus1plus0.asset using Guid(af2fb13f00060804f84ae4af6a1432f0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7bc1f01dfbd34978bd57e00e50291305') in 0.005173 seconds
+  Import took 0.012826 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000464 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Draw1_Discard1.asset
+  artifactKey: Guid(bb0661d3c998e1f47b5b8c0afb36e6bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Draw1_Discard1.asset using Guid(bb0661d3c998e1f47b5b8c0afb36e6bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3b134120d9285c593b7eebecca0beff6') in 0.031280 seconds
+  Import took 0.039528 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000374 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Draw2.asset
+  artifactKey: Guid(6538b1cc9f995494da722600b289e291) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Draw2.asset using Guid(6538b1cc9f995494da722600b289e291) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f1551d6ff6f871b13ac84236edb6a074') in 0.005429 seconds
+  Import took 0.012499 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 204.814946 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/More Skills/Rites_of_Sacrifice.asset
+  artifactKey: Guid(919c90e23902c7f4abf27ee9262c9ac4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/More Skills/Rites_of_Sacrifice.asset using Guid(919c90e23902c7f4abf27ee9262c9ac4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ad97692d7849becf4c5a013d2e826d2a') in 0.004586 seconds
+  Import took 0.012220 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.005488 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/More Skills/Rites_of_Sacrifice.asset
+  artifactKey: Guid(919c90e23902c7f4abf27ee9262c9ac4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/More Skills/Rites_of_Sacrifice.asset using Guid(919c90e23902c7f4abf27ee9262c9ac4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ad97692d7849becf4c5a013d2e826d2a') in 0.002698 seconds
+  Import took 0.009556 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.779780 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/Starting Skills/Dark Experiment.asset
+  artifactKey: Guid(321f20ba2be7a294ca921a21247535d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/Starting Skills/Dark Experiment.asset using Guid(321f20ba2be7a294ca921a21247535d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '626e0f5c3643cd50d2dbb388083c62ca') in 0.031682 seconds
+  Import took 0.039074 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000357 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/Starting Skills/Unstable Formula.asset
+  artifactKey: Guid(e3c1fa916514de64c899907ba6866cad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/Starting Skills/Unstable Formula.asset using Guid(e3c1fa916514de64c899907ba6866cad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '48bc4b5603533b23ed129367600ff546') in 0.008039 seconds
+  Import took 0.016896 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.991724 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/More Skills/Rites of Sacrifice.asset
+  artifactKey: Guid(919c90e23902c7f4abf27ee9262c9ac4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/More Skills/Rites of Sacrifice.asset using Guid(919c90e23902c7f4abf27ee9262c9ac4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '772c89f1562b9cc6833c1dafcb2abd21') in 0.006064 seconds
+  Import took 0.017850 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 35.175632 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/More Skills/Rites of Sacrifice.asset
+  artifactKey: Guid(919c90e23902c7f4abf27ee9262c9ac4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/More Skills/Rites of Sacrifice.asset using Guid(919c90e23902c7f4abf27ee9262c9ac4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fa7d3dd9a7c2a10d9c11997a0118bc39') in 0.002737 seconds
+  Import took 0.011734 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.003656 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/More Skills/Rites of Sacrifice.asset
+  artifactKey: Guid(919c90e23902c7f4abf27ee9262c9ac4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/More Skills/Rites of Sacrifice.asset using Guid(919c90e23902c7f4abf27ee9262c9ac4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fa7d3dd9a7c2a10d9c11997a0118bc39') in 0.002575 seconds
+  Import took 0.010545 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 20.964394 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/More Skills/Rites of Sacrifice.asset
+  artifactKey: Guid(919c90e23902c7f4abf27ee9262c9ac4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/More Skills/Rites of Sacrifice.asset using Guid(919c90e23902c7f4abf27ee9262c9ac4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e2f83489b99304dd6dde34be7f3c9c85') in 0.003013 seconds
+  Import took 0.011503 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.004066 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/More Skills/Rites of Sacrifice.asset
+  artifactKey: Guid(919c90e23902c7f4abf27ee9262c9ac4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/More Skills/Rites of Sacrifice.asset using Guid(919c90e23902c7f4abf27ee9262c9ac4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e2f83489b99304dd6dde34be7f3c9c85') in 0.003060 seconds
+  Import took 0.010965 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 4.001863 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/More Skills/Rites of Sacrifice.asset
+  artifactKey: Guid(919c90e23902c7f4abf27ee9262c9ac4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/More Skills/Rites of Sacrifice.asset using Guid(919c90e23902c7f4abf27ee9262c9ac4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3f256ae1bf347d20fe99cd0734936050') in 0.028716 seconds
+  Import took 0.036999 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 34.824088 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_plus2plus0 1.asset
+  artifactKey: Guid(1298cf9bd80ea7e42aad999766388e12) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_plus2plus0 1.asset using Guid(1298cf9bd80ea7e42aad999766388e12) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '716472a11e7b5c7b1d9ecdbd4f341189') in 0.003607 seconds
+  Import took 0.012505 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.385750 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_plus2plus2.asset
+  artifactKey: Guid(1298cf9bd80ea7e42aad999766388e12) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_plus2plus2.asset using Guid(1298cf9bd80ea7e42aad999766388e12) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd5e337de6a3c697a2994ad15b814a8bc') in 0.016085 seconds
+  Import took 0.024241 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 13.557809 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_plus2plus2.asset
+  artifactKey: Guid(1298cf9bd80ea7e42aad999766388e12) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_plus2plus2.asset using Guid(1298cf9bd80ea7e42aad999766388e12) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ca96301cd7b26d75dd9abade1534a703') in 0.003837 seconds
+  Import took 0.011389 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 23.768108 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/More Skills/Rites of Sacrifice.asset
+  artifactKey: Guid(919c90e23902c7f4abf27ee9262c9ac4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/More Skills/Rites of Sacrifice.asset using Guid(919c90e23902c7f4abf27ee9262c9ac4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f4ec5fb08cfed3044f50d0c0f8f46301') in 0.004666 seconds
+  Import took 0.013186 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001475 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/More Skills/Rites of Sacrifice.asset
+  artifactKey: Guid(919c90e23902c7f4abf27ee9262c9ac4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/More Skills/Rites of Sacrifice.asset using Guid(919c90e23902c7f4abf27ee9262c9ac4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f4ec5fb08cfed3044f50d0c0f8f46301') in 0.003409 seconds
+  Import took 0.011314 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 17.693078 seconds.
+  path: Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/More Skills/Rites of Sacrifice.asset
+  artifactKey: Guid(919c90e23902c7f4abf27ee9262c9ac4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Objects/Actions/Skills/Yergov, Biochemist/More Skills/Rites of Sacrifice.asset using Guid(919c90e23902c7f4abf27ee9262c9ac4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '787cec89220ecc0af702860909162e9c') in 0.005508 seconds
+  Import took 0.013080 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 32.728697 seconds.
+  path: Assets/Scripts/Heroes/Hero Objects/Heroes/Player Heroes/Yergov, Biochemist.asset
+  artifactKey: Guid(7ec381d799404eb4abf4d674191a948b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Heroes/Hero Objects/Heroes/Player Heroes/Yergov, Biochemist.asset using Guid(7ec381d799404eb4abf4d674191a948b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd06f0e13be78ada751e1665682f9ddcf') in 0.039898 seconds
+  Import took 0.047565 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.001725 seconds.
+Registered in 0.001564 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.82 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 0.98 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.760 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.14 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1906 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 91.5 MB.
-System memory in use after: 91.6 MB.
-
-Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2387.
-Total: 1.788500 ms (FindLiveObjects: 0.163900 ms CreateObjectMapping: 0.067200 ms MarkObjects: 1.543100 ms  DeleteObjects: 0.013300 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001633 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.82 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.771 seconds
+- Completed reload, in  0.739 seconds
 Platform modules already initialized, skipping
 Refreshing native plugins compatible for Editor in 0.83 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
@@ -131,27 +295,59 @@ Unloading 1906 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 91.5 MB.
 System memory in use after: 91.6 MB.
 
-Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2390.
-Total: 1.612600 ms (FindLiveObjects: 0.208400 ms CreateObjectMapping: 0.068500 ms MarkObjects: 1.323800 ms  DeleteObjects: 0.011100 ms)
-
-========================================================================
-Received Import Request.
-  Time since last request: 700.664207 seconds.
-  path: Assets/Scenes/HeroSelectScene.unity
-  artifactKey: Guid(d36e93befefebfa44858021665aa2703) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scenes/HeroSelectScene.unity using Guid(d36e93befefebfa44858021665aa2703) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '23a9f97d5d85723e3ca907973829da23') in 0.012253 seconds
-  Import took 0.018105 seconds .
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2386.
+Total: 1.672900 ms (FindLiveObjects: 0.168400 ms CreateObjectMapping: 0.079400 ms MarkObjects: 1.389100 ms  DeleteObjects: 0.035200 ms)
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.001838 seconds.
+Registered in 0.001687 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.83 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.739 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.82 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1906 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 91.5 MB.
+System memory in use after: 91.6 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2389.
+Total: 1.712900 ms (FindLiveObjects: 0.204900 ms CreateObjectMapping: 0.085100 ms MarkObjects: 1.408700 ms  DeleteObjects: 0.013300 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002586 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.13 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.738 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.85 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1906 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 91.5 MB.
+System memory in use after: 91.6 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2392.
+Total: 2.073700 ms (FindLiveObjects: 0.394300 ms CreateObjectMapping: 0.112200 ms MarkObjects: 1.538400 ms  DeleteObjects: 0.013500 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.001610 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
 Refreshing native plugins compatible for Editor in 0.81 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.737 seconds
+- Completed reload, in  0.692 seconds
 Platform modules already initialized, skipping
 Refreshing native plugins compatible for Editor in 0.82 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
@@ -159,115 +355,47 @@ Unloading 1906 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 91.5 MB.
 System memory in use after: 91.6 MB.
 
-Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2393.
-Total: 1.781700 ms (FindLiveObjects: 0.242300 ms CreateObjectMapping: 0.096400 ms MarkObjects: 1.430000 ms  DeleteObjects: 0.011700 ms)
-
-========================================================================
-Received Import Request.
-  Time since last request: 74.114094 seconds.
-  path: Assets/Prefabs/Locations
-  artifactKey: Guid(42506b22a82793741a357821a445c9e9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Locations using Guid(42506b22a82793741a357821a445c9e9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e570b4acf02c19a39056d4c5d8c04278') in 0.005555 seconds
-  Import took 0.011007 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 29.497008 seconds.
-  path: Assets/Prefabs/Locations/LocationPopup.prefab
-  artifactKey: Guid(97578bbed6b45cc45a8ff4b66137ef2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Locations/LocationPopup.prefab using Guid(97578bbed6b45cc45a8ff4b66137ef2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a68c9d5c5e3a7a5813197636650e3935') in 0.083299 seconds
-  Import took 0.088726 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 377.421892 seconds.
-  path: Assets/Prefabs/Locations/TravelPopup.prefab
-  artifactKey: Guid(849ba9c9ac399764b8b1fab49ae59e31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Locations/TravelPopup.prefab using Guid(849ba9c9ac399764b8b1fab49ae59e31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b169f6f66e8174555693b65c784e334d') in 0.036568 seconds
-  Import took 0.042491 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 17.897107 seconds.
-  path: Assets/Scripts/UI/Displays/InfoPopupDisplay.cs
-  artifactKey: Guid(88c40c2ee71499b40942cc9637ad2f3b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/UI/Displays/InfoPopupDisplay.cs using Guid(88c40c2ee71499b40942cc9637ad2f3b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a88c5740a9cfdaffb96e6ae1da62523e') in 0.003168 seconds
-  Import took 0.009301 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 27.659478 seconds.
-  path: Assets/Scripts/UI/Displays/TravelPopupDisplay.cs
-  artifactKey: Guid(530a24269d34cc24aa7d781f111a9a53) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/UI/Displays/TravelPopupDisplay.cs using Guid(530a24269d34cc24aa7d781f111a9a53) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b4eff129ee238a1ffc6900ee5d7c7733') in 0.002475 seconds
-  Import took 0.009593 seconds .
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2395.
+Total: 1.920300 ms (FindLiveObjects: 0.276300 ms CreateObjectMapping: 0.116800 ms MarkObjects: 1.512600 ms  DeleteObjects: 0.013800 ms)
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.002304 seconds.
+Registered in 0.001543 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.08 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 0.91 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.824 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.85 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1907 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 91.7 MB.
-System memory in use after: 91.8 MB.
-
-Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2397.
-Total: 1.905000 ms (FindLiveObjects: 0.189800 ms CreateObjectMapping: 0.063300 ms MarkObjects: 1.636800 ms  DeleteObjects: 0.014300 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001580 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.85 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.779 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.94 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1907 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 91.7 MB.
-System memory in use after: 91.8 MB.
-
-Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2400.
-Total: 1.824000 ms (FindLiveObjects: 0.318100 ms CreateObjectMapping: 0.107800 ms MarkObjects: 1.364700 ms  DeleteObjects: 0.032500 ms)
-
-========================================================================
-Received Import Request.
-  Time since last request: 156.145959 seconds.
-  path: Assets/Scripts/Managers/UIManager.cs
-  artifactKey: Guid(43b794f3ee6b57e4aa018d104ea57f40) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Managers/UIManager.cs using Guid(43b794f3ee6b57e4aa018d104ea57f40) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5822af04fb7c0b1e09ec224ef2e33a12') in 0.005622 seconds
-  Import took 0.011371 seconds .
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001572 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.80 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.754 seconds
+- Completed reload, in  0.724 seconds
 Platform modules already initialized, skipping
 Refreshing native plugins compatible for Editor in 0.83 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1907 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 91.7 MB.
-System memory in use after: 91.8 MB.
+Unloading 1906 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 91.5 MB.
+System memory in use after: 91.6 MB.
 
-Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2403.
-Total: 2.883300 ms (FindLiveObjects: 0.863900 ms CreateObjectMapping: 0.245700 ms MarkObjects: 1.759800 ms  DeleteObjects: 0.012600 ms)
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2398.
+Total: 1.779400 ms (FindLiveObjects: 0.208000 ms CreateObjectMapping: 0.063900 ms MarkObjects: 1.494500 ms  DeleteObjects: 0.012300 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.001497 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.86 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.707 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.82 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1906 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 91.5 MB.
+System memory in use after: 91.6 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2401.
+Total: 1.999200 ms (FindLiveObjects: 0.281200 ms CreateObjectMapping: 0.108900 ms MarkObjects: 1.594700 ms  DeleteObjects: 0.013300 ms)
 
 AssetImportWorkerClient::OnTransportError - code=2 error=End of file

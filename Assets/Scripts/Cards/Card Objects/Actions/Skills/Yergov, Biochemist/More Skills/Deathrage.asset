@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: befaa541343256949b44a33f6e1a5f50, type: 3}
-  m_Name: Explosive Rounds
+  m_Name: Deathrage
   m_EditorClassIdentifier: 
-  cardArt: {fileID: 21300000, guid: a655fbb2e9b6bfa4688b946bd1ed6140, type: 3}
+  cardArt: {fileID: 21300000, guid: b618f4941bea3c14a9323f106a870885, type: 3}
   cardBorder: {fileID: 21300000, guid: da4d9c0ce8b0a5744aac584cd2e675b1, type: 3}
-  actionCost: 2
-  cardName: Explosive Rounds
+  actionCost: 1
+  cardName: Deathrage
   cardType: Action
   cardSubType: Skill
-  cardDescription: When regular bullets just aren't enough.
+  cardDescription: Deathrage is...
   overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
   zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
   cardPlaySound:
@@ -27,7 +27,8 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
-  effectDescription: Give an ally +2/+0.
+  effectDescription: 'Give an ally +1/+0 and "Revenge: Draw a card."'
   effectGroupList:
-  - {fileID: 11400000, guid: 4617fd83bf40fed4ab47d84b55713254, type: 2}
-  linkedAbilities: []
+  - {fileID: 11400000, guid: 8cf078e55647a014ca9302c6582778e5, type: 2}
+  linkedAbilities:
+  - {fileID: 11400000, guid: 55d83941db05710428faf12e595b4a38, type: 2}

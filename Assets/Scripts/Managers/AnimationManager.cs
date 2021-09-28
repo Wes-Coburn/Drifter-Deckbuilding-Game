@@ -212,31 +212,29 @@ public class AnimationManager : MonoBehaviour
             attackSpeed = 100;
             retreatSpeed = 75;
         }
-        int atkIndex = attacker.transform.GetSiblingIndex();
-        Transform atkStartParent = attacker.transform.parent;
-        Vector3 atkStartPos = attacker.transform.position;
+        GameObject container = attacker.GetComponent<CardDisplay>().CardContainer;
+        container.GetComponent<CardContainer>().DetachChild();
+        attacker.transform.SetAsLastSibling();
         Vector2 defPos = defender.transform.position;
-        attacker.transform.SetParent(UIManager.Instance.CurrentCanvas.transform);
-        attacker.transform.SetAsLastSibling(); // TESTING
+
         // ATTACK
         do
         {
             distance = Vector2.Distance(attacker.transform.position, defPos);
-            attacker.transform.position = Vector3.MoveTowards(attacker.transform.position, defPos, attackSpeed);
+            attacker.transform.position = Vector3.MoveTowards(attacker.transform.position,
+                defPos, attackSpeed);
             yield return new WaitForFixedUpdate();
         }
         while (distance > bufferDistance);
         // RETREAT
         do
         {
-            distance = Vector2.Distance(attacker.transform.position, atkStartPos);
-            attacker.transform.position = Vector3.MoveTowards(attacker.transform.position, atkStartPos, retreatSpeed);
+            distance = Vector2.Distance(attacker.transform.position, container.transform.position);
+            attacker.transform.position = Vector3.MoveTowards(attacker.transform.position,
+                container.transform.position, retreatSpeed);
             yield return new WaitForFixedUpdate();
         }
         while (distance > 0);
-
-        attacker.transform.SetParent(atkStartParent);
-        attacker.transform.SetSiblingIndex(atkIndex);
-        attacker.transform.position = new Vector2(atkStartPos.x, atkStartPos.y);
+        attacker.transform.SetParent(container.transform);
     }
 }

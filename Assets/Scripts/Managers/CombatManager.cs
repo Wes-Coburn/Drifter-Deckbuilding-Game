@@ -387,20 +387,19 @@ public class CombatManager : MonoBehaviour
         void PlayUnit()
         {
             caMan.TriggerCardAbility(card, "Play");
-            FunctionTimer.Create(() => PlayCardSound(), 0f);
-            FunctionTimer.Create(() => PlayAbilitySounds(), 0.4f);
+            PlayCardSound();
+            PlayAbilitySounds();
         }
         void PlayAction()
         {
-            FunctionTimer.Create(() => PlayCardSound(), 0f);
+            PlayCardSound();
             ResolveActionCard(card);
         }
         void PlayCardSound()
         {
             Sound playSound = card.GetComponent<CardDisplay>().CardScript.CardPlaySound;
-            FunctionTimer.Create(() =>
-            auMan.StartStopSound(null, playSound), 0.2f);
-        }
+            auMan.StartStopSound(null, playSound);
+    }
         void PlayAbilitySounds()
         {
             float delay = 0.3f;
@@ -476,7 +475,8 @@ public class CombatManager : MonoBehaviour
      *****/
     private void ResolveActionCard(GameObject card)
     {
-        List<EffectGroup> groupList = card.GetComponent<ActionCardDisplay>().ActionCard.EffectGroupList;
+        List<EffectGroup> groupList = 
+            card.GetComponent<ActionCardDisplay>().ActionCard.EffectGroupList;
         efMan.StartEffectGroupList(groupList, card);
     }
 

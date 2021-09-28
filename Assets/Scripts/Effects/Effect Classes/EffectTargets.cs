@@ -22,4 +22,17 @@ public class EffectTargets : ScriptableObject
     [Header("ENEMY")]
     public bool EnemyHero;
     public bool EnemyUnit;
+
+    public bool CompareTargets(EffectTargets targets)
+    {
+        if (TargetNumber != targets.TargetNumber) return false;
+        if (TargetsAll != targets.TargetsAll) return false;
+        if (TargetsSelf != targets.TargetsSelf) return false;
+        if (PlayerHero != targets.PlayerHero) return false;
+        if (PlayerUnit != targets.PlayerUnit) return false;
+        if (PlayerHand != targets.PlayerHand) return false;
+        if (EnemyHero != targets.EnemyHero) return false;
+        if (EnemyUnit != targets.EnemyUnit) return false;
+        else return true;
+    }
 }
