@@ -221,14 +221,14 @@ public class EffectManager : MonoBehaviour
             StartNextEffectGroup();
             return;
         }
-        uMan.PlayerIsTargetting = true;
-        string description = effectGroupList[currentEffectGroup].EffectsDescription;
-        if (string.IsNullOrEmpty(description)) description = 
-                effectGroupList[currentEffectGroup].Effects[currentEffectIndex].TargetDescription;
-        uMan.CreateInfoPopup(description);
 
-        if (effect is DrawEffect de && de.IsDiscardEffect) // Discard effect
+        uMan.PlayerIsTargetting = true;
+        string description = 
+            effectGroupList[currentEffectGroup].EffectsDescription;
+
+        if (effect is DrawEffect de && de.IsDiscardEffect)
         {
+            description = "Discard a card.";
             anMan.ShiftPlayerHand(true);
             foreach (GameObject newTarget in newDrawnCards)
                 legalTargets[currentEffectGroup].Add(newTarget);
@@ -236,12 +236,13 @@ public class EffectManager : MonoBehaviour
         }
         else
         {
-            uMan.SetCancelEffectButton(true); // TESTING
-
+            uMan.SetCancelEffectButton(true);
             if (dragArrow != null) Destroy(dragArrow);
             dragArrow = Instantiate(coMan.DragArrowPrefab, uMan.CurrentWorldSpace.transform);
             dragArrow.GetComponent<DragArrow>().SourceCard = effectSource;
         }
+
+        uMan.CreateInfoPopup(description);
 
         // TESTING TESTING TESTING
         List<GameObject> redundancies = new List<GameObject>();

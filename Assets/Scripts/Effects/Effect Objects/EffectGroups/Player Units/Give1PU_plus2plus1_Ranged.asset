@@ -10,13 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a22d7123f6ee007468cbdc6e9b6fe2b0, type: 3}
-  m_Name: GiveNextPU_plus1plus0_Stealth
+  m_Name: Give1PU_plus2plus1_Ranged
   m_EditorClassIdentifier: 
   Targets: {fileID: 11400000, guid: 3536ddc3f75919646b8fab53d9f33c8a, type: 2}
   Effects:
-  - {fileID: 11400000, guid: 9ab47bf7ba6a3ce42bed9f6d160e5223, type: 2}
-  EffectsDescription: Give the next ally you play this turn +1/+0 and Stealth.
-  EffectGroupSound: 
+  - {fileID: 11400000, guid: 6140347001792cb4fad04d3956953f6d, type: 2}
+  - {fileID: 11400000, guid: 07419764e1d218642b37cd48f450b58f, type: 2}
+  - {fileID: 11400000, guid: a8d9ff28efc24944787d91149c13905d, type: 2}
+  EffectsDescription: Give an ally +2/+1 and Ranged.
+  EffectGroupSound: SFX_StatPlus
   EffectGroupSound2:
     name: 
     clip: {fileID: 0}

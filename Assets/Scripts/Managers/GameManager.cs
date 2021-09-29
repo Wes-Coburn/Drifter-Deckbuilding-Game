@@ -322,32 +322,38 @@ public class GameManager : MonoBehaviour
     private void StartTurn(string player)
     {
         evMan.NewDelayedAction(() => coMan.PrepareAllies(player), 0.5f);
+        bool isPlayerTurn;
+
         if (player == PLAYER)
         {
-            pMan.IsMyTurn = true;
-            enMan.IsMyTurn = false;
-            pMan.HeroPowerUsed = false;
-            evMan.NewDelayedAction(() => RefillPlayerActions(), 0.5f);
+            isPlayerTurn = true;
+            evMan.NewDelayedAction(() => PlayerTurnStart(), 0.5f);
             evMan.NewDelayedAction(() => coMan.DrawCard(PLAYER), 1);
-            void RefillPlayerActions()
+
+            void PlayerTurnStart()
             {
+                pMan.IsMyTurn = true;
+                enMan.IsMyTurn = false;
+                pMan.HeroPowerUsed = false;
                 pMan.PlayerActionsLeft = pMan.ActionsPerTurn;
                 auMan.StartStopSound("SFX_ActionRefill");
             }
         }
         else if (player == ENEMY)
         {
+            isPlayerTurn = false;
             pMan.IsMyTurn = false;
             enMan.IsMyTurn = true;
-            evMan.NewDelayedAction(() => enMan.StartEnemyTurn(), 0);
+            evMan.NewDelayedAction(() =>
+            enMan.StartEnemyTurn(), 0);
         }
         else
         {
             Debug.LogError("PLAYER NOT FOUND!");
             return;
         }
-        uMan.UpdateEndTurnButton(pMan.IsMyTurn);
-        FunctionTimer.Create(() => uMan.CreateTurnPopup(pMan.IsMyTurn), 1);
+        uMan.UpdateEndTurnButton(isPlayerTurn);
+        FunctionTimer.Create(() => uMan.CreateTurnPopup(isPlayerTurn), 1);
     }
 
     /******

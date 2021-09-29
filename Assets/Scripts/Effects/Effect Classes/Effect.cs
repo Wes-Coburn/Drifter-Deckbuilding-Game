@@ -14,17 +14,11 @@ public abstract class Effect : ScriptableObject
     [Range(0, 5)]
     public int Countdown;
 
-    [Header("Target Description")]
-    [Tooltip("A description of the target")]
-    [TextArea]
-    public string TargetDescription;
-
     public virtual void LoadEffect(Effect effect)
     {
         IsRequired = effect.IsRequired;
         Value = effect.Value;
         IsNegative = effect.IsNegative;
         Countdown = effect.Countdown;
-        TargetDescription = effect.TargetDescription;
     }
 }
