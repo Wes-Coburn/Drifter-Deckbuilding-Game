@@ -469,7 +469,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tooltipPopupPrefab: {fileID: 7177373728927392186, guid: 6363c5ece3ab74f41ab0a33c7358b5cb,
     type: 3}
-  tooltipText: Your ACTIONS remaining and your current total.
+  tooltipText: Your remaining ACTIONS and your total each turn.
   tooltipPosition: {x: 200, y: -350}
 --- !u!114 &1962485270576166505
 MonoBehaviour:
@@ -886,8 +886,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heroOutline: {fileID: 373914478}
-  selectedColor: {r: 1, g: 1, b: 1, a: 1}
-  highlightedColor: {r: 1, g: 1, b: 0, a: 1}
 --- !u!114 &885093807765067690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1211,7 +1209,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 312b63e83bf78e34faf06b5a09287a04, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 844bac76c1c3a0b4f8c75660ded8940f, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

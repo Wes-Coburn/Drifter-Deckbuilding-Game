@@ -24,6 +24,8 @@ public class DialogueManager : MonoBehaviour
     private TextMeshProUGUI currentTmPro;
     private float typedTextDelay;
 
+    private bool newEngagedHero;
+
     public DialogueSceneDisplay DialogueDisplay { get => dialogueDisplay; }
     public NPCHero EngagedHero { get; set; } // PUBLIC SET FOR COMBAT TEST BUTTON
     public Coroutine CurrentTextRoutine { get; private set; }
@@ -32,30 +34,31 @@ public class DialogueManager : MonoBehaviour
     {
         gMan = GameManager.Instance;
         pMan = PlayerManager.Instance;
+        newEngagedHero = false;
     }
 
-    private void DisplayCurrentHeroes(NPCHero hero)
+    public void DisplayCurrentHeroes()
     {
         dialogueDisplay.PlayerHeroImage = pMan.PlayerHero.HeroPortrait;
         dialogueDisplay.PlayerHeroName = pMan.PlayerHero.HeroName;
-        dialogueDisplay.NPCHeroImage = hero.HeroPortrait;
-        dialogueDisplay.NPCHeroName = hero.HeroName;
+        dialogueDisplay.NPCHeroImage = EngagedHero.HeroPortrait;
+        dialogueDisplay.NPCHeroName = EngagedHero.HeroName;
     }
 
-    public void StartDialogue(NPCHero npc)
+    public void StartDialogue()
     {
         AudioManager.Instance.StartStopSound("Soundtrack_Dialogue1", null, AudioManager.SoundType.Soundtrack);
         dialogueDisplay = FindObjectOfType<DialogueSceneDisplay>();
         dialogueDisplay.PlayerHeroPortrait.SetActive(false);
         dialogueDisplay.NPCHeroPortrait.SetActive(false);
 
-        currentDialogueClip = npc.NextDialogueClip;
+        currentDialogueClip = EngagedHero.NextDialogueClip;
         if (currentDialogueClip == null)
         {
             Debug.LogError("CLIP IS NULL!");
             return;
         }
-        DisplayCurrentHeroes(npc);
+        DisplayCurrentHeroes();
         DisplayDialoguePopup();
         AnimationManager.Instance.DialogueIntro();
     }
@@ -71,7 +74,15 @@ public class DialogueManager : MonoBehaviour
     public void DisplayDialoguePopup()
     {
         DialoguePrompt dpr = currentDialogueClip as DialoguePrompt;
-        dialogueDisplay.NPCHeroSpeech = dpr.DialoguePromptText;
+
+        if (newEngagedHero)
+        {
+            AnimationManager.Instance.NewEngagedHero();
+            FunctionTimer.Create(() => DisplayDialoguePopup(), 1f);
+            dialogueDisplay.NPCHeroSpeech = "";
+            newEngagedHero = false;
+            return;
+        }
 
         TimedText(dpr.DialoguePromptText, 
             dialogueDisplay.NPCHeroSpeechObject.GetComponent<TextMeshProUGUI>());
@@ -229,7 +240,7 @@ public class DialogueManager : MonoBehaviour
             if (nextPrompt.NewEngagedHero != null)
             {
                 EngagedHero = gMan.GetActiveNPC(nextPrompt.NewEngagedHero);
-                DisplayCurrentHeroes(EngagedHero);
+                newEngagedHero = true;
             }
             // New Card
             if (nextPrompt.NewCard != null)

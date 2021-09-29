@@ -100,7 +100,12 @@ public class PlayerManager : MonoBehaviour
     {
         void ErrorSound() => auMan.StartStopSound("SFX_Error");
 
-        if (HeroPowerUsed == true)
+        if (PlayerActionsLeft < playerHero.HeroPower.PowerCost)
+        {
+            uMan.CreateFleetinInfoPopup("Not enough actions!");
+            ErrorSound();
+        }
+        else if (HeroPowerUsed == true)
         {
             uMan.CreateFleetinInfoPopup("Hero power already used this turn!");
             ErrorSound();
@@ -116,19 +121,11 @@ public class PlayerManager : MonoBehaviour
             }
             else
             {
-                if (PlayerActionsLeft < playerHero.HeroPower.PowerCost)
-                {
-                    uMan.CreateFleetinInfoPopup("Not enough actions!");
-                    ErrorSound();
-                }
-                else
-                {
-                    efMan.StartEffectGroupList(groupList, coMan.PlayerHero);
-                    PlayerActionsLeft -= playerHero.HeroPower.PowerCost;
-                    HeroPowerUsed = true;
-                    foreach (Sound s in PlayerHero.HeroPower.PowerSounds)
-                        AudioManager.Instance.StartStopSound(null, s);
-                }
+                efMan.StartEffectGroupList(groupList, coMan.PlayerHero);
+                PlayerActionsLeft -= playerHero.HeroPower.PowerCost;
+                HeroPowerUsed = true;
+                foreach (Sound s in PlayerHero.HeroPower.PowerSounds)
+                    AudioManager.Instance.StartStopSound(null, s);
             }
         }
     }

@@ -98,7 +98,7 @@ public static class SceneLoader
                     Debug.LogWarning("BLANK!");
                     break;
                 case Scene.DialogueScene:
-                    dMan.StartDialogue(dMan.EngagedHero);
+                    dMan.StartDialogue();
                     break;
                 case Scene.CombatScene:
                     uMan.StartCombatScene();

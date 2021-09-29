@@ -52,6 +52,7 @@ public class UIManager : MonoBehaviour
     private GameObject travelPopup;
 
     private GameObject endTurnButton;
+    private GameObject cancelEffectButton;
     private Coroutine sceneFadeRoutine;
     private GameObject playerZoneOutline;
     
@@ -60,6 +61,7 @@ public class UIManager : MonoBehaviour
     public GameObject CurrentWorldSpace { get; private set; }
     public GameObject CurrentCanvas { get; private set; }
     public GameObject CardPagePopup { get => cardPagePopup; }
+    public GameObject EndTurnButton { get => endTurnButton; }
 
     public void Start()
     {
@@ -83,9 +85,11 @@ public class UIManager : MonoBehaviour
      *****/
     public void StartCombatScene()
     {
+        cancelEffectButton = GameObject.Find("CancelEffectButton");
         endTurnButton = GameObject.Find("EndTurnButton");
         playerZoneOutline = GameObject.Find("PlayerZoneOutline");
-        playerZoneOutline.SetActive(false);
+        SetCancelEffectButton(false);
+        SetPlayerZoneOutline(false, false);
     }
     public void StartWorldMapScene()
     {
@@ -171,6 +175,29 @@ public class UIManager : MonoBehaviour
     }
     /******
      * *****
+     * ****** END_TURN_BUTTON
+     * *****
+     *****/
+    public void UpdateEndTurnButton(bool isMyTurn)
+    {
+        Button button = endTurnButton.GetComponent<Button>();
+        button.interactable = isMyTurn;
+        EndTurnButtonDisplay etbd =
+            endTurnButton.GetComponent<EndTurnButtonDisplay>();
+        etbd.EndTurnSide.SetActive(isMyTurn);
+        etbd.OpponentTurnSide.SetActive(!isMyTurn);
+    }
+    /******
+     * *****
+     * ****** CANCEL_EFFECT_BUTTON
+     * *****
+     *****/
+    public void SetCancelEffectButton(bool isEnabled)
+    {
+        cancelEffectButton.SetActive(isEnabled);
+    }
+    /******
+     * *****
      * ****** SELECT_TARGET
      * *****
      *****/
@@ -201,20 +228,6 @@ public class UIManager : MonoBehaviour
             else if (isRejected) image.color = rejectedColor;
             else image.color = highlightedColor;
         }
-    }
-    /******
-     * *****
-     * ****** END_TURN_BUTTON
-     * *****
-     *****/
-    public void UpdateEndTurnButton(bool isMyTurn)
-    {
-        Button button = endTurnButton.GetComponent<Button>();
-        button.interactable = isMyTurn;
-        EndTurnButtonDisplay etbd = 
-            endTurnButton.GetComponent<EndTurnButtonDisplay>();
-        etbd.EndTurnSide.SetActive(isMyTurn);
-        etbd.OpponentTurnSide.SetActive(!isMyTurn);
     }
     /******
      * *****

@@ -201,6 +201,7 @@ public class GameManager : MonoBehaviour
             icon.Location = loc;
             icon.LocationName = loc.LocationName;
             icon.WorldMapPosition = loc.WorldMapPosition;
+            if (loc.IsHomeBase) icon.SetHomeBaseImage();
         }
     }
 
@@ -248,6 +249,7 @@ public class GameManager : MonoBehaviour
         auMan.StartStopSound("SFX_StartCombat");
         HeroDisplay pHD = coMan.PlayerHero.GetComponent<HeroDisplay>();
         HeroDisplay eHD = coMan.EnemyHero.GetComponent<HeroDisplay>();
+        uMan.EndTurnButton.SetActive(false);
         pHD.HeroStats.SetActive(false);
         eHD.HeroStats.SetActive(false);
         coMan.IsInCombat = true;

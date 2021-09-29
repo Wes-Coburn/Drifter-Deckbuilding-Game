@@ -33,7 +33,6 @@ public class AetherCellPopupDisplay : MonoBehaviour
 
     public void OnClick()
     {
-        if (!CatchScreenDimmer()) return;
         // play sound
         UIManager.Instance.DestroyAetherCellPopup();
         if (!coMan.IsInCombat) dMan.DisplayDialoguePopup();
@@ -44,15 +43,5 @@ public class AetherCellPopupDisplay : MonoBehaviour
             coMan.IsInCombat = false;
         }
         else Debug.LogError("NEXT CLIP IS NOT COMBAT_REWARD_CLIP!");
-    }
-
-    private bool CatchScreenDimmer()
-    {
-        if (CardZoom.ZoomCardIsCentered)
-        {
-            UIManager.Instance.DestroyZoomObjects();
-            return false;
-        }
-        else return true;
     }
 }

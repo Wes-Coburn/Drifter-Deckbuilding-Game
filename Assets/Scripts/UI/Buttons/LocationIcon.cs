@@ -1,9 +1,12 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class LocationIcon : MonoBehaviour
 {
     [SerializeField] private GameObject locationName;
+    [SerializeField] private GameObject locationImage;
+    [SerializeField] private Sprite homeBaseSprite;
     
     private UIManager uMan;
 
@@ -27,6 +30,11 @@ public class LocationIcon : MonoBehaviour
 
     private void Start() => 
         uMan = UIManager.Instance;
+
+    public void SetHomeBaseImage()
+    {
+        locationImage.GetComponent<Image>().sprite = homeBaseSprite;
+    }
 
     public void OnClick() => 
         uMan.CreateTravelPopup(Location);

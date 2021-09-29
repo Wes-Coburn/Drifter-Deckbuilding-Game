@@ -15,10 +15,17 @@ public class AnimationManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
+    private UIManager uMan;
     private CombatManager coMan;
+    private DialogueManager dMan;
     private Vector2 playerHandStart;
 
-    private void Start() => coMan = CombatManager.Instance;
+    private void Start()
+    {
+        uMan = UIManager.Instance;
+        coMan = CombatManager.Instance;
+        dMan = DialogueManager.Instance;
+    }
 
     public void ChangeAnimationState(GameObject go, string animationState)
     {
@@ -75,7 +82,6 @@ public class AnimationManager : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         while (distance > 0);
-        UIManager uMan = UIManager.Instance;
         uMan.PlayerIsDiscarding = uMan.PlayerIsTargetting;
         uMan.DestroyZoomObjects();
     }
@@ -92,7 +98,7 @@ public class AnimationManager : MonoBehaviour
     private IEnumerator DialogueIntroNumerator()
     {
         float distance;
-        DialogueSceneDisplay dsp = DialogueManager.Instance.DialogueDisplay;
+        DialogueSceneDisplay dsp = dMan.DialogueDisplay;
         GameObject playerPortrait = dsp.PlayerHeroPortrait;
         GameObject npcPortrait = dsp.NPCHeroPortrait;
         Vector2 pPortStart = playerPortrait.transform.localPosition;
@@ -116,6 +122,42 @@ public class AnimationManager : MonoBehaviour
 
     /******
      * *****
+     * ****** NEW_ENGAGED_HERO
+     * *****
+     *****/
+    public void NewEngagedHero()
+    {
+        StartCoroutine(NewEngagedHeroNumerator());
+    }
+    private IEnumerator NewEngagedHeroNumerator()
+    {
+        float distance;
+        GameObject npcPortrait = dMan.DialogueDisplay.NPCHeroPortrait;
+        Vector2 nPortStart = npcPortrait.transform.localPosition;
+        Vector2 nPortEnd = new Vector2(-600, nPortStart.y);
+        
+        do
+        {
+            distance = Vector2.Distance(npcPortrait.transform.localPosition, nPortEnd);
+            npcPortrait.transform.localPosition = Vector2.MoveTowards(npcPortrait.transform.localPosition, nPortEnd, 30);
+            yield return new WaitForFixedUpdate();
+        }
+        while (distance > 0);
+
+        dMan.DisplayCurrentHeroes();
+        yield return new WaitForSeconds(0.5f);
+
+        do
+        {
+            distance = Vector2.Distance(npcPortrait.transform.localPosition, nPortStart);
+            npcPortrait.transform.localPosition = Vector2.MoveTowards(npcPortrait.transform.localPosition, nPortStart, 30);
+            yield return new WaitForFixedUpdate();
+        }
+        while (distance > 0);
+    }
+
+    /******
+     * *****
      * ****** COMBAT_INTRO
      * *****
      *****/
@@ -128,10 +170,12 @@ public class AnimationManager : MonoBehaviour
         float distance;
         HeroDisplay pHD = coMan.PlayerHero.GetComponent<HeroDisplay>();
         HeroDisplay eHD = coMan.EnemyHero.GetComponent<HeroDisplay>();
+        GameObject turBut = uMan.EndTurnButton;
         GameObject pFrame = pHD.HeroFrame;
         GameObject eFrame = eHD.HeroFrame;
         GameObject pStats = pHD.HeroStats;
         GameObject eStats = eHD.HeroStats;
+        Vector2 turButStart = turBut.transform.position;
         Vector2 pFrameStart = pFrame.transform.position;
         Vector2 eFrameStart = eFrame.transform.position;
         Vector2 pStatsStart = pStats.transform.localPosition;
@@ -140,10 +184,12 @@ public class AnimationManager : MonoBehaviour
         float fScale = 1;
         float fZoomScale = 1.5f;
         Vector2 scaleVec = new Vector2();
+        turBut.SetActive(true);
         pStats.SetActive(true);
         eStats.SetActive(true);
-        pStats.transform.localPosition = new Vector2(pStatsStart.x, -450);
-        eStats.transform.localPosition = new Vector2(eStatsStart.x, 450);
+        turBut.transform.localPosition = new Vector2(turButStart.x + 450, turButStart.y);
+        pStats.transform.localPosition = new Vector2(pStatsStart.x, pStatsStart.y - 450);
+        eStats.transform.localPosition = new Vector2(eStatsStart.x, eStatsStart.y + 450);
         
         do
         {
@@ -155,12 +201,11 @@ public class AnimationManager : MonoBehaviour
             scaleVec.Set(fScale, fScale);
             pFrame.transform.localScale = scaleVec;
             eFrame.transform.localScale = scaleVec;
-
             yield return new WaitForFixedUpdate();
         }
         while (distance > 700);
 
-        UIManager.Instance.CreateVersusPopup();
+        uMan.CreateVersusPopup();
         yield return new WaitForSeconds(3f);
         do
         {
@@ -179,6 +224,7 @@ public class AnimationManager : MonoBehaviour
         do
         {
             distance = Vector2.Distance(pStats.transform.localPosition, pStatsStart);
+            turBut.transform.position = Vector2.MoveTowards(turBut.transform.position, turButStart, 20);
             pStats.transform.localPosition = Vector2.MoveTowards(pStats.transform.localPosition, pStatsStart, 20);
             eStats.transform.localPosition = Vector2.MoveTowards(eStats.transform.localPosition, eStatsStart, 20);
             yield return new WaitForFixedUpdate();

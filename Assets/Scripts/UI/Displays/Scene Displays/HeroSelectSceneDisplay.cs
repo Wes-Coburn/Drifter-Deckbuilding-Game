@@ -5,6 +5,7 @@ using TMPro;
 public class HeroSelectSceneDisplay : MonoBehaviour
 {
     [SerializeField] private GameObject selectedHero;
+    [SerializeField] private GameObject heroSkills;
     [SerializeField] private GameObject skillCard_1;
     [SerializeField] private GameObject skillCard_2;
     [SerializeField] private GameObject heroPortrait;
@@ -12,6 +13,7 @@ public class HeroSelectSceneDisplay : MonoBehaviour
     [SerializeField] private GameObject heroDescription;
     [SerializeField] private GameObject heroPowerImage;
     [SerializeField] private GameObject heroPowerDescription;
+
     [SerializeField] private GameObject selectedAugment;
     [SerializeField] private GameObject augmentName;
     [SerializeField] private GameObject augmentImage;
@@ -35,8 +37,8 @@ public class HeroSelectSceneDisplay : MonoBehaviour
     private bool heroSelected;
     private bool augmentSelected;
 
-    private PlayerHero SelectedHero { get => playerHeroes[currentSelection]; }
-    private HeroAugment SelectedAugment { get => heroAugments[currentSelection]; }
+    private PlayerHero loadedHero;
+    private HeroAugment loadedAugment;
 
     private void Start()
     {
@@ -51,10 +53,9 @@ public class HeroSelectSceneDisplay : MonoBehaviour
     private void LoadSelections()
     {
         PlayerHero newPH = ScriptableObject.CreateInstance<PlayerHero>();
-        newPH.LoadHero(SelectedHero);
+        newPH.LoadHero(loadedHero);
         pMan.PlayerHero = newPH;
-
-        HeroAugment ha = SelectedAugment;
+        HeroAugment ha = loadedAugment;
         pMan.HeroAugments.Add(ha);
     }
 
@@ -114,47 +115,45 @@ public class HeroSelectSceneDisplay : MonoBehaviour
 
     private void DisplaySelectedAugment()
     {
+        loadedAugment = heroAugments[currentSelection];
         confirmSelection.SetActive(false);
         selectedAugment.SetActive(true);
         selectedHero.SetActive(false);
-        skillCard_1.SetActive(false);
-        skillCard_2.SetActive(false);
-
-        augmentName.GetComponent<TextMeshProUGUI>().SetText(SelectedAugment.AugmentName);
-        augmentImage.GetComponent<Image>().sprite = SelectedAugment.AugmentImage;
-        augmentDescription.GetComponent<TextMeshProUGUI>().SetText(SelectedAugment.AugmentDescription);
+        heroSkills.SetActive(false);
+        augmentName.GetComponent<TextMeshProUGUI>().SetText(loadedAugment.AugmentName);
+        augmentImage.GetComponent<Image>().sprite = loadedAugment.AugmentImage;
+        augmentDescription.GetComponent<TextMeshProUGUI>().SetText(loadedAugment.AugmentDescription);
     }
 
     public void DisplaySelectedHero()
     {
+        loadedHero = playerHeroes[currentSelection];
         confirmSelection.SetActive(false);
         selectedAugment.SetActive(false);
         selectedHero.SetActive(true);
-        skillCard_1.SetActive(true);
-        skillCard_2.SetActive(true);
-
-        heroName.GetComponent<TextMeshProUGUI>().SetText(SelectedHero.HeroName);
-        heroPortrait.GetComponent<Image>().sprite = SelectedHero.HeroPortrait;
-        uMan.GetPortraitPosition(SelectedHero.HeroName, 
+        heroSkills.SetActive(true);
+        heroName.GetComponent<TextMeshProUGUI>().SetText(loadedHero.HeroName);
+        heroPortrait.GetComponent<Image>().sprite = loadedHero.HeroPortrait;
+        uMan.GetPortraitPosition(loadedHero.HeroName, 
             out Vector2 position, out Vector2 scale, SceneLoader.Scene.HeroSelectScene);
         heroPortrait.transform.localPosition = position;
         heroPortrait.transform.localScale = scale;
 
-        heroDescription.GetComponent<TextMeshProUGUI>().SetText(SelectedHero.HeroDescription);
-        heroPowerImage.GetComponent<Image>().sprite = SelectedHero.HeroPower.PowerSprite;
-        heroPowerImage.GetComponentInParent<PowerZoom>().LoadedPower = SelectedHero.HeroPower;
+        heroDescription.GetComponent<TextMeshProUGUI>().SetText(loadedHero.HeroDescription);
+        heroPowerImage.GetComponent<Image>().sprite = loadedHero.HeroPower.PowerSprite;
+        heroPowerImage.GetComponentInParent<PowerZoom>().LoadedPower = loadedHero.HeroPower;
 
-        Sound[] snd = SelectedHero.HeroPower.PowerSounds;
+        Sound[] snd = loadedHero.HeroPower.PowerSounds;
         foreach (Sound s in snd) AudioManager.Instance.StartStopSound(null, s);
 
-        int cost = SelectedHero.HeroPower.PowerCost;
+        int cost = loadedHero.HeroPower.PowerCost;
         string actions;
         if (cost > 1) actions = "actions";
         else actions = "action";
         string description = " (" + cost + " " + actions + ", 1/turn): ";
 
-        heroPowerDescription.GetComponent<TextMeshProUGUI>().SetText(SelectedHero.HeroPower.PowerName +
-            description + SelectedHero.HeroPower.PowerDescription);
+        heroPowerDescription.GetComponent<TextMeshProUGUI>().SetText(loadedHero.HeroPower.PowerName +
+            description + loadedHero.HeroPower.PowerDescription);
 
         if (currentSkill_1 != null)
         {
@@ -168,8 +167,8 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         }
 
         Vector2 vec2 = new Vector2();
-        currentSkill_1 = coMan.ShowCard(SelectedHero.HeroStartSkills[0], vec2);
-        currentSkill_2 = coMan.ShowCard(SelectedHero.HeroStartSkills[1], vec2);
+        currentSkill_1 = coMan.ShowCard(loadedHero.HeroStartSkills[0], vec2);
+        currentSkill_2 = coMan.ShowCard(loadedHero.HeroStartSkills[1], vec2);
         currentSkill_1.transform.SetParent(skillCard_1.transform, false);
         currentSkill_2.transform.SetParent(skillCard_2.transform, false);
         Vector2 scaleVec = new Vector2(4, 4);
@@ -182,17 +181,16 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         confirmSelection.SetActive(true);
         selectedAugment.SetActive(false);
         selectedHero.SetActive(false);
-        skillCard_1.SetActive(false);
-        skillCard_2.SetActive(false);
+        heroSkills.SetActive(false);
 
-        confirmHeroName.GetComponent<TextMeshProUGUI>().SetText(SelectedHero.HeroName);
-        confirmHeroPortrait.GetComponent<Image>().sprite = SelectedHero.HeroPortrait;
-        uMan.GetPortraitPosition(SelectedHero.HeroName,
+        confirmHeroName.GetComponent<TextMeshProUGUI>().SetText(loadedHero.HeroName);
+        confirmHeroPortrait.GetComponent<Image>().sprite = loadedHero.HeroPortrait;
+        uMan.GetPortraitPosition(loadedHero.HeroName,
             out Vector2 position, out Vector2 scale, SceneLoader.Scene.HeroSelectScene);
         confirmHeroPortrait.transform.localPosition = position;
         confirmHeroPortrait.transform.localScale = scale;
 
-        confirmAugmentName.GetComponent<TextMeshProUGUI>().SetText(SelectedAugment.AugmentName);
-        confirmAugmentImage.GetComponent<Image>().sprite = SelectedAugment.AugmentImage;
+        confirmAugmentName.GetComponent<TextMeshProUGUI>().SetText(loadedAugment.AugmentName);
+        confirmAugmentImage.GetComponent<Image>().sprite = loadedAugment.AugmentImage;
     }
 }

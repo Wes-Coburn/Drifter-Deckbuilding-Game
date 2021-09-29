@@ -66,9 +66,9 @@ public class NewCardPopupDisplay : MonoBehaviour
 
     public void AddCard()
     {
-        if (!CatchScreenDimmer()) return;
         GetComponent<SoundPlayer>().PlaySound(2);
         caMan.DestroyNewCardPopup();
+
         DialogueClip nextClip = dMan.EngagedHero.NextDialogueClip;
         if (!coMan.IsInCombat)
         {
@@ -101,7 +101,6 @@ public class NewCardPopupDisplay : MonoBehaviour
 
     public void IgnoreCard()
     {
-        if (!CatchScreenDimmer()) return;
         GetComponent<SoundPlayer>().PlaySound(3);
         pMan.PlayerDeckList.Remove(CurrentCard);
         caMan.DestroyNewCardPopup();
@@ -133,15 +132,5 @@ public class NewCardPopupDisplay : MonoBehaviour
             }
         }
         else Debug.LogError("NEXT CLIP IS NOT COMBAT_REWARD_CLIP!");
-    }
-
-    private bool CatchScreenDimmer()
-    {
-        if (CardZoom.ZoomCardIsCentered)
-        {
-            uMan.DestroyZoomObjects();
-            return false;
-        }
-        else return true;
     }
 }

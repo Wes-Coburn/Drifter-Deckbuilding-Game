@@ -15,6 +15,7 @@ public class EffectManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
+    private PlayerManager pMan;
     private CombatManager coMan;
     private UIManager uMan;
     private AudioManager auMan;
@@ -65,6 +66,7 @@ public class EffectManager : MonoBehaviour
 
     private void Start()
     {
+        pMan = PlayerManager.Instance;
         coMan = CombatManager.Instance;
         uMan = UIManager.Instance;
         auMan = AudioManager.Instance;
@@ -234,6 +236,8 @@ public class EffectManager : MonoBehaviour
         }
         else
         {
+            uMan.SetCancelEffectButton(true); // TESTING
+
             if (dragArrow != null) Destroy(dragArrow);
             dragArrow = Instantiate(coMan.DragArrowPrefab, uMan.CurrentWorldSpace.transform);
             dragArrow.GetComponent<DragArrow>().SourceCard = effectSource;
@@ -439,6 +443,7 @@ public class EffectManager : MonoBehaviour
         }
         else
         {
+            uMan.SetCancelEffectButton(false); // TESTING
             Destroy(dragArrow);
             dragArrow = null;
         }
@@ -534,14 +539,14 @@ public class EffectManager : MonoBehaviour
      * ****** ABORT_EFFECT_GROUP
      * *****
      *****/
-    private void AbortEffectGroup()
+    public void AbortEffectGroup()
     {
         if (effectSource == null)
         {
             Debug.LogError("EFFECT SOURCE IS NULL!");
             return;
         }
-        if (effectSource.TryGetComponent<ActionCardDisplay>(out _))
+        if (effectSource.TryGetComponent(out ActionCardDisplay acd))
         {
             string zone;
             if (effectSource.CompareTag(CombatManager.PLAYER_CARD)) 
@@ -549,6 +554,28 @@ public class EffectManager : MonoBehaviour
             else zone = CombatManager.ENEMY_HAND;
             coMan.ChangeCardZone(effectSource, zone);
             anMan.RevealedHandState(effectSource);
+            effectSource.GetComponent<DragDrop>().IsPlayed = false; // TESTING
+            PlayerManager.Instance.PlayerActionsLeft += acd.CurrentActionCost; // TESTING
+        }
+        else if (effectSource.CompareTag(CombatManager.PLAYER_HERO)) // TESTING
+        {
+            pMan.HeroPowerUsed = false;
+            pMan.PlayerActionsLeft += pMan.PlayerHero.HeroPower.PowerCost;
+        }
+        
+        // TESTING
+        uMan.PlayerIsTargetting = false;
+        uMan.DismissInfoPopup();
+        if (legalTargets != null)
+        {
+            List<GameObject> targetList = legalTargets[currentEffectGroup];
+            foreach (GameObject target in targetList)
+                target.GetComponent<CardSelect>().CardOutline.SetActive(false);
+        }
+        if (dragArrow != null)
+        {
+            Destroy(dragArrow);
+            dragArrow = null;
         }
         FinishEffectGroup(true);
     }
