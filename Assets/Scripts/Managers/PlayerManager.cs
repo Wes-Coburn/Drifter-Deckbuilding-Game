@@ -23,9 +23,19 @@ public class PlayerManager : MonoBehaviour
     private PlayerHero playerHero;
     private int playerHealth;
     private int playerActionsLeft;
+    private List<HeroAugment> heroAugments;
+    private int aetherCells;
 
-    public int AetherCells { get; set; }
-    public List<HeroAugment> HeroAugments { get; private set; }
+    public int AetherCells
+    {
+        get => aetherCells;
+        set
+        {
+            aetherCells = value;
+            uMan.SetAetherCount(value); // TESTING
+        }
+    }
+    public List<HeroAugment> HeroAugments { get => heroAugments; }
     public List<Card> PlayerDeckList { get; private set; }
     public List<Card> CurrentPlayerDeck { get; private set; }
     public bool IsMyTurn { get; set; }
@@ -85,13 +95,19 @@ public class PlayerManager : MonoBehaviour
         auMan = AudioManager.Instance;
         PlayerDeckList = new List<Card>();
         CurrentPlayerDeck = new List<Card>();
-        HeroAugments = new List<HeroAugment>();
+        heroAugments = new List<HeroAugment>();
         HeroPowerUsed = false;
+    }
+
+    public void AddAugment(HeroAugment augment)
+    {
+        heroAugments.Add(augment);
+        uMan.CreateAugmentIcon(augment); // TESTING
     }
 
     public bool GetAugment(string augmentName)
     {
-        int augmentIndex = HeroAugments.FindIndex(x => x.AugmentName == augmentName);
+        int augmentIndex = heroAugments.FindIndex(x => x.AugmentName == augmentName);
         if (augmentIndex == -1) return false;
         else return true;
     }

@@ -56,7 +56,7 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         newPH.LoadHero(loadedHero);
         pMan.PlayerHero = newPH;
         HeroAugment ha = loadedAugment;
-        pMan.HeroAugments.Add(ha);
+        pMan.AddAugment(ha);
     }
 
     public void ConfirmButton_OnClick()

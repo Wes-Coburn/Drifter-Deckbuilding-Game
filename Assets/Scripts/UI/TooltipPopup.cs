@@ -16,8 +16,9 @@ public class TooltipPopup : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         FunctionTimer.Create(() => ShowTooltip(), 0.5f, TOOLTIP_TIMER);
         void ShowTooltip()
         {
-            if (tooltipPopup != null) Destroy(tooltipPopup);
-            tooltipPopup = Instantiate(tooltipPopupPrefab, UIManager.Instance.CurrentWorldSpace.transform);
+            DestroyToolTip();
+            tooltipPopup = Instantiate(tooltipPopupPrefab, 
+                UIManager.Instance.CurrentWorldSpace.transform);
             DisplayTooltipPopup();
         }
     }
@@ -25,16 +26,21 @@ public class TooltipPopup : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public void OnPointerExit(PointerEventData pointerEventData)
     {
         FunctionTimer.StopTimer(TOOLTIP_TIMER);
+        DestroyToolTip();
+    }
+
+    private void DisplayTooltipPopup()
+    {
+        tooltipPopup.transform.localPosition = tooltipPosition;
+        tooltipPopup.GetComponentInChildren<TextMeshPro>().SetText(tooltipText);
+    }
+
+    private void DestroyToolTip()
+    {
         if (tooltipPopup != null)
         {
             Destroy(tooltipPopup);
             tooltipPopup = null;
         }
-    }
-
-    public void DisplayTooltipPopup()
-    {
-        tooltipPopup.transform.localPosition = tooltipPosition;
-        tooltipPopup.GetComponentInChildren<TextMeshPro>().SetText(tooltipText);
     }
 }

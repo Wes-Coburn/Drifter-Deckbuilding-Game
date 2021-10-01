@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
         }
         else Destroy(gameObject);
     }
-
+    
     [SerializeField] GameObject locationIconPrefab;
     [SerializeField] string[] gameChapters;
     [SerializeField] private GiveNextUnitEffect augmentBiogenEffect;
@@ -181,6 +181,8 @@ public class GameManager : MonoBehaviour
         efMan.GiveNextEffects.Clear();
         // Event Manager
         evMan.ClearDelayedActions();
+        // UI Manager
+        uMan.ClearAugmentBar(); // TESTING
         // Scene Loader
         SceneLoader.LoadScene(SceneLoader.Scene.TitleScene);
     }

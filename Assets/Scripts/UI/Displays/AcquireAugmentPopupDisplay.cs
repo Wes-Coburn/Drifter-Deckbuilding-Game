@@ -35,7 +35,7 @@ public class AcquireAugmentPopupDisplay : MonoBehaviour
 
     public void ConfirmButton_OnClick()
     {
-        pMan.HeroAugments.Add(heroAugment);
+        pMan.AddAugment(heroAugment);
         pMan.AetherCells -= 3;
         CancelButton_OnClick();
         FindObjectOfType<HomeBaseSceneDisplay>().CloseAugmentsButton_OnClick(); // Temporary fix, eventually reload augments

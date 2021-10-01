@@ -16,7 +16,7 @@ public class CombatTestButton : MonoBehaviour
         DialogueManager.Instance.EngagedHero = eh;
         PlayerManager pMan = PlayerManager.Instance;
         pMan.PlayerHero = ph;
-        pMan.HeroAugments.Add(heroAugment);
+        pMan.AddAugment(heroAugment);
         foreach (Card c in testCards)
         {
             CardManager.Instance.AddCard(c, GameManager.PLAYER);

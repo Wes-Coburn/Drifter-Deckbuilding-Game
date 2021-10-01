@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
@@ -13,17 +14,29 @@ public class UIManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+
+            SetSkybar(false);
+            StartCoroutine(WaitForSplash());
         }
         else Destroy(gameObject);
-        StartCoroutine(WaitForSplash());
     }
 
+    [Header("SKYBAR")]
+    [SerializeField] private GameObject skyBar;
+    [SerializeField] private GameObject aetherCount;
+    [SerializeField] private GameObject augmentBar;
+
+    [Header("SCENE FADER")]
+    [SerializeField] private GameObject sceneFader;
+
+    [Header("PREFABS")]
+    [SerializeField] private GameObject augmentIconPrefab;
+    [SerializeField] private GameObject augmentIconPopupPrefab;
     [SerializeField] private GameObject screenDimmerPrefab;
     [SerializeField] private GameObject infoPopupPrefab;
     [SerializeField] private GameObject combatEndPopupPrefab;
     [SerializeField] private GameObject turnPopupPrefab;
     [SerializeField] private GameObject versusPopupPrefab;
-    [SerializeField] private GameObject sceneFader;
     [SerializeField] private GameObject menuPopupPrefab;
     [SerializeField] private GameObject explicitLanguagePopupPrefab;
     [SerializeField] private GameObject aetherCellPopupPrefab;
@@ -32,11 +45,15 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject acquireAugmentPopupPrefab;
     [SerializeField] private GameObject removeCardPopupPrefab;
     [SerializeField] private GameObject locationPopupPrefab;
+
     [Header("COLORS")]
     [SerializeField] private Color highlightedColor;
     [SerializeField] private Color selectedColor;
     [SerializeField] private Color rejectedColor;
 
+    private PlayerManager pMan;
+
+    private GameObject augmentIconPopup;
     private GameObject screenDimmer;
     private GameObject infoPopup;
     private GameObject combatEndPopup;
@@ -68,6 +85,7 @@ public class UIManager : MonoBehaviour
         CurrentWorldSpace = GameObject.Find("WorldSpace");
         CurrentCanvas = GameObject.Find("Canvas");
         PlayerIsTargetting = false;
+        pMan = PlayerManager.Instance;
     }
 
     private IEnumerator WaitForSplash()
@@ -110,6 +128,7 @@ public class UIManager : MonoBehaviour
             else sr.color = highlightedColor;
         }
     }
+
     /******
      * *****
      * ****** SCENE_FADER
@@ -192,10 +211,8 @@ public class UIManager : MonoBehaviour
      * ****** CANCEL_EFFECT_BUTTON
      * *****
      *****/
-    public void SetCancelEffectButton(bool isEnabled)
-    {
+    public void SetCancelEffectButton(bool isEnabled) =>
         cancelEffectButton.SetActive(isEnabled);
-    }
     /******
      * *****
      * ****** SELECT_TARGET
@@ -384,7 +401,8 @@ public class UIManager : MonoBehaviour
     }
     public void InsufficientAetherPopup()
     {
-        CreateCenteredInfoPopup("Not enough aether! (You have " + PlayerManager.Instance.AetherCells + " aether)");
+        CreateCenteredInfoPopup("Not enough aether! (You have " + 
+            pMan.AetherCells + " aether)");
     }
     public void DismissInfoPopup()
     {
@@ -535,7 +553,6 @@ public class UIManager : MonoBehaviour
     // Travel Popup
     public void CreateTravelPopup(Location location)
     {
-        Debug.LogWarning("TRAVEL POPUP!");
         DestroyTravelPopup();
         travelPopup = Instantiate(locationPopupPrefab, CurrentCanvas.transform);
         LocationPopupDisplay lpd = travelPopup.GetComponent<LocationPopupDisplay>();
@@ -548,6 +565,57 @@ public class UIManager : MonoBehaviour
         {
             Destroy(travelPopup);
             travelPopup = null;
+        }
+    }
+
+    /******
+     * *****
+     * ****** SKYBAR
+     * *****
+     *****/
+    public void SetSkybar(bool enabled)
+    {
+        skyBar.SetActive(enabled);
+        if (enabled)
+        {
+            ClearAugmentBar();
+            SetAetherCount(pMan.AetherCells);
+            foreach (HeroAugment ha in pMan.HeroAugments) 
+                CreateAugmentIcon(ha);
+        }
+    }
+    public void SetAetherCount(int count)
+    {
+        if (!skyBar.activeSelf) return;
+        aetherCount.GetComponentInChildren<TextMeshProUGUI>().
+            SetText(count.ToString());
+    }
+    public void CreateAugmentIcon(HeroAugment augment)
+    {
+        if (!skyBar.activeSelf) return;
+        GameObject augmentIcon = Instantiate(augmentIconPrefab, augmentBar.transform);
+        augmentIcon.GetComponent<AugmentIcon>().LoadedAugment = augment;
+    }
+    public void ClearAugmentBar()
+    {
+        if (!skyBar.activeSelf) return;
+        foreach (Transform tran in augmentBar.transform) 
+            Destroy(tran.gameObject);
+    }
+    public void CreateAugmentIconPopup(HeroAugment augment)
+    {
+        DestroyAugmentIconPopup();
+        augmentIconPopup = Instantiate(augmentIconPopupPrefab, CurrentCanvas.transform);
+        augmentIconPopup.transform.localPosition = new Vector2(0, 350);
+        augmentIconPopup.GetComponent<AugmentIconPopupDisplay>().HeroAugment = augment;
+    }
+
+    public void DestroyAugmentIconPopup()
+    {
+        if (augmentIconPopup != null)
+        {
+            Destroy(augmentIconPopup);
+            augmentIconPopup = null;
         }
     }
 }

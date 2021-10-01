@@ -65,6 +65,7 @@ public static class SceneLoader
                     Debug.LogError("SCENE TYPE NOT FOUND!");
                     return;
             }
+            uMan.SetSkybar(false); // TESTING
             UnityEngine.Object.FindObjectOfType<LoadingSceneDisplay>().ChapterText = chapterText;
             FunctionTimer.Create(() => uMan.SetSceneFader(true), 5f);
             FunctionTimer.Create(() => SceneManager.LoadScene(scene.ToString()), 7f);
@@ -77,17 +78,21 @@ public static class SceneLoader
             uMan.Start();
             auMan.CleanAudioSources();
             SceneIsLoading = false;
+            bool showSkybar = true; // TESTING
 
             switch (scene)
             {
                 case Scene.TitleScene:
+                    showSkybar = false;
                     auMan.StartStopSound("Soundtrack_TitleScene", null, 
                         AudioManager.SoundType.Soundtrack);
                     break;
                 case Scene.HeroSelectScene:
+                    showSkybar = false;
                     UnityEngine.Object.FindObjectOfType<HeroSelectSceneDisplay>().DisplaySelectedHero();
                     break;
                 case Scene.NarrativeScene:
+                    showSkybar = false;
                     gMan.StartNarrative();
                     break;
                 case Scene.WorldMapScene:
@@ -109,6 +114,7 @@ public static class SceneLoader
                     Debug.LogError("SCENE NOT FOUND!");
                     break;
             }
+            uMan.SetSkybar(showSkybar); // TESTING
         };
 
         dMan.StopTimedText();
