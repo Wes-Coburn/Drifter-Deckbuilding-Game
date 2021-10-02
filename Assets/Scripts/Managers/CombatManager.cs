@@ -205,12 +205,19 @@ public class CombatManager : MonoBehaviour
     public void DrawCard(string hero)
     {
         List<Card> deck;
+        List<GameObject> hand;
         string cardTag;
         string cardZone;
         Vector2 position = new Vector2();
         if (hero == PLAYER)
         {
             deck = pMan.CurrentPlayerDeck;
+            hand = PlayerHandCards;
+            if (hand.Count >= GameManager.MAX_HAND_SIZE)
+            {
+                uMan.CreateFleetinInfoPopup("Your hand is full!");
+                return;
+            }
             cardTag = PLAYER_CARD;
             cardZone = PLAYER_HAND;
             position.Set(-750, -350);
@@ -218,6 +225,12 @@ public class CombatManager : MonoBehaviour
         else if (hero == ENEMY)
         {
             deck = enMan.CurrentEnemyDeck;
+            hand = EnemyHandCards;
+            if (hand.Count >= GameManager.MAX_HAND_SIZE)
+            {
+                uMan.CreateFleetinInfoPopup("Enemy hand is full!");
+                return;
+            }
             cardTag = ENEMY_CARD;
             cardZone = ENEMY_HAND;
             position.Set(685, 370);
@@ -227,6 +240,7 @@ public class CombatManager : MonoBehaviour
             Debug.LogError("PLAYER <" + hero + "> NOT FOUND!");
             return;
         }
+
         // Shuffle discard into deck
         if (deck.Count < 1)
         {
@@ -302,7 +316,17 @@ public class CombatManager : MonoBehaviour
     {
         int actionCost = card.GetComponent<CardDisplay>().CurrentActionCost;
         int playerActions = pMan.PlayerActionsLeft;
-        if (card.GetComponent<CardDisplay>() is ActionCardDisplay acd)
+        CardDisplay display = card.GetComponent<CardDisplay>();
+        if (display is UnitCardDisplay)
+        {
+            if (PlayerZoneCards.Count >= GameManager.MAX_UNITS_PLAYED) // TESTING
+            {
+                uMan.CreateFleetinInfoPopup("Too many units!");
+                ErrorSound();
+                return false;
+            }
+        }
+        else if (display is ActionCardDisplay acd)
             if (!efMan.CheckLegalTargets(acd.ActionCard.EffectGroupList, card, true))
             {
                 uMan.CreateFleetinInfoPopup("You can't play that right now!");
@@ -384,35 +408,6 @@ public class CombatManager : MonoBehaviour
      *****/
     public void PlayCard(GameObject card)
     {
-        void PlayUnit()
-        {
-            caMan.TriggerCardAbility(card, "Play");
-            PlayCardSound();
-            PlayAbilitySounds();
-        }
-        void PlayAction()
-        {
-            PlayCardSound();
-            ResolveActionCard(card);
-        }
-        void PlayCardSound()
-        {
-            Sound playSound = card.GetComponent<CardDisplay>().CardScript.CardPlaySound;
-            auMan.StartStopSound(null, playSound);
-    }
-        void PlayAbilitySounds()
-        {
-            float delay = 0.3f;
-            foreach (CardAbility ca in card.GetComponent<UnitCardDisplay>().CurrentAbilities)
-            {
-                if (ca is StaticAbility sa)
-                {
-                    FunctionTimer.Create(() =>
-                    auMan.StartStopSound(null, sa.GainAbilitySound), delay);
-                }
-                delay += 0.3f;
-            }
-        }
         // PLAYER
         if (card.CompareTag(PLAYER_CARD))
         {
@@ -441,6 +436,11 @@ public class CombatManager : MonoBehaviour
         // ENEMY
         else if (card.CompareTag(ENEMY_CARD))
         {
+            if (EnemyZoneCards.Count >= GameManager.MAX_UNITS_PLAYED)
+            {
+                uMan.CreateFleetinInfoPopup("Too many enemy units!"); // TESTING
+                return;
+            }
             EnemyHandCards.Remove(card);
             if (card.GetComponent<CardDisplay>() is UnitCardDisplay)
             {
@@ -448,16 +448,9 @@ public class CombatManager : MonoBehaviour
                 ChangeCardZone(card, ENEMY_ZONE);
                 PlayUnit();
             }
-            /* Enemies don't play action cards
-            else if (card.GetComponent<CardDisplay>() is ActionCardDisplay)
-            {
-                ChangeCardZone(card, ENEMY_ACTION_ZONE);
-                PlayAction();
-            }
-            */
             else
             {
-                Debug.LogError("CARDDISPLAY TYPE NOT FOUND!");
+                Debug.LogError("CARD DISPLAY TYPE NOT FOUND!");
                 return;
             }
         }
@@ -465,6 +458,35 @@ public class CombatManager : MonoBehaviour
         {
             Debug.LogError("CARD TAG NOT FOUND!");
             return;
+        }
+        void PlayUnit()
+        {
+            caMan.TriggerCardAbility(card, "Play");
+            PlayCardSound();
+            PlayAbilitySounds();
+        }
+        void PlayAction()
+        {
+            PlayCardSound();
+            ResolveActionCard(card);
+        }
+        void PlayCardSound()
+        {
+            Sound playSound = card.GetComponent<CardDisplay>().CardScript.CardPlaySound;
+            auMan.StartStopSound(null, playSound);
+        }
+        void PlayAbilitySounds()
+        {
+            float delay = 0.3f;
+            foreach (CardAbility ca in card.GetComponent<UnitCardDisplay>().CurrentAbilities)
+            {
+                if (ca is StaticAbility sa)
+                {
+                    FunctionTimer.Create(() =>
+                    auMan.StartStopSound(null, sa.GainAbilitySound), delay);
+                }
+                delay += 0.3f;
+            }
         }
     }
 

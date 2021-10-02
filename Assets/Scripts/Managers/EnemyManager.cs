@@ -86,11 +86,27 @@ public class EnemyManager : MonoBehaviour
         if ((refo + 1) < refoSched.Count) CurrentReinforcements++;
         else CurrentReinforcements = 0;
 
+        int handSize = coMan.EnemyHandCards.Count;
+        // Draw Cards
+        int cardsToDraw = refoSched[refo];
+        int overMaxCards = GameManager.MAX_HAND_SIZE + 1;
+        if (cardsToDraw + handSize > overMaxCards)
+            cardsToDraw = overMaxCards - handSize;
         evMan.NewDelayedAction(() => NextReinforcements(), refoDelay);
-        for (int i = 0; i < refoSched[refo]; i++)
+        for (int i = 0; i < cardsToDraw; i++)
             evMan.NewDelayedAction(() => coMan.DrawCard(GameManager.ENEMY), 1);
-        for (int i = 0; i < refoSched[refo]; i++)
+
+        // Play Cards
+        int cardsToPlay = handSize + refoSched[refo];
+        int maxHand = GameManager.MAX_HAND_SIZE;
+        int overMaxUnits = GameManager.MAX_UNITS_PLAYED + 1;
+        int playedUnits = coMan.EnemyZoneCards.Count;
+        if (cardsToPlay > maxHand) cardsToPlay = maxHand;
+        if (cardsToPlay + playedUnits > overMaxUnits) 
+            cardsToPlay = overMaxUnits - playedUnits;
+        for (int i = 0; i < cardsToPlay; i++)
             evMan.NewDelayedAction(() => coMan.PlayCard(coMan.EnemyHandCards[0]), 2);
+
         evMan.NewDelayedAction(() => BeginAttack(), 1);
 
         void Reinforcements()
@@ -111,7 +127,6 @@ public class EnemyManager : MonoBehaviour
                 if (!ucd.IsExhausted && ucd.CurrentPower > 0)
                     evMan.NewDelayedAction(() => FinishAttack(enemyUnit), 1);
             }
-            // END TURN
             evMan.NewDelayedAction(() => 
             GameManager.Instance.EndTurn(GameManager.ENEMY), 2);
         }

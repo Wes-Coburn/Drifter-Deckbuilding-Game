@@ -21,7 +21,6 @@ public class CardManager : MonoBehaviour
     [SerializeField] private UnitCard[] playerStartUnits;
     [SerializeField] private Sprite cardBackSprite;
 
-    private PlayerManager pMan;
     public GameObject UnitCardPrefab { get => unitCardPrefab; }
     public GameObject ActionCardPrefab { get => actionCardPrefab; }
     public GameObject NewCardPopup { get; private set; }
