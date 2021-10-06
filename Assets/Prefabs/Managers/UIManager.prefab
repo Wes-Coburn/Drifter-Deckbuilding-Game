@@ -721,6 +721,7 @@ GameObject:
   - component: {fileID: 7803076935343690852}
   - component: {fileID: 8127140430095270448}
   - component: {fileID: 2335097635177902536}
+  - component: {fileID: 698948134}
   m_Layer: 0
   m_Name: AetherCount
   m_TagString: Untagged
@@ -831,6 +832,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &698948134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6636945436113886801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa007eff4e492ba4bad63f21cbf4c4d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltipPopupPrefab: {fileID: 7177373728927392186, guid: 6363c5ece3ab74f41ab0a33c7358b5cb,
+    type: 3}
+  tooltipText: Your total AETHER. Use Aether to improve your hero at your ship.
+  tooltipPosition: {x: -700, y: 300}
 --- !u!1 &7161617364470241153
 GameObject:
   m_ObjectHideFlags: 0

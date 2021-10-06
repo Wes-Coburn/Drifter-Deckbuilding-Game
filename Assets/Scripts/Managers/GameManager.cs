@@ -66,8 +66,8 @@ public class GameManager : MonoBehaviour
 
     // Enemy
     public const string ENEMY = "Enemy";
-    public const int ENEMY_STARTING_HEALTH = 20;
-    //public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
+    //public const int ENEMY_STARTING_HEALTH = 20;
+    public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
     public const int ENEMY_HAND_SIZE = 0;
     public const int ENEMY_START_FOLLOWERS = 5;
     public const int ENEMY_START_SKILLS = 2;
@@ -125,7 +125,7 @@ public class GameManager : MonoBehaviour
      * ****** GET_ACTIVE_LOCATION
      * *****
      *****/
-    public Location GetActiveLocation(Location location)
+    public Location GetActiveLocation(Location location, NPCHero newNPC = null)
     {
         if (location == null)
         {
@@ -135,14 +135,20 @@ public class GameManager : MonoBehaviour
         int activeLocation;
         activeLocation = ActiveLocations.FindIndex
             (x => x.LocationName == location.LocationName);
-        if (activeLocation != -1) return ActiveLocations[activeLocation];
+        if (activeLocation != -1)
+        {
+            Location loc = ActiveLocations[activeLocation];
+            if (newNPC != null) loc.CurrentNPC = GetActiveNPC(newNPC); // TESTING
+            return loc;
+        }
         else
         {
-            Location newLocation = ScriptableObject.CreateInstance<Location>();
-            newLocation.LoadLocation(location);
-            newLocation.CurrentNPC = GetActiveNPC(location.FirstNPC);
-            ActiveLocations.Add(newLocation);
-            return newLocation;
+            Location newLoc = ScriptableObject.CreateInstance<Location>();
+            newLoc.LoadLocation(location);
+            if (newNPC != null) newLoc.CurrentNPC = GetActiveNPC(newNPC); // TESTING
+            else newLoc.CurrentNPC = GetActiveNPC(location.FirstNPC);
+            ActiveLocations.Add(newLoc);
+            return newLoc;
         }
     }
 

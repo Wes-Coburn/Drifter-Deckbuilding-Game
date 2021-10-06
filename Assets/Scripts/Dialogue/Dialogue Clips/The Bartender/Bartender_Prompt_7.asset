@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25b107ecdac65374f8c56b3212c061ce, type: 3}
+  m_Name: Bartender_Prompt_7
+  m_EditorClassIdentifier: 
+  developerNotes: 
+  journalNotes: []
+  dialoguePromptText: Anyone around here will vouch for me. *He gestures around the
+    room, and a few of the patrons raise their glasses in agreement.*
+  dialogueResponse1:
+    responseText: Fine, then tell me what I need to know.
+    response_Respect: 0
+    response_NextClip: {fileID: 11400000, guid: 4146953249ce1a9479ec3204a99578ed,
+      type: 2}
+    response_IsExit: 0
+    response_IsCombatStart: 0
+    response_IsWorldMapStart: 0
+  dialogueResponse2:
+    responseText: My mistake then.
+    response_Respect: 0
+    response_NextClip: {fileID: 11400000, guid: 4146953249ce1a9479ec3204a99578ed,
+      type: 2}
+    response_IsExit: 0
+    response_IsCombatStart: 0
+    response_IsWorldMapStart: 0
+  dialogueResponse3:
+    responseText: "Alright, I\u2019ll bite."
+    response_Respect: 0
+    response_NextClip: {fileID: 11400000, guid: 4146953249ce1a9479ec3204a99578ed,
+      type: 2}
+    response_IsExit: 0
+    response_IsCombatStart: 0
+    response_IsWorldMapStart: 0
+  newEngagedHero: {fileID: 0}
+  newCard: {fileID: 0}
+  aetherCells: 0
+  newLocations: []

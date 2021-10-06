@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25b107ecdac65374f8c56b3212c061ce, type: 3}
+  m_Name: Bartender_Prompt_1
+  m_EditorClassIdentifier: 
+  developerNotes: 
+  journalNotes: []
+  dialoguePromptText: Welcome back. I heard about your fight on The Frequency.
+  dialogueResponse1:
+    responseText: I was almost killed there, asshole.
+    response_Respect: 0
+    response_NextClip: {fileID: 11400000, guid: df0802e1bfb8e42419f2917685accbdb,
+      type: 2}
+    response_IsExit: 0
+    response_IsCombatStart: 0
+    response_IsWorldMapStart: 0
+  dialogueResponse2:
+    responseText: 'What do you know about Iron-Clan? '
+    response_Respect: 0
+    response_NextClip: {fileID: 11400000, guid: 612971b63c1411e4ba8b780d496e4bb1,
+      type: 2}
+    response_IsExit: 0
+    response_IsCombatStart: 0
+    response_IsWorldMapStart: 0
+  dialogueResponse3:
+    responseText: 'Why did you send me there? '
+    response_Respect: 0
+    response_NextClip: {fileID: 11400000, guid: df0802e1bfb8e42419f2917685accbdb,
+      type: 2}
+    response_IsExit: 0
+    response_IsCombatStart: 0
+    response_IsWorldMapStart: 0
+  newEngagedHero: {fileID: 0}
+  newCard: {fileID: 0}
+  aetherCells: 0
+  newLocations: []

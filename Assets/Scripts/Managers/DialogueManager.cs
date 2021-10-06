@@ -47,7 +47,8 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue()
     {
-        AudioManager.Instance.StartStopSound("Soundtrack_Dialogue1", null, AudioManager.SoundType.Soundtrack);
+        AudioManager.Instance.StartStopSound("Soundtrack_Dialogue1",
+            null, AudioManager.SoundType.Soundtrack);
         dialogueDisplay = FindObjectOfType<DialogueSceneDisplay>();
         dialogueDisplay.PlayerHeroPortrait.SetActive(false);
         dialogueDisplay.NPCHeroPortrait.SetActive(false);
@@ -115,6 +116,7 @@ public class DialogueManager : MonoBehaviour
         {
             "fucking", "Fucking",
             "fucked", "Fucked",
+            "fucker", "Fucker",
             "fucks", "Fucks",
             "fuck", "Fuck",
 
@@ -207,10 +209,13 @@ public class DialogueManager : MonoBehaviour
         {
             nextPrompt = nextClip as DialoguePrompt;
             // New Locations
-            if (nextPrompt.NewLocations.Length > 0) // TESTING
+            if (nextPrompt.NewLocations.Length > 0)
             {
-                foreach (Location loc in nextPrompt.NewLocations) 
-                    gMan.ActiveLocations.Add(gMan.GetActiveLocation(loc));
+                foreach (NewLocation newLoc in nextPrompt.NewLocations)
+                {
+                    gMan.ActiveLocations.Add
+                        (gMan.GetActiveLocation(newLoc.Location, newLoc.NewNpc)); // TESTING
+                }
             }
         }
         EngagedHero.NextDialogueClip = nextClip;

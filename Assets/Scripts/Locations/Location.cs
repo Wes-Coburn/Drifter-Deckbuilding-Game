@@ -18,9 +18,8 @@ public class Location : ScriptableObject
     public Vector2 WorldMapPosition { get => worldMapPosition; }
     public NPCHero FirstNPC { get => firstNPC; }
     public bool IsHomeBase { get => isHomeBase; }
-
     public NPCHero CurrentNPC { get; set; }
-
+    
     public void LoadLocation(Location location)
     {
         locationName = location.LocationName;

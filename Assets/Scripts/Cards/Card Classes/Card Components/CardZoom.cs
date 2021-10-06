@@ -74,9 +74,9 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         ZoomCardIsCentered = true;
         UIManager.Instance.SetScreenDimmer(true);
 
-        CreateZoomCard(new Vector2(0, 50), CENTER_SCALE_VALUE);
         CreateDescriptionPopup(new Vector2(-590, 0), POPUP_SCALE_VALUE);
         CreateAbilityPopups(new Vector2(590, 0), POPUP_SCALE_VALUE);
+        CreateZoomCard(new Vector2(0, 50), CENTER_SCALE_VALUE);
     }
 
     /******

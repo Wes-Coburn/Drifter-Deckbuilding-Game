@@ -602,14 +602,14 @@ public class UIManager : MonoBehaviour
         foreach (Transform tran in augmentBar.transform) 
             Destroy(tran.gameObject);
     }
-    public void CreateAugmentIconPopup(HeroAugment augment)
+    public void CreateAugmentIconPopup(HeroAugment augment, GameObject sourceIcon)
     {
         DestroyAugmentIconPopup();
         augmentIconPopup = Instantiate(augmentIconPopupPrefab, CurrentCanvas.transform);
-        augmentIconPopup.transform.localPosition = new Vector2(0, 350);
+        float xPos = sourceIcon.transform.localPosition.x;
+        augmentIconPopup.transform.localPosition = new Vector2(xPos - 300, 320);
         augmentIconPopup.GetComponent<AugmentIconPopupDisplay>().HeroAugment = augment;
     }
-
     public void DestroyAugmentIconPopup()
     {
         if (augmentIconPopup != null)

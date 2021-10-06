@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25b107ecdac65374f8c56b3212c061ce, type: 3}
+  m_Name: Bartender_Prompt_4
+  m_EditorClassIdentifier: 
+  developerNotes: 
+  journalNotes: []
+  dialoguePromptText: "I see and hear many things from behind this bar. I\u2019m
+    known for the information I provide."
+  dialogueResponse1:
+    responseText: "What\u2019s your price?"
+    response_Respect: 0
+    response_NextClip: {fileID: 11400000, guid: 1de9403dd737a4046868d19e685c3d40,
+      type: 2}
+    response_IsExit: 0
+    response_IsCombatStart: 0
+    response_IsWorldMapStart: 0
+  dialogueResponse2:
+    responseText: Then tell me what I need to know.
+    response_Respect: 0
+    response_NextClip: {fileID: 11400000, guid: 4146953249ce1a9479ec3204a99578ed,
+      type: 2}
+    response_IsExit: 0
+    response_IsCombatStart: 0
+    response_IsWorldMapStart: 0
+  dialogueResponse3:
+    responseText: Prove it.
+    response_Respect: 0
+    response_NextClip: {fileID: 11400000, guid: b3f06f8588554d94a88f0ea1fe26a635,
+      type: 2}
+    response_IsExit: 0
+    response_IsCombatStart: 0
+    response_IsWorldMapStart: 0
+  newEngagedHero: {fileID: 0}
+  newCard: {fileID: 0}
+  aetherCells: 0
+  newLocations: []

@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25b107ecdac65374f8c56b3212c061ce, type: 3}
+  m_Name: IronClanBrute_Prompt_10
+  m_EditorClassIdentifier: 
+  developerNotes: 
+  journalNotes: []
+  dialoguePromptText: '*You and your new ally make a run for it.*'
+  dialogueResponse1:
+    responseText: 
+    response_Respect: 0
+    response_NextClip: {fileID: 0}
+    response_IsExit: 0
+    response_IsCombatStart: 0
+    response_IsWorldMapStart: 0
+  dialogueResponse2:
+    responseText: (Continue)
+    response_Respect: 0
+    response_NextClip: {fileID: 11400000}
+    response_IsExit: 0
+    response_IsCombatStart: 0
+    response_IsWorldMapStart: 1
+  dialogueResponse3:
+    responseText: 
+    response_Respect: 0
+    response_NextClip: {fileID: 0}
+    response_IsExit: 0
+    response_IsCombatStart: 0
+    response_IsWorldMapStart: 0
+  newEngagedHero: {fileID: 0}
+  newCard: {fileID: 0}
+  aetherCells: 0
+  newLocations:
+  - Location: {fileID: 11400000, guid: 64889724ca90b89408479fce30a21141, type: 2}
+    NewNpc: {fileID: 0}

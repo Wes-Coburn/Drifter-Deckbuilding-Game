@@ -25,7 +25,7 @@ public class AugmentIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
         FunctionTimer.Create(() =>
-        uMan.CreateAugmentIconPopup(LoadedAugment), 0.5f, AUGMENT_POPUP_TIMER);
+        uMan.CreateAugmentIconPopup(LoadedAugment, gameObject), 0.5f, AUGMENT_POPUP_TIMER);
     }
 
     public void OnPointerExit(PointerEventData pointerEventData)
