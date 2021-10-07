@@ -495,6 +495,13 @@ public class EffectManager : MonoBehaviour
             foreach (GameObject target in targets)
                 target.GetComponent<UnitCardDisplay>().IsExhausted = ee.SetExhausted;
         }
+        else if (effect is ReplenishEffect) // TESTING
+        {
+            int newActions = pMan.PlayerActionsLeft + effect.Value;
+            if (newActions > pMan.ActionsPerTurn) 
+                newActions = pMan.ActionsPerTurn;
+            pMan.PlayerActionsLeft = newActions;
+        }
         else if (effect is GiveNextUnitEffect gnfe)
         {
             GiveNextUnitEffect newGnfe = ScriptableObject.CreateInstance<GiveNextUnitEffect>();
@@ -540,31 +547,44 @@ public class EffectManager : MonoBehaviour
      * ****** ABORT_EFFECT_GROUP
      * *****
      *****/
-    public void AbortEffectGroup()
+    public void AbortEffectGroup(bool isUserAbort = false)
     {
         if (effectSource == null)
         {
             Debug.LogError("EFFECT SOURCE IS NULL!");
             return;
         }
+
+        string handZone;
+        if (effectSource.CompareTag(CombatManager.PLAYER_CARD))
+            handZone = CombatManager.PLAYER_HAND;
+        else handZone = CombatManager.ENEMY_HAND;
+
         if (effectSource.TryGetComponent(out ActionCardDisplay acd))
         {
-            string zone;
-            if (effectSource.CompareTag(CombatManager.PLAYER_CARD)) 
-                zone = CombatManager.PLAYER_HAND;
-            else zone = CombatManager.ENEMY_HAND;
-            coMan.ChangeCardZone(effectSource, zone);
+            coMan.ChangeCardZone(effectSource, handZone);
             anMan.RevealedHandState(effectSource);
-            effectSource.GetComponent<DragDrop>().IsPlayed = false; // TESTING
-            PlayerManager.Instance.PlayerActionsLeft += acd.CurrentActionCost; // TESTING
+            effectSource.GetComponent<DragDrop>().IsPlayed = false;
+            pMan.PlayerActionsLeft += acd.CurrentActionCost;
         }
-        else if (effectSource.CompareTag(CombatManager.PLAYER_HERO)) // TESTING
+        else if (effectSource.TryGetComponent(out UnitCardDisplay ucd)) // TESTING
+        {
+            if (isUserAbort)
+            {
+                coMan.ChangeCardZone(effectSource, handZone);
+                coMan.PlayerZoneCards.Remove(effectSource);
+                coMan.PlayerHandCards.Add(effectSource);
+                anMan.RevealedHandState(effectSource);
+                effectSource.GetComponent<DragDrop>().IsPlayed = false;
+                pMan.PlayerActionsLeft += ucd.CurrentActionCost;
+            }
+        }
+        else if (effectSource.CompareTag(CombatManager.PLAYER_HERO))
         {
             pMan.HeroPowerUsed = false;
             pMan.PlayerActionsLeft += pMan.PlayerHero.HeroPower.PowerCost;
         }
-        
-        // TESTING
+
         uMan.PlayerIsTargetting = false;
         uMan.DismissInfoPopup();
         if (legalTargets != null)

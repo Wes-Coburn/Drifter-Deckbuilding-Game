@@ -23,7 +23,6 @@ public class DialogueManager : MonoBehaviour
     private string currentTypedText;
     private TextMeshProUGUI currentTmPro;
     private float typedTextDelay;
-
     private bool newEngagedHero;
 
     public DialogueSceneDisplay DialogueDisplay { get => dialogueDisplay; }
@@ -49,16 +48,18 @@ public class DialogueManager : MonoBehaviour
     {
         AudioManager.Instance.StartStopSound("Soundtrack_Dialogue1",
             null, AudioManager.SoundType.Soundtrack);
-        dialogueDisplay = FindObjectOfType<DialogueSceneDisplay>();
-        dialogueDisplay.PlayerHeroPortrait.SetActive(false);
-        dialogueDisplay.NPCHeroPortrait.SetActive(false);
-
+        
         currentDialogueClip = EngagedHero.NextDialogueClip;
         if (currentDialogueClip == null)
         {
             Debug.LogError("CLIP IS NULL!");
             return;
         }
+        dialogueDisplay = FindObjectOfType<DialogueSceneDisplay>();
+        dialogueDisplay.PlayerHeroPortrait.SetActive(false);
+        DialoguePrompt prompt = currentDialogueClip as DialoguePrompt;
+        dialogueDisplay.NPCHeroPortrait.SetActive(!prompt.HideNPC); // TESTING
+
         DisplayCurrentHeroes();
         DisplayDialoguePopup();
         AnimationManager.Instance.DialogueIntro();
@@ -208,6 +209,8 @@ public class DialogueManager : MonoBehaviour
         if (nextClip is DialoguePrompt)
         {
             nextPrompt = nextClip as DialoguePrompt;
+            // Hide NPC
+            dialogueDisplay.NPCHeroPortrait.SetActive(!nextPrompt.HideNPC); // TESTING
             // New Locations
             if (nextPrompt.NewLocations.Length > 0)
             {

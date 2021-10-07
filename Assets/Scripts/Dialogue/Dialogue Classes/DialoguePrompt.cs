@@ -16,6 +16,8 @@ public class DialoguePrompt : DialogueClip
     [SerializeField] private DialogueResponse dialogueResponse3;
     [Header("NEW ENGAGED HERO")]
     [SerializeField] private NPCHero newEngagedHero;
+    [Header("HIDE NPC")]
+    [SerializeField] private bool hideNPC;
     [Header("DIALOGUE REWARDS")]
     [SerializeField] private Card newCard;
     [SerializeField] [Range(0, 5)] private int aetherCells;
@@ -27,6 +29,7 @@ public class DialoguePrompt : DialogueClip
     public DialogueResponse DialogueResponse2 { get => dialogueResponse2; }
     public DialogueResponse DialogueResponse3 { get => dialogueResponse3; }
     public NPCHero NewEngagedHero { get => newEngagedHero; }
+    public bool HideNPC { get => hideNPC; }
     public Card NewCard { get => newCard; }
     public int AetherCells { get => aetherCells; }
     public NewLocation[] NewLocations { get => newLocations; }
@@ -48,6 +51,7 @@ public class DialoguePrompt : DialogueClip
 
         dialoguePromptText = dp.DialoguePromptText;
         newEngagedHero = dp.NewEngagedHero;
+        hideNPC = dp.HideNPC;
         newCard = dp.NewCard;
         aetherCells = dp.AetherCells;
         newLocations = dp.NewLocations;

@@ -111,6 +111,9 @@ public class CombatManager : MonoBehaviour
     public UnitCardDisplay GetUnitDisplay(GameObject card)
         => card.GetComponent<CardDisplay>() as UnitCardDisplay;
 
+    public bool IsUnitCard(GameObject target) => 
+        target.TryGetComponent<UnitCardDisplay>(out _);
+
     /******
      * *****
      * ****** UPDATE_DECK
@@ -385,11 +388,6 @@ public class CombatManager : MonoBehaviour
                 zone = EnemyZone;
                 anMan.PlayedState(card);
                 break;
-            /*
-            case ENEMY_ACTION_ZONE:
-                zoneTran = EnemyActionZone.transform;
-                AnimationManager.Instance.PlayedState(card);
-            */
         }
         MoveCard(card, zone);
         card.GetComponent<CardSelect>().CardOutline.SetActive(false);
@@ -625,14 +623,13 @@ public class CombatManager : MonoBehaviour
         if (CardManager.GetAbility(attacker, STEALTH))
             FunctionTimer.Create(() => 
             attacker.GetComponent<UnitCardDisplay>().RemoveCurrentAbility(STEALTH), 0.5f);
-        bool defenderIsUnit;
-        if (defender.CompareTag(ENEMY_CARD) || defender.CompareTag(PLAYER_CARD))
+        
+        bool defenderIsUnit = IsUnitCard(defender);
+        if (defenderIsUnit)
         {
-            defenderIsUnit = true;
             if (!CardManager.GetAbility(attacker, RANGED))
                 Strike(defender, attacker);
         }
-        else defenderIsUnit = false;
         if (!CardManager.GetAbility(attacker, RANGED))
             auMan.StartStopSound("SFX_AttackMelee");
         else auMan.StartStopSound("SFX_AttackRanged");
@@ -647,7 +644,11 @@ public class CombatManager : MonoBehaviour
     public void Strike(GameObject striker, GameObject defender)
     {
         int power = GetUnitDisplay(striker).CurrentPower;
-        caMan.TriggerCardAbility(striker, "Strike");
+        if (IsUnitCard(defender))
+        {
+            if (power > 0 && !CardManager.GetAbility(defender, "Shield"))
+                caMan.TriggerCardAbility(striker, "Strike");
+        }
         if (TakeDamage(defender, power))
             caMan.TriggerCardAbility(striker, "Deathblow");
     }
@@ -695,7 +696,7 @@ public class CombatManager : MonoBehaviour
         }
         if (newTargetValue < 1)
         {
-            if (target.TryGetComponent<UnitCardDisplay>(out _)) DestroyUnit(target);
+            if (IsUnitCard(target)) DestroyUnit(target);
             else if (target == PlayerHero) gMan.EndCombat(false);
             else if (target == EnemyHero) gMan.EndCombat(true);
             if (target == PlayerHero || target == EnemyHero) return false;

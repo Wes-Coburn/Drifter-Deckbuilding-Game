@@ -104,7 +104,8 @@ public class AnimationManager : MonoBehaviour
         Vector2 pPortStart = playerPortrait.transform.localPosition;
         Vector2 nPortStart = npcPortrait.transform.localPosition;
         playerPortrait.SetActive(true);
-        npcPortrait.SetActive(true);
+        DialoguePrompt prompt = dMan.EngagedHero.NextDialogueClip as DialoguePrompt;
+        npcPortrait.SetActive(!prompt.HideNPC); // TESTING
         playerPortrait.transform.localPosition = new Vector2(600, pPortStart.y);
         npcPortrait.transform.localPosition = new Vector2(-600, nPortStart.y);
 
@@ -133,6 +134,7 @@ public class AnimationManager : MonoBehaviour
     {
         float distance;
         GameObject npcPortrait = dMan.DialogueDisplay.NPCHeroPortrait;
+        npcPortrait.SetActive(true); // TESTING
         Vector2 nPortStart = npcPortrait.transform.localPosition;
         Vector2 nPortEnd = new Vector2(-600, nPortStart.y);
         

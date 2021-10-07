@@ -257,13 +257,15 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
             new Vector2(vec2.x, vec2.y), canvas.transform, scaleValue);
 
         List<CardAbility> abilityList;
+        List<CardAbility> singleList = new List<CardAbility>();
+
         if (cardDisplay is UnitCardDisplay ucd)
         {
             if (ZoomCardIsCentered) abilityList = ucd.UnitCard.StartingAbilities;
             else
             {
                 abilityList = ucd.CurrentAbilities;
-                if (ucd.IsExhausted) CreatePopup(exhaustedAbility);
+                if (ucd.IsExhausted) AddSingle(exhaustedAbility); // TESTING
             }
         }
         else if (cardDisplay is ActionCardDisplay acd)
@@ -275,7 +277,6 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
             return;
         }
 
-        List<CardAbility> singleList = new List<CardAbility>();
         foreach (CardAbility ca in abilityList)
         {
             AddSingle(ca);
