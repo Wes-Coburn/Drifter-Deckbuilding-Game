@@ -94,15 +94,15 @@ public class CardPageDisplay : MonoBehaviour
             cardObj.transform.SetParent(cardGroup.transform);
             activeCards.Add(cardObj);
 
-            GameObject costPrefab;
-            if (isCardRemoval) costPrefab = removeCardButtonPrefab;
-            else costPrefab = learnSkillButtonPrefab;
-            GameObject cost = Instantiate(costPrefab, costGroup.transform);
-            cost.transform.localScale = new Vector2(1.5f, 1.5f);
+            GameObject buttonPrefab;
+            if (isCardRemoval) buttonPrefab = removeCardButtonPrefab;
+            else buttonPrefab = learnSkillButtonPrefab;
+            GameObject button = Instantiate(buttonPrefab, costGroup.transform);
+            button.transform.localScale = new Vector2(1.5f, 1.5f);
 
-            if (isCardRemoval) cost.GetComponent<RemoveCardButton>().Card = card;
-            else cost.GetComponent<LearnSkillButton>().SkillCard = card as SkillCard;
-            activeCards.Add(cost);
+            if (isCardRemoval) button.GetComponent<RemoveCardButton>().Card = card;
+            else button.GetComponent<LearnSkillButton>().SkillCard = card as SkillCard;
+            activeCards.Add(button);
         }
     }
 
@@ -122,7 +122,7 @@ public class CardPageDisplay : MonoBehaviour
     
     public void LearnSkillButton_OnClick(SkillCard skillCard)
     {
-        if (pMan.AetherCells < 2)
+        if (pMan.AetherCells < GameManager.LEARN_SKILL_COST)
             uMan.InsufficientAetherPopup();
         else uMan.CreateLearnSkillPopup(skillCard);
     }
@@ -131,7 +131,7 @@ public class CardPageDisplay : MonoBehaviour
     {
         if (pMan.PlayerDeckList.Count <= 10)
             uMan.CreateCenteredInfoPopup("You must have at least 10 cards in your deck!");
-        else if (pMan.AetherCells < 1)
+        else if (pMan.AetherCells < GameManager.REMOVE_CARD_COST)
             uMan.InsufficientAetherPopup();
         else uMan.CreateRemoveCardPopup(card);
     }

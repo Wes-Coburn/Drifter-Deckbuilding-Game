@@ -420,7 +420,7 @@ GameObject:
   - component: {fileID: 82920580}
   - component: {fileID: 82920579}
   m_Layer: 0
-  m_Name: Text
+  m_Name: CostText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -465,7 +465,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 3
+  m_text: '9
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3750,6 +3752,11 @@ PrefabInstance:
       propertyPath: playerHero
       value: 
       objectReference: {fileID: 272058750}
+    - target: {fileID: 5350915387664066803, guid: cf675c66c1990784f9df3784d194c345,
+        type: 3}
+      propertyPath: augmentCost
+      value: 
+      objectReference: {fileID: 82920577}
     - target: {fileID: 5350915387664066803, guid: cf675c66c1990784f9df3784d194c345,
         type: 3}
       propertyPath: augmentName

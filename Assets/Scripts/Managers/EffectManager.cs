@@ -271,7 +271,7 @@ public class EffectManager : MonoBehaviour
         foreach (GameObject target in legalTargets[currentEffectGroup])
         {
             if (target == null) continue;
-            target.GetComponent<CardSelect>().CardOutline.SetActive(true);
+            uMan.SelectTarget(target, true); // TESTING
         }
     }
 
@@ -364,9 +364,9 @@ public class EffectManager : MonoBehaviour
             }
         if (effect is DrawEffect || effect is GiveNextUnitEffect) return true;
         Debug.Log("ADDITIONAL TARGETS <" + additionalTargets + ">");
-        if (legalTargets[currentGroup].Count < 1 + additionalTargets) return false; // TESTING
+        if (legalTargets[currentGroup].Count < 1 + additionalTargets) return false;
         if (effect.IsRequired && legalTargets[currentGroup].Count < 
-            effectGroupList[currentGroup].Targets.TargetNumber + additionalTargets) return false; // TESTING
+            effectGroupList[currentGroup].Targets.TargetNumber + additionalTargets) return false;
         return true;
     }
 

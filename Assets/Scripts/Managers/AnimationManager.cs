@@ -113,8 +113,10 @@ public class AnimationManager : MonoBehaviour
         do
         {
             distance = Vector2.Distance(playerPortrait.transform.localPosition, pPortStart);
-            playerPortrait.transform.localPosition = Vector2.MoveTowards(playerPortrait.transform.localPosition, pPortStart, 30);
-            npcPortrait.transform.localPosition = Vector2.MoveTowards(npcPortrait.transform.localPosition, nPortStart, 30);
+            playerPortrait.transform.localPosition =
+                Vector2.MoveTowards(playerPortrait.transform.localPosition, pPortStart, 30);
+            npcPortrait.transform.localPosition =
+                Vector2.MoveTowards(npcPortrait.transform.localPosition, nPortStart, 30);
             yield return new WaitForFixedUpdate();
         }
         while (distance > 0);

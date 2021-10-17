@@ -48,14 +48,13 @@ public class PlayerManager : MonoBehaviour
         set
         {
             playerHero = value;
-            if (PlayerDeckList == null || CurrentPlayerDeck == null) return;
+            // TESTING
             PlayerDeckList.Clear();
-            if (value == null)
-            {
-                CurrentPlayerDeck.Clear();
-                return;
-            }
-            AetherCells = 0; // NORMALLY <0>
+            CurrentPlayerDeck.Clear();
+            HeroAugments.Clear();
+            AetherCells = 0;
+            if (value == null) return;
+
             foreach (UnitCard uc in caMan.PlayerStartUnits)
                 for (int i = 0; i < GameManager.PLAYER_START_FOLLOWERS; i++)
                     caMan.AddCard(uc, GameManager.PLAYER);

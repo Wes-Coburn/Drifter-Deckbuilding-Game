@@ -51,10 +51,10 @@ public class NewCardPopupDisplay : MonoBehaviour
         CardZoom cz = newCard.GetComponent<CardZoom>();
         newCard.transform.SetParent(newCardZone.transform, false);
         // Description Popup
-        cz.CreateDescriptionPopup(new Vector2(-500, 0), 3);
+        cz.CreateDescriptionPopup(new Vector2(-550, 0), 3);
         CardZoom.DescriptionPopup.transform.SetParent(newCardZone.transform, true);
         // Ability Popups
-        cz.CreateAbilityPopups(new Vector2(500, 0), 3);
+        cz.CreateAbilityPopups(new Vector2(550, 0), 3);
         CardZoom.AbilityPopupBox.transform.SetParent(newCardZone.transform, true);
         // Card Popup
         newCard.transform.SetAsLastSibling();

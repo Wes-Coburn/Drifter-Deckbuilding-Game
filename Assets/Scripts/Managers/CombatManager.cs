@@ -278,7 +278,7 @@ public class CombatManager : MonoBehaviour
             {
                 if (!efMan.CurrentLegalTargets.Contains(card))
                     efMan.CurrentLegalTargets.Add(card);
-                card.GetComponent<CardSelect>().CardOutline.SetActive(true);
+                uMan.SelectTarget(card, true); // TESTING
             }
         }
         else EnemyHandCards.Add(card);

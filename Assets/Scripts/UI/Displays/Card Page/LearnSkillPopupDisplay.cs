@@ -29,8 +29,9 @@ public class LearnSkillPopupDisplay : MonoBehaviour
         {
             int aether = pMan.AetherCells;
             skillCard = value;
-            string text = "Learn " + skillCard.CardName + 
-                " for 2 aether? (You have " + aether + " aether)";
+            string text = "Learn " + skillCard.CardName +
+                " for " + GameManager.LEARN_SKILL_COST +
+                " aether? (You have " + aether + " aether)";
             PopupText = text;
         }
     }
@@ -38,9 +39,9 @@ public class LearnSkillPopupDisplay : MonoBehaviour
     public void ConfirmButton_OnClick()
     {
         CardManager.Instance.AddCard(skillCard, GameManager.PLAYER);
-        pMan.AetherCells -= 2;
+        pMan.AetherCells -= GameManager.LEARN_SKILL_COST;
         CancelButton_OnClick();
-        uMan.DestroyCardPagePopup(); // Temporary fix, eventually reload the page
+        uMan.DestroyCardPagePopup(); // Temporary fix, eventually reload the page?
         // Card added popup
     }
 

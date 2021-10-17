@@ -50,7 +50,7 @@ public class CardContainer : MonoBehaviour
     private IEnumerator SeekChildNumerator()
     {
         float distance;
-        float speed = 6;
+        float speed = 8;
         do
         {
             distance = Vector2.Distance(Child.transform.position, 

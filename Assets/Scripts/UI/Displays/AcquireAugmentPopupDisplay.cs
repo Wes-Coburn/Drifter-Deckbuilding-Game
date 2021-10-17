@@ -28,7 +28,7 @@ public class AcquireAugmentPopupDisplay : MonoBehaviour
             int aether = pMan.AetherCells;
             heroAugment = value;
             string text = "Acquire " + heroAugment.AugmentName +
-                " for 3 aether? (You have " + aether + " aether)";
+                " for " + GameManager.ACQUIRE_AUGMENT_COST + " aether? (You have " + aether + " aether)";
             PopupText = text;
         }
     }
@@ -36,9 +36,9 @@ public class AcquireAugmentPopupDisplay : MonoBehaviour
     public void ConfirmButton_OnClick()
     {
         pMan.AddAugment(heroAugment);
-        pMan.AetherCells -= 3;
+        pMan.AetherCells -= GameManager.ACQUIRE_AUGMENT_COST;
         CancelButton_OnClick();
-        FindObjectOfType<HomeBaseSceneDisplay>().CloseAugmentsButton_OnClick(); // Temporary fix, eventually reload augments
+        FindObjectOfType<HomeBaseSceneDisplay>().CloseAugmentsButton_OnClick(); // Temporary fix, eventually reload augments?
         // Augment acquired popup
     }
 

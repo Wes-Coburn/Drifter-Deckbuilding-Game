@@ -30,7 +30,8 @@ public class RemoveCardPopupDisplay : MonoBehaviour
             int aether = pMan.AetherCells;
             card = value;
             string text = "Remove " + card.CardName +
-                " for 1 aether? (You have " + aether + " aether)";
+                " for " + GameManager.REMOVE_CARD_COST +
+                " aether? (You have " + aether + " aether)";
             PopupText = text;
         }
     }
@@ -38,7 +39,7 @@ public class RemoveCardPopupDisplay : MonoBehaviour
     public void ConfirmButton_OnClick()
     {
         CardManager.Instance.RemovePlayerCard(card);
-        pMan.AetherCells -= 1;
+        pMan.AetherCells -= GameManager.REMOVE_CARD_COST;
         CancelButton_OnClick();
         uMan.DestroyCardPagePopup(); // Temporary fix, eventually reload the page
         // Card removed popup

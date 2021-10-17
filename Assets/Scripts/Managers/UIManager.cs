@@ -188,8 +188,7 @@ public class UIManager : MonoBehaviour
         {
             GameObject prefab = screenDimmerPrefab;
             GameObject parent = CurrentCanvas;
-            screenDimmer = Instantiate(prefab, new Vector3(0, 0, -3),
-                Quaternion.identity, parent.transform);
+            screenDimmer = Instantiate(prefab, parent.transform);
         }
     }
     /******

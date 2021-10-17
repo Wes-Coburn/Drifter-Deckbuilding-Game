@@ -17,6 +17,7 @@ public class HomeBaseSceneDisplay : MonoBehaviour
     [SerializeField] private GameObject augmentName;
     [SerializeField] private GameObject augmentImage;
     [SerializeField] private GameObject augmentDescription;
+    [SerializeField] private GameObject augmentCost;
     [SerializeField] private GameObject confirmSpendPopup;
     [SerializeField] private HeroAugment[] availableAugments;
 
@@ -92,6 +93,13 @@ public class HomeBaseSceneDisplay : MonoBehaviour
             augmentDescription.GetComponent<TextMeshProUGUI>().SetText(value);
         }
     }
+    private string AugmentCost
+    {
+        set
+        {
+            augmentCost.GetComponent<TextMeshProUGUI>().SetText(value);
+        }
+    }
 
     private void Start()
     {
@@ -123,6 +131,7 @@ public class HomeBaseSceneDisplay : MonoBehaviour
         HeroAugment aug = accessibleAugments[currentAugment];
         AugmentName = aug.AugmentName;
         AugmentDescription = aug.AugmentDescription;
+        AugmentCost = GameManager.ACQUIRE_AUGMENT_COST.ToString();
         AugmentSprite = aug.AugmentImage;
     }
 
@@ -142,8 +151,11 @@ public class HomeBaseSceneDisplay : MonoBehaviour
         DisplayCurrentAugment();
     }
 
-    public void LearnSkillButton_OnClick() => 
+    public void LearnSkillButton_OnClick()
+    {
+        CloseAugmentsButton_OnClick();
         uMan.CreateCardPagePopup(false);
+    }
 
     public void AcquireAugmentButton_OnClick()
     {
@@ -175,7 +187,7 @@ public class HomeBaseSceneDisplay : MonoBehaviour
 
     public void SelectAugmentButton_OnClick()
     {
-        if (pMan.AetherCells < 3)
+        if (pMan.AetherCells < GameManager.ACQUIRE_AUGMENT_COST)
             uMan.InsufficientAetherPopup();
         else uMan.CreateAcquireAugmentPopup(accessibleAugments[currentAugment]);
     }
@@ -186,8 +198,11 @@ public class HomeBaseSceneDisplay : MonoBehaviour
         playerHero.SetActive(true);
     }
 
-    public void RemoveCardButton_OnClick() => 
+    public void RemoveCardButton_OnClick()
+    {
+        CloseAugmentsButton_OnClick();
         uMan.CreateCardPagePopup(true);
+    }
 
     public void BackButton_OnClick() => 
         SceneLoader.LoadScene(SceneLoader.Scene.WorldMapScene);

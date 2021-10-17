@@ -53,8 +53,8 @@ public class GameManager : MonoBehaviour
     public const int START_ACTIONS_PER_TURN = 1;
     public const int MAX_ACTIONS_PER_TURN = 5;
     public const int MAXIMUM_ACTIONS = 5;
-    public const int MAX_HAND_SIZE = 6; // TESTING
-    public const int MAX_UNITS_PLAYED = 5; // TESTING
+    public const int MAX_HAND_SIZE = 6;
+    public const int MAX_UNITS_PLAYED = 5;
 
     // Player
     public const string PLAYER = "Player";
@@ -63,6 +63,11 @@ public class GameManager : MonoBehaviour
     public const int PLAYER_HAND_SIZE = 4;
     public const int PLAYER_START_FOLLOWERS = 2;
     public const int PLAYER_START_SKILLS = 2;
+
+    // Aether Costs
+    public const int LEARN_SKILL_COST = 2;
+    public const int ACQUIRE_AUGMENT_COST = 4;
+    public const int REMOVE_CARD_COST = 1;
 
     // Enemy
     public const string ENEMY = "Enemy";
