@@ -19,6 +19,7 @@ public class EnemyManager : MonoBehaviour
     private EventManager evMan;
     private EnemyHero enemyHero;
     private int enemyHealth;
+    private int nextReinforcements;
 
     public bool IsMyTurn { get; set; }
     public List<Card> EnemyDeckList { get; private set; }
@@ -26,6 +27,15 @@ public class EnemyManager : MonoBehaviour
     public List<int> ReinforcementSchedule { get; private set; }
     public int ReinforcementGroup { get; set; }
     public int CurrentReinforcements { get; set; }
+    public int NextReinforcements
+    {
+        get => nextReinforcements;
+        set
+        {
+            nextReinforcements = value;
+            coMan.EnemyHero.GetComponent<EnemyHeroDisplay>().NextReinforcements = value;
+        }
+    }
 
     public EnemyHero EnemyHero
     {
@@ -33,7 +43,7 @@ public class EnemyManager : MonoBehaviour
         set
         {
             enemyHero = value;
-            if (EnemyDeckList == null || CurrentEnemyDeck == null) return; // TESTING
+            if (EnemyDeckList == null || CurrentEnemyDeck == null) return;
             EnemyDeckList.Clear();
             if (value == null)
             {
@@ -45,6 +55,7 @@ public class EnemyManager : MonoBehaviour
                     CardManager.Instance.AddCard(unit, GameManager.ENEMY);
             ReinforcementSchedule = EnemyHero.Reinforcements[ReinforcementGroup].ReinforcementSchedule;
             CurrentReinforcements = 0;
+            NextReinforcements = ReinforcementSchedule[CurrentReinforcements]; // TESTING
         }
     }
     public int EnemyHealth
@@ -77,9 +88,9 @@ public class EnemyManager : MonoBehaviour
         List<int> refoSched = ReinforcementSchedule;
 
         float refoDelay = 1;
-        if (refoSched[refo] > 0)
+        if (NextReinforcements > 0) // TESTING
         {
-            evMan.NewDelayedAction(() => Reinforcements(), 1);
+            evMan.NewDelayedAction(() => ShowReinforcements(), 1);
             refoDelay = 4;
         }
 
@@ -88,16 +99,16 @@ public class EnemyManager : MonoBehaviour
 
         int handSize = coMan.EnemyHandCards.Count;
         // Draw Cards
-        int cardsToDraw = refoSched[refo];
+        int cardsToDraw = NextReinforcements; // TESTING
         int overMaxCards = GameManager.MAX_HAND_SIZE + 1;
         if (cardsToDraw + handSize > overMaxCards)
             cardsToDraw = overMaxCards - handSize;
-        evMan.NewDelayedAction(() => NextReinforcements(), refoDelay);
+        evMan.NewDelayedAction(() => UpdateReinforcements(), refoDelay);
         for (int i = 0; i < cardsToDraw; i++)
             evMan.NewDelayedAction(() => coMan.DrawCard(GameManager.ENEMY), 1);
 
         // Play Cards
-        int cardsToPlay = handSize + refoSched[refo];
+        int cardsToPlay = handSize + NextReinforcements; // TESTING
         int maxHand = GameManager.MAX_HAND_SIZE;
         int overMaxUnits = GameManager.MAX_UNITS_PLAYED + 1;
         int playedUnits = coMan.EnemyZoneCards.Count;
@@ -109,16 +120,13 @@ public class EnemyManager : MonoBehaviour
 
         evMan.NewDelayedAction(() => BeginAttack(), 1);
 
-        void Reinforcements()
+        void ShowReinforcements()
         {
             AnimationManager.Instance.ReinforcementsState(coMan.EnemyHero);
             AudioManager.Instance.StartStopSound("SFX_Reinforcements");
         }
-        void NextReinforcements()
-        {
-            coMan.EnemyHero.GetComponent<EnemyHeroDisplay>().NextReinforcements = 
-                refoSched[CurrentReinforcements];
-        }
+        void UpdateReinforcements() =>
+            NextReinforcements = refoSched[CurrentReinforcements]; // TESTING
         void BeginAttack()
         {
             foreach (GameObject enemyUnit in coMan.EnemyZoneCards)

@@ -117,7 +117,8 @@ public class CardManager : MonoBehaviour
             if (ca is TriggeredAbility tra)
                 if (tra.AbilityTrigger.AbilityName == triggerName)
                 {
-                    EffectManager.Instance.StartEffectGroupList(tra.EffectGroupList, card);
+                    FunctionTimer.Create(() => 
+                    EffectManager.Instance.StartEffectGroupList(tra.EffectGroupList, card), 0.5f);
                     effectFound = true;
                 }
         return effectFound;

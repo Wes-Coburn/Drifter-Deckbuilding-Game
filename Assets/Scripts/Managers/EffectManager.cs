@@ -16,6 +16,7 @@ public class EffectManager : MonoBehaviour
     }
 
     private PlayerManager pMan;
+    private EnemyManager enMan;
     private CombatManager coMan;
     private UIManager uMan;
     private AudioManager auMan;
@@ -67,6 +68,7 @@ public class EffectManager : MonoBehaviour
     private void Start()
     {
         pMan = PlayerManager.Instance;
+        enMan = EnemyManager.Instance;
         coMan = CombatManager.Instance;
         uMan = UIManager.Instance;
         auMan = AudioManager.Instance;
@@ -444,7 +446,7 @@ public class EffectManager : MonoBehaviour
         }
         else
         {
-            uMan.SetCancelEffectButton(false); // TESTING
+            uMan.SetCancelEffectButton(false);
             Destroy(dragArrow);
             dragArrow = null;
         }
@@ -495,12 +497,18 @@ public class EffectManager : MonoBehaviour
             foreach (GameObject target in targets)
                 target.GetComponent<UnitCardDisplay>().IsExhausted = ee.SetExhausted;
         }
-        else if (effect is ReplenishEffect) // TESTING
+        else if (effect is ReplenishEffect)
         {
             int newActions = pMan.PlayerActionsLeft + effect.Value;
             if (newActions > pMan.ActionsPerTurn) 
                 newActions = pMan.ActionsPerTurn;
             pMan.PlayerActionsLeft = newActions;
+        }
+        else if (effect is InfiltrateEffect)
+        {
+            int newRefo = enMan.NextReinforcements - effect.Value;
+            if (newRefo < 0) newRefo = 0;
+            enMan.NextReinforcements = newRefo;
         }
         else if (effect is GiveNextUnitEffect gnfe)
         {

@@ -65,7 +65,7 @@ public static class SceneLoader
                     Debug.LogError("SCENE TYPE NOT FOUND!");
                     return;
             }
-            uMan.SetSkybar(false); // TESTING
+            uMan.SetSkybar(false);
             UnityEngine.Object.FindObjectOfType<LoadingSceneDisplay>().ChapterText = chapterText;
             FunctionTimer.Create(() => uMan.SetSceneFader(true), 5f);
             FunctionTimer.Create(() => SceneManager.LoadScene(scene.ToString()), 7f);
@@ -78,7 +78,7 @@ public static class SceneLoader
             uMan.Start();
             auMan.CleanAudioSources();
             SceneIsLoading = false;
-            bool showSkybar = true; // TESTING
+            bool showSkybar = true;
 
             switch (scene)
             {
@@ -114,7 +114,7 @@ public static class SceneLoader
                     Debug.LogError("SCENE NOT FOUND!");
                     break;
             }
-            uMan.SetSkybar(showSkybar); // TESTING
+            uMan.SetSkybar(showSkybar);
         };
 
         dMan.StopTimedText();

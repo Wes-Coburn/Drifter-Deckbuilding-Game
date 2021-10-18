@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Location", menuName = "Locations/Location")]
 public class Location : ScriptableObject
 {
+    [SerializeField] [TextArea] private string developerNotes;
     [SerializeField] private string locationName;
     [SerializeField] private string locationFullName;
     [SerializeField] private string locationDescription;

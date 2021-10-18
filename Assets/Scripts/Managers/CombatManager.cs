@@ -615,15 +615,14 @@ public class CombatManager : MonoBehaviour
      *****/
     public void Attack(GameObject attacker, GameObject defender)
     {
-        string STEALTH = "Stealth";
-        string RANGED = "Ranged";
+        const string STEALTH = "Stealth";
+        const string RANGED = "Ranged";
 
-        Strike(attacker, defender);
         GetUnitDisplay(attacker).IsExhausted = true;
         if (CardManager.GetAbility(attacker, STEALTH))
-            FunctionTimer.Create(() => 
-            attacker.GetComponent<UnitCardDisplay>().RemoveCurrentAbility(STEALTH), 0.5f);
-        
+            attacker.GetComponent<UnitCardDisplay>().RemoveCurrentAbility(STEALTH);
+        Strike(attacker, defender);
+
         bool defenderIsUnit = IsUnitCard(defender);
         if (defenderIsUnit)
         {
@@ -643,12 +642,14 @@ public class CombatManager : MonoBehaviour
      *****/
     public void Strike(GameObject striker, GameObject defender)
     {
+        const string STRIKE = "Strike";
         int power = GetUnitDisplay(striker).CurrentPower;
         if (IsUnitCard(defender))
         {
             if (power > 0 && !CardManager.GetAbility(defender, "Shield"))
-                caMan.TriggerCardAbility(striker, "Strike");
+                caMan.TriggerCardAbility(striker, STRIKE);
         }
+        else caMan.TriggerCardAbility(striker, STRIKE); // TESTING
         if (TakeDamage(defender, power))
             caMan.TriggerCardAbility(striker, "Deathblow");
     }
