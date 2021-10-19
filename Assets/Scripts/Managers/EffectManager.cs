@@ -575,7 +575,7 @@ public class EffectManager : MonoBehaviour
             effectSource.GetComponent<DragDrop>().IsPlayed = false;
             pMan.PlayerActionsLeft += acd.CurrentActionCost;
         }
-        else if (effectSource.TryGetComponent(out UnitCardDisplay ucd)) // TESTING
+        else if (effectSource.TryGetComponent(out UnitCardDisplay ucd))
         {
             if (isUserAbort)
             {

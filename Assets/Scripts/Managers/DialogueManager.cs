@@ -216,8 +216,7 @@ public class DialogueManager : MonoBehaviour
             {
                 foreach (NewLocation newLoc in nextPrompt.NewLocations)
                 {
-                    gMan.ActiveLocations.Add
-                        (gMan.GetActiveLocation(newLoc.Location, newLoc.NewNpc)); // TESTING
+                    gMan.GetActiveLocation(newLoc.Location, newLoc.NewNpc);
                 }
             }
         }
@@ -227,7 +226,7 @@ public class DialogueManager : MonoBehaviour
         // Exit
         if (dResponse.Response_IsExit)
         {
-            gMan.EndGame(); // FOR TESTING ONLY
+            gMan.EndGame(); // FOR TESTING ONLY?
             return;
         }
         // Combat Start

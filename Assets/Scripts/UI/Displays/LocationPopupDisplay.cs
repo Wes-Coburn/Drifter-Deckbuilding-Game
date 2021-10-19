@@ -74,9 +74,9 @@ public class LocationPopupDisplay : MonoBehaviour
             return;
         }
         gMan.CurrentLocation = gMan.GetActiveLocation(location);
-        gMan.ActiveLocations.Remove(location);
+        gMan.ActiveLocations.Remove(gMan.CurrentLocation);
         gMan.ExitWorldMap();
-        dMan.EngagedHero = gMan.GetActiveNPC(location.CurrentNPC);
+        dMan.EngagedHero = gMan.GetActiveNPC(gMan.CurrentLocation.CurrentNPC);
         SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene);
     }
 

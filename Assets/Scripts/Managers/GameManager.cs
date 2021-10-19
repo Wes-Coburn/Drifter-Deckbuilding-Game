@@ -58,8 +58,8 @@ public class GameManager : MonoBehaviour
 
     // Player
     public const string PLAYER = "Player";
-    public const int PLAYER_STARTING_HEALTH = 20;
-    //public const int PLAYER_STARTING_HEALTH = 100; // FOR TESTING ONLY
+    //public const int PLAYER_STARTING_HEALTH = 20;
+    public const int PLAYER_STARTING_HEALTH = 100; // FOR TESTING ONLY
     public const int PLAYER_HAND_SIZE = 4;
     public const int PLAYER_START_FOLLOWERS = 2;
     public const int PLAYER_START_SKILLS = 2;
@@ -71,8 +71,8 @@ public class GameManager : MonoBehaviour
 
     // Enemy
     public const string ENEMY = "Enemy";
-    public const int ENEMY_STARTING_HEALTH = 20;
-    //public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
+    //public const int ENEMY_STARTING_HEALTH = 20;
+    public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
     public const int ENEMY_HAND_SIZE = 0;
     public const int ENEMY_START_FOLLOWERS = 5;
     public const int ENEMY_START_SKILLS = 2;
@@ -140,19 +140,24 @@ public class GameManager : MonoBehaviour
         int activeLocation;
         activeLocation = ActiveLocations.FindIndex
             (x => x.LocationName == location.LocationName);
+
         if (activeLocation != -1)
         {
             Location loc = ActiveLocations[activeLocation];
-            if (newNPC != null) loc.CurrentNPC = GetActiveNPC(newNPC); // TESTING
+            Debug.LogWarning("LOCATION FOUND! <" + loc.LocationFullName + ">");
+            if (newNPC != null) loc.CurrentNPC = GetActiveNPC(newNPC);
+            Debug.LogWarning("ACTIVE LOCATIONS: <" + ActiveLocations.Count + ">");
             return loc;
         }
         else
         {
             Location newLoc = ScriptableObject.CreateInstance<Location>();
             newLoc.LoadLocation(location);
-            if (newNPC != null) newLoc.CurrentNPC = GetActiveNPC(newNPC); // TESTING
+            Debug.LogWarning("NEW LOCATION CREATED! <" + newLoc.LocationFullName + ">");
+            if (newNPC != null) newLoc.CurrentNPC = GetActiveNPC(newNPC);
             else newLoc.CurrentNPC = GetActiveNPC(location.FirstNPC);
             ActiveLocations.Add(newLoc);
+            Debug.LogWarning("ACTIVE LOCATIONS: <" + ActiveLocations.Count + ">");
             return newLoc;
         }
     }

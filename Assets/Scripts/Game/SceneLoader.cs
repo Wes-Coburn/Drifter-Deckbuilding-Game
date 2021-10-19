@@ -67,9 +67,9 @@ public static class SceneLoader
             }
             uMan.SetSkybar(false);
             UnityEngine.Object.FindObjectOfType<LoadingSceneDisplay>().ChapterText = chapterText;
-            FunctionTimer.Create(() => uMan.SetSceneFader(true), 5f);
-            FunctionTimer.Create(() => SceneManager.LoadScene(scene.ToString()), 7f);
-            FunctionTimer.Create(() => uMan.SetSceneFader(false), 7f);
+            FunctionTimer.Create(() => uMan.SetSceneFader(true), 4f);
+            FunctionTimer.Create(() => SceneManager.LoadScene(scene.ToString()), 6f);
+            FunctionTimer.Create(() => uMan.SetSceneFader(false), 6f);
         };
 
         onSceneUpdateCallback = () =>

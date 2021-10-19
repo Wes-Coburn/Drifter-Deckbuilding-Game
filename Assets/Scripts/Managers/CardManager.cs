@@ -118,7 +118,7 @@ public class CardManager : MonoBehaviour
                 if (tra.AbilityTrigger.AbilityName == triggerName)
                 {
                     FunctionTimer.Create(() => 
-                    EffectManager.Instance.StartEffectGroupList(tra.EffectGroupList, card), 0.5f);
+                    EffectManager.Instance.StartEffectGroupList(tra.EffectGroupList, card), 0.2f); // TESTING
                     effectFound = true;
                 }
         return effectFound;

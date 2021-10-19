@@ -86,17 +86,14 @@ public class EnemyManager : MonoBehaviour
     {
         int refo = CurrentReinforcements;
         List<int> refoSched = ReinforcementSchedule;
-
         float refoDelay = 1;
         if (NextReinforcements > 0) // TESTING
         {
             evMan.NewDelayedAction(() => ShowReinforcements(), 1);
             refoDelay = 4;
         }
-
         if ((refo + 1) < refoSched.Count) CurrentReinforcements++;
         else CurrentReinforcements = 0;
-
         int handSize = coMan.EnemyHandCards.Count;
         // Draw Cards
         int cardsToDraw = NextReinforcements; // TESTING
@@ -106,9 +103,8 @@ public class EnemyManager : MonoBehaviour
         evMan.NewDelayedAction(() => UpdateReinforcements(), refoDelay);
         for (int i = 0; i < cardsToDraw; i++)
             evMan.NewDelayedAction(() => coMan.DrawCard(GameManager.ENEMY), 1);
-
         // Play Cards
-        int cardsToPlay = handSize + NextReinforcements; // TESTING
+        int cardsToPlay = handSize + NextReinforcements;
         int maxHand = GameManager.MAX_HAND_SIZE;
         int overMaxUnits = GameManager.MAX_UNITS_PLAYED + 1;
         int playedUnits = coMan.EnemyZoneCards.Count;
@@ -117,7 +113,6 @@ public class EnemyManager : MonoBehaviour
             cardsToPlay = overMaxUnits - playedUnits;
         for (int i = 0; i < cardsToPlay; i++)
             evMan.NewDelayedAction(() => coMan.PlayCard(coMan.EnemyHandCards[0]), 2);
-
         evMan.NewDelayedAction(() => BeginAttack(), 1);
 
         void ShowReinforcements()
@@ -126,7 +121,7 @@ public class EnemyManager : MonoBehaviour
             AudioManager.Instance.StartStopSound("SFX_Reinforcements");
         }
         void UpdateReinforcements() =>
-            NextReinforcements = refoSched[CurrentReinforcements]; // TESTING
+            NextReinforcements = refoSched[CurrentReinforcements];
         void BeginAttack()
         {
             foreach (GameObject enemyUnit in coMan.EnemyZoneCards)

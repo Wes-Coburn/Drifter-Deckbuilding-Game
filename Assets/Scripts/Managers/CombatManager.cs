@@ -642,16 +642,26 @@ public class CombatManager : MonoBehaviour
      *****/
     public void Strike(GameObject striker, GameObject defender)
     {
-        const string STRIKE = "Strike";
         int power = GetUnitDisplay(striker).CurrentPower;
+        if (power <= 0) return;
+
         if (IsUnitCard(defender))
         {
-            if (power > 0 && !CardManager.GetAbility(defender, "Shield"))
-                caMan.TriggerCardAbility(striker, STRIKE);
+            if (!CardManager.GetAbility(defender, "Shield"))
+                StrikeTrigger();
         }
-        else caMan.TriggerCardAbility(striker, STRIKE); // TESTING
+        else StrikeTrigger();
+
         if (TakeDamage(defender, power))
-            caMan.TriggerCardAbility(striker, "Deathblow");
+            FunctionTimer.Create(() => DeathblowTrigger(), 0.2f); // TESTING
+
+        void StrikeTrigger() =>
+            caMan.TriggerCardAbility(striker, "Strike");
+        void DeathblowTrigger()
+        {
+            if (GetUnitDisplay(striker).CurrentHealth > 0)
+                caMan.TriggerCardAbility(striker, "Deathblow");
+        }
     }
 
     /******
@@ -662,7 +672,7 @@ public class CombatManager : MonoBehaviour
     public bool TakeDamage(GameObject target, int damageValue)
     {
         if (damageValue < 1) return false;
-        string SHIELD = "Shield";
+        const string SHIELD = "Shield";
 
         int targetValue;
         int newTargetValue;
