@@ -89,7 +89,7 @@ public class CardPageDisplay : MonoBehaviour
             if (index > cardGroupList.Count - 1) break;
             Card card = cardGroupList[firstIndex + i];
             GameObject cardObj = CombatManager.Instance.ShowCard(card, new Vector2(), false, true);
-            if (cardObj.TryGetComponent(out UnitCardDisplay ucd)) ucd.DisableVisuals(); // For non-zoom card only
+            cardObj.GetComponent<CardDisplay>().DisableVisuals(); // TESTING
             cardObj.transform.localScale = new Vector2(4, 4);
             cardObj.transform.SetParent(cardGroup.transform);
             activeCards.Add(cardObj);

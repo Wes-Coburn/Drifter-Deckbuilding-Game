@@ -169,6 +169,13 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         Vector2 vec2 = new Vector2();
         currentSkill_1 = coMan.ShowCard(loadedHero.HeroStartSkills[0], vec2);
         currentSkill_2 = coMan.ShowCard(loadedHero.HeroStartSkills[1], vec2);
+        /*
+        currentSkill_1.GetComponent<Animator>().enabled = false; // TESTING
+        currentSkill_2.GetComponent<Animator>().enabled = false; // TESTING
+        */
+        currentSkill_1.GetComponent<CardDisplay>().DisableVisuals(); // TESTING
+        currentSkill_2.GetComponent<CardDisplay>().DisableVisuals(); // TESTING
+
         currentSkill_1.transform.SetParent(skillCard_1.transform, false);
         currentSkill_2.transform.SetParent(skillCard_2.transform, false);
         Vector2 scaleVec = new Vector2(4, 4);

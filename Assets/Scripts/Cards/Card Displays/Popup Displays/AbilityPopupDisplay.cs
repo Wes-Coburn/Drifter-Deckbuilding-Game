@@ -67,7 +67,7 @@ public class AbilityPopupDisplay : MonoBehaviour
             if (!isAbilityZoom)
             {
                 name = trigger.AbilityName;
-                description = "Does something when " + trigger.AbilityDescription;
+                description = "Does something " + trigger.AbilityDescription;
             }
             else
             {
@@ -82,7 +82,7 @@ public class AbilityPopupDisplay : MonoBehaviour
             if (!isAbilityZoom)
             {
                 name = at.AbilityName;
-                description = "Does something when " + at.AbilityDescription;
+                description = "Does something " + at.AbilityDescription;
             }
             else
             {

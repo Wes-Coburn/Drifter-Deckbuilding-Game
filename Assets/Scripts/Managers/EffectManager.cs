@@ -84,7 +84,7 @@ public class EffectManager : MonoBehaviour
      * ****** START_EFFECT_GROUP_LIST
      * *****
      *****/
-    public void StartEffectGroupList(List<EffectGroup> groupList, GameObject source, bool allowUserCancel = true)
+    public void StartEffectGroupList(List<EffectGroup> groupList, GameObject source, bool isPlayTrigger = true)
     {
         if (source == null)
         {
@@ -93,11 +93,12 @@ public class EffectManager : MonoBehaviour
         }
 
         isPlayerEffect = IsPlayerEffect(source); // TESTING
-        this.isPlayTrigger = allowUserCancel; // TESTING
+        this.isPlayTrigger = isPlayTrigger; // TESTING
 
         if (CurrentEffect != null)
         {
-            EventManager.Instance.NewDelayedAction(() => StartEffectGroupList(groupList, source, allowUserCancel), 0.5f);
+            EventManager.Instance.NewDelayedAction(() =>
+            StartEffectGroupList(groupList, source, isPlayTrigger), 0.5f);
             return;
         }
 
@@ -315,13 +316,6 @@ public class EffectManager : MonoBehaviour
      *****/
     public bool CheckLegalTargets(List<EffectGroup> groupList, GameObject source, bool isPreCheck = false)
     {
-        void ClearTargets()
-        {
-            effectGroupList = null;
-            effectSource = null;
-            legalTargets = null;
-            acceptedTargets = null;
-        }
         effectGroupList = groupList;
         effectSource = source;
         legalTargets = new List<List<GameObject>>();
@@ -332,6 +326,7 @@ public class EffectManager : MonoBehaviour
             acceptedTargets.Add(new List<GameObject>());
         }
         int group = 0;
+        List<int> invalidGroups = new List<int>(); // TESTING
         foreach (EffectGroup eg in effectGroupList)
         {
             foreach (Effect effect in eg.Effects)
@@ -340,15 +335,25 @@ public class EffectManager : MonoBehaviour
                     if (!GetLegalTargets(group, effect, eg.Targets, GetAdditionalTargets(eg.Targets)))
                     {
                         Debug.LogWarning("NO LEGAL TARGETS!");
+                        /*
                         GameObject tempSource = effectSource;
                         ClearTargets();
                         effectSource = tempSource;
                         return false;
+                        */
+                        // TESTING
+                        invalidGroups.Add(group);
+                        int groupsRemaining = effectGroupList.Count - invalidGroups.Count;
+                        Debug.LogWarning("INVALID EFFECT GROUP! <" + groupsRemaining + "> REMAINING!");
+                        if (groupsRemaining < 1)
+                            return false;
+                        else break;
                     }
                 }
             group++;
         }
         if (isPreCheck) ClearTargets();
+        else ClearInvalids(); // TESTING
         return true;
 
         int GetAdditionalTargets(EffectTargets targets)
@@ -356,10 +361,28 @@ public class EffectManager : MonoBehaviour
             int counter = 0;
             foreach (EffectGroup group in effectGroupList)
             {
-                if (group.Targets.CompareTargets(targets)) counter++;
+                if (group.Targets.CompareTargets(targets))
+                    counter++;
             }
             if (counter > 0) counter--;
             return counter;
+        }
+
+        void ClearInvalids() // TESTING
+        {
+            foreach (int i in invalidGroups)
+            {
+                effectGroupList.RemoveAt(i);
+                legalTargets.RemoveAt(i);
+                acceptedTargets.RemoveAt(i);
+            }
+        }
+        void ClearTargets()
+        {
+            effectGroupList = null;
+            effectSource = null;
+            legalTargets = null;
+            acceptedTargets = null;
         }
     }
 
@@ -404,7 +427,7 @@ public class EffectManager : MonoBehaviour
                 }
             }
         if (effect is DrawEffect || effect is GiveNextUnitEffect) return true;
-        Debug.LogWarning("ADDITIONAL TARGETS <" + additionalTargets + ">");
+        Debug.Log("ADDITIONAL TARGETS <" + additionalTargets + ">");
         Debug.LogWarning("LEGAL TARGETS <" + (legalTargets[currentGroup].Count - additionalTargets) + ">");
         if (legalTargets[currentGroup].Count < 1 + additionalTargets) return false;
         if (effect.IsRequired && legalTargets[currentGroup].Count < 

@@ -34,8 +34,12 @@ public class AnimationManager : MonoBehaviour
     {
         if (go.TryGetComponent(out Animator anim))
             if (anim.enabled)
+            {
                 anim.Play(animationState);
-            else Debug.LogWarning("ANIMATOR NOT FOUND!");
+                return;
+            }
+        Debug.LogWarning("ANIMATOR NOT FOUND!");
+
     }
 
     /* HERO_ANIMATIONS */
@@ -64,6 +68,7 @@ public class AnimationManager : MonoBehaviour
     public void UnitTakeDamageState(GameObject card) => ChangeAnimationState(card, "Take_Damage");
     public void ModifyUnitHealthState(GameObject card) => ChangeAnimationState(card, "Modify_Health");
     public void ModifyUnitPowerState(GameObject card) => ChangeAnimationState(card, "Modify_Power");
+    public void DestroyUnitCardState(GameObject card) => ChangeAnimationState(card, "Destroyed");
 
     /******
      * *****

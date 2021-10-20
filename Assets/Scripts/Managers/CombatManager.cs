@@ -504,7 +504,7 @@ public class CombatManager : MonoBehaviour
 
     /******
      * *****
-     * ****** DESTROY_CARD [PLAY >>> DISCARD]
+     * ****** DESTROY_UNIT [PLAY >>> DISCARD]
      * *****
      *****/
     public void DestroyUnit(GameObject card, bool isDelayed = true)
@@ -515,6 +515,7 @@ public class CombatManager : MonoBehaviour
             return;
         }
 
+        anMan.DestroyUnitCardState(card); // TESTING
         string cardTag = card.tag;
         if (isDelayed)
         {
@@ -536,7 +537,6 @@ public class CombatManager : MonoBehaviour
                 Debug.LogError("CARD IS NULL!");
                 return;
             }
-
             caMan.TriggerCardAbility(card, "Revenge");
             if (CardManager.GetAbility(card, "Marked"))
                 DrawCard(PLAYER);
@@ -659,13 +659,16 @@ public class CombatManager : MonoBehaviour
         if (IsUnitCard(defender))
         {
             if (!CardManager.GetAbility(defender, "Shield"))
-                StrikeTrigger();
+                Trigger(() => StrikeTrigger()); // TESTING
         }
-        else StrikeTrigger();
+        else Trigger(() => StrikeTrigger()); // TESTING
 
         if (TakeDamage(defender, power))
-            FunctionTimer.Create(() => DeathblowTrigger(), 0.2f); // TESTING
+            Trigger(() => DeathblowTrigger()); // TESTING
 
+
+        void Trigger(System.Action action) =>
+            FunctionTimer.Create(() => action(), 0.2f);
         void StrikeTrigger() =>
             caMan.TriggerCardAbility(striker, "Strike");
         void DeathblowTrigger()

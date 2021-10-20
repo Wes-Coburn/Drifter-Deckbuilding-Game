@@ -134,4 +134,15 @@ public abstract class CardDisplay : MonoBehaviour
             AnimationManager.Instance.ZoomedState(gameObject);
         }
     }
+
+    /******
+     * *****
+     * ****** DISABLE_VISUALS
+     * *****
+     *****/
+    public virtual void DisableVisuals()
+    {
+        GetComponent<Animator>().enabled = false;
+        GetComponent<CardSelect>().CardOutline.SetActive(false);
+    }
 }

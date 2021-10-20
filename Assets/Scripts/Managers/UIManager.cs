@@ -124,8 +124,11 @@ public class UIManager : MonoBehaviour
         if (enabled)
         {
             SpriteRenderer sr = playerZoneOutline.GetComponentInChildren<SpriteRenderer>();
-            if (selected) sr.color = selectedColor;
-            else sr.color = highlightedColor;
+            Color col;
+            if (!selected) col = selectedColor;
+            else col = highlightedColor;
+            col.a = 0.3f;
+            sr.color = col;
         }
     }
 

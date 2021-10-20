@@ -40,4 +40,15 @@ public class ActionCardDisplay : CardDisplay
         }
         tmPro.SetText(description);
     }
+
+    /******
+     * *****
+     * ****** DISABLE_VISUALS
+     * *****
+     *****/
+    public override void DisableVisuals()
+    {
+        base.DisableVisuals();
+        // blank
+    }
 }

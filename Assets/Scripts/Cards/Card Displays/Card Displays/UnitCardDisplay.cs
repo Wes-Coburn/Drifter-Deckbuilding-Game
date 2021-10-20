@@ -1,13 +1,15 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class UnitCardDisplay : CardDisplay
 {
     [SerializeField] private GameObject currentAbilitiesDisplay;
-    [SerializeField] private GameObject exhaustedIcon;
     [SerializeField] private GameObject attackScoreDisplay;
     [SerializeField] private GameObject healthScoreDisplay;
+    [SerializeField] private GameObject exhaustedIcon;
+    [SerializeField] private GameObject destroyedIcon;
 
     public GameObject AbilityIconPrefab;
     public GameObject ZoomAbilityIconPrefab;
@@ -77,6 +79,13 @@ public class UnitCardDisplay : CardDisplay
         CurrentPower = UnitCard.StartPower;
         MaxHealth = UnitCard.StartHealth;
         CurrentHealth = MaxHealth;
+
+        // TESTING
+        GridLayoutGroup glg =
+            currentAbilitiesDisplay.GetComponent<GridLayoutGroup>();
+        Vector2 cellSize = glg.cellSize;
+        cellSize.y = 16;
+        glg.cellSize = cellSize;
 
         foreach (CardAbility cardAbility in UnitCard.StartingAbilities)
         {
@@ -228,10 +237,10 @@ public class UnitCardDisplay : CardDisplay
         return abilityIcon;
     }
 
-    public void DisableVisuals()
+    public override void DisableVisuals()
     {
-        GetComponent<Animator>().enabled = false;
-        GetComponent<CardSelect>().CardOutline.SetActive(false);
+        base.DisableVisuals();
         exhaustedIcon.SetActive(false);
+        destroyedIcon.SetActive(false);
     }
 }
