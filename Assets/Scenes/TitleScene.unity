@@ -970,11 +970,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIManager
       objectReference: {fileID: 0}
-    - target: {fileID: 4558383039621509700, guid: f349a13ec4969bc43bd2f853c21c912d,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4558383039621509701, guid: f349a13ec4969bc43bd2f853c21c912d,
         type: 3}
       propertyPath: m_RootOrder
@@ -1379,18 +1374,30 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 1847435902558288596, guid: 38d16f02ed3f9c04da2cde3354821da0,
         type: 3}
+      propertyPath: playerTestHero
+      value: 
+      objectReference: {fileID: 11400000, guid: 7ec381d799404eb4abf4d674191a948b,
+        type: 2}
+    - target: {fileID: 1847435902558288596, guid: 38d16f02ed3f9c04da2cde3354821da0,
+        type: 3}
       propertyPath: testCards.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1847435902558288596, guid: 38d16f02ed3f9c04da2cde3354821da0,
         type: 3}
       propertyPath: testCards.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 205306890a63c7748b59b16e90773c20,
+      objectReference: {fileID: 11400000, guid: 6ef17c6ef8dbe444f9769751d304fc89,
         type: 2}
     - target: {fileID: 1847435902558288596, guid: 38d16f02ed3f9c04da2cde3354821da0,
         type: 3}
       propertyPath: testCards.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 6ef17c6ef8dbe444f9769751d304fc89,
+        type: 2}
+    - target: {fileID: 1847435902558288596, guid: 38d16f02ed3f9c04da2cde3354821da0,
+        type: 3}
+      propertyPath: testCards.Array.data[2]
       value: 
       objectReference: {fileID: 11400000, guid: 205306890a63c7748b59b16e90773c20,
         type: 2}

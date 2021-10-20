@@ -18,6 +18,8 @@ public class AnimationManager : MonoBehaviour
     private UIManager uMan;
     private CombatManager coMan;
     private DialogueManager dMan;
+    private AudioManager auMan;
+
     private Vector2 playerHandStart;
 
     private void Start()
@@ -25,11 +27,11 @@ public class AnimationManager : MonoBehaviour
         uMan = UIManager.Instance;
         coMan = CombatManager.Instance;
         dMan = DialogueManager.Instance;
+        auMan = AudioManager.Instance;
     }
 
     public void ChangeAnimationState(GameObject go, string animationState)
     {
-        if (go.TryGetComponent<ActionCardDisplay>(out _)) return;
         if (go.TryGetComponent(out Animator anim))
             if (anim.enabled)
                 anim.Play(animationState);
@@ -38,20 +40,30 @@ public class AnimationManager : MonoBehaviour
 
     /* HERO_ANIMATIONS */
     public void ModifyHeroHealthState(GameObject hero) => ChangeAnimationState(hero, "Modify_Health");
-    public void ReinforcementsState(GameObject enemyHero) => ChangeAnimationState(enemyHero, "Reinforcements");
+    public void ReinforcementsState()
+    {
+        auMan.StartStopSound("SFX_Reinforcements");
+        ChangeAnimationState(coMan.EnemyHero, "Reinforcements");
+    }
+    public void NextReinforcementsState()
+    {
+        auMan.StartStopSound("SFX_NextReinforcements");
+        ChangeAnimationState(coMan.EnemyHero, "Next_Reinforcements");
+    }
     /* UNIT_ANIMATIONS */
     public void RevealedHandState(GameObject card) => ChangeAnimationState(card, "Revealed_Hand");
-    //public void RevealedPlayState(GameObject card) => ChangeAnimationState(card, "Revealed_Play");
     public void RevealedDragState(GameObject card) => ChangeAnimationState(card, "Revealed_Drag");
     public void PlayedState(GameObject card)
     {
         card.GetComponent<CardDisplay>().CardArt = card.GetComponent<CardDisplay>().CardScript.CardArt;
         ChangeAnimationState(card, "Played");
-        //card.transform.SetAsLastSibling(); // TESTING
     }
-    //public void ModifyAttackState(GameObject card) => ChangeAnimationState(card, Modify_Attack);
-    public void ModifyUnitHealthState(GameObject card) => ChangeAnimationState(card, "Modify_Health");
     public void ZoomedState(GameObject card) => ChangeAnimationState(card, "Zoomed");
+
+    // Stat Changes
+    public void UnitTakeDamageState(GameObject card) => ChangeAnimationState(card, "Take_Damage");
+    public void ModifyUnitHealthState(GameObject card) => ChangeAnimationState(card, "Modify_Health");
+    public void ModifyUnitPowerState(GameObject card) => ChangeAnimationState(card, "Modify_Power");
 
     /******
      * *****

@@ -27,7 +27,7 @@ public class PowerZoom : MonoBehaviour
     {
         if (CardZoom.ZoomCardIsCentered || DragDrop.DraggingCard) return;
         DestroyPowerPopup();
-        if (!abilityPopupOnly) FunctionTimer.Create(() => CreatePowerPopup(), 1, POWER_POPUP_TIMER);
+        if (!abilityPopupOnly) FunctionTimer.Create(() => CreatePowerPopup(), 1f, POWER_POPUP_TIMER);
         else FunctionTimer.Create(() => ShowLinkedAbilities(LoadedPower, 3), 0.5f, POWER_POPUP_TIMER);
     }
     public void OnPointerExit()
@@ -58,7 +58,7 @@ public class PowerZoom : MonoBehaviour
             return;
         }
         powerPopup.GetComponent<PowerPopupDisplay>().PowerScript = hp;
-        FunctionTimer.Create(() => ShowLinkedAbilities(hp, scaleValue), 1.5f, ABILITY_POPUP_TIMER);
+        FunctionTimer.Create(() => ShowLinkedAbilities(hp, scaleValue), 0.75f, ABILITY_POPUP_TIMER);
     }
 
     private void ShowLinkedAbilities(HeroPower hp, float scaleValue)

@@ -22,6 +22,7 @@ public class CombatManager : MonoBehaviour
     private CardManager caMan;
     private AudioManager auMan;
     private EffectManager efMan;
+    private EventManager evMan;
     private UIManager uMan;
     private AnimationManager anMan;
     private PlayerManager pMan;
@@ -73,6 +74,7 @@ public class CombatManager : MonoBehaviour
         caMan = CardManager.Instance;
         auMan = AudioManager.Instance;
         efMan = EffectManager.Instance;
+        evMan = EventManager.Instance;
         uMan = UIManager.Instance;
         anMan = AnimationManager.Instance;
         pMan = PlayerManager.Instance;
@@ -194,6 +196,7 @@ public class CombatManager : MonoBehaviour
     }
     private Card HideCard(GameObject card)
     {
+        card.GetComponent<CardZoom>().DestroyZoomCard(); // TESTING
         Card cardScript = card.GetComponent<CardDisplay>().CardScript;
         Destroy(card.GetComponent<CardDisplay>().CardContainer);
         if (card != null) Destroy(card);
@@ -378,7 +381,7 @@ public class CombatManager : MonoBehaviour
                 break;
             case PLAYER_ACTION_ZONE:
                 zone = PlayerActionZone;
-                anMan.PlayedState(card);
+                anMan.RevealedHandState(card); // Unnecessary, coming from hand
                 break;
             // ENEMY
             case ENEMY_HAND:
@@ -417,8 +420,6 @@ public class CombatManager : MonoBehaviour
                 PlayerZoneCards.Add(card);
                 ChangeCardZone(card, PLAYER_ZONE);
                 PlayUnit();
-                FunctionTimer.Create(() =>
-                efMan.TriggerGiveNextEffect(card), 0.4f);
             }
             else if (card.GetComponent<CardDisplay>() is ActionCardDisplay)
             {
@@ -436,7 +437,7 @@ public class CombatManager : MonoBehaviour
         {
             if (EnemyZoneCards.Count >= GameManager.MAX_UNITS_PLAYED)
             {
-                uMan.CreateFleetinInfoPopup("Too many enemy units!"); // TESTING
+                uMan.CreateFleetinInfoPopup("Too many enemy units!");
                 return;
             }
             EnemyHandCards.Remove(card);
@@ -459,7 +460,8 @@ public class CombatManager : MonoBehaviour
         }
         void PlayUnit()
         {
-            caMan.TriggerCardAbility(card, "Play");
+            if (!caMan.TriggerCardAbility(card, "Play"))
+                efMan.TriggerGiveNextEffect(card); // TESTING
             PlayCardSound();
             PlayAbilitySounds();
         }
@@ -507,34 +509,46 @@ public class CombatManager : MonoBehaviour
      *****/
     public void DestroyUnit(GameObject card, bool isDelayed = true)
     {
-        if (efMan.CurrentEffect != null) // TESTING
+        if (card == null)
         {
-            efMan.UnitsToDestroy.Add(card);
+            Debug.LogError("CARD IS NULL!");
             return;
         }
-        if (efMan.UnitsToDestroy.Contains(card)) // TESTING
-            efMan.UnitsToDestroy.Remove(card);
 
         string cardTag = card.tag;
         if (isDelayed)
         {
-            FunctionTimer.Create(() => Triggers(), 0.5f);
-            FunctionTimer.Create(() => Destroy(), 1);
+            // TESTING
+            evMan.NewDelayedAction(() => Destroy(), 0.5f, true);
+            evMan.NewDelayedAction(() => Triggers(), 0.5f, true);
         }
         else
         {
-            Triggers();
-            Destroy();
+            // TESTING
+            evMan.NewDelayedAction(() => Destroy(), 0, true);
+            evMan.NewDelayedAction(() => Triggers(), 0, true);
         }
 
         void Triggers()
         {
+            if (card == null)
+            {
+                Debug.LogError("CARD IS NULL!");
+                return;
+            }
+
             caMan.TriggerCardAbility(card, "Revenge");
             if (CardManager.GetAbility(card, "Marked"))
                 DrawCard(PLAYER);
         }
         void Destroy()
         {
+            if (card == null)
+            {
+                Debug.LogError("CARD IS NULL!");
+                return;
+            }
+
             Sound deathSound = GetUnitDisplay(card).UnitCard.UnitDeathSound;
             AudioManager.Instance.StartStopSound(null, deathSound);
 
@@ -548,9 +562,6 @@ public class CombatManager : MonoBehaviour
                 EnemyZoneCards.Remove(card);
                 EnemyDiscardCards.Add(HideCard(card));
             }
-
-            if (efMan.UnitsToDestroy.Count > 0) // TESTING
-                DestroyUnit(efMan.UnitsToDestroy[0], isDelayed);
         }
     }
 
@@ -702,7 +713,7 @@ public class CombatManager : MonoBehaviour
             else
             {
                 GetUnitDisplay(target).CurrentHealth = newTargetValue;
-                anMan.ModifyUnitHealthState(target);
+                anMan.UnitTakeDamageState(target);
             }
         }
         if (newTargetValue < 1)

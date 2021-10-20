@@ -44,10 +44,10 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     
     /******
      * *****
-     * ****** START
+     * ****** AWAKE
      * *****
      *****/
-    private void Start()
+    private void Awake()
     {
         coMan = CombatManager.Instance;
         uMan = UIManager.Instance;
@@ -179,11 +179,8 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
      *****/
     private void CreateZoomCard(Vector2 vec2, float scaleValue)
     {
-        if (CurrentZoomCard != null)
-        {
-            Destroy(CurrentZoomCard);
-            CurrentZoomCard = null;
-        }
+        if (gameObject == null) return; // TESTING
+        DestroyZoomCard(); // TESTING
 
         GameObject cardPrefab;
         if (GetComponent<CardDisplay>() is UnitCardDisplay)
@@ -198,6 +195,15 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         CurrentZoomCard = CreateZoomObject(cardPrefab, 
             new Vector2(vec2.x, vec2.y), uMan.CurrentCanvas.transform, scaleValue);
         CurrentZoomCard.GetComponent<CardDisplay>().DisplayZoomCard(gameObject);
+    }
+
+    public void DestroyZoomCard()
+    {
+        if (CurrentZoomCard != null)
+        {
+            Destroy(CurrentZoomCard);
+            CurrentZoomCard = null;
+        }
     }
 
     /******

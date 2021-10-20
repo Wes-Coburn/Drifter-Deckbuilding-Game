@@ -7,6 +7,7 @@ public class CancelEffectButton : MonoBehaviour, IPointerClickHandler
     {
         if (pointerEventData.button != PointerEventData.InputButton.Left) return;
         UIManager.Instance.SetCancelEffectButton(false);
-        EffectManager.Instance.AbortEffectGroup(true);
+        EffectManager.Instance.AbortEffectGroupList(true);
+        GetComponent<SoundPlayer>().PlaySound(0);
     }
 }

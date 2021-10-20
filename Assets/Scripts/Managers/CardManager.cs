@@ -117,8 +117,11 @@ public class CardManager : MonoBehaviour
             if (ca is TriggeredAbility tra)
                 if (tra.AbilityTrigger.AbilityName == triggerName)
                 {
-                    FunctionTimer.Create(() => 
-                    EffectManager.Instance.StartEffectGroupList(tra.EffectGroupList, card), 0.2f); // TESTING
+                    Debug.LogWarning("TRIGGER! <" + triggerName + ">");
+                    bool isPlayTrigger = false;
+                    if (triggerName == "Play") isPlayTrigger = true;
+                    EventManager.Instance.NewDelayedAction(() => EffectManager.Instance.StartEffectGroupList
+                    (tra.EffectGroupList, card, isPlayTrigger), 0.5f, true); // TESTING
                     effectFound = true;
                 }
         return effectFound;

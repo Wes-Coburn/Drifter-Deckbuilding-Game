@@ -15,12 +15,13 @@ public class EventManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         else Destroy(gameObject);
-
-        delayedActions = new List<DelayedAction>(); // STATIC
+        delayedActions = new List<DelayedAction>();
+        isPaused = false;
     }
 
     private static List<DelayedAction> delayedActions;
     private Coroutine currentActionRoutine;
+    private bool isPaused;
 
     public class DelayedAction
     {
@@ -29,7 +30,7 @@ public class EventManager : MonoBehaviour
         public static int CurrentAction;
     }
     
-    public DelayedAction NewDelayedAction(Action action, float delay)
+    public void NewDelayedAction(Action action, float delay, bool resolveNext = false)
     {
         DelayedAction da = new DelayedAction
         {
@@ -37,23 +38,33 @@ public class EventManager : MonoBehaviour
             Delay = delay
         };
 
-        delayedActions.Add(da);
+        if (resolveNext) delayedActions.Insert(DelayedAction.CurrentAction, da); // TESTING
+        else delayedActions.Add(da);
+
         if (delayedActions.Count == 1)
         {
             DelayedAction.CurrentAction = 0;
             NextDelayedAction();
         }
-        return da;
     }
 
     private void NextDelayedAction()
     {
         if (DelayedAction.CurrentAction < delayedActions.Count)
         {
-            Debug.Log("ACTION # " + (DelayedAction.CurrentAction + 1) + " / " + delayedActions.Count);
+            if (isPaused) return; // TESTING
+            //Debug.Log("ACTION # " + (DelayedAction.CurrentAction + 1) + " / " + delayedActions.Count);
             currentActionRoutine = StartCoroutine(ActionNumerator());
         }
         else ClearDelayedActions();
+    }
+
+    public void PauseDelayedActions(bool isPaused) // TESTING
+    {
+        bool isResuming = false;
+        if (this.isPaused && !isPaused) isResuming = true;
+        this.isPaused = isPaused;
+        if (isResuming) NextDelayedAction();
     }
 
     public void ClearDelayedActions()
