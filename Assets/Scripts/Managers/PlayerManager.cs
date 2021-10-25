@@ -136,7 +136,7 @@ public class PlayerManager : MonoBehaviour
             }
             else
             {
-                efMan.StartEffectGroupList(groupList, coMan.PlayerHero);
+                efMan.StartEffectGroupList(groupList, coMan.PlayerHero); // TESTING
                 PlayerActionsLeft -= playerHero.HeroPower.PowerCost;
                 HeroPowerUsed = true;
                 foreach (Sound s in PlayerHero.HeroPower.PowerSounds)

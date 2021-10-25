@@ -59,10 +59,9 @@ public class DragDrop : MonoBehaviour
 
     private void ResetPosition()
     {
-        //coMan.MoveCard(gameObject, startParent);
-        GameObject container = gameObject.GetComponent<CardDisplay>().CardContainer; // TESTING
-        transform.SetParent(container.transform, false); // TESTING
-        transform.localPosition = new Vector2(0, 0); // TESTING
+        GameObject container = gameObject.GetComponent<CardDisplay>().CardContainer;
+        transform.SetParent(container.transform, false);
+        transform.localPosition = new Vector2(0, 0);
         if (TryGetComponent(out ActionCardDisplay _)) IsPlayed = false;
         AnimationManager.Instance.RevealedHandState(gameObject);
     }
@@ -70,8 +69,16 @@ public class DragDrop : MonoBehaviour
     public void StartDrag()
     {
         uMan.DestroyZoomObjects();
-        if (DraggingCard != null || ArrowIsDragging || !pMan.IsMyTurn || 
-            CompareTag(CombatManager.ENEMY_CARD) || uMan.PlayerIsTargetting) return;
+        if (!pMan.IsMyTurn) return;
+        if (CompareTag(CombatManager.ENEMY_CARD)) return;
+        if (DraggingCard != null || ArrowIsDragging) return;
+
+        if (EffectManager.Instance.EffectsResolving)
+        {
+            Debug.LogWarning("EFFECTS RESOLVING!");
+            return;
+        }
+
         FunctionTimer.StopTimer(CardZoom.ZOOM_CARD_TIMER);
         FunctionTimer.StopTimer(CardZoom.ABILITY_POPUP_TIMER);
         DraggingCard = gameObject;

@@ -105,7 +105,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7759307479915815839}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -548,9 +548,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1987251729773291172}
   - {fileID: 3699875958816895544}
   - {fileID: 5432363719024561124}
+  - {fileID: 1987251729773291172}
   m_Father: {fileID: 4694494280116814856}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -584,7 +584,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7759307479915815839}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1201,16 +1201,14 @@ MonoBehaviour:
   cardTypeLine: {fileID: 240640442672302795}
   actionCost: {fileID: 1898300277847859935}
   currentAbilitiesDisplay: {fileID: 7504388223987195692}
-  exhaustedIcon: {fileID: 0}
   attackScoreDisplay: {fileID: 1282119089463761249}
   healthScoreDisplay: {fileID: 8614889552567123792}
-  AbilityIconPrefab: {fileID: 386389505813502122, guid: f86585513f1902f4ba1aac4bc170e0e7,
+  exhaustedIcon: {fileID: 0}
+  destroyedIcon: {fileID: 0}
+  abilityIconPrefab: {fileID: 386389505813502122, guid: f86585513f1902f4ba1aac4bc170e0e7,
     type: 3}
-  ZoomAbilityIconPrefab: {fileID: 386389505813502122, guid: 0ab157fa3dd44cd4a9fdc4c303ac8001,
+  zoomAbilityIconPrefab: {fileID: 386389505813502122, guid: 0ab157fa3dd44cd4a9fdc4c303ac8001,
     type: 3}
-  CurrentEffects: []
-  AbilityIcons: []
-  CurrentAbilities: []
 --- !u!114 &8121863126802653666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1295,7 +1293,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7759307479915815839}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

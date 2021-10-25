@@ -317,7 +317,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -175}
-  m_SizeDelta: {x: 175, y: 115}
+  m_SizeDelta: {x: 225, y: 125}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4338079711489590498
 CanvasRenderer:
@@ -750,17 +750,17 @@ MonoBehaviour:
       m_Calls: []
   m_text: Location Name
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e538ba65f9ab69747a0b9d64b5033d2a, type: 2}
-  m_sharedMaterial: {fileID: 3279066539608328692, guid: e538ba65f9ab69747a0b9d64b5033d2a,
+  m_fontAsset: {fileID: 11400000, guid: e46854ac3bba22a40be7e844ee8ed3e3, type: 2}
+  m_sharedMaterial: {fileID: 3279066539608328692, guid: e46854ac3bba22a40be7e844ee8ed3e3,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 1
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+  m_enableVertexGradient: 0
   m_colorMode: 2
   m_fontColorGradient:
     topLeft: {r: 0.45490196, g: 0, b: 0, a: 1}
@@ -885,8 +885,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Active Objectives
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e538ba65f9ab69747a0b9d64b5033d2a, type: 2}
-  m_sharedMaterial: {fileID: 3279066539608328692, guid: e538ba65f9ab69747a0b9d64b5033d2a,
+  m_fontAsset: {fileID: 11400000, guid: e46854ac3bba22a40be7e844ee8ed3e3, type: 2}
+  m_sharedMaterial: {fileID: 3279066539608328692, guid: e46854ac3bba22a40be7e844ee8ed3e3,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1095,7 +1095,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 110, y: 75}
+  m_SizeDelta: {x: 135, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3966505985206764126
 CanvasRenderer:
@@ -1127,8 +1127,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Travel
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e538ba65f9ab69747a0b9d64b5033d2a, type: 2}
-  m_sharedMaterial: {fileID: 3279066539608328692, guid: e538ba65f9ab69747a0b9d64b5033d2a,
+  m_fontAsset: {fileID: 11400000, guid: e46854ac3bba22a40be7e844ee8ed3e3, type: 2}
+  m_sharedMaterial: {fileID: 3279066539608328692, guid: e46854ac3bba22a40be7e844ee8ed3e3,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1153,8 +1153,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
-  m_fontSizeBase: 40
+  m_fontSize: 45
+  m_fontSizeBase: 45
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

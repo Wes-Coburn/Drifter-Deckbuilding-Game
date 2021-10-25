@@ -25,7 +25,7 @@ public static class SceneLoader
         if (SceneIsLoading) return;
         if (!loadSameScene && SceneManager.GetActiveScene().name == scene.ToString()) return;
         SceneIsLoading = true;
-
+        
         UIManager uMan = UIManager.Instance;
         AudioManager auMan = AudioManager.Instance;
         GameManager gMan = GameManager.Instance;
@@ -74,9 +74,9 @@ public static class SceneLoader
 
         onSceneUpdateCallback = () =>
         {
-            auMan.StartStopSound("SFX_SceneLoading", null, AudioManager.SoundType.SFX, true);
             uMan.Start();
             auMan.CleanAudioSources();
+            auMan.StartStopSound("SFX_SceneLoading", null, AudioManager.SoundType.SFX, true);
             SceneIsLoading = false;
             bool showSkybar = true;
 

@@ -125,7 +125,7 @@ public class EnemyManager : MonoBehaviour
             foreach (GameObject enemyUnit in coMan.EnemyZoneCards)
             {
                 UnitCardDisplay ucd = coMan.GetUnitDisplay(enemyUnit);
-                if (!ucd.IsExhausted && ucd.CurrentPower > 0 && ucd.CurrentHealth > 0) // TESTING
+                if (!ucd.IsExhausted && ucd.CurrentPower > 0 && ucd.CurrentHealth > 0)
                     evMan.NewDelayedAction(() => ResolveAttack(enemyUnit), 1);
             }
             evMan.NewDelayedAction(() => UpdateReinforcements(), 2);
@@ -138,10 +138,15 @@ public class EnemyManager : MonoBehaviour
             UnitCardDisplay ucd = coMan.GetUnitDisplay(enemyUnit);
             if (ucd.CurrentPower < 1 || ucd.CurrentHealth < 1) return;
 
-            if (coMan.PlayerZoneCards.Count > 0)
+            if (CardManager.GetTrigger(enemyUnit, "Infiltrate"))
+            {
+                coMan.Attack(enemyUnit, coMan.PlayerHero);
+                return;
+            }
+            else if (coMan.PlayerZoneCards.Count > 0)
             {
                 foreach (GameObject playerUnit in coMan.PlayerZoneCards)
-                    if (coMan.GetUnitDisplay(playerUnit).CurrentHealth > 0 && // TESTING
+                    if (coMan.GetUnitDisplay(playerUnit).CurrentHealth > 0 &&
                         !CardManager.GetAbility(playerUnit, "Stealth"))
                     {
                         coMan.Attack(enemyUnit, playerUnit);

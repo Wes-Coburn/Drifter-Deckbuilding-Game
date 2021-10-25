@@ -32,6 +32,12 @@ public class AnimationManager : MonoBehaviour
 
     public void ChangeAnimationState(GameObject go, string animationState)
     {
+        if (go == null)
+        {
+            Debug.LogError("GAMEOBJECT IS NULL!");
+            return;
+        }
+
         if (go.TryGetComponent(out Animator anim))
             if (anim.enabled)
             {
@@ -99,7 +105,6 @@ public class AnimationManager : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         while (distance > 0);
-        uMan.PlayerIsDiscarding = uMan.PlayerIsTargetting;
         uMan.DestroyZoomObjects();
     }
 

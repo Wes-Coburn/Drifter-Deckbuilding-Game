@@ -143,7 +143,8 @@ public class CombatManager : MonoBehaviour
         }
 
         currentDeck.Clear();
-        foreach (Card card in deckList) currentDeck.Add(card);
+        foreach (Card card in deckList)
+            currentDeck.Add(card);
         currentDeck.Shuffle();
     }
 
@@ -262,26 +263,29 @@ public class CombatManager : MonoBehaviour
             discard.Clear();
             ShuffleDeck(deck);
         }
+
         GameObject card = ShowCard(deck[0], position);
         if (card == null)
         {
             Debug.LogError("CARD IS NULL!");
             return;
         }
+
         deck.RemoveAt(0);
         card.tag = cardTag;
         ChangeCardZone(card, cardZone);
         if (hero == PLAYER)
         {
             PlayerHandCards.Add(card);
+            // Added to NewDrawnCards for upcoming effects in the current effect group
+            // Added to CurrentLegalTargets for the current effect in the current effect group
             efMan.NewDrawnCards.Add(card);
-
             if (uMan.PlayerIsTargetting &&
                 efMan.CurrentEffect is DrawEffect)
             {
                 if (!efMan.CurrentLegalTargets.Contains(card))
                     efMan.CurrentLegalTargets.Add(card);
-                uMan.SelectTarget(card, true); // TESTING
+                uMan.SelectTarget(card, true);
             }
         }
         else EnemyHandCards.Add(card);
@@ -310,7 +314,7 @@ public class CombatManager : MonoBehaviour
         if (hero == PLAYER) cardZoneList = PlayerZoneCards;
         else if (hero == ENEMY) cardZoneList = EnemyZoneCards;
         foreach (GameObject card in cardZoneList)
-            card.GetComponent<UnitCardDisplay>().IsExhausted = false;
+            GetUnitDisplay(card).IsExhausted = false;
     }
 
     /******
@@ -320,12 +324,13 @@ public class CombatManager : MonoBehaviour
      *****/
     public bool IsPlayable(GameObject card)
     {
-        int actionCost = card.GetComponent<CardDisplay>().CurrentActionCost;
-        int playerActions = pMan.PlayerActionsLeft;
         CardDisplay display = card.GetComponent<CardDisplay>();
+        int actionCost = display.CurrentActionCost;
+        int playerActions = pMan.PlayerActionsLeft;
+
         if (display is UnitCardDisplay)
         {
-            if (PlayerZoneCards.Count >= GameManager.MAX_UNITS_PLAYED) // TESTING
+            if (PlayerZoneCards.Count >= GameManager.MAX_UNITS_PLAYED)
             {
                 uMan.CreateFleetinInfoPopup("Too many units!");
                 ErrorSound();
@@ -381,11 +386,12 @@ public class CombatManager : MonoBehaviour
                 break;
             case PLAYER_ACTION_ZONE:
                 zone = PlayerActionZone;
-                anMan.RevealedHandState(card); // Unnecessary, coming from hand
+                anMan.RevealedHandState(card);
                 break;
             // ENEMY
             case ENEMY_HAND:
                 zone = EnemyHand;
+                anMan.RevealedHandState(card);
                 break;
             case ENEMY_ZONE:
                 zone = EnemyZone;
@@ -393,7 +399,7 @@ public class CombatManager : MonoBehaviour
                 break;
         }
         MoveCard(card, zone);
-        card.GetComponent<CardSelect>().CardOutline.SetActive(false);
+        uMan.SelectTarget(card, false);
         if (card.GetComponent<CardDisplay>() is UnitCardDisplay ucd)
         {
             bool played = false;
@@ -461,7 +467,7 @@ public class CombatManager : MonoBehaviour
         void PlayUnit()
         {
             if (!caMan.TriggerCardAbility(card, "Play"))
-                efMan.TriggerGiveNextEffect(card); // TESTING
+                efMan.TriggerGiveNextEffect(card);
             PlayCardSound();
             PlayAbilitySounds();
         }
@@ -499,70 +505,7 @@ public class CombatManager : MonoBehaviour
     {
         List<EffectGroup> groupList = 
             card.GetComponent<ActionCardDisplay>().ActionCard.EffectGroupList;
-        efMan.StartEffectGroupList(groupList, card);
-    }
-
-    /******
-     * *****
-     * ****** DESTROY_UNIT [PLAY >>> DISCARD]
-     * *****
-     *****/
-    public void DestroyUnit(GameObject card, bool isDelayed = true)
-    {
-        if (card == null)
-        {
-            Debug.LogError("CARD IS NULL!");
-            return;
-        }
-
-        anMan.DestroyUnitCardState(card); // TESTING
-        string cardTag = card.tag;
-        if (isDelayed)
-        {
-            // TESTING
-            evMan.NewDelayedAction(() => Destroy(), 0.5f, true);
-            evMan.NewDelayedAction(() => Triggers(), 0.5f, true);
-        }
-        else
-        {
-            // TESTING
-            evMan.NewDelayedAction(() => Destroy(), 0, true);
-            evMan.NewDelayedAction(() => Triggers(), 0, true);
-        }
-
-        void Triggers()
-        {
-            if (card == null)
-            {
-                Debug.LogError("CARD IS NULL!");
-                return;
-            }
-            caMan.TriggerCardAbility(card, "Revenge");
-            if (CardManager.GetAbility(card, "Marked"))
-                DrawCard(PLAYER);
-        }
-        void Destroy()
-        {
-            if (card == null)
-            {
-                Debug.LogError("CARD IS NULL!");
-                return;
-            }
-
-            Sound deathSound = GetUnitDisplay(card).UnitCard.UnitDeathSound;
-            AudioManager.Instance.StartStopSound(null, deathSound);
-
-            if (cardTag == PLAYER_CARD)
-            {
-                PlayerZoneCards.Remove(card);
-                PlayerDiscardCards.Add(HideCard(card));
-            }
-            else if (cardTag == ENEMY_CARD)
-            {
-                EnemyZoneCards.Remove(card);
-                EnemyDiscardCards.Add(HideCard(card));
-            }
-        }
+        efMan.StartEffectGroupList(groupList, card); // TESTING
     }
 
     /******
@@ -599,16 +542,26 @@ public class CombatManager : MonoBehaviour
             if (attacker.CompareTag(PLAYER_CARD)) 
                 if (defender == PlayerHero) return false;
         }
-        if (GetUnitDisplay(attacker).IsExhausted)
+
+        UnitCardDisplay atkUcd = GetUnitDisplay(attacker);
+        if (atkUcd.IsExhausted)
         {
             if (!preCheck)
                 uMan.CreateFleetinInfoPopup("Exhausted units can't attack!");
             return false;
         }
-        if (defender == null) return true; // For StartDrag in DragDrop
-        else if (defender.TryGetComponent(out UnitCardDisplay ucd))
+        else if (atkUcd.CurrentPower < 1) // TESTING
         {
-            if (ucd.CurrentHealth < 1) return false; // Destroyed units that haven't left play yet
+            if (!preCheck)
+                uMan.CreateFleetinInfoPopup("Units with 0 power can't attack!");
+            return false;
+        }
+
+        if (defender == null) return true; // For StartDrag in DragDrop
+        
+        if (defender.TryGetComponent(out UnitCardDisplay defUcd))
+        {
+            if (defUcd.CurrentHealth < 1) return false; // Destroyed units that haven't left play yet
             if (CardManager.GetAbility(defender, "Stealth"))
             {
                 if (!preCheck)
@@ -629,21 +582,18 @@ public class CombatManager : MonoBehaviour
         const string STEALTH = "Stealth";
         const string RANGED = "Ranged";
 
+        // Immediate Actions
         GetUnitDisplay(attacker).IsExhausted = true;
         if (CardManager.GetAbility(attacker, STEALTH))
-            attacker.GetComponent<UnitCardDisplay>().RemoveCurrentAbility(STEALTH);
-        Strike(attacker, defender);
-
-        bool defenderIsUnit = IsUnitCard(defender);
-        if (defenderIsUnit)
-        {
-            if (!CardManager.GetAbility(attacker, RANGED))
-                Strike(defender, attacker);
-        }
+            GetUnitDisplay(attacker).RemoveCurrentAbility(STEALTH);
         if (!CardManager.GetAbility(attacker, RANGED))
             auMan.StartStopSound("SFX_AttackMelee");
         else auMan.StartStopSound("SFX_AttackRanged");
+        bool defenderIsUnit = IsUnitCard(defender);
         anMan.UnitAttack(attacker, defender, defenderIsUnit);
+
+        // Delayed Actions
+        Strike(attacker, defender, true);
     }
 
     /******
@@ -651,31 +601,83 @@ public class CombatManager : MonoBehaviour
      * ****** STRIKE
      * *****
      *****/
-    public void Strike(GameObject striker, GameObject defender)
+    public void Strike(GameObject striker, GameObject defender, bool isCombat)
     {
-        int power = GetUnitDisplay(striker).CurrentPower;
-        if (power <= 0) return;
+        bool attackerDestroyed;
+        bool defenderDealtDamage;
 
-        if (IsUnitCard(defender))
+        // COMBAT
+        if (isCombat)
         {
-            if (!CardManager.GetAbility(defender, "Shield"))
-                Trigger(() => StrikeTrigger()); // TESTING
+            DealDamage(striker, defender, 
+                out bool attackerDealtDamage, out bool defenderDestroyed);
+            if (IsUnitCard(defender))
+            {
+                if (!CardManager.GetAbility(striker, "Ranged"))
+                    DealDamage(defender, striker, 
+                        out defenderDealtDamage, out attackerDestroyed);
+                else
+                {
+                    defenderDealtDamage = false;
+                    attackerDestroyed = false;
+                }
+
+                if (!attackerDestroyed)
+                {
+                    if (defenderDestroyed)
+                        TriggerDelay(() => DeathblowTrigger(striker));
+                }
+                if (!defenderDestroyed)
+                {
+                    if (attackerDestroyed)
+                        TriggerDelay(() => DeathblowTrigger(defender));
+                }
+            }
+            else if (attackerDealtDamage)
+                TriggerDelay(() => InfiltrateTrigger(striker));
         }
-        else Trigger(() => StrikeTrigger()); // TESTING
 
-        if (TakeDamage(defender, power))
-            Trigger(() => DeathblowTrigger()); // TESTING
-
-
-        void Trigger(System.Action action) =>
-            FunctionTimer.Create(() => action(), 0.2f);
-        void StrikeTrigger() =>
-            caMan.TriggerCardAbility(striker, "Strike");
-        void DeathblowTrigger()
+        // STRIKE EFFECTS
+        else
         {
-            if (GetUnitDisplay(striker).CurrentHealth > 0)
-                caMan.TriggerCardAbility(striker, "Deathblow");
+            DealDamage(striker, defender, 
+                out bool attackerDealtDamage, out bool defenderDestroyed);
+            if (defenderDestroyed) TriggerDelay(() => DeathblowTrigger(striker));
+            if (attackerDealtDamage) TriggerDelay(() => InfiltrateTrigger(striker));
         }
+
+        void DealDamage(GameObject striker, GameObject defender,
+            out bool dealtDamage, out bool defenderDestroyed)
+        {
+            int power = GetUnitDisplay(striker).CurrentPower;
+            if (power < 1)
+            {
+                dealtDamage = false;
+                defenderDestroyed = false;
+                return;
+            }
+
+            if (IsUnitCard(defender))
+            {
+                if (!CardManager.GetAbility(defender, "Shield"))
+                    dealtDamage = true;
+                else dealtDamage = false;
+            }
+            else dealtDamage = true;
+
+            if (TakeDamage(defender, power))
+                defenderDestroyed = true;
+            else defenderDestroyed = false;
+        }
+
+        void TriggerDelay(System.Action action) =>
+            evMan.NewDelayedAction(() => action(), 0.5f, true);
+        
+        void InfiltrateTrigger(GameObject unit) =>
+            caMan.TriggerCardAbility(unit, "Infiltrate");
+        
+        void DeathblowTrigger(GameObject unit) => 
+            caMan.TriggerCardAbility(unit, "Deathblow");
     }
 
     /******
@@ -693,6 +695,8 @@ public class CombatManager : MonoBehaviour
         if (target == PlayerHero) targetValue = pMan.PlayerHealth;
         else if (target == EnemyHero) targetValue = enMan.EnemyHealth;
         else targetValue = GetUnitDisplay(target).CurrentHealth;
+
+        if (targetValue < 1) return false; // Don't deal damage to destroyed units or heroes
         newTargetValue = targetValue - damageValue;
         // Damage to heroes
         if (target == PlayerHero)
@@ -705,9 +709,9 @@ public class CombatManager : MonoBehaviour
             enMan.EnemyHealth = newTargetValue;
             anMan.ModifyHeroHealthState(target);
         }
-        else // Damage to Units
+        // Damage to Units
+        else
         {
-            if (GetUnitDisplay(target).CurrentHealth < 1) return false;
             if (CardManager.GetAbility(target, SHIELD))
             {
                 GetUnitDisplay(target).RemoveCurrentAbility(SHIELD);
@@ -721,7 +725,7 @@ public class CombatManager : MonoBehaviour
         }
         if (newTargetValue < 1)
         {
-            if (IsUnitCard(target)) DestroyUnit(target);
+            if (IsUnitCard(target)) DestroyUnit(target, true);
             else if (target == PlayerHero) gMan.EndCombat(false);
             else if (target == EnemyHero) gMan.EndCombat(true);
             if (target == PlayerHero || target == EnemyHero) return false;
@@ -737,6 +741,7 @@ public class CombatManager : MonoBehaviour
      *****/
     public void HealDamage(GameObject target, int healingValue)
     {
+        if (healingValue < 1) return;
         int targetValue;
         int maxValue;
         int newTargetValue;
@@ -755,11 +760,77 @@ public class CombatManager : MonoBehaviour
             targetValue = GetUnitDisplay(target).CurrentHealth;
             maxValue = GetUnitDisplay(target).MaxHealth;
         }
+        if (targetValue < 1) return; // Don't heal destroyed units or heroes
         newTargetValue = targetValue + healingValue;
         if (newTargetValue > maxValue) newTargetValue = maxValue;
         if (target == PlayerHero) pMan.PlayerHealth = newTargetValue;
         else if (target == EnemyHero) enMan.EnemyHealth = newTargetValue;
         else GetUnitDisplay(target).CurrentHealth = newTargetValue;
         anMan.ModifyUnitHealthState(target);
+    }
+
+    /******
+     * *****
+     * ****** DESTROY_UNIT [PLAY >>> DISCARD]
+     * *****
+     *****/
+    public void DestroyUnit(GameObject card, bool isDelayed)
+    {
+        if (card == null)
+        {
+            Debug.LogError("CARD IS NULL!");
+            return;
+        }
+
+        string cardTag = card.tag;
+
+        // TESTING        
+        if (isDelayed)
+        {
+            FunctionTimer.Create(() => anMan.DestroyUnitCardState(card), 0.5f);
+            evMan.NewDelayedAction(() => Destroy(), 0.5f, true);
+            evMan.NewDelayedAction(() => DestroyTriggers(), 0.5f, true);
+        }
+        else
+        {
+            anMan.DestroyUnitCardState(card);
+            evMan.NewDelayedAction(() => Destroy(), 0.5f, true);
+            evMan.NewDelayedAction(() => DestroyTriggers(), 0, true);
+        }
+
+        void DestroyTriggers()
+        {
+            if (card == null)
+            {
+                Debug.LogError("CARD IS NULL!");
+                return;
+            }
+
+            caMan.TriggerCardAbility(card, "Revenge");
+            if (CardManager.GetAbility(card, "Marked"))
+                DrawCard(PLAYER);
+        }
+        void Destroy()
+        {
+            if (card == null)
+            {
+                Debug.LogError("CARD IS NULL!");
+                return;
+            }
+
+            Sound deathSound = GetUnitDisplay(card).UnitCard.UnitDeathSound;
+            AudioManager.Instance.StartStopSound(null, deathSound);
+
+            if (cardTag == PLAYER_CARD)
+            {
+                PlayerZoneCards.Remove(card);
+                PlayerDiscardCards.Add(HideCard(card));
+            }
+            else if (cardTag == ENEMY_CARD)
+            {
+                EnemyZoneCards.Remove(card);
+                EnemyDiscardCards.Add(HideCard(card));
+            }
+        }
     }
 }

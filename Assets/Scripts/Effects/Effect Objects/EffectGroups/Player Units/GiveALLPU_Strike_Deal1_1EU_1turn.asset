@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a22d7123f6ee007468cbdc6e9b6fe2b0, type: 3}
+  m_Name: GiveALLPU_Strike_Deal1_1EU_1turn
+  m_EditorClassIdentifier: 
+  Targets: {fileID: 11400000, guid: 137a8a746a31eee4e8962e641f6223df, type: 2}
+  Effects:
+  - {fileID: 11400000, guid: f0f58e75b90c2c9439e7fd0aa44bf612, type: 2}
+  EffectsDescription: 'Give ALL allies "Strike: Deal 1 to an enemy" this turn.'
+  EffectGroupSound: SFX_StatPlus
+  EffectGroupSound2:
+    name: 
+    clip: {fileID: 0}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}

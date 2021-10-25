@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e7527b44bc0b3347b54a3f404a8a59f, type: 3}
+  m_Name: Evade
+  m_EditorClassIdentifier: 
+  AbilityName: Evade
+  AbilityDescription: The enemy hero plays 1 less reinforcement next turn.
+  AbilitySprite: {fileID: 21300000, guid: a44f92ad1b20f2145b1155e8cc528593, type: 3}
+  LinkedAbilites: []
+  GainAbilitySound:
+    name: 
+    clip: {fileID: 0}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  LoseAbilitySound:
+    name: 
+    clip: {fileID: 0}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}

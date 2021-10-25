@@ -88,7 +88,8 @@ public class CardPageDisplay : MonoBehaviour
             index = firstIndex + i;
             if (index > cardGroupList.Count - 1) break;
             Card card = cardGroupList[firstIndex + i];
-            GameObject cardObj = CombatManager.Instance.ShowCard(card, new Vector2(), false, true);
+            GameObject cardObj =
+                CombatManager.Instance.ShowCard(card, new Vector2(), false, true);
             cardObj.GetComponent<CardDisplay>().DisableVisuals(); // TESTING
             cardObj.transform.localScale = new Vector2(4, 4);
             cardObj.transform.SetParent(cardGroup.transform);

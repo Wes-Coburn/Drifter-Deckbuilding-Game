@@ -30,7 +30,8 @@ public class EventManager : MonoBehaviour
         public static int CurrentAction;
     }
     
-    public void NewDelayedAction(Action action, float delay, bool resolveNext = false)
+    public void NewDelayedAction(Action action,
+        float delay, bool resolveNext = false)
     {
         DelayedAction da = new DelayedAction
         {
@@ -38,7 +39,8 @@ public class EventManager : MonoBehaviour
             Delay = delay
         };
 
-        if (resolveNext) delayedActions.Insert(DelayedAction.CurrentAction, da); // TESTING
+        if (resolveNext)
+            delayedActions.Insert(DelayedAction.CurrentAction, da);
         else delayedActions.Add(da);
 
         if (delayedActions.Count == 1)
@@ -50,35 +52,44 @@ public class EventManager : MonoBehaviour
 
     private void NextDelayedAction()
     {
+        if (isPaused) return;
         if (DelayedAction.CurrentAction < delayedActions.Count)
         {
-            if (isPaused) return; // TESTING
-            //Debug.Log("ACTION # " + (DelayedAction.CurrentAction + 1) + " / " + delayedActions.Count);
+            Debug.Log("ACTION # " + 
+                (DelayedAction.CurrentAction + 1) + " / " + delayedActions.Count);
             currentActionRoutine = StartCoroutine(ActionNumerator());
         }
         else ClearDelayedActions();
     }
 
-    public void PauseDelayedActions(bool isPaused) // TESTING
+    public void PauseDelayedActions(bool isPaused)
     {
+        if (this.isPaused == isPaused) return;
         bool isResuming = false;
-        if (this.isPaused && !isPaused) isResuming = true;
+        if (this.isPaused && !isPaused &&
+            currentActionRoutine == null) isResuming = true; // TESTING
         this.isPaused = isPaused;
         if (isResuming) NextDelayedAction();
+        if (isPaused) Debug.LogWarning("ACTIONS PAUSED!");
+        if (isResuming) Debug.LogWarning("ACTIONS RESUMED!");
     }
 
     public void ClearDelayedActions()
     {
         delayedActions.Clear();
         DelayedAction.CurrentAction = 0;
-        if (currentActionRoutine != null) 
+        if (currentActionRoutine != null)
+        {
             StopCoroutine(currentActionRoutine);
+            currentActionRoutine = null;
+        }
     }
 
     IEnumerator ActionNumerator()
     {
         yield return new WaitForSeconds(delayedActions[DelayedAction.CurrentAction].Delay);
         delayedActions[DelayedAction.CurrentAction++].Action();
+        currentActionRoutine = null; // TESTING
         NextDelayedAction();
     }
 }

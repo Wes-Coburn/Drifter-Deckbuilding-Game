@@ -11,13 +11,17 @@ public class UnitCardDisplay : CardDisplay
     [SerializeField] private GameObject exhaustedIcon;
     [SerializeField] private GameObject destroyedIcon;
 
-    public GameObject AbilityIconPrefab;
-    public GameObject ZoomAbilityIconPrefab;
-    public List<Effect> CurrentEffects;
-    public List<GameObject> AbilityIcons;
+    [SerializeField] private GameObject abilityIconPrefab;
+    [SerializeField] private GameObject zoomAbilityIconPrefab;
+
+    private GameObject triggerIcon;
 
     public UnitCard UnitCard { get => CardScript as UnitCard; }
-    public List<CardAbility> CurrentAbilities;
+    public GameObject ZoomAbilityIconPrefab { get => zoomAbilityIconPrefab; }
+
+    public List<Effect> CurrentEffects { get; set; }
+    public List<GameObject> AbilityIcons { get; set; }
+    public List<CardAbility> CurrentAbilities { get; set; }
 
     public int CurrentPower
     {
@@ -54,6 +58,13 @@ public class UnitCardDisplay : CardDisplay
         }
     }
 
+    private void Awake()
+    {
+        CurrentEffects = new List<Effect>();
+        CurrentAbilities = new List<CardAbility>();
+        AbilityIcons = new List<GameObject>();
+    }
+
     /******
      * *****
      * ****** DISPLAY_CARD
@@ -80,7 +91,6 @@ public class UnitCardDisplay : CardDisplay
         MaxHealth = UnitCard.StartHealth;
         CurrentHealth = MaxHealth;
 
-        // TESTING
         GridLayoutGroup glg =
             currentAbilitiesDisplay.GetComponent<GridLayoutGroup>();
         Vector2 cellSize = glg.cellSize;
@@ -158,13 +168,20 @@ public class UnitCardDisplay : CardDisplay
     {
         if (isPlayed)
         {
-            if (CardManager.GetAbility(gameObject, "Blitz")) IsExhausted = false;
+            if (CardManager.GetAbility(gameObject, "Blitz"))
+                IsExhausted = false;
             else IsExhausted = true;
         }
         else
         {
             IsExhausted = false;
-            foreach (GameObject go in AbilityIcons) Destroy(go);
+            foreach (GameObject go in AbilityIcons)
+                Destroy(go);
+            if (triggerIcon != null)
+            {
+                Destroy(triggerIcon);
+                triggerIcon = null;
+            }
             AbilityIcons.Clear();
             CurrentEffects.Clear();
             CurrentAbilities.Clear();
@@ -188,8 +205,18 @@ public class UnitCardDisplay : CardDisplay
             return false;
         }
         CurrentAbilities.Add(ca); // Add instances instead of objects? (Doesn't matter yet)
-        AbilityIcons.Add(CreateAbilityIcon(ca));
-        
+
+        // TESTING
+        if (ca is StaticAbility)
+            AbilityIcons.Add(CreateAbilityIcon(ca));
+        else if (ca is TriggeredAbility ta &&
+            ta.AbilityTrigger.AbilityName != "Play" &&
+            triggerIcon == null)
+        {
+            triggerIcon =
+                CreateAbilityIcon(CardManager.Instance.TriggerKeyword);
+        }
+
         if (isPlayed)
         {
             if (ca is StaticAbility sa)
@@ -216,12 +243,32 @@ public class UnitCardDisplay : CardDisplay
         else Debug.Log("ABILITY <" + abilityName + "> REMOVED!");
 
         CardAbility ca = CurrentAbilities[abilityIndex];
-        Destroy(AbilityIcons[abilityIndex]);
-        AbilityIcons.RemoveAt(abilityIndex);
         CurrentAbilities.RemoveAt(abilityIndex);
 
-        if (ca is StaticAbility sa) 
+        // TESTING
+        if (ca is StaticAbility sa)
+        {
             AudioManager.Instance.StartStopSound(null, sa.LoseAbilitySound);
+            Destroy(AbilityIcons[abilityIndex]);
+            AbilityIcons.RemoveAt(abilityIndex);
+        }
+        else if (ca is TriggeredAbility)
+        {
+            if (CurrentAbilities.Count > 0)
+            {
+                foreach (CardAbility ca2 in CurrentAbilities)
+                {
+                    if (ca2 is TriggeredAbility ta
+                        && ta.AbilityTrigger.AbilityName != "Play") return;
+                }
+                if (triggerIcon != null)
+                {
+                    Destroy(triggerIcon);
+                    triggerIcon = null;
+                }
+                else Debug.LogError("TRIGGER ICON IS NULL!");
+            }
+        }
     }
 
     /******
@@ -231,7 +278,7 @@ public class UnitCardDisplay : CardDisplay
      *****/
     private GameObject CreateAbilityIcon(CardAbility cardAbility)
     {
-        GameObject abilityIcon = Instantiate(AbilityIconPrefab, new Vector2(0, 0), Quaternion.identity);
+        GameObject abilityIcon = Instantiate(abilityIconPrefab, new Vector2(0, 0), Quaternion.identity);
         abilityIcon.GetComponent<AbilityIconDisplay>().AbilityScript = cardAbility;
         abilityIcon.transform.SetParent(currentAbilitiesDisplay.transform, false);
         return abilityIcon;

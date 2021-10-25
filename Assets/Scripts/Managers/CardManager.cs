@@ -20,11 +20,13 @@ public class CardManager : MonoBehaviour
     [SerializeField] private GameObject newCardPopupPrefab;
     [SerializeField] private UnitCard[] playerStartUnits;
     [SerializeField] private Sprite cardBackSprite;
+    [SerializeField] private CardAbility triggerKeyword;
 
     public GameObject UnitCardPrefab { get => unitCardPrefab; }
     public GameObject ActionCardPrefab { get => actionCardPrefab; }
     public GameObject NewCardPopup { get; private set; }
     public UnitCard[] PlayerStartUnits { get => playerStartUnits; }
+    public CardAbility TriggerKeyword { get => triggerKeyword; }
 
     /******
      * *****
@@ -89,6 +91,7 @@ public class CardManager : MonoBehaviour
             Debug.LogError("CARD IS NULL!");
             return false;
         }
+
         UnitCardDisplay ucd = card.GetComponent<UnitCardDisplay>();
         int abilityIndex = ucd.CurrentAbilities.FindIndex(x => x.AbilityName == ability);
         if (abilityIndex == -1) return false;
@@ -101,18 +104,33 @@ public class CardManager : MonoBehaviour
             Debug.LogError("CARD IS NULL!");
             return -1;
         }
+
         UnitCardDisplay ucd = card.GetComponent<UnitCardDisplay>();
         int abilityIndex = ucd.CurrentAbilities.FindIndex(x => x.AbilityName == ability);
         return abilityIndex;
     }
-    public bool TriggerCardAbility(GameObject card, string triggerName)
+    public static bool GetTrigger(GameObject card, string triggerName)
     {
-        bool effectFound = false;
         if (card == null)
         {
             Debug.LogError("CARD IS NULL!");
             return false;
         }
+
+        foreach (CardAbility ca in card.GetComponent<UnitCardDisplay>().CurrentAbilities)
+            if (ca is TriggeredAbility tra)
+                if (tra.AbilityTrigger.AbilityName == triggerName) return true;
+        return false;
+    }
+    public bool TriggerCardAbility(GameObject card, string triggerName)
+    {
+        if (card == null)
+        {
+            Debug.LogError("CARD IS NULL!");
+            return false;
+        }
+
+        bool effectFound = false;
         foreach (CardAbility ca in card.GetComponent<UnitCardDisplay>().CurrentAbilities)
             if (ca is TriggeredAbility tra)
                 if (tra.AbilityTrigger.AbilityName == triggerName)
@@ -120,8 +138,7 @@ public class CardManager : MonoBehaviour
                     Debug.LogWarning("TRIGGER! <" + triggerName + ">");
                     bool isPlayTrigger = false;
                     if (triggerName == "Play") isPlayTrigger = true;
-                    EventManager.Instance.NewDelayedAction(() => EffectManager.Instance.StartEffectGroupList
-                    (tra.EffectGroupList, card, isPlayTrigger), 0.5f, true); // TESTING
+                    EffectManager.Instance.StartEffectGroupList(tra.EffectGroupList, card, isPlayTrigger);
                     effectFound = true;
                 }
         return effectFound;

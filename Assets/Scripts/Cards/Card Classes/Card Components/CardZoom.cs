@@ -67,8 +67,8 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData pointerEventData)
     {
         if (pointerEventData.button != PointerEventData.InputButton.Right) return;
-        if (DragDrop.DraggingCard != null || ZoomCardIsCentered || 
-            uMan.PlayerIsTargetting || transform.parent.gameObject == enemyHand) return;
+        if (DragDrop.DraggingCard != null || ZoomCardIsCentered) return;
+        if (transform.parent.gameObject == enemyHand) return;
         
         uMan.DestroyZoomObjects();
         ZoomCardIsCentered = true;
@@ -87,7 +87,14 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     public void OnPointerEnter()
     {
         if (DragDrop.DraggingCard != null || ZoomCardIsCentered) return;
-        if (uMan.PlayerIsTargetting && !uMan.PlayerIsDiscarding) return;
+
+        if (uMan.PlayerIsTargetting)
+        {
+            if (EffectManager.Instance.CurrentEffect is DrawEffect de)
+            {
+                if (!de.IsDiscardEffect) return;
+            }
+        }
 
         GameObject container = GetComponent<CardDisplay>().CardContainer;
         GameObject parent = container.transform.parent.gameObject;
@@ -206,6 +213,24 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         }
     }
 
+    private void DestroyDescriptionPopup()
+    {
+        if (DescriptionPopup != null)
+        {
+            Destroy(DescriptionPopup);
+            DescriptionPopup = null;
+        }
+    }
+
+    private void DestroyAbilityPopups()
+    {
+        if (AbilityPopupBox != null)
+        {
+            Destroy(AbilityPopupBox);
+            AbilityPopupBox = null;
+        }
+    }
+
     /******
      * *****
      * ****** CREATE_ZOOM_ABILLITY_ICON
@@ -239,11 +264,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
             uMan = UIManager.Instance;
             cardDisplay = GetComponent<CardDisplay>();
         }
-        if (DescriptionPopup != null)
-        {
-            Destroy(DescriptionPopup);
-            DescriptionPopup = null;
-        }
+        DestroyDescriptionPopup();
 
         DescriptionPopup = CreateZoomObject(descriptionPopupPrefab,
             new Vector2(vec2.x, vec2.y), uMan.CurrentCanvas.transform, scaleValue);
@@ -264,11 +285,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
             uMan = UIManager.Instance;
             cardDisplay = GetComponent<CardDisplay>();
         }
-        if (AbilityPopupBox != null)
-        {
-            Destroy(AbilityPopupBox);
-            AbilityPopupBox = null;
-        }
+        DestroyAbilityPopups();
 
         AbilityPopupBox = CreateZoomObject(abilityPopupBoxPrefab, 
             vec2, uMan.CurrentCanvas.transform, scaleValue);
@@ -301,20 +318,43 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
             foreach (CardAbility linkCa in ca.LinkedAbilites)
                 AddSingle(linkCa);
         }
-        foreach (CardAbility singleCA in singleList) 
-            CreatePopup(singleCA);
+        foreach (CardAbility single in singleList) 
+            CreatePopup(single);
 
         void AddSingle(CardAbility ca)
         {
-            if (!singleList.Contains(ca))
+            // TESTING
+            if (ca is TriggeredAbility ta)
+            {
+                foreach (CardAbility ca2 in singleList)
+                {
+                    if (ca2 is TriggeredAbility ta2)
+                    {
+                        if (ta.AbilityTrigger.AbilityName ==
+                            ta2.AbilityTrigger.AbilityName) return;
+                    }
+                }
                 singleList.Add(ca);
+            }
+            else
+            {
+                if (singleList.FindIndex(x => x.AbilityName ==
+                ca.AbilityName) == -1)
+                    singleList.Add(ca);
+            }
         }
         void CreatePopup(CardAbility ca)
         {
-            Debug.Log("CreatePopup(): " + ca.AbilityName);
             GameObject abilityPopup = 
                 Instantiate(abilityPopupPrefab, AbilityPopupBox.transform);
             abilityPopup.GetComponent<AbilityPopupDisplay>().AbilityScript = ca;
         }
+    }
+
+    private void OnDestroy() // TESTING
+    {
+        DestroyZoomCard();
+        DestroyAbilityPopups();
+        DestroyDescriptionPopup();
     }
 }

@@ -73,12 +73,16 @@ public class UIManager : MonoBehaviour
     private Coroutine sceneFadeRoutine;
     private GameObject playerZoneOutline;
     
-    public bool PlayerIsTargetting { get; set; }
-    public bool PlayerIsDiscarding { get; set; }
-    public GameObject CurrentWorldSpace { get; private set; }
-    public GameObject CurrentCanvas { get; private set; }
     public GameObject CardPagePopup { get => cardPagePopup; }
     public GameObject EndTurnButton { get => endTurnButton; }
+
+    // PLAYER_IS_TARGETTING
+    public bool PlayerIsTargetting { get; set; }
+    // CANVAS
+    public GameObject CurrentCanvas { get; private set; }
+    // WORLDSPACE
+    public GameObject CurrentWorldSpace { get; private set; }
+
 
     public void Start()
     {
@@ -223,6 +227,12 @@ public class UIManager : MonoBehaviour
     public void SelectTarget(GameObject target, 
         bool enabled, bool isSelected = false, bool isRejected = false)
     {
+        if (target == null)
+        {
+            Debug.LogError("TARGET IS NULL!");
+            return;
+        }
+
         if (target.TryGetComponent(out CardSelect cs))
         {
             cs.CardOutline.SetActive(enabled);
@@ -237,7 +247,7 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("TARGET SELECT SCRIPT NOT FOUND!");
+            Debug.LogError("SELECT TARGET SCRIPT NOT FOUND!");
             return;
         }
 

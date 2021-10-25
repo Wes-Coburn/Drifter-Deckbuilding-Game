@@ -190,6 +190,9 @@ public class GameManager : MonoBehaviour
         foreach (NPCHero npc in ActiveNPCHeroes)
             Destroy(npc);
         ActiveNPCHeroes.Clear();
+        foreach (Location loc in ActiveLocations) // TESTING
+            Destroy(loc);
+        ActiveLocations.Clear(); // TESTING
         // Player Manager
         Destroy(pMan.PlayerHero);
         pMan.PlayerHero = null;
@@ -205,7 +208,9 @@ public class GameManager : MonoBehaviour
         // Event Manager
         evMan.ClearDelayedActions();
         // UI Manager
-        uMan.ClearAugmentBar(); // TESTING
+        uMan.ClearAugmentBar();
+        // Corotoutines
+        StopAllCoroutines(); // TESTING
         // Scene Loader
         SceneLoader.LoadScene(SceneLoader.Scene.TitleScene);
     }
@@ -346,7 +351,6 @@ public class GameManager : MonoBehaviour
      *****/
     private void StartTurn(string player)
     {
-        evMan.NewDelayedAction(() => coMan.PrepareAllies(player), 0.5f);
         bool isPlayerTurn;
 
         if (player == PLAYER)
@@ -388,19 +392,22 @@ public class GameManager : MonoBehaviour
      *****/
     public void EndTurn(string player)
     {
-        void RemoveEffects()
-        {
-            efMan.RemoveTemporaryEffects(PLAYER);
-            efMan.RemoveTemporaryEffects(ENEMY);
-            efMan.RemoveGiveNextEffects();
-        }
+        evMan.NewDelayedAction(() => coMan.PrepareAllies(player), 0.5f);
         evMan.NewDelayedAction(() => RemoveEffects(), 0.5f);
+
         if (player == ENEMY) StartTurn(PLAYER);
         else if (player == PLAYER)
         {
             if (pMan.ActionsPerTurn < MAX_ACTIONS_PER_TURN)
                 pMan.ActionsPerTurn++;
             StartTurn(ENEMY);
+        }
+
+        void RemoveEffects()
+        {
+            efMan.RemoveTemporaryEffects(PLAYER);
+            efMan.RemoveTemporaryEffects(ENEMY);
+            efMan.RemoveGiveNextEffects();
         }
     }
 }
