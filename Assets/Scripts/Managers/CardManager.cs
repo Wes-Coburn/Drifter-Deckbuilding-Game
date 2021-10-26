@@ -97,18 +97,6 @@ public class CardManager : MonoBehaviour
         if (abilityIndex == -1) return false;
         else return true;
     }
-    public static int GetAbilityIndex(GameObject card, string ability)
-    {
-        if (card == null)
-        {
-            Debug.LogError("CARD IS NULL!");
-            return -1;
-        }
-
-        UnitCardDisplay ucd = card.GetComponent<UnitCardDisplay>();
-        int abilityIndex = ucd.CurrentAbilities.FindIndex(x => x.AbilityName == ability);
-        return abilityIndex;
-    }
     public static bool GetTrigger(GameObject card, string triggerName)
     {
         if (card == null)

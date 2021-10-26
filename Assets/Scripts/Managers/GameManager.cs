@@ -96,6 +96,13 @@ public class GameManager : MonoBehaviour
         ActiveLocations = new List<Location>();
     }
 
+    /*
+    public static void DestroyObject(GameObject go)
+    {
+        if (go != null) Destroy(go);
+    }
+    */
+
     /******
      * *****
      * ****** GET_ACTIVE_NPC
@@ -340,7 +347,7 @@ public class GameManager : MonoBehaviour
                 (null, pMan.PlayerHero.HeroLose);
         pMan.IsMyTurn = false;
         efMan.GiveNextEffects.Clear();
-        evMan.ClearDelayedActions();
+        evMan.ClearDelayedActions(); // TESTING
         FunctionTimer.Create(() => uMan.CreateCombatEndPopup(playerWins), 2f);
     }
 

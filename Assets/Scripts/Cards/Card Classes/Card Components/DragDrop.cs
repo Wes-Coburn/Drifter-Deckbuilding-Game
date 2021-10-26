@@ -73,6 +73,7 @@ public class DragDrop : MonoBehaviour
         if (CompareTag(CombatManager.ENEMY_CARD)) return;
         if (DraggingCard != null || ArrowIsDragging) return;
 
+        // TESTING
         if (EffectManager.Instance.EffectsResolving)
         {
             Debug.LogWarning("EFFECTS RESOLVING!");
@@ -82,6 +83,7 @@ public class DragDrop : MonoBehaviour
         FunctionTimer.StopTimer(CardZoom.ZOOM_CARD_TIMER);
         FunctionTimer.StopTimer(CardZoom.ABILITY_POPUP_TIMER);
         DraggingCard = gameObject;
+
         if (!IsPlayed)
         {
             isDragging = true;

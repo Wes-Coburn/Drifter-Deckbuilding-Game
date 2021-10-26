@@ -197,7 +197,7 @@ public class CombatManager : MonoBehaviour
     }
     private Card HideCard(GameObject card)
     {
-        card.GetComponent<CardZoom>().DestroyZoomCard(); // TESTING
+        card.GetComponent<CardZoom>().DestroyZoomPopups(); // TESTING
         Card cardScript = card.GetComponent<CardDisplay>().CardScript;
         Destroy(card.GetComponent<CardDisplay>().CardContainer);
         if (card != null) Destroy(card);
@@ -818,9 +818,6 @@ public class CombatManager : MonoBehaviour
                 return;
             }
 
-            Sound deathSound = GetUnitDisplay(card).UnitCard.UnitDeathSound;
-            AudioManager.Instance.StartStopSound(null, deathSound);
-
             if (cardTag == PLAYER_CARD)
             {
                 PlayerZoneCards.Remove(card);
@@ -831,6 +828,10 @@ public class CombatManager : MonoBehaviour
                 EnemyZoneCards.Remove(card);
                 EnemyDiscardCards.Add(HideCard(card));
             }
+
+            Sound deathSound = GetUnitDisplay(card).UnitCard.UnitDeathSound;
+            AudioManager.Instance.StartStopSound(null, deathSound);
+            card.GetComponent<CardZoom>().DestroyZoomPopups(); // TESTING
         }
     }
 }

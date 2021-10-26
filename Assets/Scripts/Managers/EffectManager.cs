@@ -709,7 +709,7 @@ public class EffectManager : MonoBehaviour
         string debugText = "RESOLVED";
         if (wasAborted) debugText = "ABORTED";
 
-        Debug.LogWarning("GROUP LIST FINISHED! <" + debugText + ">");
+        Debug.LogWarning("GROUP LIST FINISHED! [" + debugText + "]");
         if (!wasAborted)
         {
             string hero;
@@ -834,8 +834,8 @@ public class EffectManager : MonoBehaviour
                 else if (effect.Countdown != 0)
                 {
                     effect.Countdown -= 1;
-                    Debug.LogWarning("COUNTOWN FOR EFFECT <" + 
-                        effect.ToString() + "> IS: " + effect.Countdown);
+                    Debug.LogWarning("COUNTOWN FOR " + 
+                        effect.ToString() + " is <" + effect.Countdown + ">");
                 }
             }
             foreach (Effect effect in expiredEffects)

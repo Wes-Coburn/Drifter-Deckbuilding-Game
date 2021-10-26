@@ -18,14 +18,10 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     private const float  POPUP_SCALE_VALUE           =  3;
     private const float  SMALL_POPUP_SCALE_VALUE     =  2;
 
-    public const string ZOOM_CARD_TIMER      =  "ZoomCardTimer";
-    public const string ABILITY_POPUP_TIMER  =  "AbilityPopupTimer";
-
-    public GameObject UnitZoomCardPrefab { get => unitZoomCardPrefab; }
-    public GameObject ActionZoomCardPrefab { get => actionZoomCardPrefab; }
-
     private UIManager uMan;
     private CombatManager coMan;
+
+    private CardDisplay cardDisplay;
 
     /* ZONES */
     private GameObject playerHand;
@@ -34,10 +30,15 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     private GameObject enemyZone;
     private GameObject heroSkills;
 
-    /* CARD_DISPLAY */
-    private CardDisplay cardDisplay;
+    private List<GameObject> zoomPopups; // TESTING
 
     public static bool ZoomCardIsCentered = false;
+    public const string ZOOM_CARD_TIMER = "ZoomCardTimer";
+    public const string ABILITY_POPUP_TIMER = "AbilityPopupTimer";
+
+    public GameObject UnitZoomCardPrefab { get => unitZoomCardPrefab; }
+    public GameObject ActionZoomCardPrefab { get => actionZoomCardPrefab; }
+
     public static GameObject CurrentZoomCard { get; set; }
     public static GameObject DescriptionPopup { get; set; }
     public static GameObject AbilityPopupBox { get; set; }
@@ -57,6 +58,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         enemyZone = coMan.EnemyZone;
         cardDisplay = GetComponent<CardDisplay>();
         heroSkills = GameObject.Find("HeroSkills");
+        zoomPopups = new List<GameObject>(); // TESTING
     }
 
     /******
@@ -176,6 +178,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         GameObject zoomObject = Instantiate(prefab, parent);
         zoomObject.transform.localPosition = vec2;
         zoomObject.transform.localScale = new Vector2(scaleValue, scaleValue);
+        zoomPopups.Add(zoomObject); // TESTING
         return zoomObject;
     }
 
@@ -204,10 +207,11 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         CurrentZoomCard.GetComponent<CardDisplay>().DisplayZoomCard(gameObject);
     }
 
-    public void DestroyZoomCard()
+    private void DestroyZoomCard()
     {
         if (CurrentZoomCard != null)
         {
+            zoomPopups.Remove(CurrentZoomCard); // TESTING
             Destroy(CurrentZoomCard);
             CurrentZoomCard = null;
         }
@@ -217,6 +221,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     {
         if (DescriptionPopup != null)
         {
+            zoomPopups.Remove(DescriptionPopup); // TESTING
             Destroy(DescriptionPopup);
             DescriptionPopup = null;
         }
@@ -226,6 +231,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     {
         if (AbilityPopupBox != null)
         {
+            zoomPopups.Remove(AbilityPopupBox); // TESTING
             Destroy(AbilityPopupBox);
             AbilityPopupBox = null;
         }
@@ -351,10 +357,17 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    private void OnDestroy() // TESTING
+    public void DestroyZoomPopups()
     {
-        DestroyZoomCard();
-        DestroyAbilityPopups();
-        DestroyDescriptionPopup();
+        static void DestroyObject(GameObject go)
+        {
+            if (go != null)
+            {
+                Destroy(go);
+                go = null;
+            }
+        }
+        foreach (GameObject go in zoomPopups)
+            DestroyObject(go);
     }
 }

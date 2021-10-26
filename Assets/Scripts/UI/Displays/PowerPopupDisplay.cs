@@ -34,9 +34,7 @@ public class PowerPopupDisplay : MonoBehaviour
         string actions;
         if (cost > 1) actions = "actions";
         else actions = "action";
-
-        string description = PowerScript.PowerName + 
+        PowerDescription = PowerScript.PowerName + 
             " (" + cost + " " + actions + "): " + PowerScript.PowerDescription;
-        PowerDescription = description;
     }
 }

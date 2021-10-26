@@ -143,14 +143,14 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         heroPowerImage.GetComponent<Image>().sprite = loadedHero.HeroPower.PowerSprite;
         heroPowerImage.GetComponentInParent<PowerZoom>().LoadedPower = loadedHero.HeroPower;
 
-        Sound[] snd = loadedHero.HeroPower.PowerSounds;
-        foreach (Sound s in snd) AudioManager.Instance.StartStopSound(null, s);
+        Sound[] sounds = loadedHero.HeroPower.PowerSounds;
+        foreach (Sound s in sounds) AudioManager.Instance.StartStopSound(null, s);
 
         int cost = loadedHero.HeroPower.PowerCost;
         string actions;
         if (cost > 1) actions = "actions";
         else actions = "action";
-        string description = " (" + cost + " " + actions + ", 1/turn): ";
+        string description = " (" + cost + " " + actions + "): ";
 
         heroPowerDescription.GetComponent<TextMeshProUGUI>().SetText(loadedHero.HeroPower.PowerName +
             description + loadedHero.HeroPower.PowerDescription);

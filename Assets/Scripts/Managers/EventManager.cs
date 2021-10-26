@@ -76,13 +76,14 @@ public class EventManager : MonoBehaviour
 
     public void ClearDelayedActions()
     {
-        delayedActions.Clear();
-        DelayedAction.CurrentAction = 0;
+        Debug.Log("ACTIONS CLEARED!");
         if (currentActionRoutine != null)
         {
             StopCoroutine(currentActionRoutine);
             currentActionRoutine = null;
         }
+        delayedActions.Clear();
+        DelayedAction.CurrentAction = 0;
     }
 
     IEnumerator ActionNumerator()

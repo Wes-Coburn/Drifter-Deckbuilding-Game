@@ -50,14 +50,15 @@ public class CardContainer : MonoBehaviour
     private IEnumerator SeekChildNumerator()
     {
         float distance;
-        float speed = 8;
+        //float speed = 8;
+        float speed = 50;
         do
         {
             distance = Vector2.Distance(Child.transform.position, 
                 transform.position);
             Child.transform.position = Vector2.MoveTowards(Child.transform.position, 
                 transform.position, speed);
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForFixedUpdate();
         }
         while (distance > 0);
         Child.transform.SetParent(gameObject.transform);

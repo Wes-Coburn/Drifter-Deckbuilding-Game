@@ -88,8 +88,8 @@ public class UIManager : MonoBehaviour
     {
         CurrentWorldSpace = GameObject.Find("WorldSpace");
         CurrentCanvas = GameObject.Find("Canvas");
-        PlayerIsTargetting = false;
         pMan = PlayerManager.Instance;
+        PlayerIsTargetting = false;
     }
 
     private IEnumerator WaitForSplash()
@@ -359,7 +359,7 @@ public class UIManager : MonoBehaviour
     }
     /******
      * *****
-     * ****** _POPUPS_
+     * ****** POPUPS
      * *****
      *****/
     // Explicit Language Popup
