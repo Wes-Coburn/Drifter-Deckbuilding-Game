@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a22d7123f6ee007468cbdc6e9b6fe2b0, type: 3}
   m_Name: Deal2_PH
   m_EditorClassIdentifier: 
+  developerNotes: 
   Targets: {fileID: 11400000, guid: 2afaf2fcac3d1ca4dae9da92903ef38d, type: 2}
   Effects:
   - {fileID: 11400000, guid: d06333854e856574aa3cfa3234cf57a9, type: 2}
   EffectsDescription: Deal 2 to your hero.
-  EffectGroupSound: 
+  EffectGroupSound: SFX_DealDamage1
   EffectGroupSound2:
     name: 
     clip: {fileID: 0}

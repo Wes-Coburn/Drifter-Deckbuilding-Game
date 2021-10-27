@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
     // Player
     public const string PLAYER = "Player";
     public const int PLAYER_STARTING_HEALTH = 20;
-    //public const int PLAYER_STARTING_HEALTH = 99; // FOR TESTING ONLY
+    //public const int PLAYER_STARTING_HEALTH = 1; // FOR TESTING ONLY
     public const int PLAYER_HAND_SIZE = 4;
     public const int PLAYER_START_FOLLOWERS = 2;
     public const int PLAYER_START_SKILLS = 2;

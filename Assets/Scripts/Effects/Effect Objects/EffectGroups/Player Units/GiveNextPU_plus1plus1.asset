@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a22d7123f6ee007468cbdc6e9b6fe2b0, type: 3}
   m_Name: GiveNextPU_plus1plus1
   m_EditorClassIdentifier: 
+  developerNotes: 
   Targets: {fileID: 11400000, guid: 3536ddc3f75919646b8fab53d9f33c8a, type: 2}
   Effects:
   - {fileID: 11400000, guid: e2951ba6c82b06a41bf566543409dee0, type: 2}
   EffectsDescription: Give the next ally you play this turn +1/+1.
-  EffectGroupSound: 
+  EffectGroupSound: SFX_StatPlus
   EffectGroupSound2:
     name: 
     clip: {fileID: 0}

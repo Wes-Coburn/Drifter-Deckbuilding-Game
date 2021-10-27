@@ -352,26 +352,41 @@ public class EffectManager : MonoBehaviour
             legalTargets.Add(new List<GameObject>());
             acceptedTargets.Add(new List<GameObject>());
         }
-        int group = 0;
-        List<int> invalidGroups = new List<int>(); // TESTING
+
+        // TESTING
+        List<EffectGroup> targetGroups = new List<EffectGroup>();
+        List<int> invalidTargetGroups = new List<int>();
+
         foreach (EffectGroup eg in effectGroupList)
         {
             foreach (Effect effect in eg.Effects)
+            {
                 if (IsTargetEffect(eg, effect))
+                    targetGroups.Add(eg);
+            }
+        }
+
+        // TESTING
+        int group = 0;
+        foreach (EffectGroup eg in effectGroupList)
+        {
+            if (targetGroups.Contains(eg))
+            {
+                foreach (Effect effect in eg.Effects)
                 {
                     if (!GetLegalTargets(group, effect, eg.Targets, GetAdditionalTargets(eg.Targets), out bool requiredEffect))
                     {
-                        // TESTING
-                        invalidGroups.Add(group);
-                        int groupsRemaining = effectGroupList.Count - invalidGroups.Count;
-                        Debug.LogWarning("INVALID EFFECT GROUP! <" + groupsRemaining + "> REMAINING!");
-                        if (groupsRemaining < 1 || requiredEffect) // TESTING
-                            return false;
+                        invalidTargetGroups.Add(group);
+                        int groupsRemaining = targetGroups.Count - invalidTargetGroups.Count;
+                        Debug.LogWarning("INVALID TARGET GROUP! <" + groupsRemaining + "> REMAINING!");
+                        if (groupsRemaining < 1 || requiredEffect) return false;
                         else break;
                     }
                 }
+            }
             group++;
         }
+
         if (isPreCheck) ClearTargets();
         else ClearInvalids(); // TESTING
         return true;
@@ -390,7 +405,7 @@ public class EffectManager : MonoBehaviour
 
         void ClearInvalids() // TESTING
         {
-            foreach (int i in invalidGroups)
+            foreach (int i in invalidTargetGroups)
             {
                 effectGroupList.RemoveAt(i);
                 legalTargets.RemoveAt(i);

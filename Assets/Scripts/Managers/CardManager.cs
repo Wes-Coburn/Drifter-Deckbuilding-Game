@@ -22,6 +22,19 @@ public class CardManager : MonoBehaviour
     [SerializeField] private Sprite cardBackSprite;
     [SerializeField] private CardAbility triggerKeyword;
 
+    // Static Abilities
+    public const string ABILITY_BLITZ = "Blitz";
+    public const string ABILITY_RANGED = "Ranged";
+    public const string ABILITY_SHIELD = "Shield";
+    public const string ABILITY_STEALTH = "Stealth";
+    // Keyword Abilities
+    public const string ABILITY_MARKED = "Marked";
+    // Ability Triggers
+    public const string TRIGGER_DEATHBLOW = "Deathblow";
+    public const string TRIGGER_INFILTRATE = "Infiltrate";
+    public const string TRIGGER_PLAY = "Play";
+    public const string TRIGGER_REVENGE = "Revenge";
+
     public GameObject UnitCardPrefab { get => unitCardPrefab; }
     public GameObject ActionCardPrefab { get => actionCardPrefab; }
     public GameObject NewCardPopup { get; private set; }
@@ -110,25 +123,27 @@ public class CardManager : MonoBehaviour
                 if (tra.AbilityTrigger.AbilityName == triggerName) return true;
         return false;
     }
-    public bool TriggerCardAbility(GameObject card, string triggerName)
+    public bool TriggerUnitAbility(GameObject unitCard, string triggerName)
     {
-        if (card == null)
+        if (unitCard == null)
         {
             Debug.LogError("CARD IS NULL!");
             return false;
         }
 
+        UnitCardDisplay ucd = unitCard.GetComponent<UnitCardDisplay>();
         bool effectFound = false;
-        foreach (CardAbility ca in card.GetComponent<UnitCardDisplay>().CurrentAbilities)
+        foreach (CardAbility ca in ucd.CurrentAbilities)
             if (ca is TriggeredAbility tra)
                 if (tra.AbilityTrigger.AbilityName == triggerName)
                 {
                     Debug.LogWarning("TRIGGER! <" + triggerName + ">");
                     bool isPlayTrigger = false;
                     if (triggerName == "Play") isPlayTrigger = true;
-                    EffectManager.Instance.StartEffectGroupList(tra.EffectGroupList, card, isPlayTrigger);
+                    EffectManager.Instance.StartEffectGroupList(tra.EffectGroupList, unitCard, isPlayTrigger);
                     effectFound = true;
                 }
+        if (effectFound) ucd.AbilityTriggerState(); // TESTING
         return effectFound;
     }
 }

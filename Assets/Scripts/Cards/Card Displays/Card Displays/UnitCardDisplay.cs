@@ -170,7 +170,7 @@ public class UnitCardDisplay : CardDisplay
     {
         if (isPlayed)
         {
-            if (CardManager.GetAbility(gameObject, "Blitz"))
+            if (CardManager.GetAbility(gameObject, CardManager.ABILITY_BLITZ))
                 IsExhausted = false;
             else IsExhausted = true;
         }
@@ -303,6 +303,15 @@ public class UnitCardDisplay : CardDisplay
         abilityIcon.GetComponent<AbilityIconDisplay>().AbilityScript = cardAbility;
         abilityIcon.transform.SetParent(currentAbilitiesDisplay.transform, false);
         return abilityIcon;
+    }
+
+    public void AbilityTriggerState()
+    {
+        Debug.LogWarning("<< ABILITY TRIGGER STATE! >>");
+        if (triggerIcon != null)
+        {
+            AnimationManager.Instance.AbilityTriggerState(triggerIcon); // TESTING
+        }
     }
 
     public override void DisableVisuals()

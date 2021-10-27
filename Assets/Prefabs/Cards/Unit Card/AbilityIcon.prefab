@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8522660540035168380}
   - component: {fileID: 2334129871927899855}
+  - component: {fileID: 1150653355416966048}
   m_Layer: 7
   m_Name: AbilityIcon
   m_TagString: Untagged
@@ -51,6 +52,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilitySprite: {fileID: 4049664989794929945}
   abilityName: {fileID: 0}
+--- !u!95 &1150653355416966048
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386389505813502122}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3fa18c23ec26c6b4ba893bc02feddb5c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4049664989794929945
 GameObject:
   m_ObjectHideFlags: 0
@@ -116,9 +136,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 17239719e76b70c4d90c252baeb96aeb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 27396e178d5fe214587b8902a9e56eca, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1

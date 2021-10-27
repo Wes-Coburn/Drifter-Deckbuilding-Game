@@ -67,7 +67,7 @@ public class EventManager : MonoBehaviour
         if (this.isPaused == isPaused) return;
         bool isResuming = false;
         if (this.isPaused && !isPaused &&
-            currentActionRoutine == null) isResuming = true; // TESTING
+            currentActionRoutine == null) isResuming = true;
         this.isPaused = isPaused;
         if (isResuming) NextDelayedAction();
         if (isPaused) Debug.LogWarning("ACTIONS PAUSED!");
@@ -90,7 +90,7 @@ public class EventManager : MonoBehaviour
     {
         yield return new WaitForSeconds(delayedActions[DelayedAction.CurrentAction].Delay);
         delayedActions[DelayedAction.CurrentAction++].Action();
-        currentActionRoutine = null; // TESTING
+        currentActionRoutine = null;
         NextDelayedAction();
     }
 }

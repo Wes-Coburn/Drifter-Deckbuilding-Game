@@ -52,11 +52,16 @@ public class EnemyManager : MonoBehaviour
                 CurrentEnemyDeck.Clear();
                 return;
             }
+            if (EnemyHero.Reinforcements[ReinforcementGroup] == null)
+            {
+                Debug.LogError("REINFORCEMENTS NOT FOUND!");
+                return;
+            }
             foreach (UnitCard unit in enemyHero.Reinforcements[ReinforcementGroup].ReinforcementUnits)
                 for (int i = 0; i < GameManager.ENEMY_START_FOLLOWERS; i++)
                     CardManager.Instance.AddCard(unit, GameManager.ENEMY);
             ReinforcementSchedule =
-                EnemyHero.Reinforcements[ReinforcementGroup].ReinforcementSchedule;
+                EnemyHero.Reinforcements[ReinforcementGroup].ReinforcementSchedule.Schedule; // TESTING
             CurrentReinforcements = 0;
             NextReinforcements = ReinforcementSchedule[CurrentReinforcements]; 
         }
@@ -134,11 +139,21 @@ public class EnemyManager : MonoBehaviour
         }
         void ResolveAttack(GameObject enemyUnit)
         {
-            if (!coMan.EnemyZoneCards.Contains(enemyUnit)) return;
+            if (enemyUnit == null)
+            {
+                Debug.LogError("ENEMY UNIT IS NULL!");
+                return;
+            }
+            if (!coMan.EnemyZoneCards.Contains(enemyUnit))
+            {
+                Debug.LogError("UNIT NOT FOUND IN ENEMY ZONE!");
+                return;
+            }
+
             UnitCardDisplay ucd = coMan.GetUnitDisplay(enemyUnit);
             if (ucd.CurrentPower < 1 || ucd.CurrentHealth < 1) return;
 
-            if (CardManager.GetTrigger(enemyUnit, "Infiltrate"))
+            if (CardManager.GetTrigger(enemyUnit, CardManager.TRIGGER_INFILTRATE))
             {
                 coMan.Attack(enemyUnit, coMan.PlayerHero);
                 return;
@@ -147,7 +162,7 @@ public class EnemyManager : MonoBehaviour
             {
                 foreach (GameObject playerUnit in coMan.PlayerZoneCards)
                     if (coMan.GetUnitDisplay(playerUnit).CurrentHealth > 0 &&
-                        !CardManager.GetAbility(playerUnit, "Stealth"))
+                        !CardManager.GetAbility(playerUnit, CardManager.ABILITY_STEALTH))
                     {
                         coMan.Attack(enemyUnit, playerUnit);
                         return;

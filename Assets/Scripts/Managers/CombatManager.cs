@@ -41,7 +41,6 @@ public class CombatManager : MonoBehaviour
     public const string ENEMY_HERO = "EnemyHero";
     public const string ENEMY_HAND = "EnemyHand";
     public const string ENEMY_ZONE = "EnemyZone";
-    //public const string ENEMY_ACTION_ZONE = "EnemyActionZone";
     public const string ENEMY_DISCARD = "EnemyDiscard";
 
     public GameObject DragArrowPrefab { get => dragArrowPrefab; }
@@ -466,7 +465,7 @@ public class CombatManager : MonoBehaviour
         }
         void PlayUnit()
         {
-            if (!caMan.TriggerCardAbility(card, "Play"))
+            if (!caMan.TriggerUnitAbility(card, CardManager.TRIGGER_PLAY))
                 efMan.TriggerGiveNextEffect(card);
             PlayCardSound();
             PlayAbilitySounds();
@@ -562,7 +561,7 @@ public class CombatManager : MonoBehaviour
         if (defender.TryGetComponent(out UnitCardDisplay defUcd))
         {
             if (defUcd.CurrentHealth < 1) return false; // Destroyed units that haven't left play yet
-            if (CardManager.GetAbility(defender, "Stealth"))
+            if (CardManager.GetAbility(defender, CardManager.ABILITY_STEALTH))
             {
                 if (!preCheck)
                     uMan.CreateFleetinInfoPopup("Units with Stealth can't be attacked!");
@@ -579,14 +578,11 @@ public class CombatManager : MonoBehaviour
      *****/
     public void Attack(GameObject attacker, GameObject defender)
     {
-        const string STEALTH = "Stealth";
-        const string RANGED = "Ranged";
-
         // Immediate Actions
         GetUnitDisplay(attacker).IsExhausted = true;
-        if (CardManager.GetAbility(attacker, STEALTH))
-            GetUnitDisplay(attacker).RemoveCurrentAbility(STEALTH);
-        if (!CardManager.GetAbility(attacker, RANGED))
+        if (CardManager.GetAbility(attacker, CardManager.ABILITY_STEALTH))
+            GetUnitDisplay(attacker).RemoveCurrentAbility(CardManager.ABILITY_STEALTH);
+        if (!CardManager.GetAbility(attacker, CardManager.ABILITY_RANGED))
             auMan.StartStopSound("SFX_AttackMelee");
         else auMan.StartStopSound("SFX_AttackRanged");
         bool defenderIsUnit = IsUnitCard(defender);
@@ -603,47 +599,57 @@ public class CombatManager : MonoBehaviour
      *****/
     public void Strike(GameObject striker, GameObject defender, bool isCombat)
     {
-        bool attackerDestroyed;
+        bool strikerDestroyed;
         bool defenderDealtDamage;
 
         // COMBAT
         if (isCombat)
         {
             DealDamage(striker, defender, 
-                out bool attackerDealtDamage, out bool defenderDestroyed);
+                out bool strikerDealtDamage, out bool defenderDestroyed);
             if (IsUnitCard(defender))
             {
-                if (!CardManager.GetAbility(striker, "Ranged"))
+                if (!CardManager.GetAbility(striker, CardManager.ABILITY_RANGED))
                     DealDamage(defender, striker, 
-                        out defenderDealtDamage, out attackerDestroyed);
+                        out defenderDealtDamage, out strikerDestroyed);
                 else
                 {
                     defenderDealtDamage = false;
-                    attackerDestroyed = false;
+                    strikerDestroyed = false;
                 }
 
-                if (!attackerDestroyed)
+                if (!strikerDestroyed &&
+                    CardManager.GetTrigger(striker, CardManager.TRIGGER_DEATHBLOW))
                 {
                     if (defenderDestroyed)
                         TriggerDelay(() => DeathblowTrigger(striker));
                 }
-                if (!defenderDestroyed)
+                if (!defenderDestroyed &&
+                    CardManager.GetTrigger(defender, CardManager.TRIGGER_DEATHBLOW))
                 {
-                    if (attackerDestroyed)
+                    if (strikerDestroyed)
                         TriggerDelay(() => DeathblowTrigger(defender));
                 }
             }
-            else if (attackerDealtDamage)
+            else if (strikerDealtDamage &&
+                CardManager.GetTrigger(striker, CardManager.TRIGGER_INFILTRATE))
                 TriggerDelay(() => InfiltrateTrigger(striker));
         }
 
         // STRIKE EFFECTS
         else
         {
-            DealDamage(striker, defender, 
+            DealDamage(striker, defender,
                 out bool attackerDealtDamage, out bool defenderDestroyed);
-            if (defenderDestroyed) TriggerDelay(() => DeathblowTrigger(striker));
-            if (attackerDealtDamage) TriggerDelay(() => InfiltrateTrigger(striker));
+            if (IsUnitCard(defender))
+            {
+                if (defenderDestroyed &&
+                CardManager.GetTrigger(striker, CardManager.TRIGGER_DEATHBLOW))
+                    TriggerDelay(() => DeathblowTrigger(striker));
+            }
+            else if (attackerDealtDamage &&
+                CardManager.GetTrigger(striker, CardManager.TRIGGER_INFILTRATE))
+                TriggerDelay(() => InfiltrateTrigger(striker));
         }
 
         void DealDamage(GameObject striker, GameObject defender,
@@ -659,7 +665,7 @@ public class CombatManager : MonoBehaviour
 
             if (IsUnitCard(defender))
             {
-                if (!CardManager.GetAbility(defender, "Shield"))
+                if (!CardManager.GetAbility(defender, CardManager.ABILITY_SHIELD))
                     dealtDamage = true;
                 else dealtDamage = false;
             }
@@ -674,10 +680,10 @@ public class CombatManager : MonoBehaviour
             evMan.NewDelayedAction(() => action(), 0.5f, true);
         
         void InfiltrateTrigger(GameObject unit) =>
-            caMan.TriggerCardAbility(unit, "Infiltrate");
+            caMan.TriggerUnitAbility(unit, CardManager.TRIGGER_INFILTRATE);
         
         void DeathblowTrigger(GameObject unit) => 
-            caMan.TriggerCardAbility(unit, "Deathblow");
+            caMan.TriggerUnitAbility(unit, CardManager.TRIGGER_DEATHBLOW);
     }
 
     /******
@@ -688,7 +694,7 @@ public class CombatManager : MonoBehaviour
     public bool TakeDamage(GameObject target, int damageValue)
     {
         if (damageValue < 1) return false;
-        const string SHIELD = "Shield";
+        const string SHIELD = CardManager.ABILITY_SHIELD;
 
         int targetValue;
         int newTargetValue;
@@ -783,19 +789,36 @@ public class CombatManager : MonoBehaviour
         }
 
         string cardTag = card.tag;
-
         // TESTING        
         if (isDelayed)
         {
-            FunctionTimer.Create(() => anMan.DestroyUnitCardState(card), 0.5f);
-            evMan.NewDelayedAction(() => Destroy(), 0.5f, true);
-            evMan.NewDelayedAction(() => DestroyTriggers(), 0.5f, true);
+            FunctionTimer.Create(() => DestroyFX(), 0.5f);
+            evMan.NewDelayedAction(() => Destroy(), 1, true);
+            if (HasDestroyTriggers())
+                evMan.NewDelayedAction(() => DestroyTriggers(), 0.5f, true);
         }
         else
         {
+            DestroyFX();
+            evMan.NewDelayedAction(() => Destroy(), 1, true);
+            if (HasDestroyTriggers())
+                evMan.NewDelayedAction(() => DestroyTriggers(), 0, true);
+        }
+
+        bool HasDestroyTriggers()
+        {
+            if (CardManager.GetTrigger(card,
+                CardManager.TRIGGER_REVENGE)) return true;
+            if (CardManager.GetAbility(card,
+                CardManager.ABILITY_MARKED)) return true;
+            return false;
+        }
+
+        void DestroyFX() // TESTING
+        {
+            Sound deathSound = GetUnitDisplay(card).UnitCard.UnitDeathSound;
+            AudioManager.Instance.StartStopSound(null, deathSound);
             anMan.DestroyUnitCardState(card);
-            evMan.NewDelayedAction(() => Destroy(), 0.5f, true);
-            evMan.NewDelayedAction(() => DestroyTriggers(), 0, true);
         }
 
         void DestroyTriggers()
@@ -806,9 +829,12 @@ public class CombatManager : MonoBehaviour
                 return;
             }
 
-            caMan.TriggerCardAbility(card, "Revenge");
-            if (CardManager.GetAbility(card, "Marked"))
+            caMan.TriggerUnitAbility(card, CardManager.TRIGGER_REVENGE);
+            if (CardManager.GetAbility(card, CardManager.ABILITY_MARKED))
+            {
+                GetUnitDisplay(card).AbilityTriggerState(); // TESTING
                 DrawCard(PLAYER);
+            }
         }
         void Destroy()
         {
@@ -818,6 +844,7 @@ public class CombatManager : MonoBehaviour
                 return;
             }
 
+            card.GetComponent<CardZoom>().DestroyZoomPopups(); // TESTING
             if (cardTag == PLAYER_CARD)
             {
                 PlayerZoneCards.Remove(card);
@@ -828,10 +855,6 @@ public class CombatManager : MonoBehaviour
                 EnemyZoneCards.Remove(card);
                 EnemyDiscardCards.Add(HideCard(card));
             }
-
-            Sound deathSound = GetUnitDisplay(card).UnitCard.UnitDeathSound;
-            AudioManager.Instance.StartStopSound(null, deathSound);
-            card.GetComponent<CardZoom>().DestroyZoomPopups(); // TESTING
         }
     }
 }

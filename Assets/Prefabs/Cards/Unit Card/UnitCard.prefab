@@ -231,7 +231,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4266356615796737250}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -408,7 +408,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4266356615796737250}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1027,9 +1027,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 2578616696171585709}
   - {fileID: 5236768797390846725}
   - {fileID: 8140419145979357647}
-  - {fileID: 2578616696171585709}
   m_Father: {fileID: 6068376870496322108}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1589,7 +1589,6 @@ MonoBehaviour:
   healthScoreDisplay: {fileID: 4194370083493049941}
   exhaustedIcon: {fileID: 3882489080471417206}
   destroyedIcon: {fileID: 3520334792895202772}
-  triggerSprite: {fileID: 21300000, guid: 27396e178d5fe214587b8902a9e56eca, type: 3}
   abilityIconPrefab: {fileID: 386389505813502122, guid: f86585513f1902f4ba1aac4bc170e0e7,
     type: 3}
   zoomAbilityIconPrefab: {fileID: 386389505813502122, guid: 0ab157fa3dd44cd4a9fdc4c303ac8001,
@@ -2006,7 +2005,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4266356615796737250}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

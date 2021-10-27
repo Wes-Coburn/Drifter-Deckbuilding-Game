@@ -76,6 +76,9 @@ public class AnimationManager : MonoBehaviour
     public void ModifyUnitPowerState(GameObject card) => ChangeAnimationState(card, "Modify_Power");
     public void DestroyUnitCardState(GameObject card) => ChangeAnimationState(card, "Destroyed");
 
+    // Ability Trigger
+    public void AbilityTriggerState(GameObject triggerIcon) => ChangeAnimationState(triggerIcon, "Trigger"); // TESTING
+
     /******
      * *****
      * ****** SHIFT_PLAYER_HAND
@@ -268,6 +271,8 @@ public class AnimationManager : MonoBehaviour
 
     private IEnumerator AttackNumerator(GameObject attacker, GameObject defender, bool defenderIsUnit = true)
     {
+        EventManager.Instance.PauseDelayedActions(true); // TESTING
+
         float distance;
         float bufferDistance;
         float attackSpeed;
@@ -308,5 +313,7 @@ public class AnimationManager : MonoBehaviour
         }
         while (distance > 0);
         attacker.transform.SetParent(container.transform);
+
+        EventManager.Instance.PauseDelayedActions(false); // TESTING
     }
 }

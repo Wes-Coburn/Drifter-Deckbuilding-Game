@@ -37,7 +37,7 @@ public class CombatEndPopupDisplay : MonoBehaviour
                 else Debug.LogError("NEXT CLIP IS NOT COMBAT_REWARD_CLIP!");
             }
         }
-        else gMan.EndGame(); // Keep this or change to restart combat
-        UIManager.Instance.DestroyCombatEndPopup(); // TESTING
+        else SceneLoader.LoadScene(SceneLoader.Scene.CombatScene, true); // TESTING
+        UIManager.Instance.DestroyCombatEndPopup();
     }
 }

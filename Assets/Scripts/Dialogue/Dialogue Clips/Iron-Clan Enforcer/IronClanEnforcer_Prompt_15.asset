@@ -14,25 +14,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   developerNotes: 
   journalNotes: []
-  dialoguePromptText: '*Their voice trails off as they fall over, lifeless.*'
+  dialoguePromptText: If you were to spare my life, I would fight beside you as your
+    equal.
   dialogueResponse1:
-    responseText: 
+    responseText: Join me. Together we can turn the tide.
     response_Respect: 0
-    response_NextClip: {fileID: 0}
+    response_NextClip: {fileID: 11400000, guid: fecfc4b981ebf124d98112c9c0d1ea41,
+      type: 2}
     response_IsExit: 0
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
   dialogueResponse2:
-    responseText: (Continue)
+    responseText: "You\u2019ll never be my equal. *Kill them*"
     response_Respect: 0
-    response_NextClip: {fileID: 11400000}
+    response_NextClip: {fileID: 11400000, guid: 7e9424e080ec74f4b82061478c0316c0,
+      type: 2}
     response_IsExit: 0
     response_IsCombatStart: 0
     response_IsWorldMapStart: 1
   dialogueResponse3:
-    responseText: 
+    responseText: "How do I know you won\u2019t kill me at the first chance?"
     response_Respect: 0
-    response_NextClip: {fileID: 0}
+    response_NextClip: {fileID: 11400000, guid: 53c85a58564a0774484ee63a1f882d66,
+      type: 2}
     response_IsExit: 0
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
