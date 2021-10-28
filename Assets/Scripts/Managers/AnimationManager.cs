@@ -30,7 +30,7 @@ public class AnimationManager : MonoBehaviour
         auMan = AudioManager.Instance;
     }
 
-    public void ChangeAnimationState(GameObject go, string animationState)
+    public void ChangeAnimationState(GameObject go, string state)
     {
         if (go == null)
         {
@@ -41,7 +41,7 @@ public class AnimationManager : MonoBehaviour
         if (go.TryGetComponent(out Animator anim))
             if (anim.enabled)
             {
-                anim.Play(animationState);
+                anim.Play(state);
                 return;
             }
         Debug.LogWarning("ANIMATOR NOT FOUND!");
@@ -50,6 +50,11 @@ public class AnimationManager : MonoBehaviour
 
     /* HERO_ANIMATIONS */
     public void ModifyHeroHealthState(GameObject hero) => ChangeAnimationState(hero, "Modify_Health");
+    public void ModifyHeroActionsState()
+    {
+        auMan.StartStopSound("SFX_ActionRefill");
+        ChangeAnimationState(coMan.PlayerHero, "Modify_Actions");
+    }
     public void ReinforcementsState()
     {
         auMan.StartStopSound("SFX_Reinforcements");
@@ -71,10 +76,24 @@ public class AnimationManager : MonoBehaviour
     public void ZoomedState(GameObject card) => ChangeAnimationState(card, "Zoomed");
 
     // Stat Changes
-    public void UnitTakeDamageState(GameObject card) => ChangeAnimationState(card, "Take_Damage");
-    public void ModifyUnitHealthState(GameObject card) => ChangeAnimationState(card, "Modify_Health");
-    public void ModifyUnitPowerState(GameObject card) => ChangeAnimationState(card, "Modify_Power");
+    public void UnitTakeDamageState(GameObject card) =>
+        ChangeAnimationState(card.GetComponent<UnitCardDisplay>().UnitStats, "Take_Damage");
     public void DestroyUnitCardState(GameObject card) => ChangeAnimationState(card, "Destroyed");
+    public void UnitStatChangeState(GameObject card, bool isPowerChange, bool isHealthChange)
+    {
+        if (!isPowerChange && !isHealthChange) return;
+
+        GameObject stats = card.GetComponent<UnitCardDisplay>().UnitStats;
+        if (isPowerChange)
+        {
+            if (isHealthChange) ModifyAllUnitStatsState(stats);
+            else ModifyUnitPowerState(stats);
+        }
+        else if (isHealthChange) ModifyUnitHealthState(stats);
+    }
+    private void ModifyUnitHealthState(GameObject card) => ChangeAnimationState(card, "Modify_Health");
+    private void ModifyUnitPowerState(GameObject card) => ChangeAnimationState(card, "Modify_Power");
+    private void ModifyAllUnitStatsState(GameObject card) => ChangeAnimationState(card, "Modify_All");
 
     // Ability Trigger
     public void AbilityTriggerState(GameObject triggerIcon) => ChangeAnimationState(triggerIcon, "Trigger"); // TESTING
@@ -84,10 +103,8 @@ public class AnimationManager : MonoBehaviour
      * ****** SHIFT_PLAYER_HAND
      * *****
      *****/
-    public void ShiftPlayerHand(bool isUpShift)
-    {
+    public void ShiftPlayerHand(bool isUpShift) =>
         StartCoroutine(HandShiftNumerator(isUpShift));
-    }
     private IEnumerator HandShiftNumerator(bool isUpShift)
     {
         float distance;
@@ -116,10 +133,8 @@ public class AnimationManager : MonoBehaviour
      * ****** DIALOGUE_INTRO
      * *****
      *****/
-    public void DialogueIntro()
-    {
+    public void DialogueIntro() =>
         StartCoroutine(DialogueIntroNumerator());
-    }
     private IEnumerator DialogueIntroNumerator()
     {
         float distance;
@@ -153,10 +168,8 @@ public class AnimationManager : MonoBehaviour
      * ****** NEW_ENGAGED_HERO
      * *****
      *****/
-    public void NewEngagedHero()
-    {
+    public void NewEngagedHero() =>
         StartCoroutine(NewEngagedHeroNumerator());
-    }
     private IEnumerator NewEngagedHeroNumerator()
     {
         float distance;
@@ -190,10 +203,8 @@ public class AnimationManager : MonoBehaviour
      * ****** COMBAT_INTRO
      * *****
      *****/
-    public void CombatIntro()
-    {
+    public void CombatIntro() =>
         StartCoroutine(CombatIntroNumerator());
-    }
     private IEnumerator CombatIntroNumerator()
     {
         float distance;

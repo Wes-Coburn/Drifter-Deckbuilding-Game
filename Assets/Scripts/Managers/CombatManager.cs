@@ -533,13 +533,21 @@ public class CombatManager : MonoBehaviour
      * ****** CAN_ATTACK
      * *****
      *****/
-    public bool CanAttack(GameObject attacker, GameObject defender, bool preCheck = false)
+    public bool CanAttack(GameObject attacker, GameObject defender, bool preCheck)
     {
         if (defender != null)
         {
             if (attacker.CompareTag(defender.tag)) return false;
             if (attacker.CompareTag(PLAYER_CARD)) 
                 if (defender == PlayerHero) return false;
+        }
+        else
+        {
+            if (!preCheck)
+            {
+                Debug.LogError("DEFENDER IS NULL!");
+                return false;
+            }
         }
 
         UnitCardDisplay atkUcd = GetUnitDisplay(attacker);
@@ -556,7 +564,7 @@ public class CombatManager : MonoBehaviour
             return false;
         }
 
-        if (defender == null) return true; // For StartDrag in DragDrop
+        if (defender == null && preCheck) return true; // For StartDrag in DragDrop
         
         if (defender.TryGetComponent(out UnitCardDisplay defUcd))
         {
@@ -772,7 +780,7 @@ public class CombatManager : MonoBehaviour
         if (target == PlayerHero) pMan.PlayerHealth = newTargetValue;
         else if (target == EnemyHero) enMan.EnemyHealth = newTargetValue;
         else GetUnitDisplay(target).CurrentHealth = newTargetValue;
-        anMan.ModifyUnitHealthState(target);
+        anMan.UnitStatChangeState(target, false, true); // TESTING
     }
 
     /******
@@ -816,6 +824,12 @@ public class CombatManager : MonoBehaviour
 
         void DestroyFX() // TESTING
         {
+            if (card == null)
+            {
+                Debug.LogError("CARD IS NULL!");
+                return;
+            }
+
             Sound deathSound = GetUnitDisplay(card).UnitCard.UnitDeathSound;
             AudioManager.Instance.StartStopSound(null, deathSound);
             anMan.DestroyUnitCardState(card);

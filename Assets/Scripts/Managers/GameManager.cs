@@ -372,7 +372,7 @@ public class GameManager : MonoBehaviour
                 enMan.IsMyTurn = false;
                 pMan.HeroPowerUsed = false;
                 pMan.PlayerActionsLeft = pMan.ActionsPerTurn;
-                auMan.StartStopSound("SFX_ActionRefill");
+                AnimationManager.Instance.ModifyHeroActionsState();
             }
         }
         else if (player == ENEMY)

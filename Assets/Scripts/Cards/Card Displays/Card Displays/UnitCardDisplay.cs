@@ -5,6 +5,7 @@ using TMPro;
 
 public class UnitCardDisplay : CardDisplay
 {
+    [SerializeField] private GameObject unitStats;
     [SerializeField] private GameObject currentAbilitiesDisplay;
     [SerializeField] private GameObject attackScoreDisplay;
     [SerializeField] private GameObject healthScoreDisplay;
@@ -14,10 +15,12 @@ public class UnitCardDisplay : CardDisplay
     [SerializeField] private GameObject abilityIconPrefab;
     [SerializeField] private GameObject zoomAbilityIconPrefab;
 
+    private AnimationManager anMan;
     private GameObject triggerIcon;
     private List<CardAbility> displayedAbilities;
 
     public UnitCard UnitCard { get => CardScript as UnitCard; }
+    public GameObject UnitStats { get => unitStats; } // TESTING
     public GameObject ZoomAbilityIconPrefab { get => zoomAbilityIconPrefab; }
 
     public List<Effect> CurrentEffects { get; set; }
@@ -61,6 +64,7 @@ public class UnitCardDisplay : CardDisplay
 
     private void Awake()
     {
+        anMan = AnimationManager.Instance;
         CurrentEffects = new List<Effect>();
         CurrentAbilities = new List<CardAbility>();
         AbilityIcons = new List<GameObject>();

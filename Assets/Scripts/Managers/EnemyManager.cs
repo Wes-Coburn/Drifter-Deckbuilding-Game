@@ -61,9 +61,9 @@ public class EnemyManager : MonoBehaviour
                 for (int i = 0; i < GameManager.ENEMY_START_FOLLOWERS; i++)
                     CardManager.Instance.AddCard(unit, GameManager.ENEMY);
             ReinforcementSchedule =
-                EnemyHero.Reinforcements[ReinforcementGroup].ReinforcementSchedule.Schedule; // TESTING
+                EnemyHero.Reinforcements[ReinforcementGroup].ReinforcementSchedule.Schedule;
             CurrentReinforcements = 0;
-            NextReinforcements = ReinforcementSchedule[CurrentReinforcements]; 
+            NextReinforcements = ReinforcementSchedule[CurrentReinforcements];
         }
     }
     public int EnemyHealth
@@ -95,36 +95,21 @@ public class EnemyManager : MonoBehaviour
     {
         int refo = CurrentReinforcements;
         List<int> refoSched = ReinforcementSchedule;
-        if (NextReinforcements > 0) 
-            evMan.NewDelayedAction(() => anMan.ReinforcementsState(), 1);
-        if ((refo + 1) < refoSched.Count) CurrentReinforcements++;
-        else CurrentReinforcements = 0;
         int handSize = coMan.EnemyHandCards.Count;
-        // Draw Cards
-        int cardsToDraw = NextReinforcements;
-        int overMaxCards = GameManager.MAX_HAND_SIZE + 1;
-        if (cardsToDraw + handSize > overMaxCards)
-            cardsToDraw = overMaxCards - handSize;
-        for (int i = 0; i < cardsToDraw; i++)
-            evMan.NewDelayedAction(() => coMan.DrawCard(GameManager.ENEMY), 1);
-        // Play Cards
-        int cardsToPlay = handSize + NextReinforcements;
+        int cardsToPlay = handSize;
         int maxHand = GameManager.MAX_HAND_SIZE;
         int overMaxUnits = GameManager.MAX_UNITS_PLAYED + 1;
         int playedUnits = coMan.EnemyZoneCards.Count;
         if (cardsToPlay > maxHand) cardsToPlay = maxHand;
         if (cardsToPlay + playedUnits > overMaxUnits) 
             cardsToPlay = overMaxUnits - playedUnits;
+
         for (int i = 0; i < cardsToPlay; i++)
-            evMan.NewDelayedAction(() =>
+            evMan.NewDelayedAction(() => 
             coMan.PlayCard(coMan.EnemyHandCards[0]), 2);
+
         evMan.NewDelayedAction(() => BeginAttacks(), 1);
 
-        void UpdateReinforcements()
-        {
-            anMan.NextReinforcementsState();
-            NextReinforcements = refoSched[CurrentReinforcements];
-        }
         void BeginAttacks()
         {
             foreach (GameObject enemyUnit in coMan.EnemyZoneCards)
@@ -133,10 +118,12 @@ public class EnemyManager : MonoBehaviour
                 if (!ucd.IsExhausted && ucd.CurrentPower > 0 && ucd.CurrentHealth > 0)
                     evMan.NewDelayedAction(() => ResolveAttack(enemyUnit), 1);
             }
-            evMan.NewDelayedAction(() => UpdateReinforcements(), 2);
+            evMan.NewDelayedAction(() => UpdateReinforcements(), 0);
+
             evMan.NewDelayedAction(() => 
             GameManager.Instance.EndTurn(GameManager.ENEMY), 2);
         }
+
         void ResolveAttack(GameObject enemyUnit)
         {
             if (enemyUnit == null)
@@ -169,6 +156,34 @@ public class EnemyManager : MonoBehaviour
                     }
             }
             coMan.Attack(enemyUnit, coMan.PlayerHero);
+        }
+
+        void UpdateReinforcements()
+        {
+            if (CurrentReinforcements > refoSched.Count - 1)
+                CurrentReinforcements = 0;
+
+            int cardsToDraw = NextReinforcements;
+            if (cardsToDraw < 1)
+            {
+                evMan.NewDelayedAction(() => NextReinforcementsState(), 1, true);
+                return;
+            }
+            else evMan.NewDelayedAction(() => NextReinforcementsState(), 3, true);
+
+            anMan.ReinforcementsState();
+            int overMaxCards = GameManager.MAX_HAND_SIZE + 1;
+            if (cardsToDraw + handSize > overMaxCards)
+                cardsToDraw = overMaxCards - handSize;
+
+            for (int i = 0; i < cardsToDraw; i++)
+                evMan.NewDelayedAction(() => coMan.DrawCard(GameManager.ENEMY), 1, true);
+        }
+
+        void NextReinforcementsState()
+        {
+            anMan.NextReinforcementsState();
+            NextReinforcements = refoSched[CurrentReinforcements++];
         }
     }
 }

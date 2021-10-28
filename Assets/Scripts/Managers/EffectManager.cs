@@ -529,7 +529,7 @@ public class EffectManager : MonoBehaviour
             if (eg.Targets.PlayerHand) hero = GameManager.PLAYER;
             else hero = GameManager.ENEMY;
             for (int i = 0; i < effect.Value; i++)
-                coMan.DrawCard(hero);
+                FunctionTimer.Create(() => coMan.DrawCard(hero), 0.5f * i); // TESTING
         }
         StartNextEffect();
     }
@@ -607,6 +607,7 @@ public class EffectManager : MonoBehaviour
             if (newActions > pMan.ActionsPerTurn) 
                 newActions = pMan.ActionsPerTurn;
             pMan.PlayerActionsLeft = newActions;
+            anMan.ModifyHeroActionsState();
         }
         else if (effect is EvadeEffect)
         {
@@ -639,14 +640,34 @@ public class EffectManager : MonoBehaviour
     {
         currentEffectGroup = 0;
         currentEffect = 0; // Unnecessary
+
         foreach (EffectGroup eg in effectGroupList)
         {
+            bool isPowerChange = false;
+            bool isHealthChange = false;
+
             if (eg.EffectGroupSound2.clip != null) 
                 auMan.StartStopSound(null, eg.EffectGroupSound2);
             else auMan.StartStopSound(eg.EffectGroupSound);
 
             foreach (Effect effect in eg.Effects)
+            {
+                // TESTING
+                if (effect is StatChangeEffect sce)
+                {
+                    if (sce.IsHealthChange) isHealthChange = true;
+                    else isPowerChange = true;
+                }
                 ResolveEffect(acceptedTargets[currentEffectGroup], effect);
+            }
+
+            // TESTING
+            foreach (GameObject target in acceptedTargets[currentEffectGroup])
+            {
+                if (coMan.IsUnitCard(target))
+                    anMan.UnitStatChangeState(target, isPowerChange, isHealthChange);
+            }
+
             currentEffectGroup++;
         }
         FinishEffectGroupList(false);
@@ -779,14 +800,14 @@ public class EffectManager : MonoBehaviour
         // STAT_CHANGE_EFFECT
         else if (effect is StatChangeEffect sce)
         {
-            if (ucd.CurrentHealth < 1) return; // TESTING
+            if (ucd.CurrentHealth < 1) return; // Don't change stats of destroyed units
             StatChangeEffect newSce =
                 ScriptableObject.CreateInstance<StatChangeEffect>();
             newSce.LoadEffect(sce);
             ucd.CurrentEffects.Add(newSce);
-            int statChange = sce.Value;
+            int statChange = newSce.Value; // TESTING
             if (sce.IsNegative) statChange = -statChange;
-            if (sce.IsDefenseChange)
+            if (sce.IsHealthChange)
             {
                 ucd.MaxHealth += statChange;
                 ucd.CurrentHealth += statChange;
@@ -819,6 +840,10 @@ public class EffectManager : MonoBehaviour
         {
             UnitCardDisplay fcd = coMan.GetUnitDisplay(card);
             List<Effect> expiredEffects = new List<Effect>();
+
+            bool isPowerChange = false;
+            bool isHealthChange = false;
+
             foreach (Effect effect in fcd.CurrentEffects)
             {
                 if (effect.Countdown == 1) // Check for EXPIRED effects
@@ -832,16 +857,16 @@ public class EffectManager : MonoBehaviour
                     {
                         int statChange = sce.Value;
                         if (sce.IsNegative) statChange = -statChange;
-                        if (sce.IsDefenseChange)
+                        if (sce.IsHealthChange)
                         {
                             fcd.CurrentHealth -= statChange;
                             fcd.MaxHealth -= statChange;
-                            anMan.ModifyUnitHealthState(card);
+                            isHealthChange = true; // TESTING
                         }
                         else
                         {
                             fcd.CurrentPower -= statChange;
-                            anMan.ModifyUnitPowerState(card);
+                            isPowerChange = true; // TESTING
                         }
                     }
                     expiredEffects.Add(effect);
@@ -853,6 +878,8 @@ public class EffectManager : MonoBehaviour
                         effect.ToString() + " is <" + effect.Countdown + ">");
                 }
             }
+            anMan.UnitStatChangeState(card, isPowerChange, isHealthChange); // TESTING
+
             foreach (Effect effect in expiredEffects)
             {
                 fcd.CurrentEffects.Remove(effect);
@@ -870,28 +897,44 @@ public class EffectManager : MonoBehaviour
      *****/
     public void TriggerGiveNextEffect(GameObject card)
     {
-        static void DestroyEffect(Effect effect)
-        {
-            Destroy(effect);
-            effect = null;
-        }
         // GIVE_NEXT_FOLLOWER_EFFECTS
         List<GiveNextUnitEffect> resolvedGnue = new List<GiveNextUnitEffect>();
         if (GiveNextEffects.Count > 0)
         {
-            List<GameObject> targets = new List<GameObject> { card };
+            bool isPowerChange = false;
+            bool isHealthChange = false;
+
+            List<GameObject> target = new List<GameObject> { card };
             foreach (GiveNextUnitEffect gnue in GiveNextEffects)
             {
                 // CHECK FOR ALLY/ENEMY HERE
                 foreach (Effect e in gnue.Effects)
-                    ResolveEffect(targets, e);
+                {
+                    // TESTING
+                    if (e is StatChangeEffect sce)
+                    {
+                        if (sce.IsHealthChange) isHealthChange = true;
+                        else isPowerChange = true;
+                    }
+                    ResolveEffect(target, e);
+                }
                 if (--gnue.Multiplier < 1) resolvedGnue.Add(gnue);
             }
+
+            // TESTING
+            anMan.UnitStatChangeState(target[0], isPowerChange, isHealthChange);
+
             foreach (GiveNextUnitEffect rGnue in resolvedGnue)
             {
                 GiveNextEffects.Remove(rGnue);
                 DestroyEffect(rGnue);
             }
+        }
+
+        static void DestroyEffect(Effect effect)
+        {
+            Destroy(effect);
+            effect = null;
         }
     }
 

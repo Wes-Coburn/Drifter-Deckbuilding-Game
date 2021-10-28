@@ -342,16 +342,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyHero
       objectReference: {fileID: 0}
-    - target: {fileID: 3494202206535139282, guid: 31637dea9d4e701409b1e552bf2a61ad,
-        type: 3}
-      propertyPath: m_text
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 3494202206535139282, guid: 31637dea9d4e701409b1e552bf2a61ad,
-        type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4278190120
-      objectReference: {fileID: 0}
     - target: {fileID: 5217999959209188416, guid: 31637dea9d4e701409b1e552bf2a61ad,
         type: 3}
       propertyPath: m_RootOrder
@@ -422,6 +412,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1097139900}
     m_Modifications:
+    - target: {fileID: 1987197905819768260, guid: 82ee73e4f6edaf843822483120ad9f13,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278190080
+      objectReference: {fileID: 0}
+    - target: {fileID: 5152010016712766256, guid: 82ee73e4f6edaf843822483120ad9f13,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 5152010016712766256, guid: 82ee73e4f6edaf843822483120ad9f13,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 250
+      objectReference: {fileID: 0}
     - target: {fileID: 5292934362312869072, guid: 82ee73e4f6edaf843822483120ad9f13,
         type: 3}
       propertyPath: m_Name

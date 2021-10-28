@@ -92,7 +92,7 @@ public class DragDrop : MonoBehaviour
         }
         else
         {
-            if (!coMan.CanAttack(gameObject, null))
+            if (!coMan.CanAttack(gameObject, null, true))
             {
                 DraggingCard = null;
                 return;
@@ -103,7 +103,7 @@ public class DragDrop : MonoBehaviour
                 uMan.CurrentCanvas.transform);
             dragArrow.GetComponent<DragArrow>().SourceCard = gameObject;
             foreach (GameObject enemyUnit in coMan.EnemyZoneCards)
-                if (coMan.CanAttack(gameObject, enemyUnit, true))
+                if (coMan.CanAttack(gameObject, enemyUnit, true)) // TESTING
                     uMan.SelectTarget(enemyUnit, true);
             if (coMan.CanAttack(gameObject, coMan.EnemyHero, true)) 
                 uMan.SelectTarget(coMan.EnemyHero, true);
@@ -135,7 +135,7 @@ public class DragDrop : MonoBehaviour
         dragArrow = null;
         if (Enemy != null)
         {
-            if (coMan.CanAttack(gameObject, Enemy)) 
+            if (coMan.CanAttack(gameObject, Enemy, false)) // TESTING
                 coMan.Attack(gameObject, Enemy);
             uMan.SelectTarget(Enemy, false);
             Enemy = null;
