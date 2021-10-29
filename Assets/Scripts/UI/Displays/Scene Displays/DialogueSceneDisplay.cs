@@ -15,6 +15,10 @@ public class DialogueSceneDisplay : MonoBehaviour
     [SerializeField] private GameObject response_2;
     [SerializeField] private GameObject response_3;
 
+    [SerializeField] private GameObject response_Object_1;
+    [SerializeField] private GameObject response_Object_2;
+    [SerializeField] private GameObject response_Object_3;
+
     public GameObject PlayerHeroPortrait { get => playerHeroPortrait; }
     public Sprite PlayerHeroImage
     {
@@ -58,6 +62,7 @@ public class DialogueSceneDisplay : MonoBehaviour
             npcHeroSpeech.GetComponent<TextMeshProUGUI>().SetText(value);
         }
     }
+    public GameObject Response_1_Object { get => response_Object_1; }
     public string Response_1
     {
         set
@@ -65,6 +70,7 @@ public class DialogueSceneDisplay : MonoBehaviour
             response_1.GetComponent<TextMeshProUGUI>().SetText(value);
         }
     }
+    public GameObject Response_2_Object { get => response_Object_2; }
     public string Response_2
     {
         set
@@ -72,6 +78,7 @@ public class DialogueSceneDisplay : MonoBehaviour
             response_2.GetComponent<TextMeshProUGUI>().SetText(value);
         }
     }
+    public GameObject Response_3_Object { get => response_Object_3; }
     public string Response_3
     {
         set

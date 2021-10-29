@@ -100,7 +100,6 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
 
         GameObject container = GetComponent<CardDisplay>().CardContainer;
         GameObject parent = container.transform.parent.gameObject;
-        if (parent == enemyHand) return; // HIDE THE ENEMY HAND
 
         float cardYPos;
         float popupXPos;
@@ -123,12 +122,12 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
             else if (parent == playerZone)
             {
                 rect = playerZone.GetComponent<RectTransform>();
-                cardYPos = rect.position.y + ZOOM_BUFFER;
+                cardYPos = rect.position.y + ZOOM_BUFFER - 20;
             }
             else if (parent == enemyHand)
             {
                 rect = enemyHand.GetComponent<RectTransform>();
-                cardYPos = rect.position.y - ZOOM_BUFFER;
+                cardYPos = rect.position.y - ZOOM_BUFFER - 50;
             }
             else if (parent == enemyZone)
             {

@@ -6,6 +6,7 @@ using TMPro;
 public class CardPageDisplay : MonoBehaviour
 {
     [SerializeField] private GameObject learnSkillButtonPrefab;
+    [SerializeField] private GameObject recruitUnitButtonPrefab;
     [SerializeField] private GameObject removeCardButtonPrefab;
     [SerializeField] private GameObject pageCounter;
     [SerializeField] private GameObject cardGroup;
@@ -18,6 +19,7 @@ public class CardPageDisplay : MonoBehaviour
     private List<Card> cardGroupList;
     private List<GameObject> activeCards;
     private bool isCardRemoval;
+    private bool isRecruitment;
     private int currentPage;
     private int totalPages;
 
@@ -29,15 +31,23 @@ public class CardPageDisplay : MonoBehaviour
         }
     }
 
-    public void DisplayCardPage(bool isCardRemoval)
+    public void DisplayCardPage(bool isCardRemoval, List<UnitCard> recruits = null)
     {
         pMan = PlayerManager.Instance;
         uMan = UIManager.Instance;
         this.isCardRemoval = isCardRemoval;
+        isRecruitment = false;
         cardGroupList = new List<Card>();
         string titleText;
 
-        if (isCardRemoval)
+        if (recruits != null) // TESTING
+        {
+            isRecruitment = true;
+            titleText = "Recruit a Unit";
+            foreach (Card c in recruits)
+                cardGroupList.Add(c);
+        }
+        else if (isCardRemoval)
         {
             titleText = "Remove a Card";
             foreach (Card c in pMan.PlayerDeckList)
@@ -96,12 +106,15 @@ public class CardPageDisplay : MonoBehaviour
             activeCards.Add(cardObj);
 
             GameObject buttonPrefab;
-            if (isCardRemoval) buttonPrefab = removeCardButtonPrefab;
+            if (isRecruitment) buttonPrefab = recruitUnitButtonPrefab; // TESTING
+            else if (isCardRemoval) buttonPrefab = removeCardButtonPrefab;
             else buttonPrefab = learnSkillButtonPrefab;
             GameObject button = Instantiate(buttonPrefab, costGroup.transform);
             button.transform.localScale = new Vector2(1.5f, 1.5f);
 
-            if (isCardRemoval) button.GetComponent<RemoveCardButton>().Card = card;
+            if (isRecruitment) 
+                button.GetComponent<RecruitUnitButton>().UnitCard = card as UnitCard; // TESTING
+            else if (isCardRemoval) button.GetComponent<RemoveCardButton>().Card = card;
             else button.GetComponent<LearnSkillButton>().SkillCard = card as SkillCard;
             activeCards.Add(button);
         }
@@ -128,6 +141,13 @@ public class CardPageDisplay : MonoBehaviour
         else uMan.CreateLearnSkillPopup(skillCard);
     }
 
+    public void RecruitUnitButton_OnClick(UnitCard unitCard)
+    {
+        if (pMan.AetherCells < GameManager.RECRUIT_UNIT_COST)
+            uMan.InsufficientAetherPopup();
+        else uMan.CreateRecruitUnitPopup(unitCard);
+    }
+
     public void RemoveCardButton_OnClick(Card card)
     {
         if (pMan.PlayerDeckList.Count <= 10)
@@ -135,5 +155,13 @@ public class CardPageDisplay : MonoBehaviour
         else if (pMan.AetherCells < GameManager.REMOVE_CARD_COST)
             uMan.InsufficientAetherPopup();
         else uMan.CreateRemoveCardPopup(card);
+    }
+
+    public void CloseCardPageButton_OnClick()
+    {
+        DialogueManager.Instance.DisplayDialoguePopup(); // TESTING
+        uMan.DestroyRemoveCardPopup();
+        uMan.DestroyLearnSkillPopup();
+        uMan.DestroyCardPagePopup();
     }
 }

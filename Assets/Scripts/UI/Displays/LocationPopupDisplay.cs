@@ -20,7 +20,7 @@ public class LocationPopupDisplay : MonoBehaviour
             location = value;
             LocationName = location.LocationFullName;
             LocationDescription = location.LocationDescription;
-            ObjectivesDescription = location.FirstObjective;
+            ObjectivesDescription = location.CurrentObjective; // TESTING
             WorldMapPosition = new Vector2(0, 0); // FOR TESTING ONLY?
         }
     }
@@ -74,7 +74,9 @@ public class LocationPopupDisplay : MonoBehaviour
             return;
         }
         gMan.CurrentLocation = gMan.GetActiveLocation(location);
-        gMan.ActiveLocations.Remove(gMan.CurrentLocation);
+        if (!location.IsRecruitment) // TESTING
+            gMan.ActiveLocations.Remove(gMan.CurrentLocation);
+        else gMan.CurrentLocation.CurrentObjective = "Recruit More Followers."; // TESTING
         gMan.ExitWorldMap();
         dMan.EngagedHero = gMan.GetActiveNPC(gMan.CurrentLocation.CurrentNPC);
         SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene);

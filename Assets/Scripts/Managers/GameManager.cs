@@ -14,15 +14,21 @@ public class GameManager : MonoBehaviour
         }
         else Destroy(gameObject);
     }
-    
-    [SerializeField] GameObject locationIconPrefab;
+
+    [Header("GAME CHAPTERS")]
     [SerializeField] string[] gameChapters;
-    [SerializeField] private GiveNextUnitEffect augmentBiogenEffect;
+    [Header("RECRUITS")]
+    [SerializeField] private List<UnitCard> recruits;
+    [Header("NARRATIVES")]
     [SerializeField] private Narrative settingNarrative;
     [SerializeField] private Narrative newGameNarrative;
+    [Header("LOCATIONS")]
     [SerializeField] private Location homeBaseLocation;
     [SerializeField] private Location firstLocation;
-    
+    [SerializeField] GameObject locationIconPrefab;
+    [Header("AUGMENT EFFECTS")]
+    [SerializeField] private GiveNextUnitEffect augmentBiogenEffect;
+
     private PlayerManager pMan;
     private EnemyManager enMan;
     private CombatManager coMan;
@@ -47,6 +53,7 @@ public class GameManager : MonoBehaviour
     public List<NPCHero> ActiveNPCHeroes { get; private set; }
     public List<Location> ActiveLocations { get; private set; }
     public Location CurrentLocation { get; set; }
+    public List<UnitCard> Recruits { get => recruits; }
 
     /* GAME_MANAGER_DATA */
     // Universal
@@ -66,13 +73,14 @@ public class GameManager : MonoBehaviour
 
     // Aether Costs
     public const int LEARN_SKILL_COST = 2;
+    public const int RECRUIT_UNIT_COST = 2; // TESTING
     public const int ACQUIRE_AUGMENT_COST = 4;
     public const int REMOVE_CARD_COST = 1;
 
     // Enemy
     public const string ENEMY = "Enemy";
-    public const int ENEMY_STARTING_HEALTH = 20;
-    //public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
+    //public const int ENEMY_STARTING_HEALTH = 20;
+    public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
     public const int ENEMY_HAND_SIZE = 0;
     public const int ENEMY_START_FOLLOWERS = 5;
     public const int ENEMY_START_SKILLS = 2;
@@ -160,6 +168,7 @@ public class GameManager : MonoBehaviour
         {
             Location newLoc = ScriptableObject.CreateInstance<Location>();
             newLoc.LoadLocation(location);
+            newLoc.CurrentObjective = newLoc.FirstObjective; // TESTING
             Debug.LogWarning("NEW LOCATION CREATED! <" + newLoc.LocationFullName + ">");
             if (newNPC != null) newLoc.CurrentNPC = GetActiveNPC(newNPC);
             else newLoc.CurrentNPC = GetActiveNPC(location.FirstNPC);

@@ -68,6 +68,7 @@ public class AnimationManager : MonoBehaviour
     /* UNIT_ANIMATIONS */
     public void RevealedHandState(GameObject card) => ChangeAnimationState(card, "Revealed_Hand");
     public void RevealedDragState(GameObject card) => ChangeAnimationState(card, "Revealed_Drag");
+    public void RevealedPlayState(GameObject card) => ChangeAnimationState(card, "Revealed_Play");
     public void PlayedState(GameObject card)
     {
         card.GetComponent<CardDisplay>().CardArt = card.GetComponent<CardDisplay>().CardScript.CardArt;

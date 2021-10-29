@@ -14,33 +14,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   developerNotes: 
   journalNotes: []
-  dialoguePromptText: '*You leave the smoky bar and find yourself in the smog-filled
-    streets of Sylus once more.*'
+  dialoguePromptText: By the way, if you ever need some extra muscle...
   dialogueResponse1:
     responseText: 
     response_Respect: 0
     response_NextClip: {fileID: 0}
-    response_IsExit: 0
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsExit: 0
   dialogueResponse2:
     responseText: (Continue)
     response_Respect: 0
-    response_NextClip: {fileID: 11400000}
-    response_IsExit: 0
+    response_NextClip: {fileID: 11400000, guid: 48dbc11f6cdf3964691945c3bac3642f,
+      type: 2}
     response_IsCombatStart: 0
-    response_IsWorldMapStart: 1
+    response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsExit: 0
   dialogueResponse3:
     responseText: 
     response_Respect: 0
     response_NextClip: {fileID: 0}
-    response_IsExit: 0
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsExit: 0
   newEngagedHero: {fileID: 0}
   hideNPC: 0
   newCard: {fileID: 0}
   aetherCells: 0
-  newLocations:
-  - Location: {fileID: 11400000, guid: 1fffb2e60d3c32346a420352b2201c70, type: 2}
-    NewNpc: {fileID: 0}
+  newLocations: []

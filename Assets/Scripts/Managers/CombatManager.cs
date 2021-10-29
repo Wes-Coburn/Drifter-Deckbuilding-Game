@@ -390,7 +390,7 @@ public class CombatManager : MonoBehaviour
             // ENEMY
             case ENEMY_HAND:
                 zone = EnemyHand;
-                anMan.RevealedHandState(card);
+                anMan.RevealedPlayState(card); // TESTING
                 break;
             case ENEMY_ZONE:
                 zone = EnemyZone;

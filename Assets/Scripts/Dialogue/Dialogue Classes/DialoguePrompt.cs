@@ -23,7 +23,6 @@ public class DialoguePrompt : DialogueClip
     [SerializeField] [Range(0, 5)] private int aetherCells;
     [SerializeField] private NewLocation[] newLocations;
 
-    public JournalNote[] JournalNotes { get => journalNotes; }
     public string DialoguePromptText { get => dialoguePromptText; }
     public DialogueResponse DialogueResponse1 { get => dialogueResponse1; }
     public DialogueResponse DialogueResponse2 { get => dialogueResponse2; }
@@ -37,14 +36,12 @@ public class DialoguePrompt : DialogueClip
     public override void LoadDialogueClip(DialogueClip dc)
     {
         base.LoadDialogueClip(dc);
-        
         DialoguePrompt dp = dc as DialoguePrompt;
-        /*
-        journalNotes = new List<JournalNote>();
-        foreach (JournalNote jn in dp.JournalNotes)
-            journalNotes.Add(jn);
-        */
-        dp.JournalNotes.CopyTo(journalNotes, 0);
+
+        // TESTING
+        dialogueResponse1 = new DialogueResponse();
+        dialogueResponse2 = new DialogueResponse();
+        dialogueResponse3 = new DialogueResponse();
         dialogueResponse1.LoadResponse(dp.DialogueResponse1);
         dialogueResponse2.LoadResponse(dp.DialogueResponse2);
         dialogueResponse3.LoadResponse(dp.DialogueResponse3);

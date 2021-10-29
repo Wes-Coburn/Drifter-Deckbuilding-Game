@@ -28,7 +28,6 @@ public class DialogueManager : MonoBehaviour
     public DialogueSceneDisplay DialogueDisplay { get => dialogueDisplay; }
     public NPCHero EngagedHero { get; set; } // PUBLIC SET FOR COMBAT TEST BUTTON
     public Coroutine CurrentTextRoutine { get; private set; }
-
     private void Start()
     {
         gMan = GameManager.Instance;
@@ -76,7 +75,6 @@ public class DialogueManager : MonoBehaviour
     public void DisplayDialoguePopup()
     {
         DialoguePrompt dpr = currentDialogueClip as DialoguePrompt;
-
         if (newEngagedHero)
         {
             AnimationManager.Instance.NewEngagedHero();
@@ -89,23 +87,32 @@ public class DialogueManager : MonoBehaviour
         TimedText(dpr.DialoguePromptText, 
             dialogueDisplay.NPCHeroSpeechObject.GetComponent<TextMeshProUGUI>());
 
+        // TESTING TESTING TESTING
         // Response 1
-        if (dpr.DialogueResponse1 == null)
-            dialogueDisplay.Response_1 = "";
-        else
-            dialogueDisplay.Response_1 = 
+        bool r1_Active = true;        
+        if (string.IsNullOrEmpty(dpr.DialogueResponse1.ResponseText))
+            r1_Active = false;
+        dialogueDisplay.Response_1_Object.SetActive(r1_Active);
+        if (r1_Active) 
+            dialogueDisplay.Response_1 =
                 FilterText(dpr.DialogueResponse1.ResponseText);
+
         // Response 2
-        if (dpr.DialogueResponse2 == null)
-            dialogueDisplay.Response_2 = "";
-        else
-            dialogueDisplay.Response_2 = 
+        bool r2_Active = true;
+        if (string.IsNullOrEmpty(dpr.DialogueResponse2.ResponseText))
+            r2_Active = false;
+        dialogueDisplay.Response_2_Object.SetActive(r2_Active);
+        if (r2_Active)
+            dialogueDisplay.Response_2 =
                 FilterText(dpr.DialogueResponse2.ResponseText);
+
         // Response 3
-        if (dpr.DialogueResponse3 == null)
-            dialogueDisplay.Response_3 = "";
-        else
-            dialogueDisplay.Response_3 = 
+        bool r3_Active = true;
+        if (string.IsNullOrEmpty(dpr.DialogueResponse3.ResponseText))
+            r3_Active = false;
+        dialogueDisplay.Response_3_Object.SetActive(r3_Active);
+        if (r3_Active)
+            dialogueDisplay.Response_3 =
                 FilterText(dpr.DialogueResponse3.ResponseText);
     }
     
@@ -182,14 +189,20 @@ public class DialogueManager : MonoBehaviour
 
     public void DialogueResponse(int response)
     {
-        if (currentDialogueClip == null) return; // TESTING
+        if (currentDialogueClip == null)
+        {
+            Debug.LogError("CURRENT CLIP IS NULL!");
+            return;
+        }
         if (CurrentTextRoutine != null)
         {
             StopTimedText(true);
             return;
         }
+
         DialoguePrompt prompt = currentDialogueClip as DialoguePrompt;
         DialogueResponse dResponse = null;
+
         switch (response)
         {
             case 1:
@@ -203,14 +216,18 @@ public class DialogueManager : MonoBehaviour
                 break;
         }
         DialogueClip nextClip = dResponse.Response_NextClip;
-        if (nextClip == null) return;
+        if (nextClip == null)
+        {
+            Debug.LogError("NEXT CLIP IS NULL!");
+            return;
+        }
 
         DialoguePrompt nextPrompt = null;
         if (nextClip is DialoguePrompt)
         {
             nextPrompt = nextClip as DialoguePrompt;
             // Hide NPC
-            dialogueDisplay.NPCHeroPortrait.SetActive(!nextPrompt.HideNPC); // TESTING
+            dialogueDisplay.NPCHeroPortrait.SetActive(!nextPrompt.HideNPC);
             // New Locations
             if (nextPrompt.NewLocations.Length > 0)
             {
@@ -220,15 +237,10 @@ public class DialogueManager : MonoBehaviour
                 }
             }
         }
+
         EngagedHero.NextDialogueClip = nextClip;
         EngagedHero.RespectScore += dResponse.Response_Respect;
 
-        // Exit
-        if (dResponse.Response_IsExit)
-        {
-            gMan.EndGame(); // FOR TESTING ONLY?
-            return;
-        }
         // Combat Start
         if (dResponse.Response_IsCombatStart)
         {
@@ -239,6 +251,18 @@ public class DialogueManager : MonoBehaviour
         if (dResponse.Response_IsWorldMapStart)
         {
             SceneLoader.LoadScene(SceneLoader.Scene.WorldMapScene);
+            return;
+        }
+        // Recruitment
+        if (dResponse.Response_IsRecruitmentStart) // TESTING
+        {
+            UIManager.Instance.CreateCardPagePopup(false, gMan.Recruits);
+            return;
+        }
+        // Exit
+        if (dResponse.Response_IsExit)
+        {
+            gMan.EndGame(); // FOR TESTING ONLY?
             return;
         }
         if (nextPrompt != null)
@@ -259,11 +283,11 @@ public class DialogueManager : MonoBehaviour
                 UIManager.Instance.CreateAetherCellPopup(newAether, newTotal);
             }
         }
-        // Next Clip
+
         currentDialogueClip = nextClip;
         if (currentDialogueClip is DialogueFork) currentDialogueClip = DialogueFork();
-        if (nextPrompt != null && nextPrompt.NewCard == null &&
-            nextPrompt.AetherCells < 1) DisplayDialoguePopup();
+        if (nextPrompt != null && nextPrompt.NewCard == null && nextPrompt.AetherCells < 1 &&
+            !dResponse.Response_IsRecruitmentStart) DisplayDialoguePopup();
     }
 
     private DialogueClip DialogueFork()

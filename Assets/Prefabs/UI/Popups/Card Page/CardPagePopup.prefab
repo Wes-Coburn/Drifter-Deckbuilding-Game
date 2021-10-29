@@ -344,6 +344,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   learnSkillButtonPrefab: {fileID: 8327854555610186815, guid: 1510ae20ce0d95545a1a55379ada8815,
     type: 3}
+  recruitUnitButtonPrefab: {fileID: 8327854555610186815, guid: fdba2185e803e764d8e2670b83ebc673,
+    type: 3}
   removeCardButtonPrefab: {fileID: 8327854555610186815, guid: a68356a28967cad4caf03ddcbe7d3c33,
     type: 3}
   pageCounter: {fileID: 3366735516009158637}
@@ -845,7 +847,6 @@ GameObject:
   - component: {fileID: 3366735517061691655}
   - component: {fileID: 3366735517061691654}
   - component: {fileID: 3366735517061691652}
-  - component: {fileID: 29984918}
   - component: {fileID: 7017731099960610950}
   m_Layer: 5
   m_Name: CloseMenu
@@ -955,7 +956,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7017731099960610950}
+      - m_Target: {fileID: 7280885061337757376}
+        m_TargetAssemblyTypeName: CardPageDisplay, Assembly-CSharp
+        m_MethodName: CloseCardPageButton_OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3806945261691946042}
         m_TargetAssemblyTypeName: SoundPlayer, Assembly-CSharp
         m_MethodName: PlaySound
         m_Mode: 3
@@ -967,18 +980,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &29984918
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3366735517061691640}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: deccbf675276010488ecd68c4a990a14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7017731099960610950
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,6 +11,6 @@ public class DialogueResponseButton : MonoBehaviour
             return;
         }
         DialogueManager.Instance.DialogueResponse(response);
-        gameObject.GetComponentInParent<SoundPlayer>().PlaySound(0);
+        GetComponentInParent<SoundPlayer>().PlaySound(0);
     }
 }

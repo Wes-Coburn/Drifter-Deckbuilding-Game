@@ -42,6 +42,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject aetherCellPopupPrefab;
     [SerializeField] private GameObject cardPagePopupPrefab;
     [SerializeField] private GameObject learnSkillPopupPrefab;
+    [SerializeField] private GameObject recruitUnitPopupPrefab;
     [SerializeField] private GameObject acquireAugmentPopupPrefab;
     [SerializeField] private GameObject removeCardPopupPrefab;
     [SerializeField] private GameObject locationPopupPrefab;
@@ -63,6 +64,7 @@ public class UIManager : MonoBehaviour
     private GameObject aetherCellPopup;
     private GameObject cardPagePopup;
     private GameObject learnSkillPopup;
+    private GameObject recruitUnitPopup;
     private GameObject acquireAugmentPopup;
     private GameObject removeCardPopup;
     private GameObject locationPopup;
@@ -485,12 +487,12 @@ public class UIManager : MonoBehaviour
         }
     }
     // Card Page Popups
-    public void CreateCardPagePopup(bool isCardRemoval)
+    public void CreateCardPagePopup(bool isCardRemoval, List<UnitCard> recruits = null)
     {
         if (cardPagePopup != null) return;
         cardPagePopup = Instantiate
             (cardPagePopupPrefab, CurrentCanvas.transform);
-        cardPagePopup.GetComponent<CardPageDisplay>().DisplayCardPage(isCardRemoval);
+        cardPagePopup.GetComponent<CardPageDisplay>().DisplayCardPage(isCardRemoval, recruits);
     }
     public void DestroyCardPagePopup()
     {
@@ -513,6 +515,21 @@ public class UIManager : MonoBehaviour
         {
             Destroy(learnSkillPopup);
             learnSkillPopup = null;
+        }
+    }
+    // Recruit Unit Popup
+    public void CreateRecruitUnitPopup(UnitCard unitCard)
+    {
+        DestroyRecruitUnitPopup();
+        recruitUnitPopup = Instantiate(recruitUnitPopupPrefab, CurrentCanvas.transform);
+        recruitUnitPopup.GetComponent<RecruitUnitPopupDisplay>().UnitCard = unitCard;
+    }
+    public void DestroyRecruitUnitPopup()
+    {
+        if (recruitUnitPopup != null)
+        {
+            Destroy(recruitUnitPopup);
+            recruitUnitPopup = null;
         }
     }
     // Acquire Augment Popup
