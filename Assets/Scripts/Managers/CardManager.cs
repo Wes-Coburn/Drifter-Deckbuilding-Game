@@ -24,8 +24,8 @@ public class CardManager : MonoBehaviour
 
     // Static Abilities
     public const string ABILITY_BLITZ = "Blitz";
+    public const string ABILITY_FORCEFIELD = "Forcefield";
     public const string ABILITY_RANGED = "Ranged";
-    public const string ABILITY_SHIELD = "Shield";
     public const string ABILITY_STEALTH = "Stealth";
     // Keyword Abilities
     public const string ABILITY_MARKED = "Marked";

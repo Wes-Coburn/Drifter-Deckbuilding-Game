@@ -363,6 +363,11 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
 
     public void DestroyZoomPopups()
     {
+        if (ZoomCardIsCentered) return; // TESTING
+
+        foreach (GameObject go in zoomPopups)
+            DestroyObject(go);
+
         static void DestroyObject(GameObject go)
         {
             if (go != null)
@@ -371,7 +376,5 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
                 go = null;
             }
         }
-        foreach (GameObject go in zoomPopups)
-            DestroyObject(go);
     }
 }

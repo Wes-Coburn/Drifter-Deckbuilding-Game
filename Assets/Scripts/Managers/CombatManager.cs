@@ -673,7 +673,7 @@ public class CombatManager : MonoBehaviour
 
             if (IsUnitCard(defender))
             {
-                if (!CardManager.GetAbility(defender, CardManager.ABILITY_SHIELD))
+                if (!CardManager.GetAbility(defender, CardManager.ABILITY_FORCEFIELD))
                     dealtDamage = true;
                 else dealtDamage = false;
             }
@@ -702,7 +702,7 @@ public class CombatManager : MonoBehaviour
     public bool TakeDamage(GameObject target, int damageValue)
     {
         if (damageValue < 1) return false;
-        const string SHIELD = CardManager.ABILITY_SHIELD;
+        const string SHIELD = CardManager.ABILITY_FORCEFIELD;
 
         int targetValue;
         int newTargetValue;
