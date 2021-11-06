@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -20,11 +21,13 @@ public class PlayerManager : MonoBehaviour
     private EffectManager efMan;
     private UIManager uMan;
     private AudioManager auMan;
+
     private PlayerHero playerHero;
     private int playerHealth;
     private int playerActionsLeft;
     private List<HeroAugment> heroAugments;
     private int aetherCells;
+    private bool heroPowerUsed;
 
     public int AetherCells
     {
@@ -40,7 +43,16 @@ public class PlayerManager : MonoBehaviour
     public List<Card> CurrentPlayerDeck { get; private set; }
     public bool IsMyTurn { get; set; }
     public int ActionsPerTurn { get; set; }
-    public bool HeroPowerUsed { get; set; }
+    public bool HeroPowerUsed
+    {
+        get => heroPowerUsed;
+        set
+        {
+            heroPowerUsed = value;
+            PlayerHeroDisplay phd = coMan.PlayerHero.GetComponent<PlayerHeroDisplay>();
+            phd.PowerUsedIcon.SetActive(value); // TESTING
+        }
+    }
 
     public PlayerHero PlayerHero
     {
@@ -48,7 +60,6 @@ public class PlayerManager : MonoBehaviour
         set
         {
             playerHero = value;
-            // TESTING
             PlayerDeckList.Clear();
             CurrentPlayerDeck.Clear();
             HeroAugments.Clear();
@@ -57,10 +68,10 @@ public class PlayerManager : MonoBehaviour
 
             foreach (UnitCard uc in caMan.PlayerStartUnits)
                 for (int i = 0; i < GameManager.PLAYER_START_FOLLOWERS; i++)
-                    caMan.AddCard(uc, GameManager.PLAYER);
+                    caMan.AddPlayerCard(uc, GameManager.PLAYER);
             foreach (SkillCard skill in PlayerHero.HeroStartSkills)
                 for (int i = 0; i < GameManager.PLAYER_START_SKILLS; i++)
-                    caMan.AddCard(skill, GameManager.PLAYER);
+                    caMan.AddPlayerCard(skill, GameManager.PLAYER);
         }
     }
     public int PlayerHealth
@@ -95,7 +106,6 @@ public class PlayerManager : MonoBehaviour
         PlayerDeckList = new List<Card>();
         CurrentPlayerDeck = new List<Card>();
         heroAugments = new List<HeroAugment>();
-        HeroPowerUsed = false;
     }
 
     public void AddAugment(HeroAugment augment)
@@ -141,6 +151,8 @@ public class PlayerManager : MonoBehaviour
                 HeroPowerUsed = true;
                 foreach (Sound s in PlayerHero.HeroPower.PowerSounds)
                     AudioManager.Instance.StartStopSound(null, s);
+
+                caMan.TriggerPlayedUnits(CardManager.TRIGGER_SPARK); // TESTING
             }
         }
     }

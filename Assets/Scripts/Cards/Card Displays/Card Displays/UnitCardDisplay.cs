@@ -15,12 +15,10 @@ public class UnitCardDisplay : CardDisplay
     [SerializeField] private GameObject abilityIconPrefab;
     [SerializeField] private GameObject zoomAbilityIconPrefab;
 
-    private AnimationManager anMan;
-    private GameObject triggerIcon;
     private List<CardAbility> displayedAbilities;
 
     public UnitCard UnitCard { get => CardScript as UnitCard; }
-    public GameObject UnitStats { get => unitStats; } // TESTING
+    public GameObject UnitStats { get => unitStats; }
     public GameObject ZoomAbilityIconPrefab { get => zoomAbilityIconPrefab; }
 
     public List<Effect> CurrentEffects { get; set; }
@@ -33,8 +31,10 @@ public class UnitCardDisplay : CardDisplay
         set
         {
             UnitCard.CurrentPower = value;
+            int displayValue = 0;
+            if (value >= 0) displayValue = value; // TESTING
             TextMeshProUGUI txtPro = attackScoreDisplay.GetComponent<TextMeshProUGUI>();
-            txtPro.SetText(UnitCard.CurrentPower.ToString());
+            txtPro.SetText(displayValue.ToString());
         }
     }
     public int CurrentHealth
@@ -64,7 +64,6 @@ public class UnitCardDisplay : CardDisplay
 
     private void Awake()
     {
-        anMan = AnimationManager.Instance;
         CurrentEffects = new List<Effect>();
         CurrentAbilities = new List<CardAbility>();
         AbilityIcons = new List<GameObject>();
@@ -183,11 +182,6 @@ public class UnitCardDisplay : CardDisplay
             IsExhausted = false;
             foreach (GameObject go in AbilityIcons)
                 Destroy(go);
-            if (triggerIcon != null)
-            {
-                Destroy(triggerIcon);
-                triggerIcon = null;
-            }
             AbilityIcons.Clear();
             displayedAbilities.Clear(); // TESTING
             CurrentEffects.Clear();
@@ -205,7 +199,6 @@ public class UnitCardDisplay : CardDisplay
      *****/
     public bool AddCurrentAbility(CardAbility ca, bool isPlayed = false)
     {
-        // TESTING
         if (ca is StaticAbility)
         {
             if (CardManager.GetAbility(gameObject, ca.AbilityName))
@@ -213,26 +206,34 @@ public class UnitCardDisplay : CardDisplay
                 Debug.Log("ABILITY ALREADY EXISTS: <" + ca.ToString() + ">");
                 return false;
             }
-            else
+            else ShowAbility(ca);
+        }
+        else if (ca is TriggeredAbility ta)
+        {
+            if (ta.AbilityTrigger.AbilityName != CardManager.TRIGGER_PLAY)
             {
-                AbilityIcons.Add(CreateAbilityIcon(ca));
-                displayedAbilities.Add(ca); // TESTING
-
-                if (AbilityIcons.Count != displayedAbilities.Count)
+                if (CardManager.EvergreenTriggers.Contains(ta.AbilityTrigger.AbilityName))
                 {
-                    Debug.LogError("ABILITY ICONS != DISPLAYED ABILITIES!");
+                    // TESTING TESTING TESTING
+                    foreach (CardAbility ca2 in displayedAbilities)
+                    {
+                        if (ca2 is TriggeredAbility ta2)
+                        {
+                            if (ta2.AbilityTrigger.AbilityName == ta.AbilityTrigger.AbilityName)
+                                return false;
+                        }
+                    }
+                    ShowAbility(ta);
+                }
+                else
+                {
+                    Debug.LogError("ABILITY TRIGGER NOT FOUND!");
+                    return false;
                 }
             }
         }
-        else if (ca is TriggeredAbility ta &&
-            ta.AbilityTrigger.AbilityName != "Play" &&
-            triggerIcon == null)
-        {
-            triggerIcon =
-                CreateAbilityIcon(CardManager.Instance.TriggerKeyword);
-        }
 
-        CurrentAbilities.Add(ca); // Add instances instead of objects? (Doesn't matter yet)
+        CurrentAbilities.Add(ca); // Add instances instead? (Doesn't matter yet)
 
         if (isPlayed)
         {
@@ -242,6 +243,12 @@ public class UnitCardDisplay : CardDisplay
 
         if (ca.AbilityName == "Blitz") IsExhausted = false;
         return true;
+
+        void ShowAbility(CardAbility ca)
+        {
+            AbilityIcons.Add(CreateAbilityIcon(ca));
+            displayedAbilities.Add(ca);
+        }
     }
 
     /******
@@ -252,7 +259,7 @@ public class UnitCardDisplay : CardDisplay
     public void RemoveCurrentAbility(string abilityName)
     {
         int abilityIndex = CurrentAbilities.FindIndex(x => x.AbilityName == abilityName);
-        int displayIndex = displayedAbilities.FindIndex(x => x.AbilityName == abilityName); // TESTING
+        int displayIndex = displayedAbilities.FindIndex(x => x.AbilityName == abilityName);
 
         if (abilityIndex == -1)
         {
@@ -264,36 +271,22 @@ public class UnitCardDisplay : CardDisplay
         CardAbility ca = CurrentAbilities[abilityIndex];
         CurrentAbilities.RemoveAt(abilityIndex);
 
-        // TESTING
         if (ca is StaticAbility sa)
-        {
             AudioManager.Instance.StartStopSound(null, sa.LoseAbilitySound);
-            Destroy(AbilityIcons[displayIndex]); // TESTING
-            AbilityIcons.RemoveAt(displayIndex); // TESTING
-            displayedAbilities.RemoveAt(displayIndex); // TESTING
-
-            if (AbilityIcons.Count != displayedAbilities.Count)
-            {
-                Debug.LogError("ABILITY ICONS != DISPLAYED ABILITIES!");
-            }
-        }
-        else if (ca is TriggeredAbility)
+        else if (ca is TriggeredAbility ta) // TESTING
         {
-            if (CurrentAbilities.Count > 0)
-            {
-                foreach (CardAbility ca2 in CurrentAbilities)
-                {
-                    if (ca2 is TriggeredAbility ta
-                        && ta.AbilityTrigger.AbilityName != "Play") return;
-                }
-                if (triggerIcon != null)
-                {
-                    Destroy(triggerIcon);
-                    triggerIcon = null;
-                }
-                else Debug.LogError("TRIGGER ICON IS NULL!");
-            }
+            if (ta.AbilityTrigger.AbilityName == CardManager.TRIGGER_PLAY) return;
+            if (CardManager.GetTrigger(gameObject, ta.AbilityTrigger.AbilityName)) return;
         }
+
+        if (displayIndex == -1)
+        {
+            Debug.LogError("ABILITY ICON NOT FOUND!");
+            return;
+        }
+        Destroy(AbilityIcons[displayIndex]);
+        AbilityIcons.RemoveAt(displayIndex);
+        displayedAbilities.RemoveAt(displayIndex);
     }
 
     /******
@@ -309,12 +302,40 @@ public class UnitCardDisplay : CardDisplay
         return abilityIcon;
     }
 
-    public void AbilityTriggerState()
+    // TESTING
+    public void AbilityTriggerState(string triggerName)
     {
-        Debug.LogWarning("<< ABILITY TRIGGER STATE! >>");
-        if (triggerIcon != null)
+        if (triggerName == CardManager.TRIGGER_PLAY) return;
+
+        foreach (CardAbility ca in displayedAbilities)
         {
-            AnimationManager.Instance.AbilityTriggerState(triggerIcon); // TESTING
+            int displayIndex =
+                displayedAbilities.FindIndex(x => x.AbilityName == ca.AbilityName);
+
+            if (ca is StaticAbility)
+            {
+                if (ca.AbilityName == triggerName)
+                {
+                    TriggerVisuals(AbilityIcons[displayIndex]);
+                    return;
+                }
+            }
+            else if (ca is TriggeredAbility tra)
+            {
+                if (tra.AbilityTrigger.AbilityName == triggerName)
+                {
+                    TriggerVisuals(AbilityIcons[displayIndex]);
+                    return;
+                }
+            }
+        }
+
+        Debug.LogError("TRIGGER NOT FOUND!");
+
+        static void TriggerVisuals(GameObject icon)
+        {
+            AnimationManager.Instance.AbilityTriggerState(icon);
+            AudioManager.Instance.StartStopSound("SFX_Trigger");
         }
     }
 

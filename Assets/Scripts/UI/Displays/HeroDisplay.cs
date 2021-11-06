@@ -15,11 +15,14 @@ public abstract class HeroDisplay : MonoBehaviour
             DisplayHero();
         }
     }
+    
+    [SerializeField] private GameObject heroFrame;
+    [SerializeField] private GameObject heroStats;
+    [SerializeField] private GameObject heroPortrait;
+    [SerializeField] private GameObject heroHealth;
 
     public GameObject HeroFrame { get => heroFrame; }
     public GameObject HeroStats { get => heroStats; }
-    [SerializeField] private GameObject heroFrame;
-    [SerializeField] private GameObject heroStats;
 
     public Sprite HeroPortrait
     {
@@ -36,13 +39,11 @@ public abstract class HeroDisplay : MonoBehaviour
             }
         }
     }
-    [SerializeField] private GameObject heroPortrait;
 
     public int HeroHealth
     {
         set => heroHealth.GetComponent<TextMeshProUGUI>().SetText(value.ToString());
     }
-    [SerializeField] private GameObject heroHealth;
 
     public virtual void DisplayHero()
     {

@@ -15,6 +15,11 @@ public class CardManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
+    private UIManager uMan;
+    private PlayerManager pMan;
+    private EnemyManager enMan;
+    private AudioManager auMan;
+
     [SerializeField] private GameObject unitCardPrefab;
     [SerializeField] private GameObject actionCardPrefab;
     [SerializeField] private GameObject newCardPopupPrefab;
@@ -33,7 +38,18 @@ public class CardManager : MonoBehaviour
     public const string TRIGGER_DEATHBLOW = "Deathblow";
     public const string TRIGGER_INFILTRATE = "Infiltrate";
     public const string TRIGGER_PLAY = "Play";
+    public const string TRIGGER_RESEARCH = "Research";
     public const string TRIGGER_REVENGE = "Revenge";
+    public const string TRIGGER_SPARK = "Spark";
+
+    public static List<string> EvergreenTriggers = new List<string>
+    {
+        TRIGGER_DEATHBLOW,
+        TRIGGER_INFILTRATE,
+        TRIGGER_RESEARCH,
+        TRIGGER_REVENGE,
+        TRIGGER_SPARK,
+    };
 
     public GameObject UnitCardPrefab { get => unitCardPrefab; }
     public GameObject ActionCardPrefab { get => actionCardPrefab; }
@@ -41,12 +57,21 @@ public class CardManager : MonoBehaviour
     public UnitCard[] PlayerStartUnits { get => playerStartUnits; }
     public CardAbility TriggerKeyword { get => triggerKeyword; }
 
+
+    private void Start()
+    {
+        uMan = UIManager.Instance;
+        pMan = PlayerManager.Instance;
+        enMan = EnemyManager.Instance;
+        auMan = AudioManager.Instance;
+    }
+
     /******
      * *****
-     * ****** ADD_CARD
+     * ****** ADD/REMOVE_CARD
      * *****
      *****/
-    public void AddCard(Card card, string hero, bool isStartingCard = true)
+    public void AddPlayerCard(Card card, string hero, bool isStartingCard = true)
     {
         List<Card> deck;
         Card cardInstance;
@@ -68,28 +93,56 @@ public class CardManager : MonoBehaviour
         deck.Add(cardInstance);
         if (!isStartingCard)
         {
-            DestroyNewCardPopup();
-            CreateNewCardPopup(cardInstance);
+            uMan.DestroyNewCardPopup();
+            uMan.CreateNewCardPopup(cardInstance);
         }
     }
     public void RemovePlayerCard(Card card)
     {
         PlayerManager.Instance.PlayerDeckList.Remove(card);
     }
-    private void CreateNewCardPopup(Card card)
+    
+    /******
+     * *****
+     * ****** SHUFFLE_DECK
+     * *****
+     *****/
+    public void ShuffleDeck(List<Card> deck)
     {
-        NewCardPopup = Instantiate(newCardPopupPrefab, UIManager.Instance.CurrentCanvas.transform);
-        NewCardPopupDisplay ncpd = NewCardPopup.GetComponent<NewCardPopupDisplay>();
-        ncpd.CurrentCard = card;
-        // play sounds
+        deck.Shuffle();
+        auMan.StartStopSound("SFX_ShuffleDeck");
     }
-    public void DestroyNewCardPopup()
+
+    /******
+     * *****
+     * ****** UPDATE_DECK
+     * *****
+     *****/
+    public void UpdateDeck(string hero)
     {
-        if (NewCardPopup != null)
+        List<Card> deckList;
+        List<Card> currentDeck;
+
+        if (hero == GameManager.PLAYER)
         {
-            Destroy(NewCardPopup);
-            NewCardPopup = null;
+            deckList = pMan.PlayerDeckList;
+            currentDeck = pMan.CurrentPlayerDeck;
         }
+        else if (hero == GameManager.ENEMY)
+        {
+            deckList = enMan.EnemyDeckList;
+            currentDeck = enMan.CurrentEnemyDeck;
+        }
+        else
+        {
+            Debug.LogError("HERO NOT FOUND!");
+            return;
+        }
+
+        currentDeck.Clear();
+        foreach (Card card in deckList)
+            currentDeck.Add(card);
+        currentDeck.Shuffle();
     }
 
     /******
@@ -138,12 +191,19 @@ public class CardManager : MonoBehaviour
                 if (tra.AbilityTrigger.AbilityName == triggerName)
                 {
                     Debug.LogWarning("TRIGGER! <" + triggerName + ">");
-                    bool isPlayTrigger = false;
-                    if (triggerName == "Play") isPlayTrigger = true;
-                    EffectManager.Instance.StartEffectGroupList(tra.EffectGroupList, unitCard, isPlayTrigger);
+                    EffectManager.Instance.StartEffectGroupList(tra.EffectGroupList, unitCard, triggerName);
                     effectFound = true;
                 }
-        if (effectFound) ucd.AbilityTriggerState(); // TESTING
         return effectFound;
+    }
+    public bool TriggerPlayedUnits(string triggerName)
+    {
+        bool triggerFound = false;
+        foreach (GameObject unit in CombatManager.Instance.PlayerZoneCards)
+        {
+            if (TriggerUnitAbility(unit, triggerName))
+                triggerFound = true;
+        }
+        return triggerFound;
     }
 }

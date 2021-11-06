@@ -19,7 +19,7 @@ public class CombatTestButton : MonoBehaviour
         pMan.AddAugment(heroAugment);
         foreach (Card c in testCards)
         {
-            CardManager.Instance.AddCard(c, GameManager.PLAYER);
+            CardManager.Instance.AddPlayerCard(c, GameManager.PLAYER);
         }
         SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);
         GameManager.Instance.IsCombatTest = true;

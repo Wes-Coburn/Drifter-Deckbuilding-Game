@@ -97,7 +97,11 @@ public class AnimationManager : MonoBehaviour
     private void ModifyAllUnitStatsState(GameObject card) => ChangeAnimationState(card, "Modify_All");
 
     // Ability Trigger
-    public void AbilityTriggerState(GameObject triggerIcon) => ChangeAnimationState(triggerIcon, "Trigger"); // TESTING
+    public void AbilityTriggerState(GameObject triggerIcon)
+    {
+        ChangeAnimationState(triggerIcon.GetComponent
+            <AbilityIconDisplay>().AbilitySpriteObject, "Trigger");
+    }
 
     /******
      * *****
@@ -292,14 +296,14 @@ public class AnimationManager : MonoBehaviour
         if (defenderIsUnit)
         {
             bufferDistance = 150;
-            attackSpeed = 50;
-            retreatSpeed = 30;
+            attackSpeed = 75;
+            retreatSpeed = 50;
         }
         else
         {
             bufferDistance = 350;
-            attackSpeed = 100;
-            retreatSpeed = 75;
+            attackSpeed = 150;
+            retreatSpeed = 100;
         }
         GameObject container = attacker.GetComponent<CardDisplay>().CardContainer;
         container.GetComponent<CardContainer>().DetachChild();

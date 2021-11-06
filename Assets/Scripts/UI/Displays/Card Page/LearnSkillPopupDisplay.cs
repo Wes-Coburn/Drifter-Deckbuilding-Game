@@ -38,7 +38,7 @@ public class LearnSkillPopupDisplay : MonoBehaviour
 
     public void ConfirmButton_OnClick()
     {
-        CardManager.Instance.AddCard(skillCard, GameManager.PLAYER);
+        CardManager.Instance.AddPlayerCard(skillCard, GameManager.PLAYER);
         pMan.AetherCells -= GameManager.LEARN_SKILL_COST;
         CancelButton_OnClick();
         uMan.DestroyCardPagePopup(); // Temporary fix, eventually reload the page?

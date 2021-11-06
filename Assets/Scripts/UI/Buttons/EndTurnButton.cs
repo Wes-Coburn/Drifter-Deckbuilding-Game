@@ -7,7 +7,7 @@ public class EndTurnButton : MonoBehaviour, IPointerClickHandler
     {
         if (pointerEventData.button != PointerEventData.InputButton.Left) return;
         if (!PlayerManager.Instance.IsMyTurn || EffectManager.Instance.EffectsResolving) return; // TESTING
-        GameManager.Instance.EndTurn(GameManager.PLAYER);
+        GameManager.Instance.EndCombatTurn(GameManager.PLAYER);
         GetComponent<SoundPlayer>().PlaySound(0);
     }
 }

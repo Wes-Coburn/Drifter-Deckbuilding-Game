@@ -12,32 +12,35 @@ public class CombatEndPopupDisplay : MonoBehaviour
     {
         GameManager gMan = GameManager.Instance;
         DialogueManager dMan = DialogueManager.Instance;
+
+        if (gMan.IsCombatTest)
+        {
+            gMan.EndGame();
+            return;
+        }
+
         if (victoryText.activeSelf == true)
         {
-            if (gMan.IsCombatTest) gMan.EndGame();
-            else
+            if (dMan.EngagedHero.NextDialogueClip is CombatRewardClip crc)
             {
-                if (dMan.EngagedHero.NextDialogueClip is CombatRewardClip crc)
+                if (crc.NewCard != null)
+                    CardManager.Instance.AddPlayerCard(crc.NewCard, GameManager.PLAYER, false);
+                else if (crc.AetherCells > 0)
                 {
-                    if (crc.NewCard != null)
-                        CardManager.Instance.AddCard(crc.NewCard, GameManager.PLAYER, false);
-                    else if (crc.AetherCells > 0)
-                    {
-                        int newAether = crc.AetherCells;
-                        int newTotal = newAether + PlayerManager.Instance.AetherCells;
-                        UIManager.Instance.CreateAetherCellPopup(newAether, newTotal);
-                    }
-                    else
-                    {
-                        dMan.EngagedHero.NextDialogueClip = crc.NextDialogueClip;
-                        SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene);
-                        CombatManager.Instance.IsInCombat = false;
-                    }
+                    int newAether = crc.AetherCells;
+                    int newTotal = newAether + PlayerManager.Instance.AetherCells;
+                    UIManager.Instance.CreateAetherCellPopup(newAether, newTotal);
                 }
-                else Debug.LogError("NEXT CLIP IS NOT COMBAT_REWARD_CLIP!");
+                else
+                {
+                    dMan.EngagedHero.NextDialogueClip = crc.NextDialogueClip;
+                    SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene);
+                    CombatManager.Instance.IsInCombat = false;
+                }
             }
+            else Debug.LogError("NEXT CLIP IS NOT COMBAT_REWARD_CLIP!");
         }
-        else SceneLoader.LoadScene(SceneLoader.Scene.CombatScene, true); // TESTING
+        else SceneLoader.LoadScene(SceneLoader.Scene.CombatScene, true);
         UIManager.Instance.DestroyCombatEndPopup();
     }
 }

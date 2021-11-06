@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
 
     private PlayerManager pMan;
     private EnemyManager enMan;
+    private CardManager caMan;
     private CombatManager coMan;
     private UIManager uMan;
     private EventManager evMan;
@@ -79,8 +80,8 @@ public class GameManager : MonoBehaviour
 
     // Enemy
     public const string ENEMY = "Enemy";
-    //public const int ENEMY_STARTING_HEALTH = 20;
-    public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
+    public const int ENEMY_STARTING_HEALTH = 20;
+    //public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
     public const int ENEMY_HAND_SIZE = 0;
     public const int ENEMY_START_FOLLOWERS = 5;
     public const int ENEMY_START_SKILLS = 2;
@@ -94,6 +95,7 @@ public class GameManager : MonoBehaviour
     {
         pMan = PlayerManager.Instance;
         enMan = EnemyManager.Instance;
+        caMan = CardManager.Instance;
         coMan = CombatManager.Instance;
         uMan = UIManager.Instance;
         evMan = EventManager.Instance;
@@ -103,13 +105,6 @@ public class GameManager : MonoBehaviour
         ActiveNPCHeroes = new List<NPCHero>();
         ActiveLocations = new List<Location>();
     }
-
-    /*
-    public static void DestroyObject(GameObject go)
-    {
-        if (go != null) Destroy(go);
-    }
-    */
 
     /******
      * *****
@@ -123,6 +118,7 @@ public class GameManager : MonoBehaviour
             Debug.LogError("NPC IS NULL!");
             return null;
         }
+
         int activeNPC;
         activeNPC = ActiveNPCHeroes.FindIndex(x => x.HeroName == npc.HeroName);
         if (activeNPC != -1) return ActiveNPCHeroes[activeNPC];
@@ -134,7 +130,7 @@ public class GameManager : MonoBehaviour
             else newNPC = ScriptableObject.CreateInstance<NPCHero>();
             newNPC.LoadHero(npc);
             newNPC.NextDialogueClip = npc.FirstDialogueClip;
-            if (newNPC.NextDialogueClip == null) Debug.LogError("NEXT_CLIP IS NULL!");
+            if (newNPC.NextDialogueClip == null) Debug.LogError("NEXT CLIP IS NULL!");
             ActiveNPCHeroes.Add(newNPC);
             return newNPC;
         }
@@ -168,7 +164,7 @@ public class GameManager : MonoBehaviour
         {
             Location newLoc = ScriptableObject.CreateInstance<Location>();
             newLoc.LoadLocation(location);
-            newLoc.CurrentObjective = newLoc.FirstObjective; // TESTING
+            newLoc.CurrentObjective = newLoc.FirstObjective;
             Debug.LogWarning("NEW LOCATION CREATED! <" + newLoc.LocationFullName + ">");
             if (newNPC != null) newLoc.CurrentNPC = GetActiveNPC(newNPC);
             else newLoc.CurrentNPC = GetActiveNPC(location.FirstNPC);
@@ -203,12 +199,10 @@ public class GameManager : MonoBehaviour
     {
         // Game Manager
         currentChapter = 0; // Unnecessary
-        foreach (NPCHero npc in ActiveNPCHeroes)
-            Destroy(npc);
+        foreach (NPCHero npc in ActiveNPCHeroes) Destroy(npc);
         ActiveNPCHeroes.Clear();
-        foreach (Location loc in ActiveLocations) // TESTING
-            Destroy(loc);
-        ActiveLocations.Clear(); // TESTING
+        foreach (Location loc in ActiveLocations) Destroy(loc);
+        ActiveLocations.Clear();
         // Player Manager
         Destroy(pMan.PlayerHero);
         pMan.PlayerHero = null;
@@ -218,8 +212,7 @@ public class GameManager : MonoBehaviour
         // Dialogue Manager
         dMan.EndDialogue();
         // Effect Manager
-        foreach (Effect e in efMan.GiveNextEffects)
-            Destroy(e);
+        foreach (Effect e in efMan.GiveNextEffects) Destroy(e);
         efMan.GiveNextEffects.Clear();
         // Event Manager
         evMan.ClearDelayedActions();
@@ -290,15 +283,19 @@ public class GameManager : MonoBehaviour
      *****/
     public void StartCombat()
     {
-        auMan.StartStopSound("Soundtrack_Combat1", null,
-            AudioManager.SoundType.Soundtrack);
+        auMan.StartStopSound("Soundtrack_Combat1",
+            null, AudioManager.SoundType.Soundtrack);
         auMan.StartStopSound("SFX_StartCombat");
-        HeroDisplay pHD = coMan.PlayerHero.GetComponent<HeroDisplay>();
-        HeroDisplay eHD = coMan.EnemyHero.GetComponent<HeroDisplay>();
+
+        coMan.IsInCombat = true;
+        PlayerHeroDisplay pHD = coMan.PlayerHero.GetComponent<PlayerHeroDisplay>();
+        EnemyHeroDisplay eHD = coMan.EnemyHero.GetComponent<EnemyHeroDisplay>();
         uMan.EndTurnButton.SetActive(false);
         pHD.HeroStats.SetActive(false);
+        pHD.PowerUsedIcon.SetActive(false);
         eHD.HeroStats.SetActive(false);
-        coMan.IsInCombat = true;
+
+        // ENEMY MANAGER
         enMan.StartCombat();
         EnemyHero enemyHero = dMan.EngagedHero as EnemyHero;
         if (enemyHero == null)
@@ -306,38 +303,36 @@ public class GameManager : MonoBehaviour
             Debug.LogError("ENEMY HERO IS NULL!");
             return;
         }
-        /* UPDATE_DECKS */
         enMan.EnemyHero = enemyHero;
-        coMan.UpdateDeck(PLAYER);
-        coMan.UpdateDeck(ENEMY);
-        /* PLAYER_HEALTH */
+        enMan.EnemyHealth = ENEMY_STARTING_HEALTH;
+        // PLAYER MANAGER
         int bonusHealth = 0;
         if (pMan.GetAugment("Kinetic Amplifier")) bonusHealth = 5;
         pMan.PlayerHealth = PLAYER_STARTING_HEALTH + bonusHealth;
-        /* PLAYER_ACTIONS */
         int bonusActions = 0;
         if (pMan.GetAugment("Synaptic Stabilizer")) bonusActions = 1;
         pMan.ActionsPerTurn = START_ACTIONS_PER_TURN + bonusActions;
         pMan.PlayerActionsLeft = 0;
-        /* ENEMY_HEALTH */
-        enMan.EnemyHealth = ENEMY_STARTING_HEALTH;
-        /* HERO_DISPLAYS */
-        coMan.PlayerHero.GetComponent<HeroDisplay>().HeroScript = pMan.PlayerHero;
-        coMan.EnemyHero.GetComponent<HeroDisplay>().HeroScript = enMan.EnemyHero;
         if (pMan.GetAugment("Biogenic Enhancer"))
         {
-            GiveNextUnitEffect gnue =
-                ScriptableObject.CreateInstance<GiveNextUnitEffect>();
+            GiveNextUnitEffect gnue = ScriptableObject.CreateInstance<GiveNextUnitEffect>();
             gnue.LoadEffect(augmentBiogenEffect);
             efMan.GiveNextEffects.Add(gnue);
         }
+        // UPDATE DECKS
+        caMan.UpdateDeck(PLAYER);
+        caMan.UpdateDeck(ENEMY);
+        // DISPLAY HEROES
+        coMan.PlayerHero.GetComponent<HeroDisplay>().HeroScript = pMan.PlayerHero;
+        coMan.EnemyHero.GetComponent<HeroDisplay>().HeroScript = enMan.EnemyHero;
+        // SCHEDULE ACTIONS
         evMan.NewDelayedAction(() => AnimationManager.Instance.CombatIntro(), 1f);
         evMan.NewDelayedAction(() => CombatStart(), 4f);
-        evMan.NewDelayedAction(() => StartTurn(PLAYER), 1f);
+        evMan.NewDelayedAction(() => StartCombatTurn(PLAYER), 1f);
 
         void CombatStart()
         {
-            coMan.ShuffleDeck(pMan.CurrentPlayerDeck);
+            caMan.ShuffleDeck(pMan.CurrentPlayerDeck);
             for (int i = 0; i < PLAYER_HAND_SIZE; i++)
                 evMan.NewDelayedAction(() => coMan.DrawCard(PLAYER), 0.5f);
         }
@@ -365,9 +360,10 @@ public class GameManager : MonoBehaviour
      * ****** START_TURN
      * *****
      *****/
-    private void StartTurn(string player)
+    private void StartCombatTurn(string player)
     {
         bool isPlayerTurn;
+        coMan.ActionsPlayedThisTurn = 0;
 
         if (player == PLAYER)
         {
@@ -389,8 +385,7 @@ public class GameManager : MonoBehaviour
             isPlayerTurn = false;
             pMan.IsMyTurn = false;
             enMan.IsMyTurn = true;
-            evMan.NewDelayedAction(() =>
-            enMan.StartEnemyTurn(), 0);
+            evMan.NewDelayedAction(() => enMan.StartEnemyTurn(), 0);
         }
         else
         {
@@ -406,17 +401,17 @@ public class GameManager : MonoBehaviour
      * ****** END_TURN
      * *****
      *****/
-    public void EndTurn(string player)
+    public void EndCombatTurn(string player)
     {
         evMan.NewDelayedAction(() => coMan.PrepareAllies(player), 0.5f);
         evMan.NewDelayedAction(() => RemoveEffects(), 0.5f);
 
-        if (player == ENEMY) StartTurn(PLAYER);
+        if (player == ENEMY) StartCombatTurn(PLAYER);
         else if (player == PLAYER)
         {
             if (pMan.ActionsPerTurn < MAX_ACTIONS_PER_TURN)
                 pMan.ActionsPerTurn++;
-            StartTurn(ENEMY);
+            StartCombatTurn(ENEMY);
         }
 
         void RemoveEffects()

@@ -27,6 +27,7 @@ public class CardSelect : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
         if (!DragDrop.ArrowIsDragging || DragDrop.DraggingCard == gameObject) return;
+        if (coMan.EnemyHandCards.Contains(gameObject)) return; // TESTING
         DragDrop.Enemy = gameObject;
         if (coMan.CanAttack(DragDrop.DraggingCard, gameObject, true))
             uMan.SelectTarget(gameObject, true, true);
@@ -36,6 +37,7 @@ public class CardSelect : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     public void OnPointerExit(PointerEventData pointerEventData)
     {
         if (!DragDrop.ArrowIsDragging || DragDrop.DraggingCard == gameObject) return;
+        if (coMan.EnemyHandCards.Contains(gameObject)) return; // TESTING
         DragDrop.Enemy = null;
         if (coMan.CanAttack(DragDrop.DraggingCard, gameObject, true))
             uMan.SelectTarget(gameObject, true);

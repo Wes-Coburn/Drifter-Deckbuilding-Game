@@ -39,6 +39,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject versusPopupPrefab;
     [SerializeField] private GameObject menuPopupPrefab;
     [SerializeField] private GameObject explicitLanguagePopupPrefab;
+    [SerializeField] private GameObject newCardPopupPrefab;
     [SerializeField] private GameObject aetherCellPopupPrefab;
     [SerializeField] private GameObject cardPagePopupPrefab;
     [SerializeField] private GameObject learnSkillPopupPrefab;
@@ -61,6 +62,7 @@ public class UIManager : MonoBehaviour
     private GameObject turnPopup;
     private GameObject menuPopup;
     private GameObject explicitLanguagePopup;
+    private GameObject newCardPopup;
     private GameObject aetherCellPopup;
     private GameObject cardPagePopup;
     private GameObject learnSkillPopup;
@@ -75,6 +77,7 @@ public class UIManager : MonoBehaviour
     private Coroutine sceneFadeRoutine;
     private GameObject playerZoneOutline;
     
+    public GameObject NewCardPopup { get => newCardPopup; }
     public GameObject CardPagePopup { get => cardPagePopup; }
     public GameObject EndTurnButton { get => endTurnButton; }
 
@@ -467,6 +470,22 @@ public class UIManager : MonoBehaviour
         {
             Destroy(combatEndPopup);
             combatEndPopup = null;
+        }
+    }
+    // New Card Popup
+    public void CreateNewCardPopup(Card card)
+    {
+        newCardPopup = Instantiate(newCardPopupPrefab, CurrentCanvas.transform);
+        NewCardPopupDisplay ncpd = newCardPopup.GetComponent<NewCardPopupDisplay>();
+        ncpd.CurrentCard = card;
+        // play sounds
+    }
+    public void DestroyNewCardPopup()
+    {
+        if (newCardPopup != null)
+        {
+            Destroy(newCardPopup);
+            newCardPopup = null;
         }
     }
     // Aether Cell Popup

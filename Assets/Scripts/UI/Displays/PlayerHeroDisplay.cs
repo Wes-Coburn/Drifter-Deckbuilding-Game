@@ -4,19 +4,20 @@ using TMPro;
 
 public class PlayerHeroDisplay : HeroDisplay
 {
-    public PlayerHero PlayerHero { get => HeroScript as PlayerHero; }
+    [SerializeField] private GameObject powerImage;
+    [SerializeField] private GameObject playerActions;
+    [SerializeField] private GameObject powerUsedIcon;
 
+    public PlayerHero PlayerHero { get => HeroScript as PlayerHero; }
+    public GameObject PowerUsedIcon { get => powerUsedIcon; }
     public Sprite PowerImage
     {
         set => powerImage.GetComponent<Image>().sprite = value;
     }
-    [SerializeField] private GameObject powerImage;
-
     public string PlayerActions
     {
         set => playerActions.GetComponent<TextMeshProUGUI>().SetText(value);
     }
-    [SerializeField] private GameObject playerActions;
 
     public override void DisplayHero()
     {

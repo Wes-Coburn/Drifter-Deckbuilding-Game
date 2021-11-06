@@ -38,7 +38,7 @@ public class RecruitUnitPopupDisplay : MonoBehaviour
 
     public void ConfirmButton_OnClick()
     {
-        CardManager.Instance.AddCard(unitCard, GameManager.PLAYER);
+        CardManager.Instance.AddPlayerCard(unitCard, GameManager.PLAYER);
         pMan.AetherCells -= GameManager.RECRUIT_UNIT_COST;
         CancelButton_OnClick();
         uMan.DestroyCardPagePopup(); // Temporary fix, eventually reload the page?

@@ -432,6 +432,7 @@ GameObject:
   - component: {fileID: 369909982322349124}
   - component: {fileID: 6755627369211065420}
   - component: {fileID: 2527786318994972511}
+  - component: {fileID: -5085742238943462988}
   m_Layer: 0
   m_Name: ExplicitLanguagePopup
   m_TagString: Untagged
@@ -491,7 +492,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 10a3ca6eeb83374449fe9bfceccc26fc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: aba75574997b4d940bd5c27646e2dec6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -537,6 +538,18 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
+--- !u!114 &-5085742238943462988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 369909982322349126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 060689812fe61cf41a78a7c02e9e272c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &369909982482331389
 GameObject:
   m_ObjectHideFlags: 0
@@ -988,7 +1001,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 720, y: 470}
+  m_AnchoredPosition: {x: 575, y: 350}
   m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7187131759958752574

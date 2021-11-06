@@ -92,10 +92,13 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
 
         if (uMan.PlayerIsTargetting)
         {
+            return;
+            /*
             if (EffectManager.Instance.CurrentEffect is DrawEffect de)
             {
                 if (!de.IsDiscardEffect) return;
             }
+            */
         }
 
         GameObject container = GetComponent<CardDisplay>().CardContainer;

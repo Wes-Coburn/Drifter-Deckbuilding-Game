@@ -59,7 +59,7 @@ public class EnemyManager : MonoBehaviour
             }
             foreach (UnitCard unit in enemyHero.Reinforcements[ReinforcementGroup].ReinforcementUnits)
                 for (int i = 0; i < GameManager.ENEMY_START_FOLLOWERS; i++)
-                    CardManager.Instance.AddCard(unit, GameManager.ENEMY);
+                    CardManager.Instance.AddPlayerCard(unit, GameManager.ENEMY);
             ReinforcementSchedule =
                 EnemyHero.Reinforcements[ReinforcementGroup].ReinforcementSchedule.Schedule;
             CurrentReinforcements = 0;
@@ -121,7 +121,7 @@ public class EnemyManager : MonoBehaviour
             evMan.NewDelayedAction(() => UpdateReinforcements(), 0);
 
             evMan.NewDelayedAction(() => 
-            GameManager.Instance.EndTurn(GameManager.ENEMY), 2);
+            GameManager.Instance.EndCombatTurn(GameManager.ENEMY), 2);
         }
 
         void ResolveAttack(GameObject enemyUnit)

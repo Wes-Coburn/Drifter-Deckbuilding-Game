@@ -57,7 +57,7 @@ public class DialogueManager : MonoBehaviour
         dialogueDisplay = FindObjectOfType<DialogueSceneDisplay>();
         dialogueDisplay.PlayerHeroPortrait.SetActive(false);
         DialoguePrompt prompt = currentDialogueClip as DialoguePrompt;
-        dialogueDisplay.NPCHeroPortrait.SetActive(!prompt.HideNPC); // TESTING
+        dialogueDisplay.NPCHeroPortrait.SetActive(!prompt.HideNPC);
 
         DisplayCurrentHeroes();
         DisplayDialoguePopup();
@@ -232,9 +232,7 @@ public class DialogueManager : MonoBehaviour
             if (nextPrompt.NewLocations.Length > 0)
             {
                 foreach (NewLocation newLoc in nextPrompt.NewLocations)
-                {
                     gMan.GetActiveLocation(newLoc.Location, newLoc.NewNpc);
-                }
             }
         }
 
@@ -275,7 +273,7 @@ public class DialogueManager : MonoBehaviour
             }
             // New Card
             if (nextPrompt.NewCard != null)
-                CardManager.Instance.AddCard(nextPrompt.NewCard, GameManager.PLAYER, false);
+                CardManager.Instance.AddPlayerCard(nextPrompt.NewCard, GameManager.PLAYER, false);
             else if (nextPrompt.AetherCells > 0)
             {
                 int newAether = nextPrompt.AetherCells;

@@ -67,7 +67,7 @@ public class NewCardPopupDisplay : MonoBehaviour
     public void AddCard()
     {
         GetComponent<SoundPlayer>().PlaySound(2);
-        caMan.DestroyNewCardPopup();
+        uMan.DestroyNewCardPopup();
 
         DialogueClip nextClip = dMan.EngagedHero.NextDialogueClip;
         if (!coMan.IsInCombat)
@@ -103,7 +103,7 @@ public class NewCardPopupDisplay : MonoBehaviour
     {
         GetComponent<SoundPlayer>().PlaySound(3);
         pMan.PlayerDeckList.Remove(CurrentCard);
-        caMan.DestroyNewCardPopup();
+        uMan.DestroyNewCardPopup();
         DialogueClip nextClip = dMan.EngagedHero.NextDialogueClip;
         if (!coMan.IsInCombat)
         {
