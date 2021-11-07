@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -252,9 +253,9 @@ public class DialogueManager : MonoBehaviour
             return;
         }
         // Recruitment
-        if (dResponse.Response_IsRecruitmentStart) // TESTING
+        if (dResponse.Response_IsRecruitmentStart)
         {
-            UIManager.Instance.CreateCardPagePopup(false, gMan.Recruits);
+            UIManager.Instance.CreateCardPagePopup(false, CardManager.Instance.PlayerRecruitUnits);
             return;
         }
         // Exit

@@ -20,11 +20,16 @@ public class CardManager : MonoBehaviour
     private EnemyManager enMan;
     private AudioManager auMan;
 
+    [Header("PREFABS")]
     [SerializeField] private GameObject unitCardPrefab;
     [SerializeField] private GameObject actionCardPrefab;
     [SerializeField] private GameObject newCardPopupPrefab;
+
+    [Header("PLAYER UNITS")]
     [SerializeField] private UnitCard[] playerStartUnits;
-    [SerializeField] private Sprite cardBackSprite;
+    [SerializeField] private List<UnitCard> playerRecruitUnits;
+
+    [Header("TRIGGER")]
     [SerializeField] private CardAbility triggerKeyword;
 
     // Static Abilities
@@ -55,6 +60,7 @@ public class CardManager : MonoBehaviour
     public GameObject ActionCardPrefab { get => actionCardPrefab; }
     public GameObject NewCardPopup { get; private set; }
     public UnitCard[] PlayerStartUnits { get => playerStartUnits; }
+    public List<UnitCard> PlayerRecruitUnits { get => playerRecruitUnits; }
     public CardAbility TriggerKeyword { get => triggerKeyword; }
 
 

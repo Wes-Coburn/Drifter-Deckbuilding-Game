@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120ae26cc4846f34db63edca720772b3, type: 3}
   m_Name: Twinshot Elementalist
   m_EditorClassIdentifier: 
-  cardArt: {fileID: 21300000, guid: 60d8fc4ddc96c594db255f7153324538, type: 3}
+  cardArt: {fileID: 0}
   cardBorder: {fileID: 21300000, guid: 743e735f744cf494c9f9081b4ba9303f, type: 3}
   actionCost: 2
   cardName: Twinshot Elementalist
@@ -27,8 +27,8 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
-  power: 2
-  health: 1
+  power: 1
+  health: 2
   startingAbilities:
   - {fileID: 11400000, guid: e7d7845c7d9298345a81bdb03c8adfbd, type: 2}
   unitDeathSound:

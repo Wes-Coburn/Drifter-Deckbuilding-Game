@@ -708,7 +708,7 @@ public class CombatManager : MonoBehaviour
         {
             if (CardManager.GetAbility(target, CardManager.ABILITY_FORCEFIELD))
             {
-                GetUnitDisplay(target).AbilityTriggerState(CardManager.ABILITY_FORCEFIELD); // TESTING
+                GetUnitDisplay(target).AbilityTriggerState(CardManager.ABILITY_FORCEFIELD);
                 FunctionTimer.Create(() =>
                 GetUnitDisplay(target).RemoveCurrentAbility(CardManager.ABILITY_FORCEFIELD), 1.75f); // TESTING
                 return false;

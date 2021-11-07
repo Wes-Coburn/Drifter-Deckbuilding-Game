@@ -210,26 +210,23 @@ public class UnitCardDisplay : CardDisplay
         }
         else if (ca is TriggeredAbility ta)
         {
-            if (ta.AbilityTrigger.AbilityName != CardManager.TRIGGER_PLAY)
+            if (CardManager.EvergreenTriggers.Contains(ta.AbilityTrigger.AbilityName))
             {
-                if (CardManager.EvergreenTriggers.Contains(ta.AbilityTrigger.AbilityName))
+                int iconsFound = 0;
+                foreach (CardAbility ca2 in displayedAbilities)
                 {
-                    // TESTING TESTING TESTING
-                    foreach (CardAbility ca2 in displayedAbilities)
+                    if (ca2 is TriggeredAbility ta2)
                     {
-                        if (ca2 is TriggeredAbility ta2)
-                        {
-                            if (ta2.AbilityTrigger.AbilityName == ta.AbilityTrigger.AbilityName)
-                                return false;
-                        }
+                        if (ta2.AbilityTrigger.AbilityName == ta.AbilityTrigger.AbilityName)
+                            iconsFound++; // TESTING
                     }
-                    ShowAbility(ta);
                 }
-                else
-                {
-                    Debug.LogError("ABILITY TRIGGER NOT FOUND!");
-                    return false;
-                }
+                if (iconsFound < 1) ShowAbility(ta); // TESTING
+            }
+            else if (ta.AbilityTrigger.AbilityName != CardManager.TRIGGER_PLAY)
+            {
+                Debug.LogError("ABILITY TRIGGER NOT FOUND!");
+                return false;
             }
         }
 

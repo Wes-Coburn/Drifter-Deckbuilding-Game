@@ -17,7 +17,6 @@ public class EffectManager : MonoBehaviour
 
     private PlayerManager pMan;
     private EnemyManager enMan;
-    private CardManager caMan;
     private CombatManager coMan;
     private UIManager uMan;
     private AudioManager auMan;
@@ -82,7 +81,6 @@ public class EffectManager : MonoBehaviour
     {
         pMan = PlayerManager.Instance;
         enMan = EnemyManager.Instance;
-        caMan = CardManager.Instance;
         coMan = CombatManager.Instance;
         uMan = UIManager.Instance;
         auMan = AudioManager.Instance;

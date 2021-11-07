@@ -17,8 +17,6 @@ public class GameManager : MonoBehaviour
 
     [Header("GAME CHAPTERS")]
     [SerializeField] string[] gameChapters;
-    [Header("RECRUITS")]
-    [SerializeField] private List<UnitCard> recruits;
     [Header("NARRATIVES")]
     [SerializeField] private Narrative settingNarrative;
     [SerializeField] private Narrative newGameNarrative;
@@ -54,7 +52,6 @@ public class GameManager : MonoBehaviour
     public List<NPCHero> ActiveNPCHeroes { get; private set; }
     public List<Location> ActiveLocations { get; private set; }
     public Location CurrentLocation { get; set; }
-    public List<UnitCard> Recruits { get => recruits; }
 
     /* GAME_MANAGER_DATA */
     // Universal

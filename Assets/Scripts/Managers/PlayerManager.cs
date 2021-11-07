@@ -50,7 +50,7 @@ public class PlayerManager : MonoBehaviour
         {
             heroPowerUsed = value;
             PlayerHeroDisplay phd = coMan.PlayerHero.GetComponent<PlayerHeroDisplay>();
-            phd.PowerUsedIcon.SetActive(value); // TESTING
+            phd.PowerUsedIcon.SetActive(value);
         }
     }
 
@@ -146,13 +146,13 @@ public class PlayerManager : MonoBehaviour
             }
             else
             {
-                efMan.StartEffectGroupList(groupList, coMan.PlayerHero); // TESTING
+                efMan.StartEffectGroupList(groupList, coMan.PlayerHero);
                 PlayerActionsLeft -= playerHero.HeroPower.PowerCost;
                 HeroPowerUsed = true;
                 foreach (Sound s in PlayerHero.HeroPower.PowerSounds)
                     AudioManager.Instance.StartStopSound(null, s);
 
-                caMan.TriggerPlayedUnits(CardManager.TRIGGER_SPARK); // TESTING
+                caMan.TriggerPlayedUnits(CardManager.TRIGGER_SPARK);
             }
         }
     }
