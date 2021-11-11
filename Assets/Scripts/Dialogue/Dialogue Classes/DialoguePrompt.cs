@@ -3,9 +3,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Dialogue Prompt", menuName = "Dialogue/Dialogue Prompt")]
 public class DialoguePrompt : DialogueClip
 {
-    [Header("JOURNAL NOTES")]
-    [SerializeField] protected JournalNote[] journalNotes;
-    [Space]
     [Header("DIALOGUE PROMPT")]
     [TextArea]
     [SerializeField] protected string dialoguePromptText;

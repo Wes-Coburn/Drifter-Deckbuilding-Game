@@ -29,10 +29,8 @@ public class AudioManager : MonoBehaviour
         Soundtrack
     }
 
-    private void Start()
-    {
+    private void Start() =>
         StartStopSound("Soundtrack_TitleScene", null, SoundType.Soundtrack);
-    }
 
     private Sound AddSoundSource(Sound sound)
     {
@@ -63,11 +61,7 @@ public class AudioManager : MonoBehaviour
         Sound currentSound = null;
         if (sound == null)
         {
-            if (string.IsNullOrEmpty(sName))
-            {
-                //Debug.LogWarning("SOUND NAME IS EMPTY!");
-                return;
-            }
+            if (string.IsNullOrEmpty(sName)) return;
             soundIndex = activeSounds.FindIndex(x => x.name == sName);
             if (soundIndex == -1)
             {

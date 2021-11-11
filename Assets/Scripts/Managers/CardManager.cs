@@ -27,8 +27,12 @@ public class CardManager : MonoBehaviour
 
     [Header("PLAYER UNITS")]
     [SerializeField] private UnitCard[] playerStartUnits;
-    [SerializeField] private List<UnitCard> playerRecruitUnits;
-
+    [Header("RECRUIT UNITS")]
+    [SerializeField] private List<UnitCard> playerRecruitMages;
+    [SerializeField] private List<UnitCard> playerRecruitRogues;
+    [SerializeField] private List<UnitCard> playerRecruitTechs;
+    [SerializeField] private List<UnitCard> playerRecruitWarriors;
+    
     [Header("TRIGGER")]
     [SerializeField] private CardAbility triggerKeyword;
 
@@ -60,7 +64,40 @@ public class CardManager : MonoBehaviour
     public GameObject ActionCardPrefab { get => actionCardPrefab; }
     public GameObject NewCardPopup { get; private set; }
     public UnitCard[] PlayerStartUnits { get => playerStartUnits; }
-    public List<UnitCard> PlayerRecruitUnits { get => playerRecruitUnits; }
+
+    public List<UnitCard> PlayerRecruitMages { get => playerRecruitMages; }
+    public List<UnitCard> PlayerRecruitRogues { get => playerRecruitRogues; }
+    public List<UnitCard> PlayerRecruitTechs { get => playerRecruitTechs; }
+    public List<UnitCard> PlayerRecruitWarriors { get => playerRecruitWarriors; }
+    public List<UnitCard> PlayerRecruitUnits
+    {
+        get
+        {
+            List<UnitCard> returnList = new List<UnitCard>();
+            List<List<UnitCard>> recruitLists = new List<List<UnitCard>>
+            {
+                playerRecruitMages,
+                playerRecruitRogues,
+                playerRecruitTechs,
+                playerRecruitWarriors,
+            };
+
+            foreach (List<UnitCard> list in recruitLists)
+            {
+                foreach (UnitCard uc in list)
+                {
+                    if (uc == null) break;
+                    int index = pMan.PlayerDeckList.FindIndex(x => x.CardName == uc.CardName);
+                    if (index == -1)
+                    {
+                        returnList.Add(uc);
+                        break;
+                    }
+                }
+            }
+            return returnList;
+        }
+    }
     public CardAbility TriggerKeyword { get => triggerKeyword; }
 
 
@@ -70,6 +107,20 @@ public class CardManager : MonoBehaviour
         pMan = PlayerManager.Instance;
         enMan = EnemyManager.Instance;
         auMan = AudioManager.Instance;
+    }
+
+    public void ShuffleRecruits()
+    {
+        List<List<UnitCard>> recruitLists = new List<List<UnitCard>>
+        {
+            playerRecruitMages,
+            playerRecruitRogues,
+            playerRecruitTechs,
+            playerRecruitWarriors,
+        };
+
+        foreach (List<UnitCard> list in recruitLists)
+            list.Shuffle();
     }
 
     /******

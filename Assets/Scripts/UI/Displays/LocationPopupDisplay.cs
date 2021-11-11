@@ -74,9 +74,9 @@ public class LocationPopupDisplay : MonoBehaviour
             return;
         }
         gMan.CurrentLocation = gMan.GetActiveLocation(location);
-        if (!location.IsRecruitment) // TESTING
+        if (!location.IsRecruitment)
             gMan.ActiveLocations.Remove(gMan.CurrentLocation);
-        else gMan.CurrentLocation.CurrentObjective = "Recruit More Followers."; // TESTING
+        else gMan.CurrentLocation.CurrentObjective = "Recruit More Followers.";
         gMan.ExitWorldMap();
         dMan.EngagedHero = gMan.GetActiveNPC(gMan.CurrentLocation.CurrentNPC);
         SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene);

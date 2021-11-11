@@ -1,10 +1,14 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class NewGameButton : MonoBehaviour
 {
     public void OnClick()
     {
+        if (GameManager.Instance.LoadGame(true))
+        {
+            Debug.LogWarning("SAVED GAME WARNING POPUP HERE!");
+        }
+
         UIManager.Instance.CreateExplicitLanguagePopup();
     }
 }

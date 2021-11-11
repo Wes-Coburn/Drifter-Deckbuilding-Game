@@ -19,11 +19,17 @@ public static class SceneLoader
         CombatScene
     }
     public static bool SceneIsLoading = false;
+    
+    public static bool IsActiveScene(Scene scene)
+    {
+        if (SceneManager.GetActiveScene().name == scene.ToString()) return true;
+        else return false;
+    }
 
     public static void LoadScene(Scene scene, bool loadSameScene = false)
     {
         if (SceneIsLoading) return;
-        if (!loadSameScene && SceneManager.GetActiveScene().name == scene.ToString()) return;
+        if (!loadSameScene && IsActiveScene(scene)) return;
         SceneIsLoading = true;
         
         UIManager uMan = UIManager.Instance;

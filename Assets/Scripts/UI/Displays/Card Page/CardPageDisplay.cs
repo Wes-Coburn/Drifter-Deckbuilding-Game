@@ -100,20 +100,20 @@ public class CardPageDisplay : MonoBehaviour
             Card card = cardGroupList[firstIndex + i];
             GameObject cardObj =
                 CombatManager.Instance.ShowCard(card, new Vector2(), false, true);
-            cardObj.GetComponent<CardDisplay>().DisableVisuals(); // TESTING
+            cardObj.GetComponent<CardDisplay>().DisableVisuals();
             cardObj.transform.localScale = new Vector2(4, 4);
             cardObj.transform.SetParent(cardGroup.transform);
             activeCards.Add(cardObj);
 
             GameObject buttonPrefab;
-            if (isRecruitment) buttonPrefab = recruitUnitButtonPrefab; // TESTING
+            if (isRecruitment) buttonPrefab = recruitUnitButtonPrefab;
             else if (isCardRemoval) buttonPrefab = removeCardButtonPrefab;
             else buttonPrefab = learnSkillButtonPrefab;
             GameObject button = Instantiate(buttonPrefab, costGroup.transform);
             button.transform.localScale = new Vector2(1.5f, 1.5f);
 
             if (isRecruitment) 
-                button.GetComponent<RecruitUnitButton>().UnitCard = card as UnitCard; // TESTING
+                button.GetComponent<RecruitUnitButton>().UnitCard = card as UnitCard;
             else if (isCardRemoval) button.GetComponent<RemoveCardButton>().Card = card;
             else button.GetComponent<LearnSkillButton>().SkillCard = card as SkillCard;
             activeCards.Add(button);
@@ -159,7 +159,9 @@ public class CardPageDisplay : MonoBehaviour
 
     public void CloseCardPageButton_OnClick()
     {
-        DialogueManager.Instance.DisplayDialoguePopup(); // TESTING
+        if (SceneLoader.IsActiveScene(SceneLoader.Scene.DialogueScene))
+            DialogueManager.Instance.DisplayDialoguePopup(); // TESTING
+
         uMan.DestroyRemoveCardPopup();
         uMan.DestroyLearnSkillPopup();
         uMan.DestroyCardPagePopup();

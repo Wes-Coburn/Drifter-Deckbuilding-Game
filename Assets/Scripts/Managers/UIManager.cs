@@ -508,7 +508,7 @@ public class UIManager : MonoBehaviour
     // Card Page Popups
     public void CreateCardPagePopup(bool isCardRemoval, List<UnitCard> recruits = null)
     {
-        if (cardPagePopup != null) return;
+        DestroyCardPagePopup(); // TESTING
         cardPagePopup = Instantiate
             (cardPagePopupPrefab, CurrentCanvas.transform);
         cardPagePopup.GetComponent<CardPageDisplay>().DisplayCardPage(isCardRemoval, recruits);

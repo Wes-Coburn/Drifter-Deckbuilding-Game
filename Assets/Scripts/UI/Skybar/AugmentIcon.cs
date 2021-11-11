@@ -4,8 +4,9 @@ using UnityEngine.UI;
 
 public class AugmentIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    private UIManager uMan;
+    [SerializeField] private GameObject iconImage;
 
+    private UIManager uMan;
     private HeroAugment loadedAugment;
     private const string AUGMENT_POPUP_TIMER = "AugmentPopupTimer";
     public HeroAugment LoadedAugment
@@ -14,7 +15,7 @@ public class AugmentIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         set
         {
             loadedAugment = value;
-            GetComponent<Image>().sprite = 
+            iconImage.GetComponent<Image>().sprite = 
                 loadedAugment.AugmentImage;
         }
     }
