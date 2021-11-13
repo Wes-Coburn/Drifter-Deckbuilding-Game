@@ -23,6 +23,15 @@ public class EventManager : MonoBehaviour
     private Coroutine currentActionRoutine;
     private bool isPaused;
 
+    public bool ActionsDelayed
+    {
+        get
+        {
+            if (delayedActions.Count > 0) return true;
+            else return false;
+        }
+    }
+
     public class DelayedAction
     {
         public Action Action;
@@ -70,8 +79,8 @@ public class EventManager : MonoBehaviour
             currentActionRoutine == null) isResuming = true;
         this.isPaused = isPaused;
         if (isResuming) NextDelayedAction();
-        if (isPaused) Debug.LogWarning("ACTIONS PAUSED!");
-        if (isResuming) Debug.LogWarning("ACTIONS RESUMED!");
+        if (isPaused) Debug.Log("ACTIONS PAUSED!");
+        if (isResuming) Debug.Log("ACTIONS RESUMED!");
     }
 
     public void ClearDelayedActions()

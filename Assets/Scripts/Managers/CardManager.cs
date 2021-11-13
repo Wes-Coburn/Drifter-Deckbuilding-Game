@@ -15,7 +15,6 @@ public class CardManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    private UIManager uMan;
     private PlayerManager pMan;
     private EnemyManager enMan;
     private AudioManager auMan;
@@ -98,12 +97,37 @@ public class CardManager : MonoBehaviour
             return returnList;
         }
     }
+
+    public Card[] ChooseCards()
+    {
+        Card[] allChooseCards = Resources.LoadAll<Card>("Combat Rewards");
+        if (allChooseCards.Length < 1)
+        {
+            Debug.LogError("NO CARDS FOUND!");
+            return null;
+        }
+
+        allChooseCards.Shuffle(); // TESTING
+        Card[] chooseCards = new Card[3];
+        int index = 0;
+        foreach (Card card in allChooseCards)
+        {
+            if (pMan.PlayerDeckList.FindIndex(x => x.CardName == card.CardName) == -1)
+            {
+                chooseCards[index++] = card;
+                if (index == 3) break;
+            }
+        }
+
+        Debug.LogWarning(index + " CARDS FOUND!");
+        return chooseCards;
+    }
+
     public CardAbility TriggerKeyword { get => triggerKeyword; }
 
 
     private void Start()
     {
-        uMan = UIManager.Instance;
         pMan = PlayerManager.Instance;
         enMan = EnemyManager.Instance;
         auMan = AudioManager.Instance;
@@ -128,7 +152,7 @@ public class CardManager : MonoBehaviour
      * ****** ADD/REMOVE_CARD
      * *****
      *****/
-    public void AddPlayerCard(Card card, string hero, bool isStartingCard = true)
+    public void AddCard(Card card, string hero)
     {
         List<Card> deck;
         Card cardInstance;
@@ -148,16 +172,9 @@ public class CardManager : MonoBehaviour
         }
         cardInstance.LoadCard(card);
         deck.Add(cardInstance);
-        if (!isStartingCard)
-        {
-            uMan.DestroyNewCardPopup();
-            uMan.CreateNewCardPopup(cardInstance);
-        }
     }
-    public void RemovePlayerCard(Card card)
-    {
+    public void RemovePlayerCard(Card card) =>
         PlayerManager.Instance.PlayerDeckList.Remove(card);
-    }
     
     /******
      * *****

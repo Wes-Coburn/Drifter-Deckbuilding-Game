@@ -67,10 +67,10 @@ public class PlayerManager : MonoBehaviour
 
             foreach (UnitCard uc in caMan.PlayerStartUnits)
                 for (int i = 0; i < GameManager.PLAYER_START_FOLLOWERS; i++)
-                    caMan.AddPlayerCard(uc, GameManager.PLAYER);
+                    caMan.AddCard(uc, GameManager.PLAYER);
             foreach (SkillCard skill in PlayerHero.HeroStartSkills)
                 for (int i = 0; i < GameManager.PLAYER_START_SKILLS; i++)
-                    caMan.AddPlayerCard(skill, GameManager.PLAYER);
+                    caMan.AddCard(skill, GameManager.PLAYER);
         }
     }
     public int PlayerHealth
@@ -126,12 +126,12 @@ public class PlayerManager : MonoBehaviour
 
         if (PlayerActionsLeft < playerHero.HeroPower.PowerCost)
         {
-            uMan.CreateFleetinInfoPopup("Not enough actions!");
+            uMan.CreateFleetingInfoPopup("Not enough actions!");
             ErrorSound();
         }
         else if (HeroPowerUsed == true)
         {
-            uMan.CreateFleetinInfoPopup("Hero power already used this turn!");
+            uMan.CreateFleetingInfoPopup("Hero power already used this turn!");
             ErrorSound();
             return;
         }
@@ -140,7 +140,7 @@ public class PlayerManager : MonoBehaviour
             List<EffectGroup> groupList = PlayerHero.HeroPower.EffectGroupList;
             if (!efMan.CheckLegalTargets(groupList, coMan.PlayerHero, true))
             {
-                uMan.CreateFleetinInfoPopup("You can't do that right now!");
+                uMan.CreateFleetingInfoPopup("You can't do that right now!");
                 ErrorSound();
             }
             else

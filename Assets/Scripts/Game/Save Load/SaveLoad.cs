@@ -9,7 +9,6 @@ public static class SaveLoad
 
     public static void SaveGame(GameData data)
     {
-        Debug.LogWarning("SAVE GAME!");
         BinaryFormatter formatter = new BinaryFormatter();
         FileStream stream = new FileStream(path, FileMode.Create);
         formatter.Serialize(stream, data);
@@ -20,7 +19,6 @@ public static class SaveLoad
     {
         if (File.Exists(path))
         {
-            Debug.LogWarning("LOAD GAME!");
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(path, FileMode.Open);
             GameData data = formatter.Deserialize(stream) as GameData;

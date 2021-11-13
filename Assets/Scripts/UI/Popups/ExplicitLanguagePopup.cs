@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ExplicitLanguageButton : MonoBehaviour
+public class ExplicitLanguagePopup : MonoBehaviour
 {
     public void ShowExplicit()
     {

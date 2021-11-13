@@ -137,6 +137,16 @@ public abstract class CardDisplay : MonoBehaviour
 
     /******
      * *****
+     * ****** DISPLAY_CARD_PAGE_CARD
+     * *****
+     *****/
+    public virtual void DisplayCardPageCard(Card card)
+    {
+        // blank
+    }
+
+    /******
+     * *****
      * ****** DISABLE_VISUALS
      * *****
      *****/

@@ -480,7 +480,7 @@ public class EffectManager : MonoBehaviour
             {
                 if (coMan.PlayerHandCards.Count >= GameManager.MAX_HAND_SIZE)
                 {
-                    uMan.CreateFleetinInfoPopup("Your hand is full!");
+                    uMan.CreateFleetingInfoPopup("Your hand is full!");
                     return false;
                 }
             }
@@ -533,7 +533,7 @@ public class EffectManager : MonoBehaviour
     }
     private void RejectEffectTarget()
     {
-        uMan.CreateFleetinInfoPopup("You can't target that!");
+        uMan.CreateFleetingInfoPopup("You can't target that!");
         auMan.StartStopSound("SFX_Error");
     }
 
@@ -762,7 +762,7 @@ public class EffectManager : MonoBehaviour
     {
         string debugText = "RESOLVED";
         if (wasAborted) debugText = "ABORTED";
-        Debug.LogWarning("GROUP LIST FINISHED! [" + debugText + "]");
+        Debug.Log("GROUP LIST FINISHED! [" + debugText + "]");
 
         if (!wasAborted)
         {

@@ -12,6 +12,7 @@ public class CombatEndPopupDisplay : MonoBehaviour
     {
         GameManager gMan = GameManager.Instance;
         DialogueManager dMan = DialogueManager.Instance;
+        UIManager uMan = UIManager.Instance;
 
         if (gMan.IsCombatTest)
         {
@@ -21,26 +22,11 @@ public class CombatEndPopupDisplay : MonoBehaviour
 
         if (victoryText.activeSelf == true)
         {
-            if (dMan.EngagedHero.NextDialogueClip is CombatRewardClip crc)
-            {
-                if (crc.NewCard != null)
-                    CardManager.Instance.AddPlayerCard(crc.NewCard, GameManager.PLAYER, false);
-                else if (crc.AetherCells > 0)
-                {
-                    int newAether = crc.AetherCells;
-                    int newTotal = newAether + PlayerManager.Instance.AetherCells;
-                    UIManager.Instance.CreateAetherCellPopup(newAether, newTotal);
-                }
-                else
-                {
-                    dMan.EngagedHero.NextDialogueClip = crc.NextDialogueClip;
-                    SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene);
-                    CombatManager.Instance.IsInCombat = false;
-                }
-            }
-            else Debug.LogError("NEXT CLIP IS NOT COMBAT_REWARD_CLIP!");
+            if (dMan.EngagedHero.NextDialogueClip is CombatRewardClip)
+                uMan.CreateNewCardPopup(null, CardManager.Instance.ChooseCards()); // TESTING
+            else Debug.LogError("NEXT CLIP IS NOT COMBAT REWARD CLIP!");
         }
         else SceneLoader.LoadScene(SceneLoader.Scene.CombatScene, true);
-        UIManager.Instance.DestroyCombatEndPopup();
+        uMan.DestroyCombatEndPopup();
     }
 }

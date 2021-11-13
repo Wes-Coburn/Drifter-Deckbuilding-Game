@@ -47,7 +47,6 @@ public class CombatManager : MonoBehaviour
     public const string ENEMY_DISCARD = "EnemyDiscard";
 
     public GameObject DragArrowPrefab { get => dragArrowPrefab; }
-    public bool IsInCombat { get; set; }
 
     // TESTING
     public int ActionsPlayedThisTurn
@@ -138,46 +137,48 @@ public class CombatManager : MonoBehaviour
      * ****** SHOW/HIDE_CARD
      * *****
      *****/
-    public GameObject ShowCard(Card card, Vector2 position, 
-        bool isShowcase = false, bool isCardPage = false)
+    public enum DisplayType
+    {
+        Default,
+        NewCard,
+        Cardpage
+    }
+
+    public GameObject ShowCard(Card card, Vector2 position, DisplayType type = DisplayType.Default)
     {
         if (card == null)
         {
             Debug.LogError("CARD IS NULL!");
             return null;
         }
-
+        
         GameObject prefab = null;
         if (card is UnitCard)
         {
             prefab = caMan.UnitCardPrefab;
-            if (isShowcase)
+            if (type is DisplayType.NewCard)
                 prefab = prefab.GetComponent<CardZoom>().UnitZoomCardPrefab;
         }
         else if (card is ActionCard)
         {
             prefab = caMan.ActionCardPrefab;
-            if (isShowcase)
+            if (type is DisplayType.NewCard)
                 prefab = prefab.GetComponent<CardZoom>().ActionZoomCardPrefab;
         }
         prefab = Instantiate(prefab, uMan.CurrentCanvas.transform);
-        if (isShowcase) prefab.GetComponent<CardDisplay>().DisplayZoomCard(null, card);
-        else
+        CardDisplay cd = prefab.GetComponent<CardDisplay>();
+
+        if (type is DisplayType.Default)
         {
-            CardDisplay cd = prefab.GetComponent<CardDisplay>();
-            if (!isCardPage) cd.CardScript = card;
-            else
-            {
-                if (cd is UnitCardDisplay ucd)
-                    ucd.DisplayCardPageCard(card as UnitCard);
-                else cd.CardScript = card;
-            }
+            cd.CardScript = card;
             cd.CardContainer = Instantiate(cardContainerPrefab, uMan.CurrentCanvas.transform);
             cd.CardContainer.transform.position = position;
             CardContainer cc = cd.CardContainer.GetComponent<CardContainer>();
             cc.Child = prefab;
             prefab.transform.SetParent(cc.gameObject.transform, false);
         }
+        if (type is DisplayType.NewCard) prefab.GetComponent<CardDisplay>().DisplayZoomCard(null, card);
+        else if (type is DisplayType.Cardpage) cd.DisplayCardPageCard(card);
         return prefab;
     }
     private Card HideCard(GameObject card)
@@ -207,7 +208,7 @@ public class CombatManager : MonoBehaviour
             hand = PlayerHandCards;
             if (hand.Count >= GameManager.MAX_HAND_SIZE)
             {
-                uMan.CreateFleetinInfoPopup("Your hand is full!");
+                uMan.CreateFleetingInfoPopup("Your hand is full!");
                 return;
             }
 
@@ -221,7 +222,7 @@ public class CombatManager : MonoBehaviour
             hand = EnemyHandCards;
             if (hand.Count >= GameManager.MAX_HAND_SIZE)
             {
-                uMan.CreateFleetinInfoPopup("Enemy hand is full!");
+                uMan.CreateFleetingInfoPopup("Enemy hand is full!");
                 return;
             }
             cardTag = ENEMY_CARD;
@@ -307,7 +308,7 @@ public class CombatManager : MonoBehaviour
         {
             if (PlayerZoneCards.Count >= GameManager.MAX_UNITS_PLAYED)
             {
-                uMan.CreateFleetinInfoPopup("Too many units!");
+                uMan.CreateFleetingInfoPopup("Too many units!");
                 ErrorSound();
                 return false;
             }
@@ -315,13 +316,13 @@ public class CombatManager : MonoBehaviour
         else if (display is ActionCardDisplay acd)
             if (!efMan.CheckLegalTargets(acd.ActionCard.EffectGroupList, card, true))
             {
-                uMan.CreateFleetinInfoPopup("You can't play that right now!");
+                uMan.CreateFleetingInfoPopup("You can't play that right now!");
                 ErrorSound();
                 return false;
             }
         if (playerActions < actionCost)
         {
-            uMan.CreateFleetinInfoPopup("Not enough actions!");
+            uMan.CreateFleetingInfoPopup("Not enough actions!");
             ErrorSound();
             return false;
         }
@@ -416,7 +417,7 @@ public class CombatManager : MonoBehaviour
         {
             if (EnemyZoneCards.Count >= GameManager.MAX_UNITS_PLAYED)
             {
-                uMan.CreateFleetinInfoPopup("Too many enemy units!");
+                uMan.CreateFleetingInfoPopup("Too many enemy units!");
                 return;
             }
 
@@ -513,8 +514,6 @@ public class CombatManager : MonoBehaviour
      *****/
     public bool CanAttack(GameObject attacker, GameObject defender, bool preCheck)
     {
-        if (efMan.EffectsResolving) return false;
-
         if (defender != null)
         {
             if (attacker.CompareTag(defender.tag)) return false;
@@ -534,13 +533,13 @@ public class CombatManager : MonoBehaviour
         if (atkUcd.IsExhausted)
         {
             if (!preCheck)
-                uMan.CreateFleetinInfoPopup("Exhausted units can't attack!");
+                uMan.CreateFleetingInfoPopup("Exhausted units can't attack!");
             return false;
         }
         else if (atkUcd.CurrentPower < 1)
         {
             if (!preCheck)
-                uMan.CreateFleetinInfoPopup("Units with 0 power can't attack!");
+                uMan.CreateFleetingInfoPopup("Units with 0 power can't attack!");
             return false;
         }
 
@@ -553,7 +552,7 @@ public class CombatManager : MonoBehaviour
             if (CardManager.GetAbility(defender, CardManager.ABILITY_STEALTH))
             {
                 if (!preCheck)
-                    uMan.CreateFleetinInfoPopup("Units with Stealth can't be attacked!");
+                    uMan.CreateFleetingInfoPopup("Units with Stealth can't be attacked!");
                 return false;
             }
         }
@@ -780,8 +779,9 @@ public class CombatManager : MonoBehaviour
         string cardTag = card.tag;
         if (isDelayed)
         {
-            FunctionTimer.Create(() => DestroyFX(), 0.5f);
             evMan.NewDelayedAction(() => Destroy(), 1, true);
+            evMan.NewDelayedAction(() => DestroyFX(), 0, true); // TESTING
+
             if (HasDestroyTriggers())
                 evMan.NewDelayedAction(() =>
                 DestroyTriggers(), 0.5f, true);

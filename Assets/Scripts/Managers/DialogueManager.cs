@@ -272,8 +272,7 @@ public class DialogueManager : MonoBehaviour
                 newEngagedHero = true;
             }
             // New Card
-            if (nextPrompt.NewCard != null)
-                CardManager.Instance.AddPlayerCard(nextPrompt.NewCard, GameManager.PLAYER, false);
+            if (nextPrompt.NewCard != null) UIManager.Instance.CreateNewCardPopup(nextPrompt.NewCard); // TESTING
             else if (nextPrompt.AetherCells > 0)
             {
                 int newAether = nextPrompt.AetherCells;

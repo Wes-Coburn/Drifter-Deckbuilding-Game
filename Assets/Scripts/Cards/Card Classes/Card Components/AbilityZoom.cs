@@ -26,7 +26,6 @@ public class AbilityZoom : MonoBehaviour
     }
     public void OnPointerEnter()
     {
-        //if (!CardZoom.ZoomCardIsCentered) return;
         if (DragDrop.DraggingCard != null) return;
         isHovering = true;
         if (AbilityPopup != null) Destroy(AbilityPopup);
@@ -47,7 +46,7 @@ public class AbilityZoom : MonoBehaviour
         AbilityPopup = Instantiate(abilityPopupPrefab, spawnPoint, Quaternion.identity);
         Transform tran = AbilityPopup.transform;
         tran.localScale = new Vector2(2.5f, 2.5f);
-        tran.SetParent(UIManager.Instance.CurrentCanvas.transform);
+        tran.SetParent(UIManager.Instance.CurrentZoomCanvas.transform);
         CardAbility ca = gameObject.GetComponent<AbilityIconDisplay>().AbilityScript;
         AbilityPopup.GetComponent<AbilityPopupDisplay>().ZoomAbilityScript = ca;
     }

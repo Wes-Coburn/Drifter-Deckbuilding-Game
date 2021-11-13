@@ -99,12 +99,14 @@ public class CardPageDisplay : MonoBehaviour
             if (index > cardGroupList.Count - 1) break;
             Card card = cardGroupList[firstIndex + i];
             GameObject cardObj =
-                CombatManager.Instance.ShowCard(card, new Vector2(), false, true);
-            cardObj.GetComponent<CardDisplay>().DisableVisuals();
-            cardObj.transform.localScale = new Vector2(4, 4);
+                CombatManager.Instance.ShowCard(card, new Vector2(), CombatManager.DisplayType.Cardpage);
             cardObj.transform.SetParent(cardGroup.transform);
-            activeCards.Add(cardObj);
 
+            CardDisplay cd = cardObj.GetComponent<CardDisplay>();
+            cd.DisableVisuals();
+            cardObj.transform.localScale = new Vector2(4, 4);
+
+            activeCards.Add(cardObj);
             GameObject buttonPrefab;
             if (isRecruitment) buttonPrefab = recruitUnitButtonPrefab;
             else if (isCardRemoval) buttonPrefab = removeCardButtonPrefab;
@@ -151,7 +153,7 @@ public class CardPageDisplay : MonoBehaviour
     public void RemoveCardButton_OnClick(Card card)
     {
         if (pMan.PlayerDeckList.Count <= 10)
-            uMan.CreateCenteredInfoPopup("You must have at least 10 cards in your deck!");
+            uMan.CreateFleetingInfoPopup("You must have at least 10 cards in your deck!", true);
         else if (pMan.AetherCells < GameManager.REMOVE_CARD_COST)
             uMan.InsufficientAetherPopup();
         else uMan.CreateRemoveCardPopup(card);

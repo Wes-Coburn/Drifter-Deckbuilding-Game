@@ -88,27 +88,6 @@ public class UnitCardDisplay : CardDisplay
             AddCurrentAbility(cardAbility);
         }
     }
-    public void DisplayCardPageCard(UnitCard unitCard)
-    {
-        cardScript = unitCard;
-        base.DisplayCard();
-        CurrentPower = UnitCard.StartPower;
-        MaxHealth = UnitCard.StartHealth;
-        CurrentHealth = MaxHealth;
-
-        GridLayoutGroup glg =
-            currentAbilitiesDisplay.GetComponent<GridLayoutGroup>();
-        Vector2 cellSize = glg.cellSize;
-        cellSize.y = 16;
-        glg.cellSize = cellSize;
-
-        foreach (CardAbility cardAbility in UnitCard.StartingAbilities)
-        {
-            if (cardAbility == null) continue; // Skip empty abilities
-            GetComponent<CardZoom>().CreateZoomAbilityIcon(cardAbility,
-                currentAbilitiesDisplay.transform, 1);
-        }
-    }
 
     /******
      * *****
@@ -161,6 +140,33 @@ public class UnitCardDisplay : CardDisplay
                 GetComponent<CardZoom>().CreateZoomAbilityIcon(cardAbility, 
                     currentAbilitiesDisplay.transform, 1);
             }
+        }
+    }
+
+    /******
+     * *****
+     * ****** DISPLAY_CARD_PAGE_CARD
+     * *****
+     *****/
+    public override void DisplayCardPageCard(Card card)
+    {
+        base.DisplayCardPageCard(card);
+        cardScript = card;
+        base.DisplayCard();
+        CurrentPower = UnitCard.StartPower;
+        MaxHealth = UnitCard.StartHealth;
+        CurrentHealth = MaxHealth;
+        GridLayoutGroup glg =
+            currentAbilitiesDisplay.GetComponent<GridLayoutGroup>();
+        Vector2 cellSize = glg.cellSize;
+        cellSize.y = 16;
+        glg.cellSize = cellSize;
+
+        foreach (CardAbility cardAbility in UnitCard.StartingAbilities)
+        {
+            if (cardAbility == null) continue; // Skip empty abilities
+            GetComponent<CardZoom>().CreateZoomAbilityIcon(cardAbility,
+                currentAbilitiesDisplay.transform, 1);
         }
     }
 

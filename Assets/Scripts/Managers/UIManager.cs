@@ -40,6 +40,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject menuPopupPrefab;
     [SerializeField] private GameObject explicitLanguagePopupPrefab;
     [SerializeField] private GameObject newCardPopupPrefab;
+    [SerializeField] private GameObject chooseCardPopupPrefab;
     [SerializeField] private GameObject aetherCellPopupPrefab;
     [SerializeField] private GameObject cardPagePopupPrefab;
     [SerializeField] private GameObject learnSkillPopupPrefab;
@@ -83,16 +84,18 @@ public class UIManager : MonoBehaviour
 
     // PLAYER_IS_TARGETTING
     public bool PlayerIsTargetting { get; set; }
-    // CANVAS
-    public GameObject CurrentCanvas { get; private set; }
     // WORLDSPACE
     public GameObject CurrentWorldSpace { get; private set; }
-
+    // CANVAS
+    public GameObject CurrentCanvas { get; private set; }
+    // ZOOM CANVAS
+    public GameObject CurrentZoomCanvas { get; private set; }
 
     public void Start()
     {
         CurrentWorldSpace = GameObject.Find("WorldSpace");
         CurrentCanvas = GameObject.Find("Canvas");
+        CurrentZoomCanvas = GameObject.Find("Canvas_Zoom"); // TESTING
         pMan = PlayerManager.Instance;
         PlayerIsTargetting = false;
     }
@@ -197,11 +200,7 @@ public class UIManager : MonoBehaviour
             screenDimmer = null;
         }
         if (screenIsDimmed)
-        {
-            GameObject prefab = screenDimmerPrefab;
-            GameObject parent = CurrentCanvas;
-            screenDimmer = Instantiate(prefab, parent.transform);
-        }
+            screenDimmer = Instantiate(screenDimmerPrefab, CurrentZoomCanvas.transform);
     }
     /******
      * *****
@@ -407,19 +406,15 @@ public class UIManager : MonoBehaviour
             Quaternion.identity, CurrentWorldSpace.transform);
         infoPopup.GetComponent<InfoPopupDisplay>().DisplayInfoPopup(message);
     }
-    public void CreateFleetinInfoPopup(string message, bool isCentered = false)
+    public void CreateFleetingInfoPopup(string message, bool isCentered = false)
     {
         CreateInfoPopup(message, isCentered);
         AnimationManager.Instance.ChangeAnimationState(infoPopup, "Enter_Exit");
     }
-    public void CreateCenteredInfoPopup(string message)
-    {
-        CreateFleetinInfoPopup(message, true);
-    }
     public void InsufficientAetherPopup()
     {
-        CreateCenteredInfoPopup("Not enough aether! (You have " + 
-            pMan.AetherCells + " aether)");
+        CreateFleetingInfoPopup("Not enough aether! (You have " + 
+            pMan.AetherCells + " aether)", true);
     }
     public void DismissInfoPopup()
     {
@@ -457,6 +452,7 @@ public class UIManager : MonoBehaviour
     }
     public void CreateCombatEndPopup(bool playerWins)
     {
+        DestroyCombatEndPopup();
         combatEndPopup = Instantiate(combatEndPopupPrefab, CurrentCanvas.transform);
         CombatEndPopupDisplay cepd =
             combatEndPopup.GetComponent<CombatEndPopupDisplay>();
@@ -473,11 +469,14 @@ public class UIManager : MonoBehaviour
         }
     }
     // New Card Popup
-    public void CreateNewCardPopup(Card card)
+    public void CreateNewCardPopup(Card newCard, Card[] chooseCards = null)
     {
-        newCardPopup = Instantiate(newCardPopupPrefab, CurrentCanvas.transform);
+        DestroyNewCardPopup();
+        if (chooseCards == null) newCardPopup = Instantiate(newCardPopupPrefab, CurrentCanvas.transform);
+        else newCardPopup = Instantiate(chooseCardPopupPrefab, CurrentCanvas.transform); // TESTING
         NewCardPopupDisplay ncpd = newCardPopup.GetComponent<NewCardPopupDisplay>();
-        ncpd.CurrentCard = card;
+        if (chooseCards == null) ncpd.NewCard = newCard;
+        else ncpd.ChooseCards = chooseCards; // TESTING
         // play sounds
     }
     public void DestroyNewCardPopup()
@@ -491,6 +490,7 @@ public class UIManager : MonoBehaviour
     // Aether Cell Popup
     public void CreateAetherCellPopup(int quanity, int total)
     {
+        DestroyAetherCellPopup();
         aetherCellPopup = Instantiate(aetherCellPopupPrefab, CurrentCanvas.transform);
         AetherCellPopupDisplay acpd =
             aetherCellPopup.GetComponent<AetherCellPopupDisplay>();
@@ -508,7 +508,7 @@ public class UIManager : MonoBehaviour
     // Card Page Popups
     public void CreateCardPagePopup(bool isCardRemoval, List<UnitCard> recruits = null)
     {
-        DestroyCardPagePopup(); // TESTING
+        DestroyCardPagePopup();
         cardPagePopup = Instantiate
             (cardPagePopupPrefab, CurrentCanvas.transform);
         cardPagePopup.GetComponent<CardPageDisplay>().DisplayCardPage(isCardRemoval, recruits);

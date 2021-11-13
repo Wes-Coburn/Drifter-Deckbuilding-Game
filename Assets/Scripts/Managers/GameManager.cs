@@ -217,7 +217,7 @@ public class GameManager : MonoBehaviour
         // DECK LIST
         pMan.PlayerDeckList.Clear();
         for (int i = 0; i < data.PlayerDeck.Length; i++)
-            caMan.AddPlayerCard(GetCard(data.PlayerDeck[i]), PLAYER);
+            caMan.AddCard(GetCard(data.PlayerDeck[i]), PLAYER);
 
         // AUGMENTS
         pMan.HeroAugments.Clear();
@@ -399,7 +399,6 @@ public class GameManager : MonoBehaviour
             null, AudioManager.SoundType.Soundtrack);
         auMan.StartStopSound("SFX_StartCombat");
 
-        coMan.IsInCombat = true;
         PlayerHeroDisplay pHD = coMan.PlayerHero.GetComponent<PlayerHeroDisplay>();
         EnemyHeroDisplay eHD = coMan.EnemyHero.GetComponent<EnemyHeroDisplay>();
         uMan.EndTurnButton.SetActive(false);

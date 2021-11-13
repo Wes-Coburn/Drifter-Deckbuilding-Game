@@ -4,29 +4,39 @@ public class NewCardPopupDisplay : MonoBehaviour
 {
     [SerializeField] private GameObject newCardZone;
     [SerializeField] private GameObject newCardChest;
-    [SerializeField] private GameObject addCardButton;
+    [SerializeField] private GameObject[] addCardButtons;
     [SerializeField] private GameObject ignoreCardButton;
-
-    private CardManager caMan;
+    
     private CombatManager coMan;
     private PlayerManager pMan;
     private DialogueManager dMan;
     private UIManager uMan;
-    private Card currentCard;
 
-    public Card CurrentCard
+    private Card newCard;
+    private Card[] chooseCards;
+
+    public Card NewCard
     {
-        get => currentCard;
+        get => newCard;
         set
         {
-            currentCard = value;
+            newCard = value;
             DisplayNewCardChest();
         }
     }
 
-    private void Awake()
+    public Card[] ChooseCards
     {
-        caMan = CardManager.Instance;
+        get => chooseCards;
+        set
+        {
+            chooseCards = value;
+            DisplayNewCardChest();
+        }
+    }
+
+    private void Start()
+    {
         coMan = CombatManager.Instance;
         pMan = PlayerManager.Instance;
         dMan = DialogueManager.Instance;
@@ -35,19 +45,24 @@ public class NewCardPopupDisplay : MonoBehaviour
 
     private void DisplayNewCardChest()
     {
-        gameObject.GetComponent<SoundPlayer>().PlaySound(0);
+        GetComponent<SoundPlayer>().PlaySound(0);
         newCardChest.SetActive(true);
-        addCardButton.SetActive(false);
+        foreach (GameObject button in addCardButtons) button.SetActive(false);
         ignoreCardButton.SetActive(false);
+    }
+
+    private void SwitchToCards()
+    {
+        newCardChest.SetActive(false);
+        foreach (GameObject button in addCardButtons) button.SetActive(true);
+        ignoreCardButton.SetActive(true);
     }
 
     public void DisplayNewCard()
     {
-        newCardChest.SetActive(false);
-        addCardButton.SetActive(true);
-        ignoreCardButton.SetActive(true);
+        SwitchToCards(); // TESTING
         // Card Popup
-        GameObject newCard = coMan.ShowCard(CurrentCard, new Vector2(), true);
+        GameObject newCard = coMan.ShowCard(NewCard, new Vector2(), CombatManager.DisplayType.NewCard);
         CardZoom cz = newCard.GetComponent<CardZoom>();
         newCard.transform.SetParent(newCardZone.transform, false);
         // Description Popup
@@ -56,6 +71,7 @@ public class NewCardPopupDisplay : MonoBehaviour
         // Ability Popups
         cz.CreateAbilityPopups(new Vector2(550, 0), 3);
         CardZoom.AbilityPopupBox.transform.SetParent(newCardZone.transform, true);
+        cz.enabled = false; // Disable more info tooltip
         // Card Popup
         newCard.transform.SetAsLastSibling();
         // Prevent DestroyZoomObjects() on ZoomAbilityIcon
@@ -64,13 +80,33 @@ public class NewCardPopupDisplay : MonoBehaviour
         CardZoom.AbilityPopupBox = null;
     }
 
-    public void AddCard()
+    public void DisplayChooseCards()
+    {
+        SwitchToCards(); // TESTING
+        foreach (Card card in chooseCards)
+        {
+            // Card Popup
+            GameObject newCard = coMan.ShowCard(card, new Vector2(), CombatManager.DisplayType.Cardpage);
+            CardDisplay cd = newCard.GetComponent<CardDisplay>();
+            newCard.transform.SetParent(newCardZone.transform, false);
+            cd.DisableVisuals();
+            newCard.transform.localScale = new Vector2(3, 3);
+        }
+    }
+
+    public void AddCard_OnClick(int cardSelection)
     {
         GetComponent<SoundPlayer>().PlaySound(2);
         uMan.DestroyNewCardPopup();
 
+        // TESTING
+        Card newCard;
+        if (cardSelection == 0) newCard = NewCard;
+        else newCard = chooseCards[cardSelection - 1]; // TESTING
+        pMan.PlayerDeckList.Add(newCard);
+
         DialogueClip nextClip = dMan.EngagedHero.NextDialogueClip;
-        if (!coMan.IsInCombat)
+        if (!SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene)) // TESTING
         {
             DialoguePrompt dp = nextClip as DialoguePrompt;
             if (dp.AetherCells > 0)
@@ -93,19 +129,19 @@ public class NewCardPopupDisplay : MonoBehaviour
             {
                 dMan.EngagedHero.NextDialogueClip = crc.NextDialogueClip;
                 SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene);
-                coMan.IsInCombat = false;
             }
         }
         else Debug.LogError("NEXT CLIP IS NOT COMBAT_REWARD_CLIP!");
     }
 
-    public void IgnoreCard()
+    public void IgnoreCard_OnClick()
     {
         GetComponent<SoundPlayer>().PlaySound(3);
-        pMan.PlayerDeckList.Remove(CurrentCard);
+        pMan.AetherCells += 2; // TESTING
         uMan.DestroyNewCardPopup();
+
         DialogueClip nextClip = dMan.EngagedHero.NextDialogueClip;
-        if (!coMan.IsInCombat)
+        if (!SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene)) // TESTING
         {
             DialoguePrompt dp = nextClip as DialoguePrompt;
             if (dp.AetherCells > 0)
@@ -128,7 +164,6 @@ public class NewCardPopupDisplay : MonoBehaviour
             {
                 dMan.EngagedHero.NextDialogueClip = crc.NextDialogueClip;
                 SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene);
-                coMan.IsInCombat = false;
             }
         }
         else Debug.LogError("NEXT CLIP IS NOT COMBAT_REWARD_CLIP!");

@@ -72,13 +72,7 @@ public class DragDrop : MonoBehaviour
         if (!pMan.IsMyTurn) return;
         if (CompareTag(CombatManager.ENEMY_CARD)) return;
         if (DraggingCard != null || ArrowIsDragging) return;
-
-        // TESTING
-        if (EffectManager.Instance.EffectsResolving)
-        {
-            Debug.LogWarning("EFFECTS RESOLVING!");
-            return;
-        }
+        if (EffectManager.Instance.EffectsResolving || EventManager.Instance.ActionsDelayed) return; // TESTING
 
         FunctionTimer.StopTimer(CardZoom.ZOOM_CARD_TIMER);
         FunctionTimer.StopTimer(CardZoom.ABILITY_POPUP_TIMER);

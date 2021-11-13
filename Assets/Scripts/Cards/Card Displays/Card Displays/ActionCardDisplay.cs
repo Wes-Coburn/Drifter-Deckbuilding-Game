@@ -43,6 +43,17 @@ public class ActionCardDisplay : CardDisplay
 
     /******
      * *****
+     * ****** DISPLAY_CARD_PAGE_CARD
+     * *****
+     *****/
+    public override void DisplayCardPageCard(Card card)
+    {
+        base.DisplayCardPageCard(card);
+        CardScript = card;
+    }
+
+    /******
+     * *****
      * ****** DISABLE_VISUALS
      * *****
      *****/
