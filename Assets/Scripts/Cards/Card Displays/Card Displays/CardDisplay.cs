@@ -20,7 +20,7 @@ public abstract class CardDisplay : MonoBehaviour
     [SerializeField] private GameObject cardArt;
     [SerializeField] private GameObject cardBorder;
     [SerializeField] private GameObject cardTypeLine;
-    [SerializeField] private GameObject actionCost;
+    [SerializeField] private GameObject energyCost;
 
     private GameObject cardContainer;
     private Animator animator;
@@ -65,16 +65,16 @@ public abstract class CardDisplay : MonoBehaviour
         }
         set => cardTypeLine.GetComponent<TextMeshProUGUI>().SetText(value);
     }
-    public int CurrentActionCost
+    public int CurrentEnergyCost
     {
-        get => CardScript.CurrentActionCost;
+        get => CardScript.CurrentEnergyCost;
         set
         {
-            CardScript.CurrentActionCost = value;
+            CardScript.CurrentEnergyCost = value;
             string text;
             if (value < 0) text = "";
             else text = value.ToString();
-            actionCost.GetComponent<TextMeshProUGUI>().SetText(text);
+            energyCost.GetComponent<TextMeshProUGUI>().SetText(text);
         }
     }
     
@@ -89,7 +89,7 @@ public abstract class CardDisplay : MonoBehaviour
         string spacer = "";
         if (!string.IsNullOrEmpty(CardScript.CardSubType)) spacer = " - ";
         CardTypeLine = CardScript.CardType + spacer + CardScript.CardSubType;
-        CurrentActionCost = CardScript.StartActionCost;
+        CurrentEnergyCost = CardScript.StartEnergyCost;
         CardArt = CardScript.CardArt;
         CardBorder = CardScript.CardBorder;
         animator = gameObject.GetComponent<Animator>();
@@ -113,8 +113,8 @@ public abstract class CardDisplay : MonoBehaviour
             CardBorder = cd.CardBorder;
 
             if (CardZoom.ZoomCardIsCentered) 
-                CurrentActionCost = cd.cardScript.StartActionCost;
-            else CurrentActionCost = cd.CurrentActionCost;
+                CurrentEnergyCost = cd.cardScript.StartEnergyCost;
+            else CurrentEnergyCost = cd.CurrentEnergyCost;
         }
         else
         {
@@ -122,7 +122,7 @@ public abstract class CardDisplay : MonoBehaviour
             string spacer = "";
             if (!string.IsNullOrEmpty(card.CardSubType)) spacer = " - ";
             CardTypeLine = card.CardType + spacer + card.CardSubType;
-            CurrentActionCost = card.StartActionCost;
+            CurrentEnergyCost = card.StartEnergyCost;
             CardName = card.CardName;
             CardArt = card.CardArt;
             CardBorder = card.CardBorder;

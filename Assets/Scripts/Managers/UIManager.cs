@@ -65,6 +65,7 @@ public class UIManager : MonoBehaviour
     private GameObject menuPopup;
     private GameObject explicitLanguagePopup;
     private GameObject newCardPopup;
+    private GameObject chooseCardPopup;
     private GameObject aetherCellPopup;
     private GameObject cardPagePopup;
     private GameObject learnSkillPopup;
@@ -81,6 +82,7 @@ public class UIManager : MonoBehaviour
     private GameObject playerZoneOutline;
     
     public GameObject NewCardPopup { get => newCardPopup; }
+    public GameObject ChooseCardPopup { get => chooseCardPopup; }
     public GameObject CardPagePopup { get => cardPagePopup; }
     public GameObject EndTurnButton { get => endTurnButton; }
 
@@ -474,11 +476,20 @@ public class UIManager : MonoBehaviour
     public void CreateNewCardPopup(Card newCard, Card[] chooseCards = null)
     {
         DestroyNewCardPopup();
-        if (chooseCards == null) newCardPopup = Instantiate(newCardPopupPrefab, CurrentCanvas.transform);
-        else newCardPopup = Instantiate(chooseCardPopupPrefab, CurrentCanvas.transform);
-        NewCardPopupDisplay ncpd = newCardPopup.GetComponent<NewCardPopupDisplay>();
+        NewCardPopupDisplay ncpd;
+        if (chooseCards == null)
+        {
+            newCardPopup = Instantiate(newCardPopupPrefab, CurrentCanvas.transform);
+            ncpd = newCardPopup.GetComponent<NewCardPopupDisplay>();
+        }
+        else
+        {
+            chooseCardPopup = Instantiate(chooseCardPopupPrefab, CurrentCanvas.transform);
+            ncpd = chooseCardPopup.GetComponent<NewCardPopupDisplay>();
+        }
+        
         if (chooseCards == null) ncpd.NewCard = newCard;
-        else ncpd.ChooseCards = chooseCards; // TESTING
+        else ncpd.ChooseCards = chooseCards;
         // play sounds
     }
     public void DestroyNewCardPopup()
@@ -487,6 +498,11 @@ public class UIManager : MonoBehaviour
         {
             Destroy(newCardPopup);
             newCardPopup = null;
+        }
+        if (chooseCardPopup != null)
+        {
+            Destroy(chooseCardPopup);
+            chooseCardPopup = null;
         }
     }
     // Aether Cell Popup

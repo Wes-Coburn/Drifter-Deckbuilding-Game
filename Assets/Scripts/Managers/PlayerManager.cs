@@ -26,7 +26,7 @@ public class PlayerManager : MonoBehaviour
     private List<HeroAugment> heroAugments;
     private List<Card> playerDeckList;
     private int playerHealth;
-    private int playerActionsLeft;
+    private int playerEnergyLeft;
     private bool heroPowerUsed;
 
     public int AetherCells
@@ -49,7 +49,7 @@ public class PlayerManager : MonoBehaviour
     }
     public List<Card> CurrentPlayerDeck { get; private set; }
     public bool IsMyTurn { get; set; }
-    public int ActionsPerTurn { get; set; }
+    public int EnergyPerTurn { get; set; }
     public bool HeroPowerUsed
     {
         get => heroPowerUsed;
@@ -90,16 +90,16 @@ public class PlayerManager : MonoBehaviour
             coMan.PlayerHero.GetComponent<HeroDisplay>().HeroHealth = playerHealth;
         }
     }
-    public int PlayerActionsLeft
+    public int PlayerEnergyLeft
     {
-        get => playerActionsLeft;
+        get => playerEnergyLeft;
         set
         {
-            playerActionsLeft = value;
-            if (playerActionsLeft > GameManager.MAXIMUM_ACTIONS) 
-                playerActionsLeft = GameManager.MAXIMUM_ACTIONS;
+            playerEnergyLeft = value;
+            if (playerEnergyLeft > GameManager.MAXIMUM_ENERGY) 
+                playerEnergyLeft = GameManager.MAXIMUM_ENERGY;
             coMan.PlayerHero.GetComponent<PlayerHeroDisplay>().PlayerActions = 
-                playerActionsLeft + "/" + ActionsPerTurn;
+                playerEnergyLeft + "/" + EnergyPerTurn;
         }
     }
 
@@ -132,7 +132,7 @@ public class PlayerManager : MonoBehaviour
     {
         void ErrorSound() => auMan.StartStopSound("SFX_Error");
 
-        if (PlayerActionsLeft < playerHero.HeroPower.PowerCost)
+        if (PlayerEnergyLeft < playerHero.HeroPower.PowerCost)
         {
             uMan.CreateFleetingInfoPopup("Not enough actions!");
             ErrorSound();
@@ -154,7 +154,7 @@ public class PlayerManager : MonoBehaviour
             else
             {
                 efMan.StartEffectGroupList(groupList, coMan.PlayerHero);
-                PlayerActionsLeft -= playerHero.HeroPower.PowerCost;
+                PlayerEnergyLeft -= playerHero.HeroPower.PowerCost;
                 HeroPowerUsed = true;
                 foreach (Sound s in PlayerHero.HeroPower.PowerSounds)
                     AudioManager.Instance.StartStopSound(null, s);

@@ -509,7 +509,7 @@ GameObject:
   - component: {fileID: 5292934361495569888}
   - component: {fileID: 1962485270576166505}
   m_Layer: 5
-  m_Name: PlayerActions
+  m_Name: PlayerEnergy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -544,7 +544,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tooltipPopupPrefab: {fileID: 7177373728927392186, guid: 6363c5ece3ab74f41ab0a33c7358b5cb,
     type: 3}
-  tooltipText: Your remaining ACTIONS and your total each turn.
+  tooltipText: Your current ENERGY and your energy total.
   tooltipPosition: {x: 200, y: -350}
 --- !u!114 &1962485270576166505
 MonoBehaviour:

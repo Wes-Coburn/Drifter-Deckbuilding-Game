@@ -50,10 +50,10 @@ public class AnimationManager : MonoBehaviour
 
     /* HERO_ANIMATIONS */
     public void ModifyHeroHealthState(GameObject hero) => ChangeAnimationState(hero, "Modify_Health");
-    public void ModifyHeroActionsState()
+    public void ModifyHeroEnergyState()
     {
-        auMan.StartStopSound("SFX_ActionRefill");
-        ChangeAnimationState(coMan.PlayerHero, "Modify_Actions");
+        auMan.StartStopSound("SFX_EnergyRefill");
+        ChangeAnimationState(coMan.PlayerHero, "Modify_Energy");
     }
     public void ReinforcementsState()
     {

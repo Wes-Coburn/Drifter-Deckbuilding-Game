@@ -4,7 +4,7 @@ public abstract class Card : ScriptableObject
 {
     [SerializeField] private Sprite cardArt;
     [SerializeField] private Sprite cardBorder;
-    [SerializeField] private int actionCost;
+    [SerializeField] private int energyCost;
     [SerializeField] private string cardName;
     [SerializeField] private string cardType;
     [SerializeField] private string cardSubType;
@@ -15,8 +15,8 @@ public abstract class Card : ScriptableObject
 
     public Sprite CardArt { get => cardArt; }
     public Sprite CardBorder { get => cardBorder; }
-    public int StartActionCost { get => actionCost; }
-    public int CurrentActionCost { get; set; }
+    public int StartEnergyCost { get => energyCost; }
+    public int CurrentEnergyCost { get; set; }
     public string CardName { get => cardName; }
     public string CardType { get => cardType; }
     public string CardSubType { get => cardSubType; }
@@ -30,7 +30,7 @@ public abstract class Card : ScriptableObject
     {
         cardArt = card.CardArt;
         cardBorder = card.CardBorder;
-        actionCost = card.StartActionCost;
+        energyCost = card.StartEnergyCost;
         cardName = card.CardName;
         cardType = card.CardType;
         cardSubType = card.CardSubType;

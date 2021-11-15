@@ -15,13 +15,16 @@ MonoBehaviour:
   developerNotes: 
   dialoguePromptText: I can connect you to the right people, for a price.
   dialogueResponse1:
-    responseText: Not right now.
+    responseText: 'Until next time.
+
+      *Leave*'
     response_Respect: 0
     response_NextClip: {fileID: 11400000, guid: e2329fb1202c999428b0d48dc4183c6f,
       type: 2}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
+    response_IsCloningStart: 0
     response_IsExit: 0
   dialogueResponse2:
     responseText: I'm interested.
@@ -31,6 +34,7 @@ MonoBehaviour:
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 1
+    response_IsCloningStart: 0
     response_IsExit: 0
   dialogueResponse3:
     responseText: Where do you find these people?
@@ -40,6 +44,7 @@ MonoBehaviour:
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
+    response_IsCloningStart: 0
     response_IsExit: 0
   newEngagedHero: {fileID: 0}
   hideNPC: 0

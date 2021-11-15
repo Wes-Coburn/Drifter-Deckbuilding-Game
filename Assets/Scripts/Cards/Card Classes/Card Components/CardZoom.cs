@@ -28,7 +28,6 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     private GameObject playerZone;
     private GameObject enemyHand;
     private GameObject enemyZone;
-    private GameObject heroSkills;
 
     public static bool ZoomCardIsCentered = false;
     public const string ZOOM_CARD_TIMER = "ZoomCardTimer";
@@ -53,8 +52,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         enemyHand = coMan.EnemyHand;
         enemyZone = coMan.EnemyZone;
         cardDisplay = GetComponent<CardDisplay>();
-        heroSkills = GameObject.Find("HeroSkills");
-        zoomPopups = new List<GameObject>(); // TESTING
+        zoomPopups = new List<GameObject>();
     }
 
     /******
@@ -152,7 +150,9 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
                 // Card Page Popup
                 if (uMan.CardPagePopup != null) CreateAbilityPopups(new Vector2(0, -300), POPUP_SCALE_VALUE);
                 // New Card Popup
-                else CreateAbilityPopups(new Vector2(500, 0), POPUP_SCALE_VALUE);
+                else if (uMan.NewCardPopup != null) CreateAbilityPopups(new Vector2(500, 0), POPUP_SCALE_VALUE);
+                // Choose Card Popup
+                else if (uMan.ChooseCardPopup != null) CreateAbilityPopups(new Vector2(0, -300), POPUP_SCALE_VALUE);
             }
         }
     }

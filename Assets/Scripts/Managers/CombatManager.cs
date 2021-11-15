@@ -301,8 +301,8 @@ public class CombatManager : MonoBehaviour
     public bool IsPlayable(GameObject card)
     {
         CardDisplay display = card.GetComponent<CardDisplay>();
-        int actionCost = display.CurrentActionCost;
-        int playerActions = pMan.PlayerActionsLeft;
+        int actionCost = display.CurrentEnergyCost;
+        int playerActions = pMan.PlayerEnergyLeft;
 
         if (display is UnitCardDisplay)
         {
@@ -392,7 +392,7 @@ public class CombatManager : MonoBehaviour
         // PLAYER
         if (card.CompareTag(PLAYER_CARD))
         {
-            pMan.PlayerActionsLeft -= card.GetComponent<CardDisplay>().CurrentActionCost;
+            pMan.PlayerEnergyLeft -= card.GetComponent<CardDisplay>().CurrentEnergyCost;
             PlayerHandCards.Remove(card);
 
             if (IsUnitCard(card))

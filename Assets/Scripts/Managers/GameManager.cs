@@ -55,9 +55,9 @@ public class GameManager : MonoBehaviour
 
     /* GAME_MANAGER_DATA */
     // Universal
-    public const int START_ACTIONS_PER_TURN = 1;
-    public const int MAX_ACTIONS_PER_TURN = 5;
-    public const int MAXIMUM_ACTIONS = 5;
+    public const int START_ENERGY_PER_TURN = 1;
+    public const int MAX_ENERGY_PER_TURN = 5;
+    public const int MAXIMUM_ENERGY = 5;
     public const int MAX_HAND_SIZE = 6;
     public const int MAX_UNITS_PLAYED = 5;
 
@@ -423,8 +423,8 @@ public class GameManager : MonoBehaviour
         pMan.PlayerHealth = PLAYER_STARTING_HEALTH + bonusHealth;
         int bonusActions = 0;
         if (pMan.GetAugment("Synaptic Stabilizer")) bonusActions = 1;
-        pMan.ActionsPerTurn = START_ACTIONS_PER_TURN + bonusActions;
-        pMan.PlayerActionsLeft = 0;
+        pMan.EnergyPerTurn = START_ENERGY_PER_TURN + bonusActions;
+        pMan.PlayerEnergyLeft = 0;
         if (pMan.GetAugment("Biogenic Enhancer"))
         {
             GiveNextUnitEffect gnue = ScriptableObject.CreateInstance<GiveNextUnitEffect>();
@@ -491,8 +491,8 @@ public class GameManager : MonoBehaviour
                 pMan.IsMyTurn = true;
                 enMan.IsMyTurn = false;
                 pMan.HeroPowerUsed = false;
-                pMan.PlayerActionsLeft = pMan.ActionsPerTurn;
-                AnimationManager.Instance.ModifyHeroActionsState();
+                pMan.PlayerEnergyLeft = pMan.EnergyPerTurn;
+                AnimationManager.Instance.ModifyHeroEnergyState();
             }
         }
         else if (player == ENEMY)
@@ -524,8 +524,8 @@ public class GameManager : MonoBehaviour
         if (player == ENEMY) StartCombatTurn(PLAYER);
         else if (player == PLAYER)
         {
-            if (pMan.ActionsPerTurn < MAX_ACTIONS_PER_TURN)
-                pMan.ActionsPerTurn++;
+            if (pMan.EnergyPerTurn < MAX_ENERGY_PER_TURN)
+                pMan.EnergyPerTurn++;
             StartCombatTurn(ENEMY);
         }
 
