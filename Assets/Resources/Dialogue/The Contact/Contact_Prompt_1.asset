@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Contact_Prompt_1
   m_EditorClassIdentifier: 
   developerNotes: 
-  journalNotes: []
   dialoguePromptText: '*Whispering*
 
     Are you my contact?'
@@ -25,6 +24,7 @@ MonoBehaviour:
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
+    response_IsCloningStart: 0
     response_IsExit: 0
   dialogueResponse2:
     responseText: Who else would come here at night?
@@ -34,6 +34,7 @@ MonoBehaviour:
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
+    response_IsCloningStart: 0
     response_IsExit: 0
   dialogueResponse3:
     responseText: Don't ask stupid questions. It might get you killed.
@@ -43,6 +44,7 @@ MonoBehaviour:
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
+    response_IsCloningStart: 0
     response_IsExit: 0
   newEngagedHero: {fileID: 0}
   hideNPC: 0

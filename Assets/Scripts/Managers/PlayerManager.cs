@@ -22,10 +22,11 @@ public class PlayerManager : MonoBehaviour
     private AudioManager auMan;
 
     private PlayerHero playerHero;
+    private int aetherCells;
+    private List<HeroAugment> heroAugments;
+    private List<Card> playerDeckList;
     private int playerHealth;
     private int playerActionsLeft;
-    private List<HeroAugment> heroAugments;
-    private int aetherCells;
     private bool heroPowerUsed;
 
     public int AetherCells
@@ -34,11 +35,18 @@ public class PlayerManager : MonoBehaviour
         set
         {
             aetherCells = value;
-            uMan.SetAetherCount(value); // TESTING
+            uMan.SetAetherCount(value);
         }
     }
     public List<HeroAugment> HeroAugments { get => heroAugments; }
-    public List<Card> PlayerDeckList { get; private set; }
+    public List<Card> PlayerDeckList
+    {
+        get
+        {
+            playerDeckList.Sort((s1, s2) => s1.CardName.CompareTo(s2.CardName));
+            return playerDeckList;
+        }
+    }
     public List<Card> CurrentPlayerDeck { get; private set; }
     public bool IsMyTurn { get; set; }
     public int ActionsPerTurn { get; set; }
@@ -59,7 +67,7 @@ public class PlayerManager : MonoBehaviour
         set
         {
             playerHero = value;
-            PlayerDeckList.Clear();
+            playerDeckList.Clear();
             CurrentPlayerDeck.Clear();
             HeroAugments.Clear();
             AetherCells = 0;
@@ -102,7 +110,7 @@ public class PlayerManager : MonoBehaviour
         efMan = EffectManager.Instance;
         uMan = UIManager.Instance;
         auMan = AudioManager.Instance;
-        PlayerDeckList = new List<Card>();
+        playerDeckList = new List<Card>();
         CurrentPlayerDeck = new List<Card>();
         heroAugments = new List<HeroAugment>();
     }
@@ -110,7 +118,7 @@ public class PlayerManager : MonoBehaviour
     public void AddAugment(HeroAugment augment)
     {
         heroAugments.Add(augment);
-        uMan.CreateAugmentIcon(augment); // TESTING
+        uMan.CreateAugmentIcon(augment);
     }
 
     public bool GetAugment(string augmentName)

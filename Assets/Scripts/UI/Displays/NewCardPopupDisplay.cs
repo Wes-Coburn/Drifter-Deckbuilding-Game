@@ -27,7 +27,6 @@ public class NewCardPopupDisplay : MonoBehaviour
 
     public Card[] ChooseCards
     {
-        get => chooseCards;
         set
         {
             chooseCards = value;

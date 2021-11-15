@@ -18,6 +18,7 @@ public class DialogueManager : MonoBehaviour
 
     private GameManager gMan;
     private PlayerManager pMan;
+    private UIManager uMan;
     private DialogueClip currentDialogueClip;
     private DialogueSceneDisplay dialogueDisplay;
     private string currentTypedText;
@@ -32,6 +33,7 @@ public class DialogueManager : MonoBehaviour
     {
         gMan = GameManager.Instance;
         pMan = PlayerManager.Instance;
+        uMan = UIManager.Instance;
         newEngagedHero = false;
     }
 
@@ -235,7 +237,7 @@ public class DialogueManager : MonoBehaviour
                     gMan.GetActiveLocation(newLoc.Location, newLoc.NewNpc);
             }
         }
-
+        
         EngagedHero.NextDialogueClip = nextClip;
         EngagedHero.RespectScore += dResponse.Response_Respect;
 
@@ -254,7 +256,13 @@ public class DialogueManager : MonoBehaviour
         // Recruitment
         if (dResponse.Response_IsRecruitmentStart)
         {
-            UIManager.Instance.CreateCardPagePopup(false, CardManager.Instance.PlayerRecruitUnits);
+            uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.RecruitUnit);
+            return;
+        }
+        // Cloning
+        if (dResponse.Response_IsCloningStart)
+        {
+            uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.CloneUnit);
             return;
         }
         // Exit
@@ -272,7 +280,7 @@ public class DialogueManager : MonoBehaviour
                 newEngagedHero = true;
             }
             // New Card
-            if (nextPrompt.NewCard != null) UIManager.Instance.CreateNewCardPopup(nextPrompt.NewCard); // TESTING
+            if (nextPrompt.NewCard != null) UIManager.Instance.CreateNewCardPopup(nextPrompt.NewCard);
             else if (nextPrompt.AetherCells > 0)
             {
                 int newAether = nextPrompt.AetherCells;

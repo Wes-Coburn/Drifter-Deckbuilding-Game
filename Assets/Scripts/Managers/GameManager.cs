@@ -71,9 +71,10 @@ public class GameManager : MonoBehaviour
 
     // Aether Costs
     public const int LEARN_SKILL_COST = 2;
-    public const int RECRUIT_UNIT_COST = 2; // TESTING
+    public const int RECRUIT_UNIT_COST = 2;
     public const int ACQUIRE_AUGMENT_COST = 4;
     public const int REMOVE_CARD_COST = 1;
+    public const int CLONE_UNIT_COST = 2;
 
     // Enemy
     public const string ENEMY = "Enemy";

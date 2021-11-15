@@ -154,7 +154,7 @@ public class HomeBaseSceneDisplay : MonoBehaviour
     public void LearnSkillButton_OnClick()
     {
         CloseAugmentsButton_OnClick();
-        uMan.CreateCardPagePopup(false);
+        uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.LearnSkill);
     }
 
     public void AcquireAugmentButton_OnClick()
@@ -201,7 +201,7 @@ public class HomeBaseSceneDisplay : MonoBehaviour
     public void RemoveCardButton_OnClick()
     {
         CloseAugmentsButton_OnClick();
-        uMan.CreateCardPagePopup(true);
+        uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.RemoveCard);
     }
 
     public void BackButton_OnClick() => 

@@ -11,6 +11,8 @@ public class ContinueGameButton : MonoBehaviour
 
     public void OnClick()
     {
+        if (SceneLoader.SceneIsLoading) return; // TESTING
+
         if (GameManager.Instance.LoadGame())
         {
             GetComponent<SoundPlayer>().PlaySound(0);

@@ -1,13 +1,13 @@
 using UnityEngine;
 using TMPro;
 
-public class LearnSkillPopupDisplay : MonoBehaviour
+public class CloneUnitPopupDisplay : MonoBehaviour
 {
     [SerializeField] private GameObject popupText;
 
     private UIManager uMan;
     private PlayerManager pMan;
-    private SkillCard skillCard;
+    private UnitCard unitCard;
 
     private string PopupText
     {
@@ -23,14 +23,14 @@ public class LearnSkillPopupDisplay : MonoBehaviour
         pMan = PlayerManager.Instance;
     }
 
-    public SkillCard SkillCard
+    public UnitCard UnitCard
     {
         set
         {
             int aether = pMan.AetherCells;
-            skillCard = value;
-            string text = "Learn " + skillCard.CardName +
-                " for " + GameManager.LEARN_SKILL_COST +
+            unitCard = value;
+            string text = "Clone " + unitCard.CardName +
+                " for " + GameManager.CLONE_UNIT_COST +
                 " aether? (You have " + aether + " aether)";
             PopupText = text;
         }
@@ -38,12 +38,12 @@ public class LearnSkillPopupDisplay : MonoBehaviour
 
     public void ConfirmButton_OnClick()
     {
-        CardManager.Instance.AddCard(skillCard, GameManager.PLAYER);
-        pMan.AetherCells -= GameManager.LEARN_SKILL_COST;
+        CardManager.Instance.AddCard(unitCard, GameManager.PLAYER);
+        pMan.AetherCells -= GameManager.CLONE_UNIT_COST;
         CancelButton_OnClick();
         uMan.DestroyCardPagePopup();
     }
 
     public void CancelButton_OnClick() => 
-        uMan.DestroyLearnSkillPopup();
+        uMan.DestroyCloneUnitPopup();
 }

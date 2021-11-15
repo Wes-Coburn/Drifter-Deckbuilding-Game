@@ -8,6 +8,7 @@ public class CardPageDisplay : MonoBehaviour
     [SerializeField] private GameObject learnSkillButtonPrefab;
     [SerializeField] private GameObject recruitUnitButtonPrefab;
     [SerializeField] private GameObject removeCardButtonPrefab;
+    [SerializeField] private GameObject cloneUnitButtonPrefab;
     [SerializeField] private GameObject pageCounter;
     [SerializeField] private GameObject cardGroup;
     [SerializeField] private GameObject costGroup;
@@ -18,8 +19,7 @@ public class CardPageDisplay : MonoBehaviour
     private UIManager uMan;
     private List<Card> cardGroupList;
     private List<GameObject> activeCards;
-    private bool isCardRemoval;
-    private bool isRecruitment;
+    private CardPageType cardPageType;
     private int currentPage;
     private int totalPages;
 
@@ -31,44 +31,50 @@ public class CardPageDisplay : MonoBehaviour
         }
     }
 
-    public void DisplayCardPage(bool isCardRemoval, List<UnitCard> recruits = null)
+    public enum CardPageType
+    {
+        LearnSkill,
+        RemoveCard,
+        RecruitUnit,
+        CloneUnit,
+    }
+
+    public void DisplayCardPage(CardPageType cardPageType)
     {
         pMan = PlayerManager.Instance;
         uMan = UIManager.Instance;
-        this.isCardRemoval = isCardRemoval;
-        isRecruitment = false;
+        this.cardPageType = cardPageType;
         cardGroupList = new List<Card>();
         string titleText;
 
-        if (recruits != null) // TESTING
+        switch (cardPageType)
         {
-            isRecruitment = true;
-            titleText = "Recruit a Unit";
-            foreach (Card c in recruits)
-                cardGroupList.Add(c);
-        }
-        else if (isCardRemoval)
-        {
-            titleText = "Remove a Card";
+            case CardPageType.LearnSkill:
+                titleText = "Learn a Skill";
+                foreach (Card c in pMan.PlayerHero.HeroMoreSkills)
+                    cardGroupList.Add(c);
+                break;
+            case CardPageType.RemoveCard:
+                titleText = "Remove a Card";
             foreach (Card c in pMan.PlayerDeckList)
                 cardGroupList.Add(c);
+                break;
+            case CardPageType.RecruitUnit:
+                titleText = "Recruit a Unit";
+                foreach (Card c in CardManager.Instance.PlayerRecruitUnits)
+                    cardGroupList.Add(c);
+                break;
+            case CardPageType.CloneUnit: // TESTING
+                titleText = "Clone a Unit";
+                foreach (Card c in pMan.PlayerDeckList)
+                    if (c is UnitCard)
+                        cardGroupList.Add(c);
+                break;
+            default:
+                Debug.LogError("INVALID TYPE!");
+                return;
         }
-        else
-        {
-            titleText = "Learn a Skill";
-            foreach (Card c in pMan.PlayerHero.HeroMoreSkills) 
-                cardGroupList.Add(c);
 
-            List<SkillCard> redundancies = new List<SkillCard>();
-            foreach (SkillCard skill in cardGroupList)
-            {
-                if (pMan.PlayerDeckList.FindIndex
-                    (x => x.CardName == skill.CardName) != -1)
-                    redundancies.Add(skill);
-            }
-            foreach (SkillCard rSkill in redundancies)
-                cardGroupList.Remove(rSkill);
-        }
         pageTitle.GetComponent<TextMeshProUGUI>().SetText(titleText);
         activeCards = new List<GameObject>();
         currentPage = 1;
@@ -108,16 +114,47 @@ public class CardPageDisplay : MonoBehaviour
 
             activeCards.Add(cardObj);
             GameObject buttonPrefab;
-            if (isRecruitment) buttonPrefab = recruitUnitButtonPrefab;
-            else if (isCardRemoval) buttonPrefab = removeCardButtonPrefab;
-            else buttonPrefab = learnSkillButtonPrefab;
+
+            switch(cardPageType)
+            {
+                case CardPageType.LearnSkill:
+                    buttonPrefab = learnSkillButtonPrefab;
+                    break;
+                case CardPageType.RemoveCard:
+                    buttonPrefab = removeCardButtonPrefab;
+                    break;
+                case CardPageType.RecruitUnit:
+                    buttonPrefab = recruitUnitButtonPrefab;
+                    break;
+                case CardPageType.CloneUnit:
+                    buttonPrefab = cloneUnitButtonPrefab;
+                    break;
+                default:
+                    Debug.LogError("INVALID TYPE!");
+                    return;
+            }
+
             GameObject button = Instantiate(buttonPrefab, costGroup.transform);
             button.transform.localScale = new Vector2(1.5f, 1.5f);
 
-            if (isRecruitment) 
-                button.GetComponent<RecruitUnitButton>().UnitCard = card as UnitCard;
-            else if (isCardRemoval) button.GetComponent<RemoveCardButton>().Card = card;
-            else button.GetComponent<LearnSkillButton>().SkillCard = card as SkillCard;
+            switch (cardPageType)
+            {
+                case CardPageType.LearnSkill:
+                    button.GetComponent<LearnSkillButton>().SkillCard = card as SkillCard;
+                    break;
+                case CardPageType.RemoveCard:
+                    button.GetComponent<RemoveCardButton>().Card = card;
+                    break;
+                case CardPageType.RecruitUnit:
+                    button.GetComponent<RecruitUnitButton>().UnitCard = card as UnitCard;
+                    break;
+                case CardPageType.CloneUnit:
+                    button.GetComponent<CloneUnitButton>().UnitCard = card as UnitCard;
+                    break;
+                default:
+                    Debug.LogError("INVALID TYPE!");
+                    return;
+            }
             activeCards.Add(button);
         }
     }
@@ -159,10 +196,17 @@ public class CardPageDisplay : MonoBehaviour
         else uMan.CreateRemoveCardPopup(card);
     }
 
+    public void CloneUnitButton_OnClick(UnitCard unitCard)
+    {
+        if (pMan.AetherCells < GameManager.CLONE_UNIT_COST)
+            uMan.InsufficientAetherPopup();
+        else uMan.CreateCloneUnitPopup(unitCard);
+    }
+
     public void CloseCardPageButton_OnClick()
     {
         if (SceneLoader.IsActiveScene(SceneLoader.Scene.DialogueScene))
-            DialogueManager.Instance.DisplayDialoguePopup(); // TESTING
+            DialogueManager.Instance.DisplayDialoguePopup();
 
         uMan.DestroyRemoveCardPopup();
         uMan.DestroyLearnSkillPopup();

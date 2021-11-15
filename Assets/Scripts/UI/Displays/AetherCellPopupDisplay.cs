@@ -35,7 +35,7 @@ public class AetherCellPopupDisplay : MonoBehaviour
     {
         // play sound
         UIManager.Instance.DestroyAetherCellPopup();
-        if (!SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene)) dMan.DisplayDialoguePopup(); // TESTING
+        if (!SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene)) dMan.DisplayDialoguePopup();
         else if (dMan.EngagedHero.NextDialogueClip is CombatRewardClip crc)
         {
             dMan.EngagedHero.NextDialogueClip = crc.NextDialogueClip;
