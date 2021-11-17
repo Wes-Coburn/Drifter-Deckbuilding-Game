@@ -25,13 +25,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject skyBar;
     [SerializeField] private GameObject aetherCount;
     [SerializeField] private GameObject augmentBar;
+    [SerializeField] private GameObject itemBar;
 
     [Header("SCENE FADER")]
     [SerializeField] private GameObject sceneFader;
 
     [Header("PREFABS")]
-    [SerializeField] private GameObject augmentIconPrefab;
-    [SerializeField] private GameObject augmentIconPopupPrefab;
     [SerializeField] private GameObject screenDimmerPrefab;
     [SerializeField] private GameObject infoPopupPrefab;
     [SerializeField] private GameObject combatEndPopupPrefab;
@@ -49,6 +48,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject cloneUnitPopupPrefab;
     [SerializeField] private GameObject acquireAugmentPopupPrefab;
     [SerializeField] private GameObject locationPopupPrefab;
+    [SerializeField] private GameObject augmentIconPrefab;
+    [SerializeField] private GameObject augmentIconPopupPrefab;
+    [SerializeField] private GameObject itemIconPrefab;
+    [SerializeField] private GameObject itemIconPopupPrefab;
 
     [Header("COLORS")]
     [SerializeField] private Color highlightedColor;
@@ -57,7 +60,6 @@ public class UIManager : MonoBehaviour
 
     private PlayerManager pMan;
 
-    private GameObject augmentIconPopup;
     private GameObject screenDimmer;
     private GameObject infoPopup;
     private GameObject combatEndPopup;
@@ -75,6 +77,8 @@ public class UIManager : MonoBehaviour
     private GameObject acquireAugmentPopup;
     private GameObject locationPopup;
     private GameObject travelPopup;
+    private GameObject augmentIconPopup;
+    private GameObject itemIconPopup;
 
     private GameObject endTurnButton;
     private GameObject cancelEffectButton;
@@ -84,6 +88,7 @@ public class UIManager : MonoBehaviour
     public GameObject NewCardPopup { get => newCardPopup; }
     public GameObject ChooseCardPopup { get => chooseCardPopup; }
     public GameObject CardPagePopup { get => cardPagePopup; }
+    public GameObject ConfirmUseItemPopup { get; set; } // TESTING
     public GameObject EndTurnButton { get => endTurnButton; }
 
     // PLAYER_IS_TARGETTING
@@ -660,9 +665,12 @@ public class UIManager : MonoBehaviour
         if (enabled)
         {
             ClearAugmentBar();
+            ClearItemBar();
             SetAetherCount(pMan.AetherCells);
             foreach (HeroAugment ha in pMan.HeroAugments) 
                 CreateAugmentIcon(ha);
+            foreach (HeroItem hi in pMan.HeroItems) // TESTING
+                CreateItemIcon(hi);
         }
     }
     public void SetAetherCount(int count)
@@ -677,11 +685,24 @@ public class UIManager : MonoBehaviour
         GameObject augmentIcon = Instantiate(augmentIconPrefab, augmentBar.transform);
         augmentIcon.GetComponent<AugmentIcon>().LoadedAugment = augment;
     }
+    public void CreateItemIcon(HeroItem item)
+    {
+        if (!skyBar.activeSelf) return;
+        GameObject itemIcon = Instantiate(itemIconPrefab, itemBar.transform);
+        itemIcon.GetComponent<ItemIcon>().LoadedItem = item;
+    }
     public void ClearAugmentBar()
     {
         if (!skyBar.activeSelf) return;
         foreach (Transform tran in augmentBar.transform) 
             Destroy(tran.gameObject);
+    }
+    public void ClearItemBar()
+    {
+        if (!skyBar.activeSelf) return;
+        foreach (Transform tran in itemBar.transform)
+            Destroy(tran.gameObject);
+
     }
     public void CreateAugmentIconPopup(HeroAugment augment, GameObject sourceIcon)
     {
@@ -697,6 +718,29 @@ public class UIManager : MonoBehaviour
         {
             Destroy(augmentIconPopup);
             augmentIconPopup = null;
+        }
+    }
+    public void CreateItemIconPopup(HeroItem item, GameObject sourceIcon, bool isUseItemConfirm = false)
+    {
+        DestroyItemIconPopup();
+        itemIconPopup = Instantiate(itemIconPopupPrefab, CurrentCanvas.transform);
+        float xPos = sourceIcon.transform.localPosition.x;
+        itemIconPopup.transform.localPosition = new Vector2(xPos + 300, 320);
+        ItemIconPopupDisplay iipd = itemIconPopup.GetComponent<ItemIconPopupDisplay>();
+        iipd.LoadedItem = item;
+        iipd.SourceIcon = sourceIcon; // TESTING
+        iipd.Buttons.SetActive(isUseItemConfirm); // TESTING
+        if (isUseItemConfirm) ConfirmUseItemPopup = itemIconPopup; // TESTING
+    }
+    public void DestroyItemIconPopup()
+    {
+        if (itemIconPopup != null)
+        {
+            Destroy(itemIconPopup);
+            itemIconPopup = null;
+
+            if (ConfirmUseItemPopup != null)
+                ConfirmUseItemPopup = null;
         }
     }
 }

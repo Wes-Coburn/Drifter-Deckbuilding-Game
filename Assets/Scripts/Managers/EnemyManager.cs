@@ -118,8 +118,8 @@ public class EnemyManager : MonoBehaviour
                 if (!ucd.IsExhausted && ucd.CurrentPower > 0 && ucd.CurrentHealth > 0)
                     evMan.NewDelayedAction(() => ResolveAttack(enemyUnit), 1);
             }
-            evMan.NewDelayedAction(() => UpdateReinforcements(), 0);
 
+            evMan.NewDelayedAction(() => UpdateReinforcements(), 0);
             evMan.NewDelayedAction(() => 
             GameManager.Instance.EndCombatTurn(GameManager.ENEMY), 2);
         }
@@ -128,7 +128,7 @@ public class EnemyManager : MonoBehaviour
         {
             if (enemyUnit == null)
             {
-                Debug.LogError("ENEMY UNIT IS NULL!");
+                Debug.LogWarning("ENEMY UNIT IS NULL!");
                 return;
             }
             if (!coMan.EnemyZoneCards.Contains(enemyUnit))

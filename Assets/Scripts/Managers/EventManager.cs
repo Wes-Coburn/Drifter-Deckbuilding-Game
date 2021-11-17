@@ -45,7 +45,7 @@ public class EventManager : MonoBehaviour
         DelayedAction da = new DelayedAction
         {
             Action = action,
-            Delay = delay
+            Delay = delay,
         };
 
         if (resolveNext)
@@ -61,11 +61,10 @@ public class EventManager : MonoBehaviour
 
     private void NextDelayedAction()
     {
-        if (isPaused) return;
         if (DelayedAction.CurrentAction < delayedActions.Count)
         {
-            Debug.Log("ACTION # " + 
-                (DelayedAction.CurrentAction + 1) + " / " + delayedActions.Count);
+            //Debug.Log("ACTION # " + (DelayedAction.CurrentAction + 1) + " / " + delayedActions.Count);
+            if (isPaused) return;
             currentActionRoutine = StartCoroutine(ActionNumerator());
         }
         else ClearDelayedActions();

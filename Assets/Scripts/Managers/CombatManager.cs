@@ -779,8 +779,9 @@ public class CombatManager : MonoBehaviour
         string cardTag = card.tag;
         if (isDelayed)
         {
+            FunctionTimer.Create(() => DestroyFX(), 0.5f); // TESTING
             evMan.NewDelayedAction(() => Destroy(), 1, true);
-            evMan.NewDelayedAction(() => DestroyFX(), 0, true); // TESTING
+            //evMan.NewDelayedAction(() => DestroyFX(), 0, true);
 
             if (HasDestroyTriggers())
                 evMan.NewDelayedAction(() =>

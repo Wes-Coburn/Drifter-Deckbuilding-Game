@@ -90,12 +90,13 @@ public static class SceneLoader
             {
                 case Scene.TitleScene:
                     showSkybar = false;
-                    auMan.StartStopSound("Soundtrack_TitleScene", null, 
-                        AudioManager.SoundType.Soundtrack);
+                    gMan.StartTitleScene();
                     break;
                 case Scene.HeroSelectScene:
                     showSkybar = false;
-                    UnityEngine.Object.FindObjectOfType<HeroSelectSceneDisplay>().DisplaySelectedHero();
+                    UnityEngine.Object.FindObjectOfType
+                    <HeroSelectSceneDisplay>().DisplaySelectedHero();
+                    auMan.StopCurrentSoundscape(); // TESTING
                     break;
                 case Scene.NarrativeScene:
                     showSkybar = false;
@@ -107,6 +108,7 @@ public static class SceneLoader
                     break;
                 case Scene.HomeBaseScene:
                     Debug.LogWarning("BLANK!");
+                    auMan.StopCurrentSoundscape(); // TESTING
                     break;
                 case Scene.DialogueScene:
                     dMan.StartDialogue();

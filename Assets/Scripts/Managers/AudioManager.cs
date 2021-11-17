@@ -29,9 +29,6 @@ public class AudioManager : MonoBehaviour
         Soundtrack
     }
 
-    private void Start() =>
-        StartStopSound("Soundtrack_TitleScene", null, SoundType.Soundtrack);
-
     private Sound AddSoundSource(Sound sound)
     {
         Sound newSound = new Sound
@@ -52,6 +49,15 @@ public class AudioManager : MonoBehaviour
         foreach (Sound s in activeSounds) if (s.source == null) noSource.Add(s);
         Debug.LogWarning("CLEANING <" + noSource.Count + "> SOUNDS!");
         foreach (Sound s in noSource) activeSounds.Remove(s);
+    }
+
+    public void StopCurrentSoundscape()
+    {
+        if (CurrentSoundscape != null)
+        {
+            CurrentSoundscape.source.Stop();
+            CurrentSoundscape = null;
+        }
     }
 
     public void StartStopSound(string sName, Sound sound = null, 
@@ -87,14 +93,26 @@ public class AudioManager : MonoBehaviour
                 // blank
                 break;
             case SoundType.Soundscape:
-                if (CurrentSoundscape == currentSound) return;
-                if (CurrentSoundscape != null) CurrentSoundscape.source.Stop();
+                if (CurrentSoundscape != null)
+                {
+                    if (CurrentSoundscape.source.clip == currentSound.source.clip) return;
+                    CurrentSoundscape.source.Stop();
+                }
+
                 CurrentSoundscape = currentSound;
                 CurrentSoundscape.source.loop = true;
                 break;
             case SoundType.Soundtrack:
-                if (CurrentSoundtrack == currentSound) return;
-                if (CurrentSoundtrack != null) CurrentSoundtrack.source.Stop();
+                if (CurrentSoundtrack != null)
+                {
+                    if (CurrentSoundtrack.source.clip == currentSound.source.clip)
+                    {
+                        Debug.LogWarning("SAME CLIP!");
+                        return;
+                    }
+                    CurrentSoundtrack.source.Stop();
+                }
+
                 CurrentSoundtrack = currentSound;
                 CurrentSoundtrack.source.loop = true;
                 break;

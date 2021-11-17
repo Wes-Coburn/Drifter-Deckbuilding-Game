@@ -13,31 +13,38 @@ MonoBehaviour:
   m_Name: IronClanEnforcer_Prompt_17
   m_EditorClassIdentifier: 
   developerNotes: 
-  journalNotes: []
   dialoguePromptText: "You won\u2019t regret this, Drifter."
   dialogueResponse1:
     responseText: 
     response_Respect: 0
     response_NextClip: {fileID: 0}
-    response_IsExit: 0
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
   dialogueResponse2:
     responseText: (Continue)
     response_Respect: 0
     response_NextClip: {fileID: 11400000}
-    response_IsExit: 0
     response_IsCombatStart: 0
     response_IsWorldMapStart: 1
+    response_IsRecruitmentStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
   dialogueResponse3:
     responseText: 
     response_Respect: 0
     response_NextClip: {fileID: 0}
-    response_IsExit: 0
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
   newEngagedHero: {fileID: 0}
   hideNPC: 0
   newCard: {fileID: 11400000, guid: 7feaf3352a0b8f64eaf3e4055a84251f, type: 2}
   aetherCells: 0
-  newLocations: []
+  newLocations:
+  - Location: {fileID: 11400000, guid: 1c5565b09bdda464095b38fd3b022812, type: 2}
+    NewNpc: {fileID: 0}

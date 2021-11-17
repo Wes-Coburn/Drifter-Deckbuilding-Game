@@ -24,7 +24,7 @@ public class PlayerManager : MonoBehaviour
     private PlayerHero playerHero;
     private int aetherCells;
     private List<HeroAugment> heroAugments;
-    private List<Card> playerDeckList;
+    private List<HeroItem> heroItems;
     private int playerHealth;
     private int playerEnergyLeft;
     private bool heroPowerUsed;
@@ -39,14 +39,8 @@ public class PlayerManager : MonoBehaviour
         }
     }
     public List<HeroAugment> HeroAugments { get => heroAugments; }
-    public List<Card> PlayerDeckList
-    {
-        get
-        {
-            playerDeckList.Sort((s1, s2) => s1.CardName.CompareTo(s2.CardName));
-            return playerDeckList;
-        }
-    }
+    public List<HeroItem> HeroItems { get => heroItems; }
+    public List<Card> PlayerDeckList { get; set; }
     public List<Card> CurrentPlayerDeck { get; private set; }
     public bool IsMyTurn { get; set; }
     public int EnergyPerTurn { get; set; }
@@ -67,9 +61,10 @@ public class PlayerManager : MonoBehaviour
         set
         {
             playerHero = value;
-            playerDeckList.Clear();
+            PlayerDeckList.Clear();
             CurrentPlayerDeck.Clear();
             HeroAugments.Clear();
+            HeroItems.Clear();
             AetherCells = 0;
             if (value == null) return;
 
@@ -96,6 +91,11 @@ public class PlayerManager : MonoBehaviour
         set
         {
             playerEnergyLeft = value;
+            if (playerEnergyLeft > EnergyPerTurn)
+            {
+                Debug.LogWarning("ENERGY LEFT CANNOT BE HIGHER THAN ENERGY PER TURN!");
+                playerEnergyLeft = EnergyPerTurn;
+            }
             if (playerEnergyLeft > GameManager.MAXIMUM_ENERGY) 
                 playerEnergyLeft = GameManager.MAXIMUM_ENERGY;
             coMan.PlayerHero.GetComponent<PlayerHeroDisplay>().PlayerActions = 
@@ -110,9 +110,10 @@ public class PlayerManager : MonoBehaviour
         efMan = EffectManager.Instance;
         uMan = UIManager.Instance;
         auMan = AudioManager.Instance;
-        playerDeckList = new List<Card>();
+        PlayerDeckList = new List<Card>();
         CurrentPlayerDeck = new List<Card>();
         heroAugments = new List<HeroAugment>();
+        heroItems = new List<HeroItem>();
     }
 
     public void AddAugment(HeroAugment augment)

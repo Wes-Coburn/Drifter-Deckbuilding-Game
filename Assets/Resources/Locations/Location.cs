@@ -12,6 +12,7 @@ public class Location : ScriptableObject
     [SerializeField] private NPCHero firstNPC;
     [SerializeField] private bool isHomeBase;
     [SerializeField] private bool isRecruitment;
+    [SerializeField] private bool isCloning;
 
     public string LocationName { get => locationName; }
     public string LocationFullName { get => locationFullName; }
@@ -22,6 +23,7 @@ public class Location : ScriptableObject
     public NPCHero FirstNPC { get => firstNPC; }
     public bool IsHomeBase { get => isHomeBase; }
     public bool IsRecruitment { get => isRecruitment; }
+    public bool IsCloning { get => isCloning; }
     public NPCHero CurrentNPC { get; set; }
     
     public void LoadLocation(Location location)
@@ -34,5 +36,6 @@ public class Location : ScriptableObject
         firstNPC = location.FirstNPC;
         isHomeBase = location.IsHomeBase;
         isRecruitment = location.IsRecruitment;
+        isCloning = location.IsCloning;
     }
 }

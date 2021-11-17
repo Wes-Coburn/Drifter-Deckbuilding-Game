@@ -6,6 +6,7 @@ public class CombatTestButton : MonoBehaviour
     [SerializeField] private HeroAugment heroAugment;
     [SerializeField] private EnemyHero enemyTestHero;
     [SerializeField] private Card[] testCards;
+    [SerializeField] private HeroItem[] testItems;
 
     public void OnClick()
     {
@@ -20,6 +21,10 @@ public class CombatTestButton : MonoBehaviour
         foreach (Card c in testCards)
         {
             CardManager.Instance.AddCard(c, GameManager.PLAYER);
+        }
+        foreach (HeroItem i in testItems)
+        {
+            pMan.HeroItems.Add(i);
         }
         SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);
         GameManager.Instance.IsCombatTest = true;

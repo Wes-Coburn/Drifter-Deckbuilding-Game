@@ -19,6 +19,7 @@ public class DialogueManager : MonoBehaviour
     private GameManager gMan;
     private PlayerManager pMan;
     private UIManager uMan;
+    private AudioManager auMan;
     private DialogueClip currentDialogueClip;
     private DialogueSceneDisplay dialogueDisplay;
     private string currentTypedText;
@@ -34,6 +35,7 @@ public class DialogueManager : MonoBehaviour
         gMan = GameManager.Instance;
         pMan = PlayerManager.Instance;
         uMan = UIManager.Instance;
+        auMan = AudioManager.Instance;
         newEngagedHero = false;
     }
 
@@ -47,9 +49,10 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue()
     {
-        AudioManager.Instance.StartStopSound("Soundtrack_Dialogue1",
+        auMan.StartStopSound("Soundtrack_Dialogue1",
             null, AudioManager.SoundType.Soundtrack);
-        
+        auMan.StopCurrentSoundscape(); // TESTING
+
         currentDialogueClip = EngagedHero.NextDialogueClip;
         if (currentDialogueClip == null)
         {

@@ -55,10 +55,7 @@ public class GameManager : MonoBehaviour
 
     /* GAME_MANAGER_DATA */
     // Universal
-    public const int START_ENERGY_PER_TURN = 1;
-    public const int MAX_ENERGY_PER_TURN = 5;
-    public const int MAXIMUM_ENERGY = 5;
-    public const int MAX_HAND_SIZE = 6;
+    public const int MAX_HAND_SIZE = 8;
     public const int MAX_UNITS_PLAYED = 5;
 
     // Player
@@ -68,6 +65,9 @@ public class GameManager : MonoBehaviour
     public const int PLAYER_HAND_SIZE = 4;
     public const int PLAYER_START_FOLLOWERS = 2;
     public const int PLAYER_START_SKILLS = 2;
+    public const int START_ENERGY_PER_TURN = 1;
+    public const int MAX_ENERGY_PER_TURN = 5;
+    public const int MAXIMUM_ENERGY = 5;
 
     // Aether Costs
     public const int LEARN_SKILL_COST = 2;
@@ -78,8 +78,8 @@ public class GameManager : MonoBehaviour
 
     // Enemy
     public const string ENEMY = "Enemy";
-    //public const int ENEMY_STARTING_HEALTH = 20;
-    public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
+    public const int ENEMY_STARTING_HEALTH = 20;
+    //public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
     public const int ENEMY_HAND_SIZE = 0;
     public const int ENEMY_START_FOLLOWERS = 5;
     public const int ENEMY_START_SKILLS = 2;
@@ -102,6 +102,8 @@ public class GameManager : MonoBehaviour
         dMan = DialogueManager.Instance;
         ActiveNPCHeroes = new List<NPCHero>();
         ActiveLocations = new List<Location>();
+
+        StartTitleScene(); // TESTING
     }
 
     /******
@@ -136,6 +138,10 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < augments.Length; i++)
             augments[i] = pMan.HeroAugments[i].AugmentName;
 
+        string[] items = new string[pMan.HeroItems.Count];
+        for (int i = 0; i < items.Length; i++)
+            items[i] = pMan.HeroItems[i].ItemName;
+
         string[,] npcsAndClips = new string[ActiveNPCHeroes.Count, 2];
         for (int i = 0; i < npcsAndClips.Length/2; i++)
         {
@@ -167,7 +173,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < recruitWarriors.Length; i++)
             recruitWarriors[i] = caMan.PlayerRecruitWarriors[i].CardName;
 
-        GameData data = new GameData(HideExplicitLanguage, pMan.PlayerHero.HeroName, deckList, augments, pMan.AetherCells,
+        GameData data = new GameData(HideExplicitLanguage, pMan.PlayerHero.HeroName, deckList, augments, items, pMan.AetherCells,
             npcsAndClips, locationsNPCsObjectives, recruitMages, recruitRogues, recruitTechs, recruitWarriors);
         SaveLoad.SaveGame(data);
     }
@@ -208,6 +214,12 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < augments.Length; i++)
             allAugments.Add(augments[i]);
 
+        // ITEMS
+        HeroItem[] items = Resources.LoadAll<HeroItem>("Items");
+        List<HeroItem> allItems = new List<HeroItem>();
+        for (int i = 0; i < items.Length; i++)
+            allItems.Add(items[i]);
+
         /** LOAD DATA **/
         // HIDE EXPLICIT LANGUAGE
         HideExplicitLanguage = data.HideExplicitLanguage;
@@ -224,6 +236,11 @@ public class GameManager : MonoBehaviour
         pMan.HeroAugments.Clear();
         for (int i = 0; i < data.PlayerAugments.Length; i++)
             pMan.HeroAugments.Add(GetAugment(data.PlayerAugments[i]));
+
+        // ITEMS
+        pMan.HeroItems.Clear();
+        for (int i = 0; i < data.PlayerItems.Length; i++)
+            pMan.HeroItems.Add(GetItem(data.PlayerItems[i]));
 
         // AETHER CELLS
         pMan.AetherCells = data.AetherCells;
@@ -297,6 +314,13 @@ public class GameManager : MonoBehaviour
             else Debug.LogError("AUGMENT NOT FOUND!");
             return null;
         }
+        HeroItem GetItem(string itemName)
+        {
+            int index = allItems.FindIndex(x => x.ItemName == itemName);
+            if (index != -1) return allItems[index];
+            else Debug.LogError("ITEM NOT FOUND!");
+            return null;
+        }
 
         return true;
     }
@@ -329,10 +353,22 @@ public class GameManager : MonoBehaviour
         evMan.ClearDelayedActions();
         // UI Manager
         uMan.ClearAugmentBar();
+        uMan.ClearItemBar();
         // Corotoutines
         StopAllCoroutines(); // TESTING
         // Scene Loader
         SceneLoader.LoadScene(SceneLoader.Scene.TitleScene);
+    }
+
+    /******
+     * *****
+     * ****** START_TITLE_SCENE
+     * *****
+     *****/
+    public void StartTitleScene()
+    {
+        auMan.StartStopSound("Soundtrack_TitleScene", null, AudioManager.SoundType.Soundtrack);
+        auMan.StartStopSound("Soundscape_TitleScene", null, AudioManager.SoundType.Soundscape);
     }
 
     /******
@@ -342,7 +378,8 @@ public class GameManager : MonoBehaviour
      *****/
     public void EnterWorldMap()
     {
-        Debug.Log("ENTER WORLD MAP!");
+        auMan.StartStopSound("Soundtrack_WorldMapScene", null, AudioManager.SoundType.Soundtrack);
+        auMan.StartStopSound("Soundscape_WorldMapScene", null, AudioManager.SoundType.Soundscape);
         foreach (Location loc in ActiveLocations)
         {
             GameObject location = Instantiate(locationIconPrefab,
@@ -354,7 +391,7 @@ public class GameManager : MonoBehaviour
             if (loc.IsHomeBase) icon.SetHomeBaseImage();
         }
 
-        SaveGame(); // TESTING
+        SaveGame();
     }
 
     public void ExitWorldMap()
@@ -369,8 +406,8 @@ public class GameManager : MonoBehaviour
      *****/
     public void StartNarrative()
     {
-        auMan.StartStopSound("Soundtrack_Narrative1", null,
-            AudioManager.SoundType.Soundtrack);
+        auMan.StartStopSound("Soundtrack_Narrative1", null, AudioManager.SoundType.Soundtrack);
+        auMan.StartStopSound(null, NextNarrative.NarrativeSoundscape, AudioManager.SoundType.Soundscape); // TESTING
         NarrativeSceneDisplay nsd = FindObjectOfType<NarrativeSceneDisplay>();
         nsd.Narrative = NextNarrative;
         Debug.Log("START NARRATIVE: " + NextNarrative.ToString());
@@ -398,6 +435,7 @@ public class GameManager : MonoBehaviour
     {
         auMan.StartStopSound("Soundtrack_Combat1",
             null, AudioManager.SoundType.Soundtrack);
+        auMan.StopCurrentSoundscape(); // TESTING
         auMan.StartStopSound("SFX_StartCombat");
 
         PlayerHeroDisplay pHD = coMan.PlayerHero.GetComponent<PlayerHeroDisplay>();

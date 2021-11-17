@@ -295,7 +295,10 @@ public class EffectManager : MonoBehaviour
             description = "Discard a card.";
             anMan.ShiftPlayerHand(true);
             foreach (GameObject newTarget in newDrawnCards)
-                legalTargets[currentEffectGroup].Add(newTarget);
+            {
+                if (!legalTargets[currentEffectGroup].Contains(newTarget))
+                    legalTargets[currentEffectGroup].Add(newTarget);
+            }
             newDrawnCards.Clear();
         }
         else
@@ -311,7 +314,12 @@ public class EffectManager : MonoBehaviour
                 Debug.LogError("DRAG ARROW ALREADY EXISTS!");
             }
             dragArrow = Instantiate(coMan.DragArrowPrefab, uMan.CurrentWorldSpace.transform);
-            dragArrow.GetComponent<DragArrow>().SourceCard = effectSource;
+
+            GameObject startPoint;
+            if (effectSource.TryGetComponent(out ItemIcon _)) // TESTING
+                startPoint = coMan.PlayerHero;
+            else startPoint = effectSource;
+            dragArrow.GetComponent<DragArrow>().SourceCard = startPoint;
         }
 
         uMan.CreateInfoPopup(description);
@@ -336,7 +344,6 @@ public class EffectManager : MonoBehaviour
             foreach (List<GameObject> targetList in legalTargets)
                 targetList.Remove(target);
         }
-
         foreach (GameObject target in legalTargets[currentEffectGroup])
         {
             if (target == null) continue;
@@ -527,6 +534,7 @@ public class EffectManager : MonoBehaviour
         }
         Debug.Log("ACCEPTED TARGETS: <" + acceptedTargets[currentEffectGroup].Count +
             "> // TARGET NUMBER: <" + targetNumber + ">");
+
         if (acceptedTargets[currentEffectGroup].Count == targetNumber) ConfirmTargetEffect();
         else if (acceptedTargets[currentEffectGroup].Count > targetNumber)
             Debug.LogError("Accepted Targets > Target Number!");
@@ -562,9 +570,6 @@ public class EffectManager : MonoBehaviour
         uMan.DismissInfoPopup();
         foreach (GameObject target in legalTargets[currentEffectGroup])
             uMan.SelectTarget(target, false);
-        foreach (GameObject target in acceptedTargets[currentEffectGroup])
-            uMan.SelectTarget(target, false);
-
         if (effectGroupList[currentEffectGroup].Effects[currentEffect] is DrawEffect de)
         {
             if (de.IsDiscardEffect)
@@ -584,14 +589,19 @@ public class EffectManager : MonoBehaviour
      * ****** RESOLVE_EFFECT
      * *****
      *****/
-    public void ResolveEffect(List<GameObject> targets, Effect effect)
+    public void ResolveEffect(List<GameObject> targets, Effect effect, int effectGroup = -1)
     {
         foreach (GameObject t in targets)
             if (t == null) targets.Remove(t);
         // DRAW
         if (effect is DrawEffect de)
         {
-            EffectGroup eg = effectGroupList[currentEffectGroup];
+            if (effectGroup == -1)
+            {
+                Debug.LogError("INVALID EFFECT GROUP! [-1]");
+                return;
+            }
+            EffectGroup eg = effectGroupList[effectGroup];
             if (de.IsDiscardEffect)
             {
                 string hero;
@@ -620,6 +630,7 @@ public class EffectManager : MonoBehaviour
         }
         else if (effect is ExhaustEffect ee)
         {
+            auMan.StartStopSound("SFX_Refresh");
             foreach (GameObject target in targets)
                 target.GetComponent<UnitCardDisplay>().IsExhausted = ee.SetExhausted;
         }
@@ -663,15 +674,12 @@ public class EffectManager : MonoBehaviour
         currentEffectGroup = 0;
         currentEffect = 0; // Unnecessary
 
+        float delay = 0;
         foreach (EffectGroup eg in effectGroupList)
         {
             bool isPowerChange = false;
             bool isHealthChange = false;
-
-            if (eg.EffectGroupSound2.clip != null) 
-                auMan.StartStopSound(null, eg.EffectGroupSound2);
-            else auMan.StartStopSound(eg.EffectGroupSound);
-
+            
             foreach (Effect effect in eg.Effects)
             {
                 if (effect is StatChangeEffect sce)
@@ -679,18 +687,32 @@ public class EffectManager : MonoBehaviour
                     if (sce.IsHealthChange) isHealthChange = true;
                     else isPowerChange = true;
                 }
-                ResolveEffect(acceptedTargets[currentEffectGroup], effect);
-            }
 
-            foreach (GameObject target in acceptedTargets[currentEffectGroup])
+                int group = currentEffectGroup;
+                delay += 0.5f;
+                FunctionTimer.Create(() =>
+                Resolve_Effect(group, effect, eg, isPowerChange, isHealthChange), delay); // TESTING
+            }
+            currentEffectGroup++;
+        }
+
+        FunctionTimer.Create(() => FinishEffectGroupList(false), 0.5f + delay); // TESTING
+
+        void Resolve_Effect(int group, Effect effect, EffectGroup eg,
+            bool isPowerChange, bool isHealthChange)
+        {
+            if (eg.EffectGroupSound2.clip != null)
+                auMan.StartStopSound(null, eg.EffectGroupSound2);
+            else auMan.StartStopSound(eg.EffectGroupSound);
+
+            foreach (GameObject target in acceptedTargets[group])
             {
                 if (coMan.IsUnitCard(target))
                     anMan.UnitStatChangeState(target, isPowerChange, isHealthChange);
             }
 
-            currentEffectGroup++;
+            ResolveEffect(acceptedTargets[group], effect, group);
         }
-        FinishEffectGroupList(false);
     }
 
     /******
@@ -733,23 +755,18 @@ public class EffectManager : MonoBehaviour
             pMan.HeroPowerUsed = false;
             pMan.PlayerEnergyLeft += pMan.PlayerHero.HeroPower.PowerCost;
         }
+        else if (effectSource.TryGetComponent(out ItemIcon icon)) // TESTING
+        {
+            Debug.LogWarning("ITEM EFFECT SOURCE!");
+        }
+        else
+        {
+            Debug.LogError("SOUNCE TYPE NOT FOUND!");
+            return;
+        }
 
         uMan.PlayerIsTargetting = false;
         if (isUserAbort) uMan.DismissInfoPopup();
-
-        if (legalTargets != null)
-        {
-            List<GameObject> targetList = legalTargets[currentEffectGroup];
-            foreach (GameObject target in targetList)
-                target.GetComponent<CardSelect>().CardOutline.SetActive(false);
-        }
-        else Debug.LogError("TARGET LIST IS NULL!");
-
-        if (dragArrow != null)
-        {
-            Destroy(dragArrow);
-            dragArrow = null;
-        }
         FinishEffectGroupList(true);
     }
     
@@ -781,6 +798,42 @@ public class EffectManager : MonoBehaviour
                 if (triggerName == CardManager.TRIGGER_PLAY)
                     TriggerGiveNextEffect(effectSource);
             }
+            else if (effectSource.TryGetComponent(out ItemIcon icon))
+            {
+                Debug.LogWarning("ITEM EFFECT SOURCE!");
+                pMan.HeroItems.Remove(icon.LoadedItem);
+                uMan.SetSkybar(true);
+            }
+        }
+
+        if (legalTargets != null)
+        {
+            foreach (List<GameObject> list in legalTargets)
+            {
+                foreach (GameObject target in list)
+                {
+                    if (target == null) continue;
+                    uMan.SelectTarget(target, false);
+                }
+            }
+        }
+        
+        if (acceptedTargets != null)
+        {
+            foreach (List<GameObject> list in acceptedTargets)
+            {
+                foreach (GameObject target in list)
+                {
+                    if (target == null) continue;
+                    uMan.SelectTarget(target, false);
+                }
+            }
+        }
+
+        if (dragArrow != null)
+        {
+            Destroy(dragArrow);
+            dragArrow = null;
         }
 
         newDrawnCards.Clear();

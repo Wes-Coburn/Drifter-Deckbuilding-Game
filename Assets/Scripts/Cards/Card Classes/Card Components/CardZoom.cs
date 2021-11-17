@@ -66,7 +66,8 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         if (transform.parent.gameObject == enemyHand) return;
         if (pointerEventData.button != PointerEventData.InputButton.Right)
         {
-            uMan.CreateFleetingInfoPopup("Right click on a card for more information!", true);
+            if (!uMan.PlayerIsTargetting)
+                uMan.CreateFleetingInfoPopup("Right click on a card for more information!", true);
             return;
         }
         uMan.DestroyZoomObjects();
@@ -102,9 +103,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
 
         void ShowZoomCard(GameObject parent)
         {
-            if (gameObject == null) return; // If Unit has been destroyed
             RectTransform rect;
-
             if (parent != null)
             {
                 if (parent == playerHand)
@@ -353,6 +352,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     public void DestroyZoomPopups()
     {
         if (ZoomCardIsCentered) return;
+        FunctionTimer.StopTimer(ZOOM_CARD_TIMER);
         foreach (GameObject go in zoomPopups)
             DestroyObject(go);
 

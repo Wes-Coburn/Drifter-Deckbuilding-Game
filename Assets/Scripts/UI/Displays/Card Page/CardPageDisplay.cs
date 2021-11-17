@@ -80,6 +80,7 @@ public class CardPageDisplay : MonoBehaviour
         currentPage = 1;
         if (cardGroupList.Count > 0)
         {
+            cardGroupList.Sort((s1, s2) => s1.StartEnergyCost - s2.StartEnergyCost); // TESTING
             noCardsTooltip.SetActive(false);
             double result = cardGroupList.Count / 4.0;
             totalPages = (int)Math.Ceiling(result);

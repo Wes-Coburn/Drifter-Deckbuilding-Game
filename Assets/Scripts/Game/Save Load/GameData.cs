@@ -5,6 +5,7 @@ public class GameData
     public string PlayerHero;
     public string[] PlayerDeck;
     public string[] PlayerAugments;
+    public string[] PlayerItems;
     public int AetherCells;
     public string[,] NPCSAndClips;
     public string[,] LocationsNPCsObjectives;
@@ -13,13 +14,15 @@ public class GameData
     public string[] RecruitTechs;
     public string[] RecruitWarriors;
 
-    public GameData (bool hideExplicitLanguage, string playerHero, string[] deckList, string[] augments, int aetherCells, string[,] npcsAndClips, string[,] locationsNPCsObjectives,
+    public GameData (bool hideExplicitLanguage, string playerHero, string[] deckList, string[] augments, string[] items,
+        int aetherCells, string[,] npcsAndClips, string[,] locationsNPCsObjectives,
         string[] recruitMages, string[] recruitRogues, string[] recruitTechs, string[] recruitWarriors)
     {
         HideExplicitLanguage = hideExplicitLanguage;
         PlayerHero = playerHero;
         PlayerDeck = (string[])deckList.Clone();
         PlayerAugments = (string[])augments.Clone();
+        PlayerItems = (string[])items.Clone();
         AetherCells = aetherCells;
         NPCSAndClips = (string[,])npcsAndClips.Clone();
         LocationsNPCsObjectives = (string[,])locationsNPCsObjectives.Clone();
