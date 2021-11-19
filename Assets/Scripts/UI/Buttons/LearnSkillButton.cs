@@ -12,10 +12,7 @@ public class LearnSkillButton : MonoBehaviour
         }
     }
     public SkillCard SkillCard { get; set; }
-    private void Awake()
-    {
-        LearnCost = GameManager.LEARN_SKILL_COST;
-    }
+    private void Awake() => LearnCost = GameManager.LEARN_SKILL_COST;
     public void OnClick() => 
         FindObjectOfType<CardPageDisplay>().LearnSkillButton_OnClick(SkillCard);
 }

@@ -16,10 +16,7 @@ public class AcquireAugmentPopupDisplay : MonoBehaviour
         }
     }
     
-    private void Awake()
-    {
-        pMan = PlayerManager.Instance;
-    }
+    private void Awake() => pMan = PlayerManager.Instance;
 
     public HeroAugment HeroAugment
     {

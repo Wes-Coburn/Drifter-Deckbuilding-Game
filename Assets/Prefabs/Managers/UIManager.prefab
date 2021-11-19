@@ -607,6 +607,8 @@ MonoBehaviour:
     type: 3}
   infoPopupPrefab: {fileID: 268856669738850229, guid: 731785fa233c48c448fcc1fe809c4ec1,
     type: 3}
+  infoPopup_SecondaryPrefab: {fileID: 268856669738850229, guid: ad91aa8e6309d804ea8dc896aec9f7e6,
+    type: 3}
   combatEndPopupPrefab: {fileID: 8907915894081644005, guid: c23ee06f0103c5c4386f7362d380b574,
     type: 3}
   turnPopupPrefab: {fileID: 4849220570171292864, guid: 99743549cd6e15140a5f56e6916d84ca,
@@ -640,6 +642,10 @@ MonoBehaviour:
   augmentIconPrefab: {fileID: 8816291806828510727, guid: e66e324b1ea5d0341b70389f60feb615,
     type: 3}
   augmentIconPopupPrefab: {fileID: 7974326479095590452, guid: a6d0ea0d0a1c87446bde46f9945fabb3,
+    type: 3}
+  itemPagePopupPrefab: {fileID: 6981254644569695306, guid: f8b6b7aa2f66d674392cbd92e3370caa,
+    type: 3}
+  buyItemPopupPrefab: {fileID: 7847311376239260079, guid: 94ffd09ea3c62b6419a07652c4f35f93,
     type: 3}
   itemIconPrefab: {fileID: 8816291806828510727, guid: f5afa16582ee5b34f89fc1a3be228032,
     type: 3}
@@ -935,8 +941,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -300, y: 0}
-  m_SizeDelta: {x: 500, y: 75}
+  m_AnchoredPosition: {x: -500, y: 0}
+  m_SizeDelta: {x: 450, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5711345492693157030
 MonoBehaviour:
@@ -995,8 +1001,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 300, y: 0}
-  m_SizeDelta: {x: 500, y: 75}
+  m_AnchoredPosition: {x: -50, y: 0}
+  m_SizeDelta: {x: 450, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1462284167483892340
 MonoBehaviour:

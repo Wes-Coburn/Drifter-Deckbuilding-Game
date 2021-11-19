@@ -1,13 +1,13 @@
 using UnityEngine;
 using TMPro;
 
-public class LearnSkillPopupDisplay : MonoBehaviour
+public class RecruitUnitPopupDisplay : MonoBehaviour
 {
     [SerializeField] private GameObject popupText;
 
     private UIManager uMan;
     private PlayerManager pMan;
-    private SkillCard skillCard;
+    private UnitCard unitCard;
 
     private string PopupText
     {
@@ -23,13 +23,13 @@ public class LearnSkillPopupDisplay : MonoBehaviour
         pMan = PlayerManager.Instance;
     }
 
-    public SkillCard SkillCard
+    public UnitCard UnitCard
     {
         set
         {
             int aether = pMan.AetherCells;
-            skillCard = value;
-            string text = "Learn " + skillCard.CardName +
+            unitCard = value;
+            string text = "Recruit " + unitCard.CardName +
                 " for " + GameManager.LEARN_SKILL_COST +
                 " aether? (You have " + aether + " aether)";
             PopupText = text;
@@ -38,12 +38,12 @@ public class LearnSkillPopupDisplay : MonoBehaviour
 
     public void ConfirmButton_OnClick()
     {
-        CardManager.Instance.AddCard(skillCard, GameManager.PLAYER);
-        pMan.AetherCells -= GameManager.LEARN_SKILL_COST;
+        CardManager.Instance.AddCard(unitCard, GameManager.PLAYER);
+        pMan.AetherCells -= GameManager.RECRUIT_UNIT_COST;
         CancelButton_OnClick();
-        uMan.DestroyCardPagePopup();
+        uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.RecruitUnit);
     }
 
-    public void CancelButton_OnClick() => 
-        uMan.DestroyLearnSkillPopup();
+    public void CancelButton_OnClick() =>
+        uMan.DestroyRecruitUnitPopup();
 }

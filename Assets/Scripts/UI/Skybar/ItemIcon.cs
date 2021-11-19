@@ -25,7 +25,6 @@ public class ItemIcon : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
     public void OnPointerClick(PointerEventData pointerEventData)
     {
-        //if (pointerEventData.button != PointerEventData.InputButton.Left) return;
         uMan.CreateItemIconPopup(loadedItem, gameObject, true);
         FunctionTimer.StopTimer(ITEM_POPUP_TIMER);
     }

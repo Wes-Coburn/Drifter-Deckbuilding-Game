@@ -263,6 +263,12 @@ public class DialogueManager : MonoBehaviour
             return;
         }
         // Cloning
+        if (dResponse.Response_IsShopStart)
+        {
+            uMan.CreateItemPagePopup();
+            return;
+        }
+        // Cloning
         if (dResponse.Response_IsCloningStart)
         {
             uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.CloneUnit);

@@ -41,8 +41,7 @@ public class RemoveCardPopupDisplay : MonoBehaviour
         CardManager.Instance.RemovePlayerCard(card);
         pMan.AetherCells -= GameManager.REMOVE_CARD_COST;
         CancelButton_OnClick();
-        uMan.DestroyCardPagePopup(); // Temporary fix, eventually reload the page
-        // Card removed popup
+        uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.RemoveCard);
     }
 
     public void CancelButton_OnClick() =>

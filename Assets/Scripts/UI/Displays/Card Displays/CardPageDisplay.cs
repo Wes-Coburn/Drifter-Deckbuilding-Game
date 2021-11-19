@@ -208,9 +208,6 @@ public class CardPageDisplay : MonoBehaviour
     {
         if (SceneLoader.IsActiveScene(SceneLoader.Scene.DialogueScene))
             DialogueManager.Instance.DisplayDialoguePopup();
-
-        uMan.DestroyRemoveCardPopup();
-        uMan.DestroyLearnSkillPopup();
         uMan.DestroyCardPagePopup();
     }
 }

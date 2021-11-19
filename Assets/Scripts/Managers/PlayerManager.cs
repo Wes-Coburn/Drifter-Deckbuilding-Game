@@ -66,6 +66,7 @@ public class PlayerManager : MonoBehaviour
             HeroAugments.Clear();
             HeroItems.Clear();
             AetherCells = 0;
+            AetherCells = 10; // FOR TESTING ONLY
             if (value == null) return;
 
             foreach (UnitCard uc in caMan.PlayerStartUnits)

@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
     public List<NPCHero> ActiveNPCHeroes { get; private set; }
     public List<Location> ActiveLocations { get; private set; }
     public Location CurrentLocation { get; set; }
+    public List<HeroItem> ShopItems { get; private set; }
 
     /* GAME_MANAGER_DATA */
     // Universal
@@ -74,6 +75,7 @@ public class GameManager : MonoBehaviour
     public const int RECRUIT_UNIT_COST = 2;
     public const int ACQUIRE_AUGMENT_COST = 4;
     public const int REMOVE_CARD_COST = 1;
+    public const int BUY_ITEM_COST = 2; // TESTING
     public const int CLONE_UNIT_COST = 2;
 
     // Enemy
@@ -102,7 +104,7 @@ public class GameManager : MonoBehaviour
         dMan = DialogueManager.Instance;
         ActiveNPCHeroes = new List<NPCHero>();
         ActiveLocations = new List<Location>();
-
+        ShopItems = new List<HeroItem>();
         StartTitleScene(); // TESTING
     }
 
@@ -118,6 +120,7 @@ public class GameManager : MonoBehaviour
         currentChapter = 0;
         NextNarrative = settingNarrative;
         caMan.ShuffleRecruits(); // TESTING
+        ShopItems = GetShopItems(); // TESTING
         GetActiveLocation(homeBaseLocation);
         CurrentLocation = GetActiveLocation(firstLocation);
         SceneLoader.LoadScene(SceneLoader.Scene.NarrativeScene);
@@ -157,6 +160,10 @@ public class GameManager : MonoBehaviour
             locationsNPCsObjectives[i, 2] = ActiveLocations[i].CurrentObjective;
         }
 
+        string[] shopItems = new string[ShopItems.Count];
+        for (int i = 0; i < shopItems.Length; i++)
+            shopItems[i] = ShopItems[i].ItemName;
+
         string[] recruitMages = new string[caMan.PlayerRecruitMages.Count];
         for (int i = 0; i < recruitMages.Length; i++)
             recruitMages[i] = caMan.PlayerRecruitMages[i].CardName;
@@ -173,8 +180,9 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < recruitWarriors.Length; i++)
             recruitWarriors[i] = caMan.PlayerRecruitWarriors[i].CardName;
 
-        GameData data = new GameData(HideExplicitLanguage, pMan.PlayerHero.HeroName, deckList, augments, items, pMan.AetherCells,
-            npcsAndClips, locationsNPCsObjectives, recruitMages, recruitRogues, recruitTechs, recruitWarriors);
+        GameData data = new GameData(HideExplicitLanguage, pMan.PlayerHero.HeroName,
+            deckList, augments, items, pMan.AetherCells, npcsAndClips, locationsNPCsObjectives,
+            shopItems, recruitMages, recruitRogues, recruitTechs, recruitWarriors);
         SaveLoad.SaveGame(data);
     }
     public bool LoadGame(bool isPrecheck = false)
@@ -262,6 +270,11 @@ public class GameManager : MonoBehaviour
             loc.CurrentObjective = data.LocationsNPCsObjectives[i, 2];
         }
 
+        // SHOP ITEMS
+        ShopItems.Clear();
+        for (int i = 0; i < data.ShopItems.Length; i++)
+            ShopItems.Add(GetItem(data.ShopItems[i]));
+
         // RECRUITS
         caMan.PlayerRecruitMages.Clear();
         for (int i = 0; i < data.RecruitMages.Length; i++)
@@ -321,7 +334,6 @@ public class GameManager : MonoBehaviour
             else Debug.LogError("ITEM NOT FOUND!");
             return null;
         }
-
         return true;
     }
 
@@ -407,7 +419,7 @@ public class GameManager : MonoBehaviour
     public void StartNarrative()
     {
         auMan.StartStopSound("Soundtrack_Narrative1", null, AudioManager.SoundType.Soundtrack);
-        auMan.StartStopSound(null, NextNarrative.NarrativeSoundscape, AudioManager.SoundType.Soundscape); // TESTING
+        auMan.StartStopSound(null, NextNarrative.NarrativeSoundscape, AudioManager.SoundType.Soundscape);
         NarrativeSceneDisplay nsd = FindObjectOfType<NarrativeSceneDisplay>();
         nsd.Narrative = NextNarrative;
         Debug.Log("START NARRATIVE: " + NextNarrative.ToString());
@@ -498,7 +510,8 @@ public class GameManager : MonoBehaviour
         if (playerWins)
         {
             auMan.StartStopSound(null, pMan.PlayerHero.HeroWin);
-            caMan.ShuffleRecruits();
+            caMan.ShuffleRecruits(); // TESTING
+            ShopItems = GetShopItems(); // TESTING
         }
         else auMan.StartStopSound
                 (null, pMan.PlayerHero.HeroLose);
@@ -641,5 +654,27 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("ACTIVE LOCATIONS: <" + ActiveLocations.Count + ">");
             return newLoc;
         }
+    }
+
+    /******
+     * *****
+     * ****** GET_SHOP_ITEMS
+     * *****
+     *****/
+    public List<HeroItem> GetShopItems()
+    {
+        HeroItem[] allItems = Resources.LoadAll<HeroItem>("Items");
+        List<HeroItem> shopItems = new List<HeroItem>();
+        int itemsFound = 0;
+        foreach (HeroItem item in allItems)
+        {
+            if (pMan.HeroItems.FindIndex(x => x.ItemName == item.ItemName) == -1)
+            {
+                shopItems.Add(item);
+                itemsFound++;
+            }
+            if (itemsFound == 3) break;
+        }
+        return shopItems;
     }
 }

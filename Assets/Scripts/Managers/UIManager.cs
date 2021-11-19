@@ -33,6 +33,7 @@ public class UIManager : MonoBehaviour
     [Header("PREFABS")]
     [SerializeField] private GameObject screenDimmerPrefab;
     [SerializeField] private GameObject infoPopupPrefab;
+    [SerializeField] private GameObject infoPopup_SecondaryPrefab;
     [SerializeField] private GameObject combatEndPopupPrefab;
     [SerializeField] private GameObject turnPopupPrefab;
     [SerializeField] private GameObject versusPopupPrefab;
@@ -50,6 +51,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject locationPopupPrefab;
     [SerializeField] private GameObject augmentIconPrefab;
     [SerializeField] private GameObject augmentIconPopupPrefab;
+    [SerializeField] private GameObject itemPagePopupPrefab;
+    [SerializeField] private GameObject buyItemPopupPrefab;
     [SerializeField] private GameObject itemIconPrefab;
     [SerializeField] private GameObject itemIconPopupPrefab;
 
@@ -62,6 +65,7 @@ public class UIManager : MonoBehaviour
 
     private GameObject screenDimmer;
     private GameObject infoPopup;
+    private GameObject infoPopup_Secondary;
     private GameObject combatEndPopup;
     private GameObject turnPopup;
     private GameObject menuPopup;
@@ -75,6 +79,8 @@ public class UIManager : MonoBehaviour
     private GameObject removeCardPopup;
     private GameObject cloneUnitPopup;
     private GameObject acquireAugmentPopup;
+    private GameObject itemPagePopup;
+    private GameObject buyItemPopup;
     private GameObject locationPopup;
     private GameObject travelPopup;
     private GameObject augmentIconPopup;
@@ -406,19 +412,26 @@ public class UIManager : MonoBehaviour
         }
     }
     // Info Popups
-    public void CreateInfoPopup(string message, bool isCentered = false)
+    public void CreateInfoPopup(string message, bool isCentered = false, bool isSecondary = false)
     {
-        DestroyInfoPopup();
+        DestroyInfoPopup(isSecondary);
         Vector2 vec2 = new Vector2(0, 0);
-        if (!isCentered) vec2.Set(680, 50);
-        infoPopup = Instantiate(infoPopupPrefab, vec2, 
-            Quaternion.identity, CurrentWorldSpace.transform);
-        infoPopup.GetComponent<InfoPopupDisplay>().DisplayInfoPopup(message);
+        if (!isCentered) vec2.Set(750, 0);    
+        if (!isSecondary)
+        {
+            infoPopup = Instantiate(infoPopupPrefab, vec2, Quaternion.identity, CurrentCanvas.transform);
+            infoPopup.GetComponent<InfoPopupDisplay>().DisplayInfoPopup(message);
+        }
+        else
+        {
+            infoPopup_Secondary = Instantiate(infoPopup_SecondaryPrefab, vec2, Quaternion.identity, CurrentCanvas.transform);
+            infoPopup_Secondary.GetComponent<InfoPopupDisplay>().DisplayInfoPopup(message);
+        }
     }
     public void CreateFleetingInfoPopup(string message, bool isCentered = false)
     {
-        CreateInfoPopup(message, isCentered);
-        AnimationManager.Instance.ChangeAnimationState(infoPopup, "Enter_Exit");
+        CreateInfoPopup(message, isCentered, true);
+        AnimationManager.Instance.ChangeAnimationState(infoPopup_Secondary, "Enter_Exit");
     }
     public void InsufficientAetherPopup()
     {
@@ -430,12 +443,23 @@ public class UIManager : MonoBehaviour
         if (infoPopup != null)
             AnimationManager.Instance.ChangeAnimationState(infoPopup, "Exit");
     }
-    public void DestroyInfoPopup()
+    public void DestroyInfoPopup(bool isSecondary = false)
     {
-        if (infoPopup != null)
+        if (!isSecondary)
         {
-            Destroy(infoPopup);
-            infoPopup = null;
+            if (infoPopup != null)
+            {
+                Destroy(infoPopup);
+                infoPopup = null;
+            }
+        }
+        else
+        {
+            if (infoPopup_Secondary != null)
+            {
+                Destroy(infoPopup_Secondary);
+                infoPopup_Secondary = null;
+            }
         }
     }
     // Turn Popup
@@ -542,6 +566,9 @@ public class UIManager : MonoBehaviour
             Destroy(cardPagePopup);
             cardPagePopup = null;
         }
+        DestroyRemoveCardPopup();
+        DestroyLearnSkillPopup();
+        DestroyCloneUnitPopup();
     }
     // Learn Skill Popup
     public void CreateLearnSkillPopup(SkillCard skillCard)
@@ -618,7 +645,36 @@ public class UIManager : MonoBehaviour
             acquireAugmentPopup = null;
         }
     }
-    
+    // Item Page Popup
+    public void CreateItemPagePopup()
+    {
+        DestroyItemPagePopup();
+        itemPagePopup = Instantiate(itemPagePopupPrefab, CurrentCanvas.transform);
+    }
+    public void DestroyItemPagePopup()
+    {
+        if (itemPagePopup != null)
+        {
+            Destroy(itemPagePopup);
+            itemPagePopup = null;
+        }
+        DestroyBuyItemPopup();
+    }
+    // Buy Item Popup
+    public void CreateBuyItemPopup(HeroItem heroItem)
+    {
+        DestroyBuyItemPopup();
+        buyItemPopup = Instantiate(buyItemPopupPrefab, CurrentCanvas.transform);
+        buyItemPopup.GetComponent<BuyItemPopupDisplay>().HeroItem = heroItem;
+    }
+    public void DestroyBuyItemPopup()
+    {
+        if (buyItemPopup != null)
+        {
+            Destroy(buyItemPopup);
+            buyItemPopup = null;
+        }
+    }
     // Location Popup
     public void CreateLocationPopup(Location location)
     {
@@ -709,7 +765,7 @@ public class UIManager : MonoBehaviour
         DestroyAugmentIconPopup();
         augmentIconPopup = Instantiate(augmentIconPopupPrefab, CurrentCanvas.transform);
         float xPos = sourceIcon.transform.localPosition.x;
-        augmentIconPopup.transform.localPosition = new Vector2(xPos - 300, 320);
+        augmentIconPopup.transform.localPosition = new Vector2(xPos - 450, 320);
         augmentIconPopup.GetComponent<AugmentIconPopupDisplay>().HeroAugment = augment;
     }
     public void DestroyAugmentIconPopup()
@@ -725,7 +781,7 @@ public class UIManager : MonoBehaviour
         DestroyItemIconPopup();
         itemIconPopup = Instantiate(itemIconPopupPrefab, CurrentCanvas.transform);
         float xPos = sourceIcon.transform.localPosition.x;
-        itemIconPopup.transform.localPosition = new Vector2(xPos + 300, 320);
+        itemIconPopup.transform.localPosition = new Vector2(xPos, 320);
         ItemIconPopupDisplay iipd = itemIconPopup.GetComponent<ItemIconPopupDisplay>();
         iipd.LoadedItem = item;
         iipd.SourceIcon = sourceIcon; // TESTING
