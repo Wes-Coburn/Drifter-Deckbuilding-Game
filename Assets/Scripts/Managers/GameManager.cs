@@ -75,13 +75,13 @@ public class GameManager : MonoBehaviour
     public const int RECRUIT_UNIT_COST = 2;
     public const int ACQUIRE_AUGMENT_COST = 4;
     public const int REMOVE_CARD_COST = 1;
-    public const int BUY_ITEM_COST = 2; // TESTING
+    public const int BUY_ITEM_COST = 1; // TESTING
     public const int CLONE_UNIT_COST = 2;
 
     // Enemy
     public const string ENEMY = "Enemy";
-    public const int ENEMY_STARTING_HEALTH = 20;
-    //public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
+    //public const int ENEMY_STARTING_HEALTH = 20;
+    public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
     public const int ENEMY_HAND_SIZE = 0;
     public const int ENEMY_START_FOLLOWERS = 5;
     public const int ENEMY_START_SKILLS = 2;
@@ -392,6 +392,8 @@ public class GameManager : MonoBehaviour
     {
         auMan.StartStopSound("Soundtrack_WorldMapScene", null, AudioManager.SoundType.Soundtrack);
         auMan.StartStopSound("Soundscape_WorldMapScene", null, AudioManager.SoundType.Soundscape);
+        auMan.StartStopSound("SFX_EnterWorldMap");
+
         foreach (Location loc in ActiveLocations)
         {
             GameObject location = Instantiate(locationIconPrefab,
@@ -406,9 +408,16 @@ public class GameManager : MonoBehaviour
         SaveGame();
     }
 
-    public void ExitWorldMap()
+    /******
+     * *****
+     * ****** START_DIALOGUE
+     * *****
+     *****/
+    public void StartDialogue()
     {
-        Debug.LogWarning("BLANK!");
+        auMan.StartStopSound(null,
+            CurrentLocation.LocationSoundscape, AudioManager.SoundType.Soundscape);
+        dMan.StartDialogue();
     }
 
     /******
@@ -418,8 +427,10 @@ public class GameManager : MonoBehaviour
      *****/
     public void StartNarrative()
     {
-        auMan.StartStopSound("Soundtrack_Narrative1", null, AudioManager.SoundType.Soundtrack);
-        auMan.StartStopSound(null, NextNarrative.NarrativeSoundscape, AudioManager.SoundType.Soundscape);
+        auMan.StartStopSound("Soundtrack_Narrative1",
+            null, AudioManager.SoundType.Soundtrack);
+        auMan.StartStopSound(null,
+            NextNarrative.NarrativeSoundscape, AudioManager.SoundType.Soundscape);
         NarrativeSceneDisplay nsd = FindObjectOfType<NarrativeSceneDisplay>();
         nsd.Narrative = NextNarrative;
         Debug.Log("START NARRATIVE: " + NextNarrative.ToString());
@@ -445,6 +456,9 @@ public class GameManager : MonoBehaviour
      *****/
     public void StartCombat()
     {
+        uMan.StartCombatScene();
+        coMan.StartCombatScene();
+
         auMan.StartStopSound("Soundtrack_Combat1",
             null, AudioManager.SoundType.Soundtrack);
         auMan.StopCurrentSoundscape(); // TESTING
@@ -494,8 +508,10 @@ public class GameManager : MonoBehaviour
 
         void CombatStart()
         {
+            int bonusCards = 0;
+            if (pMan.GetAugment("Cognitive Magnifier")) bonusCards = 1;
             caMan.ShuffleDeck(pMan.CurrentPlayerDeck);
-            for (int i = 0; i < PLAYER_HAND_SIZE; i++)
+            for (int i = 0; i < PLAYER_HAND_SIZE + bonusCards; i++)
                 evMan.NewDelayedAction(() => coMan.DrawCard(PLAYER), 0.5f);
         }
     }
@@ -637,9 +653,9 @@ public class GameManager : MonoBehaviour
         if (activeLocation != -1)
         {
             Location loc = ActiveLocations[activeLocation];
-            Debug.LogWarning("LOCATION FOUND! <" + loc.LocationFullName + ">");
+            Debug.Log("LOCATION FOUND! <" + loc.LocationFullName + ">");
             if (newNPC != null) loc.CurrentNPC = GetActiveNPC(newNPC);
-            Debug.LogWarning("ACTIVE LOCATIONS: <" + ActiveLocations.Count + ">");
+            Debug.Log("ACTIVE LOCATIONS: <" + ActiveLocations.Count + ">");
             return loc;
         }
         else
@@ -647,11 +663,11 @@ public class GameManager : MonoBehaviour
             Location newLoc = ScriptableObject.CreateInstance<Location>();
             newLoc.LoadLocation(location);
             newLoc.CurrentObjective = newLoc.FirstObjective;
-            Debug.LogWarning("NEW LOCATION CREATED! <" + newLoc.LocationFullName + ">");
+            Debug.Log("NEW LOCATION CREATED! <" + newLoc.LocationFullName + ">");
             if (newNPC != null) newLoc.CurrentNPC = GetActiveNPC(newNPC);
             else newLoc.CurrentNPC = GetActiveNPC(location.FirstNPC);
             ActiveLocations.Add(newLoc);
-            Debug.LogWarning("ACTIVE LOCATIONS: <" + ActiveLocations.Count + ">");
+            Debug.Log("ACTIVE LOCATIONS: <" + ActiveLocations.Count + ">");
             return newLoc;
         }
     }

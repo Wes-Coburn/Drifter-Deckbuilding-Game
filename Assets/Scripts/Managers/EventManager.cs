@@ -78,13 +78,10 @@ public class EventManager : MonoBehaviour
             currentActionRoutine == null) isResuming = true;
         this.isPaused = isPaused;
         if (isResuming) NextDelayedAction();
-        if (isPaused) Debug.Log("ACTIONS PAUSED!");
-        if (isResuming) Debug.Log("ACTIONS RESUMED!");
     }
 
     public void ClearDelayedActions()
     {
-        Debug.Log("ACTIONS CLEARED!");
         if (currentActionRoutine != null)
         {
             StopCoroutine(currentActionRoutine);

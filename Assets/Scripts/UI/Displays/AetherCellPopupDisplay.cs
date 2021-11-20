@@ -4,7 +4,6 @@ using TMPro;
 public class AetherCellPopupDisplay : MonoBehaviour
 {
     private DialogueManager dMan;
-    private CombatManager coMan;
 
     [SerializeField] private GameObject aetherQuantity;
     [SerializeField] private GameObject totalAether;
@@ -25,15 +24,14 @@ public class AetherCellPopupDisplay : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void Awake()
     {
         dMan = DialogueManager.Instance;
-        coMan = CombatManager.Instance;
+        GetComponent<SoundPlayer>().PlaySound(0); // TESTING
     }
 
     public void OnClick()
     {
-        // play sound
         UIManager.Instance.DestroyAetherCellPopup();
         if (!SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene)) dMan.DisplayDialoguePopup();
         else if (dMan.EngagedHero.NextDialogueClip is CombatRewardClip crc)

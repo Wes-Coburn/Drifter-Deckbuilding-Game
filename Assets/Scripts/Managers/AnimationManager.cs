@@ -82,6 +82,12 @@ public class AnimationManager : MonoBehaviour
     public void DestroyUnitCardState(GameObject card) => ChangeAnimationState(card, "Destroyed");
     public void UnitStatChangeState(GameObject card, bool isPowerChange, bool isHealthChange)
     {
+        if (!coMan.IsUnitCard(card))
+        {
+            Debug.LogError("TARGET IS NOT UNIT CARD!");
+            return;
+        }
+
         if (!isPowerChange && !isHealthChange) return;
 
         GameObject stats = card.GetComponent<UnitCardDisplay>().UnitStats;
@@ -179,7 +185,6 @@ public class AnimationManager : MonoBehaviour
     {
         float distance;
         GameObject npcPortrait = dMan.DialogueDisplay.NPCHeroPortrait;
-        npcPortrait.SetActive(true); // TESTING
         Vector2 nPortStart = npcPortrait.transform.localPosition;
         Vector2 nPortEnd = new Vector2(-600, nPortStart.y);
         
@@ -191,6 +196,7 @@ public class AnimationManager : MonoBehaviour
         }
         while (distance > 0);
 
+        npcPortrait.SetActive(true); // TESTING
         dMan.DisplayCurrentHeroes();
         yield return new WaitForSeconds(0.5f);
 

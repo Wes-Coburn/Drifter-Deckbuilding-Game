@@ -6,6 +6,7 @@ public abstract class Hero : ScriptableObject
     [SerializeField] private string developerNotes;
     [Header("HERO NAME")]
     [SerializeField] private string heroName;
+    [SerializeField] private string heroShortName;
     [Header("HERO PORTRAIT")]
     [SerializeField] private Sprite heroPortrait;
     [Header("HERO DESCRIPTION")]
@@ -17,6 +18,7 @@ public abstract class Hero : ScriptableObject
 
     private string DeveloperNotes { get => developerNotes; }
     public string HeroName { get => heroName; }
+    public string HeroShortName { get => heroShortName; }
     public Sprite HeroPortrait { get => heroPortrait; }
     public string HeroDescription { get => heroDescription; }
     public Sound HeroWin { get => heroWin; }
@@ -26,6 +28,7 @@ public abstract class Hero : ScriptableObject
     {
         developerNotes = hero.DeveloperNotes;
         heroName = hero.HeroName;
+        heroShortName = hero.heroShortName;
         heroPortrait = hero.HeroPortrait;
         heroDescription = hero.HeroDescription;
         heroWin = hero.HeroWin;

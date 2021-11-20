@@ -136,10 +136,7 @@ public class UIManager : MonoBehaviour
         SetCancelEffectButton(false);
         SetPlayerZoneOutline(false, false);
     }
-    public void StartWorldMapScene()
-    {
-        Debug.LogWarning("BLANK!");
-    }
+
     /******
      * *****
      * ****** PLAYER_ZONE_OUTLINE
@@ -412,19 +409,22 @@ public class UIManager : MonoBehaviour
         }
     }
     // Info Popups
-    public void CreateInfoPopup(string message, bool isCentered = false, bool isSecondary = false)
+    public void CreateInfoPopup(string message,
+        bool isCentered = false, bool isSecondary = false)
     {
         DestroyInfoPopup(isSecondary);
         Vector2 vec2 = new Vector2(0, 0);
         if (!isCentered) vec2.Set(750, 0);    
         if (!isSecondary)
         {
-            infoPopup = Instantiate(infoPopupPrefab, vec2, Quaternion.identity, CurrentCanvas.transform);
+            infoPopup = Instantiate(infoPopupPrefab, vec2,
+                Quaternion.identity, CurrentCanvas.transform);
             infoPopup.GetComponent<InfoPopupDisplay>().DisplayInfoPopup(message);
         }
         else
         {
-            infoPopup_Secondary = Instantiate(infoPopup_SecondaryPrefab, vec2, Quaternion.identity, CurrentCanvas.transform);
+            infoPopup_Secondary = Instantiate(infoPopup_SecondaryPrefab, vec2,
+                Quaternion.identity, CurrentCanvas.transform);
             infoPopup_Secondary.GetComponent<InfoPopupDisplay>().DisplayInfoPopup(message);
         }
     }
@@ -487,11 +487,9 @@ public class UIManager : MonoBehaviour
     {
         DestroyCombatEndPopup();
         combatEndPopup = Instantiate(combatEndPopupPrefab, CurrentCanvas.transform);
-        CombatEndPopupDisplay cepd =
-            combatEndPopup.GetComponent<CombatEndPopupDisplay>();
+        CombatEndPopupDisplay cepd = combatEndPopup.GetComponent<CombatEndPopupDisplay>();
         cepd.VictoryText.SetActive(playerWins);
         cepd.DefeatText.SetActive(!playerWins);
-        cepd.GetComponent<SoundPlayer>().PlaySound(0);
     }
     public void DestroyCombatEndPopup()
     {

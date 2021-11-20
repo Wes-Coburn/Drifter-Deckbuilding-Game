@@ -103,19 +103,15 @@ public static class SceneLoader
                     gMan.StartNarrative();
                     break;
                 case Scene.WorldMapScene:
-                    uMan.StartWorldMapScene();
                     gMan.EnterWorldMap();
                     break;
                 case Scene.HomeBaseScene:
-                    Debug.LogWarning("BLANK!");
                     auMan.StopCurrentSoundscape(); // TESTING
                     break;
                 case Scene.DialogueScene:
-                    dMan.StartDialogue();
+                    gMan.StartDialogue();
                     break;
                 case Scene.CombatScene:
-                    uMan.StartCombatScene();
-                    coMan.StartCombatScene();
                     gMan.StartCombat();
                     break;
                 default:

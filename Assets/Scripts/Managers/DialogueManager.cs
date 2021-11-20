@@ -63,7 +63,6 @@ public class DialogueManager : MonoBehaviour
         dialogueDisplay.PlayerHeroPortrait.SetActive(false);
         DialoguePrompt prompt = currentDialogueClip as DialoguePrompt;
         dialogueDisplay.NPCHeroPortrait.SetActive(!prompt.HideNPC);
-
         DisplayCurrentHeroes();
         DisplayDialoguePopup();
         AnimationManager.Instance.DialogueIntro();
@@ -92,7 +91,6 @@ public class DialogueManager : MonoBehaviour
         TimedText(dpr.DialoguePromptText, 
             dialogueDisplay.NPCHeroSpeechObject.GetComponent<TextMeshProUGUI>());
 
-        // TESTING TESTING TESTING
         // Response 1
         bool r1_Active = true;        
         if (string.IsNullOrEmpty(dpr.DialogueResponse1.ResponseText))
@@ -123,6 +121,13 @@ public class DialogueManager : MonoBehaviour
     
     private string FilterText(string text)
     {
+        if (pMan.PlayerHero != null)
+        {
+            string shortName = pMan.PlayerHero.HeroShortName;
+            if (!string.IsNullOrEmpty(shortName))
+                text = text.Replace("<HERO NAME>", shortName);
+        }
+
         if (!GameManager.Instance.HideExplicitLanguage) 
             return text;
         string[] filterWords =
@@ -231,18 +236,13 @@ public class DialogueManager : MonoBehaviour
         if (nextClip is DialoguePrompt)
         {
             nextPrompt = nextClip as DialoguePrompt;
-            // Hide NPC
-            dialogueDisplay.NPCHeroPortrait.SetActive(!nextPrompt.HideNPC);
-            // New Locations
             if (nextPrompt.NewLocations.Length > 0)
             {
                 foreach (NewLocation newLoc in nextPrompt.NewLocations)
                     gMan.GetActiveLocation(newLoc.Location, newLoc.NewNpc);
             }
         }
-        
         EngagedHero.NextDialogueClip = nextClip;
-        EngagedHero.RespectScore += dResponse.Response_Respect;
 
         // Combat Start
         if (dResponse.Response_IsCombatStart)
@@ -287,6 +287,11 @@ public class DialogueManager : MonoBehaviour
             {
                 EngagedHero = gMan.GetActiveNPC(nextPrompt.NewEngagedHero);
                 newEngagedHero = true;
+            }
+            else // TESTING
+            {
+                if (prompt.HideNPC && !nextPrompt.HideNPC)
+                    newEngagedHero = true;
             }
             // New Card
             if (nextPrompt.NewCard != null) UIManager.Instance.CreateNewCardPopup(nextPrompt.NewCard);

@@ -55,11 +55,11 @@ public class CombatManager : MonoBehaviour
         set
         {
             actionsPlayedThisTurn = value;
-            Debug.LogWarning("ACTIONS PLAYED => <" + actionsPlayedThisTurn + ">");
+            Debug.Log("ACTIONS PLAYED => <" + actionsPlayedThisTurn + ">");
             if (pMan.IsMyTurn && actionsPlayedThisTurn == 1)
             {
                 evMan.NewDelayedAction(() =>
-                caMan.TriggerPlayedUnits(CardManager.TRIGGER_RESEARCH), 0);
+                caMan.TriggerPlayedUnits(CardManager.TRIGGER_SPARK), 0);
             }
         }
     }
@@ -322,7 +322,7 @@ public class CombatManager : MonoBehaviour
             }
         if (playerActions < actionCost)
         {
-            uMan.CreateFleetingInfoPopup("Not enough actions!");
+            uMan.CreateFleetingInfoPopup("Not enough energy!");
             ErrorSound();
             return false;
         }
@@ -754,13 +754,17 @@ public class CombatManager : MonoBehaviour
             targetValue = GetUnitDisplay(target).CurrentHealth;
             maxValue = GetUnitDisplay(target).MaxHealth;
         }
+
         if (targetValue < 1) return; // Don't heal destroyed units or heroes
         newTargetValue = targetValue + healingValue;
         if (newTargetValue > maxValue) newTargetValue = maxValue;
+
         if (target == PlayerHero) pMan.PlayerHealth = newTargetValue;
         else if (target == EnemyHero) enMan.EnemyHealth = newTargetValue;
         else GetUnitDisplay(target).CurrentHealth = newTargetValue;
-        anMan.UnitStatChangeState(target, false, true);
+
+        if (IsUnitCard(target)) anMan.UnitStatChangeState(target, false, true);
+        else anMan.ModifyHeroHealthState(target);
     }
 
     /******
@@ -779,10 +783,8 @@ public class CombatManager : MonoBehaviour
         string cardTag = card.tag;
         if (isDelayed)
         {
-            FunctionTimer.Create(() => DestroyFX(), 0.5f); // TESTING
+            FunctionTimer.Create(() => DestroyFX(), 0.5f);
             evMan.NewDelayedAction(() => Destroy(), 1, true);
-            //evMan.NewDelayedAction(() => DestroyFX(), 0, true);
-
             if (HasDestroyTriggers())
                 evMan.NewDelayedAction(() =>
                 DestroyTriggers(), 0.5f, true);

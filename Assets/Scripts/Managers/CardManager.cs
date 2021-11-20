@@ -264,7 +264,7 @@ public class CardManager : MonoBehaviour
             if (ca is TriggeredAbility tra)
                 if (tra.AbilityTrigger.AbilityName == triggerName)
                 {
-                    Debug.LogWarning("TRIGGER! <" + triggerName + ">");
+                    Debug.Log("TRIGGER! <" + triggerName + ">");
                     EffectManager.Instance.StartEffectGroupList(tra.EffectGroupList, unitCard, triggerName);
                     effectFound = true;
                 }

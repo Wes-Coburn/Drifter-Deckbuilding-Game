@@ -12,14 +12,12 @@ public class HomeBaseSceneDisplay : MonoBehaviour
     [SerializeField] private GameObject heroDescription;
     [SerializeField] private GameObject heroPowerDescription;
     [SerializeField] private GameObject heroPowerImage;
-
     [SerializeField] private GameObject selectedAugment;
     [SerializeField] private GameObject augmentName;
     [SerializeField] private GameObject augmentImage;
     [SerializeField] private GameObject augmentDescription;
     [SerializeField] private GameObject augmentCost;
     [SerializeField] private GameObject confirmSpendPopup;
-    [SerializeField] private HeroAugment[] availableAugments;
 
     private PlayerManager pMan;
     private UIManager uMan;
@@ -105,16 +103,15 @@ public class HomeBaseSceneDisplay : MonoBehaviour
     {
         pMan = PlayerManager.Instance;
         uMan = UIManager.Instance;
-        accessibleAugments = new List<HeroAugment>();
         PlayerHero ph = pMan.PlayerHero;
-        List<HeroAugment> redundancies = new List<HeroAugment>();
-        foreach (HeroAugment aug in availableAugments)
+
+        accessibleAugments = new List<HeroAugment>();
+        HeroAugment[] allAugments = Resources.LoadAll<HeroAugment>("Heroes");
+        foreach (HeroAugment aug in allAugments)
         {
-            if (pMan.GetAugment(aug.AugmentName)) 
-                redundancies.Add(aug);
+            if (!pMan.GetAugment(aug.AugmentName))
+                accessibleAugments.Add(aug);
         }
-        foreach (HeroAugment aug in availableAugments) 
-            if (!redundancies.Contains(aug)) accessibleAugments.Add(aug);
 
         playerHero.SetActive(true);
         selectedAugment.SetActive(false);

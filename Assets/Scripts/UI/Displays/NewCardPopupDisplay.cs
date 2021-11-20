@@ -34,12 +34,13 @@ public class NewCardPopupDisplay : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void Awake()
     {
         coMan = CombatManager.Instance;
         pMan = PlayerManager.Instance;
         dMan = DialogueManager.Instance;
         uMan = UIManager.Instance;
+        GetComponent<SoundPlayer>().PlaySound(0); // TESTING
     }
 
     private void DisplayNewCardChest()

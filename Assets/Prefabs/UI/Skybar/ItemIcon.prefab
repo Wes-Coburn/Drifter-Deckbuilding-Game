@@ -178,6 +178,7 @@ GameObject:
   - component: {fileID: 2245884471454592675}
   - component: {fileID: 6293833283712719640}
   - component: {fileID: 9167270472363523099}
+  - component: {fileID: 3996156207459506064}
   m_Layer: 0
   m_Name: ItemIcon
   m_TagString: Untagged
@@ -256,7 +257,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4161389317058117485}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3996156207459506064}
+        m_TargetAssemblyTypeName: SoundPlayer, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &9167270472363523099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -270,6 +283,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iconImage: {fileID: 944123695325541041}
+--- !u!114 &3996156207459506064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8816291806828510727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2340c8fec396b2b43bf9a91052c5c90e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - SFX_Click1
+  sounds2: []
 --- !u!1 &9108465446000510453
 GameObject:
   m_ObjectHideFlags: 0

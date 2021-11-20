@@ -495,7 +495,7 @@ public class EffectManager : MonoBehaviour
         }
         if (effect is GiveNextUnitEffect) return true;
         Debug.Log("ADDITIONAL TARGETS <" + additionalTargets + ">");
-        Debug.LogWarning("LEGAL TARGETS <" + (legalTargets[currentGroup].Count - additionalTargets) + ">");
+        Debug.Log("LEGAL TARGETS <" + (legalTargets[currentGroup].Count - additionalTargets) + ">");
         if (legalTargets[currentGroup].Count < 1 + additionalTargets) return false;
         if (effect.IsRequired && legalTargets[currentGroup].Count < 
             effectGroupList[currentGroup].Targets.TargetNumber + additionalTargets) return false;
@@ -533,7 +533,7 @@ public class EffectManager : MonoBehaviour
                 targetNumber = possibleTargets;
         }
         Debug.Log("ACCEPTED TARGETS: <" + acceptedTargets[currentEffectGroup].Count +
-            "> // TARGET NUMBER: <" + targetNumber + ">");
+            "> OF <" + targetNumber + "> REQUIRED TARGETS");
 
         if (acceptedTargets[currentEffectGroup].Count == targetNumber) ConfirmTargetEffect();
         else if (acceptedTargets[currentEffectGroup].Count > targetNumber)
@@ -614,6 +614,7 @@ public class EffectManager : MonoBehaviour
         // DAMAGE
         else if (effect is DamageEffect)
         {
+            auMan.StartStopSound("SFX_DealDamage1");
             foreach (GameObject target in targets)
                 coMan.TakeDamage(target, effect.Value);
         }
@@ -625,6 +626,7 @@ public class EffectManager : MonoBehaviour
         // HEALING
         else if (effect is HealEffect)
         {
+            auMan.StartStopSound("SFX_StatPlus"); // Need heal sound
             foreach (GameObject target in targets)
                 coMan.HealDamage(target, effect.Value);
         }
@@ -658,6 +660,12 @@ public class EffectManager : MonoBehaviour
         // STAT_CHANGE/GIVE_ABILITY
         else if (effect is StatChangeEffect || effect is GiveAbilityEffect)
         {
+            if (effect is StatChangeEffect sce)
+            {
+                if (!sce.IsNegative)
+                    auMan.StartStopSound("SFX_StatPlus");
+                else auMan.StartStopSound("SFX_StatMinus");
+            }
             foreach (GameObject target in targets)
                 AddEffect(target, effect);
         }
@@ -691,26 +699,21 @@ public class EffectManager : MonoBehaviour
                 int group = currentEffectGroup;
                 delay += 0.5f;
                 FunctionTimer.Create(() =>
-                Resolve_Effect(group, effect, eg, isPowerChange, isHealthChange), delay); // TESTING
+                Resolve_Effect(group, effect, eg, isPowerChange, isHealthChange), delay);
             }
             currentEffectGroup++;
         }
 
-        FunctionTimer.Create(() => FinishEffectGroupList(false), 0.5f + delay); // TESTING
+        FunctionTimer.Create(() => FinishEffectGroupList(false), 0.5f + delay);
 
         void Resolve_Effect(int group, Effect effect, EffectGroup eg,
             bool isPowerChange, bool isHealthChange)
         {
-            if (eg.EffectGroupSound2.clip != null)
-                auMan.StartStopSound(null, eg.EffectGroupSound2);
-            else auMan.StartStopSound(eg.EffectGroupSound);
-
             foreach (GameObject target in acceptedTargets[group])
             {
                 if (coMan.IsUnitCard(target))
                     anMan.UnitStatChangeState(target, isPowerChange, isHealthChange);
             }
-
             ResolveEffect(acceptedTargets[group], effect, group);
         }
     }
@@ -755,13 +758,13 @@ public class EffectManager : MonoBehaviour
             pMan.HeroPowerUsed = false;
             pMan.PlayerEnergyLeft += pMan.PlayerHero.HeroPower.PowerCost;
         }
-        else if (effectSource.TryGetComponent(out ItemIcon icon)) // TESTING
+        else if (effectSource.TryGetComponent(out ItemIcon _))
         {
-            Debug.LogWarning("ITEM EFFECT SOURCE!");
+            Debug.LogWarning("ITEM SOURCE!");
         }
         else
         {
-            Debug.LogError("SOUNCE TYPE NOT FOUND!");
+            Debug.LogError("SOURCE TYPE NOT FOUND!");
             return;
         }
 

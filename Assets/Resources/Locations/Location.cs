@@ -10,8 +10,10 @@ public class Location : ScriptableObject
     [SerializeField] private string firstObjective;
     [SerializeField] private Vector2 worldMapPosition;
     [SerializeField] private NPCHero firstNPC;
+    [SerializeField] private Sound locationSoundscape;
     [SerializeField] private bool isHomeBase;
     [SerializeField] private bool isRecruitment;
+    [SerializeField] private bool isShop;
     [SerializeField] private bool isCloning;
 
     public string LocationName { get => locationName; }
@@ -21,8 +23,10 @@ public class Location : ScriptableObject
     public string CurrentObjective { get; set; }
     public Vector2 WorldMapPosition { get => worldMapPosition; }
     public NPCHero FirstNPC { get => firstNPC; }
+    public Sound LocationSoundscape { get => locationSoundscape; }
     public bool IsHomeBase { get => isHomeBase; }
     public bool IsRecruitment { get => isRecruitment; }
+    public bool IsShop { get => isShop; }
     public bool IsCloning { get => isCloning; }
     public NPCHero CurrentNPC { get; set; }
     
@@ -34,8 +38,10 @@ public class Location : ScriptableObject
         firstObjective = location.FirstObjective;
         worldMapPosition = location.WorldMapPosition;
         firstNPC = location.FirstNPC;
+        locationSoundscape = location.LocationSoundscape;
         isHomeBase = location.IsHomeBase;
         isRecruitment = location.IsRecruitment;
+        isShop = location.IsShop;
         isCloning = location.IsCloning;
     }
 }

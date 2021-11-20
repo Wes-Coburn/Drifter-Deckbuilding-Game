@@ -75,11 +75,10 @@ public class LocationPopupDisplay : MonoBehaviour
         }
 
         gMan.CurrentLocation = gMan.GetActiveLocation(location);
-        if (location.IsRecruitment) gMan.CurrentLocation.CurrentObjective = "Recruit More Followers.";
-        else if (location.IsCloning) gMan.CurrentLocation.CurrentObjective = "Clone A Unit";
+        if (location.IsRecruitment) gMan.CurrentLocation.CurrentObjective = "Recruit a Unit.";
+        else if (location.IsShop) gMan.CurrentLocation.CurrentObjective = "Buy an Item";
+        else if (location.IsCloning) gMan.CurrentLocation.CurrentObjective = "Clone a Unit";
         else gMan.ActiveLocations.Remove(gMan.CurrentLocation);
-
-        gMan.ExitWorldMap();
         dMan.EngagedHero = gMan.GetActiveNPC(gMan.CurrentLocation.CurrentNPC);
         SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene);
     }

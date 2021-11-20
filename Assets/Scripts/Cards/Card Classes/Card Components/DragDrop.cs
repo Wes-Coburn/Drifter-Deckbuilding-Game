@@ -59,7 +59,7 @@ public class DragDrop : MonoBehaviour
 
     private void ResetPosition()
     {
-        GameObject container = gameObject.GetComponent<CardDisplay>().CardContainer;
+        GameObject container = GetComponent<CardDisplay>().CardContainer;
         transform.SetParent(container.transform, false);
         transform.localPosition = new Vector2(0, 0);
         if (TryGetComponent(out ActionCardDisplay _)) IsPlayed = false;
@@ -72,7 +72,8 @@ public class DragDrop : MonoBehaviour
         if (!pMan.IsMyTurn) return;
         if (CompareTag(CombatManager.ENEMY_CARD)) return;
         if (DraggingCard != null || ArrowIsDragging) return;
-        if (EffectManager.Instance.EffectsResolving || EventManager.Instance.ActionsDelayed) return; // TESTING
+        if (EffectManager.Instance.EffectsResolving ||
+            EventManager.Instance.ActionsDelayed) return;
 
         FunctionTimer.StopTimer(CardZoom.ZOOM_CARD_TIMER);
         FunctionTimer.StopTimer(CardZoom.ABILITY_POPUP_TIMER);
@@ -97,7 +98,7 @@ public class DragDrop : MonoBehaviour
                 uMan.CurrentCanvas.transform);
             dragArrow.GetComponent<DragArrow>().SourceCard = gameObject;
             foreach (GameObject enemyUnit in coMan.EnemyZoneCards)
-                if (coMan.CanAttack(gameObject, enemyUnit, true)) // TESTING
+                if (coMan.CanAttack(gameObject, enemyUnit, true))
                     uMan.SelectTarget(enemyUnit, true);
             if (coMan.CanAttack(gameObject, coMan.EnemyHero, true)) 
                 uMan.SelectTarget(coMan.EnemyHero, true);
@@ -129,16 +130,12 @@ public class DragDrop : MonoBehaviour
         dragArrow = null;
         if (Enemy != null)
         {
-            if (coMan.CanAttack(gameObject, Enemy, false)) // TESTING
+            if (coMan.CanAttack(gameObject, Enemy, false))
                 coMan.Attack(gameObject, Enemy);
             uMan.SelectTarget(Enemy, false);
             Enemy = null;
         }
-        else
-        {
-            Debug.Log("EndDrag! (NO ATTACK) IsExhausted = " + 
-                GetComponent<UnitCardDisplay>().IsExhausted);
-        }
+
         foreach (GameObject enemyUnit in coMan.EnemyZoneCards)
             uMan.SelectTarget(enemyUnit, false);
         uMan.SelectTarget(coMan.EnemyHero, false);

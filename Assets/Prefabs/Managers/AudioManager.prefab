@@ -51,7 +51,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Soundscape_TitleScene
     clip: {fileID: 8300000, guid: 0f1d768f2fcb240b2a89ff736a5dae07, type: 3}
-    volume: 0.5
+    volume: 0.8
     pitch: 1
     source: {fileID: 0}
   - name: Soundtrack_Narrative1
@@ -75,17 +75,27 @@ MonoBehaviour:
     pitch: 1
     source: {fileID: 0}
   - name: Soundscape_WorldMapScene
-    clip: {fileID: 8300000, guid: 431152c862a46469ea09f6afba146be5, type: 3}
-    volume: 0.5
+    clip: {fileID: 8300000, guid: 0e4f46ae9dc49ec4594a48b6af8f823c, type: 3}
+    volume: 0.8
     pitch: 1
     source: {fileID: 0}
-  - name: SFX_SceneLoading
-    clip: {fileID: 8300000, guid: ebfd51506c55f7b468b819710dda6f07, type: 3}
+  - name: SFX_EnterWorldMap
+    clip: {fileID: 8300000, guid: 5dc555af72633604aaaf207e51c92fad, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}
-  - name: SFX_Error
-    clip: {fileID: 8300000, guid: 6bbdd5c643a7567498f65892e1d44c09, type: 3}
+  - name: SFX_Click1
+    clip: {fileID: 8300000, guid: a580b904278a5fd4fba9563d4096bd3d, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_SpecialClick1
+    clip: {fileID: 8300000, guid: a450edaa20ccbbc419f0442ba67250f2, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_CreatePopup1
+    clip: {fileID: 8300000, guid: 8b66e811a4c48284fa4bc86314c3da00, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}
@@ -94,8 +104,8 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
-  - name: SFX_AcceptTarget
-    clip: {fileID: 8300000, guid: 0f84285cd46d77d458257286c42ca2f5, type: 3}
+  - name: SFX_SceneLoading
+    clip: {fileID: 8300000, guid: ebfd51506c55f7b468b819710dda6f07, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}
@@ -111,6 +121,21 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: SFX_ShuffleDeck
     clip: {fileID: 8300000, guid: 316afc38249f0624dac9b73494c8e9e0, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_AcceptTarget
+    clip: {fileID: 8300000, guid: 0f84285cd46d77d458257286c42ca2f5, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_Error
+    clip: {fileID: 8300000, guid: 6bbdd5c643a7567498f65892e1d44c09, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_Trigger
+    clip: {fileID: 8300000, guid: 290b55963dc85ff44b0ad06ad93be27f, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}
@@ -166,11 +191,6 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: SFX_Refresh
     clip: {fileID: 8300000, guid: a0ae7ad2e2d6b8b48b24f4dcc8758496, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: SFX_Trigger
-    clip: {fileID: 8300000, guid: 290b55963dc85ff44b0ad06ad93be27f, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}

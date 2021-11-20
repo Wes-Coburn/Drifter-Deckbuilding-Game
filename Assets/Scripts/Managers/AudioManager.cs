@@ -47,7 +47,7 @@ public class AudioManager : MonoBehaviour
     {
         List<Sound> noSource = new List<Sound>();
         foreach (Sound s in activeSounds) if (s.source == null) noSource.Add(s);
-        Debug.LogWarning("CLEANING <" + noSource.Count + "> SOUNDS!");
+        Debug.Log("CLEANING <" + noSource.Count + "> SOUNDS!");
         foreach (Sound s in noSource) activeSounds.Remove(s);
     }
 
@@ -105,11 +105,7 @@ public class AudioManager : MonoBehaviour
             case SoundType.Soundtrack:
                 if (CurrentSoundtrack != null)
                 {
-                    if (CurrentSoundtrack.source.clip == currentSound.source.clip)
-                    {
-                        Debug.LogWarning("SAME CLIP!");
-                        return;
-                    }
+                    if (CurrentSoundtrack.source.clip == currentSound.source.clip) return;
                     CurrentSoundtrack.source.Stop();
                 }
 

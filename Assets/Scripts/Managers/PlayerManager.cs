@@ -66,7 +66,7 @@ public class PlayerManager : MonoBehaviour
             HeroAugments.Clear();
             HeroItems.Clear();
             AetherCells = 0;
-            AetherCells = 10; // FOR TESTING ONLY
+            //AetherCells = 10; // FOR TESTING ONLY
             if (value == null) return;
 
             foreach (UnitCard uc in caMan.PlayerStartUnits)
@@ -136,7 +136,7 @@ public class PlayerManager : MonoBehaviour
 
         if (PlayerEnergyLeft < playerHero.HeroPower.PowerCost)
         {
-            uMan.CreateFleetingInfoPopup("Not enough actions!");
+            uMan.CreateFleetingInfoPopup("Not enough energy!");
             ErrorSound();
         }
         else if (HeroPowerUsed == true)
@@ -160,8 +160,7 @@ public class PlayerManager : MonoBehaviour
                 HeroPowerUsed = true;
                 foreach (Sound s in PlayerHero.HeroPower.PowerSounds)
                     AudioManager.Instance.StartStopSound(null, s);
-
-                caMan.TriggerPlayedUnits(CardManager.TRIGGER_SPARK);
+                caMan.TriggerPlayedUnits(CardManager.TRIGGER_RESEARCH);
             }
         }
     }

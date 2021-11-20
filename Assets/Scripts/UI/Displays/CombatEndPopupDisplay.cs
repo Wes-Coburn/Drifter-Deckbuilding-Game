@@ -8,6 +8,8 @@ public class CombatEndPopupDisplay : MonoBehaviour
     public GameObject VictoryText { get => victoryText; }
     public GameObject DefeatText { get => defeatText; }
 
+    private void Awake() => GetComponent<SoundPlayer>().PlaySound(0); // TESTING
+
     public void OnClick()
     {
         GameManager gMan = GameManager.Instance;

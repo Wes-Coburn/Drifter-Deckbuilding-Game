@@ -240,13 +240,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2340c8fec396b2b43bf9a91052c5c90e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds: []
-  sounds2:
-  - name: 
-    clip: {fileID: 8300000, guid: a580b904278a5fd4fba9563d4096bd3d, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
+  sounds:
+  - SFX_Click1
+  sounds2: []
 --- !u!1 &3366735515953138769
 GameObject:
   m_ObjectHideFlags: 0
@@ -849,7 +845,6 @@ GameObject:
   - component: {fileID: 3366735517061691655}
   - component: {fileID: 3366735517061691654}
   - component: {fileID: 3366735517061691652}
-  - component: {fileID: 7017731099960610950}
   m_Layer: 5
   m_Name: CloseMenu
   m_TagString: Untagged
@@ -982,25 +977,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &7017731099960610950
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3366735517061691640}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2340c8fec396b2b43bf9a91052c5c90e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sounds: []
-  sounds2:
-  - name: 
-    clip: {fileID: 8300000, guid: a580b904278a5fd4fba9563d4096bd3d, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
 --- !u!1 &3777666453884749639
 GameObject:
   m_ObjectHideFlags: 0
