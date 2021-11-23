@@ -302,28 +302,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2340c8fec396b2b43bf9a91052c5c90e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds: []
-  sounds2:
-  - name: SFX_CreatePopup
-    clip: {fileID: 8300000, guid: 8b66e811a4c48284fa4bc86314c3da00, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: SFX_RevealCard
-    clip: {fileID: 8300000, guid: e299b8f54fac4964c99d1e100b59ff34, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: SFX_AddCard
-    clip: {fileID: 8300000, guid: 6d5dd3418734b074abd98507a274cf7e, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: SFX_IgnoreCard
-    clip: {fileID: 8300000, guid: 3bee991bab922a4428e799ac27aab48f, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
+  sounds:
+  - SFX_CreatePopup
+  - SFX_RevealCard
+  - SFX_AddCard
+  - SFX_Click1
+  sounds2: []
 --- !u!114 &7962289469445740695
 MonoBehaviour:
   m_ObjectHideFlags: 0

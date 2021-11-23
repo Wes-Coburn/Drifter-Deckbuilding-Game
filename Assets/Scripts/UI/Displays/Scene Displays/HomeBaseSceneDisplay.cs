@@ -104,14 +104,10 @@ public class HomeBaseSceneDisplay : MonoBehaviour
         pMan = PlayerManager.Instance;
         uMan = UIManager.Instance;
         PlayerHero ph = pMan.PlayerHero;
-
         accessibleAugments = new List<HeroAugment>();
         HeroAugment[] allAugments = Resources.LoadAll<HeroAugment>("Heroes");
         foreach (HeroAugment aug in allAugments)
-        {
-            if (!pMan.GetAugment(aug.AugmentName))
-                accessibleAugments.Add(aug);
-        }
+            accessibleAugments.Add(aug);
 
         playerHero.SetActive(true);
         selectedAugment.SetActive(false);
@@ -156,11 +152,6 @@ public class HomeBaseSceneDisplay : MonoBehaviour
 
     public void AcquireAugmentButton_OnClick()
     {
-        if (selectedAugment.activeSelf == true)
-        {
-            CloseAugmentsButton_OnClick();
-            return;
-        }
         playerHero.SetActive(false);
         selectedAugment.SetActive(true);
         currentAugment = 0;

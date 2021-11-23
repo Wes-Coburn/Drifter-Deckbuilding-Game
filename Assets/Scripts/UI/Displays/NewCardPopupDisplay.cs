@@ -40,12 +40,11 @@ public class NewCardPopupDisplay : MonoBehaviour
         pMan = PlayerManager.Instance;
         dMan = DialogueManager.Instance;
         uMan = UIManager.Instance;
-        GetComponent<SoundPlayer>().PlaySound(0); // TESTING
+        GetComponent<SoundPlayer>().PlaySound(0);
     }
 
     private void DisplayNewCardChest()
     {
-        GetComponent<SoundPlayer>().PlaySound(0);
         newCardChest.SetActive(true);
         foreach (GameObject button in addCardButtons) button.SetActive(false);
         ignoreCardButton.SetActive(false);
@@ -53,6 +52,7 @@ public class NewCardPopupDisplay : MonoBehaviour
 
     private void SwitchToCards()
     {
+        GetComponent<SoundPlayer>().PlaySound(1);
         newCardChest.SetActive(false);
         foreach (GameObject button in addCardButtons) button.SetActive(true);
         ignoreCardButton.SetActive(true);
@@ -60,7 +60,7 @@ public class NewCardPopupDisplay : MonoBehaviour
 
     public void DisplayNewCard()
     {
-        SwitchToCards(); // TESTING
+        SwitchToCards();
         // Card Popup
         GameObject newCard = coMan.ShowCard(NewCard, new Vector2(), CombatManager.DisplayType.NewCard);
         CardZoom cz = newCard.GetComponent<CardZoom>();
@@ -82,7 +82,7 @@ public class NewCardPopupDisplay : MonoBehaviour
 
     public void DisplayChooseCards()
     {
-        SwitchToCards(); // TESTING
+        SwitchToCards();
         foreach (Card card in chooseCards)
         {
             // Card Popup
@@ -99,7 +99,6 @@ public class NewCardPopupDisplay : MonoBehaviour
         GetComponent<SoundPlayer>().PlaySound(2);
         uMan.DestroyNewCardPopup();
 
-        // TESTING
         Card newCard;
         if (cardSelection == 0) newCard = NewCard;
         else newCard = chooseCards[cardSelection - 1]; // TESTING
@@ -137,7 +136,7 @@ public class NewCardPopupDisplay : MonoBehaviour
     public void IgnoreCard_OnClick()
     {
         GetComponent<SoundPlayer>().PlaySound(3);
-        pMan.AetherCells += 2; // TESTING
+        pMan.AetherCells += 2;
         uMan.DestroyNewCardPopup();
 
         DialogueClip nextClip = dMan.EngagedHero.NextDialogueClip;

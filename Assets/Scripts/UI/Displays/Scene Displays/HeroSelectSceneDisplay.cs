@@ -25,8 +25,8 @@ public class HeroSelectSceneDisplay : MonoBehaviour
     [SerializeField] private GameObject confirmAugmentImage;
     [SerializeField] private GameObject confirmAugmentName;
 
-    [SerializeField] private PlayerHero[] playerHeroes;
-    [SerializeField] private HeroAugment[] heroAugments;
+    private PlayerHero[] playerHeroes;
+    private HeroAugment[] heroAugments;
 
     private PlayerManager pMan;
     private CombatManager coMan;
@@ -45,9 +45,11 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         pMan = PlayerManager.Instance;
         coMan = CombatManager.Instance;
         uMan = UIManager.Instance;
-        currentSelection = 0;
+        currentSelection = 1; // Start with Kili
         heroSelected = false;
         augmentSelected = false;
+        playerHeroes = Resources.LoadAll<PlayerHero>("Heroes");
+        heroAugments = Resources.LoadAll<HeroAugment>("Heroes");
     }
 
     private void LoadSelections()

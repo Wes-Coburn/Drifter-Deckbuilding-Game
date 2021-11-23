@@ -35,8 +35,7 @@ public class AcquireAugmentPopupDisplay : MonoBehaviour
         pMan.AddAugment(heroAugment);
         pMan.AetherCells -= GameManager.ACQUIRE_AUGMENT_COST;
         CancelButton_OnClick();
-        FindObjectOfType<HomeBaseSceneDisplay>().CloseAugmentsButton_OnClick(); // Temporary fix, eventually reload augments?
-        // Augment acquired popup
+        FindObjectOfType<HomeBaseSceneDisplay>().AcquireAugmentButton_OnClick(); // TESTING
     }
 
     public void CancelButton_OnClick() =>
