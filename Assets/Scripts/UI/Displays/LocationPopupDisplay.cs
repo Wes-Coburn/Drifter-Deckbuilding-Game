@@ -80,7 +80,7 @@ public class LocationPopupDisplay : MonoBehaviour
         else if (location.IsCloning) gMan.CurrentLocation.CurrentObjective = "Clone a Unit";
         else gMan.ActiveLocations.Remove(gMan.CurrentLocation);
         dMan.EngagedHero = gMan.GetActiveNPC(gMan.CurrentLocation.CurrentNPC);
-        SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene);
+        SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene, true); // TESTING
     }
 
     public void CancelButton_OnClick() =>

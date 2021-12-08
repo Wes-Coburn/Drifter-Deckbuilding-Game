@@ -63,10 +63,10 @@ public class AbilityIconDisplay : MonoBehaviour
     {
         DisplayAbilityIcon();
         string abilityName;
-        if (AbilityScript is StaticAbility) 
+        if (AbilityScript is StaticAbility || AbilityScript is TriggeredAbility)
+        {
             abilityName = AbilityScript.AbilityName;
-        else if (AbilityScript is TriggeredAbility keywordAbility) 
-            abilityName = keywordAbility.AbilityDescription;
+        }
         else
         {
             Debug.LogError("SCRIPT TYPE NOT FOUND!");

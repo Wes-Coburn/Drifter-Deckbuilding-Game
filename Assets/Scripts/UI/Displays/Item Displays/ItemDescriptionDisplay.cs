@@ -1,11 +1,14 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 
-public class ItemDescriptionDisplay : MonoBehaviour
+public class ItemDescriptionDisplay : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private GameObject itemImage;
     [SerializeField] private GameObject itemDescription;
+
+    private const string ITEM_ABILITY_POPUP_TIMER = "ItemAbilityPopupTimer";
 
     private PlayerManager pMan;
     private UIManager uMan;
@@ -28,10 +31,22 @@ public class ItemDescriptionDisplay : MonoBehaviour
         uMan = UIManager.Instance;
     }
 
-    public void BuyItemButton_OnClick()
+    public void OnPointerClick(PointerEventData pointerEventData)
     {
         if (pMan.AetherCells < GameManager.BUY_ITEM_COST)
             uMan.InsufficientAetherPopup();
         else uMan.CreateBuyItemPopup(loadedItem);
+    }
+
+    public void OnPointerEnter(PointerEventData pointerEventData)
+    {
+        FunctionTimer.Create(() =>
+        uMan.CreateItemAbilityPopup(loadedItem), 0.5f, ITEM_ABILITY_POPUP_TIMER);
+    }
+
+    public void OnPointerExit(PointerEventData pointerEventData)
+    {
+        FunctionTimer.StopTimer(ITEM_ABILITY_POPUP_TIMER);
+        uMan.DestroyItemAbilityPopup();
     }
 }

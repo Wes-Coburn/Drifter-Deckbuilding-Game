@@ -13,33 +13,42 @@ MonoBehaviour:
   m_Name: Bartender_Prompt_Recruit_2A
   m_EditorClassIdentifier: 
   developerNotes: 
-  journalNotes: []
-  dialoguePromptText: Same place as you find yourself, friend.
+  dialoguePromptText: I can connect you to the right people, for a price.
   dialogueResponse1:
-    responseText: 
-    response_Respect: 0
-    response_NextClip: {fileID: 0}
+    responseText: 'Until next time.
+
+      *Leave*'
+    response_NextClip: {fileID: 11400000}
+    response_IsCombatStart: 0
+    response_IsWorldMapStart: 1
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
+  dialogueResponse2:
+    responseText: 'I''m interested.
+
+      *Recruit*'
+    response_NextClip: {fileID: 11400000}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
-    response_IsRecruitmentStart: 0
+    response_IsRecruitmentStart: 1
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
     response_IsExit: 0
-  dialogueResponse2:
-    responseText: (Continue)
-    response_Respect: 0
-    response_NextClip: {fileID: 11400000, guid: 48dbc11f6cdf3964691945c3bac3642f,
+    response_TravelLocation: {fileID: 0}
+  dialogueResponse3:
+    responseText: Where do you find these people?
+    response_NextClip: {fileID: 11400000, guid: a79be81e282dfa048991bac8b9452e28,
       type: 2}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
     response_IsExit: 0
-  dialogueResponse3:
-    responseText: 
-    response_Respect: 0
-    response_NextClip: {fileID: 0}
-    response_IsCombatStart: 0
-    response_IsWorldMapStart: 0
-    response_IsRecruitmentStart: 0
-    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   newEngagedHero: {fileID: 0}
   hideNPC: 0
   newCard: {fileID: 0}

@@ -11,6 +11,7 @@ public class DialogueResponse
     [SerializeField] private bool response_IsShopStart;
     [SerializeField] private bool response_IsCloningStart;
     [SerializeField] private bool response_IsExit;
+    [SerializeField] private Location response_TravelLocation;
 
     public string ResponseText { get => responseText; }
     public DialogueClip Response_NextClip { get => response_NextClip; }
@@ -20,6 +21,7 @@ public class DialogueResponse
     public bool Response_IsShopStart { get => response_IsShopStart; }
     public bool Response_IsCloningStart { get => response_IsCloningStart; }
     public bool Response_IsExit { get => response_IsExit; }
+    public Location Response_TravelLocation { get => response_TravelLocation; }
 
     public void LoadResponse(DialogueResponse dr)
     {
@@ -31,5 +33,6 @@ public class DialogueResponse
         response_IsShopStart = dr.Response_IsShopStart;
         response_IsCloningStart = dr.Response_IsCloningStart;
         response_IsExit = dr.Response_IsExit;
+        response_TravelLocation = dr.Response_TravelLocation;
     }
 }

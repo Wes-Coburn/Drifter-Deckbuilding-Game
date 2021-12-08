@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e7527b44bc0b3347b54a3f404a8a59f, type: 3}
   m_Name: Refresh
   m_EditorClassIdentifier: 
-  AbilityName: Refreshed
-  AbilityDescription: A refreshed unit can attack again this turn.
+  AbilityName: Refresh
+  AbilityDescription: Remove exhausted from a unit.
   AbilitySprite: {fileID: 21300000, guid: fef0038b60191af47a911b32769e4ca7, type: 3}
-  LinkedAbilites: []
+  LinkedAbilites:
+  - {fileID: 11400000, guid: da9edd80a7b529542b04b632f79005de, type: 2}
   GainAbilitySound:
     name: 
     clip: {fileID: 0}

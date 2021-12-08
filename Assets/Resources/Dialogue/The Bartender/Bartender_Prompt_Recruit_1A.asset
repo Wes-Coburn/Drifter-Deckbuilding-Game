@@ -18,34 +18,39 @@ MonoBehaviour:
     responseText: 'Until next time.
 
       *Leave*'
-    response_Respect: 0
     response_NextClip: {fileID: 11400000, guid: e2329fb1202c999428b0d48dc4183c6f,
       type: 2}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
     response_IsCloningStart: 0
     response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   dialogueResponse2:
-    responseText: I'm interested.
-    response_Respect: 0
+    responseText: 'I''m interested.
+
+      *Recruit*'
     response_NextClip: {fileID: 11400000, guid: e2329fb1202c999428b0d48dc4183c6f,
       type: 2}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 1
+    response_IsShopStart: 0
     response_IsCloningStart: 0
     response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   dialogueResponse3:
     responseText: Where do you find these people?
-    response_Respect: 0
     response_NextClip: {fileID: 11400000, guid: 60ac758808d107a46badfdd82fd14a56,
       type: 2}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
     response_IsCloningStart: 0
     response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   newEngagedHero: {fileID: 0}
   hideNPC: 0
   newCard: {fileID: 0}

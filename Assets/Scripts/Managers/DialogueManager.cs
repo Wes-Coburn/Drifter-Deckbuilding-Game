@@ -199,6 +199,8 @@ public class DialogueManager : MonoBehaviour
 
     public void DialogueResponse(int response)
     {
+        //if (uMan.TravelPopup != null) return; // TESTING
+
         if (currentDialogueClip == null)
         {
             Debug.LogError("CURRENT CLIP IS NULL!");
@@ -244,6 +246,13 @@ public class DialogueManager : MonoBehaviour
         }
         EngagedHero.NextDialogueClip = nextClip;
 
+        // New Location
+        if (dResponse.Response_TravelLocation != null) // TESTING
+        {
+            Location location = dResponse.Response_TravelLocation;
+            uMan.CreateTravelPopup(gMan.GetActiveLocation(location));
+            return;
+        }
         // Combat Start
         if (dResponse.Response_IsCombatStart)
         {
@@ -288,7 +297,7 @@ public class DialogueManager : MonoBehaviour
                 EngagedHero = gMan.GetActiveNPC(nextPrompt.NewEngagedHero);
                 newEngagedHero = true;
             }
-            else // TESTING
+            else
             {
                 if (prompt.HideNPC && !nextPrompt.HideNPC)
                     newEngagedHero = true;

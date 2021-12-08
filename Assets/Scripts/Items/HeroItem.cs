@@ -8,9 +8,11 @@ public class HeroItem : ScriptableObject
     [SerializeField] [TextArea] private string itemDescription;
     [SerializeField] private Sprite itemImage;
     [SerializeField] private List<EffectGroup> effectGroupList;
+    [SerializeField] private List<StaticAbility> linkedAbilities;
 
     public string ItemName { get => itemName; }
     public string ItemDescription { get => itemDescription; }
     public Sprite ItemImage { get => itemImage; }
     public List<EffectGroup> EffectGroupList { get => effectGroupList; }
+    public List<StaticAbility> LinkedAbilities { get => linkedAbilities; }
 }

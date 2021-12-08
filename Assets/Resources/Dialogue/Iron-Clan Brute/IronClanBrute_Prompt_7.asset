@@ -13,31 +13,40 @@ MonoBehaviour:
   m_Name: IronClanBrute_Prompt_7
   m_EditorClassIdentifier: 
   developerNotes: 
-  journalNotes: []
   dialoguePromptText: You'll die choking on your own blood, Drifter.
   dialogueResponse1:
     responseText: 
-    response_Respect: 0
     response_NextClip: {fileID: 0}
-    response_IsExit: 0
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   dialogueResponse2:
-    responseText: FIGHT!
-    response_Respect: 0
+    responseText: '*FIGHT!*'
     response_NextClip: {fileID: 11400000, guid: c079155da3c06964ab4e27ad012f2810,
       type: 2}
-    response_IsExit: 0
     response_IsCombatStart: 1
     response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   dialogueResponse3:
     responseText: 
-    response_Respect: 0
     response_NextClip: {fileID: 0}
-    response_IsExit: 0
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   newEngagedHero: {fileID: 0}
+  hideNPC: 0
   newCard: {fileID: 0}
   aetherCells: 0
   newLocations: []

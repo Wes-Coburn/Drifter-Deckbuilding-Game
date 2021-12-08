@@ -13,30 +13,38 @@ MonoBehaviour:
   m_Name: IronClanEnforcer_Prompt_9
   m_EditorClassIdentifier: 
   developerNotes: 
-  journalNotes: []
   dialoguePromptText: Now you die.
   dialogueResponse1:
     responseText: 
-    response_Respect: 0
     response_NextClip: {fileID: 0}
-    response_IsExit: 0
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   dialogueResponse2:
-    responseText: FIGHT!
-    response_Respect: 0
+    responseText: '*FIGHT!*'
     response_NextClip: {fileID: 11400000, guid: 8c1ddd2d1b151684a8717201aae3426d,
       type: 2}
-    response_IsExit: 0
     response_IsCombatStart: 1
     response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   dialogueResponse3:
     responseText: 
-    response_Respect: 0
     response_NextClip: {fileID: 0}
-    response_IsExit: 0
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   newEngagedHero: {fileID: 0}
   hideNPC: 0
   newCard: {fileID: 0}

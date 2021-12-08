@@ -13,35 +13,41 @@ MonoBehaviour:
   m_Name: Shadow_Assin_Prompt_4
   m_EditorClassIdentifier: 
   developerNotes: 
-  journalNotes: []
-  dialoguePromptText: '*You quickly get up and confront your attacker, a cloaked
-    figure clutching a dagger in each fist.*'
+  dialoguePromptText: '*You narrowly avoid the blade whistling past you, and turn
+    to confront your attacker.*'
   dialogueResponse1:
-    responseText: Who the fuck are you?
-    response_Respect: 0
-    response_NextClip: {fileID: 11400000, guid: b7c1d0beac13b014fb4ae6f60cc53d5a,
-      type: 2}
-    response_IsExit: 0
+    responseText: 
+    response_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   dialogueResponse2:
-    responseText: Come on, then! (Attack)
-    response_Respect: 0
-    response_NextClip: {fileID: 11400000, guid: d4a73615a25f9da43aee434572cb73be,
+    responseText: (Continue)
+    response_NextClip: {fileID: 11400000, guid: a2ecc411753899b4dba42bf7c91d5f46,
       type: 2}
-    response_IsExit: 0
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   dialogueResponse3:
-    responseText: You don't want to do this.
-    response_Respect: 0
-    response_NextClip: {fileID: 11400000, guid: b7c1d0beac13b014fb4ae6f60cc53d5a,
-      type: 2}
-    response_IsExit: 0
+    responseText: 
+    response_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
-  newEngagedHero: {fileID: 11400000, guid: ea2befe964ef52546a31cdd8f8d5d373, type: 2}
-  hideNPC: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
+  newEngagedHero: {fileID: 0}
+  hideNPC: 1
   newCard: {fileID: 0}
   aetherCells: 0
   newLocations: []

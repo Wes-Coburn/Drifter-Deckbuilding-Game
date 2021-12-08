@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Yergov_Backstory
   m_EditorClassIdentifier: 
   narrativeText:
-  - My name is Yergov. Yergov Geringrot, last of my name.
+  - My name is Yergov. Yergov Gevgren, last of my name.
   - "I grew up in a region untouched by The Corporations, a hidden oasis with clean
     water and smiling faces\u2026"
   - But inevitably, they found us.
@@ -24,9 +24,11 @@ MonoBehaviour:
   - After years of honing my knowledge, I have discovered many secrets of the elements.
   - Now I use my power to exact revenge on The Corporations.
   - --- Continue ---
+  narrativeBackground: {fileID: 21300000, guid: cbe76aa8e213d86488a80f22af7095e5,
+    type: 3}
   narrativeSoundscape:
     name: 
-    clip: {fileID: 8300000, guid: f96eb54b1ad0444729c71a0eaa284b71, type: 3}
+    clip: {fileID: 8300000, guid: 1ea10b607cf4340959b64322d4732a45, type: 3}
     volume: 0.8
     pitch: 1
     source: {fileID: 0}

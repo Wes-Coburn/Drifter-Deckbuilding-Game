@@ -55,6 +55,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject buyItemPopupPrefab;
     [SerializeField] private GameObject itemIconPrefab;
     [SerializeField] private GameObject itemIconPopupPrefab;
+    [SerializeField] private GameObject abilityPopupPrefab;
+    [SerializeField] private GameObject abilityPopupBoxPrefab;
 
     [Header("COLORS")]
     [SerializeField] private Color highlightedColor;
@@ -85,6 +87,7 @@ public class UIManager : MonoBehaviour
     private GameObject travelPopup;
     private GameObject augmentIconPopup;
     private GameObject itemIconPopup;
+    private GameObject itemAbilityPopup;
 
     private GameObject endTurnButton;
     private GameObject cancelEffectButton;
@@ -782,9 +785,9 @@ public class UIManager : MonoBehaviour
         itemIconPopup.transform.localPosition = new Vector2(xPos, 320);
         ItemIconPopupDisplay iipd = itemIconPopup.GetComponent<ItemIconPopupDisplay>();
         iipd.LoadedItem = item;
-        iipd.SourceIcon = sourceIcon; // TESTING
-        iipd.Buttons.SetActive(isUseItemConfirm); // TESTING
-        if (isUseItemConfirm) ConfirmUseItemPopup = itemIconPopup; // TESTING
+        iipd.SourceIcon = sourceIcon;
+        iipd.Buttons.SetActive(isUseItemConfirm);
+        if (isUseItemConfirm) ConfirmUseItemPopup = itemIconPopup;
     }
     public void DestroyItemIconPopup()
     {
@@ -795,6 +798,29 @@ public class UIManager : MonoBehaviour
 
             if (ConfirmUseItemPopup != null)
                 ConfirmUseItemPopup = null;
+        }
+    }
+    public void CreateItemAbilityPopup(HeroItem item)
+    {
+        DestroyItemAbilityPopup();
+        itemAbilityPopup =
+                Instantiate(abilityPopupBoxPrefab, CurrentZoomCanvas.transform);
+        foreach (StaticAbility linkedCa in item.LinkedAbilities)
+            CreateAbilityPopup(linkedCa);
+
+        void CreateAbilityPopup(StaticAbility sa)
+        {
+            GameObject abilityPopup =
+                    Instantiate(abilityPopupPrefab, itemAbilityPopup.transform);
+            abilityPopup.GetComponent<AbilityPopupDisplay>().AbilityScript = sa;
+        }
+    }
+    public void DestroyItemAbilityPopup()
+    {
+        if (itemAbilityPopup != null)
+        {
+            Destroy(itemAbilityPopup);
+            itemAbilityPopup = null;
         }
     }
 }

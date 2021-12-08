@@ -13,29 +13,40 @@ MonoBehaviour:
   m_Name: Contact_Prompt_6
   m_EditorClassIdentifier: 
   developerNotes: 
-  journalNotes: []
   dialoguePromptText: I'm still not sure if I trust you. How do I know you're not
     corporate?
   dialogueResponse1:
     responseText: We have to trust each other.
-    response_Respect: 0
     response_NextClip: {fileID: 11400000, guid: dd97e6bacaae08e4993203afb93cfe2c,
       type: 2}
-    response_IsExit: 0
     response_IsCombatStart: 0
+    response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
   dialogueResponse2:
-    responseText: I would never sacrifice my sould for those demons.
-    response_Respect: 1
+    responseText: I would never sacrifice my soul for those demons.
     response_NextClip: {fileID: 11400000, guid: dd97e6bacaae08e4993203afb93cfe2c,
       type: 2}
-    response_IsExit: 0
     response_IsCombatStart: 0
+    response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
   dialogueResponse3:
     responseText: You'd already be dead.
-    response_Respect: 0
     response_NextClip: {fileID: 11400000, guid: 892e8c875c89233499771ef3d32beeb6,
       type: 2}
-    response_IsExit: 0
     response_IsCombatStart: 0
+    response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
   newEngagedHero: {fileID: 0}
+  hideNPC: 0
   newCard: {fileID: 0}
+  aetherCells: 0
+  newLocations: []

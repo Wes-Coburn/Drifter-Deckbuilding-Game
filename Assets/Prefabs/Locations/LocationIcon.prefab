@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 3035030366327839322}
   - component: {fileID: 7001515754728082525}
   - component: {fileID: 2302033733526092013}
+  - component: {fileID: 894198271350849087}
   m_Layer: 0
   m_Name: LocationIcon
   m_TagString: Untagged
@@ -332,6 +333,25 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
+--- !u!95 &894198271350849087
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7001515754728082527}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f5ff50c7cb6ccb440963418b84d78f8d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7001515754912877404
 GameObject:
   m_ObjectHideFlags: 0

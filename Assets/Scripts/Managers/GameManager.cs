@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
     private DialogueManager dMan;
     private int currentChapter;
 
-    public bool IsCombatTest { get; set; } // FOR TESTING ONLY
+    public bool IsCombatTest { get; set; }
     public bool HideExplicitLanguage { get; private set; }
     public string NextChapter
     {
@@ -67,7 +67,6 @@ public class GameManager : MonoBehaviour
     public const int PLAYER_START_FOLLOWERS = 2;
     public const int PLAYER_START_SKILLS = 2;
     public const int START_ENERGY_PER_TURN = 1;
-    public const int MAX_ENERGY_PER_TURN = 5;
     public const int MAXIMUM_ENERGY = 5;
 
     // Aether Costs
@@ -75,7 +74,7 @@ public class GameManager : MonoBehaviour
     public const int RECRUIT_UNIT_COST = 2;
     public const int ACQUIRE_AUGMENT_COST = 4;
     public const int REMOVE_CARD_COST = 1;
-    public const int BUY_ITEM_COST = 1; // TESTING
+    public const int BUY_ITEM_COST = 1;
     public const int CLONE_UNIT_COST = 2;
 
     // Enemy
@@ -119,8 +118,8 @@ public class GameManager : MonoBehaviour
         HideExplicitLanguage = hideExplicitLanguage;
         currentChapter = 0;
         NextNarrative = settingNarrative;
-        caMan.ShuffleRecruits(); // TESTING
-        ShopItems = GetShopItems(); // TESTING
+        caMan.ShuffleRecruits();
+        ShopItems = GetShopItems();
         GetActiveLocation(homeBaseLocation);
         CurrentLocation = GetActiveLocation(firstLocation);
         SceneLoader.LoadScene(SceneLoader.Scene.NarrativeScene);
@@ -217,7 +216,7 @@ public class GameManager : MonoBehaviour
             allClips.Add(clips[i]);
 
         // AGUMENTS
-        HeroAugment[] augments = Resources.LoadAll<HeroAugment>("Heroes");
+        HeroAugment[] augments = Resources.LoadAll<HeroAugment>("Hero Augments");
         List<HeroAugment> allAugments = new List<HeroAugment>();
         for (int i = 0; i < augments.Length; i++)
             allAugments.Add(augments[i]);
@@ -432,7 +431,7 @@ public class GameManager : MonoBehaviour
         auMan.StartStopSound(null,
             NextNarrative.NarrativeSoundscape, AudioManager.SoundType.Soundscape);
         NarrativeSceneDisplay nsd = FindObjectOfType<NarrativeSceneDisplay>();
-        nsd.Narrative = NextNarrative;
+        nsd.CurrentNarrative = NextNarrative;
         Debug.Log("START NARRATIVE: " + NextNarrative.ToString());
     }
     public void EndNarrative()
@@ -528,13 +527,15 @@ public class GameManager : MonoBehaviour
             auMan.StartStopSound(null, pMan.PlayerHero.HeroWin);
             caMan.ShuffleRecruits(); // TESTING
             ShopItems = GetShopItems(); // TESTING
+            SaveGame(); // TESTING
         }
         else auMan.StartStopSound
                 (null, pMan.PlayerHero.HeroLose);
         pMan.IsMyTurn = false;
         efMan.GiveNextEffects.Clear();
         evMan.ClearDelayedActions();
-        FunctionTimer.Create(() => uMan.CreateCombatEndPopup(playerWins), 2f);
+        FunctionTimer.Create(() =>
+        uMan.CreateCombatEndPopup(playerWins), 2f);
     }
 
     /******
@@ -591,8 +592,7 @@ public class GameManager : MonoBehaviour
         if (player == ENEMY) StartCombatTurn(PLAYER);
         else if (player == PLAYER)
         {
-            if (pMan.EnergyPerTurn < MAX_ENERGY_PER_TURN)
-                pMan.EnergyPerTurn++;
+            pMan.EnergyPerTurn++; // Check max energy in EnergyPerTurn
             StartCombatTurn(ENEMY);
         }
 

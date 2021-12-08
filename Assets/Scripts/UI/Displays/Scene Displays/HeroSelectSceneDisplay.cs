@@ -31,6 +31,7 @@ public class HeroSelectSceneDisplay : MonoBehaviour
     private PlayerManager pMan;
     private CombatManager coMan;
     private UIManager uMan;
+    private CardManager caMan;
     private GameObject currentSkill_1;
     private GameObject currentSkill_2;
     private int currentSelection;
@@ -45,11 +46,12 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         pMan = PlayerManager.Instance;
         coMan = CombatManager.Instance;
         uMan = UIManager.Instance;
+        caMan = CardManager.Instance;
         currentSelection = 1; // Start with Kili
         heroSelected = false;
         augmentSelected = false;
         playerHeroes = Resources.LoadAll<PlayerHero>("Heroes");
-        heroAugments = Resources.LoadAll<HeroAugment>("Heroes");
+        heroAugments = Resources.LoadAll<HeroAugment>("Hero Augments");
     }
 
     private void LoadSelections()
@@ -57,6 +59,14 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         PlayerHero newPH = ScriptableObject.CreateInstance<PlayerHero>();
         newPH.LoadHero(loadedHero);
         pMan.PlayerHero = newPH;
+
+        foreach (UnitCard uc in caMan.PlayerStartUnits)
+            for (int i = 0; i < GameManager.PLAYER_START_FOLLOWERS; i++)
+                caMan.AddCard(uc, GameManager.PLAYER);
+        foreach (SkillCard skill in pMan.PlayerHero.HeroStartSkills)
+            for (int i = 0; i < GameManager.PLAYER_START_SKILLS; i++)
+                caMan.AddCard(skill, GameManager.PLAYER);
+
         HeroAugment ha = loadedAugment;
         pMan.AddAugment(ha);
     }
@@ -149,10 +159,7 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         foreach (Sound s in sounds) AudioManager.Instance.StartStopSound(null, s);
 
         int cost = loadedHero.HeroPower.PowerCost;
-        string actions;
-        if (cost > 1) actions = "actions";
-        else actions = "action";
-        string description = " (" + cost + " " + actions + "): ";
+        string description = " (" + cost + " energy): ";
 
         heroPowerDescription.GetComponent<TextMeshProUGUI>().SetText(loadedHero.HeroPower.PowerName +
             description + loadedHero.HeroPower.PowerDescription);
@@ -171,8 +178,8 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         Vector2 vec2 = new Vector2();
         currentSkill_1 = coMan.ShowCard(loadedHero.HeroStartSkills[0], vec2);
         currentSkill_2 = coMan.ShowCard(loadedHero.HeroStartSkills[1], vec2);
-        currentSkill_1.GetComponent<CardDisplay>().DisableVisuals(); // TESTING
-        currentSkill_2.GetComponent<CardDisplay>().DisableVisuals(); // TESTING
+        currentSkill_1.GetComponent<CardDisplay>().DisableVisuals();
+        currentSkill_2.GetComponent<CardDisplay>().DisableVisuals();
 
         currentSkill_1.transform.SetParent(skillCard_1.transform, false);
         currentSkill_2.transform.SetParent(skillCard_2.transform, false);

@@ -5,10 +5,13 @@ using UnityEngine.UI;
 public class ItemIcon : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private GameObject iconImage;
+    [SerializeField] private GameObject abilityPopupPrefab;
+    [SerializeField] private GameObject abilityPopupBoxPrefab;
 
     private UIManager uMan;
     private HeroItem loadedItem;
     private const string ITEM_POPUP_TIMER = "ItemPopupTimer";
+    private const string ITEM_ABILITY_POPUP_TIMER = "ItemAbilityPopupTimer";
     public HeroItem LoadedItem
     {
         get => loadedItem;
@@ -27,19 +30,25 @@ public class ItemIcon : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     {
         uMan.CreateItemIconPopup(loadedItem, gameObject, true);
         FunctionTimer.StopTimer(ITEM_POPUP_TIMER);
+        FunctionTimer.StopTimer(ITEM_ABILITY_POPUP_TIMER); // TESTING
+        uMan.DestroyItemAbilityPopup(); // TESTING
     }
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
-        if (uMan.ConfirmUseItemPopup != null) return; // TESTING
+        if (uMan.ConfirmUseItemPopup != null) return;
         FunctionTimer.Create(() =>
         uMan.CreateItemIconPopup(loadedItem, gameObject), 0.5f, ITEM_POPUP_TIMER);
+        FunctionTimer.Create(() =>
+        uMan.CreateItemAbilityPopup(loadedItem), 1, ITEM_ABILITY_POPUP_TIMER); // TESTING
     }
 
     public void OnPointerExit(PointerEventData pointerEventData)
     {
-        if (uMan.ConfirmUseItemPopup != null) return; // TESTING
+        if (uMan.ConfirmUseItemPopup != null) return;
         FunctionTimer.StopTimer(ITEM_POPUP_TIMER);
+        FunctionTimer.StopTimer(ITEM_ABILITY_POPUP_TIMER); // TESTING
         uMan.DestroyItemIconPopup();
+        uMan.DestroyItemAbilityPopup(); // TESTING
     }
 }

@@ -13,31 +13,42 @@ MonoBehaviour:
   m_Name: Shadow_Assin_Prompt_5
   m_EditorClassIdentifier: 
   developerNotes: 
-  journalNotes: []
-  dialoguePromptText: '*The figure lets out a low chuckle, and charges toward you.*'
+  dialoguePromptText: '*A cloaked figure crouches before you, a dagger clutched in
+    each fist.*'
   dialogueResponse1:
-    responseText: 
-    response_Respect: 0
-    response_NextClip: {fileID: 0}
-    response_IsExit: 0
-    response_IsCombatStart: 0
-    response_IsWorldMapStart: 0
-  dialogueResponse2:
-    responseText: FIGHT!
-    response_Respect: 0
-    response_NextClip: {fileID: 11400000, guid: 80551616f21d4ed4d8d1ac2fd6d01fee,
+    responseText: Who the fuck are you?
+    response_NextClip: {fileID: 11400000, guid: b7c1d0beac13b014fb4ae6f60cc53d5a,
       type: 2}
-    response_IsExit: 0
-    response_IsCombatStart: 1
-    response_IsWorldMapStart: 0
-  dialogueResponse3:
-    responseText: 
-    response_Respect: 0
-    response_NextClip: {fileID: 0}
-    response_IsExit: 0
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
-  newEngagedHero: {fileID: 0}
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
+  dialogueResponse2:
+    responseText: Come on, then! *Attack*
+    response_NextClip: {fileID: 11400000, guid: d4a73615a25f9da43aee434572cb73be,
+      type: 2}
+    response_IsCombatStart: 0
+    response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
+  dialogueResponse3:
+    responseText: You don't want to do this.
+    response_NextClip: {fileID: 11400000, guid: b7c1d0beac13b014fb4ae6f60cc53d5a,
+      type: 2}
+    response_IsCombatStart: 0
+    response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
+  newEngagedHero: {fileID: 11400000, guid: ea2befe964ef52546a31cdd8f8d5d373, type: 2}
   hideNPC: 0
   newCard: {fileID: 0}
   aetherCells: 0

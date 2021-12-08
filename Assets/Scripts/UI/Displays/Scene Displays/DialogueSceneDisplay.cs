@@ -86,4 +86,9 @@ public class DialogueSceneDisplay : MonoBehaviour
             response_3.GetComponent<TextMeshProUGUI>().SetText(value);
         }
     }
+
+    public void SkipTypedText()
+    {
+        DialogueManager.Instance.StopTimedText(true);
+    }
 }

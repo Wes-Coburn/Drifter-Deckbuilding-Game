@@ -835,6 +835,7 @@ GameObject:
   - component: {fileID: 808052021}
   - component: {fileID: 808052023}
   - component: {fileID: 808052022}
+  - component: {fileID: 808052024}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -875,7 +876,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 1, b: 0, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -899,6 +900,74 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 808052020}
   m_CullTransparentMesh: 1
+--- !u!114 &808052024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 808052020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 0
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 808052022}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7744242742127130769}
+        m_TargetAssemblyTypeName: DialogueSceneDisplay, Assembly-CSharp
+        m_MethodName: SkipTypedText
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2105277525}
+        m_TargetAssemblyTypeName: SoundPlayer, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &878396677
 GameObject:
   m_ObjectHideFlags: 0
@@ -3106,13 +3175,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2340c8fec396b2b43bf9a91052c5c90e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds: []
-  sounds2:
-  - name: 
-    clip: {fileID: 8300000, guid: a580b904278a5fd4fba9563d4096bd3d, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
+  sounds:
+  - SFX_Click1
+  sounds2: []
 --- !u!1 &2126121637
 GameObject:
   m_ObjectHideFlags: 0
@@ -3355,3 +3420,15 @@ PrefabInstance:
       objectReference: {fileID: 1183755368}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01b71bbdae432884ea81be4944b31df2, type: 3}
+--- !u!114 &7744242742127130769 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8458519023704426165, guid: 01b71bbdae432884ea81be4944b31df2,
+    type: 3}
+  m_PrefabInstance: {fileID: 7744242742127130768}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e92dee5474f6594aad572d04638af1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

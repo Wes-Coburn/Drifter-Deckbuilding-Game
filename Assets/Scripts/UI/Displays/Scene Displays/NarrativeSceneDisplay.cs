@@ -1,16 +1,18 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class NarrativeSceneDisplay : MonoBehaviour
 {
+    [SerializeField] private GameObject background;
     [SerializeField] private GameObject narrativeText;
     [SerializeField] private GameObject clipCounter;
 
     private Narrative narrative;
-    private int currentNarrative;
+    private int currentClip;
     private TextMeshProUGUI clipCounterText;
 
-    public Narrative Narrative
+    public Narrative CurrentNarrative
     {
         get => narrative;
         set
@@ -25,9 +27,10 @@ public class NarrativeSceneDisplay : MonoBehaviour
 
     private void SetCurrentNarrative(int value)
     {
-        currentNarrative = value;
-        clipCounterText.SetText(currentNarrative + 1 + "/" + 
+        currentClip = value;
+        clipCounterText.SetText(currentClip + 1 + "/" + 
             narrative.NarrativeText.Length);
+        background.GetComponent<Image>().sprite = CurrentNarrative.NarrativeBackground; // TESTING
         DialogueManager.Instance.TimedText(narrative.NarrativeText[value], 
             narrativeText.GetComponent<TextMeshProUGUI>());
     }
@@ -39,13 +42,13 @@ public class NarrativeSceneDisplay : MonoBehaviour
             DialogueManager.Instance.StopTimedText(true);
             return;
         }
-        if (++currentNarrative > narrative.NarrativeText.Length - 1)
+        if (++currentClip > narrative.NarrativeText.Length - 1)
             GameManager.Instance.EndNarrative();
-        else SetCurrentNarrative(currentNarrative);
+        else SetCurrentNarrative(currentClip);
     }
     public void PreviousNarrative()
     {
-        if (--currentNarrative < 0) currentNarrative = 0;
-        else SetCurrentNarrative(currentNarrative);
+        if (--currentClip < 0) currentClip = 0;
+        else SetCurrentNarrative(currentClip);
     }
 }

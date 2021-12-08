@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b5d380596c186946b6326aed147aa08, type: 3}
+  m_Name: Temporal Fluxinator
+  m_EditorClassIdentifier: 
+  itemName: Temporal Fluxinator
+  itemDescription: Refresh two allies.
+  itemImage: {fileID: 21300000, guid: 18ac59c829241ff4286b25af3a4b6cdd, type: 3}
+  effectGroupList:
+  - {fileID: 11400000, guid: e186001cfe39d3b4a8c77a09addde72f, type: 2}
+  linkedAbilities:
+  - {fileID: 11400000, guid: dd1e5adc210ef4f4387a7fa5ee2988e8, type: 2}
+  - {fileID: 11400000, guid: da9edd80a7b529542b04b632f79005de, type: 2}

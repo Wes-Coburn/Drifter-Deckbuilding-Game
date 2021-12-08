@@ -316,7 +316,7 @@ public class EffectManager : MonoBehaviour
             dragArrow = Instantiate(coMan.DragArrowPrefab, uMan.CurrentWorldSpace.transform);
 
             GameObject startPoint;
-            if (effectSource.TryGetComponent(out ItemIcon _)) // TESTING
+            if (effectSource.TryGetComponent(out ItemIcon _))
                 startPoint = coMan.PlayerHero;
             else startPoint = effectSource;
             dragArrow.GetComponent<DragArrow>().SourceCard = startPoint;
@@ -448,7 +448,8 @@ public class EffectManager : MonoBehaviour
     {
         List<List<GameObject>> targetZones = new List<List<GameObject>>();
         if (effectSource.CompareTag(CombatManager.PLAYER_CARD) || 
-            effectSource.CompareTag(CombatManager.PLAYER_HERO))
+            effectSource.CompareTag(CombatManager.PLAYER_HERO) ||
+            effectSource.TryGetComponent(out ItemIcon _))
         {
             if (targets.PlayerHand) targetZones.Add(coMan.PlayerHandCards);
             if (targets.PlayerUnit) targetZones.Add(coMan.PlayerZoneCards);
@@ -626,7 +627,7 @@ public class EffectManager : MonoBehaviour
         // HEALING
         else if (effect is HealEffect)
         {
-            auMan.StartStopSound("SFX_StatPlus"); // Need heal sound
+            auMan.StartStopSound("SFX_StatPlus");
             foreach (GameObject target in targets)
                 coMan.HealDamage(target, effect.Value);
         }

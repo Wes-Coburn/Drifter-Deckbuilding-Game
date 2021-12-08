@@ -13,30 +13,38 @@ MonoBehaviour:
   m_Name: Shadow_Assin_Prompt_6
   m_EditorClassIdentifier: 
   developerNotes: 
-  journalNotes: []
-  dialoguePromptText: '*Without hesitation, you charge toward your attacker.*'
+  dialoguePromptText: '*The figure lets out a low chuckle, and charges toward you.*'
   dialogueResponse1:
     responseText: 
-    response_Respect: 0
     response_NextClip: {fileID: 0}
-    response_IsExit: 0
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   dialogueResponse2:
-    responseText: FIGHT!
-    response_Respect: 0
+    responseText: '*FIGHT!*'
     response_NextClip: {fileID: 11400000, guid: 80551616f21d4ed4d8d1ac2fd6d01fee,
       type: 2}
-    response_IsExit: 0
     response_IsCombatStart: 1
     response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   dialogueResponse3:
     responseText: 
-    response_Respect: 0
     response_NextClip: {fileID: 0}
-    response_IsExit: 0
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   newEngagedHero: {fileID: 0}
   hideNPC: 0
   newCard: {fileID: 0}

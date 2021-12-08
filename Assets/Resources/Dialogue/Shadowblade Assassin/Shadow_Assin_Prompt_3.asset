@@ -13,32 +13,39 @@ MonoBehaviour:
   m_Name: Shadow_Assin_Prompt_3
   m_EditorClassIdentifier: 
   developerNotes: 
-  journalNotes: []
-  dialoguePromptText: "*You catch the faintest sound of footsteps running up behind
-    you, and instinctively leap aside as you narrowly avoid the assassin\u2019s blade
-    whistling through the air.*"
+  dialoguePromptText: '*You catch the faintest sound of footsteps running up behind
+    you, and instinctively leap aside.*'
   dialogueResponse1:
     responseText: 
-    response_Respect: 0
     response_NextClip: {fileID: 0}
-    response_IsExit: 0
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   dialogueResponse2:
     responseText: (Continue)
-    response_Respect: 0
     response_NextClip: {fileID: 11400000, guid: 1fdbd10f9c1f3874abd7f66f6ae9a012,
       type: 2}
-    response_IsExit: 0
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   dialogueResponse3:
     responseText: 
-    response_Respect: 0
     response_NextClip: {fileID: 0}
-    response_IsExit: 0
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   newEngagedHero: {fileID: 0}
   hideNPC: 1
   newCard: {fileID: 0}

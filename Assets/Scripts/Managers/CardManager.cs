@@ -107,7 +107,7 @@ public class CardManager : MonoBehaviour
             return null;
         }
 
-        allChooseCards.Shuffle(); // TESTING
+        allChooseCards.Shuffle();
         Card[] chooseCards = new Card[3];
         int index = 0;
         foreach (Card card in allChooseCards)
@@ -118,8 +118,6 @@ public class CardManager : MonoBehaviour
                 if (index == 3) break;
             }
         }
-
-        Debug.LogWarning(index + " CARDS FOUND!");
         return chooseCards;
     }
 

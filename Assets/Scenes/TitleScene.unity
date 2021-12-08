@@ -1429,13 +1429,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2340c8fec396b2b43bf9a91052c5c90e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds: []
-  sounds2:
-  - name: 
-    clip: {fileID: 8300000, guid: a450edaa20ccbbc419f0442ba67250f2, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
+  sounds:
+  - SFX_SpecialClick1
+  sounds2: []
 --- !u!95 &2345662359646654805
 Animator:
   serializedVersion: 3
@@ -1674,17 +1670,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7219d0b0647b06943b317352c5d081a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTestHero: {fileID: 11400000, guid: 14df74eab3a27eb4397e917831e0abb1, type: 2}
-  heroAugment: {fileID: 11400000, guid: 7264763dfee18dd41a9e3bed17fa5f7d, type: 2}
+  playerTestHero: {fileID: 11400000, guid: 7ec381d799404eb4abf4d674191a948b, type: 2}
   enemyTestHero: {fileID: 11400000, guid: 880daca80831ebe4688d6fe5a09a90fd, type: 2}
+  testAugments:
+  - {fileID: 11400000, guid: 7264763dfee18dd41a9e3bed17fa5f7d, type: 2}
+  - {fileID: 11400000, guid: f5922062de597b649accf655444b3dc7, type: 2}
+  - {fileID: 11400000, guid: 513ae22f8600da948bfb3c4a73aa33a7, type: 2}
+  - {fileID: 11400000, guid: 57fe36df3e9c87e499ab987a471e140b, type: 2}
   testCards:
-  - {fileID: 11400000, guid: 7eabd274c60a1384e9ce290d168c3d08, type: 2}
-  - {fileID: 11400000, guid: 7eabd274c60a1384e9ce290d168c3d08, type: 2}
-  - {fileID: 11400000, guid: 7eabd274c60a1384e9ce290d168c3d08, type: 2}
+  - {fileID: 11400000, guid: 4e856b3a870bf8148987a1884e42df4e, type: 2}
+  - {fileID: 11400000, guid: 4e856b3a870bf8148987a1884e42df4e, type: 2}
   testItems:
+  - {fileID: 11400000, guid: 9ad95d71efbbd694e9879ced07fc512b, type: 2}
+  - {fileID: 11400000, guid: 6dfce5660e4c5144285a6d47cf235170, type: 2}
   - {fileID: 11400000, guid: 5250747bf0a73d54da51f4a4c7401087, type: 2}
+  - {fileID: 11400000, guid: 4ff1b464413b0794b8de608bfdd17a14, type: 2}
   - {fileID: 11400000, guid: 60bf670c02ac5bf4d9c72e6baa60a6a4, type: 2}
   - {fileID: 11400000, guid: f13eb1c174435f148b341d32fc1a07cf, type: 2}
+  - {fileID: 11400000, guid: 14ae89d7041f03249af804f195108ba9, type: 2}
+  - {fileID: 11400000, guid: 2d1e5cdb1c1abac4590fb477bcd8d46a, type: 2}
+  - {fileID: 11400000, guid: c49c6e214e1d99749b29814c038c19ac, type: 2}
 --- !u!1001 &5061810776454650219
 PrefabInstance:
   m_ObjectHideFlags: 0

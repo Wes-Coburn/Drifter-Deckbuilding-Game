@@ -34,15 +34,12 @@ public class DialoguePrompt : DialogueClip
     {
         base.LoadDialogueClip(dc);
         DialoguePrompt dp = dc as DialoguePrompt;
-
-        // TESTING
         dialogueResponse1 = new DialogueResponse();
         dialogueResponse2 = new DialogueResponse();
         dialogueResponse3 = new DialogueResponse();
         dialogueResponse1.LoadResponse(dp.DialogueResponse1);
         dialogueResponse2.LoadResponse(dp.DialogueResponse2);
         dialogueResponse3.LoadResponse(dp.DialogueResponse3);
-
         dialoguePromptText = dp.DialoguePromptText;
         newEngagedHero = dp.NewEngagedHero;
         hideNPC = dp.HideNPC;

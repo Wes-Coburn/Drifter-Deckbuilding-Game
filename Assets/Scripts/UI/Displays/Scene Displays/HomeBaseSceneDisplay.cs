@@ -105,7 +105,7 @@ public class HomeBaseSceneDisplay : MonoBehaviour
         uMan = UIManager.Instance;
         PlayerHero ph = pMan.PlayerHero;
         accessibleAugments = new List<HeroAugment>();
-        HeroAugment[] allAugments = Resources.LoadAll<HeroAugment>("Heroes");
+        HeroAugment[] allAugments = Resources.LoadAll<HeroAugment>("Hero Augments");
         foreach (HeroAugment aug in allAugments)
             accessibleAugments.Add(aug);
 

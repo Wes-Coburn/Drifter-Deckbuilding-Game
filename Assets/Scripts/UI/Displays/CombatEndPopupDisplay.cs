@@ -8,7 +8,7 @@ public class CombatEndPopupDisplay : MonoBehaviour
     public GameObject VictoryText { get => victoryText; }
     public GameObject DefeatText { get => defeatText; }
 
-    private void Awake() => GetComponent<SoundPlayer>().PlaySound(0); // TESTING
+    private void Awake() => GetComponent<SoundPlayer>().PlaySound(0);
 
     public void OnClick()
     {
@@ -25,10 +25,14 @@ public class CombatEndPopupDisplay : MonoBehaviour
         if (victoryText.activeSelf == true)
         {
             if (dMan.EngagedHero.NextDialogueClip is CombatRewardClip)
-                uMan.CreateNewCardPopup(null, CardManager.Instance.ChooseCards()); // TESTING
+                uMan.CreateNewCardPopup(null, CardManager.Instance.ChooseCards());
             else Debug.LogError("NEXT CLIP IS NOT COMBAT REWARD CLIP!");
         }
-        else SceneLoader.LoadScene(SceneLoader.Scene.CombatScene, true);
+        else
+        {
+            gMan.LoadGame(); // TESTING
+            SceneLoader.LoadScene(SceneLoader.Scene.WorldMapScene, true);
+        }
         uMan.DestroyCombatEndPopup();
     }
 }
