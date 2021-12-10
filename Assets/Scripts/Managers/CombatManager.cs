@@ -177,7 +177,7 @@ public class CombatManager : MonoBehaviour
             cc.Child = prefab;
             prefab.transform.SetParent(cc.gameObject.transform, false);
         }
-        if (type is DisplayType.NewCard) prefab.GetComponent<CardDisplay>().DisplayZoomCard(null, card);
+        else if (type is DisplayType.NewCard) prefab.GetComponent<CardDisplay>().DisplayZoomCard(null, card);
         else if (type is DisplayType.Cardpage) cd.DisplayCardPageCard(card);
         return prefab;
     }
@@ -302,7 +302,7 @@ public class CombatManager : MonoBehaviour
     {
         CardDisplay display = card.GetComponent<CardDisplay>();
         int actionCost = display.CurrentEnergyCost;
-        int playerActions = pMan.PlayerEnergyLeft;
+        int playerActions = pMan.EnergyLeft;
 
         if (display is UnitCardDisplay)
         {
@@ -392,7 +392,7 @@ public class CombatManager : MonoBehaviour
         // PLAYER
         if (card.CompareTag(PLAYER_CARD))
         {
-            pMan.PlayerEnergyLeft -= card.GetComponent<CardDisplay>().CurrentEnergyCost;
+            pMan.EnergyLeft -= card.GetComponent<CardDisplay>().CurrentEnergyCost;
             PlayerHandCards.Remove(card);
 
             if (IsUnitCard(card))
@@ -742,12 +742,12 @@ public class CombatManager : MonoBehaviour
         if (target == PlayerHero)
         {
             targetValue = pMan.PlayerHealth;
-            maxValue = GameManager.PLAYER_STARTING_HEALTH;
+            maxValue = pMan.MaxPlayerHealth; // TESTING
         }
         else if (target == EnemyHero)
         {
             targetValue = enMan.EnemyHealth;
-            maxValue = GameManager.ENEMY_STARTING_HEALTH;
+            maxValue = enMan.MaxEnemyHealth; // TESTING
         }
         else
         {

@@ -5,6 +5,7 @@ public class CombatTestButton : MonoBehaviour
     [SerializeField] private PlayerHero playerTestHero;
     [SerializeField] private EnemyHero enemyTestHero;
     [SerializeField] private HeroAugment[] testAugments;
+    [SerializeField] private bool disableTestCards;
     [SerializeField] private Card[] testCards;
     [SerializeField] private HeroItem[] testItems;
 
@@ -22,8 +23,11 @@ public class CombatTestButton : MonoBehaviour
         foreach (HeroAugment aug in testAugments)
             pMan.AddAugment(aug);
         // Test Cards
-        foreach (Card c in testCards)
-            CardManager.Instance.AddCard(c, GameManager.PLAYER);
+        if (!disableTestCards)
+        {
+            foreach (Card c in testCards)
+                CardManager.Instance.AddCard(c, GameManager.PLAYER);
+        }
         // Test Items
         foreach (HeroItem i in testItems)
             pMan.HeroItems.Add(i);

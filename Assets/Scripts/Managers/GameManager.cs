@@ -479,21 +479,20 @@ public class GameManager : MonoBehaviour
             return;
         }
         enMan.EnemyHero = enemyHero;
-        enMan.EnemyHealth = ENEMY_STARTING_HEALTH;
+        enMan.EnemyHealth = enMan.MaxEnemyHealth; // TESTING
+
         // PLAYER MANAGER
-        int bonusHealth = 0;
-        if (pMan.GetAugment("Kinetic Amplifier")) bonusHealth = 5;
-        pMan.PlayerHealth = PLAYER_STARTING_HEALTH + bonusHealth;
-        int bonusActions = 0;
-        if (pMan.GetAugment("Synaptic Stabilizer")) bonusActions = 1;
-        pMan.EnergyPerTurn = START_ENERGY_PER_TURN + bonusActions;
-        pMan.PlayerEnergyLeft = 0;
+        pMan.PlayerHealth = pMan.MaxPlayerHealth; // TESTING
+        pMan.EnergyPerTurn = pMan.StartEnergy; // TESTING
+        pMan.EnergyLeft = 0;
+
         if (pMan.GetAugment("Biogenic Enhancer"))
         {
             GiveNextUnitEffect gnue = ScriptableObject.CreateInstance<GiveNextUnitEffect>();
             gnue.LoadEffect(augmentBiogenEffect);
             efMan.GiveNextEffects.Add(gnue);
         }
+
         // UPDATE DECKS
         caMan.UpdateDeck(PLAYER);
         caMan.UpdateDeck(ENEMY);
@@ -559,7 +558,7 @@ public class GameManager : MonoBehaviour
                 pMan.IsMyTurn = true;
                 enMan.IsMyTurn = false;
                 pMan.HeroPowerUsed = false;
-                pMan.PlayerEnergyLeft = pMan.EnergyPerTurn;
+                pMan.EnergyLeft = pMan.EnergyPerTurn;
                 AnimationManager.Instance.ModifyHeroEnergyState();
             }
         }
@@ -680,6 +679,7 @@ public class GameManager : MonoBehaviour
     public List<HeroItem> GetShopItems()
     {
         HeroItem[] allItems = Resources.LoadAll<HeroItem>("Items");
+        allItems.Shuffle(); // TESTING
         List<HeroItem> shopItems = new List<HeroItem>();
         int itemsFound = 0;
         foreach (HeroItem item in allItems)

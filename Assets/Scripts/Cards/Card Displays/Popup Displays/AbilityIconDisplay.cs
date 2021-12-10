@@ -63,9 +63,12 @@ public class AbilityIconDisplay : MonoBehaviour
     {
         DisplayAbilityIcon();
         string abilityName;
-        if (AbilityScript is StaticAbility || AbilityScript is TriggeredAbility)
+        if (AbilityScript is StaticAbility)
+            abilityName = "<b>" + AbilityScript.AbilityName + "</b>";
+        else if (AbilityScript is TriggeredAbility ta)
         {
-            abilityName = AbilityScript.AbilityName;
+            string triggerName = ta.AbilityTrigger.AbilityName;
+            abilityName = "<b>" + triggerName + "</b>: " + ta.AbilityDescription;
         }
         else
         {

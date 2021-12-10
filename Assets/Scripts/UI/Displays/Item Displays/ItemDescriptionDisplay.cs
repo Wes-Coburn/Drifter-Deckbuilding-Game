@@ -20,7 +20,7 @@ public class ItemDescriptionDisplay : MonoBehaviour, IPointerClickHandler, IPoin
         {
             loadedItem = value;
             itemImage.GetComponent<Image>().sprite = loadedItem.ItemImage;
-            string description = loadedItem.ItemName + ": " + loadedItem.ItemDescription;
+            string description = "<b>" + loadedItem.ItemName + ":</b> " + loadedItem.ItemDescription;
             itemDescription.GetComponent<TextMeshProUGUI>().SetText(description);
         }
     }
@@ -33,7 +33,9 @@ public class ItemDescriptionDisplay : MonoBehaviour, IPointerClickHandler, IPoin
 
     public void OnPointerClick(PointerEventData pointerEventData)
     {
-        if (pMan.AetherCells < GameManager.BUY_ITEM_COST)
+        if (pMan.HeroItems.Count >= 5)
+            uMan.CreateFleetingInfoPopup("You can't have more than 5 items!", true);
+        else if (pMan.AetherCells < GameManager.BUY_ITEM_COST)
             uMan.InsufficientAetherPopup();
         else uMan.CreateBuyItemPopup(loadedItem);
     }

@@ -26,7 +26,7 @@ public class PlayerManager : MonoBehaviour
     private List<HeroItem> heroItems;
     private int playerHealth;
     private int energyPerTurn;
-    private int playerEnergyLeft;
+    private int energyLeft;
     private bool heroPowerUsed;
 
     public PlayerHero PlayerHero { get; set; }
@@ -64,8 +64,25 @@ public class PlayerManager : MonoBehaviour
             coMan.PlayerHero.GetComponent<HeroDisplay>().HeroHealth = playerHealth;
         }
     }
-
-    private int MaximumEnergy
+    public int MaxPlayerHealth
+    {
+        get
+        {
+            int bonusHealth = 0;
+            if (GetAugment("Kinetic Amplifier")) bonusHealth = 5;
+            return GameManager.PLAYER_STARTING_HEALTH + bonusHealth;
+        }
+    }
+    public int StartEnergy
+    {
+        get
+        {
+            int bonusEnergy = 0;
+            if (GetAugment("Synaptic Stabilizer")) bonusEnergy = 1;
+            return GameManager.START_ENERGY_PER_TURN + bonusEnergy;
+        }
+    }
+    private int MaxEnergy
     {
         get
         {
@@ -80,26 +97,26 @@ public class PlayerManager : MonoBehaviour
         set
         {
             energyPerTurn = value;
-            if (energyPerTurn > MaximumEnergy)
-                energyPerTurn = MaximumEnergy;
+            if (energyPerTurn > MaxEnergy)
+                energyPerTurn = MaxEnergy;
         }
     }
-    public int PlayerEnergyLeft
+    public int EnergyLeft
     {
-        get => playerEnergyLeft;
+        get => energyLeft;
         set
         {
-            playerEnergyLeft = value;
-            if (playerEnergyLeft > EnergyPerTurn)
+            energyLeft = value;
+            if (energyLeft > EnergyPerTurn)
             {
                 Debug.LogError("ENERGY LEFT > ENERGY PER TURN!");
-                playerEnergyLeft = EnergyPerTurn;
+                energyLeft = EnergyPerTurn;
             }
 
-            if (playerEnergyLeft > MaximumEnergy) 
-                playerEnergyLeft = MaximumEnergy;
+            if (energyLeft > MaxEnergy) 
+                energyLeft = MaxEnergy;
             coMan.PlayerHero.GetComponent<PlayerHeroDisplay>().PlayerActions = 
-                playerEnergyLeft + "/" + EnergyPerTurn;
+                energyLeft + "/" + EnergyPerTurn;
         }
     }
 
@@ -115,7 +132,7 @@ public class PlayerManager : MonoBehaviour
         PlayerDeckList = new List<Card>();
         CurrentPlayerDeck = new List<Card>();
         AetherCells = 0;
-        //AetherCells = 10; // FOR TESTING ONLY
+        AetherCells = 99; // FOR TESTING ONLY
 
         heroAugments = new List<HeroAugment>();
         heroItems = new List<HeroItem>();   
@@ -123,6 +140,11 @@ public class PlayerManager : MonoBehaviour
 
     public void AddAugment(HeroAugment augment)
     {
+        if (GetAugment(augment.AugmentName))
+        {
+            Debug.LogError("AUGMENT ALREADY EXISTS!");
+            return;
+        }
         heroAugments.Add(augment);
         uMan.CreateAugmentIcon(augment);
     }
@@ -138,7 +160,7 @@ public class PlayerManager : MonoBehaviour
     {
         void ErrorSound() => auMan.StartStopSound("SFX_Error");
 
-        if (PlayerEnergyLeft < PlayerHero.HeroPower.PowerCost)
+        if (EnergyLeft < PlayerHero.HeroPower.PowerCost)
         {
             uMan.CreateFleetingInfoPopup("Not enough energy!");
             ErrorSound();
@@ -160,7 +182,7 @@ public class PlayerManager : MonoBehaviour
             else
             {
                 efMan.StartEffectGroupList(groupList, coMan.PlayerHero);
-                PlayerEnergyLeft -= PlayerHero.HeroPower.PowerCost;
+                EnergyLeft -= PlayerHero.HeroPower.PowerCost;
                 HeroPowerUsed = true;
                 foreach (Sound s in PlayerHero.HeroPower.PowerSounds)
                     AudioManager.Instance.StartStopSound(null, s);

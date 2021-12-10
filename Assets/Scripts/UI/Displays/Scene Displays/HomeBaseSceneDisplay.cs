@@ -152,30 +152,42 @@ public class HomeBaseSceneDisplay : MonoBehaviour
 
     public void AcquireAugmentButton_OnClick()
     {
+        if (accessibleAugments.Count < 1)
+        {
+            NoAugmentsAvailable();
+            return;
+        }
+
         playerHero.SetActive(false);
         selectedAugment.SetActive(true);
         currentAugment = 0;
 
-        if (accessibleAugments.Count < 1) 
-            Debug.LogWarning("NO ACCESSIBLE AUGMENTS!");
-        else
+        foreach (HeroAugment aug in pMan.HeroAugments)
         {
-            List<HeroAugment> redundancies = new List<HeroAugment>();
-            foreach (HeroAugment aug1 in accessibleAugments)
-            {
-                if (pMan.GetAugment(aug1.AugmentName))
-                    redundancies.Add(aug1);
-            }
-            foreach (HeroAugment aug2 in redundancies)
-                accessibleAugments.Remove(aug2);
+            int index = accessibleAugments.FindIndex(x => x.AugmentName == aug.AugmentName);
+            if (index != -1) accessibleAugments.RemoveAt(index);
+        }
 
-            DisplayCurrentAugment();
+        if (accessibleAugments.Count < 1)
+        {
+            NoAugmentsAvailable();
+            return;
+        }
+
+        DisplayCurrentAugment();
+
+        void NoAugmentsAvailable()
+        {
+            CloseAugmentsButton_OnClick();
+            uMan.CreateFleetingInfoPopup("No augments available!", true);
         }
     }
 
     public void SelectAugmentButton_OnClick()
     {
-        if (pMan.AetherCells < GameManager.ACQUIRE_AUGMENT_COST)
+        if (pMan.HeroAugments.Count >= 5)
+            uMan.CreateFleetingInfoPopup("You can't have more than 5 augments!", true);
+        else if (pMan.AetherCells < GameManager.ACQUIRE_AUGMENT_COST)
             uMan.InsufficientAetherPopup();
         else uMan.CreateAcquireAugmentPopup(accessibleAugments[currentAugment]);
     }

@@ -639,10 +639,10 @@ public class EffectManager : MonoBehaviour
         }
         else if (effect is ReplenishEffect)
         {
-            int newEnergy = pMan.PlayerEnergyLeft + effect.Value;
+            int newEnergy = pMan.EnergyLeft + effect.Value;
             if (newEnergy > pMan.EnergyPerTurn) 
                 newEnergy = pMan.EnergyPerTurn;
-            pMan.PlayerEnergyLeft = newEnergy;
+            pMan.EnergyLeft = newEnergy;
             anMan.ModifyHeroEnergyState();
         }
         else if (effect is EvadeEffect)
@@ -739,7 +739,7 @@ public class EffectManager : MonoBehaviour
 
         if (effectSource.TryGetComponent(out ActionCardDisplay acd))
         {
-            pMan.PlayerEnergyLeft += acd.CurrentEnergyCost;
+            pMan.EnergyLeft += acd.CurrentEnergyCost;
             coMan.ChangeCardZone(effectSource, handZone);
             coMan.PlayerZoneCards.Remove(effectSource);
             coMan.PlayerHandCards.Add(effectSource);
@@ -748,7 +748,7 @@ public class EffectManager : MonoBehaviour
         {
             if (isUserAbort)
             {
-                pMan.PlayerEnergyLeft += ucd.CurrentEnergyCost;
+                pMan.EnergyLeft += ucd.CurrentEnergyCost;
                 coMan.ChangeCardZone(effectSource, handZone);
                 coMan.PlayerZoneCards.Remove(effectSource);
                 coMan.PlayerHandCards.Add(effectSource);
@@ -757,7 +757,7 @@ public class EffectManager : MonoBehaviour
         else if (effectSource.CompareTag(CombatManager.PLAYER_HERO))
         {
             pMan.HeroPowerUsed = false;
-            pMan.PlayerEnergyLeft += pMan.PlayerHero.HeroPower.PowerCost;
+            pMan.EnergyLeft += pMan.PlayerHero.HeroPower.PowerCost;
         }
         else if (effectSource.TryGetComponent(out ItemIcon _))
         {

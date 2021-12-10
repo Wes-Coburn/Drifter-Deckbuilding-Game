@@ -209,7 +209,7 @@ public class UnitCardDisplay : CardDisplay
         {
             if (CardManager.GetAbility(gameObject, ca.AbilityName))
             {
-                Debug.Log("ABILITY ALREADY EXISTS: <" + ca.ToString() + ">");
+                Debug.Log("ABILITY ALREADY EXISTS: <" + ca.AbilityName + ">");
                 return false;
             }
             else ShowAbility(ca);

@@ -27,8 +27,8 @@ public class ItemIconPopupDisplay : MonoBehaviour
         set
         {
             loadedItem = value;
-            itemText.GetComponent<TextMeshProUGUI>().SetText
-            (value.ItemName + ": " + value.ItemDescription);
+            string description = "<b>" + value.ItemName + "</b>: " + value.ItemDescription;
+            itemText.GetComponent<TextMeshProUGUI>().SetText(description);
         }
     }
 

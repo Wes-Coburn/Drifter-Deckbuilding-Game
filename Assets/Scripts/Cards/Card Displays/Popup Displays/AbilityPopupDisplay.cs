@@ -97,6 +97,6 @@ public class AbilityPopupDisplay : MonoBehaviour
             return;
         }
         if (!string.IsNullOrEmpty(name)) name += ": ";
-        AbilityDescription = name + description;
+        AbilityDescription = "<b>" + name + "</b>" + description;
     }
 }

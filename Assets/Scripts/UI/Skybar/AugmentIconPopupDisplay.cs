@@ -7,7 +7,10 @@ public class AugmentIconPopupDisplay : MonoBehaviour
 
     public HeroAugment HeroAugment
     {
-        set => augmentText.GetComponent<TextMeshProUGUI>().SetText
-            (value.AugmentName + ": " + value.AugmentDescription);
+        set
+        {
+            string description = "<b>" + value.AugmentName + ":</b> " + value.AugmentDescription;
+            augmentText.GetComponent<TextMeshProUGUI>().SetText(description);
+        }
     }
 }

@@ -34,6 +34,7 @@ public class HeroSelectSceneDisplay : MonoBehaviour
     private CardManager caMan;
     private GameObject currentSkill_1;
     private GameObject currentSkill_2;
+    private int startSelection;
     private int currentSelection;
     private bool heroSelected;
     private bool augmentSelected;
@@ -47,7 +48,8 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         coMan = CombatManager.Instance;
         uMan = UIManager.Instance;
         caMan = CardManager.Instance;
-        currentSelection = 1; // Start with Kili
+        startSelection = 1; // Start with Kili
+        currentSelection = startSelection;
         heroSelected = false;
         augmentSelected = false;
         playerHeroes = Resources.LoadAll<PlayerHero>("Heroes");
@@ -76,7 +78,7 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         if (!heroSelected)
         {
             heroSelected = true;
-            currentSelection = 0;
+            currentSelection = startSelection;
             DisplaySelectedAugment();
         }
         else if (!augmentSelected)
@@ -96,13 +98,13 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         if (augmentSelected)
         {
             augmentSelected = false;
-            currentSelection = 0;
+            currentSelection = startSelection;
             DisplaySelectedAugment();
         }
         else if (heroSelected)
         {
             heroSelected = false;
-            currentSelection = 0;
+            currentSelection = startSelection;
             DisplaySelectedHero();
         }
         else GameManager.Instance.EndGame();

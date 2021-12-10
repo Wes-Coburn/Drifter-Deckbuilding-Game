@@ -67,7 +67,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         if (pointerEventData.button != PointerEventData.InputButton.Right)
         {
             if (!uMan.PlayerIsTargetting)
-                uMan.CreateFleetingInfoPopup("Right click on a card for more information!", true);
+                uMan.CreateFleetingInfoPopup("Right click on cards for more information!", true);
             return;
         }
         uMan.DestroyZoomObjects();
@@ -86,7 +86,13 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     public void OnPointerEnter()
     {
         if (DragDrop.DraggingCard != null || ZoomCardIsCentered) return;
-        if (uMan.PlayerIsTargetting) return;
+        if (uMan.PlayerIsTargetting) // TESTING
+        {
+            bool isDiscardEffect = false;
+            if (EffectManager.Instance.CurrentEffect is
+                DrawEffect de && de.IsDiscardEffect) isDiscardEffect = true;
+            if (!isDiscardEffect) return;
+        }
 
         GameObject parent = null;
         GameObject container = GetComponent<CardDisplay>().CardContainer;

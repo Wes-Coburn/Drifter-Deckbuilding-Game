@@ -75,6 +75,15 @@ public class EnemyManager : MonoBehaviour
             CombatManager.Instance.EnemyHero.GetComponent<HeroDisplay>().HeroHealth = enemyHealth;
         }
     }
+    public int MaxEnemyHealth
+    {
+        get
+        {
+            int bonusHealth = 0;
+            if (enemyHero.IsBoss) bonusHealth = 10;
+            return GameManager.ENEMY_STARTING_HEALTH + bonusHealth;
+        }
+    }
 
     private void Start()
     {
