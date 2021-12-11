@@ -28,10 +28,11 @@ public class ItemIcon : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
     public void OnPointerClick(PointerEventData pointerEventData)
     {
+        if (EffectManager.Instance.EffectsResolving) return;
         uMan.CreateItemIconPopup(loadedItem, gameObject, true);
         FunctionTimer.StopTimer(ITEM_POPUP_TIMER);
-        FunctionTimer.StopTimer(ITEM_ABILITY_POPUP_TIMER); // TESTING
-        uMan.DestroyItemAbilityPopup(); // TESTING
+        FunctionTimer.StopTimer(ITEM_ABILITY_POPUP_TIMER);
+        uMan.DestroyItemAbilityPopup();
     }
 
     public void OnPointerEnter(PointerEventData pointerEventData)
@@ -40,15 +41,21 @@ public class ItemIcon : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         FunctionTimer.Create(() =>
         uMan.CreateItemIconPopup(loadedItem, gameObject), 0.5f, ITEM_POPUP_TIMER);
         FunctionTimer.Create(() =>
-        uMan.CreateItemAbilityPopup(loadedItem), 1, ITEM_ABILITY_POPUP_TIMER); // TESTING
+        uMan.CreateItemAbilityPopup(loadedItem), 1, ITEM_ABILITY_POPUP_TIMER);
     }
 
     public void OnPointerExit(PointerEventData pointerEventData)
     {
         if (uMan.ConfirmUseItemPopup != null) return;
         FunctionTimer.StopTimer(ITEM_POPUP_TIMER);
-        FunctionTimer.StopTimer(ITEM_ABILITY_POPUP_TIMER); // TESTING
+        FunctionTimer.StopTimer(ITEM_ABILITY_POPUP_TIMER);
         uMan.DestroyItemIconPopup();
-        uMan.DestroyItemAbilityPopup(); // TESTING
+        uMan.DestroyItemAbilityPopup();
+    }
+
+    private void OnDestroy()
+    {
+        FunctionTimer.StopTimer(ITEM_POPUP_TIMER);
+        FunctionTimer.StopTimer(ITEM_ABILITY_POPUP_TIMER);
     }
 }

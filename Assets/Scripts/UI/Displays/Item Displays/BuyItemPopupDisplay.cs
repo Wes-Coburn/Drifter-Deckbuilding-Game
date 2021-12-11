@@ -29,7 +29,8 @@ public class BuyItemPopupDisplay : MonoBehaviour
             int aether = pMan.AetherCells;
             heroItem = value;
             string text = "Buy " + heroItem.ItemName +
-                " for " + GameManager.BUY_ITEM_COST + " aether? (You have " + aether + " aether)";
+                " for " + GameManager.GetItemCost(heroItem) +
+                " aether? (You have " + aether + " aether)";
             PopupText = text;
         }
     }
@@ -37,7 +38,7 @@ public class BuyItemPopupDisplay : MonoBehaviour
     public void ConfirmButton_OnClick()
     {
         pMan.HeroItems.Add(heroItem);
-        pMan.AetherCells -= GameManager.BUY_ITEM_COST;
+        pMan.AetherCells -= GameManager.GetItemCost(heroItem);
         GameManager.Instance.ShopItems.Remove(heroItem);
         CancelButton_OnClick();
         uMan.CreateItemPagePopup();

@@ -35,15 +35,19 @@ public class ItemIconPopupDisplay : MonoBehaviour
     public void UseItem_OnClick()
     {
         if (!pMan.IsMyTurn) return;
+        if (EffectManager.Instance.EffectsResolving) return;
+
+        if (SourceIcon == null)
+        {
+            Debug.LogError("SOURCE ICON IS NULL!");
+            return;
+        }
         if (!efMan.CheckLegalTargets(loadedItem.EffectGroupList, SourceIcon, true))
         {
             uMan.CreateFleetingInfoPopup("You can't use that right now!");
             AudioManager.Instance.StartStopSound("SFX_Error");
         }
-        else
-        {
-            efMan.StartEffectGroupList(loadedItem.EffectGroupList, SourceIcon);
-        }
+        else efMan.StartEffectGroupList(loadedItem.EffectGroupList, SourceIcon);
         ClosePopup_OnClick();
     }
 

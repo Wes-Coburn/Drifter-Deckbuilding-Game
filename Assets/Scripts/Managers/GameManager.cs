@@ -75,6 +75,7 @@ public class GameManager : MonoBehaviour
     public const int ACQUIRE_AUGMENT_COST = 4;
     public const int REMOVE_CARD_COST = 1;
     public const int BUY_ITEM_COST = 1;
+    public const int BUY_RARE_ITEM_COST = 2;
     public const int CLONE_UNIT_COST = 2;
 
     // Enemy
@@ -350,8 +351,13 @@ public class GameManager : MonoBehaviour
         foreach (Location loc in ActiveLocations) Destroy(loc);
         ActiveLocations.Clear();
         // Player Manager
-        // Don't destroy PlayerHero, it is an asset, not an instance
+        // Don't destroy pMan objects, they are assets not instances
         pMan.PlayerHero = null;
+        pMan.PlayerDeckList.Clear();
+        pMan.CurrentPlayerDeck.Clear();
+        pMan.AetherCells = 0;
+        pMan.HeroAugments.Clear();
+        pMan.HeroItems.Clear();
         // Enemy Manager
         Destroy(enMan.EnemyHero);
         enMan.EnemyHero = null;
@@ -461,7 +467,7 @@ public class GameManager : MonoBehaviour
         auMan.StartStopSound("Soundtrack_Combat1",
             null, AudioManager.SoundType.Soundtrack);
         auMan.StopCurrentSoundscape(); // TESTING
-        auMan.StartStopSound("SFX_StartCombat");
+        auMan.StartStopSound("SFX_StartCombat1");
 
         PlayerHeroDisplay pHD = coMan.PlayerHero.GetComponent<PlayerHeroDisplay>();
         EnemyHeroDisplay eHD = coMan.EnemyHero.GetComponent<EnemyHeroDisplay>();
@@ -575,7 +581,13 @@ public class GameManager : MonoBehaviour
             return;
         }
         uMan.UpdateEndTurnButton(isPlayerTurn);
-        FunctionTimer.Create(() => uMan.CreateTurnPopup(isPlayerTurn), 1);
+        FunctionTimer.Create(() => TurnPopup(), 1);
+
+        void TurnPopup()
+        {
+            auMan.StartStopSound("SFX_NextTurn");
+            uMan.CreateTurnPopup(isPlayerTurn);
+        }
     }
 
     /******
@@ -692,5 +704,18 @@ public class GameManager : MonoBehaviour
             if (itemsFound == 3) break;
         }
         return shopItems;
+    }
+
+    /******
+     * *****
+     * ****** GET_ITEM_COST
+     * *****
+     *****/
+    public static int GetItemCost(HeroItem item)
+    {
+        int itemCost;
+        if (item.IsRareItem) itemCost = BUY_RARE_ITEM_COST;
+        else itemCost = BUY_ITEM_COST;
+        return itemCost;
     }
 }

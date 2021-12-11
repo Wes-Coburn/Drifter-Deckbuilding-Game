@@ -7,6 +7,7 @@ public class ItemDescriptionDisplay : MonoBehaviour, IPointerClickHandler, IPoin
 {
     [SerializeField] private GameObject itemImage;
     [SerializeField] private GameObject itemDescription;
+    [SerializeField] private GameObject itemCost;
 
     private const string ITEM_ABILITY_POPUP_TIMER = "ItemAbilityPopupTimer";
 
@@ -22,6 +23,7 @@ public class ItemDescriptionDisplay : MonoBehaviour, IPointerClickHandler, IPoin
             itemImage.GetComponent<Image>().sprite = loadedItem.ItemImage;
             string description = "<b>" + loadedItem.ItemName + ":</b> " + loadedItem.ItemDescription;
             itemDescription.GetComponent<TextMeshProUGUI>().SetText(description);
+            itemCost.GetComponent<TextMeshProUGUI>().SetText(GameManager.GetItemCost(loadedItem).ToString());
         }
     }
 
@@ -35,7 +37,7 @@ public class ItemDescriptionDisplay : MonoBehaviour, IPointerClickHandler, IPoin
     {
         if (pMan.HeroItems.Count >= 5)
             uMan.CreateFleetingInfoPopup("You can't have more than 5 items!", true);
-        else if (pMan.AetherCells < GameManager.BUY_ITEM_COST)
+        else if (pMan.AetherCells < GameManager.GetItemCost(loadedItem))
             uMan.InsufficientAetherPopup();
         else uMan.CreateBuyItemPopup(loadedItem);
     }

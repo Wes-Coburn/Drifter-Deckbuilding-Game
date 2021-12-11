@@ -104,7 +104,8 @@ public class EffectManager : MonoBehaviour
             return false;
         }
         if (source.CompareTag(CombatManager.PLAYER_CARD) ||
-            source.CompareTag(CombatManager.PLAYER_HERO))
+            source.CompareTag(CombatManager.PLAYER_HERO) || 
+            source.TryGetComponent(out ItemIcon _))
             return true;
         else return false;
     }
@@ -447,9 +448,7 @@ public class EffectManager : MonoBehaviour
         EffectTargets targets, int additionalTargets, out bool requiredEffect)
     {
         List<List<GameObject>> targetZones = new List<List<GameObject>>();
-        if (effectSource.CompareTag(CombatManager.PLAYER_CARD) || 
-            effectSource.CompareTag(CombatManager.PLAYER_HERO) ||
-            effectSource.TryGetComponent(out ItemIcon _))
+        if (IsPlayerSource(effectSource)) // TESTING
         {
             if (targets.PlayerHand) targetZones.Add(coMan.PlayerHandCards);
             if (targets.PlayerUnit) targetZones.Add(coMan.PlayerZoneCards);
@@ -498,7 +497,7 @@ public class EffectManager : MonoBehaviour
         Debug.Log("ADDITIONAL TARGETS <" + additionalTargets + ">");
         Debug.Log("LEGAL TARGETS <" + (legalTargets[currentGroup].Count - additionalTargets) + ">");
         if (legalTargets[currentGroup].Count < 1 + additionalTargets) return false;
-        if (effect.IsRequired && legalTargets[currentGroup].Count < 
+        if (legalTargets[currentGroup].Count <
             effectGroupList[currentGroup].Targets.TargetNumber + additionalTargets) return false;
         return true;
 
@@ -526,13 +525,7 @@ public class EffectManager : MonoBehaviour
         uMan.SelectTarget(target, true, true);
         EffectGroup eg = effectGroupList[currentEffectGroup];
         int targetNumber = eg.Targets.TargetNumber;
-        if (!eg.Effects[currentEffect].IsRequired)
-        {
-            int possibleTargets = legalTargets[currentEffectGroup].Count + 
-                acceptedTargets[currentEffectGroup].Count;
-            if (possibleTargets < targetNumber && possibleTargets > 0) 
-                targetNumber = possibleTargets;
-        }
+        
         Debug.Log("ACCEPTED TARGETS: <" + acceptedTargets[currentEffectGroup].Count +
             "> OF <" + targetNumber + "> REQUIRED TARGETS");
 
@@ -712,6 +705,11 @@ public class EffectManager : MonoBehaviour
         {
             foreach (GameObject target in acceptedTargets[group])
             {
+                if (target == null)
+                {
+                    Debug.LogWarning("TARGET IS NULL!");
+                    return;
+                }
                 if (coMan.IsUnitCard(target))
                     anMan.UnitStatChangeState(target, isPowerChange, isHealthChange);
             }
@@ -761,7 +759,7 @@ public class EffectManager : MonoBehaviour
         }
         else if (effectSource.TryGetComponent(out ItemIcon _))
         {
-            Debug.LogWarning("ITEM SOURCE!");
+            Debug.LogWarning("ABORT ITEM EFFECT!");
         }
         else
         {
@@ -804,7 +802,6 @@ public class EffectManager : MonoBehaviour
             }
             else if (effectSource.TryGetComponent(out ItemIcon icon))
             {
-                Debug.LogWarning("ITEM EFFECT SOURCE!");
                 pMan.HeroItems.Remove(icon.LoadedItem);
                 uMan.SetSkybar(true);
             }

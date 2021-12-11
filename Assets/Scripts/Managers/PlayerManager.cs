@@ -32,7 +32,7 @@ public class PlayerManager : MonoBehaviour
     public PlayerHero PlayerHero { get; set; }
     public List<HeroAugment> HeroAugments { get => heroAugments; }
     public List<HeroItem> HeroItems { get => heroItems; }
-    public List<Card> PlayerDeckList { get; set; }
+    public List<Card> PlayerDeckList { get; private set; }
     public List<Card> CurrentPlayerDeck { get; private set; }
     public bool IsMyTurn { get; set; }
 
@@ -128,7 +128,7 @@ public class PlayerManager : MonoBehaviour
         uMan = UIManager.Instance;
         auMan = AudioManager.Instance;
 
-        PlayerHero = null; // TESTING
+        PlayerHero = null; // Unnecessary?
         PlayerDeckList = new List<Card>();
         CurrentPlayerDeck = new List<Card>();
         AetherCells = 0;

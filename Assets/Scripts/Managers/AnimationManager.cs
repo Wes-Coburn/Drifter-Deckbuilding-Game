@@ -148,6 +148,8 @@ public class AnimationManager : MonoBehaviour
         StartCoroutine(DialogueIntroNumerator());
     private IEnumerator DialogueIntroNumerator()
     {
+        auMan.StartStopSound("SFX_PortraitClick"); // TESTING
+
         float distance;
         DialogueSceneDisplay dsp = dMan.DialogueDisplay;
         GameObject playerPortrait = dsp.PlayerHeroPortrait;
@@ -161,6 +163,7 @@ public class AnimationManager : MonoBehaviour
         npcPortrait.transform.localPosition = new Vector2(-600, nPortStart.y);
 
         yield return new WaitForSeconds(0.5f);
+
         do
         {
             distance = Vector2.Distance(playerPortrait.transform.localPosition, pPortStart);
@@ -183,11 +186,13 @@ public class AnimationManager : MonoBehaviour
         StartCoroutine(NewEngagedHeroNumerator());
     private IEnumerator NewEngagedHeroNumerator()
     {
+        auMan.StartStopSound("SFX_PortraitClick"); // TESTING
+
         float distance;
         GameObject npcPortrait = dMan.DialogueDisplay.NPCHeroPortrait;
         Vector2 nPortStart = npcPortrait.transform.localPosition;
         Vector2 nPortEnd = new Vector2(-600, nPortStart.y);
-        
+
         do
         {
             distance = Vector2.Distance(npcPortrait.transform.localPosition, nPortEnd);
@@ -257,7 +262,9 @@ public class AnimationManager : MonoBehaviour
         while (distance > 700);
 
         uMan.CreateVersusPopup();
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(3);
+        auMan.StartStopSound("SFX_PortraitClick"); // TESTING
+
         do
         {
             distance = Vector2.Distance(pFrame.transform.position, pFrameStart);

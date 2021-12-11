@@ -79,8 +79,28 @@ MonoBehaviour:
     volume: 0.8
     pitch: 1
     source: {fileID: 0}
+  - name: SFX_SceneLoading
+    clip: {fileID: 8300000, guid: ebfd51506c55f7b468b819710dda6f07, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
   - name: SFX_EnterWorldMap
     clip: {fileID: 8300000, guid: 5dc555af72633604aaaf207e51c92fad, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_StartCombat1
+    clip: {fileID: 8300000, guid: 3b0c8067fd742cc44bd0564345f2a13e, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_PortraitClick
+    clip: {fileID: 8300000, guid: d68eb6099dff26f4bb38218916a8fdd8, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_NextTurn
+    clip: {fileID: 8300000, guid: e0bda9b02bfd3e7409f30a45426dd040, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}
@@ -101,11 +121,6 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: SFX_Typing
     clip: {fileID: 8300000, guid: 542f8e9a47e056e449f3c558e12d66df, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: SFX_SceneLoading
-    clip: {fileID: 8300000, guid: ebfd51506c55f7b468b819710dda6f07, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}
@@ -142,11 +157,6 @@ MonoBehaviour:
   - name: SFX_DragCard
     clip: {fileID: 8300000, guid: ef86b7071ef6ce5439d5b9d86986afc6, type: 3}
     volume: 0.5
-    pitch: 1
-    source: {fileID: 0}
-  - name: SFX_StartCombat
-    clip: {fileID: 8300000, guid: 3b0c8067fd742cc44bd0564345f2a13e, type: 3}
-    volume: 1
     pitch: 1
     source: {fileID: 0}
   - name: SFX_EnergyRefill
@@ -191,11 +201,6 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: SFX_Refresh
     clip: {fileID: 8300000, guid: a0ae7ad2e2d6b8b48b24f4dcc8758496, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: SFX_CreatePopup
-    clip: {fileID: 8300000, guid: 8b66e811a4c48284fa4bc86314c3da00, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}
