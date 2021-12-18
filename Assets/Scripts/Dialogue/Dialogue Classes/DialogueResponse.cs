@@ -5,6 +5,7 @@ public class DialogueResponse
 {
     [TextArea] [SerializeField] private string responseText;
     [SerializeField] private DialogueClip response_NextClip;
+    [SerializeField] private DialogueClip npc_NextClip;
     [SerializeField] private bool response_IsCombatStart;
     [SerializeField] private bool response_IsWorldMapStart;
     [SerializeField] private bool response_IsRecruitmentStart;
@@ -15,6 +16,7 @@ public class DialogueResponse
 
     public string ResponseText { get => responseText; }
     public DialogueClip Response_NextClip { get => response_NextClip; }
+    public DialogueClip NPC_NextClip { get => npc_NextClip; }
     public bool Response_IsCombatStart { get => response_IsCombatStart; }
     public bool Response_IsWorldMapStart { get => response_IsWorldMapStart; }
     public bool Response_IsRecruitmentStart { get => response_IsRecruitmentStart; }
@@ -27,6 +29,7 @@ public class DialogueResponse
     {
         responseText = dr.ResponseText;
         response_NextClip = dr.Response_NextClip;
+        npc_NextClip = dr.NPC_NextClip;
         response_IsCombatStart = dr.Response_IsCombatStart;
         response_IsWorldMapStart = dr.Response_IsWorldMapStart;
         response_IsRecruitmentStart = dr.Response_IsRecruitmentStart;

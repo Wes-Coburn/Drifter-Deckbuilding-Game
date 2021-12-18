@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 026ad851d25a41246b8b8ae0a3e22c1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneTitle: {fileID: 0}
   selectedHero: {fileID: 0}
   heroSkills: {fileID: 0}
   skillCard_1: {fileID: 0}
@@ -62,14 +63,6 @@ MonoBehaviour:
   confirmHeroName: {fileID: 0}
   confirmAugmentImage: {fileID: 0}
   confirmAugmentName: {fileID: 0}
-  playerHeroes:
-  - {fileID: 11400000, guid: 2de3c75baa7d5f54fbe6c020c04073e9, type: 2}
-  - {fileID: 11400000, guid: 7ec381d799404eb4abf4d674191a948b, type: 2}
-  - {fileID: 11400000, guid: 14df74eab3a27eb4397e917831e0abb1, type: 2}
-  heroAugments:
-  - {fileID: 11400000, guid: 513ae22f8600da948bfb3c4a73aa33a7, type: 2}
-  - {fileID: 11400000, guid: 57fe36df3e9c87e499ab987a471e140b, type: 2}
-  - {fileID: 11400000, guid: 1e409eadbe09b7c40865988c6f7c0dea, type: 2}
 --- !u!114 &6899003068923499867
 MonoBehaviour:
   m_ObjectHideFlags: 0

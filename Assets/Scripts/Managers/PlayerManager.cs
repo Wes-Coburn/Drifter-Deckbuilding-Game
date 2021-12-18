@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class PlayerManager : MonoBehaviour
     private int aetherCells;
     private List<HeroAugment> heroAugments;
     private List<HeroItem> heroItems;
+
+    private bool isMyTurn;
     private int playerHealth;
     private int energyPerTurn;
     private int energyLeft;
@@ -34,7 +37,16 @@ public class PlayerManager : MonoBehaviour
     public List<HeroItem> HeroItems { get => heroItems; }
     public List<Card> PlayerDeckList { get; private set; }
     public List<Card> CurrentPlayerDeck { get; private set; }
-    public bool IsMyTurn { get; set; }
+    public bool IsMyTurn
+    {
+        get => isMyTurn;
+        set
+        {
+            isMyTurn = value;
+            uMan.EndTurnButton.GetComponent
+                <Button>().interactable = value; // TESTING
+        }
+    }
 
     public int AetherCells
     {
@@ -132,7 +144,7 @@ public class PlayerManager : MonoBehaviour
         PlayerDeckList = new List<Card>();
         CurrentPlayerDeck = new List<Card>();
         AetherCells = 0;
-        AetherCells = 99; // FOR TESTING ONLY
+        //AetherCells = 99; // FOR TESTING ONLY
 
         heroAugments = new List<HeroAugment>();
         heroItems = new List<HeroItem>();   

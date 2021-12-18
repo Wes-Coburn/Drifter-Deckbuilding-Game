@@ -58,6 +58,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject abilityPopupPrefab;
     [SerializeField] private GameObject abilityPopupBoxPrefab;
 
+    [Header("BETA PREFABS")]
+    [SerializeField] private GameObject betaFinishPopupPrefab;
+
     [Header("COLORS")]
     [SerializeField] private Color highlightedColor;
     [SerializeField] private Color selectedColor;
@@ -97,7 +100,7 @@ public class UIManager : MonoBehaviour
     public GameObject NewCardPopup { get => newCardPopup; }
     public GameObject ChooseCardPopup { get => chooseCardPopup; }
     public GameObject CardPagePopup { get => cardPagePopup; }
-    public GameObject ConfirmUseItemPopup { get; set; } // TESTING
+    public GameObject ConfirmUseItemPopup { get; set; }
     public GameObject EndTurnButton { get => endTurnButton; }
 
     // PLAYER_IS_TARGETTING
@@ -108,11 +111,14 @@ public class UIManager : MonoBehaviour
     public GameObject CurrentCanvas { get; private set; }
     // ZOOM CANVAS
     public GameObject CurrentZoomCanvas { get; private set; }
+    // UI CANVAS
+    private GameObject UICanvas { get; set; }
 
     public void Start()
     {
         CurrentWorldSpace = GameObject.Find("WorldSpace");
         CurrentCanvas = GameObject.Find("Canvas");
+        UICanvas = GameObject.Find("UI_Canvas");
         CurrentZoomCanvas = GameObject.Find("Canvas_Zoom"); // TESTING
         pMan = PlayerManager.Instance;
         PlayerIsTargetting = false;
@@ -400,7 +406,6 @@ public class UIManager : MonoBehaviour
     public void CreateMenuPopup()
     {
         if (menuPopup != null) return;
-        GameObject UICanvas = GameObject.Find("UI_Canvas");
         menuPopup = Instantiate(menuPopupPrefab, UICanvas.transform);
     }
     public void DestroyMenuPopup()
@@ -780,7 +785,7 @@ public class UIManager : MonoBehaviour
     public void CreateItemIconPopup(HeroItem item, GameObject sourceIcon, bool isUseItemConfirm = false)
     {
         DestroyItemIconPopup();
-        itemIconPopup = Instantiate(itemIconPopupPrefab, CurrentCanvas.transform);
+        itemIconPopup = Instantiate(itemIconPopupPrefab, CurrentZoomCanvas.transform);
         float xPos = sourceIcon.transform.localPosition.x;
         itemIconPopup.transform.localPosition = new Vector2(xPos, 320);
         ItemIconPopupDisplay iipd = itemIconPopup.GetComponent<ItemIconPopupDisplay>();
@@ -823,4 +828,7 @@ public class UIManager : MonoBehaviour
             itemAbilityPopup = null;
         }
     }
+
+    public void CreateBetaFinishPopup() =>
+        Instantiate(betaFinishPopupPrefab, CurrentCanvas.transform);
 }

@@ -26,8 +26,9 @@ MonoBehaviour:
     volume: 0.8
     pitch: 1
     source: {fileID: 0}
-  PowerDescription: Deal 1 to an ally to replenish 2 energy.
+  PowerDescription: Deal 1 to an ally to replenish 2 energy. If this destroys it,
+    draw 1.
   EffectGroupList:
-  - {fileID: 11400000, guid: 5eb5ba81240521d499e06d2a92319bb8, type: 2}
+  - {fileID: 11400000, guid: 37935cc54137a4b4fae4b78594ef0433, type: 2}
   - {fileID: 11400000, guid: 1296c25eb7806194d8e06e6ca52b67fa, type: 2}
   LinkedAbilities: []

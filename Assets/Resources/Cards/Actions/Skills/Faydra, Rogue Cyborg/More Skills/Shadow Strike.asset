@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardArt: {fileID: 21300000, guid: 7ba424149c8a9e94baa701706fdefe08, type: 3}
   cardBorder: {fileID: 21300000, guid: da4d9c0ce8b0a5744aac584cd2e675b1, type: 3}
-  energyCost: 1
+  energyCost: 2
   cardName: Shadow Strike
   cardType: Action
   cardSubType: Skill
@@ -27,8 +27,8 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
-  effectDescription: Give the next ally you play this turn +1/+0 and <b>Stealth</b>.
+  effectDescription: 'Give an ally "<b>Infiltrate</b>: Deal 2 to an enemy."'
   effectGroupList:
-  - {fileID: 11400000, guid: e29853e06defdb046ab111c0adb6f867, type: 2}
+  - {fileID: 11400000, guid: c7cd8a51feb341e45838cb3b45b766a3, type: 2}
   linkedAbilities:
-  - {fileID: 11400000, guid: edfe3b459c9ebb14eb21ba3bb2f309a0, type: 2}
+  - {fileID: 11400000, guid: 87f3e6666404c694cb625a5bd096cd05, type: 2}

@@ -39,9 +39,20 @@ public class ItemIcon : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     {
         if (uMan.ConfirmUseItemPopup != null) return;
         FunctionTimer.Create(() =>
-        uMan.CreateItemIconPopup(loadedItem, gameObject), 0.5f, ITEM_POPUP_TIMER);
+        ItemPopupTimer(), 0.5f, ITEM_POPUP_TIMER);
         FunctionTimer.Create(() =>
-        uMan.CreateItemAbilityPopup(loadedItem), 1, ITEM_ABILITY_POPUP_TIMER);
+        AbilityPopupTimer(), 1, ITEM_ABILITY_POPUP_TIMER);
+
+        void ItemPopupTimer()
+        {
+            if (this == null) return;
+            uMan.CreateItemIconPopup(loadedItem, gameObject);
+        }
+        void AbilityPopupTimer()
+        {
+            if (this == null) return;
+            uMan.CreateItemAbilityPopup(loadedItem);
+        }
     }
 
     public void OnPointerExit(PointerEventData pointerEventData)
@@ -51,11 +62,5 @@ public class ItemIcon : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         FunctionTimer.StopTimer(ITEM_ABILITY_POPUP_TIMER);
         uMan.DestroyItemIconPopup();
         uMan.DestroyItemAbilityPopup();
-    }
-
-    private void OnDestroy()
-    {
-        FunctionTimer.StopTimer(ITEM_POPUP_TIMER);
-        FunctionTimer.StopTimer(ITEM_ABILITY_POPUP_TIMER);
     }
 }

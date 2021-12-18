@@ -32,6 +32,10 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     public static bool ZoomCardIsCentered = false;
     public const string ZOOM_CARD_TIMER = "ZoomCardTimer";
     public const string ABILITY_POPUP_TIMER = "AbilityPopupTimer";
+
+    private static bool clickTooltipBool = false;
+    private const string CLICK_TOOLTIP_TIMER = "ClickTooltipTimer";
+
     public GameObject UnitZoomCardPrefab { get => unitZoomCardPrefab; }
     public GameObject ActionZoomCardPrefab { get => actionZoomCardPrefab; }
     public static GameObject CurrentZoomCard { get; set; }
@@ -66,8 +70,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         if (transform.parent.gameObject == enemyHand) return;
         if (pointerEventData.button != PointerEventData.InputButton.Right)
         {
-            if (!uMan.PlayerIsTargetting)
-                uMan.CreateFleetingInfoPopup("Right click on cards for more information!", true);
+            if (!uMan.PlayerIsTargetting) RightClickTooltip();
             return;
         }
         uMan.DestroyZoomObjects();
@@ -76,6 +79,18 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         CreateDescriptionPopup(new Vector2(-590, 0), POPUP_SCALE_VALUE);
         CreateAbilityPopups(new Vector2(590, 0), POPUP_SCALE_VALUE);
         CreateZoomCard(new Vector2(0, 50), CENTER_SCALE_VALUE);
+
+        void RightClickTooltip()
+        {
+            if (clickTooltipBool)
+                uMan.CreateFleetingInfoPopup("Right click on a card to see more!", true);
+            else
+            {
+                clickTooltipBool = true;
+                FunctionTimer.Create(() =>
+                clickTooltipBool = false, 2, CLICK_TOOLTIP_TIMER);
+            }
+        }
     }
 
     /******

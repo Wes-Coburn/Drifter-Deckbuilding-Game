@@ -7,11 +7,10 @@ public class EffectTargets : ScriptableObject
     [Range(1, 10)]
     public int TargetNumber;
 
-    [Header("TARGETS ALL POSSIBLE")]
+    [Header("TARGETS ALL")]
     public bool TargetsAll;
 
     [Header("TARGETS SELF")]
-    [Tooltip("Used for Units with effects that target themselves")]
     public bool TargetsSelf;
 
     [Header("PLAYER")]

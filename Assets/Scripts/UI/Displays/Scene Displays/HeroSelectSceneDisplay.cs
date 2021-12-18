@@ -4,6 +4,7 @@ using TMPro;
 
 public class HeroSelectSceneDisplay : MonoBehaviour
 {
+    [SerializeField] private GameObject sceneTitle;
     [SerializeField] private GameObject selectedHero;
     [SerializeField] private GameObject heroSkills;
     [SerializeField] private GameObject skillCard_1;
@@ -41,6 +42,14 @@ public class HeroSelectSceneDisplay : MonoBehaviour
 
     private PlayerHero loadedHero;
     private HeroAugment loadedAugment;
+
+    private string SceneTitle
+    {
+        set
+        {
+            sceneTitle.GetComponent<TextMeshProUGUI>().SetText(value);
+        }
+    }
 
     private void Start()
     {
@@ -129,6 +138,7 @@ public class HeroSelectSceneDisplay : MonoBehaviour
 
     private void DisplaySelectedAugment()
     {
+        SceneTitle = "Choose Your Augment!";
         loadedAugment = heroAugments[currentSelection];
         confirmSelection.SetActive(false);
         selectedAugment.SetActive(true);
@@ -141,6 +151,7 @@ public class HeroSelectSceneDisplay : MonoBehaviour
 
     public void DisplaySelectedHero()
     {
+        SceneTitle = "Choose Your Hero!";
         loadedHero = playerHeroes[currentSelection];
         confirmSelection.SetActive(false);
         selectedAugment.SetActive(false);
@@ -192,6 +203,7 @@ public class HeroSelectSceneDisplay : MonoBehaviour
 
     private void DisplayConfirmSelection()
     {
+        SceneTitle = "Confirm Your Selection!";
         confirmSelection.SetActive(true);
         selectedAugment.SetActive(false);
         selectedHero.SetActive(false);

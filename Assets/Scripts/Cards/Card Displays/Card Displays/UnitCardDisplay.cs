@@ -7,7 +7,7 @@ public class UnitCardDisplay : CardDisplay
 {
     [SerializeField] private GameObject unitStats;
     [SerializeField] private GameObject currentAbilitiesDisplay;
-    [SerializeField] private GameObject attackScoreDisplay;
+    [SerializeField] private GameObject powerScoreDisplay;
     [SerializeField] private GameObject healthScoreDisplay;
     [SerializeField] private GameObject exhaustedIcon;
     [SerializeField] private GameObject destroyedIcon;
@@ -33,20 +33,32 @@ public class UnitCardDisplay : CardDisplay
             UnitCard.CurrentPower = value;
             int displayValue = 0;
             if (value >= 0) displayValue = value; // TESTING
-            TextMeshProUGUI txtPro = attackScoreDisplay.GetComponent<TextMeshProUGUI>();
-            txtPro.SetText(displayValue.ToString());
+            DisplayPower(displayValue); // TESTING
         }
     }
+    private void DisplayPower(int power)
+    {
+        TextMeshProUGUI txtPro =
+            powerScoreDisplay.GetComponent<TextMeshProUGUI>();
+        txtPro.SetText(power.ToString());
+    }
+
     public int CurrentHealth
     {
         get => UnitCard.CurrentHealth;
         set
         {
             UnitCard.CurrentHealth = value;
-            TextMeshProUGUI txtPro = healthScoreDisplay.GetComponent<TextMeshProUGUI>();
-            txtPro.SetText(UnitCard.CurrentHealth.ToString());
+            DisplayHealth(value); // TESTING
         }
     }
+    private void DisplayHealth(int health)
+    {
+        TextMeshProUGUI txtPro =
+            healthScoreDisplay.GetComponent<TextMeshProUGUI>();
+        txtPro.SetText(health.ToString());
+    }
+
     public int MaxHealth
     {
         get => UnitCard.MaxHealth;
@@ -83,10 +95,7 @@ public class UnitCardDisplay : CardDisplay
         CurrentHealth = MaxHealth;
         
         foreach (CardAbility cardAbility in UnitCard.StartingAbilities)
-        {
-            if (cardAbility == null) continue; // Skip empty abilities
             AddCurrentAbility(cardAbility);
-        }
     }
 
     /******
@@ -106,40 +115,56 @@ public class UnitCardDisplay : CardDisplay
 
             if (CardZoom.ZoomCardIsCentered)
             {
-                CurrentPower = uc.StartPower;
-                MaxHealth = uc.StartHealth;
-                CurrentHealth = MaxHealth;
+                // TESTING
+                DisplayPower(uc.StartPower);
+                DisplayHealth(uc.StartHealth);
                 abilityList = uc.StartingAbilities;
             }
             else
             {
-                CurrentPower = uc.CurrentPower;
-                MaxHealth = uc.MaxHealth;
-                CurrentHealth = uc.CurrentHealth;
+                // TESTING
+                DisplayPower(uc.CurrentPower);
+                DisplayHealth(uc.CurrentHealth);
                 abilityList = ucd.CurrentAbilities;
             }
 
-            foreach (CardAbility cardAbility in abilityList)
+            foreach (CardAbility ca in abilityList)
             {
-                if (cardAbility == null) continue; // Skip empty abilities
-                GetComponent<CardZoom>().CreateZoomAbilityIcon(cardAbility, 
+                if (ca == null)
+                {
+                    Debug.LogError("EMPTY ABILITY!");
+                    continue;
+                }
+                GetComponent<CardZoom>().CreateZoomAbilityIcon(ca,
                     currentAbilitiesDisplay.transform, 1);
             }
         }
         else
         {
             UnitCard uc = card as UnitCard;
-            CurrentPower = uc.StartPower;
-            MaxHealth = uc.StartHealth;
-            CurrentHealth = uc.StartHealth;
-            foreach (CardAbility ca in uc.StartingAbilities) 
-                CurrentAbilities.Add(ca);
-            foreach (CardAbility cardAbility in uc.StartingAbilities)
+            DisplayPower(uc.StartPower);
+            DisplayHealth(uc.StartHealth);
+
+            foreach (CardAbility ca in uc.StartingAbilities)
             {
-                if (cardAbility == null) continue; // Skip empty abilities
-                GetComponent<CardZoom>().CreateZoomAbilityIcon(cardAbility, 
+                if (ca == null)
+                {
+                    Debug.LogError("EMPTY ABILITY!");
+                    continue;
+                }
+                CurrentAbilities.Add(ca);
+            }
+            foreach (CardAbility ca in uc.StartingAbilities)
+            {
+                if (ca == null)
+                {
+                    Debug.LogError("EMPTY ABILITY!");
+                    continue;
+                }
+                GetComponent<CardZoom>().CreateZoomAbilityIcon(ca,
                     currentAbilitiesDisplay.transform, 1);
             }
+                
         }
     }
 
@@ -162,10 +187,14 @@ public class UnitCardDisplay : CardDisplay
         cellSize.y = 16;
         glg.cellSize = cellSize;
 
-        foreach (CardAbility cardAbility in UnitCard.StartingAbilities)
+        foreach (CardAbility ca in UnitCard.StartingAbilities)
         {
-            if (cardAbility == null) continue; // Skip empty abilities
-            GetComponent<CardZoom>().CreateZoomAbilityIcon(cardAbility,
+            if (ca == null)
+            {
+                Debug.LogError("EMPTY ABILITY!");
+                continue;
+            }
+            GetComponent<CardZoom>().CreateZoomAbilityIcon(ca,
                 currentAbilitiesDisplay.transform, 1);
         }
     }
@@ -218,16 +247,17 @@ public class UnitCardDisplay : CardDisplay
         {
             if (CardManager.EvergreenTriggers.Contains(ta.AbilityTrigger.AbilityName))
             {
-                int iconsFound = 0;
+                bool iconsFound = false; // TESTING
                 foreach (CardAbility ca2 in displayedAbilities)
                 {
                     if (ca2 is TriggeredAbility ta2)
                     {
-                        if (ta2.AbilityTrigger.AbilityName == ta.AbilityTrigger.AbilityName)
-                            iconsFound++; // TESTING
+                        if (ta2.AbilityTrigger.AbilityName ==
+                            ta.AbilityTrigger.AbilityName)
+                            iconsFound = true;
                     }
                 }
-                if (iconsFound < 1) ShowAbility(ta); // TESTING
+                if (!iconsFound) ShowAbility(ta); // TESTING
             }
             else if (ta.AbilityTrigger.AbilityName != CardManager.TRIGGER_PLAY)
             {
@@ -276,7 +306,7 @@ public class UnitCardDisplay : CardDisplay
 
         if (ca is StaticAbility sa)
             AudioManager.Instance.StartStopSound(null, sa.LoseAbilitySound);
-        else if (ca is TriggeredAbility ta) // TESTING
+        else if (ca is TriggeredAbility ta)
         {
             if (ta.AbilityTrigger.AbilityName == CardManager.TRIGGER_PLAY) return;
             if (CardManager.GetTrigger(gameObject, ta.AbilityTrigger.AbilityName)) return;
@@ -287,7 +317,10 @@ public class UnitCardDisplay : CardDisplay
             Debug.LogError("ABILITY ICON NOT FOUND!");
             return;
         }
-        Destroy(AbilityIcons[displayIndex]);
+
+        GameObject icon = AbilityIcons[displayIndex];
+        FunctionTimer.Create(() => Destroy(icon), 1); // TESTING
+        //Destroy(AbilityIcons[displayIndex]);
         AbilityIcons.RemoveAt(displayIndex);
         displayedAbilities.RemoveAt(displayIndex);
     }

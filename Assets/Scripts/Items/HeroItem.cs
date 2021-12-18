@@ -9,12 +9,12 @@ public class HeroItem : ScriptableObject
     [SerializeField] private Sprite itemImage;
     [SerializeField] private bool isRareItem;
     [SerializeField] private List<EffectGroup> effectGroupList;
-    [SerializeField] private List<StaticAbility> linkedAbilities;
+    [SerializeField] private List<CardAbility> linkedAbilities;
 
     public string ItemName { get => itemName; }
     public string ItemDescription { get => itemDescription; }
     public Sprite ItemImage { get => itemImage; }
     public bool IsRareItem { get => isRareItem; }
     public List<EffectGroup> EffectGroupList { get => effectGroupList; }
-    public List<StaticAbility> LinkedAbilities { get => linkedAbilities; }
+    public List<CardAbility> LinkedAbilities { get => linkedAbilities; }
 }

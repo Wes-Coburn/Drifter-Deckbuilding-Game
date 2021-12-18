@@ -134,6 +134,7 @@ public class DialogueManager : MonoBehaviour
         {
             "fucking", "Fucking",
             "fucked", "Fucked",
+            "fuckers", "Fuckers",
             "fucker", "Fucker",
             "fucks", "Fucks",
             "fuck", "Fuck",
@@ -146,6 +147,8 @@ public class DialogueManager : MonoBehaviour
             "asshole", "Asshole",
 
             "shitting", "Shitting",
+            "shitters", "Shitters",
+            "shitter", "Shitter",
             "shits", "Shits",
             "shit", "Shit"
         };
@@ -244,7 +247,11 @@ public class DialogueManager : MonoBehaviour
                     gMan.GetActiveLocation(newLoc.Location, newLoc.NewNpc);
             }
         }
-        EngagedHero.NextDialogueClip = nextClip;
+
+        // TESTING
+        if (dResponse.NPC_NextClip != null)
+            EngagedHero.NextDialogueClip = dResponse.NPC_NextClip;
+        else EngagedHero.NextDialogueClip = nextClip;
 
         // New Location
         if (dResponse.Response_TravelLocation != null) // TESTING
@@ -286,7 +293,7 @@ public class DialogueManager : MonoBehaviour
         // Exit
         if (dResponse.Response_IsExit)
         {
-            gMan.EndGame(); // FOR TESTING ONLY?
+            uMan.CreateBetaFinishPopup(); // FOR BETA ONLY
             return;
         }
         if (nextPrompt != null)

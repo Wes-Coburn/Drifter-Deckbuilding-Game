@@ -71,11 +71,17 @@ public abstract class CardDisplay : MonoBehaviour
         set
         {
             CardScript.CurrentEnergyCost = value;
-            string text;
-            if (value < 0) text = "";
-            else text = value.ToString();
-            energyCost.GetComponent<TextMeshProUGUI>().SetText(text);
+            DisplayEnergyCost(value); // TESTING
         }
+    }
+    private void DisplayEnergyCost(int cost)
+    {
+        string displayCost;
+        if (cost < 0) displayCost = "";
+        else displayCost = cost.ToString();
+
+        energyCost.GetComponent<TextMeshProUGUI>().
+            SetText(displayCost);
     }
     
     /******
@@ -112,9 +118,9 @@ public abstract class CardDisplay : MonoBehaviour
             CardArt = cd.CardArt;
             CardBorder = cd.CardBorder;
 
-            if (CardZoom.ZoomCardIsCentered) 
-                CurrentEnergyCost = cd.cardScript.StartEnergyCost;
-            else CurrentEnergyCost = cd.CurrentEnergyCost;
+            if (CardZoom.ZoomCardIsCentered)
+                DisplayEnergyCost(cd.cardScript.StartEnergyCost); // TESTING
+            else DisplayEnergyCost(cd.CurrentEnergyCost); // TESTING
         }
         else
         {
@@ -122,12 +128,13 @@ public abstract class CardDisplay : MonoBehaviour
             string spacer = "";
             if (!string.IsNullOrEmpty(card.CardSubType)) spacer = " - ";
             CardTypeLine = card.CardType + spacer + card.CardSubType;
-            CurrentEnergyCost = card.StartEnergyCost;
             CardName = card.CardName;
             CardArt = card.CardArt;
             CardBorder = card.CardBorder;
+            DisplayEnergyCost(card.StartEnergyCost); // TESTING
+
         }
-        
+
         if (TryGetComponent(out animator))
         {
             animator.runtimeAnimatorController = CardScript.ZoomOverController;

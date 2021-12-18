@@ -31,7 +31,7 @@ public static class SceneLoader
         if (SceneIsLoading) return;
         if (!loadSameScene && IsActiveScene(scene)) return;
         SceneIsLoading = true;
-        
+
         UIManager uMan = UIManager.Instance;
         AudioManager auMan = AudioManager.Instance;
         GameManager gMan = GameManager.Instance;

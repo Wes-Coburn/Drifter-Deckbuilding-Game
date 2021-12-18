@@ -80,7 +80,7 @@ public class EnemyManager : MonoBehaviour
         get
         {
             int bonusHealth = 0;
-            if (enemyHero.IsBoss) bonusHealth = 10;
+            if (enemyHero.IsBoss) bonusHealth = GameManager.BOSS_BONUS_HEALTH;
             return GameManager.ENEMY_STARTING_HEALTH + bonusHealth;
         }
     }
