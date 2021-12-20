@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 024a223818b76d04b90b880bd4d0c3a0, type: 3}
+  m_Name: Ride Til Death
+  m_EditorClassIdentifier: 
+  PowerName: Ride Til Death
+  PowerCost: 3
+  PowerSprite: {fileID: 21300000, guid: 09012c0c2892c1941bba759b7930be34, type: 3}
+  PowerSounds:
+  - name: 
+    clip: {fileID: 8300000, guid: ff36974b34ec23442900d8e50752f1c1, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: 47b8a628eace4394997d8698f14d2ada, type: 3}
+    volume: 0.8
+    pitch: 1
+    source: {fileID: 0}
+  PowerDescription: <b>Refresh</b> an ally. If it's already refreshed, give it +1/+0
+    instead.
+  EffectGroupList:
+  - {fileID: 11400000, guid: e943ed07dd5dc8f4b8176ee75e22120b, type: 2}
+  LinkedAbilities:
+  - {fileID: 11400000, guid: dd1e5adc210ef4f4387a7fa5ee2988e8, type: 2}
+  - {fileID: 11400000, guid: da9edd80a7b529542b04b632f79005de, type: 2}

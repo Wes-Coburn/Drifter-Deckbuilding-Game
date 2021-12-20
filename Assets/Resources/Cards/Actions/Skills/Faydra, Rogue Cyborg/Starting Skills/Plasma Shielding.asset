@@ -27,8 +27,9 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
-  effectDescription: Give an ally <b>Forcefield</b>.
+  effectDescription: Give an ally <b>Forcefield</b>. If it already has it, give it
+    +1/+0 instead.
   effectGroupList:
-  - {fileID: 11400000, guid: aec0026e271cfe84d9e70d4e412cac55, type: 2}
+  - {fileID: 11400000, guid: 8f684b1d4601e624ebe2c4bf0db7aff4, type: 2}
   linkedAbilities:
   - {fileID: 11400000, guid: 44eb684e5e3c70e4f830456effa3f6b6, type: 2}

@@ -27,8 +27,9 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
-  effectDescription: <b>Mark</b> ALL enemies.
+  effectDescription: Deal 2 to ALL enemies. For each enemy destroyed, deal 1 to the
+    enemy hero.
   effectGroupList:
-  - {fileID: 11400000, guid: 34d5f8a6935fbd948a6013ce793cd50a, type: 2}
+  - {fileID: 11400000, guid: abdd1cb02cda2714a9048bbf0fa16faa, type: 2}
   linkedAbilities:
   - {fileID: 11400000, guid: 67b65f6bf1f93db43afb76d61b1435b2, type: 2}

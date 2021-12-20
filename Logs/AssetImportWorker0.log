@@ -15,11 +15,11 @@ C:/Users/wgCob/OneDrive/Documents/Programming/Unity/Drifter (Unity 2D)
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-58769
+49218
 Successfully changed project path to: C:/Users/wgCob/OneDrive/Documents/Programming/Unity/Drifter (Unity 2D)
 C:/Users/wgCob/OneDrive/Documents/Programming/Unity/Drifter (Unity 2D)
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 95.43 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 93.77 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.5f1 (8095aa901b9b)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/Resources/UnitySubsystems
@@ -35,227 +35,1103 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56284
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56908
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.002212 seconds.
+Registered in 0.002033 seconds.
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 103.40 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 101.98 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.126 seconds
+- Completed reload, in  1.249 seconds
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.001845 seconds.
+Registered in 0.001576 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 112.29 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 105.38 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.057 seconds
+- Completed reload, in  1.045 seconds
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.03 seconds
-Refreshing native plugins compatible for Editor in 1.48 ms, found 1 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.04 seconds
+Refreshing native plugins compatible for Editor in 1.09 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 1950 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 94.4 MB.
 System memory in use after: 94.5 MB.
 
 Unloading 18 unused Assets to reduce memory usage. Loaded Objects now: 2404.
-Total: 3.625900 ms (FindLiveObjects: 1.838000 ms CreateObjectMapping: 0.234800 ms MarkObjects: 1.497800 ms  DeleteObjects: 0.053700 ms)
+Total: 2.621700 ms (FindLiveObjects: 0.687700 ms CreateObjectMapping: 0.187100 ms MarkObjects: 1.723300 ms  DeleteObjects: 0.019800 ms)
 
 ========================================================================
 Received Import Request.
-  path: Assets/Scenes/HomeBaseScene.unity
-  artifactKey: Guid(422a3e4610391e140ab319c2b4947c5d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scenes/HomeBaseScene.unity using Guid(422a3e4610391e140ab319c2b4947c5d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '863e2c6bc02db57512640e0da44572fc') in 0.014189 seconds
-  Import took 0.041361 seconds .
+  path: Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Forcefield 1.asset
+  artifactKey: Guid(8a3024d1532a4984ca778806a8811376) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Forcefield 1.asset using Guid(8a3024d1532a4984ca778806a8811376) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '08ce031b891a6051245b0b28fb7c4b6d') in 0.040502 seconds
+  Import took 0.046184 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 49.599255 seconds.
-  path: Assets/Scenes/HeroSelectScene.unity
-  artifactKey: Guid(d36e93befefebfa44858021665aa2703) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scenes/HeroSelectScene.unity using Guid(d36e93befefebfa44858021665aa2703) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4800b560ce3dfc99c50d1009075c3162') in 0.004121 seconds
-  Import took 0.009184 seconds .
+  Time since last request: 13.776753 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Forcefield_IfHas_plus2plus0_1turn.asset
+  artifactKey: Guid(8a3024d1532a4984ca778806a8811376) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Forcefield_IfHas_plus2plus0_1turn.asset using Guid(8a3024d1532a4984ca778806a8811376) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f1a7349b59c80ef7054f6ba15bf1515d') in 0.005369 seconds
+  Import took 0.011482 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000942 seconds.
-  path: Assets/Scenes/HeroSelectScene.unity
-  artifactKey: Guid(d36e93befefebfa44858021665aa2703) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scenes/HeroSelectScene.unity using Guid(d36e93befefebfa44858021665aa2703) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4800b560ce3dfc99c50d1009075c3162') in 0.002440 seconds
-  Import took 0.009261 seconds .
+  Time since last request: 13.917451 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Forcefield_IfHas_plus2plus0_1turn.asset
+  artifactKey: Guid(8a3024d1532a4984ca778806a8811376) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Forcefield_IfHas_plus2plus0_1turn.asset using Guid(8a3024d1532a4984ca778806a8811376) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e39c388032972709bfcf9453b38a1a0c') in 0.028504 seconds
+  Import took 0.033704 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 124.827342 seconds.
-  path: Assets/Resources/Heroes/Player Heroes/Faydra, Rogue Cyborg.asset
-  artifactKey: Guid(14df74eab3a27eb4397e917831e0abb1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Heroes/Player Heroes/Faydra, Rogue Cyborg.asset using Guid(14df74eab3a27eb4397e917831e0abb1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7275ece4598e83abf89864a3514d9efa') in 0.053385 seconds
-  Import took 0.059214 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 1.280139 seconds.
-  path: Assets/Resources/Heroes/Player Heroes/Faydra, Rogue Cyborg.asset
-  artifactKey: Guid(14df74eab3a27eb4397e917831e0abb1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Heroes/Player Heroes/Faydra, Rogue Cyborg.asset using Guid(14df74eab3a27eb4397e917831e0abb1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8bdebaeda69750abb506b19c91f87938') in 0.024736 seconds
-  Import took 0.032789 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 12.129789 seconds.
-  path: Assets/Resources/Heroes/Player Heroes/Kili, Neon Rider.asset
-  artifactKey: Guid(2de3c75baa7d5f54fbe6c020c04073e9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Heroes/Player Heroes/Kili, Neon Rider.asset using Guid(2de3c75baa7d5f54fbe6c020c04073e9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9dad5cf6b5a0b395f6ddaba4b4885da8') in 0.023342 seconds
-  Import took 0.030369 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 12.598073 seconds.
-  path: Assets/Resources/Heroes/Player Heroes/Yergov, Biochemist.asset
-  artifactKey: Guid(7ec381d799404eb4abf4d674191a948b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Heroes/Player Heroes/Yergov, Biochemist.asset using Guid(7ec381d799404eb4abf4d674191a948b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '48f89e5003d0703669bed60b57520669') in 0.023907 seconds
-  Import took 0.035302 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 2.621161 seconds.
-  path: Assets/Resources/Heroes/Player Heroes/Yergov, Biochemist.asset
-  artifactKey: Guid(7ec381d799404eb4abf4d674191a948b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Heroes/Player Heroes/Yergov, Biochemist.asset using Guid(7ec381d799404eb4abf4d674191a948b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2a9ae0006c42e840480c30ebdc061017') in 0.043578 seconds
-  Import took 0.079353 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 36.796063 seconds.
-  path: Assets/Scenes/TitleScene.unity
-  artifactKey: Guid(63f34e354ce4f5a4c9cab5ca9e05533c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scenes/TitleScene.unity using Guid(63f34e354ce4f5a4c9cab5ca9e05533c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f9c36b405474e7fd2f337fb5530e4417') in 0.002559 seconds
-  Import took 0.007097 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 183.002870 seconds.
+  Time since last request: 20.029023 seconds.
   path: Assets/Resources/Cards/Actions/Skills/Faydra, Rogue Cyborg/Starting Skills/Plasma Shielding.asset
   artifactKey: Guid(2dd34371ad1300b4b8562e9c9647e8a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards/Actions/Skills/Faydra, Rogue Cyborg/Starting Skills/Plasma Shielding.asset using Guid(2dd34371ad1300b4b8562e9c9647e8a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b108180a3647988434c47b768249ac5c') in 0.007907 seconds
-  Import took 0.012516 seconds .
+Start importing Assets/Resources/Cards/Actions/Skills/Faydra, Rogue Cyborg/Starting Skills/Plasma Shielding.asset using Guid(2dd34371ad1300b4b8562e9c9647e8a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e924290fee5403ba8bf648fd667f08f2') in 0.013662 seconds
+  Import took 0.021651 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.016337 seconds.
+  Time since last request: 24.651361 seconds.
   path: Assets/Resources/Cards/Actions/Skills/Faydra, Rogue Cyborg/Starting Skills/Plasma Shielding.asset
   artifactKey: Guid(2dd34371ad1300b4b8562e9c9647e8a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards/Actions/Skills/Faydra, Rogue Cyborg/Starting Skills/Plasma Shielding.asset using Guid(2dd34371ad1300b4b8562e9c9647e8a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b108180a3647988434c47b768249ac5c') in 0.006773 seconds
-  Import took 0.011144 seconds .
+Start importing Assets/Resources/Cards/Actions/Skills/Faydra, Rogue Cyborg/Starting Skills/Plasma Shielding.asset using Guid(2dd34371ad1300b4b8562e9c9647e8a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b91123d4c155765e6f19795e46312df5') in 0.009661 seconds
+  Import took 0.014847 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 24.301341 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Forcefield 1.asset
+  artifactKey: Guid(8f684b1d4601e624ebe2c4bf0db7aff4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Forcefield 1.asset using Guid(8f684b1d4601e624ebe2c4bf0db7aff4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '387541aaa1783825dc882fcdd290366c') in 0.007280 seconds
+  Import took 0.013468 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 10.617344 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Forcefield_IfHas_plus2plus0_1turn.asset
+  artifactKey: Guid(8f684b1d4601e624ebe2c4bf0db7aff4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Forcefield_IfHas_plus2plus0_1turn.asset using Guid(8f684b1d4601e624ebe2c4bf0db7aff4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '895134cb76934cc8060fb03a6852fd02') in 0.008785 seconds
+  Import took 0.014714 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 11.521379 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Forcefield_IfHas_plus2plus0_1turn.asset
+  artifactKey: Guid(8f684b1d4601e624ebe2c4bf0db7aff4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Forcefield_IfHas_plus2plus0_1turn.asset using Guid(8f684b1d4601e624ebe2c4bf0db7aff4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cfebc8a399c27ffd2452f6759b859278') in 0.005798 seconds
+  Import took 0.013665 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 4.335425 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Forcefield_IfHas_plus2plus0_1turn.asset
+  artifactKey: Guid(8f684b1d4601e624ebe2c4bf0db7aff4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Forcefield_IfHas_plus2plus0_1turn.asset using Guid(8f684b1d4601e624ebe2c4bf0db7aff4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '68896b0c35db23abc514b47840646c7f') in 0.006153 seconds
+  Import took 0.014405 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 15.662086 seconds.
+  path: Assets/Resources/Cards/Actions/Skills/Faydra, Rogue Cyborg/Starting Skills/Plasma Shielding.asset
+  artifactKey: Guid(2dd34371ad1300b4b8562e9c9647e8a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards/Actions/Skills/Faydra, Rogue Cyborg/Starting Skills/Plasma Shielding.asset using Guid(2dd34371ad1300b4b8562e9c9647e8a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b3d76a4d98bf6725f2407af746e179fd') in 0.012147 seconds
+  Import took 0.018826 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.002112 seconds.
+Registered in 0.002975 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.02 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 0.92 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.735 seconds
+- Completed reload, in  0.892 seconds
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.90 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 1.00 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 1927 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 92.9 MB.
 System memory in use after: 93.0 MB.
 
 Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2407.
-Total: 2.258700 ms (FindLiveObjects: 0.285200 ms CreateObjectMapping: 0.126900 ms MarkObjects: 1.832600 ms  DeleteObjects: 0.013200 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001689 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.13 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.725 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.91 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1927 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 92.9 MB.
-System memory in use after: 93.0 MB.
-
-Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2410.
-Total: 2.310800 ms (FindLiveObjects: 0.307200 ms CreateObjectMapping: 0.073000 ms MarkObjects: 1.893500 ms  DeleteObjects: 0.036300 ms)
+Total: 3.708500 ms (FindLiveObjects: 1.239600 ms CreateObjectMapping: 0.404900 ms MarkObjects: 2.040300 ms  DeleteObjects: 0.019700 ms)
 
 ========================================================================
 Received Import Request.
-  Time since last request: 249.193635 seconds.
-  path: Assets/Scenes/HeroSelectScene.unity
-  artifactKey: Guid(d36e93befefebfa44858021665aa2703) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scenes/HeroSelectScene.unity using Guid(d36e93befefebfa44858021665aa2703) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ce2eda15cf6807e5d8e0f2751a00b11b') in 0.011966 seconds
-  Import took 0.017014 seconds .
+  Time since last request: 3364.144282 seconds.
+  path: Assets/Resources/Cards/Actions/Skills/Yergov, Biochemist/More Skills/Blood Research.asset
+  artifactKey: Guid(16deb438c6e85a24dbd14820ed3e5abb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards/Actions/Skills/Yergov, Biochemist/More Skills/Blood Research.asset using Guid(16deb438c6e85a24dbd14820ed3e5abb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2af094857e770e0f7b89e0ecd764c816') in 0.037092 seconds
+  Import took 0.045224 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 118.448540 seconds.
-  path: Assets/Scenes/HomeBaseScene.unity
-  artifactKey: Guid(422a3e4610391e140ab319c2b4947c5d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scenes/HomeBaseScene.unity using Guid(422a3e4610391e140ab319c2b4947c5d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '21d203f2edcf36a99abe47c89ad90d6e') in 0.002349 seconds
-  Import took 0.007386 seconds .
+  Time since last request: 6.277153 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/GiveALLPU_Revenge_Draw1.asset
+  artifactKey: Guid(e23a605ccb4424b4e84f8240c0bc3ebe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/GiveALLPU_Revenge_Draw1.asset using Guid(e23a605ccb4424b4e84f8240c0bc3ebe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fd22c9a971e2e419092d12b75ec0bce3') in 0.004798 seconds
+  Import took 0.008751 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 31.173674 seconds.
-  path: Assets/Resources/Heroes/Player Heroes/Faydra, Rogue Cyborg.asset
-  artifactKey: Guid(14df74eab3a27eb4397e917831e0abb1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Heroes/Player Heroes/Faydra, Rogue Cyborg.asset using Guid(14df74eab3a27eb4397e917831e0abb1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e6950d3a7999e5c67d034dbc74abf823') in 0.046672 seconds
-  Import took 0.052404 seconds .
+  Time since last request: 21.194443 seconds.
+  path: Assets/Resources/Cards/Actions/Skills/Yergov, Biochemist/More Skills/Deathrage.asset
+  artifactKey: Guid(a6e523ee3c15c0448becb05400494916) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards/Actions/Skills/Yergov, Biochemist/More Skills/Deathrage.asset using Guid(a6e523ee3c15c0448becb05400494916) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e88b135654fe2debb370e541655bddfb') in 0.010742 seconds
+  Import took 0.016764 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 5.700880 seconds.
-  path: Assets/Resources/Heroes/Player Heroes/Kili, Neon Rider.asset
-  artifactKey: Guid(2de3c75baa7d5f54fbe6c020c04073e9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Heroes/Player Heroes/Kili, Neon Rider.asset using Guid(2de3c75baa7d5f54fbe6c020c04073e9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '29cea303095e122c947de181f2a63405') in 0.031514 seconds
-  Import took 0.036519 seconds .
+  Time since last request: 129.680597 seconds.
+  path: Assets/Resources/Cards/Actions/Skills/Faydra, Rogue Cyborg/Starting Skills/Plasma Shielding.asset
+  artifactKey: Guid(2dd34371ad1300b4b8562e9c9647e8a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards/Actions/Skills/Faydra, Rogue Cyborg/Starting Skills/Plasma Shielding.asset using Guid(2dd34371ad1300b4b8562e9c9647e8a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '23e6916ffdf99e7f583524c14474ac9d') in 0.009513 seconds
+  Import took 0.015361 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 6.182498 seconds.
-  path: Assets/Resources/Heroes/Player Heroes/Yergov, Biochemist.asset
-  artifactKey: Guid(7ec381d799404eb4abf4d674191a948b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Heroes/Player Heroes/Yergov, Biochemist.asset using Guid(7ec381d799404eb4abf4d674191a948b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0710cd8145ab6a6c157da528b434c703') in 0.020822 seconds
-  Import took 0.025974 seconds .
+  Time since last request: 7.596834 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Forcefield_IfHas_plus1plus0.asset
+  artifactKey: Guid(8f684b1d4601e624ebe2c4bf0db7aff4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Forcefield_IfHas_plus1plus0.asset using Guid(8f684b1d4601e624ebe2c4bf0db7aff4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '052707a688ad2f4654ec3abe02619c10') in 0.005486 seconds
+  Import took 0.010524 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 4.879754 seconds.
-  path: Assets/Prefabs/Cards/Card Popups/DescriptionPopup.prefab
-  artifactKey: Guid(a1386cfa691c6134d9425094daba5660) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Cards/Card Popups/DescriptionPopup.prefab using Guid(a1386cfa691c6134d9425094daba5660) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b97d5a5b91c23fba2e45c2559ae620e8') in 0.059965 seconds
-  Import took 0.064369 seconds .
+  Time since last request: 15.586902 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Forcefield_IfHas_plus1plus0.asset
+  artifactKey: Guid(8a3024d1532a4984ca778806a8811376) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Forcefield_IfHas_plus1plus0.asset using Guid(8a3024d1532a4984ca778806a8811376) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3f8df810a22e11b5f4e5890bb457aabe') in 0.005030 seconds
+  Import took 0.009302 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000294 seconds.
-  path: Assets/Prefabs/Heroes/EnemyHero.prefab
-  artifactKey: Guid(31637dea9d4e701409b1e552bf2a61ad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Heroes/EnemyHero.prefab using Guid(31637dea9d4e701409b1e552bf2a61ad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cb16099442283a37ba9783e9f84b08d8') in 0.059122 seconds
-  Import took 0.063156 seconds .
+  Time since last request: 8.095421 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Forcefield_IfHas_plus1plus0.asset
+  artifactKey: Guid(8a3024d1532a4984ca778806a8811376) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Forcefield_IfHas_plus1plus0.asset using Guid(8a3024d1532a4984ca778806a8811376) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eef70582a5b55f3706466320ec97b856') in 0.004708 seconds
+  Import took 0.008981 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000309 seconds.
-  path: Assets/Prefabs/Heroes/PlayerHero.prefab
-  artifactKey: Guid(82ee73e4f6edaf843822483120ad9f13) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Heroes/PlayerHero.prefab using Guid(82ee73e4f6edaf843822483120ad9f13) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd6b51b6f14f6e626ea06bcffedf4e09d') in 0.056537 seconds
-  Import took 0.060874 seconds .
+  Time since last request: 20.274309 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Forcefield_IfHas_plus1plus0.asset
+  artifactKey: Guid(8f684b1d4601e624ebe2c4bf0db7aff4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Give1PU_Forcefield_IfHas_plus1plus0.asset using Guid(8f684b1d4601e624ebe2c4bf0db7aff4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '77d4ee061f4fdb07d965ede869a5beab') in 0.004749 seconds
+  Import took 0.009737 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 130.161884 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 1.asset
+  artifactKey: Guid(95b316b9c98ed54489305f69baaec255) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 1.asset using Guid(95b316b9c98ed54489305f69baaec255) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b4301a72f9480f5032d1dbbf70219f81') in 0.077814 seconds
+  Import took 0.084597 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.252952 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 2.asset
+  artifactKey: Guid(e5b354611fed77044b013da76e5b8017) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 2.asset using Guid(e5b354611fed77044b013da76e5b8017) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e6506cd7a4921004baa0d9f1f62d2678') in 0.057677 seconds
+  Import took 0.064031 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.151268 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 3.asset
+  artifactKey: Guid(d6473700dc53a744fa1b43131dbc7376) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 3.asset using Guid(d6473700dc53a744fa1b43131dbc7376) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aedf90c5e5ba7c84a426076b9c2c7b44') in 0.057754 seconds
+  Import took 0.063789 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.253725 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 4.asset
+  artifactKey: Guid(c0ea47f4f4a820b43ae0f10548b1a535) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 4.asset using Guid(c0ea47f4f4a820b43ae0f10548b1a535) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3c74c710f37a85aa76ffddecd3a0087b') in 0.058492 seconds
+  Import took 0.064043 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.195787 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 5.asset
+  artifactKey: Guid(431179fdcf62ae849938e930f97c0423) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 5.asset using Guid(431179fdcf62ae849938e930f97c0423) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0df31ebb65d990a80a29dd1d645b35d5') in 0.057064 seconds
+  Import took 0.063871 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.210787 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 6.asset
+  artifactKey: Guid(6a10d139f1ddecb45b3ac13167496774) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 6.asset using Guid(6a10d139f1ddecb45b3ac13167496774) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bcadd3c879955664f4fbeabc4012783c') in 0.058040 seconds
+  Import took 0.063672 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.165009 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 7.asset
+  artifactKey: Guid(7d5d8d6cd8644f442abbabe312501032) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 7.asset using Guid(7d5d8d6cd8644f442abbabe312501032) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9ab4a3d7ba87724743a2e4125c3573e2') in 0.056742 seconds
+  Import took 0.062666 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.162355 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 8.asset
+  artifactKey: Guid(b40d1cf0e078693488935d9c3b5b20e8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 8.asset using Guid(b40d1cf0e078693488935d9c3b5b20e8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '10d4d04c84e7db7577154601873537b3') in 0.057678 seconds
+  Import took 0.064635 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.130532 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 9.asset
+  artifactKey: Guid(2d1c6951a63b4d649b0d27863ecedae5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 9.asset using Guid(2d1c6951a63b4d649b0d27863ecedae5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '902d3bfb03c6ef9a61d3cc1493871c7d') in 0.058329 seconds
+  Import took 0.063870 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.140401 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 10.asset
+  artifactKey: Guid(f8738903457617549af6024616306f32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 10.asset using Guid(f8738903457617549af6024616306f32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '15ea2d71069673f1d514f3c37837b86b') in 0.056655 seconds
+  Import took 0.062725 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.130128 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 11.asset
+  artifactKey: Guid(0ef5fc30180f7df468169e6fa26f70b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 11.asset using Guid(0ef5fc30180f7df468169e6fa26f70b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '97fe7dfac37f68355cfddcc618af0e7b') in 0.056410 seconds
+  Import took 0.062370 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.178002 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 12.asset
+  artifactKey: Guid(daf4ef4ae7fe39f43854e365b86df61a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 12.asset using Guid(daf4ef4ae7fe39f43854e365b86df61a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '223bf07e5426bdd5788855324e9c2a06') in 0.056537 seconds
+  Import took 0.062909 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.517693 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 13.asset
+  artifactKey: Guid(5aaf6b4156165954e89509bc989e561b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 13.asset using Guid(5aaf6b4156165954e89509bc989e561b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'db86dc20ff42d60b7ac62f31e8134835') in 0.057639 seconds
+  Import took 0.063904 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.132432 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 14.asset
+  artifactKey: Guid(b38ae75f68b59354a90b341ee2b4b5ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 14.asset using Guid(b38ae75f68b59354a90b341ee2b4b5ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '862dc940e528de6c26dd5c89f1e5feec') in 0.056757 seconds
+  Import took 0.063008 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 4.531874 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 15.asset
+  artifactKey: Guid(fa9345a2a32655a4689d2bb3f851dda9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 15.asset using Guid(fa9345a2a32655a4689d2bb3f851dda9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd1baebc10e9dc94e3e76c918d586afc1') in 0.060685 seconds
+  Import took 0.069146 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.092078 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 16.asset
+  artifactKey: Guid(e668bc73280804842860f9fd86b1579d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 16.asset using Guid(e668bc73280804842860f9fd86b1579d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dbf2a9f2bb7b1de645efd7b741219272') in 0.058124 seconds
+  Import took 0.065231 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 4.078431 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_16.asset
+  artifactKey: Guid(e668bc73280804842860f9fd86b1579d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_16.asset using Guid(e668bc73280804842860f9fd86b1579d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd2833384c3e186c221c893ee56fc0153') in 0.057830 seconds
+  Import took 0.063479 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.491350 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 14.asset
+  artifactKey: Guid(b38ae75f68b59354a90b341ee2b4b5ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 14.asset using Guid(b38ae75f68b59354a90b341ee2b4b5ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ead6a8b857e9ff8ee6c8c5706accf9c6') in 0.059603 seconds
+  Import took 0.066532 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.385128 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 15.asset
+  artifactKey: Guid(fa9345a2a32655a4689d2bb3f851dda9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 15.asset using Guid(fa9345a2a32655a4689d2bb3f851dda9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c30f537967a2fc195cf953bee333d125') in 0.056712 seconds
+  Import took 0.064115 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.537684 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_15.asset
+  artifactKey: Guid(fa9345a2a32655a4689d2bb3f851dda9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_15.asset using Guid(fa9345a2a32655a4689d2bb3f851dda9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bb2c36439b506c31302af8139a21dd19') in 0.058323 seconds
+  Import took 0.063820 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 4.216574 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_14.asset
+  artifactKey: Guid(b38ae75f68b59354a90b341ee2b4b5ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_14.asset using Guid(b38ae75f68b59354a90b341ee2b4b5ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6bf89d3658106da51b6c983cf84ff8e3') in 0.062177 seconds
+  Import took 0.067545 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.985479 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 13.asset
+  artifactKey: Guid(5aaf6b4156165954e89509bc989e561b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 13.asset using Guid(5aaf6b4156165954e89509bc989e561b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd919770b69ed0f4eb7fc17a2934c0871') in 0.059529 seconds
+  Import took 0.065194 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.898975 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_13.asset
+  artifactKey: Guid(5aaf6b4156165954e89509bc989e561b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_13.asset using Guid(5aaf6b4156165954e89509bc989e561b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '09ea5cc45e68bd92f0acfca607c6e5f1') in 0.057186 seconds
+  Import took 0.065528 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.966340 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 12.asset
+  artifactKey: Guid(daf4ef4ae7fe39f43854e365b86df61a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 12.asset using Guid(daf4ef4ae7fe39f43854e365b86df61a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dc102200d22448c6088256dedaa2dadf') in 0.058280 seconds
+  Import took 0.065158 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.198366 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_12.asset
+  artifactKey: Guid(daf4ef4ae7fe39f43854e365b86df61a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_12.asset using Guid(daf4ef4ae7fe39f43854e365b86df61a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0f37cde7391ab8e6d8003709106853f3') in 0.058666 seconds
+  Import took 0.066318 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.073046 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 11.asset
+  artifactKey: Guid(0ef5fc30180f7df468169e6fa26f70b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 11.asset using Guid(0ef5fc30180f7df468169e6fa26f70b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5042100209be758b859cdd71549da0f6') in 0.055703 seconds
+  Import took 0.062344 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.730458 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_11.asset
+  artifactKey: Guid(0ef5fc30180f7df468169e6fa26f70b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_11.asset using Guid(0ef5fc30180f7df468169e6fa26f70b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '886d65cf2902203030ef2783bb330dae') in 0.059287 seconds
+  Import took 0.067317 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.983485 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 10.asset
+  artifactKey: Guid(f8738903457617549af6024616306f32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 10.asset using Guid(f8738903457617549af6024616306f32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '791091352acbfeaac2f1dd35f9384e5d') in 0.061764 seconds
+  Import took 0.068254 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.153684 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_10.asset
+  artifactKey: Guid(f8738903457617549af6024616306f32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_10.asset using Guid(f8738903457617549af6024616306f32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5d8b1bbedee2af98bbd99e4c69e64f38') in 0.058187 seconds
+  Import took 0.064250 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.894633 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 9.asset
+  artifactKey: Guid(2d1c6951a63b4d649b0d27863ecedae5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 9.asset using Guid(2d1c6951a63b4d649b0d27863ecedae5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a50ea3b09d51a3eac12f9bbf63041164') in 0.057249 seconds
+  Import took 0.063216 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.271224 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_9.asset
+  artifactKey: Guid(2d1c6951a63b4d649b0d27863ecedae5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_9.asset using Guid(2d1c6951a63b4d649b0d27863ecedae5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e321fc88cb9c4082f9962cda35f2697c') in 0.056692 seconds
+  Import took 0.063911 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.983268 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 8.asset
+  artifactKey: Guid(b40d1cf0e078693488935d9c3b5b20e8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 8.asset using Guid(b40d1cf0e078693488935d9c3b5b20e8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '501c41ed2107188972bcc804116b8ebb') in 0.056446 seconds
+  Import took 0.063307 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.301511 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_8.asset
+  artifactKey: Guid(b40d1cf0e078693488935d9c3b5b20e8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_8.asset using Guid(b40d1cf0e078693488935d9c3b5b20e8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '96a3411704047d5f69be95ccab9cbddf') in 0.056363 seconds
+  Import took 0.062527 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.668492 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 7.asset
+  artifactKey: Guid(7d5d8d6cd8644f442abbabe312501032) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 7.asset using Guid(7d5d8d6cd8644f442abbabe312501032) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '62bd71c3e229433bda5b7cb6ad9d6eeb') in 0.056974 seconds
+  Import took 0.062899 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.463265 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_7.asset
+  artifactKey: Guid(7d5d8d6cd8644f442abbabe312501032) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_7.asset using Guid(7d5d8d6cd8644f442abbabe312501032) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '061e472e256cacca9ab4886196e1947e') in 0.057902 seconds
+  Import took 0.065413 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.679050 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 6.asset
+  artifactKey: Guid(6a10d139f1ddecb45b3ac13167496774) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 6.asset using Guid(6a10d139f1ddecb45b3ac13167496774) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3a9fbd050bece389de2c9170421276c3') in 0.059788 seconds
+  Import took 0.070642 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.219914 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_6.asset
+  artifactKey: Guid(6a10d139f1ddecb45b3ac13167496774) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_6.asset using Guid(6a10d139f1ddecb45b3ac13167496774) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e6ce9d71f0cbbb36116884a8dfa343a3') in 0.057838 seconds
+  Import took 0.063491 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.586741 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 5.asset
+  artifactKey: Guid(431179fdcf62ae849938e930f97c0423) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 5.asset using Guid(431179fdcf62ae849938e930f97c0423) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e3f1423c8c7e47b4380880616b2fa708') in 0.056605 seconds
+  Import took 0.063894 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.223950 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_5.asset
+  artifactKey: Guid(431179fdcf62ae849938e930f97c0423) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_5.asset using Guid(431179fdcf62ae849938e930f97c0423) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '26ff118cce5ddadc20bcb1d2a03c1a3f') in 0.057393 seconds
+  Import took 0.063316 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.604117 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 4.asset
+  artifactKey: Guid(c0ea47f4f4a820b43ae0f10548b1a535) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 4.asset using Guid(c0ea47f4f4a820b43ae0f10548b1a535) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5627feb1df82f13d211a452e7a96ebe9') in 0.056475 seconds
+  Import took 0.061811 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.365593 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_4.asset
+  artifactKey: Guid(c0ea47f4f4a820b43ae0f10548b1a535) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_4.asset using Guid(c0ea47f4f4a820b43ae0f10548b1a535) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e1784512515d11d4ea6e7665e703845c') in 0.058312 seconds
+  Import took 0.064038 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.141667 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 3.asset
+  artifactKey: Guid(d6473700dc53a744fa1b43131dbc7376) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 3.asset using Guid(d6473700dc53a744fa1b43131dbc7376) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4c95685cea40ea52a6b62244272d8b52') in 0.055782 seconds
+  Import took 0.061595 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.304443 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_3.asset
+  artifactKey: Guid(d6473700dc53a744fa1b43131dbc7376) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_3.asset using Guid(d6473700dc53a744fa1b43131dbc7376) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '37409f4c2a66c2edbe469a0ad58f4069') in 0.058135 seconds
+  Import took 0.064841 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.122295 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 2.asset
+  artifactKey: Guid(e5b354611fed77044b013da76e5b8017) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 2.asset using Guid(e5b354611fed77044b013da76e5b8017) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '818974755e4a5f16a3513c3c1457aee6') in 0.056405 seconds
+  Import took 0.062922 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.230474 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_2.asset
+  artifactKey: Guid(e5b354611fed77044b013da76e5b8017) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_2.asset using Guid(e5b354611fed77044b013da76e5b8017) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7b3471dfd71d7b16ac6cb57ff3fb7bf7') in 0.063146 seconds
+  Import took 0.070259 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.277462 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 1.asset
+  artifactKey: Guid(95b316b9c98ed54489305f69baaec255) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 1.asset using Guid(95b316b9c98ed54489305f69baaec255) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a0b4459700078065d0f64c72817aa6d1') in 0.057292 seconds
+  Import took 0.064040 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.620439 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_17.asset
+  artifactKey: Guid(95b316b9c98ed54489305f69baaec255) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_17.asset using Guid(95b316b9c98ed54489305f69baaec255) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '87b4ad95ff9462b8fe9259415d17a56a') in 0.055759 seconds
+  Import took 0.062863 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 14.316104 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_2.asset
+  artifactKey: Guid(e5b354611fed77044b013da76e5b8017) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_2.asset using Guid(e5b354611fed77044b013da76e5b8017) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '71c6f0fd93afc12e0d1e0a236a322903') in 0.057765 seconds
+  Import took 0.062928 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 30.148986 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_2.asset
+  artifactKey: Guid(e5b354611fed77044b013da76e5b8017) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_2.asset using Guid(e5b354611fed77044b013da76e5b8017) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '02b8f8ca4087c75fe2b7da43a99f6157') in 0.056663 seconds
+  Import took 0.063335 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 8.519193 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_2.asset
+  artifactKey: Guid(e5b354611fed77044b013da76e5b8017) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_2.asset using Guid(e5b354611fed77044b013da76e5b8017) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2cc31e69720ba361ddeb5a31b1ccb9c6') in 0.064154 seconds
+  Import took 0.070071 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.461796 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_3.asset
+  artifactKey: Guid(d6473700dc53a744fa1b43131dbc7376) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_3.asset using Guid(d6473700dc53a744fa1b43131dbc7376) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '882f03e49a403db03887c21cde4ebc30') in 0.058192 seconds
+  Import took 0.064527 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.500151 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_4.asset
+  artifactKey: Guid(c0ea47f4f4a820b43ae0f10548b1a535) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_4.asset using Guid(c0ea47f4f4a820b43ae0f10548b1a535) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a8e4917b2e637e70256519e7aec7ab45') in 0.056978 seconds
+  Import took 0.062900 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.715707 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_5.asset
+  artifactKey: Guid(431179fdcf62ae849938e930f97c0423) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_5.asset using Guid(431179fdcf62ae849938e930f97c0423) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '11f9dd4663ce1725e57e0e7e562a8b49') in 0.057544 seconds
+  Import took 0.064088 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.116650 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_6.asset
+  artifactKey: Guid(6a10d139f1ddecb45b3ac13167496774) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_6.asset using Guid(6a10d139f1ddecb45b3ac13167496774) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e5921e2c7c8cf0cda8253304094140db') in 0.063179 seconds
+  Import took 0.069861 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.084002 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_7.asset
+  artifactKey: Guid(7d5d8d6cd8644f442abbabe312501032) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_7.asset using Guid(7d5d8d6cd8644f442abbabe312501032) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '06f8d5669c787354ee63e61393ff2ca5') in 0.058148 seconds
+  Import took 0.064606 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.133244 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_8.asset
+  artifactKey: Guid(b40d1cf0e078693488935d9c3b5b20e8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_8.asset using Guid(b40d1cf0e078693488935d9c3b5b20e8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd8eec17dea400098de4be26de7d0821e') in 0.057197 seconds
+  Import took 0.063221 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.123676 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_9.asset
+  artifactKey: Guid(2d1c6951a63b4d649b0d27863ecedae5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_9.asset using Guid(2d1c6951a63b4d649b0d27863ecedae5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e25efb4bd45dc4f8389e6e27f176cfe6') in 0.055760 seconds
+  Import took 0.061615 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.055417 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_10.asset
+  artifactKey: Guid(f8738903457617549af6024616306f32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_10.asset using Guid(f8738903457617549af6024616306f32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b43bd917c3d7c949150b7ebdb3bc91b2') in 0.057880 seconds
+  Import took 0.063560 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.068861 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_11.asset
+  artifactKey: Guid(0ef5fc30180f7df468169e6fa26f70b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_11.asset using Guid(0ef5fc30180f7df468169e6fa26f70b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2442d5e845c738c9486554cb184a32a0') in 0.056450 seconds
+  Import took 0.063025 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.098244 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_12.asset
+  artifactKey: Guid(daf4ef4ae7fe39f43854e365b86df61a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_12.asset using Guid(daf4ef4ae7fe39f43854e365b86df61a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f5cb5a9e30ba59e1a1cac7ed292e8064') in 0.055838 seconds
+  Import took 0.062690 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.096126 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_13.asset
+  artifactKey: Guid(5aaf6b4156165954e89509bc989e561b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_13.asset using Guid(5aaf6b4156165954e89509bc989e561b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c709c72ec02094e8d7baec5f81df4ae4') in 0.057091 seconds
+  Import took 0.064469 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.996481 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1.asset
+  artifactKey: Guid(7aa455337c001c84d8eee6dbebfbfdef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1.asset using Guid(7aa455337c001c84d8eee6dbebfbfdef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4e047cae037eae6b843b5eeb7e69e9df') in 0.056386 seconds
+  Import took 0.063933 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 18.583390 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1.asset
+  artifactKey: Guid(7aa455337c001c84d8eee6dbebfbfdef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1.asset using Guid(7aa455337c001c84d8eee6dbebfbfdef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '342164847b31c3ed9edf4b04408862af') in 0.058527 seconds
+  Import took 0.064283 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.201947 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_2.asset
+  artifactKey: Guid(e5b354611fed77044b013da76e5b8017) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_2.asset using Guid(e5b354611fed77044b013da76e5b8017) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b0e5a1d01f7273d98d172c7686e23a31') in 0.058955 seconds
+  Import took 0.065441 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 11.061118 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_2.asset
+  artifactKey: Guid(e5b354611fed77044b013da76e5b8017) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_2.asset using Guid(e5b354611fed77044b013da76e5b8017) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '065b756613a11abb3ff570e68ebee981') in 0.057209 seconds
+  Import took 0.063692 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 22.366954 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_3.asset
+  artifactKey: Guid(d6473700dc53a744fa1b43131dbc7376) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_3.asset using Guid(d6473700dc53a744fa1b43131dbc7376) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd77d6ce072a6ecc4ef9448727f92494a') in 0.057347 seconds
+  Import took 0.063746 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 53.406713 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_3.asset
+  artifactKey: Guid(d6473700dc53a744fa1b43131dbc7376) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_3.asset using Guid(d6473700dc53a744fa1b43131dbc7376) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e6f28b814d4679de1da7ce9cf1cbbaba') in 0.056619 seconds
+  Import took 0.063130 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 85.389778 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_2.asset
+  artifactKey: Guid(e5b354611fed77044b013da76e5b8017) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_2.asset using Guid(e5b354611fed77044b013da76e5b8017) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '53a7623dc4d3bbd36a18e89a30c0724e') in 0.059034 seconds
+  Import took 0.065527 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 9.102935 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_2.asset
+  artifactKey: Guid(e5b354611fed77044b013da76e5b8017) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_2.asset using Guid(e5b354611fed77044b013da76e5b8017) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '36586848e9a3f850371b9a93eccd94ba') in 0.057793 seconds
+  Import took 0.063692 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.654042 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_3.asset
+  artifactKey: Guid(d6473700dc53a744fa1b43131dbc7376) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_3.asset using Guid(d6473700dc53a744fa1b43131dbc7376) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7b5a222ceb1f0cfb99de65d4fb3cbca8') in 0.058179 seconds
+  Import took 0.066271 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 6.473863 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_4.asset
+  artifactKey: Guid(c0ea47f4f4a820b43ae0f10548b1a535) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_4.asset using Guid(c0ea47f4f4a820b43ae0f10548b1a535) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'df17a29a60ea8f9e9e0339a27778feb9') in 0.062701 seconds
+  Import took 0.068316 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 28.454475 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_4.asset
+  artifactKey: Guid(c0ea47f4f4a820b43ae0f10548b1a535) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_4.asset using Guid(c0ea47f4f4a820b43ae0f10548b1a535) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '40bea965a60c481a4551d4943dd6233c') in 0.059249 seconds
+  Import took 0.065287 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 87.227181 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_7.asset
+  artifactKey: Guid(7d5d8d6cd8644f442abbabe312501032) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_7.asset using Guid(7d5d8d6cd8644f442abbabe312501032) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dc605f36a2e25684f30c77c0401f9636') in 0.057597 seconds
+  Import took 0.064229 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 82.484922 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_9.asset
+  artifactKey: Guid(2d1c6951a63b4d649b0d27863ecedae5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_9.asset using Guid(2d1c6951a63b4d649b0d27863ecedae5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ef46ad2e207a703824531f0b07f39de0') in 0.059252 seconds
+  Import took 0.065950 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 23.545805 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_17.asset
+  artifactKey: Guid(95b316b9c98ed54489305f69baaec255) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_17.asset using Guid(95b316b9c98ed54489305f69baaec255) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4989448326a9a7c8ee60c8902f108bef') in 0.059598 seconds
+  Import took 0.065660 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.605328 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_17 1.asset
+  artifactKey: Guid(9930a7b511f209449a1f8dedb2fc533a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_17 1.asset using Guid(9930a7b511f209449a1f8dedb2fc533a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f015389d9849ea8eab11de95b0ea927b') in 0.060425 seconds
+  Import took 0.065725 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.649965 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Cloning_1A.asset
+  artifactKey: Guid(9930a7b511f209449a1f8dedb2fc533a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Cloning_1A.asset using Guid(9930a7b511f209449a1f8dedb2fc533a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd86deeb05a2df91f934753ebce14d8f8') in 0.058215 seconds
+  Import took 0.063659 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 43.635788 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Cloning_1A.asset
+  artifactKey: Guid(9930a7b511f209449a1f8dedb2fc533a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Cloning_1A.asset using Guid(9930a7b511f209449a1f8dedb2fc533a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7316950200ae3f59aee2cb21bb1ee1d5') in 0.056827 seconds
+  Import took 0.062648 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 15.814749 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Cloning_1A.asset
+  artifactKey: Guid(9930a7b511f209449a1f8dedb2fc533a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Cloning_1A.asset using Guid(9930a7b511f209449a1f8dedb2fc533a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6af0af826e9ebf6792a07b2cd28f879e') in 0.058351 seconds
+  Import took 0.064443 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.723590 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1.asset
+  artifactKey: Guid(7aa455337c001c84d8eee6dbebfbfdef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1.asset using Guid(7aa455337c001c84d8eee6dbebfbfdef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c1443b06618de3a87e30cd6371825b5d') in 0.056694 seconds
+  Import took 0.063438 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.616116 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 1.asset
+  artifactKey: Guid(090353a8c06a16e41bff32a5790f6665) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_1 1.asset using Guid(090353a8c06a16e41bff32a5790f6665) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8709f6a7921e56d720ea8d660709746f') in 0.058925 seconds
+  Import took 0.065538 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.509405 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Cloning_1B.asset
+  artifactKey: Guid(090353a8c06a16e41bff32a5790f6665) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Cloning_1B.asset using Guid(090353a8c06a16e41bff32a5790f6665) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '74b96af40daf34d59b73db24df7b7d8a') in 0.058320 seconds
+  Import took 0.065169 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 17.389885 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Cloning_1B.asset
+  artifactKey: Guid(090353a8c06a16e41bff32a5790f6665) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Cloning_1B.asset using Guid(090353a8c06a16e41bff32a5790f6665) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8052b48a86977c5ef83e6ba5ccdefcbe') in 0.055981 seconds
+  Import took 0.061634 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 18.616937 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Cloning_1B.asset
+  artifactKey: Guid(090353a8c06a16e41bff32a5790f6665) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Cloning_1B.asset using Guid(090353a8c06a16e41bff32a5790f6665) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6a5932c7dd73e4abd02fe27cdf221741') in 0.057549 seconds
+  Import took 0.064932 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 29.388379 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Cloning_1A 1.asset
+  artifactKey: Guid(ea8027f01db6808498b838bb0ea538d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Cloning_1A 1.asset using Guid(ea8027f01db6808498b838bb0ea538d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2afa981a5ecf7c089649e190bf8386e4') in 0.059069 seconds
+  Import took 0.064610 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 5.265262 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Cloning_2A.asset
+  artifactKey: Guid(ea8027f01db6808498b838bb0ea538d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Cloning_2A.asset using Guid(ea8027f01db6808498b838bb0ea538d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2c9449474e53227897916f7a8e7c8acb') in 0.057608 seconds
+  Import took 0.063807 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.835900 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Cloning_1B 1.asset
+  artifactKey: Guid(d8fb28dbd68b47a4594cb3f317445b85) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Cloning_1B 1.asset using Guid(d8fb28dbd68b47a4594cb3f317445b85) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6090e512dc7cf67c117888cb3160bf42') in 0.056951 seconds
+  Import took 0.063793 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.571526 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Cloning_2B.asset
+  artifactKey: Guid(d8fb28dbd68b47a4594cb3f317445b85) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Cloning_2B.asset using Guid(d8fb28dbd68b47a4594cb3f317445b85) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b70fdde4438bb88ceaca5ec3b62c1db4') in 0.058823 seconds
+  Import took 0.064214 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 28.085898 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Cloning_2A.asset
+  artifactKey: Guid(ea8027f01db6808498b838bb0ea538d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Cloning_2A.asset using Guid(ea8027f01db6808498b838bb0ea538d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3d500c7b35cdb4385c7e7c8b21be864c') in 0.056749 seconds
+  Import took 0.062662 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 17.771097 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Cloning_2B.asset
+  artifactKey: Guid(d8fb28dbd68b47a4594cb3f317445b85) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Cloning_2B.asset using Guid(d8fb28dbd68b47a4594cb3f317445b85) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5d3a101fe6233c645383862ec28684c6') in 0.059925 seconds
+  Import took 0.065423 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 15.795622 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Cloning_2A.asset
+  artifactKey: Guid(ea8027f01db6808498b838bb0ea538d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Cloning_2A.asset using Guid(ea8027f01db6808498b838bb0ea538d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '34111f48755d4c50d144f656d6db9a1c') in 0.002897 seconds
+  Import took 0.009071 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 12.942820 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Cloning_1A.asset
+  artifactKey: Guid(9930a7b511f209449a1f8dedb2fc533a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Cloning_1A.asset using Guid(9930a7b511f209449a1f8dedb2fc533a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6249f25c738734a6ec94064652de00b4') in 0.058005 seconds
+  Import took 0.065285 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 45.760216 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Cloning_2B.asset
+  artifactKey: Guid(d8fb28dbd68b47a4594cb3f317445b85) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Cloning_2B.asset using Guid(d8fb28dbd68b47a4594cb3f317445b85) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f91c8f3f9a7c592111bfa13840411cd6') in 0.003438 seconds
+  Import took 0.009470 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 63.385194 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_10.asset
+  artifactKey: Guid(f8738903457617549af6024616306f32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_10.asset using Guid(f8738903457617549af6024616306f32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a713e2e0fdb913122cfd4d0e1f015996') in 0.057056 seconds
+  Import took 0.063745 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 9.940006 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_10.asset
+  artifactKey: Guid(f8738903457617549af6024616306f32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_10.asset using Guid(f8738903457617549af6024616306f32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ed4f6aebf844ddcaa898bc489bfc8393') in 0.058820 seconds
+  Import took 0.064971 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 62.024287 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_11.asset
+  artifactKey: Guid(0ef5fc30180f7df468169e6fa26f70b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_11.asset using Guid(0ef5fc30180f7df468169e6fa26f70b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6a5ade4fd8105794e7cadf7d10980b04') in 0.060356 seconds
+  Import took 0.066596 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 44.169364 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_12.asset
+  artifactKey: Guid(daf4ef4ae7fe39f43854e365b86df61a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_12.asset using Guid(daf4ef4ae7fe39f43854e365b86df61a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f2ebe187319d709f4aabb80c94a1b001') in 0.057167 seconds
+  Import took 0.063125 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 16.102127 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_12.asset
+  artifactKey: Guid(daf4ef4ae7fe39f43854e365b86df61a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_12.asset using Guid(daf4ef4ae7fe39f43854e365b86df61a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '98c1e1fc0a5159be887b8cbf9cd4763d') in 0.057263 seconds
+  Import took 0.063759 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 46.611485 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_14.asset
+  artifactKey: Guid(b38ae75f68b59354a90b341ee2b4b5ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_14.asset using Guid(b38ae75f68b59354a90b341ee2b4b5ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a25eeffa449fd3ca535fb14e2d3ebe0b') in 0.059735 seconds
+  Import took 0.066758 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 6.618289 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_14.asset
+  artifactKey: Guid(b38ae75f68b59354a90b341ee2b4b5ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_14.asset using Guid(b38ae75f68b59354a90b341ee2b4b5ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '070997543f01d7f9b1859e22d76254b9') in 0.058446 seconds
+  Import took 0.064967 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 13.767746 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_14.asset
+  artifactKey: Guid(b38ae75f68b59354a90b341ee2b4b5ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_14.asset using Guid(b38ae75f68b59354a90b341ee2b4b5ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1e87b11c1c635fe99245fffbf6bf55bf') in 0.058813 seconds
+  Import took 0.064602 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 18.152479 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_15.asset
+  artifactKey: Guid(fa9345a2a32655a4689d2bb3f851dda9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_15.asset using Guid(fa9345a2a32655a4689d2bb3f851dda9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '875f26ec669b70e756f8cbc76202c9af') in 0.057552 seconds
+  Import took 0.065794 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 43.503757 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_16.asset
+  artifactKey: Guid(e668bc73280804842860f9fd86b1579d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_16.asset using Guid(e668bc73280804842860f9fd86b1579d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c498d60add878f07050e595a825ec292') in 0.059434 seconds
+  Import took 0.065622 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 51.424663 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_17.asset
+  artifactKey: Guid(95b316b9c98ed54489305f69baaec255) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_17.asset using Guid(95b316b9c98ed54489305f69baaec255) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '600f82d89c0490886b15520e5dcff32c') in 0.065092 seconds
+  Import took 0.071381 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 10.298439 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_17.asset
+  artifactKey: Guid(95b316b9c98ed54489305f69baaec255) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_17.asset using Guid(95b316b9c98ed54489305f69baaec255) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e53a4d496cd0899a810c317f8bab2081') in 0.003243 seconds
+  Import took 0.007724 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 9.924884 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_16.asset
+  artifactKey: Guid(e668bc73280804842860f9fd86b1579d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_16.asset using Guid(e668bc73280804842860f9fd86b1579d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0988fc3bdf0a142577903ef5dfe0f75c') in 0.004035 seconds
+  Import took 0.008257 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 53.900204 seconds.
+  path: Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_12.asset
+  artifactKey: Guid(daf4ef4ae7fe39f43854e365b86df61a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/The Cloner/Cloner_Prompt_12.asset using Guid(daf4ef4ae7fe39f43854e365b86df61a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7b76427082c759116bfb57d604250865') in 0.004782 seconds
+  Import took 0.009323 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 130.841572 seconds.
+  path: Assets/Resources/Locations/The Tower.asset
+  artifactKey: Guid(4ac7f2aaf22f35249abcf731f83e55e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Locations/The Tower.asset using Guid(4ac7f2aaf22f35249abcf731f83e55e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3c1a7713216c8cb2b90bab4c12978934') in 0.003306 seconds
+  Import took 0.009017 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 19.437022 seconds.
+  path: Assets/Resources/Locations/The Tower.asset
+  artifactKey: Guid(4ac7f2aaf22f35249abcf731f83e55e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Locations/The Tower.asset using Guid(4ac7f2aaf22f35249abcf731f83e55e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a55c428564a563f81f431ecafb95a6c7') in 0.002829 seconds
+  Import took 0.008172 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 170.162013 seconds.
+  path: Assets/Resources/Locations/Trash Heaps.asset
+  artifactKey: Guid(1c5565b09bdda464095b38fd3b022812) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Locations/Trash Heaps.asset using Guid(1c5565b09bdda464095b38fd3b022812) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '15e56023102b5644a635e028d62bf9b1') in 0.061165 seconds
+  Import took 0.069101 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 35.220523 seconds.
+  path: Assets/Resources/Locations/The Factories.asset
+  artifactKey: Guid(1fffb2e60d3c32346a420352b2201c70) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Locations/The Factories.asset using Guid(1fffb2e60d3c32346a420352b2201c70) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a6533015125f3f9273614bce00eae74e') in 0.057870 seconds
+  Import took 0.066323 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 45.384747 seconds.
+  path: Assets/Resources/Locations/The Factories.asset
+  artifactKey: Guid(1fffb2e60d3c32346a420352b2201c70) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Locations/The Factories.asset using Guid(1fffb2e60d3c32346a420352b2201c70) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '559d5fe52bb64f7edce0907b01c0fbac') in 0.058887 seconds
+  Import took 0.065956 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 97.218935 seconds.
+  path: Assets/Resources/Locations/The Tower.asset
+  artifactKey: Guid(4ac7f2aaf22f35249abcf731f83e55e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Locations/The Tower.asset using Guid(4ac7f2aaf22f35249abcf731f83e55e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '79de611f44a7d8dccf838318f1f2ce9d') in 0.016863 seconds
+  Import took 0.022293 seconds .
 
 AssetImportWorkerClient::OnTransportError - code=2 error=End of file

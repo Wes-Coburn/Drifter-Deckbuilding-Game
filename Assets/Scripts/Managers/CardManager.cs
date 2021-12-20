@@ -22,7 +22,6 @@ public class CardManager : MonoBehaviour
     [Header("PREFABS")]
     [SerializeField] private GameObject unitCardPrefab;
     [SerializeField] private GameObject actionCardPrefab;
-    [SerializeField] private GameObject newCardPopupPrefab;
 
     [Header("PLAYER UNITS")]
     [SerializeField] private UnitCard[] playerStartUnits;
@@ -61,7 +60,6 @@ public class CardManager : MonoBehaviour
 
     public GameObject UnitCardPrefab { get => unitCardPrefab; }
     public GameObject ActionCardPrefab { get => actionCardPrefab; }
-    public GameObject NewCardPopup { get; private set; }
     public UnitCard[] PlayerStartUnits { get => playerStartUnits; }
 
     public List<UnitCard> PlayerRecruitMages { get => playerRecruitMages; }

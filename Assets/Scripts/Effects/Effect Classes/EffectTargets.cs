@@ -32,6 +32,6 @@ public class EffectTargets : ScriptableObject
         if (PlayerHand != targets.PlayerHand) return false;
         if (EnemyHero != targets.EnemyHero) return false;
         if (EnemyUnit != targets.EnemyUnit) return false;
-        else return true;
+        return true;
     }
 }

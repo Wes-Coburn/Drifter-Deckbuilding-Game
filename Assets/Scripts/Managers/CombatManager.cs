@@ -492,14 +492,15 @@ public class CombatManager : MonoBehaviour
      * ****** DISCARD_CARD [HAND >>> DISCARD]
      * *****
      *****/
-    public void DiscardCard(GameObject card, string hero, bool isAction = false)
+    public void DiscardCard(GameObject card, bool isAction = false)
     {
-        if (hero == PLAYER)
+        // TESTING
+        if (card.CompareTag(PLAYER_CARD))
         {
             PlayerHandCards.Remove(card);
             PlayerDiscardCards.Add(HideCard(card));
         }
-        else if (hero == ENEMY)
+        else
         {
             EnemyHandCards.Remove(card);
             EnemyDiscardCards.Add(HideCard(card));

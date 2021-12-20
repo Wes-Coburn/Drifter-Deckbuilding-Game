@@ -12,40 +12,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b107ecdac65374f8c56b3212c061ce, type: 3}
   m_Name: Cloner_Prompt_1
   m_EditorClassIdentifier: 
-  developerNotes: 
-  dialoguePromptText: 
+  dialoguePromptText: '*As you near The Oasis, you see a figure leaning over in the
+    grass, working a tool into the ground.*'
   dialogueResponse1:
     responseText: 
-    response_Respect: 0
-    response_NextClip: {fileID: 11400000, guid: 02e7b0f96364ed949a15b0485b819db1,
-      type: 2}
+    response_NextClip: {fileID: 0}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
     response_IsCloningStart: 0
     response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   dialogueResponse2:
-    responseText: 
-    response_Respect: 0
+    responseText: (Continue)
     response_NextClip: {fileID: 11400000, guid: 02e7b0f96364ed949a15b0485b819db1,
       type: 2}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
     response_IsCloningStart: 0
     response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   dialogueResponse3:
     responseText: 
-    response_Respect: -1
-    response_NextClip: {fileID: 11400000, guid: 014a59a0a5d06384581dc9354f3630f3,
-      type: 2}
+    response_NextClip: {fileID: 0}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
     response_IsCloningStart: 0
     response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   newEngagedHero: {fileID: 0}
-  hideNPC: 0
+  hideNPC: 1
   newCard: {fileID: 0}
   aetherCells: 0
   newLocations: []
