@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b107ecdac65374f8c56b3212c061ce, type: 3}
   m_Name: Junker_Prompt_19
   m_EditorClassIdentifier: 
-  developerNotes: 
   dialoguePromptText: '*You leave The Junker to its sorting and digging, continuing
     through the heaps.*'
   dialogueResponse1:
     responseText: 
     response_NextClip: {fileID: 0}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
@@ -29,6 +29,7 @@ MonoBehaviour:
     responseText: (Leave)
     response_NextClip: {fileID: 11400000, guid: f812780d39c7bec44be9aa875dcd716c,
       type: 2}
+    npc_NextClip: {fileID: 11400000, guid: f812780d39c7bec44be9aa875dcd716c, type: 2}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 1
     response_IsRecruitmentStart: 0
@@ -39,6 +40,7 @@ MonoBehaviour:
   dialogueResponse3:
     responseText: 
     response_NextClip: {fileID: 0}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0

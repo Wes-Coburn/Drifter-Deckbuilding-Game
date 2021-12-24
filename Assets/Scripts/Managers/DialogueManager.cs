@@ -68,9 +68,8 @@ public class DialogueManager : MonoBehaviour
         AnimationManager.Instance.DialogueIntro();
     }
 
-    public void EndDialogue(DialogueClip nextClip = null)
+    public void EndDialogue()
     {
-        if (nextClip != null) EngagedHero.NextDialogueClip = nextClip;
         EngagedHero = null;
         currentDialogueClip = null;
         StopTimedText();
@@ -81,7 +80,7 @@ public class DialogueManager : MonoBehaviour
         DialoguePrompt dpr = currentDialogueClip as DialoguePrompt;
         if (newEngagedHero)
         {
-            AnimationManager.Instance.NewEngagedHero();
+            AnimationManager.Instance.NewEngagedHero(false);
             FunctionTimer.Create(() => DisplayDialoguePopup(), 1f);
             dialogueDisplay.NPCHeroSpeech = "";
             newEngagedHero = false;
@@ -250,8 +249,10 @@ public class DialogueManager : MonoBehaviour
 
         // TESTING
         if (dResponse.NPC_NextClip != null)
+        {
             EngagedHero.NextDialogueClip = dResponse.NPC_NextClip;
-        else EngagedHero.NextDialogueClip = nextClip;
+            Debug.LogWarning("NEXT CLIP: " + nextClip.ToString());
+        }
 
         // New Location
         if (dResponse.Response_TravelLocation != null) // TESTING
@@ -264,6 +265,9 @@ public class DialogueManager : MonoBehaviour
         if (dResponse.Response_IsCombatStart)
         {
             SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);
+            if (nextClip is CombatRewardClip)
+                EngagedHero.NextDialogueClip = nextClip; // TESTING
+            else Debug.LogError("NEXT CLIP IS NOT COMBAT REWARD CLIP!");
             return;
         }
         // World Map Start
@@ -306,8 +310,21 @@ public class DialogueManager : MonoBehaviour
             }
             else
             {
-                if (prompt.HideNPC && !nextPrompt.HideNPC)
-                    newEngagedHero = true;
+                if (nextPrompt.HideNPC)
+                {
+                    if (!prompt.HideNPC)
+                    {
+                        AnimationManager.Instance.NewEngagedHero(true); // TESTING
+                    }
+                }
+                /*
+                {
+                    if (prompt.HideNPC)
+                    {
+                        newEngagedHero = true;
+                    }
+                }
+                */
             }
             // New Card
             if (nextPrompt.NewCard != null) UIManager.Instance.CreateNewCardPopup(nextPrompt.NewCard);

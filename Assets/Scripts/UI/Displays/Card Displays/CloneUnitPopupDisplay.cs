@@ -41,7 +41,7 @@ public class CloneUnitPopupDisplay : MonoBehaviour
         CardManager.Instance.AddCard(unitCard, GameManager.PLAYER);
         pMan.AetherCells -= GameManager.CLONE_UNIT_COST;
         CancelButton_OnClick();
-        uMan.DestroyCardPagePopup();
+        uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.CloneUnit);
     }
 
     public void CancelButton_OnClick() => 

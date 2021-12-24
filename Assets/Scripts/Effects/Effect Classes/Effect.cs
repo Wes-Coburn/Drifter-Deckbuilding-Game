@@ -14,11 +14,15 @@ public abstract class Effect : ScriptableObject
     [Range(0, 5)]
     public int Countdown;
 
+    [Tooltip("If not null, the effect will only resolve if the target has this ability")]
+    public CardAbility IfHasCondition;
+
     public virtual void LoadEffect(Effect effect)
     {
         IsRequired = effect.IsRequired;
         Value = effect.Value;
         IsNegative = effect.IsNegative;
         Countdown = effect.Countdown;
+        IfHasCondition = effect.IfHasCondition;
     }
 }

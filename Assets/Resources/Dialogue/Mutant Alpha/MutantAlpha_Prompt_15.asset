@@ -17,6 +17,7 @@ MonoBehaviour:
   dialogueResponse1:
     responseText: 
     response_NextClip: {fileID: 0}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
@@ -28,6 +29,7 @@ MonoBehaviour:
     responseText: (Continue)
     response_NextClip: {fileID: 11400000, guid: c3eeb2f73582ba647b3f76cf1fb55b9b,
       type: 2}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
@@ -38,6 +40,7 @@ MonoBehaviour:
   dialogueResponse3:
     responseText: 
     response_NextClip: {fileID: 0}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
@@ -47,6 +50,6 @@ MonoBehaviour:
     response_TravelLocation: {fileID: 0}
   newEngagedHero: {fileID: 0}
   hideNPC: 0
-  newCard: {fileID: 0}
+  newCard: {fileID: 11400000, guid: 9af1a630d73740d4896277a5fd2f3d32, type: 2}
   aetherCells: 0
   newLocations: []

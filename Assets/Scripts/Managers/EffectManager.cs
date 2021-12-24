@@ -429,7 +429,7 @@ public class EffectManager : MonoBehaviour
         {
             foreach (Effect effect in eg.Effects)
             {
-                if (IsTargetEffect(eg, effect))
+                if (IsTargetEffect(eg, effect) || effect is DrawEffect) // TESTING
                 {
                     if (!targetGroups.Contains(eg))
                         targetGroups.Add(eg);
@@ -499,7 +499,9 @@ public class EffectManager : MonoBehaviour
     private bool GetLegalTargets(int currentGroup, Effect effect,
         EffectTargets targets, int additionalTargets, out bool requiredEffect)
     {
+        requiredEffect = effect.IsRequired;
         List<List<GameObject>> targetZones = new List<List<GameObject>>();
+
         if (IsPlayerSource(effectSource))
         {
             if (targets.PlayerHand) targetZones.Add(coMan.PlayerHandCards);
@@ -532,15 +534,23 @@ public class EffectManager : MonoBehaviour
                 }
             }
 
-        requiredEffect = effect.IsRequired;
         if (effect is DrawEffect de)
         {
             if (!de.IsDiscardEffect)
             {
-                if (coMan.PlayerHandCards.Count >= GameManager.MAX_HAND_SIZE)
+                int cardsAfterDraw = coMan.PlayerHandCards.Count + effect.Value - 1; // TESTING
+                if (cardsAfterDraw > GameManager.MAX_HAND_SIZE) // TESTING
                 {
-                    uMan.CreateFleetingInfoPopup("Your hand is full!");
-                    return false;
+                    Debug.LogWarning("HAND IS FULL!");
+                    if (requiredEffect) return false; // Unless required, draw as many as possible
+                }
+            }
+            else // TESTING
+            {
+                if (coMan.PlayerHandCards.Count - 1 < effect.Value) // TESTING
+                {
+                    Debug.LogWarning("NOT ENOUGH CARDS!");
+                    return false; // Doesn't allow for discarding less than the exact amount
                 }
             }
             return true;
@@ -710,12 +720,27 @@ public class EffectManager : MonoBehaviour
      *****/
     private void ResolveEffect(List<GameObject> targets, Effect effect)
     {
+        List<GameObject> emptyTargets = new List<GameObject>();
         foreach (GameObject t in targets)
             if (t == null)
             {
                 Debug.LogWarning("EMPTY TARGET!");
-                targets.Remove(t);
+                emptyTargets.Add(t);
             }
+
+        foreach (GameObject t in emptyTargets)
+            targets.Remove(t);
+
+        // TESTING
+        if (effect.IfHasCondition != null)
+        {
+            foreach (GameObject t in targets)
+                if (!CardManager.GetAbility(t, effect.IfHasCondition.AbilityName))
+                    emptyTargets.Add(t);
+        }
+
+        foreach (GameObject t in emptyTargets)
+            targets.Remove(t);
 
         // DRAW
         if (effect is DrawEffect drE)

@@ -10,10 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c257f6645b4aa02429ead13f1b40809a, type: 3}
-  m_Name: Give_Deathblow_Refresh_Self
+  m_Name: Give_Infiltrate_Deal2_1EU_1turn
   m_EditorClassIdentifier: 
   IsRequired: 0
   Value: 1
   IsNegative: 0
-  Countdown: 0
-  CardAbility: {fileID: 11400000, guid: 89940288a1a89054d9ae13a31f249dbf, type: 2}
+  Countdown: 1
+  IfHasCondition: {fileID: 0}
+  CardAbility: {fileID: 11400000, guid: 514b52d4af636fc4384fa2f563e470a1, type: 2}
+  IfAlreadyHasEffects: {fileID: 0}

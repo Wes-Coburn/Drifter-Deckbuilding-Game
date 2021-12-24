@@ -47,6 +47,22 @@ public class AnimationManager : MonoBehaviour
         Debug.LogWarning("ANIMATOR NOT FOUND!");
 
     }
+    public void SetAnimatorBool(GameObject go, int paramIndex, bool animBool)
+    {
+        if (go == null)
+        {
+            Debug.LogError("GAMOBJECT IS NULL!");
+            return;
+        }
+
+        if (go.TryGetComponent(out Animator anim))
+            if (anim.enabled)
+            {
+                anim.SetBool(paramIndex, animBool);
+                return;
+            }
+        Debug.LogError("ANIMATOR NOT FOUND!");
+    }
 
     /* HERO_ANIMATIONS */
     public void ModifyHeroHealthState(GameObject hero) => ChangeAnimationState(hero, "Modify_Health");
@@ -77,12 +93,12 @@ public class AnimationManager : MonoBehaviour
     public void ZoomedState(GameObject card) => ChangeAnimationState(card, "Zoomed");
 
     // Stat Changes
-    public void UnitTakeDamageState(GameObject card) =>
-        ChangeAnimationState(card.GetComponent<UnitCardDisplay>().UnitStats, "Take_Damage");
-    public void DestroyUnitCardState(GameObject card) => ChangeAnimationState(card, "Destroyed");
-    public void UnitStatChangeState(GameObject card, bool isPowerChange, bool isHealthChange)
+    public void UnitTakeDamageState(GameObject unitCard) =>
+        ChangeAnimationState(unitCard.GetComponent<UnitCardDisplay>().UnitStats, "Take_Damage");
+    public void DestroyUnitCardState(GameObject unitCard) => ChangeAnimationState(unitCard, "Destroyed");
+    public void UnitStatChangeState(GameObject unitCard, bool isPowerChange, bool isHealthChange)
     {
-        if (!coMan.IsUnitCard(card))
+        if (!coMan.IsUnitCard(unitCard))
         {
             Debug.LogError("TARGET IS NOT UNIT CARD!");
             return;
@@ -90,7 +106,11 @@ public class AnimationManager : MonoBehaviour
 
         if (!isPowerChange && !isHealthChange) return;
 
-        GameObject stats = card.GetComponent<UnitCardDisplay>().UnitStats;
+        GameObject stats = unitCard.GetComponent<UnitCardDisplay>().UnitStats;
+
+        // TESTING
+        SetAnimatorBool(unitCard, 0, coMan.IsDamaged(unitCard));
+
         if (isPowerChange)
         {
             if (isHealthChange) ModifyAllUnitStatsState(stats);
@@ -182,11 +202,11 @@ public class AnimationManager : MonoBehaviour
      * ****** NEW_ENGAGED_HERO
      * *****
      *****/
-    public void NewEngagedHero() =>
-        StartCoroutine(NewEngagedHeroNumerator());
-    private IEnumerator NewEngagedHeroNumerator()
+    public void NewEngagedHero(bool isExitOnly) =>
+        StartCoroutine(NewEngagedHeroNumerator(isExitOnly));
+    private IEnumerator NewEngagedHeroNumerator(bool isExitOnly)
     {
-        auMan.StartStopSound("SFX_PortraitClick"); // TESTING
+        auMan.StartStopSound("SFX_PortraitClick");
 
         float distance;
         GameObject npcPortrait = dMan.DialogueDisplay.NPCHeroPortrait;
@@ -201,7 +221,8 @@ public class AnimationManager : MonoBehaviour
         }
         while (distance > 0);
 
-        npcPortrait.SetActive(true); // TESTING
+        npcPortrait.SetActive(!isExitOnly);
+
         dMan.DisplayCurrentHeroes();
         yield return new WaitForSeconds(0.5f);
 

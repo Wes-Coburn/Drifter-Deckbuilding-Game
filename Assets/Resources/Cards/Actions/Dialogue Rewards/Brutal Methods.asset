@@ -17,7 +17,7 @@ MonoBehaviour:
   energyCost: 1
   cardName: Brutal Methods
   cardType: Action
-  cardSubType: Skill
+  cardSubType: 
   cardDescription: Brutal Methods is...
   overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
   zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
@@ -27,7 +27,7 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
-  effectDescription: 'Give an ally "<b>Deathblow</b>: Refresh this unit."'
+  effectDescription: 'Give an ally "<b>Deathblow</b>: Refresh an ally."'
   effectGroupList:
   - {fileID: 11400000, guid: 603b7fcfb98dfa341aa0ae8dc68a42b3, type: 2}
   linkedAbilities:

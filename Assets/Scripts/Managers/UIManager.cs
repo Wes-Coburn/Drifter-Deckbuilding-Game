@@ -810,14 +810,14 @@ public class UIManager : MonoBehaviour
         DestroyItemAbilityPopup();
         itemAbilityPopup =
                 Instantiate(abilityPopupBoxPrefab, CurrentZoomCanvas.transform);
-        foreach (StaticAbility linkedCa in item.LinkedAbilities)
+        foreach (CardAbility linkedCa in item.LinkedAbilities)
             CreateAbilityPopup(linkedCa);
 
-        void CreateAbilityPopup(StaticAbility sa)
+        void CreateAbilityPopup(CardAbility ca)
         {
             GameObject abilityPopup =
                     Instantiate(abilityPopupPrefab, itemAbilityPopup.transform);
-            abilityPopup.GetComponent<AbilityPopupDisplay>().AbilityScript = sa;
+            abilityPopup.GetComponent<AbilityPopupDisplay>().AbilityScript = ca;
         }
     }
     public void DestroyItemAbilityPopup()

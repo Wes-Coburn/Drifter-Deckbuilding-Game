@@ -650,18 +650,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2340c8fec396b2b43bf9a91052c5c90e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds: []
-  sounds2:
-  - name: SFX_SpecialClick1
-    clip: {fileID: 0}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: SFX_Click1
-    clip: {fileID: 0}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
+  sounds:
+  - SFX_SpecialClick1
+  - SFX_Click1
+  sounds2: []
 --- !u!114 &4297923143381906870
 MonoBehaviour:
   m_ObjectHideFlags: 0

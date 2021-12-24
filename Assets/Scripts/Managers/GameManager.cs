@@ -62,7 +62,6 @@ public class GameManager : MonoBehaviour
     // Player
     public const string PLAYER = "Player";
     public const int PLAYER_STARTING_HEALTH = 20;
-    //public const int PLAYER_STARTING_HEALTH = 1; // FOR TESTING ONLY
     public const int PLAYER_HAND_SIZE = 4;
     public const int PLAYER_START_FOLLOWERS = 2;
     public const int PLAYER_START_SKILLS = 2;
@@ -80,8 +79,8 @@ public class GameManager : MonoBehaviour
 
     // Enemy
     public const string ENEMY = "Enemy";
-    public const int ENEMY_STARTING_HEALTH = 20;
-    //public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
+    //public const int ENEMY_STARTING_HEALTH = 20;
+    public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
     public const int BOSS_BONUS_HEALTH = 10;
     public const int ENEMY_HAND_SIZE = 0;
     public const int ENEMY_START_FOLLOWERS = 5;
@@ -200,10 +199,13 @@ public class GameManager : MonoBehaviour
             allHeroes.Add(heroes[i]);
 
         // CARDS
-        Card[] cards = Resources.LoadAll<Card>("Cards");
         List<Card> allcards = new List<Card>();
+        Card[] cards = Resources.LoadAll<Card>("Cards");
+        Card[] combatRewards = Resources.LoadAll<Card>("Combat Rewards");
         for (int i = 0; i < cards.Length; i++)
             allcards.Add(cards[i]);
+        for (int i = 0; i < combatRewards.Length; i++)
+            allcards.Add(combatRewards[i]);
 
         // LOCATIONS
         Location[] locations = Resources.LoadAll<Location>("Locations");

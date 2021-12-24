@@ -1054,6 +1054,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 9123314009969047187, guid: a51dbdb5cfdaefd4ea00b8440a2b4980,
+        type: 3}
+      propertyPath: sounds.Array.data[17].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: a97a3710fcce72e41bb435320d255cab, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a51dbdb5cfdaefd4ea00b8440a2b4980, type: 3}
 --- !u!1001 &1570648390
@@ -1861,8 +1866,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 57fe36df3e9c87e499ab987a471e140b, type: 2}
   disableTestCards: 0
   testCards:
-  - {fileID: 11400000, guid: 2dd34371ad1300b4b8562e9c9647e8a0, type: 2}
-  - {fileID: 11400000, guid: 2dd34371ad1300b4b8562e9c9647e8a0, type: 2}
+  - {fileID: 11400000, guid: 7539de513e4ebe0429272c1439068213, type: 2}
+  - {fileID: 11400000, guid: 7539de513e4ebe0429272c1439068213, type: 2}
+  - {fileID: 11400000, guid: 7539de513e4ebe0429272c1439068213, type: 2}
+  - {fileID: 11400000, guid: e3a6c6af3db680742831b4165e3ce957, type: 2}
+  - {fileID: 11400000, guid: bf7e04d03a3ae764c8f96ef629795f41, type: 2}
+  - {fileID: 11400000, guid: cba4bf8f86bbe1149b17337cc1c32e8f, type: 2}
   testItems:
   - {fileID: 11400000, guid: 3f1403dbae16c6e47845a04f8fcb3157, type: 2}
   - {fileID: 11400000, guid: 9ad95d71efbbd694e9879ced07fc512b, type: 2}

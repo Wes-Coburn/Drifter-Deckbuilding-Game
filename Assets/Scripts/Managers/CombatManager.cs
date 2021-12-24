@@ -389,19 +389,21 @@ public class CombatManager : MonoBehaviour
      *****/
     public void PlayCard(GameObject card)
     {
+        CardDisplay cd = card.GetComponent<CardDisplay>();
+
         // PLAYER
         if (card.CompareTag(PLAYER_CARD))
         {
-            pMan.EnergyLeft -= card.GetComponent<CardDisplay>().CurrentEnergyCost;
+            pMan.EnergyLeft -= cd.CurrentEnergyCost;
             PlayerHandCards.Remove(card);
 
-            if (IsUnitCard(card))
+            if (cd is UnitCardDisplay)
             {
                 PlayerZoneCards.Add(card);
                 ChangeCardZone(card, PLAYER_ZONE);
                 PlayUnit();
             }
-            else if (card.TryGetComponent<ActionCardDisplay>(out _))
+            else if (cd is ActionCardDisplay)
             {
                 ChangeCardZone(card, PLAYER_ACTION_ZONE);
                 PlayAction();
@@ -442,7 +444,7 @@ public class CombatManager : MonoBehaviour
 
         void PlayUnit()
         {
-            if (pMan.IsMyTurn) // TESTING
+            if (card.CompareTag(PLAYER_CARD)) // TESTING
             {
                 if (!caMan.TriggerUnitAbility(card, CardManager.TRIGGER_PLAY))
                     efMan.TriggerGiveNextEffect(card);
@@ -452,18 +454,21 @@ public class CombatManager : MonoBehaviour
         }
         void PlayAction()
         {
-            PlayCardSound();
+            auMan.StartStopSound("SFX_PlayCard");
+            //PlayCardSound();
             ResolveActionCard(card);
         }
         void PlayCardSound()
         {
-            Sound playSound = card.GetComponent<CardDisplay>().CardScript.CardPlaySound;
-            auMan.StartStopSound(null, playSound);
+            Sound playSound = cd.CardScript.CardPlaySound;
+            if (playSound.clip == null) Debug.LogWarning("MISSING PLAY SOUND: " + cd.CardName);
+            else auMan.StartStopSound(null, playSound);
         }
         void PlayAbilitySounds()
         {
             float delay = 0.3f;
-            foreach (CardAbility ca in card.GetComponent<UnitCardDisplay>().CurrentAbilities)
+            UnitCardDisplay ucd = cd as UnitCardDisplay;
+            foreach (CardAbility ca in ucd.CurrentAbilities)
             {
                 if (ca is StaticAbility sa)
                 {
@@ -765,6 +770,19 @@ public class CombatManager : MonoBehaviour
 
         if (IsUnitCard(target)) anMan.UnitStatChangeState(target, false, true);
         else anMan.ModifyHeroHealthState(target);
+    }
+
+    /******
+     * *****
+     * ****** IS_DAMAGED
+     * *****
+     *****/
+    public bool IsDamaged(GameObject unitCard)
+    {
+        UnitCardDisplay ucd = unitCard.GetComponent<UnitCardDisplay>();
+        bool isDamaged = false;
+        if (ucd.CurrentHealth < ucd.MaxHealth) isDamaged = true;
+        return isDamaged;
     }
 
     /******

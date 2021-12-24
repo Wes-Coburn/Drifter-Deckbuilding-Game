@@ -72,7 +72,7 @@ public class PowerZoom : MonoBehaviour
             UIManager.Instance.CurrentCanvas.transform);
         Vector2 position = new Vector2();
         if (!abilityPopupOnly) position.Set(-75, -50);
-        else position.Set(350, -50);
+        else position.Set(350, 0);
         abilityPopupBox.transform.localPosition = position;
         abilityPopupBox.transform.localScale = new Vector2(scaleValue, scaleValue);
         foreach (CardAbility ca in hp.LinkedAbilities) 

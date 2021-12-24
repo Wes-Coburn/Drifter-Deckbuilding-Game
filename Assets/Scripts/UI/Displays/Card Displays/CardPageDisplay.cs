@@ -81,6 +81,8 @@ public class CardPageDisplay : MonoBehaviour
         if (cardGroupList.Count > 0)
         {
             cardGroupList.Sort((s1, s2) => s1.StartEnergyCost - s2.StartEnergyCost); // TESTING
+            cardGroupList.Sort((x, y) => string.Compare(x.CardName, y.CardName)); // TESTING
+
             noCardsTooltip.SetActive(false);
             double result = cardGroupList.Count / 4.0;
             totalPages = (int)Math.Ceiling(result);

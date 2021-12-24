@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44c307312f791a64788051778519ac70, type: 3}
-  m_Name: Deathblow_Refresh_Self
+  m_Name: Revenge_Deal2_1EU_Heal2_PH
   m_EditorClassIdentifier: 
-  AbilityName: '<b>Deathblow</b>: Refresh this unit.'
-  AbilityDescription: Refresh this unit.
+  AbilityName: '<b>Revenge</b>: Deal 2 to an enemy and heal your hero 2.'
+  AbilityDescription: Deal 2 to an enemy and heal your hero 2.
   AbilitySprite: {fileID: 0}
   LinkedAbilites: []
-  AbilityTrigger: {fileID: 11400000, guid: 776003013f0c498498f1f5b7124874c0, type: 2}
+  AbilityTrigger: {fileID: 11400000, guid: 55d83941db05710428faf12e595b4a38, type: 2}
   EffectGroupList:
-  - {fileID: 11400000, guid: 0dbd96c63854b8745bc5a2992bb5b3d1, type: 2}
+  - {fileID: 11400000, guid: 965ca257c8532f047b6b0b8db080cda2, type: 2}
+  - {fileID: 11400000, guid: 71e4fa3c24c227041b24dc29d11c62d6, type: 2}
