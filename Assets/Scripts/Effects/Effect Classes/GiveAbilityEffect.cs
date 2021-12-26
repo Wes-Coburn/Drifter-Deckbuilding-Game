@@ -4,6 +4,8 @@ using UnityEngine;
 public class GiveAbilityEffect : Effect
 {
     public CardAbility CardAbility;
+
+    [Tooltip("Effects that trigger if the unit already has the given ability")]
     public EffectGroup IfAlreadyHasEffects;
 
     public override void LoadEffect(Effect effect)

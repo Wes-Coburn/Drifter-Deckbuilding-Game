@@ -538,14 +538,14 @@ public class EffectManager : MonoBehaviour
         {
             if (!de.IsDiscardEffect)
             {
-                int cardsAfterDraw = coMan.PlayerHandCards.Count + effect.Value - 1; // TESTING
-                if (cardsAfterDraw > GameManager.MAX_HAND_SIZE) // TESTING
+                int cardsAfterDraw = coMan.PlayerHandCards.Count + effect.Value - 1;
+                if (cardsAfterDraw > GameManager.MAX_HAND_SIZE)
                 {
                     Debug.LogWarning("HAND IS FULL!");
                     if (requiredEffect) return false; // Unless required, draw as many as possible
                 }
             }
-            else // TESTING
+            else
             {
                 if (coMan.PlayerHandCards.Count - 1 < effect.Value) // TESTING
                 {
@@ -668,6 +668,12 @@ public class EffectManager : MonoBehaviour
      *****/
     private void ResolveEffectGroup(EffectGroup eg, List<GameObject> targets, float delay = 0)
     {
+        if (eg == null)
+        {
+            Debug.LogError("EFFECT GROUP IS NULL!");
+            return;
+        }
+
         bool isPowerChange = false;
         bool isHealthChange = false;
         List<Effect> statChangeEffects = new List<Effect>();
@@ -731,14 +737,38 @@ public class EffectManager : MonoBehaviour
         foreach (GameObject t in emptyTargets)
             targets.Remove(t);
 
-        // TESTING
-        if (effect.IfHasCondition != null)
+        if (effect.IfHasAbilityCondition != null)
         {
             foreach (GameObject t in targets)
-                if (!CardManager.GetAbility(t, effect.IfHasCondition.AbilityName))
+                if (!CardManager.GetAbility(t, effect.IfHasAbilityCondition.AbilityName))
+                    emptyTargets.Add(t);
+        }
+        // TESTING
+        if (effect.IfHasTriggerCondition != null)
+        {
+            foreach (GameObject t in targets)
+                if (!CardManager.GetTrigger(t, effect.IfHasTriggerCondition.AbilityName))
                     emptyTargets.Add(t);
         }
 
+        // TESTING
+        if (effect.IfHasAbility != null)
+        {
+            foreach (GameObject t in targets)
+                if (CardManager.GetAbility(t, effect.IfHasAbility.AbilityName))
+                    foreach (EffectGroup eg in effect.IfHasAbilityEffects)
+                        additionalEffectGroups.Add(eg);
+        }
+        // TESTING
+        if (effect.IfHasTrigger != null)
+        {
+            foreach (GameObject t in targets)
+                if (CardManager.GetTrigger(t, effect.IfHasTrigger.AbilityName))
+                    foreach (EffectGroup eg in effect.IfHasTriggerEffects)
+                        additionalEffectGroups.Add(eg);
+        }
+
+        // Remove empty targets (including all illegal targets)
         foreach (GameObject t in emptyTargets)
             targets.Remove(t);
 
@@ -833,13 +863,13 @@ public class EffectManager : MonoBehaviour
         {
             foreach (GameObject target in targets)
             {
-                if (gae.CardAbility is StaticAbility sa)
+                if (gae.IfAlreadyHasEffects != null && gae.CardAbility is StaticAbility sa) // TESTING
                 {
                     if (CardManager.GetAbility(target, sa.AbilityName))
                     {
                         ResolveEffectGroup(gae.IfAlreadyHasEffects, new List<GameObject> { target });
                         continue;
-                    }    
+                    }
                 }
                 AddEffect(target, effect);
             }

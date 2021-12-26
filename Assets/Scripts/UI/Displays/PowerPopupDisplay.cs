@@ -26,12 +26,11 @@ public class PowerPopupDisplay : MonoBehaviour
         set => powerDescription.GetComponent<TextMeshPro>().SetText(value);
     }
     [SerializeField] private GameObject powerDescription;
-
+    
     private void DisplayHeroPower()
     {
         PowerSprite = PowerScript.PowerSprite;
-        int cost = powerScript.PowerCost;
-        PowerDescription = PowerScript.PowerName + 
-            " (" + cost + " energy): " + PowerScript.PowerDescription;
+        PowerDescription = "<b><u>" + PowerScript.PowerName +
+            ":</b></u> " + PowerScript.PowerDescription;
     }
 }

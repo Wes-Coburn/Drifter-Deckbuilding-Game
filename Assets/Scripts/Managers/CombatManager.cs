@@ -55,9 +55,9 @@ public class CombatManager : MonoBehaviour
         set
         {
             actionsPlayedThisTurn = value;
-            Debug.Log("ACTIONS PLAYED => <" + actionsPlayedThisTurn + ">");
             if (pMan.IsMyTurn && actionsPlayedThisTurn == 1)
             {
+                Debug.Log("TRIGGER SPARK! (Actions played == 1)");
                 evMan.NewDelayedAction(() =>
                 caMan.TriggerPlayedUnits(CardManager.TRIGGER_SPARK), 0);
             }
@@ -538,13 +538,13 @@ public class CombatManager : MonoBehaviour
         UnitCardDisplay atkUcd = GetUnitDisplay(attacker);
         if (atkUcd.IsExhausted)
         {
-            if (!preCheck)
+            if (preCheck)
                 uMan.CreateFleetingInfoPopup("Exhausted units can't attack!");
             return false;
         }
         else if (atkUcd.CurrentPower < 1)
         {
-            if (!preCheck)
+            if (preCheck)
                 uMan.CreateFleetingInfoPopup("Units with 0 power can't attack!");
             return false;
         }

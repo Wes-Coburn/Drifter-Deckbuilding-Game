@@ -220,15 +220,20 @@ public class CardManager : MonoBehaviour
      * ****** CARD_ABILITIES
      * *****
      *****/
-    public static bool GetAbility(GameObject card, string ability)
+    public static bool GetAbility(GameObject unitCard, string ability)
     {
-        if (card == null)
+        if (unitCard == null)
         {
             Debug.LogError("CARD IS NULL!");
             return false;
         }
 
-        UnitCardDisplay ucd = card.GetComponent<UnitCardDisplay>();
+        if (!unitCard.TryGetComponent(out UnitCardDisplay ucd))
+        {
+            Debug.LogError("TARGET IS NOT UNIT CARD!");
+            return false;
+        }
+
         int abilityIndex = ucd.CurrentAbilities.FindIndex(x => x.AbilityName == ability);
         if (abilityIndex == -1) return false;
         else return true;
@@ -254,7 +259,12 @@ public class CardManager : MonoBehaviour
             return false;
         }
 
-        UnitCardDisplay ucd = unitCard.GetComponent<UnitCardDisplay>();
+        if (!unitCard.TryGetComponent(out UnitCardDisplay ucd))
+        {
+            Debug.LogError("TARGET IS NOT UNIT CARD!");
+            return false;
+        }
+
         bool effectFound = false;
         foreach (CardAbility ca in ucd.CurrentAbilities)
             if (ca is TriggeredAbility tra)

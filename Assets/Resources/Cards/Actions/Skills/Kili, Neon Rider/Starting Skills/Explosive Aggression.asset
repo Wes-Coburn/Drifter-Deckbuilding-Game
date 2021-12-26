@@ -27,7 +27,9 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
-  effectDescription: Give an ally +2/+0.
+  effectDescription: Give an ally +2/+0. If it has <b>Ranged</b>, draw 1, then discard
+    1.
   effectGroupList:
-  - {fileID: 11400000, guid: 4617fd83bf40fed4ab47d84b55713254, type: 2}
-  linkedAbilities: []
+  - {fileID: 11400000, guid: 8a489bd26e5774f498ed20cdaf122c55, type: 2}
+  linkedAbilities:
+  - {fileID: 11400000, guid: ea3240d3d6b88204c8166979a836ea6e, type: 2}

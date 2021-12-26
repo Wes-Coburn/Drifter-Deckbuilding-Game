@@ -6,14 +6,11 @@ public class PlayerHeroDisplay : HeroDisplay
 {
     [SerializeField] private GameObject powerImage;
     [SerializeField] private GameObject playerActions;
+    [SerializeField] private GameObject powerCost;
     [SerializeField] private GameObject powerUsedIcon;
 
     public PlayerHero PlayerHero { get => HeroScript as PlayerHero; }
     public GameObject PowerUsedIcon { get => powerUsedIcon; }
-    public Sprite PowerImage
-    {
-        set => powerImage.GetComponent<Image>().sprite = value;
-    }
     public string PlayerActions
     {
         set => playerActions.GetComponent<TextMeshProUGUI>().SetText(value);
@@ -22,6 +19,7 @@ public class PlayerHeroDisplay : HeroDisplay
     public override void DisplayHero()
     {
         base.DisplayHero();
-        PowerImage = PlayerHero.HeroPower.PowerSprite;
+        powerImage.GetComponent<Image>().sprite = PlayerHero.HeroPower.PowerSprite;
+        powerCost.GetComponent<TextMeshProUGUI>().SetText(PlayerHero.HeroPower.PowerCost.ToString()); // TESTING
     }
 }

@@ -47,7 +47,7 @@ public class AnimationManager : MonoBehaviour
         Debug.LogWarning("ANIMATOR NOT FOUND!");
 
     }
-    public void SetAnimatorBool(GameObject go, int paramIndex, bool animBool)
+    public void SetAnimatorBool(GameObject go, string boolName, bool animBool)
     {
         if (go == null)
         {
@@ -58,7 +58,7 @@ public class AnimationManager : MonoBehaviour
         if (go.TryGetComponent(out Animator anim))
             if (anim.enabled)
             {
-                anim.SetBool(paramIndex, animBool);
+                anim.SetBool(boolName, animBool); // TESTING
                 return;
             }
         Debug.LogError("ANIMATOR NOT FOUND!");
@@ -109,7 +109,7 @@ public class AnimationManager : MonoBehaviour
         GameObject stats = unitCard.GetComponent<UnitCardDisplay>().UnitStats;
 
         // TESTING
-        SetAnimatorBool(unitCard, 0, coMan.IsDamaged(unitCard));
+        SetAnimatorBool(stats, "IsDamaged", coMan.IsDamaged(unitCard));
 
         if (isPowerChange)
         {

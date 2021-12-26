@@ -12,35 +12,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b107ecdac65374f8c56b3212c061ce, type: 3}
   m_Name: Contact_Prompt_14
   m_EditorClassIdentifier: 
-  developerNotes: 
   dialoguePromptText: '*You stand alone in the dark, your hands still wet with blood.*'
   dialogueResponse1:
     responseText: 
-    response_Respect: 0
     response_NextClip: {fileID: 0}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
     response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   dialogueResponse2:
     responseText: (Continue)
-    response_Respect: 0
     response_NextClip: {fileID: 11400000, guid: 71b92b9bc08b4024ebf76b1442dee4ab,
       type: 2}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
     response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   dialogueResponse3:
     responseText: 
-    response_Respect: 0
     response_NextClip: {fileID: 0}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
     response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   newEngagedHero: {fileID: 0}
-  hideNPC: 0
+  hideNPC: 1
   newCard: {fileID: 11400000, guid: 2c2426100f4068b4a9381c4bd842fd2a, type: 2}
   aetherCells: 0
   newLocations: []

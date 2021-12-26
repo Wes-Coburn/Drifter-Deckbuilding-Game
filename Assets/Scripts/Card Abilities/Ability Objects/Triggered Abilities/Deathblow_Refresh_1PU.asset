@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44c307312f791a64788051778519ac70, type: 3}
   m_Name: Deathblow_Refresh_1PU
   m_EditorClassIdentifier: 
-  AbilityName: '<b>Deathblow</b>: Refresh an ally.'
+  AbilityName: '<b>Deathblow</b>: <b>Refresh</b> an ally.'
   AbilityDescription: Refresh an ally.
   AbilitySprite: {fileID: 0}
-  LinkedAbilites: []
+  LinkedAbilites:
+  - {fileID: 11400000, guid: dd1e5adc210ef4f4387a7fa5ee2988e8, type: 2}
   AbilityTrigger: {fileID: 11400000, guid: 776003013f0c498498f1f5b7124874c0, type: 2}
   EffectGroupList:
   - {fileID: 11400000, guid: e865f57b5d1861144a6ab6e3bd8d93af, type: 2}

@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Damage Effect", menuName = "Effects/Effect/Damage")]
 public class DamageEffect : Effect
 {
-    [Tooltip("If the damage destroys a unit, this effect group resolves")]
+    [Tooltip("If the damage destroys a unit, this effect group list resolves")]
     public List<EffectGroup> IfDestroyedEffects;
 
     public override void LoadEffect(Effect effect)

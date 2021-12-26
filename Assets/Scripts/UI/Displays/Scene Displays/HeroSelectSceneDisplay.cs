@@ -14,6 +14,7 @@ public class HeroSelectSceneDisplay : MonoBehaviour
     [SerializeField] private GameObject heroDescription;
     [SerializeField] private GameObject heroPowerImage;
     [SerializeField] private GameObject heroPowerDescription;
+    [SerializeField] private GameObject heroPowerCost;
 
     [SerializeField] private GameObject selectedAugment;
     [SerializeField] private GameObject augmentName;
@@ -170,12 +171,12 @@ public class HeroSelectSceneDisplay : MonoBehaviour
 
         Sound[] sounds = loadedHero.HeroPower.PowerSounds;
         foreach (Sound s in sounds) AudioManager.Instance.StartStopSound(null, s);
+        
+        heroPowerDescription.GetComponent<TextMeshProUGUI>().SetText
+            ("<b><u>" + loadedHero.HeroPower.PowerName + 
+            ":</b></u> " + loadedHero.HeroPower.PowerDescription);
 
-        int cost = loadedHero.HeroPower.PowerCost;
-        string description = " (" + cost + " energy): ";
-
-        heroPowerDescription.GetComponent<TextMeshProUGUI>().SetText(loadedHero.HeroPower.PowerName +
-            description + loadedHero.HeroPower.PowerDescription);
+        heroPowerCost.GetComponent<TextMeshProUGUI>().SetText(loadedHero.HeroPower.PowerCost.ToString()); // TESTING
 
         if (currentSkill_1 != null)
         {

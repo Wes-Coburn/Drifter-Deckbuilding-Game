@@ -535,7 +535,6 @@ public class GameManager : MonoBehaviour
             auMan.StartStopSound(null, pMan.PlayerHero.HeroWin);
             caMan.ShuffleRecruits(); // TESTING
             ShopItems = GetShopItems(); // TESTING
-            SaveGame(); // TESTING
         }
         else auMan.StartStopSound
                 (null, pMan.PlayerHero.HeroLose);

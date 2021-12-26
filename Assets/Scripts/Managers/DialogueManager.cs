@@ -27,6 +27,8 @@ public class DialogueManager : MonoBehaviour
     private float typedTextDelay;
     private bool newEngagedHero;
 
+    private bool allowResponse; // TESTING
+
     public DialogueSceneDisplay DialogueDisplay { get => dialogueDisplay; }
     public NPCHero EngagedHero { get; set; } // PUBLIC SET FOR COMBAT TEST BUTTON
     public Coroutine CurrentTextRoutine { get; private set; }
@@ -37,6 +39,8 @@ public class DialogueManager : MonoBehaviour
         uMan = UIManager.Instance;
         auMan = AudioManager.Instance;
         newEngagedHero = false;
+
+        allowResponse = true; // TESTING
     }
 
     public void DisplayCurrentHeroes()
@@ -81,9 +85,12 @@ public class DialogueManager : MonoBehaviour
         if (newEngagedHero)
         {
             AnimationManager.Instance.NewEngagedHero(false);
-            FunctionTimer.Create(() => DisplayDialoguePopup(), 1f);
             dialogueDisplay.NPCHeroSpeech = "";
             newEngagedHero = false;
+
+            allowResponse = false; // TESTING
+            FunctionTimer.Create(() => allowResponse = true, 1.5f); // TESTING
+            FunctionTimer.Create(() => DisplayDialoguePopup(), 1);
             return;
         }
 
@@ -201,7 +208,8 @@ public class DialogueManager : MonoBehaviour
 
     public void DialogueResponse(int response)
     {
-        //if (uMan.TravelPopup != null) return; // TESTING
+        if (allowResponse == false) // TESTING
+            return;
 
         if (currentDialogueClip == null)
         {

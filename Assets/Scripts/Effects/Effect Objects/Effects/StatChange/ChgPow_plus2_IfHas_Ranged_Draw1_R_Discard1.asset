@@ -10,13 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64bbb3283eff66646a1722eef8a565b3, type: 3}
-  m_Name: ChgPow_plus1_1turn_IfHas_Ranged
+  m_Name: ChgPow_plus2_IfHas_Ranged_Draw1_R_Discard1
   m_EditorClassIdentifier: 
   IsRequired: 0
-  Value: 1
+  Value: 2
   IsNegative: 0
-  Countdown: 1
-  IfHasAbilityCondition: {fileID: 11400000, guid: ea3240d3d6b88204c8166979a836ea6e,
-    type: 2}
+  Countdown: 0
+  IfHasAbilityCondition: {fileID: 0}
   IfHasTriggerCondition: {fileID: 0}
+  IfHasAbility: {fileID: 11400000, guid: ea3240d3d6b88204c8166979a836ea6e, type: 2}
+  IfHasAbilityEffects:
+  - {fileID: 11400000, guid: bb0661d3c998e1f47b5b8c0afb36e6bb, type: 2}
+  IfHasTrigger: {fileID: 0}
+  IfHasTriggerEffects: []
   IsHealthChange: 0
