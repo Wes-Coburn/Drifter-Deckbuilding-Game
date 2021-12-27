@@ -10,7 +10,6 @@ public class NewGameButton : MonoBehaviour
         {
             Debug.LogWarning("SAVED GAME WARNING POPUP HERE!");
         }
-
         UIManager.Instance.CreateExplicitLanguagePopup();
     }
 }

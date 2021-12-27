@@ -5,12 +5,19 @@ public class CombatTestButton : MonoBehaviour
     [SerializeField] private PlayerHero playerTestHero;
     [SerializeField] private EnemyHero enemyTestHero;
     [SerializeField] private HeroAugment[] testAugments;
-    [SerializeField] private bool disableTestCards;
-    [SerializeField] private Card[] testCards;
     [SerializeField] private HeroItem[] testItems;
+
+    [SerializeField] private bool enableTestCards_1;
+    [SerializeField] private Card[] testCards_1;
+    [SerializeField] private bool enableTestCards_2;
+    [SerializeField] private Card[] testCards_2;
+    [SerializeField] private bool enableTestCards_3;
+    [SerializeField] private Card[] testCards_3;
 
     public void OnClick()
     {
+        if (SceneLoader.SceneIsLoading) return;
+
         EnemyHero eh = ScriptableObject.CreateInstance<EnemyHero>();
         eh.LoadHero(enemyTestHero);
         PlayerHero ph = ScriptableObject.CreateInstance<PlayerHero>();
@@ -23,9 +30,19 @@ public class CombatTestButton : MonoBehaviour
         foreach (HeroAugment aug in testAugments)
             pMan.AddAugment(aug);
         // Test Cards
-        if (!disableTestCards)
+        if (enableTestCards_1)
         {
-            foreach (Card c in testCards)
+            foreach (Card c in testCards_1)
+                CardManager.Instance.AddCard(c, GameManager.PLAYER);
+        }
+        if (enableTestCards_2)
+        {
+            foreach (Card c in testCards_2)
+                CardManager.Instance.AddCard(c, GameManager.PLAYER);
+        }
+        if (enableTestCards_3)
+        {
+            foreach (Card c in testCards_3)
                 CardManager.Instance.AddCard(c, GameManager.PLAYER);
         }
         // Test Items

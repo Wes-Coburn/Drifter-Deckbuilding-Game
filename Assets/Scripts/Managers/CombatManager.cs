@@ -726,8 +726,14 @@ public class CombatManager : MonoBehaviour
         if (newTargetValue < 1)
         {
             if (IsUnitCard(target)) DestroyUnit(target, true);
-            else if (target == PlayerHero) gMan.EndCombat(false);
-            else if (target == EnemyHero) gMan.EndCombat(true);
+            else
+            {
+                anMan.SetAnimatorBool(target, "IsDestroyed", true); // TESTING
+                bool playerWins;
+                if (target == PlayerHero) playerWins = false;
+                else playerWins = true;
+                gMan.EndCombat(playerWins);
+            }
             return true;
         }
         else return false;

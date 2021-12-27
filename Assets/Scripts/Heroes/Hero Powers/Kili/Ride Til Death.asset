@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Ride Til Death
   m_EditorClassIdentifier: 
   PowerName: Ride Til Death
-  PowerCost: 3
+  PowerCost: 2
   PowerSprite: {fileID: 21300000, guid: 09012c0c2892c1941bba759b7930be34, type: 3}
   PowerSounds:
   - name: 
@@ -27,7 +27,7 @@ MonoBehaviour:
     pitch: 1
     source: {fileID: 0}
   PowerDescription: <b>Refresh</b> an ally. If it's already refreshed, give it +1/+0
-    instead.
+    this turn instead.
   EffectGroupList:
   - {fileID: 11400000, guid: e943ed07dd5dc8f4b8176ee75e22120b, type: 2}
   LinkedAbilities:

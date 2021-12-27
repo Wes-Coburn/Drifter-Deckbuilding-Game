@@ -79,8 +79,8 @@ public class GameManager : MonoBehaviour
 
     // Enemy
     public const string ENEMY = "Enemy";
-    //public const int ENEMY_STARTING_HEALTH = 20;
-    public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
+    public const int ENEMY_STARTING_HEALTH = 20;
+    //public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
     public const int BOSS_BONUS_HEALTH = 10;
     public const int ENEMY_HAND_SIZE = 0;
     public const int ENEMY_START_FOLLOWERS = 5;
@@ -532,12 +532,18 @@ public class GameManager : MonoBehaviour
     {
         if (playerWins)
         {
-            auMan.StartStopSound(null, pMan.PlayerHero.HeroWin);
+            auMan.StartStopSound(null, enMan.EnemyHero.HeroLose);
+            FunctionTimer.Create(() =>
+            auMan.StartStopSound(null, pMan.PlayerHero.HeroWin), 2f); // TESTING
             caMan.ShuffleRecruits(); // TESTING
             ShopItems = GetShopItems(); // TESTING
         }
-        else auMan.StartStopSound
-                (null, pMan.PlayerHero.HeroLose);
+        else
+        {
+            auMan.StartStopSound(null, pMan.PlayerHero.HeroLose);
+            FunctionTimer.Create(() =>
+            auMan.StartStopSound(null, enMan.EnemyHero.HeroWin), 2f); // TESTING
+        }
         pMan.IsMyTurn = false;
         efMan.GiveNextEffects.Clear();
         evMan.ClearDelayedActions();

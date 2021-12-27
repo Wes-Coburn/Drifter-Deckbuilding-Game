@@ -10,12 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8fa300343a6b55141b115acdd3b7bb6d, type: 3}
-  m_Name: Refresh_IfArdy_Give_plus1plus0
+  m_Name: Refresh_IfArdy_Give_plus1plus0_1turn
   m_EditorClassIdentifier: 
   IsRequired: 0
   Value: 1
   IsNegative: 0
   Countdown: 0
+  IfHasAbilityCondition: {fileID: 0}
+  IfHasTriggerCondition: {fileID: 0}
+  IfHasAbility: {fileID: 0}
+  IfHasAbilityEffects: []
+  IfHasTrigger: {fileID: 0}
+  IfHasTriggerEffects: []
   SetExhausted: 0
-  IfAlreadyExhaustedEffects: {fileID: 11400000, guid: 7653ca4c07c30f541bfbdef115d7f590,
+  IfAlreadyExhaustedEffects: {fileID: 11400000, guid: 6f356196b5b4e764b82d0e8a7f353357,
     type: 2}
