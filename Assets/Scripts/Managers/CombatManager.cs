@@ -773,9 +773,6 @@ public class CombatManager : MonoBehaviour
         if (target == PlayerHero) pMan.PlayerHealth = newTargetValue;
         else if (target == EnemyHero) enMan.EnemyHealth = newTargetValue;
         else GetUnitDisplay(target).CurrentHealth = newTargetValue;
-
-        if (IsUnitCard(target)) anMan.UnitStatChangeState(target, false, true);
-        else anMan.ModifyHeroHealthState(target);
     }
 
     /******

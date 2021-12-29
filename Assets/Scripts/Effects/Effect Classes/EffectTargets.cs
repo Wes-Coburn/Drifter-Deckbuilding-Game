@@ -6,6 +6,7 @@ public class EffectTargets : ScriptableObject
     [Header("TARGET NUMBER")]
     [Range(1, 10)]
     public int TargetNumber;
+    public bool VariableNumber;
 
     [Header("TARGETS ALL")]
     public bool TargetsAll;
@@ -24,7 +25,8 @@ public class EffectTargets : ScriptableObject
 
     public bool CompareTargets(EffectTargets targets)
     {
-        if (TargetNumber != targets.TargetNumber) return false;
+        //if (TargetNumber != targets.TargetNumber) return false;
+        //if (VariableNumber != targets.VariableNumber) return false;
         if (TargetsAll != targets.TargetsAll) return false;
         if (TargetsSelf != targets.TargetsSelf) return false;
         if (PlayerHero != targets.PlayerHero) return false;

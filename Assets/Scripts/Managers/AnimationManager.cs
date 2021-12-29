@@ -45,7 +45,6 @@ public class AnimationManager : MonoBehaviour
                 return;
             }
         Debug.LogWarning("ANIMATOR NOT FOUND!");
-
     }
     public void SetAnimatorBool(GameObject go, string boolName, bool animBool)
     {
@@ -247,11 +246,13 @@ public class AnimationManager : MonoBehaviour
         float distance;
         HeroDisplay pHD = coMan.PlayerHero.GetComponent<HeroDisplay>();
         HeroDisplay eHD = coMan.EnemyHero.GetComponent<HeroDisplay>();
-        GameObject turBut = uMan.EndTurnButton;
+
         GameObject pFrame = pHD.HeroFrame;
         GameObject eFrame = eHD.HeroFrame;
         GameObject pStats = pHD.HeroStats;
         GameObject eStats = eHD.HeroStats;
+        GameObject turBut = uMan.EndTurnButton;
+
         Vector2 turButStart = turBut.transform.position;
         Vector2 pFrameStart = pFrame.transform.position;
         Vector2 eFrameStart = eFrame.transform.position;

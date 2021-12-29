@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject locationIconPrefab;
     [Header("AUGMENT EFFECTS")]
     [SerializeField] private GiveNextUnitEffect augmentBiogenEffect;
+    [Header("MULLIGAN EFFECT")]
+    [SerializeField] private EffectGroup mulliganEffect;
 
     private PlayerManager pMan;
     private EnemyManager enMan;
@@ -506,7 +508,7 @@ public class GameManager : MonoBehaviour
         // SCHEDULE ACTIONS
         evMan.NewDelayedAction(() => AnimationManager.Instance.CombatIntro(), 1f);
         evMan.NewDelayedAction(() => CombatStart(), 4f);
-        evMan.NewDelayedAction(() => StartCombatTurn(PLAYER), 1f);
+        evMan.NewDelayedAction(() => StartCombatTurn(PLAYER), 0.5f);
         // AUDIO
         string soundtrack;
         if (enMan.EnemyHero.IsBoss) soundtrack = "Soundtrack_CombatBoss1";
@@ -522,6 +524,13 @@ public class GameManager : MonoBehaviour
             caMan.ShuffleDeck(pMan.CurrentPlayerDeck);
             for (int i = 0; i < PLAYER_HAND_SIZE + bonusCards; i++)
                 evMan.NewDelayedAction(() => coMan.DrawCard(PLAYER), 0.5f);
+            evMan.NewDelayedAction(() => Mulligan(), 0.5f); // TESTING
+        }
+
+        void Mulligan()
+        {
+            efMan.StartEffectGroupList(new List<EffectGroup> { mulliganEffect },
+                coMan.PlayerHero, "Mulligan");
         }
     }
 

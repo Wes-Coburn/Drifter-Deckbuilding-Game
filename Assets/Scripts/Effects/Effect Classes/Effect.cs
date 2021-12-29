@@ -33,6 +33,10 @@ public abstract class Effect : ScriptableObject
     public AbilityTrigger IfHasTrigger; // TESTING
     public List<EffectGroup> IfHasTriggerEffects; // TESTING
 
+    [Header("For Each Effects")]
+    [Tooltip("Resolve these effects for each target")]
+    public List<EffectGroup> ForEachEffects; // TESTING
+
     public virtual void LoadEffect(Effect effect)
     {
         IsRequired = effect.IsRequired;
@@ -53,5 +57,10 @@ public abstract class Effect : ScriptableObject
         IfHasTriggerEffects = new List<EffectGroup>();
         foreach (EffectGroup eg in effect.IfHasTriggerEffects)
             IfHasTriggerEffects.Add(eg);
+
+        // TESTING
+        ForEachEffects = new List<EffectGroup>();
+        foreach (EffectGroup eg in effect.ForEachEffects)
+            ForEachEffects.Add(eg);
     }
 }

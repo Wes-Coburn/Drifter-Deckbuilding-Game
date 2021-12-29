@@ -9,16 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e57915a8126b61418b4f2fc44971f4e, type: 3}
-  m_Name: Heal_4
+  m_Script: {fileID: 11500000, guid: 64bbb3283eff66646a1722eef8a565b3, type: 3}
+  m_Name: ChgPow_plus2_IfHas_Ranged_Deal1_1EU
   m_EditorClassIdentifier: 
   IsRequired: 0
-  Value: 4
+  Value: 2
   IsNegative: 0
   Countdown: 0
   IfHasAbilityCondition: {fileID: 0}
   IfHasTriggerCondition: {fileID: 0}
-  IfHasAbility: {fileID: 0}
-  IfHasAbilityEffects: []
+  IfHasAbility: {fileID: 11400000, guid: ea3240d3d6b88204c8166979a836ea6e, type: 2}
+  IfHasAbilityEffects:
+  - {fileID: 11400000, guid: dbdec723e07d1bb409809d8053c199a5, type: 2}
   IfHasTrigger: {fileID: 0}
   IfHasTriggerEffects: []
+  IsHealthChange: 0

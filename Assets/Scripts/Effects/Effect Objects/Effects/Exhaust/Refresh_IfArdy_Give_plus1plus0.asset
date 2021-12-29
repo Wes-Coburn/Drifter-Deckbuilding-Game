@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e57915a8126b61418b4f2fc44971f4e, type: 3}
-  m_Name: Heal_4
+  m_Script: {fileID: 11500000, guid: 8fa300343a6b55141b115acdd3b7bb6d, type: 3}
+  m_Name: Refresh_IfArdy_Give_plus1plus0
   m_EditorClassIdentifier: 
   IsRequired: 0
-  Value: 4
+  Value: 1
   IsNegative: 0
   Countdown: 0
   IfHasAbilityCondition: {fileID: 0}
@@ -22,3 +22,6 @@ MonoBehaviour:
   IfHasAbilityEffects: []
   IfHasTrigger: {fileID: 0}
   IfHasTriggerEffects: []
+  SetExhausted: 0
+  IfAlreadyExhaustedEffects: {fileID: 11400000, guid: 7653ca4c07c30f541bfbdef115d7f590,
+    type: 2}

@@ -334,9 +334,19 @@ public class EffectManager : MonoBehaviour
 
         if (effect is DrawEffect de && de.IsDiscardEffect)
         {
-            int value = effectGroupList[currentEffectGroup].Targets.TargetNumber;
-            if (value > 1) description = "Discard " + value + " cards.";
-            else description = "Discard a card.";
+            EffectTargets et = effectGroupList[currentEffectGroup].Targets;
+            if (et.VariableNumber)
+            {
+                if (effect.ForEachEffects != null)
+                    description = "Replace any number of cards."; // FOR MULLIGAN EFFECT
+                else description = "Discard any number of cards.";
+            }
+            else
+            {
+                int value = et.TargetNumber;
+                if (value > 1) description = "Discard " + value + " cards.";
+                else description = "Discard a card.";
+            }
             anMan.ShiftPlayerHand(true);
             foreach (GameObject newTarget in newDrawnCards)
             {
@@ -537,7 +547,15 @@ public class EffectManager : MonoBehaviour
             }
             else
             {
-                if (coMan.PlayerHandCards.Count - 1 < effect.Value) // TESTING
+                // TESTING
+                if (targets.VariableNumber && (coMan.PlayerHandCards.Count - 1) > 0)
+                {
+                    Debug.LogWarning("VARIABLE TARGET NUMBER!");
+                    return true;
+                }
+
+                // TESTING
+                if (coMan.PlayerHandCards.Count - 1 < effect.Value)
                 {
                     Debug.LogWarning("NOT ENOUGH CARDS!");
                     return false; // Doesn't allow for discarding less than the exact amount
@@ -573,9 +591,7 @@ public class EffectManager : MonoBehaviour
      * *****
      *****/
     private void AcceptEffectTarget(GameObject target)
-    {
-        auMan.StartStopSound("SFX_AcceptTarget");
-        uMan.SelectTarget(target, true, true);
+    {   
         EffectGroup eg = effectGroupList[currentEffectGroup];
         int targetNumber = eg.Targets.TargetNumber;
         int legalTargetNumber =
@@ -586,15 +602,29 @@ public class EffectManager : MonoBehaviour
         if (!CurrentEffect.IsRequired &&
             legalTargetNumber < targetNumber) targetNumber = legalTargetNumber;
 
+        if (acceptedTargets[currentEffectGroup].Count >= targetNumber)
+        {
+            Debug.LogError("Accepted Targets >= Target Number!");
+            return;
+        }
+
+        auMan.StartStopSound("SFX_AcceptTarget");
+        uMan.SelectTarget(target, true, true);
+
         acceptedTargets[currentEffectGroup].Add(target);
         legalTargets[currentEffectGroup].Remove(target);
 
         Debug.Log("ACCEPTED TARGETS: <" + acceptedTargets[currentEffectGroup].Count +
             "> OF <" + targetNumber + "> REQUIRED TARGETS");
 
-        if (acceptedTargets[currentEffectGroup].Count == targetNumber) ConfirmTargetEffect();
-        else if (acceptedTargets[currentEffectGroup].Count > targetNumber)
-            Debug.LogError("Accepted Targets > Target Number!");
+        // TESTING
+        if (eg.Targets.VariableNumber)
+        {
+            if (acceptedTargets[currentEffectGroup].Count == 1)
+                uMan.SetConfirmEffectButton(true);
+        }
+        else if (acceptedTargets[currentEffectGroup].Count == targetNumber)
+            ConfirmTargetEffect();
     }
     private void RejectEffectTarget()
     {
@@ -621,7 +651,7 @@ public class EffectManager : MonoBehaviour
         }
         StartNextEffect();
     }
-    private void ConfirmTargetEffect()
+    public void ConfirmTargetEffect()
     {
         uMan.PlayerIsTargetting = false;
         uMan.DismissInfoPopup();
@@ -654,12 +684,12 @@ public class EffectManager : MonoBehaviour
         float delay = 0;
         foreach (EffectGroup eg in effectGroupList)
         {
-            delay += 0.5f;
             ResolveEffectGroup(eg, acceptedTargets[currentEffectGroup++], delay);
+            delay += 0.5f;
         }
 
         FunctionTimer.Create(() =>
-        FinishEffectGroupList(false), 0.5f + delay);
+        FinishEffectGroupList(false), delay);
     }
 
     /******
@@ -685,6 +715,7 @@ public class EffectManager : MonoBehaviour
                 if (sce.IsHealthChange) isHealthChange = true;
                 else isPowerChange = true;
             }
+            else if (effect is HealEffect) isHealthChange = true; // TESTING
         }
 
         foreach (Effect effect in eg.Effects)
@@ -702,6 +733,7 @@ public class EffectManager : MonoBehaviour
 
         void StatChanges()
         {
+            if (!isHealthChange && !isPowerChange) return;
             foreach (GameObject target in targets)
             {
                 if (target == null)
@@ -711,6 +743,12 @@ public class EffectManager : MonoBehaviour
                 }
                 if (coMan.IsUnitCard(target))
                     anMan.UnitStatChangeState(target, isPowerChange, isHealthChange);
+                else if (isHealthChange) anMan.ModifyHeroHealthState(target); // TESTING
+                else
+                {
+                    Debug.LogError("INVALID STAT CHANGE!");
+                    return;
+                }
             }
         }
     }
@@ -741,6 +779,7 @@ public class EffectManager : MonoBehaviour
                 if (!CardManager.GetAbility(t, effect.IfHasAbilityCondition.AbilityName))
                     invalidTargets.Add(t);
         }
+
         // TESTING
         if (effect.IfHasTriggerCondition != null)
         {
@@ -757,6 +796,7 @@ public class EffectManager : MonoBehaviour
                     foreach (EffectGroup eg in effect.IfHasAbilityEffects)
                         additionalEffectGroups.Add(eg);
         }
+
         // TESTING
         if (effect.IfHasTrigger != null)
         {
@@ -764,6 +804,14 @@ public class EffectManager : MonoBehaviour
                 if (CardManager.GetTrigger(t, effect.IfHasTrigger.AbilityName))
                     foreach (EffectGroup eg in effect.IfHasTriggerEffects)
                         additionalEffectGroups.Add(eg);
+        }
+
+        // TESTING
+        if (effect.ForEachEffects.Count > 0)
+        {
+            foreach (GameObject t in allTargets)
+                foreach (EffectGroup eg in effect.ForEachEffects)
+                    additionalEffectGroups.Add(eg);
         }
 
         // TESTING
@@ -958,8 +1006,13 @@ public class EffectManager : MonoBehaviour
             if (!wasAborted && additionalEffectGroups.Count > 0) // TESTING
             {
                 GameObject source = effectSource;
-                evMan.NewDelayedAction(() =>
-                StartEffectGroupList(additionalEffectGroups, source, IS_ADDITIONAL_EFFECT), 0, true);
+                // TESTING
+                foreach (EffectGroup eg in additionalEffectGroups)
+                {
+                    evMan.NewDelayedAction(() =>
+                    StartEffectGroupList(new List<EffectGroup> { eg },
+                    source, IS_ADDITIONAL_EFFECT), 0, true);
+                }
             }
             else
             {

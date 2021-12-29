@@ -94,6 +94,7 @@ public class UIManager : MonoBehaviour
 
     private GameObject endTurnButton;
     private GameObject cancelEffectButton;
+    private GameObject confirmEffectButton; // TESTING
     private Coroutine sceneFadeRoutine;
     private GameObject playerZoneOutline;
     
@@ -140,9 +141,11 @@ public class UIManager : MonoBehaviour
     public void StartCombatScene()
     {
         cancelEffectButton = GameObject.Find("CancelEffectButton");
+        confirmEffectButton = GameObject.Find("ConfirmEffectButton"); // TESTING
         endTurnButton = GameObject.Find("EndTurnButton");
         playerZoneOutline = GameObject.Find("PlayerZoneOutline");
         SetCancelEffectButton(false);
+        SetConfirmEffectButton(false);
         SetPlayerZoneOutline(false, false);
     }
 
@@ -239,11 +242,13 @@ public class UIManager : MonoBehaviour
     }
     /******
      * *****
-     * ****** CANCEL_EFFECT_BUTTON
+     * ****** CANCEL/CONFIRM_EFFECT_BUTTON
      * *****
      *****/
     public void SetCancelEffectButton(bool isEnabled) =>
         cancelEffectButton.SetActive(isEnabled);
+    public void SetConfirmEffectButton(bool isEnabled) =>
+        confirmEffectButton.SetActive(isEnabled);
     /******
      * *****
      * ****** SELECT_TARGET
