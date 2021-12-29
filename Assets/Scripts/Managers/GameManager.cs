@@ -131,7 +131,7 @@ public class GameManager : MonoBehaviour
      * ****** SAVE/LOAD_GAME
      * *****
      *****/
-    private void SaveGame()
+    public void SaveGame() // PUBLIC FOR BETA ONLY
     {
         string[] deckList = new string[pMan.PlayerDeckList.Count];
         for (int i = 0; i < deckList.Length; i++)
@@ -467,11 +467,6 @@ public class GameManager : MonoBehaviour
         uMan.StartCombatScene();
         coMan.StartCombatScene();
 
-        auMan.StartStopSound("Soundtrack_Combat1",
-            null, AudioManager.SoundType.Soundtrack);
-        auMan.StopCurrentSoundscape(); // TESTING
-        auMan.StartStopSound("SFX_StartCombat1");
-
         PlayerHeroDisplay pHD = coMan.PlayerHero.GetComponent<PlayerHeroDisplay>();
         EnemyHeroDisplay eHD = coMan.EnemyHero.GetComponent<EnemyHeroDisplay>();
         uMan.EndTurnButton.SetActive(false);
@@ -512,6 +507,13 @@ public class GameManager : MonoBehaviour
         evMan.NewDelayedAction(() => AnimationManager.Instance.CombatIntro(), 1f);
         evMan.NewDelayedAction(() => CombatStart(), 4f);
         evMan.NewDelayedAction(() => StartCombatTurn(PLAYER), 1f);
+        // AUDIO
+        string soundtrack;
+        if (enMan.EnemyHero.IsBoss) soundtrack = "Soundtrack_CombatBoss1";
+        else soundtrack = "Soundtrack_Combat1";
+        auMan.StartStopSound(soundtrack, null, AudioManager.SoundType.Soundtrack);
+        auMan.StopCurrentSoundscape(); // TESTING
+        auMan.StartStopSound("SFX_StartCombat1");
 
         void CombatStart()
         {
@@ -621,6 +623,18 @@ public class GameManager : MonoBehaviour
             efMan.RemoveTemporaryEffects(ENEMY);
             efMan.RemoveGiveNextEffects();
         }
+    }
+
+    /******
+     * *****
+     * ****** START_CREDITS
+     * *****
+     *****/
+    public void StartCredits()
+    {
+        auMan.StartStopSound("Soundtrack_Combat1",
+            null, AudioManager.SoundType.Soundtrack);
+        auMan.StopCurrentSoundscape();
     }
 
     /******

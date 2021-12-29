@@ -18,6 +18,12 @@ public class CombatTestButton : MonoBehaviour
     {
         if (SceneLoader.SceneIsLoading) return;
 
+        if (!GameManager.Instance.IsCombatTest)
+        {
+            SceneLoader.LoadScene(SceneLoader.Scene.CreditsScene);
+            return;
+        }
+
         EnemyHero eh = ScriptableObject.CreateInstance<EnemyHero>();
         eh.LoadHero(enemyTestHero);
         PlayerHero ph = ScriptableObject.CreateInstance<PlayerHero>();

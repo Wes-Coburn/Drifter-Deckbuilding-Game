@@ -16,7 +16,8 @@ public static class SceneLoader
         WorldMapScene,
         HomeBaseScene,
         DialogueScene,
-        CombatScene
+        CombatScene,
+        CreditsScene
     }
     public static bool SceneIsLoading = false;
     
@@ -67,6 +68,9 @@ public static class SceneLoader
                 case Scene.CombatScene:
                     chapterText = "COMBAT";
                     break;
+                case Scene.CreditsScene:
+                    chapterText = "CREDITS";
+                    break;
                 default:
                     Debug.LogError("SCENE TYPE NOT FOUND!");
                     return;
@@ -113,6 +117,10 @@ public static class SceneLoader
                     break;
                 case Scene.CombatScene:
                     gMan.StartCombat();
+                    break;
+                case Scene.CreditsScene:
+                    showSkybar = false;
+                    gMan.StartCredits(); // TESTING
                     break;
                 default:
                     Debug.LogError("SCENE NOT FOUND!");

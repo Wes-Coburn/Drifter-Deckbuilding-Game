@@ -20,13 +20,13 @@ public class DialogueManager : MonoBehaviour
     private PlayerManager pMan;
     private UIManager uMan;
     private AudioManager auMan;
+
     private DialogueClip currentDialogueClip;
     private DialogueSceneDisplay dialogueDisplay;
     private string currentTypedText;
     private TextMeshProUGUI currentTmPro;
     private float typedTextDelay;
     private bool newEngagedHero;
-
     private bool allowResponse; // TESTING
 
     public DialogueSceneDisplay DialogueDisplay { get => dialogueDisplay; }
@@ -39,7 +39,6 @@ public class DialogueManager : MonoBehaviour
         uMan = UIManager.Instance;
         auMan = AudioManager.Instance;
         newEngagedHero = false;
-
         allowResponse = true; // TESTING
     }
 
@@ -325,14 +324,6 @@ public class DialogueManager : MonoBehaviour
                         AnimationManager.Instance.NewEngagedHero(true); // TESTING
                     }
                 }
-                /*
-                {
-                    if (prompt.HideNPC)
-                    {
-                        newEngagedHero = true;
-                    }
-                }
-                */
             }
             // New Card
             if (nextPrompt.NewCard != null) UIManager.Instance.CreateNewCardPopup(nextPrompt.NewCard);
