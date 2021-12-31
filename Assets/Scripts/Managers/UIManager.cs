@@ -120,7 +120,7 @@ public class UIManager : MonoBehaviour
         CurrentWorldSpace = GameObject.Find("WorldSpace");
         CurrentCanvas = GameObject.Find("Canvas");
         UICanvas = GameObject.Find("UI_Canvas");
-        CurrentZoomCanvas = GameObject.Find("Canvas_Zoom"); // TESTING
+        CurrentZoomCanvas = GameObject.Find("Canvas_Zoom");
         pMan = PlayerManager.Instance;
         PlayerIsTargetting = false;
     }
@@ -141,7 +141,7 @@ public class UIManager : MonoBehaviour
     public void StartCombatScene()
     {
         cancelEffectButton = GameObject.Find("CancelEffectButton");
-        confirmEffectButton = GameObject.Find("ConfirmEffectButton"); // TESTING
+        confirmEffectButton = GameObject.Find("ConfirmEffectButton");
         endTurnButton = GameObject.Find("EndTurnButton");
         playerZoneOutline = GameObject.Find("PlayerZoneOutline");
         SetCancelEffectButton(false);
@@ -736,7 +736,7 @@ public class UIManager : MonoBehaviour
             SetAetherCount(pMan.AetherCells);
             foreach (HeroAugment ha in pMan.HeroAugments) 
                 CreateAugmentIcon(ha);
-            foreach (HeroItem hi in pMan.HeroItems) // TESTING
+            foreach (HeroItem hi in pMan.HeroItems)
                 CreateItemIcon(hi);
         }
     }

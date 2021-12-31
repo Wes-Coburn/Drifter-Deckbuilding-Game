@@ -248,7 +248,7 @@ public class CombatManager : MonoBehaviour
             }
             foreach (Card c in discard) deck.Add(c);
             discard.Clear();
-            caMan.ShuffleDeck(deck);
+            caMan.ShuffleDeck(hero);
         }
 
         GameObject card = ShowCard(deck[0], position);

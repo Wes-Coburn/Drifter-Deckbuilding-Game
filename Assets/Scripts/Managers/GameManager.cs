@@ -521,16 +521,17 @@ public class GameManager : MonoBehaviour
         {
             int bonusCards = 0;
             if (pMan.GetAugment("Cognitive Magnifier")) bonusCards = 1;
-            caMan.ShuffleDeck(pMan.CurrentPlayerDeck);
+            caMan.ShuffleDeck(PLAYER, false);
             for (int i = 0; i < PLAYER_HAND_SIZE + bonusCards; i++)
                 evMan.NewDelayedAction(() => coMan.DrawCard(PLAYER), 0.5f);
             evMan.NewDelayedAction(() => Mulligan(), 0.5f); // TESTING
+            evMan.NewDelayedAction(() => caMan.ShuffleDeck(PLAYER), 0); // TESTING
         }
 
         void Mulligan()
         {
             efMan.StartEffectGroupList(new List<EffectGroup> { mulliganEffect },
-                coMan.PlayerHero, "Mulligan");
+                coMan.PlayerHero);
         }
     }
 

@@ -137,6 +137,7 @@ public class AnimationManager : MonoBehaviour
         StartCoroutine(HandShiftNumerator(isUpShift));
     private IEnumerator HandShiftNumerator(bool isUpShift)
     {
+        auMan.StartStopSound("SFX_ShiftHand");
         float distance;
         float yTarget;
         GameObject hand = coMan.PlayerHand;
@@ -167,7 +168,7 @@ public class AnimationManager : MonoBehaviour
         StartCoroutine(DialogueIntroNumerator());
     private IEnumerator DialogueIntroNumerator()
     {
-        auMan.StartStopSound("SFX_PortraitClick"); // TESTING
+        auMan.StartStopSound("SFX_PortraitClick");
 
         float distance;
         DialogueSceneDisplay dsp = dMan.DialogueDisplay;

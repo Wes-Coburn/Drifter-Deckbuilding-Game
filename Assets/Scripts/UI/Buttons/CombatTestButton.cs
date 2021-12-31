@@ -13,6 +13,8 @@ public class CombatTestButton : MonoBehaviour
     [SerializeField] private Card[] testCards_2;
     [SerializeField] private bool enableTestCards_3;
     [SerializeField] private Card[] testCards_3;
+    [SerializeField] private bool enableTestCards_4;
+    [SerializeField] private Card[] testCards_4;
 
     public void OnClick()
     {
@@ -43,6 +45,11 @@ public class CombatTestButton : MonoBehaviour
         if (enableTestCards_3)
         {
             foreach (Card c in testCards_3)
+                CardManager.Instance.AddCard(c, GameManager.PLAYER);
+        }
+        if (enableTestCards_4)
+        {
+            foreach (Card c in testCards_4)
                 CardManager.Instance.AddCard(c, GameManager.PLAYER);
         }
         // Test Items

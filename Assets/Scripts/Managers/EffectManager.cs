@@ -128,6 +128,8 @@ public class EffectManager : MonoBehaviour
     public void StartEffectGroupList(List<EffectGroup> groupList,
         GameObject source, string triggerName = null)
     {
+        Debug.LogWarning("START EFFECT GROUP LIST!");
+
         if (source == null)
         {
             Debug.LogError("SOURCE IS NULL!");
@@ -337,8 +339,9 @@ public class EffectManager : MonoBehaviour
             EffectTargets et = effectGroupList[currentEffectGroup].Targets;
             if (et.VariableNumber)
             {
+                uMan.SetConfirmEffectButton(true); // TESTING
                 if (effect.ForEachEffects != null)
-                    description = "Replace any number of cards."; // FOR MULLIGAN EFFECT
+                    description = "Choose cards to replace."; // FOR MULLIGAN EFFECT
                 else description = "Discard any number of cards.";
             }
             else
@@ -421,6 +424,8 @@ public class EffectManager : MonoBehaviour
     public bool CheckLegalTargets(List<EffectGroup> groupList,
         GameObject source, bool isPreCheck = false)
     {
+        Debug.LogWarning("CHECK LEGAL TARGETS!");
+
         effectGroupList = groupList;
         effectSource = source;
         legalTargets = new List<List<GameObject>>();
@@ -454,14 +459,19 @@ public class EffectManager : MonoBehaviour
                     {
                         invalidTargetGroups.Add(group);
                         int groupsRemaining = targetGroups.Count - invalidTargetGroups.Count;
-                        Debug.LogWarning("INVALID TARGET GROUP! <" + groupsRemaining + "> REMAINING!");
-                        if (groupsRemaining < 1 || requiredEffect) return false;
-                        else break;
+                        Debug.Log("INVALID GROUPS = <" + invalidTargetGroups.Count + ">");
+                        Debug.Log("INVALID TARGET GROUP! <" + groupsRemaining + "/" + targetGroups.Count + "> REMAINING!");
+                        if (groupsRemaining < 1 || requiredEffect)
+                        {
+                            Debug.Log("CHECK LEGAL TARGETS = FALSE!");
+                            return false;
+                        }
                     }
                 }
             group++;
         }
 
+        Debug.Log("CHECK LEGAL TARGETS = TRUE");
         if (isPreCheck) ClearTargets();
         else ClearInvalids();
         return true;
@@ -548,23 +558,23 @@ public class EffectManager : MonoBehaviour
             else
             {
                 // TESTING
-                if (targets.VariableNumber && (coMan.PlayerHandCards.Count - 1) > 0)
+                if (targets.VariableNumber && (coMan.PlayerHandCards.Count - 1) > 0) // The '-1' assumes the source is a card
                 {
                     Debug.LogWarning("VARIABLE TARGET NUMBER!");
                     return true;
                 }
 
                 // TESTING
-                if (coMan.PlayerHandCards.Count - 1 < effect.Value)
+                if (coMan.PlayerHandCards.Count - 1 < effect.Value) // The '-1' assumes the source is a card
                 {
                     Debug.LogWarning("NOT ENOUGH CARDS!");
-                    return false; // Doesn't allow for discarding less than the exact amount
+                    return false;
                 }
             }
             return true;
         }
 
-        //Debug.Log("LEGAL TARGETS <" + (legalTargets[currentGroup].Count - additionalTargets) + ">");
+        Debug.Log("LEGAL TARGETS <" + (legalTargets[currentGroup].Count - additionalTargets) + ">");
 
         if (effect is GiveNextUnitEffect) return true;
         if (legalTargets[currentGroup].Count < 1) return false;
@@ -578,10 +588,21 @@ public class EffectManager : MonoBehaviour
             legalTargets[currentGroup].Add(target);
     }
 
-    public void SelectTarget(GameObject selected)
+    /******
+     * *****
+     * ****** SELECT_TARGET
+     * *****
+     *****/
+    public void SelectTarget(GameObject target)
     {
-        if (legalTargets[currentEffectGroup].Contains(selected))
-            AcceptEffectTarget(selected);
+        if (acceptedTargets[currentEffectGroup].Contains(target))
+        {
+            RemoveEffectTarget(target);
+        }
+        else if (legalTargets[currentEffectGroup].Contains(target))
+        {
+            AcceptEffectTarget(target);
+        }
         else RejectEffectTarget();
     }
 
@@ -600,24 +621,27 @@ public class EffectManager : MonoBehaviour
 
         // TESTING
         if (!CurrentEffect.IsRequired &&
-            legalTargetNumber < targetNumber) targetNumber = legalTargetNumber;
+            legalTargetNumber < targetNumber)
+            targetNumber = legalTargetNumber;
 
+        // TESTING
         if (acceptedTargets[currentEffectGroup].Count >= targetNumber)
         {
-            Debug.LogError("Accepted Targets >= Target Number!");
+            if (eg.Targets.VariableNumber)
+                Debug.LogWarning("ALL TARGETS SELECTED!"); 
+            else Debug.LogError("TOO MANY ACCEPTED TARGETS!");
             return;
         }
 
         auMan.StartStopSound("SFX_AcceptTarget");
         uMan.SelectTarget(target, true, true);
-
         acceptedTargets[currentEffectGroup].Add(target);
         legalTargets[currentEffectGroup].Remove(target);
 
-        Debug.Log("ACCEPTED TARGETS: <" + acceptedTargets[currentEffectGroup].Count +
+        Debug.Log("ACCEPTED TARGETS: <" +
+            acceptedTargets[currentEffectGroup].Count +
             "> OF <" + targetNumber + "> REQUIRED TARGETS");
 
-        // TESTING
         if (eg.Targets.VariableNumber)
         {
             if (acceptedTargets[currentEffectGroup].Count == 1)
@@ -630,6 +654,27 @@ public class EffectManager : MonoBehaviour
     {
         uMan.CreateFleetingInfoPopup("You can't target that!");
         auMan.StartStopSound("SFX_Error");
+    }
+
+    /******
+     * *****
+     * ****** REMOVE_TARGET
+     * *****
+     *****/
+    private void RemoveEffectTarget(GameObject target)
+    {
+        auMan.StartStopSound("SFX_AcceptTarget");
+        uMan.SelectTarget(target, true, false);
+        acceptedTargets[currentEffectGroup].Remove(target);
+        legalTargets[currentEffectGroup].Add(target);
+
+        EffectGroup eg = effectGroupList[currentEffectGroup];
+        if (eg.Targets.VariableNumber)
+        {
+            if (acceptedTargets[currentEffectGroup].Count < 1)
+                uMan.SetConfirmEffectButton(false);
+        }
+        Debug.Log("TARGET REMOVED!");
     }
 
     /******
@@ -999,7 +1044,7 @@ public class EffectManager : MonoBehaviour
     {
         string debugText = "RESOLVED";
         if (wasAborted) debugText = "ABORTED";
-        Debug.Log("GROUP LIST FINISHED! [" + debugText + "]");
+        Debug.LogWarning("GROUP LIST FINISHED! [" + debugText + "]");
 
         if (!wasAborted || isAdditionalEffect) // TESTING
         {

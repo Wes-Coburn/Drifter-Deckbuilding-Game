@@ -177,10 +177,26 @@ public class CardManager : MonoBehaviour
      * ****** SHUFFLE_DECK
      * *****
      *****/
-    public void ShuffleDeck(List<Card> deck)
+    public void ShuffleDeck(string hero, bool playSound = true)
     {
+        Debug.LogWarning("SHUFFLE <" + hero + "> DECK!");
+        List<Card> deck;
+        if (hero == GameManager.PLAYER)
+            deck = pMan.CurrentPlayerDeck;
+        else if (hero == GameManager.ENEMY)
+        {
+            deck = enMan.CurrentEnemyDeck;
+            playSound = false;
+        }
+        else
+        {
+            Debug.LogError("INVALID HERO!");
+            return;
+        }
         deck.Shuffle();
-        auMan.StartStopSound("SFX_ShuffleDeck");
+
+        if (playSound)
+            auMan.StartStopSound("SFX_ShuffleDeck");
     }
 
     /******
