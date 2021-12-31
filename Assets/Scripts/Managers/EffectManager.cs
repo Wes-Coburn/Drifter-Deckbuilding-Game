@@ -445,7 +445,7 @@ public class EffectManager : MonoBehaviour
                 if (IsTargetEffect(eg, effect) || effect is DrawEffect)
                 {
                     targetGroups.Add(eg);
-                    continue;
+                    break;
                 }
 
         int group = 0;
@@ -459,13 +459,13 @@ public class EffectManager : MonoBehaviour
                     {
                         invalidTargetGroups.Add(group);
                         int groupsRemaining = targetGroups.Count - invalidTargetGroups.Count;
-                        Debug.Log("INVALID GROUPS = <" + invalidTargetGroups.Count + ">");
                         Debug.Log("INVALID TARGET GROUP! <" + groupsRemaining + "/" + targetGroups.Count + "> REMAINING!");
                         if (groupsRemaining < 1 || requiredEffect)
                         {
                             Debug.Log("CHECK LEGAL TARGETS = FALSE!");
                             return false;
                         }
+                        else break; // TESTING
                     }
                 }
             group++;
@@ -861,7 +861,7 @@ public class EffectManager : MonoBehaviour
 
         // TESTING
         foreach (GameObject t in allTargets)
-            if (!invalidTargets.Contains(t))
+            if (!invalidTargets.Contains(t) && !validTargets.Contains(t)) // TESTING
                 validTargets.Add(t);
 
         // DRAW

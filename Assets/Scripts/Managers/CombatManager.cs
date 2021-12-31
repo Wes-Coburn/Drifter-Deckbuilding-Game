@@ -581,7 +581,6 @@ public class CombatManager : MonoBehaviour
         else auMan.StartStopSound("SFX_AttackRanged");
         bool defenderIsUnit = IsUnitCard(defender);
         anMan.UnitAttack(attacker, defender, defenderIsUnit);
-
         // Delayed Actions
         Strike(attacker, defender, true);
     }
