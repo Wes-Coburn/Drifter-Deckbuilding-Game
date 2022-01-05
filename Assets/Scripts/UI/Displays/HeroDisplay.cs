@@ -42,11 +42,14 @@ public abstract class HeroDisplay : MonoBehaviour
 
     public int HeroHealth
     {
-        set => heroHealth.GetComponent<TextMeshProUGUI>().SetText(value.ToString());
+        set
+        {
+            int health = value;
+            if (health < 0) health = 0;
+            heroHealth.GetComponent<TextMeshProUGUI>().SetText(health.ToString());
+        }
     }
 
-    public virtual void DisplayHero()
-    {
+    public virtual void DisplayHero() =>
         HeroPortrait = heroScript.HeroPortrait;
-    }
 }

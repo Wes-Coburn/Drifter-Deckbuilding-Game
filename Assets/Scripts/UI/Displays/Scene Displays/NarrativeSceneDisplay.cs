@@ -30,13 +30,16 @@ public class NarrativeSceneDisplay : MonoBehaviour
         currentClip = value;
         clipCounterText.SetText(currentClip + 1 + "/" + 
             narrative.NarrativeText.Length);
-        background.GetComponent<Image>().sprite = CurrentNarrative.NarrativeBackground; // TESTING
+        background.GetComponent<Image>().sprite = CurrentNarrative.NarrativeBackground;
         DialogueManager.Instance.TimedText(narrative.NarrativeText[value], 
             narrativeText.GetComponent<TextMeshProUGUI>());
     }
     
     public void NextNarrative()
     {
+        if (SceneLoader.SceneIsLoading) return; // TESTING
+        GetComponent<SoundPlayer>().PlaySound(0); // TESTING
+
         if (DialogueManager.Instance.CurrentTextRoutine != null)
         {
             DialogueManager.Instance.StopTimedText(true);
@@ -48,6 +51,9 @@ public class NarrativeSceneDisplay : MonoBehaviour
     }
     public void PreviousNarrative()
     {
+        if (SceneLoader.SceneIsLoading) return; // TESTING
+        GetComponent<SoundPlayer>().PlaySound(0); // TESTING
+
         if (--currentClip < 0) currentClip = 0;
         else SetCurrentNarrative(currentClip);
     }

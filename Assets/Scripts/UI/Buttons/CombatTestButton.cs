@@ -1,8 +1,9 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CombatTestButton : MonoBehaviour
 {
+    [SerializeField] private bool revealButton;
+
     [SerializeField] private PlayerHero playerTestHero;
     [SerializeField] private EnemyHero enemyTestHero;
     [SerializeField] private HeroAugment[] testAugments;
@@ -19,6 +20,12 @@ public class CombatTestButton : MonoBehaviour
 
     private void Start()
     {
+        if (revealButton)
+        {
+            gameObject.SetActive(true);
+            Debug.LogWarning("COMBAT TEST BUTTON REVEALED!");
+            return;
+        }
         // FOR BETA ONLY
         GameManager gMan = GameManager.Instance;
         gMan.LoadGame(true, 1);

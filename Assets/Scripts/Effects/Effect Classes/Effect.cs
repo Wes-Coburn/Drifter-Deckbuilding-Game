@@ -15,25 +15,25 @@ public abstract class Effect : ScriptableObject
     [Range(0, 5)]
     public int Countdown;
 
-    [Header("If Has Ability Condition")]
+    [Header("IF HAS ABILITY CONDITION")]
     [Tooltip("If not null, the effect will not resolve unless the target has this ABILITY")]
     public CardAbility IfHasAbilityCondition;
 
-    [Header("If Has Trigger Condition")]
+    [Header("IF HAS TRIGGER CONDITION")]
     [Tooltip("If not null, the effect will not resolve unless the target has this TRIGGER")]
     public AbilityTrigger IfHasTriggerCondition; // TESTING
 
-    [Header("If Has Ability Effects")]
+    [Header("IF HAS ABILITY EFFECTS")]
     [Tooltip("If the target has this ability, resolve these effects")]
     public CardAbility IfHasAbility; // TESTING
     public List<EffectGroup> IfHasAbilityEffects; // TESTING
 
-    [Header("If Has Trigger Effects")]
+    [Header("IF HAS TRIGGER EFFECTS")]
     [Tooltip("If the target has this trigger, resolve these effects")]
     public AbilityTrigger IfHasTrigger; // TESTING
     public List<EffectGroup> IfHasTriggerEffects; // TESTING
 
-    [Header("For Each Effects")]
+    [Header("FOR EACH EFFECTS")]
     [Tooltip("Resolve these effects for each target")]
     public List<EffectGroup> ForEachEffects; // TESTING
 

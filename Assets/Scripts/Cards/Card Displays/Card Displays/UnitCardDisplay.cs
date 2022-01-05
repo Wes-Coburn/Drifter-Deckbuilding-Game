@@ -54,6 +54,7 @@ public class UnitCardDisplay : CardDisplay
     }
     private void DisplayHealth(int health)
     {
+        if (health < 0) health = 0; // TESTING
         TextMeshProUGUI txtPro =
             healthScoreDisplay.GetComponent<TextMeshProUGUI>();
         txtPro.SetText(health.ToString());

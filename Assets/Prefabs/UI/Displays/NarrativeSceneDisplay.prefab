@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6258885697502500173}
   - component: {fileID: 6258885697502500162}
+  - component: {fileID: 2626719076302756642}
   m_Layer: 0
   m_Name: NarrativeSceneDisplay
   m_TagString: Untagged
@@ -46,3 +47,22 @@ MonoBehaviour:
   background: {fileID: 0}
   narrativeText: {fileID: 0}
   clipCounter: {fileID: 0}
+--- !u!114 &2626719076302756642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6258885697502500163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2340c8fec396b2b43bf9a91052c5c90e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds: []
+  sounds2:
+  - name: 
+    clip: {fileID: 8300000, guid: a580b904278a5fd4fba9563d4096bd3d, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
