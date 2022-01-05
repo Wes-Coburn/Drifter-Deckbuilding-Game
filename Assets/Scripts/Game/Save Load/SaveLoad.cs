@@ -27,7 +27,7 @@ public static class SaveLoad
         }
         else
         {
-            Debug.LogError("SAVE FILE NOT FOUND IN " + path);
+            Debug.LogWarning("SAVE FILE NOT FOUND IN " + path);
             return null;
         }
     }

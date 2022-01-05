@@ -32,6 +32,8 @@ public class DialogueManager : MonoBehaviour
     public DialogueSceneDisplay DialogueDisplay { get => dialogueDisplay; }
     public NPCHero EngagedHero { get; set; } // PUBLIC SET FOR COMBAT TEST BUTTON
     public Coroutine CurrentTextRoutine { get; private set; }
+    public bool AllowResponse { get => allowResponse; }
+
     private void Start()
     {
         gMan = GameManager.Instance;
@@ -305,6 +307,8 @@ public class DialogueManager : MonoBehaviour
         if (dResponse.Response_IsExit)
         {
             uMan.CreateBetaFinishPopup(); // FOR BETA ONLY
+            gMan.Achievement_BETA_Finish = true; // FOR BETA ONLY
+            gMan.SaveGame(); // FOR BETA ONLY
             return;
         }
         if (nextPrompt != null)

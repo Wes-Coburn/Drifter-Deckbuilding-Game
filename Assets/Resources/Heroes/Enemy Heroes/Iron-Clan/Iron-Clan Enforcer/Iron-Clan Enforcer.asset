@@ -14,20 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   developerNotes: 
   heroName: Iron-Clan Enforcer
+  heroShortName: 
   heroPortrait: {fileID: 21300000, guid: 14b1004efdcdcbc439beeb169eea5550, type: 3}
   heroDescription: The Iron-Clan Enforcer is...
   heroWin:
     name: 
-    clip: {fileID: 0}
-    volume: 0
-    pitch: 0
+    clip: {fileID: 8300000, guid: da29821768344b743a813b742e1072a7, type: 3}
+    volume: 1
+    pitch: 1
     source: {fileID: 0}
   heroLose:
     name: 
-    clip: {fileID: 0}
-    volume: 0
-    pitch: 0
+    clip: {fileID: 8300000, guid: 062da6a5b97bdb14d82d5e0206cd6b30, type: 3}
+    volume: 1
+    pitch: 1
     source: {fileID: 0}
   firstDialogueClip: {fileID: 11400000, guid: a046d6a2995ffc34e9c152dd205f32cf, type: 2}
   reinforcements:
   - {fileID: 11400000, guid: 5974affca3133504d8521e2998075c7f, type: 2}
+  isBoss: 0

@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
     public List<Location> ActiveLocations { get; private set; }
     public Location CurrentLocation { get; set; }
     public List<HeroItem> ShopItems { get; private set; }
+    public bool Achievement_BETA_Finish { get; set; } // TESTING
 
     /* GAME_MANAGER_DATA */
     // Universal
@@ -81,8 +82,8 @@ public class GameManager : MonoBehaviour
 
     // Enemy
     public const string ENEMY = "Enemy";
-    public const int ENEMY_STARTING_HEALTH = 20;
-    //public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
+    //public const int ENEMY_STARTING_HEALTH = 20;
+    public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
     public const int BOSS_BONUS_HEALTH = 10;
     public const int ENEMY_HAND_SIZE = 0;
     public const int ENEMY_START_FOLLOWERS = 5;
@@ -107,7 +108,7 @@ public class GameManager : MonoBehaviour
         ActiveNPCHeroes = new List<NPCHero>();
         ActiveLocations = new List<Location>();
         ShopItems = new List<HeroItem>();
-        StartTitleScene(); // TESTING
+        StartTitleScene();
     }
 
     /******
@@ -184,14 +185,25 @@ public class GameManager : MonoBehaviour
 
         GameData data = new GameData(HideExplicitLanguage, pMan.PlayerHero.HeroName,
             deckList, augments, items, pMan.AetherCells, npcsAndClips, locationsNPCsObjectives,
-            shopItems, recruitMages, recruitRogues, recruitTechs, recruitWarriors);
+            shopItems, recruitMages, recruitRogues, recruitTechs, recruitWarriors,
+            Achievement_BETA_Finish);
         SaveLoad.SaveGame(data);
     }
-    public bool LoadGame(bool isPrecheck = false)
+    public bool LoadGame(bool isPrecheck = false, int achievment = 0)
     {
         GameData data = SaveLoad.LoadGame();
         if (data == null) return false;
-        else if (isPrecheck) return true;
+        else if (isPrecheck)
+        {
+            // ACHIEVEMENTS
+            switch (achievment)
+            {
+                case 1:
+                    Achievement_BETA_Finish = data.Achievement_BETA_Finish;
+                    break;
+            }
+            return true;
+        }
 
         /** LOAD RESOURCES **/
         // HEROES
@@ -296,6 +308,9 @@ public class GameManager : MonoBehaviour
         caMan.PlayerRecruitWarriors.Clear();
         for (int i = 0; i < data.RecruitWarriors.Length; i++)
             caMan.PlayerRecruitWarriors.Add(GetCard(data.RecruitWarriors[i]) as UnitCard);
+
+        // ACHIEVEMENTS
+        Achievement_BETA_Finish = data.Achievement_BETA_Finish;
 
         Hero GetHero(string heroName)
         {

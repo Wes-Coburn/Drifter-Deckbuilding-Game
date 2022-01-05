@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CombatTestButton : MonoBehaviour
@@ -15,6 +16,14 @@ public class CombatTestButton : MonoBehaviour
     [SerializeField] private Card[] testCards_3;
     [SerializeField] private bool enableTestCards_4;
     [SerializeField] private Card[] testCards_4;
+
+    private void Start()
+    {
+        // FOR BETA ONLY
+        GameManager gMan = GameManager.Instance;
+        gMan.LoadGame(true, 1);
+        gameObject.SetActive(gMan.Achievement_BETA_Finish);
+    }
 
     public void OnClick()
     {
@@ -53,8 +62,11 @@ public class CombatTestButton : MonoBehaviour
                 CardManager.Instance.AddCard(c, GameManager.PLAYER);
         }
         // Test Items
-        foreach (HeroItem i in testItems)
-            pMan.HeroItems.Add(i);
+        HeroItem[] items = new HeroItem[testItems.Length];
+        testItems.CopyTo(items, 0);
+        items.Shuffle();
+        for (int i = 0; i < 5; i++)
+            pMan.HeroItems.Add(items[i]);
 
         CardManager caMan = CardManager.Instance;
         foreach (UnitCard uc in caMan.PlayerStartUnits)

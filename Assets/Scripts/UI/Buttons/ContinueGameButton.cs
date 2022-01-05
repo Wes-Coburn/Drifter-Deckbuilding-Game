@@ -5,8 +5,8 @@ public class ContinueGameButton : MonoBehaviour
 {
     private void Start()
     {
-        GetComponent<Button>().interactable =
-            GameManager.Instance.LoadGame(true);
+        bool savedGame = GameManager.Instance.LoadGame(true);
+        GetComponent<Button>().interactable = savedGame;
     }
 
     public void OnClick()

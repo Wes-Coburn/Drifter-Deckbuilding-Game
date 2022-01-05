@@ -29,7 +29,7 @@ MonoBehaviour:
     responseText: (Continue)
     response_NextClip: {fileID: 11400000, guid: 15e4fabee28c8d64a9dc2e1fcd11d162,
       type: 2}
-    npc_NextClip: {fileID: 0}
+    npc_NextClip: {fileID: 11400000}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
@@ -53,5 +53,5 @@ MonoBehaviour:
   newCard: {fileID: 0}
   aetherCells: 0
   newLocations:
-  - Location: {fileID: 0}
+  - Location: {fileID: 11400000, guid: 4ac7f2aaf22f35249abcf731f83e55e7, type: 2}
     NewNpc: {fileID: 0}

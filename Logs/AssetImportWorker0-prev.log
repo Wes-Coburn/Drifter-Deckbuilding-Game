@@ -15,11 +15,11 @@ C:/Users/wgCob/OneDrive/Documents/Programming/Unity/Drifter (Unity 2D)
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-53912
+50147
 Successfully changed project path to: C:/Users/wgCob/OneDrive/Documents/Programming/Unity/Drifter (Unity 2D)
 C:/Users/wgCob/OneDrive/Documents/Programming/Unity/Drifter (Unity 2D)
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 84.47 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 101.73 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.5f1 (8095aa901b9b)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/Resources/UnitySubsystems
@@ -35,655 +35,1854 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56852
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56272
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.001840 seconds.
+Registered in 0.002075 seconds.
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 88.43 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 102.25 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.000 seconds
+- Completed reload, in  1.176 seconds
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.001474 seconds.
+Registered in 0.001539 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 82.31 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 116.73 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.908 seconds
+- Completed reload, in  1.094 seconds
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.03 seconds
-Refreshing native plugins compatible for Editor in 0.89 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 1.52 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 1952 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 94.5 MB.
 System memory in use after: 94.6 MB.
 
 Unloading 18 unused Assets to reduce memory usage. Loaded Objects now: 2406.
-Total: 2.158800 ms (FindLiveObjects: 0.465200 ms CreateObjectMapping: 0.218400 ms MarkObjects: 1.455800 ms  DeleteObjects: 0.018500 ms)
+Total: 4.329600 ms (FindLiveObjects: 0.478500 ms CreateObjectMapping: 0.231200 ms MarkObjects: 3.569200 ms  DeleteObjects: 0.049100 ms)
 
 ========================================================================
 Received Import Request.
-  path: Assets/Resources/Cards/Actions/Skills/Yergov, Biochemist
-  artifactKey: Guid(c6a33428cbfc25b49a65fda1778e9b7e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards/Actions/Skills/Yergov, Biochemist using Guid(c6a33428cbfc25b49a65fda1778e9b7e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9d35a827d17b107bca4b75b02c7d1488') in 0.005054 seconds
-  Import took 0.009443 seconds .
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 1/Humanoid Large 1 - Long 2.wav
+  artifactKey: Guid(870200dacb7553b4baad30ff402265bf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 1/Humanoid Large 1 - Long 2.wav using Guid(870200dacb7553b4baad30ff402265bf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '04fcca8c203bb646fdc5efae8ca1a99a') in 0.121064 seconds
+  Import took 0.127366 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.982080 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 1/Humanoid Large 1 - Long 3.wav
+  artifactKey: Guid(b3fc71d6e8a43e44287c40aa146b5777) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 1/Humanoid Large 1 - Long 3.wav using Guid(b3fc71d6e8a43e44287c40aa146b5777) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '28402c21d0b2af18eea800856e825251') in 0.008585 seconds
+  Import took 0.013602 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.225402 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 1/Humanoid Large 1 - Long 4.wav
+  artifactKey: Guid(a4271eb760b764c4890d0c716f36e111) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 1/Humanoid Large 1 - Long 4.wav using Guid(a4271eb760b764c4890d0c716f36e111) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd65262c1ff0179ee4b1abf394a66e220') in 0.008847 seconds
+  Import took 0.014191 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.977762 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 1/Humanoid Large 1 - Long 5.wav
+  artifactKey: Guid(f73fd71eb8db29f48a81a25e28d08b94) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 1/Humanoid Large 1 - Long 5.wav using Guid(f73fd71eb8db29f48a81a25e28d08b94) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '966fa4826332be519d5ab9612586bab6') in 0.006612 seconds
+  Import took 0.011398 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.326428 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 1/Humanoid Large 1 - Long 6.wav
+  artifactKey: Guid(cdccd2296e182a046b1a0c980fc91b3f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 1/Humanoid Large 1 - Long 6.wav using Guid(cdccd2296e182a046b1a0c980fc91b3f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '91b9d16f8aa0c0f7dc5cddd4e8eb5eee') in 0.006556 seconds
+  Import took 0.011668 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 4.830222 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 1/Humanoid Large 1 - Long 7.wav
+  artifactKey: Guid(8851654ae8b8b5a43abae44e701a52d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 1/Humanoid Large 1 - Long 7.wav using Guid(8851654ae8b8b5a43abae44e701a52d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1fdcf4ce91530bb203faeb556d0c15ba') in 0.006998 seconds
+  Import took 0.012029 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.401518 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 1/Humanoid Large 1 - Long 8.wav
+  artifactKey: Guid(62900b4d22d5198438f91f3a01a6a8ef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 1/Humanoid Large 1 - Long 8.wav using Guid(62900b4d22d5198438f91f3a01a6a8ef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ea5750f680ba1c3adcce12febd7a5a78') in 0.007232 seconds
+  Import took 0.013066 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.934430 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 1/Humanoid Large 1 - Short 1.wav
+  artifactKey: Guid(b799852ea5c5d2b488d4f516eab540e1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 1/Humanoid Large 1 - Short 1.wav using Guid(b799852ea5c5d2b488d4f516eab540e1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0c54e524654e66f24a7367c1ce41a824') in 0.006921 seconds
+  Import took 0.012085 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.052345 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 1/Humanoid Large 1 - Short 2.wav
+  artifactKey: Guid(f590c663d711f354e9f4863353ab0df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 1/Humanoid Large 1 - Short 2.wav using Guid(f590c663d711f354e9f4863353ab0df6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2b5f69f59211e93abc4735e9318d0f8a') in 0.006420 seconds
+  Import took 0.012763 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.246252 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 1/Humanoid Large 1 - Short 3.wav
+  artifactKey: Guid(7b8794d49955f7846a70292eb776c73b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 1/Humanoid Large 1 - Short 3.wav using Guid(7b8794d49955f7846a70292eb776c73b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e9c11b66927607a1360cfb11a482a5a2') in 0.006126 seconds
+  Import took 0.010235 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.780493 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 1/Humanoid Large 1 - Short 4.wav
+  artifactKey: Guid(ca9b40c505d39ac4ca2fa6f365f615dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 1/Humanoid Large 1 - Short 4.wav using Guid(ca9b40c505d39ac4ca2fa6f365f615dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a1dc6f1179f0d8936256ec68215124a2') in 0.006457 seconds
+  Import took 0.010849 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.384311 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 1/Humanoid Large 1 - Short 5.wav
+  artifactKey: Guid(e68c8ec31dcb16e4483ff4a4e8c230dc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 1/Humanoid Large 1 - Short 5.wav using Guid(e68c8ec31dcb16e4483ff4a4e8c230dc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '61730b9ffab259dce054f3be8b1fa96a') in 0.006176 seconds
+  Import took 0.011348 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 8.994297 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 2/Humanoid Large 2 - Long 1.wav
+  artifactKey: Guid(6e8fe764fff939642be111f665c81f45) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 2/Humanoid Large 2 - Long 1.wav using Guid(6e8fe764fff939642be111f665c81f45) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '277caaac5db1dd04855105168c234545') in 0.006208 seconds
+  Import took 0.009801 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.582167 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 2/Humanoid Large 2 - Long 2.wav
+  artifactKey: Guid(d23cbfb5c84b2924bb053bd2b219cc1e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 2/Humanoid Large 2 - Long 2.wav using Guid(d23cbfb5c84b2924bb053bd2b219cc1e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cd5291b1aa897c8bb75f67f1452a2d5c') in 0.008013 seconds
+  Import took 0.012948 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.735677 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 2/Humanoid Large 2 - Long 3.wav
+  artifactKey: Guid(55406ef3d0eb68d4a97e7457d2fe421a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 2/Humanoid Large 2 - Long 3.wav using Guid(55406ef3d0eb68d4a97e7457d2fe421a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f0064cf6a4ad1ddc4a18d3d73a027e10') in 0.006507 seconds
+  Import took 0.010533 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.456929 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 2/Humanoid Large 2 - Long 5.wav
+  artifactKey: Guid(d37d9e8ea473ad740afd4ead7afa1b2d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 2/Humanoid Large 2 - Long 5.wav using Guid(d37d9e8ea473ad740afd4ead7afa1b2d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a329eacc0483b1eb5ab6b300941e02be') in 0.006993 seconds
+  Import took 0.012926 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.958410 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 2/Humanoid Large 2 - Long 6.wav
+  artifactKey: Guid(4fa77c27930bb1e45b930cba042db1a6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 2/Humanoid Large 2 - Long 6.wav using Guid(4fa77c27930bb1e45b930cba042db1a6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f8141c9b77a59f6265b33c73bb51a321') in 0.007455 seconds
+  Import took 0.012793 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.832558 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 2/Humanoid Large 2 - Long 7.wav
+  artifactKey: Guid(60025d644a4df94459fd6127b1f6d716) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 2/Humanoid Large 2 - Long 7.wav using Guid(60025d644a4df94459fd6127b1f6d716) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e738e5dec8d336e1ffaa8f3ca58d2d2e') in 0.006303 seconds
+  Import took 0.012005 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.858427 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 3/Humanoid Large 3 - Laugh.wav
+  artifactKey: Guid(cd297dd94876e464484e5c6cfd4c5ac0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 3/Humanoid Large 3 - Laugh.wav using Guid(cd297dd94876e464484e5c6cfd4c5ac0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9389686efcc34660254f9bc1ba859e26') in 0.005879 seconds
+  Import took 0.010143 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.447331 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 3/Humanoid Large 3 - Long 01.wav
+  artifactKey: Guid(7a17535662f734643b583d63a3be5e6a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 3/Humanoid Large 3 - Long 01.wav using Guid(7a17535662f734643b583d63a3be5e6a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b613f8d2831a86dda03270fbfc6e7479') in 0.006993 seconds
+  Import took 0.012286 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.251429 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 3/Humanoid Large 3 - Long 02.wav
+  artifactKey: Guid(14886375b64461846834cbad6d0ab0ed) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 3/Humanoid Large 3 - Long 02.wav using Guid(14886375b64461846834cbad6d0ab0ed) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '264cf04799486428d89ba8b8964670f8') in 0.006310 seconds
+  Import took 0.011962 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.544064 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 3/Humanoid Large 3 - Long 03.wav
+  artifactKey: Guid(ff8873a9584ac4741ba153f56183d0d5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 3/Humanoid Large 3 - Long 03.wav using Guid(ff8873a9584ac4741ba153f56183d0d5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '48f0561c880d87b18301a576a82247b8') in 0.006866 seconds
+  Import took 0.014299 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.210981 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 3/Humanoid Large 3 - Long 04.wav
+  artifactKey: Guid(99e12abd88b353340a501d7db5039617) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 3/Humanoid Large 3 - Long 04.wav using Guid(99e12abd88b353340a501d7db5039617) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '185376be3c35112eef9e8d07ac0856c5') in 0.006698 seconds
+  Import took 0.011352 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.161023 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 3/Humanoid Large 3 - Long 05.wav
+  artifactKey: Guid(468e2cac664d6194ebb75aa7162afd44) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 3/Humanoid Large 3 - Long 05.wav using Guid(468e2cac664d6194ebb75aa7162afd44) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6cbde2d2500d6679a205d169066e124b') in 0.007557 seconds
+  Import took 0.012351 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.153341 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 3/Humanoid Large 3 - Long 06.wav
+  artifactKey: Guid(f24ae268a908d1c4ab63f04dfeca102e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 3/Humanoid Large 3 - Long 06.wav using Guid(f24ae268a908d1c4ab63f04dfeca102e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b567a0a3151768f76e4b47adc9853871') in 0.006786 seconds
+  Import took 0.010471 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.158069 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 3/Humanoid Large 3 - Long 07.wav
+  artifactKey: Guid(5e9b246921b90844f9cfaa0b147b6d59) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 3/Humanoid Large 3 - Long 07.wav using Guid(5e9b246921b90844f9cfaa0b147b6d59) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7df2cc8faf6160adc6d90132c239251c') in 0.006970 seconds
+  Import took 0.012232 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.126935 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 3/Humanoid Large 3 - Long 08.wav
+  artifactKey: Guid(462aa441e22edf248a03d1ffd2b6fb99) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 3/Humanoid Large 3 - Long 08.wav using Guid(462aa441e22edf248a03d1ffd2b6fb99) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'acf83e823974759f79370d5055f4147e') in 0.007904 seconds
+  Import took 0.013057 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.167948 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 3/Humanoid Large 3 - Long 09.wav
+  artifactKey: Guid(7ea77c59bac0604479ab01bd39643d42) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 3/Humanoid Large 3 - Long 09.wav using Guid(7ea77c59bac0604479ab01bd39643d42) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bcf1f4763e392a82a30dd9ce5621426f') in 0.005973 seconds
+  Import took 0.010814 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.160424 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 3/Humanoid Large 3 - Long 10.wav
+  artifactKey: Guid(496c09b77ab56b14a92856233395572f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 3/Humanoid Large 3 - Long 10.wav using Guid(496c09b77ab56b14a92856233395572f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '10dbf8a3b4e85bb920443b388b7c30ad') in 0.006005 seconds
+  Import took 0.009659 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.157588 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 3/Humanoid Large 3 - Long 11.wav
+  artifactKey: Guid(69582f838b5b04045a387dac53b96a6a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 3/Humanoid Large 3 - Long 11.wav using Guid(69582f838b5b04045a387dac53b96a6a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c71a3724871f08dbff96e5af05c53fff') in 0.006165 seconds
+  Import took 0.011151 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.160619 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 3/Humanoid Large 3 - Long 12.wav
+  artifactKey: Guid(a9a44bcdc546967499719628b46d8bb2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 3/Humanoid Large 3 - Long 12.wav using Guid(a9a44bcdc546967499719628b46d8bb2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dfe0f2155889341c64d8bde124a73da1') in 0.028327 seconds
+  Import took 0.032040 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.125203 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 3/Humanoid Large 3 - Long 13.wav
+  artifactKey: Guid(257926edda7b5a241ae7bfda3078de69) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 3/Humanoid Large 3 - Long 13.wav using Guid(257926edda7b5a241ae7bfda3078de69) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e44d4f02f19aacbabbc92af66ad451e1') in 0.005970 seconds
+  Import took 0.011150 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.135860 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 3/Humanoid Large 3 - Short 1.wav
+  artifactKey: Guid(0a4cebc123ee13948af7b8503fd941a3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 3/Humanoid Large 3 - Short 1.wav using Guid(0a4cebc123ee13948af7b8503fd941a3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '60290a435dd51389ad4db2ce9c15b7f4') in 0.006235 seconds
+  Import took 0.010451 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.128553 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 3/Humanoid Large 3 - Short 2.wav
+  artifactKey: Guid(e909a15f705538a468d6e977eb774163) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 3/Humanoid Large 3 - Short 2.wav using Guid(e909a15f705538a468d6e977eb774163) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '194afd4ba276bccad7638c25456f15a7') in 0.007610 seconds
+  Import took 0.013778 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.254387 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 4/Humanoid Large 4 - Long 5.wav
+  artifactKey: Guid(414d0112c02de8c45ae6801abcafb385) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 4/Humanoid Large 4 - Long 5.wav using Guid(414d0112c02de8c45ae6801abcafb385) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9ee2139731d7942355260115ef40ad00') in 0.007012 seconds
+  Import took 0.011977 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.786474 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 4/Humanoid Large 4 - Laugh.wav
+  artifactKey: Guid(80ee75d51e828c6459a24ea3ca425dc1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 4/Humanoid Large 4 - Laugh.wav using Guid(80ee75d51e828c6459a24ea3ca425dc1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ce266a390e0db5a0c37f4265129c7973') in 0.008073 seconds
+  Import took 0.012739 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.917272 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 4/Humanoid Large 4 - Long 1.wav
+  artifactKey: Guid(443d581ea0a411f48864ecb7a0ea6093) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 4/Humanoid Large 4 - Long 1.wav using Guid(443d581ea0a411f48864ecb7a0ea6093) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '802c95ca8cea7107d971abebfc24acbe') in 0.008529 seconds
+  Import took 0.013197 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.729815 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 4/Humanoid Large 4 - Long 2.wav
+  artifactKey: Guid(c1829a72e9e0a3644a70b160f838215d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 4/Humanoid Large 4 - Long 2.wav using Guid(c1829a72e9e0a3644a70b160f838215d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b6dce694e43a7127ca69cdc8057469aa') in 0.006157 seconds
+  Import took 0.011179 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.571743 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 4/Humanoid Large 4 - Long 3.wav
+  artifactKey: Guid(bdc3cdd22d5a73f4088bf382df29fa05) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 4/Humanoid Large 4 - Long 3.wav using Guid(bdc3cdd22d5a73f4088bf382df29fa05) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '617d4c5fe5ab0d61587f18aa164649d9') in 0.006122 seconds
+  Import took 0.009567 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.536539 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 4/Humanoid Large 4 - Long 4.wav
+  artifactKey: Guid(5424660de3c8afc4fac6aa9dfe6e4b51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 4/Humanoid Large 4 - Long 4.wav using Guid(5424660de3c8afc4fac6aa9dfe6e4b51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '89332590767e93f065cd7bb6238a9d60') in 0.008383 seconds
+  Import took 0.013493 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.485567 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 4/Humanoid Large 4 - Long 6.wav
+  artifactKey: Guid(e308b3f92a1533a4ab2910d0e2d445f5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 4/Humanoid Large 4 - Long 6.wav using Guid(e308b3f92a1533a4ab2910d0e2d445f5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a79af29ebbf25fa1d9102d1a49a92d1a') in 0.006415 seconds
+  Import took 0.010116 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.760497 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 4/Humanoid Large 4 - Long 7.wav
+  artifactKey: Guid(26cbf0a66cdf73c458e64f6ee797936b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Large 4/Humanoid Large 4 - Long 7.wav using Guid(26cbf0a66cdf73c458e64f6ee797936b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cceeb5e028e0d1e80fec979997df5966') in 0.006879 seconds
+  Import took 0.010425 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 91.275610 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 01/Large Creature 1 - Long 1.wav
+  artifactKey: Guid(1668664dd9e85a9498565fdcf6148586) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 01/Large Creature 1 - Long 1.wav using Guid(1668664dd9e85a9498565fdcf6148586) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9dafbb16d73cfa28e6d73d2ad8e50b17') in 0.010077 seconds
+  Import took 0.014402 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.366419 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 01/Large Creature 1 - Long 2.wav
+  artifactKey: Guid(8695cb13e60e5b641a1034a7127576e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 01/Large Creature 1 - Long 2.wav using Guid(8695cb13e60e5b641a1034a7127576e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '43c6b1c66613d042e03f09fb5bbb7836') in 0.007103 seconds
+  Import took 0.010673 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.914739 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 01/Large Creature 1 - Long 3.wav
+  artifactKey: Guid(b44f9c46332297648b3fc91425c175a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 01/Large Creature 1 - Long 3.wav using Guid(b44f9c46332297648b3fc91425c175a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '62ec101e734c4a295a84831e46c0d417') in 0.007796 seconds
+  Import took 0.013698 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.649402 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 01/Large Creature 1 - Long 4.wav
+  artifactKey: Guid(c0b4bf2720a6d2c4786d21afca38976a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 01/Large Creature 1 - Long 4.wav using Guid(c0b4bf2720a6d2c4786d21afca38976a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e9f766bbd406691a21da99e25852f8d4') in 0.006765 seconds
+  Import took 0.011151 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.492045 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 01/Large Creature 1 - Long 5.wav
+  artifactKey: Guid(19de574d32a87ac4fa0702ba3fb6d2e4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 01/Large Creature 1 - Long 5.wav using Guid(19de574d32a87ac4fa0702ba3fb6d2e4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fd318e792fd674baa7962cd7022d7ea6') in 0.007425 seconds
+  Import took 0.012330 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.438454 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 01/Large Creature 1 - Long 6.wav
+  artifactKey: Guid(661828dee0a00254286a2912811c1854) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 01/Large Creature 1 - Long 6.wav using Guid(661828dee0a00254286a2912811c1854) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5361640cd67b5d478c35c85b949450f7') in 0.007279 seconds
+  Import took 0.011496 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.859494 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 01/Large Creature 1 - Long 7.wav
+  artifactKey: Guid(249681a17f355c84db3e07c26bdaa2b1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 01/Large Creature 1 - Long 7.wav using Guid(249681a17f355c84db3e07c26bdaa2b1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8169ddc0e280bb90fd42c3ce6054b37c') in 0.006505 seconds
+  Import took 0.011249 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 17.594240 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 01/Large Creature 1 - Short 1.wav
+  artifactKey: Guid(83c16dc09cf46f545a48cd9c744902d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 01/Large Creature 1 - Short 1.wav using Guid(83c16dc09cf46f545a48cd9c744902d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c4c64c98872b48bd484b5505e2f11e55') in 0.007437 seconds
+  Import took 0.011264 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 64.681541 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 01/Large Creature 1 - Short 2.wav
+  artifactKey: Guid(b2044ec1a5dc9aa4a8f9f58c0914b035) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 01/Large Creature 1 - Short 2.wav using Guid(b2044ec1a5dc9aa4a8f9f58c0914b035) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c1d841603b86f9fd52e95852b58126ba') in 0.007625 seconds
+  Import took 0.013335 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.422245 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 01/Large Creature 1 - Short 3.wav
+  artifactKey: Guid(f6b0476cd486ec947851727a4e6ba417) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 01/Large Creature 1 - Short 3.wav using Guid(f6b0476cd486ec947851727a4e6ba417) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '09d98617fb68a11ca9fd997476a8b035') in 0.006661 seconds
+  Import took 0.013245 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 12.897076 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 01/Large Creature 1 - Short 4.wav
+  artifactKey: Guid(5de53675fd1b04343b3953990d0e2026) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 01/Large Creature 1 - Short 4.wav using Guid(5de53675fd1b04343b3953990d0e2026) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b4cdd7a3562005c5caadfc219183a603') in 0.008926 seconds
+  Import took 0.012897 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.356244 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 01/Large Creature 1 - Short 5.wav
+  artifactKey: Guid(fe76a1f6106874141b016a1f0ad3a309) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 01/Large Creature 1 - Short 5.wav using Guid(fe76a1f6106874141b016a1f0ad3a309) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6375c7c62ce8722d14faf469c864efd5') in 0.006399 seconds
+  Import took 0.011659 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 23.655142 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 01/Large Creature 1 - Long 8.wav
+  artifactKey: Guid(bcb71c365eaec8b429f9fb777c83c2b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 01/Large Creature 1 - Long 8.wav using Guid(bcb71c365eaec8b429f9fb777c83c2b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '724feb5303b70543c6c2659697c65126') in 0.007454 seconds
+  Import took 0.014215 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 60.263005 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 1/Zombie 1_01.wav
+  artifactKey: Guid(f85db8235bdc81245b48694e82a68767) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 1/Zombie 1_01.wav using Guid(f85db8235bdc81245b48694e82a68767) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e1cb9bd08f0fc0368e7a34a15673627c') in 0.011097 seconds
+  Import took 0.017119 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001506 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 1/Zombie 1_04.wav
+  artifactKey: Guid(595f14f7426d04b48adb080409d3a156) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 1/Zombie 1_04.wav using Guid(595f14f7426d04b48adb080409d3a156) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd535ac8f00cd3f87958e559f9a404eed') in 0.006417 seconds
+  Import took 0.011486 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000419 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 1/Zombie 1_02.wav
+  artifactKey: Guid(47d6daaa17bd6fe42a4310e3d3b2fcbc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 1/Zombie 1_02.wav using Guid(47d6daaa17bd6fe42a4310e3d3b2fcbc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd10ef42293045411baef808dea943702') in 0.007441 seconds
+  Import took 0.013439 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000452 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 1/Zombie 1_13.wav
+  artifactKey: Guid(9966edf3a560e15458b731b6177568b7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 1/Zombie 1_13.wav using Guid(9966edf3a560e15458b731b6177568b7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c1b93aa70bcb8a9c182607caeafdde64') in 0.008292 seconds
+  Import took 0.014166 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000238 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 1/Zombie 1_12.wav
+  artifactKey: Guid(45401d654c029684ca05db213285af3c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 1/Zombie 1_12.wav using Guid(45401d654c029684ca05db213285af3c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4f0ca2499a744b602009948015455e67') in 0.007415 seconds
+  Import took 0.011540 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000363 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 1/Zombie 1_11.wav
+  artifactKey: Guid(1976d2d5a8f74344aa3cd8b829c91031) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 1/Zombie 1_11.wav using Guid(1976d2d5a8f74344aa3cd8b829c91031) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6a62f74bb7cb85376f09d77b38aed42f') in 0.008688 seconds
+  Import took 0.013825 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000509 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 1/Zombie 1_07.wav
+  artifactKey: Guid(d0c3b0bfaa0f8f64c889d093727bee35) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 1/Zombie 1_07.wav using Guid(d0c3b0bfaa0f8f64c889d093727bee35) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'da2e6c23640f812c12fe62f43e695914') in 0.011119 seconds
+  Import took 0.015963 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000415 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 1/Zombie 1_10.wav
+  artifactKey: Guid(9cc5353d3594f0c48a4eb836fc23dd97) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 1/Zombie 1_10.wav using Guid(9cc5353d3594f0c48a4eb836fc23dd97) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '17f38d9aff7da5b3c1d47990500fe1e7') in 0.009296 seconds
+  Import took 0.013450 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000282 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 1/Zombie 1_14.wav
+  artifactKey: Guid(0a1757f8a9bf1cf4fa707a7897000d55) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 1/Zombie 1_14.wav using Guid(0a1757f8a9bf1cf4fa707a7897000d55) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6606d9b0af93f323ce0b769801bc5cee') in 0.009865 seconds
+  Import took 0.014383 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000328 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 1/Zombie 1_15.wav
+  artifactKey: Guid(6754bf97d405c2e4ca1c274b8354b9e9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 1/Zombie 1_15.wav using Guid(6754bf97d405c2e4ca1c274b8354b9e9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e3cf084d98e46f6a0415a779471bbf5d') in 0.007942 seconds
+  Import took 0.013305 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000395 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 1/Zombie 1_05.wav
+  artifactKey: Guid(e1133f43bc8820b44bb22072fc849ab3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 1/Zombie 1_05.wav using Guid(e1133f43bc8820b44bb22072fc849ab3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '07979a69e90e8a4eb44526b434507bf9') in 0.009030 seconds
+  Import took 0.013611 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000378 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 1/Zombie 1_06.wav
+  artifactKey: Guid(c7bd57922f10a3148b953fcabcce3f54) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 1/Zombie 1_06.wav using Guid(c7bd57922f10a3148b953fcabcce3f54) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '333f35a0c0f907327305225b8f72e994') in 0.006628 seconds
+  Import took 0.011939 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000248 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 1/Zombie 1_03.wav
+  artifactKey: Guid(7e0f1c0d99ad8da4daad3eb2a0b19fd9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 1/Zombie 1_03.wav using Guid(7e0f1c0d99ad8da4daad3eb2a0b19fd9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '282fb5f1a2ef30dbebe92565e4b76a69') in 0.008066 seconds
+  Import took 0.011961 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000268 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 1/Zombie 1_08.wav
+  artifactKey: Guid(b6e35e90c8da8ca4eb0cd5b4b0223dd6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 1/Zombie 1_08.wav using Guid(b6e35e90c8da8ca4eb0cd5b4b0223dd6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '38d36f382a7f37dee9fec363d2938945') in 0.006949 seconds
+  Import took 0.012547 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000293 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 1/Zombie 1_09.wav
+  artifactKey: Guid(3824f145e1a6d2b448be9a786b0903eb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 1/Zombie 1_09.wav using Guid(3824f145e1a6d2b448be9a786b0903eb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a7b8d481c9f32538165b706e9229720b') in 0.010041 seconds
+  Import took 0.014072 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 58.313401 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 08/Large Creature 8 - Long 01.wav
+  artifactKey: Guid(bc862a856c6c1b5468c156f8a2979308) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 08/Large Creature 8 - Long 01.wav using Guid(bc862a856c6c1b5468c156f8a2979308) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6a642abac7c4a7282307213ac3d90ae5') in 0.006497 seconds
+  Import took 0.009838 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 29.086398 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 02/Large Creature 2 - Long 1.wav
+  artifactKey: Guid(bbb61f675922c8b42bc124285da11659) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 02/Large Creature 2 - Long 1.wav using Guid(bbb61f675922c8b42bc124285da11659) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'effda98309590c96bc3142d2337b0db2') in 0.008995 seconds
+  Import took 0.014001 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.251910 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 02/Large Creature 2 - Long 2.wav
+  artifactKey: Guid(ec9843ed0e51d8c478ab3b7a06aec734) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 02/Large Creature 2 - Long 2.wav using Guid(ec9843ed0e51d8c478ab3b7a06aec734) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0bf28fd8b4ce1200c7873c676e5582d7') in 0.008286 seconds
+  Import took 0.014568 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.564835 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 02/Large Creature 2 - Long 3.wav
+  artifactKey: Guid(4f887ee9985c58847aa36200c34efd32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 02/Large Creature 2 - Long 3.wav using Guid(4f887ee9985c58847aa36200c34efd32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8793f59f5d2a2fdd118676c9becd043c') in 0.006221 seconds
+  Import took 0.010557 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.120479 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 02/Large Creature 2 - Long 4.wav
+  artifactKey: Guid(2713c0f0c4414364090552d3f8378f83) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 02/Large Creature 2 - Long 4.wav using Guid(2713c0f0c4414364090552d3f8378f83) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7ed1776aad92b423134794beffd43deb') in 0.006569 seconds
+  Import took 0.012401 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.888932 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 02/Large Creature 2 - Long 5.wav
+  artifactKey: Guid(4678576b6fb026448a04ce81f049264b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 02/Large Creature 2 - Long 5.wav using Guid(4678576b6fb026448a04ce81f049264b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ea87a6c3e31f079947205c3e0267e5b3') in 0.007603 seconds
+  Import took 0.011510 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.073132 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 02/Large Creature 2 - Long 6.wav
+  artifactKey: Guid(db87dc10757ff644eaa0885c9603120a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 02/Large Creature 2 - Long 6.wav using Guid(db87dc10757ff644eaa0885c9603120a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4dfe9942676ece119cbe66814218f95f') in 0.007263 seconds
+  Import took 0.012199 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.292854 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 02/Large Creature 2 - Long 7.wav
+  artifactKey: Guid(aa911435d1e6d3c429dbb6c314657f17) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 02/Large Creature 2 - Long 7.wav using Guid(aa911435d1e6d3c429dbb6c314657f17) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aa3cbdd22eeaa7497cf2109e58205413') in 0.006333 seconds
+  Import took 0.011023 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.089806 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 02/Large Creature 2 - Long 8.wav
+  artifactKey: Guid(e7c6b29cd85ff4648a3f20ad8a7557fe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 02/Large Creature 2 - Long 8.wav using Guid(e7c6b29cd85ff4648a3f20ad8a7557fe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '042b9b53d6523b83c4aa6799ee51da1b') in 0.007244 seconds
+  Import took 0.012094 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 5.050706 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 03/Large Creature 3 - Long 1.wav
+  artifactKey: Guid(d57fe85ad28aefd4390f4ba387b35dde) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 03/Large Creature 3 - Long 1.wav using Guid(d57fe85ad28aefd4390f4ba387b35dde) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '03cb6ebc94c56d8885e43ab20b15ff0d') in 0.006855 seconds
+  Import took 0.011830 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.385142 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 03/Large Creature 3 - Long 2.wav
+  artifactKey: Guid(d53ea9545822afe4e8f85826604cee37) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 03/Large Creature 3 - Long 2.wav using Guid(d53ea9545822afe4e8f85826604cee37) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '88fe429d4624bfb18b02b36f58309d8d') in 0.006257 seconds
+  Import took 0.011045 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.036796 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 03/Large Creature 3 - Long 3.wav
+  artifactKey: Guid(8e71cd1e57cb06242bd937d697b8039f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 03/Large Creature 3 - Long 3.wav using Guid(8e71cd1e57cb06242bd937d697b8039f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ef9db77dd017caccb740ceb5ffbd6741') in 0.006346 seconds
+  Import took 0.011307 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.795266 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 03/Large Creature 3 - Long 4.wav
+  artifactKey: Guid(7ef5827f9d8b0824c93ecc0f52aa4897) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 03/Large Creature 3 - Long 4.wav using Guid(7ef5827f9d8b0824c93ecc0f52aa4897) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2b335cf7d8b83872161550099a08f606') in 0.006592 seconds
+  Import took 0.010692 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.821488 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 03/Large Creature 3 - Long 5.wav
+  artifactKey: Guid(f0f10c24eca3a614bac325d6e683eb17) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 03/Large Creature 3 - Long 5.wav using Guid(f0f10c24eca3a614bac325d6e683eb17) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a5c97659b2a860e7c1f8e457dbe117fe') in 0.007421 seconds
+  Import took 0.011962 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.158411 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 04/Large Creature 4 - Long 2.wav
+  artifactKey: Guid(5cff1c2f4b179fc46abcf38695cb7df4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 04/Large Creature 4 - Long 2.wav using Guid(5cff1c2f4b179fc46abcf38695cb7df4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '98f0d8f20fd6bed6a3961328ced5da61') in 0.008226 seconds
+  Import took 0.013667 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.688020 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 04/Large Creature 4 - Long 1.wav
+  artifactKey: Guid(91a0aef6946ffc444aea370ebe95fa15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 04/Large Creature 4 - Long 1.wav using Guid(91a0aef6946ffc444aea370ebe95fa15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e5a8d477ba2d016626a0effc3113f69e') in 0.006231 seconds
+  Import took 0.010081 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 4.160712 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 04/Large Creature 4 - Long 3.wav
+  artifactKey: Guid(f01fe2a20036e1f4098c690f5871f0f2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 04/Large Creature 4 - Long 3.wav using Guid(f01fe2a20036e1f4098c690f5871f0f2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1c9be6cbf30acae8e2793264904e34f8') in 0.006701 seconds
+  Import took 0.012722 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.794908 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 05/Large Creature 5 - Long 2.wav
+  artifactKey: Guid(e0ec8a19d4a7a6443808c1924bd5ae2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 05/Large Creature 5 - Long 2.wav using Guid(e0ec8a19d4a7a6443808c1924bd5ae2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c8491aa7148076fc218b5edfc4617ca1') in 0.006313 seconds
+  Import took 0.010635 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.498290 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 05/Large Creature 5 - Long 1.wav
+  artifactKey: Guid(569d881f8d9ff77439c5de5d160a4c3f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 05/Large Creature 5 - Long 1.wav using Guid(569d881f8d9ff77439c5de5d160a4c3f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5dc2d6597865fbb513425bed994c7d52') in 0.006322 seconds
+  Import took 0.011600 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 48.923941 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 1_3.wav
+  artifactKey: Guid(42df765963a22e84987af2bd42ff99dc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 1_3.wav using Guid(42df765963a22e84987af2bd42ff99dc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '801c6d3e628aab6f5d4eccb744e2b9a0') in 0.006641 seconds
+  Import took 0.010193 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.453926 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 1_2.wav
+  artifactKey: Guid(ad61b5d3e6b23034cbbc452de40d69c0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 1_2.wav using Guid(ad61b5d3e6b23034cbbc452de40d69c0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'de798b98d31f8cff02c90070084e9ec2') in 0.006437 seconds
+  Import took 0.010260 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.005006 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 1_2.wav
+  artifactKey: Guid(ad61b5d3e6b23034cbbc452de40d69c0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 1_2.wav using Guid(ad61b5d3e6b23034cbbc452de40d69c0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'de798b98d31f8cff02c90070084e9ec2') in 0.006806 seconds
+  Import took 0.011964 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.293962 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 1_1.wav
+  artifactKey: Guid(2c46bebaf9e69304f8443e39eae4d7d6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 1_1.wav using Guid(2c46bebaf9e69304f8443e39eae4d7d6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '35e9891596092e5df6c8b3cedf00ec7e') in 0.008635 seconds
+  Import took 0.014241 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 6.671742 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 1_4.wav
+  artifactKey: Guid(78acc8abafb15ee4b85848933aa837ce) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 1_4.wav using Guid(78acc8abafb15ee4b85848933aa837ce) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd63bbcb05ba4f564307cf0d3083073fd') in 0.006374 seconds
+  Import took 0.009514 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.605055 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 1_5.wav
+  artifactKey: Guid(d9e1a86d55e00e647be0b3468aad28f5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 1_5.wav using Guid(d9e1a86d55e00e647be0b3468aad28f5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f6bc06bfd5b26c3ee0a77593e4354715') in 0.006465 seconds
+  Import took 0.012479 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.478309 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 2_1.wav
+  artifactKey: Guid(7834a02a7b321cc43a757e9bbdcad178) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 2_1.wav using Guid(7834a02a7b321cc43a757e9bbdcad178) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1b6d27bd770647e3bfafe9b70addc9e6') in 0.007335 seconds
+  Import took 0.013243 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.120627 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 2_2.wav
+  artifactKey: Guid(c3a4da7f4e9485d4f84a5063c0e1a204) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 2_2.wav using Guid(c3a4da7f4e9485d4f84a5063c0e1a204) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '45b05b2df7f9813929448fabf5497a07') in 0.006469 seconds
+  Import took 0.013171 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.529452 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 2_3.wav
+  artifactKey: Guid(a078d2c9d2f703d40af089eb34dcb428) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 2_3.wav using Guid(a078d2c9d2f703d40af089eb34dcb428) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2899f875142fd0ae1f127b223f4c04e1') in 0.006144 seconds
+  Import took 0.011699 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.521322 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 2_4.wav
+  artifactKey: Guid(b594f736c9c63b34bbc169e6b6be139c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 2_4.wav using Guid(b594f736c9c63b34bbc169e6b6be139c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c62bccdb3e5c9fb751d4de9557c5cd66') in 0.006904 seconds
+  Import took 0.013424 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.495126 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 2_5.wav
+  artifactKey: Guid(04916f35d0a3e0d448047f787e6850a3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 2_5.wav using Guid(04916f35d0a3e0d448047f787e6850a3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3a978d815f1c854e1520e1b91f445dd4') in 0.006371 seconds
+  Import took 0.010838 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.872805 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 3_1.wav
+  artifactKey: Guid(0b8234379638dbc439c4b1bc73cc6ebb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 3_1.wav using Guid(0b8234379638dbc439c4b1bc73cc6ebb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '51f81d0f2fdaeeed285ae887cd318d2a') in 0.006343 seconds
+  Import took 0.011952 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.613338 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 3_2.wav
+  artifactKey: Guid(6c0e142b4c96c8c49b008ebef0c21ca5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 3_2.wav using Guid(6c0e142b4c96c8c49b008ebef0c21ca5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '86eb95c356a129e1e27c74e8fb23a32e') in 0.006278 seconds
+  Import took 0.010559 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.136246 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 3_3.wav
+  artifactKey: Guid(3e2ed277e1bc6a84d8f2f11ba3968454) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 3_3.wav using Guid(3e2ed277e1bc6a84d8f2f11ba3968454) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd2ba726d6148265224a6d6aacc46d235') in 0.006469 seconds
+  Import took 0.012193 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.868017 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 3_4.wav
+  artifactKey: Guid(3c5ae21d30c60c744acaabf45268577e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 3_4.wav using Guid(3c5ae21d30c60c744acaabf45268577e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b7d3301b6775c0dacf093a2ed4e8e07f') in 0.006099 seconds
+  Import took 0.010033 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.883005 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 3_5.wav
+  artifactKey: Guid(5bfa7071b26b99a49ba39c68e4b786b1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 3_5.wav using Guid(5bfa7071b26b99a49ba39c68e4b786b1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '019f65b0ac1682c1adf8350624d869de') in 0.006195 seconds
+  Import took 0.010553 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.843771 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 3_6.wav
+  artifactKey: Guid(020ffc1530a0f82418883bc66c78b4a7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 3_6.wav using Guid(020ffc1530a0f82418883bc66c78b4a7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2e237a3353a04151a23e50310ba61119') in 0.006355 seconds
+  Import took 0.012114 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.793184 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 4_1.wav
+  artifactKey: Guid(f9ef12198ff5b0040a07da6191805a40) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 4_1.wav using Guid(f9ef12198ff5b0040a07da6191805a40) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4e5bdf4b04fcee155c74a410b1637d78') in 0.006729 seconds
+  Import took 0.011908 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.191572 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 4_2.wav
+  artifactKey: Guid(6b34e14c79782a04e88e7ba578ece678) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 4_2.wav using Guid(6b34e14c79782a04e88e7ba578ece678) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f985bd8e00cd4360a7de6eedf35db980') in 0.005964 seconds
+  Import took 0.009605 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.844001 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 4_3.wav
+  artifactKey: Guid(3993b549c3977f342a01df3e6e82e402) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 4_3.wav using Guid(3993b549c3977f342a01df3e6e82e402) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '504397addddbf0b6d307c97681bc8d17') in 0.006855 seconds
+  Import took 0.011506 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.482310 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 4_4.wav
+  artifactKey: Guid(9b99202f01ffa674089ad7443100aec4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 4_4.wav using Guid(9b99202f01ffa674089ad7443100aec4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0967ea385464884b3dbe2b4b74f3109b') in 0.006378 seconds
+  Import took 0.010968 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.311712 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 4_5.wav
+  artifactKey: Guid(8501020dd3619e649b4722abd23f58ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 4_5.wav using Guid(8501020dd3619e649b4722abd23f58ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3b28b2c9f893452820823c59dec3e520') in 0.006062 seconds
+  Import took 0.010141 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.391495 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 5_1.wav
+  artifactKey: Guid(e4f88915e55ba574c802393f3033a99c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 5_1.wav using Guid(e4f88915e55ba574c802393f3033a99c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e42689775aa0dd906628c462c6cabea7') in 0.006076 seconds
+  Import took 0.010112 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.231515 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 5_2.wav
+  artifactKey: Guid(9184176d53c70d24c99d4ab840a3569c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ghost/Ghost 5_2.wav using Guid(9184176d53c70d24c99d4ab840a3569c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7a6bbbe81b0da3ae815b6fdcffb54545') in 0.006836 seconds
+  Import took 0.012717 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 12.171121 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Growl/Growl 1_2.wav
+  artifactKey: Guid(31550ec8aeeb5c646a209f0e1f7b6c90) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Growl/Growl 1_2.wav using Guid(31550ec8aeeb5c646a209f0e1f7b6c90) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a41ea9d9beea0c22f0e46924b0669723') in 0.007583 seconds
+  Import took 0.012629 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.230731 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Growl/Growl 1_1.wav
+  artifactKey: Guid(7dc6b5f4ad5bbc946b5a07b37cb3a55f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Growl/Growl 1_1.wav using Guid(7dc6b5f4ad5bbc946b5a07b37cb3a55f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd8d603809db0b3261d1d988b6889e462') in 0.006659 seconds
+  Import took 0.011593 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.296412 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Growl/Growl 1_3.wav
+  artifactKey: Guid(ddd325262e8af0a4c9a9bbcfb21a0e7d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Growl/Growl 1_3.wav using Guid(ddd325262e8af0a4c9a9bbcfb21a0e7d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ce174672c6ac467425f5d02cc122fde6') in 0.009146 seconds
+  Import took 0.015284 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.854263 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Growl/Growl 1_4.wav
+  artifactKey: Guid(1c610996303372445a84480080b50bab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Growl/Growl 1_4.wav using Guid(1c610996303372445a84480080b50bab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f211db1a6f839730ee1fac08228be92f') in 0.006877 seconds
+  Import took 0.013567 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.915098 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Growl/Growl 1_5.wav
+  artifactKey: Guid(edd95b5bd7bb89940bd8b88377182078) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Growl/Growl 1_5.wav using Guid(edd95b5bd7bb89940bd8b88377182078) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cb8e7aa1fb5653ef09a4de546b9ac47c') in 0.006065 seconds
+  Import took 0.010813 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.904660 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Growl/Growl 2_1.wav
+  artifactKey: Guid(c45045fa4817b4a42804de96e2a228d9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Growl/Growl 2_1.wav using Guid(c45045fa4817b4a42804de96e2a228d9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '79dbd136443a9670ff91dc1d50cffb3e') in 0.006431 seconds
+  Import took 0.011355 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.806773 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Growl/Growl 2_2.wav
+  artifactKey: Guid(8ffd63b1a90532f45b987c7272165ec3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Growl/Growl 2_2.wav using Guid(8ffd63b1a90532f45b987c7272165ec3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '69c409d0d4eb5504aab79ccf231370b4') in 0.006109 seconds
+  Import took 0.010156 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.835549 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Growl/Growl 2_3.wav
+  artifactKey: Guid(67ebdd169d46e644fbef0c2c88534972) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Growl/Growl 2_3.wav using Guid(67ebdd169d46e644fbef0c2c88534972) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '18ed2ce29325b789f75ca294265d4abc') in 0.006134 seconds
+  Import took 0.009720 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.826826 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Growl/Growl 2_4.wav
+  artifactKey: Guid(1808ed8894f8f24459a843034cf4464d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Growl/Growl 2_4.wav using Guid(1808ed8894f8f24459a843034cf4464d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '711592ba03b634a047bc3e7f07d779e3') in 0.006031 seconds
+  Import took 0.010459 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.294200 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ooze/Ooze 1_1.wav
+  artifactKey: Guid(acc19214352dad243a77ed58cfb17b90) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ooze/Ooze 1_1.wav using Guid(acc19214352dad243a77ed58cfb17b90) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4ea452de979f4b3ed2eb5b1134412824') in 0.007331 seconds
+  Import took 0.011424 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.222680 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ooze/Ooze 1_2.wav
+  artifactKey: Guid(56d907ff91eb9dd439340d15d5f7ffca) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ooze/Ooze 1_2.wav using Guid(56d907ff91eb9dd439340d15d5f7ffca) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '11dfbf950ab7cf88be1b7ef4278b2379') in 0.007240 seconds
+  Import took 0.012742 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.342697 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ooze/Ooze 1_3.wav
+  artifactKey: Guid(b36dc6246568ff34bbf3f47ea2dce562) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ooze/Ooze 1_3.wav using Guid(b36dc6246568ff34bbf3f47ea2dce562) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '924fb1ed9f1b3efd2a9959d76b2c3f14') in 0.006655 seconds
+  Import took 0.010965 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.777400 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ooze/Ooze 1_4.wav
+  artifactKey: Guid(8e8fbeef80ebe254981259336db8fad9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ooze/Ooze 1_4.wav using Guid(8e8fbeef80ebe254981259336db8fad9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '81c1a1fa4f7bf224f4dcf7437e02a5be') in 0.006917 seconds
+  Import took 0.010525 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.671005 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ooze/Ooze 1_5.wav
+  artifactKey: Guid(cc22b7d95bcbf0c4c9eabf185539f8c5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ooze/Ooze 1_5.wav using Guid(cc22b7d95bcbf0c4c9eabf185539f8c5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0f923da25f148452084c7351ef1cd4f6') in 0.006701 seconds
+  Import took 0.011603 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.205202 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ooze/Ooze 1_6.wav
+  artifactKey: Guid(8b14bc65c909df9449d730500929dd3d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ooze/Ooze 1_6.wav using Guid(8b14bc65c909df9449d730500929dd3d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '340d54dd1fcf25ae45dfe9b5d3d46baf') in 0.006084 seconds
+  Import took 0.010698 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.189477 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ooze/Ooze 2_1.wav
+  artifactKey: Guid(c69fec3a5a824ea4e995cc3738c03f4f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ooze/Ooze 2_1.wav using Guid(c69fec3a5a824ea4e995cc3738c03f4f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f0147ded1f0462e352bad7daf8974d4f') in 0.006726 seconds
+  Import took 0.010243 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.142007 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ooze/Ooze 2_2.wav
+  artifactKey: Guid(a7c707e0a1b760d44b3b9be901ee35b5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ooze/Ooze 2_2.wav using Guid(a7c707e0a1b760d44b3b9be901ee35b5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cba4066ef1870d463ca4418a00269672') in 0.006042 seconds
+  Import took 0.011081 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.162073 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ooze/Ooze 2_3.wav
+  artifactKey: Guid(1d76e6e7f36ab5f4d915e1530f26eb1d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ooze/Ooze 2_3.wav using Guid(1d76e6e7f36ab5f4d915e1530f26eb1d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2044856581c1a92995e83b438f6d8325') in 0.006068 seconds
+  Import took 0.009752 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.141608 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ooze/Ooze 2_4.wav
+  artifactKey: Guid(26f9af846a4e6f9468f49ea43223ef8b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ooze/Ooze 2_4.wav using Guid(26f9af846a4e6f9468f49ea43223ef8b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5d783bf9b929da54e46d33ef55686809') in 0.006598 seconds
+  Import took 0.010310 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.145730 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ooze/Ooze 2_5.wav
+  artifactKey: Guid(d2c7c09796237a34b8e479588ca5eeb7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ooze/Ooze 2_5.wav using Guid(d2c7c09796237a34b8e479588ca5eeb7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ce9c47c9d21118171d81fc12165a012f') in 0.006303 seconds
+  Import took 0.010887 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.159677 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ooze/Ooze 2_6.wav
+  artifactKey: Guid(38a2da08fc93ebd4ea0966771b6008ce) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ooze/Ooze 2_6.wav using Guid(38a2da08fc93ebd4ea0966771b6008ce) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9e34d9a918a2f316e7a7a89fd16ae84f') in 0.006374 seconds
+  Import took 0.010117 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.532832 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Ooze/Ooze 2_7.wav
+  artifactKey: Guid(5aac8bd50e722884eb0a68523e7411b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Ooze/Ooze 2_7.wav using Guid(5aac8bd50e722884eb0a68523e7411b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '37978db2fe11e5bafad8a4bfea019edd') in 0.006313 seconds
+  Import took 0.011309 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 26.600708 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 2/Zombie 2_02.wav
+  artifactKey: Guid(82062eb37ae5d9749a6d8248666f54fe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 2/Zombie 2_02.wav using Guid(82062eb37ae5d9749a6d8248666f54fe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a4b0a674aa266f9b4c8be7851d7470b9') in 0.008220 seconds
+  Import took 0.012186 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.338271 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 2/Zombie 2_01.wav
+  artifactKey: Guid(c1cc45b0959108942ae2bba4dc560287) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 2/Zombie 2_01.wav using Guid(c1cc45b0959108942ae2bba4dc560287) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd3963d3f80e4d4b2f4a1075db63e7d6c') in 0.008359 seconds
+  Import took 0.013746 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.753831 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 2/Zombie 2_03.wav
+  artifactKey: Guid(ce1a907cc25a1d2449b12c626d6b9c8a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 2/Zombie 2_03.wav using Guid(ce1a907cc25a1d2449b12c626d6b9c8a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9ff14e5c61d217ea9776ed8c06bc7953') in 0.006506 seconds
+  Import took 0.011723 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.749308 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 2/Zombie 2_04.wav
+  artifactKey: Guid(c2713ddd25ae61246a8275b0968b8763) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 2/Zombie 2_04.wav using Guid(c2713ddd25ae61246a8275b0968b8763) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '52ef4e10f36b5e4078c679d040457bcd') in 0.007530 seconds
+  Import took 0.011866 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.203352 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 2/Zombie 2_05.wav
+  artifactKey: Guid(87cbd48a95a84bd4c8b2849a440d6c1d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 2/Zombie 2_05.wav using Guid(87cbd48a95a84bd4c8b2849a440d6c1d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '81fa6ea6793f42105c5baa930a93f4f6') in 0.006590 seconds
+  Import took 0.010450 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.541864 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 2/Zombie 2_06.wav
+  artifactKey: Guid(7c21ee37f077a1b45bc445e25d4993b7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 2/Zombie 2_06.wav using Guid(7c21ee37f077a1b45bc445e25d4993b7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '974d6f5a84219daea5b36041ee1b915e') in 0.006336 seconds
+  Import took 0.011957 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.343467 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 2/Zombie 2_07.wav
+  artifactKey: Guid(00eb49be3734e7d479cc2f04e056a8d5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Zombie 2/Zombie 2_07.wav using Guid(00eb49be3734e7d479cc2f04e056a8d5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fadfdd34f65a1c23c2da07da2c8aeb96') in 0.005969 seconds
+  Import took 0.009741 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.823131 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 08/Large Creature 8 - Long 09.wav
+  artifactKey: Guid(453d4cb49a8d18941a80b69a65536c76) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 08/Large Creature 8 - Long 09.wav using Guid(453d4cb49a8d18941a80b69a65536c76) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '01ea76e7dc30466ed8ea735d845d7370') in 0.006324 seconds
+  Import took 0.009978 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.054867 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 08/Large Creature 8 - Long 10.wav
+  artifactKey: Guid(28831a41eb03bd547b0e15c7ebac7e08) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 08/Large Creature 8 - Long 10.wav using Guid(28831a41eb03bd547b0e15c7ebac7e08) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a4ecde18c6bfea735a3521ad04855d00') in 0.006611 seconds
+  Import took 0.010999 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.733385 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 09/Large Creature 9 - Long 6.wav
+  artifactKey: Guid(0306068101ec79f4f88a780e6f496211) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 09/Large Creature 9 - Long 6.wav using Guid(0306068101ec79f4f88a780e6f496211) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '971930e4748875e37e06e7b43fb53a05') in 0.008293 seconds
+  Import took 0.014132 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.885195 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 12/Large Creature 12 - Long 5.wav
+  artifactKey: Guid(82487e485e983864e8da4a6b241b4002) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 12/Large Creature 12 - Long 5.wav using Guid(82487e485e983864e8da4a6b241b4002) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dd70efb0337c82facfa39bebe5481962') in 0.006313 seconds
+  Import took 0.010295 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.003925 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 12/Large Creature 12 - Long 2.wav
+  artifactKey: Guid(9809e58c341f12949a6662b92e030cbc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 12/Large Creature 12 - Long 2.wav using Guid(9809e58c341f12949a6662b92e030cbc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a1d855f1fba3bcc93d47b4ed70d8205e') in 0.006154 seconds
+  Import took 0.009635 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.607604 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 11/Large Creature 11- Long 01.wav
+  artifactKey: Guid(dfaeed3730502f94d9460d615189ef6c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 11/Large Creature 11- Long 01.wav using Guid(dfaeed3730502f94d9460d615189ef6c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9534bef2dc45e8b0361d594b52a0f82a') in 0.006786 seconds
+  Import took 0.011835 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.245216 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 10/Large Creature 10 - Long 4.wav
+  artifactKey: Guid(a479631f13b64874e990f859dbfb2d49) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 10/Large Creature 10 - Long 4.wav using Guid(a479631f13b64874e990f859dbfb2d49) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6db05bdf2c45d54ae2c8cdec59d412e5') in 0.006851 seconds
+  Import took 0.011544 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 5.237382 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 07/Large Creature 7 - Long 3.wav
+  artifactKey: Guid(4f72ee8069f851b47a6488ac1d58fcce) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 07/Large Creature 7 - Long 3.wav using Guid(4f72ee8069f851b47a6488ac1d58fcce) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '13768fccc8ecdf2cbc5eae490b5d1faf') in 0.006578 seconds
+  Import took 0.010290 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 9.199286 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 07/Large Creature 7 - Long 4.wav
+  artifactKey: Guid(c8c775f82c779334fadbca1c70310039) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 07/Large Creature 7 - Long 4.wav using Guid(c8c775f82c779334fadbca1c70310039) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '59e038ded889513fdc280b3486f7c93a') in 0.006952 seconds
+  Import took 0.011300 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.225366 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 07/Large Creature 7 - Long 2.wav
+  artifactKey: Guid(f3e77abaa8f025b40b66e4e4420373cf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 07/Large Creature 7 - Long 2.wav using Guid(f3e77abaa8f025b40b66e4e4420373cf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b53b51090ea2218f2ab6d99a89ff6855') in 0.006709 seconds
+  Import took 0.010836 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.099109 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 07/Large Creature 7 - Long 1.wav
+  artifactKey: Guid(301c359076a3b6e43b6396016960e356) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Large Creature 07/Large Creature 7 - Long 1.wav using Guid(301c359076a3b6e43b6396016960e356) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1fe9b9602df44aac5715dfa57f4dd263') in 0.007350 seconds
+  Import took 0.012488 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 14.603952 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Demon 1/Demon 1 - Short 09.wav
+  artifactKey: Guid(eabeebe9a7609d541b572706e9388aa2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Demon 1/Demon 1 - Short 09.wav using Guid(eabeebe9a7609d541b572706e9388aa2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '09ae412ad870e5d35b1780107c3e1775') in 0.009781 seconds
+  Import took 0.014689 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.159985 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Demon 1/Demon 1 - Short 08.wav
+  artifactKey: Guid(2b4a4cd9e8823704e8fa4c9c526da671) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Demon 1/Demon 1 - Short 08.wav using Guid(2b4a4cd9e8823704e8fa4c9c526da671) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '468a1427500dd12b35238764cd8b0e6f') in 0.006709 seconds
+  Import took 0.010664 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.029638 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Demon 1/Demon 1 - Short 01.wav
+  artifactKey: Guid(d143daeec119dca4d87b8930c8c03341) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Demon 1/Demon 1 - Short 01.wav using Guid(d143daeec119dca4d87b8930c8c03341) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '82ec41620e31f422f6ea9cfdd1e47585') in 0.007755 seconds
+  Import took 0.012770 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 11.366708 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Small 1/Humanoid Small - Long 6.wav
+  artifactKey: Guid(006e3f5aac15e764b95fc9dc54c9ba43) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Small 1/Humanoid Small - Long 6.wav using Guid(006e3f5aac15e764b95fc9dc54c9ba43) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1ac4799420a51460c93770743ea3cbf3') in 0.008555 seconds
+  Import took 0.014007 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.033013 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Small 1/Humanoid Small - Short 2.wav
+  artifactKey: Guid(a0bdf8a203607734ca0a91c70717634d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Small 1/Humanoid Small - Short 2.wav using Guid(a0bdf8a203607734ca0a91c70717634d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '777be25edc0f5d2405567260b139fee0') in 0.008117 seconds
+  Import took 0.012368 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.852711 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Small 1/Humanoid Small - Short 3.wav
+  artifactKey: Guid(0ac6845c523938445bb10e44b3763eea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Small 1/Humanoid Small - Short 3.wav using Guid(0ac6845c523938445bb10e44b3763eea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e425b8a8cea7731d0e7e4e9b78bd5b9a') in 0.007076 seconds
+  Import took 0.012068 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.118831 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Small 2/Humanoid Small 2 - Short 3.wav
+  artifactKey: Guid(39dc97202a713e645a9e35938e8642fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Small 2/Humanoid Small 2 - Short 3.wav using Guid(39dc97202a713e645a9e35938e8642fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4ee51d5e82ae7af284e8210d6f260b50') in 0.006063 seconds
+  Import took 0.009933 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.467014 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Small 4/Humanoid Small 4 - Laugh 10.wav
+  artifactKey: Guid(700838be070a577499fd93edcef3a880) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Humanoid Small 4/Humanoid Small 4 - Laugh 10.wav using Guid(700838be070a577499fd93edcef3a880) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5b2ac55a4558b008659de8d16ae017c7') in 0.006475 seconds
+  Import took 0.010553 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.376018 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 1_3.wav
+  artifactKey: Guid(d176cfb07985e9c46bf36c418c6764b1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 1_3.wav using Guid(d176cfb07985e9c46bf36c418c6764b1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ae43f5fec1e56855df45daf8289beee9') in 0.007935 seconds
+  Import took 0.012851 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.485138 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 1_2.wav
+  artifactKey: Guid(3a11fbf525296bf43b5d03325c2175f3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 1_2.wav using Guid(3a11fbf525296bf43b5d03325c2175f3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '34e5bcc1efc83e4e0ed1ea345d144424') in 0.006111 seconds
+  Import took 0.009935 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.362353 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 1_1.wav
+  artifactKey: Guid(725845b1581818848ac7ba6770df4554) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 1_1.wav using Guid(725845b1581818848ac7ba6770df4554) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5e8bd8a9e1515d88fe51867bd1cb45c5') in 0.006311 seconds
+  Import took 0.010582 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.303433 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 1_4.wav
+  artifactKey: Guid(667c4f735d90dce4f8d4ded22672a4c9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 1_4.wav using Guid(667c4f735d90dce4f8d4ded22672a4c9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9bc93cd3678e57b4ebb24a60646fa94c') in 0.006326 seconds
+  Import took 0.012645 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.734075 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 1_5.wav
+  artifactKey: Guid(3cd4b8c612bd1be47a22d44df53d36c0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 1_5.wav using Guid(3cd4b8c612bd1be47a22d44df53d36c0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ce2b06afc05b563b2f7573d16a72505a') in 0.007122 seconds
+  Import took 0.012145 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.764211 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 2_1.wav
+  artifactKey: Guid(033c7fae96a9b284cb87cd1e8b46b1df) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 2_1.wav using Guid(033c7fae96a9b284cb87cd1e8b46b1df) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6473e1a86d2537c622ac4d32e98091e0') in 0.007106 seconds
+  Import took 0.011451 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.721289 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 2_2.wav
+  artifactKey: Guid(428df1e9d0039c34b911016a9b5aedc6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 2_2.wav using Guid(428df1e9d0039c34b911016a9b5aedc6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2baef3720df4720d8da227229d95282e') in 0.006453 seconds
+  Import took 0.010036 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.782735 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 2_3.wav
+  artifactKey: Guid(536ac42709202c14b88797d3cb352ca2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 2_3.wav using Guid(536ac42709202c14b88797d3cb352ca2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bbd774658f2a3f79d311f41290911372') in 0.006208 seconds
+  Import took 0.010006 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.732324 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 2_4.wav
+  artifactKey: Guid(42aa3a58a39a0c947b6fc7c502ef028a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 2_4.wav using Guid(42aa3a58a39a0c947b6fc7c502ef028a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ac0bdf0cc8fe391b89fefabb0d9b97b5') in 0.005929 seconds
+  Import took 0.009930 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.754518 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 2_5.wav
+  artifactKey: Guid(1985c1115b97f244499d8bfcdb5156fa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 2_5.wav using Guid(1985c1115b97f244499d8bfcdb5156fa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4c35576a38d006283322bad5bb69856f') in 0.006432 seconds
+  Import took 0.010936 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.682350 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 3_1.wav
+  artifactKey: Guid(a2ca5b18012cefc4e9b4ffba2e3d41ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 3_1.wav using Guid(a2ca5b18012cefc4e9b4ffba2e3d41ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f36983f885d7ce75738ba90ebce78511') in 0.006266 seconds
+  Import took 0.010277 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.921671 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 3_2.wav
+  artifactKey: Guid(42d1000b7c686aa4fb171ef363569229) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 3_2.wav using Guid(42d1000b7c686aa4fb171ef363569229) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a144cdadd2674dd8e4666d0fdd1e3a46') in 0.007044 seconds
+  Import took 0.011691 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.765555 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 3_3.wav
+  artifactKey: Guid(09d2a1af7084d134e868bbb144cef714) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 3_3.wav using Guid(09d2a1af7084d134e868bbb144cef714) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bd5e7f8f0c0c1104e0fb16c12e7e9966') in 0.006185 seconds
+  Import took 0.010578 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.745118 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 3_4.wav
+  artifactKey: Guid(10c40a2fd8ffa75449cafe5043d4d361) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 3_4.wav using Guid(10c40a2fd8ffa75449cafe5043d4d361) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c84a2362644912abcc5ffdd101c19a5b') in 0.006101 seconds
+  Import took 0.009343 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.762734 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 3_5.wav
+  artifactKey: Guid(cc39215a4abf12744a49b6ceee4cc3eb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 3_5.wav using Guid(cc39215a4abf12744a49b6ceee4cc3eb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '614d49db3785fc1a1dcfcc23819f943a') in 0.006190 seconds
+  Import took 0.010606 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.846546 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 4_1.wav
+  artifactKey: Guid(15d4b84bc07d5c2449589dd4378d7add) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 4_1.wav using Guid(15d4b84bc07d5c2449589dd4378d7add) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '362fb92f1575af57ebb8e04bd7710386') in 0.005831 seconds
+  Import took 0.009893 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.729261 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 4_2.wav
+  artifactKey: Guid(58935def58f13bb42a3158d0a77e4aed) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 4_2.wav using Guid(58935def58f13bb42a3158d0a77e4aed) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ec40ba4f6612d86d05f0d6dae9c1a15b') in 0.006262 seconds
+  Import took 0.011904 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.688015 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 4_3.wav
+  artifactKey: Guid(1a3279d70c817e041a9877acb55be92c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 4_3.wav using Guid(1a3279d70c817e041a9877acb55be92c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bbda07e37f1ffe9795ccc64711ef8896') in 0.007095 seconds
+  Import took 0.010627 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.662430 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 4_4.wav
+  artifactKey: Guid(b80cb57d3a137ba449c5bb9eba246519) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 4_4.wav using Guid(b80cb57d3a137ba449c5bb9eba246519) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2e8feda9bf4c0e3ffd5024f8c59aa28f') in 0.006645 seconds
+  Import took 0.010598 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.626346 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 4_5.wav
+  artifactKey: Guid(5c253569c85ecec41bacbc405ef4d385) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 4_5.wav using Guid(5c253569c85ecec41bacbc405ef4d385) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '33ce4e25de58d639e35ec9ea1d78308d') in 0.006374 seconds
+  Import took 0.012163 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.778381 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 5_1.wav
+  artifactKey: Guid(06c06436b108d80418525e653e39551f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 5_1.wav using Guid(06c06436b108d80418525e653e39551f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ed574d70dfea2926c8d30df4e2eabd6e') in 0.007193 seconds
+  Import took 0.013947 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.745557 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 5_2.wav
+  artifactKey: Guid(70c05883a1e5d02439c6266f32ae2d42) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 5_2.wav using Guid(70c05883a1e5d02439c6266f32ae2d42) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f4f61350aaaaba3d9396a3f7dc8011fe') in 0.006042 seconds
+  Import took 0.009635 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.726994 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 5_3.wav
+  artifactKey: Guid(ea9e0de6453dc72418d07334cb456195) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 5_3.wav using Guid(ea9e0de6453dc72418d07334cb456195) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a2395b1432858f5faa4a7736a925f6f1') in 0.006375 seconds
+  Import took 0.010147 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.734016 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 5_4.wav
+  artifactKey: Guid(3cb4eebc9d542e24ba7c5edf2814892a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 5_4.wav using Guid(3cb4eebc9d542e24ba7c5edf2814892a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f1b0205d029ec7338e01a7ae454a3606') in 0.007604 seconds
+  Import took 0.012250 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.766714 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 5_5.wav
+  artifactKey: Guid(2ae0daa8857bb6a40949093757b96d2b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Hissing/Hiss 5_5.wav using Guid(2ae0daa8857bb6a40949093757b96d2b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '16d453c199ddbc86eca6b34989942aec') in 0.006906 seconds
+  Import took 0.013299 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 18.264314 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Growl/Growl 2_5.wav
+  artifactKey: Guid(15a0e735edac97644a9896e39ca410fc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Growl/Growl 2_5.wav using Guid(15a0e735edac97644a9896e39ca410fc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b534c553c1a576eb42e6e51c4b309154') in 0.006206 seconds
+  Import took 0.010365 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.391230 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Growl/Growl 3_1.wav
+  artifactKey: Guid(c86190292678d5a438c9303fc96a1bff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Growl/Growl 3_1.wav using Guid(c86190292678d5a438c9303fc96a1bff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4b4f394ed3f52df2738f1559933b18b8') in 0.006420 seconds
+  Import took 0.010768 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.373680 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Growl/Growl 3_2.wav
+  artifactKey: Guid(3ae601e0d8c5eb84abd9c7e41efa3aba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Growl/Growl 3_2.wav using Guid(3ae601e0d8c5eb84abd9c7e41efa3aba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6d86ab14e75330a7393657cdb465e0b6') in 0.006867 seconds
+  Import took 0.011724 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.377773 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Growl/Growl 3_3.wav
+  artifactKey: Guid(dc68f96f135822c4ab38b1bfa95ba531) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Growl/Growl 3_3.wav using Guid(dc68f96f135822c4ab38b1bfa95ba531) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'be021df31904bf749854d36103d5cfcb') in 0.006241 seconds
+  Import took 0.010290 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.578859 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Growl/Growl 3_4.wav
+  artifactKey: Guid(12f80126f32e3f94ea8005c46a60c4f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Growl/Growl 3_4.wav using Guid(12f80126f32e3f94ea8005c46a60c4f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0bbe0630be25d7dc3012969fcd1b9ad3') in 0.006647 seconds
+  Import took 0.010736 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.660250 seconds.
+  path: Assets/Dependencies/Cafofo - Monster Sounds Pack/Growl/Growl 3_5.wav
+  artifactKey: Guid(6ef233533e143a744b8fc6da5e30343c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Dependencies/Cafofo - Monster Sounds Pack/Growl/Growl 3_5.wav using Guid(6ef233533e143a744b8fc6da5e30343c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4b934b17204ebec28e3732bf4fe3c025') in 0.007005 seconds
+  Import took 0.011032 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 63.794409 seconds.
+  path: Assets/Resources/Cards/Units/Enemies/Mutants/Monstrous Mutant.asset
+  artifactKey: Guid(05a12a5f30765cb45b8b767bf76eedf4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards/Units/Enemies/Mutants/Monstrous Mutant.asset using Guid(05a12a5f30765cb45b8b767bf76eedf4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1cc431a8a54ab39cb458d1df027f74f0') in 0.020517 seconds
+  Import took 0.026864 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 35.981080 seconds.
+  path: Assets/Resources/Cards/Units/Enemies/Mutants/Toxic Catalyzer.asset
+  artifactKey: Guid(0548244d6f4485e46a42ad85a8c6c600) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards/Units/Enemies/Mutants/Toxic Catalyzer.asset using Guid(0548244d6f4485e46a42ad85a8c6c600) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e79e6519e8575228d2a52a0651133819') in 0.009701 seconds
+  Import took 0.016756 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.003161 seconds.
+  path: Assets/Resources/Cards/Units/Enemies/Mutants/Toxic Catalyzer.asset
+  artifactKey: Guid(0548244d6f4485e46a42ad85a8c6c600) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards/Units/Enemies/Mutants/Toxic Catalyzer.asset using Guid(0548244d6f4485e46a42ad85a8c6c600) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e79e6519e8575228d2a52a0651133819') in 0.009405 seconds
+  Import took 0.013997 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.001438 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.91 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.734 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.90 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1929 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 92.8 MB.
-System memory in use after: 92.9 MB.
-
-Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2409.
-Total: 1.518200 ms (FindLiveObjects: 0.167400 ms CreateObjectMapping: 0.065400 ms MarkObjects: 1.271100 ms  DeleteObjects: 0.012600 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001740 seconds.
+Registered in 0.002076 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
 Refreshing native plugins compatible for Editor in 0.96 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.727 seconds
+- Completed reload, in  0.929 seconds
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.89 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 0.94 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 1929 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 92.9 MB.
-System memory in use after: 93.0 MB.
+System memory in use before: 96.2 MB.
+System memory in use after: 96.3 MB.
 
-Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2412.
-Total: 2.017500 ms (FindLiveObjects: 0.312000 ms CreateObjectMapping: 0.114700 ms MarkObjects: 1.576600 ms  DeleteObjects: 0.013100 ms)
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2418.
+Total: 1.961500 ms (FindLiveObjects: 0.332400 ms CreateObjectMapping: 0.124700 ms MarkObjects: 1.490500 ms  DeleteObjects: 0.012100 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 340.945551 seconds.
+  path: Assets/Scenes/CreditsScene.unity
+  artifactKey: Guid(153b91124dba5954c965996001745dbe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/CreditsScene.unity using Guid(153b91124dba5954c965996001745dbe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '204ee6268424966e027f425dd63c9b40') in 0.010816 seconds
+  Import took 0.017208 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 46.346924 seconds.
+  path: Assets/Scenes/TitleScene.unity
+  artifactKey: Guid(63f34e354ce4f5a4c9cab5ca9e05533c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/TitleScene.unity using Guid(63f34e354ce4f5a4c9cab5ca9e05533c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3d3fd0b3ec8faecfaa9567ad943f8cc9') in 0.002733 seconds
+  Import took 0.009675 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.001584 seconds.
+Registered in 0.001622 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.05 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.912 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.77 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1929 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 96.3 MB.
+System memory in use after: 96.4 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2421.
+Total: 2.225900 ms (FindLiveObjects: 0.339000 ms CreateObjectMapping: 0.128300 ms MarkObjects: 1.742400 ms  DeleteObjects: 0.013700 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 677.355598 seconds.
+  path: Assets/Sprites/UI/Reinforcements_Background.png
+  artifactKey: Guid(b6828edc3d44f1845b27d5a9f1df3bf1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/UI/Reinforcements_Background.png using Guid(b6828edc3d44f1845b27d5a9f1df3bf1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cee41fdaa6186100e02165d5bf5297a2') in 0.078575 seconds
+  Import took 0.083177 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 15.452538 seconds.
+  path: Assets/Sprites/UI/Slot_3.png
+  artifactKey: Guid(b6828edc3d44f1845b27d5a9f1df3bf1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/UI/Slot_3.png using Guid(b6828edc3d44f1845b27d5a9f1df3bf1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9009e41198909fb7e6b7147a7a70fe85') in 0.015198 seconds
+  Import took 0.019720 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.001674 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
 Refreshing native plugins compatible for Editor in 1.02 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.721 seconds
+- Completed reload, in  0.885 seconds
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.90 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 1.08 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 1929 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 92.9 MB.
-System memory in use after: 93.0 MB.
-
-Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2415.
-Total: 1.859000 ms (FindLiveObjects: 0.254600 ms CreateObjectMapping: 0.072900 ms MarkObjects: 1.499200 ms  DeleteObjects: 0.031800 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001503 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.24 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.736 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.96 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1929 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 92.9 MB.
-System memory in use after: 93.0 MB.
-
-Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2418.
-Total: 1.898700 ms (FindLiveObjects: 0.224700 ms CreateObjectMapping: 0.084400 ms MarkObjects: 1.574300 ms  DeleteObjects: 0.013300 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001466 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.04 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.715 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.95 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1929 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 92.9 MB.
-System memory in use after: 93.0 MB.
-
-Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2421.
-Total: 1.766700 ms (FindLiveObjects: 0.269500 ms CreateObjectMapping: 0.078300 ms MarkObjects: 1.405200 ms  DeleteObjects: 0.012300 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001535 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.00 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.741 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.95 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1929 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 92.9 MB.
-System memory in use after: 93.0 MB.
-
-Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2424.
-Total: 1.965000 ms (FindLiveObjects: 0.283500 ms CreateObjectMapping: 0.131300 ms MarkObjects: 1.536700 ms  DeleteObjects: 0.012500 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001554 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.96 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.748 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.92 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1929 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 92.9 MB.
-System memory in use after: 93.0 MB.
+System memory in use before: 96.3 MB.
+System memory in use after: 96.4 MB.
 
 Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2427.
-Total: 1.863300 ms (FindLiveObjects: 0.272600 ms CreateObjectMapping: 0.064300 ms MarkObjects: 1.455500 ms  DeleteObjects: 0.069800 ms)
+Total: 3.330400 ms (FindLiveObjects: 0.382700 ms CreateObjectMapping: 0.286500 ms MarkObjects: 2.642200 ms  DeleteObjects: 0.016800 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 296.406361 seconds.
+  path: Assets/Prefabs/UI/Popups/Cards/Card Page/Buttons/RemoveCardButton.prefab
+  artifactKey: Guid(a68356a28967cad4caf03ddcbe7d3c33) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/UI/Popups/Cards/Card Page/Buttons/RemoveCardButton.prefab using Guid(a68356a28967cad4caf03ddcbe7d3c33) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '93cceb411ab3f6a411d2306ab44f4178') in 0.096161 seconds
+  Import took 0.103310 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.450844 seconds.
+  path: Assets/Prefabs/UI/Popups/Cards/Card Page/Buttons/RemoveCardButton.prefab
+  artifactKey: Guid(a68356a28967cad4caf03ddcbe7d3c33) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/UI/Popups/Cards/Card Page/Buttons/RemoveCardButton.prefab using Guid(a68356a28967cad4caf03ddcbe7d3c33) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e641f02541b7ad8413b083d38c9d2220') in 0.028904 seconds
+  Import took 0.033191 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.001585 seconds.
+Registered in 0.001933 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.04 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 1.50 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.709 seconds
+- Completed reload, in  0.840 seconds
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.95 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 1.03 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 1929 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 92.9 MB.
-System memory in use after: 93.1 MB.
+System memory in use before: 96.3 MB.
+System memory in use after: 96.4 MB.
 
 Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2430.
-Total: 2.096800 ms (FindLiveObjects: 0.278600 ms CreateObjectMapping: 0.092200 ms MarkObjects: 1.698200 ms  DeleteObjects: 0.025100 ms)
+Total: 1.740200 ms (FindLiveObjects: 0.256100 ms CreateObjectMapping: 0.079300 ms MarkObjects: 1.371100 ms  DeleteObjects: 0.032900 ms)
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.001770 seconds.
+Registered in 0.001657 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.09 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 0.98 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.730 seconds
+- Completed reload, in  0.830 seconds
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.91 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 1.23 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 1929 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 92.9 MB.
-System memory in use after: 93.1 MB.
+System memory in use before: 96.3 MB.
+System memory in use after: 96.5 MB.
 
 Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2433.
-Total: 1.800300 ms (FindLiveObjects: 0.223500 ms CreateObjectMapping: 0.085500 ms MarkObjects: 1.475700 ms  DeleteObjects: 0.014400 ms)
+Total: 1.731400 ms (FindLiveObjects: 0.228400 ms CreateObjectMapping: 0.081000 ms MarkObjects: 1.405300 ms  DeleteObjects: 0.014900 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 158.933113 seconds.
+  path: Assets/Prefabs/Cards/Unit Card/UnitZoomCard.prefab
+  artifactKey: Guid(c07a0922a28da3343827254dbc38f442) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Cards/Unit Card/UnitZoomCard.prefab using Guid(c07a0922a28da3343827254dbc38f442) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1664593908cb2fa461a7092abc9e54be') in 0.092896 seconds
+  Import took 0.100651 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000339 seconds.
+  path: Assets/Prefabs/Cards/Unit Card/ZoomAbilityIcon.prefab
+  artifactKey: Guid(0ab157fa3dd44cd4a9fdc4c303ac8001) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Cards/Unit Card/ZoomAbilityIcon.prefab using Guid(0ab157fa3dd44cd4a9fdc4c303ac8001) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3e1247db498648aab02b54c6f8c141e1') in 0.023470 seconds
+  Import took 0.028462 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 15.326358 seconds.
+  path: Assets/Prefabs/Cards/Unit Card/UnitCard.prefab
+  artifactKey: Guid(1699411500fdc00408cd317524df96b6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Cards/Unit Card/UnitCard.prefab using Guid(1699411500fdc00408cd317524df96b6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd4f5c8ba62cec6ff0fac258c2c631b2a') in 0.045117 seconds
+  Import took 0.051644 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.138939 seconds.
+  path: Assets/Prefabs/Cards/Unit Card/UnitCard.prefab
+  artifactKey: Guid(1699411500fdc00408cd317524df96b6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Cards/Unit Card/UnitCard.prefab using Guid(1699411500fdc00408cd317524df96b6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '171ad0c19d2917813e1188982d565c45') in 0.039945 seconds
+  Import took 0.044296 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.001490 seconds.
+Registered in 0.001641 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.88 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 1.29 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.699 seconds
+- Completed reload, in  0.851 seconds
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.90 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1929 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 93.0 MB.
-System memory in use after: 93.1 MB.
-
-Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2436.
-Total: 1.828900 ms (FindLiveObjects: 0.306500 ms CreateObjectMapping: 0.135500 ms MarkObjects: 1.352900 ms  DeleteObjects: 0.033300 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002107 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
 Refreshing native plugins compatible for Editor in 0.92 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1929 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 96.4 MB.
+System memory in use after: 96.5 MB.
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2436.
+Total: 3.419600 ms (FindLiveObjects: 0.300100 ms CreateObjectMapping: 0.116000 ms MarkObjects: 2.977100 ms  DeleteObjects: 0.024700 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003018 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.41 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.697 seconds
+- Completed reload, in  0.904 seconds
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.89 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 2.12 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 1929 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 93.0 MB.
-System memory in use after: 93.1 MB.
+System memory in use before: 96.4 MB.
+System memory in use after: 96.5 MB.
 
 Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2439.
-Total: 1.775100 ms (FindLiveObjects: 0.182000 ms CreateObjectMapping: 0.064700 ms MarkObjects: 1.515100 ms  DeleteObjects: 0.012600 ms)
+Total: 2.500400 ms (FindLiveObjects: 0.279700 ms CreateObjectMapping: 0.089700 ms MarkObjects: 2.094600 ms  DeleteObjects: 0.018300 ms)
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.001587 seconds.
+Registered in 0.001665 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.96 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 1.25 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.728 seconds
+- Completed reload, in  0.925 seconds
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.53 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 1.05 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 1929 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 93.0 MB.
-System memory in use after: 93.1 MB.
+System memory in use before: 96.4 MB.
+System memory in use after: 96.5 MB.
 
 Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2442.
-Total: 1.975000 ms (FindLiveObjects: 0.214600 ms CreateObjectMapping: 0.085900 ms MarkObjects: 1.638800 ms  DeleteObjects: 0.034800 ms)
+Total: 2.880500 ms (FindLiveObjects: 0.976700 ms CreateObjectMapping: 0.281200 ms MarkObjects: 1.603300 ms  DeleteObjects: 0.015800 ms)
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.001557 seconds.
+Registered in 0.002710 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.09 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.773 seconds
-Platform modules already initialized, skipping
 Refreshing native plugins compatible for Editor in 0.91 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.890 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.29 ms, found 1 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 1929 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 93.0 MB.
-System memory in use after: 93.1 MB.
+System memory in use before: 96.4 MB.
+System memory in use after: 96.5 MB.
 
 Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2445.
-Total: 1.806100 ms (FindLiveObjects: 0.196200 ms CreateObjectMapping: 0.071200 ms MarkObjects: 1.525600 ms  DeleteObjects: 0.012100 ms)
+Total: 3.069300 ms (FindLiveObjects: 0.533000 ms CreateObjectMapping: 0.264400 ms MarkObjects: 2.252600 ms  DeleteObjects: 0.016900 ms)
 
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001705 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.94 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.734 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.91 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1929 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 93.0 MB.
-System memory in use after: 93.1 MB.
-
-Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2448.
-Total: 1.941300 ms (FindLiveObjects: 0.337600 ms CreateObjectMapping: 0.086500 ms MarkObjects: 1.502600 ms  DeleteObjects: 0.013200 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002041 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.87 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.693 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.91 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1929 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 93.0 MB.
-System memory in use after: 93.1 MB.
-
-Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2451.
-Total: 2.139000 ms (FindLiveObjects: 0.435000 ms CreateObjectMapping: 0.166200 ms MarkObjects: 1.524100 ms  DeleteObjects: 0.013000 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001569 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.87 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.774 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.94 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1929 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 93.0 MB.
-System memory in use after: 93.1 MB.
-
-Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2454.
-Total: 1.872100 ms (FindLiveObjects: 0.187400 ms CreateObjectMapping: 0.088800 ms MarkObjects: 1.581900 ms  DeleteObjects: 0.013100 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001684 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.89 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.734 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.90 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1929 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 93.0 MB.
-System memory in use after: 93.1 MB.
-
-Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2457.
-Total: 1.877400 ms (FindLiveObjects: 0.177900 ms CreateObjectMapping: 0.059500 ms MarkObjects: 1.627400 ms  DeleteObjects: 0.011900 ms)
-
-========================================================================
-Received Import Request.
-  Time since last request: 2276.093795 seconds.
-  path: Assets/Dependencies/Military Voice Pack PRO/Male/Male Clear 2.wav
-  artifactKey: Guid(82e56dc7900906143be5e25f80d4ef06) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Military Voice Pack PRO/Male/Male Clear 2.wav using Guid(82e56dc7900906143be5e25f80d4ef06) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'efcfa64fc102fe43755d416f92ff98c7') in 0.112152 seconds
-  Import took 0.116531 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 6.306104 seconds.
-  path: Assets/Dependencies/Military Voice Pack PRO/Male/Male Cover Me 2.wav
-  artifactKey: Guid(e096cb31deb932c4b9e515d5331b409c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Military Voice Pack PRO/Male/Male Cover Me 2.wav using Guid(e096cb31deb932c4b9e515d5331b409c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7bfe63a9768cdb9e53468977c1cd393b') in 0.034188 seconds
-  Import took 0.245010 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 15.505682 seconds.
-  path: Assets/Dependencies/Military Voice Pack PRO/Male/Male Fall Back 5.wav
-  artifactKey: Guid(ed55bb1f9f51e0447913d3e34674b871) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Military Voice Pack PRO/Male/Male Fall Back 5.wav using Guid(ed55bb1f9f51e0447913d3e34674b871) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '522208a04aafbc53d264fd2ae953e250') in 0.010601 seconds
-  Import took 0.017389 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 1.309874 seconds.
-  path: Assets/Dependencies/Military Voice Pack PRO/Male/Male Fall Back 4.wav
-  artifactKey: Guid(18aaae945899f8f4caa89a7e45cf81f0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Military Voice Pack PRO/Male/Male Fall Back 4.wav using Guid(18aaae945899f8f4caa89a7e45cf81f0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4e48016ae3e7ffcadde2b2478f9e6978') in 0.010072 seconds
-  Import took 0.016061 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 1.170282 seconds.
-  path: Assets/Dependencies/Military Voice Pack PRO/Male/Male Fall Back 3.wav
-  artifactKey: Guid(3250b4242f281ee4fbcc5af8f26f2e69) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Military Voice Pack PRO/Male/Male Fall Back 3.wav using Guid(3250b4242f281ee4fbcc5af8f26f2e69) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b95b7405076d3a971520f5b46ce82f9a') in 0.024631 seconds
-  Import took 0.029334 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.003350 seconds.
-  path: Assets/Dependencies/Military Voice Pack PRO/Male/Male Fall Back 3.wav
-  artifactKey: Guid(3250b4242f281ee4fbcc5af8f26f2e69) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Military Voice Pack PRO/Male/Male Fall Back 3.wav using Guid(3250b4242f281ee4fbcc5af8f26f2e69) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b95b7405076d3a971520f5b46ce82f9a') in 0.014865 seconds
-  Import took 0.042818 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.801794 seconds.
-  path: Assets/Dependencies/Military Voice Pack PRO/Male/Male Fall Back 2.wav
-  artifactKey: Guid(df354571cdda6f14d8a0611a6211af55) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Military Voice Pack PRO/Male/Male Fall Back 2.wav using Guid(df354571cdda6f14d8a0611a6211af55) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5167875e7dbabf7faad3d2ac3e754cfd') in 0.032443 seconds
-  Import took 0.037332 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.002881 seconds.
-  path: Assets/Dependencies/Military Voice Pack PRO/Male/Male Fall Back 2.wav
-  artifactKey: Guid(df354571cdda6f14d8a0611a6211af55) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Military Voice Pack PRO/Male/Male Fall Back 2.wav using Guid(df354571cdda6f14d8a0611a6211af55) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5167875e7dbabf7faad3d2ac3e754cfd') in 0.012301 seconds
-  Import took 0.017112 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.755182 seconds.
-  path: Assets/Dependencies/Military Voice Pack PRO/Male/Male Fall Back 1.wav
-  artifactKey: Guid(17be3f48c20fb644391c900ffac3a097) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Military Voice Pack PRO/Male/Male Fall Back 1.wav using Guid(17be3f48c20fb644391c900ffac3a097) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd3f52ef542e1340cc8c515ca24310723') in 0.010871 seconds
-  Import took 0.015744 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 4.212387 seconds.
-  path: Assets/Dependencies/Military Voice Pack PRO/Male/Male Fall Back 6.wav
-  artifactKey: Guid(0a14384be61643a44baccbfb73c52ea0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Military Voice Pack PRO/Male/Male Fall Back 6.wav using Guid(0a14384be61643a44baccbfb73c52ea0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '37296bbcea40c9084de86ab0c54ec536') in 0.009396 seconds
-  Import took 0.014881 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 5.545681 seconds.
-  path: Assets/Dependencies/Military Voice Pack PRO/Male/Male Fall Back Fall Back 1.wav
-  artifactKey: Guid(64c702b903d57674383211ddab19148f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Military Voice Pack PRO/Male/Male Fall Back Fall Back 1.wav using Guid(64c702b903d57674383211ddab19148f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '28e4079dbe093b7c2557ecdcbe1d4dd5') in 0.009041 seconds
-  Import took 0.014079 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 2.478142 seconds.
-  path: Assets/Dependencies/Military Voice Pack PRO/Male/Male Fall Back Fall Back 2.wav
-  artifactKey: Guid(bbf8abeba179b37458bc02a201c96299) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Military Voice Pack PRO/Male/Male Fall Back Fall Back 2.wav using Guid(bbf8abeba179b37458bc02a201c96299) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8ec558d532bcd9f32444cb487b351c96') in 0.028340 seconds
-  Import took 0.033181 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.001024 seconds.
-  path: Assets/Dependencies/Military Voice Pack PRO/Male/Male Fall Back Fall Back 2.wav
-  artifactKey: Guid(bbf8abeba179b37458bc02a201c96299) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Military Voice Pack PRO/Male/Male Fall Back Fall Back 2.wav using Guid(bbf8abeba179b37458bc02a201c96299) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8ec558d532bcd9f32444cb487b351c96') in 0.007982 seconds
-  Import took 0.012313 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 27.159040 seconds.
-  path: Assets/Resources/Cards/Units/Allies/Starting/Forceweaver.asset
-  artifactKey: Guid(f195a8ce7fae4d0458ddafd2699964fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards/Units/Allies/Starting/Forceweaver.asset using Guid(f195a8ce7fae4d0458ddafd2699964fd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6aed4bf8e9d460df14f677b0d7a1f275') in 0.019524 seconds
-  Import took 0.025294 seconds .
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001637 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.96 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.713 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.91 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1929 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 96.2 MB.
-System memory in use after: 96.3 MB.
-
-Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2469.
-Total: 1.621800 ms (FindLiveObjects: 0.185900 ms CreateObjectMapping: 0.125700 ms MarkObjects: 1.296000 ms  DeleteObjects: 0.013200 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001579 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.96 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.744 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.89 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1929 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 96.2 MB.
-System memory in use after: 96.3 MB.
-
-Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2472.
-Total: 1.927500 ms (FindLiveObjects: 0.270200 ms CreateObjectMapping: 0.086900 ms MarkObjects: 1.556600 ms  DeleteObjects: 0.013000 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001822 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.94 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.738 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.00 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1929 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 96.2 MB.
-System memory in use after: 96.3 MB.
-
-Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2475.
-Total: 1.655700 ms (FindLiveObjects: 0.179800 ms CreateObjectMapping: 0.067500 ms MarkObjects: 1.393700 ms  DeleteObjects: 0.013500 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002496 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.94 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.711 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.90 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1929 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 96.2 MB.
-System memory in use after: 96.3 MB.
-
-Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2478.
-Total: 2.418700 ms (FindLiveObjects: 0.338500 ms CreateObjectMapping: 0.185900 ms MarkObjects: 1.880600 ms  DeleteObjects: 0.012600 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001637 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.85 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.721 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.88 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1929 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 96.2 MB.
-System memory in use after: 96.3 MB.
-
-Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2481.
-Total: 1.907600 ms (FindLiveObjects: 0.235100 ms CreateObjectMapping: 0.061800 ms MarkObjects: 1.573800 ms  DeleteObjects: 0.035600 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001956 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.00 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.713 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.90 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1929 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 96.2 MB.
-System memory in use after: 96.3 MB.
-
-Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2484.
-Total: 1.883100 ms (FindLiveObjects: 0.306000 ms CreateObjectMapping: 0.088000 ms MarkObjects: 1.475200 ms  DeleteObjects: 0.013200 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001490 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.88 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.715 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.93 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1929 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 96.2 MB.
-System memory in use after: 96.3 MB.
-
-Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2487.
-Total: 2.367600 ms (FindLiveObjects: 0.397800 ms CreateObjectMapping: 0.237800 ms MarkObjects: 1.717600 ms  DeleteObjects: 0.013600 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001547 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.96 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.765 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.89 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1929 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 96.2 MB.
-System memory in use after: 96.3 MB.
-
-Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 2490.
-Total: 1.530400 ms (FindLiveObjects: 0.205000 ms CreateObjectMapping: 0.049600 ms MarkObjects: 1.231900 ms  DeleteObjects: 0.042600 ms)
-
-AssetImportWorkerClient::OnTransportError - code=2 error=End of file

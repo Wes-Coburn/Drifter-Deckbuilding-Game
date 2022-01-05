@@ -46,12 +46,12 @@ MonoBehaviour:
   sounds:
   - name: Soundtrack_TitleScene
     clip: {fileID: 8300000, guid: fa4d89460fab0424fa8b75b8da409e4c, type: 3}
-    volume: 1
+    volume: 0.8
     pitch: 1
     source: {fileID: 0}
   - name: Soundscape_TitleScene
     clip: {fileID: 8300000, guid: 0f1d768f2fcb240b2a89ff736a5dae07, type: 3}
-    volume: 0.8
+    volume: 0.6
     pitch: 1
     source: {fileID: 0}
   - name: Soundtrack_Narrative1
@@ -66,12 +66,12 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Soundtrack_Combat1
     clip: {fileID: 8300000, guid: 27125866967536445bc7ff154891f139, type: 3}
-    volume: 0.5
+    volume: 0.6
     pitch: 1
     source: {fileID: 0}
   - name: Soundtrack_CombatBoss1
     clip: {fileID: 8300000, guid: 43adf7fc3e8922c49af63d8d33209682, type: 3}
-    volume: 0.5
+    volume: 0.6
     pitch: 1
     source: {fileID: 0}
   - name: Soundtrack_WorldMapScene
@@ -101,6 +101,11 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: SFX_PortraitClick
     clip: {fileID: 8300000, guid: d68eb6099dff26f4bb38218916a8fdd8, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_ShiftHand
+    clip: {fileID: 8300000, guid: 0cbbd85543f781f419605eafe137b3eb, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}

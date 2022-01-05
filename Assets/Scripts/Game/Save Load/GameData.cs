@@ -14,10 +14,12 @@ public class GameData
     public string[] RecruitRogues;
     public string[] RecruitTechs;
     public string[] RecruitWarriors;
+    public bool Achievement_BETA_Finish;
 
     public GameData (bool hideExplicitLanguage, string playerHero, string[] deckList, string[] augments, string[] items,
         int aetherCells, string[,] npcsAndClips, string[,] locationsNPCsObjectives, string[] shopItems,
-        string[] recruitMages, string[] recruitRogues, string[] recruitTechs, string[] recruitWarriors)
+        string[] recruitMages, string[] recruitRogues, string[] recruitTechs, string[] recruitWarriors,
+        bool achievement_BETA_Finish)
     {
         HideExplicitLanguage = hideExplicitLanguage;
         PlayerHero = playerHero;
@@ -32,5 +34,6 @@ public class GameData
         RecruitRogues = (string[])recruitRogues.Clone();
         RecruitTechs = (string[])recruitTechs.Clone();
         RecruitWarriors = (string[])recruitWarriors.Clone();
+        Achievement_BETA_Finish = achievement_BETA_Finish;
     }
 }

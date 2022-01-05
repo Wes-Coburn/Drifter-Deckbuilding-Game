@@ -121,7 +121,6 @@ public class CardManager : MonoBehaviour
 
     public CardAbility TriggerKeyword { get => triggerKeyword; }
 
-
     private void Start()
     {
         pMan = PlayerManager.Instance;
