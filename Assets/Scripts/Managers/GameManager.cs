@@ -64,9 +64,10 @@ public class GameManager : MonoBehaviour
 
     // Player
     public const string PLAYER = "Player";
+    public const int MINIMUM_DECK_SIZE = 12;
     public const int PLAYER_STARTING_HEALTH = 20;
     public const int PLAYER_HAND_SIZE = 4;
-    public const int PLAYER_START_FOLLOWERS = 2;
+    public const int PLAYER_START_UNITS = 2;
     public const int PLAYER_START_SKILLS = 2;
     public const int START_ENERGY_PER_TURN = 1;
     public const int MAXIMUM_ENERGY = 5;

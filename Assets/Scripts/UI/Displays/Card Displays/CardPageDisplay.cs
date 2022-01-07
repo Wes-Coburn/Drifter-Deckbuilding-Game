@@ -192,8 +192,9 @@ public class CardPageDisplay : MonoBehaviour
 
     public void RemoveCardButton_OnClick(Card card)
     {
-        if (pMan.PlayerDeckList.Count <= 10)
-            uMan.CreateFleetingInfoPopup("You must have at least 10 cards in your deck!", true);
+        if (pMan.PlayerDeckList.Count <= GameManager.MINIMUM_DECK_SIZE)
+            uMan.CreateFleetingInfoPopup("You must have at least " +
+                GameManager.MINIMUM_DECK_SIZE + " cards in your deck!", true);
         else if (pMan.AetherCells < GameManager.REMOVE_CARD_COST)
             uMan.InsufficientAetherPopup();
         else uMan.CreateRemoveCardPopup(card);

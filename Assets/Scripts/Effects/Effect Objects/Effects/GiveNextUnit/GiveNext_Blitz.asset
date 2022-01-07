@@ -10,12 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3018fea1b5ec92c4f941c7a6a9dd49d7, type: 3}
-  m_Name: GiveNext_Blitz_1turn
+  m_Name: GiveNext_Blitz
   m_EditorClassIdentifier: 
   IsRequired: 0
   Value: 1
   IsNegative: 0
   Countdown: 1
-  TargetDescription: 
+  IfHasAbilityCondition: {fileID: 0}
+  IfHasTriggerCondition: {fileID: 0}
+  IfHasAbility: {fileID: 0}
+  IfHasAbilityEffects: []
+  IfHasTrigger: {fileID: 0}
+  IfHasTriggerEffects: []
+  ForEachEffects: []
   Effects:
   - {fileID: 11400000, guid: 1a141f4c3e5f88b4a816eaf2d14867b7, type: 2}
+  Multiplier: 0

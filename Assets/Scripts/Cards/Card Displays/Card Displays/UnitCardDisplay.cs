@@ -275,7 +275,7 @@ public class UnitCardDisplay : CardDisplay
                 AudioManager.Instance.StartStopSound(null, sa.GainAbilitySound);
         }
 
-        if (ca.AbilityName == "Blitz") IsExhausted = false;
+        if (ca.AbilityName == CardManager.ABILITY_BLITZ) IsExhausted = false;
         return true;
 
         void ShowAbility(CardAbility ca)

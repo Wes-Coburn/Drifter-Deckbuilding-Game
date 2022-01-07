@@ -286,8 +286,10 @@ public class CardManager : MonoBehaviour
             if (ca is TriggeredAbility tra)
                 if (tra.AbilityTrigger.AbilityName == triggerName)
                 {
+                    // TESTING
                     Debug.Log("TRIGGER! <" + triggerName + ">");
-                    EffectManager.Instance.StartEffectGroupList(tra.EffectGroupList, unitCard, triggerName);
+                    EventManager.Instance.NewDelayedAction(() =>
+                    EffectManager.Instance.StartEffectGroupList(tra.EffectGroupList, unitCard, triggerName), 0, true);
                     effectFound = true;
                 }
         return effectFound;

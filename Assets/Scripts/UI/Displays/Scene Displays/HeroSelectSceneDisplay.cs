@@ -73,7 +73,7 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         pMan.PlayerHero = newPH;
 
         foreach (UnitCard uc in caMan.PlayerStartUnits)
-            for (int i = 0; i < GameManager.PLAYER_START_FOLLOWERS; i++)
+            for (int i = 0; i < GameManager.PLAYER_START_UNITS; i++)
                 caMan.AddCard(uc, GameManager.PLAYER);
         foreach (SkillCard skill in pMan.PlayerHero.HeroStartSkills)
             for (int i = 0; i < GameManager.PLAYER_START_SKILLS; i++)

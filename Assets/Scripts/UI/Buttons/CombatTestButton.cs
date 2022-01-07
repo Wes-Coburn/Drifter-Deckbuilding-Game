@@ -3,6 +3,8 @@ using UnityEngine;
 public class CombatTestButton : MonoBehaviour
 {
     [SerializeField] private bool revealButton;
+    [SerializeField] private bool addStartUnits;
+    [SerializeField] private bool addStartSkills;
 
     [SerializeField] private PlayerHero playerTestHero;
     [SerializeField] private EnemyHero enemyTestHero;
@@ -26,7 +28,6 @@ public class CombatTestButton : MonoBehaviour
             Debug.LogWarning("COMBAT TEST BUTTON REVEALED!");
             return;
         }
-        // FOR BETA ONLY
         GameManager gMan = GameManager.Instance;
         gMan.LoadGame(true, 1);
         gameObject.SetActive(gMan.Achievement_BETA_Finish);
@@ -35,7 +36,6 @@ public class CombatTestButton : MonoBehaviour
     public void OnClick()
     {
         if (SceneLoader.SceneIsLoading) return;
-
         EnemyHero eh = ScriptableObject.CreateInstance<EnemyHero>();
         eh.LoadHero(enemyTestHero);
         PlayerHero ph = ScriptableObject.CreateInstance<PlayerHero>();
@@ -43,7 +43,6 @@ public class CombatTestButton : MonoBehaviour
         DialogueManager.Instance.EngagedHero = eh;
         PlayerManager pMan = PlayerManager.Instance;
         pMan.PlayerHero = ph;
-
         // Test Augments
         foreach (HeroAugment aug in testAugments)
             pMan.AddAugment(aug);
@@ -74,15 +73,21 @@ public class CombatTestButton : MonoBehaviour
         items.Shuffle();
         for (int i = 0; i < 5; i++)
             pMan.HeroItems.Add(items[i]);
-
+        // Start Units
         CardManager caMan = CardManager.Instance;
-        foreach (UnitCard uc in caMan.PlayerStartUnits)
-            for (int i = 0; i < GameManager.PLAYER_START_FOLLOWERS; i++)
-                caMan.AddCard(uc, GameManager.PLAYER);
-        foreach (SkillCard skill in pMan.PlayerHero.HeroStartSkills)
-            for (int i = 0; i < GameManager.PLAYER_START_SKILLS; i++)
-                caMan.AddCard(skill, GameManager.PLAYER);
-
+        if (addStartUnits)
+        {
+            foreach (UnitCard uc in caMan.PlayerStartUnits)
+                for (int i = 0; i < GameManager.PLAYER_START_UNITS; i++)
+                    caMan.AddCard(uc, GameManager.PLAYER);
+        }
+        // Start Skills
+        if (addStartSkills)
+        {
+            foreach (SkillCard skill in pMan.PlayerHero.HeroStartSkills)
+                for (int i = 0; i < GameManager.PLAYER_START_SKILLS; i++)
+                    caMan.AddCard(skill, GameManager.PLAYER);
+        }
         SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);
         GameManager.Instance.IsCombatTest = true;
     }

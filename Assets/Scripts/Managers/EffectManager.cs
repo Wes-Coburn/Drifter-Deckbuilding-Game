@@ -331,7 +331,7 @@ public class EffectManager : MonoBehaviour
         }
 
         uMan.PlayerIsTargetting = true;
-        string description = 
+        string description =
             effectGroupList[currentEffectGroup].EffectsDescription;
 
         if (effect is DrawEffect de && de.IsDiscardEffect)
@@ -397,23 +397,21 @@ public class EffectManager : MonoBehaviour
         }
         foreach (GameObject target in redundancies)
         {
-            if (target == null)
-            {
-                Debug.LogError("TARGET IS NULL!");
-                continue;
-            }
             foreach (List<GameObject> targetList in legalTargets)
                 targetList.Remove(target);
         }
-        foreach (GameObject target in legalTargets[currentEffectGroup])
+
+        // TESTING
+        // Non-Required effects that returned TRUE from GetLegalTargets, but have 0 legal targets
+        if (legalTargets[currentEffectGroup].Count < 1)
         {
-            if (target == null)
-            {
-                Debug.LogError("TARGET IS NULL!");
-                continue;
-            }
-            uMan.SelectTarget(target, true);
+            Debug.LogWarning("EFFECT CONFIRMED WITH NO LEGAL TARGETS!");
+            ConfirmTargetEffect();
+            return;
         }
+
+        foreach (GameObject target in legalTargets[currentEffectGroup])
+            uMan.SelectTarget(target, true);
     }
 
     /******
@@ -548,7 +546,16 @@ public class EffectManager : MonoBehaviour
         {
             if (!de.IsDiscardEffect)
             {
-                int cardsAfterDraw = coMan.PlayerHandCards.Count + effect.Value - 1;
+                // No cards left
+                int cardsLeft = pMan.CurrentPlayerDeck.Count + coMan.PlayerDiscardCards.Count;
+                if (cardsLeft < effect.Value)
+                {
+                    Debug.LogWarning("NO CARDS LEFT!");
+                    if (requiredEffect) return false; // Unless required, draw as many as possible
+                }
+
+                // Hand is full
+                int cardsAfterDraw = coMan.PlayerHandCards.Count + effect.Value - 1; // The '-1' assumes the source is a card
                 if (cardsAfterDraw > GameManager.MAX_HAND_SIZE)
                 {
                     Debug.LogWarning("HAND IS FULL!");
@@ -557,10 +564,10 @@ public class EffectManager : MonoBehaviour
             }
             else
             {
-                // TESTING
+                // Variable target numbers
                 if (targets.VariableNumber && (coMan.PlayerHandCards.Count - 1) > 0) // The '-1' assumes the source is a card
                 {
-                    Debug.LogWarning("VARIABLE TARGET NUMBER!");
+                    Debug.Log("VARIABLE TARGET NUMBER!");
                     return true;
                 }
 
@@ -568,7 +575,7 @@ public class EffectManager : MonoBehaviour
                 if (coMan.PlayerHandCards.Count - 1 < effect.Value) // The '-1' assumes the source is a card
                 {
                     Debug.LogWarning("NOT ENOUGH CARDS!");
-                    return false;
+                    if (requiredEffect) return false; // TESTING
                 }
             }
             return true;
@@ -596,13 +603,9 @@ public class EffectManager : MonoBehaviour
     public void SelectTarget(GameObject target)
     {
         if (acceptedTargets[currentEffectGroup].Contains(target))
-        {
             RemoveEffectTarget(target);
-        }
         else if (legalTargets[currentEffectGroup].Contains(target))
-        {
             AcceptEffectTarget(target);
-        }
         else RejectEffectTarget();
     }
 
@@ -625,11 +628,18 @@ public class EffectManager : MonoBehaviour
             targetNumber = legalTargetNumber;
 
         // TESTING
-        if (acceptedTargets[currentEffectGroup].Count >= targetNumber)
+        int accepted = acceptedTargets[currentEffectGroup].Count;
+        if (accepted == targetNumber)
         {
             if (eg.Targets.VariableNumber)
-                Debug.LogWarning("ALL TARGETS SELECTED!"); 
-            else Debug.LogError("TOO MANY ACCEPTED TARGETS!");
+                Debug.Log("ALL TARGETS SELECTED!");
+            else Debug.LogError("ERROR!");
+            return;
+        }
+        else if (accepted > targetNumber)
+        {
+            
+            Debug.LogError("TOO MANY ACCEPTED TARGETS!");
             return;
         }
 

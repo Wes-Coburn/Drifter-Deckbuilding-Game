@@ -246,6 +246,13 @@ public class CombatManager : MonoBehaviour
                 Debug.LogError("PLAYER <" + hero + "> NOT FOUND!");
                 return;
             }
+            // TESTING
+            if (discard.Count < 1)
+            {
+                Debug.LogWarning("DISCARD IS EMPTY!");
+                uMan.CreateFleetingInfoPopup("No cards left!");
+                return;
+            }
             foreach (Card c in discard) deck.Add(c);
             discard.Clear();
             caMan.ShuffleDeck(hero);
