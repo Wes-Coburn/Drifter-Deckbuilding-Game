@@ -7,12 +7,18 @@ public class PowerZoom : MonoBehaviour
     [SerializeField] private GameObject abilityPopupPrefab;
     [SerializeField] private bool abilityPopupOnly;
 
+    private UIManager uMan;
     private GameObject powerPopup;
     private GameObject abilityPopupBox;
     public const string POWER_POPUP_TIMER = "PowerPopupTimer";
     public const string ABILITY_POPUP_TIMER = "AbilityBoxTimer";
 
     public HeroPower LoadedPower { get; set; }
+
+    private void Awake()
+    {
+        uMan = UIManager.Instance;
+    }
 
     public void DestroyPowerPopup()
     {
@@ -44,12 +50,14 @@ public class PowerZoom : MonoBehaviour
 
     private void CreatePowerPopup()
     {
+        if (this == null) return; // TESTING
         Transform tran = CombatManager.Instance.PlayerHero.transform;
         float newX = tran.position.x - 200;
         float newY = tran.position.y + 300;
         Vector3 spawnPoint = new Vector2(newX, newY);
         float scaleValue = 2.5f;
-        powerPopup = Instantiate(powerPopupPrefab, spawnPoint, Quaternion.identity);
+        powerPopup = Instantiate(powerPopupPrefab, uMan.CurrentZoomCanvas.transform);
+        powerPopup.transform.localPosition = spawnPoint; // TESTING
         powerPopup.transform.localScale = new Vector2(scaleValue, scaleValue);
         HeroPower hp = GetComponentInParent<PlayerHeroDisplay>().PlayerHero.HeroPower;
         if (hp == null)
@@ -63,13 +71,15 @@ public class PowerZoom : MonoBehaviour
 
     private void ShowLinkedAbilities(HeroPower hp, float scaleValue)
     {
+        if (this == null) return; // TESTING
+
         if (hp == null)
         {
             Debug.LogError("HERO POWER IS NULL!");
             return;
         }
-        abilityPopupBox = Instantiate(abilityPopupBoxPrefab, 
-            UIManager.Instance.CurrentCanvas.transform);
+        abilityPopupBox = Instantiate(abilityPopupBoxPrefab,
+            uMan.CurrentZoomCanvas.transform);
         Vector2 position = new Vector2();
         if (!abilityPopupOnly) position.Set(-75, -50);
         else position.Set(350, 0);

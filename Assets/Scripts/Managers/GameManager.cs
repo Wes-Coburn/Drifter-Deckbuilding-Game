@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
     public List<Location> ActiveLocations { get; private set; }
     public Location CurrentLocation { get; set; }
     public List<HeroItem> ShopItems { get; private set; }
-    public bool Achievement_BETA_Finish { get; set; } // TESTING
+    public bool Achievement_BETA_Finish { get; set; }
 
     /* GAME_MANAGER_DATA */
     // Universal
@@ -83,8 +83,8 @@ public class GameManager : MonoBehaviour
 
     // Enemy
     public const string ENEMY = "Enemy";
-    //public const int ENEMY_STARTING_HEALTH = 20;
-    public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
+    public const int ENEMY_STARTING_HEALTH = 20;
+    //public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
     public const int BOSS_BONUS_HEALTH = 10;
     public const int ENEMY_HAND_SIZE = 0;
     public const int ENEMY_START_FOLLOWERS = 5;

@@ -40,6 +40,8 @@ public class AbilityZoom : MonoBehaviour
 
     private void CreateAbilityPopup()
     {
+        if (this == null) return; // TESTING
+
         Vector3 vec3 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         float yPos = vec3.y + 100;
         Vector3 spawnPoint = new Vector2(vec3.x, yPos);

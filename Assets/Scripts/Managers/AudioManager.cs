@@ -103,7 +103,11 @@ public class AudioManager : MonoBehaviour
                 CurrentSoundscape.source.loop = true;
                 break;
             case SoundType.Soundtrack:
+                //Debug.LogWarning("SOUNDTRACKS SILENCED!");
+                //return; // FOR RECORDING ONLY
+//#pragma warning disable CS0162 // Unreachable code detected
                 if (CurrentSoundtrack != null)
+//#pragma warning restore CS0162 // Unreachable code detected
                 {
                     if (CurrentSoundtrack.source.clip == currentSound.source.clip) return;
                     CurrentSoundtrack.source.Stop();

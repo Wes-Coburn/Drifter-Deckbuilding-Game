@@ -30,7 +30,7 @@ public class CombatEndPopupDisplay : MonoBehaviour
         }
         else
         {
-            gMan.LoadGame(); // TESTING
+            gMan.LoadGame();
             SceneLoader.LoadScene(SceneLoader.Scene.WorldMapScene, true);
         }
         uMan.DestroyCombatEndPopup();
