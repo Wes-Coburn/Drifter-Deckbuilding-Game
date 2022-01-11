@@ -546,7 +546,7 @@ public class CombatManager : MonoBehaviour
         if (atkUcd.IsExhausted)
         {
             if (preCheck)
-                uMan.CreateFleetingInfoPopup("Exhausted units can't attack!");
+                uMan.CreateFleetingInfoPopup("<b>Exhausted</b> units can't attack!");
             return false;
         }
         else if (atkUcd.CurrentPower < 1)
@@ -565,7 +565,7 @@ public class CombatManager : MonoBehaviour
             if (CardManager.GetAbility(defender, CardManager.ABILITY_STEALTH))
             {
                 if (!preCheck)
-                    uMan.CreateFleetingInfoPopup("Units with Stealth can't be attacked!");
+                    uMan.CreateFleetingInfoPopup("Units with <b>Stealth</b> can't be attacked!");
                 return false;
             }
         }

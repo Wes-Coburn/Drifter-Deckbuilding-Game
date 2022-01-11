@@ -53,6 +53,9 @@ public class CardPageDisplay : MonoBehaviour
                 titleText = "Learn a Skill";
                 foreach (Card c in pMan.PlayerHero.HeroMoreSkills)
                     cardGroupList.Add(c);
+                // Also include starting skills
+                foreach (Card c in pMan.PlayerHero.HeroStartSkills)
+                    cardGroupList.Add(c);
                 break;
             case CardPageType.RemoveCard:
                 titleText = "Remove a Card";
@@ -138,8 +141,6 @@ public class CardPageDisplay : MonoBehaviour
             }
 
             GameObject button = Instantiate(buttonPrefab, costGroup.transform);
-            button.transform.localScale = new Vector2(1.5f, 1.5f);
-
             switch (cardPageType)
             {
                 case CardPageType.LearnSkill:

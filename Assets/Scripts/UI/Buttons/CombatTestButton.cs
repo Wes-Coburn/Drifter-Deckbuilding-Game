@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class CombatTestButton : MonoBehaviour
 {
-    [SerializeField] private bool revealButton;
+    [SerializeField] private bool developerMode;
     [SerializeField] private bool addStartUnits;
     [SerializeField] private bool addStartSkills;
 
-    [SerializeField] private PlayerHero playerTestHero;
+    [SerializeField] private PlayerHero[] playerTestHeroes;
     [SerializeField] private EnemyHero enemyTestHero;
     [SerializeField] private HeroAugment[] testAugments;
     [SerializeField] private HeroItem[] testItems;
@@ -22,10 +22,10 @@ public class CombatTestButton : MonoBehaviour
 
     private void Start()
     {
-        if (revealButton)
+        if (developerMode)
         {
+            Debug.LogWarning("DEVELOPER MODE!");
             gameObject.SetActive(true);
-            Debug.LogWarning("COMBAT TEST BUTTON REVEALED!");
             return;
         }
         GameManager gMan = GameManager.Instance;
@@ -39,50 +39,58 @@ public class CombatTestButton : MonoBehaviour
         EnemyHero eh = ScriptableObject.CreateInstance<EnemyHero>();
         eh.LoadHero(enemyTestHero);
         PlayerHero ph = ScriptableObject.CreateInstance<PlayerHero>();
-        ph.LoadHero(playerTestHero);
+        int randomHero = Random.Range(0, playerTestHeroes.Length - 1);
+        ph.LoadHero(playerTestHeroes[randomHero]);
         DialogueManager.Instance.EngagedHero = eh;
         PlayerManager pMan = PlayerManager.Instance;
         pMan.PlayerHero = ph;
+        
         // Test Augments
         foreach (HeroAugment aug in testAugments)
             pMan.AddAugment(aug);
-        // Test Cards
-        if (enableTestCards_1)
-        {
-            foreach (Card c in testCards_1)
-                CardManager.Instance.AddCard(c, GameManager.PLAYER);
-        }
-        if (enableTestCards_2)
-        {
-            foreach (Card c in testCards_2)
-                CardManager.Instance.AddCard(c, GameManager.PLAYER);
-        }
-        if (enableTestCards_3)
-        {
-            foreach (Card c in testCards_3)
-                CardManager.Instance.AddCard(c, GameManager.PLAYER);
-        }
-        if (enableTestCards_4)
-        {
-            foreach (Card c in testCards_4)
-                CardManager.Instance.AddCard(c, GameManager.PLAYER);
-        }
+        
         // Test Items
         HeroItem[] items = new HeroItem[testItems.Length];
         testItems.CopyTo(items, 0);
         items.Shuffle();
         for (int i = 0; i < 5; i++)
             pMan.HeroItems.Add(items[i]);
+
+        // Test Cards
+        if (developerMode)
+        {
+            if (enableTestCards_1)
+            {
+                foreach (Card c in testCards_1)
+                    CardManager.Instance.AddCard(c, GameManager.PLAYER);
+            }
+            if (enableTestCards_2)
+            {
+                foreach (Card c in testCards_2)
+                    CardManager.Instance.AddCard(c, GameManager.PLAYER);
+            }
+            if (enableTestCards_3)
+            {
+                foreach (Card c in testCards_3)
+                    CardManager.Instance.AddCard(c, GameManager.PLAYER);
+            }
+            if (enableTestCards_4)
+            {
+                foreach (Card c in testCards_4)
+                    CardManager.Instance.AddCard(c, GameManager.PLAYER);
+            }
+        }
+        
         // Start Units
         CardManager caMan = CardManager.Instance;
-        if (addStartUnits)
+        if (!developerMode || addStartUnits)
         {
             foreach (UnitCard uc in caMan.PlayerStartUnits)
                 for (int i = 0; i < GameManager.PLAYER_START_UNITS; i++)
                     caMan.AddCard(uc, GameManager.PLAYER);
         }
         // Start Skills
-        if (addStartSkills)
+        if (!developerMode || addStartSkills)
         {
             foreach (SkillCard skill in pMan.PlayerHero.HeroStartSkills)
                 for (int i = 0; i < GameManager.PLAYER_START_SKILLS; i++)

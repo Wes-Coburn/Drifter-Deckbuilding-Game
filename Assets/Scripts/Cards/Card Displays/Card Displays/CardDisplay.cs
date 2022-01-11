@@ -71,17 +71,19 @@ public abstract class CardDisplay : MonoBehaviour
         set
         {
             CardScript.CurrentEnergyCost = value;
-            DisplayEnergyCost(value); // TESTING
+            DisplayEnergyCost(value);
         }
     }
     private void DisplayEnergyCost(int cost)
     {
         string displayCost;
-        if (cost < 0) displayCost = "";
-        else displayCost = cost.ToString();
-
-        energyCost.GetComponent<TextMeshProUGUI>().
-            SetText(displayCost);
+        if (cost < 0) energyCost.SetActive(false);
+        else
+        {
+            displayCost = cost.ToString();
+            energyCost.GetComponentInChildren<TextMeshProUGUI>().
+                SetText(displayCost);
+        }
     }
     
     /******
@@ -119,8 +121,8 @@ public abstract class CardDisplay : MonoBehaviour
             CardBorder = cd.CardBorder;
 
             if (CardZoom.ZoomCardIsCentered)
-                DisplayEnergyCost(cd.cardScript.StartEnergyCost); // TESTING
-            else DisplayEnergyCost(cd.CurrentEnergyCost); // TESTING
+                DisplayEnergyCost(cd.cardScript.StartEnergyCost);
+            else DisplayEnergyCost(cd.CurrentEnergyCost);
         }
         else
         {
@@ -131,7 +133,7 @@ public abstract class CardDisplay : MonoBehaviour
             CardName = card.CardName;
             CardArt = card.CardArt;
             CardBorder = card.CardBorder;
-            DisplayEnergyCost(card.StartEnergyCost); // TESTING
+            DisplayEnergyCost(card.StartEnergyCost);
 
         }
 

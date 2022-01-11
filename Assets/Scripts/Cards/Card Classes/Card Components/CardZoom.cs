@@ -168,11 +168,20 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
             else
             {
                 // Card Page Popup
-                if (uMan.CardPagePopup != null) CreateAbilityPopups(new Vector2(0, -300), POPUP_SCALE_VALUE);
+                if (uMan.CardPagePopup != null)
+                    FunctionTimer.Create(() =>
+                    CreateAbilityPopups(new Vector2(0, -300),
+                    POPUP_SCALE_VALUE), 0.5f, ABILITY_POPUP_TIMER);
                 // New Card Popup
-                else if (uMan.NewCardPopup != null) CreateAbilityPopups(new Vector2(500, 0), POPUP_SCALE_VALUE);
+                else if (uMan.NewCardPopup != null)
+                    FunctionTimer.Create(() =>
+                    CreateAbilityPopups(new Vector2(500, 0),
+                    POPUP_SCALE_VALUE), 0.5f, ABILITY_POPUP_TIMER);
                 // Choose Card Popup
-                else if (uMan.ChooseCardPopup != null) CreateAbilityPopups(new Vector2(0, -300), POPUP_SCALE_VALUE);
+                else if (uMan.ChooseCardPopup != null)
+                    FunctionTimer.Create(() =>
+                    CreateAbilityPopups(new Vector2(0, -300),
+                    POPUP_SCALE_VALUE), 0.5f, ABILITY_POPUP_TIMER);
             }
         }
     }
@@ -336,7 +345,12 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         {
             AddSingle(ca);
             foreach (CardAbility linkCa in ca.LinkedAbilites)
+            {
                 AddSingle(linkCa);
+                // TESTING
+                foreach (CardAbility linkCa2 in linkCa.LinkedAbilites)
+                    AddSingle(linkCa2);
+            }
         }
         foreach (CardAbility single in singleList) 
             CreatePopup(single);

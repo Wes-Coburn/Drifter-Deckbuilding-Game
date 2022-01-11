@@ -23,7 +23,7 @@ public class ItemPageDisplay : MonoBehaviour
         foreach (HeroItem item in currentItems)
         {
             GameObject description = Instantiate(itemDescriptionPrefab, items.transform);
-            description.GetComponent<ItemDescriptionDisplay>().LoadedItem = item;
+            description.GetComponentInChildren<ItemDescriptionDisplay>().LoadedItem = item;
         }
     }
 

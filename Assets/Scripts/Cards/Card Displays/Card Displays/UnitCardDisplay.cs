@@ -32,8 +32,8 @@ public class UnitCardDisplay : CardDisplay
         {
             UnitCard.CurrentPower = value;
             int displayValue = 0;
-            if (value >= 0) displayValue = value; // TESTING
-            DisplayPower(displayValue); // TESTING
+            if (value >= 0) displayValue = value;
+            DisplayPower(displayValue);
         }
     }
     private void DisplayPower(int power)
@@ -49,12 +49,12 @@ public class UnitCardDisplay : CardDisplay
         set
         {
             UnitCard.CurrentHealth = value;
-            DisplayHealth(value); // TESTING
+            DisplayHealth(value);
         }
     }
     private void DisplayHealth(int health)
     {
-        if (health < 0) health = 0; // TESTING
+        if (health < 0) health = 0;
         TextMeshProUGUI txtPro =
             healthScoreDisplay.GetComponent<TextMeshProUGUI>();
         txtPro.SetText(health.ToString());
@@ -116,14 +116,12 @@ public class UnitCardDisplay : CardDisplay
 
             if (CardZoom.ZoomCardIsCentered)
             {
-                // TESTING
                 DisplayPower(uc.StartPower);
                 DisplayHealth(uc.StartHealth);
                 abilityList = uc.StartingAbilities;
             }
             else
             {
-                // TESTING
                 DisplayPower(uc.CurrentPower);
                 DisplayHealth(uc.CurrentHealth);
                 abilityList = ucd.CurrentAbilities;
@@ -219,7 +217,7 @@ public class UnitCardDisplay : CardDisplay
             foreach (GameObject go in AbilityIcons)
                 Destroy(go);
             AbilityIcons.Clear();
-            displayedAbilities.Clear(); // TESTING
+            displayedAbilities.Clear();
             CurrentEffects.Clear();
             CurrentAbilities.Clear();
             DisplayCard();
@@ -248,7 +246,7 @@ public class UnitCardDisplay : CardDisplay
         {
             if (CardManager.EvergreenTriggers.Contains(ta.AbilityTrigger.AbilityName))
             {
-                bool iconsFound = false; // TESTING
+                bool iconsFound = false;
                 foreach (CardAbility ca2 in displayedAbilities)
                 {
                     if (ca2 is TriggeredAbility ta2)
@@ -258,7 +256,7 @@ public class UnitCardDisplay : CardDisplay
                             iconsFound = true;
                     }
                 }
-                if (!iconsFound) ShowAbility(ta); // TESTING
+                if (!iconsFound) ShowAbility(ta);
             }
             else if (ta.AbilityTrigger.AbilityName != CardManager.TRIGGER_PLAY)
             {
@@ -320,8 +318,7 @@ public class UnitCardDisplay : CardDisplay
         }
 
         GameObject icon = AbilityIcons[displayIndex];
-        FunctionTimer.Create(() => Destroy(icon), 1); // TESTING
-        //Destroy(AbilityIcons[displayIndex]);
+        FunctionTimer.Create(() => Destroy(icon), 1);
         AbilityIcons.RemoveAt(displayIndex);
         displayedAbilities.RemoveAt(displayIndex);
     }
@@ -339,7 +336,6 @@ public class UnitCardDisplay : CardDisplay
         return abilityIcon;
     }
 
-    // TESTING
     public void AbilityTriggerState(string triggerName)
     {
         if (triggerName == CardManager.TRIGGER_PLAY) return;

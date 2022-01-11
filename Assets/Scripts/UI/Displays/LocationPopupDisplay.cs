@@ -76,11 +76,11 @@ public class LocationPopupDisplay : MonoBehaviour
 
         gMan.CurrentLocation = gMan.GetActiveLocation(location);
         if (location.IsRecruitment) gMan.CurrentLocation.CurrentObjective = "Recruit a Unit.";
-        else if (location.IsShop) gMan.CurrentLocation.CurrentObjective = "Buy an Item";
-        else if (location.IsCloning) gMan.CurrentLocation.CurrentObjective = "Clone a Unit";
+        else if (location.IsShop) gMan.CurrentLocation.CurrentObjective = "Buy an Item.";
+        else if (location.IsCloning) gMan.CurrentLocation.CurrentObjective = "Clone a Unit.";
         else gMan.ActiveLocations.Remove(gMan.CurrentLocation);
         dMan.EngagedHero = gMan.GetActiveNPC(gMan.CurrentLocation.CurrentNPC);
-        SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene, true); // TESTING
+        SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene, true);
     }
 
     public void CancelButton_OnClick() =>

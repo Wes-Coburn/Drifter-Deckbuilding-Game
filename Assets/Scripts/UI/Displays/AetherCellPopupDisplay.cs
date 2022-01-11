@@ -7,6 +7,10 @@ public class AetherCellPopupDisplay : MonoBehaviour
 
     [SerializeField] private GameObject aetherQuantity;
     [SerializeField] private GameObject totalAether;
+    [SerializeField] private GameObject continueButton;
+
+    [SerializeField] private GameObject[] hiddenZones;
+    [SerializeField] private GameObject newAetherChest;
 
     public int AetherQuantity
     {
@@ -27,10 +31,24 @@ public class AetherCellPopupDisplay : MonoBehaviour
     private void Awake()
     {
         dMan = DialogueManager.Instance;
-        GetComponent<SoundPlayer>().PlaySound(0); // TESTING
+        newAetherChest.SetActive(true);
+        continueButton.SetActive(false);
+        foreach (GameObject go in hiddenZones)
+            go.SetActive(false);
+
+        GetComponent<SoundPlayer>().PlaySound(0);
     }
 
-    public void OnClick()
+    public void NewAetherChest_OnClick()
+    {
+        newAetherChest.SetActive(false);
+        continueButton.SetActive(true);
+        foreach (GameObject go in hiddenZones)
+            go.SetActive(true);
+        GetComponent<SoundPlayer>().PlaySound(1);
+    }
+
+    public void ContinueButton_OnClick()
     {
         UIManager.Instance.DestroyAetherCellPopup();
         if (!SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene)) dMan.DisplayDialoguePopup();

@@ -27,7 +27,7 @@ public class PowerZoom : MonoBehaviour
     {
         if (CardZoom.ZoomCardIsCentered || DragDrop.DraggingCard) return;
         DestroyPowerPopup();
-        if (!abilityPopupOnly) FunctionTimer.Create(() => CreatePowerPopup(), 1f, POWER_POPUP_TIMER);
+        if (!abilityPopupOnly) FunctionTimer.Create(() => CreatePowerPopup(), 0.5f, POWER_POPUP_TIMER);
         else FunctionTimer.Create(() => ShowLinkedAbilities(LoadedPower, 3), 0.5f, POWER_POPUP_TIMER);
     }
     public void OnPointerExit()

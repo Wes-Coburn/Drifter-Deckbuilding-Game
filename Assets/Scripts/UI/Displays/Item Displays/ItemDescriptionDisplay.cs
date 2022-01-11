@@ -21,7 +21,7 @@ public class ItemDescriptionDisplay : MonoBehaviour, IPointerClickHandler, IPoin
         {
             loadedItem = value;
             itemImage.GetComponent<Image>().sprite = loadedItem.ItemImage;
-            string description = "<b>" + loadedItem.ItemName + ":</b> " + loadedItem.ItemDescription;
+            string description = "<u><b>" + loadedItem.ItemName + ":</u></b> " + loadedItem.ItemDescription;
             itemDescription.GetComponent<TextMeshProUGUI>().SetText(description);
             itemCost.GetComponent<TextMeshProUGUI>().SetText(GameManager.GetItemCost(loadedItem).ToString());
         }
