@@ -115,7 +115,8 @@ public class HomeBaseSceneDisplay : MonoBehaviour
         HeroName = ph.HeroName;
         HeroSprite = ph.HeroPortrait;
         HeroDescription = ph.HeroDescription;
-        HeroPowerDescription = ph.HeroPower.PowerDescription;
+        HeroPowerDescription = "<b><u>" + ph.HeroPower.PowerName +
+            ":</b></u> " + ph.HeroPower.PowerDescription;
         HeroPowerSprite = ph.HeroPower.PowerSprite;
     }
 

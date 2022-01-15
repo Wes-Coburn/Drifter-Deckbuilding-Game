@@ -4,11 +4,13 @@ using UnityEngine;
 public class DrawEffect : Effect
 {
     public bool IsDiscardEffect;
+    public bool IsMulliganEffect;
 
     public override void LoadEffect(Effect effect)
     {
         base.LoadEffect(effect);
         DrawEffect de = effect as DrawEffect;
         IsDiscardEffect = de.IsDiscardEffect;
+        IsMulliganEffect = de.IsMulliganEffect;
     }
 }

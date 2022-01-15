@@ -131,7 +131,11 @@ public class DragDrop : MonoBehaviour
         if (Enemy != null)
         {
             if (coMan.CanAttack(gameObject, Enemy, false))
-                coMan.Attack(gameObject, Enemy);
+            {
+                GameObject enemy = Enemy;
+                EventManager.Instance.NewDelayedAction(() =>
+                coMan.Attack(gameObject, enemy), 0.5f);
+            }
             uMan.SelectTarget(Enemy, false);
             Enemy = null;
         }

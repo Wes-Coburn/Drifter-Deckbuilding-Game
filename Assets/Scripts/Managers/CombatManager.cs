@@ -48,7 +48,6 @@ public class CombatManager : MonoBehaviour
 
     public GameObject DragArrowPrefab { get => dragArrowPrefab; }
 
-    // TESTING
     public int ActionsPlayedThisTurn
     {
         get => actionsPlayedThisTurn;
@@ -57,7 +56,6 @@ public class CombatManager : MonoBehaviour
             actionsPlayedThisTurn = value;
             if (pMan.IsMyTurn && actionsPlayedThisTurn == 1)
             {
-                Debug.Log("TRIGGER SPARK! (Actions played == 1)");
                 evMan.NewDelayedAction(() =>
                 caMan.TriggerPlayedUnits(CardManager.TRIGGER_SPARK), 0);
             }
@@ -67,6 +65,7 @@ public class CombatManager : MonoBehaviour
     /* CARD LISTS */
     public List<GameObject> PlayerHandCards { get; private set; }
     public List<GameObject> PlayerZoneCards { get; private set; }
+    public List<GameObject> PlayerActionZoneCards { get; private set; }
     public List<Card> PlayerDiscardCards { get; private set; }
     public List<GameObject> EnemyHandCards { get; private set; }
     public List<GameObject> EnemyZoneCards { get; private set; }
@@ -81,9 +80,7 @@ public class CombatManager : MonoBehaviour
     public GameObject EnemyHero { get; private set; }
     public GameObject EnemyHand { get; private set; }
     public GameObject EnemyZone { get; private set; }
-    //public GameObject EnemyActionZone { get; private set; }
     public GameObject EnemyDiscard { get; private set; }
-
 
     private void Start()
     {
@@ -115,9 +112,10 @@ public class CombatManager : MonoBehaviour
         EnemyZone = GameObject.Find(ENEMY_ZONE);
         EnemyDiscard = GameObject.Find(ENEMY_DISCARD);
         EnemyHero = GameObject.Find(ENEMY_HERO);
-        // ZONE OBJECTS LISTS
+        // ZONE LISTS
         PlayerHandCards = new List<GameObject>();
         PlayerZoneCards = new List<GameObject>();
+        PlayerActionZoneCards = new List<GameObject>();
         PlayerDiscardCards = new List<Card>();
         EnemyHandCards = new List<GameObject>();
         EnemyZoneCards = new List<GameObject>();
@@ -177,7 +175,7 @@ public class CombatManager : MonoBehaviour
             cc.Child = prefab;
             prefab.transform.SetParent(cc.gameObject.transform, false);
         }
-        else if (type is DisplayType.NewCard) prefab.GetComponent<CardDisplay>().DisplayZoomCard(null, card);
+        else if (type is DisplayType.NewCard) cd.DisplayZoomCard(null, card);
         else if (type is DisplayType.Cardpage) cd.DisplayCardPageCard(card);
         return prefab;
     }
@@ -202,6 +200,7 @@ public class CombatManager : MonoBehaviour
         string cardTag;
         string cardZone;
         Vector2 position = new Vector2();
+
         if (hero == PLAYER)
         {
             deck = pMan.CurrentPlayerDeck;
@@ -211,7 +210,6 @@ public class CombatManager : MonoBehaviour
                 uMan.CreateFleetingInfoPopup("Your hand is full!");
                 return;
             }
-
             cardTag = PLAYER_CARD;
             cardZone = PLAYER_HAND;
             position.Set(-750, -350);
@@ -264,18 +262,20 @@ public class CombatManager : MonoBehaviour
             Debug.LogError("CARD IS NULL!");
             return;
         }
-
         deck.RemoveAt(0);
         card.tag = cardTag;
         ChangeCardZone(card, cardZone);
+
         if (hero == PLAYER)
         {
             PlayerHandCards.Add(card);
             // Added to NewDrawnCards for upcoming effects in the current effect group
             // Added to CurrentLegalTargets for the current effect in the current effect group
             efMan.NewDrawnCards.Add(card);
+            
             if (uMan.PlayerIsTargetting &&
-                efMan.CurrentEffect is DrawEffect)
+                efMan.CurrentEffect is DrawEffect de &&
+                de.IsDiscardEffect) // TESTING
             {
                 if (!efMan.CurrentLegalTargets.Contains(card))
                     efMan.CurrentLegalTargets.Add(card);
@@ -380,7 +380,7 @@ public class CombatManager : MonoBehaviour
             if (newZoneName == PLAYER_ZONE || newZoneName == ENEMY_ZONE) played = true;
             ucd.ResetUnitCard(played);
         }
-        else card.GetComponent<DragDrop>().IsPlayed = false; // TESTING
+        else card.GetComponent<DragDrop>().IsPlayed = false;
 
         static void MoveCard(GameObject card, GameObject newParent)
         {
@@ -412,6 +412,7 @@ public class CombatManager : MonoBehaviour
             }
             else if (cd is ActionCardDisplay)
             {
+                PlayerActionZoneCards.Add(card); // TESTING
                 ChangeCardZone(card, PLAYER_ACTION_ZONE);
                 PlayAction();
             }
@@ -462,7 +463,6 @@ public class CombatManager : MonoBehaviour
         void PlayAction()
         {
             auMan.StartStopSound("SFX_PlayCard");
-            //PlayCardSound();
             ResolveActionCard(card);
         }
         void PlayCardSound()
@@ -506,10 +506,10 @@ public class CombatManager : MonoBehaviour
      *****/
     public void DiscardCard(GameObject card, bool isAction = false)
     {
-        // TESTING
+        if (isAction) PlayerActionZoneCards.Remove(card); // TESTING
         if (card.CompareTag(PLAYER_CARD))
         {
-            PlayerHandCards.Remove(card);
+            if (!isAction) PlayerHandCards.Remove(card); // TESTING
             PlayerDiscardCards.Add(HideCard(card));
         }
         else

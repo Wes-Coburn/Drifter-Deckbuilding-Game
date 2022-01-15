@@ -56,8 +56,8 @@ public class PowerZoom : MonoBehaviour
         float newY = tran.position.y + 300;
         Vector3 spawnPoint = new Vector2(newX, newY);
         float scaleValue = 2.5f;
-        powerPopup = Instantiate(powerPopupPrefab, uMan.CurrentZoomCanvas.transform);
-        powerPopup.transform.localPosition = spawnPoint; // TESTING
+        powerPopup = Instantiate(powerPopupPrefab, uMan.CurrentWorldSpace.transform);
+        powerPopup.transform.localPosition = spawnPoint;
         powerPopup.transform.localScale = new Vector2(scaleValue, scaleValue);
         HeroPower hp = GetComponentInParent<PlayerHeroDisplay>().PlayerHero.HeroPower;
         if (hp == null)

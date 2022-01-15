@@ -67,7 +67,7 @@ public class CardPageDisplay : MonoBehaviour
                 foreach (Card c in CardManager.Instance.PlayerRecruitUnits)
                     cardGroupList.Add(c);
                 break;
-            case CardPageType.CloneUnit: // TESTING
+            case CardPageType.CloneUnit:
                 titleText = "Clone a Unit";
                 foreach (Card c in pMan.PlayerDeckList)
                     if (c is UnitCard)
@@ -83,8 +83,8 @@ public class CardPageDisplay : MonoBehaviour
         currentPage = 1;
         if (cardGroupList.Count > 0)
         {
-            cardGroupList.Sort((x, y) => string.Compare(x.CardName, y.CardName)); // TESTING
-            cardGroupList.Sort((s1, s2) => s1.StartEnergyCost - s2.StartEnergyCost); // TESTING
+            cardGroupList.Sort((x, y) => string.Compare(x.CardName, y.CardName));
+            cardGroupList.Sort((s1, s2) => s1.StartEnergyCost - s2.StartEnergyCost);
 
             noCardsTooltip.SetActive(false);
             double result = cardGroupList.Count / 4.0;
@@ -96,6 +96,7 @@ public class CardPageDisplay : MonoBehaviour
             totalPages = 1;
         }
         LoadCardPage();
+        AudioManager.Instance.StartStopSound("SFX_CreatePopup1");
     }
 
     private void LoadCardPage()

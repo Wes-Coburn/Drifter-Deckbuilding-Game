@@ -198,7 +198,6 @@ public class PlayerManager : MonoBehaviour
                 HeroPowerUsed = true;
                 foreach (Sound s in PlayerHero.HeroPower.PowerSounds)
                     AudioManager.Instance.StartStopSound(null, s);
-                caMan.TriggerPlayedUnits(CardManager.TRIGGER_RESEARCH);
             }
         }
     }

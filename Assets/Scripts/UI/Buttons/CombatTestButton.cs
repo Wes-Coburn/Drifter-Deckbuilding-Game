@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class CombatTestButton : MonoBehaviour
 {
+    [Header("DEVELOPER MODE")]
     [SerializeField] private bool developerMode;
+    [Space]
     [SerializeField] private bool addStartUnits;
     [SerializeField] private bool addStartSkills;
 

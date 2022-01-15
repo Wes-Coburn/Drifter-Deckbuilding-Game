@@ -101,11 +101,11 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     public void OnPointerEnter()
     {
         if (DragDrop.DraggingCard != null || ZoomCardIsCentered) return;
-        if (uMan.PlayerIsTargetting)
+        if (uMan.PlayerIsTargetting) // TESTING
         {
             bool isDiscardEffect = false;
-            if (EffectManager.Instance.CurrentEffect is
-                DrawEffect de && de.IsDiscardEffect) isDiscardEffect = true;
+            if (EffectManager.Instance.CurrentEffect is DrawEffect de &&
+                de.IsDiscardEffect) isDiscardEffect = true;
             if (!isDiscardEffect) return;
         }
 

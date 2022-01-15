@@ -67,6 +67,7 @@ public class GameManager : MonoBehaviour
     public const int MINIMUM_DECK_SIZE = 12;
     public const int PLAYER_STARTING_HEALTH = 20;
     public const int PLAYER_HAND_SIZE = 4;
+    //public const int PLAYER_HAND_SIZE = 1; // FOR TESTING ONLY
     public const int PLAYER_START_UNITS = 2;
     public const int PLAYER_START_SKILLS = 2;
     public const int START_ENERGY_PER_TURN = 1;
@@ -530,7 +531,7 @@ public class GameManager : MonoBehaviour
         if (enMan.EnemyHero.IsBoss) soundtrack = "Soundtrack_CombatBoss1";
         else soundtrack = "Soundtrack_Combat1";
         auMan.StartStopSound(soundtrack, null, AudioManager.SoundType.Soundtrack);
-        auMan.StopCurrentSoundscape(); // TESTING
+        auMan.StopCurrentSoundscape();
         auMan.StartStopSound("SFX_StartCombat1");
 
         void CombatStart()
@@ -540,8 +541,8 @@ public class GameManager : MonoBehaviour
             caMan.ShuffleDeck(PLAYER, false);
             for (int i = 0; i < PLAYER_HAND_SIZE + bonusCards; i++)
                 evMan.NewDelayedAction(() => coMan.DrawCard(PLAYER), 0.5f);
-            evMan.NewDelayedAction(() => Mulligan(), 0.5f); // TESTING
-            evMan.NewDelayedAction(() => caMan.ShuffleDeck(PLAYER), 0); // TESTING
+            evMan.NewDelayedAction(() => Mulligan(), 0.5f);
+            //evMan.NewDelayedAction(() => caMan.ShuffleDeck(PLAYER), 0); // TESTING
         }
 
         void Mulligan()
