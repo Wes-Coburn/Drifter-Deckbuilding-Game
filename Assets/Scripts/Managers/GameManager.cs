@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] string[] gameChapters;
     [Header("NARRATIVES")]
     [SerializeField] private Narrative settingNarrative;
-    [SerializeField] private Narrative newGameNarrative;
+    public Narrative NewGameNarrative;
     [Header("LOCATIONS")]
     [SerializeField] private Location homeBaseLocation;
     [SerializeField] private Location firstLocation;
@@ -466,12 +466,14 @@ public class GameManager : MonoBehaviour
     {
         if (NextNarrative == settingNarrative) 
             SceneLoader.LoadScene(SceneLoader.Scene.HeroSelectScene);
+        /*
         else if (NextNarrative == pMan.PlayerHero.HeroBackstory)
         {
             NextNarrative = newGameNarrative;
             SceneLoader.LoadScene(SceneLoader.Scene.NarrativeScene, true);
         }
-        else if (NextNarrative == newGameNarrative) 
+        */
+        else if (NextNarrative == NewGameNarrative) 
             SceneLoader.LoadScene(SceneLoader.Scene.WorldMapScene);
         else Debug.LogError("NO CONDITIONS MATCHED!");
     }

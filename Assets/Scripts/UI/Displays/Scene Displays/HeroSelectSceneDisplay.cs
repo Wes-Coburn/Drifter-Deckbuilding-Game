@@ -12,6 +12,7 @@ public class HeroSelectSceneDisplay : MonoBehaviour
     [SerializeField] private GameObject heroPortrait;
     [SerializeField] private GameObject heroName;
     [SerializeField] private GameObject heroDescription;
+    [SerializeField] private GameObject heroBackstory;
     [SerializeField] private GameObject heroPowerImage;
     [SerializeField] private GameObject heroPowerDescription;
     [SerializeField] private GameObject heroPowerCost;
@@ -34,6 +35,8 @@ public class HeroSelectSceneDisplay : MonoBehaviour
     private CombatManager coMan;
     private UIManager uMan;
     private CardManager caMan;
+    private GameManager gMan;
+
     private GameObject currentSkill_1;
     private GameObject currentSkill_2;
     private int startSelection;
@@ -58,6 +61,8 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         coMan = CombatManager.Instance;
         uMan = UIManager.Instance;
         caMan = CardManager.Instance;
+        gMan = GameManager.Instance;
+
         startSelection = 1; // Start with Kili
         currentSelection = startSelection;
         heroSelected = false;
@@ -99,7 +104,7 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         else
         {
             LoadSelections();
-            GameManager.Instance.NextNarrative = pMan.PlayerHero.HeroBackstory;
+            gMan.NextNarrative = gMan.NewGameNarrative;
             SceneLoader.LoadScene(SceneLoader.Scene.NarrativeScene);
         }
     }
@@ -152,7 +157,7 @@ public class HeroSelectSceneDisplay : MonoBehaviour
 
     public void DisplaySelectedHero()
     {
-        SceneTitle = "Choose Your Hero!";
+        SceneTitle = "Choose Your Drifter!";
         loadedHero = playerHeroes[currentSelection];
         confirmSelection.SetActive(false);
         selectedAugment.SetActive(false);
@@ -166,6 +171,7 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         heroPortrait.transform.localScale = scale;
 
         heroDescription.GetComponent<TextMeshProUGUI>().SetText(loadedHero.HeroDescription);
+        heroBackstory.GetComponent<TextMeshProUGUI>().SetText(loadedHero.HeroBackstory);
         heroPowerImage.GetComponent<Image>().sprite = loadedHero.HeroPower.PowerSprite;
         heroPowerImage.GetComponentInParent<PowerZoom>().LoadedPower = loadedHero.HeroPower;
 
@@ -176,7 +182,7 @@ public class HeroSelectSceneDisplay : MonoBehaviour
             ("<b><u>" + loadedHero.HeroPower.PowerName + 
             ":</b></u> " + loadedHero.HeroPower.PowerDescription);
 
-        heroPowerCost.GetComponent<TextMeshProUGUI>().SetText(loadedHero.HeroPower.PowerCost.ToString()); // TESTING
+        heroPowerCost.GetComponent<TextMeshProUGUI>().SetText(loadedHero.HeroPower.PowerCost.ToString());
 
         if (currentSkill_1 != null)
         {
@@ -204,7 +210,7 @@ public class HeroSelectSceneDisplay : MonoBehaviour
 
     private void DisplayConfirmSelection()
     {
-        SceneTitle = "Confirm Your Selection!";
+        SceneTitle = "Confirm Your Selection";
         confirmSelection.SetActive(true);
         selectedAugment.SetActive(false);
         selectedHero.SetActive(false);

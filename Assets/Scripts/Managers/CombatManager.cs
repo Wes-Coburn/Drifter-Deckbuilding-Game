@@ -244,7 +244,6 @@ public class CombatManager : MonoBehaviour
                 Debug.LogError("PLAYER <" + hero + "> NOT FOUND!");
                 return;
             }
-            // TESTING
             if (discard.Count < 1)
             {
                 Debug.LogWarning("DISCARD IS EMPTY!");

@@ -10,12 +10,12 @@ public class PlayerHero : Hero
     [SerializeField] private List<SkillCard> heroStartSkills;
     [SerializeField] private List<SkillCard> heroMoreSkills;
     [Header("HERO BACKSTORY")]
-    [SerializeField] private Narrative heroBackstory;
+    [TextArea] [SerializeField] private string heroBackstory;
 
     public List<SkillCard> HeroStartSkills { get => heroStartSkills; }
     public List<SkillCard> HeroMoreSkills { get => heroMoreSkills; }
     public HeroPower HeroPower { get => heroPower; }
-    public Narrative HeroBackstory { get => heroBackstory; }
+    public string HeroBackstory { get => heroBackstory; }
 
 
     public override void LoadHero(Hero hero)

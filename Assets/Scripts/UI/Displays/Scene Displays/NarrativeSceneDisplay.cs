@@ -37,8 +37,8 @@ public class NarrativeSceneDisplay : MonoBehaviour
     
     public void NextNarrative()
     {
-        if (SceneLoader.SceneIsLoading) return; // TESTING
-        GetComponent<SoundPlayer>().PlaySound(0); // TESTING
+        if (SceneLoader.SceneIsLoading) return;
+        GetComponent<SoundPlayer>().PlaySound(0);
 
         if (DialogueManager.Instance.CurrentTextRoutine != null)
         {
@@ -51,8 +51,8 @@ public class NarrativeSceneDisplay : MonoBehaviour
     }
     public void PreviousNarrative()
     {
-        if (SceneLoader.SceneIsLoading) return; // TESTING
-        GetComponent<SoundPlayer>().PlaySound(0); // TESTING
+        if (SceneLoader.SceneIsLoading) return;
+        GetComponent<SoundPlayer>().PlaySound(0);
 
         if (--currentClip < 0) currentClip = 0;
         else SetCurrentNarrative(currentClip);
