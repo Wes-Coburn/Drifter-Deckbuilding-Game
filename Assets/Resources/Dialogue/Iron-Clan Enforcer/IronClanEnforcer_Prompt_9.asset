@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b107ecdac65374f8c56b3212c061ce, type: 3}
   m_Name: IronClanEnforcer_Prompt_9
   m_EditorClassIdentifier: 
-  developerNotes: 
-  dialoguePromptText: Now you die.
+  dialoguePromptText: '*The Iron-Clan Enforcer lies dying in the street, clutching
+    their wounds.*'
   dialogueResponse1:
     responseText: 
     response_NextClip: {fileID: 0}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
@@ -25,10 +26,11 @@ MonoBehaviour:
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   dialogueResponse2:
-    responseText: (FIGHT!)
-    response_NextClip: {fileID: 11400000, guid: 8c1ddd2d1b151684a8717201aae3426d,
+    responseText: (Continue)
+    response_NextClip: {fileID: 11400000, guid: 08f0d792ff510e7408d0fecf0f7ab626,
       type: 2}
-    response_IsCombatStart: 1
+    npc_NextClip: {fileID: 0}
+    response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
     response_IsShopStart: 0
@@ -38,6 +40,7 @@ MonoBehaviour:
   dialogueResponse3:
     responseText: 
     response_NextClip: {fileID: 0}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0

@@ -98,8 +98,6 @@ public static class SceneLoader
                     break;
                 case Scene.HeroSelectScene:
                     showSkybar = false;
-                    UnityEngine.Object.FindObjectOfType
-                    <HeroSelectSceneDisplay>().DisplaySelectedHero();
                     auMan.StopCurrentSoundscape(); // TESTING
                     break;
                 case Scene.NarrativeScene:

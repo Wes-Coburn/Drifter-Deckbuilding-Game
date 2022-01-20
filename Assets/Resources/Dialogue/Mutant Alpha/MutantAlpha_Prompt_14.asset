@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b107ecdac65374f8c56b3212c061ce, type: 3}
   m_Name: MutantAlpha_Prompt_14
   m_EditorClassIdentifier: 
-  dialoguePromptText: They told us it would give us strength, give us live the lives
-    we always wanted. We were desperate.
+  dialoguePromptText: '*You step over the body of the Mutant Alpha and make your
+    way across the bridge.*'
   dialogueResponse1:
-    responseText: You made your choice. *Kill*
-    response_NextClip: {fileID: 11400000, guid: ccdb7e8cf9b4ba140bae58ab03be6240,
-      type: 2}
+    responseText: 
+    response_NextClip: {fileID: 0}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
@@ -26,9 +26,10 @@ MonoBehaviour:
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   dialogueResponse2:
-    responseText: "I don\u2019t need to see any more blood today."
-    response_NextClip: {fileID: 11400000, guid: 1867b9c4b9d674647a649ecc6f15e881,
+    responseText: (Continue)
+    response_NextClip: {fileID: 11400000, guid: c3eeb2f73582ba647b3f76cf1fb55b9b,
       type: 2}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
@@ -37,9 +38,9 @@ MonoBehaviour:
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   dialogueResponse3:
-    responseText: 'What did they give you? '
-    response_NextClip: {fileID: 11400000, guid: 9cd5061dfd66bca49835f889d0edd1f3,
-      type: 2}
+    responseText: 
+    response_NextClip: {fileID: 0}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
@@ -48,7 +49,7 @@ MonoBehaviour:
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   newEngagedHero: {fileID: 0}
-  hideNPC: 0
-  newCard: {fileID: 0}
+  hideNPC: 1
+  newCard: {fileID: 11400000, guid: 9af1a630d73740d4896277a5fd2f3d32, type: 2}
   aetherCells: 0
   newLocations: []

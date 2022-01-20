@@ -23,6 +23,9 @@ public class EnemyManager : MonoBehaviour
     private int enemyHealth;
     private int nextReinforcements;
 
+    private List<int> refoSched;
+    private int handSize;
+
     public bool IsMyTurn { get; set; }
     public List<Card> EnemyDeckList { get; private set; }
     public List<Card> CurrentEnemyDeck { get; private set; }
@@ -103,8 +106,8 @@ public class EnemyManager : MonoBehaviour
     public void StartEnemyTurn()
     {
         int refo = CurrentReinforcements;
-        List<int> refoSched = ReinforcementSchedule;
-        int handSize = coMan.EnemyHandCards.Count;
+        refoSched = ReinforcementSchedule;
+        handSize = coMan.EnemyHandCards.Count;
         int cardsToPlay = handSize;
         int maxHand = GameManager.MAX_HAND_SIZE;
         int overMaxUnits = GameManager.MAX_UNITS_PLAYED + 1;
@@ -118,81 +121,107 @@ public class EnemyManager : MonoBehaviour
             coMan.PlayCard(coMan.EnemyHandCards[0]), 2);
 
         evMan.NewDelayedAction(() => BeginAttacks(), 1);
+    }
 
-        void BeginAttacks()
+    private void BeginAttacks()
+    {
+        foreach (GameObject enemyUnit in coMan.EnemyZoneCards)
         {
-            foreach (GameObject enemyUnit in coMan.EnemyZoneCards)
-            {
-                UnitCardDisplay ucd = coMan.GetUnitDisplay(enemyUnit);
-                if (!ucd.IsExhausted && ucd.CurrentPower > 0 && ucd.CurrentHealth > 0)
-                    evMan.NewDelayedAction(() => ResolveAttack(enemyUnit), 1);
-            }
-
-            evMan.NewDelayedAction(() => UpdateReinforcements(), 0);
-            evMan.NewDelayedAction(() => 
-            GameManager.Instance.EndCombatTurn(GameManager.ENEMY), 2);
-        }
-
-        void ResolveAttack(GameObject enemyUnit)
-        {
-            if (enemyUnit == null)
-            {
-                Debug.LogWarning("ENEMY UNIT IS NULL!");
-                return;
-            }
-            if (!coMan.EnemyZoneCards.Contains(enemyUnit))
-            {
-                Debug.LogError("UNIT NOT FOUND IN ENEMY ZONE!");
-                return;
-            }
-
             UnitCardDisplay ucd = coMan.GetUnitDisplay(enemyUnit);
-            if (ucd.CurrentPower < 1 || ucd.CurrentHealth < 1) return;
+            if (!ucd.IsExhausted && ucd.CurrentPower > 0 && ucd.CurrentHealth > 0)
+                evMan.NewDelayedAction(() => ResolveAttack(enemyUnit), 1);
+        }
 
-            if (CardManager.GetTrigger(enemyUnit, CardManager.TRIGGER_INFILTRATE))
-            {
-                coMan.Attack(enemyUnit, coMan.PlayerHero);
-                return;
-            }
-            else if (coMan.PlayerZoneCards.Count > 0)
-            {
-                foreach (GameObject playerUnit in coMan.PlayerZoneCards)
-                    if (coMan.GetUnitDisplay(playerUnit).CurrentHealth > 0 &&
-                        !CardManager.GetAbility(playerUnit, CardManager.ABILITY_STEALTH))
-                    {
-                        coMan.Attack(enemyUnit, playerUnit);
-                        return;
-                    }
-            }
+        evMan.NewDelayedAction(() => UpdateReinforcements(), 0);
+        evMan.NewDelayedAction(() =>
+        GameManager.Instance.EndCombatTurn(GameManager.ENEMY), 2);
+    }
+
+    private void ResolveAttack(GameObject enemyUnit)
+    {
+        if (enemyUnit == null)
+        {
+            Debug.LogWarning("ENEMY UNIT IS NULL!");
+            return;
+        }
+        if (!coMan.EnemyZoneCards.Contains(enemyUnit))
+        {
+            Debug.LogError("UNIT NOT FOUND IN ENEMY ZONE!");
+            return;
+        }
+
+        UnitCardDisplay ucd = coMan.GetUnitDisplay(enemyUnit);
+        if (ucd.CurrentPower < 1 || ucd.CurrentHealth < 1) return;
+
+        if (CardManager.GetTrigger(enemyUnit, CardManager.TRIGGER_INFILTRATE))
+        {
             coMan.Attack(enemyUnit, coMan.PlayerHero);
+            return;
         }
-
-        void UpdateReinforcements()
+        else if (coMan.PlayerZoneCards.Count > 0)
         {
-            if (CurrentReinforcements > refoSched.Count - 1)
-                CurrentReinforcements = 0;
-
-            int cardsToDraw = NextReinforcements;
-            if (cardsToDraw < 1)
+            GameObject playerUnit = FindDefender();
+            if (playerUnit != null)
             {
-                evMan.NewDelayedAction(() => NextReinforcementsState(), 1, true);
+                coMan.Attack(enemyUnit, playerUnit);
                 return;
             }
-            else evMan.NewDelayedAction(() => NextReinforcementsState(), 3, true);
-
-            anMan.ReinforcementsState();
-            int overMaxCards = GameManager.MAX_HAND_SIZE + 1;
-            if (cardsToDraw + handSize > overMaxCards)
-                cardsToDraw = overMaxCards - handSize;
-
-            for (int i = 0; i < cardsToDraw; i++)
-                evMan.NewDelayedAction(() => coMan.DrawCard(GameManager.ENEMY), 1, true);
         }
+        coMan.Attack(enemyUnit, coMan.PlayerHero);
+    }
 
-        void NextReinforcementsState()
+    private GameObject FindDefender()
+    {
+        GameObject defender = null;
+        List<GameObject> legalDefenders = new List<GameObject>();
+        foreach (GameObject playerUnit in coMan.PlayerZoneCards)
+            if (coMan.GetUnitDisplay(playerUnit).CurrentHealth > 0 &&
+                !CardManager.GetAbility(playerUnit, CardManager.ABILITY_STEALTH))
+                legalDefenders.Add(playerUnit);
+
+        int highestPriority = -99;
+        foreach (GameObject legalDefender in legalDefenders)
         {
-            anMan.NextReinforcementsState();
-            NextReinforcements = refoSched[CurrentReinforcements++];
+            UnitCardDisplay ucd = coMan.GetUnitDisplay(legalDefender);
+            int priority = 0;
+            int power = ucd.CurrentPower;
+            int health = ucd.CurrentHealth;
+
+            priority += power - health/2;
+            if (priority > highestPriority)
+            {
+                highestPriority = priority;
+                defender = legalDefender;
+            }
         }
+        return defender;
+    }
+
+    private void UpdateReinforcements()
+    {
+        if (CurrentReinforcements > refoSched.Count - 1)
+            CurrentReinforcements = 0;
+
+        int cardsToDraw = NextReinforcements;
+        if (cardsToDraw < 1)
+        {
+            evMan.NewDelayedAction(() => NextReinforcementsState(), 1, true);
+            return;
+        }
+        else evMan.NewDelayedAction(() => NextReinforcementsState(), 3, true);
+
+        anMan.ReinforcementsState();
+        int overMaxCards = GameManager.MAX_HAND_SIZE + 1;
+        if (cardsToDraw + handSize > overMaxCards)
+            cardsToDraw = overMaxCards - handSize;
+
+        for (int i = 0; i < cardsToDraw; i++)
+            evMan.NewDelayedAction(() => coMan.DrawCard(GameManager.ENEMY), 1, true);
+    }
+
+    private void NextReinforcementsState()
+    {
+        anMan.NextReinforcementsState();
+        NextReinforcements = refoSched[CurrentReinforcements++];
     }
 }

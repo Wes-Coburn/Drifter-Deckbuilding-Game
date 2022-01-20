@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b107ecdac65374f8c56b3212c061ce, type: 3}
   m_Name: MutantAlpha_Prompt_19
   m_EditorClassIdentifier: 
-  dialoguePromptText: '*You can see the bottom of the crater is teeming with foliage,
-    a tiny oasis among the barren landscape.*'
+  dialoguePromptText: '*You slide down the crater wall, and approach the center.*'
   dialogueResponse1:
     responseText: 
     response_NextClip: {fileID: 0}
@@ -26,9 +25,8 @@ MonoBehaviour:
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   dialogueResponse2:
-    responseText: (Continue)
-    response_NextClip: {fileID: 11400000, guid: e8f5ab1f78c015c40be013ff15a4e856,
-      type: 2}
+    responseText: (Travel to the Oasis)
+    response_NextClip: {fileID: 11400000}
     npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
@@ -36,10 +34,11 @@ MonoBehaviour:
     response_IsShopStart: 0
     response_IsCloningStart: 0
     response_IsExit: 0
-    response_TravelLocation: {fileID: 0}
+    response_TravelLocation: {fileID: 11400000, guid: d55420ef5ce7b0b45b3c9120aadaed58,
+      type: 2}
   dialogueResponse3:
     responseText: 
-    response_NextClip: {fileID: 0}
+    response_NextClip: {fileID: 11400000}
     npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
@@ -47,7 +46,8 @@ MonoBehaviour:
     response_IsShopStart: 0
     response_IsCloningStart: 0
     response_IsExit: 0
-    response_TravelLocation: {fileID: 0}
+    response_TravelLocation: {fileID: 11400000, guid: d55420ef5ce7b0b45b3c9120aadaed58,
+      type: 2}
   newEngagedHero: {fileID: 0}
   hideNPC: 1
   newCard: {fileID: 0}

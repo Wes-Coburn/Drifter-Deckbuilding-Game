@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b107ecdac65374f8c56b3212c061ce, type: 3}
   m_Name: IronClanBrute_Prompt_9
   m_EditorClassIdentifier: 
-  developerNotes: 
-  dialoguePromptText: '*You stand over the body of the brute, knowing more will be
-    on their way.*'
+  dialoguePromptText: '*You make a run for it.*'
   dialogueResponse1:
     responseText: 
     response_NextClip: {fileID: 0}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
@@ -26,11 +25,11 @@ MonoBehaviour:
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   dialogueResponse2:
-    responseText: (Continue)
-    response_NextClip: {fileID: 11400000, guid: cba34a30ef2aedf498ebe21e961c4832,
-      type: 2}
+    responseText: (Leave)
+    response_NextClip: {fileID: 11400000}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
-    response_IsWorldMapStart: 0
+    response_IsWorldMapStart: 1
     response_IsRecruitmentStart: 0
     response_IsShopStart: 0
     response_IsCloningStart: 0
@@ -39,6 +38,7 @@ MonoBehaviour:
   dialogueResponse3:
     responseText: 
     response_NextClip: {fileID: 0}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
@@ -50,4 +50,6 @@ MonoBehaviour:
   hideNPC: 1
   newCard: {fileID: 0}
   aetherCells: 0
-  newLocations: []
+  newLocations:
+  - Location: {fileID: 11400000, guid: 64889724ca90b89408479fce30a21141, type: 2}
+    NewNpc: {fileID: 0}

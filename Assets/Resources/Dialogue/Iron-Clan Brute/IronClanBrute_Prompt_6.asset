@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b107ecdac65374f8c56b3212c061ce, type: 3}
   m_Name: IronClanBrute_Prompt_6
   m_EditorClassIdentifier: 
-  developerNotes: 
-  dialoguePromptText: You'll die choking on your own blood, Drifter.
+  dialoguePromptText: '*You stand over the body of the brute, knowing more will be
+    on their way.*'
   dialogueResponse1:
     responseText: 
     response_NextClip: {fileID: 0}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
@@ -25,10 +26,11 @@ MonoBehaviour:
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   dialogueResponse2:
-    responseText: (FIGHT!)
-    response_NextClip: {fileID: 11400000, guid: dc75460adbcc90743b8d3603143ac2e8,
+    responseText: (Continue)
+    response_NextClip: {fileID: 11400000, guid: fa4e3a68cee745549a49430ca65bde90,
       type: 2}
-    response_IsCombatStart: 1
+    npc_NextClip: {fileID: 0}
+    response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
     response_IsShopStart: 0
@@ -38,6 +40,7 @@ MonoBehaviour:
   dialogueResponse3:
     responseText: 
     response_NextClip: {fileID: 0}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
@@ -46,7 +49,7 @@ MonoBehaviour:
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   newEngagedHero: {fileID: 0}
-  hideNPC: 0
+  hideNPC: 1
   newCard: {fileID: 0}
   aetherCells: 0
   newLocations: []

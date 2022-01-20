@@ -12,31 +12,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b107ecdac65374f8c56b3212c061ce, type: 3}
   m_Name: IronClanEnforcer_Prompt_11
   m_EditorClassIdentifier: 
-  developerNotes: 
-  journalNotes: []
-  dialoguePromptText: The fight is yours.
+  dialoguePromptText: You were just in the way. Our brother was intercepting a corporate
+    aether shipment when he encountered you. A huge one.
   dialogueResponse1:
     responseText: 
-    response_Respect: 0
     response_NextClip: {fileID: 0}
-    response_IsExit: 0
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   dialogueResponse2:
-    responseText: Why did the Iron-Clan try to kill me?
-    response_Respect: 0
-    response_NextClip: {fileID: 11400000, guid: ff258d8051f6fd0458d87db928a3b3ab,
+    responseText: (Continue)
+    response_NextClip: {fileID: 11400000, guid: 45e40da20dd2a8c49a6cb51b073a3fa0,
       type: 2}
-    response_IsExit: 0
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   dialogueResponse3:
     responseText: 
-    response_Respect: 0
     response_NextClip: {fileID: 0}
-    response_IsExit: 0
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   newEngagedHero: {fileID: 0}
   hideNPC: 0
   newCard: {fileID: 0}

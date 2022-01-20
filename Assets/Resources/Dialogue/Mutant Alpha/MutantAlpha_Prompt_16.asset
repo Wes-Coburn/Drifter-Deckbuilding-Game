@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b107ecdac65374f8c56b3212c061ce, type: 3}
   m_Name: MutantAlpha_Prompt_16
   m_EditorClassIdentifier: 
-  dialoguePromptText: '*You pull your new ally onto their feet, and make your way
-    across the bridge.*'
+  dialoguePromptText: "We don\u2019t know for sure, but they used aether to make
+    it, we know that much."
   dialogueResponse1:
     responseText: 
     response_NextClip: {fileID: 0}
@@ -27,7 +27,7 @@ MonoBehaviour:
     response_TravelLocation: {fileID: 0}
   dialogueResponse2:
     responseText: (Continue)
-    response_NextClip: {fileID: 11400000, guid: c3eeb2f73582ba647b3f76cf1fb55b9b,
+    response_NextClip: {fileID: 11400000, guid: 1867b9c4b9d674647a649ecc6f15e881,
       type: 2}
     npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
@@ -50,6 +50,6 @@ MonoBehaviour:
     response_TravelLocation: {fileID: 0}
   newEngagedHero: {fileID: 0}
   hideNPC: 0
-  newCard: {fileID: 11400000, guid: 7603fae3620cb544bad564f38ef15102, type: 2}
+  newCard: {fileID: 0}
   aetherCells: 0
   newLocations: []

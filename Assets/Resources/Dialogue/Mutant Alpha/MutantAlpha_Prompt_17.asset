@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b107ecdac65374f8c56b3212c061ce, type: 3}
   m_Name: MutantAlpha_Prompt_17
   m_EditorClassIdentifier: 
-  dialoguePromptText: "We don\u2019t know for sure, but they used aether to make
-    it, we know that much."
+  dialoguePromptText: '*You continue along the path, and eventually find yourself
+    at the edge of the heaps, looking over a small crater.*'
   dialogueResponse1:
     responseText: 
     response_NextClip: {fileID: 0}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
@@ -26,8 +27,9 @@ MonoBehaviour:
     response_TravelLocation: {fileID: 0}
   dialogueResponse2:
     responseText: (Continue)
-    response_NextClip: {fileID: 11400000, guid: 1867b9c4b9d674647a649ecc6f15e881,
+    response_NextClip: {fileID: 11400000, guid: 77952e4f39ee83c469e13db437056ce6,
       type: 2}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
@@ -38,6 +40,7 @@ MonoBehaviour:
   dialogueResponse3:
     responseText: 
     response_NextClip: {fileID: 0}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
@@ -46,7 +49,7 @@ MonoBehaviour:
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   newEngagedHero: {fileID: 0}
-  hideNPC: 0
+  hideNPC: 1
   newCard: {fileID: 0}
   aetherCells: 0
   newLocations: []

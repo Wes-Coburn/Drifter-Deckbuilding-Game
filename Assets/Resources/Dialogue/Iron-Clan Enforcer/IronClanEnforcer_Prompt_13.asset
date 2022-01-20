@@ -12,13 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b107ecdac65374f8c56b3212c061ce, type: 3}
   m_Name: IronClanEnforcer_Prompt_13
   m_EditorClassIdentifier: 
-  developerNotes: 
-  dialoguePromptText: "They\u2019ve been taking them somewhere past the trash heaps
-    for weeks now. We\u2019d follow them farther, but the heaps is Shadowblade territory,
-    and they\u2019d kill us on sight."
+  dialoguePromptText: "That much aether would change everything, we could finally
+    take back the power\u2026"
   dialogueResponse1:
     responseText: 
     response_NextClip: {fileID: 0}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
@@ -28,8 +27,9 @@ MonoBehaviour:
     response_TravelLocation: {fileID: 0}
   dialogueResponse2:
     responseText: (Continue)
-    response_NextClip: {fileID: 11400000, guid: f0dc21521ff0b3148a9340553f130b4b,
+    response_NextClip: {fileID: 11400000, guid: ecbb798ab4818914c84ed32f488bf771,
       type: 2}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
@@ -40,6 +40,7 @@ MonoBehaviour:
   dialogueResponse3:
     responseText: 
     response_NextClip: {fileID: 0}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0

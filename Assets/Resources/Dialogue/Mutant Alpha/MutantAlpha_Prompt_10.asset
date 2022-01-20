@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b107ecdac65374f8c56b3212c061ce, type: 3}
   m_Name: MutantAlpha_Prompt_10
   m_EditorClassIdentifier: 
-  dialoguePromptText: This day is your last!
+  dialoguePromptText: '*The Mutant Alpha retreats in defeat, and raises a hand in
+    surrender.*'
   dialogueResponse1:
     responseText: 
     response_NextClip: {fileID: 0}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
@@ -24,10 +26,11 @@ MonoBehaviour:
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   dialogueResponse2:
-    responseText: (FIGHT!)
-    response_NextClip: {fileID: 11400000, guid: 98b3132f7e3b4c34684cfd1bd3fdbe23,
+    responseText: (Continue)
+    response_NextClip: {fileID: 11400000, guid: ee347b330e85be643b2ca4627b1e4494,
       type: 2}
-    response_IsCombatStart: 1
+    npc_NextClip: {fileID: 0}
+    response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
     response_IsShopStart: 0
@@ -37,6 +40,7 @@ MonoBehaviour:
   dialogueResponse3:
     responseText: 
     response_NextClip: {fileID: 0}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0

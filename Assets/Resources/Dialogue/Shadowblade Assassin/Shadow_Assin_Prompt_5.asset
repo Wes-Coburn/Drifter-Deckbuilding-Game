@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b107ecdac65374f8c56b3212c061ce, type: 3}
   m_Name: Shadow_Assin_Prompt_5
   m_EditorClassIdentifier: 
-  developerNotes: 
   dialoguePromptText: '*A cloaked figure crouches before you, a dagger clutched in
     each fist.*'
   dialogueResponse1:
     responseText: Who the fuck are you?
     response_NextClip: {fileID: 11400000, guid: b7c1d0beac13b014fb4ae6f60cc53d5a,
       type: 2}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
@@ -28,9 +28,10 @@ MonoBehaviour:
     response_TravelLocation: {fileID: 0}
   dialogueResponse2:
     responseText: Come on, then! *Attack*
-    response_NextClip: {fileID: 11400000, guid: d4a73615a25f9da43aee434572cb73be,
+    response_NextClip: {fileID: 11400000, guid: 80551616f21d4ed4d8d1ac2fd6d01fee,
       type: 2}
-    response_IsCombatStart: 0
+    npc_NextClip: {fileID: 0}
+    response_IsCombatStart: 1
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
     response_IsShopStart: 0
@@ -41,6 +42,7 @@ MonoBehaviour:
     responseText: You don't want to do this.
     response_NextClip: {fileID: 11400000, guid: b7c1d0beac13b014fb4ae6f60cc53d5a,
       type: 2}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0

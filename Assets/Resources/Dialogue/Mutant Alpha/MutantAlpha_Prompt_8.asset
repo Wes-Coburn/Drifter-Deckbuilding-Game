@@ -17,6 +17,7 @@ MonoBehaviour:
     responseText: "You don\u2019t want to do this. "
     response_NextClip: {fileID: 11400000, guid: 7a92be61236601f44a775f5f4365c710,
       type: 2}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
@@ -28,6 +29,7 @@ MonoBehaviour:
     responseText: "I don\u2019t want to do this."
     response_NextClip: {fileID: 11400000, guid: 7a92be61236601f44a775f5f4365c710,
       type: 2}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
@@ -36,10 +38,11 @@ MonoBehaviour:
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   dialogueResponse3:
-    responseText: "Let\u2019s do this."
-    response_NextClip: {fileID: 11400000, guid: 82403f9664db55d40b39b53cbf937266,
+    responseText: "Let\u2019s do this. *Attack*"
+    response_NextClip: {fileID: 11400000, guid: 98b3132f7e3b4c34684cfd1bd3fdbe23,
       type: 2}
-    response_IsCombatStart: 0
+    npc_NextClip: {fileID: 0}
+    response_IsCombatStart: 1
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
     response_IsShopStart: 0

@@ -12,32 +12,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b107ecdac65374f8c56b3212c061ce, type: 3}
   m_Name: IronClanEnforcer_Prompt_10
   m_EditorClassIdentifier: 
-  developerNotes: 
-  journalNotes: []
-  dialoguePromptText: '*The Iron-Clan Enforcer lies dying in the street, clutching
-    their wounds.*'
+  dialoguePromptText: The fight is yours.
   dialogueResponse1:
     responseText: 
-    response_Respect: 0
     response_NextClip: {fileID: 0}
-    response_IsExit: 0
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   dialogueResponse2:
-    responseText: (Continue)
-    response_Respect: 0
-    response_NextClip: {fileID: 11400000, guid: 08f0d792ff510e7408d0fecf0f7ab626,
+    responseText: Why did the Iron-Clan try to kill me?
+    response_NextClip: {fileID: 11400000, guid: ff258d8051f6fd0458d87db928a3b3ab,
       type: 2}
-    response_IsExit: 0
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   dialogueResponse3:
     responseText: 
-    response_Respect: 0
     response_NextClip: {fileID: 0}
-    response_IsExit: 0
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   newEngagedHero: {fileID: 0}
   hideNPC: 0
   newCard: {fileID: 0}

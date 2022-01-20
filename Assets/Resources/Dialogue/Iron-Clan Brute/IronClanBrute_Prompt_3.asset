@@ -12,33 +12,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b107ecdac65374f8c56b3212c061ce, type: 3}
   m_Name: IronClanBrute_Prompt_3
   m_EditorClassIdentifier: 
-  developerNotes: 
-  journalNotes: []
-  dialoguePromptText: '*Before The Contact can leave, you are faced with an Iron-Clan
-    Brute, who has you both cornered.*'
+  dialoguePromptText: '*Before you can leave, you are faced with an Iron-Clan Brute,
+    who has you cornered.*'
   dialogueResponse1:
     responseText: 
-    response_Respect: 0
     response_NextClip: {fileID: 0}
-    response_IsExit: 0
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   dialogueResponse2:
     responseText: (Continue)
-    response_Respect: 0
     response_NextClip: {fileID: 11400000, guid: 9bdfda3ec3b0c5747981a73f5333ed2f,
       type: 2}
-    response_IsExit: 0
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   dialogueResponse3:
     responseText: 
-    response_Respect: 0
     response_NextClip: {fileID: 0}
-    response_IsExit: 0
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   newEngagedHero: {fileID: 11400000, guid: 880daca80831ebe4688d6fe5a09a90fd, type: 2}
-  newCard: {fileID: 0}
+  hideNPC: 0
+  newCard: {fileID: 11400000, guid: 1094bdd20cd29184989a6e16b1777e81, type: 2}
   aetherCells: 0
   newLocations: []

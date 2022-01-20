@@ -22,10 +22,20 @@ public class PowerZoom : MonoBehaviour
 
     public void DestroyPowerPopup()
     {
+        FunctionTimer.StopTimer(POWER_POPUP_TIMER);
         if (powerPopup != null)
         {
             Destroy(powerPopup);
             powerPopup = null;
+        }
+    }
+    public void DestroyAbilityPopup()
+    {
+        FunctionTimer.StopTimer(ABILITY_POPUP_TIMER);
+        if (abilityPopupBox != null)
+        {
+            Destroy(abilityPopupBox);
+            abilityPopupBox = null;
         }
     }
 
@@ -38,14 +48,8 @@ public class PowerZoom : MonoBehaviour
     }
     public void OnPointerExit()
     {
-        FunctionTimer.StopTimer(POWER_POPUP_TIMER);
-        FunctionTimer.StopTimer(ABILITY_POPUP_TIMER);
         DestroyPowerPopup();
-        if (abilityPopupBox != null)
-        {
-            Destroy(abilityPopupBox);
-            abilityPopupBox = null;
-        }
+        DestroyAbilityPopup();
     }
 
     private void CreatePowerPopup()

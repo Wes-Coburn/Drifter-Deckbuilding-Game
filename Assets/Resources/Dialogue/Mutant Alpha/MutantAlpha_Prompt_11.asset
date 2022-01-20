@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b107ecdac65374f8c56b3212c061ce, type: 3}
   m_Name: MutantAlpha_Prompt_11
   m_EditorClassIdentifier: 
-  dialoguePromptText: '*The Mutant Alpha retreats in defeat, and raises a hand in
-    surrender.*'
+  dialoguePromptText: "I\u2019m sorry, I had to defend our land, it\u2019s all we
+    have left."
   dialogueResponse1:
     responseText: 
     response_NextClip: {fileID: 0}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
@@ -26,8 +27,9 @@ MonoBehaviour:
     response_TravelLocation: {fileID: 0}
   dialogueResponse2:
     responseText: (Continue)
-    response_NextClip: {fileID: 11400000, guid: ee347b330e85be643b2ca4627b1e4494,
+    response_NextClip: {fileID: 11400000, guid: 2a26cc4c9db20694c98ade65244a8b41,
       type: 2}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
@@ -38,6 +40,7 @@ MonoBehaviour:
   dialogueResponse3:
     responseText: 
     response_NextClip: {fileID: 0}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0

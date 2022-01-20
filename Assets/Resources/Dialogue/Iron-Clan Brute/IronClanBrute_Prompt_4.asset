@@ -12,35 +12,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b107ecdac65374f8c56b3212c061ce, type: 3}
   m_Name: IronClanBrute_Prompt_4
   m_EditorClassIdentifier: 
-  developerNotes: 
-  journalNotes: []
   dialoguePromptText: Looks like we need to teach you a lesson about doing business
     in Iron-Clan territory.
   dialogueResponse1:
     responseText: '*Attack*'
-    response_Respect: 0
-    response_NextClip: {fileID: 11400000, guid: 7077f41e662db7a4da912dfd529f0a78,
+    response_NextClip: {fileID: 11400000, guid: dc75460adbcc90743b8d3603143ac2e8,
       type: 2}
-    response_IsExit: 0
-    response_IsCombatStart: 0
+    npc_NextClip: {fileID: 0}
+    response_IsCombatStart: 1
     response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   dialogueResponse2:
-    responseText: "Looks like I need to teach you a lesson about dyin\u2019."
-    response_Respect: 0
-    response_NextClip: {fileID: 11400000, guid: 7077f41e662db7a4da912dfd529f0a78,
+    responseText: "Looks like I need to teach you a lesson about dyin\u2019. *Attack*"
+    response_NextClip: {fileID: 11400000, guid: dc75460adbcc90743b8d3603143ac2e8,
       type: 2}
-    response_IsExit: 0
-    response_IsCombatStart: 0
+    npc_NextClip: {fileID: 0}
+    response_IsCombatStart: 1
     response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   dialogueResponse3:
-    responseText: "Yeahh I don\u2019t give a fuck."
-    response_Respect: 0
-    response_NextClip: {fileID: 11400000, guid: 7077f41e662db7a4da912dfd529f0a78,
+    responseText: "Yeahh I don\u2019t give a fuck. *Attack*"
+    response_NextClip: {fileID: 11400000, guid: dc75460adbcc90743b8d3603143ac2e8,
       type: 2}
-    response_IsExit: 0
-    response_IsCombatStart: 0
+    npc_NextClip: {fileID: 0}
+    response_IsCombatStart: 1
     response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   newEngagedHero: {fileID: 0}
+  hideNPC: 0
   newCard: {fileID: 0}
   aetherCells: 0
   newLocations: []

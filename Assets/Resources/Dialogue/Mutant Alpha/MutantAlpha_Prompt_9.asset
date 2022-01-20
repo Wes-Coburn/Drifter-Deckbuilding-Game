@@ -16,6 +16,7 @@ MonoBehaviour:
   dialogueResponse1:
     responseText: 
     response_NextClip: {fileID: 0}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
@@ -24,10 +25,11 @@ MonoBehaviour:
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   dialogueResponse2:
-    responseText: (Continue)
-    response_NextClip: {fileID: 11400000, guid: 82403f9664db55d40b39b53cbf937266,
+    responseText: '*Defend yourself*'
+    response_NextClip: {fileID: 11400000, guid: 98b3132f7e3b4c34684cfd1bd3fdbe23,
       type: 2}
-    response_IsCombatStart: 0
+    npc_NextClip: {fileID: 0}
+    response_IsCombatStart: 1
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
     response_IsShopStart: 0
@@ -37,6 +39,7 @@ MonoBehaviour:
   dialogueResponse3:
     responseText: 
     response_NextClip: {fileID: 0}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
