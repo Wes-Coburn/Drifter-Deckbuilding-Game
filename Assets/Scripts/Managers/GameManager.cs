@@ -15,11 +15,9 @@ public class GameManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    [Header("GAME CHAPTERS")]
-    [SerializeField] string[] gameChapters;
     [Header("NARRATIVES")]
     [SerializeField] private Narrative settingNarrative;
-    public Narrative NewGameNarrative;
+    [SerializeField] private Narrative newGameNarrative;
     [Header("LOCATIONS")]
     [SerializeField] private Location homeBaseLocation;
     [SerializeField] private Location firstLocation;
@@ -38,21 +36,13 @@ public class GameManager : MonoBehaviour
     private EffectManager efMan;
     private AudioManager auMan;
     private DialogueManager dMan;
-    private int currentChapter;
 
     public bool IsCombatTest { get; set; }
     public bool HideExplicitLanguage { get; private set; }
-    public string NextChapter
-    {
-        get
-        {
-            if (currentChapter > (gameChapters.Length - 1)) return null;
-            else return gameChapters[currentChapter++];
-        }
-    }
-    public Narrative NextNarrative { get; set; }
+    public Narrative CurrentNarrative { get; set; }
     public List<NPCHero> ActiveNPCHeroes { get; private set; }
     public List<Location> ActiveLocations { get; private set; }
+    public List<string> VisitedLocations { get; private set; }
     public Location CurrentLocation { get; set; }
     public List<HeroItem> ShopItems { get; private set; }
     public bool Achievement_BETA_Finish { get; set; }
@@ -109,6 +99,7 @@ public class GameManager : MonoBehaviour
         dMan = DialogueManager.Instance;
         ActiveNPCHeroes = new List<NPCHero>();
         ActiveLocations = new List<Location>();
+        VisitedLocations = new List<string>();
         ShopItems = new List<HeroItem>();
         StartTitleScene();
     }
@@ -122,8 +113,7 @@ public class GameManager : MonoBehaviour
     {
         IsCombatTest = false; // FOR TESTING ONLY
         HideExplicitLanguage = hideExplicitLanguage;
-        currentChapter = 0;
-        NextNarrative = settingNarrative;
+        CurrentNarrative = settingNarrative;
         caMan.ShuffleRecruits();
         ShopItems = GetShopItems();
         GetActiveLocation(homeBaseLocation);
@@ -185,8 +175,11 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < recruitWarriors.Length; i++)
             recruitWarriors[i] = caMan.PlayerRecruitWarriors[i].CardName;
 
-        GameData data = new GameData(HideExplicitLanguage, pMan.PlayerHero.HeroName,
-            deckList, augments, items, pMan.AetherCells, npcsAndClips, locationsNPCsObjectives,
+        string narrativeName = "";
+        if (CurrentNarrative != null) narrativeName = CurrentNarrative.NarrativeName;
+        GameData data = new GameData(HideExplicitLanguage, narrativeName, pMan.PlayerHero.HeroName,
+            deckList, augments, items, pMan.AetherCells,
+            npcsAndClips, locationsNPCsObjectives, VisitedLocations.ToArray(),
             shopItems, recruitMages, recruitRogues, recruitTechs, recruitWarriors,
             Achievement_BETA_Finish);
         SaveLoad.SaveGame(data);
@@ -208,6 +201,12 @@ public class GameManager : MonoBehaviour
         }
 
         /** LOAD RESOURCES **/
+        // NARRATIVES
+        Narrative[] narratives = Resources.LoadAll<Narrative>("Narratives");
+        List<Narrative> allNarratives = new List<Narrative>();
+        for (int i = 0; i < narratives.Length; i++)
+            allNarratives.Add(narratives[i]);
+
         // HEROES
         Hero[] heroes = Resources.LoadAll<Hero>("Heroes");
         List<Hero> allHeroes = new List<Hero>();
@@ -251,6 +250,11 @@ public class GameManager : MonoBehaviour
         // HIDE EXPLICIT LANGUAGE
         HideExplicitLanguage = data.HideExplicitLanguage;
 
+        // CURRENT NARRATIVE
+        if (data.CurrentNarrative != "")
+            CurrentNarrative = GetNarrative(data.CurrentNarrative);
+        else CurrentNarrative = null;
+
         // PLAYER HERO
         pMan.PlayerHero = GetHero(data.PlayerHero) as PlayerHero;
 
@@ -288,6 +292,9 @@ public class GameManager : MonoBehaviour
             loc.CurrentNPC = GetActiveNPC(GetHero(data.LocationsNPCsObjectives[i, 1]) as NPCHero);
             loc.CurrentObjective = data.LocationsNPCsObjectives[i, 2];
         }
+        VisitedLocations.Clear();
+        foreach (string location in data.VisitedLocations)
+            VisitedLocations.Add(location);
 
         // SHOP ITEMS
         ShopItems.Clear();
@@ -314,6 +321,13 @@ public class GameManager : MonoBehaviour
         // ACHIEVEMENTS
         Achievement_BETA_Finish = data.Achievement_BETA_Finish;
 
+        Narrative GetNarrative(string narrativeName)
+        {
+            int index = allNarratives.FindIndex(x => x.NarrativeName == narrativeName);
+            if (index != -1) return allNarratives[index];
+            else Debug.LogError("NARRATIVE NOT FOUND!");
+            return null;
+        }
         Hero GetHero(string heroName)
         {
             int index = allHeroes.FindIndex(x => x.HeroName == heroName);
@@ -367,7 +381,6 @@ public class GameManager : MonoBehaviour
     public void EndGame()
     {
         // Game Manager
-        currentChapter = 0; // Unnecessary
         foreach (NPCHero npc in ActiveNPCHeroes) Destroy(npc);
         ActiveNPCHeroes.Clear();
         foreach (Location loc in ActiveLocations) Destroy(loc);
@@ -430,9 +443,18 @@ public class GameManager : MonoBehaviour
             icon.LocationName = loc.LocationName;
             icon.WorldMapPosition = loc.WorldMapPosition;
             if (loc.IsHomeBase) icon.SetHomeBaseImage();
+            bool unvisited = true;
+            if (VisitedLocations.FindIndex(x => x == loc.LocationName) != -1)
+                unvisited = false;
+            icon.UnvisitedIcon.SetActive(unvisited);
         }
 
         SaveGame();
+        if (CurrentNarrative != null)
+        {
+            uMan.CreateNarrativePopup(CurrentNarrative); // TESTING
+            CurrentNarrative = null; // TESTING
+        }
     }
 
     /******
@@ -457,24 +479,18 @@ public class GameManager : MonoBehaviour
         auMan.StartStopSound("Soundtrack_Narrative1",
             null, AudioManager.SoundType.Soundtrack);
         auMan.StartStopSound(null,
-            NextNarrative.NarrativeSoundscape, AudioManager.SoundType.Soundscape);
+            CurrentNarrative.NarrativeSoundscape, AudioManager.SoundType.Soundscape);
         NarrativeSceneDisplay nsd = FindObjectOfType<NarrativeSceneDisplay>();
-        nsd.CurrentNarrative = NextNarrative;
-        Debug.Log("START NARRATIVE: " + NextNarrative.ToString());
+        nsd.CurrentNarrative = CurrentNarrative;
+        Debug.Log("START NARRATIVE: " + CurrentNarrative.ToString());
     }
     public void EndNarrative()
     {
-        if (NextNarrative == settingNarrative) 
-            SceneLoader.LoadScene(SceneLoader.Scene.HeroSelectScene);
-        /*
-        else if (NextNarrative == pMan.PlayerHero.HeroBackstory)
+        if (CurrentNarrative == settingNarrative)
         {
-            NextNarrative = newGameNarrative;
-            SceneLoader.LoadScene(SceneLoader.Scene.NarrativeScene, true);
+            CurrentNarrative = newGameNarrative;
+            SceneLoader.LoadScene(SceneLoader.Scene.HeroSelectScene);
         }
-        */
-        else if (NextNarrative == NewGameNarrative) 
-            SceneLoader.LoadScene(SceneLoader.Scene.WorldMapScene);
         else Debug.LogError("NO CONDITIONS MATCHED!");
     }
 
@@ -504,11 +520,11 @@ public class GameManager : MonoBehaviour
             return;
         }
         enMan.EnemyHero = enemyHero;
-        enMan.EnemyHealth = enMan.MaxEnemyHealth; // TESTING
+        enMan.EnemyHealth = enMan.MaxEnemyHealth;
 
         // PLAYER MANAGER
-        pMan.PlayerHealth = pMan.MaxPlayerHealth; // TESTING
-        pMan.EnergyPerTurn = pMan.StartEnergy; // TESTING
+        pMan.PlayerHealth = pMan.MaxPlayerHealth;
+        pMan.EnergyPerTurn = pMan.StartEnergy;
         pMan.EnergyLeft = 0;
 
         if (pMan.GetAugment("Biogenic Enhancer"))
@@ -544,9 +560,7 @@ public class GameManager : MonoBehaviour
             for (int i = 0; i < PLAYER_HAND_SIZE + bonusCards; i++)
                 evMan.NewDelayedAction(() => coMan.DrawCard(PLAYER), 0.5f);
             evMan.NewDelayedAction(() => Mulligan(), 0.5f);
-            //evMan.NewDelayedAction(() => caMan.ShuffleDeck(PLAYER), 0); // TESTING
         }
-
         void Mulligan()
         {
             efMan.StartEffectGroupList(new List<EffectGroup> { mulliganEffect },
@@ -565,15 +579,15 @@ public class GameManager : MonoBehaviour
         {
             auMan.StartStopSound(null, enMan.EnemyHero.HeroLose);
             FunctionTimer.Create(() =>
-            auMan.StartStopSound(null, pMan.PlayerHero.HeroWin), 2f); // TESTING
-            caMan.ShuffleRecruits(); // TESTING
-            ShopItems = GetShopItems(); // TESTING
+            auMan.StartStopSound(null, pMan.PlayerHero.HeroWin), 2f);
+            caMan.ShuffleRecruits();
+            ShopItems = GetShopItems();
         }
         else
         {
             auMan.StartStopSound(null, pMan.PlayerHero.HeroLose);
             FunctionTimer.Create(() =>
-            auMan.StartStopSound(null, enMan.EnemyHero.HeroWin), 2f); // TESTING
+            auMan.StartStopSound(null, enMan.EnemyHero.HeroWin), 2f);
         }
         pMan.IsMyTurn = false;
         efMan.GiveNextEffects.Clear();

@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.EventSystems;
 
-public class TooltipPopup : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class TooltipPopupDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private const string TOOLTIP_TIMER = "TooltipTimer";
     private GameObject tooltipPopup;

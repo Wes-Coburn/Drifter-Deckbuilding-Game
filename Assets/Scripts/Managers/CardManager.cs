@@ -268,7 +268,6 @@ public class CardManager : MonoBehaviour
     }
     public bool TriggerUnitAbility(GameObject unitCard, string triggerName)
     {
-        Debug.Log("TRIGGER UNIT ABILITY!");
         if (unitCard == null)
         {
             Debug.LogError("CARD IS NULL!");

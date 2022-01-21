@@ -7,7 +7,9 @@ public class NarrativeSceneDisplay : MonoBehaviour
     [SerializeField] private GameObject background;
     [SerializeField] private GameObject narrativeText;
     [SerializeField] private GameObject clipCounter;
+    [SerializeField] private GameObject continueButton;
 
+    private DialogueManager dMan;
     private Narrative narrative;
     private int currentClip;
     private TextMeshProUGUI clipCounterText;
@@ -18,43 +20,56 @@ public class NarrativeSceneDisplay : MonoBehaviour
         set
         {
             narrative = value;
-            SetCurrentNarrative(0);
+            currentClip = 0;
+            DisplayCurrentClip();
         }
     }
 
-    private void Start() => 
-        clipCounterText = clipCounter.GetComponent<TextMeshProUGUI>();
-
-    private void SetCurrentNarrative(int value)
+    private void Awake()
     {
-        currentClip = value;
+        dMan = DialogueManager.Instance;
+        clipCounterText = clipCounter.GetComponent<TextMeshProUGUI>();
+        continueButton.SetActive(false);
+    }
+
+    private void DisplayCurrentClip()
+    {
         clipCounterText.SetText(currentClip + 1 + "/" + 
             narrative.NarrativeText.Length);
         background.GetComponent<Image>().sprite = CurrentNarrative.NarrativeBackground;
-        DialogueManager.Instance.TimedText(narrative.NarrativeText[value], 
+        dMan.TimedText(narrative.NarrativeText[currentClip], 
             narrativeText.GetComponent<TextMeshProUGUI>());
     }
     
-    public void NextNarrative()
+    public void NextButton_OnClick()
     {
         if (SceneLoader.SceneIsLoading) return;
         GetComponent<SoundPlayer>().PlaySound(0);
 
-        if (DialogueManager.Instance.CurrentTextRoutine != null)
+        if (dMan.CurrentTextRoutine != null)
         {
-            DialogueManager.Instance.StopTimedText(true);
+            dMan.StopTimedText(true);
             return;
         }
-        if (++currentClip > narrative.NarrativeText.Length - 1)
-            GameManager.Instance.EndNarrative();
-        else SetCurrentNarrative(currentClip);
+        int lastClip = narrative.NarrativeText.Length - 1;
+        if (++currentClip < lastClip)
+            DisplayCurrentClip();
+        else if (currentClip == lastClip)
+        {
+            DisplayCurrentClip();
+            continueButton.SetActive(true);
+        }
+        else currentClip--;
     }
-    public void PreviousNarrative()
+    public void PreviousButton_OnClick()
     {
         if (SceneLoader.SceneIsLoading) return;
         GetComponent<SoundPlayer>().PlaySound(0);
 
         if (--currentClip < 0) currentClip = 0;
-        else SetCurrentNarrative(currentClip);
+        else DisplayCurrentClip();
+        continueButton.SetActive(false);
     }
+    public void ContinueButton_OnClick() =>
+        GameManager.Instance.EndNarrative();
 }

@@ -68,6 +68,8 @@ public class LocationPopupDisplay : MonoBehaviour
 
     public void TravelButton_OnClick()
     {
+        if (gMan.VisitedLocations.FindIndex(x => x == location.LocationName) == -1)
+            gMan.VisitedLocations.Add(location.LocationName); // TESTING
         if (location.IsHomeBase)
         {
             SceneLoader.LoadScene(SceneLoader.Scene.HomeBaseScene);
@@ -78,7 +80,11 @@ public class LocationPopupDisplay : MonoBehaviour
         if (location.IsRecruitment) gMan.CurrentLocation.CurrentObjective = "Recruit a Unit.";
         else if (location.IsShop) gMan.CurrentLocation.CurrentObjective = "Buy an Item.";
         else if (location.IsCloning) gMan.CurrentLocation.CurrentObjective = "Clone a Unit.";
-        else gMan.ActiveLocations.Remove(gMan.CurrentLocation);
+        else
+        {
+            gMan.ActiveLocations.Remove(gMan.CurrentLocation);
+            gMan.VisitedLocations.Remove(location.LocationName);
+        }
         dMan.EngagedHero = gMan.GetActiveNPC(gMan.CurrentLocation.CurrentNPC);
         SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene, true);
     }

@@ -1,11 +1,14 @@
 using UnityEngine;
 
-public class ExplicitLanguagePopup : MonoBehaviour
+public class ExplicitLanguagePopupDisplay : MonoBehaviour
 {
     private void NewGame(bool hideExplicitLanguage) =>
         GameManager.Instance.NewGame(hideExplicitLanguage);
     private void DestroySelf() =>
         UIManager.Instance.DestroyExplicitLanguagePopup();
+
+    public void CloseButton_OnClick() =>
+        DestroySelf();
 
     public void ShowButton_OnClick()
     {

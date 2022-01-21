@@ -49,6 +49,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject cloneUnitPopupPrefab;
     [SerializeField] private GameObject acquireAugmentPopupPrefab;
     [SerializeField] private GameObject locationPopupPrefab;
+    [SerializeField] private GameObject narrativePopupPrefab;
     [SerializeField] private GameObject augmentIconPrefab;
     [SerializeField] private GameObject augmentIconPopupPrefab;
     [SerializeField] private GameObject itemPagePopupPrefab;
@@ -67,6 +68,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Color rejectedColor;
 
     private PlayerManager pMan;
+    private DialogueManager dMan;
 
     private GameObject screenDimmer;
     private GameObject infoPopup;
@@ -88,6 +90,7 @@ public class UIManager : MonoBehaviour
     private GameObject buyItemPopup;
     private GameObject locationPopup;
     private GameObject travelPopup;
+    private GameObject narrativePopup;
     private GameObject augmentIconPopup;
     private GameObject itemIconPopup;
     private GameObject itemAbilityPopup;
@@ -117,12 +120,14 @@ public class UIManager : MonoBehaviour
 
     public void Start()
     {
+        pMan = PlayerManager.Instance;
+        dMan = DialogueManager.Instance;
+        PlayerIsTargetting = false;
+
         CurrentWorldSpace = GameObject.Find("WorldSpace");
         CurrentCanvas = GameObject.Find("Canvas");
         UICanvas = GameObject.Find("UI_Canvas");
         CurrentZoomCanvas = GameObject.Find("Canvas_Zoom");
-        pMan = PlayerManager.Instance;
-        PlayerIsTargetting = false;
     }
 
     private IEnumerator WaitForSplash()
@@ -427,18 +432,18 @@ public class UIManager : MonoBehaviour
     {
         DestroyInfoPopup(isSecondary);
         Vector2 vec2 = new Vector2(0, 0);
-        if (!isCentered) vec2.Set(750, 0);    
+        if (!isCentered) vec2.Set(750, 0);
         if (!isSecondary)
         {
-            infoPopup = Instantiate(infoPopupPrefab, vec2,
-                Quaternion.identity, CurrentCanvas.transform);
+            infoPopup = Instantiate(infoPopupPrefab, UICanvas.transform);
             infoPopup.GetComponent<InfoPopupDisplay>().DisplayInfoPopup(message);
+            infoPopup.transform.localPosition = vec2;
         }
         else
         {
-            infoPopup_Secondary = Instantiate(infoPopup_SecondaryPrefab, vec2,
-                Quaternion.identity, CurrentCanvas.transform);
+            infoPopup_Secondary = Instantiate(infoPopup_SecondaryPrefab, UICanvas.transform);
             infoPopup_Secondary.GetComponent<InfoPopupDisplay>().DisplayInfoPopup(message);
+            infoPopup_Secondary.transform.localPosition = vec2;
         }
     }
     public void CreateFleetingInfoPopup(string message, bool isCentered = false)
@@ -689,7 +694,7 @@ public class UIManager : MonoBehaviour
     // Location Popup
     public void CreateLocationPopup(Location location)
     {
-        if (travelPopup != null) return;
+        if (travelPopup != null || narrativePopup != null) return;
         locationPopup = Instantiate(locationPopupPrefab, CurrentCanvas.transform);
         LocationPopupDisplay lpd = locationPopup.GetComponent<LocationPopupDisplay>();
         lpd.Location = location;
@@ -706,6 +711,7 @@ public class UIManager : MonoBehaviour
     // Travel Popup
     public void CreateTravelPopup(Location location)
     {
+        if (narrativePopup != null) return;
         DestroyTravelPopup();
         travelPopup = Instantiate(locationPopupPrefab, CurrentCanvas.transform);
         LocationPopupDisplay lpd = travelPopup.GetComponent<LocationPopupDisplay>();
@@ -718,6 +724,25 @@ public class UIManager : MonoBehaviour
         {
             Destroy(travelPopup);
             travelPopup = null;
+        }
+    }
+    // World Map Popup
+    public void CreateNarrativePopup(Narrative narrative)
+    {
+        DestroyNarrativePopup();
+        narrativePopup = Instantiate(narrativePopupPrefab, CurrentCanvas.transform);
+        NarrativePopupDisplay npd = narrativePopup.GetComponent<NarrativePopupDisplay>();
+        npd.LoadedNarrative = narrative;
+    }
+    public void DestroyNarrativePopup()
+    {
+        if (dMan.CurrentTextRoutine != null)
+            dMan.StopTimedText();
+
+        if (narrativePopup != null)
+        {
+            Destroy(narrativePopup);
+            narrativePopup = null;
         }
     }
 

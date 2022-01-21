@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeb11a91f5f2ac24ea1e7eb032d15908, type: 3}
+  m_Name: SettingNarrative
+  m_EditorClassIdentifier: 
+  narrativeName: Welcome to the Drift
+  narrativeText:
+  - "When the fires consumed the Earth, only the corporate mega-cities remained.\r\r\n"
+  - "Th</i>e Corp</i>orat</i>ions control everything. Free will is nonexistent.\r"
+  - A few of us are foolish enough to refuse control.
+  - They call us Drifters.
+  narrativeBackground: {fileID: 21300000, guid: aa4b53ea2f510a948bb550066e21d3a7,
+    type: 3}
+  narrativeSoundscape:
+    name: 
+    clip: {fileID: 8300000, guid: 9053eb787a5a44ef0a3a2ff2c994d0c7, type: 3}
+    volume: 0.8
+    pitch: 1
+    source: {fileID: 0}

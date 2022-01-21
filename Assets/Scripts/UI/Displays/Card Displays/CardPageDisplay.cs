@@ -15,6 +15,9 @@ public class CardPageDisplay : MonoBehaviour
     [SerializeField] private GameObject pageTitle;
     [SerializeField] private GameObject noCardsTooltip;
 
+    [SerializeField] private GameObject previousButton;
+    [SerializeField] private GameObject nextButton;
+
     private PlayerManager pMan;
     private UIManager uMan;
     private List<Card> cardGroupList;
@@ -101,6 +104,15 @@ public class CardPageDisplay : MonoBehaviour
 
     private void LoadCardPage()
     {
+        bool showNext = true;
+        bool showPrevious = true;
+        if (currentPage == 1)
+            showPrevious = false;
+        if (currentPage == totalPages)
+            showNext = false;
+        nextButton.SetActive(showNext);
+        previousButton.SetActive(showPrevious);
+
         PageCounterText = currentPage + " / " + totalPages;
         int firstIndex = (currentPage - 1) * 4;
         int index;

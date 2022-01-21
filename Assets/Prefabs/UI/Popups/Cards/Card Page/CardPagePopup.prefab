@@ -381,6 +381,8 @@ MonoBehaviour:
   costGroup: {fileID: 3366735516951441864}
   pageTitle: {fileID: 549790663141930526}
   noCardsTooltip: {fileID: 3777666453884749639}
+  previousButton: {fileID: 3366735516218731870}
+  nextButton: {fileID: 3366735516904823018}
 --- !u!114 &3004064017697390368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -543,7 +545,7 @@ GameObject:
   - component: {fileID: 3366735516218731868}
   - component: {fileID: 3366735516218731866}
   m_Layer: 5
-  m_Name: LeftArrow
+  m_Name: PreviousButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -687,7 +689,7 @@ GameObject:
   - component: {fileID: 3366735516904823017}
   - component: {fileID: 3366735516904823016}
   m_Layer: 5
-  m_Name: RightArrow
+  m_Name: NextButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -640,6 +640,8 @@ MonoBehaviour:
     type: 3}
   locationPopupPrefab: {fileID: 2044122454154625903, guid: 97578bbed6b45cc45a8ff4b66137ef2a,
     type: 3}
+  narrativePopupPrefab: {fileID: 8812326136656688860, guid: f5699e9a63b99e145bd4fc022f0079b2,
+    type: 3}
   augmentIconPrefab: {fileID: 8816291806828510727, guid: e66e324b1ea5d0341b70389f60feb615,
     type: 3}
   augmentIconPopupPrefab: {fileID: 7974326479095590452, guid: a6d0ea0d0a1c87446bde46f9945fabb3,
@@ -988,7 +990,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tooltipPopupPrefab: {fileID: 7177373728927392186, guid: 6363c5ece3ab74f41ab0a33c7358b5cb,
     type: 3}
-  tooltipText: Your total AETHER. Use Aether to improve your hero.
+  tooltipText: Your total <b>aether</b>. Use aether to improve your hero.
   tooltipPosition: {x: -700, y: 300}
 --- !u!1 &7161617364470241153
 GameObject:

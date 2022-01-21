@@ -51,10 +51,10 @@ public static class SceneLoader
                     chapterText = "MAIN MENU";
                     break;
                 case Scene.HeroSelectScene:
-                    chapterText = gMan.NextChapter;
+                    chapterText = "Choose Your Drifter";
                     break;
                 case Scene.NarrativeScene:
-                    chapterText = gMan.NextChapter;
+                    chapterText = gMan.CurrentNarrative.NarrativeName;
                     break;
                 case Scene.WorldMapScene:
                     chapterText = "WORLD MAP";
