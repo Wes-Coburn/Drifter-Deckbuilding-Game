@@ -650,7 +650,7 @@ public class GameManager : MonoBehaviour
      *****/
     public void EndCombatTurn(string player)
     {
-        evMan.NewDelayedAction(() => coMan.PrepareAllies(player), 0.5f);
+        evMan.NewDelayedAction(() => coMan.RefreshUnits(player), 0.5f);
         evMan.NewDelayedAction(() => RemoveEffects(), 0.5f);
 
         if (player == ENEMY) StartCombatTurn(PLAYER);

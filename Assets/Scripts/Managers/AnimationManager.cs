@@ -323,8 +323,7 @@ public class AnimationManager : MonoBehaviour
 
     private IEnumerator AttackNumerator(GameObject attacker, GameObject defender, bool defenderIsUnit = true)
     {
-        EventManager.Instance.PauseDelayedActions(true); // TESTING
-
+        EventManager.Instance.PauseDelayedActions(true);
         float distance;
         float bufferDistance;
         float attackSpeed;
@@ -342,7 +341,7 @@ public class AnimationManager : MonoBehaviour
             retreatSpeed = 100;
         }
         GameObject container = attacker.GetComponent<CardDisplay>().CardContainer;
-        container.GetComponent<CardContainer>().DetachChild();
+        container.GetComponent<CardContainer>().IsDetached = true; // TESTING
         attacker.transform.SetAsLastSibling();
         Vector2 defPos = defender.transform.position;
 
@@ -364,8 +363,7 @@ public class AnimationManager : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         while (distance > 0);
-        attacker.transform.SetParent(container.transform);
-
+        container.GetComponent<CardContainer>().IsDetached = false; // TESTING
         EventManager.Instance.PauseDelayedActions(false); // TESTING
     }
 }

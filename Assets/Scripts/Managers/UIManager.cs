@@ -435,7 +435,7 @@ public class UIManager : MonoBehaviour
         if (!isCentered) vec2.Set(750, 0);
         if (!isSecondary)
         {
-            infoPopup = Instantiate(infoPopupPrefab, UICanvas.transform);
+            infoPopup = Instantiate(infoPopupPrefab, CurrentCanvas.transform);
             infoPopup.GetComponent<InfoPopupDisplay>().DisplayInfoPopup(message);
             infoPopup.transform.localPosition = vec2;
         }

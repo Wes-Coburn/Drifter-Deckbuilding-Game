@@ -26,6 +26,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     /* ZONES */
     private GameObject playerHand;
     private GameObject playerZone;
+    private GameObject playerActionZone;
     private GameObject enemyHand;
     private GameObject enemyZone;
 
@@ -53,6 +54,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         uMan = UIManager.Instance;
         playerHand = coMan.PlayerHand;
         playerZone = coMan.PlayerZone;
+        playerActionZone = coMan.PlayerActionZone;
         enemyHand = coMan.EnemyHand;
         enemyZone = coMan.EnemyZone;
         cardDisplay = GetComponent<CardDisplay>();
@@ -139,6 +141,11 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
                     rect = playerZone.GetComponent<RectTransform>();
                     cardYPos = rect.position.y + ZOOM_BUFFER - 20;
                 }
+                else if (parent == playerActionZone)
+                {
+                    Debug.LogWarning("ZOOM DISABLED"!);
+                    return;
+                }
                 else if (parent == enemyHand)
                 {
                     rect = enemyHand.GetComponent<RectTransform>();
@@ -205,10 +212,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
      *****/
     private GameObject CreateZoomObject(GameObject prefab, Vector2 vec2, float scaleValue)
     {
-        GameObject currentCanvas;
-        if (ZoomCardIsCentered) currentCanvas = uMan.CurrentZoomCanvas;
-        else currentCanvas = uMan.CurrentCanvas;
-        GameObject zoomObject = Instantiate(prefab, currentCanvas.transform);
+        GameObject zoomObject = Instantiate(prefab, uMan.CurrentZoomCanvas.transform); // TESTING
         zoomObject.transform.localPosition = vec2;
         zoomObject.transform.localScale = new Vector2(scaleValue, scaleValue);
         zoomPopups.Add(zoomObject);

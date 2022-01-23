@@ -6,12 +6,24 @@ public class DragDrop : MonoBehaviour
     private CombatManager coMan;
     private UIManager uMan;
     private AudioManager auMan;
+    private CardContainer container;
     private GameObject dragArrow;
-    private bool isDragging;
     private bool isOverDropZone;
-    //private int startIndex;
     private const string SFX_DRAG_CARD = "SFX_DragCard";
+    private bool isDragging;
+    private int lastIndex;
 
+    private bool IsDragging
+    {
+        get => isDragging;
+        set
+        {
+            isDragging = value;
+            container.IsDetached = isDragging;
+        }
+    }
+
+    public int LastIndex { get => lastIndex; }
     public bool IsPlayed { get; set; }
     public static GameObject DraggingCard;
     public static bool ArrowIsDragging;
@@ -23,6 +35,8 @@ public class DragDrop : MonoBehaviour
         coMan = CombatManager.Instance;
         uMan = UIManager.Instance;
         auMan = AudioManager.Instance;
+        container = GetComponent<CardDisplay>().
+            CardContainer.GetComponent<CardContainer>();
         isOverDropZone = false;
         isDragging = false;
         IsPlayed = false;
@@ -30,17 +44,16 @@ public class DragDrop : MonoBehaviour
 
     void Update()
     {
-        if (isDragging)
+        if (IsDragging)
         {
             Vector3 dragPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);            
             transform.position = new Vector2(dragPoint.x, dragPoint.y);
-            transform.SetParent(uMan.CurrentCanvas.transform, true);
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (isDragging && !IsPlayed)
+        if (IsDragging && !IsPlayed)
             if (collision.gameObject == coMan.PlayerZone)
             {
                 isOverDropZone = true;
@@ -49,7 +62,7 @@ public class DragDrop : MonoBehaviour
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (isDragging && !IsPlayed)
+        if (IsDragging && !IsPlayed)
             if (collision.gameObject == coMan.PlayerZone)
             {
                 isOverDropZone = false;
@@ -59,9 +72,8 @@ public class DragDrop : MonoBehaviour
 
     private void ResetPosition()
     {
-        GameObject container = GetComponent<CardDisplay>().CardContainer;
-        transform.SetParent(container.transform, false);
-        transform.localPosition = new Vector2(0, 0);
+        transform.localPosition = container.transform.position;
+        transform.SetSiblingIndex(lastIndex); // TESTING
         if (TryGetComponent(out ActionCardDisplay _)) IsPlayed = false;
         AnimationManager.Instance.RevealedHandState(gameObject);
     }
@@ -79,9 +91,12 @@ public class DragDrop : MonoBehaviour
         FunctionTimer.StopTimer(CardZoom.ABILITY_POPUP_TIMER);
         DraggingCard = gameObject;
 
+        lastIndex = transform.GetSiblingIndex(); // TESTING
+        transform.SetAsLastSibling(); // TESTING
+
         if (!IsPlayed)
         {
-            isDragging = true;
+            IsDragging = true;
             AnimationManager.Instance.RevealedDragState(gameObject);
             uMan.SetPlayerZoneOutline(true, false);
         }
@@ -103,18 +118,19 @@ public class DragDrop : MonoBehaviour
             if (coMan.CanAttack(gameObject, coMan.EnemyHero, true)) 
                 uMan.SelectTarget(coMan.EnemyHero, true);
         }
-        auMan.StartStopSound(SFX_DRAG_CARD, null, AudioManager.SoundType.SFX, false, true);
+        auMan.StartStopSound(SFX_DRAG_CARD, null,
+            AudioManager.SoundType.SFX, false, true);
     }
 
     public void EndDrag()
     {
-        if (!isDragging && !ArrowIsDragging) return;
+        if (!IsDragging && !ArrowIsDragging) return;
         auMan.StartStopSound(SFX_DRAG_CARD, null, AudioManager.SoundType.SFX, true);
         DraggingCard = null;
         // From Hand
         if (!IsPlayed)
         {
-            isDragging = false;
+            IsDragging = false;
             uMan.SetPlayerZoneOutline(false, false);
             if (isOverDropZone && coMan.IsPlayable(gameObject))
             {

@@ -23,7 +23,6 @@ public class EffectManager : MonoBehaviour
     private AudioManager auMan;
     private AnimationManager anMan;
     private EventManager evMan;
-
     private GameObject dragArrow;
 
     // Effects
@@ -984,7 +983,7 @@ public class EffectManager : MonoBehaviour
             foreach (GameObject target in validTargets)
             {
                 if (gae.IfAlreadyHasEffects != null &&
-                    gae.CardAbility is StaticAbility sa) // TESTING
+                    gae.CardAbility is StaticAbility sa)
                 {
                     if (CardManager.GetAbility(target, sa.AbilityName))
                     {
@@ -1019,10 +1018,10 @@ public class EffectManager : MonoBehaviour
 
         if (effectSource.TryGetComponent(out ActionCardDisplay acd))
         {
-            if (isUserAbort) // TESTING
+            if (isUserAbort)
             {
                 pMan.EnergyLeft += acd.CurrentEnergyCost;
-                coMan.ChangeCardZone(effectSource, handZone);
+                coMan.ChangeCardZone(effectSource, handZone, true); // TESTING
                 coMan.PlayerActionZoneCards.Remove(effectSource);
                 coMan.PlayerHandCards.Add(effectSource);
             }
@@ -1032,11 +1031,11 @@ public class EffectManager : MonoBehaviour
             if (isUserAbort)
             {
                 pMan.EnergyLeft += ucd.CurrentEnergyCost;
-                coMan.ChangeCardZone(effectSource, handZone);
+                coMan.ChangeCardZone(effectSource, handZone, true); // TESTING
                 coMan.PlayerZoneCards.Remove(effectSource);
                 coMan.PlayerHandCards.Add(effectSource);
             }
-            else // TESTING
+            else
             {
                 if (triggerName == CardManager.TRIGGER_PLAY)
                     TriggerGiveNextEffect(effectSource);
@@ -1076,12 +1075,11 @@ public class EffectManager : MonoBehaviour
         if (wasAborted) debugText = "ABORTED";
         Debug.LogWarning("GROUP LIST FINISHED! [" + debugText + "]");
 
-        if (!wasAborted || isAdditionalEffect) // TESTING
+        if (!wasAborted || isAdditionalEffect)
         {
-            if (!wasAborted && additionalEffectGroups.Count > 0) // TESTING
+            if (!wasAborted && additionalEffectGroups.Count > 0)
             {
                 GameObject source = effectSource;
-                // TESTING
                 foreach (EffectGroup eg in additionalEffectGroups)
                 {
                     evMan.NewDelayedAction(() =>
@@ -1106,7 +1104,6 @@ public class EffectManager : MonoBehaviour
                     pMan.HeroItems.Remove(icon.LoadedItem);
                     uMan.SetSkybar(true);
                 }
-                // TESTING
                 else if (coMan.PlayerHero == effectSource)
                 {
                     CardManager.Instance.TriggerPlayedUnits(CardManager.TRIGGER_RESEARCH);

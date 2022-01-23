@@ -1,11 +1,12 @@
-using System.Collections;
 using UnityEngine;
 
 public class CardContainer : MonoBehaviour
 {
-    private UIManager uMan;
-    private Coroutine seekRoutine;
     private GameObject child;
+    readonly float maxSpeed = 10;
+    readonly float minSpeed = 0.5f;
+    private float distance;
+    public bool IsDetached { get; set; }
     public GameObject Child
     {
         get => child;
@@ -17,53 +18,24 @@ public class CardContainer : MonoBehaviour
                 return;
             }
             child = value;
+            IsDetached = false;
         }
     }
 
-    private void Awake()
+    private void Update()
     {
-        uMan = UIManager.Instance;
-    }
-
-    public void MoveContainer(GameObject newParent)
-    {
-        Child.transform.SetParent(uMan.CurrentCanvas.transform);
-        transform.SetParent(newParent.transform, false);
-        if (Child.CompareTag(CombatManager.PLAYER_CARD))
-            transform.SetAsFirstSibling();
-        else transform.SetAsLastSibling();
-        SeekChild();
-    }
-
-    public void DetachChild()
-    {
-        if (seekRoutine != null) return;
-        Child.transform.SetParent(uMan.CurrentCanvas.transform);
-    }
-
-    public void SeekChild()
-    {
-        if (seekRoutine != null) return;
-        seekRoutine = StartCoroutine(SeekChildNumerator());
-    }
-
-    private IEnumerator SeekChildNumerator()
-    {
-        float distance;
-        float speed = 50;
-
-        transform.SetAsLastSibling(); // TESTING
-
-        do
+        if (IsDetached) return;
+        distance = Vector2.Distance(Child.transform.position, transform.position);
+        float speed = distance/10;
+        if (speed < minSpeed) speed = minSpeed;
+        else if (speed > maxSpeed) speed = maxSpeed;
+        if (distance > 0)
         {
-            distance = Vector2.Distance(Child.transform.position, 
-                transform.position);
-            Child.transform.position = Vector2.MoveTowards(Child.transform.position, 
-                transform.position, speed);
-            yield return new WaitForFixedUpdate();
+            Child.transform.position =
+                Vector2.MoveTowards(Child.transform.position, transform.position, speed);
         }
-        while (distance > 0);
-        Child.transform.SetParent(gameObject.transform);
-        seekRoutine = null;
     }
+
+    public void MoveContainer(GameObject newParent) =>
+        transform.SetParent(newParent.transform, false);
 }
