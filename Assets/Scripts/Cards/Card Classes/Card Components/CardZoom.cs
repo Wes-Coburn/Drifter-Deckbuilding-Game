@@ -134,7 +134,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
                 if (parent == playerHand)
                 {
                     rect = playerHand.GetComponent<RectTransform>();
-                    cardYPos = rect.position.y + ZOOM_BUFFER;
+                    cardYPos = rect.position.y + ZOOM_BUFFER + 20;
                 }
                 else if (parent == playerZone)
                 {

@@ -6,7 +6,7 @@ public class NewGameButton : MonoBehaviour
     {
         if (SceneLoader.SceneIsLoading) return; // TESTING
 
-        if (GameManager.Instance.LoadGame(true))
+        if (GameManager.Instance.CheckSave()) // TESTING
         {
             Debug.LogWarning("SAVED GAME WARNING POPUP HERE!");
         }

@@ -326,20 +326,9 @@ public class AnimationManager : MonoBehaviour
         EventManager.Instance.PauseDelayedActions(true);
         float distance;
         float bufferDistance;
-        float attackSpeed;
-        float retreatSpeed;
-        if (defenderIsUnit)
-        {
-            bufferDistance = 150;
-            attackSpeed = 75;
-            retreatSpeed = 50;
-        }
-        else
-        {
-            bufferDistance = 350;
-            attackSpeed = 150;
-            retreatSpeed = 100;
-        }
+
+        if (defenderIsUnit) bufferDistance = 150;
+        else bufferDistance = 350;
         GameObject container = attacker.GetComponent<CardDisplay>().CardContainer;
         container.GetComponent<CardContainer>().IsDetached = true; // TESTING
         attacker.transform.SetAsLastSibling();
@@ -350,20 +339,38 @@ public class AnimationManager : MonoBehaviour
         {
             distance = Vector2.Distance(attacker.transform.position, defPos);
             attacker.transform.position = Vector3.MoveTowards(attacker.transform.position,
-                defPos, attackSpeed);
+                defPos, GetCurrentSpeed(distance)); // TESTING
             yield return new WaitForFixedUpdate();
         }
         while (distance > bufferDistance);
+
+        auMan.StartStopSound("SFX_AttackMelee");
+        coMan.Strike(attacker, defender, true); // TESTING
+
         // RETREAT
         do
         {
             distance = Vector2.Distance(attacker.transform.position, container.transform.position);
             attacker.transform.position = Vector3.MoveTowards(attacker.transform.position,
-                container.transform.position, retreatSpeed);
+                container.transform.position,
+                GetCurrentSpeed(distance)); // TESTING
             yield return new WaitForFixedUpdate();
         }
         while (distance > 0);
         container.GetComponent<CardContainer>().IsDetached = false; // TESTING
         EventManager.Instance.PauseDelayedActions(false); // TESTING
+    }
+
+    private readonly float minSpeed = 100;
+    private readonly float maxSpeed = 300;
+    private readonly float speedControl = 20;
+
+    private float GetCurrentSpeed(float distance)
+    {
+        //float speed = maxSpeed - (distance / speedControl);
+        float speed = distance / speedControl;
+        if (speed < minSpeed) speed = minSpeed;
+        else if (speed > maxSpeed) speed = maxSpeed;
+        return speed;
     }
 }

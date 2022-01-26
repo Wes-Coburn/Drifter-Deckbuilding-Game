@@ -70,6 +70,9 @@ public class NarrativeSceneDisplay : MonoBehaviour
         else DisplayCurrentClip();
         continueButton.SetActive(false);
     }
-    public void ContinueButton_OnClick() =>
+    public void ContinueButton_OnClick()
+    {
+        if (SceneLoader.SceneIsLoading) return;
         GameManager.Instance.EndNarrative();
+    }
 }

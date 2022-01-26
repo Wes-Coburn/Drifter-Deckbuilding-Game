@@ -30,7 +30,6 @@ public class HeroSelectSceneDisplay : MonoBehaviour
     private CombatManager coMan;
     private UIManager uMan;
     private CardManager caMan;
-    private GameManager gMan;
 
     private PlayerHero[] playerHeroes;
     private HeroAugment[] heroAugments;
@@ -54,7 +53,6 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         coMan = CombatManager.Instance;
         uMan = UIManager.Instance;
         caMan = CardManager.Instance;
-        gMan = GameManager.Instance;
         playerHeroes = Resources.LoadAll<PlayerHero>("Heroes");
         heroAugments = Resources.LoadAll<HeroAugment>("Hero Augments");
         DisplayConfirmSelection();
@@ -210,8 +208,8 @@ public class HeroSelectSceneDisplay : MonoBehaviour
             currentSkill_2 = null;
         }
         Vector2 vec2 = new Vector2();
-        currentSkill_1 = coMan.ShowCard(LoadedHero.HeroStartSkills[0], vec2);
-        currentSkill_2 = coMan.ShowCard(LoadedHero.HeroStartSkills[1], vec2);
+        currentSkill_1 = coMan.ShowCard(LoadedHero.HeroStartSkills[0], vec2, CombatManager.DisplayType.HeroSelect);
+        currentSkill_2 = coMan.ShowCard(LoadedHero.HeroStartSkills[1], vec2, CombatManager.DisplayType.HeroSelect);
         currentSkill_1.GetComponent<CardDisplay>().DisableVisuals();
         currentSkill_2.GetComponent<CardDisplay>().DisableVisuals();
         currentSkill_1.transform.SetParent(skillCard_1.transform, false);

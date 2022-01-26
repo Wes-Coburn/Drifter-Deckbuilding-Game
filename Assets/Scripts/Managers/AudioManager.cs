@@ -47,7 +47,7 @@ public class AudioManager : MonoBehaviour
     {
         List<Sound> noSource = new List<Sound>();
         foreach (Sound s in activeSounds) if (s.source == null) noSource.Add(s);
-        Debug.Log("CLEANING <" + noSource.Count + "> SOUNDS!");
+        if (noSource.Count > 0) Debug.Log("CLEANING <" + noSource.Count + "> SOUNDS!");
         foreach (Sound s in noSource) activeSounds.Remove(s);
     }
 

@@ -31,7 +31,7 @@ public class CombatTestButton : MonoBehaviour
             return;
         }
         GameManager gMan = GameManager.Instance;
-        gMan.LoadGame(true, 1);
+        gMan.CheckSave(); // TESTING
         gameObject.SetActive(gMan.Achievement_BETA_Finish);
     }
 

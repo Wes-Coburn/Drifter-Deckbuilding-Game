@@ -35,8 +35,9 @@ public class DragDrop : MonoBehaviour
         coMan = CombatManager.Instance;
         uMan = UIManager.Instance;
         auMan = AudioManager.Instance;
-        container = GetComponent<CardDisplay>().
-            CardContainer.GetComponent<CardContainer>();
+        CardDisplay cd = GetComponent<CardDisplay>();
+        if (cd.CardContainer != null)
+            container = cd.CardContainer.GetComponent<CardContainer>();
         isOverDropZone = false;
         isDragging = false;
         IsPlayed = false;

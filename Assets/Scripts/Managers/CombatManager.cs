@@ -146,6 +146,7 @@ public class CombatManager : MonoBehaviour
     public enum DisplayType
     {
         Default,
+        HeroSelect,
         NewCard,
         Cardpage
     }
@@ -176,9 +177,12 @@ public class CombatManager : MonoBehaviour
             if (type is DisplayType.NewCard)
                 prefab = prefab.GetComponent<CardZoom>().ActionZoomCardPrefab;
         }
-        prefab = Instantiate(prefab, CardZone.transform); // TESTING
-        prefab.transform.position = position; // TESTING
-        //prefab.transform.SetAsLastSibling(); // TESTING
+
+        GameObject parent = CardZone;
+        if (CardZone == null) parent = uMan.CurrentCanvas;
+
+        prefab = Instantiate(prefab, parent.transform);
+        prefab.transform.position = position;
         CardDisplay cd = prefab.GetComponent<CardDisplay>();
 
         if (type is DisplayType.Default)
@@ -189,6 +193,7 @@ public class CombatManager : MonoBehaviour
             CardContainer cc = cd.CardContainer.GetComponent<CardContainer>();
             cc.Child = prefab;
         }
+        else if (type is DisplayType.HeroSelect) cd.CardScript = card; // TESTING
         else if (type is DisplayType.NewCard) cd.DisplayZoomCard(null, card);
         else if (type is DisplayType.Cardpage) cd.DisplayCardPageCard(card);
         return prefab;
@@ -403,11 +408,7 @@ public class CombatManager : MonoBehaviour
         // ENEMY
         else if (card.CompareTag(ENEMY_CARD))
         {
-            if (EnemyZoneCards.Count >= GameManager.MAX_UNITS_PLAYED)
-            {
-                uMan.CreateFleetingInfoPopup("Too many enemy units!");
-                return;
-            }
+            if (EnemyZoneCards.Count >= GameManager.MAX_UNITS_PLAYED) return;
 
             EnemyHandCards.Remove(card);
             if (IsUnitCard(card))
@@ -608,17 +609,18 @@ public class CombatManager : MonoBehaviour
      *****/
     public void Attack(GameObject attacker, GameObject defender)
     {
-        // Immediate Actions
         GetUnitDisplay(attacker).IsExhausted = true;
         if (CardManager.GetAbility(attacker, CardManager.ABILITY_STEALTH))
             GetUnitDisplay(attacker).RemoveCurrentAbility(CardManager.ABILITY_STEALTH);
+
         if (!CardManager.GetAbility(attacker, CardManager.ABILITY_RANGED))
-            auMan.StartStopSound("SFX_AttackMelee");
-        else auMan.StartStopSound("SFX_AttackRanged");
-        bool defenderIsUnit = IsUnitCard(defender);
-        anMan.UnitAttack(attacker, defender, defenderIsUnit);
-        // Delayed Actions
-        Strike(attacker, defender, true);
+            anMan.UnitAttack(attacker, defender, IsUnitCard(defender));
+        else
+        {
+            auMan.StartStopSound("SFX_AttackRanged");
+            efMan.CreateEffectRay(attacker.transform.position, defender,
+                () => Strike(attacker, defender, true), 0, false);
+        }
     }
 
     /******
@@ -629,7 +631,7 @@ public class CombatManager : MonoBehaviour
     public void Strike(GameObject striker, GameObject defender, bool isCombat)
     {
         bool strikerDestroyed;
-        bool defenderDealtDamage;
+        //bool defenderDealtDamage; // No current use
 
         // COMBAT
         if (isCombat)
@@ -639,33 +641,29 @@ public class CombatManager : MonoBehaviour
             if (IsUnitCard(defender))
             {
                 if (!CardManager.GetAbility(striker, CardManager.ABILITY_RANGED))
-                    DealDamage(defender, striker, 
-                        out defenderDealtDamage, out strikerDestroyed);
+                    DealDamage(defender, striker, out _, out strikerDestroyed);
                 else
                 {
-                    defenderDealtDamage = false;
+                    //defenderDealtDamage = false;
                     strikerDestroyed = false;
                 }
 
-                if (!strikerDestroyed &&
-                    CardManager.GetTrigger(striker, CardManager.TRIGGER_DEATHBLOW))
+                if (!strikerDestroyed && CardManager.GetTrigger
+                    (striker, CardManager.TRIGGER_DEATHBLOW))
                 {
-                    if (defenderDestroyed)
-                        TriggerDelay(() => DeathblowTrigger(striker));
+                    if (defenderDestroyed) DeathblowTrigger(striker);
                 }
-                if (!defenderDestroyed &&
-                    CardManager.GetTrigger(defender, CardManager.TRIGGER_DEATHBLOW))
+                if (!defenderDestroyed && CardManager.GetTrigger
+                    (defender, CardManager.TRIGGER_DEATHBLOW))
                 {
-                    if (strikerDestroyed)
-                        TriggerDelay(() => DeathblowTrigger(defender));
+                    if (strikerDestroyed) DeathblowTrigger(defender);
                 }
             }
-            else if (!defenderDestroyed && strikerDealtDamage &&
-                CardManager.GetTrigger(striker, CardManager.TRIGGER_INFILTRATE))
-                TriggerDelay(() => InfiltrateTrigger(striker));
+            else if (!defenderDestroyed && strikerDealtDamage && CardManager.GetTrigger
+                (striker, CardManager.TRIGGER_INFILTRATE)) InfiltrateTrigger(striker);
         }
 
-        // STRIKE EFFECTS
+        // STRIKE EFFECTS // Currently non-existent
         else
         {
             DealDamage(striker, defender,
@@ -674,11 +672,11 @@ public class CombatManager : MonoBehaviour
             {
                 if (defenderDestroyed &&
                 CardManager.GetTrigger(striker, CardManager.TRIGGER_DEATHBLOW))
-                    TriggerDelay(() => DeathblowTrigger(striker));
+                    DeathblowTrigger(striker);
             }
             else if (attackerDealtDamage &&
                 CardManager.GetTrigger(striker, CardManager.TRIGGER_INFILTRATE))
-                TriggerDelay(() => InfiltrateTrigger(striker));
+                InfiltrateTrigger(striker);
         }
 
         void DealDamage(GameObject striker, GameObject defender,
@@ -704,15 +702,15 @@ public class CombatManager : MonoBehaviour
                 defenderDestroyed = true;
             else defenderDestroyed = false;
         }
-
-        void TriggerDelay(System.Action action) =>
-            evMan.NewDelayedAction(() => action(), 0.5f, true);
         
+        void DelayTrigger(System.Action action) =>
+            evMan.NewDelayedAction(action, 0, true); // TESTING
+
         void InfiltrateTrigger(GameObject unit) =>
-            caMan.TriggerUnitAbility(unit, CardManager.TRIGGER_INFILTRATE);
+            DelayTrigger(() => caMan.TriggerUnitAbility(unit, CardManager.TRIGGER_INFILTRATE));
         
         void DeathblowTrigger(GameObject unit) => 
-            caMan.TriggerUnitAbility(unit, CardManager.TRIGGER_DEATHBLOW);
+            DelayTrigger(() => caMan.TriggerUnitAbility(unit, CardManager.TRIGGER_DEATHBLOW));
     }
 
     /******
@@ -723,15 +721,15 @@ public class CombatManager : MonoBehaviour
     public bool TakeDamage(GameObject target, int damageValue)
     {
         if (damageValue < 1) return false;
-
         int targetValue;
         int newTargetValue;
         if (target == PlayerHero) targetValue = pMan.PlayerHealth;
         else if (target == EnemyHero) targetValue = enMan.EnemyHealth;
         else targetValue = GetUnitDisplay(target).CurrentHealth;
 
-        if (targetValue < 1) return false; // Don't deal damage to destroyed units or heroes
+        if (targetValue < 1) return false; // Don't deal damage to targets with 0 health
         newTargetValue = targetValue - damageValue;
+
         // Damage to heroes
         if (target == PlayerHero)
         {
@@ -749,7 +747,7 @@ public class CombatManager : MonoBehaviour
             if (CardManager.GetAbility(target, CardManager.ABILITY_FORCEFIELD))
             {
                 GetUnitDisplay(target).AbilityTriggerState(CardManager.ABILITY_FORCEFIELD);
-                GetUnitDisplay(target).RemoveCurrentAbility(CardManager.ABILITY_FORCEFIELD); // TESTING
+                GetUnitDisplay(target).RemoveCurrentAbility(CardManager.ABILITY_FORCEFIELD);
                 return false;
             }
             else
@@ -760,10 +758,10 @@ public class CombatManager : MonoBehaviour
         }
         if (newTargetValue < 1)
         {
-            if (IsUnitCard(target)) DestroyUnit(target, true);
+            if (IsUnitCard(target)) DestroyUnit(target);
             else
             {
-                anMan.SetAnimatorBool(target, "IsDestroyed", true); // TESTING
+                anMan.SetAnimatorBool(target, "IsDestroyed", true);
                 bool playerWins;
                 if (target == PlayerHero) playerWins = false;
                 else playerWins = true;
@@ -788,12 +786,12 @@ public class CombatManager : MonoBehaviour
         if (target == PlayerHero)
         {
             targetValue = pMan.PlayerHealth;
-            maxValue = pMan.MaxPlayerHealth; // TESTING
+            maxValue = pMan.MaxPlayerHealth;
         }
         else if (target == EnemyHero)
         {
             targetValue = enMan.EnemyHealth;
-            maxValue = enMan.MaxEnemyHealth; // TESTING
+            maxValue = enMan.MaxEnemyHealth;
         }
         else
         {
@@ -828,7 +826,7 @@ public class CombatManager : MonoBehaviour
      * ****** DESTROY_UNIT [PLAY >>> DISCARD]
      * *****
      *****/
-    public void DestroyUnit(GameObject card, bool isDelayed)
+    public void DestroyUnit(GameObject card)
     {
         if (card == null)
         {
@@ -837,20 +835,10 @@ public class CombatManager : MonoBehaviour
         }
 
         string cardTag = card.tag;
-        if (isDelayed)
-        {
-            FunctionTimer.Create(() => DestroyFX(), 0.5f);
-            evMan.NewDelayedAction(() => Destroy(), 1, true);
-            if (HasDestroyTriggers())
-                evMan.NewDelayedAction(() => DestroyTriggers(), 0.5f, true);
-        }
-        else
-        {
-            DestroyFX();
-            evMan.NewDelayedAction(() => Destroy(), 1, true);
-            if (HasDestroyTriggers())
-                evMan.NewDelayedAction(() => DestroyTriggers(), 0, true);
-        }
+        DestroyFX();
+        evMan.NewDelayedAction(() => Destroy(), 0.5f, true);
+        if (HasDestroyTriggers())
+            evMan.NewDelayedAction(() => DestroyTriggers(), 0, true);
 
         bool HasDestroyTriggers()
         {
@@ -896,12 +884,12 @@ public class CombatManager : MonoBehaviour
             if (cardTag == PLAYER_CARD)
             {
                 PlayerZoneCards.Remove(card);
-                PlayerDiscardCards.Add(HideCard(card, PlayerZoneCards)); // TESTING
+                PlayerDiscardCards.Add(HideCard(card, PlayerZoneCards));
             }
             else if (cardTag == ENEMY_CARD)
             {
                 EnemyZoneCards.Remove(card);
-                EnemyDiscardCards.Add(HideCard(card, EnemyZoneCards)); // TESTING
+                EnemyDiscardCards.Add(HideCard(card, EnemyZoneCards));
             }
         }
     }

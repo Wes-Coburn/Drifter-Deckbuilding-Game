@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -102,6 +103,7 @@ public class GameManager : MonoBehaviour
         VisitedLocations = new List<string>();
         ShopItems = new List<HeroItem>();
         StartTitleScene();
+        Debug.Log("Application Version: " + Application.version);
     }
 
     /******
@@ -123,7 +125,7 @@ public class GameManager : MonoBehaviour
 
     /******
      * *****
-     * ****** SAVE/LOAD_GAME
+     * ****** SAVE_GAME
      * *****
      *****/
     public void SaveGame() // PUBLIC FOR BETA ONLY
@@ -184,21 +186,32 @@ public class GameManager : MonoBehaviour
             Achievement_BETA_Finish);
         SaveLoad.SaveGame(data);
     }
-    public bool LoadGame(bool isPrecheck = false, int achievment = 0)
+
+    /******
+     * *****
+     * ****** CHECK_SAVE
+     * *****
+     *****/
+    public bool CheckSave()
     {
         GameData data = SaveLoad.LoadGame();
         if (data == null) return false;
-        else if (isPrecheck)
+        else
         {
-            // ACHIEVEMENTS
-            switch (achievment)
-            {
-                case 1:
-                    Achievement_BETA_Finish = data.Achievement_BETA_Finish;
-                    break;
-            }
+            Achievement_BETA_Finish = data.Achievement_BETA_Finish;
             return true;
         }
+    }
+
+    /******
+     * *****
+     * ****** LOAD_GAME
+     * *****
+     *****/
+    public bool LoadGame()
+    {
+        GameData data = SaveLoad.LoadGame();
+        if (data == null) return false;
 
         /** LOAD RESOURCES **/
         // NARRATIVES
@@ -421,6 +434,7 @@ public class GameManager : MonoBehaviour
     {
         auMan.StartStopSound("Soundtrack_TitleScene", null, AudioManager.SoundType.Soundtrack);
         auMan.StartStopSound("Soundscape_TitleScene", null, AudioManager.SoundType.Soundscape);
+        GameObject.Find("VersionNumber").GetComponent<TextMeshProUGUI>().SetText(Application.version);
     }
 
     /******
@@ -698,7 +712,7 @@ public class GameManager : MonoBehaviour
         if (activeNPC != -1) return ActiveNPCHeroes[activeNPC];
         else
         {
-            Debug.Log("Creating new NPC instance!");
+            Debug.Log("Creating NEW NPC instance! <" + npc.HeroName + ">");
             NPCHero newNPC;
             if (npc is EnemyHero) newNPC = ScriptableObject.CreateInstance<EnemyHero>();
             else newNPC = ScriptableObject.CreateInstance<NPCHero>();

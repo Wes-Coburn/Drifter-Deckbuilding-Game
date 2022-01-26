@@ -3,8 +3,8 @@ using UnityEngine;
 public class CardContainer : MonoBehaviour
 {
     private GameObject child;
-    readonly float maxSpeed = 10;
     readonly float minSpeed = 0.5f;
+    readonly float maxSpeed = 10;
     private float distance;
     public bool IsDetached { get; set; }
     public GameObject Child
@@ -24,7 +24,7 @@ public class CardContainer : MonoBehaviour
 
     private void Update()
     {
-        if (IsDetached) return;
+        if (IsDetached || Child == null) return;
         distance = Vector2.Distance(Child.transform.position, transform.position);
         float speed = distance/10;
         if (speed < minSpeed) speed = minSpeed;

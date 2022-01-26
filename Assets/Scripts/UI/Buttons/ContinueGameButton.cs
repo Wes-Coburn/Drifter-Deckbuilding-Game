@@ -1,22 +1,27 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class ContinueGameButton : MonoBehaviour
 {
     private void Start()
     {
-        bool savedGame = GameManager.Instance.LoadGame(true);
+        bool savedGame = GameManager.Instance.CheckSave(); // TESTING
         GetComponent<Button>().interactable = savedGame;
     }
 
     public void OnClick()
     {
         if (SceneLoader.SceneIsLoading) return;
-        if (GameManager.Instance.LoadGame())
+        GetComponent<SoundPlayer>().PlaySound(0);
+
+        try { GameManager.Instance.LoadGame(); }
+        catch (NullReferenceException)
         {
-            GetComponent<SoundPlayer>().PlaySound(0);
-            SceneLoader.LoadScene(SceneLoader.Scene.WorldMapScene);
+            UIManager.Instance.CreateFleetingInfoPopup
+                ("Your save file is incompatible with this version!\nPlease start a new game.", true);
+            return;
         }
-        else Debug.LogError("FILE NOT FOUND!");
+        SceneLoader.LoadScene(SceneLoader.Scene.WorldMapScene);
     }
 }

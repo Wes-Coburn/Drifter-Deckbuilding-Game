@@ -42,6 +42,8 @@ public class EffectManager : MonoBehaviour
     private List<GameObject> unitsToDestroy;
     private List<GiveNextUnitEffect> giveNextEffects;
 
+    [SerializeField] private GameObject effectRay;
+
     private const string IS_ADDITIONAL_EFFECT = "IsAdditionalEffect";
 
     public bool EffectsResolving
@@ -170,19 +172,14 @@ public class EffectManager : MonoBehaviour
                     Debug.LogError("EMPTY EFFECT!");
                 }
             }
-            // TESTING
             foreach (Effect e in emptyEffects)
                 eg.Effects.Remove(e);
             effectGroupList.Add(eg);
         }
 
-        // TESTING
         if (additionalEffectGroups.Count > 0) isAdditionalEffect = true;
         else isAdditionalEffect = false;
         additionalEffectGroups.Clear();
-        Debug.Log("IS ADDITIONAL EFFECT = <" + isAdditionalEffect + ">");
-
-        // TESTING
         if (effectSource.TryGetComponent(out UnitCardDisplay ucd))
         {
             if (triggerName != IS_ADDITIONAL_EFFECT)
@@ -404,7 +401,6 @@ public class EffectManager : MonoBehaviour
                 targetList.Remove(target);
         }
 
-        // TESTING
         // Non-Required effects that returned TRUE from GetLegalTargets, but have 0 legal targets
         if (legalTargets[currentEffectGroup].Count < 1)
         {
@@ -425,8 +421,6 @@ public class EffectManager : MonoBehaviour
     public bool CheckLegalTargets(List<EffectGroup> groupList,
         GameObject source, bool isPreCheck = false)
     {
-        Debug.LogWarning("CHECK LEGAL TARGETS!");
-
         effectGroupList = groupList;
         effectSource = source;
         legalTargets = new List<List<GameObject>>();
@@ -464,16 +458,16 @@ public class EffectManager : MonoBehaviour
                             targetGroups.Count + "> REMAINING!");
                         if (groupsRemaining < 1 || requiredEffect)
                         {
-                            Debug.Log("CHECK LEGAL TARGETS = FALSE!");
+                            Debug.LogWarning("CHECK LEGAL TARGETS = FALSE!");
                             return false;
                         }
-                        else break; // TESTING
+                        else break;
                     }
                 }
             group++;
         }
 
-        Debug.Log("CHECK LEGAL TARGETS = TRUE");
+        Debug.LogWarning("CHECK LEGAL TARGETS = TRUE");
         if (isPreCheck) ClearTargets();
         else ClearInvalids();
         return true;
@@ -548,6 +542,7 @@ public class EffectManager : MonoBehaviour
 
         if (effect is DrawEffect de)
         {
+            // DRAW EFFECTS
             if (!de.IsDiscardEffect)
             {
                 // No cards left
@@ -566,15 +561,12 @@ public class EffectManager : MonoBehaviour
                     if (requiredEffect) return false; // Unless required, draw as many as possible
                 }
             }
+            // DISCARD EFFECTS
             else
             {
                 // Variable target numbers
-                if (targets.VariableNumber && coMan.PlayerHandCards.Count > 0) // TESTING
-                {
-                    Debug.Log("VARIABLE TARGET NUMBER!");
-                    return true;
-                }
-                if (coMan.PlayerHandCards.Count < effect.Value) // TESTING
+                if (targets.VariableNumber && coMan.PlayerHandCards.Count > 0) return true;
+                if (coMan.PlayerHandCards.Count < effect.Value)
                 {
                     Debug.LogWarning("NOT ENOUGH CARDS!");
                     if (requiredEffect) return false;
@@ -653,7 +645,6 @@ public class EffectManager : MonoBehaviour
 
         if (eg.Targets.VariableNumber)
         {
-            // TESTING
             bool showConfirm = false;
             if (CurrentEffect is DrawEffect de &&
                 de.IsMulliganEffect) showConfirm = true;
@@ -719,7 +710,7 @@ public class EffectManager : MonoBehaviour
                 FunctionTimer.Create(() => coMan.DrawCard(hero), delay);
             }
         }
-        FunctionTimer.Create(() => StartNextEffect(), delay); // TESTING
+        FunctionTimer.Create(() => StartNextEffect(), delay);
     }
     public void ConfirmTargetEffect()
     {
@@ -753,15 +744,11 @@ public class EffectManager : MonoBehaviour
         currentEffectGroup = 0;
         currentEffect = 0; // Unnecessary
 
-        float delay = 0;
         foreach (EffectGroup eg in effectGroupList)
-        {
-            ResolveEffectGroup(eg, acceptedTargets[currentEffectGroup++], delay);
-            delay += 0.5f;
-        }
+            ResolveEffectGroup(eg, acceptedTargets[currentEffectGroup++]);
 
-        FunctionTimer.Create(() =>
-        FinishEffectGroupList(false), delay);
+        // TESTING
+        if (EffectRay.ActiveRays < 1) FinishEffectGroupList(false);
     }
 
     /******
@@ -769,7 +756,7 @@ public class EffectManager : MonoBehaviour
      * ****** RESOLVE_EFFECT_GROUP
      * *****
      *****/
-    private void ResolveEffectGroup(EffectGroup eg, List<GameObject> targets, float delay = 0)
+    private void ResolveEffectGroup(EffectGroup eg, List<GameObject> targets)
     {
         if (eg == null)
         {
@@ -779,6 +766,7 @@ public class EffectManager : MonoBehaviour
 
         bool isPowerChange = false;
         bool isHealthChange = false;
+        bool isNegativeChange = false;
 
         foreach (Effect effect in eg.Effects)
         {
@@ -786,21 +774,20 @@ public class EffectManager : MonoBehaviour
             {
                 if (sce.IsHealthChange) isHealthChange = true;
                 else isPowerChange = true;
+                if (sce.IsNegative) isNegativeChange = true;
             }
-            else if (effect is HealEffect) isHealthChange = true; // TESTING
+            else if (effect is HealEffect) isHealthChange = true;
         }
 
+        bool statsChanged = false;
         foreach (Effect effect in eg.Effects)
         {
-            delay += 0.5f;
-            FunctionTimer.Create(() =>
-            ScheduleEffect(effect), delay);
-        }
-        
-        void ScheduleEffect(Effect effect)
-        {
             ResolveEffect(targets, effect);
-            StatChanges();
+            if (!statsChanged && (effect is StatChangeEffect || effect is HealEffect))
+            {
+                statsChanged = true;
+                StatChanges(); // TESTING
+            }
         }
 
         void StatChanges()
@@ -821,6 +808,11 @@ public class EffectManager : MonoBehaviour
                     Debug.LogError("INVALID STAT CHANGE!");
                     return;
                 }
+
+                string sound;
+                if (isNegativeChange) sound = "SFX_StatMinus";
+                else sound = "SFX_StatPlus";
+                auMan.StartStopSound(sound);
             }
         }
     }
@@ -901,25 +893,38 @@ public class EffectManager : MonoBehaviour
         // DAMAGE
         else if (effect is DamageEffect dmgE)
         {
-            auMan.StartStopSound("SFX_DealDamage1");
+            float delay = 0;
             foreach (GameObject target in validTargets)
             {
-                if (coMan.TakeDamage(target, effect.Value))
+                // If the source is NOT a card, shoot the ray from the PLAYER HERO
+                GameObject raySource = effectSource;
+                if (!effectSource.TryGetComponent<CardDisplay>(out _))
+                    raySource = coMan.PlayerHero;
+
+                // TESTING
+                FunctionTimer.Create(() => auMan.StartStopSound("SFX_DealDamage1"), delay);
+                CreateEffectRay(raySource.transform.position, target, () => DealDamage(), delay);
+                delay += 0.5f;
+
+                // TESTING
+                void DealDamage()
                 {
-                    foreach (EffectGroup efg in dmgE.IfDestroyedEffects)
-                        additionalEffectGroups.Add(efg); // TESTING
+                    if (coMan.TakeDamage(target, effect.Value))
+                    {
+                        foreach (EffectGroup efg in dmgE.IfDestroyedEffects)
+                            additionalEffectGroups.Add(efg);
+                    }
                 }
             }
         }
         else if (effect is DestroyEffect)
         {
             foreach (GameObject target in validTargets)
-                coMan.DestroyUnit(target, false);
+                coMan.DestroyUnit(target);
         }
         // HEALING
         else if (effect is HealEffect)
         {
-            auMan.StartStopSound("SFX_StatPlus");
             foreach (GameObject target in validTargets)
                 coMan.HealDamage(target, effect.Value);
         }
@@ -969,11 +974,8 @@ public class EffectManager : MonoBehaviour
             giveNextEffects.Add(newGnfe);
         }
         // STAT_CHANGE
-        else if (effect is StatChangeEffect sce)
+        else if (effect is StatChangeEffect)
         {
-            if (!sce.IsNegative)
-                auMan.StartStopSound("SFX_StatPlus");
-            else auMan.StartStopSound("SFX_StatMinus");
             foreach (GameObject target in validTargets)
                 AddEffect(target, effect);
         }
@@ -1069,7 +1071,7 @@ public class EffectManager : MonoBehaviour
      * ****** FINISH_EFFECT_GROUP_LIST
      * *****
      *****/
-    private void FinishEffectGroupList(bool wasAborted)
+    public void FinishEffectGroupList(bool wasAborted)
     {
         string debugText = "RESOLVED";
         if (wasAborted) debugText = "ABORTED";
@@ -1084,7 +1086,7 @@ public class EffectManager : MonoBehaviour
                 {
                     evMan.NewDelayedAction(() =>
                     StartEffectGroupList(new List<EffectGroup> { eg },
-                    source, IS_ADDITIONAL_EFFECT), 0, true);
+                    source, IS_ADDITIONAL_EFFECT), 0.5f, true);
                 }
             }
             else
@@ -1341,6 +1343,25 @@ public class EffectManager : MonoBehaviour
         {
             GiveNextEffects.Remove(xGnfe);
             DestroyEffect(xGnfe);
+        }
+    }
+
+    /******
+     * *****
+     * ****** CREATE_EFFECT_RAY
+     * *****
+     *****/
+    public void CreateEffectRay(Vector2 start, GameObject target, System.Action rayEffect, float delay = 0, bool isEffectGroup = true)
+    {
+        GameObject ray = Instantiate(effectRay, start, Quaternion.identity);
+        ray.transform.SetParent(uMan.CurrentWorldSpace.transform);
+
+        if (delay == 0) SetRay();
+        else FunctionTimer.Create(() => SetRay(), delay);
+
+        void SetRay()
+        {
+            ray.GetComponent<EffectRay>().SetEffectRay(target, rayEffect, isEffectGroup);
         }
     }
 }

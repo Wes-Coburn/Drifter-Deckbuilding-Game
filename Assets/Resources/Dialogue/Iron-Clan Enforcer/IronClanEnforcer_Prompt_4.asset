@@ -12,32 +12,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b107ecdac65374f8c56b3212c061ce, type: 3}
   m_Name: IronClanEnforcer_Prompt_4
   m_EditorClassIdentifier: 
-  developerNotes: 
-  journalNotes: []
-  dialoguePromptText: "*Suddenly, a voice bellows out,* \u201CYou there, Drifter!
-    Stand and face me, murderer.\u201D"
+  dialoguePromptText: '*Suddenly, a voice bellows out, ''You there, Drifter! Stand
+    and face me, murderer.''*'
   dialogueResponse1:
     responseText: 
-    response_Respect: 0
     response_NextClip: {fileID: 0}
-    response_IsExit: 0
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   dialogueResponse2:
     responseText: (Continue)
-    response_Respect: 0
     response_NextClip: {fileID: 11400000, guid: a046d6a2995ffc34e9c152dd205f32cf,
       type: 2}
-    response_IsExit: 0
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   dialogueResponse3:
     responseText: 
-    response_Respect: 0
     response_NextClip: {fileID: 0}
-    response_IsExit: 0
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   newEngagedHero: {fileID: 0}
   hideNPC: 1
   newCard: {fileID: 0}
