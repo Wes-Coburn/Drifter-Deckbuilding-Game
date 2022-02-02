@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New GiveNextUnit Effect", menuName = "Effects/Effect/GiveNextUnit")]
 public class GiveNextUnitEffect : Effect
 {
+    [Header("GIVE NEXT UNIT EFFECT")]
     public Effect[] Effects;
     public int Multiplier;
 

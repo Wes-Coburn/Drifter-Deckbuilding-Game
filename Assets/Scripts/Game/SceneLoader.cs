@@ -89,6 +89,7 @@ public static class SceneLoader
             auMan.StartStopSound("SFX_SceneLoading", null, AudioManager.SoundType.SFX, true);
             SceneIsLoading = false;
             bool showSkybar = true;
+            bool hideChildren = false;
 
             switch (scene)
             {
@@ -98,7 +99,7 @@ public static class SceneLoader
                     break;
                 case Scene.HeroSelectScene:
                     showSkybar = false;
-                    auMan.StopCurrentSoundscape(); // TESTING
+                    gMan.StartHeroSelectScene();
                     break;
                 case Scene.NarrativeScene:
                     showSkybar = false;
@@ -115,6 +116,7 @@ public static class SceneLoader
                     break;
                 case Scene.CombatScene:
                     gMan.StartCombat();
+                    hideChildren = true;
                     break;
                 case Scene.CreditsScene:
                     showSkybar = false;
@@ -124,7 +126,7 @@ public static class SceneLoader
                     Debug.LogError("SCENE NOT FOUND!");
                     break;
             }
-            uMan.SetSkybar(showSkybar);
+            uMan.SetSkybar(showSkybar, hideChildren);
         };
 
         dMan.StopTimedText();

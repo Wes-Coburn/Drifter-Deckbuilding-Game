@@ -190,12 +190,32 @@ MonoBehaviour:
     pitch: 1
     source: {fileID: 0}
   - name: SFX_AttackMelee
-    clip: {fileID: 8300000, guid: f8920bf3830a51640a2ba95684b1a38b, type: 3}
+    clip: {fileID: 8300000, guid: 8a946886de2cb0246b97d833312ca999, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_AttackMelee_Heavy
+    clip: {fileID: 8300000, guid: b6baf9056df796a49997005555de506b, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}
   - name: SFX_AttackRanged
     clip: {fileID: 8300000, guid: 45f3a6795562d55489a34f69e862183e, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_AttackRanged_Heavy
+    clip: {fileID: 8300000, guid: c738831db53ec554585a6d004de79a27, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_DamageRay_Start
+    clip: {fileID: 8300000, guid: 629c0ec6d1a5d9e40a1d380417e1462b, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_DamageRay_End
+    clip: {fileID: 8300000, guid: 9bf2b5747fcedf948b6ba6de3b8b8626, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}
@@ -226,6 +246,16 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: SFX_AddCard
     clip: {fileID: 8300000, guid: 6bc0c080d10503d4386623244c7d2695, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_AcquireAugment
+    clip: {fileID: 8300000, guid: a98c4d5abf60e7a45aaffebe122cae77, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_BuyItem
+    clip: {fileID: 8300000, guid: 95aa03293af4f824ba9852df70346673, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}

@@ -68,6 +68,12 @@ public class DialogueManager : MonoBehaviour
         dialogueDisplay.PlayerHeroPortrait.SetActive(false);
         DialoguePrompt prompt = currentDialogueClip as DialoguePrompt;
         dialogueDisplay.NPCHeroPortrait.SetActive(!prompt.HideNPC);
+
+        // TESTING
+        if (prompt.NewLocations.Length > 0)
+            foreach (NewLocation newLoc in prompt.NewLocations)
+                gMan.GetActiveLocation(newLoc.Location, newLoc.NewNpc);
+
         DisplayCurrentHeroes();
         DisplayDialoguePopup();
         AnimationManager.Instance.DialogueIntro();
@@ -209,8 +215,8 @@ public class DialogueManager : MonoBehaviour
 
     public void DialogueResponse(int response)
     {
-        if (allowResponse == false) // TESTING
-            return;
+        if (SceneLoader.SceneIsLoading) return; // TESTING
+        if (allowResponse == false) return;
 
         if (currentDialogueClip == null)
         {
@@ -260,7 +266,7 @@ public class DialogueManager : MonoBehaviour
         if (dResponse.NPC_NextClip != null)
         {
             EngagedHero.NextDialogueClip = dResponse.NPC_NextClip;
-            Debug.LogWarning("NEXT CLIP: " + nextClip.ToString());
+            Debug.LogWarning("NEXT CLIP: " + dResponse.NPC_NextClip.ToString());
         }
 
         // New Location
@@ -291,7 +297,7 @@ public class DialogueManager : MonoBehaviour
             uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.RecruitUnit);
             return;
         }
-        // Cloning
+        // Shop
         if (dResponse.Response_IsShopStart)
         {
             uMan.CreateItemPagePopup();
@@ -302,6 +308,11 @@ public class DialogueManager : MonoBehaviour
         {
             uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.CloneUnit);
             return;
+        }
+        // New Augment
+        if (dResponse.Response_IsNewAugmentStart)
+        {
+            uMan.CreateNewAugmentPopup();
         }
         // Exit
         if (dResponse.Response_IsExit)
@@ -341,8 +352,8 @@ public class DialogueManager : MonoBehaviour
 
         currentDialogueClip = nextClip;
         if (currentDialogueClip is DialogueFork) currentDialogueClip = DialogueFork();
-        if (nextPrompt != null && nextPrompt.NewCard == null && nextPrompt.AetherCells < 1 &&
-            !dResponse.Response_IsRecruitmentStart) DisplayDialoguePopup();
+        if (nextPrompt != null && nextPrompt.NewCard == null &&
+            nextPrompt.AetherCells < 1 && !dResponse.Response_IsNewAugmentStart) DisplayDialoguePopup();
     }
 
     private DialogueClip DialogueFork()

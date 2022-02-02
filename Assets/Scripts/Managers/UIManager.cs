@@ -47,7 +47,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject recruitUnitPopupPrefab;
     [SerializeField] private GameObject removeCardPopupPrefab;
     [SerializeField] private GameObject cloneUnitPopupPrefab;
-    [SerializeField] private GameObject acquireAugmentPopupPrefab;
+    [SerializeField] private GameObject newAugmentPopupPrefab;
     [SerializeField] private GameObject locationPopupPrefab;
     [SerializeField] private GameObject narrativePopupPrefab;
     [SerializeField] private GameObject augmentIconPrefab;
@@ -69,6 +69,7 @@ public class UIManager : MonoBehaviour
 
     private PlayerManager pMan;
     private DialogueManager dMan;
+    private AnimationManager anMan;
 
     private GameObject screenDimmer;
     private GameObject infoPopup;
@@ -85,7 +86,7 @@ public class UIManager : MonoBehaviour
     private GameObject recruitUnitPopup;
     private GameObject removeCardPopup;
     private GameObject cloneUnitPopup;
-    private GameObject acquireAugmentPopup;
+    private GameObject newAugmentPopup;
     private GameObject itemPagePopup;
     private GameObject buyItemPopup;
     private GameObject locationPopup;
@@ -106,6 +107,8 @@ public class UIManager : MonoBehaviour
     public GameObject CardPagePopup { get => cardPagePopup; }
     public GameObject ConfirmUseItemPopup { get; set; }
     public GameObject EndTurnButton { get => endTurnButton; }
+    public GameObject AugmentBar { get => augmentBar; }
+    public GameObject ItemBar { get => itemBar; }
 
     // PLAYER_IS_TARGETTING
     public bool PlayerIsTargetting { get; set; }
@@ -122,8 +125,8 @@ public class UIManager : MonoBehaviour
     {
         pMan = PlayerManager.Instance;
         dMan = DialogueManager.Instance;
+        anMan = AnimationManager.Instance;
         PlayerIsTargetting = false;
-
         CurrentWorldSpace = GameObject.Find("WorldSpace");
         CurrentCanvas = GameObject.Find("Canvas");
         UICanvas = GameObject.Find("UI_Canvas");
@@ -273,6 +276,21 @@ public class UIManager : MonoBehaviour
             cs.CardOutline.SetActive(enabled);
             Image image = cs.CardOutline.GetComponent<Image>();
             if (enabled) SetColor(image);
+
+            // TESTING TESTING TESTING
+            if (isSelected && PlayerIsTargetting)
+            {
+                if (EffectManager.Instance.CurrentEffect is DrawEffect de && de.IsDiscardEffect)
+                {
+                    target.GetComponent<CardDisplay>().CardContainer.GetComponent
+                        <CardContainer>().BufferDistance = new Vector2(0, -50);
+                }
+            }
+            if (!isSelected)
+            {
+                target.GetComponent<CardDisplay>().CardContainer.GetComponent
+                    <CardContainer>().BufferDistance = new Vector2(0, 0);
+            }
         }
         else if (target.TryGetComponent(out HeroSelect hs))
         {
@@ -646,19 +664,18 @@ public class UIManager : MonoBehaviour
             cloneUnitPopup = null;
         }
     }
-    // Acquire Augment Popup
-    public void CreateAcquireAugmentPopup(HeroAugment heroAugment)
+    // New Augment Popup
+    public void CreateNewAugmentPopup()
     {
-        DestroyLearnSkillPopup();
-        acquireAugmentPopup = Instantiate(acquireAugmentPopupPrefab, CurrentCanvas.transform);
-        acquireAugmentPopup.GetComponent<AcquireAugmentPopupDisplay>().HeroAugment = heroAugment;
+        DestroyNewAugmentPopup();
+        newAugmentPopup = Instantiate(newAugmentPopupPrefab, CurrentCanvas.transform);
     }
-    public void DestroyAcquireAugmentPopup()
+    public void DestroyNewAugmentPopup()
     {
-        if (acquireAugmentPopup != null)
+        if (newAugmentPopup != null)
         {
-            Destroy(acquireAugmentPopup);
-            acquireAugmentPopup = null;
+            Destroy(newAugmentPopup);
+            newAugmentPopup = null;
         }
     }
     // Item Page Popup
@@ -751,7 +768,7 @@ public class UIManager : MonoBehaviour
      * ****** SKYBAR
      * *****
      *****/
-    public void SetSkybar(bool enabled)
+    public void SetSkybar(bool enabled, bool hideChildren = false)
     {
         skyBar.SetActive(enabled);
         if (enabled)
@@ -763,6 +780,12 @@ public class UIManager : MonoBehaviour
                 CreateAugmentIcon(ha);
             foreach (HeroItem hi in pMan.HeroItems)
                 CreateItemIcon(hi);
+
+            // TESTING
+            foreach (Transform augTran in augmentBar.transform)
+                augTran.gameObject.SetActive(!hideChildren);
+            foreach (Transform itemTran in itemBar.transform)
+                itemTran.gameObject.SetActive(!hideChildren);
         }
     }
     public void SetAetherCount(int count)
@@ -771,17 +794,25 @@ public class UIManager : MonoBehaviour
         aetherCount.GetComponentInChildren<TextMeshProUGUI>().
             SetText(count.ToString());
     }
-    public void CreateAugmentIcon(HeroAugment augment)
+    public void CreateAugmentIcon(HeroAugment augment, bool isNewAugment = false)
     {
         if (!skyBar.activeSelf) return;
         GameObject augmentIcon = Instantiate(augmentIconPrefab, augmentBar.transform);
         augmentIcon.GetComponent<AugmentIcon>().LoadedAugment = augment;
+        if (isNewAugment)
+        {
+            anMan.SkybarIconAnimation(augmentIcon); // TESTING
+        }
     }
-    public void CreateItemIcon(HeroItem item)
+    public void CreateItemIcon(HeroItem item, bool isNewItem = false)
     {
         if (!skyBar.activeSelf) return;
         GameObject itemIcon = Instantiate(itemIconPrefab, itemBar.transform);
         itemIcon.GetComponent<ItemIcon>().LoadedItem = item;
+        if (isNewItem)
+        {
+            anMan.SkybarIconAnimation(itemIcon); // TESTING
+        }
     }
     public void ClearAugmentBar()
     {
@@ -794,7 +825,6 @@ public class UIManager : MonoBehaviour
         if (!skyBar.activeSelf) return;
         foreach (Transform tran in itemBar.transform)
             Destroy(tran.gameObject);
-
     }
     public void CreateAugmentIconPopup(HeroAugment augment, GameObject sourceIcon)
     {

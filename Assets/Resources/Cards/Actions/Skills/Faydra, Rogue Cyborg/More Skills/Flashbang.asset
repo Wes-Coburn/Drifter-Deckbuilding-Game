@@ -27,8 +27,9 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
-  effectDescription: <b>Mark</b> an enemy and give it -2|-0 until your next turn.
+  effectDescription: <b>Stun</b> and <b>Mark</b> an enemy.
   effectGroupList:
   - {fileID: 11400000, guid: 697742ea427ef224f897b4a90ab87c50, type: 2}
   linkedAbilities:
+  - {fileID: 11400000, guid: 37a54b5ce20d48941893b9f48eee681f, type: 2}
   - {fileID: 11400000, guid: 67b65f6bf1f93db43afb76d61b1435b2, type: 2}

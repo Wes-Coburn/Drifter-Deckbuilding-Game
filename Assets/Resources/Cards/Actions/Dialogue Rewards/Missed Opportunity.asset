@@ -27,9 +27,10 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
-  effectDescription: Evade 1 and give an enemy -2|-0 until your next turn.
+  effectDescription: <b>Stun</b> an enemy and <b>Evade</b> 1.
   effectGroupList:
+  - {fileID: 11400000, guid: cb0ec4b3836499a4cb6cac8f2d1148f5, type: 2}
   - {fileID: 11400000, guid: fdcf338d64046bd40bed9af1bde47de3, type: 2}
-  - {fileID: 11400000, guid: 5d8a284d6209fc74794ff17763f0cecf, type: 2}
   linkedAbilities:
+  - {fileID: 11400000, guid: 37a54b5ce20d48941893b9f48eee681f, type: 2}
   - {fileID: 11400000, guid: 74e87ce8621d43b4f85b890c9ed8dd74, type: 2}

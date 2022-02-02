@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Stunbang Flare
   m_EditorClassIdentifier: 
   itemName: Stunbang Flare
-  itemDescription: Give ALL enemies -3|-0 until your next turn.
+  itemDescription: <b>Stun</b> ALL enemies.
   itemImage: {fileID: 21300000, guid: d9da180afea522540836902ac8f98fa0, type: 3}
   isRareItem: 0
   effectGroupList:
   - {fileID: 11400000, guid: a28041dc89a504b4b99882c1657727aa, type: 2}
-  linkedAbilities: []
+  linkedAbilities:
+  - {fileID: 11400000, guid: 37a54b5ce20d48941893b9f48eee681f, type: 2}

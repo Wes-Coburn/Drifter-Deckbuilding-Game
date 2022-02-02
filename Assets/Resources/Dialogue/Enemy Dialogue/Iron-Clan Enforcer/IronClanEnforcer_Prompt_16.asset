@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25b107ecdac65374f8c56b3212c061ce, type: 3}
+  m_Name: IronClanEnforcer_Prompt_16
+  m_EditorClassIdentifier: 
+  dialoguePromptText: "You won\u2019t regret this, Drifter."
+  dialogueResponse1:
+    responseText: 
+    response_NextClip: {fileID: 0}
+    npc_NextClip: {fileID: 0}
+    response_IsCombatStart: 0
+    response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsNewAugmentStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
+  dialogueResponse2:
+    responseText: (Leave)
+    response_NextClip: {fileID: 11400000}
+    npc_NextClip: {fileID: 0}
+    response_IsCombatStart: 0
+    response_IsWorldMapStart: 1
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsNewAugmentStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
+  dialogueResponse3:
+    responseText: 
+    response_NextClip: {fileID: 0}
+    npc_NextClip: {fileID: 0}
+    response_IsCombatStart: 0
+    response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsNewAugmentStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
+  newEngagedHero: {fileID: 0}
+  hideNPC: 0
+  newCard: {fileID: 11400000, guid: 7feaf3352a0b8f64eaf3e4055a84251f, type: 2}
+  aetherCells: 0
+  newLocations:
+  - Location: {fileID: 11400000, guid: 1c5565b09bdda464095b38fd3b022812, type: 2}
+    NewNpc: {fileID: 0}
+  - Location: {fileID: 11400000, guid: 03eff2931c7e5734fbc5df2aac674d93, type: 2}
+    NewNpc: {fileID: 0}

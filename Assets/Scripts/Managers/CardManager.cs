@@ -46,6 +46,7 @@ public class CardManager : MonoBehaviour
     public const string TRIGGER_INFILTRATE = "Infiltrate";
     public const string TRIGGER_PLAY = "Play";
     public const string TRIGGER_RESEARCH = "Research";
+    public const string TRIGGER_RETALIATE = "Retaliate";
     public const string TRIGGER_REVENGE = "Revenge";
     public const string TRIGGER_SPARK = "Spark";
 
@@ -54,6 +55,7 @@ public class CardManager : MonoBehaviour
         TRIGGER_DEATHBLOW,
         TRIGGER_INFILTRATE,
         TRIGGER_RESEARCH,
+        TRIGGER_RETALIATE,
         TRIGGER_REVENGE,
         TRIGGER_SPARK,
     };

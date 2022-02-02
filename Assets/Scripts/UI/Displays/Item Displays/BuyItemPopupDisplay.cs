@@ -37,12 +37,11 @@ public class BuyItemPopupDisplay : MonoBehaviour
     
     public void ConfirmButton_OnClick()
     {
-        pMan.HeroItems.Add(heroItem);
+        pMan.AddItem(heroItem, true);
         pMan.AetherCells -= GameManager.GetItemCost(heroItem);
         GameManager.Instance.ShopItems.Remove(heroItem);
         CancelButton_OnClick();
         uMan.CreateItemPagePopup();
-        uMan.SetSkybar(true);
     }
 
     public void CancelButton_OnClick() =>

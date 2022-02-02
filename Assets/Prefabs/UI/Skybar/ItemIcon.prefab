@@ -179,6 +179,7 @@ GameObject:
   - component: {fileID: 6293833283712719640}
   - component: {fileID: 9167270472363523099}
   - component: {fileID: 3996156207459506064}
+  - component: {fileID: 4415317094662904089}
   m_Layer: 0
   m_Name: ItemIcon
   m_TagString: Untagged
@@ -302,6 +303,25 @@ MonoBehaviour:
   sounds:
   - SFX_Click1
   sounds2: []
+--- !u!95 &4415317094662904089
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8816291806828510727}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3fa18c23ec26c6b4ba893bc02feddb5c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &9108465446000510453
 GameObject:
   m_ObjectHideFlags: 0

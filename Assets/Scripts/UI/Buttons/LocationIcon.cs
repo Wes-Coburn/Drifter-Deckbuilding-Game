@@ -7,6 +7,7 @@ public class LocationIcon : MonoBehaviour
     [SerializeField] private GameObject locationName;
     [SerializeField] private GameObject locationImage;
     [SerializeField] private Sprite homeBaseSprite;
+    [SerializeField] private Sprite augmenterSprite;
     [SerializeField] private GameObject unvisitedIcon;
     
     private UIManager uMan;
@@ -34,6 +35,9 @@ public class LocationIcon : MonoBehaviour
 
     public void SetHomeBaseImage() =>
         locationImage.GetComponent<Image>().sprite = homeBaseSprite;
+
+    public void SetAugmenterImage() =>
+        locationImage.GetComponent<Image>().sprite = augmenterSprite;
 
     public void OnClick() => 
         uMan.CreateTravelPopup(Location);

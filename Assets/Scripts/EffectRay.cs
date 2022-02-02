@@ -14,13 +14,14 @@ public class EffectRay : MonoBehaviour
     private Action rayEffect;
     private bool isEffectGroup;
 
-    public static int ActiveRays { get; set; } // TESTING
+    public static int ActiveRays { get; set; }
 
     private void Awake()
     {
         isMoving = false;
         ActiveRays++;
         Debug.Log("ACTIVE EFFECT RAYS: <" + ActiveRays + ">");
+        gameObject.SetActive(false);
     }
 
     void Update()
@@ -50,7 +51,7 @@ public class EffectRay : MonoBehaviour
         }
         else
         {
-            // PLAY SOUND?
+            AudioManager.Instance.StartStopSound("SFX_DamageRay_End");
             DestroyRay();
         }
     }
@@ -60,6 +61,7 @@ public class EffectRay : MonoBehaviour
         this.rayEffect = rayEffect;
         this.isEffectGroup = isEffectGroup;
         this.target = target;
+        gameObject.SetActive(true);
     }
 
     void DestroyRay()
@@ -73,7 +75,7 @@ public class EffectRay : MonoBehaviour
             return;
         }
 
-        rayEffect(); // TESTING
+        rayEffect();
         if (ActiveRays < 1)
         {
             if (isEffectGroup)
@@ -81,10 +83,7 @@ public class EffectRay : MonoBehaviour
                 FunctionTimer.Create(() =>
                 EffectManager.Instance.FinishEffectGroupList(false), 1f);
             }
-            else
-            {
-                // finish attack
-            }
+            else PlayerManager.Instance.IsMyTurn = true;
         }
         Destroy(gameObject);
     }

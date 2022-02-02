@@ -12,6 +12,7 @@ public class Location : ScriptableObject
     [SerializeField] private NPCHero firstNPC;
     [SerializeField] private Sound locationSoundscape;
     [SerializeField] private bool isHomeBase;
+    [SerializeField] private bool isAugmenter;
     [SerializeField] private bool isRecruitment;
     [SerializeField] private bool isShop;
     [SerializeField] private bool isCloning;
@@ -25,6 +26,7 @@ public class Location : ScriptableObject
     public NPCHero FirstNPC { get => firstNPC; }
     public Sound LocationSoundscape { get => locationSoundscape; }
     public bool IsHomeBase { get => isHomeBase; }
+    public bool IsAugmenter { get => isAugmenter; }
     public bool IsRecruitment { get => isRecruitment; }
     public bool IsShop { get => isShop; }
     public bool IsCloning { get => isCloning; }
@@ -40,6 +42,7 @@ public class Location : ScriptableObject
         firstNPC = location.FirstNPC;
         locationSoundscape = location.LocationSoundscape;
         isHomeBase = location.IsHomeBase;
+        isAugmenter = location.IsAugmenter;
         isRecruitment = location.IsRecruitment;
         isShop = location.IsShop;
         isCloning = location.IsCloning;

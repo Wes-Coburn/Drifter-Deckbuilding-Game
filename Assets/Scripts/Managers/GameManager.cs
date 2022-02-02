@@ -23,8 +23,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Location homeBaseLocation;
     [SerializeField] private Location firstLocation;
     [SerializeField] GameObject locationIconPrefab;
-    [Header("AUGMENT EFFECTS")]
-    [SerializeField] private GiveNextUnitEffect augmentBiogenEffect;
     [Header("MULLIGAN EFFECT")]
     [SerializeField] private EffectGroup mulliganEffect;
 
@@ -37,6 +35,7 @@ public class GameManager : MonoBehaviour
     private EffectManager efMan;
     private AudioManager auMan;
     private DialogueManager dMan;
+    private AnimationManager anMan;
 
     public bool IsCombatTest { get; set; }
     public bool HideExplicitLanguage { get; private set; }
@@ -62,12 +61,16 @@ public class GameManager : MonoBehaviour
     public const int PLAYER_START_UNITS = 2;
     public const int PLAYER_START_SKILLS = 2;
     public const int START_ENERGY_PER_TURN = 1;
-    public const int MAXIMUM_ENERGY = 5;
+    public const int MAXIMUM_ENERGY_PER_TURN = 5;
+    public const int MAXIMUM_ENERGY = 10;
+
+    // Aether Rewards
+    public const int IGNORE_CARD_AETHER = 1;
 
     // Aether Costs
     public const int LEARN_SKILL_COST = 2;
     public const int RECRUIT_UNIT_COST = 2;
-    public const int ACQUIRE_AUGMENT_COST = 4;
+    public const int ACQUIRE_AUGMENT_COST = 5;
     public const int REMOVE_CARD_COST = 1;
     public const int BUY_ITEM_COST = 1;
     public const int BUY_RARE_ITEM_COST = 2;
@@ -98,6 +101,7 @@ public class GameManager : MonoBehaviour
         efMan = EffectManager.Instance;
         auMan = AudioManager.Instance;
         dMan = DialogueManager.Instance;
+        anMan = AnimationManager.Instance;
         ActiveNPCHeroes = new List<NPCHero>();
         ActiveLocations = new List<Location>();
         VisitedLocations = new List<string>();
@@ -439,6 +443,17 @@ public class GameManager : MonoBehaviour
 
     /******
      * *****
+     * ****** START_HERO_SELECT_SCENE
+     * *****
+     *****/
+    public void StartHeroSelectScene()
+    {
+        auMan.StopCurrentSoundscape(); // TESTING
+        FindObjectOfType<HeroSelectSceneDisplay>().DisplaySelectedHero(); // TESTING
+    }
+
+    /******
+     * *****
      * ****** ENTER/EXIT_WORLD_MAP
      * *****
      *****/
@@ -457,6 +472,7 @@ public class GameManager : MonoBehaviour
             icon.LocationName = loc.LocationName;
             icon.WorldMapPosition = loc.WorldMapPosition;
             if (loc.IsHomeBase) icon.SetHomeBaseImage();
+            if (loc.IsAugmenter) icon.SetAugmenterImage();
             bool unvisited = true;
             if (VisitedLocations.FindIndex(x => x == loc.LocationName) != -1)
                 unvisited = false;
@@ -541,13 +557,6 @@ public class GameManager : MonoBehaviour
         pMan.EnergyPerTurn = pMan.StartEnergy;
         pMan.EnergyLeft = 0;
 
-        if (pMan.GetAugment("Biogenic Enhancer"))
-        {
-            GiveNextUnitEffect gnue = ScriptableObject.CreateInstance<GiveNextUnitEffect>();
-            gnue.LoadEffect(augmentBiogenEffect);
-            efMan.GiveNextEffects.Add(gnue);
-        }
-
         // UPDATE DECKS
         caMan.UpdateDeck(PLAYER);
         caMan.UpdateDeck(ENEMY);
@@ -555,8 +564,13 @@ public class GameManager : MonoBehaviour
         coMan.PlayerHero.GetComponent<HeroDisplay>().HeroScript = pMan.PlayerHero;
         coMan.EnemyHero.GetComponent<HeroDisplay>().HeroScript = enMan.EnemyHero;
         // SCHEDULE ACTIONS
-        evMan.NewDelayedAction(() => AnimationManager.Instance.CombatIntro(), 1f);
-        evMan.NewDelayedAction(() => CombatStart(), 4f);
+        evMan.NewDelayedAction(() => anMan.CombatIntro(), 1f);
+        float delay = 0;
+        foreach (HeroItem item in pMan.HeroItems) delay += 0.5f;
+        foreach (HeroAugment aug in pMan.HeroAugments) delay += 0.5f;
+        if (delay < 3) delay = 3;
+
+        evMan.NewDelayedAction(() => CombatStart(), delay);
         evMan.NewDelayedAction(() => StartCombatTurn(PLAYER), 0.5f);
         // AUDIO
         string soundtrack;
@@ -569,7 +583,7 @@ public class GameManager : MonoBehaviour
         void CombatStart()
         {
             int bonusCards = 0;
-            if (pMan.GetAugment("Cognitive Magnifier")) bonusCards = 1;
+            if (pMan.GetAugment("Cognitive Magnifier")) bonusCards = 2;
             caMan.ShuffleDeck(PLAYER, false);
             for (int i = 0; i < PLAYER_HAND_SIZE + bonusCards; i++)
                 evMan.NewDelayedAction(() => coMan.DrawCard(PLAYER), 0.5f);
@@ -631,8 +645,8 @@ public class GameManager : MonoBehaviour
                 pMan.IsMyTurn = true;
                 enMan.IsMyTurn = false;
                 pMan.HeroPowerUsed = false;
-                pMan.EnergyLeft = pMan.EnergyPerTurn;
-                AnimationManager.Instance.ModifyHeroEnergyState();
+                pMan.EnergyLeft += pMan.EnergyPerTurn;
+                anMan.ModifyHeroEnergyState();
             }
         }
         else if (player == ENEMY)
@@ -670,10 +684,16 @@ public class GameManager : MonoBehaviour
         if (player == ENEMY) StartCombatTurn(PLAYER);
         else if (player == PLAYER)
         {
-            pMan.EnergyPerTurn++; // Check max energy in EnergyPerTurn
+            if (pMan.EnergyPerTurn < pMan.MaxEnergyPerTurn)
+                evMan.NewDelayedAction(() => IncreaseMaxEnergy(), 0.5f);
             StartCombatTurn(ENEMY);
         }
 
+        void IncreaseMaxEnergy()
+        {
+            pMan.EnergyPerTurn++;
+            anMan.ModifyHeroEnergyState();
+        }
         void RemoveEffects()
         {
             efMan.RemoveTemporaryEffects(PLAYER);

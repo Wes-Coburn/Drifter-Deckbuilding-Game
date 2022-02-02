@@ -178,6 +178,7 @@ GameObject:
   - component: {fileID: 2245884471454592675}
   - component: {fileID: 6293833283712719640}
   - component: {fileID: 6373583216317061875}
+  - component: {fileID: 1349159221006538673}
   m_Layer: 0
   m_Name: AugmentIcon
   m_TagString: Untagged
@@ -270,6 +271,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iconImage: {fileID: 944123695325541041}
+--- !u!95 &1349159221006538673
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8816291806828510727}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3fa18c23ec26c6b4ba893bc02feddb5c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &9108465446000510453
 GameObject:
   m_ObjectHideFlags: 0

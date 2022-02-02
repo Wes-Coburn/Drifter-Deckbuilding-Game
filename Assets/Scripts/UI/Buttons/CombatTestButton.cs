@@ -9,6 +9,7 @@ public class CombatTestButton : MonoBehaviour
     [SerializeField] private bool addStartSkills;
 
     [SerializeField] private PlayerHero[] playerTestHeroes;
+    [SerializeField] private PlayerHero developerTestHero;
     [SerializeField] private EnemyHero enemyTestHero;
     [SerializeField] private HeroAugment[] testAugments;
     [SerializeField] private HeroItem[] testItems;
@@ -41,8 +42,12 @@ public class CombatTestButton : MonoBehaviour
         EnemyHero eh = ScriptableObject.CreateInstance<EnemyHero>();
         eh.LoadHero(enemyTestHero);
         PlayerHero ph = ScriptableObject.CreateInstance<PlayerHero>();
-        int randomHero = Random.Range(0, playerTestHeroes.Length - 1);
-        ph.LoadHero(playerTestHeroes[randomHero]);
+        if (!developerMode || developerTestHero == null)
+        {
+            int randomHero = Random.Range(0, playerTestHeroes.Length - 1);
+            ph.LoadHero(playerTestHeroes[randomHero]);
+        }
+        else ph.LoadHero(developerTestHero);
         DialogueManager.Instance.EngagedHero = eh;
         PlayerManager pMan = PlayerManager.Instance;
         pMan.PlayerHero = ph;
@@ -56,7 +61,7 @@ public class CombatTestButton : MonoBehaviour
         testItems.CopyTo(items, 0);
         items.Shuffle();
         for (int i = 0; i < 5; i++)
-            pMan.HeroItems.Add(items[i]);
+            pMan.AddItem(items[i]);
 
         // Test Cards
         if (developerMode)

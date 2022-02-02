@@ -103,7 +103,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     public void OnPointerEnter()
     {
         if (DragDrop.DraggingCard != null || ZoomCardIsCentered) return;
-        if (uMan.PlayerIsTargetting) // TESTING
+        if (uMan.PlayerIsTargetting)
         {
             bool isDiscardEffect = false;
             if (EffectManager.Instance.CurrentEffect is DrawEffect de &&
@@ -126,15 +126,18 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
 
         void ShowZoomCard(GameObject parent)
         {
-            if (this == null) return; // TESTING
+            if (this == null) return;
 
             RectTransform rect;
             if (parent != null)
             {
                 if (parent == playerHand)
                 {
+                    Vector2 bufferDistance = container.GetComponent<CardContainer>().BufferDistance; // TESTING
+                    float bufferY = -bufferDistance.y;
+
                     rect = playerHand.GetComponent<RectTransform>();
-                    cardYPos = rect.position.y + ZOOM_BUFFER + 20;
+                    cardYPos = rect.position.y + ZOOM_BUFFER + 20 + bufferY;
                 }
                 else if (parent == playerZone)
                 {
@@ -156,12 +159,6 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
                     rect = enemyZone.GetComponent<RectTransform>();
                     cardYPos = (int)rect.position.y - ZOOM_BUFFER;
                 }
-                // Hero Select Scene
-                else if (SceneLoader.IsActiveScene(SceneLoader.Scene.HeroSelectScene))
-                {
-                    CreateAbilityPopups(new Vector2(0, 150), ZOOM_SCALE_VALUE);
-                    return;
-                }
                 else
                 {
                     Debug.LogError("INVALID PARENT!");
@@ -175,8 +172,13 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
             }
             else
             {
+                // Hero Select Scene
+                if (SceneLoader.IsActiveScene(SceneLoader.Scene.HeroSelectScene))
+                    FunctionTimer.Create(() =>
+                    CreateAbilityPopups(new Vector2(0, 150),
+                    ZOOM_SCALE_VALUE), 0.5f, ABILITY_POPUP_TIMER);
                 // Card Page Popup
-                if (uMan.CardPagePopup != null)
+                else if (uMan.CardPagePopup != null)
                     FunctionTimer.Create(() =>
                     CreateAbilityPopups(new Vector2(0, -300),
                     POPUP_SCALE_VALUE), 0.5f, ABILITY_POPUP_TIMER);
@@ -212,7 +214,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
      *****/
     private GameObject CreateZoomObject(GameObject prefab, Vector2 vec2, float scaleValue)
     {
-        GameObject zoomObject = Instantiate(prefab, uMan.CurrentZoomCanvas.transform); // TESTING
+        GameObject zoomObject = Instantiate(prefab, uMan.CurrentZoomCanvas.transform);
         zoomObject.transform.localPosition = vec2;
         zoomObject.transform.localScale = new Vector2(scaleValue, scaleValue);
         zoomPopups.Add(zoomObject);
@@ -226,7 +228,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
      *****/
     private void CreateZoomCard(Vector2 vec2, float scaleValue)
     {
-        if (this == null) return; // TESTING
+        if (this == null) return;
 
         DestroyZoomCard();
         GameObject cardPrefab;
@@ -314,7 +316,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
      *****/
     public void CreateAbilityPopups(Vector2 vec2, float scaleValue)
     {
-        if (this == null) return; // TESTING
+        if (this == null) return;
 
         if (uMan == null)
         {
@@ -353,7 +355,6 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
             foreach (CardAbility linkCa in ca.LinkedAbilites)
             {
                 AddSingle(linkCa);
-                // TESTING
                 foreach (CardAbility linkCa2 in linkCa.LinkedAbilites)
                     AddSingle(linkCa2);
             }

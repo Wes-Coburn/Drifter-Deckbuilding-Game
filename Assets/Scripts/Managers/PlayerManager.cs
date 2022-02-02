@@ -16,7 +16,6 @@ public class PlayerManager : MonoBehaviour
         else Destroy(gameObject);
     }
     
-    private CardManager caMan;
     private CombatManager coMan;
     private EffectManager efMan;
     private UIManager uMan;
@@ -81,7 +80,7 @@ public class PlayerManager : MonoBehaviour
         get
         {
             int bonusHealth = 0;
-            if (GetAugment("Kinetic Amplifier")) bonusHealth = 5;
+            if (GetAugment("Kinetic Amplifier")) bonusHealth = 10;
             return GameManager.PLAYER_STARTING_HEALTH + bonusHealth;
         }
     }
@@ -90,17 +89,8 @@ public class PlayerManager : MonoBehaviour
         get
         {
             int bonusEnergy = 0;
-            if (GetAugment("Synaptic Stabilizer")) bonusEnergy = 1;
+            if (GetAugment("Synaptic Stabilizer")) bonusEnergy = 2;
             return GameManager.START_ENERGY_PER_TURN + bonusEnergy;
-        }
-    }
-    private int MaxEnergy
-    {
-        get
-        {
-            int maxEnergy = GameManager.MAXIMUM_ENERGY;
-            if (GetAugment("Inertial Catalyzer")) maxEnergy++;
-            return maxEnergy;
         }
     }
     public int EnergyPerTurn
@@ -109,9 +99,24 @@ public class PlayerManager : MonoBehaviour
         set
         {
             energyPerTurn = value;
-            if (energyPerTurn > MaxEnergy)
-                energyPerTurn = MaxEnergy;
+            if (energyPerTurn > MaxEnergyPerTurn)
+                energyPerTurn = MaxEnergyPerTurn;
+            coMan.PlayerHero.GetComponent<PlayerHeroDisplay>().PlayerActions =
+                energyLeft + "/" + EnergyPerTurn;
         }
+    }
+    public int MaxEnergyPerTurn
+    {
+        get
+        {
+            int bonusEnergy = 0;
+            if (GetAugment("Inertial Catalyzer")) bonusEnergy = 2;
+            return GameManager.MAXIMUM_ENERGY_PER_TURN + bonusEnergy;
+        }
+    }
+    private int MaxEnergy
+    {
+        get => GameManager.MAXIMUM_ENERGY;
     }
     public int EnergyLeft
     {
@@ -119,14 +124,7 @@ public class PlayerManager : MonoBehaviour
         set
         {
             energyLeft = value;
-            if (energyLeft > EnergyPerTurn)
-            {
-                Debug.LogError("ENERGY LEFT > ENERGY PER TURN!");
-                energyLeft = EnergyPerTurn;
-            }
-
-            if (energyLeft > MaxEnergy) 
-                energyLeft = MaxEnergy;
+            if (energyLeft > MaxEnergy) energyLeft = MaxEnergy;
             coMan.PlayerHero.GetComponent<PlayerHeroDisplay>().PlayerActions = 
                 energyLeft + "/" + EnergyPerTurn;
         }
@@ -134,7 +132,6 @@ public class PlayerManager : MonoBehaviour
 
     private void Start()
     {
-        caMan = CardManager.Instance;
         coMan = CombatManager.Instance;
         efMan = EffectManager.Instance;
         uMan = UIManager.Instance;
@@ -150,7 +147,26 @@ public class PlayerManager : MonoBehaviour
         heroItems = new List<HeroItem>();   
     }
 
-    public void AddAugment(HeroAugment augment)
+    public void AddItem(HeroItem item, bool isNewItem = false)
+    {
+        if (GetItem(item.ItemName))
+        {
+            Debug.LogError("ITEM ALREADY EXISTS!");
+            return;
+        }
+        heroItems.Add(item);
+        uMan.CreateItemIcon(item, isNewItem);
+        if (isNewItem) auMan.StartStopSound("SFX_BuyItem");
+    }
+
+    private bool GetItem(string itemName)
+    {
+        int itemIndex = heroItems.FindIndex(x => x.ItemName == itemName);
+        if (itemIndex == -1) return false;
+        else return true;
+    }
+
+    public void AddAugment(HeroAugment augment, bool isNewAugment = false)
     {
         if (GetAugment(augment.AugmentName))
         {
@@ -158,7 +174,8 @@ public class PlayerManager : MonoBehaviour
             return;
         }
         heroAugments.Add(augment);
-        uMan.CreateAugmentIcon(augment);
+        uMan.CreateAugmentIcon(augment, isNewAugment);
+        if (isNewAugment) auMan.StartStopSound("SFX_AcquireAugment");
     }
 
     public bool GetAugment(string augmentName)

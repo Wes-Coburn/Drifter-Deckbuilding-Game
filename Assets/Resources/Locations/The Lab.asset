@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b47e9eb1cc6fb34cbca4d90c15dd059, type: 3}
+  m_Name: The Lab
+  m_EditorClassIdentifier: 
+  developerNotes: 
+  locationName: The Lab
+  locationFullName: The Augmenter's Lab
+  locationDescription: A dark laboratory in an abandoned warehouse.
+  firstObjective: Augment your hero.
+  worldMapPosition: {x: -475, y: -375}
+  firstNPC: {fileID: 11400000, guid: 318a245868b8fbf498d6b1d7fc89cf00, type: 2}
+  locationSoundscape:
+    name: 
+    clip: {fileID: 8300000, guid: 0d28a3effb524409ca5e50160bb39321, type: 3}
+    volume: 0.8
+    pitch: 1
+    source: {fileID: 0}
+  isHomeBase: 0
+  isAugmenter: 1
+  isRecruitment: 0
+  isShop: 0
+  isCloning: 0

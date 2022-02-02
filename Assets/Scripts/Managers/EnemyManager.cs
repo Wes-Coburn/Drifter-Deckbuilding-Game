@@ -146,7 +146,9 @@ public class EnemyManager : MonoBehaviour
         UnitCardDisplay ucd = coMan.GetUnitDisplay(enemyUnit);
         if (ucd.CurrentPower < 1 || ucd.CurrentHealth < 1) return;
 
-        if (CardManager.GetTrigger(enemyUnit, CardManager.TRIGGER_INFILTRATE))
+        if (CardManager.GetTrigger(enemyUnit, CardManager.TRIGGER_INFILTRATE) ||
+            CardManager.GetTrigger(enemyUnit, CardManager.TRIGGER_RETALIATE) ||
+            TotalAllyPower() >= PlayerManager.Instance.PlayerHealth)
         {
             coMan.Attack(enemyUnit, coMan.PlayerHero);
             return;
@@ -163,6 +165,14 @@ public class EnemyManager : MonoBehaviour
         coMan.Attack(enemyUnit, coMan.PlayerHero);
     }
     
+    private int TotalAllyPower()
+    {
+        int totalPower = 0;
+        foreach (GameObject ally in coMan.EnemyZoneCards)
+            totalPower += coMan.GetUnitDisplay(ally).CurrentPower;
+        return totalPower;
+    }
+
     private GameObject FindDefender()
     {
         GameObject defender = null;
@@ -213,7 +223,10 @@ public class EnemyManager : MonoBehaviour
             cardsToDraw = overMaxCards - handSize;
         for (int i = 0; i < cardsToDraw; i++)
             evMan.NewDelayedAction(() => coMan.DrawCard(GameManager.ENEMY), 0.5f);
-        evMan.NewDelayedAction(() => NextReinforcementsState(), 2);
+
+        float delay = 2 + ((3 - cardsToDraw) * 0.5f);
+        if (delay < 0) delay = 0;
+        evMan.NewDelayedAction(() => NextReinforcementsState(), delay);
     }
 
     private void NextReinforcementsState()

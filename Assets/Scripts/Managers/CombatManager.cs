@@ -179,7 +179,9 @@ public class CombatManager : MonoBehaviour
         }
 
         GameObject parent = CardZone;
-        if (CardZone == null) parent = uMan.CurrentCanvas;
+        if (parent == null) parent = uMan.CurrentCanvas;
+
+        if (parent == null) Debug.LogError("PARENT IS NULL!");
 
         prefab = Instantiate(prefab, parent.transform);
         prefab.transform.position = position;
@@ -380,6 +382,7 @@ public class CombatManager : MonoBehaviour
     public void PlayCard(GameObject card)
     {
         CardDisplay cd = card.GetComponent<CardDisplay>();
+        CardContainer container = cd.CardContainer.GetComponent<CardContainer>();
 
         // PLAYER
         if (card.CompareTag(PLAYER_CARD))
@@ -397,7 +400,7 @@ public class CombatManager : MonoBehaviour
             {
                 PlayerActionZoneCards.Add(card);
                 ChangeCardZone(card, PLAYER_ACTION_ZONE);
-                PlayAction();
+                container.OnAttachAction = () => PlayAction(); // TESTING
             }
             else
             {
@@ -612,15 +615,36 @@ public class CombatManager : MonoBehaviour
         GetUnitDisplay(attacker).IsExhausted = true;
         if (CardManager.GetAbility(attacker, CardManager.ABILITY_STEALTH))
             GetUnitDisplay(attacker).RemoveCurrentAbility(CardManager.ABILITY_STEALTH);
-
+        
         if (!CardManager.GetAbility(attacker, CardManager.ABILITY_RANGED))
             anMan.UnitAttack(attacker, defender, IsUnitCard(defender));
         else
         {
-            auMan.StartStopSound("SFX_AttackRanged");
+            PlayAttackSound(attacker); // TESTING
             efMan.CreateEffectRay(attacker.transform.position, defender,
                 () => Strike(attacker, defender, true), 0, false);
+            pMan.IsMyTurn = false; // TESTING
         }
+    }
+
+    public void PlayAttackSound(GameObject unitCard)
+    {
+        bool isMeleeAttack = true;
+        if (CardManager.GetAbility(unitCard, CardManager.ABILITY_RANGED))
+            isMeleeAttack = false;
+
+        string attackSound;
+        if (GetUnitDisplay(unitCard).CurrentPower < 5)
+        {
+            if (isMeleeAttack) attackSound = "SFX_AttackMelee";
+            else attackSound = "SFX_AttackRanged";
+        }
+        else
+        {
+            if (isMeleeAttack) attackSound = "SFX_AttackMelee_Heavy";
+            else attackSound = "SFX_AttackRanged_Heavy";
+        }
+        auMan.StartStopSound(attackSound);
     }
 
     /******
@@ -638,6 +662,8 @@ public class CombatManager : MonoBehaviour
         {
             DealDamage(striker, defender, 
                 out bool strikerDealtDamage, out bool defenderDestroyed);
+
+            // delay
             if (IsUnitCard(defender))
             {
                 if (!CardManager.GetAbility(striker, CardManager.ABILITY_RANGED))
@@ -659,15 +685,30 @@ public class CombatManager : MonoBehaviour
                     if (strikerDestroyed) DeathblowTrigger(defender);
                 }
             }
-            else if (!defenderDestroyed && strikerDealtDamage && CardManager.GetTrigger
-                (striker, CardManager.TRIGGER_INFILTRATE)) InfiltrateTrigger(striker);
+            else if (!defenderDestroyed && strikerDealtDamage)
+            {
+                List<GameObject> targetZoneList;
+                if (striker.CompareTag(PLAYER_CARD)) targetZoneList = EnemyZoneCards;
+                else targetZoneList = PlayerZoneCards;
+
+                foreach (GameObject unit in targetZoneList)
+                {
+                    if (CardManager.GetTrigger(unit, CardManager.TRIGGER_RETALIATE)) RetaliateTrigger(unit);
+                }
+
+                // Trigger Infiltrate BEFORE Retaliate, can cause Retaliate sources to be destroyed before triggering.
+                if (CardManager.GetTrigger(striker, CardManager.TRIGGER_INFILTRATE)) InfiltrateTrigger(striker);
+            }
         }
 
+        /*
         // STRIKE EFFECTS // Currently non-existent
         else
         {
             DealDamage(striker, defender,
                 out bool attackerDealtDamage, out bool defenderDestroyed);
+
+            // delay
             if (IsUnitCard(defender))
             {
                 if (defenderDestroyed &&
@@ -678,6 +719,7 @@ public class CombatManager : MonoBehaviour
                 CardManager.GetTrigger(striker, CardManager.TRIGGER_INFILTRATE))
                 InfiltrateTrigger(striker);
         }
+        */
 
         void DealDamage(GameObject striker, GameObject defender,
             out bool dealtDamage, out bool defenderDestroyed)
@@ -704,13 +746,16 @@ public class CombatManager : MonoBehaviour
         }
         
         void DelayTrigger(System.Action action) =>
-            evMan.NewDelayedAction(action, 0, true); // TESTING
+            evMan.NewDelayedAction(action, 0, true);
 
         void InfiltrateTrigger(GameObject unit) =>
             DelayTrigger(() => caMan.TriggerUnitAbility(unit, CardManager.TRIGGER_INFILTRATE));
         
         void DeathblowTrigger(GameObject unit) => 
             DelayTrigger(() => caMan.TriggerUnitAbility(unit, CardManager.TRIGGER_DEATHBLOW));
+
+        void RetaliateTrigger(GameObject unit) =>
+            DelayTrigger(() => caMan.TriggerUnitAbility(unit, CardManager.TRIGGER_RETALIATE));
     }
 
     /******
@@ -819,6 +864,38 @@ public class CombatManager : MonoBehaviour
         bool isDamaged = false;
         if (ucd.CurrentHealth < ucd.MaxHealth) isDamaged = true;
         return isDamaged;
+    }
+
+    /******
+     * *****
+     * ****** GET_LOWEST_HEALTH_UNIT
+     * *****
+     *****/
+    public GameObject GetLowestHealthUnit(List<GameObject> unitList)
+    {
+        if (unitList.Count < 1) return null;
+        int lowestHealth = 999;
+        List<GameObject> lowestHealthUnits = new List<GameObject>();
+
+        foreach (GameObject unit in unitList)
+        {
+            int health = GetUnitDisplay(unit).CurrentHealth;
+            if (health < 1) continue;
+            if (health < lowestHealth)
+            {
+                lowestHealth = health;
+                lowestHealthUnits.Clear();
+                lowestHealthUnits.Add(unit);
+            }
+            else if (health == lowestHealth) lowestHealthUnits.Add(unit);
+        }
+        if (lowestHealthUnits.Count < 1) return null;
+        if (lowestHealthUnits.Count > 1)
+        {
+            int randomIndex = Random.Range(0, lowestHealthUnits.Count - 1);
+            return lowestHealthUnits[randomIndex];
+        }
+        else return lowestHealthUnits[0];
     }
 
     /******

@@ -27,7 +27,8 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
-  effectDescription: Give ALL enemies -2|-0 until your next turn.
+  effectDescription: <b>Stun</b> three enemies.
   effectGroupList:
-  - {fileID: 11400000, guid: 92042e9805f8e5a43bdd1298d3a1f45f, type: 2}
-  linkedAbilities: []
+  - {fileID: 11400000, guid: 92cfbde68d121b74ca53a1214990c7cd, type: 2}
+  linkedAbilities:
+  - {fileID: 11400000, guid: 37a54b5ce20d48941893b9f48eee681f, type: 2}

@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class NewCardPopupDisplay : MonoBehaviour
 {
@@ -40,6 +41,8 @@ public class NewCardPopupDisplay : MonoBehaviour
         pMan = PlayerManager.Instance;
         dMan = DialogueManager.Instance;
         uMan = UIManager.Instance;
+        ignoreCardButton.GetComponentInChildren<TextMeshProUGUI>().SetText
+            ("Take " + GameManager.IGNORE_CARD_AETHER + " aether instead");
         GetComponent<SoundPlayer>().PlaySound(0);
     }
 
@@ -136,7 +139,7 @@ public class NewCardPopupDisplay : MonoBehaviour
     public void IgnoreCard_OnClick()
     {
         GetComponent<SoundPlayer>().PlaySound(3);
-        pMan.AetherCells += 2;
+        pMan.AetherCells += GameManager.IGNORE_CARD_AETHER;
         uMan.DestroyNewCardPopup();
 
         DialogueClip nextClip = dMan.EngagedHero.NextDialogueClip;

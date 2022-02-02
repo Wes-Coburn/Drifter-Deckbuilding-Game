@@ -19,6 +19,7 @@ public class AnimationManager : MonoBehaviour
     private CombatManager coMan;
     private DialogueManager dMan;
     private AudioManager auMan;
+    private AnimationManager anMan;
 
     private Vector2 playerHandStart;
 
@@ -28,6 +29,7 @@ public class AnimationManager : MonoBehaviour
         coMan = CombatManager.Instance;
         dMan = DialogueManager.Instance;
         auMan = AudioManager.Instance;
+        anMan = AnimationManager.Instance;
     }
 
     public void ChangeAnimationState(GameObject go, string state)
@@ -64,7 +66,8 @@ public class AnimationManager : MonoBehaviour
     }
 
     /* HERO_ANIMATIONS */
-    public void ModifyHeroHealthState(GameObject hero) => ChangeAnimationState(hero, "Modify_Health");
+    public void ModifyHeroHealthState(GameObject hero) =>
+        ChangeAnimationState(hero, "Modify_Health");
     public void ModifyHeroEnergyState()
     {
         auMan.StartStopSound("SFX_EnergyRefill");
@@ -81,21 +84,28 @@ public class AnimationManager : MonoBehaviour
         ChangeAnimationState(coMan.EnemyHero, "Next_Reinforcements");
     }
     /* UNIT_ANIMATIONS */
-    public void RevealedHandState(GameObject card) => ChangeAnimationState(card, "Revealed_Hand");
-    public void RevealedDragState(GameObject card) => ChangeAnimationState(card, "Revealed_Drag");
-    public void RevealedPlayState(GameObject card) => ChangeAnimationState(card, "Revealed_Play");
+    public void RevealedHandState(GameObject card) =>
+        ChangeAnimationState(card, "Revealed_Hand");
+    public void RevealedDragState(GameObject card) =>
+        ChangeAnimationState(card, "Revealed_Drag");
+    public void RevealedPlayState(GameObject card) =>
+        ChangeAnimationState(card, "Revealed_Play");
     public void PlayedState(GameObject card)
     {
-        card.GetComponent<CardDisplay>().CardArt = card.GetComponent<CardDisplay>().CardScript.CardArt;
+        card.GetComponent<CardDisplay>().CardArt =
+            card.GetComponent<CardDisplay>().CardScript.CardArt;
         ChangeAnimationState(card, "Played");
     }
-    public void ZoomedState(GameObject card) => ChangeAnimationState(card, "Zoomed");
+    public void ZoomedState(GameObject card) =>
+        ChangeAnimationState(card, "Zoomed");
 
     // Stat Changes
     public void UnitTakeDamageState(GameObject unitCard) =>
         ChangeAnimationState(unitCard.GetComponent<UnitCardDisplay>().UnitStats, "Take_Damage");
-    public void DestroyUnitCardState(GameObject unitCard) => ChangeAnimationState(unitCard, "Destroyed");
-    public void UnitStatChangeState(GameObject unitCard, bool isPowerChange, bool isHealthChange)
+    public void DestroyUnitCardState(GameObject unitCard) =>
+        ChangeAnimationState(unitCard, "Destroyed");
+    public void UnitStatChangeState(GameObject unitCard,
+        bool isPowerChange, bool isHealthChange)
     {
         if (!coMan.IsUnitCard(unitCard))
         {
@@ -104,10 +114,7 @@ public class AnimationManager : MonoBehaviour
         }
 
         if (!isPowerChange && !isHealthChange) return;
-
         GameObject stats = unitCard.GetComponent<UnitCardDisplay>().UnitStats;
-
-        // TESTING
         SetAnimatorBool(stats, "IsDamaged", coMan.IsDamaged(unitCard));
 
         if (isPowerChange)
@@ -117,15 +124,24 @@ public class AnimationManager : MonoBehaviour
         }
         else if (isHealthChange) ModifyUnitHealthState(stats);
     }
-    private void ModifyUnitHealthState(GameObject card) => ChangeAnimationState(card, "Modify_Health");
-    private void ModifyUnitPowerState(GameObject card) => ChangeAnimationState(card, "Modify_Power");
-    private void ModifyAllUnitStatsState(GameObject card) => ChangeAnimationState(card, "Modify_All");
+    private void ModifyUnitHealthState(GameObject card) =>
+        ChangeAnimationState(card, "Modify_Health");
+    private void ModifyUnitPowerState(GameObject card) =>
+        ChangeAnimationState(card, "Modify_Power");
+    private void ModifyAllUnitStatsState(GameObject card) =>
+        ChangeAnimationState(card, "Modify_All");
 
     // Ability Trigger
     public void AbilityTriggerState(GameObject triggerIcon)
     {
         ChangeAnimationState(triggerIcon.GetComponent
             <AbilityIconDisplay>().AbilitySpriteObject, "Trigger");
+    }
+
+    // Icon Animation
+    public void SkybarIconAnimation(GameObject icon)
+    {
+        ChangeAnimationState(icon, "Trigger");
     }
 
     /******
@@ -178,7 +194,7 @@ public class AnimationManager : MonoBehaviour
         Vector2 nPortStart = npcPortrait.transform.localPosition;
         playerPortrait.SetActive(true);
         DialoguePrompt prompt = dMan.EngagedHero.NextDialogueClip as DialoguePrompt;
-        npcPortrait.SetActive(!prompt.HideNPC); // TESTING
+        npcPortrait.SetActive(!prompt.HideNPC);
         playerPortrait.transform.localPosition = new Vector2(600, pPortStart.y);
         npcPortrait.transform.localPosition = new Vector2(-600, nPortStart.y);
 
@@ -216,7 +232,8 @@ public class AnimationManager : MonoBehaviour
         do
         {
             distance = Vector2.Distance(npcPortrait.transform.localPosition, nPortEnd);
-            npcPortrait.transform.localPosition = Vector2.MoveTowards(npcPortrait.transform.localPosition, nPortEnd, 30);
+            npcPortrait.transform.localPosition =
+                Vector2.MoveTowards(npcPortrait.transform.localPosition, nPortEnd, 30);
             yield return new WaitForFixedUpdate();
         }
         while (distance > 0);
@@ -229,7 +246,8 @@ public class AnimationManager : MonoBehaviour
         do
         {
             distance = Vector2.Distance(npcPortrait.transform.localPosition, nPortStart);
-            npcPortrait.transform.localPosition = Vector2.MoveTowards(npcPortrait.transform.localPosition, nPortStart, 30);
+            npcPortrait.transform.localPosition =
+                Vector2.MoveTowards(npcPortrait.transform.localPosition, nPortStart, 30);
             yield return new WaitForFixedUpdate();
         }
         while (distance > 0);
@@ -269,12 +287,14 @@ public class AnimationManager : MonoBehaviour
         turBut.transform.localPosition = new Vector2(turButStart.x + 450, turButStart.y);
         pStats.transform.localPosition = new Vector2(pStatsStart.x, pStatsStart.y - 450);
         eStats.transform.localPosition = new Vector2(eStatsStart.x, eStatsStart.y + 450);
-        
+
         do
         {
             distance = Vector2.Distance(pFrame.transform.position, eFrame.transform.position);
-            pFrame.transform.position = Vector2.MoveTowards(pFrame.transform.position, eFrame.transform.position, 30);
-            eFrame.transform.position = Vector2.MoveTowards(eFrame.transform.position, pFrame.transform.position, 30);
+            pFrame.transform.position =
+                Vector2.MoveTowards(pFrame.transform.position, eFrame.transform.position, 30);
+            eFrame.transform.position =
+                Vector2.MoveTowards(eFrame.transform.position, pFrame.transform.position, 30);
             if (fScale < fZoomScale) fScale += scaleSpeed;
             else if (fScale > fZoomScale) fScale = fZoomScale;
             scaleVec.Set(fScale, fScale);
@@ -285,14 +305,36 @@ public class AnimationManager : MonoBehaviour
         while (distance > 700);
 
         uMan.CreateVersusPopup();
-        yield return new WaitForSeconds(3);
-        auMan.StartStopSound("SFX_PortraitClick"); // TESTING
+        float delay = 3;
+
+        foreach (Transform augTran in uMan.AugmentBar.transform)
+        {
+            augTran.gameObject.SetActive(true);
+            anMan.SkybarIconAnimation(augTran.gameObject);
+            auMan.StartStopSound("SFX_Trigger");
+            yield return new WaitForSeconds(0.5f);
+            delay -= 0.5f;
+        }
+
+        foreach (Transform itemTran in uMan.ItemBar.transform)
+        {
+            itemTran.gameObject.SetActive(true);
+            anMan.SkybarIconAnimation(itemTran.gameObject);
+            auMan.StartStopSound("SFX_Trigger");
+            yield return new WaitForSeconds(0.5f);
+            delay -= 0.5f;
+        }
+
+        if (delay > 0) yield return new WaitForSeconds(delay);
+        auMan.StartStopSound("SFX_PortraitClick");
 
         do
         {
             distance = Vector2.Distance(pFrame.transform.position, pFrameStart);
-            pFrame.transform.position = Vector2.MoveTowards(pFrame.transform.position, pFrameStart, 20);
-            eFrame.transform.position = Vector2.MoveTowards(eFrame.transform.position, eFrameStart, 20);
+            pFrame.transform.position =
+                Vector2.MoveTowards(pFrame.transform.position, pFrameStart, 20);
+            eFrame.transform.position =
+                Vector2.MoveTowards(eFrame.transform.position, eFrameStart, 20);
             if (fScale > 1) fScale -= scaleSpeed;
             else if (fScale < 1) fScale = 1;
             scaleVec.Set(fScale, fScale);
@@ -305,9 +347,12 @@ public class AnimationManager : MonoBehaviour
         do
         {
             distance = Vector2.Distance(pStats.transform.localPosition, pStatsStart);
-            turBut.transform.position = Vector2.MoveTowards(turBut.transform.position, turButStart, 20);
-            pStats.transform.localPosition = Vector2.MoveTowards(pStats.transform.localPosition, pStatsStart, 20);
-            eStats.transform.localPosition = Vector2.MoveTowards(eStats.transform.localPosition, eStatsStart, 20);
+            turBut.transform.position =
+                Vector2.MoveTowards(turBut.transform.position, turButStart, 20);
+            pStats.transform.localPosition =
+                Vector2.MoveTowards(pStats.transform.localPosition, pStatsStart, 20);
+            eStats.transform.localPosition =
+                Vector2.MoveTowards(eStats.transform.localPosition, eStatsStart, 20);
             yield return new WaitForFixedUpdate();
         }
         while (distance > 0);
@@ -321,7 +366,8 @@ public class AnimationManager : MonoBehaviour
     public void UnitAttack(GameObject attacker, GameObject defender, bool defenderIsUnit) => 
         StartCoroutine(AttackNumerator(attacker, defender, defenderIsUnit));
 
-    private IEnumerator AttackNumerator(GameObject attacker, GameObject defender, bool defenderIsUnit = true)
+    private IEnumerator AttackNumerator(GameObject attacker,
+        GameObject defender, bool defenderIsUnit = true)
     {
         EventManager.Instance.PauseDelayedActions(true);
         float distance;
@@ -330,7 +376,7 @@ public class AnimationManager : MonoBehaviour
         if (defenderIsUnit) bufferDistance = 150;
         else bufferDistance = 350;
         GameObject container = attacker.GetComponent<CardDisplay>().CardContainer;
-        container.GetComponent<CardContainer>().IsDetached = true; // TESTING
+        container.GetComponent<CardContainer>().IsDetached = true;
         attacker.transform.SetAsLastSibling();
         Vector2 defPos = defender.transform.position;
 
@@ -338,27 +384,29 @@ public class AnimationManager : MonoBehaviour
         do
         {
             distance = Vector2.Distance(attacker.transform.position, defPos);
-            attacker.transform.position = Vector3.MoveTowards(attacker.transform.position,
-                defPos, GetCurrentSpeed(distance)); // TESTING
+            attacker.transform.position =
+                Vector3.MoveTowards(attacker.transform.position,
+                defPos, GetCurrentSpeed(distance));
             yield return new WaitForFixedUpdate();
         }
         while (distance > bufferDistance);
 
-        auMan.StartStopSound("SFX_AttackMelee");
-        coMan.Strike(attacker, defender, true); // TESTING
+        coMan.PlayAttackSound(attacker);
+        coMan.Strike(attacker, defender, true);
 
         // RETREAT
         do
         {
             distance = Vector2.Distance(attacker.transform.position, container.transform.position);
-            attacker.transform.position = Vector3.MoveTowards(attacker.transform.position,
+            attacker.transform.position =
+                Vector3.MoveTowards(attacker.transform.position,
                 container.transform.position,
-                GetCurrentSpeed(distance)); // TESTING
+                GetCurrentSpeed(distance));
             yield return new WaitForFixedUpdate();
         }
         while (distance > 0);
-        container.GetComponent<CardContainer>().IsDetached = false; // TESTING
-        EventManager.Instance.PauseDelayedActions(false); // TESTING
+        container.GetComponent<CardContainer>().IsDetached = false;
+        EventManager.Instance.PauseDelayedActions(false);
     }
 
     private readonly float minSpeed = 100;

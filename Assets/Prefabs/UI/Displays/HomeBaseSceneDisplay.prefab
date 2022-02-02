@@ -44,24 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd896689c27c06740a888772aa44cab0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHero: {fileID: 0}
   heroPower: {fileID: 0}
   heroName: {fileID: 0}
   heroImage: {fileID: 0}
   heroDescription: {fileID: 0}
   heroPowerDescription: {fileID: 0}
   heroPowerImage: {fileID: 0}
-  selectedAugment: {fileID: 0}
-  augmentName: {fileID: 0}
-  augmentImage: {fileID: 0}
-  augmentDescription: {fileID: 0}
-  augmentCost: {fileID: 0}
   confirmSpendPopup: {fileID: 6138206491920893483, guid: 9402cc5f74ac8ca41876694f0b7f5350,
     type: 3}
-  availableAugments:
-  - {fileID: 11400000, guid: 1e409eadbe09b7c40865988c6f7c0dea, type: 2}
-  - {fileID: 11400000, guid: 513ae22f8600da948bfb3c4a73aa33a7, type: 2}
-  - {fileID: 11400000, guid: 57fe36df3e9c87e499ab987a471e140b, type: 2}
 --- !u!114 &8351034851488700947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,10 +64,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2340c8fec396b2b43bf9a91052c5c90e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds: []
-  sounds2:
-  - name: 
-    clip: {fileID: 8300000, guid: a580b904278a5fd4fba9563d4096bd3d, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
+  sounds:
+  - SFX_Click1
+  sounds2: []
