@@ -349,12 +349,12 @@ public class CombatManager : MonoBehaviour
         }
 
         CardDisplay cd = card.GetComponent<CardDisplay>();
-
         
         if (!returnToIndex)
         {
             lastCardIndex = card.GetComponent<DragDrop>().LastIndex; // TESTING
             lastContainerIndex = cd.CardContainer.transform.GetSiblingIndex(); // TESTING
+            card.transform.SetAsLastSibling(); // TESTING
         }
 
         cd.CardContainer.GetComponent<CardContainer>().MoveContainer(newZone);
@@ -579,13 +579,19 @@ public class CombatManager : MonoBehaviour
         if (atkUcd.IsExhausted)
         {
             if (preCheck)
+            {
                 uMan.CreateFleetingInfoPopup("<b>Exhausted</b> units can't attack!");
+                SFX_Error();
+            }
             return false;
         }
         else if (atkUcd.CurrentPower < 1)
         {
             if (preCheck)
+            {
                 uMan.CreateFleetingInfoPopup("Units with 0 power can't attack!");
+                SFX_Error();
+            }
             return false;
         }
 
@@ -598,11 +604,16 @@ public class CombatManager : MonoBehaviour
             if (CardManager.GetAbility(defender, CardManager.ABILITY_STEALTH))
             {
                 if (!preCheck)
+                {
                     uMan.CreateFleetingInfoPopup("Units with <b>Stealth</b> can't be attacked!");
+                    SFX_Error();
+                }
                 return false;
             }
         }
         return true;
+
+        void SFX_Error() => auMan.StartStopSound("SFX_Error");
     }
 
     /******
@@ -700,9 +711,7 @@ public class CombatManager : MonoBehaviour
                 if (CardManager.GetTrigger(striker, CardManager.TRIGGER_INFILTRATE)) InfiltrateTrigger(striker);
             }
         }
-
-        /*
-        // STRIKE EFFECTS // Currently non-existent
+        // STRIKE EFFECTS
         else
         {
             DealDamage(striker, defender,
@@ -719,7 +728,6 @@ public class CombatManager : MonoBehaviour
                 CardManager.GetTrigger(striker, CardManager.TRIGGER_INFILTRATE))
                 InfiltrateTrigger(striker);
         }
-        */
 
         void DealDamage(GameObject striker, GameObject defender,
             out bool dealtDamage, out bool defenderDestroyed)
@@ -892,7 +900,7 @@ public class CombatManager : MonoBehaviour
         if (lowestHealthUnits.Count < 1) return null;
         if (lowestHealthUnits.Count > 1)
         {
-            int randomIndex = Random.Range(0, lowestHealthUnits.Count - 1);
+            int randomIndex = Random.Range(0, lowestHealthUnits.Count);
             return lowestHealthUnits[randomIndex];
         }
         else return lowestHealthUnits[0];

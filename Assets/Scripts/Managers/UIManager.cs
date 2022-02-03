@@ -98,7 +98,7 @@ public class UIManager : MonoBehaviour
 
     private GameObject endTurnButton;
     private GameObject cancelEffectButton;
-    private GameObject confirmEffectButton; // TESTING
+    private GameObject confirmEffectButton;
     private Coroutine sceneFadeRoutine;
     private GameObject playerZoneOutline;
     
@@ -239,14 +239,18 @@ public class UIManager : MonoBehaviour
      * ****** END_TURN_BUTTON
      * *****
      *****/
-    public void UpdateEndTurnButton(bool isMyTurn)
+    public void UpdateEndTurnButton(bool isMyTurn, bool isInteractable = true)
     {
-        Button button = endTurnButton.GetComponent<Button>();
-        button.interactable = isMyTurn;
         EndTurnButtonDisplay etbd =
             endTurnButton.GetComponent<EndTurnButtonDisplay>();
         etbd.EndTurnSide.SetActive(isMyTurn);
         etbd.OpponentTurnSide.SetActive(!isMyTurn);
+
+        if (isMyTurn)
+        {
+            Button[] buttons = endTurnButton.GetComponentsInChildren<Button>();
+            foreach (Button b in buttons) b.interactable = isInteractable;
+        }
     }
     /******
      * *****
@@ -277,7 +281,7 @@ public class UIManager : MonoBehaviour
             Image image = cs.CardOutline.GetComponent<Image>();
             if (enabled) SetColor(image);
 
-            // TESTING TESTING TESTING
+            // TESTING
             if (isSelected && PlayerIsTargetting)
             {
                 if (EffectManager.Instance.CurrentEffect is DrawEffect de && de.IsDiscardEffect)
@@ -286,6 +290,7 @@ public class UIManager : MonoBehaviour
                         <CardContainer>().BufferDistance = new Vector2(0, -50);
                 }
             }
+            // TESTING
             if (!isSelected)
             {
                 target.GetComponent<CardDisplay>().CardContainer.GetComponent
@@ -514,10 +519,11 @@ public class UIManager : MonoBehaviour
         }
     }
     // Versus Popup
-    public void CreateVersusPopup()
+    public void CreateVersusPopup(bool isBossBattle = false)
     {
         DestroyTurnPopup();
         turnPopup = Instantiate(versusPopupPrefab, CurrentCanvas.transform);
+        turnPopup.GetComponent<VersusPopupDisplay>().IsBossBattle = isBossBattle;
     }
     public void CreateCombatEndPopup(bool playerWins)
     {

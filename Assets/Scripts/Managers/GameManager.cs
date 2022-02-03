@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject locationIconPrefab;
     [Header("MULLIGAN EFFECT")]
     [SerializeField] private EffectGroup mulliganEffect;
+    [Header("LOADING TIPS")]
+    [SerializeField] [TextArea] private string[] loadingTips;
 
     private PlayerManager pMan;
     private EnemyManager enMan;
@@ -37,6 +39,17 @@ public class GameManager : MonoBehaviour
     private DialogueManager dMan;
     private AnimationManager anMan;
 
+    private int currentTip;
+    public string CurrentTip
+    {
+        get
+        {
+            string tip = loadingTips[currentTip++];
+            if (currentTip > loadingTips.Length - 1)
+                currentTip = 0;
+            return tip;
+        }
+    }
     public bool IsCombatTest { get; set; }
     public bool HideExplicitLanguage { get; private set; }
     public Narrative CurrentNarrative { get; set; }
@@ -82,8 +95,7 @@ public class GameManager : MonoBehaviour
     //public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
     public const int BOSS_BONUS_HEALTH = 10;
     public const int ENEMY_HAND_SIZE = 0;
-    public const int ENEMY_START_FOLLOWERS = 5;
-    public const int ENEMY_START_SKILLS = 2;
+    public const int ENEMY_START_Units = 5;
 
     /******
      * *****
@@ -102,6 +114,7 @@ public class GameManager : MonoBehaviour
         auMan = AudioManager.Instance;
         dMan = DialogueManager.Instance;
         anMan = AnimationManager.Instance;
+        currentTip = Random.Range(0, loadingTips.Length);
         ActiveNPCHeroes = new List<NPCHero>();
         ActiveLocations = new List<Location>();
         VisitedLocations = new List<string>();
@@ -206,7 +219,7 @@ public class GameManager : MonoBehaviour
             return true;
         }
     }
-
+    
     /******
      * *****
      * ****** LOAD_GAME
@@ -454,7 +467,7 @@ public class GameManager : MonoBehaviour
 
     /******
      * *****
-     * ****** ENTER/EXIT_WORLD_MAP
+     * ****** ENTER_WORLD_MAP
      * *****
      *****/
     public void EnterWorldMap()
@@ -469,14 +482,6 @@ public class GameManager : MonoBehaviour
                 uMan.CurrentCanvas.transform);
             LocationIcon icon = location.GetComponent<LocationIcon>();
             icon.Location = loc;
-            icon.LocationName = loc.LocationName;
-            icon.WorldMapPosition = loc.WorldMapPosition;
-            if (loc.IsHomeBase) icon.SetHomeBaseImage();
-            if (loc.IsAugmenter) icon.SetAugmenterImage();
-            bool unvisited = true;
-            if (VisitedLocations.FindIndex(x => x == loc.LocationName) != -1)
-                unvisited = false;
-            icon.UnvisitedIcon.SetActive(unvisited);
         }
 
         SaveGame();
@@ -485,6 +490,17 @@ public class GameManager : MonoBehaviour
             uMan.CreateNarrativePopup(CurrentNarrative); // TESTING
             CurrentNarrative = null; // TESTING
         }
+    }
+
+    /******
+     * *****
+     * ****** ENTER_HOME_BASE
+     * *****
+     *****/
+    public void EnterHomeBase()
+    {
+        auMan.StopCurrentSoundscape();
+        auMan.StartStopSound("SFX_EnterHomeBase");
     }
 
     /******

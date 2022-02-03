@@ -94,6 +94,11 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
+  - name: SFX_EnterHomeBase
+    clip: {fileID: 8300000, guid: 2e0d7458548c34e4ea6cf1460998c9b3, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
   - name: SFX_StartCombat1
     clip: {fileID: 8300000, guid: 3b0c8067fd742cc44bd0564345f2a13e, type: 3}
     volume: 1
@@ -179,48 +184,8 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
-  - name: SFX_Reinforcements
-    clip: {fileID: 8300000, guid: 9bf62a53446b44949b5ebaa3e606714d, type: 3}
-    volume: 0.5
-    pitch: 1
-    source: {fileID: 0}
-  - name: SFX_NextReinforcements
-    clip: {fileID: 8300000, guid: 0f9dd3ba9107e84489a7741a0fad83b2, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: SFX_AttackMelee
-    clip: {fileID: 8300000, guid: 8a946886de2cb0246b97d833312ca999, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: SFX_AttackMelee_Heavy
-    clip: {fileID: 8300000, guid: b6baf9056df796a49997005555de506b, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: SFX_AttackRanged
-    clip: {fileID: 8300000, guid: 45f3a6795562d55489a34f69e862183e, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: SFX_AttackRanged_Heavy
-    clip: {fileID: 8300000, guid: c738831db53ec554585a6d004de79a27, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: SFX_DamageRay_Start
-    clip: {fileID: 8300000, guid: 629c0ec6d1a5d9e40a1d380417e1462b, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: SFX_DamageRay_End
-    clip: {fileID: 8300000, guid: 9bf2b5747fcedf948b6ba6de3b8b8626, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: SFX_DealDamage1
-    clip: {fileID: 8300000, guid: 50a78bb499d888a42a412345077507d1, type: 3}
+  - name: SFX_Refresh
+    clip: {fileID: 8300000, guid: a0ae7ad2e2d6b8b48b24f4dcc8758496, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}
@@ -234,8 +199,13 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
-  - name: SFX_Refresh
-    clip: {fileID: 8300000, guid: a0ae7ad2e2d6b8b48b24f4dcc8758496, type: 3}
+  - name: SFX_Reinforcements
+    clip: {fileID: 8300000, guid: 9bf62a53446b44949b5ebaa3e606714d, type: 3}
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_NextReinforcements
+    clip: {fileID: 8300000, guid: 0f9dd3ba9107e84489a7741a0fad83b2, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}
@@ -256,6 +226,36 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: SFX_BuyItem
     clip: {fileID: 8300000, guid: 95aa03293af4f824ba9852df70346673, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_AttackMelee
+    clip: {fileID: 8300000, guid: 658f84d8d9b40704ba87a6217e4c6300, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_AttackMelee_Heavy
+    clip: {fileID: 8300000, guid: 8a946886de2cb0246b97d833312ca999, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_AttackRanged
+    clip: {fileID: 8300000, guid: 45f3a6795562d55489a34f69e862183e, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_AttackRanged_Heavy
+    clip: {fileID: 8300000, guid: 50a78bb499d888a42a412345077507d1, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_DamageRay_Start
+    clip: {fileID: 8300000, guid: 629c0ec6d1a5d9e40a1d380417e1462b, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: SFX_DamageRay_End
+    clip: {fileID: 8300000, guid: 9bf2b5747fcedf948b6ba6de3b8b8626, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}

@@ -27,7 +27,8 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
-  effectDescription: Deal 3 to a random enemy with the lowest health.
+  effectDescription: Deal 3 to the lowest health enemy. If this destroys it, heal
+    your hero 3.
   effectGroupList:
-  - {fileID: 11400000, guid: b8bdec57068003543aeee6aa50920e35, type: 2}
+  - {fileID: 11400000, guid: a0db77846f5dde240bbff8c96fa42195, type: 2}
   linkedAbilities: []

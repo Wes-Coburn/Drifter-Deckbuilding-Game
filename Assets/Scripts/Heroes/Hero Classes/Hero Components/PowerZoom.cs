@@ -44,7 +44,7 @@ public class PowerZoom : MonoBehaviour
         if (CardZoom.ZoomCardIsCentered || DragDrop.DraggingCard) return;
         DestroyPowerPopup();
         if (!abilityPopupOnly) FunctionTimer.Create(() => CreatePowerPopup(), 0.5f, POWER_POPUP_TIMER);
-        else FunctionTimer.Create(() => ShowLinkedAbilities(LoadedPower, 3), 0.5f, POWER_POPUP_TIMER);
+        else FunctionTimer.Create(() => ShowLinkedAbilities(LoadedPower, CardZoom.ZOOM_SCALE_VALUE), 0.5f, POWER_POPUP_TIMER);
     }
     public void OnPointerExit()
     {
@@ -86,7 +86,13 @@ public class PowerZoom : MonoBehaviour
             uMan.CurrentZoomCanvas.transform);
         Vector2 position = new Vector2();
         if (!abilityPopupOnly) position.Set(-75, -50); // Combat Scene
-        else position.Set(350, 100); // Hero Select Scene
+        else
+        {
+            if (SceneLoader.IsActiveScene(SceneLoader.Scene.HeroSelectScene))
+                position.Set(350, 100);
+            else if (SceneLoader.IsActiveScene(SceneLoader.Scene.HomeBaseScene))
+                position.Set(350, 0);
+        }
         abilityPopupBox.transform.localPosition = position;
         abilityPopupBox.transform.localScale = new Vector2(scaleValue, scaleValue);
         foreach (CardAbility ca in hp.LinkedAbilities) 

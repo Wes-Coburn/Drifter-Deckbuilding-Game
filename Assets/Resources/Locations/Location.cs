@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Location", menuName = "Locations/Location")]
 public class Location : ScriptableObject
 {
-    [SerializeField] [TextArea] private string developerNotes;
+    [SerializeField] private bool isPriorityLocation;
     [SerializeField] private string locationName;
     [SerializeField] private string locationFullName;
     [SerializeField] private string locationDescription;
@@ -17,6 +17,7 @@ public class Location : ScriptableObject
     [SerializeField] private bool isShop;
     [SerializeField] private bool isCloning;
 
+    public bool IsPriorityLocation { get => isPriorityLocation; }
     public string LocationName { get => locationName; }
     public string LocationFullName { get => locationFullName; }
     public string LocationDescription { get => locationDescription; }
@@ -34,6 +35,7 @@ public class Location : ScriptableObject
     
     public void LoadLocation(Location location)
     {
+        isPriorityLocation = location.IsPriorityLocation;
         locationName = location.LocationName;
         locationFullName = location.LocationFullName;
         locationDescription = location.LocationDescription;

@@ -7,6 +7,7 @@ public class CombatTestButton : MonoBehaviour
     [Space]
     [SerializeField] private bool addStartUnits;
     [SerializeField] private bool addStartSkills;
+    [SerializeField] private bool addMoreSkills;
 
     [SerializeField] private PlayerHero[] playerTestHeroes;
     [SerializeField] private PlayerHero developerTestHero;
@@ -100,6 +101,13 @@ public class CombatTestButton : MonoBehaviour
         if (!developerMode || addStartSkills)
         {
             foreach (SkillCard skill in pMan.PlayerHero.HeroStartSkills)
+                for (int i = 0; i < GameManager.PLAYER_START_SKILLS; i++)
+                    caMan.AddCard(skill, GameManager.PLAYER);
+        }
+        // More Skills
+        if (developerMode && addMoreSkills)
+        {
+            foreach (SkillCard skill in pMan.PlayerHero.HeroMoreSkills)
                 for (int i = 0; i < GameManager.PLAYER_START_SKILLS; i++)
                     caMan.AddCard(skill, GameManager.PLAYER);
         }

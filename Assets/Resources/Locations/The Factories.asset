@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b47e9eb1cc6fb34cbca4d90c15dd059, type: 3}
   m_Name: The Factories
   m_EditorClassIdentifier: 
-  developerNotes: INTERCEPTION => The Outskirts
+  isPriorityLocation: 1
   locationName: The Factories
   locationFullName: The Old Factories
   locationDescription: The heart of Iron-Clan territory.
@@ -26,6 +26,7 @@ MonoBehaviour:
     pitch: 1
     source: {fileID: 0}
   isHomeBase: 0
+  isAugmenter: 0
   isRecruitment: 0
   isShop: 0
   isCloning: 0

@@ -13,7 +13,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     [SerializeField] private CardAbility exhaustedAbility;
     
     private const float  ZOOM_BUFFER                 =  350;
-    private const float  ZOOM_SCALE_VALUE            =  4;
+    public const float  ZOOM_SCALE_VALUE            =  4;
     private const float  CENTER_SCALE_VALUE          =  6;
     private const float  POPUP_SCALE_VALUE           =  3;
     private const float  SMALL_POPUP_SCALE_VALUE     =  2;

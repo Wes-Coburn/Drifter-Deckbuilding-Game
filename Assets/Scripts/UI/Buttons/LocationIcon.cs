@@ -9,26 +9,30 @@ public class LocationIcon : MonoBehaviour
     [SerializeField] private Sprite homeBaseSprite;
     [SerializeField] private Sprite augmenterSprite;
     [SerializeField] private GameObject unvisitedIcon;
+    [SerializeField] private GameObject priorityIcon;
+    [SerializeField] private GameObject nonPriorityLocation;
     
     private UIManager uMan;
-    public GameObject UnvisitedIcon { get => unvisitedIcon; }
-    public string LocationName
+    private Location location;
+
+    public Location Location
     {
+        get => location;
         set
         {
-            locationName.GetComponent<TextMeshProUGUI>().SetText(value);
+            location = value;
+            locationName.GetComponent<TextMeshProUGUI>().SetText(location.LocationName);
+            transform.position = location.WorldMapPosition;
+            if (location.IsHomeBase) SetHomeBaseImage();
+            if (location.IsAugmenter) SetAugmenterImage();
+            bool unvisited = true;
+            if (GameManager.Instance.VisitedLocations.FindIndex(x => x == location.LocationName) != -1)
+                unvisited = false;
+            unvisitedIcon.SetActive(unvisited);
+            priorityIcon.SetActive(location.IsPriorityLocation);
+            nonPriorityLocation.SetActive(!location.IsPriorityLocation);
         }
     }
-
-    public Vector2 WorldMapPosition
-    {
-        set
-        {
-            transform.position = value;
-        }
-    }
-
-    public Location Location { get; set; }
 
     private void Start() => 
         uMan = UIManager.Instance;

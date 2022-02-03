@@ -42,8 +42,7 @@ public class PlayerManager : MonoBehaviour
         set
         {
             isMyTurn = value;
-            uMan.EndTurnButton.GetComponent
-                <Button>().interactable = value; // TESTING
+            uMan.UpdateEndTurnButton(isMyTurn); // TESTING
         }
     }
 

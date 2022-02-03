@@ -76,7 +76,11 @@ public static class SceneLoader
                     return;
             }
             uMan.SetSkybar(false);
-            UnityEngine.Object.FindObjectOfType<LoadingSceneDisplay>().ChapterText = chapterText;
+
+            LoadingSceneDisplay lsd = UnityEngine.Object.FindObjectOfType<LoadingSceneDisplay>();
+            lsd.ChapterText = chapterText;
+            lsd.TipText = gMan.CurrentTip;
+
             FunctionTimer.Create(() => uMan.SetSceneFader(true), 4f);
             FunctionTimer.Create(() => SceneManager.LoadScene(scene.ToString()), 6f);
             FunctionTimer.Create(() => uMan.SetSceneFader(false), 6f);
@@ -109,7 +113,7 @@ public static class SceneLoader
                     gMan.EnterWorldMap();
                     break;
                 case Scene.HomeBaseScene:
-                    auMan.StopCurrentSoundscape(); // TESTING
+                    gMan.EnterHomeBase(); // TESTING
                     break;
                 case Scene.DialogueScene:
                     gMan.StartDialogue();

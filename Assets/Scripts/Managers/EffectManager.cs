@@ -53,9 +53,7 @@ public class EffectManager : MonoBehaviour
         {
             effectsResolving = value;
             evMan.PauseDelayedActions(value);
-
-            uMan.EndTurnButton.GetComponent
-                <Button>().interactable = !value;
+            uMan.UpdateEndTurnButton(pMan.IsMyTurn, !value); // TESTING
         }
     }
     public Effect CurrentEffect
@@ -508,6 +506,7 @@ public class EffectManager : MonoBehaviour
                 if (group.Targets.CompareTargets(eg.Targets))
                     additionalTargets++;
             if (additionalTargets > 0) additionalTargets--;
+            Debug.Log("ADDITIONAL TARGETS: <" + additionalTargets + ">");
             return additionalTargets;
         }
         void ClearInvalids()
@@ -558,16 +557,7 @@ public class EffectManager : MonoBehaviour
 
         foreach (List<GameObject> zone in targetZones)
             foreach (GameObject target in zone)
-                if (target != effectSource)
-                {
-                    if (coMan.IsUnitCard(target))
-                    {
-                        if (!unitsToDestroy.Contains(target))
-                            if (coMan.GetUnitDisplay(target).CurrentHealth > 0)
-                                AddTarget(target);
-                    }
-                    else AddTarget(target);
-                }
+                if (target != effectSource) AddTarget(target);
 
         if (effect is DrawEffect de)
         {
@@ -613,8 +603,21 @@ public class EffectManager : MonoBehaviour
             return false;
         return true;
 
-        void AddTarget(GameObject target) =>
-            legalTargets[currentGroup].Add(target);
+        void AddTarget(GameObject target)
+        {
+            if (coMan.IsUnitCard(target))
+            {
+                if (!unitsToDestroy.Contains(target))
+                    if (coMan.GetUnitDisplay(target).CurrentHealth > 0)
+                        Add();
+            }
+            else Add();
+            void Add()
+            {
+                if (!legalTargets[currentGroup].Contains(target))
+                    legalTargets[currentGroup].Add(target);
+            }
+        }
     }
 
     /******
@@ -789,58 +792,60 @@ public class EffectManager : MonoBehaviour
             Debug.LogError("EFFECT GROUP IS NULL!");
             return;
         }
-
-        bool isPowerChange = false;
-        bool isHealthChange = false;
-        bool isNegativeChange = false;
-
-        foreach (Effect effect in eg.Effects)
-        {
-            if (effect is StatChangeEffect sce)
-            {
-                if (sce.IsHealthChange) isHealthChange = true;
-                else isPowerChange = true;
-                if (sce.IsNegative) isNegativeChange = true;
-            }
-            else if (effect is HealEffect) isHealthChange = true;
-        }
-
-        bool statsChanged = false;
+        
         float statsDelay = 0;
-        List<GameObject> statChangeTargets = new List<GameObject>();
+        List<GameObject> powerChangeTargets = new List<GameObject>();
+        List<GameObject> healthChangeTargets = new List<GameObject>();
+        List<GameObject> negativeChangeTargets = new List<GameObject>();
+        List<GameObject> targetList = new List<GameObject>(); // TESTING
+        foreach (GameObject t in targets) targetList.Add(t); // TESTING
 
         foreach (Effect effect in eg.Effects)
         {
             Resolve(effect, delay);
             delay += 0.5f;
         }
-        FunctionTimer.Create(() => StatChanges(), statsDelay); // TESTING
 
         void Resolve(Effect effect, float delay)
         {
+            bool isPowerChange = false;
+            bool isHealthChange = false;
+            bool isNegativeChange = false;
+
             List<GameObject> validTargets = ResolveEffect(targets, effect, delay);
             if (effect is StatChangeEffect || effect is HealEffect)
             {
-                foreach (GameObject target in validTargets) statChangeTargets.Add(target); // TESTING
-                if (!statsChanged)
+                if (statsDelay == 0) FunctionTimer.Create(() => StatChanges(targetList), statsDelay); // TESTING
+                if (effect is StatChangeEffect sce)
                 {
-                    statsChanged = true;
-                    statsDelay = delay;
+                    if (sce.IsHealthChange) isHealthChange = true;
+                    else isPowerChange = true;
+                    if (sce.IsNegative || sce.SetToZero) isNegativeChange = true;
                 }
+                else if (effect is HealEffect) isHealthChange = true;
+            }
+
+            foreach (GameObject target in validTargets)
+            {
+                if (isPowerChange) powerChangeTargets.Add(target);
+                if (isHealthChange) healthChangeTargets.Add(target);
+                if (isNegativeChange) negativeChangeTargets.Add(target);
             }
         }
 
-        void StatChanges()
+        void StatChanges(List<GameObject> targetList)
         {
-            if (!isHealthChange && !isPowerChange) return;
-            foreach (GameObject target in targets)
+            foreach (GameObject target in targetList)
             {
+                bool isPowerChange = powerChangeTargets.Contains(target);
+                bool isHealthChange = healthChangeTargets.Contains(target);
+                bool isNegativeChange = negativeChangeTargets.Contains(target);
+
                 if (target == null)
                 {
                     Debug.LogError("TARGET IS NULL!");
                     continue;
                 }
-                if (!statChangeTargets.Contains(target)) continue; // TESTING
 
                 if (coMan.IsUnitCard(target))
                     anMan.UnitStatChangeState(target, isPowerChange, isHealthChange);
@@ -886,7 +891,6 @@ public class EffectManager : MonoBehaviour
                 if (!coMan.GetUnitDisplay(t).IsExhausted)
                     invalidTargets.Add(t);
         }
-
         // TESTING
         if (effect.IfRefreshedCondition)
         {
@@ -894,7 +898,6 @@ public class EffectManager : MonoBehaviour
                 if (coMan.GetUnitDisplay(t).IsExhausted)
                     invalidTargets.Add(t);
         }
-
         // TESTING
         if (effect.IfHasPowerCondition)
         {
@@ -916,7 +919,6 @@ public class EffectManager : MonoBehaviour
                 if (!isValidTarget) invalidTargets.Add(t);
             }
         }
-
         // TESTING
         if (effect.IfHasAbilityCondition != null)
         {
@@ -935,7 +937,6 @@ public class EffectManager : MonoBehaviour
                 }
             }
         }
-
         // TESTING
         if (effect.IfHasTriggerCondition != null)
         {
@@ -954,12 +955,10 @@ public class EffectManager : MonoBehaviour
                 }
             }
         }
-
         // TESTING
         foreach (GameObject t in allTargets)
             if (!invalidTargets.Contains(t) && !validTargets.Contains(t))
                 validTargets.Add(t);
-
         // TESTING
         if (effect.IfHasAbility != null)
         {
@@ -968,7 +967,6 @@ public class EffectManager : MonoBehaviour
                     foreach (EffectGroup eg in effect.IfHasAbilityEffects)
                         additionalEffectGroups.Add(eg);
         }
-
         // TESTING
         if (effect.IfHasTrigger != null)
         {
@@ -977,7 +975,6 @@ public class EffectManager : MonoBehaviour
                     foreach (EffectGroup eg in effect.IfHasTriggerEffects)
                         additionalEffectGroups.Add(eg);
         }
-
         // TESTING
         if (effect.IfHasGreaterPowerEffects.Count > 0)
         {
@@ -986,7 +983,6 @@ public class EffectManager : MonoBehaviour
                     foreach (EffectGroup eg in effect.IfHasGreaterPowerEffects)
                         additionalEffectGroups.Add(eg);
         }
-
         // TESTING
         if (effect.IfHasLowerPowerEffects.Count > 0)
         {
@@ -995,7 +991,6 @@ public class EffectManager : MonoBehaviour
                     foreach (EffectGroup eg in effect.IfHasLowerPowerEffects)
                         additionalEffectGroups.Add(eg);
         }
-
         // TESTING
         if (effect.ForEachEffects.Count > 0)
         {
@@ -1003,7 +998,6 @@ public class EffectManager : MonoBehaviour
                 foreach (EffectGroup eg in effect.ForEachEffects)
                     additionalEffectGroups.Add(eg);
         }
-
         // DRAW
         if (effect is DrawEffect drE)
         {
@@ -1014,7 +1008,8 @@ public class EffectManager : MonoBehaviour
         // DAMAGE
         else if (effect is DamageEffect dmgE)
         {
-            FunctionTimer.Create(() => auMan.StartStopSound("SFX_DamageRay_Start"), delay); // TESTING
+            if (validTargets.Count > 0)
+                FunctionTimer.Create(() => auMan.StartStopSound("SFX_DamageRay_Start"), delay); // TESTING
             foreach (GameObject target in validTargets)
             {
                 // If the source is NOT a card, shoot the ray from the PLAYER HERO
@@ -1033,6 +1028,7 @@ public class EffectManager : MonoBehaviour
                 }
             }
         }
+        // DESTROY
         else if (effect is DestroyEffect)
         {
             foreach (GameObject target in validTargets)

@@ -305,8 +305,14 @@ public class AnimationManager : MonoBehaviour
         while (distance > 700);
 
         uMan.CreateVersusPopup();
+        EnemyHero eh = dMan.EngagedHero as EnemyHero;
+        if (eh.IsBoss)
+        {
+            yield return new WaitForSeconds(2);
+            uMan.CreateVersusPopup(true);
+        }
+        
         float delay = 3;
-
         foreach (Transform augTran in uMan.AugmentBar.transform)
         {
             augTran.gameObject.SetActive(true);

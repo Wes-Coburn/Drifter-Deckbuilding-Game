@@ -11,10 +11,11 @@ public class UnitCardDisplay : CardDisplay
     [SerializeField] private GameObject healthScoreDisplay;
     [SerializeField] private GameObject exhaustedIcon;
     [SerializeField] private GameObject destroyedIcon;
-
+    [SerializeField] private GameObject eliteIcon;
     [SerializeField] private GameObject abilityIconPrefab;
     [SerializeField] private GameObject zoomAbilityIconPrefab;
 
+    private AudioManager auMan;
     private List<CardAbility> displayedAbilities;
 
     public UnitCard UnitCard { get => CardScript as UnitCard; }
@@ -77,6 +78,7 @@ public class UnitCardDisplay : CardDisplay
 
     private void Awake()
     {
+        auMan = AudioManager.Instance;
         CurrentEffects = new List<Effect>();
         CurrentAbilities = new List<CardAbility>();
         AbilityIcons = new List<GameObject>();
@@ -94,7 +96,7 @@ public class UnitCardDisplay : CardDisplay
         CurrentPower = UnitCard.StartPower;
         MaxHealth = UnitCard.StartHealth;
         CurrentHealth = MaxHealth;
-        
+        eliteIcon.SetActive(UnitCard.IsElite); // TESTING
         foreach (CardAbility cardAbility in UnitCard.StartingAbilities)
             AddCurrentAbility(cardAbility);
     }
@@ -108,10 +110,11 @@ public class UnitCardDisplay : CardDisplay
     {
         base.DisplayZoomCard(parentCard, card);
 
+        UnitCard uc;
         if (card == null)
         {
             UnitCardDisplay ucd = parentCard.GetComponent<UnitCardDisplay>();
-            UnitCard uc = ucd.UnitCard;
+            uc = ucd.UnitCard;
             List<CardAbility> abilityList;
 
             if (CardZoom.ZoomCardIsCentered)
@@ -140,7 +143,7 @@ public class UnitCardDisplay : CardDisplay
         }
         else
         {
-            UnitCard uc = card as UnitCard;
+            uc = card as UnitCard;
             DisplayPower(uc.StartPower);
             DisplayHealth(uc.StartHealth);
 
@@ -163,8 +166,9 @@ public class UnitCardDisplay : CardDisplay
                 GetComponent<CardZoom>().CreateZoomAbilityIcon(ca,
                     currentAbilitiesDisplay.transform, 1);
             }
-                
         }
+
+        eliteIcon.SetActive(uc.IsElite); // TESTING
     }
 
     /******
@@ -196,6 +200,8 @@ public class UnitCardDisplay : CardDisplay
             GetComponent<CardZoom>().CreateZoomAbilityIcon(ca,
                 currentAbilitiesDisplay.transform, 1);
         }
+
+        eliteIcon.SetActive(UnitCard.IsElite); // TESTING
     }
 
     /******
@@ -336,6 +342,11 @@ public class UnitCardDisplay : CardDisplay
         return abilityIcon;
     }
 
+    /******
+     * *****
+     * ****** ABILITY_TRIGGER_STATE
+     * *****
+     *****/
     public void AbilityTriggerState(string triggerName)
     {
         if (triggerName == CardManager.TRIGGER_PLAY) return;
@@ -349,7 +360,7 @@ public class UnitCardDisplay : CardDisplay
             {
                 if (ca.AbilityName == triggerName)
                 {
-                    TriggerVisuals(AbilityIcons[displayIndex]);
+                    TriggerState(AbilityIcons[displayIndex]);
                     return;
                 }
             }
@@ -357,7 +368,7 @@ public class UnitCardDisplay : CardDisplay
             {
                 if (tra.AbilityTrigger.AbilityName == triggerName)
                 {
-                    TriggerVisuals(AbilityIcons[displayIndex]);
+                    TriggerState(AbilityIcons[displayIndex]);
                     return;
                 }
             }
@@ -365,10 +376,11 @@ public class UnitCardDisplay : CardDisplay
 
         Debug.LogError("TRIGGER NOT FOUND!");
 
-        static void TriggerVisuals(GameObject icon)
+        void TriggerState(GameObject icon)
         {
             AnimationManager.Instance.AbilityTriggerState(icon);
-            AudioManager.Instance.StartStopSound("SFX_Trigger");
+            auMan.StartStopSound("SFX_Trigger");
+            auMan.StartStopSound(null, CardScript.CardPlaySound); // TESTING
         }
     }
 
