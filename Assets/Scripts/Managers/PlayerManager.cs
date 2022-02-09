@@ -212,9 +212,14 @@ public class PlayerManager : MonoBehaviour
                 efMan.StartEffectGroupList(groupList, coMan.PlayerHero);
                 EnergyLeft -= PlayerHero.HeroPower.PowerCost;
                 HeroPowerUsed = true;
-                foreach (Sound s in PlayerHero.HeroPower.PowerSounds)
-                    AudioManager.Instance.StartStopSound(null, s);
+                PlayerPowerSounds();
             }
         }
+    }
+
+    public void PlayerPowerSounds()
+    {
+        foreach (Sound s in PlayerHero.HeroPower.PowerSounds)
+            AudioManager.Instance.StartStopSound(null, s);
     }
 }

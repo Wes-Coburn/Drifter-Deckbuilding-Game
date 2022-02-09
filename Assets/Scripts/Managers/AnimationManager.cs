@@ -305,6 +305,19 @@ public class AnimationManager : MonoBehaviour
         while (distance > 700);
 
         uMan.CreateVersusPopup();
+
+        // TESTING TESTING TESTING
+        yield return new WaitForSeconds(1);
+        uMan.SelectTarget(coMan.PlayerHero, true);
+        PlayerManager.Instance.PlayerPowerSounds();
+        yield return new WaitForSeconds(2);
+        uMan.SelectTarget(coMan.PlayerHero, false);
+        uMan.SelectTarget(coMan.EnemyHero, true);
+        Sound enemyWinSound = EnemyManager.Instance.EnemyHero.HeroWin;
+        auMan.StartStopSound(null, enemyWinSound);
+        FunctionTimer.Create(() => uMan.SelectTarget(coMan.EnemyHero, false), 2);
+        // TESTING TESTING TESTING
+
         EnemyHero eh = dMan.EngagedHero as EnemyHero;
         if (eh.IsBoss)
         {
@@ -416,13 +429,13 @@ public class AnimationManager : MonoBehaviour
     }
 
     private readonly float minSpeed = 100;
-    private readonly float maxSpeed = 300;
-    private readonly float speedControl = 20;
+    private readonly float maxSpeed = 200;
+    //private readonly float speedControl = 0.05f;
 
     private float GetCurrentSpeed(float distance)
     {
-        //float speed = maxSpeed - (distance / speedControl);
-        float speed = distance / speedControl;
+        float speed = maxSpeed - (distance * 0.5f);
+        //float speed = distance * speedControl;
         if (speed < minSpeed) speed = minSpeed;
         else if (speed > maxSpeed) speed = maxSpeed;
         return speed;

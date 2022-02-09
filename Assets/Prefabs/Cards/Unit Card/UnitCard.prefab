@@ -140,7 +140,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Elite
+  m_text: Rare
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 35dcfebab0afaec44ba5df39248b9e4a, type: 2}
   m_sharedMaterial: {fileID: -6670439693667837105, guid: 35dcfebab0afaec44ba5df39248b9e4a,
@@ -426,7 +426,7 @@ Transform:
   m_Children:
   - {fileID: 268998974255998839}
   m_Father: {fileID: 7415242867258199381}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!222 &7559404383998437950
 CanvasRenderer:
@@ -1045,7 +1045,7 @@ GameObject:
   - component: {fileID: 5889015171656689838}
   - component: {fileID: 1578378594892893496}
   m_Layer: 8
-  m_Name: EliteIcon
+  m_Name: RareIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1140,7 +1140,7 @@ Transform:
   - {fileID: 2976242847790186833}
   - {fileID: 1491423689715088633}
   m_Father: {fileID: 7415242867258199381}
-  m_RootOrder: 8
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &2141575481704377770
 Animator:
@@ -1717,7 +1717,7 @@ Transform:
   - {fileID: 8061795197275840185}
   - {fileID: 3062680755453510891}
   m_Father: {fileID: 7415242867258199381}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &4606915438829167703
 Animator:
@@ -2004,10 +2004,10 @@ RectTransform:
   - {fileID: 189728608350791555}
   - {fileID: 1513447418925946752}
   - {fileID: 6068376870496322108}
-  - {fileID: 475164448740666798}
-  - {fileID: 4740902186210159114}
-  - {fileID: 2578616696171585709}
   - {fileID: 1076557994005737061}
+  - {fileID: 475164448740666798}
+  - {fileID: 2578616696171585709}
+  - {fileID: 4740902186210159114}
   - {fileID: 7865981090841519068}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -2148,7 +2148,7 @@ MonoBehaviour:
   healthScoreDisplay: {fileID: 4194370083493049941}
   exhaustedIcon: {fileID: 3882489080471417206}
   destroyedIcon: {fileID: 3520334792895202772}
-  eliteIcon: {fileID: 3658408671532118699}
+  rareIcon: {fileID: 3658408671532118699}
   abilityIconPrefab: {fileID: 386389505813502122, guid: f86585513f1902f4ba1aac4bc170e0e7,
     type: 3}
   zoomAbilityIconPrefab: {fileID: 386389505813502122, guid: 0ab157fa3dd44cd4a9fdc4c303ac8001,

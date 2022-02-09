@@ -581,13 +581,13 @@ public class GameManager : MonoBehaviour
         coMan.EnemyHero.GetComponent<HeroDisplay>().HeroScript = enMan.EnemyHero;
         // SCHEDULE ACTIONS
         evMan.NewDelayedAction(() => anMan.CombatIntro(), 1f);
-        float delay = 0;
+        float delay = 0; // TESTING
         foreach (HeroItem item in pMan.HeroItems) delay += 0.5f;
         foreach (HeroAugment aug in pMan.HeroAugments) delay += 0.5f;
         if (delay < 3) delay = 3;
 
         evMan.NewDelayedAction(() => CombatStart(), delay);
-        evMan.NewDelayedAction(() => StartCombatTurn(PLAYER), 0.5f);
+        evMan.NewDelayedAction(() => StartCombatTurn(PLAYER), delay + 1);
         // AUDIO
         string soundtrack;
         if (enMan.EnemyHero.IsBoss) soundtrack = "Soundtrack_CombatBoss1";

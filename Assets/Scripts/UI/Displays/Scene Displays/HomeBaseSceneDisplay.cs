@@ -89,11 +89,11 @@ public class HomeBaseSceneDisplay : MonoBehaviour
     public void ShowInfoButton_OnClick() =>
         heroBackstory.SetActive(!heroBackstory.activeSelf);
 
-    public void LearnSkillButton_OnClick() =>
-        uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.LearnSkill);
+    public void LearnSkillButton_OnClick(bool playSound = true) =>
+        uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.LearnSkill, true, playSound); // TESTING
 
-    public void RemoveCardButton_OnClick() =>
-        uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.RemoveCard);
+    public void RemoveCardButton_OnClick(bool playSound = true) =>
+        uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.RemoveCard, true, playSound); // TESTING
 
     public void BackButton_OnClick() => 
         SceneLoader.LoadScene(SceneLoader.Scene.WorldMapScene);

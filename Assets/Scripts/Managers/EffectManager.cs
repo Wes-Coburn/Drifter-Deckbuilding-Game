@@ -711,7 +711,6 @@ public class EffectManager : MonoBehaviour
             if (!eg.Targets.VariableNumber)
                 uMan.SetConfirmEffectButton(false);
         }
-        Debug.Log("TARGET REMOVED!");
     }
 
     /******

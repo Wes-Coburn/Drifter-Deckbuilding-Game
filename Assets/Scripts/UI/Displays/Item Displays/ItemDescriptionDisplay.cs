@@ -8,6 +8,7 @@ public class ItemDescriptionDisplay : MonoBehaviour, IPointerClickHandler, IPoin
     [SerializeField] private GameObject itemImage;
     [SerializeField] private GameObject itemDescription;
     [SerializeField] private GameObject itemCost;
+    [SerializeField] private GameObject rareIcon;
 
     private const string ITEM_ABILITY_POPUP_TIMER = "ItemAbilityPopupTimer";
 
@@ -24,6 +25,7 @@ public class ItemDescriptionDisplay : MonoBehaviour, IPointerClickHandler, IPoin
             string description = "<u><b>" + loadedItem.ItemName + ":</u></b> " + loadedItem.ItemDescription;
             itemDescription.GetComponent<TextMeshProUGUI>().SetText(description);
             itemCost.GetComponent<TextMeshProUGUI>().SetText(GameManager.GetItemCost(loadedItem).ToString());
+            rareIcon.SetActive(loadedItem.IsRareItem);
         }
     }
 

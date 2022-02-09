@@ -275,7 +275,6 @@ public class CardManager : MonoBehaviour
             Debug.LogError("CARD IS NULL!");
             return false;
         }
-
         if (!unitCard.TryGetComponent(out UnitCardDisplay ucd))
         {
             Debug.LogError("TARGET IS NOT UNIT CARD!");
@@ -292,6 +291,7 @@ public class CardManager : MonoBehaviour
                     EffectManager.Instance.StartEffectGroupList(tra.EffectGroupList, unitCard, triggerName), 0.5f, true);
                     effectFound = true;
                 }
+        if (effectFound) auMan.StartStopSound(null, ucd.CardScript.CardPlaySound); // TESTING
         return effectFound;
     }
     public bool TriggerPlayedUnits(string triggerName)

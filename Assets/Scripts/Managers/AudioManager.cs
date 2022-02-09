@@ -14,14 +14,50 @@ public class AudioManager : MonoBehaviour
         }
         else Destroy(gameObject);
         foreach (Sound sound in sounds) AddSoundSource(sound);
+        musicVolume = 1;
+        sfxVolume = 1;
     }
 
     [SerializeField] private Sound[] sounds;
 
+    private float musicVolume;
+    private float sfxVolume;
     private static readonly List<Sound> activeSounds = new List<Sound>();
 
     public Sound CurrentSoundscape { get; set; }
     public Sound CurrentSoundtrack { get; set; }
+
+    public float MusicVolume
+    {
+        get => musicVolume;
+        set
+        {
+            musicVolume = value;
+            if (musicVolume < 0) musicVolume = 0;
+            else if (musicVolume > 1) musicVolume = 1;
+            if (CurrentSoundscape != null)
+                CurrentSoundscape.source.volume = musicVolume;
+            if (CurrentSoundtrack != null)
+                CurrentSoundtrack.source.volume = musicVolume;
+        }
+    }
+    public float SFXVolume
+    {
+        get => sfxVolume;
+        set
+        {
+            sfxVolume = value;
+            if (sfxVolume < 0) sfxVolume = 0;
+            else if (sfxVolume > 1) sfxVolume = 1;
+            foreach (Sound s in activeSounds)
+            {
+                if (CurrentSoundscape != null && s.clip == CurrentSoundscape.clip) continue;
+                if (CurrentSoundtrack != null && s.clip == CurrentSoundtrack.clip) continue;
+                s.source.volume = sfxVolume;
+            }
+        }
+    }
+
     public enum SoundType
     {
         SFX,
@@ -64,6 +100,8 @@ public class AudioManager : MonoBehaviour
         SoundType soundType = SoundType.SFX, bool isEndSound = false, bool isLooped = false)
     {
         int soundIndex;
+        float volume;
+
         Sound currentSound = null;
         if (sound == null)
         {
@@ -75,6 +113,7 @@ public class AudioManager : MonoBehaviour
                 return;
             }
             else currentSound = activeSounds[soundIndex];
+
         }
         else
         {
@@ -90,7 +129,7 @@ public class AudioManager : MonoBehaviour
         switch (soundType)
         {
             case SoundType.SFX:
-                // blank
+                volume = SFXVolume; // TESTING
                 break;
             case SoundType.Soundscape:
                 if (CurrentSoundscape != null)
@@ -98,7 +137,7 @@ public class AudioManager : MonoBehaviour
                     if (CurrentSoundscape.source.clip == currentSound.source.clip) return;
                     CurrentSoundscape.source.Stop();
                 }
-
+                volume = SFXVolume; // TESTING
                 CurrentSoundscape = currentSound;
                 CurrentSoundscape.source.loop = true;
                 break;
@@ -112,12 +151,17 @@ public class AudioManager : MonoBehaviour
                     if (CurrentSoundtrack.source.clip == currentSound.source.clip) return;
                     CurrentSoundtrack.source.Stop();
                 }
-
+                volume = MusicVolume; // TESTING
                 CurrentSoundtrack = currentSound;
                 CurrentSoundtrack.source.loop = true;
                 break;
+            default:
+                Debug.LogError("INVALID SOUND TYPE!");
+                return;
         }
+
         if (isLooped) currentSound.source.loop = true;
+        currentSound.source.volume = volume;
         currentSound.source.Play();
     }
 }

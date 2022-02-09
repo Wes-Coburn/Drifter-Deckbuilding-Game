@@ -43,6 +43,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject chooseCardPopupPrefab;
     [SerializeField] private GameObject aetherCellPopupPrefab;
     [SerializeField] private GameObject cardPagePopupPrefab;
+    [SerializeField] private GameObject cardScrollPopupPrefab;
     [SerializeField] private GameObject learnSkillPopupPrefab;
     [SerializeField] private GameObject recruitUnitPopupPrefab;
     [SerializeField] private GameObject removeCardPopupPrefab;
@@ -440,6 +441,7 @@ public class UIManager : MonoBehaviour
     {
         if (menuPopup != null) return;
         menuPopup = Instantiate(menuPopupPrefab, UICanvas.transform);
+
     }
     public void DestroyMenuPopup()
     {
@@ -593,11 +595,26 @@ public class UIManager : MonoBehaviour
         }
     }
     // Card Page Popups
-    public void CreateCardPagePopup(CardPageDisplay.CardPageType cardPageType)
+    public void CreateCardPagePopup(CardPageDisplay.CardPageType cardPageType, bool isScrollPopup = false, bool playSound = true)
     {
+        float scrollValue = 1;
+        if (cardPagePopup != null && isScrollPopup)
+        {
+            if (cardPagePopup.GetComponent<CardPageDisplay>().IsScrollPage)
+            {
+                Debug.LogWarning("IS SCROLL PAGE!");
+                Scrollbar sBar = cardPagePopup.GetComponentInChildren<Scrollbar>();
+                scrollValue = sBar.value;
+            }
+        }
+
         DestroyCardPagePopup();
-        cardPagePopup = Instantiate(cardPagePopupPrefab, CurrentCanvas.transform);
-        cardPagePopup.GetComponent<CardPageDisplay>().DisplayCardPage(cardPageType);
+        GameObject prefab;
+        if (isScrollPopup) prefab = cardScrollPopupPrefab;
+        else prefab = cardPagePopupPrefab;
+
+        cardPagePopup = Instantiate(prefab, CurrentCanvas.transform);
+        cardPagePopup.GetComponent<CardPageDisplay>().DisplayCardPage(cardPageType, playSound, scrollValue);
     }
     public void DestroyCardPagePopup()
     {

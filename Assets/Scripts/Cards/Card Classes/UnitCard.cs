@@ -5,7 +5,7 @@ using UnityEngine;
 public class UnitCard : Card
 {
     [Header("ELITE")]
-    [SerializeField] private bool isElite;
+    [SerializeField] private bool isRare;
     [Header("POWER")]
     [SerializeField] private int power;
     [Header("HEALTH")]
@@ -14,8 +14,8 @@ public class UnitCard : Card
     [SerializeField] private List<CardAbility> startingAbilities;
     [SerializeField] private Sound unitDeathSound;
 
-    // ELITE
-    public bool IsElite { get => isElite; }
+    // RARE
+    public bool IsRare { get => isRare; }
     // POWER
     public int StartPower { get => power; }
     public int CurrentPower { get; set; }
@@ -34,7 +34,7 @@ public class UnitCard : Card
     {
         base.LoadCard(card);
         UnitCard uc = card as UnitCard;
-        isElite = uc.IsElite;
+        isRare = uc.IsRare;
         power = uc.StartPower;
         health = uc.StartHealth;
         unitDeathSound = uc.UnitDeathSound;

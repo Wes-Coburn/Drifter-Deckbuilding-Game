@@ -124,58 +124,68 @@ public class EnemyManager : MonoBehaviour
 
     private void BeginAttacks()
     {
-        foreach (GameObject enemyUnit in coMan.EnemyZoneCards)
+        foreach (GameObject ally in coMan.EnemyZoneCards)
         {
-            UnitCardDisplay ucd = coMan.GetUnitDisplay(enemyUnit);
+            UnitCardDisplay ucd = coMan.GetUnitDisplay(ally);
             if (!ucd.IsExhausted && ucd.CurrentPower > 0 && ucd.CurrentHealth > 0)
-                evMan.NewDelayedAction(() => ResolveAttack(enemyUnit), 1);
+                evMan.NewDelayedAction(() => ResolveAttack(ally), 1);
         }
         UpdateReinforcements();
         evMan.NewDelayedAction(() =>
         GameManager.Instance.EndCombatTurn(GameManager.ENEMY), 1);
     }
 
-    private void ResolveAttack(GameObject enemyUnit)
+    private void ResolveAttack(GameObject ally)
     {
-        if (enemyUnit == null)
+        if (ally == null)
         {
             Debug.LogWarning("ENEMY UNIT IS NULL!");
             return;
         }
 
-        UnitCardDisplay ucd = coMan.GetUnitDisplay(enemyUnit);
+        UnitCardDisplay ucd = coMan.GetUnitDisplay(ally);
         if (ucd.CurrentPower < 1 || ucd.CurrentHealth < 1) return;
 
-        if (CardManager.GetTrigger(enemyUnit, CardManager.TRIGGER_INFILTRATE) ||
-            CardManager.GetTrigger(enemyUnit, CardManager.TRIGGER_RETALIATE) ||
-            TotalAllyPower() >= PlayerManager.Instance.PlayerHealth)
-        {
-            coMan.Attack(enemyUnit, coMan.PlayerHero);
-            return;
-        }
-        else if (coMan.PlayerZoneCards.Count > 0)
-        {
-            GameObject playerUnit = FindDefender();
-            if (playerUnit != null)
-            {
-                coMan.Attack(enemyUnit, playerUnit);
-                return;
-            }
-        }
-        coMan.Attack(enemyUnit, coMan.PlayerHero);
+        GameObject defender = FindDefender(ally);
+        coMan.Attack(ally, defender);
+    }
+    
+    private int TotalEnemyPower()
+    {
+        int totalPower = 0;
+        foreach (GameObject enemy in coMan.EnemyZoneCards)
+            totalPower += coMan.GetUnitDisplay(enemy).CurrentPower;
+        return totalPower;
     }
     
     private int TotalAllyPower()
     {
         int totalPower = 0;
-        foreach (GameObject ally in coMan.EnemyZoneCards)
-            totalPower += coMan.GetUnitDisplay(ally).CurrentPower;
+        foreach (GameObject ally in coMan.PlayerZoneCards)
+        {
+            UnitCardDisplay ucd = coMan.GetUnitDisplay(ally);
+            if (!ucd.IsExhausted) totalPower += ucd.CurrentPower;
+        }
         return totalPower;
     }
 
-    private GameObject FindDefender()
+    private GameObject FindDefender(GameObject enemy)
     {
         GameObject defender = null;
+        int playerHealth = PlayerManager.Instance.PlayerHealth;
+
+        if (TotalEnemyPower() >= playerHealth) return coMan.PlayerHero;
+
+        if (TotalEnemyPower() >= playerHealth * 0.75f && TotalAllyPower() <= EnemyHealth * 0.75f)
+            return coMan.PlayerHero;
+
+        if (TotalEnemyPower() >= playerHealth || TotalAllyPower() < EnemyHealth)
+        {
+            if (CardManager.GetTrigger(enemy, CardManager.TRIGGER_INFILTRATE) ||
+            CardManager.GetTrigger(enemy, CardManager.TRIGGER_RETALIATE))
+                return coMan.PlayerHero;
+        }
+
         List<GameObject> legalDefenders = new List<GameObject>();
         foreach (GameObject playerUnit in coMan.PlayerZoneCards)
             if (coMan.GetUnitDisplay(playerUnit).CurrentHealth > 0 &&
@@ -202,6 +212,7 @@ public class EnemyManager : MonoBehaviour
                 defender = legalDefender;
             }
         }
+        if (defender == null) return coMan.PlayerHero;
         return defender;
     }
 

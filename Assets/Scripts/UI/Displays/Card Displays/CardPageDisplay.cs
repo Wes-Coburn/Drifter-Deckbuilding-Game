@@ -1,22 +1,29 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class CardPageDisplay : MonoBehaviour
 {
+    [Header("IS_SCROLL_PAGE")]
+    [SerializeField] private bool isScrollPage;
+
+    [Header("PREFABS")]
+    [SerializeField] private GameObject cardPageCardContainerPrefab;
     [SerializeField] private GameObject learnSkillButtonPrefab;
     [SerializeField] private GameObject recruitUnitButtonPrefab;
     [SerializeField] private GameObject removeCardButtonPrefab;
     [SerializeField] private GameObject cloneUnitButtonPrefab;
-    [SerializeField] private GameObject pageCounter;
+
+    [Header("REFERENCES")]
     [SerializeField] private GameObject cardGroup;
     [SerializeField] private GameObject costGroup;
     [SerializeField] private GameObject pageTitle;
     [SerializeField] private GameObject noCardsTooltip;
-
     [SerializeField] private GameObject previousButton;
     [SerializeField] private GameObject nextButton;
+    [SerializeField] private GameObject pageCounter;
 
     private PlayerManager pMan;
     private UIManager uMan;
@@ -42,7 +49,9 @@ public class CardPageDisplay : MonoBehaviour
         CloneUnit,
     }
 
-    public void DisplayCardPage(CardPageType cardPageType)
+    public bool IsScrollPage { get => isScrollPage; }
+
+    public void DisplayCardPage(CardPageType cardPageType, bool playSound, float scrollValue)
     {
         pMan = PlayerManager.Instance;
         uMan = UIManager.Instance;
@@ -98,8 +107,37 @@ public class CardPageDisplay : MonoBehaviour
             noCardsTooltip.SetActive(true);
             totalPages = 1;
         }
-        LoadCardPage();
-        AudioManager.Instance.StartStopSound("SFX_CreatePopup1");
+        if (isScrollPage) LoadScrollPage(scrollValue);
+        else LoadCardPage();
+        if (playSound) AudioManager.Instance.StartStopSound("SFX_CreatePopup1");
+    }
+
+    private void LoadScrollPage(float scrollValue)
+    {
+        Rect rect = cardGroup.GetComponent<RectTransform>().rect;
+        int rows = cardGroupList.Count / 4;
+        if (rows < 1) rows = 1;
+        float height = 675 * (rows + 1);
+        cardGroup.GetComponent<RectTransform>().sizeDelta = new Vector2(rect.width, height);
+        GetComponentInChildren<Scrollbar>().value = scrollValue; // TESTING
+
+        foreach (Card card in cardGroupList)
+        {
+            GameObject container = Instantiate(cardPageCardContainerPrefab, cardGroup.transform);
+            CardPageCardContainerDisplay cpccd = container.GetComponent<CardPageCardContainerDisplay>();
+
+            GameObject cardPageCard =
+                CombatManager.Instance.ShowCard(card, new Vector2(), CombatManager.DisplayType.Cardpage);
+            
+            CardDisplay cd = cardPageCard.GetComponent<CardDisplay>();
+            cd.DisableVisuals();
+            cardPageCard.transform.localScale = new Vector2(4, 4);
+            cardPageCard.transform.SetParent(cpccd.CardPageCard.transform, false); // TESTING
+
+            CreateCardPageButton(card, cpccd.CardCostButton);
+        }
+
+
     }
 
     private void LoadCardPage()
@@ -132,48 +170,54 @@ public class CardPageDisplay : MonoBehaviour
             cardObj.transform.localScale = new Vector2(4, 4);
 
             activeCards.Add(cardObj);
-            GameObject buttonPrefab;
-
-            switch(cardPageType)
-            {
-                case CardPageType.LearnSkill:
-                    buttonPrefab = learnSkillButtonPrefab;
-                    break;
-                case CardPageType.RemoveCard:
-                    buttonPrefab = removeCardButtonPrefab;
-                    break;
-                case CardPageType.RecruitUnit:
-                    buttonPrefab = recruitUnitButtonPrefab;
-                    break;
-                case CardPageType.CloneUnit:
-                    buttonPrefab = cloneUnitButtonPrefab;
-                    break;
-                default:
-                    Debug.LogError("INVALID TYPE!");
-                    return;
-            }
-
-            GameObject button = Instantiate(buttonPrefab, costGroup.transform);
-            switch (cardPageType)
-            {
-                case CardPageType.LearnSkill:
-                    button.GetComponent<LearnSkillButton>().SkillCard = card as SkillCard;
-                    break;
-                case CardPageType.RemoveCard:
-                    button.GetComponent<RemoveCardButton>().Card = card;
-                    break;
-                case CardPageType.RecruitUnit:
-                    button.GetComponent<RecruitUnitButton>().UnitCard = card as UnitCard;
-                    break;
-                case CardPageType.CloneUnit:
-                    button.GetComponent<CloneUnitButton>().UnitCard = card as UnitCard;
-                    break;
-                default:
-                    Debug.LogError("INVALID TYPE!");
-                    return;
-            }
+            GameObject button = CreateCardPageButton(card, costGroup);
+            if (button == null) return;
             activeCards.Add(button);
         }
+    }
+
+    private GameObject CreateCardPageButton(Card card, GameObject parent)
+    {
+        GameObject buttonPrefab;
+        switch (cardPageType)
+        {
+            case CardPageType.LearnSkill:
+                buttonPrefab = learnSkillButtonPrefab;
+                break;
+            case CardPageType.RemoveCard:
+                buttonPrefab = removeCardButtonPrefab;
+                break;
+            case CardPageType.RecruitUnit:
+                buttonPrefab = recruitUnitButtonPrefab;
+                break;
+            case CardPageType.CloneUnit:
+                buttonPrefab = cloneUnitButtonPrefab;
+                break;
+            default:
+                Debug.LogError("INVALID TYPE!");
+                return null;
+        }
+
+        GameObject button = Instantiate(buttonPrefab, parent.transform);
+        switch (cardPageType)
+        {
+            case CardPageType.LearnSkill:
+                button.GetComponent<LearnSkillButton>().SkillCard = card as SkillCard;
+                break;
+            case CardPageType.RemoveCard:
+                button.GetComponent<RemoveCardButton>().Card = card;
+                break;
+            case CardPageType.RecruitUnit:
+                button.GetComponent<RecruitUnitButton>().UnitCard = card as UnitCard;
+                break;
+            case CardPageType.CloneUnit:
+                button.GetComponent<CloneUnitButton>().UnitCard = card as UnitCard;
+                break;
+            default:
+                Debug.LogError("INVALID TYPE!");
+                return null;
+        }
+        return button;
     }
 
     public void NextPageButton_OnClick()
@@ -189,7 +233,17 @@ public class CardPageDisplay : MonoBehaviour
         currentPage--;
         LoadCardPage();
     }
-    
+
+    public void LearnSkillTab_OnClick()
+    {
+        FindObjectOfType<HomeBaseSceneDisplay>().LearnSkillButton_OnClick(false); // TESTING
+    }
+
+    public void RemoveCardTab_OnClick()
+    {
+        FindObjectOfType<HomeBaseSceneDisplay>().RemoveCardButton_OnClick(false); // TESTING
+    }
+
     public void LearnSkillButton_OnClick(SkillCard skillCard)
     {
         if (pMan.AetherCells < GameManager.LEARN_SKILL_COST)
