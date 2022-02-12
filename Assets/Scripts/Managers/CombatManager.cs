@@ -42,6 +42,8 @@ public class CombatManager : MonoBehaviour
     public const string PLAYER_ZONE = "PlayerZone";
     public const string PLAYER_ACTION_ZONE = "PlayerActionZone";
     public const string PLAYER_DISCARD = "PlayerDiscard";
+    public const string HERO_POWER = "HeroPower";
+    public const string HERO_ULTIMATE = "HeroUltimate";
 
     public const string ENEMY_CARD = "EnemyCard";
     public const string ENEMY_HERO = "EnemyHero";

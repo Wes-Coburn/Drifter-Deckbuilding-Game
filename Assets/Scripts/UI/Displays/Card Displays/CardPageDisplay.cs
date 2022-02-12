@@ -25,6 +25,11 @@ public class CardPageDisplay : MonoBehaviour
     [SerializeField] private GameObject nextButton;
     [SerializeField] private GameObject pageCounter;
 
+    [Header("PROGRESS BAR")]
+    [SerializeField] private GameObject progressBar;
+    [SerializeField] private GameObject progressFill;
+    [SerializeField] private GameObject progressBarText;
+
     private PlayerManager pMan;
     private UIManager uMan;
     private List<Card> cardGroupList;
@@ -50,7 +55,17 @@ public class CardPageDisplay : MonoBehaviour
     }
 
     public bool IsScrollPage { get => isScrollPage; }
+    public void SetProgressBar(int currentProgress, int newProgress, bool isReady, bool isFirstDisplay = false)
+    {
+        string progressText;
+        if (isReady) progressText = "NEXT UNIT DISCOUNTED!";
+        else progressText = newProgress + "/" + GameManager.RECRUIT_LOYALTY_GOAL + " Units Recruited";
+        progressBarText.GetComponent<TextMeshProUGUI>().SetText(progressText);
 
+        if (isFirstDisplay && newProgress < 1) return; // TESTING
+        AnimationManager.Instance.SetProgressBar(AnimationManager.ProgressBarType.Recruit,
+            currentProgress, newProgress, isReady, progressBar, progressFill);
+    }
     public void DisplayCardPage(CardPageType cardPageType, bool playSound, float scrollValue)
     {
         pMan = PlayerManager.Instance;
@@ -58,6 +73,8 @@ public class CardPageDisplay : MonoBehaviour
         this.cardPageType = cardPageType;
         cardGroupList = new List<Card>();
         string titleText;
+        bool setProgressBar = false; // TESTING
+        int progress = 0;
 
         switch (cardPageType)
         {
@@ -75,6 +92,8 @@ public class CardPageDisplay : MonoBehaviour
                 cardGroupList.Add(c);
                 break;
             case CardPageType.RecruitUnit:
+                setProgressBar = true; // TESTING
+                progress = GameManager.Instance.RecruitLoyalty; // TESTING
                 titleText = "Recruit a Unit";
                 foreach (Card c in CardManager.Instance.PlayerRecruitUnits)
                     cardGroupList.Add(c);
@@ -89,6 +108,9 @@ public class CardPageDisplay : MonoBehaviour
                 Debug.LogError("INVALID TYPE!");
                 return;
         }
+
+        if (progressBar != null) progressBar.SetActive(setProgressBar); // TESTING
+        if (setProgressBar) SetProgressBar(0, progress, false, true); // TESTING
 
         pageTitle.GetComponent<TextMeshProUGUI>().SetText(titleText);
         activeCards = new List<GameObject>();
@@ -133,7 +155,6 @@ public class CardPageDisplay : MonoBehaviour
             cd.DisableVisuals();
             cardPageCard.transform.localScale = new Vector2(4, 4);
             cardPageCard.transform.SetParent(cpccd.CardPageCard.transform, false); // TESTING
-
             CreateCardPageButton(card, cpccd.CardCostButton);
         }
 

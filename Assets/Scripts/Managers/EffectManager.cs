@@ -114,11 +114,10 @@ public class EffectManager : MonoBehaviour
             Debug.LogError("SOURCE IS NULL!");
             return false;
         }
-        if (source.CompareTag(CombatManager.PLAYER_CARD) ||
-            source.CompareTag(CombatManager.PLAYER_HERO) || 
-            source.TryGetComponent(out ItemIcon _))
-            return true;
-        else return false;
+        if (source.CompareTag(CombatManager.ENEMY_CARD) ||
+            source.CompareTag(CombatManager.ENEMY_HERO))
+            return false;
+        else return true;
     }
 
     /******
@@ -1125,7 +1124,7 @@ public class EffectManager : MonoBehaviour
             if (isUserAbort)
             {
                 pMan.EnergyLeft += ucd.CurrentEnergyCost;
-                coMan.ChangeCardZone(effectSource, handZone, true); // TESTING
+                coMan.ChangeCardZone(effectSource, handZone, true);
                 coMan.PlayerZoneCards.Remove(effectSource);
                 coMan.PlayerHandCards.Add(effectSource);
             }
@@ -1135,12 +1134,21 @@ public class EffectManager : MonoBehaviour
                     TriggerGiveNextEffect(effectSource);
             }
         }
-        else if (effectSource.CompareTag(CombatManager.PLAYER_HERO))
+        else if (effectSource.CompareTag(CombatManager.HERO_POWER))
         {
             if (isUserAbort)
             {
                 pMan.HeroPowerUsed = false;
                 pMan.EnergyLeft += pMan.PlayerHero.HeroPower.PowerCost;
+            }
+        }
+        else if (effectSource.CompareTag(CombatManager.HERO_ULTIMATE)) // TESTING
+        {
+            if (isUserAbort)
+            {
+                pMan.EnergyLeft += pMan.PlayerHero.HeroUltimate.PowerCost;
+                pMan.HeroUltimateProgress = GameManager.HERO_ULTMATE_GOAL;
+                coMan.PlayerHero.GetComponent<PlayerHeroDisplay>().HeroUltimate.SetActive(true);
             }
         }
         else if (effectSource.TryGetComponent(out ItemIcon _))
@@ -1208,9 +1216,16 @@ public class EffectManager : MonoBehaviour
                     pMan.HeroItems.Remove(icon.LoadedItem);
                     uMan.SetSkybar(true);
                 }
-                else if (coMan.PlayerHero == effectSource)
+                else if (effectSource.CompareTag(CombatManager.HERO_POWER))
                 {
+                    Debug.LogWarning("HERO POWER SOURCE!");
                     CardManager.Instance.TriggerPlayedUnits(CardManager.TRIGGER_RESEARCH);
+                    pMan.HeroUltimateProgress++;
+                }
+                else if (effectSource.CompareTag(CombatManager.HERO_ULTIMATE))
+                {
+                    Debug.LogWarning("HERO ULTIMATE SOURCE!");
+                    pMan.HeroUltimateProgress = 0;
                 }
             }
         }

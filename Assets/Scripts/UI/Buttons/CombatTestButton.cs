@@ -4,6 +4,7 @@ public class CombatTestButton : MonoBehaviour
 {
     [Header("DEVELOPER MODE")]
     [SerializeField] private bool developerMode;
+    [SerializeField] private bool setEnemyHealth1;
     [Space]
     [SerializeField] private bool addStartUnits;
     [SerializeField] private bool addStartSkills;

@@ -18,6 +18,7 @@ MonoBehaviour:
   cardName: Explosive Aggression
   cardType: Action
   cardSubType: Skill
+  isRare: 0
   cardDescription: It lives within all of us, but only a few can truly harness it.
   overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
   zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
@@ -27,8 +28,8 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
-  effectDescription: "\uF0D8 Give an ally +2|+0. Then if its power is 6 or greater,
-    give it +0/+1."
+  effectDescription: Give an ally +1|+1. Then if its power is 4 or less, give it
+    +1|+0 this turn.
   effectGroupList:
   - {fileID: 11400000, guid: 8a489bd26e5774f498ed20cdaf122c55, type: 2}
   linkedAbilities:

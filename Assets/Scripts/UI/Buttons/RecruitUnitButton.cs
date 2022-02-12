@@ -4,6 +4,7 @@ using TMPro;
 public class RecruitUnitButton : MonoBehaviour
 {
     [SerializeField] private GameObject recruitCost;
+    private UnitCard unitCard;
     private int RecruitCost
     {
         set
@@ -11,10 +12,14 @@ public class RecruitUnitButton : MonoBehaviour
             recruitCost.GetComponent<TextMeshProUGUI>().SetText(value.ToString());
         }
     }
-    public UnitCard UnitCard { get; set; }
-    private void Awake()
+    public UnitCard UnitCard
     {
-        RecruitCost = GameManager.LEARN_SKILL_COST;
+        get => unitCard;
+        set
+        {
+            unitCard = value;
+            RecruitCost = GameManager.Instance.GetRecruitCost(unitCard);
+        }
     }
     public void OnClick() =>
         FindObjectOfType<CardPageDisplay>().RecruitUnitButton_OnClick(UnitCard);

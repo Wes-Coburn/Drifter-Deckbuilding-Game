@@ -18,6 +18,7 @@ MonoBehaviour:
   cardName: Seize The Moment
   cardType: Action
   cardSubType: 
+  isRare: 1
   cardDescription: Seize The Moment is...
   overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
   zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
@@ -30,6 +31,6 @@ MonoBehaviour:
   effectDescription: Deal 4 to a unit and draw 1. If this destroys it, repeat this
     effect.
   effectGroupList:
-  - {fileID: 11400000, guid: 133d1246cc7a24b4f92509b8cf850884, type: 2}
   - {fileID: 11400000, guid: 023c2a13540808347adc8dfb99742db9, type: 2}
+  - {fileID: 11400000, guid: 133d1246cc7a24b4f92509b8cf850884, type: 2}
   linkedAbilities: []

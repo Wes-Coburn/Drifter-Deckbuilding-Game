@@ -17,6 +17,11 @@ public class HeroSelectSceneDisplay : MonoBehaviour
     [SerializeField] private GameObject heroPowerDescription;
     [SerializeField] private GameObject heroPowerCost;
 
+    [SerializeField] private GameObject heroUltimate;
+    [SerializeField] private GameObject heroUltimateImage;
+    [SerializeField] private GameObject heroUltimateDescription;
+    [SerializeField] private GameObject heroUltimateCost;
+
     private PlayerManager pMan;
     private CombatManager coMan;
     private UIManager uMan;
@@ -90,18 +95,28 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         }
         heroBackstory.GetComponentInChildren<TextMeshProUGUI>().SetText(LoadedHero.HeroBackstory);
         heroName.GetComponent<TextMeshProUGUI>().SetText(LoadedHero.HeroName);
-        heroPowerCost.GetComponent<TextMeshProUGUI>().SetText(LoadedHero.HeroPower.PowerCost.ToString());
         heroPortrait.GetComponent<Image>().sprite = LoadedHero.HeroPortrait;
         uMan.GetPortraitPosition(LoadedHero.HeroName,
             out Vector2 position, out Vector2 scale, SceneLoader.Scene.HeroSelectScene);
         heroPortrait.transform.localPosition = position;
         heroPortrait.transform.localScale = scale;
         heroDescription.GetComponent<TextMeshProUGUI>().SetText(LoadedHero.HeroDescription);
-        heroPowerImage.GetComponent<Image>().sprite = LoadedHero.HeroPower.PowerSprite;
+
+        // POWER
         heroPower.GetComponent<PowerZoom>().LoadedPower = LoadedHero.HeroPower;
+        heroPowerCost.GetComponent<TextMeshProUGUI>().SetText(LoadedHero.HeroPower.PowerCost.ToString());
+        heroPowerImage.GetComponent<Image>().sprite = LoadedHero.HeroPower.PowerSprite;
         heroPowerDescription.GetComponent<TextMeshProUGUI>().SetText
             ("<b><u>" + LoadedHero.HeroPower.PowerName +
             ":</b></u> " + LoadedHero.HeroPower.PowerDescription);
+        
+        // ULTIMATE
+        heroUltimate.GetComponent<PowerZoom>().LoadedPower = LoadedHero.HeroUltimate;
+        heroUltimateCost.GetComponent<TextMeshProUGUI>().SetText(LoadedHero.HeroUltimate.PowerCost.ToString());
+        heroUltimateImage.GetComponent<Image>().sprite = LoadedHero.HeroUltimate.PowerSprite;
+        heroUltimateDescription.GetComponent<TextMeshProUGUI>().SetText
+            ("<b><u>" + LoadedHero.HeroUltimate.PowerName +
+            " (Ultimate):</b></u> " + LoadedHero.HeroUltimate.PowerDescription);
 
         if (currentSkill_1 != null)
         {

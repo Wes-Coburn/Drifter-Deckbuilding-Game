@@ -20,6 +20,7 @@ public abstract class CardDisplay : MonoBehaviour
     [SerializeField] private GameObject cardArt;
     [SerializeField] private GameObject cardBorder;
     [SerializeField] private GameObject cardTypeLine;
+    [SerializeField] private GameObject rareIcon;
     [SerializeField] private GameObject energyCost;
 
     private GameObject cardContainer;
@@ -97,6 +98,7 @@ public abstract class CardDisplay : MonoBehaviour
         string spacer = "";
         if (!string.IsNullOrEmpty(CardScript.CardSubType)) spacer = " - ";
         CardTypeLine = CardScript.CardType + spacer + CardScript.CardSubType;
+        rareIcon.SetActive(CardScript.IsRare); // TESTING
         CurrentEnergyCost = CardScript.StartEnergyCost;
         CardArt = CardScript.CardArt;
         CardBorder = CardScript.CardBorder;
@@ -142,6 +144,8 @@ public abstract class CardDisplay : MonoBehaviour
             animator.runtimeAnimatorController = CardScript.ZoomOverController;
             AnimationManager.Instance.ZoomedState(gameObject);
         }
+
+        rareIcon.SetActive(CardScript.IsRare); // TESTING
     }
 
     /******
@@ -149,10 +153,8 @@ public abstract class CardDisplay : MonoBehaviour
      * ****** DISPLAY_CARD_PAGE_CARD
      * *****
      *****/
-    public virtual void DisplayCardPageCard(Card card)
-    {
-        // blank
-    }
+    public virtual void DisplayCardPageCard(Card card) =>
+        rareIcon.SetActive(card.IsRare); // TESTING
 
     /******
      * *****

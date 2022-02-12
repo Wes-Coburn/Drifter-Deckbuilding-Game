@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
         }
     }
     public bool IsCombatTest { get; set; }
-    public bool HideExplicitLanguage { get; private set; }
+    public bool HideExplicitLanguage { get; set; }
     public Narrative CurrentNarrative { get; set; }
     public List<NPCHero> ActiveNPCHeroes { get; private set; }
     public List<Location> ActiveLocations { get; private set; }
@@ -60,7 +60,16 @@ public class GameManager : MonoBehaviour
     public List<HeroItem> ShopItems { get; private set; }
     public bool Achievement_BETA_Finish { get; set; }
 
+    // Loyalty
+    public int ShopLoyalty { get; set; }
+    public int RecruitLoyalty { get; set; }
+
     /* GAME_MANAGER_DATA */
+    // Player Preferences
+    public const string MUSIC_VOLUME = "MusicVolume";
+    public const string SFX_VOLUME = "SFXVolume";
+    public const string HIDE_EXPLICIT_LANGUAGE = "HideExplicitLanguage";
+
     // Universal
     public const int MAX_HAND_SIZE = 8;
     public const int MAX_UNITS_PLAYED = 5;
@@ -70,32 +79,36 @@ public class GameManager : MonoBehaviour
     public const int MINIMUM_DECK_SIZE = 12;
     public const int PLAYER_STARTING_HEALTH = 20;
     public const int PLAYER_HAND_SIZE = 4;
-    //public const int PLAYER_HAND_SIZE = 1; // FOR TESTING ONLY
     public const int PLAYER_START_UNITS = 2;
     public const int PLAYER_START_SKILLS = 2;
     public const int START_ENERGY_PER_TURN = 1;
     public const int MAXIMUM_ENERGY_PER_TURN = 5;
     public const int MAXIMUM_ENERGY = 10;
-
-    // Aether Rewards
-    public const int IGNORE_CARD_AETHER = 1;
-
-    // Aether Costs
-    public const int LEARN_SKILL_COST = 2;
-    public const int RECRUIT_UNIT_COST = 2;
-    public const int ACQUIRE_AUGMENT_COST = 5;
-    public const int REMOVE_CARD_COST = 1;
-    public const int BUY_ITEM_COST = 1;
-    public const int BUY_RARE_ITEM_COST = 2;
-    public const int CLONE_UNIT_COST = 2;
+    public const int HERO_ULTMATE_GOAL = 3;
+    //public const int HERO_ULTMATE_GOAL = 1; // FOR TESTING ONLY
 
     // Enemy
     public const string ENEMY = "Enemy";
-    public const int ENEMY_STARTING_HEALTH = 20;
-    //public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
+    //public const int ENEMY_STARTING_HEALTH = 20;
+    public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
     public const int BOSS_BONUS_HEALTH = 10;
     public const int ENEMY_HAND_SIZE = 0;
-    public const int ENEMY_START_Units = 5;
+    public const int ENEMY_START_UNITS = 5;
+
+    // Aether Rewards
+    public const int IGNORE_CARD_AETHER = 1;
+    // Aether Costs
+    public const int LEARN_SKILL_COST = 2;
+    public const int REMOVE_CARD_COST = 1;
+    public const int CLONE_UNIT_COST = 2;
+    // Recruits
+    public const int RECRUIT_UNIT_COST = 2;
+    public const int RECRUIT_RARE_UNIT_COST = 4;
+    public const int RECRUIT_LOYALTY_GOAL = 3;
+    // Items
+    public const int BUY_ITEM_COST = 1;
+    public const int BUY_RARE_ITEM_COST = 2;
+    public const int SHOP_LOYALTY_GOAL = 3;
 
     /******
      * *****
@@ -121,6 +134,7 @@ public class GameManager : MonoBehaviour
         ShopItems = new List<HeroItem>();
         StartTitleScene();
         Debug.Log("Application Version: " + Application.version);
+        LoadPlayerPreferences(); // TESTING
     }
 
     /******
@@ -130,14 +144,40 @@ public class GameManager : MonoBehaviour
      *****/
     public void NewGame(bool hideExplicitLanguage)
     {
-        IsCombatTest = false; // FOR TESTING ONLY
+        IsCombatTest = false;
         HideExplicitLanguage = hideExplicitLanguage;
         CurrentNarrative = settingNarrative;
         caMan.ShuffleRecruits();
         ShopItems = GetShopItems();
+        ShopLoyalty = 0; // TESTING
+        RecruitLoyalty = 0; // TESTING
         GetActiveLocation(homeBaseLocation);
         CurrentLocation = GetActiveLocation(firstLocation);
         SceneLoader.LoadScene(SceneLoader.Scene.NarrativeScene);
+    }
+
+    /******
+     * *****
+     * ****** SAVE_PLAYER_PREFERENCES
+     * *****
+     *****/
+    public void SavePlayerPreferences()
+    {
+        PlayerPrefs.SetFloat(MUSIC_VOLUME, auMan.MusicVolume);
+        PlayerPrefs.SetFloat(SFX_VOLUME, auMan.SFXVolume);
+
+        int hideExplicit = 0;
+        if (HideExplicitLanguage) hideExplicit = 1;
+        PlayerPrefs.SetInt(HIDE_EXPLICIT_LANGUAGE, hideExplicit);
+    }
+    public void LoadPlayerPreferences()
+    {
+        auMan.MusicVolume = PlayerPrefs.GetFloat(MUSIC_VOLUME, 1);
+        auMan.SFXVolume = PlayerPrefs.GetFloat(SFX_VOLUME, 1);
+
+        bool hideExplicit = false;
+        if (PlayerPrefs.GetInt(HIDE_EXPLICIT_LANGUAGE, 1) == 1) hideExplicit = true;
+        HideExplicitLanguage = hideExplicit;
     }
 
     /******
@@ -196,10 +236,11 @@ public class GameManager : MonoBehaviour
 
         string narrativeName = "";
         if (CurrentNarrative != null) narrativeName = CurrentNarrative.NarrativeName;
-        GameData data = new GameData(HideExplicitLanguage, narrativeName, pMan.PlayerHero.HeroName,
+        GameData data = new GameData(narrativeName, pMan.PlayerHero.HeroName,
             deckList, augments, items, pMan.AetherCells,
             npcsAndClips, locationsNPCsObjectives, VisitedLocations.ToArray(),
             shopItems, recruitMages, recruitRogues, recruitTechs, recruitWarriors,
+            RecruitLoyalty, ShopLoyalty,
             Achievement_BETA_Finish);
         SaveLoad.SaveGame(data);
     }
@@ -276,10 +317,6 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < items.Length; i++)
             allItems.Add(items[i]);
 
-        /** LOAD DATA **/
-        // HIDE EXPLICIT LANGUAGE
-        HideExplicitLanguage = data.HideExplicitLanguage;
-
         // CURRENT NARRATIVE
         if (data.CurrentNarrative != "")
             CurrentNarrative = GetNarrative(data.CurrentNarrative);
@@ -347,6 +384,10 @@ public class GameManager : MonoBehaviour
         caMan.PlayerRecruitWarriors.Clear();
         for (int i = 0; i < data.RecruitWarriors.Length; i++)
             caMan.PlayerRecruitWarriors.Add(GetCard(data.RecruitWarriors[i]) as UnitCard);
+
+        // LOYALTY
+        RecruitLoyalty = data.RecruitLoyalty;
+        ShopLoyalty = data.ShopLoyalty;
 
         // ACHIEVEMENTS
         Achievement_BETA_Finish = data.Achievement_BETA_Finish;
@@ -555,6 +596,7 @@ public class GameManager : MonoBehaviour
         uMan.EndTurnButton.SetActive(false);
         pHD.HeroStats.SetActive(false);
         pHD.PowerUsedIcon.SetActive(false);
+        pHD.HeroUltimate.SetActive(false);
         eHD.HeroStats.SetActive(false);
 
         // ENEMY MANAGER
@@ -572,6 +614,7 @@ public class GameManager : MonoBehaviour
         pMan.PlayerHealth = pMan.MaxPlayerHealth;
         pMan.EnergyPerTurn = pMan.StartEnergy;
         pMan.EnergyLeft = 0;
+        pMan.HeroUltimateProgress_Direct = 0;
 
         // UPDATE DECKS
         caMan.UpdateDeck(PLAYER);
@@ -607,8 +650,7 @@ public class GameManager : MonoBehaviour
         }
         void Mulligan()
         {
-            efMan.StartEffectGroupList(new List<EffectGroup> { mulliganEffect },
-                coMan.PlayerHero);
+            efMan.StartEffectGroupList(new List<EffectGroup> { mulliganEffect }, gameObject);
         }
     }
 
@@ -826,11 +868,26 @@ public class GameManager : MonoBehaviour
      * ****** GET_ITEM_COST
      * *****
      *****/
-    public static int GetItemCost(HeroItem item)
+    public int GetItemCost(HeroItem item)
     {
         int itemCost;
         if (item.IsRareItem) itemCost = BUY_RARE_ITEM_COST;
         else itemCost = BUY_ITEM_COST;
+        if (ShopLoyalty == SHOP_LOYALTY_GOAL) itemCost -= BUY_ITEM_COST; // TESTING
         return itemCost;
+    }
+
+    /******
+     * *****
+     * ****** GET_RECRUIT_COST
+     * *****
+     *****/
+    public int GetRecruitCost(UnitCard unitCard)
+    {
+        int recruitCost;
+        if (unitCard.IsRare) recruitCost = RECRUIT_RARE_UNIT_COST;
+        else recruitCost = RECRUIT_UNIT_COST;
+        if (RecruitLoyalty == RECRUIT_LOYALTY_GOAL) recruitCost -= RECRUIT_UNIT_COST; // TESTING
+        return recruitCost;
     }
 }

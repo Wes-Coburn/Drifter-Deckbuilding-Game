@@ -27,12 +27,11 @@ public class DialogueManager : MonoBehaviour
     private TextMeshProUGUI currentTmPro;
     private float typedTextDelay;
     private bool newEngagedHero;
-    private bool allowResponse; // TESTING
 
     public DialogueSceneDisplay DialogueDisplay { get => dialogueDisplay; }
     public NPCHero EngagedHero { get; set; } // PUBLIC SET FOR COMBAT TEST BUTTON
     public Coroutine CurrentTextRoutine { get; private set; }
-    public bool AllowResponse { get => allowResponse; }
+    public bool AllowResponse { get; set; } // TESTING
 
     private void Start()
     {
@@ -41,7 +40,7 @@ public class DialogueManager : MonoBehaviour
         uMan = UIManager.Instance;
         auMan = AudioManager.Instance;
         newEngagedHero = false;
-        allowResponse = true; // TESTING
+        AllowResponse = true; // TESTING
     }
 
     public void DisplayCurrentHeroes()
@@ -91,13 +90,10 @@ public class DialogueManager : MonoBehaviour
         DialoguePrompt dpr = currentDialogueClip as DialoguePrompt;
         if (newEngagedHero)
         {
-            AnimationManager.Instance.NewEngagedHero(false);
             dialogueDisplay.NPCHeroSpeech = "";
             newEngagedHero = false;
-
-            allowResponse = false; // TESTING
-            FunctionTimer.Create(() => allowResponse = true, 1.5f); // TESTING
-            FunctionTimer.Create(() => DisplayDialoguePopup(), 1);
+            AllowResponse = false;
+            AnimationManager.Instance.NewEngagedHero(false); // TESTING
             return;
         }
 
@@ -216,7 +212,7 @@ public class DialogueManager : MonoBehaviour
     public void DialogueResponse(int response)
     {
         if (SceneLoader.SceneIsLoading) return; // TESTING
-        if (allowResponse == false) return;
+        if (AllowResponse == false) return;
 
         if (currentDialogueClip == null)
         {
@@ -228,6 +224,7 @@ public class DialogueManager : MonoBehaviour
             StopTimedText(true);
             return;
         }
+        Debug.LogWarning("DIALOGUE RESPONSE!");
 
         DialoguePrompt prompt = currentDialogueClip as DialoguePrompt;
         DialogueResponse dResponse = null;
@@ -336,7 +333,10 @@ public class DialogueManager : MonoBehaviour
                 {
                     if (!prompt.HideNPC)
                     {
+                        currentDialogueClip = nextClip; // TESTING
+                        AllowResponse = false;
                         AnimationManager.Instance.NewEngagedHero(true); // TESTING
+                        return;
                     }
                 }
             }

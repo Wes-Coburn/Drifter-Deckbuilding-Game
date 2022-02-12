@@ -61,7 +61,7 @@ public class EnemyManager : MonoBehaviour
                 return;
             }
             foreach (UnitCard unit in enemyHero.Reinforcements[ReinforcementGroup].ReinforcementUnits)
-                for (int i = 0; i < GameManager.ENEMY_START_Units; i++)
+                for (int i = 0; i < GameManager.ENEMY_START_UNITS; i++)
                     CardManager.Instance.AddCard(unit, GameManager.ENEMY);
             ReinforcementSchedule =
                 EnemyHero.Reinforcements[ReinforcementGroup].ReinforcementSchedule.Schedule;

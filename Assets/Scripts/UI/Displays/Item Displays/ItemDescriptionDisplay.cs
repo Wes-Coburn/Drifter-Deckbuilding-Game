@@ -14,6 +14,7 @@ public class ItemDescriptionDisplay : MonoBehaviour, IPointerClickHandler, IPoin
 
     private PlayerManager pMan;
     private UIManager uMan;
+    private GameManager gMan;
     private HeroItem loadedItem;
 
     public HeroItem LoadedItem
@@ -24,22 +25,23 @@ public class ItemDescriptionDisplay : MonoBehaviour, IPointerClickHandler, IPoin
             itemImage.GetComponent<Image>().sprite = loadedItem.ItemImage;
             string description = "<u><b>" + loadedItem.ItemName + ":</u></b> " + loadedItem.ItemDescription;
             itemDescription.GetComponent<TextMeshProUGUI>().SetText(description);
-            itemCost.GetComponent<TextMeshProUGUI>().SetText(GameManager.GetItemCost(loadedItem).ToString());
+            itemCost.GetComponent<TextMeshProUGUI>().SetText(gMan.GetItemCost(loadedItem).ToString());
             rareIcon.SetActive(loadedItem.IsRareItem);
         }
     }
-
+    
     private void Awake()
     {
         pMan = PlayerManager.Instance;
         uMan = UIManager.Instance;
+        gMan = GameManager.Instance;
     }
 
     public void OnPointerClick(PointerEventData pointerEventData)
     {
         if (pMan.HeroItems.Count >= 5)
             uMan.CreateFleetingInfoPopup("You can't have more than 5 items!", true);
-        else if (pMan.AetherCells < GameManager.GetItemCost(loadedItem))
+        else if (pMan.AetherCells < gMan.GetItemCost(loadedItem))
             uMan.InsufficientAetherPopup();
         else uMan.CreateBuyItemPopup(loadedItem);
     }

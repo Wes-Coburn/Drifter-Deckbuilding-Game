@@ -11,7 +11,6 @@ public class UnitCardDisplay : CardDisplay
     [SerializeField] private GameObject healthScoreDisplay;
     [SerializeField] private GameObject exhaustedIcon;
     [SerializeField] private GameObject destroyedIcon;
-    [SerializeField] private GameObject rareIcon;
     [SerializeField] private GameObject abilityIconPrefab;
     [SerializeField] private GameObject zoomAbilityIconPrefab;
 
@@ -96,7 +95,6 @@ public class UnitCardDisplay : CardDisplay
         CurrentPower = UnitCard.StartPower;
         MaxHealth = UnitCard.StartHealth;
         CurrentHealth = MaxHealth;
-        rareIcon.SetActive(UnitCard.IsRare); // TESTING
         foreach (CardAbility cardAbility in UnitCard.StartingAbilities)
             AddCurrentAbility(cardAbility);
     }
@@ -167,8 +165,6 @@ public class UnitCardDisplay : CardDisplay
                     currentAbilitiesDisplay.transform, 1);
             }
         }
-
-        rareIcon.SetActive(uc.IsRare); // TESTING
     }
 
     /******
@@ -200,8 +196,6 @@ public class UnitCardDisplay : CardDisplay
             GetComponent<CardZoom>().CreateZoomAbilityIcon(ca,
                 currentAbilitiesDisplay.transform, 1);
         }
-
-        rareIcon.SetActive(UnitCard.IsRare); // TESTING
     }
 
     /******

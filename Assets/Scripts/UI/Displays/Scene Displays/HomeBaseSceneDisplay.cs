@@ -4,41 +4,32 @@ using TMPro;
 
 public class HomeBaseSceneDisplay : MonoBehaviour
 {
-    [SerializeField] private GameObject heroPower;
+    [Header("HERO INFO")]
     [SerializeField] private GameObject heroName;
-    [SerializeField] private GameObject heroImage;
     [SerializeField] private GameObject heroDescription;
     [SerializeField] private GameObject heroBackstory;
+    [SerializeField] private GameObject heroImage;
+
+    [Header("HERO POWER")]
+    [SerializeField] private GameObject heroPower;
+    [SerializeField] private GameObject heroPowerCost;
     [SerializeField] private GameObject heroPowerDescription;
     [SerializeField] private GameObject heroPowerImage;
-    [SerializeField] private GameObject confirmSpendPopup;
+
+    [Header("HERO ULTIMATE")]
+    [SerializeField] private GameObject heroUltimate;
+    [SerializeField] private GameObject heroUltimateCost;
+    [SerializeField] private GameObject heroUltimateDescription;
+    [SerializeField] private GameObject heroUltimateImage;
 
     private PlayerManager pMan;
     private UIManager uMan;
 
-    public HeroPower HeroPower
-    {
-        set
-        {
-            heroPower.GetComponent<PowerZoom>().LoadedPower = value;
-        }
-    }
     private string HeroName
     {
         set
         {
             heroName.GetComponent<TextMeshProUGUI>().SetText(value);
-        }
-    }
-    private Sprite HeroSprite
-    {
-        set
-        {
-            heroImage.GetComponent<Image>().sprite = value;
-            uMan.GetPortraitPosition(pMan.PlayerHero.HeroName, out Vector2 position,
-                out Vector2 scale, SceneLoader.Scene.HeroSelectScene);
-            heroImage.transform.localPosition = position;
-            heroImage.transform.localScale = scale;
         }
     }
     private string HeroDescription
@@ -55,6 +46,31 @@ public class HomeBaseSceneDisplay : MonoBehaviour
             heroBackstory.GetComponentInChildren<TextMeshProUGUI>().SetText(value);
         }
     }
+    private Sprite HeroSprite
+    {
+        set
+        {
+            heroImage.GetComponent<Image>().sprite = value;
+            uMan.GetPortraitPosition(pMan.PlayerHero.HeroName, out Vector2 position,
+                out Vector2 scale, SceneLoader.Scene.HeroSelectScene);
+            heroImage.transform.localPosition = position;
+            heroImage.transform.localScale = scale;
+        }
+    }
+    private HeroPower HeroPower
+    {
+        set
+        {
+            heroPower.GetComponent<PowerZoom>().LoadedPower = value;
+        }
+    }
+    private int HeroPowerCost
+    {
+        set
+        {
+            heroPowerCost.GetComponent<TextMeshProUGUI>().SetText(value.ToString());
+        }
+    }
     private string HeroPowerDescription
     {
         set
@@ -69,21 +85,57 @@ public class HomeBaseSceneDisplay : MonoBehaviour
             heroPowerImage.GetComponent<Image>().sprite = value;
         }
     }
+    private HeroPower HeroUltimate
+    {
+        set
+        {
+            heroUltimate.GetComponent<PowerZoom>().LoadedPower = value;
+        }
+    }
+    private int HeroUltimateCost
+    {
+        set
+        {
+            heroUltimateCost.GetComponent<TextMeshProUGUI>().SetText(value.ToString());
+        }
+    }
+    private string HeroUltimateDescription
+    {
+        set
+        {
+            heroUltimateDescription.GetComponent<TextMeshProUGUI>().SetText(value);
+        }
+    }
+    private Sprite HeroUltimateSprite
+    {
+        set
+        {
+            heroUltimateImage.GetComponent<Image>().sprite = value;
+        }
+    }
 
     private void Start()
     {
         pMan = PlayerManager.Instance;
         uMan = UIManager.Instance;
         PlayerHero ph = pMan.PlayerHero;
-        HeroPower = ph.HeroPower;
         HeroName = ph.HeroName;
-        HeroSprite = ph.HeroPortrait;
         HeroDescription = ph.HeroDescription;
         HeroBackstory = ph.HeroBackstory;
+        HeroSprite = ph.HeroPortrait;
+        heroBackstory.SetActive(false);
+        // POWER
+        HeroPower = ph.HeroPower;
+        HeroPowerCost = ph.HeroPower.PowerCost;
         HeroPowerDescription = "<b><u>" + ph.HeroPower.PowerName +
             ":</b></u> " + ph.HeroPower.PowerDescription;
         HeroPowerSprite = ph.HeroPower.PowerSprite;
-        heroBackstory.SetActive(false);
+        // ULTIMATE
+        HeroUltimate = ph.HeroUltimate;
+        HeroUltimateCost = ph.HeroPower.PowerCost;
+        HeroUltimateDescription = "<b><u>" + ph.HeroUltimate.PowerName +
+            " (Ultimate):</b></u> " + ph.HeroUltimate.PowerDescription;
+        HeroUltimateSprite = ph.HeroUltimate.PowerSprite;
     }
 
     public void ShowInfoButton_OnClick() =>

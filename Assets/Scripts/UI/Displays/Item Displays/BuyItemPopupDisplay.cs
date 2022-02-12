@@ -6,6 +6,7 @@ public class BuyItemPopupDisplay : MonoBehaviour
     [SerializeField] private GameObject popupText;
     private PlayerManager pMan;
     private UIManager uMan;
+    private GameManager gMan;
     private HeroItem heroItem;
 
     private string PopupText
@@ -20,6 +21,7 @@ public class BuyItemPopupDisplay : MonoBehaviour
     {
         pMan = PlayerManager.Instance;
         uMan = UIManager.Instance;
+        gMan = GameManager.Instance;
     }
 
     public HeroItem HeroItem
@@ -29,7 +31,7 @@ public class BuyItemPopupDisplay : MonoBehaviour
             int aether = pMan.AetherCells;
             heroItem = value;
             string text = "Buy " + heroItem.ItemName +
-                " for " + GameManager.GetItemCost(heroItem) +
+                " for " + gMan.GetItemCost(heroItem) +
                 " aether? (You have " + aether + " aether)";
             PopupText = text;
         }
@@ -38,10 +40,15 @@ public class BuyItemPopupDisplay : MonoBehaviour
     public void ConfirmButton_OnClick()
     {
         pMan.AddItem(heroItem, true);
-        pMan.AetherCells -= GameManager.GetItemCost(heroItem);
-        GameManager.Instance.ShopItems.Remove(heroItem);
+        pMan.AetherCells -= gMan.GetItemCost(heroItem);
+        gMan.ShopItems.Remove(heroItem);
+        bool isReady = false;
+        int previousProgress = gMan.ShopLoyalty;
+        if (++gMan.ShopLoyalty == GameManager.SHOP_LOYALTY_GOAL) isReady = true;
+        else if (gMan.ShopLoyalty > GameManager.SHOP_LOYALTY_GOAL) gMan.ShopLoyalty = 0; // TESTING
         CancelButton_OnClick();
         uMan.CreateItemPagePopup();
+        FindObjectOfType<ItemPageDisplay>().SetProgressBar(previousProgress, gMan.ShopLoyalty, isReady);
     }
 
     public void CancelButton_OnClick() =>

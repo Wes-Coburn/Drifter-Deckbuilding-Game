@@ -647,7 +647,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 12, y: -5}
+  m_AnchoredPosition: {x: 10, y: -5}
   m_SizeDelta: {x: 50, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4628353781336802420
@@ -1099,7 +1099,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: db2b8b53419cf4f428338cd6f8824751, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 40477ffe97f461946ba5f6b120067516, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2141,6 +2141,7 @@ MonoBehaviour:
   cardArt: {fileID: 5007104075117306369}
   cardBorder: {fileID: 463467110191429090}
   cardTypeLine: {fileID: 1882966409792126498}
+  rareIcon: {fileID: 3658408671532118699}
   energyCost: {fileID: 1603204749320031618}
   unitStats: {fileID: 6396812009411263228}
   currentAbilitiesDisplay: {fileID: 1622687361822966639}
@@ -2148,7 +2149,6 @@ MonoBehaviour:
   healthScoreDisplay: {fileID: 4194370083493049941}
   exhaustedIcon: {fileID: 3882489080471417206}
   destroyedIcon: {fileID: 3520334792895202772}
-  rareIcon: {fileID: 3658408671532118699}
   abilityIconPrefab: {fileID: 386389505813502122, guid: f86585513f1902f4ba1aac4bc170e0e7,
     type: 3}
   zoomAbilityIconPrefab: {fileID: 386389505813502122, guid: 0ab157fa3dd44cd4a9fdc4c303ac8001,

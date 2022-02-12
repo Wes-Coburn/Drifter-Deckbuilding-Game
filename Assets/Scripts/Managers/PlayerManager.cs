@@ -15,7 +15,7 @@ public class PlayerManager : MonoBehaviour
         }
         else Destroy(gameObject);
     }
-    
+
     private CombatManager coMan;
     private EffectManager efMan;
     private UIManager uMan;
@@ -30,6 +30,9 @@ public class PlayerManager : MonoBehaviour
     private int energyPerTurn;
     private int energyLeft;
     private bool heroPowerUsed;
+    private int heroUltimateProgress;
+
+    private PlayerHeroDisplay HeroDisplay { get => coMan.PlayerHero.GetComponent<PlayerHeroDisplay>(); }
 
     public PlayerHero PlayerHero { get; set; }
     public List<HeroAugment> HeroAugments { get => heroAugments; }
@@ -51,8 +54,9 @@ public class PlayerManager : MonoBehaviour
         get => aetherCells;
         set
         {
+            int previousCount = aetherCells;
             aetherCells = value;
-            uMan.SetAetherCount(value);
+            uMan.SetAetherCount(value, previousCount); // TESTING
         }
     }
     public bool HeroPowerUsed
@@ -61,8 +65,45 @@ public class PlayerManager : MonoBehaviour
         set
         {
             heroPowerUsed = value;
-            PlayerHeroDisplay phd = coMan.PlayerHero.GetComponent<PlayerHeroDisplay>();
-            phd.PowerUsedIcon.SetActive(value);
+            HeroDisplay.PowerUsedIcon.SetActive(value);
+        }
+    }
+    public int HeroUltimateProgress_Direct
+    {
+        set
+        {
+            heroUltimateProgress = value;
+            string progressText = heroUltimateProgress + "/" + GameManager.HERO_ULTMATE_GOAL + " Powers Used";
+            HeroDisplay.UltimateProgressText = progressText;
+        }
+    }
+    public int HeroUltimateProgress
+    {
+        get => heroUltimateProgress;
+        set
+        {
+            int previousProgress = heroUltimateProgress;
+            heroUltimateProgress = value;
+            int heroUltimateGoal = GameManager.HERO_ULTMATE_GOAL;
+            if (heroUltimateProgress <= heroUltimateGoal)
+            {
+                bool ultimateReady = false;
+                string progressText;
+                if (heroUltimateProgress == heroUltimateGoal)
+                {
+                    ultimateReady = true;
+                    progressText = "ULTIMATE READY!";
+                }
+                else progressText = heroUltimateProgress + "/" + heroUltimateGoal + " Powers Used";
+                HeroDisplay.UltimateProgressText = progressText;
+
+                PlayerHeroDisplay phd = coMan.PlayerHero.GetComponent<PlayerHeroDisplay>();
+                GameObject progressBar = phd.UltimateProgressBar;
+                GameObject progressFill = phd.UltimateProgressFill;
+                AnimationManager.Instance.SetProgressBar(AnimationManager.ProgressBarType.Ultimate,
+                    previousProgress, heroUltimateProgress, ultimateReady, progressBar, progressFill);
+            }
+            else heroUltimateProgress = heroUltimateGoal;
         }
     }
     public int PlayerHealth
@@ -184,9 +225,15 @@ public class PlayerManager : MonoBehaviour
         else return true;
     }
 
-    public void UseHeroPower()
+    public void UseHeroPower(bool isUltimate)
     {
         void ErrorSound() => auMan.StartStopSound("SFX_Error");
+
+        if (isUltimate)
+        {
+            UseHeroUltimate();
+            return;
+        }
 
         if (EnergyLeft < PlayerHero.HeroPower.PowerCost)
         {
@@ -197,7 +244,6 @@ public class PlayerManager : MonoBehaviour
         {
             uMan.CreateFleetingInfoPopup("Hero power already used this turn!");
             ErrorSound();
-            return;
         }
         else
         {
@@ -209,7 +255,7 @@ public class PlayerManager : MonoBehaviour
             }
             else
             {
-                efMan.StartEffectGroupList(groupList, coMan.PlayerHero);
+                efMan.StartEffectGroupList(groupList, coMan.PlayerHero.GetComponent<PlayerHeroDisplay>().HeroPower);
                 EnergyLeft -= PlayerHero.HeroPower.PowerCost;
                 HeroPowerUsed = true;
                 PlayerPowerSounds();
@@ -217,9 +263,35 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public void PlayerPowerSounds()
+    public void UseHeroUltimate()
     {
-        foreach (Sound s in PlayerHero.HeroPower.PowerSounds)
-            AudioManager.Instance.StartStopSound(null, s);
+        void ErrorSound() => auMan.StartStopSound("SFX_Error");
+
+        List<EffectGroup> groupList = PlayerHero.HeroUltimate.EffectGroupList;
+        if (EnergyLeft < PlayerHero.HeroUltimate.PowerCost)
+        {
+            uMan.CreateFleetingInfoPopup("Not enough energy!");
+            ErrorSound();
+        }
+        else if (!efMan.CheckLegalTargets(groupList, coMan.PlayerHero, true))
+        {
+            uMan.CreateFleetingInfoPopup("You can't do that right now!");
+            ErrorSound();
+        }
+        else
+        {
+            efMan.StartEffectGroupList(groupList, coMan.PlayerHero.GetComponent<PlayerHeroDisplay>().HeroUltimate);
+            EnergyLeft -= PlayerHero.HeroUltimate.PowerCost;
+            HeroDisplay.HeroUltimate.SetActive(false);
+            PlayerPowerSounds(true);
+        }
+    }
+
+    public void PlayerPowerSounds(bool isUltimate = false)
+    {
+        Sound[] soundList;
+        if (isUltimate) soundList = PlayerHero.HeroUltimate.PowerSounds;
+        else soundList = PlayerHero.HeroPower.PowerSounds;
+        foreach (Sound s in soundList) AudioManager.Instance.StartStopSound(null, s);
     }
 }

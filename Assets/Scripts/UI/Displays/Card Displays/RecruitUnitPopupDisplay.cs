@@ -7,6 +7,8 @@ public class RecruitUnitPopupDisplay : MonoBehaviour
 
     private UIManager uMan;
     private PlayerManager pMan;
+    private GameManager gMan;
+
     private UnitCard unitCard;
 
     private string PopupText
@@ -21,6 +23,7 @@ public class RecruitUnitPopupDisplay : MonoBehaviour
     {
         uMan = UIManager.Instance;
         pMan = PlayerManager.Instance;
+        gMan = GameManager.Instance;
     }
 
     public UnitCard UnitCard
@@ -40,8 +43,13 @@ public class RecruitUnitPopupDisplay : MonoBehaviour
     {
         CardManager.Instance.AddCard(unitCard, GameManager.PLAYER);
         pMan.AetherCells -= GameManager.RECRUIT_UNIT_COST;
+        bool isReady = false;
+        int previousProgress = gMan.RecruitLoyalty;
+        if (++gMan.RecruitLoyalty == GameManager.RECRUIT_LOYALTY_GOAL) isReady = true;
+        else if (gMan.RecruitLoyalty > GameManager.RECRUIT_LOYALTY_GOAL) gMan.RecruitLoyalty = 0; // TESTING
         CancelButton_OnClick();
         uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.RecruitUnit);
+        FindObjectOfType<CardPageDisplay>().SetProgressBar(previousProgress, gMan.RecruitLoyalty, isReady);
     }
 
     public void CancelButton_OnClick() =>

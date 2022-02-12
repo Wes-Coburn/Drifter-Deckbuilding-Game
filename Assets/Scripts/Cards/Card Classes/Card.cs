@@ -8,6 +8,7 @@ public abstract class Card : ScriptableObject
     [SerializeField] private string cardName;
     [SerializeField] private string cardType;
     [SerializeField] private string cardSubType;
+    [SerializeField] private bool isRare;
     [TextArea] [SerializeField] private string cardDescription;
     [SerializeField] private AnimatorOverrideController overController;
     [SerializeField] private AnimatorOverrideController zoomOverController;
@@ -20,6 +21,7 @@ public abstract class Card : ScriptableObject
     public string CardName { get => cardName; }
     public string CardType { get => cardType; }
     public string CardSubType { get => cardSubType; }
+    public bool IsRare { get => isRare; }
     public string CardDescription { get => cardDescription; }
     public AnimatorOverrideController OverController { get => overController; }
     public AnimatorOverrideController ZoomOverController { get => zoomOverController; }
@@ -34,6 +36,7 @@ public abstract class Card : ScriptableObject
         cardName = card.CardName;
         cardType = card.CardType;
         cardSubType = card.CardSubType;
+        isRare = card.IsRare;
         cardDescription = card.CardDescription;
         overController = card.OverController;
         zoomOverController = card.ZoomOverController;

@@ -44,14 +44,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd896689c27c06740a888772aa44cab0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heroPower: {fileID: 0}
   heroName: {fileID: 0}
-  heroImage: {fileID: 0}
   heroDescription: {fileID: 0}
+  heroBackstory: {fileID: 0}
+  heroImage: {fileID: 0}
+  heroPower: {fileID: 0}
+  heroPowerCost: {fileID: 0}
   heroPowerDescription: {fileID: 0}
   heroPowerImage: {fileID: 0}
-  confirmSpendPopup: {fileID: 6138206491920893483, guid: 9402cc5f74ac8ca41876694f0b7f5350,
-    type: 3}
+  heroUltimate: {fileID: 0}
+  heroUltimateCost: {fileID: 0}
+  heroUltimateDescription: {fileID: 0}
+  heroUltimateImage: {fileID: 0}
 --- !u!114 &8351034851488700947
 MonoBehaviour:
   m_ObjectHideFlags: 0

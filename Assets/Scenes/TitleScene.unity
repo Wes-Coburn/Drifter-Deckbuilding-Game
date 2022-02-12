@@ -1068,29 +1068,25 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '<u><b>BETA v0.1.2</b></u>
+  m_text: '<u><b>LATEST UPDATES</b></u>
 
 
-    - Energy System Update: Save unused energy
-    across turns. Store up to 10 energy.
-
-
-    - Augment System Update: Earn them
-    over time.
+    - Energy System Update: Store up to
+    10 energy across turns.
 
 
     - New Card Abilities: <b>Stun</b> and <b>Retaliate</b>.
 
 
     -
-    Hero Power Updates: Kili and Faydra.
+    Hero Powers Updated: Kili and Faydra.
 
 
-    - Damage Rays (VFX): Damage effects
-    and ranged attacks.
+    - Hero <b>Ultimates</b> added.
 
 
-    - Combat aether rewards increased.'
+    -
+    <b>Loyalty Rewards</b> for the shop and recruitment.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e538ba65f9ab69747a0b9d64b5033d2a, type: 2}
   m_sharedMaterial: {fileID: 3279066539608328692, guid: e538ba65f9ab69747a0b9d64b5033d2a,
@@ -1118,7 +1114,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20.2
+  m_fontSize: 25.3
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2171,7 +2167,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7219d0b0647b06943b317352c5d081a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  developerMode: 0
+  developerMode: 1
+  setEnemyHealth1: 0
   addStartUnits: 1
   addStartSkills: 1
   addMoreSkills: 1
@@ -2203,14 +2200,14 @@ MonoBehaviour:
   testCards_1:
   - {fileID: 11400000, guid: 152866e995921254fbf4cab6451a9df6, type: 2}
   - {fileID: 11400000, guid: 7539de513e4ebe0429272c1439068213, type: 2}
-  enableTestCards_2: 1
+  enableTestCards_2: 0
   testCards_2:
-  - {fileID: 11400000, guid: 9af1a630d73740d4896277a5fd2f3d32, type: 2}
-  enableTestCards_3: 0
+  - {fileID: 11400000, guid: e1da213119238694e974c94f1fa9e0c2, type: 2}
+  - {fileID: 11400000, guid: 919c90e23902c7f4abf27ee9262c9ac4, type: 2}
+  - {fileID: 11400000, guid: 16deb438c6e85a24dbd14820ed3e5abb, type: 2}
+  enableTestCards_3: 1
   testCards_3:
-  - {fileID: 11400000, guid: e3a6c6af3db680742831b4165e3ce957, type: 2}
-  - {fileID: 11400000, guid: bf7e04d03a3ae764c8f96ef629795f41, type: 2}
-  - {fileID: 11400000, guid: cba4bf8f86bbe1149b17337cc1c32e8f, type: 2}
+  - {fileID: 11400000, guid: 79db380ac88eb484a894d73f29e94e6e, type: 2}
   enableTestCards_4: 0
   testCards_4:
   - {fileID: 11400000, guid: faa991d1b978f6140b8fe3947cd1fd5e, type: 2}

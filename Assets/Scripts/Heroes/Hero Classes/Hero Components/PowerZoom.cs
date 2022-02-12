@@ -5,7 +5,9 @@ public class PowerZoom : MonoBehaviour
     [SerializeField] private GameObject powerPopupPrefab;
     [SerializeField] private GameObject abilityPopupBoxPrefab;
     [SerializeField] private GameObject abilityPopupPrefab;
+
     [SerializeField] private bool abilityPopupOnly;
+    [SerializeField] private bool isUltimate;
 
     private UIManager uMan;
     private GameObject powerPopup;
@@ -63,7 +65,13 @@ public class PowerZoom : MonoBehaviour
         powerPopup = Instantiate(powerPopupPrefab, uMan.CurrentWorldSpace.transform);
         powerPopup.transform.localPosition = spawnPoint;
         powerPopup.transform.localScale = new Vector2(scaleValue, scaleValue);
-        HeroPower hp = GetComponentInParent<PlayerHeroDisplay>().PlayerHero.HeroPower;
+
+        // TESTING TESTING TESTING
+        HeroPower hp;
+        PlayerHeroDisplay phd = GetComponentInParent<PlayerHeroDisplay>();
+        if (isUltimate) hp = phd.PlayerHero.HeroUltimate;
+        else hp = phd.PlayerHero.HeroPower;
+
         if (hp == null)
         {
             Debug.LogError("HERO POWER IS NULL!");

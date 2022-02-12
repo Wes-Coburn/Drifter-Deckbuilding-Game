@@ -110,6 +110,7 @@ public class UIManager : MonoBehaviour
     public GameObject EndTurnButton { get => endTurnButton; }
     public GameObject AugmentBar { get => augmentBar; }
     public GameObject ItemBar { get => itemBar; }
+    public Color HighlightedColor { get => highlightedColor; }
 
     // PLAYER_IS_TARGETTING
     public bool PlayerIsTargetting { get; set; }
@@ -798,24 +799,27 @@ public class UIManager : MonoBehaviour
         {
             ClearAugmentBar();
             ClearItemBar();
-            SetAetherCount(pMan.AetherCells);
+            SetAetherCount(pMan.AetherCells, pMan.AetherCells); // TESTING
             foreach (HeroAugment ha in pMan.HeroAugments) 
                 CreateAugmentIcon(ha);
             foreach (HeroItem hi in pMan.HeroItems)
                 CreateItemIcon(hi);
-
-            // TESTING
             foreach (Transform augTran in augmentBar.transform)
                 augTran.gameObject.SetActive(!hideChildren);
             foreach (Transform itemTran in itemBar.transform)
                 itemTran.gameObject.SetActive(!hideChildren);
         }
     }
-    public void SetAetherCount(int count)
+    public void SetAetherCount(int newCount, int previousCount)
     {
         if (!skyBar.activeSelf) return;
-        aetherCount.GetComponentInChildren<TextMeshProUGUI>().
-            SetText(count.ToString());
+        TextMeshProUGUI tmpro = aetherCount.GetComponentInChildren<TextMeshProUGUI>();
+        if (newCount != previousCount)
+        {
+            anMan.SkybarIconAnimation(aetherCount); // TESTING
+            anMan.CountingText(tmpro, previousCount, newCount); // TESTING
+        }
+        else tmpro.SetText(newCount.ToString());
     }
     public void CreateAugmentIcon(HeroAugment augment, bool isNewAugment = false)
     {

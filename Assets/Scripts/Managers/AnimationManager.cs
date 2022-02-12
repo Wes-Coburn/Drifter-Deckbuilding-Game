@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class AnimationManager : MonoBehaviour
 {
@@ -19,7 +21,7 @@ public class AnimationManager : MonoBehaviour
     private CombatManager coMan;
     private DialogueManager dMan;
     private AudioManager auMan;
-    private AnimationManager anMan;
+    private GameManager gMan;
 
     private Vector2 playerHandStart;
 
@@ -29,7 +31,7 @@ public class AnimationManager : MonoBehaviour
         coMan = CombatManager.Instance;
         dMan = DialogueManager.Instance;
         auMan = AudioManager.Instance;
-        anMan = AnimationManager.Instance;
+        gMan = GameManager.Instance;
     }
 
     public void ChangeAnimationState(GameObject go, string state)
@@ -144,6 +146,46 @@ public class AnimationManager : MonoBehaviour
         ChangeAnimationState(icon, "Trigger");
     }
 
+    // Counting Text
+    public void CountingText(TextMeshProUGUI text, int start, int end)
+    {
+        if (start == end)
+        {
+            Debug.LogError("START == END!");
+            return;
+        }
+        StartCoroutine(CountingTextNumerator(text, start, end));
+    }
+    private IEnumerator CountingTextNumerator(TextMeshProUGUI text, int start, int end)
+    {
+        int count = start;
+        if (count < end)
+        {
+            while (count < end)
+            {
+                yield return new WaitForSeconds(0.5f);
+                text.SetText(++count + "");
+                auMan.StartStopSound("SFX_Typing");
+            }
+        }
+        else
+        {
+            while (count > end)
+            {
+                yield return new WaitForSeconds(0.5f);
+                text.SetText(--count + "");
+                auMan.StartStopSound("SFX_Typing");
+            }
+        }
+    }
+
+    // Hero Ultimate
+    public void HeroUltimateReady()
+    {
+        GameObject heroUltimate = coMan.PlayerHero.GetComponent<PlayerHeroDisplay>().HeroUltimate;
+        ChangeAnimationState(heroUltimate, "Trigger");
+    }
+
     /******
      * *****
      * ****** SHIFT_PLAYER_HAND
@@ -223,7 +265,6 @@ public class AnimationManager : MonoBehaviour
     private IEnumerator NewEngagedHeroNumerator(bool isExitOnly)
     {
         auMan.StartStopSound("SFX_PortraitClick");
-
         float distance;
         GameObject npcPortrait = dMan.DialogueDisplay.NPCHeroPortrait;
         Vector2 nPortStart = npcPortrait.transform.localPosition;
@@ -251,6 +292,9 @@ public class AnimationManager : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         while (distance > 0);
+
+        if (!isExitOnly) dMan.DisplayDialoguePopup(); // TESTING
+        dMan.AllowResponse = true; // TESTING
     }
 
     /******
@@ -305,8 +349,6 @@ public class AnimationManager : MonoBehaviour
         while (distance > 700);
 
         uMan.CreateVersusPopup();
-
-        // TESTING TESTING TESTING
         yield return new WaitForSeconds(1);
         uMan.SelectTarget(coMan.PlayerHero, true);
         PlayerManager.Instance.PlayerPowerSounds();
@@ -316,7 +358,6 @@ public class AnimationManager : MonoBehaviour
         Sound enemyWinSound = EnemyManager.Instance.EnemyHero.HeroWin;
         auMan.StartStopSound(null, enemyWinSound);
         FunctionTimer.Create(() => uMan.SelectTarget(coMan.EnemyHero, false), 2);
-        // TESTING TESTING TESTING
 
         EnemyHero eh = dMan.EngagedHero as EnemyHero;
         if (eh.IsBoss)
@@ -329,7 +370,7 @@ public class AnimationManager : MonoBehaviour
         foreach (Transform augTran in uMan.AugmentBar.transform)
         {
             augTran.gameObject.SetActive(true);
-            anMan.SkybarIconAnimation(augTran.gameObject);
+            SkybarIconAnimation(augTran.gameObject);
             auMan.StartStopSound("SFX_Trigger");
             yield return new WaitForSeconds(0.5f);
             delay -= 0.5f;
@@ -338,7 +379,7 @@ public class AnimationManager : MonoBehaviour
         foreach (Transform itemTran in uMan.ItemBar.transform)
         {
             itemTran.gameObject.SetActive(true);
-            anMan.SkybarIconAnimation(itemTran.gameObject);
+            SkybarIconAnimation(itemTran.gameObject);
             auMan.StartStopSound("SFX_Trigger");
             yield return new WaitForSeconds(0.5f);
             delay -= 0.5f;
@@ -384,6 +425,19 @@ public class AnimationManager : MonoBehaviour
      *****/
     public void UnitAttack(GameObject attacker, GameObject defender, bool defenderIsUnit) => 
         StartCoroutine(AttackNumerator(attacker, defender, defenderIsUnit));
+    
+    private readonly float minSpeed = 100;
+    private readonly float maxSpeed = 200;
+    //private readonly float speedControl = 0.05f;
+
+    private float GetCurrentSpeed(float distance)
+    {
+        float speed = maxSpeed - (distance * 0.5f);
+        //float speed = distance * speedControl;
+        if (speed < minSpeed) speed = minSpeed;
+        else if (speed > maxSpeed) speed = maxSpeed;
+        return speed;
+    }
 
     private IEnumerator AttackNumerator(GameObject attacker,
         GameObject defender, bool defenderIsUnit = true)
@@ -428,16 +482,71 @@ public class AnimationManager : MonoBehaviour
         EventManager.Instance.PauseDelayedActions(false);
     }
 
-    private readonly float minSpeed = 100;
-    private readonly float maxSpeed = 200;
-    //private readonly float speedControl = 0.05f;
-
-    private float GetCurrentSpeed(float distance)
+    /******
+     * *****
+     * ****** SET_PROGRESS_BAR
+     * *****
+     *****/
+    public enum ProgressBarType
     {
-        float speed = maxSpeed - (distance * 0.5f);
-        //float speed = distance * speedControl;
-        if (speed < minSpeed) speed = minSpeed;
-        else if (speed > maxSpeed) speed = maxSpeed;
-        return speed;
+        Ultimate,
+        Recruit,
+        Item
+    }
+    public void SetProgressBar(ProgressBarType progressType, int currentProgress, int newProgress, bool isReady,
+        GameObject progressBar, GameObject progressFill, int controlValue = 1) =>
+        StartCoroutine(ProgressBarNumerator(progressType, currentProgress, newProgress, isReady, progressBar, progressFill, controlValue));
+
+    private IEnumerator ProgressBarNumerator(ProgressBarType progressType, int currentProgress, int newProgress,
+        bool isReady, GameObject progressBar, GameObject progressFill, int controlValue)
+    {
+        Slider slider = progressBar.GetComponent<Slider>();
+        slider.value = currentProgress + controlValue; // TESTING
+        Image image = progressFill.GetComponent<Image>();
+        Color previousColor = image.color;
+        image.color = uMan.HighlightedColor;
+        auMan.StartStopSound("SFX_ProgressBar", null, AudioManager.SoundType.SFX, false, true);
+
+        int targetValue = newProgress + controlValue;
+        if (slider.value < targetValue)
+        {
+            while (slider.value < targetValue)
+            {
+                slider.value += 0.02f;
+                yield return new WaitForFixedUpdate();
+            }
+        }
+        else
+        {
+            while (slider.value > targetValue)
+            {
+                slider.value -= 0.05f;
+                yield return new WaitForFixedUpdate();
+            }
+        }
+        
+        image.color = previousColor;
+        auMan.StartStopSound("SFX_ProgressBar", null, AudioManager.SoundType.SFX, true);
+
+        if (isReady)
+        {
+            switch (progressType)
+            {
+                case ProgressBarType.Ultimate:
+                    PlayerHeroDisplay phd = coMan.PlayerHero.GetComponent<PlayerHeroDisplay>();
+                    phd.HeroUltimate.SetActive(true);
+                    HeroUltimateReady();
+                    auMan.StartStopSound("SFX_HeroUltimateReady");
+                    break;
+                case ProgressBarType.Recruit:
+                    Debug.LogWarning("RECRUIT REWARD!");
+                    //gMan.RecruitLoyalty = 0;
+                    break;
+                case ProgressBarType.Item:
+                    Debug.LogWarning("SHOP REWARD!");
+                    //gMan.ShopLoyalty = 0;
+                    break;
+            }
+        }
     }
 }
