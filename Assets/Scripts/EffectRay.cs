@@ -3,8 +3,8 @@ using System;
 
 public class EffectRay : MonoBehaviour
 {
-    private readonly float minSpeed = 1;
-    private readonly float maxSpeed = 10;
+    private readonly float minSpeed = 30;
+    private readonly float maxSpeed = 100;
 
     private float distance;
     private float speed;
@@ -20,11 +20,10 @@ public class EffectRay : MonoBehaviour
     {
         isMoving = false;
         ActiveRays++;
-        Debug.Log("ACTIVE EFFECT RAYS: <" + ActiveRays + ">");
         gameObject.SetActive(false);
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (target == null)
         {
@@ -41,13 +40,13 @@ public class EffectRay : MonoBehaviour
         //transform.rotation = Quaternion.LookRotation(newRotation);
 
         distance = Vector2.Distance(transform.position, target.transform.position);
-        speed = distance/20;
+        speed = distance/10; // TESTING
         if (speed < minSpeed) speed = minSpeed;
         else if (speed > maxSpeed) speed = maxSpeed;
         if (distance > 0)
         {
             transform.position =
-                Vector2.MoveTowards(transform.position, target.transform.position, speed);
+                Vector3.MoveTowards(transform.position, target.transform.position, speed);
         }
         else
         {
@@ -83,7 +82,7 @@ public class EffectRay : MonoBehaviour
                 FunctionTimer.Create(() =>
                 EffectManager.Instance.FinishEffectGroupList(false), 1f);
             }
-            else PlayerManager.Instance.IsMyTurn = true; // TESTING
+            else UIManager.Instance.UpdateEndTurnButton(PlayerManager.Instance.IsMyTurn, true); // TESTING
         }
         Destroy(gameObject);
     }

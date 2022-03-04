@@ -19,11 +19,10 @@ public class ItemPageDisplay : MonoBehaviour
     public void SetProgressBar(int currentProgress, int newProgress, bool isReady, bool isFirstDisplay = false)
     {
         string progressText;
-        if (isReady) progressText = "NEXT ITEM DISCOUNTED!";
+        if (isReady) progressText = "DISCOUNT APPLIED!";
         else progressText = newProgress + "/" + GameManager.SHOP_LOYALTY_GOAL + " Items Purchased";
         progressBarText.GetComponent<TextMeshProUGUI>().SetText(progressText);
-
-        if (isFirstDisplay && newProgress < 1) return; // TESTING
+        if (isFirstDisplay && newProgress < 1) return;
         AnimationManager.Instance.SetProgressBar(AnimationManager.ProgressBarType.Item,
             currentProgress, newProgress, isReady, progressBar, progressFill);
     }
@@ -41,9 +40,8 @@ public class ItemPageDisplay : MonoBehaviour
             GameObject description = Instantiate(itemDescriptionPrefab, items.transform);
             description.GetComponentInChildren<ItemDescriptionDisplay>().LoadedItem = item;
         }
-
-        int progress = GameManager.Instance.ShopLoyalty; // TESTING
-        SetProgressBar(0, progress, false, true); // TESTING
+        int progress = GameManager.Instance.ShopLoyalty;
+        SetProgressBar(0, progress, false, true);
     }
 
     public void CloseItemPageButton_OnClick()

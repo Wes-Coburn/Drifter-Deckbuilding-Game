@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 120ae26cc4846f34db63edca720772b3, type: 3}
+  m_Name: Aethertech Visionary
+  m_EditorClassIdentifier: 
+  cardArt: {fileID: 21300000, guid: b0095d58ec20ab740823d9992b69fdb6, type: 3}
+  cardBorder: {fileID: 21300000, guid: 743e735f744cf494c9f9081b4ba9303f, type: 3}
+  energyCost: 6
+  cardName: Aethertech Visionary
+  cardType: Tech
+  cardSubType: 
+  isRare: 1
+  cardDescription: Aethertech Visionary is...
+  overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
+  zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
+  cardPlaySound:
+    name: 
+    clip: {fileID: 8300000, guid: df0d8e323c203d943ad903d3b95b5c87, type: 3}
+    volume: 0.8
+    pitch: 1
+    source: {fileID: 0}
+  power: 2
+  health: 5
+  startingAbilities:
+  - {fileID: 11400000, guid: 44eb684e5e3c70e4f830456effa3f6b6, type: 2}
+  - {fileID: 11400000, guid: 1ce528437b0948544af24783b5de1b38, type: 2}
+  unitDeathSound:
+    name: 
+    clip: {fileID: 8300000, guid: 26cad4b59af4d3a419c2241e5432aaa4, type: 3}
+    volume: 0.8
+    pitch: 1
+    source: {fileID: 0}

@@ -97,6 +97,6 @@ public class AbilityPopupDisplay : MonoBehaviour
             return;
         }
         if (!string.IsNullOrEmpty(name)) name += ": ";
-        AbilityDescription = "<b>" + name + "</b>" + description;
+        AbilityDescription = CardManager.Instance.FilterKeywords(name + description); // TESTING
     }
 }

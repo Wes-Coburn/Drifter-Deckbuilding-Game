@@ -372,7 +372,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 1
-  m_Camera: {fileID: 335876476}
+  m_Camera: {fileID: 3273260790546451589}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -438,12 +438,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -25}
   m_SizeDelta: {x: 1800, y: 325}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!20 &335876476 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 3273260790210715128, guid: ac4dcbff6fb41794890090f304299932,
-    type: 3}
-  m_PrefabInstance: {fileID: 3273260790546451588}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &603952184
 GameObject:
   m_ObjectHideFlags: 0
@@ -956,7 +950,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 1
-  m_Camera: {fileID: 335876476}
+  m_Camera: {fileID: 3273260790546451589}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -1227,7 +1221,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 1
-  m_Camera: {fileID: 335876476}
+  m_Camera: {fileID: 3273260790546451589}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -2356,6 +2350,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac4dcbff6fb41794890090f304299932, type: 3}
+--- !u!20 &3273260790546451589 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 132780751906245745, guid: ac4dcbff6fb41794890090f304299932,
+    type: 3}
+  m_PrefabInstance: {fileID: 3273260790546451588}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &3424990701056064276
 RectTransform:
   m_ObjectHideFlags: 0

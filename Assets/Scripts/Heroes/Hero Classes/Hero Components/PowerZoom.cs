@@ -66,7 +66,6 @@ public class PowerZoom : MonoBehaviour
         powerPopup.transform.localPosition = spawnPoint;
         powerPopup.transform.localScale = new Vector2(scaleValue, scaleValue);
 
-        // TESTING TESTING TESTING
         HeroPower hp;
         PlayerHeroDisplay phd = GetComponentInParent<PlayerHeroDisplay>();
         if (isUltimate) hp = phd.PlayerHero.HeroUltimate;

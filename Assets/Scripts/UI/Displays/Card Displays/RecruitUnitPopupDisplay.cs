@@ -33,7 +33,7 @@ public class RecruitUnitPopupDisplay : MonoBehaviour
             int aether = pMan.AetherCells;
             unitCard = value;
             string text = "Recruit " + unitCard.CardName +
-                " for " + GameManager.LEARN_SKILL_COST +
+                " for " + gMan.GetRecruitCost(unitCard) +
                 " aether? (You have " + aether + " aether)";
             PopupText = text;
         }
@@ -42,12 +42,11 @@ public class RecruitUnitPopupDisplay : MonoBehaviour
     public void ConfirmButton_OnClick()
     {
         CardManager.Instance.AddCard(unitCard, GameManager.PLAYER);
-        pMan.AetherCells -= GameManager.RECRUIT_UNIT_COST;
+        pMan.AetherCells -= gMan.GetRecruitCost(unitCard);
         bool isReady = false;
         int previousProgress = gMan.RecruitLoyalty;
         if (++gMan.RecruitLoyalty == GameManager.RECRUIT_LOYALTY_GOAL) isReady = true;
         else if (gMan.RecruitLoyalty > GameManager.RECRUIT_LOYALTY_GOAL) gMan.RecruitLoyalty = 0; // TESTING
-        CancelButton_OnClick();
         uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.RecruitUnit);
         FindObjectOfType<CardPageDisplay>().SetProgressBar(previousProgress, gMan.RecruitLoyalty, isReady);
     }

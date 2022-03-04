@@ -61,7 +61,7 @@ public class CombatManager : MonoBehaviour
             if (pMan.IsMyTurn && actionsPlayedThisTurn == 1)
             {
                 evMan.NewDelayedAction(() =>
-                caMan.TriggerPlayedUnits(CardManager.TRIGGER_SPARK), 0);
+                caMan.TriggerPlayedUnits(CardManager.TRIGGER_SPARK, GameManager.PLAYER), 0);
             }
         }
     }
@@ -316,6 +316,22 @@ public class CombatManager : MonoBehaviour
 
     /******
      * *****
+     * ****** SELECT_PLAYABLE_CARDS
+     * *****
+     *****/
+    public void SelectPlayableCards()
+    {
+        bool isPlayerTurn = pMan.IsMyTurn;
+        foreach (GameObject card in PlayerHandCards)
+        {
+            if (isPlayerTurn && IsPlayable(card, true))
+                uMan.SelectTarget(card, true, false, false, true);
+            else uMan.SelectTarget(card, false);
+        }
+    }
+
+    /******
+     * *****
      * ****** CHANGE_CARD_ZONE
      * *****
      *****/
@@ -389,8 +405,8 @@ public class CombatManager : MonoBehaviour
         // PLAYER
         if (card.CompareTag(PLAYER_CARD))
         {
-            pMan.EnergyLeft -= cd.CurrentEnergyCost;
             PlayerHandCards.Remove(card);
+            pMan.EnergyLeft -= cd.CurrentEnergyCost;
 
             if (cd is UnitCardDisplay)
             {
@@ -523,7 +539,7 @@ public class CombatManager : MonoBehaviour
      * ****** IS_PLAYABLE
      * *****
      *****/
-    public bool IsPlayable(GameObject card)
+    public bool IsPlayable(GameObject card, bool isPrecheck = false)
     {
         CardDisplay display = card.GetComponent<CardDisplay>();
         int actionCost = display.CurrentEnergyCost;
@@ -533,6 +549,7 @@ public class CombatManager : MonoBehaviour
         {
             if (PlayerZoneCards.Count >= GameManager.MAX_UNITS_PLAYED)
             {
+                if (isPrecheck) return false; // TESTING
                 uMan.CreateFleetingInfoPopup("Too many units!");
                 ErrorSound();
                 return false;
@@ -541,12 +558,14 @@ public class CombatManager : MonoBehaviour
         else if (display is ActionCardDisplay acd)
             if (!efMan.CheckLegalTargets(acd.ActionCard.EffectGroupList, card, true))
             {
+                if (isPrecheck) return false; // TESTING
                 uMan.CreateFleetingInfoPopup("You can't play that right now!");
                 ErrorSound();
                 return false;
             }
         if (playerActions < actionCost)
         {
+            if (isPrecheck) return false; // TESTING
             uMan.CreateFleetingInfoPopup("Not enough energy!");
             ErrorSound();
             return false;
@@ -633,10 +652,10 @@ public class CombatManager : MonoBehaviour
             anMan.UnitAttack(attacker, defender, IsUnitCard(defender));
         else
         {
-            PlayAttackSound(attacker); // TESTING
+            PlayAttackSound(attacker);
             efMan.CreateEffectRay(attacker.transform.position, defender,
                 () => Strike(attacker, defender, true), 0, false);
-            pMan.IsMyTurn = false; // TESTING
+            uMan.UpdateEndTurnButton(pMan.IsMyTurn, false); // TESTING
         }
     }
 
@@ -713,7 +732,8 @@ public class CombatManager : MonoBehaviour
                 if (CardManager.GetTrigger(striker, CardManager.TRIGGER_INFILTRATE)) InfiltrateTrigger(striker);
             }
         }
-        // STRIKE EFFECTS
+        // STRIKE EFFECTS // no current use
+        /*
         else
         {
             DealDamage(striker, defender,
@@ -730,6 +750,7 @@ public class CombatManager : MonoBehaviour
                 CardManager.GetTrigger(striker, CardManager.TRIGGER_INFILTRATE))
                 InfiltrateTrigger(striker);
         }
+        */
 
         void DealDamage(GameObject striker, GameObject defender,
             out bool dealtDamage, out bool defenderDestroyed)
@@ -744,14 +765,13 @@ public class CombatManager : MonoBehaviour
 
             if (IsUnitCard(defender))
             {
-                if (!CardManager.GetAbility(defender, CardManager.ABILITY_FORCEFIELD))
-                    dealtDamage = true;
+                if (!CardManager.GetAbility(defender, 
+                    CardManager.ABILITY_FORCEFIELD)) dealtDamage = true;
                 else dealtDamage = false;
             }
             else dealtDamage = true;
 
-            if (TakeDamage(defender, power))
-                defenderDestroyed = true;
+            if (TakeDamage(defender, power)) defenderDestroyed = true;
             else defenderDestroyed = false;
         }
         
@@ -776,11 +796,18 @@ public class CombatManager : MonoBehaviour
     public bool TakeDamage(GameObject target, int damageValue)
     {
         if (damageValue < 1) return false;
+
+        uMan.ShakeCamera(EZCameraShake.CameraShakePresets.Bump); // TESTING
         int targetValue;
         int newTargetValue;
-        if (target == PlayerHero) targetValue = pMan.PlayerHealth;
+        if (IsUnitCard(target)) targetValue = GetUnitDisplay(target).CurrentHealth;
+        else if (target == PlayerHero) targetValue = pMan.PlayerHealth;
         else if (target == EnemyHero) targetValue = enMan.EnemyHealth;
-        else targetValue = GetUnitDisplay(target).CurrentHealth;
+        else
+        {
+            Debug.LogError("INVALID TARGET!");
+            return false;
+        }
 
         if (targetValue < 1) return false; // Don't deal damage to targets with 0 health
         newTargetValue = targetValue - damageValue;
@@ -789,12 +816,12 @@ public class CombatManager : MonoBehaviour
         if (target == PlayerHero)
         {
             pMan.PlayerHealth = newTargetValue;
-            anMan.ModifyHeroHealthState(target);
+            anMan.ModifyHeroHealthState(target, -damageValue); // TESTING
         }
         else if (target == EnemyHero)
         {
             enMan.EnemyHealth = newTargetValue;
-            anMan.ModifyHeroHealthState(target);
+            anMan.ModifyHeroHealthState(target, -damageValue); // TESTING
         }
         // Damage to Units
         else
@@ -807,8 +834,12 @@ public class CombatManager : MonoBehaviour
             }
             else
             {
+                int newHealth = newTargetValue;
+                if (newHealth < 0) newHealth = 0;
+                int damageTaken = targetValue - newHealth; // TESTING
+
                 GetUnitDisplay(target).CurrentHealth = newTargetValue;
-                anMan.UnitTakeDamageState(target);
+                anMan.UnitTakeDamageState(target, damageTaken); // TESTING
             }
         }
         if (newTargetValue < 1)
@@ -816,6 +847,7 @@ public class CombatManager : MonoBehaviour
             if (IsUnitCard(target)) DestroyUnit(target);
             else
             {
+                uMan.ShakeCamera(EZCameraShake.CameraShakePresets.Earthquake); // TESTING
                 anMan.SetAnimatorBool(target, "IsDestroyed", true);
                 bool playerWins;
                 if (target == PlayerHero) playerWins = false;
@@ -857,10 +889,22 @@ public class CombatManager : MonoBehaviour
         if (targetValue < 1) return; // Don't heal destroyed units or heroes
         newTargetValue = targetValue + healingValue;
         if (newTargetValue > maxValue) newTargetValue = maxValue;
+        if (newTargetValue == targetValue) return; // TESTING
 
-        if (target == PlayerHero) pMan.PlayerHealth = newTargetValue;
-        else if (target == EnemyHero) enMan.EnemyHealth = newTargetValue;
-        else GetUnitDisplay(target).CurrentHealth = newTargetValue;
+        auMan.StartStopSound("SFX_StatPlus");
+        int healthChange = newTargetValue - targetValue; // TESTING
+
+        if (IsUnitCard(target))
+        {
+            GetUnitDisplay(target).CurrentHealth = newTargetValue;
+            anMan.UnitStatChangeState(target, 0, healthChange); // TESTING
+        }
+        else
+        {
+            if (target == PlayerHero) pMan.PlayerHealth = newTargetValue;
+            else if (target == EnemyHero) enMan.EnemyHealth = newTargetValue;
+            anMan.ModifyHeroHealthState(target, healthChange); // TESTING
+        }
     }
 
     /******
@@ -922,10 +966,12 @@ public class CombatManager : MonoBehaviour
         }
 
         string cardTag = card.tag;
-        DestroyFX();
+        //DestroyFX();
         evMan.NewDelayedAction(() => Destroy(), 0.5f, true);
         if (HasDestroyTriggers())
             evMan.NewDelayedAction(() => DestroyTriggers(), 0, true);
+
+        evMan.NewDelayedAction(() => DestroyFX(), 0.5f, true); // TESTING
 
         bool HasDestroyTriggers()
         {

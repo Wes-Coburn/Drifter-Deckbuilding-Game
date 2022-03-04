@@ -19,6 +19,8 @@ public class UnitCardDisplay : CardDisplay
 
     public UnitCard UnitCard { get => CardScript as UnitCard; }
     public GameObject UnitStats { get => unitStats; }
+    public GameObject PowerScore { get => powerScoreDisplay; }
+    public GameObject HealthScore { get => healthScoreDisplay; }
     public GameObject ZoomAbilityIconPrefab { get => zoomAbilityIconPrefab; }
 
     public List<Effect> CurrentEffects { get; set; }
@@ -244,7 +246,7 @@ public class UnitCardDisplay : CardDisplay
         }
         else if (ca is TriggeredAbility ta)
         {
-            if (CardManager.EvergreenTriggers.Contains(ta.AbilityTrigger.AbilityName))
+            if (ta.AbilityTrigger.AbilityName != CardManager.TRIGGER_PLAY)
             {
                 bool iconsFound = false;
                 foreach (CardAbility ca2 in displayedAbilities)
@@ -257,11 +259,6 @@ public class UnitCardDisplay : CardDisplay
                     }
                 }
                 if (!iconsFound) ShowAbility(ta);
-            }
-            else if (ta.AbilityTrigger.AbilityName != CardManager.TRIGGER_PLAY)
-            {
-                Debug.LogError("ABILITY TRIGGER NOT FOUND!");
-                return false;
             }
         }
 
@@ -377,6 +374,11 @@ public class UnitCardDisplay : CardDisplay
         }
     }
 
+    /******
+     * *****
+     * ****** DISABLE_VISUALS
+     * *****
+     *****/
     public override void DisableVisuals()
     {
         base.DisableVisuals();

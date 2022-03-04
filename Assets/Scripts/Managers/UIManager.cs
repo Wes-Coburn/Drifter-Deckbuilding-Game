@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using EZCameraShake;
 
 public class UIManager : MonoBehaviour
 {
@@ -23,15 +24,17 @@ public class UIManager : MonoBehaviour
 
     [Header("SKYBAR")]
     [SerializeField] private GameObject skyBar;
-    [SerializeField] private GameObject aetherCount;
     [SerializeField] private GameObject augmentBar;
     [SerializeField] private GameObject itemBar;
+    [SerializeField] private GameObject aetherCount;
+    [SerializeField] private GameObject aetherIcon;
 
     [Header("SCENE FADER")]
     [SerializeField] private GameObject sceneFader;
 
     [Header("PREFABS")]
     [SerializeField] private GameObject screenDimmerPrefab;
+    [SerializeField] private GameObject tooltipPopupPrefab;
     [SerializeField] private GameObject infoPopupPrefab;
     [SerializeField] private GameObject infoPopup_SecondaryPrefab;
     [SerializeField] private GameObject combatEndPopupPrefab;
@@ -67,6 +70,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Color highlightedColor;
     [SerializeField] private Color selectedColor;
     [SerializeField] private Color rejectedColor;
+    [SerializeField] private Color playableColor;
 
     private PlayerManager pMan;
     private DialogueManager dMan;
@@ -102,7 +106,8 @@ public class UIManager : MonoBehaviour
     private GameObject confirmEffectButton;
     private Coroutine sceneFadeRoutine;
     private GameObject playerZoneOutline;
-    
+
+    public GameObject TooltipPopupPrefab { get => tooltipPopupPrefab; }
     public GameObject NewCardPopup { get => newCardPopup; }
     public GameObject ChooseCardPopup { get => chooseCardPopup; }
     public GameObject CardPagePopup { get => cardPagePopup; }
@@ -145,7 +150,7 @@ public class UIManager : MonoBehaviour
 
     /******
      * *****
-     * ****** START_SCENE
+     * ****** START_COMBAT_SCENE
      * *****
      *****/
     public void StartCombatScene()
@@ -157,6 +162,16 @@ public class UIManager : MonoBehaviour
         SetCancelEffectButton(false);
         SetConfirmEffectButton(false);
         SetPlayerZoneOutline(false, false);
+    }
+
+    /******
+     * *****
+     * ****** SHAKE_CAMERA
+     * *****
+     *****/
+    public void ShakeCamera(CameraShakeInstance shake)
+    {
+        CameraShaker.Instance.Shake(shake);
     }
 
     /******
@@ -268,8 +283,8 @@ public class UIManager : MonoBehaviour
      * ****** SELECT_TARGET
      * *****
      *****/
-    public void SelectTarget(GameObject target, 
-        bool enabled, bool isSelected = false, bool isRejected = false)
+    public void SelectTarget(GameObject target,
+        bool enabled, bool isSelected = false, bool isRejected = false, bool isPlayable = false)
     {
         if (target == null)
         {
@@ -283,7 +298,6 @@ public class UIManager : MonoBehaviour
             Image image = cs.CardOutline.GetComponent<Image>();
             if (enabled) SetColor(image);
 
-            // TESTING
             if (isSelected && PlayerIsTargetting)
             {
                 if (EffectManager.Instance.CurrentEffect is DrawEffect de && de.IsDiscardEffect)
@@ -292,8 +306,7 @@ public class UIManager : MonoBehaviour
                         <CardContainer>().BufferDistance = new Vector2(0, -50);
                 }
             }
-            // TESTING
-            if (!isSelected)
+            else
             {
                 target.GetComponent<CardDisplay>().CardContainer.GetComponent
                     <CardContainer>().BufferDistance = new Vector2(0, 0);
@@ -307,7 +320,7 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("SELECT TARGET SCRIPT NOT FOUND!");
+            Debug.LogError("INVALID TARGET!");
             return;
         }
 
@@ -315,9 +328,11 @@ public class UIManager : MonoBehaviour
         {
             if (isSelected) image.color = selectedColor;
             else if (isRejected) image.color = rejectedColor;
+            else if (isPlayable) image.color = playableColor;
             else image.color = highlightedColor;
         }
     }
+
     /******
      * *****
      * ****** DESTROY_ZOOM_OBJECT(S)
@@ -603,7 +618,6 @@ public class UIManager : MonoBehaviour
         {
             if (cardPagePopup.GetComponent<CardPageDisplay>().IsScrollPage)
             {
-                Debug.LogWarning("IS SCROLL PAGE!");
                 Scrollbar sBar = cardPagePopup.GetComponentInChildren<Scrollbar>();
                 scrollValue = sBar.value;
             }
@@ -619,13 +633,15 @@ public class UIManager : MonoBehaviour
     }
     public void DestroyCardPagePopup()
     {
+        anMan.ProgressBarRoutine_Stop(); // TESTING
         if (cardPagePopup != null)
         {
             Destroy(cardPagePopup);
             cardPagePopup = null;
         }
-        DestroyRemoveCardPopup();
         DestroyLearnSkillPopup();
+        DestroyRemoveCardPopup();
+        DestroyRecruitUnitPopup();
         DestroyCloneUnitPopup();
     }
     // Learn Skill Popup
@@ -710,6 +726,7 @@ public class UIManager : MonoBehaviour
     }
     public void DestroyItemPagePopup()
     {
+        anMan.ProgressBarRoutine_Stop(); // TESTING
         if (itemPagePopup != null)
         {
             Destroy(itemPagePopup);
@@ -816,7 +833,7 @@ public class UIManager : MonoBehaviour
         TextMeshProUGUI tmpro = aetherCount.GetComponentInChildren<TextMeshProUGUI>();
         if (newCount != previousCount)
         {
-            anMan.SkybarIconAnimation(aetherCount); // TESTING
+            anMan.SkybarIconAnimation(aetherIcon); // TESTING
             anMan.CountingText(tmpro, previousCount, newCount); // TESTING
         }
         else tmpro.SetText(newCount.ToString());

@@ -2,8 +2,14 @@ using UnityEngine;
 
 public class ExplicitLanguagePopupDisplay : MonoBehaviour
 {
-    private void NewGame(bool hideExplicitLanguage) =>
-        GameManager.Instance.NewGame(hideExplicitLanguage);
+    private GameManager gMan;
+    private void Start() => gMan = GameManager.Instance;
+    private void NewGame(bool hideExplicitLanguage)
+    {
+        gMan.HideExplicitLanguage = hideExplicitLanguage;
+        gMan.SavePlayerPreferences();
+        gMan.NewGame();
+    }
     private void DestroySelf() =>
         UIManager.Instance.DestroyExplicitLanguagePopup();
 

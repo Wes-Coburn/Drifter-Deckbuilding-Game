@@ -23,6 +23,7 @@ public abstract class HeroDisplay : MonoBehaviour
 
     public GameObject HeroFrame { get => heroFrame; }
     public GameObject HeroStats { get => heroStats; }
+    public GameObject HeroHealthObject { get => heroHealth; }
 
     public Sprite HeroPortrait
     {

@@ -29,6 +29,7 @@ public class ItemIcon : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     public void OnPointerClick(PointerEventData pointerEventData)
     {
         if (EffectManager.Instance.EffectsResolving || EventManager.Instance.ActionsDelayed) return; // TESTING
+        if (!SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene)) return; // TESTING
         uMan.CreateItemIconPopup(loadedItem, gameObject, true);
         FunctionTimer.StopTimer(ITEM_POPUP_TIMER);
         FunctionTimer.StopTimer(ITEM_ABILITY_POPUP_TIMER);

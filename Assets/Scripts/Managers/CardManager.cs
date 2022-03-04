@@ -22,17 +22,8 @@ public class CardManager : MonoBehaviour
     [Header("PREFABS")]
     [SerializeField] private GameObject unitCardPrefab;
     [SerializeField] private GameObject actionCardPrefab;
-
-    [Header("PLAYER UNITS")]
+    [Header("PLAYER START UNITS")]
     [SerializeField] private UnitCard[] playerStartUnits;
-    [Header("RECRUIT UNITS")]
-    [SerializeField] private List<UnitCard> playerRecruitMages;
-    [SerializeField] private List<UnitCard> playerRecruitRogues;
-    [SerializeField] private List<UnitCard> playerRecruitTechs;
-    [SerializeField] private List<UnitCard> playerRecruitWarriors;
-    
-    [Header("TRIGGER")]
-    [SerializeField] private CardAbility triggerKeyword;
 
     // Static Abilities
     public const string ABILITY_BLITZ = "Blitz";
@@ -49,25 +40,50 @@ public class CardManager : MonoBehaviour
     public const string TRIGGER_RETALIATE = "Retaliate";
     public const string TRIGGER_REVENGE = "Revenge";
     public const string TRIGGER_SPARK = "Spark";
-
-    public static List<string> EvergreenTriggers = new List<string>
+    
+    public const string TURN_START = "Turn Start";
+    public const string TURN_END = "Turn End";
+    
+    private readonly string[] AbilityKeywords = new string[]
     {
+        // Static
+        ABILITY_BLITZ,
+        ABILITY_FORCEFIELD,
+        ABILITY_RANGED,
+        ABILITY_STEALTH,
+        // Keyword
+        ABILITY_MARKED,
+        "Mark",
+        "Stun",
+        "Exhausted",
+        "Refreshed",
+        "Refresh",
+        // Triggers
         TRIGGER_DEATHBLOW,
         TRIGGER_INFILTRATE,
+        TRIGGER_PLAY,
         TRIGGER_RESEARCH,
         TRIGGER_RETALIATE,
         TRIGGER_REVENGE,
         TRIGGER_SPARK,
+        TURN_START,
+        TURN_END
+    };
+
+    private readonly string[] CardTypes = new string[]
+    {
+        "Intel",
+        "Rune"
     };
 
     public GameObject UnitCardPrefab { get => unitCardPrefab; }
     public GameObject ActionCardPrefab { get => actionCardPrefab; }
     public UnitCard[] PlayerStartUnits { get => playerStartUnits; }
 
-    public List<UnitCard> PlayerRecruitMages { get => playerRecruitMages; }
-    public List<UnitCard> PlayerRecruitRogues { get => playerRecruitRogues; }
-    public List<UnitCard> PlayerRecruitTechs { get => playerRecruitTechs; }
-    public List<UnitCard> PlayerRecruitWarriors { get => playerRecruitWarriors; }
+    public List<UnitCard> PlayerRecruitMages { get; private set; }
+    public List<UnitCard> PlayerRecruitRogues { get; private set; }
+    public List<UnitCard> PlayerRecruitTechs { get; private set; }
+    public List<UnitCard> PlayerRecruitWarriors { get; private set; }
     public List<UnitCard> PlayerRecruitUnits
     {
         get
@@ -75,26 +91,82 @@ public class CardManager : MonoBehaviour
             List<UnitCard> returnList = new List<UnitCard>();
             List<List<UnitCard>> recruitLists = new List<List<UnitCard>>
             {
-                playerRecruitMages,
-                playerRecruitRogues,
-                playerRecruitTechs,
-                playerRecruitWarriors,
+                PlayerRecruitMages,
+                PlayerRecruitRogues,
+                PlayerRecruitTechs,
+                PlayerRecruitWarriors,
             };
 
-            foreach (List<UnitCard> list in recruitLists)
+            while (returnList.Count < 4)
             {
-                foreach (UnitCard uc in list)
+                foreach (List<UnitCard> list in recruitLists)
                 {
-                    if (uc == null) break;
-                    int index = pMan.PlayerDeckList.FindIndex(x => x.CardName == uc.CardName);
-                    if (index == -1)
+                    foreach (UnitCard uc in list)
                     {
-                        returnList.Add(uc);
-                        break;
+                        if (uc == null) break;
+                        int index = pMan.PlayerDeckList.FindIndex(x => x.CardName == uc.CardName);
+                        if (index == -1)
+                        {
+                            returnList.Add(uc);
+                            if (returnList.Count > 3) return returnList; // TESTING
+                            break;
+                        }
                     }
                 }
             }
             return returnList;
+        }
+    }
+
+    private void Start()
+    {
+        pMan = PlayerManager.Instance;
+        enMan = EnemyManager.Instance;
+        auMan = AudioManager.Instance;
+        PlayerRecruitMages = new List<UnitCard>();
+        PlayerRecruitRogues = new List<UnitCard>();
+        PlayerRecruitTechs = new List<UnitCard>();
+        PlayerRecruitWarriors = new List<UnitCard>();
+    }
+
+    public string FilterKeywords(string text)
+    {
+        string newText = text;
+        foreach (string s in AbilityKeywords)
+            newText = newText.Replace(s, "<b><color=\"yellow\">" + s + "</b></color>");
+        foreach (string s in CardTypes)
+            newText = newText.Replace(s, "<b><color=\"blue\">" + s + "</b></color>");
+        return newText;
+    }
+
+    public void LoadNewRecruits()
+    {
+        const string MAGE = "Mage";
+        const string ROGUE = "Rogue";
+        const string TECH = "Tech";
+        const string WARRIOR = "Warrior";
+
+        UnitCard[] allRecruits = Resources.LoadAll<UnitCard>("Recruit Units");
+        foreach (UnitCard unitCard in allRecruits)
+        {
+            switch (unitCard.CardType)
+            {
+                case MAGE:
+                    PlayerRecruitMages.Add(unitCard);
+                    break;
+                case ROGUE:
+                    PlayerRecruitRogues.Add(unitCard);
+                    break;
+                case TECH:
+                    PlayerRecruitTechs.Add(unitCard);
+                    break;
+                case WARRIOR:
+                    PlayerRecruitWarriors.Add(unitCard);
+                    break;
+                default:
+                    Debug.LogError("CARD TYPE NOT FOUND FOR <" + unitCard.CardName + ">");
+                    return;
+            }
         }
     }
 
@@ -121,23 +193,14 @@ public class CardManager : MonoBehaviour
         return chooseCards;
     }
 
-    public CardAbility TriggerKeyword { get => triggerKeyword; }
-
-    private void Start()
-    {
-        pMan = PlayerManager.Instance;
-        enMan = EnemyManager.Instance;
-        auMan = AudioManager.Instance;
-    }
-
     public void ShuffleRecruits()
     {
         List<List<UnitCard>> recruitLists = new List<List<UnitCard>>
         {
-            playerRecruitMages,
-            playerRecruitRogues,
-            playerRecruitTechs,
-            playerRecruitWarriors,
+            PlayerRecruitMages,
+            PlayerRecruitRogues,
+            PlayerRecruitTechs,
+            PlayerRecruitWarriors,
         };
 
         foreach (List<UnitCard> list in recruitLists)
@@ -272,7 +335,7 @@ public class CardManager : MonoBehaviour
     {
         if (unitCard == null)
         {
-            Debug.LogError("CARD IS NULL!");
+            Debug.LogWarning("CARD IS NULL!");
             return false;
         }
         if (!unitCard.TryGetComponent(out UnitCardDisplay ucd))
@@ -294,10 +357,14 @@ public class CardManager : MonoBehaviour
         if (effectFound) auMan.StartStopSound(null, ucd.CardScript.CardPlaySound); // TESTING
         return effectFound;
     }
-    public bool TriggerPlayedUnits(string triggerName)
+    public bool TriggerPlayedUnits(string triggerName, string player)
     {
+        List<GameObject> unitZoneCards;
+        if (player == GameManager.PLAYER) unitZoneCards = CombatManager.Instance.PlayerZoneCards;
+        else unitZoneCards = CombatManager.Instance.EnemyZoneCards;
         bool triggerFound = false;
-        foreach (GameObject unit in CombatManager.Instance.PlayerZoneCards)
+
+        foreach (GameObject unit in unitZoneCards)
         {
             if (TriggerUnitAbility(unit, triggerName))
                 triggerFound = true;

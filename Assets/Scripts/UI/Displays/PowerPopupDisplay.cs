@@ -31,6 +31,6 @@ public class PowerPopupDisplay : MonoBehaviour
     {
         PowerSprite = PowerScript.PowerSprite;
         PowerDescription = "<b><u>" + PowerScript.PowerName +
-            ":</b></u> " + PowerScript.PowerDescription;
+            ":</b></u> " + CardManager.Instance.FilterKeywords(PowerScript.PowerDescription);
     }
 }

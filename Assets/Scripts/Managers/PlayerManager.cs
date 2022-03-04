@@ -44,8 +44,9 @@ public class PlayerManager : MonoBehaviour
         get => isMyTurn;
         set
         {
+            if (isMyTurn == value) return; // TESTING
             isMyTurn = value;
-            uMan.UpdateEndTurnButton(isMyTurn); // TESTING
+            uMan.UpdateEndTurnButton(isMyTurn);
         }
     }
 
@@ -56,7 +57,7 @@ public class PlayerManager : MonoBehaviour
         {
             int previousCount = aetherCells;
             aetherCells = value;
-            uMan.SetAetherCount(value, previousCount); // TESTING
+            uMan.SetAetherCount(value, previousCount);
         }
     }
     public bool HeroPowerUsed
@@ -130,7 +131,7 @@ public class PlayerManager : MonoBehaviour
         {
             int bonusEnergy = 0;
             if (GetAugment("Synaptic Stabilizer")) bonusEnergy = 2;
-            return GameManager.START_ENERGY_PER_TURN + bonusEnergy;
+            return bonusEnergy;
         }
     }
     public int EnergyPerTurn
@@ -167,6 +168,8 @@ public class PlayerManager : MonoBehaviour
             if (energyLeft > MaxEnergy) energyLeft = MaxEnergy;
             coMan.PlayerHero.GetComponent<PlayerHeroDisplay>().PlayerActions = 
                 energyLeft + "/" + EnergyPerTurn;
+            
+            if (!efMan.EffectsResolving) coMan.SelectPlayableCards(); // TESTING
         }
     }
 
@@ -181,7 +184,6 @@ public class PlayerManager : MonoBehaviour
         PlayerDeckList = new List<Card>();
         CurrentPlayerDeck = new List<Card>();
         AetherCells = 0;
-        //AetherCells = 99; // FOR TESTING ONLY
 
         heroAugments = new List<HeroAugment>();
         heroItems = new List<HeroItem>();   
@@ -235,14 +237,14 @@ public class PlayerManager : MonoBehaviour
             return;
         }
 
-        if (EnergyLeft < PlayerHero.HeroPower.PowerCost)
-        {
-            uMan.CreateFleetingInfoPopup("Not enough energy!");
-            ErrorSound();
-        }
-        else if (HeroPowerUsed == true)
+        if (HeroPowerUsed == true)
         {
             uMan.CreateFleetingInfoPopup("Hero power already used this turn!");
+            ErrorSound();
+        }
+        else if (EnergyLeft < PlayerHero.HeroPower.PowerCost)
+        {
+            uMan.CreateFleetingInfoPopup("Not enough energy!");
             ErrorSound();
         }
         else
@@ -268,7 +270,12 @@ public class PlayerManager : MonoBehaviour
         void ErrorSound() => auMan.StartStopSound("SFX_Error");
 
         List<EffectGroup> groupList = PlayerHero.HeroUltimate.EffectGroupList;
-        if (EnergyLeft < PlayerHero.HeroUltimate.PowerCost)
+        if (HeroUltimateProgress < GameManager.HERO_ULTMATE_GOAL)
+        {
+            uMan.CreateFleetingInfoPopup("Ultimate not ready!");
+            ErrorSound();
+        }
+        else if (EnergyLeft < PlayerHero.HeroUltimate.PowerCost)
         {
             uMan.CreateFleetingInfoPopup("Not enough energy!");
             ErrorSound();
@@ -282,7 +289,7 @@ public class PlayerManager : MonoBehaviour
         {
             efMan.StartEffectGroupList(groupList, coMan.PlayerHero.GetComponent<PlayerHeroDisplay>().HeroUltimate);
             EnergyLeft -= PlayerHero.HeroUltimate.PowerCost;
-            HeroDisplay.HeroUltimate.SetActive(false);
+            HeroDisplay.UltimateUsedIcon.SetActive(true); // TESTING
             PlayerPowerSounds(true);
         }
     }

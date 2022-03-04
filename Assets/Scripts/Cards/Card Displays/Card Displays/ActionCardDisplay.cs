@@ -3,10 +3,11 @@ using TMPro;
 
 public class ActionCardDisplay : CardDisplay
 {
-    /* ACTION_CARD_SCRIPTABLE_OBJECT */
-    public ActionCard ActionCard { get => CardScript as ActionCard; }
+    private CardManager caMan;
     [SerializeField] private GameObject cardDescription;
+    public ActionCard ActionCard { get => CardScript as ActionCard; }
 
+    private void Awake() => caMan = CardManager.Instance;
     /******
      * *****
      * ****** DISPLAY_CARD
@@ -15,7 +16,7 @@ public class ActionCardDisplay : CardDisplay
     protected override void DisplayCard()
     {
         base.DisplayCard();
-        cardDescription.GetComponent<TextMeshProUGUI>().SetText(ActionCard.EffectDescription);
+        cardDescription.GetComponent<TextMeshProUGUI>().SetText(caMan.FilterKeywords(ActionCard.EffectDescription));
     }
 
     /******
@@ -38,7 +39,7 @@ public class ActionCardDisplay : CardDisplay
             ActionCard ac = card as ActionCard;
             description = ac.EffectDescription;
         }
-        tmPro.SetText(description);
+        tmPro.SetText(caMan.FilterKeywords(description));
     }
 
     /******

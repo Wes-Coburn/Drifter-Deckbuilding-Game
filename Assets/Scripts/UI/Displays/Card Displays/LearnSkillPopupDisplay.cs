@@ -40,7 +40,6 @@ public class LearnSkillPopupDisplay : MonoBehaviour
     {
         CardManager.Instance.AddCard(skillCard, GameManager.PLAYER);
         pMan.AetherCells -= GameManager.LEARN_SKILL_COST;
-        CancelButton_OnClick();
         uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.LearnSkill, true, false);
     }
 

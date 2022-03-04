@@ -4,8 +4,7 @@ using TMPro;
 
 public class PlayerHeroDisplay : HeroDisplay
 {
-    [SerializeField] private GameObject playerActions;
-    
+    [SerializeField] private GameObject heroEnergy;
     [SerializeField] private GameObject heroPower;
     [SerializeField] private GameObject powerImage;
     [SerializeField] private GameObject powerCost;
@@ -14,14 +13,18 @@ public class PlayerHeroDisplay : HeroDisplay
     [SerializeField] private GameObject heroUltimate;
     [SerializeField] private GameObject ultimateImage;
     [SerializeField] private GameObject ultimateCost;
+    [SerializeField] private GameObject ultimateUsedIcon;
+
     [SerializeField] private GameObject ultimateProgressBar;
     [SerializeField] private GameObject ultimateProgressFill;
     [SerializeField] private GameObject ultimateProgressText;
 
     public PlayerHero PlayerHero { get => HeroScript as PlayerHero; }
+    public GameObject HeroEnergy { get => heroEnergy; }
     public GameObject HeroPower { get => heroPower; }
     public GameObject PowerUsedIcon { get => powerUsedIcon; }
     public GameObject HeroUltimate { get => heroUltimate; }
+    public GameObject UltimateUsedIcon { get => ultimateUsedIcon; }
     public GameObject UltimateProgressBar { get => ultimateProgressBar; }
     public GameObject UltimateProgressFill { get => ultimateProgressFill; }
     public string UltimateProgressText
@@ -33,7 +36,7 @@ public class PlayerHeroDisplay : HeroDisplay
     }
     public string PlayerActions
     {
-        set => playerActions.GetComponent<TextMeshProUGUI>().SetText(value);
+        set => heroEnergy.GetComponent<TextMeshProUGUI>().SetText(value);
     }
 
     public override void DisplayHero()

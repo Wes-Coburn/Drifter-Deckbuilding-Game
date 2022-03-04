@@ -7,7 +7,7 @@ public class DragArrow : MonoBehaviour
 
     private void Awake() => lineRend = GetComponent<LineRenderer>();
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (SourceCard == null) return;
         Vector3 dragPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);

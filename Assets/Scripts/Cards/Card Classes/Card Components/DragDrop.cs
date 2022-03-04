@@ -43,7 +43,7 @@ public class DragDrop : MonoBehaviour
         IsPlayed = false;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (IsDragging)
         {

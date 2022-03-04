@@ -16,8 +16,9 @@ MonoBehaviour:
   cardBorder: {fileID: 21300000, guid: 743e735f744cf494c9f9081b4ba9303f, type: 3}
   energyCost: 4
   cardName: Mutant Alpha
-  cardType: Warrior
+  cardType: Mutant
   cardSubType: 
+  isRare: 0
   cardDescription: The Mutant Alpha is...
   overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
   zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
@@ -30,7 +31,7 @@ MonoBehaviour:
   power: 2
   health: 5
   startingAbilities:
-  - {fileID: 11400000, guid: 5060d9a4bee67f1469bae5934d28f7e3, type: 2}
+  - {fileID: 11400000, guid: 8fedddeecb6aa2d45b03192792650d11, type: 2}
   unitDeathSound:
     name: 
     clip: {fileID: 8300000, guid: 0a4cebc123ee13948af7b8503fd941a3, type: 3}

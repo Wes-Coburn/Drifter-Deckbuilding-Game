@@ -4,9 +4,10 @@ using UnityEngine;
 public class CardContainer : MonoBehaviour
 {
     private GameObject child;
-    readonly float minSpeed = 0.5f;
-    readonly float maxSpeed = 10;
     private float distance;
+
+    readonly float minSpeed = 10;
+    readonly float maxSpeed = 150;
 
     public bool IsDetached { get; set; }
     public Action OnAttachAction { get; set; }
@@ -27,26 +28,26 @@ public class CardContainer : MonoBehaviour
 
     public Vector2 BufferDistance { get; set; }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (IsDetached || Child == null) return;
 
-        Vector2 bufferedPosition = transform.position; // TESTING
-        if (BufferDistance != null) // TESTING
+        Vector2 bufferedPosition = transform.position;
+        if (BufferDistance != null)
         {
             float bufferedX = transform.position.x - BufferDistance.x;
             float bufferedY = transform.position.y - BufferDistance.y;
             bufferedPosition.Set(bufferedX, bufferedY);
         }
-        distance = Vector2.Distance(Child.transform.position, bufferedPosition); // TESTING
 
-        float speed = distance/10;
+        distance = Vector2.Distance(Child.transform.position, bufferedPosition);
+        float speed = distance/5; // TESTING
         if (speed < minSpeed) speed = minSpeed;
         else if (speed > maxSpeed) speed = maxSpeed;
         if (distance > 0)
         {
             Child.transform.position =
-                Vector2.MoveTowards(Child.transform.position, bufferedPosition, speed);
+                Vector3.MoveTowards(Child.transform.position, bufferedPosition, speed);
         }
         else OnAttach();
     }

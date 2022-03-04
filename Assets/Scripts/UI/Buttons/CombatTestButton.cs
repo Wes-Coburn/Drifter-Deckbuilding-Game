@@ -41,6 +41,8 @@ public class CombatTestButton : MonoBehaviour
     public void OnClick()
     {
         if (SceneLoader.SceneIsLoading) return;
+
+        //UIManager.Instance.ShakeCamera(EZCameraShake.CameraShakePresets.Bump); // TESTING
         EnemyHero eh = ScriptableObject.CreateInstance<EnemyHero>();
         eh.LoadHero(enemyTestHero);
         PlayerHero ph = ScriptableObject.CreateInstance<PlayerHero>();

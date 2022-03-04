@@ -21,9 +21,16 @@ public class AnimationManager : MonoBehaviour
     private CombatManager coMan;
     private DialogueManager dMan;
     private AudioManager auMan;
-    private GameManager gMan;
+    private EnemyManager enMan;
 
     private Vector2 playerHandStart;
+    private Color previousBarColor;
+    private Color previousTextCountColor;
+
+    [SerializeField] private GameObject valueChangerPrefab;
+
+    public Coroutine ProgressBarRoutine { get; set; }
+    public Coroutine TextCountRoutine { get; set; } // Could be private
 
     private void Start()
     {
@@ -31,7 +38,17 @@ public class AnimationManager : MonoBehaviour
         coMan = CombatManager.Instance;
         dMan = DialogueManager.Instance;
         auMan = AudioManager.Instance;
-        gMan = GameManager.Instance;
+        enMan = EnemyManager.Instance;
+    }
+
+    public void ProgressBarRoutine_Stop() // TESTING
+    {
+        if (ProgressBarRoutine != null)
+        {
+            AudioManager.Instance.StartStopSound("SFX_ProgressBar", null, AudioManager.SoundType.SFX, true);
+            StopCoroutine(ProgressBarRoutine);
+            ProgressBarRoutine = null;
+        }
     }
 
     public void ChangeAnimationState(GameObject go, string state)
@@ -67,13 +84,52 @@ public class AnimationManager : MonoBehaviour
         Debug.LogError("ANIMATOR NOT FOUND!");
     }
 
-    /* HERO_ANIMATIONS */
-    public void ModifyHeroHealthState(GameObject hero) =>
+    /******
+     * *****
+     * ****** VALUE_CHANGE_ANIMATION
+     * *****
+     *****/
+    private void ValueChanger(Transform parent, int value)
+    {
+        if (value == 0)
+        {
+            Debug.LogWarning("VALUE CHANGE IS 0!");
+            return;
+        }
+
+        GameObject valueChanger = Instantiate(valueChangerPrefab, parent);
+        //valueChanger.transform.SetParent(uMan.CurrentCanvas.transform); // TESTING
+
+        string valueText = "+";
+        bool isPositiveChange = true;
+        if (value < 0)
+        {
+            isPositiveChange = false;
+            valueText = "";
+        }
+        valueText += value;
+
+        valueChanger.GetComponentInChildren<TextMeshProUGUI>().SetText(valueText);
+        valueChanger.GetComponentInChildren<Animator>().SetBool("IsPositiveChange", isPositiveChange);
+    }
+
+    /******
+     * *****
+     * ****** HERO_STATE_ANIMATIONS
+     * *****
+     *****/
+    public void ModifyHeroHealthState(GameObject hero, int healthChange)
+    {
         ChangeAnimationState(hero, "Modify_Health");
-    public void ModifyHeroEnergyState()
+        GameObject healthScore = hero.GetComponent<HeroDisplay>().HeroHealthObject;
+        ValueChanger(healthScore.transform, healthChange); // TESTING
+    }
+    public void ModifyHeroEnergyState(int energyChange)
     {
         auMan.StartStopSound("SFX_EnergyRefill");
         ChangeAnimationState(coMan.PlayerHero, "Modify_Energy");
+        GameObject energyScore = coMan.PlayerHero.GetComponent<PlayerHeroDisplay>().HeroEnergy;
+        ValueChanger(energyScore.transform, energyChange);
     }
     public void ReinforcementsState()
     {
@@ -85,7 +141,11 @@ public class AnimationManager : MonoBehaviour
         auMan.StartStopSound("SFX_NextReinforcements");
         ChangeAnimationState(coMan.EnemyHero, "Next_Reinforcements");
     }
-    /* UNIT_ANIMATIONS */
+    /******
+     * *****
+     * ****** CARD_STATE_ANIMATIONS
+     * *****
+     *****/
     public void RevealedHandState(GameObject card) =>
         ChangeAnimationState(card, "Revealed_Hand");
     public void RevealedDragState(GameObject card) =>
@@ -101,30 +161,57 @@ public class AnimationManager : MonoBehaviour
     public void ZoomedState(GameObject card) =>
         ChangeAnimationState(card, "Zoomed");
 
-    // Stat Changes
-    public void UnitTakeDamageState(GameObject unitCard) =>
+    /******
+     * *****
+     * ****** STAT_CHANGES
+     * *****
+     *****/
+    public void UnitTakeDamageState(GameObject unitCard, int damageValue)
+    {
         ChangeAnimationState(unitCard.GetComponent<UnitCardDisplay>().UnitStats, "Take_Damage");
+        GameObject healthScore = unitCard.GetComponent<UnitCardDisplay>().HealthScore;
+        ValueChanger(healthScore.transform, -damageValue); // TESTING
+    }
     public void DestroyUnitCardState(GameObject unitCard) =>
         ChangeAnimationState(unitCard, "Destroyed");
-    public void UnitStatChangeState(GameObject unitCard,
-        bool isPowerChange, bool isHealthChange)
+    public void UnitStatChangeState(GameObject unitCard, int powerChange, int healthChange)
     {
-        if (!coMan.IsUnitCard(unitCard))
-        {
-            Debug.LogError("TARGET IS NOT UNIT CARD!");
-            return;
-        }
+        if (powerChange == 0 && healthChange == 0) return;
 
-        if (!isPowerChange && !isHealthChange) return;
-        GameObject stats = unitCard.GetComponent<UnitCardDisplay>().UnitStats;
+        UnitCardDisplay ucd = unitCard.GetComponent<UnitCardDisplay>();
+        GameObject stats = ucd.UnitStats;
         SetAnimatorBool(stats, "IsDamaged", coMan.IsDamaged(unitCard));
 
-        if (isPowerChange)
+        if (powerChange != 0)
         {
-            if (isHealthChange) ModifyAllUnitStatsState(stats);
-            else ModifyUnitPowerState(stats);
+            if (healthChange != 0)
+            {
+                ModifyAllUnitStatsState(stats);
+                ModifyPower();
+                ModifyHealth();
+            }
+            else
+            {
+                ModifyUnitPowerState(stats);
+                ModifyPower();
+            }
         }
-        else if (isHealthChange) ModifyUnitHealthState(stats);
+        else if (healthChange != 0)
+        {
+            ModifyUnitHealthState(stats);
+            ModifyHealth();
+        }
+
+        void ModifyPower()
+        {
+            GameObject powerScore = ucd.PowerScore;
+            ValueChanger(powerScore.transform, powerChange); // TESTING
+        }
+        void ModifyHealth()
+        {
+            GameObject healthScore = ucd.HealthScore;
+            ValueChanger(healthScore.transform, healthChange); // TESTING
+        }
     }
     private void ModifyUnitHealthState(GameObject card) =>
         ChangeAnimationState(card, "Modify_Health");
@@ -146,44 +233,59 @@ public class AnimationManager : MonoBehaviour
         ChangeAnimationState(icon, "Trigger");
     }
 
-    // Counting Text
-    public void CountingText(TextMeshProUGUI text, int start, int end)
+    /******
+     * *****
+     * ****** COUNTING_TEXT
+     * *****
+     *****/
+    public void CountingText(TextMeshProUGUI text, int start, int end, float delay = 0.3f)
     {
         if (start == end)
         {
             Debug.LogError("START == END!");
             return;
         }
-        StartCoroutine(CountingTextNumerator(text, start, end));
+        if (TextCountRoutine != null) // TESTING
+        {
+            text.color = previousTextCountColor;
+            StopCoroutine(TextCountRoutine);
+        }
+        TextCountRoutine = StartCoroutine(CountingTextNumerator(text, start, end, delay));
     }
-    private IEnumerator CountingTextNumerator(TextMeshProUGUI text, int start, int end)
+    private IEnumerator CountingTextNumerator(TextMeshProUGUI text, int start, int end, float delay)
     {
+        previousTextCountColor = text.color;
+        text.color = uMan.HighlightedColor;
         int count = start;
         if (count < end)
         {
             while (count < end)
             {
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(delay);
                 text.SetText(++count + "");
-                auMan.StartStopSound("SFX_Typing");
+                auMan.StartStopSound("SFX_Counting");
             }
         }
         else
         {
             while (count > end)
             {
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(delay);
                 text.SetText(--count + "");
-                auMan.StartStopSound("SFX_Typing");
+                auMan.StartStopSound("SFX_Counting");
             }
         }
-    }
 
-    // Hero Ultimate
-    public void HeroUltimateReady()
-    {
-        GameObject heroUltimate = coMan.PlayerHero.GetComponent<PlayerHeroDisplay>().HeroUltimate;
-        ChangeAnimationState(heroUltimate, "Trigger");
+        yield return new WaitForSeconds(delay);
+        text.color = previousTextCountColor;
+
+        yield return new WaitForSeconds(delay);
+        text.color = uMan.HighlightedColor;
+
+        yield return new WaitForSeconds(delay);
+        text.color = previousTextCountColor;
+
+        TextCountRoutine = null;
     }
 
     /******
@@ -349,11 +451,13 @@ public class AnimationManager : MonoBehaviour
         while (distance > 700);
 
         uMan.CreateVersusPopup();
+        uMan.ShakeCamera(EZCameraShake.CameraShakePresets.Bump); // TESTING
         yield return new WaitForSeconds(1);
         uMan.SelectTarget(coMan.PlayerHero, true);
         PlayerManager.Instance.PlayerPowerSounds();
         yield return new WaitForSeconds(2);
         uMan.SelectTarget(coMan.PlayerHero, false);
+        yield return new WaitForSeconds(0.5f);
         uMan.SelectTarget(coMan.EnemyHero, true);
         Sound enemyWinSound = EnemyManager.Instance.EnemyHero.HeroWin;
         auMan.StartStopSound(null, enemyWinSound);
@@ -416,6 +520,21 @@ public class AnimationManager : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         while (distance > 0);
+
+        // TESTING
+        if (enMan.EnemyHero.IsBoss)
+        {
+            float countDelay = 0.2f;
+            CountingText(eHD.HeroHealthObject.GetComponent
+                <TextMeshProUGUI>(), GameManager.ENEMY_STARTING_HEALTH, enMan.MaxEnemyHealth, countDelay);
+
+            while (TextCountRoutine != null)
+            {
+                ModifyHeroHealthState(coMan.EnemyHero, 1); // TESTING
+                yield return new WaitForSeconds(countDelay);
+            }
+            enMan.EnemyHealth = enMan.MaxEnemyHealth; // TESTING
+        }
     }
 
     /******
@@ -466,14 +585,14 @@ public class AnimationManager : MonoBehaviour
 
         coMan.PlayAttackSound(attacker);
         coMan.Strike(attacker, defender, true);
+        yield return new WaitForSeconds(0.1f); // TESTING
 
         // RETREAT
         do
         {
             distance = Vector2.Distance(attacker.transform.position, container.transform.position);
             attacker.transform.position =
-                Vector3.MoveTowards(attacker.transform.position,
-                container.transform.position,
+                Vector3.MoveTowards(attacker.transform.position, container.transform.position,
                 GetCurrentSpeed(distance));
             yield return new WaitForFixedUpdate();
         }
@@ -494,8 +613,16 @@ public class AnimationManager : MonoBehaviour
         Item
     }
     public void SetProgressBar(ProgressBarType progressType, int currentProgress, int newProgress, bool isReady,
-        GameObject progressBar, GameObject progressFill, int controlValue = 1) =>
-        StartCoroutine(ProgressBarNumerator(progressType, currentProgress, newProgress, isReady, progressBar, progressFill, controlValue));
+        GameObject progressBar, GameObject progressFill, int controlValue = 1)
+    {
+        if (ProgressBarRoutine != null)
+        {
+            progressFill.GetComponent<Image>().color = previousBarColor;
+            StopCoroutine(ProgressBarRoutine);
+        }
+        ProgressBarRoutine = StartCoroutine(ProgressBarNumerator(progressType, currentProgress, newProgress,
+            isReady, progressBar, progressFill, controlValue));
+    }
 
     private IEnumerator ProgressBarNumerator(ProgressBarType progressType, int currentProgress, int newProgress,
         bool isReady, GameObject progressBar, GameObject progressFill, int controlValue)
@@ -503,7 +630,7 @@ public class AnimationManager : MonoBehaviour
         Slider slider = progressBar.GetComponent<Slider>();
         slider.value = currentProgress + controlValue; // TESTING
         Image image = progressFill.GetComponent<Image>();
-        Color previousColor = image.color;
+        previousBarColor = image.color;
         image.color = uMan.HighlightedColor;
         auMan.StartStopSound("SFX_ProgressBar", null, AudioManager.SoundType.SFX, false, true);
 
@@ -525,7 +652,7 @@ public class AnimationManager : MonoBehaviour
             }
         }
         
-        image.color = previousColor;
+        image.color = previousBarColor;
         auMan.StartStopSound("SFX_ProgressBar", null, AudioManager.SoundType.SFX, true);
 
         if (isReady)
@@ -534,8 +661,9 @@ public class AnimationManager : MonoBehaviour
             {
                 case ProgressBarType.Ultimate:
                     PlayerHeroDisplay phd = coMan.PlayerHero.GetComponent<PlayerHeroDisplay>();
-                    phd.HeroUltimate.SetActive(true);
-                    HeroUltimateReady();
+                    phd.UltimateUsedIcon.SetActive(false); // TESTING
+                    GameObject heroUltimate = phd.HeroUltimate;
+                    ChangeAnimationState(heroUltimate, "Trigger");
                     auMan.StartStopSound("SFX_HeroUltimateReady");
                     break;
                 case ProgressBarType.Recruit:
@@ -548,5 +676,6 @@ public class AnimationManager : MonoBehaviour
                     break;
             }
         }
+        ProgressBarRoutine = null; // TESTING
     }
 }

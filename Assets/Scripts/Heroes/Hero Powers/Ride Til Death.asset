@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Ride Til Death
   m_EditorClassIdentifier: 
   PowerName: Ride Til Death
-  PowerCost: 3
+  PowerCost: 2
   PowerSprite: {fileID: 21300000, guid: 09012c0c2892c1941bba759b7930be34, type: 3}
   PowerSounds:
   - name: 
@@ -26,7 +26,8 @@ MonoBehaviour:
     volume: 0.8
     pitch: 1
     source: {fileID: 0}
-  PowerDescription: Double an ally's power this turn.
+  PowerDescription: Give an ally +1|+0. If its power is 2 or less, give it +1|+1
+    instead.
   EffectGroupList:
-  - {fileID: 11400000, guid: e943ed07dd5dc8f4b8176ee75e22120b, type: 2}
+  - {fileID: 11400000, guid: ef1d30324e98e204bb5e6341f9765273, type: 2}
   LinkedAbilities: []

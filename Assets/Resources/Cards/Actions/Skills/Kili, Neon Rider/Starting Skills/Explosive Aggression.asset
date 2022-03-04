@@ -28,9 +28,8 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
-  effectDescription: Give an ally +1|+1. Then if its power is 4 or less, give it
-    +1|+0 this turn.
+  effectDescription: Give an ally +2|+0 this turn. If its power is 2 or less, give
+    it +2|+0 instead.
   effectGroupList:
-  - {fileID: 11400000, guid: 8a489bd26e5774f498ed20cdaf122c55, type: 2}
-  linkedAbilities:
-  - {fileID: 11400000, guid: ea3240d3d6b88204c8166979a836ea6e, type: 2}
+  - {fileID: 11400000, guid: 3dc1807b3f8318343baa54eeaf812d2a, type: 2}
+  linkedAbilities: []

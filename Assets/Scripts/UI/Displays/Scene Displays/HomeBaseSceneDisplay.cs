@@ -132,7 +132,7 @@ public class HomeBaseSceneDisplay : MonoBehaviour
         HeroPowerSprite = ph.HeroPower.PowerSprite;
         // ULTIMATE
         HeroUltimate = ph.HeroUltimate;
-        HeroUltimateCost = ph.HeroPower.PowerCost;
+        HeroUltimateCost = ph.HeroUltimate.PowerCost;
         HeroUltimateDescription = "<b><u>" + ph.HeroUltimate.PowerName +
             " (Ultimate):</b></u> " + ph.HeroUltimate.PowerDescription;
         HeroUltimateSprite = ph.HeroUltimate.PowerSprite;

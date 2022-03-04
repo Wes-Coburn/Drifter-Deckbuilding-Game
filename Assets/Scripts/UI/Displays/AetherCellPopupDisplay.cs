@@ -4,6 +4,7 @@ using TMPro;
 public class AetherCellPopupDisplay : MonoBehaviour
 {
     private DialogueManager dMan;
+    private int aetherValue;
 
     [SerializeField] private GameObject aetherQuantity;
     [SerializeField] private GameObject totalAether;
@@ -14,10 +15,11 @@ public class AetherCellPopupDisplay : MonoBehaviour
 
     public int AetherQuantity
     {
+
         set
         {
+            aetherValue = value;
             aetherQuantity.GetComponent<TextMeshProUGUI>().SetText(value + "X");
-            PlayerManager.Instance.AetherCells += value;
         }
     }
     public int TotalAether
@@ -46,6 +48,7 @@ public class AetherCellPopupDisplay : MonoBehaviour
         foreach (GameObject go in hiddenZones)
             go.SetActive(true);
         GetComponent<SoundPlayer>().PlaySound(1);
+        PlayerManager.Instance.AetherCells += aetherValue; // TESTING
     }
 
     public void ContinueButton_OnClick()

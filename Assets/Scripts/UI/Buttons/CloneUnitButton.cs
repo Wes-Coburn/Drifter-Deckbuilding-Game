@@ -4,6 +4,7 @@ using TMPro;
 public class CloneUnitButton : MonoBehaviour
 {
     [SerializeField] private GameObject cloneCost;
+    private UnitCard unitCard;
     private int CloneCost
     {
         set
@@ -11,10 +12,14 @@ public class CloneUnitButton : MonoBehaviour
             cloneCost.GetComponent<TextMeshProUGUI>().SetText(value.ToString());
         }
     }
-    public UnitCard UnitCard { get; set; }
-    private void Awake()
+    public UnitCard UnitCard
     {
-        CloneCost = GameManager.CLONE_UNIT_COST;
+        get => unitCard;
+        set
+        {
+            unitCard = value;
+            CloneCost = GameManager.Instance.GetCloneCost(unitCard);
+        }
     }
     public void OnClick() =>
         FindObjectOfType<CardPageDisplay>().CloneUnitButton_OnClick(UnitCard);

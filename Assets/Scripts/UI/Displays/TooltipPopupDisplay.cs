@@ -6,19 +6,24 @@ public class TooltipPopupDisplay : MonoBehaviour, IPointerEnterHandler, IPointer
 {
     private const string TOOLTIP_TIMER = "TooltipTimer";
     private GameObject tooltipPopup;
-    [SerializeField] private GameObject tooltipPopupPrefab;
+    private UIManager uMan;
+
     [SerializeField] [TextArea] private string tooltipText;
     [SerializeField] private Vector2 tooltipPosition;
+    [SerializeField] private bool isZoomCardTooltip;
+
+    private void Awake() => uMan = UIManager.Instance;
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
+        if (isZoomCardTooltip && !CardZoom.ZoomCardIsCentered) return; // TESTING
         if (DragDrop.DraggingCard != null || DragDrop.ArrowIsDragging) return;
         FunctionTimer.Create(() => ShowTooltip(), 0.5f, TOOLTIP_TIMER);
         void ShowTooltip()
         {
             DestroyToolTip();
-            tooltipPopup = Instantiate(tooltipPopupPrefab, 
-                UIManager.Instance.CurrentWorldSpace.transform);
+            tooltipPopup = Instantiate(uMan.TooltipPopupPrefab,
+                uMan.CurrentWorldSpace.transform);
             DisplayTooltipPopup();
         }
     }

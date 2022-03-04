@@ -119,7 +119,7 @@ public class EnemyManager : MonoBehaviour
         for (int i = 0; i < cardsToPlay; i++)
             evMan.NewDelayedAction(() => 
             coMan.PlayCard(coMan.EnemyHandCards[0]), 2);
-        evMan.NewDelayedAction(() => BeginAttacks(), 1);
+        evMan.NewDelayedAction(() => BeginAttacks(), 0);
     }
 
     private void BeginAttacks()
@@ -174,15 +174,16 @@ public class EnemyManager : MonoBehaviour
         GameObject defender = null;
         int playerHealth = PlayerManager.Instance.PlayerHealth;
 
+        // If player hero is <LETHALLY THREATENED>
         if (TotalEnemyPower() >= playerHealth) return coMan.PlayerHero;
 
-        if (TotalEnemyPower() >= playerHealth * 0.75f && TotalAllyPower() <= EnemyHealth * 0.75f)
-            return coMan.PlayerHero;
-
-        if (TotalEnemyPower() >= playerHealth || TotalAllyPower() < EnemyHealth)
+        // If enemy hero is NOT <MILDLY THREATENED>
+        if (EnemyHealth > MaxEnemyHealth * 0.5f && TotalAllyPower() < EnemyHealth * 0.65f)
         {
-            if (CardManager.GetTrigger(enemy, CardManager.TRIGGER_INFILTRATE) ||
-            CardManager.GetTrigger(enemy, CardManager.TRIGGER_RETALIATE))
+            // If player hero IS <THREATENED>
+            if (TotalEnemyPower() >= playerHealth * 0.75f ||
+                CardManager.GetTrigger(enemy, CardManager.TRIGGER_INFILTRATE) ||
+                CardManager.GetTrigger(enemy, CardManager.TRIGGER_RETALIATE))
                 return coMan.PlayerHero;
         }
 
@@ -200,7 +201,7 @@ public class EnemyManager : MonoBehaviour
             int power = ucd.CurrentPower;
             int health = ucd.CurrentHealth;
 
-            priority += power - health/2;
+            priority += power + (power/2) - health/2;
             if (CardManager.GetAbility(legalDefender, CardManager.ABILITY_FORCEFIELD))
                 priority -= 2;
             if (CardManager.GetAbility(legalDefender, CardManager.ABILITY_RANGED))

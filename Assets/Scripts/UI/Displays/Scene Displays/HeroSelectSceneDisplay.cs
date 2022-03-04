@@ -108,7 +108,7 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         heroPowerImage.GetComponent<Image>().sprite = LoadedHero.HeroPower.PowerSprite;
         heroPowerDescription.GetComponent<TextMeshProUGUI>().SetText
             ("<b><u>" + LoadedHero.HeroPower.PowerName +
-            ":</b></u> " + LoadedHero.HeroPower.PowerDescription);
+            ":</b></u> " + caMan.FilterKeywords(LoadedHero.HeroPower.PowerDescription));
         
         // ULTIMATE
         heroUltimate.GetComponent<PowerZoom>().LoadedPower = LoadedHero.HeroUltimate;
@@ -116,7 +116,7 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         heroUltimateImage.GetComponent<Image>().sprite = LoadedHero.HeroUltimate.PowerSprite;
         heroUltimateDescription.GetComponent<TextMeshProUGUI>().SetText
             ("<b><u>" + LoadedHero.HeroUltimate.PowerName +
-            " (Ultimate):</b></u> " + LoadedHero.HeroUltimate.PowerDescription);
+            " (Ultimate):</b></u> " + caMan.FilterKeywords(LoadedHero.HeroUltimate.PowerDescription));
 
         if (currentSkill_1 != null)
         {

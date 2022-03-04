@@ -89,8 +89,8 @@ public class GameManager : MonoBehaviour
 
     // Enemy
     public const string ENEMY = "Enemy";
-    //public const int ENEMY_STARTING_HEALTH = 20;
-    public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
+    public const int ENEMY_STARTING_HEALTH = 20;
+    //public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
     public const int BOSS_BONUS_HEALTH = 10;
     public const int ENEMY_HAND_SIZE = 0;
     public const int ENEMY_START_UNITS = 5;
@@ -101,6 +101,7 @@ public class GameManager : MonoBehaviour
     public const int LEARN_SKILL_COST = 2;
     public const int REMOVE_CARD_COST = 1;
     public const int CLONE_UNIT_COST = 2;
+    public const int CLONE_RARE_UNIT_COST = 4;
     // Recruits
     public const int RECRUIT_UNIT_COST = 2;
     public const int RECRUIT_RARE_UNIT_COST = 4;
@@ -117,6 +118,7 @@ public class GameManager : MonoBehaviour
      *****/
     private void Start()
     {
+        //PlayerPrefs.DeleteAll(); // FOR TESTING ONLY
         pMan = PlayerManager.Instance;
         enMan = EnemyManager.Instance;
         caMan = CardManager.Instance;
@@ -142,18 +144,57 @@ public class GameManager : MonoBehaviour
      * ****** NEW_GAME
      * *****
      *****/
-    public void NewGame(bool hideExplicitLanguage)
+    public void NewGame()
     {
         IsCombatTest = false;
-        HideExplicitLanguage = hideExplicitLanguage;
         CurrentNarrative = settingNarrative;
-        caMan.ShuffleRecruits();
+        caMan.LoadNewRecruits(); // TESTING
         ShopItems = GetShopItems();
-        ShopLoyalty = 0; // TESTING
-        RecruitLoyalty = 0; // TESTING
+        ShopLoyalty = 0;
+        RecruitLoyalty = 0;
         GetActiveLocation(homeBaseLocation);
         CurrentLocation = GetActiveLocation(firstLocation);
+        pMan.AetherCells = 0; // TESTING
         SceneLoader.LoadScene(SceneLoader.Scene.NarrativeScene);
+    }
+
+    /******
+     * *****
+     * ****** END_GAME
+     * *****
+     *****/
+    public void EndGame()
+    {
+        // Game Manager
+        foreach (NPCHero npc in ActiveNPCHeroes) Destroy(npc);
+        ActiveNPCHeroes.Clear();
+        foreach (Location loc in ActiveLocations) Destroy(loc);
+        ActiveLocations.Clear();
+        // Player Manager
+        // Don't destroy pMan objects, they are assets not instances
+        pMan.PlayerHero = null;
+        pMan.PlayerDeckList.Clear();
+        pMan.CurrentPlayerDeck.Clear();
+        //pMan.AetherCells = 0;
+        pMan.HeroAugments.Clear();
+        pMan.HeroItems.Clear();
+        // Enemy Manager
+        Destroy(enMan.EnemyHero);
+        enMan.EnemyHero = null;
+        // Dialogue Manager
+        dMan.EndDialogue();
+        // Effect Manager
+        foreach (Effect e in efMan.GiveNextEffects) Destroy(e);
+        efMan.GiveNextEffects.Clear();
+        // Event Manager
+        evMan.ClearDelayedActions();
+        // UI Manager
+        uMan.ClearAugmentBar();
+        uMan.ClearItemBar();
+        // Corotoutines
+        StopAllCoroutines(); // TESTING
+        // Scene Loader
+        SceneLoader.LoadScene(SceneLoader.Scene.TitleScene);
     }
 
     /******
@@ -288,10 +329,13 @@ public class GameManager : MonoBehaviour
         List<Card> allcards = new List<Card>();
         Card[] cards = Resources.LoadAll<Card>("Cards");
         Card[] combatRewards = Resources.LoadAll<Card>("Combat Rewards");
+        Card[] recruitUnits = Resources.LoadAll<Card>("Recruit Units");
         for (int i = 0; i < cards.Length; i++)
             allcards.Add(cards[i]);
         for (int i = 0; i < combatRewards.Length; i++)
             allcards.Add(combatRewards[i]);
+        for (int i = 0; i < recruitUnits.Length; i++)
+            allcards.Add(recruitUnits[i]);
 
         // LOCATIONS
         Location[] locations = Resources.LoadAll<Location>("Locations");
@@ -397,90 +441,51 @@ public class GameManager : MonoBehaviour
             int index = allNarratives.FindIndex(x => x.NarrativeName == narrativeName);
             if (index != -1) return allNarratives[index];
             else Debug.LogError("NARRATIVE NOT FOUND!");
-            return null;
+            throw new System.NullReferenceException();
         }
         Hero GetHero(string heroName)
         {
             int index = allHeroes.FindIndex(x => x.HeroName == heroName);
             if (index != -1) return allHeroes[index];
             else Debug.LogError("HERO NOT FOUND!");
-            return null;
+            throw new System.NullReferenceException();
         }
         Card GetCard(string cardName)
         {
             int index = allcards.FindIndex(x => x.CardName == cardName);
             if (index != -1) return allcards[index];
             else Debug.LogError("CARD NOT FOUND!");
-            return null;
+            throw new System.NullReferenceException();
         }
         Location GetLocation(string locationName)
         {
             int index = allLocations.FindIndex(x => x.LocationFullName == locationName);
             if (index != -1) return allLocations[index];
             else Debug.LogError("LOCATION NOT FOUND!");
-            return null;
+            throw new System.NullReferenceException();
         }
         DialogueClip GetClip(string clipName)
         {
             int index = allClips.FindIndex(x => x.ToString() == clipName);
             if (index != -1) return allClips[index];
             else Debug.LogError("CLIP NOT FOUND!");
-            return null;
+            throw new System.NullReferenceException();
         }
         HeroAugment GetAugment(string augmentName)
         {
             int index = allAugments.FindIndex(x => x.AugmentName == augmentName);
             if (index != -1) return allAugments[index];
             else Debug.LogError("AUGMENT NOT FOUND!");
-            return null;
+            throw new System.NullReferenceException();
         }
         HeroItem GetItem(string itemName)
         {
             int index = allItems.FindIndex(x => x.ItemName == itemName);
             if (index != -1) return allItems[index];
             else Debug.LogError("ITEM NOT FOUND!");
-            return null;
+            throw new System.NullReferenceException();
         }
         return true;
-    }
-
-    /******
-     * *****
-     * ****** END_GAME
-     * *****
-     *****/
-    public void EndGame()
-    {
-        // Game Manager
-        foreach (NPCHero npc in ActiveNPCHeroes) Destroy(npc);
-        ActiveNPCHeroes.Clear();
-        foreach (Location loc in ActiveLocations) Destroy(loc);
-        ActiveLocations.Clear();
-        // Player Manager
-        // Don't destroy pMan objects, they are assets not instances
-        pMan.PlayerHero = null;
-        pMan.PlayerDeckList.Clear();
-        pMan.CurrentPlayerDeck.Clear();
-        pMan.AetherCells = 0;
-        pMan.HeroAugments.Clear();
-        pMan.HeroItems.Clear();
-        // Enemy Manager
-        Destroy(enMan.EnemyHero);
-        enMan.EnemyHero = null;
-        // Dialogue Manager
-        dMan.EndDialogue();
-        // Effect Manager
-        foreach (Effect e in efMan.GiveNextEffects) Destroy(e);
-        efMan.GiveNextEffects.Clear();
-        // Event Manager
-        evMan.ClearDelayedActions();
-        // UI Manager
-        uMan.ClearAugmentBar();
-        uMan.ClearItemBar();
-        // Corotoutines
-        StopAllCoroutines(); // TESTING
-        // Scene Loader
-        SceneLoader.LoadScene(SceneLoader.Scene.TitleScene);
     }
 
     /******
@@ -596,7 +601,7 @@ public class GameManager : MonoBehaviour
         uMan.EndTurnButton.SetActive(false);
         pHD.HeroStats.SetActive(false);
         pHD.PowerUsedIcon.SetActive(false);
-        pHD.HeroUltimate.SetActive(false);
+        pHD.UltimateUsedIcon.SetActive(true);
         eHD.HeroStats.SetActive(false);
 
         // ENEMY MANAGER
@@ -608,12 +613,12 @@ public class GameManager : MonoBehaviour
             return;
         }
         enMan.EnemyHero = enemyHero;
-        enMan.EnemyHealth = enMan.MaxEnemyHealth;
+        enMan.EnemyHealth = ENEMY_STARTING_HEALTH; // TESTING
 
         // PLAYER MANAGER
         pMan.PlayerHealth = pMan.MaxPlayerHealth;
-        pMan.EnergyPerTurn = pMan.StartEnergy;
-        pMan.EnergyLeft = 0;
+        pMan.EnergyPerTurn = START_ENERGY_PER_TURN;
+        pMan.EnergyLeft = pMan.StartEnergy; // TESTING
         pMan.HeroUltimateProgress_Direct = 0;
 
         // UPDATE DECKS
@@ -690,37 +695,48 @@ public class GameManager : MonoBehaviour
     private void StartCombatTurn(string player)
     {
         bool isPlayerTurn;
-        coMan.ActionsPlayedThisTurn = 0;
-
-        if (player == PLAYER)
-        {
-            isPlayerTurn = true;
-            evMan.NewDelayedAction(() => PlayerTurnStart(), 0.5f);
-            evMan.NewDelayedAction(() => coMan.DrawCard(PLAYER), 1);
-
-            void PlayerTurnStart()
-            {
-                pMan.IsMyTurn = true;
-                enMan.IsMyTurn = false;
-                pMan.HeroPowerUsed = false;
-                pMan.EnergyLeft += pMan.EnergyPerTurn;
-                anMan.ModifyHeroEnergyState();
-            }
-        }
-        else if (player == ENEMY)
-        {
-            isPlayerTurn = false;
-            pMan.IsMyTurn = false;
-            enMan.IsMyTurn = true;
-            evMan.NewDelayedAction(() => enMan.StartEnemyTurn(), 0);
-        }
+        if (player == PLAYER) isPlayerTurn = true;
+        else if (player == ENEMY) isPlayerTurn = false;
         else
         {
             Debug.LogError("PLAYER NOT FOUND!");
             return;
         }
-        uMan.UpdateEndTurnButton(isPlayerTurn);
-        FunctionTimer.Create(() => TurnPopup(), 1);
+
+        coMan.ActionsPlayedThisTurn = 0;
+        evMan.NewDelayedAction(() => TurnPopup(), 0);
+
+        if (isPlayerTurn)
+        {
+            evMan.NewDelayedAction(() => PlayerTurnStart(), 2);
+            evMan.NewDelayedAction(() => TurnDraw(), 1);
+
+            void TurnDraw()
+            {
+                coMan.DrawCard(PLAYER);
+                coMan.SelectPlayableCards(); // TESTING
+            }
+            void PlayerTurnStart()
+            {
+                pMan.IsMyTurn = true;
+                enMan.IsMyTurn = false;
+                pMan.HeroPowerUsed = false;
+                int startEnergy = pMan.EnergyLeft;
+                pMan.EnergyLeft += pMan.EnergyPerTurn;
+                int energyChange = pMan.EnergyLeft - startEnergy;
+                anMan.ModifyHeroEnergyState(energyChange);
+            }
+        }
+
+        evMan.NewDelayedAction(() =>
+        caMan.TriggerPlayedUnits(CardManager.TURN_START, player), 0); // TESTING
+
+        if (!isPlayerTurn)
+        {
+            pMan.IsMyTurn = false;
+            enMan.IsMyTurn = true;
+            evMan.NewDelayedAction(() => enMan.StartEnemyTurn(), 2);
+        }
 
         void TurnPopup()
         {
@@ -736,21 +752,28 @@ public class GameManager : MonoBehaviour
      *****/
     public void EndCombatTurn(string player)
     {
+        evMan.NewDelayedAction(() =>
+        caMan.TriggerPlayedUnits(CardManager.TURN_END, player), 0.5f);
+
         evMan.NewDelayedAction(() => coMan.RefreshUnits(player), 0.5f);
         evMan.NewDelayedAction(() => RemoveEffects(), 0.5f);
 
-        if (player == ENEMY) StartCombatTurn(PLAYER);
+        if (player == ENEMY) evMan.NewDelayedAction(() => StartCombatTurn(PLAYER), 0.5f);
         else if (player == PLAYER)
         {
+            pMan.IsMyTurn = false;
+            coMan.SelectPlayableCards(); // TESTING
             if (pMan.EnergyPerTurn < pMan.MaxEnergyPerTurn)
                 evMan.NewDelayedAction(() => IncreaseMaxEnergy(), 0.5f);
-            StartCombatTurn(ENEMY);
+            evMan.NewDelayedAction(() => StartCombatTurn(ENEMY), 0.5f);
         }
 
         void IncreaseMaxEnergy()
         {
+            int startEnergy = pMan.EnergyPerTurn;
             pMan.EnergyPerTurn++;
-            anMan.ModifyHeroEnergyState();
+            int energyChange = pMan.EnergyPerTurn - startEnergy;
+            anMan.ModifyHeroEnergyState(energyChange);
         }
         void RemoveEffects()
         {
@@ -889,5 +912,18 @@ public class GameManager : MonoBehaviour
         else recruitCost = RECRUIT_UNIT_COST;
         if (RecruitLoyalty == RECRUIT_LOYALTY_GOAL) recruitCost -= RECRUIT_UNIT_COST; // TESTING
         return recruitCost;
+    }
+
+    /******
+     * *****
+     * ****** GET_CLONE_COST
+     * *****
+     *****/
+    public int GetCloneCost(UnitCard unitCard)
+    {
+        int cloneCost;
+        if (unitCard.IsRare) cloneCost = CLONE_RARE_UNIT_COST;
+        else cloneCost = CLONE_UNIT_COST;
+        return cloneCost;
     }
 }

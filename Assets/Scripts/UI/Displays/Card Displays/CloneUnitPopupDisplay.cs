@@ -7,6 +7,7 @@ public class CloneUnitPopupDisplay : MonoBehaviour
 
     private UIManager uMan;
     private PlayerManager pMan;
+    private GameManager gMan;
     private UnitCard unitCard;
 
     private string PopupText
@@ -21,6 +22,7 @@ public class CloneUnitPopupDisplay : MonoBehaviour
     {
         uMan = UIManager.Instance;
         pMan = PlayerManager.Instance;
+        gMan = GameManager.Instance;
     }
 
     public UnitCard UnitCard
@@ -30,7 +32,7 @@ public class CloneUnitPopupDisplay : MonoBehaviour
             int aether = pMan.AetherCells;
             unitCard = value;
             string text = "Clone " + unitCard.CardName +
-                " for " + GameManager.CLONE_UNIT_COST +
+                " for " + gMan.GetCloneCost(unitCard) +
                 " aether? (You have " + aether + " aether)";
             PopupText = text;
         }
@@ -39,9 +41,8 @@ public class CloneUnitPopupDisplay : MonoBehaviour
     public void ConfirmButton_OnClick()
     {
         CardManager.Instance.AddCard(unitCard, GameManager.PLAYER);
-        pMan.AetherCells -= GameManager.CLONE_UNIT_COST;
-        CancelButton_OnClick();
-        uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.CloneUnit);
+        pMan.AetherCells -= gMan.GetCloneCost(unitCard);
+        uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.CloneUnit, true); // TESTING
     }
 
     public void CancelButton_OnClick() => 

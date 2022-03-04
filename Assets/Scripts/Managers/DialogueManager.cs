@@ -224,7 +224,6 @@ public class DialogueManager : MonoBehaviour
             StopTimedText(true);
             return;
         }
-        Debug.LogWarning("DIALOGUE RESPONSE!");
 
         DialoguePrompt prompt = currentDialogueClip as DialoguePrompt;
         DialogueResponse dResponse = null;
@@ -303,7 +302,7 @@ public class DialogueManager : MonoBehaviour
         // Cloning
         if (dResponse.Response_IsCloningStart)
         {
-            uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.CloneUnit);
+            uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.CloneUnit, true); // TESTING
             return;
         }
         // New Augment
@@ -336,7 +335,7 @@ public class DialogueManager : MonoBehaviour
                         currentDialogueClip = nextClip; // TESTING
                         AllowResponse = false;
                         AnimationManager.Instance.NewEngagedHero(true); // TESTING
-                        return;
+                        if (nextPrompt.NewCard == null && nextPrompt.AetherCells < 1) return; // TESTING
                     }
                 }
             }

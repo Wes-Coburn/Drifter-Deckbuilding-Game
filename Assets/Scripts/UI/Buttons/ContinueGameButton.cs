@@ -13,8 +13,8 @@ public class ContinueGameButton : MonoBehaviour
     public void OnClick()
     {
         if (SceneLoader.SceneIsLoading) return;
-        GetComponent<SoundPlayer>().PlaySound(0);
 
+        //UIManager.Instance.ShakeCamera(EZCameraShake.CameraShakePresets.Bump); // TESTING
         try { GameManager.Instance.LoadGame(); }
         catch (NullReferenceException)
         {
