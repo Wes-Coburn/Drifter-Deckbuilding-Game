@@ -12,7 +12,7 @@ public class TooltipPopupDisplay : MonoBehaviour, IPointerEnterHandler, IPointer
     [SerializeField] private Vector2 tooltipPosition;
     [SerializeField] private bool isZoomCardTooltip;
 
-    private void Awake() => uMan = UIManager.Instance;
+    private void Start() => uMan = UIManager.Instance;
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {

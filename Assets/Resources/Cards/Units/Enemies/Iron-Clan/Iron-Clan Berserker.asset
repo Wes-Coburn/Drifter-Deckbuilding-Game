@@ -14,19 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardArt: {fileID: 21300000, guid: c1a62d3746d0cfa459ce655cd5c62cb1, type: 3}
   cardBorder: {fileID: 21300000, guid: 14ba384dc2d28d74d9bdad2182e18da6, type: 3}
-  energyCost: -1
+  energyCost: 3
   cardName: Iron-Clan Berserker
   cardType: Warrior
   cardSubType: 
+  isRare: 0
   cardDescription: The Iron-Clan Berserker is...
-  overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
-  zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
   cardPlaySound:
     name: 
     clip: {fileID: 8300000, guid: c08a75956dcaea344a1fb137b409e0be, type: 3}
     volume: 0.8
     pitch: 1
     source: {fileID: 0}
+  overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
+  zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
   power: 2
   health: 4
   startingAbilities:

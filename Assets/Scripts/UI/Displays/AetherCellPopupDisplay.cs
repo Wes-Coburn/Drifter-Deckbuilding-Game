@@ -37,7 +37,6 @@ public class AetherCellPopupDisplay : MonoBehaviour
         continueButton.SetActive(false);
         foreach (GameObject go in hiddenZones)
             go.SetActive(false);
-
         GetComponent<SoundPlayer>().PlaySound(0);
     }
 
@@ -48,7 +47,7 @@ public class AetherCellPopupDisplay : MonoBehaviour
         foreach (GameObject go in hiddenZones)
             go.SetActive(true);
         GetComponent<SoundPlayer>().PlaySound(1);
-        PlayerManager.Instance.AetherCells += aetherValue; // TESTING
+        PlayerManager.Instance.AetherCells += aetherValue;
     }
 
     public void ContinueButton_OnClick()

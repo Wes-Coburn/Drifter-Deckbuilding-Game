@@ -20,6 +20,7 @@ public class DialogueManager : MonoBehaviour
     private PlayerManager pMan;
     private UIManager uMan;
     private AudioManager auMan;
+    private CardManager caMan;
 
     private DialogueClip currentDialogueClip;
     private DialogueSceneDisplay dialogueDisplay;
@@ -39,6 +40,7 @@ public class DialogueManager : MonoBehaviour
         pMan = PlayerManager.Instance;
         uMan = UIManager.Instance;
         auMan = AudioManager.Instance;
+        caMan = CardManager.Instance;
         newEngagedHero = false;
         AllowResponse = true; // TESTING
     }
@@ -211,7 +213,7 @@ public class DialogueManager : MonoBehaviour
 
     public void DialogueResponse(int response)
     {
-        if (SceneLoader.SceneIsLoading) return; // TESTING
+        if (SceneLoader.SceneIsLoading) return;
         if (AllowResponse == false) return;
 
         if (currentDialogueClip == null)
@@ -258,7 +260,6 @@ public class DialogueManager : MonoBehaviour
             }
         }
 
-        // TESTING
         if (dResponse.NPC_NextClip != null)
         {
             EngagedHero.NextDialogueClip = dResponse.NPC_NextClip;
@@ -266,7 +267,7 @@ public class DialogueManager : MonoBehaviour
         }
 
         // New Location
-        if (dResponse.Response_TravelLocation != null) // TESTING
+        if (dResponse.Response_TravelLocation != null)
         {
             Location location = dResponse.Response_TravelLocation;
             uMan.CreateTravelPopup(gMan.GetActiveLocation(location));
@@ -276,8 +277,7 @@ public class DialogueManager : MonoBehaviour
         if (dResponse.Response_IsCombatStart)
         {
             SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);
-            if (nextClip is CombatRewardClip)
-                EngagedHero.NextDialogueClip = nextClip; // TESTING
+            if (nextClip is CombatRewardClip) EngagedHero.NextDialogueClip = nextClip;
             else Debug.LogError("NEXT CLIP IS NOT COMBAT REWARD CLIP!");
             return;
         }
@@ -302,7 +302,7 @@ public class DialogueManager : MonoBehaviour
         // Cloning
         if (dResponse.Response_IsCloningStart)
         {
-            uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.CloneUnit, true); // TESTING
+            uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.CloneUnit, true);
             return;
         }
         // New Augment
@@ -332,26 +332,36 @@ public class DialogueManager : MonoBehaviour
                 {
                     if (!prompt.HideNPC)
                     {
-                        currentDialogueClip = nextClip; // TESTING
+                        currentDialogueClip = nextClip;
                         AllowResponse = false;
-                        AnimationManager.Instance.NewEngagedHero(true); // TESTING
-                        if (nextPrompt.NewCard == null && nextPrompt.AetherCells < 1) return; // TESTING
+                        AnimationManager.Instance.NewEngagedHero(true);
+                        if (nextPrompt.NewCard == null &&
+                            !nextPrompt.NewAllyCard && !nextPrompt.NewExecutionCard &&
+                            nextPrompt.AetherCells < 1) return;
                     }
                 }
             }
             // New Card
-            if (nextPrompt.NewCard != null) UIManager.Instance.CreateNewCardPopup(nextPrompt.NewCard);
+            if (nextPrompt.NewCard != null) uMan.CreateNewCardPopup(nextPrompt.NewCard);
+            // Ally Card
+            else if (nextPrompt.NewAllyCard) uMan.CreateNewCardPopup(null,
+                caMan.ChooseCards(CardManager.ChooseCardType.Ally_Card));
+            // Execution Card
+            else if (nextPrompt.NewExecutionCard) uMan.CreateNewCardPopup(null,
+                caMan.ChooseCards(CardManager.ChooseCardType.Execution_Card));
+            // Aether Cells
             else if (nextPrompt.AetherCells > 0)
             {
                 int newAether = nextPrompt.AetherCells;
                 int newTotal = newAether + pMan.AetherCells;
-                UIManager.Instance.CreateAetherCellPopup(newAether, newTotal);
+                uMan.CreateAetherCellPopup(newAether, newTotal);
             }
         }
 
         currentDialogueClip = nextClip;
         if (currentDialogueClip is DialogueFork) currentDialogueClip = DialogueFork();
         if (nextPrompt != null && nextPrompt.NewCard == null &&
+            !nextPrompt.NewAllyCard && !nextPrompt.NewExecutionCard &&
             nextPrompt.AetherCells < 1 && !dResponse.Response_IsNewAugmentStart) DisplayDialoguePopup();
     }
 

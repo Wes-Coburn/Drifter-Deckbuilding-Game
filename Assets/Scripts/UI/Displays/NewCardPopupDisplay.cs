@@ -104,11 +104,11 @@ public class NewCardPopupDisplay : MonoBehaviour
 
         Card newCard;
         if (cardSelection == 0) newCard = NewCard;
-        else newCard = chooseCards[cardSelection - 1]; // TESTING
+        else newCard = chooseCards[cardSelection - 1];
         pMan.PlayerDeckList.Add(newCard);
 
         DialogueClip nextClip = dMan.EngagedHero.NextDialogueClip;
-        if (!SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene)) // TESTING
+        if (!SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene))
         {
             DialoguePrompt dp = nextClip as DialoguePrompt;
             if (dp.AetherCells > 0)

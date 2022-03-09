@@ -23,6 +23,7 @@ MonoBehaviour:
     response_IsRecruitmentStart: 0
     response_IsShopStart: 0
     response_IsCloningStart: 0
+    response_IsNewAugmentStart: 0
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   dialogueResponse2:
@@ -35,6 +36,7 @@ MonoBehaviour:
     response_IsRecruitmentStart: 0
     response_IsShopStart: 0
     response_IsCloningStart: 0
+    response_IsNewAugmentStart: 0
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   dialogueResponse3:
@@ -46,10 +48,13 @@ MonoBehaviour:
     response_IsRecruitmentStart: 0
     response_IsShopStart: 0
     response_IsCloningStart: 0
+    response_IsNewAugmentStart: 0
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   newEngagedHero: {fileID: 0}
   hideNPC: 0
-  newCard: {fileID: 11400000, guid: 7603fae3620cb544bad564f38ef15102, type: 2}
+  newCard: {fileID: 0}
+  newAllyCard: 1
+  newExecutionCard: 0
   aetherCells: 0
   newLocations: []

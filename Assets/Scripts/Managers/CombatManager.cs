@@ -158,14 +158,15 @@ public class CombatManager : MonoBehaviour
      * ****** SHOW_CARD
      * *****
      *****/
-    public GameObject ShowCard(Card card, Vector2 position, DisplayType type = DisplayType.Default)
+    public GameObject ShowCard(Card card, Vector2 position, DisplayType type = DisplayType.Default, bool isCreated = false)
     {
         if (card == null)
         {
             Debug.LogError("CARD IS NULL!");
             return null;
         }
-        
+
+        card.IsCreatedCard = isCreated; // TESTING
         GameObject prefab = null;
         if (card is UnitCard)
         {
@@ -208,7 +209,7 @@ public class CombatManager : MonoBehaviour
      * ****** HIDE_CARD
      * *****
      *****/
-    private Card HideCard(GameObject card, List<GameObject> currentZoneList)
+    private Card HideCard(GameObject card)
     {
         card.GetComponent<CardZoom>().DestroyZoomPopups();
         Card cardScript = card.GetComponent<CardDisplay>().CardScript;
@@ -222,13 +223,19 @@ public class CombatManager : MonoBehaviour
      * ****** DRAW_CARD
      * *****
      *****/
-    public void DrawCard(string hero)
+    public void DrawCard(string hero, Card createdCard = null)
     {
         List<Card> deck;
         List<GameObject> hand;
         string cardTag;
         string cardZone;
         Vector2 position = new Vector2();
+
+        if (createdCard != null && hero != PLAYER)
+        {
+            Debug.LogError("CANNOT CREATE CARDS FOR ENEMY!");
+            hero = PLAYER;
+        }
 
         if (hero == PLAYER)
         {
@@ -241,7 +248,8 @@ public class CombatManager : MonoBehaviour
             }
             cardTag = PLAYER_CARD;
             cardZone = PLAYER_HAND;
-            position.Set(-750, -350);
+            if (createdCard == null) position.Set(-750, -350);
+            else position.Set(0, -350); // TESTING
         }
         else if (hero == ENEMY)
         {
@@ -263,7 +271,7 @@ public class CombatManager : MonoBehaviour
         }
 
         // Shuffle discard into deck
-        if (deck.Count < 1)
+        if (createdCard == null && deck.Count < 1)
         {
             List<Card> discard;
             if (hero == PLAYER) discard = PlayerDiscardCards;
@@ -284,13 +292,28 @@ public class CombatManager : MonoBehaviour
             caMan.ShuffleDeck(hero);
         }
 
-        GameObject card = ShowCard(deck[0], position);
+        // TESTING
+        GameObject card;
+        if (createdCard == null)
+        {
+            auMan.StartStopSound("SFX_DrawCard");
+            card = ShowCard(deck[0], position);
+        }
+        else
+        {
+            auMan.StartStopSound("SFX_CreateCard");
+            card = ShowCard(createdCard, position, DisplayType.Default, true);
+        }
+
         if (card == null)
         {
             Debug.LogError("CARD IS NULL!");
             return;
         }
-        deck.RemoveAt(0);
+
+        // TESTING
+        if (createdCard == null) deck.RemoveAt(0);
+
         card.tag = cardTag;
         ChangeCardZone(card, cardZone);
 
@@ -311,7 +334,6 @@ public class CombatManager : MonoBehaviour
             }
         }
         else EnemyHandCards.Add(card);
-        auMan.StartStopSound("SFX_DrawCard");
     }
 
     /******
@@ -506,16 +528,23 @@ public class CombatManager : MonoBehaviour
      *****/
     public void DiscardCard(GameObject card, bool isAction = false)
     {
-        if (isAction) PlayerActionZoneCards.Remove(card);
         if (card.CompareTag(PLAYER_CARD))
         {
-            if (!isAction) PlayerHandCards.Remove(card);
-            PlayerDiscardCards.Add(HideCard(card, PlayerHandCards)); // TESTING
+            if (isAction) PlayerActionZoneCards.Remove(card);
+            else PlayerHandCards.Remove(card);
+
+            if (card.GetComponent<CardDisplay>().CardScript.IsCreatedCard)
+            {
+                card.GetComponent<CardZoom>().DestroyZoomPopups();
+                Destroy(card.GetComponent<CardDisplay>().CardContainer);
+                if (card != null) Destroy(card);
+            }
+            else PlayerDiscardCards.Add(HideCard(card));
         }
         else
         {
             EnemyHandCards.Remove(card);
-            EnemyDiscardCards.Add(HideCard(card, EnemyHandCards)); // TESTING
+            EnemyDiscardCards.Add(HideCard(card));
         }
         if (!isAction) auMan.StartStopSound("SFX_DiscardCard");
     }
@@ -797,7 +826,7 @@ public class CombatManager : MonoBehaviour
     {
         if (damageValue < 1) return false;
 
-        uMan.ShakeCamera(EZCameraShake.CameraShakePresets.Bump); // TESTING
+        uMan.ShakeCamera(EZCameraShake.CameraShakePresets.Bump);
         int targetValue;
         int newTargetValue;
         if (IsUnitCard(target)) targetValue = GetUnitDisplay(target).CurrentHealth;
@@ -816,12 +845,12 @@ public class CombatManager : MonoBehaviour
         if (target == PlayerHero)
         {
             pMan.PlayerHealth = newTargetValue;
-            anMan.ModifyHeroHealthState(target, -damageValue); // TESTING
+            anMan.ModifyHeroHealthState(target, -damageValue);
         }
         else if (target == EnemyHero)
         {
             enMan.EnemyHealth = newTargetValue;
-            anMan.ModifyHeroHealthState(target, -damageValue); // TESTING
+            anMan.ModifyHeroHealthState(target, -damageValue);
         }
         // Damage to Units
         else
@@ -889,21 +918,20 @@ public class CombatManager : MonoBehaviour
         if (targetValue < 1) return; // Don't heal destroyed units or heroes
         newTargetValue = targetValue + healingValue;
         if (newTargetValue > maxValue) newTargetValue = maxValue;
-        if (newTargetValue == targetValue) return; // TESTING
 
         auMan.StartStopSound("SFX_StatPlus");
-        int healthChange = newTargetValue - targetValue; // TESTING
+        int healthChange = newTargetValue - targetValue;
 
         if (IsUnitCard(target))
         {
             GetUnitDisplay(target).CurrentHealth = newTargetValue;
-            anMan.UnitStatChangeState(target, 0, healthChange); // TESTING
+            anMan.UnitStatChangeState(target, 0, healthChange, true);
         }
         else
         {
             if (target == PlayerHero) pMan.PlayerHealth = newTargetValue;
             else if (target == EnemyHero) enMan.EnemyHealth = newTargetValue;
-            anMan.ModifyHeroHealthState(target, healthChange); // TESTING
+            anMan.ModifyHeroHealthState(target, healthChange);
         }
     }
 
@@ -1017,12 +1045,12 @@ public class CombatManager : MonoBehaviour
             if (cardTag == PLAYER_CARD)
             {
                 PlayerZoneCards.Remove(card);
-                PlayerDiscardCards.Add(HideCard(card, PlayerZoneCards));
+                PlayerDiscardCards.Add(HideCard(card));
             }
             else if (cardTag == ENEMY_CARD)
             {
                 EnemyZoneCards.Remove(card);
-                EnemyDiscardCards.Add(HideCard(card, EnemyZoneCards));
+                EnemyDiscardCards.Add(HideCard(card));
             }
         }
     }

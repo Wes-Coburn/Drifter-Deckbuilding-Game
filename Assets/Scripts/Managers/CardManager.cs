@@ -40,10 +40,10 @@ public class CardManager : MonoBehaviour
     public const string TRIGGER_RETALIATE = "Retaliate";
     public const string TRIGGER_REVENGE = "Revenge";
     public const string TRIGGER_SPARK = "Spark";
-    
     public const string TURN_START = "Turn Start";
     public const string TURN_END = "Turn End";
     
+    // Ability Keywords
     private readonly string[] AbilityKeywords = new string[]
     {
         // Static
@@ -70,10 +70,12 @@ public class CardManager : MonoBehaviour
         TURN_END
     };
 
+    // Card Types
     private readonly string[] CardTypes = new string[]
     {
-        "Intel",
-        "Rune"
+        "Exploit",
+        "Invention",
+        "Scheme"
     };
 
     public GameObject UnitCardPrefab { get => unitCardPrefab; }
@@ -135,7 +137,7 @@ public class CardManager : MonoBehaviour
         foreach (string s in AbilityKeywords)
             newText = newText.Replace(s, "<b><color=\"yellow\">" + s + "</b></color>");
         foreach (string s in CardTypes)
-            newText = newText.Replace(s, "<b><color=\"blue\">" + s + "</b></color>");
+            newText = newText.Replace(s, "<b><color=\"green\">" + s + "</b></color>");
         return newText;
     }
 
@@ -170,9 +172,34 @@ public class CardManager : MonoBehaviour
         }
     }
 
-    public Card[] ChooseCards()
+    public enum ChooseCardType
     {
-        Card[] allChooseCards = Resources.LoadAll<Card>("Combat Rewards");
+        Ally_Card,
+        Combat_Reward,
+        Execution_Card
+    }
+    public Card[] ChooseCards(ChooseCardType chooseType)
+    {
+        Card[] allChooseCards;
+        Debug.LogWarning("CHOOSE CARDS: <" + chooseType + ">");
+
+        switch (chooseType)
+        {
+            case ChooseCardType.Ally_Card:
+                EnemyHero eh = DialogueManager.Instance.EngagedHero as EnemyHero;
+                allChooseCards = eh.Reinforcements[0].ReinforcementUnits.ToArray();
+                break;
+            case ChooseCardType.Combat_Reward:
+                allChooseCards = Resources.LoadAll<Card>("Combat Rewards");
+                break;
+            case ChooseCardType.Execution_Card:
+                allChooseCards = Resources.LoadAll<Card>("Execution Cards");
+                break;
+            default:
+                Debug.LogError("INVALIDE TYPE!");
+                return null;
+        }
+
         if (allChooseCards.Length < 1)
         {
             Debug.LogError("NO CARDS FOUND!");
@@ -184,8 +211,13 @@ public class CardManager : MonoBehaviour
         int index = 0;
         foreach (Card card in allChooseCards)
         {
-            if (pMan.PlayerDeckList.FindIndex(x => x.CardName == card.CardName) == -1)
+            if (chooseType == ChooseCardType.Ally_Card &&
+                card.IsRare) continue; // TESTING
+            int playerDeckIndex =
+                pMan.PlayerDeckList.FindIndex(x => x.CardName == card.CardName);
+            if (playerDeckIndex == -1)
             {
+                card.CurrentEnergyCost = card.StartEnergyCost; // TESTING
                 chooseCards[index++] = card;
                 if (index == 3) break;
             }
@@ -231,6 +263,7 @@ public class CardManager : MonoBehaviour
             return;
         }
         cardInstance.LoadCard(card);
+        if (hero == GameManager.ENEMY) cardInstance.CurrentEnergyCost = -1; // TESTING
         deck.Add(cardInstance);
     }
     public void RemovePlayerCard(Card card) =>

@@ -1057,10 +1057,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa007eff4e492ba4bad63f21cbf4c4d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltipPopupPrefab: {fileID: 7177373728927392186, guid: 6363c5ece3ab74f41ab0a33c7358b5cb,
-    type: 3}
   tooltipText: Remove a card from your deck.
   tooltipPosition: {x: 300, y: 40}
+  isZoomCardTooltip: 0
 --- !u!1001 &917924810
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1490,7 +1489,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1702,10 +1701,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa007eff4e492ba4bad63f21cbf4c4d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltipPopupPrefab: {fileID: 7177373728927392186, guid: 6363c5ece3ab74f41ab0a33c7358b5cb,
-    type: 3}
   tooltipText: Learn a skill.
   tooltipPosition: {x: -220, y: 40}
+  isZoomCardTooltip: 0
 --- !u!1 &1447891735
 GameObject:
   m_ObjectHideFlags: 0

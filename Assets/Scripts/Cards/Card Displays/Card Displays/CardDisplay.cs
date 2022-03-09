@@ -98,7 +98,7 @@ public abstract class CardDisplay : MonoBehaviour
         string spacer = "";
         if (!string.IsNullOrEmpty(CardScript.CardSubType)) spacer = " - ";
         CardTypeLine = CardScript.CardType + spacer + CardScript.CardSubType;
-        rareIcon.SetActive(CardScript.IsRare); // TESTING
+        rareIcon.SetActive(CardScript.IsRare);
         CurrentEnergyCost = CardScript.StartEnergyCost;
         CardArt = CardScript.CardArt;
         CardBorder = CardScript.CardBorder;
@@ -122,7 +122,7 @@ public abstract class CardDisplay : MonoBehaviour
             CardArt = cd.CardArt;
             CardBorder = cd.CardBorder;
 
-            if (CardZoom.ZoomCardIsCentered)
+            if (CardZoom.ZoomCardIsCentered && parentCard.CompareTag(CombatManager.PLAYER_CARD))
                 DisplayEnergyCost(cd.cardScript.StartEnergyCost);
             else DisplayEnergyCost(cd.CurrentEnergyCost);
         }

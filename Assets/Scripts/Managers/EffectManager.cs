@@ -52,7 +52,7 @@ public class EffectManager : MonoBehaviour
         {
             effectsResolving = value;
             evMan.PauseDelayedActions(value);
-            uMan.UpdateEndTurnButton(pMan.IsMyTurn, !value); // TESTING
+            uMan.UpdateEndTurnButton(pMan.IsMyTurn, !value);
         }
     }
     public Effect CurrentEffect
@@ -213,7 +213,7 @@ public class EffectManager : MonoBehaviour
     private bool IsTargetEffect(EffectGroup group, Effect effect)
     {
         if (effect is DrawEffect de && de.IsDiscardEffect) return true;
-        else if (effect is DrawEffect || effect is GiveNextUnitEffect) return false;
+        else if (effect is DrawEffect || effect is CreateCardEffect || effect is GiveNextUnitEffect) return false;
         else if (group.Targets.TargetsAll || group.Targets.TargetsSelf) return false;
         else if (group.Targets.TargetsLowestHealth) return false; // TESTING
         else if (group.Targets.PlayerHero || group.Targets.EnemyHero)
@@ -489,7 +489,7 @@ public class EffectManager : MonoBehaviour
                 foreach (Effect effect in eg.Effects)
                 {
                     if (!GetLegalTargets(group, effect, eg.Targets,
-                        GetAdditionalTargets(eg), out bool requiredEffect))
+                        GetAdditionalTargets(eg), out bool requiredEffect, isPreCheck)) // TESTING
                     {
                         invalidGroups.Add(group);
                         int groupsRemaining = effectGroupList.Count - invalidGroups.Count; // TESTING
@@ -545,7 +545,7 @@ public class EffectManager : MonoBehaviour
      * *****
      *****/
     private bool GetLegalTargets(int currentGroup, Effect effect,
-        EffectTargets targets, int additionalTargets, out bool requiredEffect)
+        EffectTargets targets, int additionalTargets, out bool requiredEffect, bool isPreCheck)
     {
         requiredEffect = effect.IsRequired;
         List<List<GameObject>> targetZones = new List<List<GameObject>>();
@@ -585,7 +585,8 @@ public class EffectManager : MonoBehaviour
                 }
 
                 // Hand is full
-                int cardsAfterDraw = coMan.PlayerHandCards.Count + effect.Value; // TESTING
+                int cardsAfterDraw = coMan.PlayerHandCards.Count + effect.Value;
+                if (isPreCheck) cardsAfterDraw--; // If this is a pre-check for actions, account for the card in HAND
                 if (cardsAfterDraw > GameManager.MAX_HAND_SIZE)
                 {
                     Debug.LogWarning("HAND IS FULL!");
@@ -604,6 +605,16 @@ public class EffectManager : MonoBehaviour
                 }
             }
             return true;
+        }
+        else if (effect is CreateCardEffect)
+        {
+            // Hand is full
+            int cardsAfterDraw = coMan.PlayerHandCards.Count + effect.Value; // TESTING
+            if (cardsAfterDraw > GameManager.MAX_HAND_SIZE)
+            {
+                Debug.LogWarning("HAND IS FULL!");
+                if (requiredEffect) return false; // Unless required, create as many as possible
+            }
         }
         Debug.Log("LEGAL TARGETS <" + (legalTargets[currentGroup].Count - additionalTargets) + ">");
 
@@ -1056,6 +1067,27 @@ public class EffectManager : MonoBehaviour
         {
             foreach (GameObject target in validTargets)
                 AddEffect(target, effect);
+        }
+        // CREATE_CARD_EFFECT
+        else if (effect is CreateCardEffect cce)
+        {
+            Card createdCard;
+            if (cce.CreatedCard != null) createdCard = cce.CreatedCard;
+            else if (!string.IsNullOrEmpty(cce.CreatedCardType))
+            {
+                Card[] createdCards = Resources.LoadAll<Card>("Created Cards");
+                List<Card> cardPool = new List<Card>();
+                foreach (Card c in createdCards)
+                    if (c.CardSubType == cce.CreatedCardType)
+                        cardPool.Add(c);
+                createdCard = cardPool[Random.Range(0, cardPool.Count)];
+            }
+            else
+            {
+                Debug.LogError("INVALID CREATED CARD!");
+                return;
+            }
+            coMan.DrawCard(GameManager.PLAYER, createdCard);
         }
         else Debug.LogError("EFFECT TYPE NOT FOUND!");
     }

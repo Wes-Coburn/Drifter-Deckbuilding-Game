@@ -91,15 +91,7 @@ public class AnimationManager : MonoBehaviour
      *****/
     private void ValueChanger(Transform parent, int value)
     {
-        if (value == 0)
-        {
-            Debug.LogWarning("VALUE CHANGE IS 0!");
-            return;
-        }
-
         GameObject valueChanger = Instantiate(valueChangerPrefab, parent);
-        //valueChanger.transform.SetParent(uMan.CurrentCanvas.transform); // TESTING
-
         string valueText = "+";
         bool isPositiveChange = true;
         if (value < 0)
@@ -108,7 +100,6 @@ public class AnimationManager : MonoBehaviour
             valueText = "";
         }
         valueText += value;
-
         valueChanger.GetComponentInChildren<TextMeshProUGUI>().SetText(valueText);
         valueChanger.GetComponentInChildren<Animator>().SetBool("IsPositiveChange", isPositiveChange);
     }
@@ -122,7 +113,7 @@ public class AnimationManager : MonoBehaviour
     {
         ChangeAnimationState(hero, "Modify_Health");
         GameObject healthScore = hero.GetComponent<HeroDisplay>().HeroHealthObject;
-        ValueChanger(healthScore.transform, healthChange); // TESTING
+        ValueChanger(healthScore.transform, healthChange);
     }
     public void ModifyHeroEnergyState(int energyChange)
     {
@@ -174,9 +165,10 @@ public class AnimationManager : MonoBehaviour
     }
     public void DestroyUnitCardState(GameObject unitCard) =>
         ChangeAnimationState(unitCard, "Destroyed");
-    public void UnitStatChangeState(GameObject unitCard, int powerChange, int healthChange)
+    public void UnitStatChangeState(GameObject unitCard, int powerChange, int healthChange, bool isHealing = false)
     {
-        if (powerChange == 0 && healthChange == 0) return;
+        Debug.LogWarning("HEAL!");
+        if (powerChange == 0 && healthChange == 0 && !isHealing) return;
 
         UnitCardDisplay ucd = unitCard.GetComponent<UnitCardDisplay>();
         GameObject stats = ucd.UnitStats;
@@ -196,8 +188,9 @@ public class AnimationManager : MonoBehaviour
                 ModifyPower();
             }
         }
-        else if (healthChange != 0)
+        else if (healthChange != 0 || isHealing)
         {
+            Debug.LogWarning("HEAL!");
             ModifyUnitHealthState(stats);
             ModifyHealth();
         }

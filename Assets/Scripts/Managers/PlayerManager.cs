@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -184,6 +183,7 @@ public class PlayerManager : MonoBehaviour
         PlayerDeckList = new List<Card>();
         CurrentPlayerDeck = new List<Card>();
         AetherCells = 0;
+        IsMyTurn = true; // TESTING
 
         heroAugments = new List<HeroAugment>();
         heroItems = new List<HeroItem>();   

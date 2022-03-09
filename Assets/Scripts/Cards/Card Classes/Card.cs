@@ -10,9 +10,10 @@ public abstract class Card : ScriptableObject
     [SerializeField] private string cardSubType;
     [SerializeField] private bool isRare;
     [TextArea] [SerializeField] private string cardDescription;
+    [SerializeField] private Sound cardPlaySound;
+
     [SerializeField] private AnimatorOverrideController overController;
     [SerializeField] private AnimatorOverrideController zoomOverController;
-    [SerializeField] private Sound cardPlaySound;
 
     public Sprite CardArt { get => cardArt; }
     public Sprite CardBorder { get => cardBorder; }
@@ -23,10 +24,12 @@ public abstract class Card : ScriptableObject
     public string CardSubType { get => cardSubType; }
     public bool IsRare { get => isRare; }
     public string CardDescription { get => cardDescription; }
+    public Sound CardPlaySound { get => cardPlaySound; }
+
     public AnimatorOverrideController OverController { get => overController; }
     public AnimatorOverrideController ZoomOverController { get => zoomOverController; }
 
-    public Sound CardPlaySound { get => cardPlaySound; }
+    public bool IsCreatedCard { get; set; }
 
     public virtual void LoadCard(Card card)
     {

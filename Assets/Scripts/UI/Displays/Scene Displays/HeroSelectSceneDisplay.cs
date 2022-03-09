@@ -90,9 +90,8 @@ public class HeroSelectSceneDisplay : MonoBehaviour
     public void DisplaySelectedHero()
     {
         foreach (Sound s in LoadedHero.HeroPower.PowerSounds)
-        {
             AudioManager.Instance.StartStopSound(null, s);
-        }
+
         heroBackstory.GetComponentInChildren<TextMeshProUGUI>().SetText(LoadedHero.HeroBackstory);
         heroName.GetComponent<TextMeshProUGUI>().SetText(LoadedHero.HeroName);
         heroPortrait.GetComponent<Image>().sprite = LoadedHero.HeroPortrait;

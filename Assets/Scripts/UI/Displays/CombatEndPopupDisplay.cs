@@ -25,7 +25,8 @@ public class CombatEndPopupDisplay : MonoBehaviour
         if (victoryText.activeSelf == true)
         {
             if (dMan.EngagedHero.NextDialogueClip is CombatRewardClip)
-                uMan.CreateNewCardPopup(null, CardManager.Instance.ChooseCards());
+                uMan.CreateNewCardPopup(null,
+                    CardManager.Instance.ChooseCards(CardManager.ChooseCardType.Combat_Reward));
             else Debug.LogError("NEXT CLIP IS NOT COMBAT REWARD CLIP!");
         }
         else

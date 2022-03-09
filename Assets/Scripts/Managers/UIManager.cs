@@ -258,6 +258,8 @@ public class UIManager : MonoBehaviour
      *****/
     public void UpdateEndTurnButton(bool isMyTurn, bool isInteractable = true)
     {
+        if (endTurnButton == null) return;
+
         EndTurnButtonDisplay etbd =
             endTurnButton.GetComponent<EndTurnButtonDisplay>();
         etbd.EndTurnSide.SetActive(isMyTurn);
@@ -830,6 +832,7 @@ public class UIManager : MonoBehaviour
     public void SetAetherCount(int newCount, int previousCount)
     {
         if (!skyBar.activeSelf) return;
+
         TextMeshProUGUI tmpro = aetherCount.GetComponentInChildren<TextMeshProUGUI>();
         if (newCount != previousCount)
         {

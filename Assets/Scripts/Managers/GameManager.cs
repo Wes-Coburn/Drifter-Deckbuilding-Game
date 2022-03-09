@@ -135,8 +135,8 @@ public class GameManager : MonoBehaviour
         VisitedLocations = new List<string>();
         ShopItems = new List<HeroItem>();
         StartTitleScene();
+        LoadPlayerPreferences();
         Debug.Log("Application Version: " + Application.version);
-        LoadPlayerPreferences(); // TESTING
     }
 
     /******
@@ -148,13 +148,13 @@ public class GameManager : MonoBehaviour
     {
         IsCombatTest = false;
         CurrentNarrative = settingNarrative;
-        caMan.LoadNewRecruits(); // TESTING
+        caMan.LoadNewRecruits();
         ShopItems = GetShopItems();
         ShopLoyalty = 0;
         RecruitLoyalty = 0;
         GetActiveLocation(homeBaseLocation);
         CurrentLocation = GetActiveLocation(firstLocation);
-        pMan.AetherCells = 0; // TESTING
+        pMan.AetherCells = 0;
         SceneLoader.LoadScene(SceneLoader.Scene.NarrativeScene);
     }
 
@@ -330,12 +330,15 @@ public class GameManager : MonoBehaviour
         Card[] cards = Resources.LoadAll<Card>("Cards");
         Card[] combatRewards = Resources.LoadAll<Card>("Combat Rewards");
         Card[] recruitUnits = Resources.LoadAll<Card>("Recruit Units");
+        Card[] executionCards = Resources.LoadAll<Card>("Execution Cards");
         for (int i = 0; i < cards.Length; i++)
             allcards.Add(cards[i]);
         for (int i = 0; i < combatRewards.Length; i++)
             allcards.Add(combatRewards[i]);
         for (int i = 0; i < recruitUnits.Length; i++)
             allcards.Add(recruitUnits[i]);
+        for (int i = 0; i < executionCards.Length; i++)
+            allcards.Add(executionCards[i]);
 
         // LOCATIONS
         Location[] locations = Resources.LoadAll<Location>("Locations");
@@ -507,8 +510,8 @@ public class GameManager : MonoBehaviour
      *****/
     public void StartHeroSelectScene()
     {
-        auMan.StopCurrentSoundscape(); // TESTING
-        FindObjectOfType<HeroSelectSceneDisplay>().DisplaySelectedHero(); // TESTING
+        auMan.StopCurrentSoundscape();
+        FindObjectOfType<HeroSelectSceneDisplay>().DisplaySelectedHero();
     }
 
     /******
@@ -613,12 +616,12 @@ public class GameManager : MonoBehaviour
             return;
         }
         enMan.EnemyHero = enemyHero;
-        enMan.EnemyHealth = ENEMY_STARTING_HEALTH; // TESTING
+        enMan.EnemyHealth = ENEMY_STARTING_HEALTH;
 
         // PLAYER MANAGER
         pMan.PlayerHealth = pMan.MaxPlayerHealth;
         pMan.EnergyPerTurn = START_ENERGY_PER_TURN;
-        pMan.EnergyLeft = pMan.StartEnergy; // TESTING
+        pMan.EnergyLeft = pMan.StartEnergy;
         pMan.HeroUltimateProgress_Direct = 0;
 
         // UPDATE DECKS
@@ -629,11 +632,10 @@ public class GameManager : MonoBehaviour
         coMan.EnemyHero.GetComponent<HeroDisplay>().HeroScript = enMan.EnemyHero;
         // SCHEDULE ACTIONS
         evMan.NewDelayedAction(() => anMan.CombatIntro(), 1f);
-        float delay = 0; // TESTING
+        float delay = 0;
         foreach (HeroItem item in pMan.HeroItems) delay += 0.5f;
         foreach (HeroAugment aug in pMan.HeroAugments) delay += 0.5f;
         if (delay < 3) delay = 3;
-
         evMan.NewDelayedAction(() => CombatStart(), delay);
         evMan.NewDelayedAction(() => StartCombatTurn(PLAYER), delay + 1);
         // AUDIO
@@ -729,7 +731,7 @@ public class GameManager : MonoBehaviour
         }
 
         evMan.NewDelayedAction(() =>
-        caMan.TriggerPlayedUnits(CardManager.TURN_START, player), 0); // TESTING
+        caMan.TriggerPlayedUnits(CardManager.TURN_START, player), 1); // TESTING
 
         if (!isPlayerTurn)
         {
