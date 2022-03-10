@@ -46,8 +46,8 @@ public class RecruitUnitPopupDisplay : MonoBehaviour
         bool isReady = false;
         int previousProgress = gMan.RecruitLoyalty;
         if (++gMan.RecruitLoyalty == GameManager.RECRUIT_LOYALTY_GOAL) isReady = true;
-        else if (gMan.RecruitLoyalty > GameManager.RECRUIT_LOYALTY_GOAL) gMan.RecruitLoyalty = 0; // TESTING
-        uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.RecruitUnit);
+        else if (gMan.RecruitLoyalty > GameManager.RECRUIT_LOYALTY_GOAL) gMan.RecruitLoyalty = 0;
+        uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.RecruitUnit, false);
         FindObjectOfType<CardPageDisplay>().SetProgressBar(previousProgress, gMan.RecruitLoyalty, isReady);
     }
 

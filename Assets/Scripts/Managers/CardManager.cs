@@ -83,6 +83,7 @@ public class CardManager : MonoBehaviour
     public UnitCard[] PlayerStartUnits { get => playerStartUnits; }
 
     public List<UnitCard> PlayerRecruitMages { get; private set; }
+    public List<UnitCard> PlayerRecruitMutants { get; private set; }
     public List<UnitCard> PlayerRecruitRogues { get; private set; }
     public List<UnitCard> PlayerRecruitTechs { get; private set; }
     public List<UnitCard> PlayerRecruitWarriors { get; private set; }
@@ -94,12 +95,13 @@ public class CardManager : MonoBehaviour
             List<List<UnitCard>> recruitLists = new List<List<UnitCard>>
             {
                 PlayerRecruitMages,
+                PlayerRecruitMutants,
                 PlayerRecruitRogues,
                 PlayerRecruitTechs,
                 PlayerRecruitWarriors,
             };
 
-            while (returnList.Count < 4)
+            while (returnList.Count < 8)
             {
                 foreach (List<UnitCard> list in recruitLists)
                 {
@@ -110,7 +112,7 @@ public class CardManager : MonoBehaviour
                         if (index == -1)
                         {
                             returnList.Add(uc);
-                            if (returnList.Count > 3) return returnList; // TESTING
+                            if (returnList.Count > 7) return returnList;
                             break;
                         }
                     }
@@ -126,6 +128,7 @@ public class CardManager : MonoBehaviour
         enMan = EnemyManager.Instance;
         auMan = AudioManager.Instance;
         PlayerRecruitMages = new List<UnitCard>();
+        PlayerRecruitMutants = new List<UnitCard>();
         PlayerRecruitRogues = new List<UnitCard>();
         PlayerRecruitTechs = new List<UnitCard>();
         PlayerRecruitWarriors = new List<UnitCard>();
@@ -144,6 +147,7 @@ public class CardManager : MonoBehaviour
     public void LoadNewRecruits()
     {
         const string MAGE = "Mage";
+        const string MUTANT = "Mutant";
         const string ROGUE = "Rogue";
         const string TECH = "Tech";
         const string WARRIOR = "Warrior";
@@ -155,6 +159,9 @@ public class CardManager : MonoBehaviour
             {
                 case MAGE:
                     PlayerRecruitMages.Add(unitCard);
+                    break;
+                case MUTANT:
+                    PlayerRecruitMutants.Add(unitCard);
                     break;
                 case ROGUE:
                     PlayerRecruitRogues.Add(unitCard);
@@ -211,13 +218,12 @@ public class CardManager : MonoBehaviour
         int index = 0;
         foreach (Card card in allChooseCards)
         {
-            if (chooseType == ChooseCardType.Ally_Card &&
-                card.IsRare) continue; // TESTING
+            if (chooseType == ChooseCardType.Ally_Card && card.IsRare) continue;
             int playerDeckIndex =
                 pMan.PlayerDeckList.FindIndex(x => x.CardName == card.CardName);
             if (playerDeckIndex == -1)
             {
-                card.CurrentEnergyCost = card.StartEnergyCost; // TESTING
+                card.CurrentEnergyCost = card.StartEnergyCost;
                 chooseCards[index++] = card;
                 if (index == 3) break;
             }

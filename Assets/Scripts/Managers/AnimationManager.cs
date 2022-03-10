@@ -167,7 +167,6 @@ public class AnimationManager : MonoBehaviour
         ChangeAnimationState(unitCard, "Destroyed");
     public void UnitStatChangeState(GameObject unitCard, int powerChange, int healthChange, bool isHealing = false)
     {
-        Debug.LogWarning("HEAL!");
         if (powerChange == 0 && healthChange == 0 && !isHealing) return;
 
         UnitCardDisplay ucd = unitCard.GetComponent<UnitCardDisplay>();
@@ -405,17 +404,20 @@ public class AnimationManager : MonoBehaviour
         HeroDisplay pHD = coMan.PlayerHero.GetComponent<HeroDisplay>();
         HeroDisplay eHD = coMan.EnemyHero.GetComponent<HeroDisplay>();
 
+        GameObject turBut = uMan.EndTurnButton;
         GameObject pFrame = pHD.HeroFrame;
         GameObject eFrame = eHD.HeroFrame;
         GameObject pStats = pHD.HeroStats;
         GameObject eStats = eHD.HeroStats;
-        GameObject turBut = uMan.EndTurnButton;
+        GameObject combatLog = uMan.CombatLog;
 
         Vector2 turButStart = turBut.transform.position;
         Vector2 pFrameStart = pFrame.transform.position;
         Vector2 eFrameStart = eFrame.transform.position;
         Vector2 pStatsStart = pStats.transform.localPosition;
         Vector2 eStatsStart = eStats.transform.localPosition;
+        Vector2 combatLogStart = combatLog.transform.localPosition;
+
         float scaleSpeed = 0.1f;
         float fScale = 1;
         float fZoomScale = 1.5f;
@@ -423,9 +425,11 @@ public class AnimationManager : MonoBehaviour
         turBut.SetActive(true);
         pStats.SetActive(true);
         eStats.SetActive(true);
+        combatLog.SetActive(true);
         turBut.transform.localPosition = new Vector2(turButStart.x + 450, turButStart.y);
         pStats.transform.localPosition = new Vector2(pStatsStart.x, pStatsStart.y - 450);
         eStats.transform.localPosition = new Vector2(eStatsStart.x, eStatsStart.y + 450);
+        combatLog.transform.localPosition = new Vector2(combatLogStart.x - 450, combatLogStart.y);
 
         do
         {
@@ -510,11 +514,12 @@ public class AnimationManager : MonoBehaviour
                 Vector2.MoveTowards(pStats.transform.localPosition, pStatsStart, 20);
             eStats.transform.localPosition =
                 Vector2.MoveTowards(eStats.transform.localPosition, eStatsStart, 20);
+            combatLog.transform.localPosition =
+                Vector2.MoveTowards(combatLog.transform.localPosition, combatLogStart, 20);
             yield return new WaitForFixedUpdate();
         }
         while (distance > 0);
 
-        // TESTING
         if (enMan.EnemyHero.IsBoss)
         {
             float countDelay = 0.2f;
@@ -523,10 +528,10 @@ public class AnimationManager : MonoBehaviour
 
             while (TextCountRoutine != null)
             {
-                ModifyHeroHealthState(coMan.EnemyHero, 1); // TESTING
+                ModifyHeroHealthState(coMan.EnemyHero, 1);
                 yield return new WaitForSeconds(countDelay);
             }
-            enMan.EnemyHealth = enMan.MaxEnemyHealth; // TESTING
+            enMan.EnemyHealth = enMan.MaxEnemyHealth;
         }
     }
 

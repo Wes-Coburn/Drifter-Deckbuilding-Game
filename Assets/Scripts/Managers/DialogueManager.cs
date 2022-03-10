@@ -302,7 +302,7 @@ public class DialogueManager : MonoBehaviour
         // Cloning
         if (dResponse.Response_IsCloningStart)
         {
-            uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.CloneUnit, true);
+            uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.CloneUnit);
             return;
         }
         // New Augment

@@ -289,7 +289,7 @@ public class PlayerManager : MonoBehaviour
         {
             efMan.StartEffectGroupList(groupList, coMan.PlayerHero.GetComponent<PlayerHeroDisplay>().HeroUltimate);
             EnergyLeft -= PlayerHero.HeroUltimate.PowerCost;
-            HeroDisplay.UltimateUsedIcon.SetActive(true); // TESTING
+            HeroDisplay.UltimateUsedIcon.SetActive(true);
             PlayerPowerSounds(true);
         }
     }

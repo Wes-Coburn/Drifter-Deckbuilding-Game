@@ -116,7 +116,6 @@ public class CardPageDisplay : MonoBehaviour
 
         if (progressBar != null) progressBar.SetActive(setProgressBar);
         if (setProgressBar) SetProgressBar(0, progress, false, true);
-
         pageTitle.GetComponent<TextMeshProUGUI>().SetText(titleText);
 
         if (cardGroupList.Count > 0)
@@ -138,7 +137,7 @@ public class CardPageDisplay : MonoBehaviour
         if (rows < 1) rows = 1;
         float height = 650 * rows + 100;
         cardGroup.GetComponent<RectTransform>().sizeDelta = new Vector2(rect.width, height);
-        GetComponentInChildren<Scrollbar>().value = scrollValue;
+        GetComponentInChildren<ScrollRect>().verticalNormalizedPosition = scrollValue; // TESTING
 
         foreach (Card card in cardGroupList)
         {

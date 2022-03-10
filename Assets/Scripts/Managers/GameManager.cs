@@ -263,6 +263,10 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < recruitMages.Length; i++)
             recruitMages[i] = caMan.PlayerRecruitMages[i].CardName;
 
+        string[] recruitMutants = new string[caMan.PlayerRecruitMutants.Count];
+        for (int i = 0; i < recruitMutants.Length; i++)
+            recruitMutants[i] = caMan.PlayerRecruitMutants[i].CardName;
+
         string[] recruitRogues = new string[caMan.PlayerRecruitRogues.Count];
         for (int i = 0; i < recruitRogues.Length; i++)
             recruitRogues[i] = caMan.PlayerRecruitRogues[i].CardName;
@@ -280,7 +284,7 @@ public class GameManager : MonoBehaviour
         GameData data = new GameData(narrativeName, pMan.PlayerHero.HeroName,
             deckList, augments, items, pMan.AetherCells,
             npcsAndClips, locationsNPCsObjectives, VisitedLocations.ToArray(),
-            shopItems, recruitMages, recruitRogues, recruitTechs, recruitWarriors,
+            shopItems, recruitMages, recruitMutants, recruitRogues, recruitTechs, recruitWarriors,
             RecruitLoyalty, ShopLoyalty,
             Achievement_BETA_Finish);
         SaveLoad.SaveGame(data);
@@ -416,18 +420,23 @@ public class GameManager : MonoBehaviour
             ShopItems.Add(GetItem(data.ShopItems[i]));
 
         // RECRUITS
+        // MAGES
         caMan.PlayerRecruitMages.Clear();
         for (int i = 0; i < data.RecruitMages.Length; i++)
             caMan.PlayerRecruitMages.Add(GetCard(data.RecruitMages[i]) as UnitCard);
-
+        // MUTANTS
+        caMan.PlayerRecruitMutants.Clear();
+        for (int i = 0; i < data.RecruitMutants.Length; i++)
+            caMan.PlayerRecruitMutants.Add(GetCard(data.RecruitMutants[i]) as UnitCard);
+        // ROGUES
         caMan.PlayerRecruitRogues.Clear();
         for (int i = 0; i < data.RecruitRogues.Length; i++)
             caMan.PlayerRecruitRogues.Add(GetCard(data.RecruitRogues[i]) as UnitCard);
-
+        // TECHS
         caMan.PlayerRecruitTechs.Clear();
         for (int i = 0; i < data.RecruitTechs.Length; i++)
             caMan.PlayerRecruitTechs.Add(GetCard(data.RecruitTechs[i]) as UnitCard);
-
+        // WARRIORS
         caMan.PlayerRecruitWarriors.Clear();
         for (int i = 0; i < data.RecruitWarriors.Length; i++)
             caMan.PlayerRecruitWarriors.Add(GetCard(data.RecruitWarriors[i]) as UnitCard);
@@ -606,6 +615,7 @@ public class GameManager : MonoBehaviour
         pHD.PowerUsedIcon.SetActive(false);
         pHD.UltimateUsedIcon.SetActive(true);
         eHD.HeroStats.SetActive(false);
+        uMan.CombatLog.SetActive(false);
 
         // ENEMY MANAGER
         enMan.StartCombat();
@@ -708,6 +718,11 @@ public class GameManager : MonoBehaviour
         coMan.ActionsPlayedThisTurn = 0;
         evMan.NewDelayedAction(() => TurnPopup(), 0);
 
+        string logText = "\n";
+        if (isPlayerTurn) logText += "[Your Turn]";
+        else logText += "[Enemy Turn]";
+        evMan.NewDelayedAction(() => uMan.CombatLogEntry(logText), 0);
+
         if (isPlayerTurn)
         {
             evMan.NewDelayedAction(() => PlayerTurnStart(), 2);
@@ -716,7 +731,7 @@ public class GameManager : MonoBehaviour
             void TurnDraw()
             {
                 coMan.DrawCard(PLAYER);
-                coMan.SelectPlayableCards(); // TESTING
+                coMan.SelectPlayableCards();
             }
             void PlayerTurnStart()
             {
@@ -731,7 +746,7 @@ public class GameManager : MonoBehaviour
         }
 
         evMan.NewDelayedAction(() =>
-        caMan.TriggerPlayedUnits(CardManager.TURN_START, player), 1); // TESTING
+        caMan.TriggerPlayedUnits(CardManager.TURN_START, player), 1);
 
         if (!isPlayerTurn)
         {

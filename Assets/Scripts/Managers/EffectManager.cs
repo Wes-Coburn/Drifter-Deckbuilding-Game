@@ -828,13 +828,11 @@ public class EffectManager : MonoBehaviour
 
         foreach (Effect effect in eg.Effects)
         {
-            // TESTING
             if (effect is DelayEffect de)
             {
                 newDelay += de.DelayValue;
                 continue;
             }
-            // TESTING
             if (effect is DamageEffect) ResolveEffect(targetList, effect, newDelay);
             else FunctionTimer.Create(() => ResolveEffect(targetList, effect, 0), newDelay);
         }
@@ -1187,15 +1185,17 @@ public class EffectManager : MonoBehaviour
                 {
                     evMan.NewDelayedAction(() =>
                     StartEffectGroupList(new List<EffectGroup> { eg },
-                    source, IS_ADDITIONAL_EFFECT), 0, true); // TESTING
+                    source, IS_ADDITIONAL_EFFECT), 0, true);
                 }
             }
             else
             {
                 if (effectSource.TryGetComponent<ActionCardDisplay>(out _))
                 {
+                    uMan.CombatLog_PlayCard(effectSource); // TESTING
                     GameObject source = effectSource;
                     evMan.NewDelayedAction(() => DiscardAction(source), 0);
+
                     void DiscardAction(GameObject source)
                     {
                         if (source == null)
@@ -1210,20 +1210,28 @@ public class EffectManager : MonoBehaviour
                 else if (coMan.IsUnitCard(effectSource))
                 {
                     if (triggerName == CardManager.TRIGGER_PLAY)
+                    {
+                        uMan.CombatLog_PlayCard(effectSource); // TESTING
                         TriggerGiveNextEffect(effectSource);
+                    }
                 }
                 else if (effectSource.TryGetComponent(out ItemIcon icon))
                 {
+                    uMan.CombatLogEntry("You used <b><color=\"yellow\">" + icon.LoadedItem.ItemName + "</b></color> (Item).");
                     pMan.HeroItems.Remove(icon.LoadedItem);
                     uMan.SetSkybar(true);
                 }
                 else if (effectSource.CompareTag(CombatManager.HERO_POWER))
                 {
+                    uMan.CombatLogEntry("You used <b><color=\"yellow\">" +
+                        pMan.PlayerHero.HeroPower.PowerName + "</b></color> (Hero Power).");
                     CardManager.Instance.TriggerPlayedUnits(CardManager.TRIGGER_RESEARCH, GameManager.PLAYER);
                     pMan.HeroUltimateProgress++;
                 }
                 else if (effectSource.CompareTag(CombatManager.HERO_ULTIMATE))
                 {
+                    uMan.CombatLogEntry("You used <b><color=\"yellow\">" +
+                        pMan.PlayerHero.HeroUltimate.PowerName + "</b></color> (Hero Ultimate).");
                     pMan.HeroUltimateProgress = 0;
                 }
             }

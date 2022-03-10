@@ -845,7 +845,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1365, y: -55}
+  m_AnchoredPosition: {x: -1350, y: -100}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3538816429457241121
@@ -898,11 +898,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa007eff4e492ba4bad63f21cbf4c4d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltipPopupPrefab: {fileID: 7177373728927392186, guid: 6363c5ece3ab74f41ab0a33c7358b5cb,
-    type: 3}
   tooltipText: Your <b>deck</b>. When you run out of cards, you'll shuffle your discard
     pile back here.
   tooltipPosition: {x: -500, y: -385}
+  isZoomCardTooltip: 0
 --- !u!114 &899503885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1377,11 +1376,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa007eff4e492ba4bad63f21cbf4c4d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltipPopupPrefab: {fileID: 7177373728927392186, guid: 6363c5ece3ab74f41ab0a33c7358b5cb,
-    type: 3}
   tooltipText: Each time you use your hero power 3+ times, you can use your <b>Ultimate</b>
     once.
   tooltipPosition: {x: 75, y: -350}
+  isZoomCardTooltip: 0
 --- !u!1 &3231589236582541133
 GameObject:
   m_ObjectHideFlags: 0
@@ -1563,10 +1561,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa007eff4e492ba4bad63f21cbf4c4d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltipPopupPrefab: {fileID: 7177373728927392186, guid: 6363c5ece3ab74f41ab0a33c7358b5cb,
-    type: 3}
   tooltipText: Your hero's <b>health</b>. If it reaches 0, you lose.
   tooltipPosition: {x: 200, y: -350}
+  isZoomCardTooltip: 0
 --- !u!114 &822110272309271025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2325,11 +2322,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa007eff4e492ba4bad63f21cbf4c4d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltipPopupPrefab: {fileID: 7177373728927392186, guid: 6363c5ece3ab74f41ab0a33c7358b5cb,
-    type: 3}
   tooltipText: Your current <b>energy</b> and your energy per turn. You can store
     up to 10 energy.
   tooltipPosition: {x: 200, y: -350}
+  isZoomCardTooltip: 0
 --- !u!1 &5292934362312869072
 GameObject:
   m_ObjectHideFlags: 0

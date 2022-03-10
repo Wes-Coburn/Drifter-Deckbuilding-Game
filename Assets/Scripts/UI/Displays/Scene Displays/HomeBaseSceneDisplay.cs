@@ -142,10 +142,10 @@ public class HomeBaseSceneDisplay : MonoBehaviour
         heroBackstory.SetActive(!heroBackstory.activeSelf);
 
     public void LearnSkillButton_OnClick(bool playSound = true) =>
-        uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.LearnSkill, true, playSound); // TESTING
+        uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.LearnSkill, playSound);
 
     public void RemoveCardButton_OnClick(bool playSound = true) =>
-        uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.RemoveCard, true, playSound); // TESTING
+        uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.RemoveCard, playSound);
 
     public void BackButton_OnClick() => 
         SceneLoader.LoadScene(SceneLoader.Scene.WorldMapScene);

@@ -106,6 +106,7 @@ public class UIManager : MonoBehaviour
     private GameObject confirmEffectButton;
     private Coroutine sceneFadeRoutine;
     private GameObject playerZoneOutline;
+    private CombatLog combatLog;
 
     public GameObject TooltipPopupPrefab { get => tooltipPopupPrefab; }
     public GameObject NewCardPopup { get => newCardPopup; }
@@ -116,6 +117,7 @@ public class UIManager : MonoBehaviour
     public GameObject AugmentBar { get => augmentBar; }
     public GameObject ItemBar { get => itemBar; }
     public Color HighlightedColor { get => highlightedColor; }
+    public GameObject CombatLog { get => combatLog.gameObject; }
 
     // PLAYER_IS_TARGETTING
     public bool PlayerIsTargetting { get; set; }
@@ -159,6 +161,8 @@ public class UIManager : MonoBehaviour
         confirmEffectButton = GameObject.Find("ConfirmEffectButton");
         endTurnButton = GameObject.Find("EndTurnButton");
         playerZoneOutline = GameObject.Find("PlayerZoneOutline");
+        combatLog = FindObjectOfType<CombatLog>();
+        
         SetCancelEffectButton(false);
         SetConfirmEffectButton(false);
         SetPlayerZoneOutline(false, false);
@@ -363,6 +367,7 @@ public class UIManager : MonoBehaviour
         foreach (GameObject go in objectsToDestroy)
             if (go != null) DestroyObject(go);
     }
+
     /******
      * *****
      * ****** GET_PORTRAIT_POSITION
@@ -434,6 +439,17 @@ public class UIManager : MonoBehaviour
                 return;
         }
     }
+
+    /******
+     * *****
+     * ****** COMBAT_LOG_ENTRY
+     * *****
+     *****/
+    public void CombatLogEntry(string entry) =>
+        combatLog.NewLogEntry(entry);
+    public void CombatLog_PlayCard(GameObject card) =>
+        combatLog.NewLogEntry_PlayCard(card);
+
     /******
      * *****
      * ****** POPUPS
@@ -613,15 +629,15 @@ public class UIManager : MonoBehaviour
         }
     }
     // Card Page Popups
-    public void CreateCardPagePopup(CardPageDisplay.CardPageType cardPageType, bool isScrollPopup = false, bool playSound = true)
+    public void CreateCardPagePopup(CardPageDisplay.CardPageType cardPageType, bool playSound = true, bool isScrollPopup = true)
     {
         float scrollValue = 1;
         if (cardPagePopup != null && isScrollPopup)
         {
             if (cardPagePopup.GetComponent<CardPageDisplay>().IsScrollPage)
             {
-                Scrollbar sBar = cardPagePopup.GetComponentInChildren<Scrollbar>();
-                scrollValue = sBar.value;
+                ScrollRect sRect = cardPagePopup.GetComponentInChildren<ScrollRect>();
+                scrollValue = sRect.verticalNormalizedPosition;
             }
         }
 

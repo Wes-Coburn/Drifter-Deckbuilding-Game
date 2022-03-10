@@ -125,10 +125,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa007eff4e492ba4bad63f21cbf4c4d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltipPopupPrefab: {fileID: 7177373728927392186, guid: 6363c5ece3ab74f41ab0a33c7358b5cb,
-    type: 3}
   tooltipText: The number of cards the enemy will draw next turn.
   tooltipPosition: {x: 300, y: 300}
+  isZoomCardTooltip: 0
 --- !u!114 &1845527683554125101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -879,10 +878,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa007eff4e492ba4bad63f21cbf4c4d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltipPopupPrefab: {fileID: 7177373728927392186, guid: 6363c5ece3ab74f41ab0a33c7358b5cb,
-    type: 3}
   tooltipText: The enemy hero's <b>health</b>. If it reaches 0, you win.
   tooltipPosition: {x: -200, y: 250}
+  isZoomCardTooltip: 0
 --- !u!1 &4101468792973815045
 GameObject:
   m_ObjectHideFlags: 0
