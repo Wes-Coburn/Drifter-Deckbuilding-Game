@@ -42,7 +42,14 @@ public class CardManager : MonoBehaviour
     public const string TRIGGER_SPARK = "Spark";
     public const string TURN_START = "Turn Start";
     public const string TURN_END = "Turn End";
-    
+
+    // Unit Types
+    public const string MAGE = "Mage";
+    public const string MUTANT = "Mutant";
+    public const string ROGUE = "Rogue";
+    public const string TECH = "Tech";
+    public const string WARRIOR = "Warrior";
+
     // Ability Keywords
     private readonly string[] AbilityKeywords = new string[]
     {
@@ -55,6 +62,7 @@ public class CardManager : MonoBehaviour
         ABILITY_MARKED,
         "Mark",
         "Stun",
+        "Evade",
         "Exhausted",
         "Refreshed",
         "Refresh",
@@ -76,6 +84,16 @@ public class CardManager : MonoBehaviour
         "Exploit",
         "Invention",
         "Scheme"
+    };
+
+    // Unit Types
+    private readonly string[] UnitTypes = new string[]
+    {
+        MAGE,
+        MUTANT,
+        ROGUE,
+        TECH,
+        WARRIOR
     };
 
     public GameObject UnitCardPrefab { get => unitCardPrefab; }
@@ -107,9 +125,9 @@ public class CardManager : MonoBehaviour
                 {
                     foreach (UnitCard uc in list)
                     {
-                        if (uc == null) break;
+                        if (uc == null) continue;
                         int index = pMan.PlayerDeckList.FindIndex(x => x.CardName == uc.CardName);
-                        if (index == -1)
+                        if (index == -1 && !returnList.Contains(uc))
                         {
                             returnList.Add(uc);
                             if (returnList.Count > 7) return returnList;
@@ -136,22 +154,31 @@ public class CardManager : MonoBehaviour
 
     public string FilterKeywords(string text)
     {
-        string newText = text;
         foreach (string s in AbilityKeywords)
-            newText = newText.Replace(s, "<b><color=\"yellow\">" + s + "</b></color>");
+            text = text.Replace(s, "<b><color=\"yellow\">" + s + "</b></color>");
         foreach (string s in CardTypes)
-            newText = newText.Replace(s, "<b><color=\"green\">" + s + "</b></color>");
-        return newText;
+            text = text.Replace(s, "<b><color=\"green\">" + s + "</b></color>");
+        return text;
+    }
+
+    public string FilterCardTypes(string text)
+    {
+        text = ReplaceText(MAGE, "orange");
+        text = ReplaceText(MUTANT, "green");
+        text = ReplaceText(ROGUE, "purple");
+        text = ReplaceText(TECH, "blue");
+        text = ReplaceText(WARRIOR, "red");
+        return text;
+
+        string ReplaceText(string target, string color)
+        {
+            text = text.Replace(target, "<color=\"" + color + "\">" + target + "</color>");
+            return text;
+        }
     }
 
     public void LoadNewRecruits()
     {
-        const string MAGE = "Mage";
-        const string MUTANT = "Mutant";
-        const string ROGUE = "Rogue";
-        const string TECH = "Tech";
-        const string WARRIOR = "Warrior";
-
         UnitCard[] allRecruits = Resources.LoadAll<UnitCard>("Recruit Units");
         foreach (UnitCard unitCard in allRecruits)
         {
@@ -269,7 +296,6 @@ public class CardManager : MonoBehaviour
             return;
         }
         cardInstance.LoadCard(card);
-        if (hero == GameManager.ENEMY) cardInstance.CurrentEnergyCost = -1; // TESTING
         deck.Add(cardInstance);
     }
     public void RemovePlayerCard(Card card) =>
@@ -390,11 +416,17 @@ public class CardManager : MonoBehaviour
                 {
                     Debug.Log("TRIGGER! <" + triggerName + ">");
                     EventManager.Instance.NewDelayedAction(() =>
-                    EffectManager.Instance.StartEffectGroupList(tra.EffectGroupList, unitCard, triggerName), 0.5f, true);
+                    TriggerAbility(tra), 0.5f, true);
                     effectFound = true;
                 }
-        if (effectFound) auMan.StartStopSound(null, ucd.CardScript.CardPlaySound); // TESTING
         return effectFound;
+
+        void TriggerAbility(TriggeredAbility tra)
+        {
+            if (tra.AbilityTrigger.AbilityName != TRIGGER_PLAY)
+                auMan.StartStopSound(null, ucd.CardScript.CardPlaySound);
+            EffectManager.Instance.StartEffectGroupList(tra.EffectGroupList, unitCard, triggerName);
+        }
     }
     public bool TriggerPlayedUnits(string triggerName, string player)
     {

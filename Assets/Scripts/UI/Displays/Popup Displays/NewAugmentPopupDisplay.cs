@@ -37,7 +37,10 @@ public class NewAugmentPopupDisplay : MonoBehaviour
             return;
         }
 
-        selectedAugment = 0;
+        if (availableAugments.Count > 3)
+            selectedAugment = 3; // Start with Synaptic Stabilizer
+        else selectedAugment = 0;
+
         DisplaySelectedAugment();
     }
 

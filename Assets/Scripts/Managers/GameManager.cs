@@ -16,12 +16,7 @@ public class GameManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    [Header("NARRATIVES")]
-    [SerializeField] private Narrative settingNarrative;
-    [SerializeField] private Narrative newGameNarrative;
-    [Header("LOCATIONS")]
-    [SerializeField] private Location homeBaseLocation;
-    [SerializeField] private Location firstLocation;
+    [Header("LOCATION ICON")]
     [SerializeField] GameObject locationIconPrefab;
     [Header("MULLIGAN EFFECT")]
     [SerializeField] private EffectGroup mulliganEffect;
@@ -39,6 +34,11 @@ public class GameManager : MonoBehaviour
     private DialogueManager dMan;
     private AnimationManager anMan;
 
+    private Narrative settingNarrative;
+    private Narrative newGameNarrative;
+    private Location homeBaseLocation;
+    private Location firstLocation;
+
     private int currentTip;
     public string CurrentTip
     {
@@ -50,19 +50,19 @@ public class GameManager : MonoBehaviour
             return tip;
         }
     }
+
     public bool IsCombatTest { get; set; }
     public bool HideExplicitLanguage { get; set; }
     public Narrative CurrentNarrative { get; set; }
+    public Location CurrentLocation { get; set; }
     public List<NPCHero> ActiveNPCHeroes { get; private set; }
     public List<Location> ActiveLocations { get; private set; }
     public List<string> VisitedLocations { get; private set; }
-    public Location CurrentLocation { get; set; }
     public List<HeroItem> ShopItems { get; private set; }
-    public bool Achievement_BETA_Finish { get; set; }
-
-    // Loyalty
     public int ShopLoyalty { get; set; }
     public int RecruitLoyalty { get; set; }
+    public bool Achievement_BETA_Finish { get; set; }
+
 
     /* GAME_MANAGER_DATA */
     // Player Preferences
@@ -85,7 +85,6 @@ public class GameManager : MonoBehaviour
     public const int MAXIMUM_ENERGY_PER_TURN = 5;
     public const int MAXIMUM_ENERGY = 10;
     public const int HERO_ULTMATE_GOAL = 3;
-    //public const int HERO_ULTMATE_GOAL = 1; // FOR TESTING ONLY
 
     // Enemy
     public const string ENEMY = "Enemy";
@@ -134,9 +133,44 @@ public class GameManager : MonoBehaviour
         ActiveLocations = new List<Location>();
         VisitedLocations = new List<string>();
         ShopItems = new List<HeroItem>();
-        StartTitleScene();
+
         LoadPlayerPreferences();
         Debug.Log("Application Version: " + Application.version);
+        SceneLoader.LoadScene(SceneLoader.Scene.TitleScene, false, false); // TESTING
+    }
+
+    /******
+     * *****
+     * ****** LOAD_NARRATIVE
+     * *****
+     *****/
+    private Narrative LoadNarrative(string narrativeName)
+    {
+        Narrative[] allNarratives = Resources.LoadAll<Narrative>("Narratives");
+        foreach(Narrative narrative in allNarratives)
+        {
+            if (narrative.NarrativeName == narrativeName)
+                return narrative;
+        }
+        Debug.LogError("NARRATIVE " + narrativeName + " NOT FOUND!");
+        return null;
+    }
+
+    /******
+     * *****
+     * ****** LOAD_LOCATION
+     * *****
+     *****/
+    public Location LoadLocation(string locationName)
+    {
+        Location[] allLocations = Resources.LoadAll<Location>("Locations");
+        foreach (Location location in allLocations)
+        {
+            if (location.LocationFullName == locationName)
+                return location;
+        }
+        Debug.LogError("NARRATIVE " + locationName + " NOT FOUND!");
+        return null;
     }
 
     /******
@@ -146,16 +180,27 @@ public class GameManager : MonoBehaviour
      *****/
     public void NewGame()
     {
-        IsCombatTest = false;
+        SceneLoader.LoadAction += NewGame_Load;
+        SceneLoader.LoadScene(SceneLoader.Scene.NarrativeScene);
+    }
+
+    private void NewGame_Load()
+    {
+        settingNarrative = LoadNarrative("Welcome to the Drift");
+        newGameNarrative = LoadNarrative("Stuck in Sylus");
+        homeBaseLocation = LoadLocation("Your Ship");
+        firstLocation = LoadLocation("The Alley");
+
+        CurrentLocation = GetActiveLocation(firstLocation);
         CurrentNarrative = settingNarrative;
+        GetActiveLocation(homeBaseLocation);
+
+        IsCombatTest = false;
         caMan.LoadNewRecruits();
         ShopItems = GetShopItems();
         ShopLoyalty = 0;
         RecruitLoyalty = 0;
-        GetActiveLocation(homeBaseLocation);
-        CurrentLocation = GetActiveLocation(firstLocation);
         pMan.AetherCells = 0;
-        SceneLoader.LoadScene(SceneLoader.Scene.NarrativeScene);
     }
 
     /******
@@ -531,7 +576,6 @@ public class GameManager : MonoBehaviour
     public void EnterWorldMap()
     {
         auMan.StartStopSound("Soundtrack_WorldMapScene", null, AudioManager.SoundType.Soundtrack);
-        auMan.StartStopSound("Soundscape_WorldMapScene", null, AudioManager.SoundType.Soundscape);
         auMan.StartStopSound("SFX_EnterWorldMap");
 
         foreach (Location loc in ActiveLocations)
@@ -545,8 +589,8 @@ public class GameManager : MonoBehaviour
         SaveGame();
         if (CurrentNarrative != null)
         {
-            uMan.CreateNarrativePopup(CurrentNarrative); // TESTING
-            CurrentNarrative = null; // TESTING
+            uMan.CreateNarrativePopup(CurrentNarrative);
+            CurrentNarrative = null;
         }
     }
 
@@ -586,13 +630,12 @@ public class GameManager : MonoBehaviour
             CurrentNarrative.NarrativeSoundscape, AudioManager.SoundType.Soundscape);
         NarrativeSceneDisplay nsd = FindObjectOfType<NarrativeSceneDisplay>();
         nsd.CurrentNarrative = CurrentNarrative;
-        Debug.Log("START NARRATIVE: " + CurrentNarrative.ToString());
     }
     public void EndNarrative()
     {
-        if (CurrentNarrative == settingNarrative)
+        if (CurrentNarrative == settingNarrative) // TESTING
         {
-            CurrentNarrative = newGameNarrative;
+            CurrentNarrative = newGameNarrative; // TESTING
             SceneLoader.LoadScene(SceneLoader.Scene.HeroSelectScene);
         }
         else Debug.LogError("NO CONDITIONS MATCHED!");
@@ -641,13 +684,9 @@ public class GameManager : MonoBehaviour
         coMan.PlayerHero.GetComponent<HeroDisplay>().HeroScript = pMan.PlayerHero;
         coMan.EnemyHero.GetComponent<HeroDisplay>().HeroScript = enMan.EnemyHero;
         // SCHEDULE ACTIONS
-        evMan.NewDelayedAction(() => anMan.CombatIntro(), 1f);
-        float delay = 0;
-        foreach (HeroItem item in pMan.HeroItems) delay += 0.5f;
-        foreach (HeroAugment aug in pMan.HeroAugments) delay += 0.5f;
-        if (delay < 3) delay = 3;
-        evMan.NewDelayedAction(() => CombatStart(), delay);
-        evMan.NewDelayedAction(() => StartCombatTurn(PLAYER), delay + 1);
+        evMan.NewDelayedAction(() => anMan.CombatIntro(), 1);
+        evMan.NewDelayedAction(() => CombatStart(), 1);
+        evMan.NewDelayedAction(() => StartCombatTurn(PLAYER), 2);
         // AUDIO
         string soundtrack;
         if (enMan.EnemyHero.IsBoss) soundtrack = "Soundtrack_CombatBoss1";
@@ -692,7 +731,7 @@ public class GameManager : MonoBehaviour
             FunctionTimer.Create(() =>
             auMan.StartStopSound(null, enMan.EnemyHero.HeroWin), 2f);
         }
-        pMan.IsMyTurn = false;
+        uMan.UpdateEndTurnButton(pMan.IsMyTurn, false);
         efMan.GiveNextEffects.Clear();
         evMan.ClearDelayedActions();
         FunctionTimer.Create(() =>
@@ -726,7 +765,7 @@ public class GameManager : MonoBehaviour
         if (isPlayerTurn)
         {
             evMan.NewDelayedAction(() => PlayerTurnStart(), 2);
-            evMan.NewDelayedAction(() => TurnDraw(), 1);
+            evMan.NewDelayedAction(() => TurnDraw(), 0.5f);
 
             void TurnDraw()
             {
@@ -745,14 +784,16 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        float delay = 0;
+        if (!isPlayerTurn) delay = 1;
         evMan.NewDelayedAction(() =>
-        caMan.TriggerPlayedUnits(CardManager.TURN_START, player), 1);
+        caMan.TriggerPlayedUnits(CardManager.TURN_START, player), delay);
 
         if (!isPlayerTurn)
         {
             pMan.IsMyTurn = false;
             enMan.IsMyTurn = true;
-            evMan.NewDelayedAction(() => enMan.StartEnemyTurn(), 2);
+            evMan.NewDelayedAction(() => enMan.StartEnemyTurn(), 1);
         }
 
         void TurnPopup()
@@ -779,7 +820,7 @@ public class GameManager : MonoBehaviour
         else if (player == PLAYER)
         {
             pMan.IsMyTurn = false;
-            coMan.SelectPlayableCards(); // TESTING
+            coMan.SelectPlayableCards();
             if (pMan.EnergyPerTurn < pMan.MaxEnergyPerTurn)
                 evMan.NewDelayedAction(() => IncreaseMaxEnergy(), 0.5f);
             evMan.NewDelayedAction(() => StartCombatTurn(ENEMY), 0.5f);
@@ -830,7 +871,7 @@ public class GameManager : MonoBehaviour
         if (activeNPC != -1) return ActiveNPCHeroes[activeNPC];
         else
         {
-            Debug.Log("Creating NEW NPC instance! <" + npc.HeroName + ">");
+            Debug.Log("NEW NPC CREATED! <" + npc.HeroName + ">");
             NPCHero newNPC;
             if (npc is EnemyHero) newNPC = ScriptableObject.CreateInstance<EnemyHero>();
             else newNPC = ScriptableObject.CreateInstance<NPCHero>();
@@ -888,7 +929,7 @@ public class GameManager : MonoBehaviour
     public List<HeroItem> GetShopItems()
     {
         HeroItem[] allItems = Resources.LoadAll<HeroItem>("Items");
-        allItems.Shuffle(); // TESTING
+        allItems.Shuffle();
         List<HeroItem> shopItems = new List<HeroItem>();
         int itemsFound = 0;
         foreach (HeroItem item in allItems)

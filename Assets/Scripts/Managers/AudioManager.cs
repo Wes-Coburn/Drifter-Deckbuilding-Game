@@ -13,6 +13,8 @@ public class AudioManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         else Destroy(gameObject);
+
+        // ADD SOUND SOURCES
         foreach (Sound sound in sounds) AddSoundSource(sound);
         musicVolume = 1;
         sfxVolume = 1;

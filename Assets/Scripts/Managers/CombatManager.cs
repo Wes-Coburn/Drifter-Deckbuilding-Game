@@ -27,8 +27,8 @@ public class CombatManager : MonoBehaviour
     private AnimationManager anMan;
     private PlayerManager pMan;
     private EnemyManager enMan;
-    private const string PLAYER = GameManager.PLAYER;
-    private const string ENEMY = GameManager.ENEMY;
+    private readonly string PLAYER = GameManager.PLAYER;
+    private readonly string ENEMY = GameManager.ENEMY;
 
     private int actionsPlayedThisTurn;
     private int lastCardIndex;
@@ -466,19 +466,20 @@ public class CombatManager : MonoBehaviour
             {
                 PlayerZoneCards.Add(card);
                 ChangeCardZone(card, PLAYER_ZONE);
-                PlayUnit();
+                container.OnAttachAction += () => PlayUnit(); // TESTING
             }
             else if (cd is ActionCardDisplay)
             {
                 PlayerActionZoneCards.Add(card);
                 ChangeCardZone(card, PLAYER_ACTION_ZONE);
-                container.OnAttachAction = () => PlayAction();
+                container.OnAttachAction += () => PlayAction(); // TESTING
             }
             else
             {
                 Debug.LogError("CARD DISPLAY TYPE NOT FOUND!");
                 return;
             }
+            SelectPlayableCards(); // TESTING
         }
         // ENEMY
         else if (card.CompareTag(ENEMY_CARD))
@@ -490,7 +491,7 @@ public class CombatManager : MonoBehaviour
             {
                 EnemyZoneCards.Add(card);
                 ChangeCardZone(card, ENEMY_ZONE);
-                PlayUnit();
+                container.OnAttachAction += () => PlayUnit(); // TESTING
             }
             else
             {
@@ -502,6 +503,13 @@ public class CombatManager : MonoBehaviour
         {
             Debug.LogError("CARD TAG NOT FOUND!");
             return;
+        }
+
+        void ParticleBurst()
+        {
+            Debug.LogWarning("PARTICLE BURST!");
+            ParticleSystemHandler particleHandler =
+                anMan.CreateParticleSystem(card, ParticleSystemHandler.ParticlesType.Play, 1); // TESTING
         }
 
         void PlayUnit()
@@ -518,11 +526,13 @@ public class CombatManager : MonoBehaviour
 
             PlayCardSound();
             PlayAbilitySounds();
+            ParticleBurst(); // TESTING
         }
         void PlayAction()
         {
             auMan.StartStopSound("SFX_PlayCard");
             ResolveActionCard(card);
+            ParticleBurst(); // TESTING
         }
         void PlayCardSound()
         {
@@ -532,7 +542,7 @@ public class CombatManager : MonoBehaviour
         }
         void PlayAbilitySounds()
         {
-            float delay = 0.3f;
+            float delay = 0;
             UnitCardDisplay ucd = cd as UnitCardDisplay;
             foreach (CardAbility ca in ucd.CurrentAbilities)
             {
@@ -540,8 +550,8 @@ public class CombatManager : MonoBehaviour
                 {
                     FunctionTimer.Create(() =>
                     auMan.StartStopSound(null, sa.GainAbilitySound), delay);
+                    delay += 0.5f;
                 }
-                delay += 0.3f;
             }
         }
     }
@@ -692,7 +702,8 @@ public class CombatManager : MonoBehaviour
         GetUnitDisplay(attacker).IsExhausted = true;
         if (CardManager.GetAbility(attacker, CardManager.ABILITY_STEALTH))
             GetUnitDisplay(attacker).RemoveCurrentAbility(CardManager.ABILITY_STEALTH);
-        
+
+        uMan.UpdateEndTurnButton(pMan.IsMyTurn, false);
         if (!CardManager.GetAbility(attacker, CardManager.ABILITY_RANGED))
             anMan.UnitAttack(attacker, defender, IsUnitCard(defender));
         else
@@ -700,7 +711,6 @@ public class CombatManager : MonoBehaviour
             PlayAttackSound(attacker);
             efMan.CreateEffectRay(attacker.transform.position, defender,
                 () => Strike(attacker, defender, true), 0, false);
-            uMan.UpdateEndTurnButton(pMan.IsMyTurn, false);
         }
     }
 
@@ -776,6 +786,9 @@ public class CombatManager : MonoBehaviour
                 // Trigger Infiltrate BEFORE Retaliate, can cause Retaliate sources to be destroyed before triggering.
                 if (CardManager.GetTrigger(striker, CardManager.TRIGGER_INFILTRATE)) InfiltrateTrigger(striker);
             }
+
+            if (!(!IsUnitCard(defender) && defenderDestroyed))
+                evMan.NewDelayedAction(() => uMan.UpdateEndTurnButton(pMan.IsMyTurn, true), 0); // TESTING
         }
         // STRIKE EFFECTS // no current use
         /*
@@ -1010,12 +1023,10 @@ public class CombatManager : MonoBehaviour
         }
 
         string cardTag = card.tag;
-        //DestroyFX();
         evMan.NewDelayedAction(() => Destroy(), 0.5f, true);
         if (HasDestroyTriggers())
             evMan.NewDelayedAction(() => DestroyTriggers(), 0, true);
-
-        evMan.NewDelayedAction(() => DestroyFX(), 0.5f, true); // TESTING
+        evMan.NewDelayedAction(() => DestroyFX(), 0.5f, true);
 
         bool HasDestroyTriggers()
         {
@@ -1068,6 +1079,7 @@ public class CombatManager : MonoBehaviour
                 EnemyZoneCards.Remove(card);
                 EnemyDiscardCards.Add(HideCard(card));
             }
+            SelectPlayableCards(); // TESTING
         }
     }
 }

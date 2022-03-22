@@ -62,6 +62,10 @@ public abstract class Effect : ScriptableObject
     public int IfHasLowerPowerValue;
     public List<EffectGroup> IfHasLowerPowerEffects;
 
+    [Header("IF RESOLVES EFFECTS")]
+    [Tooltip("If the effect has a valid target, resolve additional effects on the target")]
+    public List<Effect> IfResolvesEffects;
+
     [Header("FOR EACH EFFECTS")]
     [Tooltip("Resolve these effects for each target")]
     public List<EffectGroup> ForEachEffects;
@@ -105,6 +109,10 @@ public abstract class Effect : ScriptableObject
         IfHasLowerPowerEffects = new List<EffectGroup>();
         foreach (EffectGroup eg in effect.IfHasLowerPowerEffects)
             IfHasLowerPowerEffects.Add(eg);
+
+        IfResolvesEffects = new List<Effect>();
+        foreach (Effect e in effect.IfResolvesEffects)
+            IfResolvesEffects.Add(e);
 
         ForEachEffects = new List<EffectGroup>();
         foreach (EffectGroup eg in effect.ForEachEffects)

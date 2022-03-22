@@ -57,7 +57,7 @@ public class DialogueManager : MonoBehaviour
     {
         auMan.StartStopSound("Soundtrack_Dialogue1",
             null, AudioManager.SoundType.Soundtrack);
-        auMan.StopCurrentSoundscape(); // TESTING
+        auMan.StopCurrentSoundscape();
 
         currentDialogueClip = EngagedHero.NextDialogueClip;
         if (currentDialogueClip == null)
@@ -65,15 +65,26 @@ public class DialogueManager : MonoBehaviour
             Debug.LogError("CLIP IS NULL!");
             return;
         }
+
         dialogueDisplay = FindObjectOfType<DialogueSceneDisplay>();
         dialogueDisplay.PlayerHeroPortrait.SetActive(false);
+        
         DialoguePrompt prompt = currentDialogueClip as DialoguePrompt;
         dialogueDisplay.NPCHeroPortrait.SetActive(!prompt.HideNPC);
 
-        // TESTING
-        if (prompt.NewLocations.Length > 0)
+        if (prompt.NewLocations != null)
+        {
+            float delay = 0;
             foreach (NewLocation newLoc in prompt.NewLocations)
+            {
                 gMan.GetActiveLocation(newLoc.Location, newLoc.NewNpc);
+                if (newLoc.Location.IsAugmenter) continue;
+                FunctionTimer.Create(() => uMan.CreateLocationPopup
+                (gMan.GetActiveLocation(newLoc.Location), true), delay);
+                delay += 5;
+            }
+        }
+        else Debug.LogError("NEW LOCATIONS IS NULL!");
 
         DisplayCurrentHeroes();
         DisplayDialoguePopup();
@@ -95,7 +106,7 @@ public class DialogueManager : MonoBehaviour
             dialogueDisplay.NPCHeroSpeech = "";
             newEngagedHero = false;
             AllowResponse = false;
-            AnimationManager.Instance.NewEngagedHero(false); // TESTING
+            AnimationManager.Instance.NewEngagedHero(false);
             return;
         }
 
@@ -139,8 +150,8 @@ public class DialogueManager : MonoBehaviour
                 text = text.Replace("<HERO NAME>", shortName);
         }
 
-        if (!GameManager.Instance.HideExplicitLanguage) 
-            return text;
+        // EXPLICIT LANGUAGE FILTER
+        if (!GameManager.Instance.HideExplicitLanguage) return text;
         string[] filterWords =
         {
             "fucking", "Fucking",
@@ -164,15 +175,14 @@ public class DialogueManager : MonoBehaviour
             "shit", "Shit"
         };
 
-        string newText = text;
         foreach (string s in filterWords)
         {
             string stars = "";
             for (int i = 0; i < s.Length; i++) 
                 stars += "*";
-            newText = newText.Replace(s, stars);
+            text = text.Replace(s, stars);
         }
-        return newText;
+        return text;
     }
 
     public void TimedText(string text, TextMeshProUGUI tmPro)
@@ -213,14 +223,13 @@ public class DialogueManager : MonoBehaviour
 
     public void DialogueResponse(int response)
     {
-        if (SceneLoader.SceneIsLoading) return;
-        if (AllowResponse == false) return;
-
+        if (SceneLoader.SceneIsLoading || !AllowResponse) return;
         if (currentDialogueClip == null)
         {
             Debug.LogError("CURRENT CLIP IS NULL!");
             return;
         }
+
         if (CurrentTextRoutine != null)
         {
             StopTimedText(true);
@@ -229,7 +238,6 @@ public class DialogueManager : MonoBehaviour
 
         DialoguePrompt prompt = currentDialogueClip as DialoguePrompt;
         DialogueResponse dResponse = null;
-
         switch (response)
         {
             case 1:
@@ -242,6 +250,7 @@ public class DialogueManager : MonoBehaviour
                 dResponse = prompt.DialogueResponse3;
                 break;
         }
+
         DialogueClip nextClip = dResponse.Response_NextClip;
         if (nextClip == null)
         {
@@ -250,14 +259,22 @@ public class DialogueManager : MonoBehaviour
         }
 
         DialoguePrompt nextPrompt = null;
-        if (nextClip is DialoguePrompt)
+        if (nextClip is DialoguePrompt dPrompt)
         {
-            nextPrompt = nextClip as DialoguePrompt;
-            if (nextPrompt.NewLocations.Length > 0)
+            nextPrompt = dPrompt;
+            if (nextPrompt.NewLocations != null)
             {
+                float delay = 0;
                 foreach (NewLocation newLoc in nextPrompt.NewLocations)
+                {
                     gMan.GetActiveLocation(newLoc.Location, newLoc.NewNpc);
+                    if (newLoc.Location.IsAugmenter) continue; // TESTING
+                    FunctionTimer.Create(() =>
+                    uMan.CreateLocationPopup(gMan.GetActiveLocation(newLoc.Location), true), delay);
+                    delay += 5;
+                }
             }
+            else Debug.LogError("NEW LOCATIONS IS NULL!");
         }
 
         if (dResponse.NPC_NextClip != null)
@@ -266,7 +283,7 @@ public class DialogueManager : MonoBehaviour
             Debug.LogWarning("NEXT CLIP: " + dResponse.NPC_NextClip.ToString());
         }
 
-        // New Location
+        // Travel Location
         if (dResponse.Response_TravelLocation != null)
         {
             Location location = dResponse.Response_TravelLocation;
@@ -318,6 +335,7 @@ public class DialogueManager : MonoBehaviour
             gMan.SaveGame(); // FOR BETA ONLY
             return;
         }
+
         if (nextPrompt != null)
         {
             // New Engaged Hero

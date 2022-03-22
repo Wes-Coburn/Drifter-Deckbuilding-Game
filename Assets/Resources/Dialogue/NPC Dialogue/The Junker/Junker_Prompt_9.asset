@@ -12,43 +12,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b107ecdac65374f8c56b3212c061ce, type: 3}
   m_Name: Junker_Prompt_9
   m_EditorClassIdentifier: 
-  developerNotes: 
-  dialoguePromptText: Everything has a story, no matter how old or broken.
+  dialoguePromptText: I am Qigli, but they call me The Junker. I am finder of lost
+    things, keeper of treasures.
   dialogueResponse1:
-    responseText: I like that.
-    response_NextClip: {fileID: 11400000, guid: b1b4a96660a485940ada0fecfecf1aed,
+    responseText: Can I pass through here?
+    response_NextClip: {fileID: 11400000, guid: c2f5fe9311a602d4cbdb95c8a82c18aa,
       type: 2}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
     response_IsShopStart: 0
     response_IsCloningStart: 0
+    response_IsNewAugmentStart: 0
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   dialogueResponse2:
-    responseText: That's optimistic.
-    response_NextClip: {fileID: 11400000, guid: b1b4a96660a485940ada0fecfecf1aed,
+    responseText: "It\u2019s an honor to meet you."
+    response_NextClip: {fileID: 11400000, guid: b1d07e7b52bc7b64ba50c0f30c6e30e3,
       type: 2}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
     response_IsShopStart: 0
     response_IsCloningStart: 0
+    response_IsNewAugmentStart: 0
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   dialogueResponse3:
-    responseText: Some stories are best left untold.
-    response_NextClip: {fileID: 11400000, guid: 3697bef9a24dc5b4cb91bf8327090590,
+    responseText: "What\u2026 are you?"
+    response_NextClip: {fileID: 11400000, guid: f694a96fc061b20409df74802749acd8,
       type: 2}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
     response_IsShopStart: 0
     response_IsCloningStart: 0
+    response_IsNewAugmentStart: 0
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   newEngagedHero: {fileID: 0}
   hideNPC: 0
   newCard: {fileID: 0}
+  newAllyCard: 0
+  newExecutionCard: 0
   aetherCells: 0
   newLocations: []

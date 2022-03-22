@@ -82,7 +82,7 @@ public class EffectRay : MonoBehaviour
                 FunctionTimer.Create(() =>
                 EffectManager.Instance.FinishEffectGroupList(false), 1f);
             }
-            else UIManager.Instance.UpdateEndTurnButton(PlayerManager.Instance.IsMyTurn, true); // TESTING
+            else UIManager.Instance.UpdateEndTurnButton(PlayerManager.Instance.IsMyTurn, true);
         }
         Destroy(gameObject);
     }

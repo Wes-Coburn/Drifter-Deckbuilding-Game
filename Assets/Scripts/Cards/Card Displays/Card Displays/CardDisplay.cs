@@ -64,7 +64,7 @@ public abstract class CardDisplay : MonoBehaviour
             if (!string.IsNullOrEmpty(CardScript.CardSubType)) spacer = " - ";
             return CardScript.CardType + spacer + CardScript.CardSubType;
         }
-        set => cardTypeLine.GetComponent<TextMeshProUGUI>().SetText(value);
+        set => cardTypeLine.GetComponent<TextMeshProUGUI>().SetText(CardManager.Instance.FilterCardTypes(value));
     }
     public int CurrentEnergyCost
     {
@@ -78,7 +78,8 @@ public abstract class CardDisplay : MonoBehaviour
     private void DisplayEnergyCost(int cost)
     {
         string displayCost;
-        if (cost < 0) energyCost.SetActive(false);
+        if (cost < 0 || CompareTag(CombatManager.ENEMY_CARD))
+            energyCost.SetActive(false);
         else
         {
             displayCost = cost.ToString();
@@ -121,8 +122,9 @@ public abstract class CardDisplay : MonoBehaviour
             CardName = cd.CardName;
             CardArt = cd.CardArt;
             CardBorder = cd.CardBorder;
+            gameObject.tag = parentCard.tag;
 
-            if (CardZoom.ZoomCardIsCentered && parentCard.CompareTag(CombatManager.PLAYER_CARD))
+            if (CardZoom.ZoomCardIsCentered)
                 DisplayEnergyCost(cd.cardScript.StartEnergyCost);
             else DisplayEnergyCost(cd.CurrentEnergyCost);
         }
@@ -145,7 +147,7 @@ public abstract class CardDisplay : MonoBehaviour
             AnimationManager.Instance.ZoomedState(gameObject);
         }
 
-        rareIcon.SetActive(CardScript.IsRare); // TESTING
+        rareIcon.SetActive(CardScript.IsRare);
     }
 
     /******

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -19,15 +20,16 @@ public static class SceneLoader
         CombatScene,
         CreditsScene
     }
+
     public static bool SceneIsLoading = false;
-    
+    public static Action LoadAction;
     public static bool IsActiveScene(Scene scene)
     {
         if (SceneManager.GetActiveScene().name == scene.ToString()) return true;
         else return false;
     }
 
-    public static void LoadScene(Scene scene, bool loadSameScene = false)
+    public static void LoadScene(Scene scene, bool loadSameScene = false, bool fadeTransition = true)
     {
         if (SceneIsLoading) return;
         if (!loadSameScene && IsActiveScene(scene)) return;
@@ -39,11 +41,14 @@ public static class SceneLoader
         DialogueManager dMan = DialogueManager.Instance;
         CombatManager coMan = CombatManager.Instance;
         PlayerManager pMan = PlayerManager.Instance;
-        FunctionTimer.Create(() => auMan.StartStopSound("SFX_SceneLoading", null, 
-            AudioManager.SoundType.SFX, false, true), 1f);
 
         onSceneLoaderCallback = () =>
         {
+            uMan.SetSkybar(false);
+            uMan.SetSceneFader(false); // TESTING
+            auMan.StartStopSound("SFX_SceneLoading", null,
+                AudioManager.SoundType.SFX, false, true);
+
             string chapterText;
             switch (scene)
             {
@@ -54,7 +59,8 @@ public static class SceneLoader
                     chapterText = "Choose Your Drifter";
                     break;
                 case Scene.NarrativeScene:
-                    chapterText = gMan.CurrentNarrative.NarrativeName;
+                    if (gMan.CurrentNarrative == null) chapterText = "Welcome to the Drift";
+                    else chapterText = gMan.CurrentNarrative.NarrativeName;
                     break;
                 case Scene.WorldMapScene:
                     chapterText = "WORLD MAP";
@@ -72,18 +78,30 @@ public static class SceneLoader
                     chapterText = "CREDITS";
                     break;
                 default:
+                    chapterText = "DRIFTER";
                     Debug.LogError("SCENE TYPE NOT FOUND!");
-                    return;
+                    break;
             }
-            uMan.SetSkybar(false);
 
             LoadingSceneDisplay lsd = UnityEngine.Object.FindObjectOfType<LoadingSceneDisplay>();
             lsd.ChapterText = chapterText;
             lsd.TipText = gMan.CurrentTip;
 
-            FunctionTimer.Create(() => uMan.SetSceneFader(true), 4f);
-            FunctionTimer.Create(() => SceneManager.LoadScene(scene.ToString()), 6f);
-            FunctionTimer.Create(() => uMan.SetSceneFader(false), 6f);
+            if (LoadAction != null) FunctionTimer.Create(() => InvokeLoadAction(), 2);
+            else LoadScene_Finish();
+            
+            void InvokeLoadAction()
+            {
+                LoadAction();
+                LoadAction = null;
+                LoadScene_Finish();
+            }
+            void LoadScene_Finish()
+            {
+                FunctionTimer.Create(() => uMan.SetSceneFader(true), 4);
+                FunctionTimer.Create(() => SceneManager.LoadScene(scene.ToString()), 6);
+                FunctionTimer.Create(() => uMan.SetSceneFader(false), 6);
+            }
         };
 
         onSceneUpdateCallback = () =>
@@ -113,7 +131,7 @@ public static class SceneLoader
                     gMan.EnterWorldMap();
                     break;
                 case Scene.HomeBaseScene:
-                    gMan.EnterHomeBase(); // TESTING
+                    gMan.EnterHomeBase();
                     break;
                 case Scene.DialogueScene:
                     gMan.StartDialogue();
@@ -124,7 +142,7 @@ public static class SceneLoader
                     break;
                 case Scene.CreditsScene:
                     showSkybar = false;
-                    gMan.StartCredits(); // TESTING
+                    gMan.StartCredits();
                     break;
                 default:
                     Debug.LogError("SCENE NOT FOUND!");
@@ -134,9 +152,12 @@ public static class SceneLoader
         };
 
         dMan.StopTimedText();
-        FunctionTimer.Create(() => uMan.SetSceneFader(true), 0f);
-        FunctionTimer.Create(() => SceneManager.LoadScene(Scene.LoadingScene.ToString()), 1.5f);
-        FunctionTimer.Create(() => uMan.SetSceneFader(false), 1.5f);
+        if (fadeTransition)
+        {
+            FunctionTimer.Create(() => uMan.SetSceneFader(true), 0f);
+            FunctionTimer.Create(() => SceneManager.LoadScene(Scene.LoadingScene.ToString()), 1.5f);
+        }
+        else SceneManager.LoadScene(Scene.LoadingScene.ToString());
     }
 
     public static void SceneLoaderCallback()

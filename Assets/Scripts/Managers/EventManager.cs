@@ -63,7 +63,6 @@ public class EventManager : MonoBehaviour
     {
         if (DelayedAction.CurrentAction < delayedActions.Count)
         {
-            //Debug.Log("ACTION # " + (DelayedAction.CurrentAction + 1) + " / " + delayedActions.Count);
             if (isPaused) return;
             currentActionRoutine = StartCoroutine(ActionNumerator());
         }

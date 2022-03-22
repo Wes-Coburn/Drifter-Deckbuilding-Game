@@ -20,7 +20,7 @@ public class LocationPopupDisplay : MonoBehaviour
             location = value;
             LocationName = location.LocationFullName;
             LocationDescription = location.LocationDescription;
-            ObjectivesDescription = location.CurrentObjective; // TESTING
+            ObjectivesDescription = location.CurrentObjective;
             WorldMapPosition = new Vector2(0, 0); // FOR TESTING ONLY?
         }
     }
@@ -69,13 +69,12 @@ public class LocationPopupDisplay : MonoBehaviour
     public void TravelButton_OnClick()
     {
         if (gMan.VisitedLocations.FindIndex(x => x == location.LocationName) == -1)
-            gMan.VisitedLocations.Add(location.LocationName); // TESTING
+            gMan.VisitedLocations.Add(location.LocationName);
         if (location.IsHomeBase)
         {
             SceneLoader.LoadScene(SceneLoader.Scene.HomeBaseScene);
             return;
         }
-
         gMan.CurrentLocation = gMan.GetActiveLocation(location);
         if (location.IsRecruitment) gMan.CurrentLocation.CurrentObjective = "Recruit a Unit.";
         else if (location.IsShop) gMan.CurrentLocation.CurrentObjective = "Buy an Item.";

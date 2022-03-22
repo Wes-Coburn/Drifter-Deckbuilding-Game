@@ -6,6 +6,7 @@ using TMPro;
 public class ItemDescriptionDisplay : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private GameObject itemImage;
+    [SerializeField] private GameObject itemName;
     [SerializeField] private GameObject itemDescription;
     [SerializeField] private GameObject itemCost;
     [SerializeField] private GameObject rareIcon;
@@ -24,9 +25,9 @@ public class ItemDescriptionDisplay : MonoBehaviour, IPointerClickHandler, IPoin
         {
             loadedItem = value;
             itemImage.GetComponent<Image>().sprite = loadedItem.ItemImage;
-            string description = "<u><b>" + loadedItem.ItemName + ":</u></b> " +
-                CardManager.Instance.FilterKeywords(loadedItem.ItemDescription);
-            itemDescription.GetComponent<TextMeshProUGUI>().SetText(description);
+            itemName.GetComponent<TextMeshProUGUI>().SetText(loadedItem.ItemName);
+            itemDescription.GetComponent<TextMeshProUGUI>().SetText
+                (CardManager.Instance.FilterKeywords(loadedItem.ItemDescription));
             itemCost.GetComponent<TextMeshProUGUI>().SetText(gMan.GetItemCost(loadedItem).ToString());
             rareIcon.SetActive(loadedItem.IsRareItem);
         }

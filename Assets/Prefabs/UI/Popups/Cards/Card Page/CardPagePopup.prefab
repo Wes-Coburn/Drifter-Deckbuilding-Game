@@ -512,10 +512,8 @@ MonoBehaviour:
   cardGroup: {fileID: 3366735515331463132}
   costGroup: {fileID: 3366735516951441864}
   pageTitle: {fileID: 549790663141930526}
+  pageTabs: {fileID: 0}
   noCardsTooltip: {fileID: 3777666453884749639}
-  previousButton: {fileID: 0}
-  nextButton: {fileID: 0}
-  pageCounter: {fileID: 0}
   progressBar: {fileID: 8617613332062795688}
   progressFill: {fileID: 7397121381186323412}
   progressBarText: {fileID: 7951298629299020016}
@@ -956,8 +954,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: No cards available!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e538ba65f9ab69747a0b9d64b5033d2a, type: 2}
-  m_sharedMaterial: {fileID: 3279066539608328692, guid: e538ba65f9ab69747a0b9d64b5033d2a,
+  m_fontAsset: {fileID: 11400000, guid: 8ac98f3542adc8144b4d28d7ef82a760, type: 2}
+  m_sharedMaterial: {fileID: -2534128944703564100, guid: 8ac98f3542adc8144b4d28d7ef82a760,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1091,8 +1089,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: <b>0/3</b> Units Recruited
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e538ba65f9ab69747a0b9d64b5033d2a, type: 2}
-  m_sharedMaterial: {fileID: 3279066539608328692, guid: e538ba65f9ab69747a0b9d64b5033d2a,
+  m_fontAsset: {fileID: 11400000, guid: 8ac98f3542adc8144b4d28d7ef82a760, type: 2}
+  m_sharedMaterial: {fileID: -2534128944703564100, guid: 8ac98f3542adc8144b4d28d7ef82a760,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1117,8 +1115,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 21
-  m_fontSizeBase: 21
+  m_fontSize: 19
+  m_fontSizeBase: 19
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1345,7 +1343,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa007eff4e492ba4bad63f21cbf4c4d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltipPopupPrefab: {fileID: 7177373728927392186, guid: 6363c5ece3ab74f41ab0a33c7358b5cb,
-    type: 3}
   tooltipText: Each time you recruit 3 units, your next recruit is discounted.
   tooltipPosition: {x: -540, y: 175}
+  isZoomCardTooltip: 0

@@ -4,6 +4,9 @@ using TMPro;
 public class AetherCellPopupDisplay : MonoBehaviour
 {
     private DialogueManager dMan;
+    private AnimationManager anMan;
+    private PlayerManager pMan;
+
     private int aetherValue;
 
     [SerializeField] private GameObject aetherQuantity;
@@ -33,10 +36,14 @@ public class AetherCellPopupDisplay : MonoBehaviour
     private void Awake()
     {
         dMan = DialogueManager.Instance;
+        anMan = AnimationManager.Instance;
+        pMan = PlayerManager.Instance;
+
         newAetherChest.SetActive(true);
         continueButton.SetActive(false);
         foreach (GameObject go in hiddenZones)
             go.SetActive(false);
+
         GetComponent<SoundPlayer>().PlaySound(0);
     }
 

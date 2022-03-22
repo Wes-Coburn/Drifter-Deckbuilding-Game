@@ -52,6 +52,6 @@ public class DialoguePrompt : DialogueClip
         newAllyCard = dp.NewAllyCard;
         newExecutionCard = dp.NewExecutionCard;
         aetherCells = dp.AetherCells;
-        newLocations = dp.NewLocations;
+        newLocations = (NewLocation[])dp.NewLocations.Clone();
     }
 }

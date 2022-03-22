@@ -12,6 +12,7 @@ public class DragDrop : MonoBehaviour
     private const string SFX_DRAG_CARD = "SFX_DragCard";
     private bool isDragging;
     private int lastIndex;
+    private ParticleSystemHandler particleHandler;
 
     private bool IsDragging
     {
@@ -92,14 +93,16 @@ public class DragDrop : MonoBehaviour
         FunctionTimer.StopTimer(CardZoom.ABILITY_POPUP_TIMER);
         DraggingCard = gameObject;
 
-        lastIndex = transform.GetSiblingIndex(); // TESTING
-        transform.SetAsLastSibling(); // TESTING
+        lastIndex = transform.GetSiblingIndex();
+        transform.SetAsLastSibling();
 
         if (!IsPlayed)
         {
             IsDragging = true;
             AnimationManager.Instance.RevealedDragState(gameObject);
             uMan.SetPlayerZoneOutline(true, false);
+            particleHandler = AnimationManager.Instance.CreateParticleSystem(gameObject,
+                ParticleSystemHandler.ParticlesType.Drag); // TESTING
         }
         else
         {
@@ -128,6 +131,13 @@ public class DragDrop : MonoBehaviour
         if (!IsDragging && !ArrowIsDragging) return;
         auMan.StartStopSound(SFX_DRAG_CARD, null, AudioManager.SoundType.SFX, true);
         DraggingCard = null;
+
+        if (particleHandler != null) // TESTING
+        {
+            particleHandler.StopParticles();
+            particleHandler = null;
+        }
+
         // From Hand
         if (!IsPlayed)
         {

@@ -28,9 +28,11 @@ public class AnimationManager : MonoBehaviour
     private Color previousTextCountColor;
 
     [SerializeField] private GameObject valueChangerPrefab;
+    [SerializeField] private GameObject particleSystemPrefab;
+    [SerializeField] private GameObject particleSystem_BurstPrefab;
 
     public Coroutine ProgressBarRoutine { get; set; }
-    public Coroutine TextCountRoutine { get; set; } // Could be private
+    private Coroutine TextCountRoutine { get; set; }
 
     private void Start()
     {
@@ -41,7 +43,7 @@ public class AnimationManager : MonoBehaviour
         enMan = EnemyManager.Instance;
     }
 
-    public void ProgressBarRoutine_Stop() // TESTING
+    public void ProgressBarRoutine_Stop()
     {
         if (ProgressBarRoutine != null)
         {
@@ -78,7 +80,7 @@ public class AnimationManager : MonoBehaviour
         if (go.TryGetComponent(out Animator anim))
             if (anim.enabled)
             {
-                anim.SetBool(boolName, animBool); // TESTING
+                anim.SetBool(boolName, animBool);
                 return;
             }
         Debug.LogError("ANIMATOR NOT FOUND!");
@@ -102,6 +104,38 @@ public class AnimationManager : MonoBehaviour
         valueText += value;
         valueChanger.GetComponentInChildren<TextMeshProUGUI>().SetText(valueText);
         valueChanger.GetComponentInChildren<Animator>().SetBool("IsPositiveChange", isPositiveChange);
+    }
+
+    /******
+     * *****
+     * ****** PARTICLE_SYSTEM
+     * *****
+     *****/
+    public ParticleSystemHandler CreateParticleSystem(GameObject parent,
+        ParticleSystemHandler.ParticlesType particlesType, float stopDelay = 0)
+    {
+        GameObject prefab;
+        switch (particlesType)
+        {
+            case ParticleSystemHandler.ParticlesType.Attack:
+                goto default;
+            case ParticleSystemHandler.ParticlesType.ButtonPress:
+                goto default;
+            case ParticleSystemHandler.ParticlesType.Damage:
+                goto default;
+            case ParticleSystemHandler.ParticlesType.Drag:
+                goto default;
+            case ParticleSystemHandler.ParticlesType.Play:
+                prefab = particleSystem_BurstPrefab;
+                break;
+            default:
+                prefab = particleSystemPrefab;
+                break;
+        }
+        GameObject particleSystem = Instantiate(prefab, uMan.CurrentWorldSpace.transform);
+        ParticleSystemHandler psh = particleSystem.GetComponent<ParticleSystemHandler>();
+        psh.StartParticles(parent, particlesType, stopDelay);
+        return psh;
     }
 
     /******
@@ -387,8 +421,8 @@ public class AnimationManager : MonoBehaviour
         }
         while (distance > 0);
 
-        if (!isExitOnly) dMan.DisplayDialoguePopup(); // TESTING
-        dMan.AllowResponse = true; // TESTING
+        if (!isExitOnly) dMan.DisplayDialoguePopup();
+        dMan.AllowResponse = true;
     }
 
     /******
@@ -431,6 +465,9 @@ public class AnimationManager : MonoBehaviour
         eStats.transform.localPosition = new Vector2(eStatsStart.x, eStatsStart.y + 450);
         combatLog.transform.localPosition = new Vector2(combatLogStart.x - 450, combatLogStart.y);
 
+        uMan.SelectTarget(coMan.PlayerHero, true);
+        PlayerManager.Instance.PlayerPowerSounds();
+
         do
         {
             distance = Vector2.Distance(pFrame.transform.position, eFrame.transform.position);
@@ -448,12 +485,11 @@ public class AnimationManager : MonoBehaviour
         while (distance > 700);
 
         uMan.CreateVersusPopup();
-        uMan.ShakeCamera(EZCameraShake.CameraShakePresets.Bump); // TESTING
-        yield return new WaitForSeconds(1);
-        uMan.SelectTarget(coMan.PlayerHero, true);
-        PlayerManager.Instance.PlayerPowerSounds();
-        yield return new WaitForSeconds(2);
+        uMan.ShakeCamera(EZCameraShake.CameraShakePresets.Bump);
+        
+        yield return new WaitForSeconds(0.5f);
         uMan.SelectTarget(coMan.PlayerHero, false);
+        
         yield return new WaitForSeconds(0.5f);
         uMan.SelectTarget(coMan.EnemyHero, true);
         Sound enemyWinSound = EnemyManager.Instance.EnemyHero.HeroWin;
@@ -466,29 +502,26 @@ public class AnimationManager : MonoBehaviour
             yield return new WaitForSeconds(2);
             uMan.CreateVersusPopup(true);
         }
-        
-        float delay = 3;
+
         foreach (Transform augTran in uMan.AugmentBar.transform)
         {
             augTran.gameObject.SetActive(true);
             SkybarIconAnimation(augTran.gameObject);
-            auMan.StartStopSound("SFX_Trigger");
-            yield return new WaitForSeconds(0.5f);
-            delay -= 0.5f;
         }
+        if (uMan.AugmentBar.transform.childCount > 0)
+            auMan.StartStopSound("SFX_Trigger");
+
+        yield return new WaitForSeconds(0.5f);
 
         foreach (Transform itemTran in uMan.ItemBar.transform)
         {
             itemTran.gameObject.SetActive(true);
             SkybarIconAnimation(itemTran.gameObject);
-            auMan.StartStopSound("SFX_Trigger");
-            yield return new WaitForSeconds(0.5f);
-            delay -= 0.5f;
         }
+        if (uMan.ItemBar.transform.childCount > 0)
+            auMan.StartStopSound("SFX_Trigger");
 
-        if (delay > 0) yield return new WaitForSeconds(delay);
         auMan.StartStopSound("SFX_PortraitClick");
-
         do
         {
             distance = Vector2.Distance(pFrame.transform.position, pFrameStart);
@@ -522,7 +555,7 @@ public class AnimationManager : MonoBehaviour
 
         if (enMan.EnemyHero.IsBoss)
         {
-            float countDelay = 0.2f;
+            float countDelay = 0.15f;
             CountingText(eHD.HeroHealthObject.GetComponent
                 <TextMeshProUGUI>(), GameManager.ENEMY_STARTING_HEALTH, enMan.MaxEnemyHealth, countDelay);
 
@@ -545,12 +578,10 @@ public class AnimationManager : MonoBehaviour
     
     private readonly float minSpeed = 100;
     private readonly float maxSpeed = 200;
-    //private readonly float speedControl = 0.05f;
 
     private float GetCurrentSpeed(float distance)
     {
         float speed = maxSpeed - (distance * 0.5f);
-        //float speed = distance * speedControl;
         if (speed < minSpeed) speed = minSpeed;
         else if (speed > maxSpeed) speed = maxSpeed;
         return speed;
@@ -569,6 +600,8 @@ public class AnimationManager : MonoBehaviour
         container.GetComponent<CardContainer>().IsDetached = true;
         attacker.transform.SetAsLastSibling();
         Vector2 defPos = defender.transform.position;
+
+        ParticleSystemHandler particleHandler = CreateParticleSystem(attacker, ParticleSystemHandler.ParticlesType.Attack); // TESTING
 
         // ATTACK
         do
@@ -595,6 +628,8 @@ public class AnimationManager : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         while (distance > 0);
+
+        particleHandler.StopParticles(); // TESTING
         container.GetComponent<CardContainer>().IsDetached = false;
         EventManager.Instance.PauseDelayedActions(false);
     }

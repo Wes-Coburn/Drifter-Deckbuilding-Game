@@ -32,7 +32,6 @@ public class PlayerManager : MonoBehaviour
     private int heroUltimateProgress;
 
     private PlayerHeroDisplay HeroDisplay { get => coMan.PlayerHero.GetComponent<PlayerHeroDisplay>(); }
-
     public PlayerHero PlayerHero { get; set; }
     public List<HeroAugment> HeroAugments { get => heroAugments; }
     public List<HeroItem> HeroItems { get => heroItems; }
@@ -73,7 +72,8 @@ public class PlayerManager : MonoBehaviour
         set
         {
             heroUltimateProgress = value;
-            string progressText = heroUltimateProgress + "/" + GameManager.HERO_ULTMATE_GOAL + " Powers Used";
+            string progressText = heroUltimateProgress + "/" +
+                GameManager.HERO_ULTMATE_GOAL + " Powers Used";
             HeroDisplay.UltimateProgressText = progressText;
         }
     }
@@ -94,7 +94,8 @@ public class PlayerManager : MonoBehaviour
                     ultimateReady = true;
                     progressText = "ULTIMATE READY!";
                 }
-                else progressText = heroUltimateProgress + "/" + heroUltimateGoal + " Powers Used";
+                else progressText = heroUltimateProgress + "/" +
+                        heroUltimateGoal + " Powers Used";
                 HeroDisplay.UltimateProgressText = progressText;
 
                 PlayerHeroDisplay phd = coMan.PlayerHero.GetComponent<PlayerHeroDisplay>();
@@ -167,8 +168,7 @@ public class PlayerManager : MonoBehaviour
             if (energyLeft > MaxEnergy) energyLeft = MaxEnergy;
             coMan.PlayerHero.GetComponent<PlayerHeroDisplay>().PlayerActions = 
                 energyLeft + "/" + EnergyPerTurn;
-            
-            if (!efMan.EffectsResolving) coMan.SelectPlayableCards(); // TESTING
+            if (!efMan.EffectsResolving) coMan.SelectPlayableCards();
         }
     }
 
@@ -179,14 +179,14 @@ public class PlayerManager : MonoBehaviour
         uMan = UIManager.Instance;
         auMan = AudioManager.Instance;
 
-        PlayerHero = null; // Unnecessary?
         PlayerDeckList = new List<Card>();
         CurrentPlayerDeck = new List<Card>();
-        AetherCells = 0;
-        IsMyTurn = true; // TESTING
-
         heroAugments = new List<HeroAugment>();
-        heroItems = new List<HeroItem>();   
+        heroItems = new List<HeroItem>();
+
+        PlayerHero = null; // Unnecessary?
+        AetherCells = 0;
+        IsMyTurn = true;
     }
 
     public void AddItem(HeroItem item, bool isNewItem = false)

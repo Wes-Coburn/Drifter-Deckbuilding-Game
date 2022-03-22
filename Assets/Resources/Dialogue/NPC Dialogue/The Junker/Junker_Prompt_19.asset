@@ -23,18 +23,20 @@ MonoBehaviour:
     response_IsRecruitmentStart: 0
     response_IsShopStart: 0
     response_IsCloningStart: 0
+    response_IsNewAugmentStart: 0
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   dialogueResponse2:
     responseText: (Leave)
-    response_NextClip: {fileID: 11400000, guid: f812780d39c7bec44be9aa875dcd716c,
+    response_NextClip: {fileID: 11400000, guid: 60e0e6ab481d85c47af51f1cabe8b516,
       type: 2}
     npc_NextClip: {fileID: 11400000, guid: f812780d39c7bec44be9aa875dcd716c, type: 2}
     response_IsCombatStart: 0
-    response_IsWorldMapStart: 1
+    response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
     response_IsShopStart: 0
     response_IsCloningStart: 0
+    response_IsNewAugmentStart: 0
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   dialogueResponse3:
@@ -46,10 +48,13 @@ MonoBehaviour:
     response_IsRecruitmentStart: 0
     response_IsShopStart: 0
     response_IsCloningStart: 0
+    response_IsNewAugmentStart: 0
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   newEngagedHero: {fileID: 0}
   hideNPC: 0
   newCard: {fileID: 0}
+  newAllyCard: 0
+  newExecutionCard: 0
   aetherCells: 0
   newLocations: []

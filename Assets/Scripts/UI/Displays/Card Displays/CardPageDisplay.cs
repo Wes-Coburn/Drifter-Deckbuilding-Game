@@ -19,6 +19,7 @@ public class CardPageDisplay : MonoBehaviour
     [SerializeField] private GameObject cardGroup;
     [SerializeField] private GameObject costGroup;
     [SerializeField] private GameObject pageTitle;
+    [SerializeField] private GameObject pageTabs;
     [SerializeField] private GameObject noCardsTooltip;
 
     [Header("PROGRESS BAR")]
@@ -80,6 +81,7 @@ public class CardPageDisplay : MonoBehaviour
         cardGroupList = new List<Card>();
         string titleText;
         bool setProgressBar = false;
+        bool showTabs = true;
         int progress = 0;
 
         switch (cardPageType)
@@ -98,12 +100,14 @@ public class CardPageDisplay : MonoBehaviour
                 break;
             case CardPageType.RecruitUnit:
                 setProgressBar = true;
+                showTabs = false;
                 progress = GameManager.Instance.RecruitLoyalty;
                 titleText = "Recruit a Unit";
                 foreach (Card c in CardManager.Instance.PlayerRecruitUnits)
                     cardGroupList.Add(c);
                 break;
             case CardPageType.CloneUnit:
+                showTabs = false;
                 titleText = "Clone a Unit";
                 foreach (Card c in pMan.PlayerDeckList)
                     if (c is UnitCard)
@@ -125,19 +129,20 @@ public class CardPageDisplay : MonoBehaviour
             noCardsTooltip.SetActive(false);
         }
         else noCardsTooltip.SetActive(true);
-        if (isScrollPage) LoadScrollPage(scrollValue);
+        if (isScrollPage) LoadScrollPage(scrollValue, showTabs);
         else LoadCardPage();
         if (playSound) AudioManager.Instance.StartStopSound("SFX_CreatePopup1");
     }
 
-    private void LoadScrollPage(float scrollValue)
+    private void LoadScrollPage(float scrollValue, bool showTabs)
     {
+        pageTabs.SetActive(showTabs);
         Rect rect = cardGroup.GetComponent<RectTransform>().rect;
         int rows = Mathf.CeilToInt(cardGroupList.Count / 4f);
         if (rows < 1) rows = 1;
         float height = 650 * rows + 100;
         cardGroup.GetComponent<RectTransform>().sizeDelta = new Vector2(rect.width, height);
-        GetComponentInChildren<ScrollRect>().verticalNormalizedPosition = scrollValue; // TESTING
+        GetComponentInChildren<ScrollRect>().verticalNormalizedPosition = scrollValue;
 
         foreach (Card card in cardGroupList)
         {

@@ -13,8 +13,14 @@ public class ContinueGameButton : MonoBehaviour
     public void OnClick()
     {
         if (SceneLoader.SceneIsLoading) return;
-
         //UIManager.Instance.ShakeCamera(EZCameraShake.CameraShakePresets.Bump); // TESTING
+
+        SceneLoader.LoadAction += LoadGame;
+        SceneLoader.LoadScene(SceneLoader.Scene.WorldMapScene);
+    }
+
+    private void LoadGame()
+    {
         try { GameManager.Instance.LoadGame(); }
         catch (NullReferenceException)
         {
@@ -22,6 +28,5 @@ public class ContinueGameButton : MonoBehaviour
                 ("Your save file is incompatible with this version!\nPlease start a new game.", true);
             return;
         }
-        SceneLoader.LoadScene(SceneLoader.Scene.WorldMapScene);
     }
 }

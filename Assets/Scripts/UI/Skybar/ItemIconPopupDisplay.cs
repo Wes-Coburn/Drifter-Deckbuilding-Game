@@ -35,8 +35,8 @@ public class ItemIconPopupDisplay : MonoBehaviour
 
     public void UseItem_OnClick()
     {
-        if (!pMan.IsMyTurn) return;
-        if (EffectManager.Instance.EffectsResolving) return;
+        if (!pMan.IsMyTurn || EffectManager.Instance.EffectsResolving ||
+            EventManager.Instance.ActionsDelayed) return; // TESTING
 
         if (SourceIcon == null)
         {

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Amorphous Stalker
   m_EditorClassIdentifier: 
   cardArt: {fileID: 21300000, guid: ff45bc7e26d2bd7498817a1824603328, type: 3}
-  cardBorder: {fileID: 21300000, guid: 14ba384dc2d28d74d9bdad2182e18da6, type: 3}
+  cardBorder: {fileID: 21300000, guid: 743e735f744cf494c9f9081b4ba9303f, type: 3}
   energyCost: 3
   cardName: Amorphous Stalker
   cardType: Mutant
@@ -23,19 +23,18 @@ MonoBehaviour:
   cardPlaySound:
     name: 
     clip: {fileID: 8300000, guid: f3e77abaa8f025b40b66e4e4420373cf, type: 3}
-    volume: 0.8
+    volume: 1
     pitch: 1
     source: {fileID: 0}
   overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
   zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
-  power: 2
-  health: 2
+  power: 1
+  health: 3
   startingAbilities:
-  - {fileID: 11400000, guid: edfe3b459c9ebb14eb21ba3bb2f309a0, type: 2}
   - {fileID: 11400000, guid: 65b143c1f5750ca4ab4ab43ade2d0042, type: 2}
   unitDeathSound:
     name: 
     clip: {fileID: 8300000, guid: 168978c18747d9f428c7b1ac327d7ed3, type: 3}
-    volume: 0.8
+    volume: 1
     pitch: 1
     source: {fileID: 0}

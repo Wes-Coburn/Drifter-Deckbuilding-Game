@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 120ae26cc4846f34db63edca720772b3, type: 3}
+  m_Name: Devious Hex-Crafter
+  m_EditorClassIdentifier: 
+  cardArt: {fileID: 21300000, guid: 7af3952f69935794e84962a1a0de294b, type: 3}
+  cardBorder: {fileID: 21300000, guid: caed35b7a0393484d87efcaf3df2c415, type: 3}
+  energyCost: 1
+  cardName: Devious Hex-Crafter
+  cardType: Mage
+  cardSubType: 
+  isRare: 0
+  cardDescription: Devious Hex-Crafter is...
+  cardPlaySound:
+    name: 
+    clip: {fileID: 8300000, guid: 3a6caa4a5115f8340944d8d178fb5358, type: 3}
+    volume: 0.8
+    pitch: 1
+    source: {fileID: 0}
+  overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
+  zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
+  power: 1
+  health: 1
+  startingAbilities:
+  - {fileID: 11400000, guid: cbec5463fef5cc343ae26eacf799b62d, type: 2}
+  unitDeathSound:
+    name: 
+    clip: {fileID: 8300000, guid: f6df1cfc58cf3b448b4a94ad1a15a817, type: 3}
+    volume: 0.8
+    pitch: 1
+    source: {fileID: 0}
