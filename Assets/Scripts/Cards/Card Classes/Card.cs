@@ -29,7 +29,7 @@ public abstract class Card : ScriptableObject
     public AnimatorOverrideController OverController { get => overController; }
     public AnimatorOverrideController ZoomOverController { get => zoomOverController; }
 
-    public bool IsCreatedCard { get; set; }
+    public bool BanishAfterPlay { get; set; }
 
     public virtual void LoadCard(Card card)
     {

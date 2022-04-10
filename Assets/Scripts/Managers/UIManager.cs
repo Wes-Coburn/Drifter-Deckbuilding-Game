@@ -28,6 +28,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject itemBar;
     [SerializeField] private GameObject aetherCount;
     [SerializeField] private GameObject aetherIcon;
+    [Header("REPUTATION")]
+    [SerializeField] private GameObject reputation_Mages;
+    [SerializeField] private GameObject reputation_Mutants;
+    [SerializeField] private GameObject reputation_Rogues;
+    [SerializeField] private GameObject reputation_Techs;
+    [SerializeField] private GameObject reputation_Warriors;
 
     [Header("SCENE FADER")]
     [SerializeField] private GameObject sceneFader;
@@ -42,6 +48,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject versusPopupPrefab;
     [SerializeField] private GameObject menuPopupPrefab;
     [SerializeField] private GameObject explicitLanguagePopupPrefab;
+    [SerializeField] private GameObject tutorialPopupPrefab;
     [SerializeField] private GameObject newCardPopupPrefab;
     [SerializeField] private GameObject chooseCardPopupPrefab;
     [SerializeField] private GameObject aetherCellPopupPrefab;
@@ -62,6 +69,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject itemIconPopupPrefab;
     [SerializeField] private GameObject abilityPopupPrefab;
     [SerializeField] private GameObject abilityPopupBoxPrefab;
+    [SerializeField] private GameObject reputationPopupPrefab;
 
     [Header("BETA PREFABS")]
     [SerializeField] private GameObject betaFinishPopupPrefab;
@@ -75,14 +83,17 @@ public class UIManager : MonoBehaviour
     private PlayerManager pMan;
     private DialogueManager dMan;
     private AnimationManager anMan;
+    private GameManager gMan;
 
     private GameObject screenDimmer;
     private GameObject infoPopup;
     private GameObject infoPopup_Secondary;
+    private GameObject infoPopup_Tutorial;
     private GameObject combatEndPopup;
     private GameObject turnPopup;
     private GameObject menuPopup;
     private GameObject explicitLanguagePopup;
+    private GameObject tutorialPopup;
     private GameObject newCardPopup;
     private GameObject chooseCardPopup;
     private GameObject aetherCellPopup;
@@ -100,6 +111,7 @@ public class UIManager : MonoBehaviour
     private GameObject augmentIconPopup;
     private GameObject itemIconPopup;
     private GameObject itemAbilityPopup;
+    private GameObject reputationPopup;
 
     private GameObject endTurnButton;
     private GameObject cancelEffectButton;
@@ -128,13 +140,15 @@ public class UIManager : MonoBehaviour
     // ZOOM CANVAS
     public GameObject CurrentZoomCanvas { get; private set; }
     // UI CANVAS
-    private GameObject UICanvas { get; set; }
+    public GameObject UICanvas { get; set; }
 
     public void Start()
     {
         pMan = PlayerManager.Instance;
         dMan = DialogueManager.Instance;
         anMan = AnimationManager.Instance;
+        gMan = GameManager.Instance;
+
         PlayerIsTargetting = false;
         CurrentWorldSpace = GameObject.Find("WorldSpace");
         CurrentCanvas = GameObject.Find("Canvas");
@@ -468,6 +482,21 @@ public class UIManager : MonoBehaviour
             explicitLanguagePopup = null;
         }
     }
+    // Tutorial Popup
+    public void CreateTutorialPopup()
+    {
+        if (tutorialPopup != null) return;
+        tutorialPopup = Instantiate(tutorialPopupPrefab,
+            CurrentCanvas.transform);
+    }
+    public void DestroyTutorialPopup()
+    {
+        if (tutorialPopup != null)
+        {
+            Destroy(tutorialPopup);
+            tutorialPopup = null;
+        }
+    }
     // Menu Popup
     public void CreateMenuPopup()
     {
@@ -484,23 +513,30 @@ public class UIManager : MonoBehaviour
         }
     }
     // Info Popups
-    public void CreateInfoPopup(string message,
-        bool isCentered = false, bool isSecondary = false)
+    public void CreateInfoPopup(string message, bool isCentered = false, bool isSecondary = false, bool isTutorial = false)
     {
-        DestroyInfoPopup(isSecondary);
-        Vector2 vec2 = new Vector2(0, 0);
+        DestroyInfoPopup(isSecondary, isTutorial);
+        Vector2 vec2 = new Vector2();
         if (!isCentered) vec2.Set(750, 0);
-        if (!isSecondary)
-        {
-            infoPopup = Instantiate(infoPopupPrefab, CurrentCanvas.transform);
-            infoPopup.GetComponent<InfoPopupDisplay>().DisplayInfoPopup(message);
-            infoPopup.transform.localPosition = vec2;
-        }
-        else
+
+        if (isSecondary)
         {
             infoPopup_Secondary = Instantiate(infoPopup_SecondaryPrefab, UICanvas.transform);
             infoPopup_Secondary.GetComponent<InfoPopupDisplay>().DisplayInfoPopup(message);
             infoPopup_Secondary.transform.localPosition = vec2;
+        } 
+        else if (isTutorial)
+        {
+            infoPopup_Tutorial = Instantiate(infoPopupPrefab, UICanvas.transform);
+            infoPopup_Tutorial.GetComponent<InfoPopupDisplay>().DisplayInfoPopup(message);
+            Destroy(infoPopup_Tutorial.GetComponent<Animator>());
+            infoPopup_Tutorial.transform.localPosition = vec2;
+        }
+        else
+        {
+            infoPopup = Instantiate(infoPopupPrefab, CurrentCanvas.transform);
+            infoPopup.GetComponent<InfoPopupDisplay>().DisplayInfoPopup(message);
+            infoPopup.transform.localPosition = vec2;
         }
     }
     public void CreateFleetingInfoPopup(string message, bool isCentered = false)
@@ -518,22 +554,30 @@ public class UIManager : MonoBehaviour
         if (infoPopup != null)
             anMan.ChangeAnimationState(infoPopup, "Exit");
     }
-    public void DestroyInfoPopup(bool isSecondary = false)
+    public void DestroyInfoPopup(bool isSecondary, bool isTutorial = false)
     {
-        if (!isSecondary)
-        {
-            if (infoPopup != null)
-            {
-                Destroy(infoPopup);
-                infoPopup = null;
-            }
-        }
-        else
+        if (isSecondary)
         {
             if (infoPopup_Secondary != null)
             {
                 Destroy(infoPopup_Secondary);
                 infoPopup_Secondary = null;
+            }
+        }
+        else if (isTutorial)
+        {
+            if (infoPopup_Tutorial != null)
+            {
+                Destroy(infoPopup_Tutorial);
+                infoPopup_Tutorial = null;
+            }
+        }
+        else
+        {
+            if (infoPopup != null)
+            {
+                Destroy(infoPopup);
+                infoPopup = null;
             }
         }
     }
@@ -558,12 +602,18 @@ public class UIManager : MonoBehaviour
         DestroyTurnPopup();
         turnPopup = Instantiate(versusPopupPrefab, CurrentCanvas.transform);
         turnPopup.GetComponent<VersusPopupDisplay>().IsBossBattle = isBossBattle;
+        anMan.CreateParticleSystem(turnPopup, ParticleSystemHandler.ParticlesType.Explosion, 1); // TESTING
     }
     public void CreateCombatEndPopup(bool playerWins)
     {
         DestroyCombatEndPopup();
         combatEndPopup = Instantiate(combatEndPopupPrefab, CurrentCanvas.transform);
         CombatEndPopupDisplay cepd = combatEndPopup.GetComponent<CombatEndPopupDisplay>();
+        GameObject particleParent;
+        if (playerWins) particleParent = cepd.VictoryText;
+        else particleParent = cepd.DefeatText;
+        anMan.CreateParticleSystem(particleParent, ParticleSystemHandler.ParticlesType.Drag);
+        anMan.CreateParticleSystem(particleParent, ParticleSystemHandler.ParticlesType.NewCard);
         cepd.VictoryText.SetActive(playerWins);
         cepd.DefeatText.SetActive(!playerWins);
     }
@@ -807,7 +857,7 @@ public class UIManager : MonoBehaviour
             travelPopup = null;
         }
     }
-    // World Map Popup
+    // Narrative Popup
     public void CreateNarrativePopup(Narrative narrative)
     {
         DestroyNarrativePopup();
@@ -848,6 +898,8 @@ public class UIManager : MonoBehaviour
                 augTran.gameObject.SetActive(!hideChildren);
             foreach (Transform itemTran in itemBar.transform)
                 itemTran.gameObject.SetActive(!hideChildren);
+
+            SetAllReputation(); // TESTING
         }
     }
     public void SetAetherCount(int newCount, int previousCount)
@@ -948,6 +1000,80 @@ public class UIManager : MonoBehaviour
         {
             Destroy(itemAbilityPopup);
             itemAbilityPopup = null;
+        }
+    }
+
+    public void SetReputation(GameManager.ReputationType type, int valueChange = 0)
+    {
+        if (!skyBar.activeSelf) return;
+
+        GameObject repIcon;
+        int repScore;
+        switch (type)
+        {
+            case GameManager.ReputationType.Mages:
+                repIcon = reputation_Mages;
+                repScore = gMan.Reputation_Mages;
+                break;
+            case GameManager.ReputationType.Mutants:
+                repIcon = reputation_Mutants;
+                repScore = gMan.Reputation_Mutants;
+                break;
+            case GameManager.ReputationType.Rogues:
+                repIcon = reputation_Rogues;
+                repScore = gMan.Reputation_Rogues;
+                break;
+            case GameManager.ReputationType.Techs:
+                repIcon = reputation_Techs;
+                repScore = gMan.Reputation_Techs;
+                break;
+            case GameManager.ReputationType.Warriors:
+                repIcon = reputation_Warriors;
+                repScore = gMan.Reputation_Warriors;
+                break;
+            default:
+                Debug.LogError("INVALID REPUTATION TYPE!");
+                return;
+        }
+        repIcon.GetComponentInChildren<TextMeshProUGUI>().SetText(repScore.ToString());
+        if (valueChange != 0)
+        {
+            AudioManager.Instance.StartStopSound("SFX_Reputation");
+            anMan.SkybarIconAnimation(repIcon);
+            anMan.ValueChanger(repIcon.transform, valueChange, -100);
+        }
+    }
+
+    public void SetAllReputation()
+    {
+        List<GameManager.ReputationType> repTypes = new List<GameManager.ReputationType>()
+        {
+            GameManager.ReputationType.Mages,
+            GameManager.ReputationType.Mutants,
+            GameManager.ReputationType.Rogues,
+            GameManager.ReputationType.Techs,
+            GameManager.ReputationType.Warriors
+        };
+
+        foreach (GameManager.ReputationType type in repTypes)
+            SetReputation(type);
+    }
+
+    public void CreateReputationPopup(GameManager.ReputationType repType)
+    {
+        DestroyReputationPopup();
+        reputationPopup = Instantiate(reputationPopupPrefab, UICanvas.transform);
+        reputationPopup.transform.localPosition = new Vector2(550, 215);
+        reputationPopup.GetComponent<ReputationPopupDisplay>().DisplayReputationPopup
+            (gMan.GetReputation(repType), gMan.GetReputationTier(repType), gMan.GetReputationBonuses(repType));
+    }
+
+    public void DestroyReputationPopup()
+    {
+        if (reputationPopup != null)
+        {
+            Destroy(reputationPopup);
+            reputationPopup = null;
         }
     }
 

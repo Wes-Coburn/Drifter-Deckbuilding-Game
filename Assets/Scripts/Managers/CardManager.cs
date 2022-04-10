@@ -24,6 +24,8 @@ public class CardManager : MonoBehaviour
     [SerializeField] private GameObject actionCardPrefab;
     [Header("PLAYER START UNITS")]
     [SerializeField] private UnitCard[] playerStartUnits;
+    [Header("TUTORIAL PLAYER UNITS")]
+    [SerializeField] private UnitCard[] tutorialPlayerUnits;
 
     // Static Abilities
     public const string ABILITY_BLITZ = "Blitz";
@@ -86,19 +88,10 @@ public class CardManager : MonoBehaviour
         "Scheme"
     };
 
-    // Unit Types
-    private readonly string[] UnitTypes = new string[]
-    {
-        MAGE,
-        MUTANT,
-        ROGUE,
-        TECH,
-        WARRIOR
-    };
-
     public GameObject UnitCardPrefab { get => unitCardPrefab; }
     public GameObject ActionCardPrefab { get => actionCardPrefab; }
     public UnitCard[] PlayerStartUnits { get => playerStartUnits; }
+    public UnitCard[] TutorialPlayerUnits { get => tutorialPlayerUnits; }
 
     public List<UnitCard> PlayerRecruitMages { get; private set; }
     public List<UnitCard> PlayerRecruitMutants { get; private set; }
@@ -289,7 +282,11 @@ public class CardManager : MonoBehaviour
             return;
         }
         if (card is UnitCard) cardInstance = ScriptableObject.CreateInstance<UnitCard>();
-        else if (card is ActionCard) cardInstance = ScriptableObject.CreateInstance<ActionCard>();
+        else if (card is ActionCard)
+        {
+            if (card is SkillCard) cardInstance = ScriptableObject.CreateInstance<SkillCard>();
+            else cardInstance = ScriptableObject.CreateInstance<ActionCard>();
+        }
         else
         {
             Debug.LogError("CARD TYPE NOT FOUND!");
@@ -309,12 +306,14 @@ public class CardManager : MonoBehaviour
     public void ShuffleDeck(string hero, bool playSound = true)
     {
         Debug.LogWarning("SHUFFLE <" + hero + "> DECK!");
-        List<Card> deck;
         if (hero == GameManager.PLAYER)
-            deck = pMan.CurrentPlayerDeck;
+        {
+            pMan.CurrentPlayerDeck.Shuffle();
+            pMan.CurrentPlayerSkillDeck.Shuffle();
+        }
         else if (hero == GameManager.ENEMY)
         {
-            deck = enMan.CurrentEnemyDeck;
+            enMan.CurrentEnemyDeck.Shuffle();
             playSound = false;
         }
         else
@@ -322,7 +321,6 @@ public class CardManager : MonoBehaviour
             Debug.LogError("INVALID HERO!");
             return;
         }
-        deck.Shuffle();
 
         if (playSound)
             auMan.StartStopSound("SFX_ShuffleDeck");
@@ -335,29 +333,31 @@ public class CardManager : MonoBehaviour
      *****/
     public void UpdateDeck(string hero)
     {
-        List<Card> deckList;
-        List<Card> currentDeck;
-
         if (hero == GameManager.PLAYER)
         {
-            deckList = pMan.PlayerDeckList;
-            currentDeck = pMan.CurrentPlayerDeck;
+            pMan.CurrentPlayerDeck.Clear();
+            pMan.CurrentPlayerSkillDeck.Clear();
+            foreach (Card card in pMan.PlayerDeckList)
+            {
+                if (card is SkillCard sc)
+                    pMan.CurrentPlayerSkillDeck.Add(sc);
+                else pMan.CurrentPlayerDeck.Add(card);
+            }
+            pMan.CurrentPlayerSkillDeck.Shuffle();
+            pMan.CurrentPlayerDeck.Shuffle();
         }
         else if (hero == GameManager.ENEMY)
         {
-            deckList = enMan.EnemyDeckList;
-            currentDeck = enMan.CurrentEnemyDeck;
+            enMan.CurrentEnemyDeck.Clear();
+            foreach (Card card in enMan.EnemyDeckList)
+                enMan.CurrentEnemyDeck.Add(card);
+            enMan.CurrentEnemyDeck.Shuffle();
         }
         else
         {
             Debug.LogError("HERO NOT FOUND!");
             return;
         }
-
-        currentDeck.Clear();
-        foreach (Card card in deckList)
-            currentDeck.Add(card);
-        currentDeck.Shuffle();
     }
 
     /******
@@ -439,6 +439,14 @@ public class CardManager : MonoBehaviour
         {
             if (TriggerUnitAbility(unit, triggerName))
                 triggerFound = true;
+        }
+
+        // ENEMY HERO POWER // TESTING
+        if (player == GameManager.ENEMY && enMan.EnemyHero.EnemyHeroPower != null &&
+            enMan.EnemyHero.EnemyHeroPower.PowerTrigger.AbilityName == triggerName)
+        {
+            triggerFound = true;
+            enMan.UseHeroPower();
         }
         return triggerFound;
     }

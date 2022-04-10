@@ -40,7 +40,7 @@ public class RemoveCardPopupDisplay : MonoBehaviour
     {
         CardManager.Instance.RemovePlayerCard(card);
         pMan.AetherCells -= GameManager.REMOVE_CARD_COST;
-        uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.RemoveCard, false); // TESTING
+        uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.RemoveMainCard, false); // TESTING
     }
 
     public void CancelButton_OnClick() =>

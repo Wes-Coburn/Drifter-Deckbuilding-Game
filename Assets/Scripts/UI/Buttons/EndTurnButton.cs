@@ -14,13 +14,14 @@ public class EndTurnButton : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData pointerEventData)
     {
         if (pointerEventData.button != PointerEventData.InputButton.Left) return;
-        if (!button.interactable) return; // TESTING
         UserClick();
     }
 
     private void UserClick()
     {
         if (EventManager.Instance.ActionsDelayed) return;
+        if (!button.interactable) return;
+
         GameManager.Instance.EndCombatTurn(GameManager.PLAYER);
         GetComponentInParent<SoundPlayer>().PlaySound(0);
     }

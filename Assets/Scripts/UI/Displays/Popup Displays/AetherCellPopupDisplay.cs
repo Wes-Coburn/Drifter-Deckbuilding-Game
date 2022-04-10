@@ -45,6 +45,7 @@ public class AetherCellPopupDisplay : MonoBehaviour
             go.SetActive(false);
 
         GetComponent<SoundPlayer>().PlaySound(0);
+        anMan.CreateParticleSystem(newAetherChest, ParticleSystemHandler.ParticlesType.NewCard, 5); // TESTING
     }
 
     public void NewAetherChest_OnClick()
@@ -55,6 +56,7 @@ public class AetherCellPopupDisplay : MonoBehaviour
             go.SetActive(true);
         GetComponent<SoundPlayer>().PlaySound(1);
         PlayerManager.Instance.AetherCells += aetherValue;
+        anMan.CreateParticleSystem(null, ParticleSystemHandler.ParticlesType.ButtonPress, 1); // TESTING
     }
 
     public void ContinueButton_OnClick()

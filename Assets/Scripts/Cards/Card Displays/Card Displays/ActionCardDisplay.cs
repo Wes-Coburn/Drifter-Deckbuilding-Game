@@ -7,7 +7,12 @@ public class ActionCardDisplay : CardDisplay
     [SerializeField] private GameObject cardDescription;
     public ActionCard ActionCard { get => CardScript as ActionCard; }
 
-    private void Awake() => caMan = CardManager.Instance;
+    protected override void Awake()
+    {
+        base.Awake();
+        caMan = CardManager.Instance;
+    }
+
     /******
      * *****
      * ****** DISPLAY_CARD
@@ -51,6 +56,16 @@ public class ActionCardDisplay : CardDisplay
     {
         base.DisplayCardPageCard(card);
         CardScript = card;
+    }
+
+    /******
+     * *****
+     * ****** RESET_CARD
+     * *****
+     *****/
+    public override void ResetCard()
+    {
+        base.ResetCard();
     }
 
     /******

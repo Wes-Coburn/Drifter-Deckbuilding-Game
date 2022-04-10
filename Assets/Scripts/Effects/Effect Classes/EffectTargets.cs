@@ -14,6 +14,12 @@ public class EffectTargets : ScriptableObject
     [Header("TARGETS LOWEST HEALTH")]
     public bool TargetsLowestHealth;
 
+    [Header("TARGETS STRONGEST")]
+    public bool TargetsStrongest;
+
+    [Header("TARGEST WEAKEST")]
+    public bool TargetsWeakest;
+
     [Header("TARGETS SELF")]
     public bool TargetsSelf;
 
@@ -32,6 +38,8 @@ public class EffectTargets : ScriptableObject
         //if (VariableNumber != targets.VariableNumber) return false;
         if (TargetsAll != targets.TargetsAll) return false;
         if (TargetsLowestHealth != targets.TargetsLowestHealth) return false;
+        if (TargetsStrongest != targets.TargetsStrongest) return false;
+        if (TargetsWeakest != targets.TargetsWeakest) return false;
         if (TargetsSelf != targets.TargetsSelf) return false;
         if (PlayerHero != targets.PlayerHero) return false;
         if (PlayerUnit != targets.PlayerUnit) return false;

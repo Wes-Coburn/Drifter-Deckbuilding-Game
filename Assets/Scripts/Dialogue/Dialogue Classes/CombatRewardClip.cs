@@ -4,7 +4,7 @@ using UnityEngine;
 public class CombatRewardClip : DialogueClip
 {
     [SerializeField] private DialogueClip nextDialogueClip;
-    [SerializeField] [Range(0, 10)] private int aetherCells;
+    [SerializeField] [Range(1, 10)] private int aetherCells;
     
     public DialogueClip NextDialogueClip { get => nextDialogueClip; }
     public int AetherCells { get => aetherCells; }

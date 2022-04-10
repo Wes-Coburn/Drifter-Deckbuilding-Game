@@ -18,16 +18,19 @@ MonoBehaviour:
   cardName: Brash Offensive
   cardType: Action
   cardSubType: 
+  isRare: 0
   cardDescription: Brash Offensive is...
-  overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
-  zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
   cardPlaySound:
     name: 
     clip: {fileID: 0}
     volume: 1
     pitch: 1
     source: {fileID: 0}
-  effectDescription: Deal 1 to ALL enemies and the enemy hero.
+  overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
+  zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
+  effectDescription: Refresh an ally and deal 1 to ALL enemies.
   effectGroupList:
-  - {fileID: 11400000, guid: 7cfe0f9f945862d4e9771dae6d4275d2, type: 2}
-  linkedAbilities: []
+  - {fileID: 11400000, guid: e865f57b5d1861144a6ab6e3bd8d93af, type: 2}
+  - {fileID: 11400000, guid: 1c3be4bb504b5d84787480a59e8a6ef4, type: 2}
+  linkedAbilities:
+  - {fileID: 11400000, guid: dd1e5adc210ef4f4387a7fa5ee2988e8, type: 2}

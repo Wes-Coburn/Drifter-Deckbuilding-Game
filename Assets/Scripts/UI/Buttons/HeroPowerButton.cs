@@ -9,7 +9,7 @@ public class HeroPowerButton : MonoBehaviour, IPointerClickHandler
     {
         if (pointerEventData.button != PointerEventData.InputButton.Left) return;
         if (!PlayerManager.Instance.IsMyTurn || EffectManager.Instance.EffectsResolving ||
-            EventManager.Instance.ActionsDelayed) return; // TESTING
+            EventManager.Instance.ActionsDelayed) return;
 
         PlayerManager.Instance.UseHeroPower(isUltimate);
         PowerZoom pz = GetComponent<PowerZoom>();

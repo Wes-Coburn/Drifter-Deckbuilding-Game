@@ -5,7 +5,8 @@ public class GiveNextUnitEffect : Effect
 {
     [Header("GIVE NEXT UNIT EFFECT")]
     public Effect[] Effects;
-    public int Multiplier;
+    [Tooltip("If set to 2+, give the effect this many times")]
+    [Range(0, 5)] public int Multiplier;
 
     public override void LoadEffect(Effect effect)
     {

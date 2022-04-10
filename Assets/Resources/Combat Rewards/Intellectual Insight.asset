@@ -18,17 +18,18 @@ MonoBehaviour:
   cardName: Intellectual Insight
   cardType: Action
   cardSubType: 
+  isRare: 0
   cardDescription: Intellectual Insight is...
-  overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
-  zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
   cardPlaySound:
     name: 
     clip: {fileID: 0}
     volume: 1
     pitch: 1
     source: {fileID: 0}
-  effectDescription: Draw 2. Replenish 2 energy.
+  overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
+  zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
+  effectDescription: Draw 2. Replenish 3 energy.
   effectGroupList:
   - {fileID: 11400000, guid: 6538b1cc9f995494da722600b289e291, type: 2}
-  - {fileID: 11400000, guid: 1296c25eb7806194d8e06e6ca52b67fa, type: 2}
+  - {fileID: 11400000, guid: 7e7241f7f8f45de41949a9d54bc6a7e3, type: 2}
   linkedAbilities: []

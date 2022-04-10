@@ -19,6 +19,7 @@ public class PlayerManager : MonoBehaviour
     private EffectManager efMan;
     private UIManager uMan;
     private AudioManager auMan;
+    private GameManager gMan;
 
     private int aetherCells;
     private List<HeroAugment> heroAugments;
@@ -28,21 +29,47 @@ public class PlayerManager : MonoBehaviour
     private int playerHealth;
     private int energyPerTurn;
     private int energyLeft;
+    private bool heroSkillDrawn;
     private bool heroPowerUsed;
     private int heroUltimateProgress;
 
-    private PlayerHeroDisplay HeroDisplay { get => coMan.PlayerHero.GetComponent<PlayerHeroDisplay>(); }
+    private PlayerHeroDisplay HeroDisplay { get => 
+            coMan.PlayerHero.GetComponent<PlayerHeroDisplay>(); }
     public PlayerHero PlayerHero { get; set; }
     public List<HeroAugment> HeroAugments { get => heroAugments; }
     public List<HeroItem> HeroItems { get => heroItems; }
     public List<Card> PlayerDeckList { get; private set; }
     public List<Card> CurrentPlayerDeck { get; private set; }
+    public List<SkillCard> CurrentPlayerSkillDeck { get; private set; }
+    public int MainDeckCount
+    {
+        get
+        {
+            int count = 0;
+            foreach (Card c in PlayerDeckList)
+            {
+                if (c is SkillCard) continue;
+                else count++;
+            }
+            return count;
+        }
+    }
+    public int SkillDeckCount
+    {
+        get
+        {
+            int count = 0;
+            foreach (Card c in PlayerDeckList)
+                if (c is SkillCard) count++;
+            return count;
+        }
+    }
     public bool IsMyTurn
     {
         get => isMyTurn;
         set
         {
-            if (isMyTurn == value) return; // TESTING
+            if (isMyTurn == value) return;
             isMyTurn = value;
             uMan.UpdateEndTurnButton(isMyTurn);
         }
@@ -56,6 +83,16 @@ public class PlayerManager : MonoBehaviour
             int previousCount = aetherCells;
             aetherCells = value;
             uMan.SetAetherCount(value, previousCount);
+        }
+    }
+    public bool SkillDrawn
+    {
+        get => heroSkillDrawn;
+        set
+        {
+            heroSkillDrawn = value;
+            if (CurrentPlayerSkillDeck.Count < 1) value = true;
+            HeroDisplay.SkillDrawnIcon.SetActive(value);
         }
     }
     public bool HeroPowerUsed
@@ -96,8 +133,8 @@ public class PlayerManager : MonoBehaviour
                 }
                 else progressText = heroUltimateProgress + "/" +
                         heroUltimateGoal + " Powers Used";
+                
                 HeroDisplay.UltimateProgressText = progressText;
-
                 PlayerHeroDisplay phd = coMan.PlayerHero.GetComponent<PlayerHeroDisplay>();
                 GameObject progressBar = phd.UltimateProgressBar;
                 GameObject progressFill = phd.UltimateProgressFill;
@@ -130,7 +167,7 @@ public class PlayerManager : MonoBehaviour
         get
         {
             int bonusEnergy = 0;
-            if (GetAugment("Synaptic Stabilizer")) bonusEnergy = 2;
+            if (GetAugment("Synaptic Stabilizer")) bonusEnergy = 1;
             return bonusEnergy;
         }
     }
@@ -151,7 +188,7 @@ public class PlayerManager : MonoBehaviour
         get
         {
             int bonusEnergy = 0;
-            if (GetAugment("Inertial Catalyzer")) bonusEnergy = 2;
+            if (GetAugment("Inertial Catalyzer")) bonusEnergy = 1;
             return GameManager.MAXIMUM_ENERGY_PER_TURN + bonusEnergy;
         }
     }
@@ -178,9 +215,12 @@ public class PlayerManager : MonoBehaviour
         efMan = EffectManager.Instance;
         uMan = UIManager.Instance;
         auMan = AudioManager.Instance;
+        gMan = GameManager.Instance;
 
         PlayerDeckList = new List<Card>();
         CurrentPlayerDeck = new List<Card>();
+        CurrentPlayerSkillDeck = new List<SkillCard>();
+
         heroAugments = new List<HeroAugment>();
         heroItems = new List<HeroItem>();
 
@@ -222,11 +262,36 @@ public class PlayerManager : MonoBehaviour
 
     public bool GetAugment(string augmentName)
     {
-        int augmentIndex = heroAugments.FindIndex(x => x.AugmentName == augmentName);
+        int augmentIndex =
+            heroAugments.FindIndex(x => x.AugmentName == augmentName);
         if (augmentIndex == -1) return false;
         else return true;
     }
 
+    public void DrawSkill()
+    {
+        void ErrorSound() => auMan.StartStopSound("SFX_Error");
+
+        if (CurrentPlayerSkillDeck.Count < 1)
+        {
+            uMan.CreateFleetingInfoPopup("No skills left!");
+            ErrorSound();
+        }
+        else if (SkillDrawn)
+        {
+            uMan.CreateFleetingInfoPopup("Skill already drawn this turn!");
+            ErrorSound();
+        }
+        else
+        {
+            if (gMan.IsTutorial && EnergyPerTurn == 1) // TUTORIAL!
+                gMan.Tutorial_Tooltip(3);
+
+            coMan.DrawCard(GameManager.PLAYER, CurrentPlayerSkillDeck[0]);
+            coMan.SelectPlayableCards();
+            //ParticleBurst(skillDeck);
+        }
+    }
     public void UseHeroPower(bool isUltimate)
     {
         void ErrorSound() => auMan.StartStopSound("SFX_Error");
@@ -237,7 +302,7 @@ public class PlayerManager : MonoBehaviour
             return;
         }
 
-        if (HeroPowerUsed == true)
+        if (HeroPowerUsed)
         {
             uMan.CreateFleetingInfoPopup("Hero power already used this turn!");
             ErrorSound();
@@ -257,15 +322,18 @@ public class PlayerManager : MonoBehaviour
             }
             else
             {
-                efMan.StartEffectGroupList(groupList, coMan.PlayerHero.GetComponent<PlayerHeroDisplay>().HeroPower);
+                GameObject heroPower =
+                    coMan.PlayerHero.GetComponent<PlayerHeroDisplay>().HeroPower;
+                efMan.StartEffectGroupList(groupList, heroPower);
                 EnergyLeft -= PlayerHero.HeroPower.PowerCost;
                 HeroPowerUsed = true;
                 PlayerPowerSounds();
+                ParticleBurst(heroPower);
             }
         }
     }
 
-    public void UseHeroUltimate()
+    private void UseHeroUltimate()
     {
         void ErrorSound() => auMan.StartStopSound("SFX_Error");
 
@@ -287,11 +355,20 @@ public class PlayerManager : MonoBehaviour
         }
         else
         {
-            efMan.StartEffectGroupList(groupList, coMan.PlayerHero.GetComponent<PlayerHeroDisplay>().HeroUltimate);
+            GameObject heroUltimate =
+                coMan.PlayerHero.GetComponent<PlayerHeroDisplay>().HeroUltimate;
+            efMan.StartEffectGroupList(groupList, heroUltimate);
             EnergyLeft -= PlayerHero.HeroUltimate.PowerCost;
             HeroDisplay.UltimateUsedIcon.SetActive(true);
             PlayerPowerSounds(true);
+            ParticleBurst(heroUltimate);
         }
+    }
+
+    private void ParticleBurst(GameObject parent)
+    {
+        AnimationManager.Instance.CreateParticleSystem
+            (parent, ParticleSystemHandler.ParticlesType.ButtonPress, 1);
     }
 
     public void PlayerPowerSounds(bool isUltimate = false)

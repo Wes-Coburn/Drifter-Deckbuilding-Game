@@ -28,8 +28,10 @@ MonoBehaviour:
     source: {fileID: 0}
   overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
   zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
-  effectDescription: 'Give an ally "<b>Deathblow</b>: Draw 1."'
+  effectDescription: Deal 1 to the lowest health enemy three times.
   effectGroupList:
-  - {fileID: 11400000, guid: 603b7fcfb98dfa341aa0ae8dc68a42b3, type: 2}
+  - {fileID: 11400000, guid: 4c1e8173139cf9b459384baa3de00b2a, type: 2}
+  - {fileID: 11400000, guid: 4c1e8173139cf9b459384baa3de00b2a, type: 2}
+  - {fileID: 11400000, guid: 4c1e8173139cf9b459384baa3de00b2a, type: 2}
   linkedAbilities:
   - {fileID: 11400000, guid: 776003013f0c498498f1f5b7124874c0, type: 2}

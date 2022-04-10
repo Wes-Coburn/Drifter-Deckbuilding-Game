@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dba84e7656c95e8458163984f1d7901f, type: 3}
+  m_Name: Mutants_Reputation
+  m_EditorClassIdentifier: 
+  reputationType: 1
+  reputationColor: {r: 0, g: 1, b: 0, a: 1}
+  tier1_Bonus: "Give the first unit you play each combat \u201CRevenge: Deal 2 to
+    the enemy hero.\u201D"
+  tier1_Effects:
+  - {fileID: 11400000, guid: ac06fb5791291314eb98323b4b3b10df, type: 2}
+  tier1_ResolveOrder: 1
+  tier2_Bonus: MU2
+  tier2_Effects: []
+  tier2_ResolveOrder: 1
+  tier3_Bonus: MU3
+  tier3_Effects: []
+  tier3_ResolveOrder: 1

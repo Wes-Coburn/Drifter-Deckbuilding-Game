@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb145cc0311afb449113575373eae4d, type: 3}
+  m_Name: Tutorial Enemy Hero
+  m_EditorClassIdentifier: 
+  developerNotes: 
+  heroName: Tutorial Enemy Hero
+  heroShortName: 
+  heroPortrait: {fileID: 21300000, guid: 590950b8a5b216048829cb373c258c05, type: 3}
+  heroDescription: Tutorial Enemy Hero
+  heroWin:
+    name: 
+    clip: {fileID: 8300000, guid: 90ae161555d999840b33dd73bbc5a5bf, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  heroLose:
+    name: 
+    clip: {fileID: 8300000, guid: 3b8b72c62a7de4943b074ebe75dcd95f, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  firstDialogueClip: {fileID: 11400000, guid: 6339bc66589614146b35deb00843e218, type: 2}
+  reinforcements:
+  - {fileID: 11400000, guid: 92cdf4f7b24a543469cb38ad734cd574, type: 2}
+  isBoss: 0

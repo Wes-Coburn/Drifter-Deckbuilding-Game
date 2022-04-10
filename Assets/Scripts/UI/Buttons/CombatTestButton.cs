@@ -8,7 +8,8 @@ public class CombatTestButton : MonoBehaviour
     [Space]
     [SerializeField] private bool addStartUnits;
     [SerializeField] private bool addStartSkills;
-    [SerializeField] private bool addMoreSkills;
+    [Space]
+    [SerializeField] [Range(0, 3)] private int reputationTier;
 
     [SerializeField] private PlayerHero[] playerTestHeroes;
     [SerializeField] private PlayerHero developerTestHero;
@@ -25,16 +26,22 @@ public class CombatTestButton : MonoBehaviour
     [SerializeField] private bool enableTestCards_4;
     [SerializeField] private Card[] testCards_4;
 
+    private GameManager gMan;
+    private PlayerManager pMan;
+
     private void Start()
     {
+        gMan = GameManager.Instance;
+        pMan = PlayerManager.Instance;
+
         if (developerMode)
         {
             Debug.LogWarning("DEVELOPER MODE!");
             gameObject.SetActive(true);
             return;
         }
-        GameManager gMan = GameManager.Instance;
-        gMan.CheckSave(); // TESTING
+
+        gMan.CheckSave();
         gameObject.SetActive(gMan.Achievement_BETA_Finish);
     }
 
@@ -53,7 +60,6 @@ public class CombatTestButton : MonoBehaviour
         }
         else ph.LoadHero(developerTestHero);
         DialogueManager.Instance.EngagedHero = eh;
-        PlayerManager pMan = PlayerManager.Instance;
         pMan.PlayerHero = ph;
         
         // Test Augments
@@ -103,18 +109,41 @@ public class CombatTestButton : MonoBehaviour
         // Start Skills
         if (!developerMode || addStartSkills)
         {
-            foreach (SkillCard skill in pMan.PlayerHero.HeroStartSkills)
+            foreach (SkillCard skill in pMan.PlayerHero.HeroSkills)
                 for (int i = 0; i < GameManager.PLAYER_START_SKILLS; i++)
                     caMan.AddCard(skill, GameManager.PLAYER);
         }
-        // More Skills
-        if (developerMode && addMoreSkills)
+        // Reputation
+        if (developerMode)
         {
-            foreach (SkillCard skill in pMan.PlayerHero.HeroMoreSkills)
-                for (int i = 0; i < GameManager.PLAYER_START_SKILLS; i++)
-                    caMan.AddCard(skill, GameManager.PLAYER);
+            int reputation;
+            switch (reputationTier)
+            {
+                case 0:
+                    reputation = 0;
+                    break;
+                case 1:
+                    reputation = GameManager.REPUTATION_TIER_1;
+                    break;
+                case 2:
+                    reputation = GameManager.REPUTATION_TIER_2;
+                    break;
+                case 3:
+                    reputation = GameManager.REPUTATION_TIER_3;
+                    break;
+                default:
+                    Debug.LogError("INVALID TIER!");
+                    return;
+            }
+
+            gMan.Reputation_Mages = reputation;
+            gMan.Reputation_Mutants = reputation;
+            gMan.Reputation_Rogues = reputation;
+            gMan.Reputation_Techs = reputation;
+            gMan.Reputation_Warriors = reputation;
         }
+
+        gMan.IsCombatTest = true;
         SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);
-        GameManager.Instance.IsCombatTest = true;
     }
 }

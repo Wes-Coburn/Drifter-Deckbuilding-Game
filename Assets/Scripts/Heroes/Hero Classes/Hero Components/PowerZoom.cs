@@ -8,8 +8,11 @@ public class PowerZoom : MonoBehaviour
 
     [SerializeField] private bool abilityPopupOnly;
     [SerializeField] private bool isUltimate;
+    [SerializeField] private bool isEnemyPower;
 
     private UIManager uMan;
+    private CombatManager coMan;
+
     private GameObject powerPopup;
     private GameObject abilityPopupBox;
     public const string POWER_POPUP_TIMER = "PowerPopupTimer";
@@ -20,6 +23,7 @@ public class PowerZoom : MonoBehaviour
     private void Awake()
     {
         uMan = UIManager.Instance;
+        coMan = CombatManager.Instance;
     }
 
     public void DestroyPowerPopup()
@@ -57,9 +61,24 @@ public class PowerZoom : MonoBehaviour
     private void CreatePowerPopup()
     {
         if (this == null) return; // TESTING
-        Transform tran = CombatManager.Instance.PlayerHero.transform;
-        float newX = tran.position.x - 200;
-        float newY = tran.position.y + 300;
+
+        Transform tran;
+        float newX;
+        float newY;
+
+        if (!isEnemyPower)
+        {
+            tran = coMan.PlayerHero.transform;
+            newX = tran.position.x - 200;
+            newY = tran.position.y + 300;
+        }
+        else
+        {
+            tran = coMan.EnemyHero.transform;
+            newX = tran.position.x + 200;
+            newY = tran.position.y - 300;
+        }
+        
         Vector3 spawnPoint = new Vector2(newX, newY);
         float scaleValue = 2.5f;
         powerPopup = Instantiate(powerPopupPrefab, uMan.CurrentWorldSpace.transform);
@@ -67,9 +86,18 @@ public class PowerZoom : MonoBehaviour
         powerPopup.transform.localScale = new Vector2(scaleValue, scaleValue);
 
         HeroPower hp;
-        PlayerHeroDisplay phd = GetComponentInParent<PlayerHeroDisplay>();
-        if (isUltimate) hp = phd.PlayerHero.HeroUltimate;
-        else hp = phd.PlayerHero.HeroPower;
+        if (!isEnemyPower)
+        {
+            PlayerHeroDisplay phd = GetComponentInParent<PlayerHeroDisplay>();
+            if (isUltimate) hp = phd.PlayerHero.HeroUltimate;
+            else hp = phd.PlayerHero.HeroPower;
+        }
+        else
+        {
+            EnemyHeroDisplay ehd = GetComponentInParent<EnemyHeroDisplay>();
+            hp = ehd.EnemyHero.EnemyHeroPower;
+        }
+        
 
         if (hp == null)
         {
@@ -92,7 +120,11 @@ public class PowerZoom : MonoBehaviour
         abilityPopupBox = Instantiate(abilityPopupBoxPrefab,
             uMan.CurrentZoomCanvas.transform);
         Vector2 position = new Vector2();
-        if (!abilityPopupOnly) position.Set(-75, -50); // Combat Scene
+        if (!abilityPopupOnly) // Combat Scene
+        {
+            if (!isEnemyPower) position.Set(-75, -50);
+            else position.Set(0, -50); // TESTING
+        }
         else
         {
             if (SceneLoader.IsActiveScene(SceneLoader.Scene.HeroSelectScene))

@@ -22,7 +22,14 @@ public class CombatEndPopupDisplay : MonoBehaviour
             return;
         }
 
-        if (victoryText.activeSelf == true)
+        if (gMan.IsTutorial)
+        {
+            if (victoryText.activeSelf) gMan.NewGame();
+            else gMan.PlayTutorial(); // TESTING
+            return;
+        }
+
+        if (victoryText.activeSelf)
         {
             if (dMan.EngagedHero.NextDialogueClip is CombatRewardClip)
                 uMan.CreateNewCardPopup(null,
@@ -31,7 +38,7 @@ public class CombatEndPopupDisplay : MonoBehaviour
         }
         else
         {
-            gMan.LoadGame();
+            SceneLoader.LoadAction += () => gMan.LoadGame();
             SceneLoader.LoadScene(SceneLoader.Scene.WorldMapScene, true);
         }
         uMan.DestroyCombatEndPopup();

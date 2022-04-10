@@ -18,6 +18,10 @@ public abstract class Effect : ScriptableObject
     [Range(0, 5)]
     public int Countdown;
 
+    [Header("SHOOT RAY")]
+    public bool ShootRay;
+    public Color RayColor;
+
     [Header("IF EXHAUSTED CONDITION")]
     [Tooltip("If enabled, the effect will not resolve unless the target IS EXHAUSTED")]
     public bool IfExhaustedCondition;
@@ -25,6 +29,14 @@ public abstract class Effect : ScriptableObject
     [Header("IF REFRESHED CONDITION")]
     [Tooltip("If enabled, the effect will not resolve unless the target IS NOT EXHAUSTED")]
     public bool IfRefreshedCondition;
+
+    [Header("IF DAMAGED CONDITION")]
+    [Tooltip("If enabled, the effect will not resolve unless the target IS DAMAGED")]
+    public bool IfDamagedCondition;
+
+    [Header("IF NOT DAMAGED CONDITION")]
+    [Tooltip("If enabled, the effect will not resolve unless the target IS NOT DAMAGED")]
+    public bool IfNotDamagedCondition;
 
     [Header("IF HAS POWER CONDITION")]
     [Tooltip("If enabled, the effect will not resolve unless the target has GREATER POWER (or LESSER if also enabled)")]
@@ -77,8 +89,14 @@ public abstract class Effect : ScriptableObject
         IsNegative = effect.IsNegative;
         Countdown = effect.Countdown;
 
+        ShootRay = effect.ShootRay;
+        RayColor = effect.RayColor;
+
         IfExhaustedCondition = effect.IfExhaustedCondition;
         IfRefreshedCondition = effect.IfRefreshedCondition;
+
+        IfDamagedCondition = effect.IfDamagedCondition;
+        IfNotDamagedCondition = effect.IfNotDamagedCondition;
 
         IfHasPowerCondition = effect.IfHasPowerCondition;
         IsLessPowerCondition = effect.IsLessPowerCondition;

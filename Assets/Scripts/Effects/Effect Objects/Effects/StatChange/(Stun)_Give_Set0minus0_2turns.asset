@@ -16,6 +16,8 @@ MonoBehaviour:
   Value: 1
   IsNegative: 0
   Countdown: 2
+  ShootRay: 1
+  RayColor: {r: 1, g: 0, b: 0.9770155, a: 1}
   IfExhaustedCondition: 0
   IfRefreshedCondition: 0
   IfHasPowerCondition: 0
@@ -33,6 +35,7 @@ MonoBehaviour:
   IfHasGreaterPowerEffects: []
   IfHasLowerPowerValue: 0
   IfHasLowerPowerEffects: []
+  IfResolvesEffects: []
   ForEachEffects: []
   PowerChange: 0
   DoublePower: 0

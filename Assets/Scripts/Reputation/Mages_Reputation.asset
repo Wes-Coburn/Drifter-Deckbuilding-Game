@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dba84e7656c95e8458163984f1d7901f, type: 3}
+  m_Name: Mages_Reputation
+  m_EditorClassIdentifier: 
+  reputationType: 0
+  reputationColor: {r: 1, g: 0.4402727, b: 0, a: 1}
+  tier1_Bonus: The first action you play each combat costs 2 less.
+  tier1_Effects:
+  - {fileID: 11400000, guid: 19667eea40440eb44889799778cc1b43, type: 2}
+  tier1_ResolveOrder: 1
+  tier2_Bonus: At the beginning of each combat, after you replace cards in your hand,
+    do it again.
+  tier2_Effects:
+  - {fileID: 11400000, guid: d7ac02cc364638e41ae1c9dfdaac0d41, type: 2}
+  tier2_ResolveOrder: 2
+  tier3_Bonus: "Give the first three units you play each combat \u201CSpark: Replenish
+    1 energy.\u201D"
+  tier3_Effects:
+  - {fileID: 11400000, guid: d1e7dc1d57cd6dd4fb23810605224d19, type: 2}
+  tier3_ResolveOrder: 1

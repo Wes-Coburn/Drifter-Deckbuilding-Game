@@ -18,6 +18,7 @@ public class EnemyManager : MonoBehaviour
     private CombatManager coMan;
     private EventManager evMan;
     private AnimationManager anMan;
+    private CardManager caMan;
 
     private EnemyHero enemyHero;
     private int enemyHealth;
@@ -62,11 +63,13 @@ public class EnemyManager : MonoBehaviour
             }
             foreach (UnitCard unit in enemyHero.Reinforcements[ReinforcementGroup].ReinforcementUnits)
                 for (int i = 0; i < GameManager.ENEMY_START_UNITS; i++)
-                    CardManager.Instance.AddCard(unit, GameManager.ENEMY);
+                    caMan.AddCard(unit, GameManager.ENEMY);
+            caMan.ShuffleDeck(GameManager.ENEMY, false);
             ReinforcementSchedule =
                 EnemyHero.Reinforcements[ReinforcementGroup].ReinforcementSchedule.Schedule;
             CurrentReinforcements = 0;
             NextReinforcements = ReinforcementSchedule[CurrentReinforcements];
+            refoSched = ReinforcementSchedule; // TESTING
         }
     }
     public int EnemyHealth
@@ -75,7 +78,7 @@ public class EnemyManager : MonoBehaviour
         set
         {
             enemyHealth = value;
-            CombatManager.Instance.EnemyHero.GetComponent<HeroDisplay>().HeroHealth = enemyHealth;
+            coMan.EnemyHero.GetComponent<HeroDisplay>().HeroHealth = enemyHealth;
         }
     }
     public int MaxEnemyHealth
@@ -93,6 +96,7 @@ public class EnemyManager : MonoBehaviour
         coMan = CombatManager.Instance;
         evMan = EventManager.Instance;
         anMan = AnimationManager.Instance;
+        caMan = CardManager.Instance;
     }
 
     public void StartCombat()
@@ -130,7 +134,7 @@ public class EnemyManager : MonoBehaviour
             if (!ucd.IsExhausted && ucd.CurrentPower > 0 && ucd.CurrentHealth > 0)
                 evMan.NewDelayedAction(() => ResolveAttack(ally), 1);
         }
-        UpdateReinforcements();
+        evMan.NewDelayedAction(() => UpdateReinforcements(), 1);
         evMan.NewDelayedAction(() =>
         GameManager.Instance.EndCombatTurn(GameManager.ENEMY), 1);
     }
@@ -178,12 +182,11 @@ public class EnemyManager : MonoBehaviour
         if (TotalEnemyPower() >= playerHealth) return coMan.PlayerHero;
 
         // If enemy hero is NOT <MILDLY THREATENED>
-        if (EnemyHealth > MaxEnemyHealth * 0.5f && TotalAllyPower() < EnemyHealth * 0.65f)
+        if (EnemyHealth > MaxEnemyHealth * 0.5f && TotalAllyPower() < EnemyHealth * 0.55f)
         {
             // If player hero IS <THREATENED>
             if (TotalEnemyPower() >= playerHealth * 0.75f ||
-                CardManager.GetTrigger(enemy, CardManager.TRIGGER_INFILTRATE) ||
-                CardManager.GetTrigger(enemy, CardManager.TRIGGER_RETALIATE))
+                CardManager.GetTrigger(enemy, CardManager.TRIGGER_INFILTRATE))
                 return coMan.PlayerHero;
         }
 
@@ -201,7 +204,7 @@ public class EnemyManager : MonoBehaviour
             int power = ucd.CurrentPower;
             int health = ucd.CurrentHealth;
 
-            priority += power + (power/2) - health/2;
+            priority += power + (power/3) - health/2;
             if (CardManager.GetAbility(legalDefender, CardManager.ABILITY_FORCEFIELD))
                 priority -= 2;
             if (CardManager.GetAbility(legalDefender, CardManager.ABILITY_RANGED))
@@ -217,33 +220,43 @@ public class EnemyManager : MonoBehaviour
         return defender;
     }
 
-    private void UpdateReinforcements()
+    public void UseHeroPower()
     {
-        if (CurrentReinforcements > refoSched.Count - 1)
-            CurrentReinforcements = 0;
+        List<EffectGroup> groupList = EnemyHero.EnemyHeroPower.EffectGroupList;
+        GameObject heroPower = coMan.EnemyHero.GetComponent<EnemyHeroDisplay>().HeroPower;
+        EffectManager.Instance.StartEffectGroupList(groupList, heroPower);
 
+        Sound[] soundList;
+        soundList = EnemyHero.EnemyHeroPower.PowerSounds;
+        foreach (Sound s in soundList) AudioManager.Instance.StartStopSound(null, s);
+
+        AnimationManager.Instance.TriggerHeroPower(heroPower);
+    }
+
+    public void UpdateReinforcements()
+    {
         int cardsToDraw = NextReinforcements;
         if (cardsToDraw < 1)
         {
-            evMan.NewDelayedAction(() => NextReinforcementsState(), 1);
+            evMan.NewDelayedAction(() => NextReinforcementsState(), 1, true);
             return;
         }
-
-        evMan.NewDelayedAction(() => anMan.ReinforcementsState(), 1);
         int overMaxCards = GameManager.MAX_HAND_SIZE + 1;
         if (cardsToDraw + handSize > overMaxCards)
             cardsToDraw = overMaxCards - handSize;
-        for (int i = 0; i < cardsToDraw; i++)
-            evMan.NewDelayedAction(() => coMan.DrawCard(GameManager.ENEMY), 0.5f);
-
         float delay = 2 + ((3 - cardsToDraw) * 0.5f);
         if (delay < 0) delay = 0;
-        evMan.NewDelayedAction(() => NextReinforcementsState(), delay);
+
+        evMan.NewDelayedAction(() => NextReinforcementsState(), delay, true);
+        for (int i = 0; i < cardsToDraw; i++)
+            evMan.NewDelayedAction(() => coMan.DrawCard(GameManager.ENEMY), 0.5f, true);
+        evMan.NewDelayedAction(() => anMan.ReinforcementsState(), 0, true);
     }
 
     private void NextReinforcementsState()
     {
         anMan.NextReinforcementsState();
-        NextReinforcements = refoSched[CurrentReinforcements++];
+        if (++CurrentReinforcements > refoSched.Count - 1) CurrentReinforcements = 0;
+        NextReinforcements = refoSched[CurrentReinforcements];
     }
 }

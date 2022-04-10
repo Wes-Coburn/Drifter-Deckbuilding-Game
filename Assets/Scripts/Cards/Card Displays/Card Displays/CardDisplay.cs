@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
@@ -68,8 +69,13 @@ public abstract class CardDisplay : MonoBehaviour
     }
     public int CurrentEnergyCost
     {
-        get => CardScript.CurrentEnergyCost;
-        set
+        get
+        {
+            int cost = CardScript.CurrentEnergyCost;
+            if (cost < 0) return 0;
+            else return cost;
+        }
+        private set
         {
             CardScript.CurrentEnergyCost = value;
             DisplayEnergyCost(value);
@@ -77,17 +83,30 @@ public abstract class CardDisplay : MonoBehaviour
     }
     private void DisplayEnergyCost(int cost)
     {
-        string displayCost;
-        if (cost < 0 || CompareTag(CombatManager.ENEMY_CARD))
+        if (CompareTag(CombatManager.ENEMY_CARD))
             energyCost.SetActive(false);
         else
         {
-            displayCost = cost.ToString();
-            energyCost.GetComponentInChildren<TextMeshProUGUI>().
-                SetText(displayCost);
+            energyCost.GetComponentInChildren
+                <TextMeshProUGUI>().SetText(cost.ToString());
         }
     }
-    
+
+    public List<Effect> CurrentEffects { get; set; }
+
+    protected virtual void Awake() => CurrentEffects = new List<Effect>();
+
+    /******
+     * *****
+     * ****** CHANGE_CURRENT_ENERGY_COST
+     * *****
+     *****/
+    public void ChangeCurrentEnergyCost(int value)
+    {
+        CardScript.CurrentEnergyCost += value;
+        DisplayEnergyCost(CurrentEnergyCost);
+    }
+
     /******
      * *****
      * ****** DISPLAY_CARD
@@ -156,7 +175,19 @@ public abstract class CardDisplay : MonoBehaviour
      * *****
      *****/
     public virtual void DisplayCardPageCard(Card card) =>
-        rareIcon.SetActive(card.IsRare); // TESTING
+        rareIcon.SetActive(card.IsRare);
+
+    /******
+     * *****
+     * ****** RESET_CARD
+     * *****
+     *****/
+    public virtual void ResetCard()
+    {
+        GetComponent<CardSelect>().CardOutline.SetActive(false);
+        CurrentEnergyCost = CardScript.StartEnergyCost; // TESTING
+        CurrentEffects.Clear();
+    }
 
     /******
      * *****

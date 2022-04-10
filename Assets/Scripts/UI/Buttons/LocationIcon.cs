@@ -18,6 +18,8 @@ public class LocationIcon : MonoBehaviour
     [SerializeField] private Sprite cloningSprite;
 
     private UIManager uMan;
+    private GameManager gMan;
+
     private Location location;
 
     public Location Location
@@ -40,7 +42,7 @@ public class LocationIcon : MonoBehaviour
             Sprite image = null;
             if (location.IsHomeBase) image = homeBaseSprite;
             else if (location.IsAugmenter) image = augmenterSprite;
-            else if (!visited) return; // TESTING
+            else if (!visited) return;
             else if (location.IsShop) image = shopSprite;
             else if (location.IsRecruitment) image = recruitmentSprite;
             else if (location.IsCloning) image = cloningSprite;
@@ -48,11 +50,26 @@ public class LocationIcon : MonoBehaviour
         }
     }
 
-    private void Start() => 
+    private void Start()
+    {
         uMan = UIManager.Instance;
+        gMan = GameManager.Instance;
+    }
 
-    public void OnClick() => 
-        uMan.CreateTravelPopup(Location);
+    public void OnClick()
+    {
+        if (Location.IsHomeBase) Travel();
+        else
+        {
+            if (gMan.CurrentHour == 4) // TESTING
+                uMan.CreateFleetingInfoPopup("You must rest at your ship!", true);
+            else if (!gMan.LocationOpen(Location)) // TESTING
+                uMan.CreateFleetingInfoPopup("Location closed! Come back later.", true);
+            else Travel();
+        }
+
+        void Travel() => uMan.CreateTravelPopup(Location);
+    }
 
     public void OnPointerEnter() => 
         uMan.CreateLocationPopup(Location);

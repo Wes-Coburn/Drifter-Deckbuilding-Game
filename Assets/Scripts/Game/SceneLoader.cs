@@ -41,6 +41,9 @@ public static class SceneLoader
         DialogueManager dMan = DialogueManager.Instance;
         CombatManager coMan = CombatManager.Instance;
         PlayerManager pMan = PlayerManager.Instance;
+        AnimationManager anMan = AnimationManager.Instance;
+        EventManager evMan = EventManager.Instance;
+        EffectManager efMan = EffectManager.Instance;
 
         onSceneLoaderCallback = () =>
         {
@@ -151,7 +154,17 @@ public static class SceneLoader
             uMan.SetSkybar(showSkybar, hideChildren);
         };
 
-        dMan.StopTimedText();
+        // Corotoutines
+        gMan.StopAllCoroutines(); // TESTING
+        anMan.StopAllCoroutines(); // TESTING
+        dMan.StopAllCoroutines(); // TESTING
+        uMan.StopAllCoroutines(); // TESTING
+
+        // Reset Managers
+        dMan.Reset_DialogueManager(); // TESTING
+        evMan.Reset_EventManager(); // TESTING
+        efMan.Reset_EffectManager(); // TESTING
+
         if (fadeTransition)
         {
             FunctionTimer.Create(() => uMan.SetSceneFader(true), 0f);

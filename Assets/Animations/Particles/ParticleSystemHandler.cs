@@ -4,14 +4,10 @@ using UnityEngine;
 [RequireComponent(typeof(ParticleSystem))]
 public class ParticleSystemHandler : MonoBehaviour
 {
-    [SerializeField] private Color attackColor;
-    [SerializeField] private Color buttonPressColor;
-    [SerializeField] private Color damageColor;
-    [SerializeField] private Color dragColor;
-    [SerializeField] private Color playColor;
-
     private ParticleSystem particles;
     private GameObject parent;
+    private bool usePointerPosition;
+    private bool followPosition;
 
     public enum ParticlesType
     {
@@ -19,6 +15,9 @@ public class ParticleSystemHandler : MonoBehaviour
         ButtonPress,
         Damage,
         Drag,
+        Explosion,
+        MouseDrag,
+        NewCard,
         Play
     }
 
@@ -26,42 +25,41 @@ public class ParticleSystemHandler : MonoBehaviour
 
     private void Update()
     {
-        if (parent == null) return;
-        Vector2 parentPos = parent.transform.position;
-        transform.position = new Vector3(parentPos.x, parentPos.y, 10);
+        if (!followPosition || parent == null) return;
+
+        if (usePointerPosition)
+        {
+            Vector3 mousePoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            transform.position = new Vector3(mousePoint.x, mousePoint.y, 10);
+        }
+        else
+        {
+            Vector2 parentPos = parent.transform.position;
+            transform.position = new Vector3(parentPos.x, parentPos.y, 10);
+        }
+            
     }
 
-    public void StartParticles(GameObject parent, ParticlesType particlesType, float stopDelay = 0)
+    public void StartParticles(GameObject parent, Color startColor,
+        ParticleSystem.MinMaxCurve startSize, ParticleSystem.MinMaxCurve startLifetime,
+        float stopDelay = 0, bool usePointerPosition = false, bool followPosition = true)
     {
         this.parent = parent;
-        Color startColor;
-
-        switch (particlesType)
-        {  
-            case ParticlesType.Attack:
-                startColor = attackColor;
-                break;
-            case ParticlesType.ButtonPress:
-                startColor = buttonPressColor;
-                break;
-            case ParticlesType.Damage:
-                startColor = damageColor;
-                break;
-            case ParticlesType.Drag:
-                startColor = dragColor;
-                break;
-            case ParticlesType.Play:
-                startColor = playColor;
-                break;
-            default:
-                Debug.LogError("PARTICLES TYPE NOT FOUND!");
-                return;
-        }
+        this.usePointerPosition = usePointerPosition;
+        this.followPosition = followPosition;
 
         var main = particles.main;
         main.startColor = startColor;
+        main.startSize = startSize;
+        main.startLifetime = startLifetime;
 
-        particles.Play(); // TESTING
+        if (usePointerPosition)
+        {
+            Vector3 mousePoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            transform.position = new Vector3(mousePoint.x, mousePoint.y, 10);
+        }
+
+        particles.Play();
 
         if (stopDelay > 0) FunctionTimer.Create(() =>
         {
@@ -73,6 +71,7 @@ public class ParticleSystemHandler : MonoBehaviour
     {
         var particleEmission = particles.emission;
         particleEmission.rateOverTime = 0;
+        particleEmission.rateOverDistance = 0;
         StartCoroutine(StopParticlesNumertor());
     }
 

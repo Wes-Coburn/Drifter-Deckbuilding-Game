@@ -12,6 +12,7 @@ public class StatChangeEffect : Effect
     [Header("HEALTH CHANGE")]
     [Range(0, 5)]
     public int HealthChange;
+    public bool DoubleHealth;
 
     public override void LoadEffect(Effect effect)
     {
@@ -21,5 +22,6 @@ public class StatChangeEffect : Effect
         DoublePower = sce.DoublePower;
         SetPowerZero = sce.SetPowerZero;
         HealthChange = sce.HealthChange;
+        DoubleHealth = sce.DoubleHealth;
     }
 }

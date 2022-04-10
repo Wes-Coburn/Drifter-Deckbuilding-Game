@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a22d7123f6ee007468cbdc6e9b6fe2b0, type: 3}
+  m_Name: Give_3EU_Marked_IfHas_Marked_Deal2
+  m_EditorClassIdentifier: 
+  Targets: {fileID: 11400000, guid: ad1082cb274a0ea4abba862274eda4be, type: 2}
+  Effects:
+  - {fileID: 11400000, guid: 0c8bb1c8a93df8148b4f916bdc30f3e7, type: 2}
+  - {fileID: 11400000, guid: 26d8c3b831814e346a43831257930156, type: 2}
+  EffectsDescription: "Mark three enemies. If they\u2019re already Marked, deal 2
+    to them instead."

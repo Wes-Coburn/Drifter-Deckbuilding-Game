@@ -1,5 +1,6 @@
-using UnityEngine;
 using System;
+using System.Collections;
+using UnityEngine;
 
 public class EffectRay : MonoBehaviour
 {
@@ -9,7 +10,10 @@ public class EffectRay : MonoBehaviour
     private float distance;
     private float speed;
     private bool isMoving;
+    private bool isDestroyed;
 
+    private SpriteRenderer sprite;
+    private ParticleSystem particles;
     private GameObject target;
     private Action rayEffect;
     private bool isEffectGroup;
@@ -19,12 +23,17 @@ public class EffectRay : MonoBehaviour
     private void Awake()
     {
         isMoving = false;
+        isDestroyed = false;
+        sprite = GetComponent<SpriteRenderer>(); // TESTING
+        particles = GetComponent<ParticleSystem>(); // TESTING
         ActiveRays++;
         gameObject.SetActive(false);
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
+        if (isDestroyed) return;
+
         if (target == null)
         {
             if (isMoving)
@@ -55,16 +64,22 @@ public class EffectRay : MonoBehaviour
         }
     }
 
-    public void SetEffectRay(GameObject target, Action rayEffect, bool isEffectGroup)
+    public void SetEffectRay(GameObject target, Action rayEffect, Color rayColor, bool isEffectGroup)
     {
         this.rayEffect = rayEffect;
         this.isEffectGroup = isEffectGroup;
         this.target = target;
+
+        // TESTING
+        sprite.color = rayColor;
+        var main = particles.main;
+        main.startColor = sprite.color;
         gameObject.SetActive(true);
     }
 
-    void DestroyRay()
+    private void DestroyRay()
     {
+        isDestroyed = true;
         ActiveRays--;
         Debug.Log("ACTIVE EFFECT RAYS: <" + ActiveRays + ">");
 
@@ -84,6 +99,15 @@ public class EffectRay : MonoBehaviour
             }
             else UIManager.Instance.UpdateEndTurnButton(PlayerManager.Instance.IsMyTurn, true);
         }
+
+        GetComponent<SpriteRenderer>().enabled = false;
+        StartCoroutine(DestroyRayNumerator());
+    }
+
+    private IEnumerator DestroyRayNumerator()
+    {
+        while (particles.particleCount > 0)
+            yield return null;
         Destroy(gameObject);
     }
 }

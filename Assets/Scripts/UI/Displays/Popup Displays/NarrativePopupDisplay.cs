@@ -24,7 +24,7 @@ public class NarrativePopupDisplay : MonoBehaviour
             currentClip = 0;
             narrativeTitle.GetComponent
                 <TextMeshProUGUI>().SetText(loadedNarrative.NarrativeName);
-            DisplayCurrentClip();
+            DisplayCurrentClip(true);
         }
     }
 
@@ -36,8 +36,11 @@ public class NarrativePopupDisplay : MonoBehaviour
         continueButton.SetActive(false);
     }
 
-    private void DisplayCurrentClip()
+    private void DisplayCurrentClip(bool isFirstDisplay = false)
     {
+        if (isFirstDisplay) AudioManager.Instance.StartStopSound
+                (null, loadedNarrative.NarrativeStartSound); // TESTING
+
         int clipCount = loadedNarrative.NarrativeText.Length;
         bool showPrevious = true;
         bool showNext = true;

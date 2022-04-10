@@ -12,6 +12,7 @@ public class NewCardPopupDisplay : MonoBehaviour
     private PlayerManager pMan;
     private DialogueManager dMan;
     private UIManager uMan;
+    private AnimationManager anMan;
 
     private Card newCard;
     private Card[] chooseCards;
@@ -41,6 +42,8 @@ public class NewCardPopupDisplay : MonoBehaviour
         pMan = PlayerManager.Instance;
         dMan = DialogueManager.Instance;
         uMan = UIManager.Instance;
+        anMan = AnimationManager.Instance;
+
         ignoreCardButton.GetComponentInChildren<TextMeshProUGUI>().SetText
             ("Take " + GameManager.IGNORE_CARD_AETHER + " aether instead");
         GetComponent<SoundPlayer>().PlaySound(0);
@@ -51,6 +54,7 @@ public class NewCardPopupDisplay : MonoBehaviour
         newCardChest.SetActive(true);
         foreach (GameObject button in addCardButtons) button.SetActive(false);
         ignoreCardButton.SetActive(false);
+        anMan.CreateParticleSystem(newCardChest, ParticleSystemHandler.ParticlesType.NewCard, 5); // TESTING
     }
 
     private void SwitchToCards()
@@ -59,6 +63,7 @@ public class NewCardPopupDisplay : MonoBehaviour
         newCardChest.SetActive(false);
         foreach (GameObject button in addCardButtons) button.SetActive(true);
         ignoreCardButton.SetActive(true);
+        anMan.CreateParticleSystem(null, ParticleSystemHandler.ParticlesType.ButtonPress, 1); // TESTING
     }
 
     public void DisplayNewCard()

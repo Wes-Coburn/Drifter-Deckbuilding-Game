@@ -3,15 +3,20 @@ using UnityEngine;
 public class ExplicitLanguagePopupDisplay : MonoBehaviour
 {
     private GameManager gMan;
-    private void Start() => gMan = GameManager.Instance;
-    private void NewGame(bool hideExplicitLanguage)
+    private UIManager uMan;
+    private void Start()
+    {
+        gMan = GameManager.Instance;
+        uMan = UIManager.Instance;
+    }
+    private void SetPrefs(bool hideExplicitLanguage)
     {
         gMan.HideExplicitLanguage = hideExplicitLanguage;
         gMan.SavePlayerPreferences();
-        gMan.NewGame();
+        uMan.CreateTutorialPopup(); // TESTING
     }
     private void DestroySelf() =>
-        UIManager.Instance.DestroyExplicitLanguagePopup();
+        uMan.DestroyExplicitLanguagePopup();
 
     public void CloseButton_OnClick() =>
         DestroySelf();
@@ -19,11 +24,11 @@ public class ExplicitLanguagePopupDisplay : MonoBehaviour
     public void ShowButton_OnClick()
     {
         DestroySelf();
-        NewGame(false);
+        SetPrefs(false);
     }
     public void HideButton_OnClick()
     {
         DestroySelf();
-        NewGame(true);
+        SetPrefs(true);
     }
 }

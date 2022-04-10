@@ -35,6 +35,7 @@ public class CombatManager : MonoBehaviour
     private int lastContainerIndex;
 
     public const string CARD_ZONE = "CardZone";
+    // PLAYER
     public const string PLAYER_CARD = "PlayerCard";
     public const string PLAYER_HERO = "PlayerHero";
     public const string PLAYER_HAND = "PlayerHand";
@@ -43,11 +44,13 @@ public class CombatManager : MonoBehaviour
     public const string PLAYER_DISCARD = "PlayerDiscard";
     public const string HERO_POWER = "HeroPower";
     public const string HERO_ULTIMATE = "HeroUltimate";
+    // ENEMY
     public const string ENEMY_CARD = "EnemyCard";
     public const string ENEMY_HERO = "EnemyHero";
     public const string ENEMY_HAND = "EnemyHand";
     public const string ENEMY_ZONE = "EnemyZone";
     public const string ENEMY_DISCARD = "EnemyDiscard";
+    public const string ENEMY_HERO_POWER = "EnemyHeroPower";
 
     public GameObject DragArrowPrefab { get => dragArrowPrefab; }
     public int ActionsPlayedThisTurn
@@ -156,7 +159,7 @@ public class CombatManager : MonoBehaviour
      * ****** SHOW_CARD
      * *****
      *****/
-    public GameObject ShowCard(Card card, Vector2 position, DisplayType type = DisplayType.Default, bool isCreated = false)
+    public GameObject ShowCard(Card card, Vector2 position, DisplayType type = DisplayType.Default, bool banishAfterPlay = false)
     {
         if (card == null)
         {
@@ -164,7 +167,7 @@ public class CombatManager : MonoBehaviour
             return null;
         }
 
-        card.IsCreatedCard = isCreated;
+        card.BanishAfterPlay = banishAfterPlay;
         GameObject prefab = null;
         if (card is UnitCard)
         {
@@ -246,7 +249,8 @@ public class CombatManager : MonoBehaviour
             }
             cardTag = PLAYER_CARD;
             cardZone = PLAYER_HAND;
-            if (createdCard == null) position.Set(-750, -350);
+            if (createdCard == null) position.Set(-850, -350);
+            else if (createdCard is SkillCard) position.Set(-675, -350); // TESTING
             else position.Set(0, -350);
         }
         else if (hero == ENEMY)
@@ -296,6 +300,16 @@ public class CombatManager : MonoBehaviour
             auMan.StartStopSound("SFX_DrawCard");
             card = ShowCard(deck[0], position);
         }
+        else if (createdCard is SkillCard)
+        {
+            auMan.StartStopSound("SFX_DrawCard");
+            card = ShowCard(createdCard, position, DisplayType.Default, true);
+            pMan.CurrentPlayerSkillDeck.RemoveAt(0);
+            pMan.SkillDrawn = true;
+            PlayerHero.GetComponent<PlayerHeroDisplay>().SkillsLeft =
+                pMan.CurrentPlayerSkillDeck.Count;
+            uMan.CombatLogEntry("You drew a <b><color=\"yellow\">skill</b></color>.");
+        }
         else
         {
             auMan.StartStopSound("SFX_CreateCard");
@@ -311,6 +325,7 @@ public class CombatManager : MonoBehaviour
         if (createdCard == null) deck.RemoveAt(0);
         card.tag = cardTag;
         ChangeCardZone(card, cardZone);
+        anMan.CreateParticleSystem(card, ParticleSystemHandler.ParticlesType.Drag, 1);
 
         if (hero == PLAYER)
         {
@@ -391,19 +406,34 @@ public class CombatManager : MonoBehaviour
         }
 
         cd.CardContainer.GetComponent<CardContainer>().MoveContainer(newZone);
+        bool isPlayed = false;
+        if (newZoneName == PLAYER_ZONE || newZoneName == PLAYER_ACTION_ZONE ||
+            newZoneName == ENEMY_ZONE) isPlayed = true;
+
         if (returnToIndex)
         {
             card.transform.SetSiblingIndex(lastCardIndex);
             cd.CardContainer.transform.SetSiblingIndex(lastContainerIndex);
+            card.GetComponent<DragDrop>().IsPlayed = isPlayed; // TESTING
+        }
+        else if (!isPlayed)
+        {
+            cd.ResetCard(); // TESTING
+            if (newZoneName == PLAYER_HAND)
+                efMan.ApplyChangeNextCostEffects(card); // TESTING
         }
 
         if (cd is UnitCardDisplay ucd)
         {
-            bool played = false;
-            if (newZoneName == PLAYER_ZONE || newZoneName == ENEMY_ZONE) played = true;
-            ucd.ResetUnitCard(played);
+            if (isPlayed)
+            {
+                if (CardManager.GetAbility(card,
+                    CardManager.ABILITY_BLITZ)) ucd.IsExhausted = false;
+                else ucd.IsExhausted = true;
+            }
+            else ucd.IsExhausted = false;
         }
-        else card.GetComponent<DragDrop>().IsPlayed = false;
+
     }
 
     /******
@@ -459,6 +489,9 @@ public class CombatManager : MonoBehaviour
         // PLAYER
         if (card.CompareTag(PLAYER_CARD))
         {
+            evMan.PauseDelayedActions(true); // TESTING
+            container.OnAttachAction += () => evMan.PauseDelayedActions(false); // TESTING
+
             PlayerHandCards.Remove(card);
             pMan.EnergyLeft -= cd.CurrentEnergyCost;
 
@@ -479,7 +512,7 @@ public class CombatManager : MonoBehaviour
                 Debug.LogError("CARD DISPLAY TYPE NOT FOUND!");
                 return;
             }
-            SelectPlayableCards(); // TESTING
+            SelectPlayableCards();
         }
         // ENEMY
         else if (card.CompareTag(ENEMY_CARD))
@@ -491,7 +524,7 @@ public class CombatManager : MonoBehaviour
             {
                 EnemyZoneCards.Add(card);
                 ChangeCardZone(card, ENEMY_ZONE);
-                container.OnAttachAction += () => PlayUnit(); // TESTING
+                container.OnAttachAction += () => PlayUnit();
             }
             else
             {
@@ -505,13 +538,6 @@ public class CombatManager : MonoBehaviour
             return;
         }
 
-        void ParticleBurst()
-        {
-            Debug.LogWarning("PARTICLE BURST!");
-            ParticleSystemHandler particleHandler =
-                anMan.CreateParticleSystem(card, ParticleSystemHandler.ParticlesType.Play, 1); // TESTING
-        }
-
         void PlayUnit()
         {
             if (card.CompareTag(PLAYER_CARD))
@@ -519,6 +545,7 @@ public class CombatManager : MonoBehaviour
                 if (!caMan.TriggerUnitAbility(card, CardManager.TRIGGER_PLAY))
                 {
                     efMan.TriggerGiveNextEffect(card);
+                    efMan.ResolveChangeNextCostEffects(card); // TESTING
                     uMan.CombatLog_PlayCard(card);
                 }
             }
@@ -526,13 +553,13 @@ public class CombatManager : MonoBehaviour
 
             PlayCardSound();
             PlayAbilitySounds();
-            ParticleBurst(); // TESTING
+            ParticleBurst();
         }
         void PlayAction()
         {
             auMan.StartStopSound("SFX_PlayCard");
             ResolveActionCard(card);
-            ParticleBurst(); // TESTING
+            ParticleBurst();
         }
         void PlayCardSound()
         {
@@ -553,6 +580,11 @@ public class CombatManager : MonoBehaviour
                     delay += 0.5f;
                 }
             }
+        }
+        void ParticleBurst()
+        {
+            ParticleSystemHandler particleHandler =
+                anMan.CreateParticleSystem(card, ParticleSystemHandler.ParticlesType.Play, 1);
         }
     }
 
@@ -580,7 +612,7 @@ public class CombatManager : MonoBehaviour
             if (isAction) PlayerActionZoneCards.Remove(card);
             else PlayerHandCards.Remove(card);
 
-            if (card.GetComponent<CardDisplay>().CardScript.IsCreatedCard)
+            if (card.GetComponent<CardDisplay>().CardScript.BanishAfterPlay)
             {
                 card.GetComponent<CardZoom>().DestroyZoomPopups();
                 Destroy(card.GetComponent<CardDisplay>().CardContainer);
@@ -632,6 +664,12 @@ public class CombatManager : MonoBehaviour
             }
         }
 
+        // TUTORIAL!
+        if (!preCheck && gMan.IsTutorial && pMan.EnergyPerTurn == 2)
+        {
+            if (!IsUnitCard(defender)) return false;
+        }
+
         UnitCardDisplay atkUcd = GetUnitDisplay(attacker);
         if (atkUcd.IsExhausted)
         {
@@ -681,7 +719,16 @@ public class CombatManager : MonoBehaviour
     public void Attack(GameObject attacker, GameObject defender)
     {
         string logEntry = "";
-        if (attacker.CompareTag(PLAYER_CARD)) logEntry += "<b><color=\"green\">";
+        if (attacker.CompareTag(PLAYER_CARD))
+        {
+            logEntry += "<b><color=\"green\">";
+
+            if (gMan.IsTutorial && pMan.EnergyPerTurn == 2) // TUTORIAL!
+            {
+                if (pMan.HeroPowerUsed) gMan.Tutorial_Tooltip(7);
+                else return;
+            }
+        }
         else logEntry += "<b><color=\"red\">";
         logEntry += GetUnitDisplay(attacker).CardName + "</b></color> ";
         
@@ -710,7 +757,7 @@ public class CombatManager : MonoBehaviour
         {
             PlayAttackSound(attacker);
             efMan.CreateEffectRay(attacker.transform.position, defender,
-                () => Strike(attacker, defender, true), 0, false);
+                () => Strike(attacker, defender, true), efMan.DamageRayColor, 0, false);
         }
     }
 
@@ -750,7 +797,6 @@ public class CombatManager : MonoBehaviour
             DealDamage(striker, defender, 
                 out bool strikerDealtDamage, out bool defenderDestroyed);
 
-            // delay
             if (IsUnitCard(defender))
             {
                 if (!CardManager.GetAbility(striker, CardManager.ABILITY_RANGED))
@@ -764,27 +810,26 @@ public class CombatManager : MonoBehaviour
                 if (!strikerDestroyed && CardManager.GetTrigger
                     (striker, CardManager.TRIGGER_DEATHBLOW))
                 {
-                    if (defenderDestroyed) DeathblowTrigger(striker);
+                    if (defenderDestroyed)
+                        caMan.TriggerUnitAbility(striker, CardManager.TRIGGER_DEATHBLOW); // TESTING
                 }
                 if (!defenderDestroyed && CardManager.GetTrigger
                     (defender, CardManager.TRIGGER_DEATHBLOW))
                 {
-                    if (strikerDestroyed) DeathblowTrigger(defender);
+                    if (strikerDestroyed)
+                        caMan.TriggerUnitAbility(defender, CardManager.TRIGGER_DEATHBLOW); // TESTING
                 }
             }
             else if (!defenderDestroyed && strikerDealtDamage)
             {
-                List<GameObject> targetZoneList;
-                if (striker.CompareTag(PLAYER_CARD)) targetZoneList = EnemyZoneCards;
-                else targetZoneList = PlayerZoneCards;
-
-                foreach (GameObject unit in targetZoneList)
-                {
-                    if (CardManager.GetTrigger(unit, CardManager.TRIGGER_RETALIATE)) RetaliateTrigger(unit);
-                }
+                string player;
+                if (striker.CompareTag(PLAYER_CARD)) player = ENEMY;
+                else player = PLAYER;
+                caMan.TriggerPlayedUnits(CardManager.TRIGGER_RETALIATE, player); // TESTING
 
                 // Trigger Infiltrate BEFORE Retaliate, can cause Retaliate sources to be destroyed before triggering.
-                if (CardManager.GetTrigger(striker, CardManager.TRIGGER_INFILTRATE)) InfiltrateTrigger(striker);
+                if (CardManager.GetTrigger(striker, CardManager.TRIGGER_INFILTRATE))
+                    caMan.TriggerUnitAbility(striker, CardManager.TRIGGER_INFILTRATE); // TESTING
             }
 
             if (!(!IsUnitCard(defender) && defenderDestroyed))
@@ -832,18 +877,6 @@ public class CombatManager : MonoBehaviour
             if (TakeDamage(defender, power)) defenderDestroyed = true;
             else defenderDestroyed = false;
         }
-        
-        void DelayTrigger(System.Action action) =>
-            evMan.NewDelayedAction(action, 0, true);
-
-        void InfiltrateTrigger(GameObject unit) =>
-            DelayTrigger(() => caMan.TriggerUnitAbility(unit, CardManager.TRIGGER_INFILTRATE));
-        
-        void DeathblowTrigger(GameObject unit) => 
-            DelayTrigger(() => caMan.TriggerUnitAbility(unit, CardManager.TRIGGER_DEATHBLOW));
-
-        void RetaliateTrigger(GameObject unit) =>
-            DelayTrigger(() => caMan.TriggerUnitAbility(unit, CardManager.TRIGGER_RETALIATE));
     }
 
     /******
@@ -856,6 +889,8 @@ public class CombatManager : MonoBehaviour
         if (damageValue < 1) return false;
 
         uMan.ShakeCamera(EZCameraShake.CameraShakePresets.Bump);
+        //anMan.CreateParticleSystem(target, ParticleSystemHandler.ParticlesType.Damage, 1); // TESTING
+
         int targetValue;
         int newTargetValue;
         if (IsUnitCard(target)) targetValue = GetUnitDisplay(target).CurrentHealth;
@@ -1007,6 +1042,68 @@ public class CombatManager : MonoBehaviour
             return lowestHealthUnits[randomIndex];
         }
         else return lowestHealthUnits[0];
+    }
+
+    /******
+     * *****
+     * ****** GET_STRONGEST_UNIT
+     * *****
+     *****/
+    public GameObject GetStrongestUnit(List<GameObject> unitList)
+    {
+        if (unitList.Count < 1) return null;
+        int highestPower = 0;
+        List<GameObject> highestPowerUnits = new List<GameObject>();
+
+        foreach (GameObject unit in unitList)
+        {
+            int power = GetUnitDisplay(unit).CurrentPower;
+            if (power > highestPower)
+            {
+                highestPower = power;
+                highestPowerUnits.Clear();
+                highestPowerUnits.Add(unit);
+            }
+            else if (power == highestPower) highestPowerUnits.Add(unit);
+        }
+        if (highestPowerUnits.Count < 1) return null;
+        if (highestPowerUnits.Count > 1)
+        {
+            int randomIndex = Random.Range(0, highestPowerUnits.Count);
+            return highestPowerUnits[randomIndex];
+        }
+        else return highestPowerUnits[0];
+    }
+
+    /******
+     * *****
+     * ****** GET_WEAKEST_UNIT
+     * *****
+     *****/
+    public GameObject GetWeakestUnit(List<GameObject> unitList)
+    {
+        if (unitList.Count < 1) return null;
+        int lowestPower = 999;
+        List<GameObject> lowestPowerUnits = new List<GameObject>();
+
+        foreach (GameObject unit in unitList)
+        {
+            int power = GetUnitDisplay(unit).CurrentPower;
+            if (power < lowestPower)
+            {
+                lowestPower = power;
+                lowestPowerUnits.Clear();
+                lowestPowerUnits.Add(unit);
+            }
+            else if (power == lowestPower) lowestPowerUnits.Add(unit);
+        }
+        if (lowestPowerUnits.Count < 1) return null;
+        if (lowestPowerUnits.Count > 1)
+        {
+            int randomIndex = Random.Range(0, lowestPowerUnits.Count);
+            return lowestPowerUnits[randomIndex];
+        }
+        else return lowestPowerUnits[0];
     }
 
     /******

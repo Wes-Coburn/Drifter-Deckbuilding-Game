@@ -144,8 +144,11 @@ public class HomeBaseSceneDisplay : MonoBehaviour
     public void LearnSkillButton_OnClick(bool playSound = true) =>
         uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.LearnSkill, playSound);
 
-    public void RemoveCardButton_OnClick(bool playSound = true) =>
-        uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.RemoveCard, playSound);
+    public void RemoveMainCardButton_OnClick(bool playSound = true) =>
+        uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.RemoveMainCard, playSound);
+
+    public void RemoveSkillCardButton_OnClick(bool playSound = true) =>
+        uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.RemoveSkillCard, playSound);
 
     public void BackButton_OnClick() => 
         SceneLoader.LoadScene(SceneLoader.Scene.WorldMapScene);

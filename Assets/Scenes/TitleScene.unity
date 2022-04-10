@@ -223,7 +223,7 @@ RectTransform:
   - {fileID: 371323925}
   - {fileID: 1859249190}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -565,6 +565,36 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 371323924}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &933661543
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 933661544}
+  m_Layer: 0
+  m_Name: WorldSpace
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &933661544
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 933661543}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1369415389
 GameObject:
   m_ObjectHideFlags: 0
@@ -675,7 +705,7 @@ PrefabInstance:
     - target: {fileID: 196543535796013030, guid: 83a2fe17999e56b44bf541eb6b1ce83a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 196543535796013030, guid: 83a2fe17999e56b44bf541eb6b1ce83a,
         type: 3}
@@ -739,7 +769,7 @@ PrefabInstance:
     - target: {fileID: 7585559890696196554, guid: 20a7b3ef0ad79da4b8b20f6aeccc0338,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7585559890696196554, guid: 20a7b3ef0ad79da4b8b20f6aeccc0338,
         type: 3}
@@ -1242,13 +1272,13 @@ MonoBehaviour:
   setEnemyHealth1: 0
   addStartUnits: 1
   addStartSkills: 1
-  addMoreSkills: 0
+  reputationTier: 3
   playerTestHeroes:
   - {fileID: 11400000, guid: 14df74eab3a27eb4397e917831e0abb1, type: 2}
   - {fileID: 11400000, guid: 2de3c75baa7d5f54fbe6c020c04073e9, type: 2}
   - {fileID: 11400000, guid: 7ec381d799404eb4abf4d674191a948b, type: 2}
-  developerTestHero: {fileID: 11400000, guid: 14df74eab3a27eb4397e917831e0abb1, type: 2}
-  enemyTestHero: {fileID: 11400000, guid: 488958e5283d607488b5c7b93283295e, type: 2}
+  developerTestHero: {fileID: 11400000, guid: 2de3c75baa7d5f54fbe6c020c04073e9, type: 2}
+  enemyTestHero: {fileID: 11400000, guid: 2e9de5005239b2046bb8ea9fc3a8ff9a, type: 2}
   testAugments:
   - {fileID: 11400000, guid: 7264763dfee18dd41a9e3bed17fa5f7d, type: 2}
   - {fileID: 11400000, guid: f5922062de597b649accf655444b3dc7, type: 2}
@@ -1281,10 +1311,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 45ba6b3f7fd42e54d8c2288091517fd4, type: 2}
   enableTestCards_2: 1
   testCards_2:
-  - {fileID: 11400000, guid: 418da183b392b37439daf9adb74edc5c, type: 2}
-  - {fileID: 11400000, guid: 418da183b392b37439daf9adb74edc5c, type: 2}
-  - {fileID: 11400000, guid: 418da183b392b37439daf9adb74edc5c, type: 2}
-  - {fileID: 11400000, guid: 418da183b392b37439daf9adb74edc5c, type: 2}
+  - {fileID: 11400000, guid: 072b1f3b30affea41a0ec183d9a18982, type: 2}
+  - {fileID: 11400000, guid: 072b1f3b30affea41a0ec183d9a18982, type: 2}
+  - {fileID: 11400000, guid: 072b1f3b30affea41a0ec183d9a18982, type: 2}
+  - {fileID: 11400000, guid: 072b1f3b30affea41a0ec183d9a18982, type: 2}
+  - {fileID: 11400000, guid: 072b1f3b30affea41a0ec183d9a18982, type: 2}
   enableTestCards_3: 0
   testCards_3:
   - {fileID: 11400000, guid: aad035373b2251640b0ed2ca6c111ae8, type: 2}

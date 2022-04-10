@@ -16,8 +16,12 @@ MonoBehaviour:
   Value: 1
   IsNegative: 0
   Countdown: 0
+  ShootRay: 1
+  RayColor: {r: 1, g: 1, b: 0, a: 1}
   IfExhaustedCondition: 0
   IfRefreshedCondition: 0
+  IfDamagedCondition: 0
+  IfNotDamagedCondition: 0
   IfHasPowerCondition: 0
   IsLessPowerCondition: 0
   IfHasPowerValue: 0
@@ -33,5 +37,6 @@ MonoBehaviour:
   IfHasGreaterPowerEffects: []
   IfHasLowerPowerValue: 0
   IfHasLowerPowerEffects: []
+  IfResolvesEffects: []
   ForEachEffects: []
   CardAbility: {fileID: 11400000, guid: e678096c17cfce645b64629f6b9beccb, type: 2}

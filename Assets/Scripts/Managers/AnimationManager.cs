@@ -28,8 +28,17 @@ public class AnimationManager : MonoBehaviour
     private Color previousTextCountColor;
 
     [SerializeField] private GameObject valueChangerPrefab;
+
+    [Header("PARTICLE SYSTEMS")]
     [SerializeField] private GameObject particleSystemPrefab;
     [SerializeField] private GameObject particleSystem_BurstPrefab;
+    [Header("PARTICLE SYSTEM COLORS")]
+    [SerializeField] private Color attackColor;
+    [SerializeField] private Color buttonPressColor;
+    [SerializeField] private Color damageColor;
+    [SerializeField] private Color dragColor;
+    [SerializeField] private Color playColor;
+    [SerializeField] private Color newCardColor;
 
     public Coroutine ProgressBarRoutine { get; set; }
     private Coroutine TextCountRoutine { get; set; }
@@ -91,9 +100,15 @@ public class AnimationManager : MonoBehaviour
      * ****** VALUE_CHANGE_ANIMATION
      * *****
      *****/
-    private void ValueChanger(Transform parent, int value)
+    public void ValueChanger(Transform parent, int value, float yBuffer = 0)
     {
         GameObject valueChanger = Instantiate(valueChangerPrefab, parent);
+        valueChanger.transform.localPosition = new Vector2(0, yBuffer);
+        Transform newParent;
+        if (yBuffer != 0) newParent = uMan.UICanvas.transform;
+        else newParent = uMan.CurrentZoomCanvas.transform; // TESTING
+        valueChanger.transform.SetParent(newParent); // TESTING
+
         string valueText = "+";
         bool isPositiveChange = true;
         if (value < 0)
@@ -115,26 +130,69 @@ public class AnimationManager : MonoBehaviour
         ParticleSystemHandler.ParticlesType particlesType, float stopDelay = 0)
     {
         GameObject prefab;
+        Color startColor;
+        ParticleSystem.MinMaxCurve startSize = 5;
+        ParticleSystem.MinMaxCurve startLifetime;
+        bool usePointerPosition = false;
+        bool followPosition = true;
+
         switch (particlesType)
         {
             case ParticleSystemHandler.ParticlesType.Attack:
-                goto default;
+                prefab = particleSystemPrefab;
+                startColor = attackColor;
+                startSize = 10;
+                startLifetime = 0.75f;
+                break;
             case ParticleSystemHandler.ParticlesType.ButtonPress:
-                goto default;
+                prefab = particleSystemPrefab;
+                startColor = buttonPressColor;
+                startSize = 10;
+                startLifetime = 5;
+                usePointerPosition = true;
+                followPosition = false;
+                break;
             case ParticleSystemHandler.ParticlesType.Damage:
-                goto default;
+                prefab = particleSystem_BurstPrefab;
+                startColor = damageColor;
+                startLifetime = 1;
+                break;
             case ParticleSystemHandler.ParticlesType.Drag:
-                goto default;
+                prefab = particleSystemPrefab;
+                startColor = dragColor;
+                startLifetime = 0.3f;
+                break;
+            case ParticleSystemHandler.ParticlesType.Explosion:
+                prefab = particleSystem_BurstPrefab;
+                startColor = damageColor;
+                startSize = 20;
+                startLifetime = 20;
+                break;
+            case ParticleSystemHandler.ParticlesType.MouseDrag:
+                prefab = particleSystemPrefab;
+                startColor = dragColor;
+                startLifetime = 0.3f;
+                usePointerPosition = true;
+                break;
+            case ParticleSystemHandler.ParticlesType.NewCard:
+                prefab = particleSystemPrefab;
+                startColor = newCardColor;
+                startSize = 10;
+                startLifetime = 1;
+                break;
             case ParticleSystemHandler.ParticlesType.Play:
                 prefab = particleSystem_BurstPrefab;
+                startColor = playColor;
+                startLifetime = 1;
                 break;
             default:
-                prefab = particleSystemPrefab;
-                break;
+                Debug.LogError("INVALIDE PARTICLES TYPE!");
+                return null;
         }
+
         GameObject particleSystem = Instantiate(prefab, uMan.CurrentWorldSpace.transform);
         ParticleSystemHandler psh = particleSystem.GetComponent<ParticleSystemHandler>();
-        psh.StartParticles(parent, particlesType, stopDelay);
+        psh.StartParticles(parent, startColor, startSize, startLifetime, stopDelay, usePointerPosition, followPosition);
         return psh;
     }
 
@@ -160,12 +218,15 @@ public class AnimationManager : MonoBehaviour
     {
         auMan.StartStopSound("SFX_Reinforcements");
         ChangeAnimationState(coMan.EnemyHero, "Reinforcements");
+        CreateParticleSystem(coMan.EnemyHero.GetComponent<EnemyHeroDisplay>().Reinforcements,
+            ParticleSystemHandler.ParticlesType.Drag, 3); // TESTING
     }
     public void NextReinforcementsState()
     {
         auMan.StartStopSound("SFX_NextReinforcements");
         ChangeAnimationState(coMan.EnemyHero, "Next_Reinforcements");
     }
+
     /******
      * *****
      * ****** CARD_STATE_ANIMATIONS
@@ -223,7 +284,6 @@ public class AnimationManager : MonoBehaviour
         }
         else if (healthChange != 0 || isHealing)
         {
-            Debug.LogWarning("HEAL!");
             ModifyUnitHealthState(stats);
             ModifyHealth();
         }
@@ -455,18 +515,22 @@ public class AnimationManager : MonoBehaviour
         float scaleSpeed = 0.1f;
         float fScale = 1;
         float fZoomScale = 1.5f;
+        int startBuffer = 600;
+
         Vector2 scaleVec = new Vector2();
         turBut.SetActive(true);
         pStats.SetActive(true);
         eStats.SetActive(true);
         combatLog.SetActive(true);
-        turBut.transform.localPosition = new Vector2(turButStart.x + 450, turButStart.y);
-        pStats.transform.localPosition = new Vector2(pStatsStart.x, pStatsStart.y - 450);
-        eStats.transform.localPosition = new Vector2(eStatsStart.x, eStatsStart.y + 450);
-        combatLog.transform.localPosition = new Vector2(combatLogStart.x - 450, combatLogStart.y);
+        turBut.transform.localPosition = new Vector2(turButStart.x + startBuffer, turButStart.y);
+        pStats.transform.localPosition = new Vector2(pStatsStart.x, pStatsStart.y - startBuffer);
+        eStats.transform.localPosition = new Vector2(eStatsStart.x, eStatsStart.y + startBuffer);
+        combatLog.transform.localPosition = new Vector2(combatLogStart.x - startBuffer, combatLogStart.y);
 
         uMan.SelectTarget(coMan.PlayerHero, true);
         PlayerManager.Instance.PlayerPowerSounds();
+        CreateParticleSystem(coMan.PlayerHero, ParticleSystemHandler.ParticlesType.Drag, 2);
+        CreateParticleSystem(coMan.EnemyHero, ParticleSystemHandler.ParticlesType.Drag, 2);
 
         do
         {
@@ -696,7 +760,7 @@ public class AnimationManager : MonoBehaviour
                     PlayerHeroDisplay phd = coMan.PlayerHero.GetComponent<PlayerHeroDisplay>();
                     phd.UltimateUsedIcon.SetActive(false); // TESTING
                     GameObject heroUltimate = phd.HeroUltimate;
-                    ChangeAnimationState(heroUltimate, "Trigger");
+                    TriggerHeroPower(heroUltimate);
                     auMan.StartStopSound("SFX_HeroUltimateReady");
                     break;
                 case ProgressBarType.Recruit:
@@ -711,4 +775,7 @@ public class AnimationManager : MonoBehaviour
         }
         ProgressBarRoutine = null; // TESTING
     }
+
+    public void TriggerHeroPower(GameObject heroPower) =>
+        ChangeAnimationState(heroPower, "Trigger");
 }

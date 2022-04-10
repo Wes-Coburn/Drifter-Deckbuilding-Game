@@ -16,26 +16,28 @@ public class UnitCardDisplay : CardDisplay
 
     private AudioManager auMan;
     private List<CardAbility> displayedAbilities;
-
+    
     public UnitCard UnitCard { get => CardScript as UnitCard; }
     public GameObject UnitStats { get => unitStats; }
     public GameObject PowerScore { get => powerScoreDisplay; }
     public GameObject HealthScore { get => healthScoreDisplay; }
     public GameObject ZoomAbilityIconPrefab { get => zoomAbilityIconPrefab; }
 
-    public List<Effect> CurrentEffects { get; set; }
     public List<GameObject> AbilityIcons { get; set; }
     public List<CardAbility> CurrentAbilities { get; set; }
 
     public int CurrentPower
     {
-        get => UnitCard.CurrentPower;
-        set
+        get
+        {
+            int power = UnitCard.CurrentPower;
+            if (power < 0) power = 0;
+            return power;
+        }
+        private set
         {
             UnitCard.CurrentPower = value;
-            int displayValue = 0;
-            if (value >= 0) displayValue = value;
-            DisplayPower(displayValue);
+            DisplayPower(CurrentPower); // TESTING
         }
     }
     private void DisplayPower(int power)
@@ -44,24 +46,26 @@ public class UnitCardDisplay : CardDisplay
             powerScoreDisplay.GetComponent<TextMeshProUGUI>();
         txtPro.SetText(power.ToString());
     }
-
     public int CurrentHealth
     {
-        get => UnitCard.CurrentHealth;
+        get
+        {
+            int health = UnitCard.CurrentHealth;
+            if (health < 0) health = 0;
+            return health;
+        }
         set
         {
             UnitCard.CurrentHealth = value;
-            DisplayHealth(value);
+            DisplayHealth(CurrentHealth); // TESTING
         }
     }
     private void DisplayHealth(int health)
     {
-        if (health < 0) health = 0;
         TextMeshProUGUI txtPro =
             healthScoreDisplay.GetComponent<TextMeshProUGUI>();
         txtPro.SetText(health.ToString());
     }
-
     public int MaxHealth
     {
         get => UnitCard.MaxHealth;
@@ -77,13 +81,24 @@ public class UnitCardDisplay : CardDisplay
         }
     }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         auMan = AudioManager.Instance;
-        CurrentEffects = new List<Effect>();
         CurrentAbilities = new List<CardAbility>();
         AbilityIcons = new List<GameObject>();
         displayedAbilities = new List<CardAbility>();
+    }
+
+    /******
+     * *****
+     * ****** CHANGE_CURRENT_POWER
+     * *****
+     *****/
+    public void ChangeCurrentPower(int value)
+    {
+        UnitCard.CurrentPower += value;
+        DisplayPower(CurrentPower);
     }
 
     /******
@@ -202,30 +217,18 @@ public class UnitCardDisplay : CardDisplay
 
     /******
      * *****
-     * ****** RESET_UNIT_CARD
+     * ****** RESET_CARD
      * *****
      *****/
-    public void ResetUnitCard(bool isPlayed = false)
+    public override void ResetCard()
     {
-        if (isPlayed)
-        {
-            if (CardManager.GetAbility(gameObject, CardManager.ABILITY_BLITZ))
-                IsExhausted = false;
-            else IsExhausted = true;
-        }
-        else
-        {
-            IsExhausted = false;
-            foreach (GameObject go in AbilityIcons)
-                Destroy(go);
-            AbilityIcons.Clear();
-            displayedAbilities.Clear();
-            CurrentEffects.Clear();
-            CurrentAbilities.Clear();
-            DisplayCard();
-        }
-        GetComponent<DragDrop>().IsPlayed = isPlayed;
-        GetComponent<CardSelect>().CardOutline.SetActive(false);
+        base.ResetCard();
+        foreach (GameObject go in AbilityIcons)
+            Destroy(go);
+        AbilityIcons.Clear();
+        displayedAbilities.Clear();
+        CurrentAbilities.Clear();
+        DisplayCard();
     }
 
     /******

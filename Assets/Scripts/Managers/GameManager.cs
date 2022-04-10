@@ -22,6 +22,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private EffectGroup mulliganEffect;
     [Header("LOADING TIPS")]
     [SerializeField] [TextArea] private string[] loadingTips;
+    [Header("REPUTATION BONUSES")]
+    [SerializeField] private ReputationBonuses reputation_Mages;
+    [SerializeField] private ReputationBonuses reputation_Mutants;
+    [SerializeField] private ReputationBonuses reputation_Rogues;
+    [SerializeField] private ReputationBonuses reputation_Techs;
+    [SerializeField] private ReputationBonuses reputation_Warriors;
 
     private PlayerManager pMan;
     private EnemyManager enMan;
@@ -51,8 +57,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public ReputationBonuses ReputationBonus_Mages { get => reputation_Mages; }
+    public ReputationBonuses ReputationBonus_Mutants { get => reputation_Mutants; }
+    public ReputationBonuses ReputationBonus_Rogues { get => reputation_Rogues; }
+    public ReputationBonuses ReputationBonus_Techs { get => reputation_Techs; }
+    public ReputationBonuses ReputationBonus_Warriors { get => reputation_Warriors; }
+
     public bool IsCombatTest { get; set; }
+    public bool IsTutorial { get; set; }
     public bool HideExplicitLanguage { get; set; }
+
+    public bool IsNewHour { get; set; }
+    public int CurrentHour { get; set; }
     public Narrative CurrentNarrative { get; set; }
     public Location CurrentLocation { get; set; }
     public List<NPCHero> ActiveNPCHeroes { get; private set; }
@@ -63,6 +79,12 @@ public class GameManager : MonoBehaviour
     public int RecruitLoyalty { get; set; }
     public bool Achievement_BETA_Finish { get; set; }
 
+    // REPUTATION
+    public int Reputation_Mages { get; set; }
+    public int Reputation_Mutants { get; set; }
+    public int Reputation_Rogues { get; set; }
+    public int Reputation_Techs { get; set; }
+    public int Reputation_Warriors { get; set; }
 
     /* GAME_MANAGER_DATA */
     // Player Preferences
@@ -76,11 +98,12 @@ public class GameManager : MonoBehaviour
 
     // Player
     public const string PLAYER = "Player";
-    public const int MINIMUM_DECK_SIZE = 12;
+    public const int MINIMUM_MAIN_DECK_SIZE = 15;
+    public const int MINIMUM_SKILL_DECK_SIZE = 6;
     public const int PLAYER_STARTING_HEALTH = 20;
-    public const int PLAYER_HAND_SIZE = 4;
-    public const int PLAYER_START_UNITS = 2;
-    public const int PLAYER_START_SKILLS = 2;
+    public const int PLAYER_HAND_SIZE = 3;
+    public const int PLAYER_START_UNITS = 3;
+    public const int PLAYER_START_SKILLS = 1;
     public const int START_ENERGY_PER_TURN = 1;
     public const int MAXIMUM_ENERGY_PER_TURN = 5;
     public const int MAXIMUM_ENERGY = 10;
@@ -109,6 +132,10 @@ public class GameManager : MonoBehaviour
     public const int BUY_ITEM_COST = 1;
     public const int BUY_RARE_ITEM_COST = 2;
     public const int SHOP_LOYALTY_GOAL = 3;
+    // Reputation
+    public const int REPUTATION_TIER_1 = 3;
+    public const int REPUTATION_TIER_2 = 6;
+    public const int REPUTATION_TIER_3 = 10;
 
     /******
      * *****
@@ -161,7 +188,7 @@ public class GameManager : MonoBehaviour
      * ****** LOAD_LOCATION
      * *****
      *****/
-    public Location LoadLocation(string locationName)
+    private Location LoadLocation(string locationName)
     {
         Location[] allLocations = Resources.LoadAll<Location>("Locations");
         foreach (Location location in allLocations)
@@ -171,6 +198,106 @@ public class GameManager : MonoBehaviour
         }
         Debug.LogError("NARRATIVE " + locationName + " NOT FOUND!");
         return null;
+    }
+
+    /******
+     * *****
+     * ****** GET_RANDOM_ENCOUNTER_LOCATION
+     * *****
+     *****/
+    public void AddRandomEncounter()
+    {
+        Location[] randomEncounters = Resources.LoadAll<Location>("Random Encounters");
+        randomEncounters.Shuffle();
+
+        foreach (Location location in randomEncounters)
+        {
+            if (VisitedLocations.FindIndex
+                (x => x == location.LocationName) == -1)
+            {
+                GetActiveLocation(location);
+                return;
+            }
+        }
+        Debug.LogError("NO VALID RANDOM ENCOUNTERS!");
+    }
+
+    /******
+     * *****
+     * ****** PLAY_TUTORIAL
+     * *****
+     *****/
+    public void PlayTutorial()
+    {
+        IsTutorial = true;
+        SceneLoader.LoadAction += Tutorial_Load;
+        SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);
+    }
+
+    private void Tutorial_Load()
+    {
+        pMan.AetherCells = 0;
+        string playerHeroName = "Kili, Neon Rider";
+        string enemyHeroName = "Tutorial Enemy Hero";
+        Hero[] heroes = Resources.LoadAll<Hero>("Tutorial");
+        EnemyHero enemyHero = ScriptableObject.CreateInstance<EnemyHero>();
+
+        foreach (Hero hero in heroes)
+        {
+            if (hero.HeroName == playerHeroName) pMan.PlayerHero = hero as PlayerHero;
+            else if (hero.HeroName == enemyHeroName)
+            {
+                enemyHero.LoadHero(hero);
+                dMan.EngagedHero = enemyHero;
+            }
+        }
+
+        foreach (SkillCard skill in pMan.PlayerHero.HeroSkills)
+            caMan.AddCard(skill, PLAYER);
+        foreach (UnitCard unit in caMan.TutorialPlayerUnits)
+            for (int i = 0; i < 5; i++)
+                caMan.AddCard(unit, PLAYER);
+    }
+
+    public void Tutorial_Tooltip(int tipNumber)
+    {
+        string tip;
+        bool isCentered = false;
+        switch (tipNumber)
+        {
+            case 1:
+                tip = "Replace any number of cards (0 or more) from your starting hand. Click each card you want to replace, then click the confirm button.";
+                isCentered = true;
+                break;
+            case 2:
+                tip = "Draw a skill by clicking on your skill deck (bottom left).";
+                isCentered = true;
+                break;
+            case 3:
+                tip = "Play a card from your hand by dragging it into play. Cards you can play are highlighted in <color=\"green\">green<color=\"yellow\">.";
+                break;
+            case 4:
+                tip = "End your turn by clicking the end turn button.";
+                isCentered = true;
+                break;
+            case 5:
+                tip = "Use your hero power by clicking on the icon next to your hero.";
+                isCentered = true;
+                break;
+            case 6:
+                tip = "Attack an enemy unit by dragging your ally to them.";
+                break;
+            case 7:
+                tip = "<i>Attack the enemy hero to win!</i>\nRead more game rules in settings (top right), and " +
+                    "right click on cards for more information.\n<i>End your turn to continue.</i>";
+                isCentered = true;
+                break;
+            default:
+                Debug.LogError("INVALID TIP NUMBER!");
+                return;
+        }
+        tip = "<color=\"yellow\"><b>[Tutorial]</b>\n" + tip + "</color>";
+        uMan.CreateInfoPopup(tip, isCentered, false, true);
     }
 
     /******
@@ -191,16 +318,27 @@ public class GameManager : MonoBehaviour
         homeBaseLocation = LoadLocation("Your Ship");
         firstLocation = LoadLocation("The Alley");
 
+        CurrentHour = 4; // TESTING
+        IsNewHour = false; // TESTING
         CurrentLocation = GetActiveLocation(firstLocation);
         CurrentNarrative = settingNarrative;
         GetActiveLocation(homeBaseLocation);
 
         IsCombatTest = false;
+        IsTutorial = false;
         caMan.LoadNewRecruits();
         ShopItems = GetShopItems();
         ShopLoyalty = 0;
         RecruitLoyalty = 0;
-        pMan.AetherCells = 0;
+        pMan.AetherCells = 3; // TESTING
+        pMan.PlayerDeckList.Clear(); // TESTING
+
+        // REPUTATION
+        Reputation_Mages = 0;
+        Reputation_Mutants = 0;
+        Reputation_Rogues = 0;
+        Reputation_Techs = 0;
+        Reputation_Warriors = 0;
     }
 
     /******
@@ -220,6 +358,7 @@ public class GameManager : MonoBehaviour
         pMan.PlayerHero = null;
         pMan.PlayerDeckList.Clear();
         pMan.CurrentPlayerDeck.Clear();
+        pMan.CurrentPlayerSkillDeck.Clear();
         //pMan.AetherCells = 0;
         pMan.HeroAugments.Clear();
         pMan.HeroItems.Clear();
@@ -231,13 +370,11 @@ public class GameManager : MonoBehaviour
         // Effect Manager
         foreach (Effect e in efMan.GiveNextEffects) Destroy(e);
         efMan.GiveNextEffects.Clear();
-        // Event Manager
-        evMan.ClearDelayedActions();
+        foreach (Effect e in efMan.ChangeNextCostEffects) Destroy(e);
+        efMan.ChangeNextCostEffects.Clear();
         // UI Manager
         uMan.ClearAugmentBar();
         uMan.ClearItemBar();
-        // Corotoutines
-        StopAllCoroutines(); // TESTING
         // Scene Loader
         SceneLoader.LoadScene(SceneLoader.Scene.TitleScene);
     }
@@ -326,11 +463,13 @@ public class GameManager : MonoBehaviour
 
         string narrativeName = "";
         if (CurrentNarrative != null) narrativeName = CurrentNarrative.NarrativeName;
-        GameData data = new GameData(narrativeName, pMan.PlayerHero.HeroName,
+
+        GameData data = new GameData(CurrentHour, narrativeName, pMan.PlayerHero.HeroName,
             deckList, augments, items, pMan.AetherCells,
             npcsAndClips, locationsNPCsObjectives, VisitedLocations.ToArray(),
             shopItems, recruitMages, recruitMutants, recruitRogues, recruitTechs, recruitWarriors,
             RecruitLoyalty, ShopLoyalty,
+            Reputation_Mages, Reputation_Mutants, Reputation_Rogues, Reputation_Techs, Reputation_Warriors,
             Achievement_BETA_Finish);
         SaveLoad.SaveGame(data);
     }
@@ -391,9 +530,12 @@ public class GameManager : MonoBehaviour
 
         // LOCATIONS
         Location[] locations = Resources.LoadAll<Location>("Locations");
+        Location[] randomEncounters = Resources.LoadAll<Location>("Random Encounters");
         List<Location> allLocations = new List<Location>();
         for (int i = 0; i < locations.Length; i++)
             allLocations.Add(locations[i]);
+        for (int i = 0; i < randomEncounters.Length; i++)
+            allLocations.Add(randomEncounters[i]);
 
         // DIALOGUE
         DialogueClip[] clips = Resources.LoadAll<DialogueClip>("Dialogue");
@@ -412,6 +554,9 @@ public class GameManager : MonoBehaviour
         List<HeroItem> allItems = new List<HeroItem>();
         for (int i = 0; i < items.Length; i++)
             allItems.Add(items[i]);
+
+        // CURRENT HOUR
+        CurrentHour = data.CurrentHour; // TESTING
 
         // CURRENT NARRATIVE
         if (data.CurrentNarrative != "")
@@ -489,6 +634,13 @@ public class GameManager : MonoBehaviour
         // LOYALTY
         RecruitLoyalty = data.RecruitLoyalty;
         ShopLoyalty = data.ShopLoyalty;
+
+        // REPUTATION
+        Reputation_Mages = data.Reputation_Mages;
+        Reputation_Mutants = data.Reputation_Mutants;
+        Reputation_Rogues = data.Reputation_Rogues;
+        Reputation_Techs = data.Reputation_Techs;
+        Reputation_Warriors = data.Reputation_Warriors;
 
         // ACHIEVEMENTS
         Achievement_BETA_Finish = data.Achievement_BETA_Finish;
@@ -592,6 +744,190 @@ public class GameManager : MonoBehaviour
             uMan.CreateNarrativePopup(CurrentNarrative);
             CurrentNarrative = null;
         }
+
+        FindObjectOfType<TimeClockDisplay>().SetClockValues(CurrentHour, IsNewHour);
+        if (IsNewHour) IsNewHour = false; // TESTING
+    }
+
+    /******
+     * *****
+     * ****** CHANGE_REPUTATION
+     * *****
+     *****/
+    public enum ReputationType
+    {
+        Mages,
+        Mutants,
+        Rogues,
+        Techs,
+        Warriors
+    }
+
+    public void ChangeReputation(ReputationType repType, int repChange)
+    {
+        if (repChange == 0)
+        {
+            Debug.LogError("REP CHANGE IS 0!");
+            return;
+        }
+
+        switch (repType)
+        {
+            case ReputationType.Mages:
+                Reputation_Mages += repChange;
+                break;
+            case ReputationType.Mutants:
+                Reputation_Mutants += repChange;
+                break;
+            case ReputationType.Rogues:
+                Reputation_Rogues += repChange;
+                break;
+            case ReputationType.Techs:
+                Reputation_Techs += repChange;
+                break;
+            case ReputationType.Warriors:
+                Reputation_Warriors += repChange;
+                break;
+        }
+        evMan.NewDelayedAction(() => uMan.SetReputation(repType, repChange), 0.5f); // TESTING
+    }
+
+    public int GetReputation(ReputationType repType)
+    {
+        switch (repType)
+        {
+            case ReputationType.Mages:
+                return Reputation_Mages;
+            case ReputationType.Mutants:
+                return Reputation_Mutants;
+            case ReputationType.Rogues:
+                return Reputation_Rogues;
+            case ReputationType.Techs:
+                return Reputation_Techs;
+            case ReputationType.Warriors:
+                return Reputation_Warriors;
+            default:
+                Debug.LogError("INVALID REPUTATION TYPE!");
+                return 0;
+        }
+    }
+
+    public int GetReputationTier(ReputationType repType)
+    {
+        int reputation = GetReputation(repType);
+        int tier;
+        if (reputation < REPUTATION_TIER_1) tier = 0;
+        else if (reputation < REPUTATION_TIER_2) tier = 1;
+        else if (reputation < REPUTATION_TIER_3) tier = 2;
+        else tier = 3;
+        return tier;
+    }
+
+    public ReputationBonuses GetReputationBonuses(ReputationType repType)
+    {
+        switch (repType)
+        {
+            case ReputationType.Mages:
+                return ReputationBonus_Mages;
+            case ReputationType.Mutants:
+                return ReputationBonus_Mutants;
+            case ReputationType.Rogues:
+                return ReputationBonus_Rogues;
+            case ReputationType.Techs:
+                return ReputationBonus_Techs;
+            case ReputationType.Warriors:
+                return ReputationBonus_Warriors;
+            default:
+                Debug.LogError("INVALID REPUTATION TYPE!");
+                return null;
+        }
+    }
+    
+    private void ResolveReputationEffects(int resolveOrder)
+    {
+        // MAGES
+        int mageTier = GetReputationTier(ReputationType.Mages);
+        ReputationBonuses mageBonuses = GetReputationBonuses(ReputationType.Mages);
+        GetBonusEffects(mageBonuses, mageTier);
+
+        // MUTANTS
+        int mutantTier = GetReputationTier(ReputationType.Mutants);
+        ReputationBonuses mutantBonuses = GetReputationBonuses(ReputationType.Mutants);
+        GetBonusEffects(mutantBonuses, mutantTier);
+
+        // ROGUES
+        int rogueTier = GetReputationTier(ReputationType.Rogues);
+        ReputationBonuses rogueBonuses = GetReputationBonuses(ReputationType.Rogues);
+        GetBonusEffects(rogueBonuses, rogueTier);
+
+        // TECHS
+        int techTier = GetReputationTier(ReputationType.Techs);
+        ReputationBonuses techBonuses = GetReputationBonuses(ReputationType.Techs);
+        GetBonusEffects(techBonuses, techTier);
+
+        // WARRIORS
+        int warriorTier = GetReputationTier(ReputationType.Warriors);
+        ReputationBonuses warriorBonuses = GetReputationBonuses(ReputationType.Warriors);
+        GetBonusEffects(warriorBonuses, warriorTier);
+
+        void GetBonusEffects(ReputationBonuses bonuses, int reputationTier)
+        {
+            if (reputationTier > 0 && resolveOrder == bonuses.Tier3_ResolveOrder) ScheduleEffects(bonuses.Tier1_Effects);
+            if (reputationTier > 1 && resolveOrder == bonuses.Tier2_ResolveOrder) ScheduleEffects(bonuses.Tier2_Effects);
+            if (reputationTier > 2 && resolveOrder == bonuses.Tier3_ResolveOrder) ScheduleEffects(bonuses.Tier3_Effects);
+
+            void ScheduleEffects(List<EffectGroup> effects) =>
+                evMan.NewDelayedAction(() => efMan.StartEffectGroupList(effects, coMan.PlayerHero), 0);
+        }
+    }
+
+    /******
+     * *****
+     * ****** NEXT_HOUR
+     * *****
+     *****/
+    public void NextHour(bool addRandomEncounter)
+    {
+        if (CurrentHour > 4)
+        {
+            Debug.LogError("CURRENT HOUR > 4!");
+            return;
+        }
+
+        IsNewHour = true; // TESTING
+        // NEW DAY
+        if (CurrentHour == 4) CurrentHour = 1;
+        // NEXT HOUR
+        else CurrentHour++;
+        // RANDOM ENCOUNTER
+        if (addRandomEncounter && CurrentHour != 4)
+            AddRandomEncounter();
+    }
+
+    /******
+     * *****
+     * ****** LOCATION_OPEN
+     * *****
+     *****/
+    public bool LocationOpen(Location location)
+    {
+        if (VisitedLocations.FindIndex(x => location.LocationName == x) == -1)
+            return true; // If the location has NOT been visited, it's NEVER closed
+        switch (CurrentHour)
+        {
+            case 1:
+                if (location.IsClosed_Hour1) return false;
+                return true;
+            case 2:
+                if (location.IsClosed_Hour2) return false;
+                return true;
+            case 3:
+                if (location.IsClosed_Hour3) return false;
+                return true;
+            default:
+                Debug.LogError("INVALID HOUR! <" + CurrentHour + ">");
+                return false;
+        }
     }
 
     /******
@@ -603,6 +939,12 @@ public class GameManager : MonoBehaviour
     {
         auMan.StopCurrentSoundscape();
         auMan.StartStopSound("SFX_EnterHomeBase");
+        
+        if (CurrentHour == 4)
+        {
+            uMan.CreateFleetingInfoPopup("You have rested!", true);
+            NextHour(true);
+        }
     }
 
     /******
@@ -626,6 +968,7 @@ public class GameManager : MonoBehaviour
     {
         auMan.StartStopSound("Soundtrack_Narrative1",
             null, AudioManager.SoundType.Soundtrack);
+        auMan.StartStopSound(null, CurrentNarrative.NarrativeStartSound); // TESTING
         auMan.StartStopSound(null,
             CurrentNarrative.NarrativeSoundscape, AudioManager.SoundType.Soundscape);
         NarrativeSceneDisplay nsd = FindObjectOfType<NarrativeSceneDisplay>();
@@ -655,10 +998,17 @@ public class GameManager : MonoBehaviour
         EnemyHeroDisplay eHD = coMan.EnemyHero.GetComponent<EnemyHeroDisplay>();
         uMan.EndTurnButton.SetActive(false);
         pHD.HeroStats.SetActive(false);
+        pHD.SkillDrawnIcon.SetActive(false);
         pHD.PowerUsedIcon.SetActive(false);
         pHD.UltimateUsedIcon.SetActive(true);
         eHD.HeroStats.SetActive(false);
         uMan.CombatLog.SetActive(false);
+
+        // EFFECT MANAGER
+        foreach (Effect e in efMan.GiveNextEffects) Destroy(e);
+        efMan.GiveNextEffects.Clear();
+        foreach (Effect e in efMan.ChangeNextCostEffects) Destroy(e);
+        efMan.ChangeNextCostEffects.Clear();
 
         // ENEMY MANAGER
         enMan.StartCombat();
@@ -669,7 +1019,11 @@ public class GameManager : MonoBehaviour
             return;
         }
         enMan.EnemyHero = enemyHero;
-        enMan.EnemyHealth = ENEMY_STARTING_HEALTH;
+
+        int enemyHealth;
+        if (IsTutorial) enemyHealth = 10;
+        else enemyHealth = ENEMY_STARTING_HEALTH;
+        enMan.EnemyHealth = enemyHealth;
 
         // PLAYER MANAGER
         pMan.PlayerHealth = pMan.MaxPlayerHealth;
@@ -680,10 +1034,14 @@ public class GameManager : MonoBehaviour
         // UPDATE DECKS
         caMan.UpdateDeck(PLAYER);
         caMan.UpdateDeck(ENEMY);
+        coMan.PlayerHero.GetComponent<PlayerHeroDisplay>().SkillsLeft =
+            pMan.CurrentPlayerSkillDeck.Count;
+
         // DISPLAY HEROES
         coMan.PlayerHero.GetComponent<HeroDisplay>().HeroScript = pMan.PlayerHero;
         coMan.EnemyHero.GetComponent<HeroDisplay>().HeroScript = enMan.EnemyHero;
         // SCHEDULE ACTIONS
+        ResolveReputationEffects(1); // REPUTATION EFFECTS [RESOLVE ORDER = 1]
         evMan.NewDelayedAction(() => anMan.CombatIntro(), 1);
         evMan.NewDelayedAction(() => CombatStart(), 1);
         evMan.NewDelayedAction(() => StartCombatTurn(PLAYER), 2);
@@ -698,16 +1056,22 @@ public class GameManager : MonoBehaviour
         void CombatStart()
         {
             int bonusCards = 0;
-            if (pMan.GetAugment("Cognitive Magnifier")) bonusCards = 2;
+            if (pMan.GetAugment("Cognitive Magnifier")) bonusCards = 1;
             caMan.ShuffleDeck(PLAYER, false);
             for (int i = 0; i < PLAYER_HAND_SIZE + bonusCards; i++)
                 evMan.NewDelayedAction(() => coMan.DrawCard(PLAYER), 0.5f);
+            int delay = 0;
+            if (enMan.NextReinforcements > 0) delay = 2;
+            evMan.NewDelayedAction(() => enMan.UpdateReinforcements(), delay);
+            if (IsTutorial) evMan.NewDelayedAction(() => Tutorial_Tooltip(1), 0); // TUTORIAL!
             evMan.NewDelayedAction(() => Mulligan(), 0.5f);
+            ResolveReputationEffects(2); // REPUTATION EFFECTS [RESOLVE ORDER = 2]
+            ResolveReputationEffects(3); // REPUTATION EFFECTS [RESOLVE ORDER = 3]
+            if (IsTutorial) evMan.NewDelayedAction(() => Tutorial_Tooltip(2), 0); // TUTORIAL!
         }
-        void Mulligan()
-        {
+
+        void Mulligan() =>
             efMan.StartEffectGroupList(new List<EffectGroup> { mulliganEffect }, gameObject);
-        }
     }
 
     /******
@@ -732,10 +1096,12 @@ public class GameManager : MonoBehaviour
             auMan.StartStopSound(null, enMan.EnemyHero.HeroWin), 2f);
         }
         uMan.UpdateEndTurnButton(pMan.IsMyTurn, false);
-        efMan.GiveNextEffects.Clear();
         evMan.ClearDelayedActions();
         FunctionTimer.Create(() =>
         uMan.CreateCombatEndPopup(playerWins), 2f);
+
+        //efMan.GiveNextEffects.Clear();
+        //efMan.ChangeNextCostEffects.Clear();
     }
 
     /******
@@ -776,11 +1142,23 @@ public class GameManager : MonoBehaviour
             {
                 pMan.IsMyTurn = true;
                 enMan.IsMyTurn = false;
+                pMan.SkillDrawn = false;
                 pMan.HeroPowerUsed = false;
                 int startEnergy = pMan.EnergyLeft;
                 pMan.EnergyLeft += pMan.EnergyPerTurn;
                 int energyChange = pMan.EnergyLeft - startEnergy;
                 anMan.ModifyHeroEnergyState(energyChange);
+
+                // TUTORIAL!
+                if (IsTutorial)
+                {
+                    switch (pMan.EnergyPerTurn)
+                    {
+                        case 2:
+                            Tutorial_Tooltip(5);
+                            break;
+                    }
+                }
             }
         }
 
@@ -819,6 +1197,21 @@ public class GameManager : MonoBehaviour
         if (player == ENEMY) evMan.NewDelayedAction(() => StartCombatTurn(PLAYER), 0.5f);
         else if (player == PLAYER)
         {
+            if (IsTutorial) // TUTORIAL!
+            {
+                switch (pMan.EnergyPerTurn)
+                {
+                    case 1:
+                        if (pMan.EnergyLeft > 0) return;
+                        else uMan.DestroyInfoPopup(false, true);
+                        break;
+                    case 2:
+                        if (!pMan.HeroPowerUsed || coMan.EnemyZoneCards.Count > 0) return;
+                        else uMan.DestroyInfoPopup(false, true);
+                        break;
+                }
+            }
+
             pMan.IsMyTurn = false;
             coMan.SelectPlayableCards();
             if (pMan.EnergyPerTurn < pMan.MaxEnergyPerTurn)
@@ -838,6 +1231,7 @@ public class GameManager : MonoBehaviour
             efMan.RemoveTemporaryEffects(PLAYER);
             efMan.RemoveTemporaryEffects(ENEMY);
             efMan.RemoveGiveNextEffects();
+            efMan.RemoveChangeNextCostEffects(); // TESTING
         }
     }
 

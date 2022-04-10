@@ -52,7 +52,7 @@ ParticleSystem:
   playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
-  useRigidbodyForVelocity: 1
+  useRigidbodyForVelocity: 0
   startDelay:
     serializedVersion: 2
     minMaxState: 0
@@ -4875,8 +4875,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0671a70b8a7547b4d8c5eb62c20b2fb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackColor: {r: 1, g: 0, b: 0, a: 1}
-  buttonPressColor: {r: 0, g: 0.18852282, b: 1, a: 1}
-  damageColor: {r: 1, g: 0, b: 0, a: 1}
-  dragColor: {r: 1, g: 1, b: 0, a: 1}
-  playColor: {r: 1, g: 1, b: 1, a: 1}

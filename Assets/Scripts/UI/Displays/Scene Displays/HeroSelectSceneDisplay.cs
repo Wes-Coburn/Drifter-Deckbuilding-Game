@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -57,7 +58,7 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         foreach (UnitCard uc in caMan.PlayerStartUnits)
             for (int i = 0; i < GameManager.PLAYER_START_UNITS; i++)
                 caMan.AddCard(uc, GameManager.PLAYER);
-        foreach (SkillCard skill in pMan.PlayerHero.HeroStartSkills)
+        foreach (SkillCard skill in pMan.PlayerHero.HeroSkills)
             for (int i = 0; i < GameManager.PLAYER_START_SKILLS; i++)
                 caMan.AddCard(skill, GameManager.PLAYER);
     }
@@ -128,8 +129,19 @@ public class HeroSelectSceneDisplay : MonoBehaviour
             currentSkill_2 = null;
         }
         Vector2 vec2 = new Vector2();
-        currentSkill_1 = coMan.ShowCard(LoadedHero.HeroStartSkills[0], vec2, CombatManager.DisplayType.HeroSelect);
-        currentSkill_2 = coMan.ShowCard(LoadedHero.HeroStartSkills[1], vec2, CombatManager.DisplayType.HeroSelect);
+
+        List<SkillCard> skills = new List<SkillCard>();
+        foreach (SkillCard sc in LoadedHero.HeroSkills)
+            skills.Add(sc);
+
+        int skill_1 = Random.Range(0, skills.Count);
+        SkillCard card_1 = skills[skill_1];
+        skills.RemoveAt(skill_1);
+        int skill_2 = Random.Range(0, skills.Count);
+        SkillCard card_2 = skills[skill_2];
+
+        currentSkill_1 = coMan.ShowCard(card_1, vec2, CombatManager.DisplayType.HeroSelect);
+        currentSkill_2 = coMan.ShowCard(card_2, vec2, CombatManager.DisplayType.HeroSelect);
         currentSkill_1.GetComponent<CardDisplay>().DisableVisuals();
         currentSkill_2.GetComponent<CardDisplay>().DisableVisuals();
         currentSkill_1.transform.SetParent(skillCard_1.transform, false);

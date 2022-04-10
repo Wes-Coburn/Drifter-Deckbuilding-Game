@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Location", menuName = "Locations/Location")]
 public class Location : ScriptableObject
 {
+    [Header("LOCATION DETAILS")]
     [SerializeField] private bool isPriorityLocation;
     [SerializeField] private string locationName;
     [SerializeField] private string locationFullName;
@@ -11,11 +12,19 @@ public class Location : ScriptableObject
     [SerializeField] private Vector2 worldMapPosition;
     [SerializeField] private NPCHero firstNPC;
     [SerializeField] private Sound locationSoundscape;
+
+    [Header("LOCATION TYPE")]
     [SerializeField] private bool isHomeBase;
     [SerializeField] private bool isAugmenter;
     [SerializeField] private bool isRecruitment;
     [SerializeField] private bool isShop;
     [SerializeField] private bool isCloning;
+    [SerializeField] private bool isRandomEncounter;
+
+    [Header("CLOSED HOURS")]
+    [SerializeField] [Tooltip("Morning (Hour 1)")] private bool isClosed_Hour1;
+    [SerializeField] [Tooltip("Day (Hour 2)")] private bool isClosed_Hour2;
+    [SerializeField] [Tooltip("Evening (Hour 3)")] private bool isClosed_Hour3;
 
     public bool IsPriorityLocation { get => isPriorityLocation; }
     public string LocationName { get => locationName; }
@@ -31,6 +40,11 @@ public class Location : ScriptableObject
     public bool IsRecruitment { get => isRecruitment; }
     public bool IsShop { get => isShop; }
     public bool IsCloning { get => isCloning; }
+    public bool IsRandomEncounter { get => isRandomEncounter; }
+    public bool IsClosed_Hour1 { get => isClosed_Hour1; }
+    public bool IsClosed_Hour2 { get => isClosed_Hour2; }
+    public bool IsClosed_Hour3 { get => isClosed_Hour3; }
+
     public NPCHero CurrentNPC { get; set; }
     
     public void LoadLocation(Location location)
@@ -48,5 +62,9 @@ public class Location : ScriptableObject
         isRecruitment = location.IsRecruitment;
         isShop = location.IsShop;
         isCloning = location.IsCloning;
+        isRandomEncounter = location.IsRandomEncounter;
+        isClosed_Hour1 = location.IsClosed_Hour1;
+        isClosed_Hour2 = location.IsClosed_Hour2;
+        isClosed_Hour3 = location.IsClosed_Hour3;
     }
 }

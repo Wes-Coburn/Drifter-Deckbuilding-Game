@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a7f7b2ee0c588b4880372b94623cf06, type: 3}
+  m_Name: Tutorial Player Hero
+  m_EditorClassIdentifier: 
+  developerNotes: (TUTORIAL HERO)
+  heroName: Kili, Neon Rider
+  heroShortName: 
+  heroPortrait: {fileID: 21300000, guid: 1957bb0e6d80044479a1b862d5028ef4, type: 3}
+  heroDescription: Kili, Neon Rider (TUTORIAL HERO)
+  heroWin:
+    name: 
+    clip: {fileID: 8300000, guid: 3e033a1819f492347a81c1009347a773, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  heroLose:
+    name: 
+    clip: {fileID: 8300000, guid: 841174339e5bccb438a0836df75ccec1, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  heroPower: {fileID: 11400000, guid: 1532b5254ce738144bf1d9a62b768fef, type: 2}
+  heroUltimate: {fileID: 11400000, guid: eef48ce0488a81641962709c3258683d, type: 2}
+  heroSkills:
+  - {fileID: 11400000, guid: b14d7b90f22f51648940e1b9630f745e, type: 2}
+  heroBackstory: 

@@ -45,12 +45,51 @@ public class DialogueManager : MonoBehaviour
         AllowResponse = true; // TESTING
     }
 
+    /******
+     * *****
+     * ****** DIALOGUE_MANAGER
+     * *****
+     *****/
+    public void Reset_DialogueManager()
+    {
+        StopTimedText();
+    }
+
     public void DisplayCurrentHeroes()
     {
         dialogueDisplay.PlayerHeroImage = pMan.PlayerHero.HeroPortrait;
         dialogueDisplay.PlayerHeroName = pMan.PlayerHero.HeroName;
         dialogueDisplay.NPCHeroImage = EngagedHero.HeroPortrait;
         dialogueDisplay.NPCHeroName = EngagedHero.HeroName;
+    }
+
+    private void ChangeReputations(DialoguePrompt prompt)
+    {
+        if (prompt.Reputation_Mages != 0)
+        {
+            gMan.ChangeReputation
+                (GameManager.ReputationType.Mages, prompt.Reputation_Mages);
+        }
+        if (prompt.Reputation_Mutants != 0)
+        {
+            gMan.ChangeReputation
+                (GameManager.ReputationType.Mutants, prompt.Reputation_Mutants);
+        }
+        if (prompt.Reputation_Rogues != 0)
+        {
+            gMan.ChangeReputation
+                (GameManager.ReputationType.Rogues, prompt.Reputation_Rogues);
+        }
+        if (prompt.Reputation_Techs != 0)
+        {
+            gMan.ChangeReputation
+                (GameManager.ReputationType.Techs, prompt.Reputation_Techs);
+        }
+        if (prompt.Reputation_Warriors != 0)
+        {
+            gMan.ChangeReputation
+                (GameManager.ReputationType.Warriors, prompt.Reputation_Warriors);
+        }
     }
 
     public void StartDialogue()
@@ -68,10 +107,9 @@ public class DialogueManager : MonoBehaviour
 
         dialogueDisplay = FindObjectOfType<DialogueSceneDisplay>();
         dialogueDisplay.PlayerHeroPortrait.SetActive(false);
+        dialogueDisplay.NPCHeroPortrait.SetActive(false);
         
         DialoguePrompt prompt = currentDialogueClip as DialoguePrompt;
-        dialogueDisplay.NPCHeroPortrait.SetActive(!prompt.HideNPC);
-
         if (prompt.NewLocations != null)
         {
             float delay = 0;
@@ -89,6 +127,10 @@ public class DialogueManager : MonoBehaviour
         DisplayCurrentHeroes();
         DisplayDialoguePopup();
         AnimationManager.Instance.DialogueIntro();
+
+        AllowResponse = false; // TESTING
+        FunctionTimer.Create(() => ChangeReputations(prompt), 1); // TESTING
+        FunctionTimer.Create(() => AllowResponse = true, 1); // TESTING
     }
 
     public void EndDialogue()
@@ -268,13 +310,15 @@ public class DialogueManager : MonoBehaviour
                 foreach (NewLocation newLoc in nextPrompt.NewLocations)
                 {
                     gMan.GetActiveLocation(newLoc.Location, newLoc.NewNpc);
-                    if (newLoc.Location.IsAugmenter) continue; // TESTING
+                    if (newLoc.Location.IsAugmenter) continue;
                     FunctionTimer.Create(() =>
                     uMan.CreateLocationPopup(gMan.GetActiveLocation(newLoc.Location), true), delay);
                     delay += 5;
                 }
             }
-            else Debug.LogError("NEW LOCATIONS IS NULL!");
+            else Debug.LogWarning("NEW LOCATIONS IS NULL!");
+
+            ChangeReputations(nextPrompt); // TESTING
         }
 
         if (dResponse.NPC_NextClip != null)

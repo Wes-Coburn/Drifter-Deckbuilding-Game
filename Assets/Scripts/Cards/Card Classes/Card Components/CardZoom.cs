@@ -68,11 +68,11 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
      *****/
     public void OnPointerClick(PointerEventData pointerEventData)
     {
-        if (DragDrop.DraggingCard != null || ZoomCardIsCentered) return;
+        if (DragDrop.DraggingCard != null || ZoomCardIsCentered || uMan.PlayerIsTargetting) return;
         if (transform.parent.gameObject == enemyHand) return;
         if (pointerEventData.button != PointerEventData.InputButton.Right)
         {
-            if (!uMan.PlayerIsTargetting) RightClickTooltip();
+            RightClickTooltip();
             return;
         }
         uMan.DestroyZoomObjects();

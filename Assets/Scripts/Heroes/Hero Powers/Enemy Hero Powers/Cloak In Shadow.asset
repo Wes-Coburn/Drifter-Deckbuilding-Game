@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c46468d76b991845a6a85e9883d419b, type: 3}
+  m_Name: Cloak In Shadow
+  m_EditorClassIdentifier: 
+  PowerName: Cloak In Shadow
+  PowerCost: 0
+  PowerSprite: {fileID: 21300000, guid: 0231813a13161634eae0fa1c3b24b906, type: 3}
+  PowerSounds:
+  - name: 
+    clip: {fileID: 8300000, guid: e58e517a5a0433241844a7932307e793, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  PowerDescription: 'Turn End: Give the weakest ally Stealth. If it already has it,
+    give it +1|+0 instead.'
+  EffectGroupList:
+  - {fileID: 11400000, guid: de892896878d92a4bb97410c6210f6d2, type: 2}
+  LinkedAbilities:
+  - {fileID: 11400000, guid: f9f029cd91a81544eb06ce77a5f40ab8, type: 2}
+  PowerTrigger: {fileID: 11400000, guid: f9f029cd91a81544eb06ce77a5f40ab8, type: 2}

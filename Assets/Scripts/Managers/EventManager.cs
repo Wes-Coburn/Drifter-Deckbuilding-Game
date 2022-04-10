@@ -27,7 +27,7 @@ public class EventManager : MonoBehaviour
     {
         get
         {
-            if (delayedActions.Count > 0) return true;
+            if (delayedActions.Count > 0 || isPaused) return true; // TESTING
             else return false;
         }
     }
@@ -38,7 +38,23 @@ public class EventManager : MonoBehaviour
         public float Delay;
         public static int CurrentAction;
     }
-    
+
+    /******
+     * *****
+     * ****** RESET_EVENT_MANAGER
+     * *****
+     *****/
+    public void Reset_EventManager()
+    {
+        ClearDelayedActions();
+        PauseDelayedActions(false);
+    }
+
+    /******
+     * *****
+     * ****** NEW_DELAYED_ACTION
+     * *****
+     *****/
     public void NewDelayedAction(Action action,
         float delay, bool resolveNext = false)
     {

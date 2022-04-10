@@ -20,7 +20,14 @@ public class DialoguePrompt : DialogueClip
     [SerializeField] private bool newAllyCard;
     [SerializeField] private bool newExecutionCard;
     [SerializeField] [Range(0, 5)] private int aetherCells;
+    [Header("NEW LOCATIONS")]
     [SerializeField] private NewLocation[] newLocations;
+    [Header("REPUTATION")]
+    [SerializeField] [Range(-3, 3)] private int reputation_Mages;
+    [SerializeField] [Range(-3, 3)] private int reputation_Mutants;
+    [SerializeField] [Range(-3, 3)] private int reputation_Rogues;
+    [SerializeField] [Range(-3, 3)] private int reputation_Techs;
+    [SerializeField] [Range(-3, 3)] private int reputation_Warriors;
 
     public string DialoguePromptText { get => dialoguePromptText; }
     public DialogueResponse DialogueResponse1 { get => dialogueResponse1; }
@@ -34,6 +41,12 @@ public class DialoguePrompt : DialogueClip
     public bool NewExecutionCard { get => newExecutionCard; }
     public int AetherCells { get => aetherCells; }
     public NewLocation[] NewLocations { get => newLocations; }
+
+    public int Reputation_Mages { get => reputation_Mages; }
+    public int Reputation_Mutants { get => reputation_Mutants; }
+    public int Reputation_Rogues { get => reputation_Rogues; }
+    public int Reputation_Techs { get => reputation_Techs; }
+    public int Reputation_Warriors { get => reputation_Warriors; }
 
     public override void LoadDialogueClip(DialogueClip dc)
     {
@@ -53,5 +66,10 @@ public class DialoguePrompt : DialogueClip
         newExecutionCard = dp.NewExecutionCard;
         aetherCells = dp.AetherCells;
         newLocations = (NewLocation[])dp.NewLocations.Clone();
+        reputation_Mages = dp.Reputation_Mages;
+        reputation_Mutants = dp.Reputation_Mutants;
+        reputation_Rogues = dp.Reputation_Rogues;
+        reputation_Techs = dp.Reputation_Techs;
+        reputation_Warriors = dp.Reputation_Warriors;
     }
 }

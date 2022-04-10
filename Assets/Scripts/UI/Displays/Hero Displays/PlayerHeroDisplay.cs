@@ -5,6 +5,8 @@ using TMPro;
 public class PlayerHeroDisplay : HeroDisplay
 {
     [SerializeField] private GameObject heroEnergy;
+    [SerializeField] private GameObject skillDrawnIcon;
+    [SerializeField] private GameObject skillsLeft;
     [SerializeField] private GameObject heroPower;
     [SerializeField] private GameObject powerImage;
     [SerializeField] private GameObject powerCost;
@@ -21,6 +23,14 @@ public class PlayerHeroDisplay : HeroDisplay
 
     public PlayerHero PlayerHero { get => HeroScript as PlayerHero; }
     public GameObject HeroEnergy { get => heroEnergy; }
+    public GameObject SkillDrawnIcon { get => skillDrawnIcon; }
+    public int SkillsLeft
+    {
+        set
+        {
+            skillsLeft.GetComponent<TextMeshProUGUI>().SetText(value.ToString());
+        }
+    }
     public GameObject HeroPower { get => heroPower; }
     public GameObject PowerUsedIcon { get => powerUsedIcon; }
     public GameObject HeroUltimate { get => heroUltimate; }

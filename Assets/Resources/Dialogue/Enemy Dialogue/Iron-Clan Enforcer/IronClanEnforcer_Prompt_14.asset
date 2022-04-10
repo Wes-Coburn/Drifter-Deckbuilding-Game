@@ -15,18 +15,6 @@ MonoBehaviour:
   dialoguePromptText: If you were to spare my life, I would fight beside you as your
     equal.
   dialogueResponse1:
-    responseText: Join me. Together we can turn the tide.
-    response_NextClip: {fileID: 11400000, guid: fecfc4b981ebf124d98112c9c0d1ea41,
-      type: 2}
-    npc_NextClip: {fileID: 0}
-    response_IsCombatStart: 0
-    response_IsWorldMapStart: 0
-    response_IsRecruitmentStart: 0
-    response_IsShopStart: 0
-    response_IsCloningStart: 0
-    response_IsExit: 0
-    response_TravelLocation: {fileID: 0}
-  dialogueResponse2:
     responseText: "You\u2019ll never be my equal. *Kill them*"
     response_NextClip: {fileID: 11400000, guid: 7e9424e080ec74f4b82061478c0316c0,
       type: 2}
@@ -36,6 +24,20 @@ MonoBehaviour:
     response_IsRecruitmentStart: 0
     response_IsShopStart: 0
     response_IsCloningStart: 0
+    response_IsNewAugmentStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
+  dialogueResponse2:
+    responseText: Join me. Together we can turn the tide.
+    response_NextClip: {fileID: 11400000, guid: fecfc4b981ebf124d98112c9c0d1ea41,
+      type: 2}
+    npc_NextClip: {fileID: 0}
+    response_IsCombatStart: 0
+    response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsNewAugmentStart: 0
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   dialogueResponse3:
@@ -48,10 +50,13 @@ MonoBehaviour:
     response_IsRecruitmentStart: 0
     response_IsShopStart: 0
     response_IsCloningStart: 0
+    response_IsNewAugmentStart: 0
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   newEngagedHero: {fileID: 0}
   hideNPC: 0
   newCard: {fileID: 0}
+  newAllyCard: 0
+  newExecutionCard: 0
   aetherCells: 0
   newLocations: []
