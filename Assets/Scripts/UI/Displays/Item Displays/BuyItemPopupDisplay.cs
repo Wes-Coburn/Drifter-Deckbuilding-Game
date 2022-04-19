@@ -31,7 +31,7 @@ public class BuyItemPopupDisplay : MonoBehaviour
             int aether = pMan.AetherCells;
             heroItem = value;
             string text = "Buy " + heroItem.ItemName +
-                " for " + gMan.GetItemCost(heroItem) +
+                " for " + gMan.GetItemCost(heroItem, out _) +
                 " aether? (You have " + aether + " aether)";
             PopupText = text;
         }
@@ -40,7 +40,7 @@ public class BuyItemPopupDisplay : MonoBehaviour
     public void ConfirmButton_OnClick()
     {
         pMan.AddItem(heroItem, true);
-        pMan.AetherCells -= gMan.GetItemCost(heroItem);
+        pMan.AetherCells -= gMan.GetItemCost(heroItem, out _);
         gMan.ShopItems.Remove(heroItem);
         bool isReady = false;
         int previousProgress = gMan.ShopLoyalty;

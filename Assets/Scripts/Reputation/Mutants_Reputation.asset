@@ -19,9 +19,13 @@ MonoBehaviour:
   tier1_Effects:
   - {fileID: 11400000, guid: ac06fb5791291314eb98323b4b3b10df, type: 2}
   tier1_ResolveOrder: 1
-  tier2_Bonus: MU2
-  tier2_Effects: []
+  tier2_Bonus: "Give the first two units you play each combat \u201CTurn End: Gain
+    +1|+1 until your next turn.\u201D"
+  tier2_Effects:
+  - {fileID: 11400000, guid: dfa5a44adf13da547b9688cd6eea4bc4, type: 2}
   tier2_ResolveOrder: 1
-  tier3_Bonus: MU3
-  tier3_Effects: []
+  tier3_Bonus: "Give the first three units you play each combat \u201CRevenge: Deal
+    1 damage.\u201D"
+  tier3_Effects:
+  - {fileID: 11400000, guid: dafc943a2e64033478c127ac3535f7a3, type: 2}
   tier3_ResolveOrder: 1

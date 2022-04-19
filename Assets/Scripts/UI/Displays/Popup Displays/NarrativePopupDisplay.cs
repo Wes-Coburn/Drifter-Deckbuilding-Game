@@ -39,19 +39,24 @@ public class NarrativePopupDisplay : MonoBehaviour
     private void DisplayCurrentClip(bool isFirstDisplay = false)
     {
         if (isFirstDisplay) AudioManager.Instance.StartStopSound
-                (null, loadedNarrative.NarrativeStartSound); // TESTING
+                (null, loadedNarrative.NarrativeStartSound);
 
         int clipCount = loadedNarrative.NarrativeText.Length;
         bool showPrevious = true;
         bool showNext = true;
+        bool showContinue = false;
         if (currentClip == 0)
             showPrevious = false;
         if (currentClip == clipCount - 1)
+        {
             showNext = false;
+            showContinue = true;
+        }
         nextButton.SetActive(showNext);
+        continueButton.SetActive(showContinue);
         previousButton.SetActive(showPrevious);
-
         clipCounterText.SetText(currentClip + 1 + "/" + clipCount);
+
         dMan.TimedText(loadedNarrative.NarrativeText[currentClip],
             narrativeText.GetComponent<TextMeshProUGUI>());
     }

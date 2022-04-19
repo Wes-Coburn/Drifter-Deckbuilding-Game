@@ -12,18 +12,14 @@ public class UnitCard : Card
     [SerializeField] private List<CardAbility> startingAbilities;
     [SerializeField] private Sound unitDeathSound;
 
-    // POWER
     public int StartPower { get => power; }
-    public int CurrentPower { get; set; }
-    // HEALTH
     public int StartHealth { get => health; }
+    public List<CardAbility> StartingAbilities { get => startingAbilities; }
+    public Sound UnitDeathSound { get => unitDeathSound; }
+
+    public int CurrentPower { get; set; }
     public int CurrentHealth { get; set; }
     public int MaxHealth { get; set; }
-    // ABILITIES
-    public List<CardAbility> StartingAbilities { get => startingAbilities; }
-    // SOUNDS
-    public Sound UnitDeathSound { get => unitDeathSound; }
-    // EXHAUSTED
     public bool IsExhausted { get; set; }
 
     public override void LoadCard(Card card)
@@ -32,7 +28,7 @@ public class UnitCard : Card
         UnitCard uc = card as UnitCard;
         power = uc.StartPower;
         health = uc.StartHealth;
-        unitDeathSound = uc.UnitDeathSound;
         startingAbilities = uc.StartingAbilities;
+        unitDeathSound = uc.UnitDeathSound;
     }
 }

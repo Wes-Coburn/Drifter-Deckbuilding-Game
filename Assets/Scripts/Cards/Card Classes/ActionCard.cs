@@ -8,21 +8,9 @@ public class ActionCard : Card
     [SerializeField] private List<EffectGroup> effectGroupList;
     [SerializeField] private List<CardAbility> linkedAbilities;
 
-    public string EffectDescription
-    {
-        get => effectDescription;
-        set => effectDescription = value;
-    }
-    public List<EffectGroup> EffectGroupList
-    {
-        get => effectGroupList;
-        set => effectGroupList = value;
-    }
-    public List<CardAbility> LinkedAbilities
-    {
-        get => linkedAbilities;
-        set => linkedAbilities = value;
-    }
+    public string EffectDescription { get => effectDescription; }
+    public List<EffectGroup> EffectGroupList { get => effectGroupList; }
+    public List<CardAbility> LinkedAbilities { get => linkedAbilities; }
 
     public override void LoadCard(Card card)
     {

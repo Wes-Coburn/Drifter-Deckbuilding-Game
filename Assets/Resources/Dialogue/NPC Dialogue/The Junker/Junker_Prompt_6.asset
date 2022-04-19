@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b107ecdac65374f8c56b3212c061ce, type: 3}
   m_Name: Junker_Prompt_6
   m_EditorClassIdentifier: 
-  dialoguePromptText: '*The lightpost stands in front of a great trash heap, a heap
-    with a door in it. A large knocker hangs in the center of it.*'
+  dialoguePromptText: I am Qigli, but they call me The Junker. I am finder of lost
+    things, keeper of treasures.
   dialogueResponse1:
-    responseText: 
-    response_NextClip: {fileID: 0}
+    responseText: Can I pass through here?
+    response_NextClip: {fileID: 11400000, guid: c2f5fe9311a602d4cbdb95c8a82c18aa,
+      type: 2}
     npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
@@ -27,8 +28,8 @@ MonoBehaviour:
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   dialogueResponse2:
-    responseText: '*Knock on the door*'
-    response_NextClip: {fileID: 11400000, guid: 18b4fc1657733024bb9e253ffd0abf15,
+    responseText: "It\u2019s an honor to meet you."
+    response_NextClip: {fileID: 11400000, guid: b1d07e7b52bc7b64ba50c0f30c6e30e3,
       type: 2}
     npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
@@ -40,8 +41,9 @@ MonoBehaviour:
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   dialogueResponse3:
-    responseText: 
-    response_NextClip: {fileID: 0}
+    responseText: "What\u2026 are you?"
+    response_NextClip: {fileID: 11400000, guid: f694a96fc061b20409df74802749acd8,
+      type: 2}
     npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
@@ -52,9 +54,14 @@ MonoBehaviour:
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   newEngagedHero: {fileID: 0}
-  hideNPC: 1
+  hideNPC: 0
   newCard: {fileID: 0}
   newAllyCard: 0
   newExecutionCard: 0
   aetherCells: 0
   newLocations: []
+  reputation_Mages: 0
+  reputation_Mutants: 0
+  reputation_Rogues: 0
+  reputation_Techs: 0
+  reputation_Warriors: 0

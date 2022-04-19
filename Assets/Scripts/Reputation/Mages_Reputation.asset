@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reputationType: 0
   reputationColor: {r: 1, g: 0.4402727, b: 0, a: 1}
-  tier1_Bonus: The first action you play each combat costs 2 less.
-  tier1_Effects:
-  - {fileID: 11400000, guid: 19667eea40440eb44889799778cc1b43, type: 2}
-  tier1_ResolveOrder: 1
-  tier2_Bonus: At the beginning of each combat, after you replace cards in your hand,
+  tier1_Bonus: At the beginning of each combat, after you replace cards in your hand,
     do it again.
-  tier2_Effects:
+  tier1_Effects:
   - {fileID: 11400000, guid: d7ac02cc364638e41ae1c9dfdaac0d41, type: 2}
-  tier2_ResolveOrder: 2
+  tier1_ResolveOrder: 2
+  tier2_Bonus: The first two actions you play each combat costs 1 less.
+  tier2_Effects:
+  - {fileID: 11400000, guid: 19667eea40440eb44889799778cc1b43, type: 2}
+  tier2_ResolveOrder: 1
   tier3_Bonus: "Give the first three units you play each combat \u201CSpark: Replenish
     1 energy.\u201D"
   tier3_Effects:

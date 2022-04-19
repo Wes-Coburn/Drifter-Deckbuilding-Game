@@ -122,15 +122,15 @@ public class DialogueManager : MonoBehaviour
                 delay += 5;
             }
         }
-        else Debug.LogError("NEW LOCATIONS IS NULL!");
+        else Debug.LogWarning("NEW LOCATIONS IS NULL!");
 
         DisplayCurrentHeroes();
         DisplayDialoguePopup();
         AnimationManager.Instance.DialogueIntro();
 
-        AllowResponse = false; // TESTING
-        FunctionTimer.Create(() => ChangeReputations(prompt), 1); // TESTING
-        FunctionTimer.Create(() => AllowResponse = true, 1); // TESTING
+        AllowResponse = false;
+        FunctionTimer.Create(() => ChangeReputations(prompt), 1);
+        FunctionTimer.Create(() => AllowResponse = true, 1);
     }
 
     public void EndDialogue()

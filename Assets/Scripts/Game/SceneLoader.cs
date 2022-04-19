@@ -95,7 +95,7 @@ public static class SceneLoader
             
             void InvokeLoadAction()
             {
-                LoadAction();
+                LoadAction?.Invoke();
                 LoadAction = null;
                 LoadScene_Finish();
             }

@@ -105,7 +105,11 @@ public class AnimationManager : MonoBehaviour
         GameObject valueChanger = Instantiate(valueChangerPrefab, parent);
         valueChanger.transform.localPosition = new Vector2(0, yBuffer);
         Transform newParent;
-        if (yBuffer != 0) newParent = uMan.UICanvas.transform;
+        if (yBuffer != 0)
+        {
+            newParent = uMan.UICanvas.transform;
+            valueChanger.transform.localScale = new Vector2(2, 2);
+        }
         else newParent = uMan.CurrentZoomCanvas.transform; // TESTING
         valueChanger.transform.SetParent(newParent); // TESTING
 
@@ -549,7 +553,7 @@ public class AnimationManager : MonoBehaviour
         while (distance > 700);
 
         uMan.CreateVersusPopup();
-        uMan.ShakeCamera(EZCameraShake.CameraShakePresets.Bump);
+        uMan.ShakeCamera(UIManager.Bump_Light);
         
         yield return new WaitForSeconds(0.5f);
         uMan.SelectTarget(coMan.PlayerHero, false);

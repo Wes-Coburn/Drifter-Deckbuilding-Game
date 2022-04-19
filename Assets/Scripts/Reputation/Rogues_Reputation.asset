@@ -14,12 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reputationType: 2
   reputationColor: {r: 0.8490566, g: 0, b: 0.8290791, a: 1}
-  tier1_Bonus: R1
-  tier1_Effects: []
-  tier1_ResolveOrder: 1
-  tier2_Bonus: R2
-  tier2_Effects: []
+  tier1_Bonus: At the beginning of each combat, create a Scheme in hand.
+  tier1_Effects:
+  - {fileID: 11400000, guid: 45a8a9afa65b37541897226d439c4de4, type: 2}
+  tier1_ResolveOrder: 3
+  tier2_Bonus: Give the first two units you play each combat +1|+0 and Stealth.
+  tier2_Effects:
+  - {fileID: 11400000, guid: 756ae8fe6ebdb2e418d4fccc4c37f22c, type: 2}
   tier2_ResolveOrder: 1
-  tier3_Bonus: R3
-  tier3_Effects: []
+  tier3_Bonus: "Give the first three units you play each combat \u201CInfiltrate:
+    Deal 1 to the enemy hero.\u201D"
+  tier3_Effects:
+  - {fileID: 11400000, guid: 8d50ea7e2bc1105448ff13ed4a990293, type: 2}
   tier3_ResolveOrder: 1

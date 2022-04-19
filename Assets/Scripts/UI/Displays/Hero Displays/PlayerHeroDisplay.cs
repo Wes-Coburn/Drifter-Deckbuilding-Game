@@ -55,6 +55,7 @@ public class PlayerHeroDisplay : HeroDisplay
         powerImage.GetComponent<Image>().sprite = PlayerHero.HeroPower.PowerSprite;
         powerCost.GetComponent<TextMeshProUGUI>().SetText(PlayerHero.HeroPower.PowerCost.ToString());
         ultimateImage.GetComponent<Image>().sprite = PlayerHero.HeroUltimate.PowerSprite;
-        ultimateCost.GetComponent<TextMeshProUGUI>().SetText(PlayerHero.HeroUltimate.PowerCost.ToString());
+        ultimateCost.GetComponent<TextMeshProUGUI>().SetText
+            (PlayerManager.Instance.GetUltimateCost().ToString());
     }
 }

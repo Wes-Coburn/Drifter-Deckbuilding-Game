@@ -79,7 +79,7 @@ public class TimeClockDisplay : MonoBehaviour
         {
             handRect.Rotate(0, 0, -1);
             if (i % 5 == 0) auMan.StartStopSound("SFX_TimeLapse", null);
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.03f);
         }
         
         auMan.StartStopSound("SFX_SceneLoading", null, AudioManager.SoundType.SFX, true);

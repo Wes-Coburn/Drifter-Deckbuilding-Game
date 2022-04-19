@@ -28,7 +28,17 @@ public class ItemDescriptionDisplay : MonoBehaviour, IPointerClickHandler, IPoin
             itemName.GetComponent<TextMeshProUGUI>().SetText(loadedItem.ItemName);
             itemDescription.GetComponent<TextMeshProUGUI>().SetText
                 (CardManager.Instance.FilterKeywords(loadedItem.ItemDescription));
-            itemCost.GetComponent<TextMeshProUGUI>().SetText(gMan.GetItemCost(loadedItem).ToString());
+
+            TextMeshProUGUI txtGui = itemCost.GetComponent<TextMeshProUGUI>();
+            txtGui.SetText(gMan.GetItemCost(loadedItem, out bool isDiscounted).ToString());
+            if (isDiscounted)
+            {
+                Button button = itemCost.GetComponent<Button>();
+                var colors = button.colors;
+                colors.normalColor = Color.green;
+                button.colors = colors;
+            }
+
             rareIcon.SetActive(loadedItem.IsRareItem);
         }
     }
@@ -46,7 +56,7 @@ public class ItemDescriptionDisplay : MonoBehaviour, IPointerClickHandler, IPoin
         if (anMan.ProgressBarRoutine != null) return; // TESTING
         if (pMan.HeroItems.Count >= 5)
             uMan.CreateFleetingInfoPopup("You can't have more than 5 items!", true);
-        else if (pMan.AetherCells < gMan.GetItemCost(loadedItem))
+        else if (pMan.AetherCells < gMan.GetItemCost(loadedItem, out _))
             uMan.InsufficientAetherPopup();
         else uMan.CreateBuyItemPopup(loadedItem);
     }

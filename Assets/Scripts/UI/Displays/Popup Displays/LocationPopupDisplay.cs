@@ -95,27 +95,26 @@ public class LocationPopupDisplay : MonoBehaviour
 
     public void TravelButton_OnClick()
     {
+        if (gMan.VisitedLocations.FindIndex(x => x == location.LocationName) == -1)
+        {
+            gMan.VisitedLocations.Add(location.LocationName);
+            if (!location.IsHomeBase) gMan.NextHour(!location.IsRandomEncounter);
+        }
         if (location.IsHomeBase)
         {
             SceneLoader.LoadScene(SceneLoader.Scene.HomeBaseScene);
             return;
         }
-        if (gMan.VisitedLocations.FindIndex(x => x == location.LocationName) == -1)
-        {
-            gMan.VisitedLocations.Add(location.LocationName);
-            gMan.NextHour(!location.IsRandomEncounter); // TESTING
-        }
         gMan.CurrentLocation = gMan.GetActiveLocation(location);
         if (location.IsRecruitment) gMan.CurrentLocation.CurrentObjective = "Recruit a Unit.";
         else if (location.IsShop) gMan.CurrentLocation.CurrentObjective = "Buy an Item.";
         else if (location.IsCloning) gMan.CurrentLocation.CurrentObjective = "Clone a Unit.";
-        else
-        {
-            gMan.ActiveLocations.Remove(gMan.CurrentLocation);
-            //gMan.VisitedLocations.Remove(location.LocationName);
-        }
+        else gMan.ActiveLocations.Remove(gMan.CurrentLocation);
         dMan.EngagedHero = gMan.GetActiveNPC(gMan.CurrentLocation.CurrentNPC);
-        SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene, true);
+
+        // TESTING
+        if (location.IsCombatOnly) SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);
+        else SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene, true);
     }
 
     public void CancelButton_OnClick() =>

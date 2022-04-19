@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49ee9925f835d8b4496095a88fc12328, type: 3}
   m_Name: MutantAlpha_CReward_1
   m_EditorClassIdentifier: 
-  nextDialogueClip: {fileID: 11400000, guid: 9cd9da9be068cdd4b8f10f2486eef80e, type: 2}
-  aetherCells: 5
+  nextDialogueClip: {fileID: 11400000}
+  aetherCells: 10
+  newLocations:
+  - Location: {fileID: 11400000, guid: d55420ef5ce7b0b45b3c9120aadaed58, type: 2}
+    NewNpc: {fileID: 0}
+  newNarrative: {fileID: 11400000, guid: 62d0a3d88ade93243be6f800c67346dc, type: 2}

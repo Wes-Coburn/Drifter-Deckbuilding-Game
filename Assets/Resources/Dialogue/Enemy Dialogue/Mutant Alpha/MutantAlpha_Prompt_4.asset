@@ -17,36 +17,49 @@ MonoBehaviour:
   dialogueResponse1:
     responseText: 
     response_NextClip: {fileID: 0}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
     response_IsShopStart: 0
     response_IsCloningStart: 0
+    response_IsNewAugmentStart: 0
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   dialogueResponse2:
-    responseText: (Continue)
-    response_NextClip: {fileID: 11400000, guid: 06d8bc08e3a13d54a96cd850f946f5a5,
+    responseText: '*Attack*'
+    response_NextClip: {fileID: 11400000, guid: 98b3132f7e3b4c34684cfd1bd3fdbe23,
       type: 2}
-    response_IsCombatStart: 0
+    npc_NextClip: {fileID: 0}
+    response_IsCombatStart: 1
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
     response_IsShopStart: 0
     response_IsCloningStart: 0
+    response_IsNewAugmentStart: 0
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   dialogueResponse3:
     responseText: 
     response_NextClip: {fileID: 0}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
     response_IsShopStart: 0
     response_IsCloningStart: 0
+    response_IsNewAugmentStart: 0
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   newEngagedHero: {fileID: 11400000, guid: bb95eb4e15e792540977f11943f2a8ba, type: 2}
   hideNPC: 0
   newCard: {fileID: 0}
+  newAllyCard: 0
+  newExecutionCard: 0
   aetherCells: 0
   newLocations: []
+  reputation_Mages: 0
+  reputation_Mutants: 0
+  reputation_Rogues: 0
+  reputation_Techs: 0
+  reputation_Warriors: 0

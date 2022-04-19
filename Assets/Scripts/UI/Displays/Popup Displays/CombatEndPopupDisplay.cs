@@ -31,9 +31,27 @@ public class CombatEndPopupDisplay : MonoBehaviour
 
         if (victoryText.activeSelf)
         {
-            if (dMan.EngagedHero.NextDialogueClip is CombatRewardClip)
+            if (dMan.EngagedHero.NextDialogueClip is CombatRewardClip crc)
+            {
                 uMan.CreateNewCardPopup(null,
                     CardManager.Instance.ChooseCards(CardManager.ChooseCardType.Combat_Reward));
+
+                if (crc.NewNarrative != null) gMan.CurrentNarrative = crc.NewNarrative; // TESTING
+
+                if (crc.NewLocations != null)
+                {
+                    float delay = 0;
+                    foreach (NewLocation newLoc in crc.NewLocations)
+                    {
+                        gMan.GetActiveLocation(newLoc.Location, newLoc.NewNpc);
+                        if (newLoc.Location.IsAugmenter) continue;
+                        FunctionTimer.Create(() => uMan.CreateLocationPopup
+                        (gMan.GetActiveLocation(newLoc.Location), true), delay);
+                        delay += 5;
+                    }
+                }
+                else Debug.LogWarning("NEW LOCATIONS IS NULL!");
+            }
             else Debug.LogError("NEXT CLIP IS NOT COMBAT REWARD CLIP!");
         }
         else

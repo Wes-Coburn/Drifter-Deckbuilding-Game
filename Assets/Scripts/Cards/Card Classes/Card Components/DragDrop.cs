@@ -82,7 +82,7 @@ public class DragDrop : MonoBehaviour
     {
         transform.localPosition = container.transform.position;
         transform.SetSiblingIndex(lastIndex);
-        IsPlayed = false; // TESTING
+        IsPlayed = false;
         AnimationManager.Instance.RevealedHandState(gameObject);
     }
 

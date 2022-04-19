@@ -27,11 +27,12 @@ MonoBehaviour:
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   dialogueResponse2:
-    responseText: '*Leave*'
-    response_NextClip: {fileID: 11400000}
+    responseText: (Continue)
+    response_NextClip: {fileID: 11400000, guid: e1488e50fec1f5d4dbe9649012fe7d96,
+      type: 2}
     npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
-    response_IsWorldMapStart: 1
+    response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
     response_IsShopStart: 0
     response_IsCloningStart: 0
@@ -56,5 +57,9 @@ MonoBehaviour:
   newAllyCard: 0
   newExecutionCard: 0
   aetherCells: 0
-  newRandomEncounter: 0
   newLocations: []
+  reputation_Mages: 0
+  reputation_Mutants: 0
+  reputation_Rogues: 0
+  reputation_Techs: 0
+  reputation_Warriors: 0

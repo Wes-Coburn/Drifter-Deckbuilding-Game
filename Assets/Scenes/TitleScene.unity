@@ -1268,7 +1268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7219d0b0647b06943b317352c5d081a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  developerMode: 1
+  developerMode: 0
   setEnemyHealth1: 0
   addStartUnits: 1
   addStartSkills: 1
@@ -1277,8 +1277,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 14df74eab3a27eb4397e917831e0abb1, type: 2}
   - {fileID: 11400000, guid: 2de3c75baa7d5f54fbe6c020c04073e9, type: 2}
   - {fileID: 11400000, guid: 7ec381d799404eb4abf4d674191a948b, type: 2}
-  developerTestHero: {fileID: 11400000, guid: 2de3c75baa7d5f54fbe6c020c04073e9, type: 2}
-  enemyTestHero: {fileID: 11400000, guid: 2e9de5005239b2046bb8ea9fc3a8ff9a, type: 2}
+  gauntletEnemy: {fileID: 11400000, guid: 488958e5283d607488b5c7b93283295e, type: 2}
+  developerTestHero: {fileID: 0}
+  enemyTestHero: {fileID: 0}
   testAugments:
   - {fileID: 11400000, guid: 7264763dfee18dd41a9e3bed17fa5f7d, type: 2}
   - {fileID: 11400000, guid: f5922062de597b649accf655444b3dc7, type: 2}
@@ -1309,13 +1310,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2d63339ff6b071443bd15c05153efc90, type: 2}
   - {fileID: 11400000, guid: 7feaf3352a0b8f64eaf3e4055a84251f, type: 2}
   - {fileID: 11400000, guid: 45ba6b3f7fd42e54d8c2288091517fd4, type: 2}
-  enableTestCards_2: 1
-  testCards_2:
-  - {fileID: 11400000, guid: 072b1f3b30affea41a0ec183d9a18982, type: 2}
-  - {fileID: 11400000, guid: 072b1f3b30affea41a0ec183d9a18982, type: 2}
-  - {fileID: 11400000, guid: 072b1f3b30affea41a0ec183d9a18982, type: 2}
-  - {fileID: 11400000, guid: 072b1f3b30affea41a0ec183d9a18982, type: 2}
-  - {fileID: 11400000, guid: 072b1f3b30affea41a0ec183d9a18982, type: 2}
+  enableTestCards_2: 0
+  testCards_2: []
   enableTestCards_3: 0
   testCards_3:
   - {fileID: 11400000, guid: aad035373b2251640b0ed2ca6c111ae8, type: 2}

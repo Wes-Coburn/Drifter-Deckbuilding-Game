@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b107ecdac65374f8c56b3212c061ce, type: 3}
   m_Name: Junker_Prompt_5
   m_EditorClassIdentifier: 
-  dialoguePromptText: '*The light grows brighter as you struggle forward, and you
-    see that it emanates from a tall lightpost. Not far beyond are the trash heaps.*'
+  dialoguePromptText: Who... are you?
   dialogueResponse1:
-    responseText: 
-    response_NextClip: {fileID: 0}
+    responseText: I am <HERO NAME>.
+    response_NextClip: {fileID: 11400000, guid: b1b4a96660a485940ada0fecfecf1aed,
+      type: 2}
     npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
@@ -27,8 +27,8 @@ MonoBehaviour:
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   dialogueResponse2:
-    responseText: (Continue)
-    response_NextClip: {fileID: 11400000, guid: 4b0e2871a3c0ece40800c68e182b96fe,
+    responseText: Just another drifter.
+    response_NextClip: {fileID: 11400000, guid: 3d0deaf1a2509f246b1d679f71fcbbf3,
       type: 2}
     npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
@@ -40,8 +40,9 @@ MonoBehaviour:
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   dialogueResponse3:
-    responseText: 
-    response_NextClip: {fileID: 0}
+    responseText: My name isn't important.
+    response_NextClip: {fileID: 11400000, guid: ed7e1e5bd1698e4448a45d9f9fa92191,
+      type: 2}
     npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
@@ -52,9 +53,14 @@ MonoBehaviour:
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   newEngagedHero: {fileID: 0}
-  hideNPC: 1
+  hideNPC: 0
   newCard: {fileID: 0}
   newAllyCard: 0
   newExecutionCard: 0
   aetherCells: 0
   newLocations: []
+  reputation_Mages: 0
+  reputation_Mutants: 0
+  reputation_Rogues: 0
+  reputation_Techs: 0
+  reputation_Warriors: 0

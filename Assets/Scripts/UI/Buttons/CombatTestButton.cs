@@ -5,18 +5,16 @@ public class CombatTestButton : MonoBehaviour
     [Header("DEVELOPER MODE")]
     [SerializeField] private bool developerMode;
     [SerializeField] private bool setEnemyHealth1;
-    [Space]
     [SerializeField] private bool addStartUnits;
     [SerializeField] private bool addStartSkills;
-    [Space]
     [SerializeField] [Range(0, 3)] private int reputationTier;
-
-    [SerializeField] private PlayerHero[] playerTestHeroes;
     [SerializeField] private PlayerHero developerTestHero;
     [SerializeField] private EnemyHero enemyTestHero;
+    [Header("GAUNTLET")]
+    [SerializeField] private EnemyHero gauntletEnemy;
     [SerializeField] private HeroAugment[] testAugments;
     [SerializeField] private HeroItem[] testItems;
-
+    [Header("TEST CARDS")]
     [SerializeField] private bool enableTestCards_1;
     [SerializeField] private Card[] testCards_1;
     [SerializeField] private bool enableTestCards_2;
@@ -34,6 +32,8 @@ public class CombatTestButton : MonoBehaviour
         gMan = GameManager.Instance;
         pMan = PlayerManager.Instance;
 
+        if (developerTestHero != null) Debug.LogWarning("TEST HERO LOADED!");
+        if (enemyTestHero != null) Debug.LogWarning("TEST ENEMY LOADED!");
         if (developerMode)
         {
             Debug.LogWarning("DEVELOPER MODE!");
@@ -48,24 +48,37 @@ public class CombatTestButton : MonoBehaviour
     public void OnClick()
     {
         if (SceneLoader.SceneIsLoading) return;
-
         //UIManager.Instance.ShakeCamera(EZCameraShake.CameraShakePresets.Bump); // TESTING
+        gMan.IsCombatTest = true;
+        SceneLoader.LoadAction += () => LoadCombatTest();
+        SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);
+    }
+
+    private void LoadCombatTest()
+    {
+        // Enemy Hero
         EnemyHero eh = ScriptableObject.CreateInstance<EnemyHero>();
-        eh.LoadHero(enemyTestHero);
+        EnemyHero loadEnemy;
+        if (developerMode && enemyTestHero != null) loadEnemy = enemyTestHero;
+        else loadEnemy = gauntletEnemy;
+        eh.LoadHero(loadEnemy);
+        // Player Hero
         PlayerHero ph = ScriptableObject.CreateInstance<PlayerHero>();
-        if (!developerMode || developerTestHero == null)
+        if (developerMode && developerTestHero != null) ph.LoadHero(developerTestHero);
+        else
         {
-            int randomHero = Random.Range(0, playerTestHeroes.Length - 1);
-            ph.LoadHero(playerTestHeroes[randomHero]);
+            PlayerHero[] playerHeroes = Resources.LoadAll<PlayerHero>("Heroes");
+            int randomHero = Random.Range(0, playerHeroes.Length - 1);
+            ph.LoadHero(playerHeroes[randomHero]);
         }
-        else ph.LoadHero(developerTestHero);
+
         DialogueManager.Instance.EngagedHero = eh;
         pMan.PlayerHero = ph;
-        
+
         // Test Augments
         foreach (HeroAugment aug in testAugments)
             pMan.AddAugment(aug);
-        
+
         // Test Items
         HeroItem[] items = new HeroItem[testItems.Length];
         testItems.CopyTo(items, 0);
@@ -97,7 +110,7 @@ public class CombatTestButton : MonoBehaviour
                     CardManager.Instance.AddCard(c, GameManager.PLAYER);
             }
         }
-        
+
         // Start Units
         CardManager caMan = CardManager.Instance;
         if (!developerMode || addStartUnits)
@@ -114,36 +127,33 @@ public class CombatTestButton : MonoBehaviour
                     caMan.AddCard(skill, GameManager.PLAYER);
         }
         // Reputation
-        if (developerMode)
+        int reputation;
+        int tier;
+        if (developerMode) tier = reputationTier;
+        else tier = 0;
+        switch (tier)
         {
-            int reputation;
-            switch (reputationTier)
-            {
-                case 0:
-                    reputation = 0;
-                    break;
-                case 1:
-                    reputation = GameManager.REPUTATION_TIER_1;
-                    break;
-                case 2:
-                    reputation = GameManager.REPUTATION_TIER_2;
-                    break;
-                case 3:
-                    reputation = GameManager.REPUTATION_TIER_3;
-                    break;
-                default:
-                    Debug.LogError("INVALID TIER!");
-                    return;
-            }
-
-            gMan.Reputation_Mages = reputation;
-            gMan.Reputation_Mutants = reputation;
-            gMan.Reputation_Rogues = reputation;
-            gMan.Reputation_Techs = reputation;
-            gMan.Reputation_Warriors = reputation;
+            case 0:
+                reputation = 0;
+                break;
+            case 1:
+                reputation = GameManager.REPUTATION_TIER_1;
+                break;
+            case 2:
+                reputation = GameManager.REPUTATION_TIER_2;
+                break;
+            case 3:
+                reputation = GameManager.REPUTATION_TIER_3;
+                break;
+            default:
+                Debug.LogError("INVALID TIER!");
+                return;
         }
 
-        gMan.IsCombatTest = true;
-        SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);
+        gMan.Reputation_Mages = reputation;
+        gMan.Reputation_Mutants = reputation;
+        gMan.Reputation_Rogues = reputation;
+        gMan.Reputation_Techs = reputation;
+        gMan.Reputation_Warriors = reputation;
     }
 }

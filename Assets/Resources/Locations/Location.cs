@@ -14,6 +14,7 @@ public class Location : ScriptableObject
     [SerializeField] private Sound locationSoundscape;
 
     [Header("LOCATION TYPE")]
+    [SerializeField] private bool isCombatOnly;
     [SerializeField] private bool isHomeBase;
     [SerializeField] private bool isAugmenter;
     [SerializeField] private bool isRecruitment;
@@ -35,6 +36,7 @@ public class Location : ScriptableObject
     public Vector2 WorldMapPosition { get => worldMapPosition; }
     public NPCHero FirstNPC { get => firstNPC; }
     public Sound LocationSoundscape { get => locationSoundscape; }
+    public bool IsCombatOnly { get => isCombatOnly; }
     public bool IsHomeBase { get => isHomeBase; }
     public bool IsAugmenter { get => isAugmenter; }
     public bool IsRecruitment { get => isRecruitment; }
@@ -57,6 +59,7 @@ public class Location : ScriptableObject
         worldMapPosition = location.WorldMapPosition;
         firstNPC = location.FirstNPC;
         locationSoundscape = location.LocationSoundscape;
+        isCombatOnly = location.IsCombatOnly;
         isHomeBase = location.IsHomeBase;
         isAugmenter = location.IsAugmenter;
         isRecruitment = location.IsRecruitment;

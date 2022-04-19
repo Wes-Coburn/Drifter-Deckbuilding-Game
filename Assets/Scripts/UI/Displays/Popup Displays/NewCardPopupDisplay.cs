@@ -110,7 +110,7 @@ public class NewCardPopupDisplay : MonoBehaviour
         Card newCard;
         if (cardSelection == 0) newCard = NewCard;
         else newCard = chooseCards[cardSelection - 1];
-        pMan.PlayerDeckList.Add(newCard);
+        CardManager.Instance.AddCard(newCard, GameManager.PLAYER, true);
 
         DialogueClip nextClip = dMan.EngagedHero.NextDialogueClip;
         if (!SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene))
@@ -135,7 +135,7 @@ public class NewCardPopupDisplay : MonoBehaviour
             else
             {
                 dMan.EngagedHero.NextDialogueClip = crc.NextDialogueClip;
-                SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene);
+                SceneLoader.LoadScene(SceneLoader.Scene.WorldMapScene); // TESTING
             }
         }
         else Debug.LogError("NEXT CLIP IS NOT COMBAT_REWARD_CLIP!");

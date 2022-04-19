@@ -216,6 +216,18 @@ public class CombatManager : MonoBehaviour
         Card cardScript = card.GetComponent<CardDisplay>().CardScript;
         Destroy(card.GetComponent<CardDisplay>().CardContainer);
         if (card != null) Destroy(card);
+        if (cardScript is SkillCard)
+        {
+            Card script;
+            int index = pMan.PlayerDeckList.FindIndex(x => x.CardName == cardScript.CardName);
+            if (index != -1) script = pMan.PlayerDeckList[index];
+            else
+            {
+                Debug.LogError("SKILL NOT FOUND!");
+                return null;
+            }
+            caMan.RemovePlayerCard(script); // TESTING
+        }
         return cardScript;
     }
 
@@ -443,6 +455,12 @@ public class CombatManager : MonoBehaviour
      *****/
     public bool IsPlayable(GameObject card, bool isPrecheck = false)
     {
+        if (card == null)
+        {
+            Debug.LogError("CARD IS NULL!");
+            return false;
+        }
+
         CardDisplay display = card.GetComponent<CardDisplay>();
         int actionCost = display.CurrentEnergyCost;
         int playerActions = pMan.EnergyLeft;
@@ -613,11 +631,7 @@ public class CombatManager : MonoBehaviour
             else PlayerHandCards.Remove(card);
 
             if (card.GetComponent<CardDisplay>().CardScript.BanishAfterPlay)
-            {
-                card.GetComponent<CardZoom>().DestroyZoomPopups();
-                Destroy(card.GetComponent<CardDisplay>().CardContainer);
-                if (card != null) Destroy(card);
-            }
+                HideCard(card);
             else PlayerDiscardCards.Add(HideCard(card));
         }
         else
@@ -888,7 +902,7 @@ public class CombatManager : MonoBehaviour
     {
         if (damageValue < 1) return false;
 
-        uMan.ShakeCamera(EZCameraShake.CameraShakePresets.Bump);
+        uMan.ShakeCamera(UIManager.Bump_Light);
         //anMan.CreateParticleSystem(target, ParticleSystemHandler.ParticlesType.Damage, 1); // TESTING
 
         int targetValue;
@@ -1165,18 +1179,23 @@ public class CombatManager : MonoBehaviour
                 Debug.LogError("CARD IS NULL!");
                 return;
             }
+
+            Card script = card.GetComponent<CardDisplay>().CardScript;
             card.GetComponent<CardZoom>().DestroyZoomPopups();
+
             if (cardTag == PLAYER_CARD)
             {
                 PlayerZoneCards.Remove(card);
-                PlayerDiscardCards.Add(HideCard(card));
+                if (script.BanishAfterPlay) HideCard(card); // TESTING
+                else PlayerDiscardCards.Add(HideCard(card));
             }
             else if (cardTag == ENEMY_CARD)
             {
                 EnemyZoneCards.Remove(card);
-                EnemyDiscardCards.Add(HideCard(card));
+                if (script.BanishAfterPlay) HideCard(card); // TESTING
+                else EnemyDiscardCards.Add(HideCard(card));
             }
-            SelectPlayableCards(); // TESTING
+            SelectPlayableCards();
         }
     }
 }

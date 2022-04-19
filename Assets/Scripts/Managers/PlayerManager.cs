@@ -343,7 +343,7 @@ public class PlayerManager : MonoBehaviour
             uMan.CreateFleetingInfoPopup("Ultimate not ready!");
             ErrorSound();
         }
-        else if (EnergyLeft < PlayerHero.HeroUltimate.PowerCost)
+        else if (EnergyLeft < GetUltimateCost()) // TESTING
         {
             uMan.CreateFleetingInfoPopup("Not enough energy!");
             ErrorSound();
@@ -358,11 +358,20 @@ public class PlayerManager : MonoBehaviour
             GameObject heroUltimate =
                 coMan.PlayerHero.GetComponent<PlayerHeroDisplay>().HeroUltimate;
             efMan.StartEffectGroupList(groupList, heroUltimate);
-            EnergyLeft -= PlayerHero.HeroUltimate.PowerCost;
+            EnergyLeft -= GetUltimateCost(); // TESTING
             HeroDisplay.UltimateUsedIcon.SetActive(true);
             PlayerPowerSounds(true);
             ParticleBurst(heroUltimate);
         }
+    }
+
+    public int GetUltimateCost() // TESTING
+    {
+        int cost = PlayerHero.HeroUltimate.PowerCost;
+        if (gMan.GetReputationTier
+            (GameManager.ReputationType.Techs) > 2) cost--;
+        if (cost < 0) cost = 0;
+        return cost;
     }
 
     private void ParticleBurst(GameObject parent)

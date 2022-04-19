@@ -66,7 +66,7 @@ public class AetherCellPopupDisplay : MonoBehaviour
         else if (dMan.EngagedHero.NextDialogueClip is CombatRewardClip crc)
         {
             dMan.EngagedHero.NextDialogueClip = crc.NextDialogueClip;
-            SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene);
+            SceneLoader.LoadScene(SceneLoader.Scene.WorldMapScene); // TESTING
         }
         else Debug.LogError("NEXT CLIP IS NOT COMBAT_REWARD_CLIP!");
     }

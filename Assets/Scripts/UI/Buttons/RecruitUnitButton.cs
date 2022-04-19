@@ -1,24 +1,32 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class RecruitUnitButton : MonoBehaviour
 {
     [SerializeField] private GameObject recruitCost;
     private UnitCard unitCard;
-    private int RecruitCost
-    {
-        set
-        {
-            recruitCost.GetComponent<TextMeshProUGUI>().SetText(value.ToString());
-        }
-    }
     public UnitCard UnitCard
     {
         get => unitCard;
         set
         {
             unitCard = value;
-            RecruitCost = GameManager.Instance.GetRecruitCost(unitCard);
+            TextMeshProUGUI txtGui = recruitCost.GetComponent<TextMeshProUGUI>();
+            txtGui.SetText(GameManager.Instance.GetRecruitCost(unitCard, out bool isDiscounted).ToString());
+            if (isDiscounted)
+            {
+                Button button = GetComponent<Button>();
+                if (button == null)
+                {
+                    Debug.LogError("BUTTON IS NULL!");
+                    return;
+                }
+
+                var colors = button.colors;
+                colors.normalColor = Color.green;
+                button.colors = colors;
+            }
         }
     }
     public void OnClick() =>

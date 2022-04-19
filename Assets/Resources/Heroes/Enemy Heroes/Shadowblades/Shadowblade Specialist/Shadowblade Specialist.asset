@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb145cc0311afb449113575373eae4d, type: 3}
+  m_Name: Shadowblade Specialist
+  m_EditorClassIdentifier: 
+  developerNotes: 
+  heroName: Shadowblade Specialist
+  heroShortName: 
+  heroPortrait: {fileID: 21300000, guid: 8ca03a7233688ac4e96a191e578fa217, type: 3}
+  heroDescription: The Shadowblade Specialist is...
+  heroWin:
+    name: 
+    clip: {fileID: 0}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  heroLose:
+    name: 
+    clip: {fileID: 0}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  firstDialogueClip: {fileID: 11400000, guid: d8d5a17cde4826f4e9b38ed06b4f07b3, type: 2}
+  isBoss: 0
+  reinforcements:
+  - {fileID: 11400000, guid: 941daae3739ca014895bd0dbb08412e7, type: 2}
+  enemyHeroPower: {fileID: 0}

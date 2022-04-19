@@ -14,12 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reputationType: 3
   reputationColor: {r: 0, g: 0.18852282, b: 1, a: 1}
-  tier1_Bonus: T1
-  tier1_Effects: []
-  tier1_ResolveOrder: 1
-  tier2_Bonus: T2
-  tier2_Effects: []
+  tier1_Bonus: At the beginning of each combat, create an Invention in hand.
+  tier1_Effects:
+  - {fileID: 11400000, guid: 2c8f9c3872da2094abe600475a0c21fc, type: 2}
+  tier1_ResolveOrder: 3
+  tier2_Bonus: "Give the first two units you play each combat \u201CResearch: Gain
+    +1|+0.\u201D"
+  tier2_Effects:
+  - {fileID: 11400000, guid: 2287e53384a6272479ec4ed878d9d413, type: 2}
   tier2_ResolveOrder: 1
-  tier3_Bonus: T3
+  tier3_Bonus: Your ultimate costs 1 less.
   tier3_Effects: []
   tier3_ResolveOrder: 1

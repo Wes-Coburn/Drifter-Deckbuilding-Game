@@ -120,10 +120,8 @@ public class EffectManager : MonoBehaviour
      * ****** RESET_EFFECT_MANAGER
      * *****
      *****/
-    public void Reset_EffectManager()
-    {
+    public void Reset_EffectManager() =>
         effectsResolving = false;
-    }
 
     /******
      * *****
@@ -168,7 +166,7 @@ public class EffectManager : MonoBehaviour
         {
             Debug.LogWarning("GROUP LIST DELAYED!");
             EventManager.Instance.NewDelayedAction(() =>
-            StartEffectGroupList(groupList, source, triggerName), 0.5f, true);
+            StartEffectGroupList(groupList, source, triggerName), 0, true);
             return;
         }
 
@@ -205,7 +203,7 @@ public class EffectManager : MonoBehaviour
         if (effectGroupList.Count < 1)
         {
             Debug.LogError("EMPTY EFFECT GROUP LIST!");
-            EffectsResolving = false; // TESTING
+            EffectsResolving = false;
             return;
         }
 
@@ -930,8 +928,9 @@ public class EffectManager : MonoBehaviour
             if (effect is DamageEffect || effect is DestroyEffect ||
                 effect is HealEffect || effect.ShootRay) ResolveEffect(targetList, effect, newDelay);
             else FunctionTimer.Create(() => ResolveEffect(targetList, effect), newDelay);
-            newDelay += 0.5f;
 
+            if (!(effect is GiveNextUnitEffect) && 
+                !(effect is ChangeCostEffect chgCst && chgCst.ChangeNextCost)) newDelay += 0.5f; // TESTING
         }
     }
 
@@ -1319,7 +1318,7 @@ public class EffectManager : MonoBehaviour
         {
             if (isUserAbort)
             {
-                pMan.EnergyLeft += pMan.PlayerHero.HeroUltimate.PowerCost;
+                pMan.EnergyLeft += pMan.GetUltimateCost(); // TESTING
                 pMan.HeroUltimateProgress = GameManager.HERO_ULTMATE_GOAL;
                 coMan.PlayerHero.GetComponent<PlayerHeroDisplay>().UltimateUsedIcon.SetActive(false);
             }
@@ -1727,6 +1726,11 @@ public class EffectManager : MonoBehaviour
             cards.Add(go);
         foreach (GameObject card in cards)
         {
+            if (card == null)
+            {
+                Debug.LogWarning("CARD IS NULL!");
+                continue;
+            }
             CardDisplay cd = card.GetComponent<CardDisplay>();
             if (cd.CurrentEffects.Remove(rEffect))
                 cd.ChangeCurrentEnergyCost(-rEffect.ChangeValue);

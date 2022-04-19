@@ -138,6 +138,7 @@ public class CardManager : MonoBehaviour
         pMan = PlayerManager.Instance;
         enMan = EnemyManager.Instance;
         auMan = AudioManager.Instance;
+
         PlayerRecruitMages = new List<UnitCard>();
         PlayerRecruitMutants = new List<UnitCard>();
         PlayerRecruitRogues = new List<UnitCard>();
@@ -270,7 +271,7 @@ public class CardManager : MonoBehaviour
      * ****** ADD/REMOVE_CARD
      * *****
      *****/
-    public void AddCard(Card card, string hero)
+    public void AddCard(Card card, string hero, bool newCard = false)
     {
         List<Card> deck;
         Card cardInstance;
@@ -294,9 +295,47 @@ public class CardManager : MonoBehaviour
         }
         cardInstance.LoadCard(card);
         deck.Add(cardInstance);
+        if (hero == GameManager.PLAYER && newCard) UnitReputationChange(card, false); // TESTING
     }
-    public void RemovePlayerCard(Card card) =>
+    public void RemovePlayerCard(Card card)
+    {
         PlayerManager.Instance.PlayerDeckList.Remove(card);
+        UnitReputationChange(card, true); // TESTING
+    }
+
+    private void UnitReputationChange(Card card, bool isRemoval)
+    {
+        if (card is UnitCard) { } // TESTING
+        else return;
+
+        int change;
+        if (isRemoval) change = -1;
+        else change = 1;
+        GameManager.ReputationType repType;
+
+        switch(card.CardType)
+        {
+            case MAGE:
+                repType = GameManager.ReputationType.Mages;
+                break;
+            case MUTANT:
+                repType = GameManager.ReputationType.Mutants;
+                break;
+            case ROGUE:
+                repType = GameManager.ReputationType.Rogues;
+                break;
+            case TECH:
+                repType = GameManager.ReputationType.Techs;
+                break;
+            case WARRIOR:
+                repType = GameManager.ReputationType.Warriors;
+                break;
+            default:
+                Debug.LogError("INVALID REPUTATION TYPE!");
+                return;
+        }
+        GameManager.Instance.ChangeReputation(repType, change);
+    }
     
     /******
      * *****

@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
     // Player
     public const string PLAYER = "Player";
     public const int MINIMUM_MAIN_DECK_SIZE = 15;
-    public const int MINIMUM_SKILL_DECK_SIZE = 6;
+    public const int MINIMUM_SKILL_DECK_SIZE = 0;
     public const int PLAYER_STARTING_HEALTH = 20;
     public const int PLAYER_HAND_SIZE = 3;
     public const int PLAYER_START_UNITS = 3;
@@ -111,31 +111,33 @@ public class GameManager : MonoBehaviour
 
     // Enemy
     public const string ENEMY = "Enemy";
-    public const int ENEMY_STARTING_HEALTH = 20;
-    //public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
+    //public const int ENEMY_STARTING_HEALTH = 20;
+    public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
     public const int BOSS_BONUS_HEALTH = 10;
     public const int ENEMY_HAND_SIZE = 0;
     public const int ENEMY_START_UNITS = 5;
 
     // Aether Rewards
-    public const int IGNORE_CARD_AETHER = 1;
-    // Aether Costs
-    public const int LEARN_SKILL_COST = 2;
-    public const int REMOVE_CARD_COST = 1;
-    public const int CLONE_UNIT_COST = 2;
-    public const int CLONE_RARE_UNIT_COST = 4;
+    public const int IGNORE_CARD_AETHER = 2;
+    // Skills
+    public const int LEARN_SKILL_COST = 1;
+    // Card Removal
+    private const int REMOVE_CARD_COST = 1; // Access through GetRemovalCost()
     // Recruits
-    public const int RECRUIT_UNIT_COST = 2;
-    public const int RECRUIT_RARE_UNIT_COST = 4;
+    public const int RECRUIT_UNIT_COST = 3;
+    public const int RECRUIT_RARE_UNIT_COST = 5;
     public const int RECRUIT_LOYALTY_GOAL = 3;
+    // Cloning
+    public const int CLONE_UNIT_COST = 3;
+    public const int CLONE_RARE_UNIT_COST = 5;
     // Items
-    public const int BUY_ITEM_COST = 1;
-    public const int BUY_RARE_ITEM_COST = 2;
+    public const int BUY_ITEM_COST = 2;
+    public const int BUY_RARE_ITEM_COST = 3;
     public const int SHOP_LOYALTY_GOAL = 3;
     // Reputation
-    public const int REPUTATION_TIER_1 = 3;
-    public const int REPUTATION_TIER_2 = 6;
-    public const int REPUTATION_TIER_3 = 10;
+    public const int REPUTATION_TIER_1 = 10;
+    public const int REPUTATION_TIER_2 = 20;
+    public const int REPUTATION_TIER_3 = 30;
 
     /******
      * *****
@@ -164,6 +166,12 @@ public class GameManager : MonoBehaviour
         LoadPlayerPreferences();
         Debug.Log("Application Version: " + Application.version);
         SceneLoader.LoadScene(SceneLoader.Scene.TitleScene, false, false); // TESTING
+    }
+
+    public int GetRemoveCardCost(Card card)
+    {
+        if (card is SkillCard) return 0;
+        else return REMOVE_CARD_COST;
     }
 
     /******
@@ -219,7 +227,7 @@ public class GameManager : MonoBehaviour
                 return;
             }
         }
-        Debug.LogError("NO VALID RANDOM ENCOUNTERS!");
+        Debug.LogWarning("NO VALID RANDOM ENCOUNTERS!");
     }
 
     /******
@@ -270,7 +278,7 @@ public class GameManager : MonoBehaviour
                 isCentered = true;
                 break;
             case 2:
-                tip = "Draw a skill by clicking on your skill deck (bottom left).";
+                tip = "Draw a skill by clicking on your skill deck (bottom left). Once a skill leaves your hand, it's gone forever.";
                 isCentered = true;
                 break;
             case 3:
@@ -334,11 +342,12 @@ public class GameManager : MonoBehaviour
         pMan.PlayerDeckList.Clear(); // TESTING
 
         // REPUTATION
-        Reputation_Mages = 0;
-        Reputation_Mutants = 0;
-        Reputation_Rogues = 0;
-        Reputation_Techs = 0;
-        Reputation_Warriors = 0;
+        int startRep = PLAYER_START_UNITS;
+        Reputation_Mages = startRep;
+        Reputation_Mutants = startRep;
+        Reputation_Rogues = startRep;
+        Reputation_Techs = startRep;
+        Reputation_Warriors = startRep;
     }
 
     /******
@@ -789,7 +798,7 @@ public class GameManager : MonoBehaviour
                 Reputation_Warriors += repChange;
                 break;
         }
-        evMan.NewDelayedAction(() => uMan.SetReputation(repType, repChange), 0.5f); // TESTING
+        evMan.NewDelayedAction(() => uMan.SetReputation(repType, repChange), 0.5f);
     }
 
     public int GetReputation(ReputationType repType)
@@ -872,7 +881,7 @@ public class GameManager : MonoBehaviour
 
         void GetBonusEffects(ReputationBonuses bonuses, int reputationTier)
         {
-            if (reputationTier > 0 && resolveOrder == bonuses.Tier3_ResolveOrder) ScheduleEffects(bonuses.Tier1_Effects);
+            if (reputationTier > 0 && resolveOrder == bonuses.Tier1_ResolveOrder) ScheduleEffects(bonuses.Tier1_Effects);
             if (reputationTier > 1 && resolveOrder == bonuses.Tier2_ResolveOrder) ScheduleEffects(bonuses.Tier2_Effects);
             if (reputationTier > 2 && resolveOrder == bonuses.Tier3_ResolveOrder) ScheduleEffects(bonuses.Tier3_Effects);
 
@@ -1041,7 +1050,6 @@ public class GameManager : MonoBehaviour
         coMan.PlayerHero.GetComponent<HeroDisplay>().HeroScript = pMan.PlayerHero;
         coMan.EnemyHero.GetComponent<HeroDisplay>().HeroScript = enMan.EnemyHero;
         // SCHEDULE ACTIONS
-        ResolveReputationEffects(1); // REPUTATION EFFECTS [RESOLVE ORDER = 1]
         evMan.NewDelayedAction(() => anMan.CombatIntro(), 1);
         evMan.NewDelayedAction(() => CombatStart(), 1);
         evMan.NewDelayedAction(() => StartCombatTurn(PLAYER), 2);
@@ -1064,6 +1072,7 @@ public class GameManager : MonoBehaviour
             if (enMan.NextReinforcements > 0) delay = 2;
             evMan.NewDelayedAction(() => enMan.UpdateReinforcements(), delay);
             if (IsTutorial) evMan.NewDelayedAction(() => Tutorial_Tooltip(1), 0); // TUTORIAL!
+            ResolveReputationEffects(1); // REPUTATION EFFECTS [RESOLVE ORDER = 1]
             evMan.NewDelayedAction(() => Mulligan(), 0.5f);
             ResolveReputationEffects(2); // REPUTATION EFFECTS [RESOLVE ORDER = 2]
             ResolveReputationEffects(3); // REPUTATION EFFECTS [RESOLVE ORDER = 3]
@@ -1343,12 +1352,17 @@ public class GameManager : MonoBehaviour
      * ****** GET_ITEM_COST
      * *****
      *****/
-    public int GetItemCost(HeroItem item)
+    public int GetItemCost(HeroItem item, out bool isDiscounted)
     {
         int itemCost;
         if (item.IsRareItem) itemCost = BUY_RARE_ITEM_COST;
         else itemCost = BUY_ITEM_COST;
-        if (ShopLoyalty == SHOP_LOYALTY_GOAL) itemCost -= BUY_ITEM_COST; // TESTING
+        if (ShopLoyalty == SHOP_LOYALTY_GOAL)
+        {
+            isDiscounted = true;
+            itemCost -= BUY_ITEM_COST;
+        }
+        else isDiscounted = false;
         return itemCost;
     }
 
@@ -1357,12 +1371,24 @@ public class GameManager : MonoBehaviour
      * ****** GET_RECRUIT_COST
      * *****
      *****/
-    public int GetRecruitCost(UnitCard unitCard)
+    public int GetRecruitCost(UnitCard unitCard, out bool isDiscounted)
     {
+        if (unitCard == null)
+        {
+            Debug.LogError("UNIT CARD IS NULL!");
+            isDiscounted = false;
+            return 0;
+        }
+
         int recruitCost;
         if (unitCard.IsRare) recruitCost = RECRUIT_RARE_UNIT_COST;
         else recruitCost = RECRUIT_UNIT_COST;
-        if (RecruitLoyalty == RECRUIT_LOYALTY_GOAL) recruitCost -= RECRUIT_UNIT_COST; // TESTING
+        if (RecruitLoyalty == RECRUIT_LOYALTY_GOAL)
+        {
+            isDiscounted = true;
+            recruitCost -= RECRUIT_UNIT_COST;
+        }
+        else isDiscounted = false;
         return recruitCost;
     }
 

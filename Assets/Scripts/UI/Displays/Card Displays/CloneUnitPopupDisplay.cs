@@ -40,9 +40,9 @@ public class CloneUnitPopupDisplay : MonoBehaviour
 
     public void ConfirmButton_OnClick()
     {
-        CardManager.Instance.AddCard(unitCard, GameManager.PLAYER);
+        CardManager.Instance.AddCard(unitCard, GameManager.PLAYER, true);
         pMan.AetherCells -= gMan.GetCloneCost(unitCard);
-        uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.CloneUnit, false); // TESTING
+        uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.CloneUnit, false);
     }
 
     public void CancelButton_OnClick() => 

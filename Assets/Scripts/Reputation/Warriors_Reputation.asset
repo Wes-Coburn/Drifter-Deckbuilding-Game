@@ -14,12 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reputationType: 4
   reputationColor: {r: 1, g: 0, b: 0, a: 1}
-  tier1_Bonus: W1
-  tier1_Effects: []
-  tier1_ResolveOrder: 1
-  tier2_Bonus: W2
-  tier2_Effects: []
+  tier1_Bonus: At the beginning of each combat, create an Exploit in hand.
+  tier1_Effects:
+  - {fileID: 11400000, guid: 194f02a26d3d5194dbf0b2da7b1e83cb, type: 2}
+  tier1_ResolveOrder: 3
+  tier2_Bonus: Give the first two units you play each combat Blitz.
+  tier2_Effects:
+  - {fileID: 11400000, guid: 97b0ea163ba0aee4aa955a9db0063752, type: 2}
   tier2_ResolveOrder: 1
-  tier3_Bonus: W3
-  tier3_Effects: []
+  tier3_Bonus: The first three units you play each combat costs 1 less.
+  tier3_Effects:
+  - {fileID: 11400000, guid: 2feee5f2c8cb41842b1daf925e8f4c32, type: 2}
   tier3_ResolveOrder: 1

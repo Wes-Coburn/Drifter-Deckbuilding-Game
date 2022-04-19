@@ -23,8 +23,6 @@ public class EnemyManager : MonoBehaviour
     private EnemyHero enemyHero;
     private int enemyHealth;
     private int nextReinforcements;
-
-    private List<int> refoSched;
     private int handSize;
 
     public bool IsMyTurn { get; set; }
@@ -66,10 +64,9 @@ public class EnemyManager : MonoBehaviour
                     caMan.AddCard(unit, GameManager.ENEMY);
             caMan.ShuffleDeck(GameManager.ENEMY, false);
             ReinforcementSchedule =
-                EnemyHero.Reinforcements[ReinforcementGroup].ReinforcementSchedule.Schedule;
+                enemyHero.Reinforcements[ReinforcementGroup].ReinforcementSchedule.Schedule;
             CurrentReinforcements = 0;
             NextReinforcements = ReinforcementSchedule[CurrentReinforcements];
-            refoSched = ReinforcementSchedule; // TESTING
         }
     }
     public int EnemyHealth
@@ -110,7 +107,6 @@ public class EnemyManager : MonoBehaviour
     public void StartEnemyTurn()
     {
         int refo = CurrentReinforcements;
-        refoSched = ReinforcementSchedule;
         handSize = coMan.EnemyHandCards.Count;
         int cardsToPlay = handSize;
         int maxHand = GameManager.MAX_HAND_SIZE;
@@ -256,7 +252,7 @@ public class EnemyManager : MonoBehaviour
     private void NextReinforcementsState()
     {
         anMan.NextReinforcementsState();
-        if (++CurrentReinforcements > refoSched.Count - 1) CurrentReinforcements = 0;
-        NextReinforcements = refoSched[CurrentReinforcements];
+        if (++CurrentReinforcements > ReinforcementSchedule.Count - 1) CurrentReinforcements = 0;
+        NextReinforcements = ReinforcementSchedule[CurrentReinforcements];
     }
 }

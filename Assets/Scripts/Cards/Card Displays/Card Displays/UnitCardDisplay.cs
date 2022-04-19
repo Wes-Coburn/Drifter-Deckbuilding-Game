@@ -37,7 +37,7 @@ public class UnitCardDisplay : CardDisplay
         private set
         {
             UnitCard.CurrentPower = value;
-            DisplayPower(CurrentPower); // TESTING
+            DisplayPower(CurrentPower);
         }
     }
     private void DisplayPower(int power)
@@ -57,7 +57,7 @@ public class UnitCardDisplay : CardDisplay
         set
         {
             UnitCard.CurrentHealth = value;
-            DisplayHealth(CurrentHealth); // TESTING
+            DisplayHealth(CurrentHealth);
         }
     }
     private void DisplayHealth(int health)
@@ -90,22 +90,20 @@ public class UnitCardDisplay : CardDisplay
         displayedAbilities = new List<CardAbility>();
     }
 
-    /******
-     * *****
-     * ****** CHANGE_CURRENT_POWER
-     * *****
-     *****/
     public void ChangeCurrentPower(int value)
     {
         UnitCard.CurrentPower += value;
         DisplayPower(CurrentPower);
     }
 
-    /******
-     * *****
-     * ****** DISPLAY_CARD
-     * *****
-     *****/
+    private GameObject CreateAbilityIcon(CardAbility cardAbility)
+    {
+        GameObject abilityIcon = Instantiate(abilityIconPrefab, new Vector2(0, 0), Quaternion.identity);
+        abilityIcon.GetComponent<AbilityIconDisplay>().AbilityScript = cardAbility;
+        abilityIcon.transform.SetParent(currentAbilitiesDisplay.transform, false);
+        return abilityIcon;
+    }
+
     protected override void DisplayCard()
     {
         base.DisplayCard();
@@ -116,11 +114,6 @@ public class UnitCardDisplay : CardDisplay
             AddCurrentAbility(cardAbility);
     }
 
-    /******
-     * *****
-     * ****** DISPLAY_ZOOM_CARD
-     * *****
-     *****/
     public override void DisplayZoomCard(GameObject parentCard, Card card = null)
     {
         base.DisplayZoomCard(parentCard, card);
@@ -184,11 +177,6 @@ public class UnitCardDisplay : CardDisplay
         }
     }
 
-    /******
-     * *****
-     * ****** DISPLAY_CARD_PAGE_CARD
-     * *****
-     *****/
     public override void DisplayCardPageCard(Card card)
     {
         base.DisplayCardPageCard(card);
@@ -213,22 +201,6 @@ public class UnitCardDisplay : CardDisplay
             GetComponent<CardZoom>().CreateZoomAbilityIcon(ca,
                 currentAbilitiesDisplay.transform, 1);
         }
-    }
-
-    /******
-     * *****
-     * ****** RESET_CARD
-     * *****
-     *****/
-    public override void ResetCard()
-    {
-        base.ResetCard();
-        foreach (GameObject go in AbilityIcons)
-            Destroy(go);
-        AbilityIcons.Clear();
-        displayedAbilities.Clear();
-        CurrentAbilities.Clear();
-        DisplayCard();
     }
 
     /******
@@ -325,19 +297,6 @@ public class UnitCardDisplay : CardDisplay
 
     /******
      * *****
-     * ****** CREATE_ABILITY_ICON
-     * *****
-     *****/
-    private GameObject CreateAbilityIcon(CardAbility cardAbility)
-    {
-        GameObject abilityIcon = Instantiate(abilityIconPrefab, new Vector2(0, 0), Quaternion.identity);
-        abilityIcon.GetComponent<AbilityIconDisplay>().AbilityScript = cardAbility;
-        abilityIcon.transform.SetParent(currentAbilitiesDisplay.transform, false);
-        return abilityIcon;
-    }
-
-    /******
-     * *****
      * ****** ABILITY_TRIGGER_STATE
      * *****
      *****/
@@ -377,11 +336,17 @@ public class UnitCardDisplay : CardDisplay
         }
     }
 
-    /******
-     * *****
-     * ****** DISABLE_VISUALS
-     * *****
-     *****/
+    public override void ResetCard()
+    {
+        base.ResetCard();
+        foreach (GameObject go in AbilityIcons)
+            Destroy(go);
+        AbilityIcons.Clear();
+        displayedAbilities.Clear();
+        CurrentAbilities.Clear();
+        DisplayCard();
+    }
+
     public override void DisableVisuals()
     {
         base.DisableVisuals();

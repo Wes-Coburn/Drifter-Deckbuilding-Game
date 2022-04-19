@@ -267,7 +267,7 @@ public class CardPageDisplay : MonoBehaviour
     {
         if (anMan.ProgressBarRoutine != null) return;
         
-        if (pMan.AetherCells < GameManager.Instance.GetRecruitCost(unitCard))
+        if (pMan.AetherCells < GameManager.Instance.GetRecruitCost(unitCard, out _))
             uMan.InsufficientAetherPopup();
         else uMan.CreateRecruitUnitPopup(unitCard);
     }
@@ -276,11 +276,24 @@ public class CardPageDisplay : MonoBehaviour
     {
         if (anMan.ProgressBarRoutine != null) return;
 
-        if (card is SkillCard && pMan.SkillDeckCount <= GameManager.MINIMUM_SKILL_DECK_SIZE)
-            uMan.CreateFleetingInfoPopup(MinWarning(), true);
-        else if (pMan.MainDeckCount <= GameManager.MINIMUM_MAIN_DECK_SIZE)
-            uMan.CreateFleetingInfoPopup(MinWarning(), true);
-        else if (pMan.AetherCells < GameManager.REMOVE_CARD_COST)
+        if (card is SkillCard)
+        {
+            if (pMan.SkillDeckCount <= GameManager.MINIMUM_SKILL_DECK_SIZE)
+            {
+                uMan.CreateFleetingInfoPopup(MinWarning(), true);
+                return;
+            }
+        }
+        else
+        {
+            if (pMan.MainDeckCount <= GameManager.MINIMUM_MAIN_DECK_SIZE)
+            {
+                uMan.CreateFleetingInfoPopup(MinWarning(), true);
+                return;
+            }
+        }
+
+        if (pMan.AetherCells < GameManager.Instance.GetRemoveCardCost(card))
             uMan.InsufficientAetherPopup();
         else uMan.CreateRemoveCardPopup(card);
 

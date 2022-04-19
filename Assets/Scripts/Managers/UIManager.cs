@@ -192,6 +192,19 @@ public class UIManager : MonoBehaviour
     public void ShakeCamera(CameraShakeInstance shake) =>
         CameraShaker.Instance.Shake(shake);
 
+    public static CameraShakeInstance Bump_Light
+    {
+        get
+        {
+            CameraShakeInstance c = new CameraShakeInstance(2.5f, 4, 0.1f, 0.75f)
+            {
+                PositionInfluence = Vector3.one * 0.15f,
+                RotationInfluence = Vector3.one * 0.6f // TESTING
+            };
+            return c;
+        }
+    }
+
     /******
      * *****
      * ****** PLAYER_ZONE_OUTLINE
@@ -1035,7 +1048,16 @@ public class UIManager : MonoBehaviour
                 Debug.LogError("INVALID REPUTATION TYPE!");
                 return;
         }
+
         repIcon.GetComponentInChildren<TextMeshProUGUI>().SetText(repScore.ToString());
+        if (repScore >= GameManager.REPUTATION_TIER_1)
+        {
+            Button button = repIcon.GetComponent<Button>();
+            var colors = button.colors;
+            colors.normalColor = Color.green;
+            button.colors = colors;
+        }
+
         if (valueChange != 0)
         {
             AudioManager.Instance.StartStopSound("SFX_Reputation");
