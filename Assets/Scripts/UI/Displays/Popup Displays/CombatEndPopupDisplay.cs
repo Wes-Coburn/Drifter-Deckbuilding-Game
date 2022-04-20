@@ -51,6 +51,8 @@ public class CombatEndPopupDisplay : MonoBehaviour
                     }
                 }
                 else Debug.LogWarning("NEW LOCATIONS IS NULL!");
+
+                dMan.ChangeReputations(crc); // TESTING
             }
             else Debug.LogError("NEXT CLIP IS NOT COMBAT REWARD CLIP!");
         }

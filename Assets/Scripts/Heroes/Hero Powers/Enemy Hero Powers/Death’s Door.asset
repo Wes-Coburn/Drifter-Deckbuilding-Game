@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c46468d76b991845a6a85e9883d419b, type: 3}
+  m_Name: "Death\u2019s Door"
+  m_EditorClassIdentifier: 
+  PowerName: "Death\u2019s Door"
+  PowerCost: 0
+  PowerSprite: {fileID: 21300000, guid: 0231813a13161634eae0fa1c3b24b906, type: 3}
+  PowerSounds:
+  - name: 
+    clip: {fileID: 8300000, guid: e58e517a5a0433241844a7932307e793, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  PowerDescription: 'Turn Start: Give the weakest ally "Infiltrate: Deal 1 to the
+    enemy hero."'
+  EffectGroupList:
+  - {fileID: 11400000, guid: 01282e07a7ae385498df1d10e6a8812f, type: 2}
+  LinkedAbilities:
+  - {fileID: 11400000, guid: 2ed77ae95233cff4e88bcd8abdc83337, type: 2}
+  PowerTrigger: {fileID: 11400000, guid: 2ed77ae95233cff4e88bcd8abdc83337, type: 2}

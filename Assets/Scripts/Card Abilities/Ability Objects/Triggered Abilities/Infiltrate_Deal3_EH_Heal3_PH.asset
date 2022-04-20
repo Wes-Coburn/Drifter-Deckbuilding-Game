@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44c307312f791a64788051778519ac70, type: 3}
+  m_Name: Infiltrate_Deal3_EH_Heal3_PH
+  m_EditorClassIdentifier: 
+  AbilityName: 'Infiltrate: Deal 3 to the enemy hero and heal your hero 3.'
+  AbilityDescription: Deal 3 to the enemy hero and heal your hero 3.
+  AbilitySprite: {fileID: 0}
+  LinkedAbilites: []
+  AbilityTrigger: {fileID: 11400000, guid: 87f3e6666404c694cb625a5bd096cd05, type: 2}
+  EffectGroupList:
+  - {fileID: 11400000, guid: 3707c2687c883aa4cab36d0c1624205f, type: 2}
+  - {fileID: 11400000, guid: 9ff6fa8e950e6e64a8da7c3e78b19bde, type: 2}
