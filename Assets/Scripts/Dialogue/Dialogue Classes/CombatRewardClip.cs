@@ -8,11 +8,11 @@ public class CombatRewardClip : DialogueClip
     [SerializeField] private NewLocation[] newLocations;
     [SerializeField] private Narrative newNarrative;
     [Header("REPUTATION")]
-    [SerializeField][Range(-3, 3)] private int reputation_Mages;
-    [SerializeField][Range(-3, 3)] private int reputation_Mutants;
-    [SerializeField][Range(-3, 3)] private int reputation_Rogues;
-    [SerializeField][Range(-3, 3)] private int reputation_Techs;
-    [SerializeField][Range(-3, 3)] private int reputation_Warriors;
+    [SerializeField][Range(-5, 5)] private int reputation_Mages;
+    [SerializeField][Range(-5, 5)] private int reputation_Mutants;
+    [SerializeField][Range(-5, 5)] private int reputation_Rogues;
+    [SerializeField][Range(-5, 5)] private int reputation_Techs;
+    [SerializeField][Range(-5, 5)] private int reputation_Warriors;
 
     public DialogueClip NextDialogueClip { get => nextDialogueClip; }
     public int AetherCells { get => aetherCells; }

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3003776474317136701}
-  - component: {fileID: 2606003948695742739}
+  - component: {fileID: 7212530772433118517}
   m_Layer: 0
   m_Name: EffectManager
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2606003948695742739
+--- !u!114 &7212530772433118517
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,11 +40,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3003776474317136702}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52ff3e14a0cc1d74b84392753cdfb0e4, type: 3}
+  m_Script: {fileID: 11500000, guid: 2cc114b30a1553640ad496c95bd0b08a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   effectRay: {fileID: 2992382097948829377, guid: c4e56d34cc2bbff469f616ec19ff8942,
     type: 3}
   damageRayColor: {r: 1, g: 0, b: 0, a: 1}
   healRayColor: {r: 0, g: 1, b: 0, a: 1}
-  abilityRayColor: {r: 1, g: 0, b: 0.9770155, a: 1}

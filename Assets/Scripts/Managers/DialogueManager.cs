@@ -32,7 +32,7 @@ public class DialogueManager : MonoBehaviour
     public DialogueSceneDisplay DialogueDisplay { get => dialogueDisplay; }
     public NPCHero EngagedHero { get; set; } // PUBLIC SET FOR COMBAT TEST BUTTON
     public Coroutine CurrentTextRoutine { get; private set; }
-    public bool AllowResponse { get; set; } // TESTING
+    public bool AllowResponse { get; set; }
 
     private void Start()
     {
@@ -42,7 +42,7 @@ public class DialogueManager : MonoBehaviour
         auMan = AudioManager.Instance;
         caMan = CardManager.Instance;
         newEngagedHero = false;
-        AllowResponse = true; // TESTING
+        AllowResponse = true;
     }
 
     /******

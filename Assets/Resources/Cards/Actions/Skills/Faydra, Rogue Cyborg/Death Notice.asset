@@ -18,17 +18,18 @@ MonoBehaviour:
   cardName: Death Notice
   cardType: Action
   cardSubType: Skill
+  isRare: 0
   cardDescription: Death Notice is...
-  overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
-  zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
   cardPlaySound:
     name: 
     clip: {fileID: 0}
     volume: 1
     pitch: 1
     source: {fileID: 0}
-  effectDescription: Deal 2 to an enemy and <b>Mark</b> it. If it's already <b>Marked</b>,
-    deal 3 to it instead.
+  overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
+  zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
+  effectDescription: Deal 3 to an enemy and Mark it. If it's already Marked, destroy
+    it instead.
   effectGroupList:
   - {fileID: 11400000, guid: e95c4165e18811f4f9494478ec4d830b, type: 2}
   linkedAbilities:

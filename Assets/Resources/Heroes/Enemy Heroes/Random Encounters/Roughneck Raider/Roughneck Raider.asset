@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb145cc0311afb449113575373eae4d, type: 3}
+  m_Name: Roughneck Raider
+  m_EditorClassIdentifier: 
+  developerNotes: 
+  heroName: Roughneck Raider
+  heroShortName: Roughneck Raider
+  heroPortrait: {fileID: 21300000, guid: 750ad5714b0edb64b97f9a30416487fc, type: 3}
+  heroDescription: Roughneck Raider is...
+  heroWin:
+    name: 
+    clip: {fileID: 8300000, guid: d2c55c44576748d45b1a6e33fccef02a, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  heroLose:
+    name: 
+    clip: {fileID: 8300000, guid: 09bc803a4a88f74468bd891c97365807, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  firstDialogueClip: {fileID: 11400000, guid: cba30dbc8c28d4e409ab9029c6a0e206, type: 2}
+  isBoss: 0
+  reinforcements:
+  - {fileID: 11400000, guid: 586bd2aa44ff40f4cabd0091ba47a651, type: 2}
+  enemyHeroPower: {fileID: 0}

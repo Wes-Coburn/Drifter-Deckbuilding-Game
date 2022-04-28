@@ -141,10 +141,24 @@ public class CombatManager : MonoBehaviour
     }
 
     public UnitCardDisplay GetUnitDisplay(GameObject card)
-        => card.GetComponent<CardDisplay>() as UnitCardDisplay;
+    {
+        if (card == null)
+        {
+            Debug.LogWarning("CARD IS NULL!");
+            return null;
+        }
+        return card.GetComponent<CardDisplay>() as UnitCardDisplay;
+    }
 
-    public bool IsUnitCard(GameObject target) => 
-        target.TryGetComponent<UnitCardDisplay>(out _);
+    public bool IsUnitCard(GameObject target)
+    {
+        if (target == null)
+        {
+            Debug.LogWarning("CARD IS NULL!");
+            return false;
+        }
+        return target.TryGetComponent<UnitCardDisplay>(out _);
+    }
 
     public enum DisplayType
     {
@@ -262,7 +276,7 @@ public class CombatManager : MonoBehaviour
             cardTag = PLAYER_CARD;
             cardZone = PLAYER_HAND;
             if (createdCard == null) position.Set(-850, -350);
-            else if (createdCard is SkillCard) position.Set(-675, -350); // TESTING
+            else if (createdCard is SkillCard) position.Set(-675, -350);
             else position.Set(0, -350);
         }
         else if (hero == ENEMY)
@@ -342,17 +356,7 @@ public class CombatManager : MonoBehaviour
         if (hero == PLAYER)
         {
             PlayerHandCards.Add(card);
-            // Added to NewDrawnCards for upcoming effects in the current effect group
-            // Added to CurrentLegalTargets for the current effect in the current effect group
             efMan.NewDrawnCards.Add(card);
-            
-            if (uMan.PlayerIsTargetting &&
-                efMan.CurrentEffect is DrawEffect de && de.IsDiscardEffect)
-            {
-                if (!efMan.CurrentLegalTargets.Contains(card))
-                    efMan.CurrentLegalTargets.Add(card);
-                uMan.SelectTarget(card, true);
-            }
         }
         else EnemyHandCards.Add(card);
     }
@@ -364,12 +368,27 @@ public class CombatManager : MonoBehaviour
      *****/
     public void SelectPlayableCards()
     {
-        bool isPlayerTurn = pMan.IsMyTurn;
-        foreach (GameObject card in PlayerHandCards)
+        //evMan.NewDelayedAction(() => SelectCards(), 0);
+
+        void SelectCards()
         {
-            if (isPlayerTurn && IsPlayable(card, true))
-                uMan.SelectTarget(card, true, false, false, true);
-            else uMan.SelectTarget(card, false);
+            bool isPlayerTurn = pMan.IsMyTurn;
+            List<GameObject> emptyCards = new List<GameObject>();
+            foreach (GameObject card in PlayerHandCards)
+            {
+                if (card == null)
+                {
+                    emptyCards.Add(card);
+                    continue;
+                }
+
+                if (isPlayerTurn && IsPlayable(card, true))
+                    uMan.SelectTarget(card, true, false, false, true);
+                else uMan.SelectTarget(card, false);
+            }
+
+            foreach (GameObject card in emptyCards)
+                PlayerHandCards.Remove(card);
         }
     }
 
@@ -426,13 +445,13 @@ public class CombatManager : MonoBehaviour
         {
             card.transform.SetSiblingIndex(lastCardIndex);
             cd.CardContainer.transform.SetSiblingIndex(lastContainerIndex);
-            card.GetComponent<DragDrop>().IsPlayed = isPlayed; // TESTING
+            card.GetComponent<DragDrop>().IsPlayed = isPlayed;
         }
         else if (!isPlayed)
         {
-            cd.ResetCard(); // TESTING
+            cd.ResetCard();
             if (newZoneName == PLAYER_HAND)
-                efMan.ApplyChangeNextCostEffects(card); // TESTING
+                efMan.ApplyChangeNextCostEffects(card);
         }
 
         if (cd is UnitCardDisplay ucd)
@@ -476,6 +495,7 @@ public class CombatManager : MonoBehaviour
             }
         }
         else if (display is ActionCardDisplay acd)
+        {
             if (!efMan.CheckLegalTargets(acd.ActionCard.EffectGroupList, card, true))
             {
                 if (isPrecheck) return false;
@@ -483,6 +503,7 @@ public class CombatManager : MonoBehaviour
                 ErrorSound();
                 return false;
             }
+        }
         if (playerActions < actionCost)
         {
             if (isPrecheck) return false;
@@ -530,6 +551,7 @@ public class CombatManager : MonoBehaviour
                 Debug.LogError("CARD DISPLAY TYPE NOT FOUND!");
                 return;
             }
+
             SelectPlayableCards();
         }
         // ENEMY
@@ -562,12 +584,16 @@ public class CombatManager : MonoBehaviour
             {
                 if (!caMan.TriggerUnitAbility(card, CardManager.TRIGGER_PLAY))
                 {
-                    efMan.TriggerGiveNextEffect(card);
-                    efMan.ResolveChangeNextCostEffects(card); // TESTING
+                    efMan.TriggerGiveNextEffects(card);
+                    efMan.ResolveChangeNextCostEffects(card);
                     uMan.CombatLog_PlayCard(card);
                 }
             }
-            else uMan.CombatLog_PlayCard(card);
+            else
+            {
+                caMan.TriggerUnitAbility(card, CardManager.TRIGGER_PLAY);
+                uMan.CombatLog_PlayCard(card);
+            }
 
             PlayCardSound();
             PlayAbilitySounds();

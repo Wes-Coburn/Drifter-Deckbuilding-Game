@@ -36,13 +36,14 @@ public class ItemIconPopupDisplay : MonoBehaviour
     public void UseItem_OnClick()
     {
         if (!pMan.IsMyTurn || EffectManager.Instance.EffectsResolving ||
-            EventManager.Instance.ActionsDelayed) return; // TESTING
+            EventManager.Instance.ActionsDelayed) return;
 
         if (SourceIcon == null)
         {
             Debug.LogError("SOURCE ICON IS NULL!");
             return;
         }
+
         if (!efMan.CheckLegalTargets(loadedItem.EffectGroupList, SourceIcon, true))
         {
             uMan.CreateFleetingInfoPopup("You can't use that right now!");

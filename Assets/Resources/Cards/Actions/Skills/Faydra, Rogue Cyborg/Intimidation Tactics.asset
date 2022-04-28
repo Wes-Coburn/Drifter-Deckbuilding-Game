@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardArt: {fileID: 21300000, guid: 901304985a2270d47bdee991b62f0423, type: 3}
   cardBorder: {fileID: 21300000, guid: da4d9c0ce8b0a5744aac584cd2e675b1, type: 3}
-  energyCost: 1
+  energyCost: 2
   cardName: Intimidation Tactics
   cardType: Action
   cardSubType: Skill
@@ -28,9 +28,9 @@ MonoBehaviour:
     source: {fileID: 0}
   overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
   zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
-  effectDescription: Deal 3 to the lowest health enemy. If this destroys it, Stun
-    the lowest health enemy.
+  effectDescription: Deal 3 to the strongest and weakest enemy.
   effectGroupList:
   - {fileID: 11400000, guid: 6fc154bafacc13543b56dded872f136a, type: 2}
+  - {fileID: 11400000, guid: 6bdf3b677ea43394cbf52b510d39324c, type: 2}
   linkedAbilities:
   - {fileID: 11400000, guid: 37a54b5ce20d48941893b9f48eee681f, type: 2}

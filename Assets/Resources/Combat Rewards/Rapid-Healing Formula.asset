@@ -18,16 +18,18 @@ MonoBehaviour:
   cardName: Rapid-Healing Formula
   cardType: Action
   cardSubType: 
+  isRare: 0
   cardDescription: Rapid-Healing Formula is...
-  overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
-  zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
   cardPlaySound:
     name: 
     clip: {fileID: 0}
     volume: 1
     pitch: 1
     source: {fileID: 0}
-  effectDescription: Heal anything 4.
+  overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
+  zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
+  effectDescription: Heal anything 3. Draw 1.
   effectGroupList:
-  - {fileID: 11400000, guid: f9d3b27bc5f78024c8f586e689409d77, type: 2}
+  - {fileID: 11400000, guid: 1db600b3b4aa282479c2b3fac62980a1, type: 2}
+  - {fileID: 11400000, guid: 023c2a13540808347adc8dfb99742db9, type: 2}
   linkedAbilities: []

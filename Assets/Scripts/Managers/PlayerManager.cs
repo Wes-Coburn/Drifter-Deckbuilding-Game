@@ -284,8 +284,7 @@ public class PlayerManager : MonoBehaviour
         }
         else
         {
-            if (gMan.IsTutorial && EnergyPerTurn == 1) // TUTORIAL!
-                gMan.Tutorial_Tooltip(3);
+            if (gMan.IsTutorial && EnergyPerTurn == 1) gMan.Tutorial_Tooltip(3); // TUTORIAL!
 
             coMan.DrawCard(GameManager.PLAYER, CurrentPlayerSkillDeck[0]);
             coMan.SelectPlayableCards();
@@ -314,16 +313,16 @@ public class PlayerManager : MonoBehaviour
         }
         else
         {
+            GameObject heroPower = coMan.PlayerHero.GetComponent<PlayerHeroDisplay>().HeroPower;
             List<EffectGroup> groupList = PlayerHero.HeroPower.EffectGroupList;
-            if (!efMan.CheckLegalTargets(groupList, coMan.PlayerHero, true))
+
+            if (!efMan.CheckLegalTargets(PlayerHero.HeroPower.EffectGroupList, heroPower, true))
             {
                 uMan.CreateFleetingInfoPopup("You can't do that right now!");
                 ErrorSound();
             }
             else
             {
-                GameObject heroPower =
-                    coMan.PlayerHero.GetComponent<PlayerHeroDisplay>().HeroPower;
                 efMan.StartEffectGroupList(groupList, heroPower);
                 EnergyLeft -= PlayerHero.HeroPower.PowerCost;
                 HeroPowerUsed = true;
@@ -337,28 +336,28 @@ public class PlayerManager : MonoBehaviour
     {
         void ErrorSound() => auMan.StartStopSound("SFX_Error");
 
+        GameObject heroUltimate = coMan.PlayerHero.GetComponent<PlayerHeroDisplay>().HeroUltimate;
         List<EffectGroup> groupList = PlayerHero.HeroUltimate.EffectGroupList;
+
         if (HeroUltimateProgress < GameManager.HERO_ULTMATE_GOAL)
         {
             uMan.CreateFleetingInfoPopup("Ultimate not ready!");
             ErrorSound();
         }
-        else if (EnergyLeft < GetUltimateCost()) // TESTING
+        else if (EnergyLeft < GetUltimateCost())
         {
             uMan.CreateFleetingInfoPopup("Not enough energy!");
             ErrorSound();
         }
-        else if (!efMan.CheckLegalTargets(groupList, coMan.PlayerHero, true))
+        else if (!efMan.CheckLegalTargets(PlayerHero.HeroUltimate.EffectGroupList, heroUltimate, true))
         {
             uMan.CreateFleetingInfoPopup("You can't do that right now!");
             ErrorSound();
         }
         else
         {
-            GameObject heroUltimate =
-                coMan.PlayerHero.GetComponent<PlayerHeroDisplay>().HeroUltimate;
             efMan.StartEffectGroupList(groupList, heroUltimate);
-            EnergyLeft -= GetUltimateCost(); // TESTING
+            EnergyLeft -= GetUltimateCost();
             HeroDisplay.UltimateUsedIcon.SetActive(true);
             PlayerPowerSounds(true);
             ParticleBurst(heroUltimate);

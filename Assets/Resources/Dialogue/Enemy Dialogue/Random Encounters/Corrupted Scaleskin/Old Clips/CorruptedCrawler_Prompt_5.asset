@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25b107ecdac65374f8c56b3212c061ce, type: 3}
+  m_Name: CorruptedCrawler_Prompt_5
+  m_EditorClassIdentifier: 
+  dialoguePromptText: "How lucky. Food delivery. And it\u2019s fresssh!"
+  dialogueResponse1:
+    responseText: Yikes. *Attack*
+    response_NextClip: {fileID: 11400000, guid: 8b5af784ca503474ead86ee385a1244d,
+      type: 2}
+    npc_NextClip: {fileID: 0}
+    response_IsCombatStart: 1
+    response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsNewAugmentStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
+  dialogueResponse2:
+    responseText: "Now I definitely don\u2019t feel bad about killing you. *Attack*"
+    response_NextClip: {fileID: 11400000, guid: 8b5af784ca503474ead86ee385a1244d,
+      type: 2}
+    npc_NextClip: {fileID: 0}
+    response_IsCombatStart: 1
+    response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsNewAugmentStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
+  dialogueResponse3:
+    responseText: Snack time is OVER. *Attack*
+    response_NextClip: {fileID: 11400000, guid: 8b5af784ca503474ead86ee385a1244d,
+      type: 2}
+    npc_NextClip: {fileID: 0}
+    response_IsCombatStart: 1
+    response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsNewAugmentStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
+  newEngagedHero: {fileID: 0}
+  hideNPC: 0
+  newCard: {fileID: 0}
+  newAllyCard: 0
+  newExecutionCard: 0
+  aetherCells: 0
+  newLocations: []
+  reputation_Mages: 0
+  reputation_Mutants: 0
+  reputation_Rogues: 0
+  reputation_Techs: 0
+  reputation_Warriors: 0

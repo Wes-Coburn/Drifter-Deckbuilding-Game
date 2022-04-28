@@ -70,7 +70,6 @@ public class EffectRay : MonoBehaviour
         this.isEffectGroup = isEffectGroup;
         this.target = target;
 
-        // TESTING
         sprite.color = rayColor;
         var main = particles.main;
         main.startColor = sprite.color;

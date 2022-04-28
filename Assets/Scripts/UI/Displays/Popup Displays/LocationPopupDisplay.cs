@@ -105,6 +105,7 @@ public class LocationPopupDisplay : MonoBehaviour
             SceneLoader.LoadScene(SceneLoader.Scene.HomeBaseScene);
             return;
         }
+
         gMan.CurrentLocation = gMan.GetActiveLocation(location);
         if (location.IsRecruitment) gMan.CurrentLocation.CurrentObjective = "Recruit a Unit.";
         else if (location.IsShop) gMan.CurrentLocation.CurrentObjective = "Buy an Item.";
@@ -112,7 +113,6 @@ public class LocationPopupDisplay : MonoBehaviour
         else gMan.ActiveLocations.Remove(gMan.CurrentLocation);
         dMan.EngagedHero = gMan.GetActiveNPC(gMan.CurrentLocation.CurrentNPC);
 
-        // TESTING
         if (location.IsCombatOnly) SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);
         else SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene, true);
     }

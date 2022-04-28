@@ -111,7 +111,7 @@ public class GameManager : MonoBehaviour
 
     // Enemy
     public const string ENEMY = "Enemy";
-    public const int ENEMY_STARTING_HEALTH = 20;
+    public const int ENEMY_STARTING_HEALTH = 30;
     //public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
     public const int BOSS_BONUS_HEALTH = 10;
     public const int ENEMY_HAND_SIZE = 0;

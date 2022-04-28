@@ -462,7 +462,8 @@ public class CardManager : MonoBehaviour
 
         void TriggerAbility(TriggeredAbility tra)
         {
-            if (tra.AbilityTrigger.AbilityName != TRIGGER_PLAY)
+            string triggerName = tra.AbilityTrigger.AbilityName;
+            if (triggerName != TRIGGER_PLAY)
                 auMan.StartStopSound(null, ucd.CardScript.CardPlaySound);
             EffectManager.Instance.StartEffectGroupList(tra.EffectGroupList, unitCard, triggerName);
         }

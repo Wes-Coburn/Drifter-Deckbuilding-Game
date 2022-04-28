@@ -25,20 +25,22 @@ public class EffectManager : MonoBehaviour
     private CardManager caMan;
 
     // Effects
+    private GameObject effectSource;
     private bool effectsResolving;
     private bool isAdditionalEffect;
-    private GameObject effectSource;
     private string triggerName;
+
     private int currentEffectGroup;
     private int currentEffect;
 
     private List<EffectGroup> effectGroupList;
     private List<List<GameObject>> legalTargets;
     private List<List<GameObject>> acceptedTargets;
-    private List<EffectGroup> additionalEffectGroups;
 
     private List<GameObject> newDrawnCards;
     private List<GameObject> unitsToDestroy;
+    private List<EffectGroup> additionalEffectGroups;
+
     private List<GiveNextUnitEffect> giveNextEffects;
     private List<ChangeCostEffect> changeNextCostEffects;
 
@@ -51,7 +53,6 @@ public class EffectManager : MonoBehaviour
     [Header("RAY COLORS")]
     [SerializeField] private Color damageRayColor;
     [SerializeField] private Color healRayColor;
-    // mark ray color
 
     private const string IS_ADDITIONAL_EFFECT = "IsAdditionalEffect";
 
@@ -59,7 +60,12 @@ public class EffectManager : MonoBehaviour
 
     public bool EffectsResolving
     {
-        get => effectsResolving;
+        get
+        {
+            //if (EffectRay.ActiveRays > 0) return true; // TESTING
+            //else return effectsResolving;
+            return effectsResolving;
+        }
         private set
         {
             effectsResolving = value;
@@ -76,7 +82,21 @@ public class EffectManager : MonoBehaviour
                 Debug.LogWarning("GROUP LIST IS NULL!");
                 return null;
             }
-            return effectGroupList[currentEffectGroup].Effects[currentEffect];
+            else if (currentEffectGroup > effectGroupList.Count - 1)
+            {
+                Debug.LogWarning("CURRENT GROUP > GROUP LIST");
+                return null;
+            }
+            else
+            {
+                List<Effect> effects = effectGroupList[currentEffectGroup].Effects;
+                if (currentEffect > effects.Count - 1)
+                {
+                    Debug.LogWarning("CURRENT EFFECT > EFFECT LIST");
+                    return null;
+                }
+                else return effects[currentEffect];
+            }
         }
     }
     public List<GameObject> CurrentLegalTargets
@@ -88,13 +108,14 @@ public class EffectManager : MonoBehaviour
                 Debug.LogError("GROUP LIST IS NULL!");
                 return null;
             }
-            return legalTargets[currentEffectGroup];
+            else return legalTargets[currentEffectGroup];
         }
     }
 
     public List<GameObject> NewDrawnCards { get => newDrawnCards; }
     public List<GiveNextUnitEffect> GiveNextEffects { get => giveNextEffects; }
     public List<ChangeCostEffect> ChangeNextCostEffects { get => changeNextCostEffects; }
+    
 
     private void Start()
     {
@@ -120,8 +141,7 @@ public class EffectManager : MonoBehaviour
      * ****** RESET_EFFECT_MANAGER
      * *****
      *****/
-    public void Reset_EffectManager() =>
-        effectsResolving = false;
+    public void Reset_EffectManager() => effectsResolving = false;
 
     /******
      * *****
@@ -135,6 +155,7 @@ public class EffectManager : MonoBehaviour
             Debug.LogError("SOURCE IS NULL!");
             return false;
         }
+
         if (source.CompareTag(CombatManager.ENEMY_CARD) ||
             source.CompareTag(CombatManager.ENEMY_HERO) ||
             source.CompareTag(CombatManager.ENEMY_HERO_POWER))
@@ -155,7 +176,7 @@ public class EffectManager : MonoBehaviour
             Debug.LogWarning("SOURCE IS NULL!");
             return;
         }
-        if (groupList == null || groupList.Count < 1)
+        else if (groupList == null || groupList.Count < 1)
         {
             Debug.LogWarning("GROUP LIST IS EMPTY!");
             return;
@@ -215,7 +236,7 @@ public class EffectManager : MonoBehaviour
         // UNIT ABILITY TRIGGER
         if (effectSource.TryGetComponent(out UnitCardDisplay ucd))
         {
-            if (triggerName != IS_ADDITIONAL_EFFECT)
+            if (!string.IsNullOrEmpty(triggerName) && triggerName != IS_ADDITIONAL_EFFECT)
                 ucd.AbilityTriggerState(triggerName);
         }
 
@@ -254,7 +275,7 @@ public class EffectManager : MonoBehaviour
         EffectTargets targets = group.Targets;
         if (effect is DrawEffect de && de.IsDiscardEffect) return true;
         else if (effect is DrawEffect || effect is CreateCardEffect || effect is GiveNextUnitEffect) return false;
-        else if (effect is ChangeCostEffect cce && cce.ChangeNextCost) return false; // TESTING
+        else if (effect is ChangeCostEffect cce && cce.ChangeNextCost) return false;
         else if (targets.TargetsAll || targets.TargetsSelf) return false;
         else if (targets.TargetsLowestHealth || targets.TargetsStrongest || targets.TargetsWeakest) return false;
         else if (targets.PlayerHero || targets.EnemyHero)
@@ -424,10 +445,7 @@ public class EffectManager : MonoBehaviour
         }
         ConfirmNonTargetEffect();
 
-        void AddTarget(GameObject target)
-        {
-            targets.Add(target);
-        }
+        void AddTarget(GameObject target) => targets.Add(target);
     }
 
     /******
@@ -748,6 +766,9 @@ public class EffectManager : MonoBehaviour
      *****/
     public void SelectTarget(GameObject target)
     {
+        if (acceptedTargets == null || currentEffectGroup > acceptedTargets.Count - 1) return;
+        else if (legalTargets == null || currentEffectGroup > legalTargets.Count - 1) return;
+
         if (acceptedTargets[currentEffectGroup].Contains(target))
             RemoveEffectTarget(target);
         else if (legalTargets[currentEffectGroup].Contains(target))
@@ -1115,7 +1136,7 @@ public class EffectManager : MonoBehaviour
             if (effectSource.TryGetComponent<ItemIcon>(out _))
                 raySource = coMan.PlayerHero;
         }
-        else raySource = coMan.PlayerHero; // TESTING
+        else raySource = coMan.PlayerHero;
 
         // DRAW
         if (effect is DrawEffect drE)
@@ -1302,7 +1323,7 @@ public class EffectManager : MonoBehaviour
                 if (triggerName == CardManager.TRIGGER_PLAY)
                 {
                     ResolveChangeNextCostEffects(effectSource); // TESTING
-                    TriggerGiveNextEffect(effectSource);
+                    TriggerGiveNextEffects(effectSource);
                 }
             }
         }
@@ -1393,13 +1414,13 @@ public class EffectManager : MonoBehaviour
                         coMan.ActionsPlayedThisTurn++;
                     }
                 }
-                else if (coMan.IsUnitCard(effectSource))
+                else if (coMan.IsUnitCard(effectSource) && IsPlayerSource(effectSource)) // TESTING
                 {
                     if (triggerName == CardManager.TRIGGER_PLAY)
                     {
                         uMan.CombatLog_PlayCard(effectSource);
                         ResolveChangeNextCostEffects(effectSource); // TESTING
-                        TriggerGiveNextEffect(effectSource);
+                        TriggerGiveNextEffects(effectSource);
                     }
                 }
                 else if (effectSource.TryGetComponent(out ItemIcon icon))
@@ -1637,7 +1658,7 @@ public class EffectManager : MonoBehaviour
      * ****** TRIGGER_GIVE_NEXT_EFFECT
      * *****
      *****/
-    public void TriggerGiveNextEffect(GameObject card)
+    public void TriggerGiveNextEffects(GameObject card)
     {
         List<GiveNextUnitEffect> resolvedGnue = new List<GiveNextUnitEffect>();
         if (GiveNextEffects.Count > 0)
@@ -1645,7 +1666,7 @@ public class EffectManager : MonoBehaviour
             List<GameObject> target = new List<GameObject> { card };
             foreach (GiveNextUnitEffect gnue in GiveNextEffects)
             {
-                foreach (Effect e in gnue.Effects) ResolveEffect(target, e);
+                foreach (Effect e in gnue.Effects) evMan.NewDelayedAction(() => ResolveEffect(target, e), 0);
                 if (--gnue.Multiplier < 1) resolvedGnue.Add(gnue);
             }
             foreach (GiveNextUnitEffect rGnue in resolvedGnue)

@@ -106,8 +106,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         if (uMan.PlayerIsTargetting)
         {
             bool isDiscardEffect = false;
-            if (EffectManager.Instance.CurrentEffect is DrawEffect de &&
-                de.IsDiscardEffect) isDiscardEffect = true;
+            if (EffectManager.Instance.CurrentEffect is DrawEffect de && de.IsDiscardEffect) isDiscardEffect = true;
             if (!isDiscardEffect) return;
         }
 
