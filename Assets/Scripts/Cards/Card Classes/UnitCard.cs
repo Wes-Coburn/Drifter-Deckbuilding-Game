@@ -5,9 +5,9 @@ using UnityEngine;
 public class UnitCard : Card
 {
     [Header("POWER")]
-    [SerializeField] private int power;
+    [SerializeField] [Range(0, 10)] private int power;
     [Header("HEALTH")]
-    [SerializeField] private int health;
+    [SerializeField] [Range(1, 10)] private int health;
     [Header("ABILITIES")]
     [SerializeField] private List<CardAbility> startingAbilities;
     [SerializeField] private Sound unitDeathSound;

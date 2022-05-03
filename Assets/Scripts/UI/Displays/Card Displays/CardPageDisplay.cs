@@ -258,7 +258,13 @@ public class CardPageDisplay : MonoBehaviour
     {
         if (anMan.ProgressBarRoutine != null) return;
 
-        if (pMan.AetherCells < GameManager.LEARN_SKILL_COST)
+        int copies = 0;
+        foreach (Card card in pMan.PlayerDeckList)
+            if (card.CardName == skillCard.CardName) copies++;
+
+        if (copies > 2)
+            uMan.CreateFleetingInfoPopup("You can't add more than 3 copies of a skill!", true);
+        else if (pMan.AetherCells < GameManager.LEARN_SKILL_COST)
             uMan.InsufficientAetherPopup();
         else uMan.CreateLearnSkillPopup(skillCard);
     }

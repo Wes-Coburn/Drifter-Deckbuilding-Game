@@ -277,26 +277,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 765383000157305363}
     m_Modifications:
-    - target: {fileID: 5705018863325576614, guid: 8ac108bdeffdb49429dffe78cf17950b,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 5705018863325576614, guid: 8ac108bdeffdb49429dffe78cf17950b,
-        type: 3}
-      propertyPath: m_fontSizeBase
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 5705018863325576615, guid: 8ac108bdeffdb49429dffe78cf17950b,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 5705018863325576615, guid: 8ac108bdeffdb49429dffe78cf17950b,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 80
-      objectReference: {fileID: 0}
     - target: {fileID: 5705018864097980076, guid: 8ac108bdeffdb49429dffe78cf17950b,
         type: 3}
       propertyPath: m_Pivot.x
@@ -335,7 +315,7 @@ PrefabInstance:
     - target: {fileID: 5705018864097980076, guid: 8ac108bdeffdb49429dffe78cf17950b,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 330
+      value: 350
       objectReference: {fileID: 0}
     - target: {fileID: 5705018864097980076, guid: 8ac108bdeffdb49429dffe78cf17950b,
         type: 3}
@@ -385,7 +365,7 @@ PrefabInstance:
     - target: {fileID: 5705018864097980076, guid: 8ac108bdeffdb49429dffe78cf17950b,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -250
+      value: -225
       objectReference: {fileID: 0}
     - target: {fileID: 5705018864097980076, guid: 8ac108bdeffdb49429dffe78cf17950b,
         type: 3}
@@ -409,14 +389,44 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5705018864097980079, guid: 8ac108bdeffdb49429dffe78cf17950b,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705018864097980079, guid: 8ac108bdeffdb49429dffe78cf17950b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705018864097980079, guid: 8ac108bdeffdb49429dffe78cf17950b,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1955773970495326530}
+      objectReference: {fileID: 351908454300164736}
     - target: {fileID: 5705018864097980079, guid: 8ac108bdeffdb49429dffe78cf17950b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 351908454300164736}
+      objectReference: {fileID: 1955773970495326530}
+    - target: {fileID: 5705018864097980079, guid: 8ac108bdeffdb49429dffe78cf17950b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlaySound
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705018864097980079, guid: 8ac108bdeffdb49429dffe78cf17950b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: WesbsiteButton_OnClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705018864097980079, guid: 8ac108bdeffdb49429dffe78cf17950b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SoundPlayer, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705018864097980079, guid: 8ac108bdeffdb49429dffe78cf17950b,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: BETAWelcomePopupDisplay, Assembly-CSharp
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ac108bdeffdb49429dffe78cf17950b, type: 3}
 --- !u!224 &351908453057722773 stripped
@@ -434,38 +444,38 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 369702005403963720, guid: 6a8541ac090fcf04aa40f7d4833a8d84,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 369702005403963720, guid: 6a8541ac090fcf04aa40f7d4833a8d84,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1955773970495326530}
+      objectReference: {fileID: 351908454300164736}
     - target: {fileID: 369702005403963720, guid: 6a8541ac090fcf04aa40f7d4833a8d84,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 351908454300164736}
+      objectReference: {fileID: 1955773970495326530}
+    - target: {fileID: 369702005403963720, guid: 6a8541ac090fcf04aa40f7d4833a8d84,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlaySound
+      objectReference: {fileID: 0}
+    - target: {fileID: 369702005403963720, guid: 6a8541ac090fcf04aa40f7d4833a8d84,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: DiscordButton_OnClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 369702005403963720, guid: 6a8541ac090fcf04aa40f7d4833a8d84,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SoundPlayer, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 369702005403963727, guid: 6a8541ac090fcf04aa40f7d4833a8d84,
         type: 3}
       propertyPath: m_Name
-      value: SurveyButton
-      objectReference: {fileID: 0}
-    - target: {fileID: 6349797774917379578, guid: 6a8541ac090fcf04aa40f7d4833a8d84,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6349797774917379578, guid: 6a8541ac090fcf04aa40f7d4833a8d84,
-        type: 3}
-      propertyPath: m_fontSizeBase
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6497791950174470062, guid: 6a8541ac090fcf04aa40f7d4833a8d84,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 6497791950174470062, guid: 6a8541ac090fcf04aa40f7d4833a8d84,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 75
+      value: DiscordButton
       objectReference: {fileID: 0}
     - target: {fileID: 7625284753870435104, guid: 6a8541ac090fcf04aa40f7d4833a8d84,
         type: 3}
@@ -505,7 +515,7 @@ PrefabInstance:
     - target: {fileID: 7625284753870435104, guid: 6a8541ac090fcf04aa40f7d4833a8d84,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 300
+      value: 350
       objectReference: {fileID: 0}
     - target: {fileID: 7625284753870435104, guid: 6a8541ac090fcf04aa40f7d4833a8d84,
         type: 3}
@@ -555,7 +565,7 @@ PrefabInstance:
     - target: {fileID: 7625284753870435104, guid: 6a8541ac090fcf04aa40f7d4833a8d84,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -375
+      value: -350
       objectReference: {fileID: 0}
     - target: {fileID: 7625284753870435104, guid: 6a8541ac090fcf04aa40f7d4833a8d84,
         type: 3}

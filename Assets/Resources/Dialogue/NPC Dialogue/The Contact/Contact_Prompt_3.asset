@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b107ecdac65374f8c56b3212c061ce, type: 3}
   m_Name: Contact_Prompt_3
   m_EditorClassIdentifier: 
-  dialoguePromptText: If you're gonna rob me, you should know I don't have anything.
+  dialoguePromptText: "I have something big for you\u2026 a job."
   dialogueResponse1:
-    responseText: I'm not gonna rob you, I'm just messing with ya.
-    response_NextClip: {fileID: 11400000, guid: a7554e41a4c4b0e4c87c748f809e34c2,
-      type: 2}
+    responseText: 
+    response_NextClip: {fileID: 0}
     npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
@@ -27,8 +26,8 @@ MonoBehaviour:
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   dialogueResponse2:
-    responseText: I'm no thief.
-    response_NextClip: {fileID: 11400000, guid: a7554e41a4c4b0e4c87c748f809e34c2,
+    responseText: (Continue)
+    response_NextClip: {fileID: 11400000, guid: 10e5d02df6c06ed4191785ab7b84c1e6,
       type: 2}
     npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
@@ -40,9 +39,8 @@ MonoBehaviour:
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   dialogueResponse3:
-    responseText: I'll keep that in mind.
-    response_NextClip: {fileID: 11400000, guid: 892e8c875c89233499771ef3d32beeb6,
-      type: 2}
+    responseText: 
+    response_NextClip: {fileID: 0}
     npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
@@ -59,3 +57,8 @@ MonoBehaviour:
   newExecutionCard: 0
   aetherCells: 0
   newLocations: []
+  reputation_Mages: 0
+  reputation_Mutants: 0
+  reputation_Rogues: 0
+  reputation_Techs: 0
+  reputation_Warriors: 0

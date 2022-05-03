@@ -5,7 +5,6 @@ using TMPro;
 
 public class HeroSelectSceneDisplay : MonoBehaviour
 {
-    [SerializeField] private GameObject selectedHero;
     [SerializeField] private GameObject skillCard_1;
     [SerializeField] private GameObject skillCard_2;
     [SerializeField] private GameObject heroPortrait;

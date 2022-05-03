@@ -200,33 +200,9 @@ public class CardManager : MonoBehaviour
         }
     }
 
-    public enum ChooseCardType
+    public Card[] ChooseCards()
     {
-        Ally_Card,
-        Combat_Reward,
-        Execution_Card
-    }
-    public Card[] ChooseCards(ChooseCardType chooseType)
-    {
-        Card[] allChooseCards;
-        Debug.LogWarning("CHOOSE CARDS: <" + chooseType + ">");
-
-        switch (chooseType)
-        {
-            case ChooseCardType.Ally_Card:
-                EnemyHero eh = DialogueManager.Instance.EngagedHero as EnemyHero;
-                allChooseCards = eh.Reinforcements[0].ReinforcementUnits.ToArray();
-                break;
-            case ChooseCardType.Combat_Reward:
-                allChooseCards = Resources.LoadAll<Card>("Combat Rewards");
-                break;
-            case ChooseCardType.Execution_Card:
-                allChooseCards = Resources.LoadAll<Card>("Execution Cards");
-                break;
-            default:
-                Debug.LogError("INVALIDE TYPE!");
-                return null;
-        }
+        Card[] allChooseCards = Resources.LoadAll<Card>("Combat Rewards");
 
         if (allChooseCards.Length < 1)
         {
@@ -239,9 +215,9 @@ public class CardManager : MonoBehaviour
         int index = 0;
         foreach (Card card in allChooseCards)
         {
-            if (chooseType == ChooseCardType.Ally_Card && card.IsRare) continue;
-            int playerDeckIndex =
-                pMan.PlayerDeckList.FindIndex(x => x.CardName == card.CardName);
+            int playerDeckIndex = pMan.PlayerDeckList.FindIndex
+                (x => x.CardName == card.CardName);
+
             if (playerDeckIndex == -1)
             {
                 card.CurrentEnergyCost = card.StartEnergyCost;
@@ -344,7 +320,7 @@ public class CardManager : MonoBehaviour
      *****/
     public void ShuffleDeck(string hero, bool playSound = true)
     {
-        Debug.LogWarning("SHUFFLE <" + hero + "> DECK!");
+        Debug.Log("SHUFFLE <" + hero + "> DECK!");
         if (hero == GameManager.PLAYER)
         {
             pMan.CurrentPlayerDeck.Shuffle();

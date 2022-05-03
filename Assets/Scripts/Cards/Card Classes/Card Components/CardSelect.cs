@@ -30,8 +30,8 @@ public class CardSelect : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         if (coMan.EnemyHandCards.Contains(gameObject)) return; // TESTING
         DragDrop.Enemy = gameObject;
         if (coMan.CanAttack(DragDrop.DraggingCard, gameObject, true))
-            uMan.SelectTarget(gameObject, true, true);
-        else uMan.SelectTarget(gameObject, true, false, true);
+            uMan.SelectTarget(gameObject, UIManager.SelectionType.Selected);
+        else uMan.SelectTarget(gameObject, UIManager.SelectionType.Rejected);
     }
 
     public void OnPointerExit(PointerEventData pointerEventData)
@@ -40,7 +40,7 @@ public class CardSelect : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         if (coMan.EnemyHandCards.Contains(gameObject)) return; // TESTING
         DragDrop.Enemy = null;
         if (coMan.CanAttack(DragDrop.DraggingCard, gameObject, true))
-            uMan.SelectTarget(gameObject, true);
-        else uMan.SelectTarget(gameObject, false);
+            uMan.SelectTarget(gameObject, UIManager.SelectionType.Highlighted);
+        else uMan.SelectTarget(gameObject, UIManager.SelectionType.Disabled);
     }
 }

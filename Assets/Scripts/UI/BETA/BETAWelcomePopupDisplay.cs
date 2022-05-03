@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class BETAWelcomePopupDisplay : MonoBehaviour
 {
-    public void SurveyButton_OnClick()
+    public void DiscordButton_OnClick()
     {
-        Application.OpenURL("https://www.surveymonkey.com/r/R3HCNMK");
+        Application.OpenURL("https://discord.com/invite/X49ju9VAEY");
     }
 
     public void WesbsiteButton_OnClick()

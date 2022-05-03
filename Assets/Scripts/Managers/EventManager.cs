@@ -93,6 +93,8 @@ public class EventManager : MonoBehaviour
             currentActionRoutine == null) isResuming = true;
         this.isPaused = isPaused;
         if (isResuming) NextDelayedAction();
+
+        UIManager.Instance.UpdateEndTurnButton(PlayerManager.Instance.IsMyTurn, !isPaused); // TESTING
     }
 
     public void ClearDelayedActions()

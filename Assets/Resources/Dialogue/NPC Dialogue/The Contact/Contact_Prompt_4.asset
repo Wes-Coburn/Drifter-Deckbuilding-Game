@@ -12,29 +12,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b107ecdac65374f8c56b3212c061ce, type: 3}
   m_Name: Contact_Prompt_4
   m_EditorClassIdentifier: 
-  developerNotes: 
-  journalNotes: []
-  dialoguePromptText: I have something big for you... a job.
+  dialoguePromptText: "I can\u2019t say much, the details are incredibly sensitive.
+    The pay is good."
   dialogueResponse1:
-    responseText: What's the job?
-    response_Respect: 0
-    response_NextClip: {fileID: 11400000, guid: ffe766394671ac4489159b12ba2ccdf8,
-      type: 2}
-    response_IsExit: 0
+    responseText: 
+    response_NextClip: {fileID: 0}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
+    response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsNewAugmentStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   dialogueResponse2:
-    responseText: Who's hiring?
-    response_Respect: -1
-    response_NextClip: {fileID: 11400000, guid: ffe766394671ac4489159b12ba2ccdf8,
+    responseText: Where do I sign?
+    response_NextClip: {fileID: 11400000, guid: d5408e2547747f04ebf41b14b1a0ac13,
       type: 2}
-    response_IsExit: 0
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
+    response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsNewAugmentStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   dialogueResponse3:
-    responseText: What's the pay?
-    response_Respect: 1
-    response_NextClip: {fileID: 11400000, guid: ffe766394671ac4489159b12ba2ccdf8,
-      type: 2}
-    response_IsExit: 0
+    responseText: 
+    response_NextClip: {fileID: 0}
+    npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
+    response_IsWorldMapStart: 0
+    response_IsRecruitmentStart: 0
+    response_IsShopStart: 0
+    response_IsCloningStart: 0
+    response_IsNewAugmentStart: 0
+    response_IsExit: 0
+    response_TravelLocation: {fileID: 0}
   newEngagedHero: {fileID: 0}
+  hideNPC: 0
   newCard: {fileID: 0}
+  newAllyCard: 0
+  newExecutionCard: 0
+  aetherCells: 0
+  newLocations: []
+  reputation_Mages: 0
+  reputation_Mutants: 0
+  reputation_Rogues: 0
+  reputation_Techs: 0
+  reputation_Warriors: 0

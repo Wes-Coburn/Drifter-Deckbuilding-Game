@@ -4,7 +4,6 @@ public class CombatTestButton : MonoBehaviour
 {
     [Header("DEVELOPER MODE")]
     [SerializeField] private bool developerMode;
-    [SerializeField] private bool setEnemyHealth1;
     [SerializeField] private bool addStartUnits;
     [SerializeField] private bool addStartSkills;
     [SerializeField] [Range(0, 3)] private int reputationTier;
@@ -32,8 +31,6 @@ public class CombatTestButton : MonoBehaviour
         gMan = GameManager.Instance;
         pMan = PlayerManager.Instance;
 
-        if (developerTestHero != null) Debug.LogWarning("TEST HERO LOADED!");
-        if (enemyTestHero != null) Debug.LogWarning("TEST ENEMY LOADED!");
         if (developerMode)
         {
             Debug.LogWarning("DEVELOPER MODE!");

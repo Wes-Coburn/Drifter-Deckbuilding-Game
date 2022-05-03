@@ -199,7 +199,7 @@ public class UIManager : MonoBehaviour
             CameraShakeInstance c = new CameraShakeInstance(2.5f, 4, 0.1f, 0.75f)
             {
                 PositionInfluence = Vector3.one * 0.15f,
-                RotationInfluence = Vector3.one * 0.6f // TESTING
+                RotationInfluence = Vector3.one * 0.5f // TESTING
             };
             return c;
         }
@@ -279,8 +279,8 @@ public class UIManager : MonoBehaviour
             Destroy(screenDimmer);
             screenDimmer = null;
         }
-        if (screenIsDimmed)
-            screenDimmer = Instantiate(screenDimmerPrefab, CurrentZoomCanvas.transform);
+        if (screenIsDimmed) screenDimmer =
+                Instantiate(screenDimmerPrefab, CurrentZoomCanvas.transform);
     }
     /******
      * *****
@@ -296,7 +296,7 @@ public class UIManager : MonoBehaviour
         etbd.EndTurnSide.SetActive(isMyTurn);
         etbd.OpponentTurnSide.SetActive(!isMyTurn);
 
-        if (!isMyTurn) isInteractable = false; // TESTING
+        if (!isMyTurn) isInteractable = false;
         Button[] buttons = endTurnButton.GetComponentsInChildren<Button>();
         foreach (Button b in buttons) b.interactable = isInteractable;
     }
@@ -314,8 +314,15 @@ public class UIManager : MonoBehaviour
      * ****** SELECT_TARGET
      * *****
      *****/
-    public void SelectTarget(GameObject target,
-        bool enabled, bool isSelected = false, bool isRejected = false, bool isPlayable = false)
+    public enum SelectionType
+    {
+        Disabled,
+        Highlighted,
+        Selected,
+        Rejected,
+        Playable
+    }
+    public void SelectTarget(GameObject target, SelectionType selectionType)
     {
         if (target == null)
         {
@@ -325,11 +332,17 @@ public class UIManager : MonoBehaviour
 
         if (target.TryGetComponent(out CardSelect cs))
         {
-            cs.CardOutline.SetActive(enabled);
+            if (selectionType is SelectionType.Disabled) // TESTING
+            {
+                cs.CardOutline.SetActive(false);
+                return;
+            }
+            else cs.CardOutline.SetActive(true);
+
             Image image = cs.CardOutline.GetComponent<Image>();
             if (enabled) SetColor(image);
 
-            if (isSelected && PlayerIsTargetting)
+            if (selectionType is SelectionType.Selected && PlayerIsTargetting)
             {
                 if (EffectManager.Instance.CurrentEffect is DrawEffect de && de.IsDiscardEffect)
                 {
@@ -345,7 +358,13 @@ public class UIManager : MonoBehaviour
         }
         else if (target.TryGetComponent(out HeroSelect hs))
         {
-            hs.HeroOutline.SetActive(enabled);
+            if (selectionType is SelectionType.Disabled) // TESTING
+            {
+                hs.HeroOutline.SetActive(false);
+                return;
+            }
+            else hs.HeroOutline.SetActive(true);
+
             Image image = hs.HeroOutline.GetComponentInChildren<Image>();
             if (enabled) SetColor(image);
         }
@@ -357,10 +376,26 @@ public class UIManager : MonoBehaviour
 
         void SetColor(Image image)
         {
-            if (isSelected) image.color = selectedColor;
-            else if (isRejected) image.color = rejectedColor;
-            else if (isPlayable) image.color = playableColor;
-            else image.color = highlightedColor;
+            Color color;
+            switch (selectionType)
+            {
+                case SelectionType.Highlighted:
+                    color = highlightedColor;
+                    break;
+                case SelectionType.Selected:
+                    color = selectedColor;
+                    break;
+                case SelectionType.Rejected:
+                    color = rejectedColor;
+                    break;
+                case SelectionType.Playable:
+                    color = playableColor;
+                    break;
+                default:
+                    Debug.LogError("INVALID TYPE!");
+                    return;
+            }
+            image.color = color;
         }
     }
 
@@ -405,6 +440,42 @@ public class UIManager : MonoBehaviour
         scale = new Vector2();
         switch (heroName)
         {
+            // FENTIS
+            case "Madrik, Obsessed Mage":
+                switch (scene)
+                {
+                    case SceneLoader.Scene.HeroSelectScene:
+                        position.Set(0, -10);
+                        scale.Set(1.4f, 1.4f);
+                        break;
+                    case SceneLoader.Scene.DialogueScene:
+                        position.Set(0, -45);
+                        scale.Set(2f, 2f);
+                        break;
+                    case SceneLoader.Scene.CombatScene:
+                        position.Set(15, -25);
+                        scale.Set(2, 2);
+                        break;
+                }
+                break;
+            // FAYDRA
+            case "Faydra, Rogue Cyborg":
+                switch (scene)
+                {
+                    case SceneLoader.Scene.HeroSelectScene:
+                        position.Set(-40, 0);
+                        scale.Set(1.3f, 1.3f);
+                        break;
+                    case SceneLoader.Scene.DialogueScene:
+                        position.Set(-150, -75);
+                        scale.Set(2.5f, 2.5f);
+                        break;
+                    case SceneLoader.Scene.CombatScene:
+                        position.Set(-120, -120);
+                        scale.Set(3, 3);
+                        break;
+                }
+                break;
             // KILI
             case "Kili, Neon Rider":
                 switch (scene)
@@ -438,24 +509,6 @@ public class UIManager : MonoBehaviour
                     case SceneLoader.Scene.CombatScene:
                         position.Set(-100, -110);
                         scale.Set(2, 2);
-                        break;
-                }
-                break;
-            // FENTIS
-            case "Faydra, Rogue Cyborg":
-                switch (scene)
-                {
-                    case SceneLoader.Scene.HeroSelectScene:
-                        position.Set(-40, 0);
-                        scale.Set(1.3f, 1.3f);
-                        break;
-                    case SceneLoader.Scene.DialogueScene:
-                        position.Set(-150, -75);
-                        scale.Set(2.5f, 2.5f);
-                        break;
-                    case SceneLoader.Scene.CombatScene:
-                        position.Set(-120, -120);
-                        scale.Set(3, 3);
                         break;
                 }
                 break;
@@ -615,7 +668,7 @@ public class UIManager : MonoBehaviour
         DestroyTurnPopup();
         turnPopup = Instantiate(versusPopupPrefab, CurrentCanvas.transform);
         turnPopup.GetComponent<VersusPopupDisplay>().IsBossBattle = isBossBattle;
-        anMan.CreateParticleSystem(turnPopup, ParticleSystemHandler.ParticlesType.Explosion, 1); // TESTING
+        anMan.CreateParticleSystem(turnPopup, ParticleSystemHandler.ParticlesType.Explosion, 1);
     }
     public void CreateCombatEndPopup(bool playerWins)
     {

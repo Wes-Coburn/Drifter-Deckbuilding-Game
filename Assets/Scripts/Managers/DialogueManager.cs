@@ -300,6 +300,12 @@ public class DialogueManager : MonoBehaviour
             Debug.LogError("CURRENT CLIP IS NULL!");
             return;
         }
+        if (currentDialogueClip is DialoguePrompt) { }
+        else
+        {
+            Debug.LogError("CURRENT CLIP IS NOT PROMPT!");
+            return;
+        }
 
         if (CurrentTextRoutine != null)
         {
@@ -426,20 +432,12 @@ public class DialogueManager : MonoBehaviour
                         currentDialogueClip = nextClip;
                         AllowResponse = false;
                         AnimationManager.Instance.NewEngagedHero(true);
-                        if (nextPrompt.NewCard == null &&
-                            !nextPrompt.NewAllyCard && !nextPrompt.NewExecutionCard &&
-                            nextPrompt.AetherCells < 1) return;
+                        if (nextPrompt.NewCard == null && nextPrompt.AetherCells < 1) return;
                     }
                 }
             }
             // New Card
             if (nextPrompt.NewCard != null) uMan.CreateNewCardPopup(nextPrompt.NewCard);
-            // Ally Card
-            else if (nextPrompt.NewAllyCard) uMan.CreateNewCardPopup(null,
-                caMan.ChooseCards(CardManager.ChooseCardType.Ally_Card));
-            // Execution Card
-            else if (nextPrompt.NewExecutionCard) uMan.CreateNewCardPopup(null,
-                caMan.ChooseCards(CardManager.ChooseCardType.Execution_Card));
             // Aether Cells
             else if (nextPrompt.AetherCells > 0)
             {
@@ -452,7 +450,6 @@ public class DialogueManager : MonoBehaviour
         currentDialogueClip = nextClip;
         if (currentDialogueClip is DialogueFork) currentDialogueClip = DialogueFork();
         if (nextPrompt != null && nextPrompt.NewCard == null &&
-            !nextPrompt.NewAllyCard && !nextPrompt.NewExecutionCard &&
             nextPrompt.AetherCells < 1 && !dResponse.Response_IsNewAugmentStart) DisplayDialoguePopup();
     }
 

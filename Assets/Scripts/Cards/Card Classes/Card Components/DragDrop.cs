@@ -124,9 +124,9 @@ public class DragDrop : MonoBehaviour
             dragArrow.GetComponent<DragArrow>().SourceCard = gameObject;
             foreach (GameObject enemyUnit in coMan.EnemyZoneCards)
                 if (coMan.CanAttack(gameObject, enemyUnit, true))
-                    uMan.SelectTarget(enemyUnit, true);
+                    uMan.SelectTarget(enemyUnit, UIManager.SelectionType.Highlighted);
             if (coMan.CanAttack(gameObject, coMan.EnemyHero, true)) 
-                uMan.SelectTarget(coMan.EnemyHero, true);
+                uMan.SelectTarget(coMan.EnemyHero, UIManager.SelectionType.Highlighted);
 
             particleHandler = anMan.CreateParticleSystem(gameObject,
                 ParticleSystemHandler.ParticlesType.MouseDrag);
@@ -191,12 +191,12 @@ public class DragDrop : MonoBehaviour
                 EventManager.Instance.NewDelayedAction(() =>
                 coMan.Attack(gameObject, enemy), 0.25f);
             }
-            uMan.SelectTarget(Enemy, false);
+            uMan.SelectTarget(Enemy, UIManager.SelectionType.Disabled);
             Enemy = null;
         }
 
         foreach (GameObject enemyUnit in coMan.EnemyZoneCards)
-            uMan.SelectTarget(enemyUnit, false);
-        uMan.SelectTarget(coMan.EnemyHero, false);
+            uMan.SelectTarget(enemyUnit, UIManager.SelectionType.Disabled);
+        uMan.SelectTarget(coMan.EnemyHero, UIManager.SelectionType.Disabled);
     }
 }

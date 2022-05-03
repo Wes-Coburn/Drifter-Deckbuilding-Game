@@ -531,7 +531,7 @@ public class AnimationManager : MonoBehaviour
         eStats.transform.localPosition = new Vector2(eStatsStart.x, eStatsStart.y + startBuffer);
         combatLog.transform.localPosition = new Vector2(combatLogStart.x - startBuffer, combatLogStart.y);
 
-        uMan.SelectTarget(coMan.PlayerHero, true);
+        uMan.SelectTarget(coMan.PlayerHero, UIManager.SelectionType.Highlighted);
         PlayerManager.Instance.PlayerPowerSounds();
         CreateParticleSystem(coMan.PlayerHero, ParticleSystemHandler.ParticlesType.Drag, 2);
         CreateParticleSystem(coMan.EnemyHero, ParticleSystemHandler.ParticlesType.Drag, 2);
@@ -556,13 +556,13 @@ public class AnimationManager : MonoBehaviour
         uMan.ShakeCamera(UIManager.Bump_Light);
         
         yield return new WaitForSeconds(0.5f);
-        uMan.SelectTarget(coMan.PlayerHero, false);
+        uMan.SelectTarget(coMan.PlayerHero, UIManager.SelectionType.Disabled);
         
         yield return new WaitForSeconds(0.5f);
-        uMan.SelectTarget(coMan.EnemyHero, true);
+        uMan.SelectTarget(coMan.EnemyHero, UIManager.SelectionType.Highlighted);
         Sound enemyWinSound = EnemyManager.Instance.EnemyHero.HeroWin;
         auMan.StartStopSound(null, enemyWinSound);
-        FunctionTimer.Create(() => uMan.SelectTarget(coMan.EnemyHero, false), 2);
+        FunctionTimer.Create(() => uMan.SelectTarget(coMan.EnemyHero, UIManager.SelectionType.Disabled), 2);
 
         EnemyHero eh = dMan.EngagedHero as EnemyHero;
         if (eh.IsBoss)

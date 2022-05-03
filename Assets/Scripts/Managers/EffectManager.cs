@@ -168,9 +168,11 @@ public class EffectManager : MonoBehaviour
      * ****** START_EFFECT_GROUP_LIST
      * *****
      *****/
-    public void StartEffectGroupList(List<EffectGroup> groupList, GameObject source, string triggerName = null)
+    public void StartEffectGroupList(List<EffectGroup> groupList,
+        GameObject source, string triggerName = null)
     {
-        Debug.Log("START EFFECT GROUP LIST!");
+        Debug.LogWarning("START EFFECT GROUP LIST!");
+
         if (source == null)
         {
             Debug.LogWarning("SOURCE IS NULL!");
@@ -208,6 +210,7 @@ public class EffectManager : MonoBehaviour
                 Debug.LogError("EMPTY EFFECT GROUP!");
                 continue;
             }
+
             foreach (Effect e in eg.Effects)
             {
                 if (e == null)
@@ -216,8 +219,8 @@ public class EffectManager : MonoBehaviour
                     Debug.LogError("EMPTY EFFECT!");
                 }
             }
-            foreach (Effect e in emptyEffects)
-                eg.Effects.Remove(e);
+
+            foreach (Effect e in emptyEffects) eg.Effects.Remove(e);
             effectGroupList.Add(eg);
         }
 
@@ -254,14 +257,17 @@ public class EffectManager : MonoBehaviour
     private void StartNextEffectGroup(bool isFirstGroup = false)
     {
         if (!isFirstGroup) currentEffectGroup++;
+
         if (currentEffectGroup < effectGroupList.Count)
         {
             Debug.Log("[EFFECT GROUP #" + (currentEffectGroup + 1) +
                 "] <" + effectGroupList[currentEffectGroup].ToString() + ">");
             StartNextEffect(true);
         }
+
         else if (currentEffectGroup == effectGroupList.Count)
             ResolveEffectGroupList();
+
         else Debug.LogError("EffectGroup > GroupList!");
     }
 
@@ -273,15 +279,24 @@ public class EffectManager : MonoBehaviour
     private bool IsTargetEffect(EffectGroup group, Effect effect)
     {
         EffectTargets targets = group.Targets;
+
         if (effect is DrawEffect de && de.IsDiscardEffect) return true;
-        else if (effect is DrawEffect || effect is CreateCardEffect || effect is GiveNextUnitEffect) return false;
+
+        else if (effect is DrawEffect || effect is CreateCardEffect) return false;
+
+        else if (effect is GiveNextUnitEffect) return false;
+
         else if (effect is ChangeCostEffect cce && cce.ChangeNextCost) return false;
+
         else if (targets.TargetsAll || targets.TargetsSelf) return false;
+
         else if (targets.TargetsLowestHealth || targets.TargetsStrongest || targets.TargetsWeakest) return false;
+
         else if (targets.PlayerHero || targets.EnemyHero)
         {
             if (!targets.PlayerUnit && !targets.EnemyUnit) return false;
         }
+
         return true;
     }
 
@@ -509,13 +524,13 @@ public class EffectManager : MonoBehaviour
             dragArrow = Instantiate(coMan.DragArrowPrefab, uMan.CurrentWorldSpace.transform);
 
             GameObject startPoint;
-            if (effectSource.TryGetComponent(out ItemIcon _))
-                startPoint = coMan.PlayerHero;
+            if (effectSource.TryGetComponent(out ItemIcon _)) startPoint = coMan.PlayerHero;
             else startPoint = effectSource;
             dragArrow.GetComponent<DragArrow>().SourceCard = startPoint;
         }
 
         uMan.CreateInfoPopup(description);
+
         // Prevent targetting same object twice in a group list
         List<GameObject> redundancies = new List<GameObject>();
         foreach (GameObject target in legalTargets[currentEffectGroup])
@@ -525,6 +540,7 @@ public class EffectManager : MonoBehaviour
                 Debug.LogError("TARGET IS NULL!");
                 continue;
             }
+
             foreach (List<GameObject> targetList in acceptedTargets)
             {
                 if (targetList.Contains(target))
@@ -546,7 +562,7 @@ public class EffectManager : MonoBehaviour
         }
 
         foreach (GameObject target in legalTargets[currentEffectGroup])
-            uMan.SelectTarget(target, true);
+            uMan.SelectTarget(target, UIManager.SelectionType.Highlighted);
     }
 
     /******
@@ -575,7 +591,7 @@ public class EffectManager : MonoBehaviour
         {
             if (eg == null)
             {
-                Debug.LogError("EFFECT GROUP IS EMPTY!");
+                Debug.LogError("GROUP IS NULL!");
                 continue;
             }
 
@@ -583,40 +599,25 @@ public class EffectManager : MonoBehaviour
             {
                 if (effect == null)
                 {
-                    Debug.LogError("EFFECT IS EMPTY!");
+                    Debug.LogError("EFFECT IS NULL!");
                     continue;
                 }
 
-                if (IsTargetEffect(eg, effect) || effect is DrawEffect ||
-                    eg.Targets.TargetsAll ||
-                    eg.Targets.TargetsLowestHealth ||
-                    eg.Targets.TargetsStrongest || eg.Targets.TargetsWeakest)
+                if (!GetLegalTargets(group, effect, eg.Targets,
+                    GetAdditionalTargets(eg), out bool requiredEffect, isPreCheck))
                 {
-                    targetGroups.Add(eg);
-                    break;
+                    invalidGroups.Add(group);
+                    int groupsRemaining = effectGroupList.Count - invalidGroups.Count;
+                    Debug.Log("INVALID TARGET GROUP! <" + groupsRemaining + "/" + targetGroups.Count + "> REMAINING!");
+
+                    if (groupsRemaining < 1 || requiredEffect)
+                    {
+                        Debug.Log("CHECK LEGAL TARGETS = FALSE!");
+                        return false;
+                    }
+                    else break;
                 }
             }
-        }
-
-        foreach (EffectGroup eg in effectGroupList)
-        {
-            if (targetGroups.Contains(eg))
-                foreach (Effect effect in eg.Effects)
-                {
-                    if (!GetLegalTargets(group, effect, eg.Targets,
-                        GetAdditionalTargets(eg), out bool requiredEffect, isPreCheck))
-                    {
-                        invalidGroups.Add(group);
-                        int groupsRemaining = effectGroupList.Count - invalidGroups.Count;
-                        Debug.Log("INVALID TARGET GROUP! <" + groupsRemaining + "/" + targetGroups.Count + "> REMAINING!");
-                        if (groupsRemaining < 1 || requiredEffect)
-                        {
-                            Debug.Log("CHECK LEGAL TARGETS = FALSE!");
-                            return false;
-                        }
-                        else break;
-                    }
-                }
             group++;
         }
 
@@ -660,6 +661,11 @@ public class EffectManager : MonoBehaviour
         EffectTargets targets, int additionalTargets, out bool requiredEffect, bool isPreCheck)
     {
         requiredEffect = effect.IsRequired;
+
+        if (effect is GiveNextUnitEffect) return true; // TESTING
+        else if (effect is ChangeCostEffect cce && cce.ChangeNextCost) return true; // TESTING
+        else if (targets.TargetsSelf) return true; // TESTING
+
         List<List<GameObject>> targetZones = new List<List<GameObject>>();
 
         if (IsPlayerSource(effectSource))
@@ -721,7 +727,7 @@ public class EffectManager : MonoBehaviour
         else if (effect is CreateCardEffect)
         {
             // Hand is full
-            int cardsAfterDraw = coMan.PlayerHandCards.Count + effect.Value; // TESTING
+            int cardsAfterDraw = coMan.PlayerHandCards.Count + 1; // TESTING
             if (cardsAfterDraw > GameManager.MAX_HAND_SIZE)
             {
                 Debug.Log("HAND IS FULL!");
@@ -729,9 +735,11 @@ public class EffectManager : MonoBehaviour
             }
         }
 
+        /*
         string legals = legalTargets[currentGroup].Count + " - " + additionalTargets + " (Additional Targets)";
         string log = "LEGAL TARGETS <" + legals + ">";
-        Debug.LogWarning(log);
+        Debug.Log(log);
+        */
 
         if (legalTargets[currentGroup].Count < 1) return false;
         if (requiredEffect && legalTargets[currentGroup].Count <
@@ -809,7 +817,7 @@ public class EffectManager : MonoBehaviour
         }
 
         auMan.StartStopSound("SFX_AcceptTarget");
-        uMan.SelectTarget(target, true, true);
+        uMan.SelectTarget(target, UIManager.SelectionType.Selected);
         acceptedTargets[currentEffectGroup].Add(target);
         legalTargets[currentEffectGroup].Remove(target);
 
@@ -843,7 +851,7 @@ public class EffectManager : MonoBehaviour
     private void RemoveEffectTarget(GameObject target)
     {
         auMan.StartStopSound("SFX_AcceptTarget");
-        uMan.SelectTarget(target, true, false);
+        uMan.SelectTarget(target, UIManager.SelectionType.Highlighted);
         acceptedTargets[currentEffectGroup].Remove(target);
         legalTargets[currentEffectGroup].Add(target);
 
@@ -883,7 +891,7 @@ public class EffectManager : MonoBehaviour
         uMan.PlayerIsTargetting = false;
         uMan.DismissInfoPopup();
         foreach (GameObject target in legalTargets[currentEffectGroup])
-            uMan.SelectTarget(target, false);
+            uMan.SelectTarget(target, UIManager.SelectionType.Disabled);
         if (CurrentEffect is DrawEffect de)
         {
             if (de.IsDiscardEffect)
@@ -926,7 +934,8 @@ public class EffectManager : MonoBehaviour
      * ****** RESOLVE_EFFECT_GROUP
      * *****
      *****/
-    private void ResolveEffectGroup(EffectGroup eg, List<GameObject> targets, float delay, out float newDelay)
+    private void ResolveEffectGroup(EffectGroup eg,
+        List<GameObject> targets, float delay, out float newDelay)
     {
         newDelay = delay;
         if (eg == null)
@@ -960,7 +969,8 @@ public class EffectManager : MonoBehaviour
      * ****** RESOLVE_EFFECT
      * *****
      *****/
-    private void ResolveEffect(List<GameObject> allTargets, Effect effect, float delay = 0)
+    private void ResolveEffect(List<GameObject> allTargets,
+        Effect effect, float delay = 0, bool isEffectGroup = true)
     {
         List<GameObject> invalidTargets = new List<GameObject>();
         List<GameObject> validTargets = new List<GameObject>();
@@ -1152,7 +1162,8 @@ public class EffectManager : MonoBehaviour
                 FunctionTimer.Create(() => auMan.StartStopSound("SFX_DamageRay_Start"), delay);
             foreach (GameObject target in validTargets)
             {
-                CreateEffectRay(raySource.transform.position, target, () => DealDamage(), damageRayColor, delay);
+                CreateEffectRay(raySource.transform.position, target,
+                    () => DealDamage(), damageRayColor, isEffectGroup, delay);
                 void DealDamage()
                 {
                     if (coMan.TakeDamage(target, effect.Value))
@@ -1168,14 +1179,14 @@ public class EffectManager : MonoBehaviour
         {
             foreach (GameObject target in validTargets)
                 CreateEffectRay(raySource.transform.position, target,
-                    () => coMan.DestroyUnit(target), damageRayColor, delay);
+                    () => coMan.DestroyUnit(target), damageRayColor, isEffectGroup, delay);
         }
         // HEALING
         else if (effect is HealEffect)
         {
             foreach (GameObject target in validTargets)
                 CreateEffectRay(raySource.transform.position, target,
-                    () => coMan.HealDamage(target, effect.Value), healRayColor, delay);
+                    () => coMan.HealDamage(target, effect.Value), healRayColor, isEffectGroup, delay);
         }
         // EXHAUST/REFRESH
         else if (effect is ExhaustEffect ee)
@@ -1226,7 +1237,7 @@ public class EffectManager : MonoBehaviour
             void GiveAbility(GameObject target)
             {
                 if (effect.ShootRay) CreateEffectRay(raySource.transform.position, target,
-                    () => AddEffect(target, effect), effect.RayColor, delay);
+                    () => AddEffect(target, effect), effect.RayColor, isEffectGroup, delay);
                 else AddEffect(target, effect);
             }
         }
@@ -1237,11 +1248,22 @@ public class EffectManager : MonoBehaviour
             if (cce.CreatedCard != null) createdCard = cce.CreatedCard;
             else if (!string.IsNullOrEmpty(cce.CreatedCardType))
             {
-                Card[] createdCards = Resources.LoadAll<Card>("Created Cards");
                 List<Card> cardPool = new List<Card>();
-                foreach (Card c in createdCards)
-                    if (c.CardSubType == cce.CreatedCardType)
+                string cardType = cce.CreatedCardType;
+
+                if (cardType == "Skill")
+                {
+                    foreach (Card c in pMan.PlayerHero.HeroSkills)
                         cardPool.Add(c);
+                }
+                else
+                {
+                    Card[] createdCards = Resources.LoadAll<Card>("Created Cards");
+                    foreach (Card c in createdCards)
+                        if (c.CardSubType == cardType)
+                            cardPool.Add(c);
+                }
+
                 createdCard = cardPool[Random.Range(0, cardPool.Count)];
             }
             else
@@ -1249,10 +1271,11 @@ public class EffectManager : MonoBehaviour
                 Debug.LogError("INVALID CREATED CARD!");
                 return;
             }
-            coMan.DrawCard(GameManager.PLAYER, createdCard);
+
+            coMan.DrawCard(GameManager.PLAYER, createdCard, true);
         }
         // CHANGE_COST_EFFECT
-        else if (effect is ChangeCostEffect chgCst) // TESTING
+        else if (effect is ChangeCostEffect chgCst)
         {
             if (chgCst.ChangeNextCost)
             {
@@ -1370,9 +1393,15 @@ public class EffectManager : MonoBehaviour
      *****/
     public void FinishEffectGroupList(bool wasAborted)
     {
+        if (!effectsResolving)
+        {
+            Debug.LogError("CANNOT FINISH GROUP! EFFECTS NOT RESOLVING!");
+            return;
+        }
+
         string debugText = "RESOLVED";
         if (wasAborted) debugText = "ABORTED";
-        Debug.Log("GROUP LIST FINISHED! [" + debugText + "]");
+        Debug.LogWarning("GROUP LIST FINISHED! [" + debugText + "]");
 
         if (effectSource == null) // For GiveNextEffects
         {
@@ -1399,7 +1428,7 @@ public class EffectManager : MonoBehaviour
                 if (effectSource.TryGetComponent<ActionCardDisplay>(out _))
                 {
                     uMan.CombatLog_PlayCard(effectSource);
-                    ResolveChangeNextCostEffects(effectSource); // TESTING
+                    ResolveChangeNextCostEffects(effectSource);
                     GameObject source = effectSource;
                     evMan.NewDelayedAction(() => DiscardAction(source), 0);
 
@@ -1414,18 +1443,19 @@ public class EffectManager : MonoBehaviour
                         coMan.ActionsPlayedThisTurn++;
                     }
                 }
-                else if (coMan.IsUnitCard(effectSource) && IsPlayerSource(effectSource)) // TESTING
+                else if (coMan.IsUnitCard(effectSource) && IsPlayerSource(effectSource))
                 {
                     if (triggerName == CardManager.TRIGGER_PLAY)
                     {
                         uMan.CombatLog_PlayCard(effectSource);
-                        ResolveChangeNextCostEffects(effectSource); // TESTING
+                        ResolveChangeNextCostEffects(effectSource);
                         TriggerGiveNextEffects(effectSource);
                     }
                 }
                 else if (effectSource.TryGetComponent(out ItemIcon icon))
                 {
-                    uMan.CombatLogEntry("You used <b><color=\"yellow\">" + icon.LoadedItem.ItemName + "</b></color> (Item).");
+                    uMan.CombatLogEntry("You used <b><color=\"yellow\">" +
+                        icon.LoadedItem.ItemName + "</b></color> (Item).");
                     pMan.HeroItems.Remove(icon.LoadedItem);
                     uMan.SetSkybar(true);
                 }
@@ -1461,7 +1491,7 @@ public class EffectManager : MonoBehaviour
                     foreach (GameObject target in list)
                     {
                         if (target == null) continue;
-                        uMan.SelectTarget(target, false);
+                        uMan.SelectTarget(target, UIManager.SelectionType.Disabled);
                     }
                 }
             }
@@ -1473,7 +1503,7 @@ public class EffectManager : MonoBehaviour
                     foreach (GameObject target in list)
                     {
                         if (target == null) continue;
-                        uMan.SelectTarget(target, false);
+                        uMan.SelectTarget(target, UIManager.SelectionType.Disabled);
                     }
                 }
             }
@@ -1486,6 +1516,7 @@ public class EffectManager : MonoBehaviour
                 Destroy(dragArrow);
                 dragArrow = null;
             }
+
             newDrawnCards.Clear();
             currentEffect = 0;
             currentEffectGroup = 0;
@@ -1494,6 +1525,7 @@ public class EffectManager : MonoBehaviour
             acceptedTargets = null;
             effectSource = null;
             EffectsResolving = false;
+
             coMan.SelectPlayableCards();
         }
     }
@@ -1610,7 +1642,7 @@ public class EffectManager : MonoBehaviour
                     Debug.Log("EFFECT REMOVED: <" + effect.ToString() + ">");
                     expiredEffects.Add(effect);
 
-                    if (effect is ChangeCostEffect chgCst) // TESTING
+                    if (effect is ChangeCostEffect chgCst)
                     {
                         CardDisplay cd = card.GetComponent<CardDisplay>();
                         cd.ChangeCurrentEnergyCost(-chgCst.ChangeValue);
@@ -1660,15 +1692,19 @@ public class EffectManager : MonoBehaviour
      *****/
     public void TriggerGiveNextEffects(GameObject card)
     {
+        Debug.LogWarning("TRIGGER GIVE NEXT EFFECTS");
         List<GiveNextUnitEffect> resolvedGnue = new List<GiveNextUnitEffect>();
         if (GiveNextEffects.Count > 0)
         {
             List<GameObject> target = new List<GameObject> { card };
             foreach (GiveNextUnitEffect gnue in GiveNextEffects)
             {
-                foreach (Effect e in gnue.Effects) evMan.NewDelayedAction(() => ResolveEffect(target, e), 0);
+                foreach (Effect e in gnue.Effects)
+                    evMan.NewDelayedAction(() => ResolveEffect(target, e, 0, false), 0);
+
                 if (--gnue.Multiplier < 1) resolvedGnue.Add(gnue);
             }
+
             foreach (GiveNextUnitEffect rGnue in resolvedGnue)
             {
                 GiveNextEffects.Remove(rGnue);
@@ -1688,6 +1724,7 @@ public class EffectManager : MonoBehaviour
         foreach (GiveNextUnitEffect gnfe in GiveNextEffects)
             if (gnfe.Countdown == 1) expiredGne.Add(gnfe);
             else if (gnfe.Countdown != 0) gnfe.Countdown--;
+
         foreach (GiveNextUnitEffect xGnfe in expiredGne)
         {
             GiveNextEffects.Remove(xGnfe);
@@ -1702,11 +1739,10 @@ public class EffectManager : MonoBehaviour
      *****/
     public void ApplyChangeNextCostEffects(GameObject card)
     {
-        if (ChangeNextCostEffects.Count > 0)
-        {
-            foreach (ChangeCostEffect chgCst in ChangeNextCostEffects)
-                AddEffect(card, chgCst, false);
-        }
+        if (ChangeNextCostEffects.Count < 1) return;
+
+        foreach (ChangeCostEffect chgCst in ChangeNextCostEffects)
+            AddEffect(card, chgCst, false);
     }
 
     /******
@@ -1717,7 +1753,6 @@ public class EffectManager : MonoBehaviour
     public void ResolveChangeNextCostEffects(GameObject card)
     {
         Debug.Log("RESOLVE CHANGE NEXT COST EFFECTS!");
-        Debug.Log("PREVIOUS EFFECT COUNT <" + ChangeNextCostEffects.Count + ">");
         if (ChangeNextCostEffects.Count < 1) return;
 
         List<Effect> currentEffects = card.GetComponent<CardDisplay>().CurrentEffects;
@@ -1728,34 +1763,37 @@ public class EffectManager : MonoBehaviour
             if (effect is ChangeCostEffect chgCst && chgCst.ChangeNextCost)
             {
                 if (--chgCst.Multiplier < 1) resolvedChgCst.Add(chgCst);
-                Debug.Log("CHANGE COST EFFECT FOUND! MULTIPLIER IS <" + chgCst.Multiplier + ">");
+                Debug.Log("CHANGE COST EFFECT FOUND! MULTIPLIER <" + chgCst.Multiplier + ">");
             }
         }
 
         foreach (ChangeCostEffect rChgCst in resolvedChgCst)
             ResolveChangeCostEffect(rChgCst);
-        Debug.Log("NEW EFFECT COUNT <" + ChangeNextCostEffects.Count + ">");
     }
 
     private void ResolveChangeCostEffect(ChangeCostEffect rEffect)
     {
         Debug.Log("RESOLVE CHANGE COST EFFECT!");
-        List<GameObject> cards = new List<GameObject>();
-        foreach (GameObject go in coMan.PlayerHandCards)
-            cards.Add(go);
-        foreach (GameObject go in coMan.PlayerZoneCards)
-            cards.Add(go);
-        foreach (GameObject card in cards)
+
+        List<GameObject> affectedCards = new List<GameObject>();
+        foreach (GameObject card in coMan.PlayerHandCards)
+            affectedCards.Add(card);
+        foreach (GameObject card in coMan.PlayerZoneCards)
+            affectedCards.Add(card);
+
+        foreach (GameObject card in affectedCards)
         {
             if (card == null)
             {
-                Debug.LogWarning("CARD IS NULL!");
+                Debug.LogError("CARD IS NULL!");
                 continue;
             }
+
             CardDisplay cd = card.GetComponent<CardDisplay>();
             if (cd.CurrentEffects.Remove(rEffect))
                 cd.ChangeCurrentEnergyCost(-rEffect.ChangeValue);
         }
+
         bool removed = ChangeNextCostEffects.Remove(rEffect);
         if (!removed) Debug.LogError("CHANGE COST EFFECT NOT FOUND!");
         Destroy(rEffect);
@@ -1772,6 +1810,7 @@ public class EffectManager : MonoBehaviour
         foreach (ChangeCostEffect chgCst in ChangeNextCostEffects)
             if (chgCst.Countdown == 1) expiredChgCst.Add(chgCst);
             else if (chgCst.Countdown != 0) chgCst.Countdown--;
+
         foreach (ChangeCostEffect xChgCst in expiredChgCst)
             ResolveChangeCostEffect(xChgCst);
     }
@@ -1782,18 +1821,17 @@ public class EffectManager : MonoBehaviour
      * *****
      *****/
     public void CreateEffectRay(Vector2 start, GameObject target, System.Action rayEffect,
-        Color rayColor, float delay = 0, bool isEffectGroup = true)
+        Color rayColor, bool isEffectGroup, float delay = 0)
     {
         GameObject ray = Instantiate(effectRay, start, Quaternion.identity);
         ray.transform.SetParent(uMan.CurrentWorldSpace.transform);
 
-        if (delay == 0) SetRay();
+        if (delay < 0) Debug.LogError("DELAY IS NEGATIVE!");
+        else if (delay == 0) SetRay();
         else FunctionTimer.Create(() => SetRay(), delay);
 
-        void SetRay()
-        {
+        void SetRay() =>
             ray.GetComponent<EffectRay>().SetEffectRay(target, rayEffect, rayColor, isEffectGroup);
-        }
     }
 
     /******
@@ -1814,6 +1852,7 @@ public class EffectManager : MonoBehaviour
             powerChange = -powerChange;
             healthChange = -healthChange;
         }
+
         if (!isNegativeChange) auMan.StartStopSound("SFX_StatPlus");
         else auMan.StartStopSound("SFX_StatMinus");
         anMan.UnitStatChangeState(unitCard, powerChange, healthChange);

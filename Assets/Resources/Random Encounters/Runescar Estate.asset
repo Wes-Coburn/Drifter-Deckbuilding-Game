@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b47e9eb1cc6fb34cbca4d90c15dd059, type: 3}
+  m_Name: Runescar Estate
+  m_EditorClassIdentifier: 
+  isPriorityLocation: 0
+  locationName: Runescar Estate
+  locationFullName: Runescar Estate
+  locationDescription: A dilapidated mansion that once served as a mage training
+    ground.
+  firstObjective: Recover stolen mutagens from a thief (+2 Mutant reputation).
+  worldMapPosition: {x: -175, y: 90}
+  firstNPC: {fileID: 11400000, guid: ca8303a2edf4d5f41bb4b6fee761cb6b, type: 2}
+  locationSoundscape:
+    name: 
+    clip: {fileID: 0}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  isCombatOnly: 1
+  isHomeBase: 0
+  isAugmenter: 0
+  isRecruitment: 0
+  isShop: 0
+  isCloning: 0
+  isRandomEncounter: 1
+  isClosed_Hour1: 0
+  isClosed_Hour2: 0
+  isClosed_Hour3: 0

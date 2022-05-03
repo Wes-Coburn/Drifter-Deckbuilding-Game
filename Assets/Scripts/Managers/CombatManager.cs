@@ -136,8 +136,8 @@ public class CombatManager : MonoBehaviour
             EnemyHandCards,
             EnemyZoneCards
         };
-        uMan.SelectTarget(PlayerHero, false);
-        uMan.SelectTarget(EnemyHero, false);
+        uMan.SelectTarget(PlayerHero, UIManager.SelectionType.Disabled);
+        uMan.SelectTarget(EnemyHero, UIManager.SelectionType.Disabled);
     }
 
     public UnitCardDisplay GetUnitDisplay(GameObject card)
@@ -173,7 +173,8 @@ public class CombatManager : MonoBehaviour
      * ****** SHOW_CARD
      * *****
      *****/
-    public GameObject ShowCard(Card card, Vector2 position, DisplayType type = DisplayType.Default, bool banishAfterPlay = false)
+    public GameObject ShowCard(Card card, Vector2 position,
+        DisplayType type = DisplayType.Default, bool banishAfterPlay = false)
     {
         if (card == null)
         {
@@ -250,7 +251,7 @@ public class CombatManager : MonoBehaviour
      * ****** DRAW_CARD
      * *****
      *****/
-    public void DrawCard(string hero, Card createdCard = null)
+    public void DrawCard(string hero, Card createdCard = null, bool isCreatedSkill = false)
     {
         List<Card> deck;
         List<GameObject> hand;
@@ -276,7 +277,7 @@ public class CombatManager : MonoBehaviour
             cardTag = PLAYER_CARD;
             cardZone = PLAYER_HAND;
             if (createdCard == null) position.Set(-850, -350);
-            else if (createdCard is SkillCard) position.Set(-675, -350);
+            else if (createdCard is SkillCard && !isCreatedSkill) position.Set(-675, -350);
             else position.Set(0, -350);
         }
         else if (hero == ENEMY)
@@ -326,7 +327,7 @@ public class CombatManager : MonoBehaviour
             auMan.StartStopSound("SFX_DrawCard");
             card = ShowCard(deck[0], position);
         }
-        else if (createdCard is SkillCard)
+        else if (createdCard is SkillCard && !isCreatedSkill)
         {
             auMan.StartStopSound("SFX_DrawCard");
             card = ShowCard(createdCard, position, DisplayType.Default, true);
@@ -368,7 +369,7 @@ public class CombatManager : MonoBehaviour
      *****/
     public void SelectPlayableCards()
     {
-        //evMan.NewDelayedAction(() => SelectCards(), 0);
+        evMan.NewDelayedAction(() => SelectCards(), 0);
 
         void SelectCards()
         {
@@ -383,8 +384,8 @@ public class CombatManager : MonoBehaviour
                 }
 
                 if (isPlayerTurn && IsPlayable(card, true))
-                    uMan.SelectTarget(card, true, false, false, true);
-                else uMan.SelectTarget(card, false);
+                    uMan.SelectTarget(card, UIManager.SelectionType.Playable);
+                else uMan.SelectTarget(card, UIManager.SelectionType.Disabled);
             }
 
             foreach (GameObject card in emptyCards)
@@ -399,7 +400,7 @@ public class CombatManager : MonoBehaviour
      *****/
     public void ChangeCardZone(GameObject card, string newZoneName, bool returnToIndex = false)
     {
-        uMan.SelectTarget(card, false); // Unnecessary?
+        uMan.SelectTarget(card, UIManager.SelectionType.Disabled); // Unnecessary?
         GameObject newZone = null;
 
         switch (newZoneName)
@@ -538,13 +539,13 @@ public class CombatManager : MonoBehaviour
             {
                 PlayerZoneCards.Add(card);
                 ChangeCardZone(card, PLAYER_ZONE);
-                container.OnAttachAction += () => PlayUnit(); // TESTING
+                evMan.NewDelayedAction(() => PlayUnit(), 0); // TESTING
             }
             else if (cd is ActionCardDisplay)
             {
                 PlayerActionZoneCards.Add(card);
                 ChangeCardZone(card, PLAYER_ACTION_ZONE);
-                container.OnAttachAction += () => PlayAction(); // TESTING
+                evMan.NewDelayedAction(() => PlayAction(), 0); // TESTING
             }
             else
             {
@@ -554,6 +555,7 @@ public class CombatManager : MonoBehaviour
 
             SelectPlayableCards();
         }
+
         // ENEMY
         else if (card.CompareTag(ENEMY_CARD))
         {
@@ -625,11 +627,9 @@ public class CombatManager : MonoBehaviour
                 }
             }
         }
-        void ParticleBurst()
-        {
-            ParticleSystemHandler particleHandler =
-                anMan.CreateParticleSystem(card, ParticleSystemHandler.ParticlesType.Play, 1);
-        }
+
+        void ParticleBurst() =>
+            anMan.CreateParticleSystem(card, ParticleSystemHandler.ParticlesType.Play, 1);
     }
 
     /******
@@ -740,7 +740,7 @@ public class CombatManager : MonoBehaviour
             {
                 if (!preCheck)
                 {
-                    uMan.CreateFleetingInfoPopup("Units with <b>Stealth</b> can't be attacked!");
+                    uMan.CreateFleetingInfoPopup("Units with Stealth can't be attacked!");
                     SFX_Error();
                 }
                 return false;
@@ -797,7 +797,7 @@ public class CombatManager : MonoBehaviour
         {
             PlayAttackSound(attacker);
             efMan.CreateEffectRay(attacker.transform.position, defender,
-                () => Strike(attacker, defender, true), efMan.DamageRayColor, 0, false);
+                () => Strike(attacker, defender, true), efMan.DamageRayColor, false);
         }
     }
 
