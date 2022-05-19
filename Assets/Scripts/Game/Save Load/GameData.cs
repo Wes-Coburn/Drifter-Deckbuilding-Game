@@ -33,8 +33,7 @@ public class GameData
         string[,] npcsAndClips, string[,] locationsNPCsObjectives, string[] visitedLocations, string[] shopItems,
         string[] recruitMages, string[] recruitMutants, string[] recruitRogues, string[] recruitTechs, string[] recruitWarriors,
         int recruitLoyalty, int shopLoyalty,
-        int reputationMages, int reputationMutants, int reputationRogues, int reputationTechs, int reputationWarriors,
-        bool achievement_BETA_Finish)
+        int reputationMages, int reputationMutants, int reputationRogues, int reputationTechs, int reputationWarriors)
     {
         CurrentHour = currentHour;
         CurrentNarrative = currentNarrative;
@@ -62,7 +61,5 @@ public class GameData
         Reputation_Rogues = reputationRogues;
         Reputation_Techs = reputationTechs;
         Reputation_Warriors = reputationWarriors;
-
-        Achievement_BETA_Finish = achievement_BETA_Finish;
     }
 }

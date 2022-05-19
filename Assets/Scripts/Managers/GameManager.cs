@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
+    [Header("LOCATION BACKGROUNDS")]
+    [SerializeField] private Sprite locationBG_City;
+    [SerializeField] private Sprite locationBG_Wasteland;
     [Header("LOCATION ICON")]
     [SerializeField] GameObject locationIconPrefab;
     [Header("MULLIGAN EFFECT")]
@@ -77,7 +80,6 @@ public class GameManager : MonoBehaviour
     public List<HeroItem> ShopItems { get; private set; }
     public int ShopLoyalty { get; set; }
     public int RecruitLoyalty { get; set; }
-    public bool Achievement_BETA_Finish { get; set; }
 
     // REPUTATION
     public int Reputation_Mages { get; set; }
@@ -168,12 +170,6 @@ public class GameManager : MonoBehaviour
         SceneLoader.LoadScene(SceneLoader.Scene.TitleScene, false, false); // TESTING
     }
 
-    public int GetRemoveCardCost(Card card)
-    {
-        if (card is SkillCard) return 0;
-        else return REMOVE_CARD_COST;
-    }
-
     /******
      * *****
      * ****** LOAD_NARRATIVE
@@ -206,6 +202,44 @@ public class GameManager : MonoBehaviour
         }
         Debug.LogError("NARRATIVE " + locationName + " NOT FOUND!");
         return null;
+    }
+
+    /******
+     * *****
+     * ****** GET_LOCATION_BACKGROUND
+     * *****
+     *****/
+    public Sprite GetLocationBackground()
+    {
+        if (CurrentLocation == null)
+        {
+            Debug.LogError("CURRENT LOCATION IS NULL!");
+            return null;
+        }
+
+        Location.Background background = CurrentLocation.LocationBackground;
+
+        switch (background)
+        {
+            case Location.Background.City:
+                return locationBG_City;
+            case Location.Background.Wasteland:
+                return locationBG_Wasteland;
+            default:
+                Debug.LogError("INVALID LOCATION BACKGROUND!");
+                return null;
+        }
+    }
+
+    /******
+     * *****
+     * ****** GET_REMOVE_CARD_COST
+     * *****
+     *****/
+    public int GetRemoveCardCost(Card card)
+    {
+        if (card is SkillCard) return 0;
+        else return REMOVE_CARD_COST;
     }
 
     /******
@@ -478,8 +512,7 @@ public class GameManager : MonoBehaviour
             npcsAndClips, locationsNPCsObjectives, VisitedLocations.ToArray(),
             shopItems, recruitMages, recruitMutants, recruitRogues, recruitTechs, recruitWarriors,
             RecruitLoyalty, ShopLoyalty,
-            Reputation_Mages, Reputation_Mutants, Reputation_Rogues, Reputation_Techs, Reputation_Warriors,
-            Achievement_BETA_Finish);
+            Reputation_Mages, Reputation_Mutants, Reputation_Rogues, Reputation_Techs, Reputation_Warriors);
         SaveLoad.SaveGame(data);
     }
 
@@ -492,13 +525,9 @@ public class GameManager : MonoBehaviour
     {
         GameData data = SaveLoad.LoadGame();
         if (data == null) return false;
-        else
-        {
-            Achievement_BETA_Finish = data.Achievement_BETA_Finish;
-            return true;
-        }
+        else return true;
     }
-    
+
     /******
      * *****
      * ****** LOAD_GAME
@@ -650,9 +679,6 @@ public class GameManager : MonoBehaviour
         Reputation_Rogues = data.Reputation_Rogues;
         Reputation_Techs = data.Reputation_Techs;
         Reputation_Warriors = data.Reputation_Warriors;
-
-        // ACHIEVEMENTS
-        Achievement_BETA_Finish = data.Achievement_BETA_Finish;
 
         Narrative GetNarrative(string narrativeName)
         {
@@ -1104,10 +1130,15 @@ public class GameManager : MonoBehaviour
             FunctionTimer.Create(() =>
             auMan.StartStopSound(null, enMan.EnemyHero.HeroWin), 2f);
         }
-        uMan.UpdateEndTurnButton(pMan.IsMyTurn, false);
+
         evMan.ClearDelayedActions();
-        FunctionTimer.Create(() =>
-        uMan.CreateCombatEndPopup(playerWins), 2f);
+
+        uMan.PlayerIsTargetting = false; // TESTING
+        efMan.EffectsResolving = false; // TESTING
+        pMan.IsMyTurn = false; // TESTING
+        //uMan.UpdateEndTurnButton(pMan.IsMyTurn, false);
+
+        FunctionTimer.Create(() => uMan.CreateCombatEndPopup(playerWins), 2f);
 
         //efMan.GiveNextEffects.Clear();
         //efMan.ChangeNextCostEffects.Clear();

@@ -39,9 +39,10 @@ public class AnimationManager : MonoBehaviour
     [SerializeField] private Color dragColor;
     [SerializeField] private Color playColor;
     [SerializeField] private Color newCardColor;
-
-    public Coroutine ProgressBarRoutine { get; set; }
+    
+    public Coroutine ProgressBarRoutine { get; private set; }
     private Coroutine TextCountRoutine { get; set; }
+    private Coroutine ShiftHandRoutine { get; set; }
 
     private void Start()
     {
@@ -110,8 +111,9 @@ public class AnimationManager : MonoBehaviour
             newParent = uMan.UICanvas.transform;
             valueChanger.transform.localScale = new Vector2(2, 2);
         }
-        else newParent = uMan.CurrentZoomCanvas.transform; // TESTING
+        else newParent = parent.parent.parent.parent; // TESTING
         valueChanger.transform.SetParent(newParent); // TESTING
+        valueChanger.transform.SetAsLastSibling(); // TESTING
 
         string valueText = "+";
         bool isPositiveChange = true;
@@ -120,6 +122,7 @@ public class AnimationManager : MonoBehaviour
             isPositiveChange = false;
             valueText = "";
         }
+
         valueText += value;
         valueChanger.GetComponentInChildren<TextMeshProUGUI>().SetText(valueText);
         valueChanger.GetComponentInChildren<Animator>().SetBool("IsPositiveChange", isPositiveChange);
@@ -383,9 +386,17 @@ public class AnimationManager : MonoBehaviour
      * ****** SHIFT_PLAYER_HAND
      * *****
      *****/
-    public void ShiftPlayerHand(bool isUpShift) =>
-        StartCoroutine(HandShiftNumerator(isUpShift));
-    private IEnumerator HandShiftNumerator(bool isUpShift)
+    public void ShiftPlayerHand(bool isUpShift)
+    {
+        if (ShiftHandRoutine != null)
+        {
+            StopCoroutine(ShiftHandRoutine);
+            ShiftHandRoutine = null;
+        }
+
+        ShiftHandRoutine = StartCoroutine(ShiftHandNumerator(isUpShift));
+    }
+    private IEnumerator ShiftHandNumerator(bool isUpShift)
     {
         auMan.StartStopSound("SFX_ShiftHand");
         float distance;

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New ChangeCost Effect", menuName = "Effects/Effect/ChangeCostEffect")]
+[CreateAssetMenu(fileName = "New ChangeCost Effect", menuName = "Effects/Effect/ChangeCost")]
 public class ChangeCostEffect : Effect
 {
     [Header("CHANGE COST EFFECT")]

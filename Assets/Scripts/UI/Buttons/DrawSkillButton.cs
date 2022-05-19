@@ -3,11 +3,19 @@ using UnityEngine.EventSystems;
 
 public class DrawSkillButton : MonoBehaviour, IPointerClickHandler
 {
+    private PlayerManager pMan;
+    private EndTurnButton endTurnButton;
+    private void Start()
+    {
+        pMan = PlayerManager.Instance;
+        endTurnButton = FindObjectOfType<EndTurnButton>();
+    }
     public void OnPointerClick(PointerEventData pointerEventData)
     {
         if (pointerEventData.button != PointerEventData.InputButton.Left) return;
-        if (!PlayerManager.Instance.IsMyTurn || EffectManager.Instance.EffectsResolving ||
-            EventManager.Instance.ActionsDelayed) return;
-        PlayerManager.Instance.DrawSkill();
+
+        if (!pMan.IsMyTurn || !endTurnButton.IsInteractable) return; // TESTING
+
+        pMan.DrawSkill();
     }
 }

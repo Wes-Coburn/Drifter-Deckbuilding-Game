@@ -19,16 +19,19 @@ MonoBehaviour:
   cardType: Action
   cardSubType: 
   isRare: 0
-  cardDescription: Noxious Gas is...
-  overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
-  zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
+  cardDescription: "\u201CCAUTION: Gas pockets ahead, watch your step!\u201D"
   cardPlaySound:
     name: 
     clip: {fileID: 0}
     volume: 1
     pitch: 1
     source: {fileID: 0}
-  effectDescription: Deal 2 to ALL units.
+  overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
+  zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
+  effectDescription: 'Deal 1 to ALL units and give them "Turn Start: Deal 1 to this
+    unit."'
   effectGroupList:
-  - {fileID: 11400000, guid: dcfab171dac69ab41811a76cca843429, type: 2}
-  linkedAbilities: []
+  - {fileID: 11400000, guid: 4e6aa40295e38d64eabe477a479ac3e0, type: 2}
+  - {fileID: 11400000, guid: 67f6115b1622e9b41aacd476f832da9f, type: 2}
+  linkedAbilities:
+  - {fileID: 11400000, guid: 2ed77ae95233cff4e88bcd8abdc83337, type: 2}

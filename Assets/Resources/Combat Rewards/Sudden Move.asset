@@ -18,17 +18,17 @@ MonoBehaviour:
   cardName: Sudden Move
   cardType: Action
   cardSubType: 
+  isRare: 0
   cardDescription: Sudden Move is...
-  overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
-  zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
   cardPlaySound:
     name: 
     clip: {fileID: 0}
     volume: 1
     pitch: 1
     source: {fileID: 0}
-  effectDescription: Discard any number of cards, then draw that many plus 1.
+  overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
+  zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
+  effectDescription: Discard any number of cards to create that many skills in hand.
   effectGroupList:
-  - {fileID: 11400000, guid: 7e05b971260fe2344bd0ec67369300dd, type: 2}
-  - {fileID: 11400000, guid: 023c2a13540808347adc8dfb99742db9, type: 2}
+  - {fileID: 11400000, guid: 01f91c3449e9b4a4cb398ce4003c93f3, type: 2}
   linkedAbilities: []

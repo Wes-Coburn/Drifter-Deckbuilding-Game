@@ -69,7 +69,6 @@ public class PlayerManager : MonoBehaviour
         get => isMyTurn;
         set
         {
-            if (isMyTurn == value) return;
             isMyTurn = value;
             uMan.UpdateEndTurnButton(isMyTurn);
         }
@@ -158,7 +157,7 @@ public class PlayerManager : MonoBehaviour
         get
         {
             int bonusHealth = 0;
-            if (GetAugment("Kinetic Amplifier")) bonusHealth = 10;
+            if (GetAugment("Kinetic Amplifier")) bonusHealth = 5;
             return GameManager.PLAYER_STARTING_HEALTH + bonusHealth;
         }
     }

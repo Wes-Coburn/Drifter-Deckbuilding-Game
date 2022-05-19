@@ -20,7 +20,6 @@ public class DialogueManager : MonoBehaviour
     private PlayerManager pMan;
     private UIManager uMan;
     private AudioManager auMan;
-    private CardManager caMan;
 
     private DialogueClip currentDialogueClip;
     private DialogueSceneDisplay dialogueDisplay;
@@ -40,7 +39,6 @@ public class DialogueManager : MonoBehaviour
         pMan = PlayerManager.Instance;
         uMan = UIManager.Instance;
         auMan = AudioManager.Instance;
-        caMan = CardManager.Instance;
         newEngagedHero = false;
         AllowResponse = true;
     }
@@ -212,7 +210,7 @@ public class DialogueManager : MonoBehaviour
                 FilterText(dpr.DialogueResponse3.ResponseText);
     }
     
-    private string FilterText(string text)
+    public string FilterText(string text)
     {
         if (pMan.PlayerHero != null)
         {
@@ -410,7 +408,6 @@ public class DialogueManager : MonoBehaviour
         if (dResponse.Response_IsExit)
         {
             uMan.CreateBetaFinishPopup(); // FOR BETA ONLY
-            gMan.Achievement_BETA_Finish = true; // FOR BETA ONLY
             gMan.SaveGame(); // FOR BETA ONLY
             return;
         }

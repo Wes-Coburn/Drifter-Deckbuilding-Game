@@ -87,8 +87,13 @@ public abstract class CardDisplay : MonoBehaviour
             energyCost.SetActive(false);
         else
         {
-            energyCost.GetComponentInChildren
-                <TextMeshProUGUI>().SetText(cost.ToString());
+            TextMeshProUGUI txtGui = energyCost.GetComponentInChildren<TextMeshProUGUI>();
+            txtGui.SetText(cost.ToString());
+
+            int startCost = CardScript.StartEnergyCost;
+            if (cost < startCost) txtGui.color = Color.green;
+            else if (cost > startCost) txtGui.color = Color.red;
+            else txtGui.color = Color.white;
         }
     }
 

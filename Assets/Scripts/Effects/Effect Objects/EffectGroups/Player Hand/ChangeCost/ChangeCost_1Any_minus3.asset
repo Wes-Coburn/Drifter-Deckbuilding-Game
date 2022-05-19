@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a22d7123f6ee007468cbdc6e9b6fe2b0, type: 3}
+  m_Name: ChangeCost_1Any_minus3
+  m_EditorClassIdentifier: 
+  Targets: {fileID: 11400000, guid: c592a3bf886948b4c8827edecdb219cc, type: 2}
+  ResolveIndependent: 0
+  Effects:
+  - {fileID: 11400000, guid: 0c77f1862fe815e4e8a8722cb8aaf908, type: 2}
+  EffectsDescription: Reduce the cost of a card in your hand by 3.

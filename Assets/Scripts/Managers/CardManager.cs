@@ -425,16 +425,43 @@ public class CardManager : MonoBehaviour
         }
 
         bool effectFound = false;
+
+        List<TriggeredAbility> traAbilities = new List<TriggeredAbility>();
+        List<TriggeredAbility> ctrlAbilities = new List<TriggeredAbility>();
+        
         foreach (CardAbility ca in ucd.CurrentAbilities)
             if (ca is TriggeredAbility tra)
                 if (tra.AbilityTrigger.AbilityName == triggerName)
                 {
                     Debug.Log("TRIGGER! <" + triggerName + ">");
-                    EventManager.Instance.NewDelayedAction(() =>
-                    TriggerAbility(tra), 0.5f, true);
                     effectFound = true;
+                    if (HasControlAbility(tra)) ctrlAbilities.Add(tra);
+                    else traAbilities.Add(tra);
                 }
+
+        foreach (TriggeredAbility ctrlTra in ctrlAbilities)
+        {
+            EventManager.Instance.NewDelayedAction(() =>
+            TriggerAbility(ctrlTra), 0.5f, true);
+        }
+
+        foreach (TriggeredAbility traAbi in traAbilities)
+        {
+            EventManager.Instance.NewDelayedAction(() =>
+            TriggerAbility(traAbi), 0.5f, true);
+        }
+
         return effectFound;
+
+        bool HasControlAbility(TriggeredAbility tra)
+        {
+            foreach (EffectGroup eg in tra.EffectGroupList)
+            {
+                foreach (Effect e in eg.Effects)
+                    if (e is ChangeControlEffect) return true;
+            }
+            return false;
+        }
 
         void TriggerAbility(TriggeredAbility tra)
         {

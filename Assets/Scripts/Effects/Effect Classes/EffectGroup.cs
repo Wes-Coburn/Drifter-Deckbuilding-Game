@@ -5,6 +5,8 @@ using UnityEngine;
 public class EffectGroup : ScriptableObject
 {
     public EffectTargets Targets;
+    [Header("RESOLVE SEPARATELY")]
+    public bool ResolveIndependent;
     public List<Effect> Effects;
     [Tooltip("Description of the effects")]
     [TextArea] public string EffectsDescription;

@@ -11,7 +11,10 @@ public class Location : ScriptableObject
     [SerializeField] private string firstObjective;
     [SerializeField] private Vector2 worldMapPosition;
     [SerializeField] private NPCHero firstNPC;
+
+    [Header("LOCATION ASSETS")]
     [SerializeField] private Sound locationSoundscape;
+    [SerializeField] private Background locationBackground;
 
     [Header("LOCATION TYPE")]
     [SerializeField] private bool isCombatOnly;
@@ -27,6 +30,12 @@ public class Location : ScriptableObject
     [SerializeField] [Tooltip("Day (Hour 2)")] private bool isClosed_Hour2;
     [SerializeField] [Tooltip("Evening (Hour 3)")] private bool isClosed_Hour3;
 
+    public enum Background
+    {
+        City,
+        Wasteland
+    }
+
     public bool IsPriorityLocation { get => isPriorityLocation; }
     public string LocationName { get => locationName; }
     public string LocationFullName { get => locationFullName; }
@@ -36,6 +45,7 @@ public class Location : ScriptableObject
     public Vector2 WorldMapPosition { get => worldMapPosition; }
     public NPCHero FirstNPC { get => firstNPC; }
     public Sound LocationSoundscape { get => locationSoundscape; }
+    public Background LocationBackground { get => locationBackground; }
     public bool IsCombatOnly { get => isCombatOnly; }
     public bool IsHomeBase { get => isHomeBase; }
     public bool IsAugmenter { get => isAugmenter; }
@@ -59,6 +69,7 @@ public class Location : ScriptableObject
         worldMapPosition = location.WorldMapPosition;
         firstNPC = location.FirstNPC;
         locationSoundscape = location.LocationSoundscape;
+        locationBackground = location.LocationBackground;
         isCombatOnly = location.IsCombatOnly;
         isHomeBase = location.IsHomeBase;
         isAugmenter = location.IsAugmenter;

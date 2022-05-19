@@ -105,9 +105,8 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         if (DragDrop.DraggingCard != null || ZoomCardIsCentered) return;
         if (uMan.PlayerIsTargetting)
         {
-            bool isDiscardEffect = false;
-            if (EffectManager.Instance.CurrentEffect is DrawEffect de && de.IsDiscardEffect) isDiscardEffect = true;
-            if (!isDiscardEffect) return;
+            if (EffectManager.Instance.CurrentEffect is DrawEffect de && de.IsDiscardEffect) { }
+            else return;
         }
 
         GameObject parent = null;
@@ -145,7 +144,11 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
                 }
                 else if (parent == playerActionZone)
                 {
-                    Debug.LogWarning("ZOOM DISABLED"!);
+                    /*
+                    rect = playerActionZone.GetComponent<RectTransform>();
+                    cardYPos = rect.position.y + ZOOM_BUFFER; // TESTING
+                    */
+                    Debug.Log("ZOOM DISABLED!");
                     return;
                 }
                 else if (parent == enemyHand)
@@ -304,8 +307,11 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
 
         DescriptionPopup = CreateZoomObject(descriptionPopupPrefab,
             new Vector2(vec2.x, vec2.y), scaleValue);
+
+        string filteredText =
+            DialogueManager.Instance.FilterText(cardDisplay.CardScript.CardDescription);
         DescriptionPopup.GetComponent<DescriptionPopupDisplay>
-            ().DisplayDescriptionPopup(cardDisplay.CardScript.CardDescription);
+            ().DisplayDescriptionPopup(filteredText);
     }
 
     /******

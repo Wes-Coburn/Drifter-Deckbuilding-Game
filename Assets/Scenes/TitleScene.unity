@@ -237,6 +237,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 132780751906245745, guid: ac4dcbff6fb41794890090f304299932,
+        type: 3}
+      propertyPath: orthographic size
+      value: 600
+      objectReference: {fileID: 0}
     - target: {fileID: 3273260790210715129, guid: ac4dcbff6fb41794890090f304299932,
         type: 3}
       propertyPath: m_RootOrder
@@ -1268,14 +1273,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7219d0b0647b06943b317352c5d081a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  developerMode: 1
-  setEnemyHealth1: 0
   addStartUnits: 1
   addStartSkills: 1
   reputationTier: 3
   developerTestHero: {fileID: 11400000, guid: 2a4f7ccf628ec3646bd4d31e0fcb330d, type: 2}
-  enemyTestHero: {fileID: 11400000, guid: 4f186c22cb168444280bffe270f5089f, type: 2}
-  gauntletEnemy: {fileID: 11400000, guid: 488958e5283d607488b5c7b93283295e, type: 2}
+  enemyTestHero: {fileID: 11400000, guid: 488958e5283d607488b5c7b93283295e, type: 2}
   testAugments:
   - {fileID: 11400000, guid: 7264763dfee18dd41a9e3bed17fa5f7d, type: 2}
   - {fileID: 11400000, guid: f5922062de597b649accf655444b3dc7, type: 2}
@@ -1296,45 +1298,27 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c49c6e214e1d99749b29814c038c19ac, type: 2}
   enableTestCards_1: 0
   testCards_1:
-  - {fileID: 11400000, guid: f56ee3820b9fecc44951ceba2cea4878, type: 2}
-  - {fileID: 11400000, guid: 779d5c0eded30c64aa4c057ba9d5e70c, type: 2}
-  - {fileID: 11400000, guid: 673030c7c852f71429cbc1577946d56a, type: 2}
-  - {fileID: 11400000, guid: d1cf4d3b9ce491742beaf8dc75c49cbd, type: 2}
-  - {fileID: 11400000, guid: 6409aa41678062e40a2a823e18a6e3ae, type: 2}
-  - {fileID: 11400000, guid: ca655001f2022584196b4aa8e868c64b, type: 2}
-  - {fileID: 11400000, guid: 7716a781a46dc124c8405ad4ca10cbc8, type: 2}
-  - {fileID: 11400000, guid: 2d63339ff6b071443bd15c05153efc90, type: 2}
-  - {fileID: 11400000, guid: 7feaf3352a0b8f64eaf3e4055a84251f, type: 2}
-  - {fileID: 11400000, guid: 45ba6b3f7fd42e54d8c2288091517fd4, type: 2}
-  enableTestCards_2: 1
+  - {fileID: 11400000, guid: 152866e995921254fbf4cab6451a9df6, type: 2}
+  - {fileID: 11400000, guid: 1094bdd20cd29184989a6e16b1777e81, type: 2}
+  - {fileID: 11400000, guid: 604d44dc23a78534eb285a93221dec20, type: 2}
+  enableTestCards_2: 0
   testCards_2:
-  - {fileID: 11400000, guid: 072b1f3b30affea41a0ec183d9a18982, type: 2}
-  - {fileID: 11400000, guid: 072b1f3b30affea41a0ec183d9a18982, type: 2}
-  - {fileID: 11400000, guid: 072b1f3b30affea41a0ec183d9a18982, type: 2}
-  enableTestCards_3: 0
-  testCards_3:
+  - {fileID: 11400000, guid: 260106f527a58f8498c090d8383850d2, type: 2}
+  - {fileID: 11400000, guid: e63bd5e3ebd429f44a24ac9a05b51bcc, type: 2}
+  - {fileID: 11400000, guid: f392b4aabaebf684d93c6570eebc50f8, type: 2}
+  - {fileID: 11400000, guid: 880c8d29af86fdd49b30583651a95283, type: 2}
+  - {fileID: 11400000, guid: b81d2f556c32e5649af0119acbf2fcf3, type: 2}
+  - {fileID: 11400000, guid: 35c3e7d8d50d71e47aa0155b5ef0ab1b, type: 2}
+  - {fileID: 11400000, guid: d1878506ac4afb344ae620b41ed9eb96, type: 2}
   - {fileID: 11400000, guid: aad035373b2251640b0ed2ca6c111ae8, type: 2}
-  - {fileID: 11400000, guid: 3f472d52c0bf1e44986c59140f1f12c4, type: 2}
+  - {fileID: 11400000, guid: 205306890a63c7748b59b16e90773c20, type: 2}
+  - {fileID: 11400000, guid: bf7e04d03a3ae764c8f96ef629795f41, type: 2}
+  - {fileID: 11400000, guid: bc7ab5197fc750c4395eee3645a5bce2, type: 2}
   - {fileID: 11400000, guid: 9af1a630d73740d4896277a5fd2f3d32, type: 2}
-  - {fileID: 11400000, guid: aad035373b2251640b0ed2ca6c111ae8, type: 2}
-  - {fileID: 11400000, guid: 2c2426100f4068b4a9381c4bd842fd2a, type: 2}
+  enableTestCards_3: 0
+  testCards_3: []
   enableTestCards_4: 0
-  testCards_4:
-  - {fileID: 11400000, guid: 94533d450e1ca1343914e1d3c5f3ce8e, type: 2}
-  - {fileID: 11400000, guid: 52d58db82f290cf42895579e1185d868, type: 2}
-  - {fileID: 11400000, guid: b7d3901dceb45774487609879d6d8f4f, type: 2}
-  - {fileID: 11400000, guid: c594e0bef27dc5a4f84bde1a330f227b, type: 2}
-  - {fileID: 11400000, guid: ddb97e43199b60847bf5f55ef001210c, type: 2}
-  - {fileID: 11400000, guid: 99902dc087b476f47a1be97b9ddd394a, type: 2}
-  - {fileID: 11400000, guid: 79954df5481c06d42b2bdb5385da71d5, type: 2}
-  - {fileID: 11400000, guid: 817a589c9c1ee6640824d3f1356d6bf9, type: 2}
-  - {fileID: 11400000, guid: c3a8246b587985a4e8cc3f148f4061e0, type: 2}
-  - {fileID: 11400000, guid: ebd9c9eee26b43a4284e896de544688f, type: 2}
-  - {fileID: 11400000, guid: a67f5bfd620876b4f92826478c65b0be, type: 2}
-  - {fileID: 11400000, guid: 765dbe83865f1274198c2af07b86c8b5, type: 2}
-  - {fileID: 11400000, guid: d6c0a9e65467d1642af8dda960008bd5, type: 2}
-  - {fileID: 11400000, guid: b6b0d0d5f700a2441a90ef6fabffcda5, type: 2}
-  - {fileID: 11400000, guid: 8b997ff4bdd0a5349bd3a5ec48037192, type: 2}
+  testCards_4: []
 --- !u!95 &6234802737614223793
 Animator:
   serializedVersion: 3
@@ -1372,7 +1356,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6916002615594271779
 RectTransform:
   m_ObjectHideFlags: 0

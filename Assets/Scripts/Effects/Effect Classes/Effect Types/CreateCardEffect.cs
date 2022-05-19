@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Create Card Effect", menuName = "Effects/Effect/Create Card")]
+[CreateAssetMenu(fileName = "New Create Card Effect", menuName = "Effects/Effect/CreateCard")]
 public class CreateCardEffect : Effect
 {
     [SerializeField] [Tooltip("The card to create")] private Card createdCard;
