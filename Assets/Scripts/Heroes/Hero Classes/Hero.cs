@@ -2,8 +2,6 @@ using UnityEngine;
 
 public abstract class Hero : ScriptableObject
 {
-    [TextArea]
-    [SerializeField] private string developerNotes;
     [Header("HERO NAME")]
     [SerializeField] private string heroName;
     [SerializeField] private string heroShortName;
@@ -16,7 +14,6 @@ public abstract class Hero : ScriptableObject
     [SerializeField] private Sound heroWin;
     [SerializeField] private Sound heroLose;
 
-    private string DeveloperNotes { get => developerNotes; }
     public string HeroName { get => heroName; }
     public string HeroShortName { get => heroShortName; }
     public Sprite HeroPortrait { get => heroPortrait; }
@@ -26,7 +23,6 @@ public abstract class Hero : ScriptableObject
 
     public virtual void LoadHero(Hero hero)
     {
-        developerNotes = hero.DeveloperNotes;
         heroName = hero.HeroName;
         heroShortName = hero.heroShortName;
         heroPortrait = hero.HeroPortrait;

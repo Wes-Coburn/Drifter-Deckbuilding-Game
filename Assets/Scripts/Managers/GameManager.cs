@@ -102,7 +102,8 @@ public class GameManager : MonoBehaviour
     public const string PLAYER = "Player";
     public const int MINIMUM_MAIN_DECK_SIZE = 15;
     public const int MINIMUM_SKILL_DECK_SIZE = 0;
-    public const int PLAYER_STARTING_HEALTH = 20;
+    public const int MAXIMUM_SKILL_DUPLICATES = 3;
+    public const int PLAYER_STARTING_HEALTH = 30;
     public const int PLAYER_HAND_SIZE = 3;
     public const int PLAYER_START_UNITS = 3;
     public const int PLAYER_START_SKILLS = 1;
@@ -356,12 +357,12 @@ public class GameManager : MonoBehaviour
     private void NewGame_Load()
     {
         settingNarrative = LoadNarrative("Welcome to the Drift");
-        newGameNarrative = LoadNarrative("Stuck in Sylus");
+        newGameNarrative = LoadNarrative("Part 1: Stuck in Sylus");
         homeBaseLocation = LoadLocation("Your Ship");
-        firstLocation = LoadLocation("The Alley");
+        firstLocation = LoadLocation("Sekherd and 7th");
 
-        CurrentHour = 4; // TESTING
-        IsNewHour = false; // TESTING
+        CurrentHour = 4;
+        IsNewHour = false;
         CurrentLocation = GetActiveLocation(firstLocation);
         CurrentNarrative = settingNarrative;
         GetActiveLocation(homeBaseLocation);
@@ -1205,7 +1206,7 @@ public class GameManager : MonoBehaviour
         float delay = 0;
         if (!isPlayerTurn) delay = 1;
         evMan.NewDelayedAction(() =>
-        caMan.TriggerPlayedUnits(CardManager.TURN_START, player), delay);
+        caMan.TriggerPlayedUnits(CardManager.TRIGGER_TURN_START, player), delay);
 
         if (!isPlayerTurn)
         {
@@ -1229,7 +1230,7 @@ public class GameManager : MonoBehaviour
     public void EndCombatTurn(string player)
     {
         evMan.NewDelayedAction(() =>
-        caMan.TriggerPlayedUnits(CardManager.TURN_END, player), 0.5f);
+        caMan.TriggerPlayedUnits(CardManager.TRIGGER_TURN_END, player), 0.5f);
 
         evMan.NewDelayedAction(() => coMan.RefreshUnits(player), 0.5f);
         evMan.NewDelayedAction(() => RemoveEffects(), 0.5f);

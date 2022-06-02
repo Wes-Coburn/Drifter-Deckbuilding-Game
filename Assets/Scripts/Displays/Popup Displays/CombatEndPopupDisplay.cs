@@ -33,7 +33,8 @@ public class CombatEndPopupDisplay : MonoBehaviour
         {
             if (dMan.EngagedHero.NextDialogueClip is CombatRewardClip crc)
             {
-                uMan.CreateNewCardPopup(null, CardManager.Instance.ChooseCards());
+                uMan.CreateNewCardPopup(null,
+                    CardManager.Instance.ChooseCards(CardManager.ChooseCard.Unit)); // TESTING
 
                 if (crc.NewNarrative != null) gMan.CurrentNarrative = crc.NewNarrative; // TESTING
 

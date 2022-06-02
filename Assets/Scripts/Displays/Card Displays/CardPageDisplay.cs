@@ -262,7 +262,7 @@ public class CardPageDisplay : MonoBehaviour
         foreach (Card card in pMan.PlayerDeckList)
             if (card.CardName == skillCard.CardName) copies++;
 
-        if (copies > 2)
+        if (copies >= GameManager.MAXIMUM_SKILL_DUPLICATES)
             uMan.CreateFleetingInfoPopup("You can't add more than 3 copies of a skill!", true);
         else if (pMan.AetherCells < GameManager.LEARN_SKILL_COST)
             uMan.InsufficientAetherPopup();

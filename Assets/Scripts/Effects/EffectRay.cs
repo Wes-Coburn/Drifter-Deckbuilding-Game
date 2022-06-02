@@ -92,14 +92,7 @@ public class EffectRay : MonoBehaviour
 
         if (ActiveRays < 1)
         {
-            if (isEffectGroup)
-            {
-                EffectManager.Instance.FinishEffectGroupList(false); // TESTING
-                /*
-                FunctionTimer.Create(() =>
-                EffectManager.Instance.FinishEffectGroupList(false), 1f);
-                */
-            }
+            if (isEffectGroup) EffectManager.Instance.FinishEffectGroupList(false); // TESTING
             else UIManager.Instance.UpdateEndTurnButton(PlayerManager.Instance.IsMyTurn, true);
         }
 

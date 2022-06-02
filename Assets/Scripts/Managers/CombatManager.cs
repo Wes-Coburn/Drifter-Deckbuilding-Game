@@ -505,10 +505,7 @@ public class CombatManager : MonoBehaviour
         if (newZoneName == PLAYER_ZONE || newZoneName == PLAYER_ACTION_ZONE ||
             newZoneName == ENEMY_ZONE) isPlayed = true;
 
-        if (changeControl)
-        {
-            card.GetComponent<DragDrop>().IsPlayed = true; // TESTING
-        }
+        if (changeControl) card.GetComponent<DragDrop>().IsPlayed = true;
         else if (returnToIndex)
         {
             card.transform.SetSiblingIndex(lastCardIndex);
@@ -650,15 +647,17 @@ public class CombatManager : MonoBehaviour
             {
                 if (!caMan.TriggerUnitAbility(card, CardManager.TRIGGER_PLAY))
                 {
+                    uMan.CombatLog_PlayCard(card);
                     efMan.TriggerGiveNextEffects(card);
                     efMan.ResolveChangeNextCostEffects(card);
-                    uMan.CombatLog_PlayCard(card);
+                    caMan.TriggerTrapAbilities(card); // TESTING
                 }
             }
             else
             {
-                caMan.TriggerUnitAbility(card, CardManager.TRIGGER_PLAY);
                 uMan.CombatLog_PlayCard(card);
+                caMan.TriggerTrapAbilities(card); // TESTING
+                caMan.TriggerUnitAbility(card, CardManager.TRIGGER_PLAY);
             }
 
             PlayCardSound();
@@ -1049,8 +1048,11 @@ public class CombatManager : MonoBehaviour
      * ****** HEAL_DAMAGE
      * *****
      *****/
-    public void HealDamage(GameObject target, int healingValue)
+    public void HealDamage(GameObject target, HealEffect healEffect)
     {
+        int healingValue = healEffect.Value;
+        //if (healEffect.FullyHeal) 
+
         if (healingValue < 1) return;
         int targetValue;
         int maxValue;
@@ -1072,8 +1074,13 @@ public class CombatManager : MonoBehaviour
         }
 
         if (targetValue < 1) return; // Don't heal destroyed units or heroes
-        newTargetValue = targetValue + healingValue;
-        if (newTargetValue > maxValue) newTargetValue = maxValue;
+
+        if (healEffect.HealFully) newTargetValue = maxValue; // TESTING
+        else // TESTING
+        {
+            newTargetValue = targetValue + healingValue;
+            if (newTargetValue > maxValue) newTargetValue = maxValue;
+        }
 
         auMan.StartStopSound("SFX_StatPlus");
         int healthChange = newTargetValue - targetValue;
@@ -1246,7 +1253,8 @@ public class CombatManager : MonoBehaviour
             if (CardManager.GetAbility(card, CardManager.ABILITY_MARKED))
             {
                 GetUnitDisplay(card).AbilityTriggerState(CardManager.ABILITY_MARKED);
-                DrawCard(PLAYER);
+                if (card.CompareTag(ENEMY_CARD)) DrawCard(PLAYER);
+                else DrawCard(ENEMY);
             }
         }
         void Destroy()
@@ -1272,6 +1280,7 @@ public class CombatManager : MonoBehaviour
                 if (cardScript.BanishAfterPlay) HideCard(card);
                 else EnemyDiscardCards.Add(HideCard(card));
             }
+            else Debug.LogError("INVALID TAG!");
             SelectPlayableCards();
         }
     }

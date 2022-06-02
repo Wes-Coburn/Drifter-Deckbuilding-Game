@@ -126,6 +126,13 @@ public class NewCardPopupDisplay : MonoBehaviour
         }
         else if (nextClip is CombatRewardClip crc)
         {
+            if (newCard is UnitCard) // TESTING
+            {
+                uMan.CreateNewCardPopup(null,
+                    CardManager.Instance.ChooseCards(CardManager.ChooseCard.Action)); // TESTING
+                return;
+            }
+
             if (crc.AetherCells > 0)
             {
                 int newAether = crc.AetherCells;

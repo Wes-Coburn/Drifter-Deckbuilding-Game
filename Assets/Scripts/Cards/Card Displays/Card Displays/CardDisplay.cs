@@ -62,7 +62,8 @@ public abstract class CardDisplay : MonoBehaviour
         get
         {
             string spacer = "";
-            if (!string.IsNullOrEmpty(CardScript.CardSubType)) spacer = " - ";
+            if (!string.IsNullOrEmpty(CardScript.CardType) &&
+                !string.IsNullOrEmpty(CardScript.CardSubType)) spacer = " - ";
             return CardScript.CardType + spacer + CardScript.CardSubType;
         }
         set => cardTypeLine.GetComponent<TextMeshProUGUI>().SetText(CardManager.Instance.FilterCardTypes(value));

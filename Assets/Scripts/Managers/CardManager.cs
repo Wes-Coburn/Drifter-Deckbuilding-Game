@@ -18,6 +18,8 @@ public class CardManager : MonoBehaviour
     private PlayerManager pMan;
     private EnemyManager enMan;
     private AudioManager auMan;
+    private EffectManager efMan;
+    private EventManager evMan;
 
     [Header("PREFABS")]
     [SerializeField] private GameObject unitCardPrefab;
@@ -42,8 +44,9 @@ public class CardManager : MonoBehaviour
     public const string TRIGGER_RETALIATE = "Retaliate";
     public const string TRIGGER_REVENGE = "Revenge";
     public const string TRIGGER_SPARK = "Spark";
-    public const string TURN_START = "Turn Start";
-    public const string TURN_END = "Turn End";
+    public const string TRIGGER_TRAP = "Trap";
+    public const string TRIGGER_TURN_START = "Turn Start";
+    public const string TRIGGER_TURN_END = "Turn End";
 
     // Unit Types
     public const string MAGE = "Mage";
@@ -76,8 +79,9 @@ public class CardManager : MonoBehaviour
         TRIGGER_RETALIATE,
         TRIGGER_REVENGE,
         TRIGGER_SPARK,
-        TURN_START,
-        TURN_END
+        TRIGGER_TRAP,
+        TRIGGER_TURN_START,
+        TRIGGER_TURN_END
     };
 
     // Card Types
@@ -138,6 +142,8 @@ public class CardManager : MonoBehaviour
         pMan = PlayerManager.Instance;
         enMan = EnemyManager.Instance;
         auMan = AudioManager.Instance;
+        efMan = EffectManager.Instance;
+        evMan = EventManager.Instance;
 
         PlayerRecruitMages = new List<UnitCard>();
         PlayerRecruitMutants = new List<UnitCard>();
@@ -200,10 +206,30 @@ public class CardManager : MonoBehaviour
         }
     }
 
-    public Card[] ChooseCards()
+    public enum ChooseCard
     {
-        Card[] allChooseCards = Resources.LoadAll<Card>("Combat Rewards");
+        Action,
+        Unit
+    }
+    public Card[] ChooseCards(ChooseCard chooseCard)
+    {
+        Card[] allChooseCards;
+        string chooseCardType;
 
+        switch (chooseCard)
+        {
+            case ChooseCard.Action:
+                chooseCardType = "Combat Rewards";
+                break;
+            case ChooseCard.Unit:
+                chooseCardType = "Recruit Units";
+                break;
+            default:
+                Debug.LogError("INVALID TYPE!");
+                return null;
+        }
+
+        allChooseCards = Resources.LoadAll<Card>(chooseCardType);
         if (allChooseCards.Length < 1)
         {
             Debug.LogError("NO CARDS FOUND!");
@@ -213,6 +239,7 @@ public class CardManager : MonoBehaviour
         allChooseCards.Shuffle();
         Card[] chooseCards = new Card[3];
         int index = 0;
+
         foreach (Card card in allChooseCards)
         {
             int playerDeckIndex = pMan.PlayerDeckList.FindIndex
@@ -425,7 +452,6 @@ public class CardManager : MonoBehaviour
         }
 
         bool effectFound = false;
-
         List<TriggeredAbility> traAbilities = new List<TriggeredAbility>();
         List<TriggeredAbility> ctrlAbilities = new List<TriggeredAbility>();
         
@@ -441,13 +467,13 @@ public class CardManager : MonoBehaviour
 
         foreach (TriggeredAbility ctrlTra in ctrlAbilities)
         {
-            EventManager.Instance.NewDelayedAction(() =>
+            evMan.NewDelayedAction(() =>
             TriggerAbility(ctrlTra), 0.5f, true);
         }
 
         foreach (TriggeredAbility traAbi in traAbilities)
         {
-            EventManager.Instance.NewDelayedAction(() =>
+            evMan.NewDelayedAction(() =>
             TriggerAbility(traAbi), 0.5f, true);
         }
 
@@ -468,29 +494,49 @@ public class CardManager : MonoBehaviour
             string triggerName = tra.AbilityTrigger.AbilityName;
             if (triggerName != TRIGGER_PLAY)
                 auMan.StartStopSound(null, ucd.CardScript.CardPlaySound);
-            EffectManager.Instance.StartEffectGroupList(tra.EffectGroupList, unitCard, triggerName);
+            efMan.StartEffectGroupList(tra.EffectGroupList, unitCard, triggerName);
         }
     }
-    public bool TriggerPlayedUnits(string triggerName, string player)
+    public void TriggerPlayedUnits(string triggerName, string player)
     {
         List<GameObject> unitZoneCards;
         if (player == GameManager.PLAYER) unitZoneCards = CombatManager.Instance.PlayerZoneCards;
         else unitZoneCards = CombatManager.Instance.EnemyZoneCards;
-        bool triggerFound = false;
+
+        foreach (GameObject unit in unitZoneCards)
+            TriggerUnitAbility(unit, triggerName);
+
+        // ENEMY HERO POWER
+        if (player == GameManager.ENEMY && enMan.EnemyHero.EnemyHeroPower != null &&
+            enMan.EnemyHero.EnemyHeroPower.PowerTrigger.AbilityName == triggerName)
+            enMan.UseHeroPower();
+    }
+
+    public void TriggerTrapAbilities(GameObject trappedUnit)
+    {
+        List<GameObject> unitZoneCards;
+        if (trappedUnit.CompareTag(CombatManager.PLAYER_CARD)) unitZoneCards = CombatManager.Instance.EnemyZoneCards;
+        else unitZoneCards = CombatManager.Instance.PlayerZoneCards;
 
         foreach (GameObject unit in unitZoneCards)
         {
-            if (TriggerUnitAbility(unit, triggerName))
-                triggerFound = true;
+            UnitCardDisplay ucd = unit.GetComponent<UnitCardDisplay>();
+            foreach (CardAbility ca in ucd.CurrentAbilities)
+                if (ca is TrapAbility trapAbility)
+                {
+                    ucd.AbilityTriggerState(TRIGGER_TRAP);
+
+                    foreach (Effect selfEffect in trapAbility.SelfEffects)
+                        evMan.NewDelayedAction(() =>
+                        TriggerTrapEffects(unit, selfEffect, unit), 0.5f, true);
+
+                    foreach (Effect trapEffect in trapAbility.TrapEffects)
+                        evMan.NewDelayedAction(() =>
+                        TriggerTrapEffects(trappedUnit, trapEffect, unit), 0.5f, true);
+                }
         }
 
-        // ENEMY HERO POWER // TESTING
-        if (player == GameManager.ENEMY && enMan.EnemyHero.EnemyHeroPower != null &&
-            enMan.EnemyHero.EnemyHeroPower.PowerTrigger.AbilityName == triggerName)
-        {
-            triggerFound = true;
-            enMan.UseHeroPower();
-        }
-        return triggerFound;
+        void TriggerTrapEffects(GameObject unit, Effect effect, GameObject source) =>
+            efMan.ResolveEffect(new List<GameObject> { unit }, effect, 0, false, source);
     }
 }

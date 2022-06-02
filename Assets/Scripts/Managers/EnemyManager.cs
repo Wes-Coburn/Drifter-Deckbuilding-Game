@@ -49,6 +49,7 @@ public class EnemyManager : MonoBehaviour
             enemyHero = value;
             if (EnemyDeckList == null || CurrentEnemyDeck == null) return;
             EnemyDeckList.Clear();
+
             if (value == null)
             {
                 CurrentEnemyDeck.Clear();
@@ -59,9 +60,11 @@ public class EnemyManager : MonoBehaviour
                 Debug.LogError("REINFORCEMENTS NOT FOUND!");
                 return;
             }
+
             foreach (UnitCard unit in enemyHero.Reinforcements[ReinforcementGroup].ReinforcementUnits)
                 for (int i = 0; i < GameManager.ENEMY_START_UNITS; i++)
                     caMan.AddCard(unit, GameManager.ENEMY);
+
             caMan.ShuffleDeck(GameManager.ENEMY, false);
             ReinforcementSchedule =
                 enemyHero.Reinforcements[ReinforcementGroup].ReinforcementSchedule.Schedule;
@@ -101,7 +104,7 @@ public class EnemyManager : MonoBehaviour
         EnemyDeckList = new List<Card>();
         CurrentEnemyDeck = new List<Card>();
         ReinforcementSchedule = new List<int>();
-        ReinforcementGroup = 0; // FOR TESTING ONLY
+        ReinforcementGroup = 0; // FOR TESTING ONLY?
     }
 
     public void StartEnemyTurn()

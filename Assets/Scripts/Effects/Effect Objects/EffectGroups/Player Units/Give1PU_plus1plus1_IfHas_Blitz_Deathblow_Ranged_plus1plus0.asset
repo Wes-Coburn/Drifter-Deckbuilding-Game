@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a22d7123f6ee007468cbdc6e9b6fe2b0, type: 3}
+  m_Name: Give1PU_plus1plus1_IfHas_Blitz_Deathblow_Ranged_plus1plus0
+  m_EditorClassIdentifier: 
+  Targets: {fileID: 11400000, guid: 3536ddc3f75919646b8fab53d9f33c8a, type: 2}
+  ResolveIndependent: 0
+  Effects:
+  - {fileID: 11400000, guid: c3327fe33a648424490968f107b39022, type: 2}
+  - {fileID: 11400000, guid: 0849805e9d1eae245a56ce4643e12647, type: 2}
+  - {fileID: 11400000, guid: bd1bb004f88aabf4aba918479a059958, type: 2}
+  - {fileID: 11400000, guid: 641db60b14a0a9b41b67008f8ca7a1e0, type: 2}
+  EffectsDescription: Give an ally +1|+1. If it has Blitz, Deathblow, or Ranged,
+    give it +1|+0 for each.
