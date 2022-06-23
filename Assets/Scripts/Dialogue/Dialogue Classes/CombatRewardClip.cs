@@ -4,8 +4,13 @@ using UnityEngine;
 public class CombatRewardClip : DialogueClip
 {
     [SerializeField] private DialogueClip nextDialogueClip;
+    [Header("AETHER CELLS")]
     [SerializeField] [Range(1, 30)] private int aetherCells;
+    [Header("NEW SKILL")]
+    [SerializeField] private bool newSkill;
+    [Header("NEW LOCATIONS")]
     [SerializeField] private NewLocation[] newLocations;
+    [Header("NEW NARRATIVE")]
     [SerializeField] private Narrative newNarrative;
     [Header("REPUTATION")]
     [SerializeField][Range(-5, 5)] private int reputation_Mages;
@@ -16,6 +21,7 @@ public class CombatRewardClip : DialogueClip
 
     public DialogueClip NextDialogueClip { get => nextDialogueClip; }
     public int AetherCells { get => aetherCells; }
+    public bool NewSkill { get => newSkill; }
     public NewLocation[] NewLocations { get => newLocations; }
     public Narrative NewNarrative { get => newNarrative; }
     public int Reputation_Mages { get => reputation_Mages; }
@@ -30,6 +36,7 @@ public class CombatRewardClip : DialogueClip
         CombatRewardClip crc = dc as CombatRewardClip;
         nextDialogueClip = crc.NextDialogueClip;
         aetherCells = crc.AetherCells;
+        newSkill = crc.NewSkill;
         newLocations = (NewLocation[])crc.NewLocations.Clone();
         newNarrative = crc.NewNarrative;
         reputation_Mages = crc.Reputation_Mages;

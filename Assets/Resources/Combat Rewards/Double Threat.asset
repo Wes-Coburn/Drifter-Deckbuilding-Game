@@ -29,8 +29,9 @@ MonoBehaviour:
     source: {fileID: 0}
   overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
   zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
-  effectDescription: Deal 2 to an enemy and 1 to another.
+  effectDescription: Deal 2 to an enemy and set a Trap.
   effectGroupList:
   - {fileID: 11400000, guid: 965ca257c8532f047b6b0b8db080cda2, type: 2}
-  - {fileID: 11400000, guid: dbdec723e07d1bb409809d8053c199a5, type: 2}
-  linkedAbilities: []
+  - {fileID: 11400000, guid: 3e30647b43605bc4e98d9a2055b974a5, type: 2}
+  linkedAbilities:
+  - {fileID: 11400000, guid: 7c725ce5f65acbd48a58670f0a914288, type: 2}

@@ -12,7 +12,7 @@ public class ActionCardDisplay : CardDisplay
         base.Awake();
         caMan = CardManager.Instance;
     }
-
+    
     protected override void DisplayCard()
     {
         base.DisplayCard();
@@ -41,6 +41,12 @@ public class ActionCardDisplay : CardDisplay
     {
         base.DisplayCardPageCard(card);
         CardScript = card;
+    }
+
+    public override void DisplayChooseCard(Card card)
+    {
+        base.DisplayChooseCard(card);
+        DisplayCardPageCard(card); // TESTING
     }
 
     public override void ResetCard() => base.ResetCard();

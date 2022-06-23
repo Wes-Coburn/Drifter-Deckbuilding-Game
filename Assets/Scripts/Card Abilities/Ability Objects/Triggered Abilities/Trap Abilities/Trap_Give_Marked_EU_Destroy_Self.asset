@@ -15,9 +15,11 @@ MonoBehaviour:
   AbilityName: 'Trap: Mark the trapped unit.'
   AbilityDescription: Mark the trapped unit.
   AbilitySprite: {fileID: 0}
-  LinkedAbilites: []
+  LinkedAbilites:
+  - {fileID: 11400000, guid: 67b65f6bf1f93db43afb76d61b1435b2, type: 2}
   AbilityTrigger: {fileID: 11400000, guid: 7c725ce5f65acbd48a58670f0a914288, type: 2}
   EffectGroupList: []
+  ResolveLast: 0
   TrapEffects:
   - {fileID: 11400000, guid: 0c8bb1c8a93df8148b4f916bdc30f3e7, type: 2}
   SelfEffects:

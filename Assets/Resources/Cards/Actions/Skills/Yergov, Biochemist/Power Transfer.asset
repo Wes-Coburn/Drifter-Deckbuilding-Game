@@ -28,8 +28,9 @@ MonoBehaviour:
     source: {fileID: 0}
   overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
   zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
-  effectDescription: Destroy an ally to give another ally +3|+3.
+  effectDescription: 'Clone an ally. Give it Blitz and "Turn End: Destroy this unit."'
   effectGroupList:
-  - {fileID: 11400000, guid: c62ff9d98eab5fa4496f5227951c153f, type: 2}
-  - {fileID: 11400000, guid: d60fd4ed2abfc4e4db30246007671fec, type: 2}
-  linkedAbilities: []
+  - {fileID: 11400000, guid: f5144a8addd3d15498cc3b9ecfe500a7, type: 2}
+  linkedAbilities:
+  - {fileID: 11400000, guid: 3e5874c35dad2f34d96f6d4b9d15a4dd, type: 2}
+  - {fileID: 11400000, guid: f9f029cd91a81544eb06ce77a5f40ab8, type: 2}

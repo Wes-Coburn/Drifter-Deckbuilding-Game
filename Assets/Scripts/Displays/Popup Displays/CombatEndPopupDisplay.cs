@@ -25,7 +25,7 @@ public class CombatEndPopupDisplay : MonoBehaviour
         if (gMan.IsTutorial)
         {
             if (victoryText.activeSelf) gMan.NewGame();
-            else gMan.PlayTutorial(); // TESTING
+            else gMan.PlayTutorial();
             return;
         }
 
@@ -33,10 +33,10 @@ public class CombatEndPopupDisplay : MonoBehaviour
         {
             if (dMan.EngagedHero.NextDialogueClip is CombatRewardClip crc)
             {
-                uMan.CreateNewCardPopup(null,
-                    CardManager.Instance.ChooseCards(CardManager.ChooseCard.Unit)); // TESTING
+                uMan.CreateNewCardPopup(null, "New Unit!",
+                    CardManager.Instance.ChooseCards(CardManager.ChooseCard.Unit));
 
-                if (crc.NewNarrative != null) gMan.CurrentNarrative = crc.NewNarrative; // TESTING
+                if (crc.NewNarrative != null) gMan.CurrentNarrative = crc.NewNarrative;
 
                 if (crc.NewLocations != null)
                 {
@@ -52,7 +52,7 @@ public class CombatEndPopupDisplay : MonoBehaviour
                 }
                 else Debug.LogWarning("NEW LOCATIONS IS NULL!");
 
-                dMan.ChangeReputations(crc); // TESTING
+                dMan.ChangeReputations(crc);
             }
             else Debug.LogError("NEXT CLIP IS NOT COMBAT REWARD CLIP!");
         }

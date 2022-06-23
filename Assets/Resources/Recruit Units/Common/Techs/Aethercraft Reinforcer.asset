@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120ae26cc4846f34db63edca720772b3, type: 3}
   m_Name: Aethercraft Reinforcer
   m_EditorClassIdentifier: 
-  cardArt: {fileID: 21300000, guid: 298b76de142a90048ac4bd2e0a046f7b, type: 3}
+  cardArt: {fileID: 21300000, guid: 6d1cf671869c3dc42ba9afefaa6634a9, type: 3}
   cardBorder: {fileID: 21300000, guid: df0cd5fe0e12b6048bd705355a698648, type: 3}
   energyCost: 3
   cardName: Aethercraft Reinforcer
@@ -28,9 +28,10 @@ MonoBehaviour:
     source: {fileID: 0}
   overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
   zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
-  power: 2
-  health: 4
+  power: 1
+  health: 3
   startingAbilities:
+  - {fileID: 11400000, guid: 57872a211be3230468dfe7be7b6f28c3, type: 2}
   - {fileID: 11400000, guid: 77f0b75797c9e0c48835beacbc44ef79, type: 2}
   unitDeathSound:
     name: 

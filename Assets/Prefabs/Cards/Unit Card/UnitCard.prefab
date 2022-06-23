@@ -426,7 +426,7 @@ Transform:
   m_Children:
   - {fileID: 268998974255998839}
   m_Father: {fileID: 7415242867258199381}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!222 &7559404383998437950
 CanvasRenderer:
@@ -465,7 +465,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7415242867258199381}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1140,7 +1140,7 @@ Transform:
   - {fileID: 2976242847790186833}
   - {fileID: 1491423689715088633}
   m_Father: {fileID: 7415242867258199381}
-  m_RootOrder: 5
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &2141575481704377770
 Animator:
@@ -1717,7 +1717,7 @@ Transform:
   - {fileID: 8061795197275840185}
   - {fileID: 3062680755453510891}
   m_Father: {fileID: 7415242867258199381}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &4606915438829167703
 Animator:
@@ -2004,10 +2004,10 @@ RectTransform:
   - {fileID: 189728608350791555}
   - {fileID: 1513447418925946752}
   - {fileID: 6068376870496322108}
-  - {fileID: 1076557994005737061}
   - {fileID: 475164448740666798}
   - {fileID: 2578616696171585709}
   - {fileID: 4740902186210159114}
+  - {fileID: 1076557994005737061}
   - {fileID: 7865981090841519068}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -2180,8 +2180,6 @@ MonoBehaviour:
   unitZoomCardPrefab: {fileID: 7279803143792002406, guid: c07a0922a28da3343827254dbc38f442,
     type: 3}
   actionZoomCardPrefab: {fileID: 7279803143792002406, guid: cb7743522e2ef634aa7afbb5890a7252,
-    type: 3}
-  abilityBoxPrefab: {fileID: 2586766476333140764, guid: 5c6eba5c01671c541a39a37fb73575a7,
     type: 3}
   abilityPopupPrefab: {fileID: 268856669738850229, guid: 5c61e8afecb13104c85071fbcc357ece,
     type: 3}

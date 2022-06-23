@@ -22,19 +22,20 @@ MonoBehaviour:
   cardDescription: 
   cardPlaySound:
     name: 
-    clip: {fileID: 0}
-    volume: 0
-    pitch: 0
+    clip: {fileID: 8300000, guid: ca5a54802223eec469e41ce818f1e41e, type: 3}
+    volume: 1
+    pitch: 1
     source: {fileID: 0}
   overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
   zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
   power: 0
   health: 1
   startingAbilities:
+  - {fileID: 11400000, guid: edfe3b459c9ebb14eb21ba3bb2f309a0, type: 2}
   - {fileID: 11400000, guid: f2169afa5cfc820478054a49046bcbb6, type: 2}
   unitDeathSound:
     name: 
-    clip: {fileID: 0}
-    volume: 0
-    pitch: 0
+    clip: {fileID: 8300000, guid: 24380ae696e42724c93a46fbf53c6e2e, type: 3}
+    volume: 1
+    pitch: 1
     source: {fileID: 0}

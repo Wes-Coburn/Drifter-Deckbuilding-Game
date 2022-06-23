@@ -57,9 +57,6 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         foreach (UnitCard uc in caMan.PlayerStartUnits)
             for (int i = 0; i < GameManager.PLAYER_START_UNITS; i++)
                 caMan.AddCard(uc, GameManager.PLAYER);
-        foreach (SkillCard skill in pMan.PlayerHero.HeroSkills)
-            for (int i = 0; i < GameManager.PLAYER_START_SKILLS; i++)
-                caMan.AddCard(skill, GameManager.PLAYER);
     }
 
     public void ConfirmButton_OnClick()

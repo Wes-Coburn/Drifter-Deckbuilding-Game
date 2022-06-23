@@ -113,8 +113,7 @@ public class CombatTestButton : MonoBehaviour
         if (addStartSkills)
         {
             foreach (SkillCard skill in pMan.PlayerHero.HeroSkills)
-                for (int i = 0; i < GameManager.PLAYER_START_SKILLS; i++)
-                    caMan.AddCard(skill, GameManager.PLAYER);
+                caMan.AddCard(skill, GameManager.PLAYER);
         }
 
         // Reputation

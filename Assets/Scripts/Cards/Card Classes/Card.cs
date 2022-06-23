@@ -36,6 +36,24 @@ public abstract class Card : ScriptableObject
         cardArt = card.CardArt;
         cardBorder = card.CardBorder;
         energyCost = card.StartEnergyCost;
+        CurrentEnergyCost = energyCost; // TESTING
+        cardName = card.CardName;
+        cardType = card.CardType;
+        cardSubType = card.CardSubType;
+        isRare = card.IsRare;
+        cardDescription = card.CardDescription;
+        overController = card.OverController;
+        zoomOverController = card.ZoomOverController;
+        cardPlaySound = card.CardPlaySound;
+    }
+
+    // TESTING
+    public virtual void CopyCard(Card card)
+    {
+        cardArt = card.CardArt;
+        cardBorder = card.CardBorder;
+        energyCost = card.StartEnergyCost;
+        CurrentEnergyCost = card.CurrentEnergyCost; // TESTING
         cardName = card.CardName;
         cardType = card.CardType;
         cardSubType = card.CardSubType;

@@ -92,6 +92,7 @@ public class DragDrop : MonoBehaviour
         if (!pMan.IsMyTurn) return;
         if (CompareTag(CombatManager.ENEMY_CARD)) return;
         if (DraggingCard != null || ArrowIsDragging) return;
+
         if (EffectManager.Instance.EffectsResolving ||
             EventManager.Instance.ActionsDelayed) return;
 
@@ -160,12 +161,7 @@ public class DragDrop : MonoBehaviour
                     switch (pMan.EnergyPerTurn)
                     {
                         case 1:
-                            if (pMan.CurrentPlayerSkillDeck.Count > 0)
-                            {
-                                ResetPosition();
-                                return;
-                            }
-                            else gMan.Tutorial_Tooltip(4);
+                            gMan.Tutorial_Tooltip(3);
                             break;
                         case 2:
                             ResetPosition();

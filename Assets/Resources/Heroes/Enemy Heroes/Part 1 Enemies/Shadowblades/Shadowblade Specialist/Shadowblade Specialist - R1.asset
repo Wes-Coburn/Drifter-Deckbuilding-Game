@@ -12,10 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f70c538dcd69bd34f98c590c7729b9aa, type: 3}
   m_Name: Shadowblade Specialist - R1
   m_EditorClassIdentifier: 
-  ReinforcementSchedule: {fileID: 11400000, guid: 18894f5ea3e038a4b9f72f21011fe199,
-    type: 2}
+  StartingUnits:
+  - {fileID: 11400000, guid: 18ad24a3b12436040bd84309e421cfde, type: 2}
+  - {fileID: 11400000, guid: 18ad24a3b12436040bd84309e421cfde, type: 2}
   ReinforcementUnits:
   - {fileID: 11400000, guid: a67f5bfd620876b4f92826478c65b0be, type: 2}
+  - {fileID: 11400000, guid: a67f5bfd620876b4f92826478c65b0be, type: 2}
+  - {fileID: 11400000, guid: a67f5bfd620876b4f92826478c65b0be, type: 2}
+  - {fileID: 11400000, guid: a67f5bfd620876b4f92826478c65b0be, type: 2}
+  - {fileID: 11400000, guid: ca655001f2022584196b4aa8e868c64b, type: 2}
   - {fileID: 11400000, guid: ca655001f2022584196b4aa8e868c64b, type: 2}
   - {fileID: 11400000, guid: 5471c3b6172adb241bb1615db103cdcc, type: 2}
+  - {fileID: 11400000, guid: 5471c3b6172adb241bb1615db103cdcc, type: 2}
   - {fileID: 11400000, guid: d03268c6611c49243af6ee79b3db0b26, type: 2}
+  - {fileID: 11400000, guid: d03268c6611c49243af6ee79b3db0b26, type: 2}
+  ReinforcementActions:
+  - {fileID: 11400000, guid: 604d44dc23a78534eb285a93221dec20, type: 2}
+  - {fileID: 11400000, guid: 604d44dc23a78534eb285a93221dec20, type: 2}
+  - {fileID: 11400000, guid: 3f472d52c0bf1e44986c59140f1f12c4, type: 2}
+  - {fileID: 11400000, guid: 3f472d52c0bf1e44986c59140f1f12c4, type: 2}

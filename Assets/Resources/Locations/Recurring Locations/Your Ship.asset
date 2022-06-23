@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b47e9eb1cc6fb34cbca4d90c15dd059, type: 3}
   m_Name: Your Ship
   m_EditorClassIdentifier: 
-  developerNotes: 
+  isPriorityLocation: 0
   locationName: Your Ship
   locationFullName: Your Ship
   locationDescription: The only place I feel safe.
-  firstObjective: Use aether to improve your hero.
+  firstObjective: Sell cards for aether.
   worldMapPosition: {x: 750, y: -375}
   firstNPC: {fileID: 11400000, guid: 6a05b7a64160c5a4dbc5cdf0c93e64d6, type: 2}
   locationSoundscape:
@@ -25,8 +25,14 @@ MonoBehaviour:
     volume: 0.8
     pitch: 1
     source: {fileID: 0}
+  locationBackground: 0
+  isCombatOnly: 0
   isHomeBase: 1
   isAugmenter: 0
   isRecruitment: 0
   isShop: 0
   isCloning: 0
+  isRandomEncounter: 0
+  isClosed_Hour1: 0
+  isClosed_Hour2: 0
+  isClosed_Hour3: 0

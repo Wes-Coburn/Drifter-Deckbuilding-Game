@@ -10,7 +10,6 @@ public class CardPageDisplay : MonoBehaviour
 
     [Header("PREFABS")]
     [SerializeField] private GameObject cardPageCardContainerPrefab;
-    [SerializeField] private GameObject learnSkillButtonPrefab;
     [SerializeField] private GameObject recruitUnitButtonPrefab;
     [SerializeField] private GameObject removeCardButtonPrefab;
     [SerializeField] private GameObject cloneUnitButtonPrefab;
@@ -19,7 +18,6 @@ public class CardPageDisplay : MonoBehaviour
     [SerializeField] private GameObject cardGroup;
     [SerializeField] private GameObject costGroup;
     [SerializeField] private GameObject pageTitle;
-    [SerializeField] private GameObject pageTabs;
     [SerializeField] private GameObject noCardsTooltip;
 
     [Header("PROGRESS BAR")]
@@ -38,9 +36,7 @@ public class CardPageDisplay : MonoBehaviour
 
     public enum CardPageType
     {
-        LearnSkill,
-        RemoveMainCard,
-        RemoveSkillCard,
+        RemoveCard,
         RecruitUnit,
         CloneUnit,
     }
@@ -87,23 +83,13 @@ public class CardPageDisplay : MonoBehaviour
 
         switch (cardPageType)
         {
-            case CardPageType.LearnSkill:
-                titleText = "Learn a Skill";
-                foreach (Card c in pMan.PlayerHero.HeroSkills)
-                    cardGroupList.Add(c);
-                break;
-            case CardPageType.RemoveMainCard:
-                titleText = "Remove a Card - Main Deck";
+            case CardPageType.RemoveCard:
+                titleText = "Sell a Card";
                 foreach (Card c in pMan.PlayerDeckList)
                 {
                     if (c is SkillCard) continue;
                     else cardGroupList.Add(c);
                 }
-                break;
-            case CardPageType.RemoveSkillCard:
-                titleText = "Remove a Card - Skill Deck";
-                foreach (Card c in pMan.PlayerDeckList)
-                    if (c is SkillCard) cardGroupList.Add(c);
                 break;
             case CardPageType.RecruitUnit:
                 setProgressBar = true;
@@ -131,8 +117,10 @@ public class CardPageDisplay : MonoBehaviour
 
         if (cardGroupList.Count > 0)
         {
-            cardGroupList.Sort((x, y) => string.Compare(x.CardName, y.CardName));
             cardGroupList.Sort((s1, s2) => s1.StartEnergyCost - s2.StartEnergyCost);
+
+            cardGroupList.Sort((x, y) => string.Compare(x.CardName, y.CardName)); // TESTING
+
             noCardsTooltip.SetActive(false);
         }
         else noCardsTooltip.SetActive(true);
@@ -143,7 +131,6 @@ public class CardPageDisplay : MonoBehaviour
 
     private void LoadScrollPage(float scrollValue, bool showTabs)
     {
-        pageTabs.SetActive(showTabs);
         Rect rect = cardGroup.GetComponent<RectTransform>().rect;
         int rows = Mathf.CeilToInt(cardGroupList.Count / 4f);
         if (rows < 1) rows = 1;
@@ -193,13 +180,7 @@ public class CardPageDisplay : MonoBehaviour
         GameObject buttonPrefab;
         switch (cardPageType)
         {
-            case CardPageType.LearnSkill:
-                buttonPrefab = learnSkillButtonPrefab;
-                break;
-            case CardPageType.RemoveMainCard:
-                buttonPrefab = removeCardButtonPrefab;
-                break;
-            case CardPageType.RemoveSkillCard:
+            case CardPageType.RemoveCard:
                 buttonPrefab = removeCardButtonPrefab;
                 break;
             case CardPageType.RecruitUnit:
@@ -216,14 +197,8 @@ public class CardPageDisplay : MonoBehaviour
         GameObject button = Instantiate(buttonPrefab, parent.transform);
         switch (cardPageType)
         {
-            case CardPageType.LearnSkill:
-                button.GetComponent<LearnSkillButton>().SkillCard = card as SkillCard;
-                break;
-            case CardPageType.RemoveMainCard:
+            case CardPageType.RemoveCard:
                 button.GetComponent<RemoveCardButton>().Card = card;
-                break;
-            case CardPageType.RemoveSkillCard:
-                button.GetComponent<RemoveCardButton>().Card = card as SkillCard;
                 break;
             case CardPageType.RecruitUnit:
                 button.GetComponent<RecruitUnitButton>().UnitCard = card as UnitCard;
@@ -236,37 +211,6 @@ public class CardPageDisplay : MonoBehaviour
                 return null;
         }
         return button;
-    }
-
-    // TABS
-    public void MainDeckTab_OnClick()
-    {
-        FindObjectOfType<HomeBaseSceneDisplay>().RemoveMainCardButton_OnClick(false);
-    }
-
-    public void SkillDeckTab_OnClick()
-    {
-        FindObjectOfType<HomeBaseSceneDisplay>().RemoveSkillCardButton_OnClick(false);
-    }
-    public void LearnSkillTab_OnClick()
-    {
-        FindObjectOfType<HomeBaseSceneDisplay>().LearnSkillButton_OnClick(false);
-    }
-
-    // BUTTONS
-    public void LearnSkillButton_OnClick(SkillCard skillCard)
-    {
-        if (anMan.ProgressBarRoutine != null) return;
-
-        int copies = 0;
-        foreach (Card card in pMan.PlayerDeckList)
-            if (card.CardName == skillCard.CardName) copies++;
-
-        if (copies >= GameManager.MAXIMUM_SKILL_DUPLICATES)
-            uMan.CreateFleetingInfoPopup("You can't add more than 3 copies of a skill!", true);
-        else if (pMan.AetherCells < GameManager.LEARN_SKILL_COST)
-            uMan.InsufficientAetherPopup();
-        else uMan.CreateLearnSkillPopup(skillCard);
     }
 
     public void RecruitUnitButton_OnClick(UnitCard unitCard)
@@ -282,45 +226,15 @@ public class CardPageDisplay : MonoBehaviour
     {
         if (anMan.ProgressBarRoutine != null) return;
 
-        if (card is SkillCard)
+        if (pMan.MainDeckCount <= GameManager.MINIMUM_MAIN_DECK_SIZE)
         {
-            if (pMan.SkillDeckCount <= GameManager.MINIMUM_SKILL_DECK_SIZE)
-            {
-                uMan.CreateFleetingInfoPopup(MinWarning(), true);
-                return;
-            }
-        }
-        else
-        {
-            if (pMan.MainDeckCount <= GameManager.MINIMUM_MAIN_DECK_SIZE)
-            {
-                uMan.CreateFleetingInfoPopup(MinWarning(), true);
-                return;
-            }
+            string warning = "Your deck can't have less than " +
+                GameManager.MINIMUM_MAIN_DECK_SIZE + " cards!";
+            uMan.CreateFleetingInfoPopup(warning, true);
+            return;
         }
 
-        if (pMan.AetherCells < GameManager.Instance.GetRemoveCardCost(card))
-            uMan.InsufficientAetherPopup();
-        else uMan.CreateRemoveCardPopup(card);
-
-        string MinWarning()
-        {
-            string message = "Your ";
-            string deck;
-            string minimum;
-            if (card is SkillCard)
-            {
-                deck = "skill deck";
-                minimum = GameManager.MINIMUM_SKILL_DECK_SIZE.ToString();
-            }
-            else
-            {
-                deck = "main deck";
-                minimum = GameManager.MINIMUM_MAIN_DECK_SIZE.ToString();
-            }
-            message += deck + " can't have less than " + minimum + " cards!";
-            return message;
-        }
+        uMan.CreateRemoveCardPopup(card);
     }
 
     public void CloneUnitButton_OnClick(UnitCard unitCard)

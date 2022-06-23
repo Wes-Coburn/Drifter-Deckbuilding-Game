@@ -29,11 +29,13 @@ public class RemoveCardPopupDisplay : MonoBehaviour
     {
         set
         {
-            int aether = pMan.AetherCells;
             card = value;
-            string text = "Remove " + card.CardName +
-                " for " + gMan.GetRemoveCardCost(card) +
-                " aether? (You have " + aether + " aether)";
+            int cost;
+            if (card.IsRare) cost = GameManager.REMOVE_RARE_CARD_COST;
+            else cost = GameManager.REMOVE_CARD_COST;
+
+            string text = "Sell " + card.CardName +
+                " for " + cost + " aether?";
             PopupText = text;
         }
     }
@@ -41,11 +43,11 @@ public class RemoveCardPopupDisplay : MonoBehaviour
     public void ConfirmButton_OnClick()
     {
         CardManager.Instance.RemovePlayerCard(card);
-        pMan.AetherCells -= gMan.GetRemoveCardCost(card);
-        CardPageDisplay.CardPageType type;
-        if (card is SkillCard) type = CardPageDisplay.CardPageType.RemoveSkillCard;
-        else type = CardPageDisplay.CardPageType.RemoveMainCard;
-        uMan.CreateCardPagePopup(type, false);
+        int cost;
+        if (card.IsRare) cost = GameManager.REMOVE_RARE_CARD_COST;
+        else cost = GameManager.REMOVE_CARD_COST;
+        pMan.AetherCells += cost;
+        uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.RemoveCard, false);
     }
 
     public void CancelButton_OnClick() =>

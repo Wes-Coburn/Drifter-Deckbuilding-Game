@@ -21,7 +21,7 @@ public class HeroSelect : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     public void OnPointerClick(PointerEventData pointerEventData)
     {
         if (pointerEventData.button != PointerEventData.InputButton.Left) return;
-        if (UIManager.Instance.PlayerIsTargetting) efMan.SelectTarget(gameObject);
+        if (UIManager.Instance.PlayerIsTargetting) efMan.SelectEffectTarget(gameObject);
     }
 
     public void OnPointerEnter(PointerEventData pointerEventData)

@@ -10,7 +10,7 @@ public class RemoveCardButton : MonoBehaviour
     {
         set
         {
-            removalCost.GetComponent<TextMeshProUGUI>().SetText(value.ToString());
+            removalCost.GetComponent<TextMeshProUGUI>().SetText("+" + value.ToString());
         }
     }
     public Card Card
@@ -19,7 +19,10 @@ public class RemoveCardButton : MonoBehaviour
         set
         {
             card = value;
-            RemovalCost = GameManager.Instance.GetRemoveCardCost(card);
+            int cost;
+            if (card.IsRare) cost = GameManager.REMOVE_RARE_CARD_COST;
+            else cost = GameManager.REMOVE_CARD_COST;
+            RemovalCost = cost;
         }
     }
     public void OnClick() =>

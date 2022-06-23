@@ -82,20 +82,16 @@ public abstract class CardDisplay : MonoBehaviour
             DisplayEnergyCost(value);
         }
     }
+
     private void DisplayEnergyCost(int cost)
     {
-        if (CompareTag(CombatManager.ENEMY_CARD))
-            energyCost.SetActive(false);
-        else
-        {
-            TextMeshProUGUI txtGui = energyCost.GetComponentInChildren<TextMeshProUGUI>();
-            txtGui.SetText(cost.ToString());
+        TextMeshProUGUI txtGui = energyCost.GetComponentInChildren<TextMeshProUGUI>();
+        txtGui.SetText(cost.ToString());
 
-            int startCost = CardScript.StartEnergyCost;
-            if (cost < startCost) txtGui.color = Color.green;
-            else if (cost > startCost) txtGui.color = Color.red;
-            else txtGui.color = Color.white;
-        }
+        int startCost = CardScript.StartEnergyCost;
+        if (cost < startCost) txtGui.color = Color.green;
+        else if (cost > startCost) txtGui.color = Color.red;
+        else txtGui.color = Color.white;
     }
 
     public List<Effect> CurrentEffects { get; set; }
@@ -121,13 +117,13 @@ public abstract class CardDisplay : MonoBehaviour
     protected virtual void DisplayCard()
     {
         CardName = CardScript.CardName;
+        CardArt = CardScript.CardArt;
+        CardBorder = CardScript.CardBorder;
         string spacer = "";
         if (!string.IsNullOrEmpty(CardScript.CardSubType)) spacer = " - ";
         CardTypeLine = CardScript.CardType + spacer + CardScript.CardSubType;
         rareIcon.SetActive(CardScript.IsRare);
-        CurrentEnergyCost = CardScript.StartEnergyCost;
-        CardArt = CardScript.CardArt;
-        CardBorder = CardScript.CardBorder;
+        DisplayEnergyCost(CardScript.CurrentEnergyCost); // TESTING
         animator = gameObject.GetComponent<Animator>();
         animator.runtimeAnimatorController = CardScript.OverController;
     }
@@ -165,13 +161,11 @@ public abstract class CardDisplay : MonoBehaviour
             DisplayEnergyCost(card.StartEnergyCost);
 
         }
-
         if (TryGetComponent(out animator))
         {
             animator.runtimeAnimatorController = CardScript.ZoomOverController;
             AnimationManager.Instance.ZoomedState(gameObject);
         }
-
         rareIcon.SetActive(CardScript.IsRare);
     }
 
@@ -185,13 +179,23 @@ public abstract class CardDisplay : MonoBehaviour
 
     /******
      * *****
+     * ****** DISPLAY_CHOOSE_CARD
+     * *****
+     *****/
+    public virtual void DisplayChooseCard(Card card)
+    {
+        // blank
+    }
+
+    /******
+     * *****
      * ****** RESET_CARD
      * *****
      *****/
     public virtual void ResetCard()
     {
         GetComponent<CardSelect>().CardOutline.SetActive(false);
-        CurrentEnergyCost = CardScript.StartEnergyCost; // TESTING
+        CurrentEnergyCost = CardScript.StartEnergyCost;
         CurrentEffects.Clear();
     }
 

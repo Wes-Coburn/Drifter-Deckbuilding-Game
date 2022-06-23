@@ -95,37 +95,33 @@ public class GameManager : MonoBehaviour
     public const string HIDE_EXPLICIT_LANGUAGE = "HideExplicitLanguage";
 
     // Universal
-    public const int MAX_HAND_SIZE = 8;
-    public const int MAX_UNITS_PLAYED = 5;
+    public const int START_HAND_SIZE = 4;
+    public const int MAX_HAND_SIZE = 10; // TESTING
+    public const int MAX_UNITS_PLAYED = 6; // TESTING
 
     // Player
     public const string PLAYER = "Player";
     public const int MINIMUM_MAIN_DECK_SIZE = 15;
-    public const int MINIMUM_SKILL_DECK_SIZE = 0;
-    public const int MAXIMUM_SKILL_DUPLICATES = 3;
     public const int PLAYER_STARTING_HEALTH = 30;
-    public const int PLAYER_HAND_SIZE = 3;
     public const int PLAYER_START_UNITS = 3;
-    public const int PLAYER_START_SKILLS = 1;
     public const int START_ENERGY_PER_TURN = 1;
     public const int MAXIMUM_ENERGY_PER_TURN = 5;
     public const int MAXIMUM_ENERGY = 10;
     public const int HERO_ULTMATE_GOAL = 3;
-
+    public const int PLAYER_START_AETHER = 0;
+    
     // Enemy
     public const string ENEMY = "Enemy";
     public const int ENEMY_STARTING_HEALTH = 30;
     //public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
-    public const int BOSS_BONUS_HEALTH = 10;
+    public const int BOSS_BONUS_HEALTH = 5;
     public const int ENEMY_HAND_SIZE = 0;
-    public const int ENEMY_START_UNITS = 5;
 
     // Aether Rewards
     public const int IGNORE_CARD_AETHER = 2;
-    // Skills
-    public const int LEARN_SKILL_COST = 1;
     // Card Removal
-    private const int REMOVE_CARD_COST = 1; // Access through GetRemovalCost()
+    public const int REMOVE_CARD_COST = 2;
+    public const int REMOVE_RARE_CARD_COST = 4;
     // Recruits
     public const int RECRUIT_UNIT_COST = 3;
     public const int RECRUIT_RARE_UNIT_COST = 5;
@@ -234,17 +230,6 @@ public class GameManager : MonoBehaviour
 
     /******
      * *****
-     * ****** GET_REMOVE_CARD_COST
-     * *****
-     *****/
-    public int GetRemoveCardCost(Card card)
-    {
-        if (card is SkillCard) return 0;
-        else return REMOVE_CARD_COST;
-    }
-
-    /******
-     * *****
      * ****** GET_RANDOM_ENCOUNTER_LOCATION
      * *****
      *****/
@@ -313,24 +298,20 @@ public class GameManager : MonoBehaviour
                 isCentered = true;
                 break;
             case 2:
-                tip = "Draw a skill by clicking on your skill deck (bottom left). Once a skill leaves your hand, it's gone forever.";
-                isCentered = true;
-                break;
-            case 3:
                 tip = "Play a card from your hand by dragging it into play. Cards you can play are highlighted in <color=\"green\">green<color=\"yellow\">.";
                 break;
-            case 4:
-                tip = "End your turn by clicking the end turn button.";
+            case 3:
+                tip = "End your turn by clicking the <b>end turn button</b> or pressing the <b>space bar</b>.";
                 isCentered = true;
                 break;
-            case 5:
+            case 4:
                 tip = "Use your hero power by clicking on the icon next to your hero.";
                 isCentered = true;
                 break;
-            case 6:
+            case 5:
                 tip = "Attack an enemy unit by dragging your ally to them.";
                 break;
-            case 7:
+            case 6:
                 tip = "<i>Attack the enemy hero to win!</i>\nRead more game rules in settings (top right), and " +
                     "right click on cards for more information.\n<i>End your turn to continue.</i>";
                 isCentered = true;
@@ -340,7 +321,7 @@ public class GameManager : MonoBehaviour
                 return;
         }
         tip = "<color=\"yellow\"><b>[Tutorial]</b>\n" + tip + "</color>";
-        uMan.CreateInfoPopup(tip, isCentered, false, true);
+        uMan.CreateInfoPopup(tip, UIManager.InfoPopupType.Tutorial, isCentered);
     }
 
     /******
@@ -361,8 +342,11 @@ public class GameManager : MonoBehaviour
         homeBaseLocation = LoadLocation("Your Ship");
         firstLocation = LoadLocation("Sekherd and 7th");
 
-        CurrentHour = 4;
-        IsNewHour = false;
+        // Hour
+        CurrentHour = 1;
+        IsNewHour = true;
+
+        // Location
         CurrentLocation = GetActiveLocation(firstLocation);
         CurrentNarrative = settingNarrative;
         GetActiveLocation(homeBaseLocation);
@@ -373,8 +357,8 @@ public class GameManager : MonoBehaviour
         ShopItems = GetShopItems();
         ShopLoyalty = 0;
         RecruitLoyalty = 0;
-        pMan.AetherCells = 3; // TESTING
-        pMan.PlayerDeckList.Clear(); // TESTING
+        pMan.AetherCells = PLAYER_START_AETHER;
+        pMan.PlayerDeckList.Clear();
 
         // REPUTATION
         int startRep = PLAYER_START_UNITS;
@@ -402,7 +386,6 @@ public class GameManager : MonoBehaviour
         pMan.PlayerHero = null;
         pMan.PlayerDeckList.Clear();
         pMan.CurrentPlayerDeck.Clear();
-        pMan.CurrentPlayerSkillDeck.Clear();
         //pMan.AetherCells = 0;
         pMan.HeroAugments.Clear();
         pMan.HeroItems.Clear();
@@ -412,10 +395,14 @@ public class GameManager : MonoBehaviour
         // Dialogue Manager
         dMan.EndDialogue();
         // Effect Manager
-        foreach (Effect e in efMan.GiveNextEffects) Destroy(e);
-        efMan.GiveNextEffects.Clear();
-        foreach (Effect e in efMan.ChangeNextCostEffects) Destroy(e);
-        efMan.ChangeNextCostEffects.Clear();
+        foreach (Effect e in efMan.GiveNextEffects_Player) Destroy(e);
+        efMan.GiveNextEffects_Player.Clear();
+        foreach (Effect e in efMan.ChangeNextCostEffects_Player) Destroy(e);
+        efMan.ChangeNextCostEffects_Player.Clear();
+        foreach (Effect e in efMan.GiveNextEffects_Enemy) Destroy(e);
+        efMan.GiveNextEffects_Enemy.Clear();
+        foreach (Effect e in efMan.ChangeNextCostEffects_Enemy) Destroy(e);
+        efMan.ChangeNextCostEffects_Enemy.Clear();
         // UI Manager
         uMan.ClearAugmentBar();
         uMan.ClearItemBar();
@@ -908,12 +895,15 @@ public class GameManager : MonoBehaviour
 
         void GetBonusEffects(ReputationBonuses bonuses, int reputationTier)
         {
+            float delay = 0;
+            if (resolveOrder == 3) delay = 0.25f;
+
             if (reputationTier > 0 && resolveOrder == bonuses.Tier1_ResolveOrder) ScheduleEffects(bonuses.Tier1_Effects);
             if (reputationTier > 1 && resolveOrder == bonuses.Tier2_ResolveOrder) ScheduleEffects(bonuses.Tier2_Effects);
             if (reputationTier > 2 && resolveOrder == bonuses.Tier3_ResolveOrder) ScheduleEffects(bonuses.Tier3_Effects);
 
             void ScheduleEffects(List<EffectGroup> effects) =>
-                evMan.NewDelayedAction(() => efMan.StartEffectGroupList(effects, coMan.PlayerHero), 0);
+                evMan.NewDelayedAction(() => efMan.StartEffectGroupList(effects, coMan.PlayerHero), delay);
         }
     }
 
@@ -1034,17 +1024,20 @@ public class GameManager : MonoBehaviour
         EnemyHeroDisplay eHD = coMan.EnemyHero.GetComponent<EnemyHeroDisplay>();
         uMan.EndTurnButton.SetActive(false);
         pHD.HeroStats.SetActive(false);
-        pHD.SkillDrawnIcon.SetActive(false);
         pHD.PowerUsedIcon.SetActive(false);
         pHD.UltimateUsedIcon.SetActive(true);
         eHD.HeroStats.SetActive(false);
         uMan.CombatLog.SetActive(false);
 
         // EFFECT MANAGER
-        foreach (Effect e in efMan.GiveNextEffects) Destroy(e);
-        efMan.GiveNextEffects.Clear();
-        foreach (Effect e in efMan.ChangeNextCostEffects) Destroy(e);
-        efMan.ChangeNextCostEffects.Clear();
+        foreach (Effect e in efMan.GiveNextEffects_Player) Destroy(e);
+        efMan.GiveNextEffects_Player.Clear();
+        foreach (Effect e in efMan.ChangeNextCostEffects_Player) Destroy(e);
+        efMan.ChangeNextCostEffects_Player.Clear();
+        foreach (Effect e in efMan.GiveNextEffects_Enemy) Destroy(e);
+        efMan.GiveNextEffects_Enemy.Clear();
+        foreach (Effect e in efMan.ChangeNextCostEffects_Enemy) Destroy(e);
+        efMan.ChangeNextCostEffects_Enemy.Clear();
 
         // ENEMY MANAGER
         enMan.StartCombat();
@@ -1054,8 +1047,8 @@ public class GameManager : MonoBehaviour
             Debug.LogError("ENEMY HERO IS NULL!");
             return;
         }
-        enMan.EnemyHero = enemyHero;
 
+        enMan.EnemyHero = enemyHero;
         int enemyHealth;
         if (IsTutorial) enemyHealth = 10;
         else enemyHealth = ENEMY_STARTING_HEALTH;
@@ -1070,16 +1063,16 @@ public class GameManager : MonoBehaviour
         // UPDATE DECKS
         caMan.UpdateDeck(PLAYER);
         caMan.UpdateDeck(ENEMY);
-        coMan.PlayerHero.GetComponent<PlayerHeroDisplay>().SkillsLeft =
-            pMan.CurrentPlayerSkillDeck.Count;
 
         // DISPLAY HEROES
         coMan.PlayerHero.GetComponent<HeroDisplay>().HeroScript = pMan.PlayerHero;
         coMan.EnemyHero.GetComponent<HeroDisplay>().HeroScript = enMan.EnemyHero;
+
         // SCHEDULE ACTIONS
         evMan.NewDelayedAction(() => anMan.CombatIntro(), 1);
         evMan.NewDelayedAction(() => CombatStart(), 1);
         evMan.NewDelayedAction(() => StartCombatTurn(PLAYER), 2);
+
         // AUDIO
         string soundtrack;
         if (enMan.EnemyHero.IsBoss) soundtrack = "Soundtrack_CombatBoss1";
@@ -1092,21 +1085,45 @@ public class GameManager : MonoBehaviour
         {
             int bonusCards = 0;
             if (pMan.GetAugment("Cognitive Magnifier")) bonusCards = 1;
+
             caMan.ShuffleDeck(PLAYER, false);
-            for (int i = 0; i < PLAYER_HAND_SIZE + bonusCards; i++)
+            caMan.ShuffleDeck(ENEMY, false);
+
+            for (int i = 0; i < START_HAND_SIZE; i++)
+                evMan.NewDelayedAction(() => AllDraw(), 0.5f);
+
+            for (int i = 0; i < bonusCards; i++)
                 evMan.NewDelayedAction(() => coMan.DrawCard(PLAYER), 0.5f);
-            int delay = 0;
-            if (enMan.NextReinforcements > 0) delay = 2;
-            evMan.NewDelayedAction(() => enMan.UpdateReinforcements(), delay);
+
             if (IsTutorial) evMan.NewDelayedAction(() => Tutorial_Tooltip(1), 0); // TUTORIAL!
             ResolveReputationEffects(1); // REPUTATION EFFECTS [RESOLVE ORDER = 1]
-            evMan.NewDelayedAction(() => Mulligan(), 0.5f);
+            PlayStartingUnits(); // TESTING
+            evMan.NewDelayedAction(() => Mulligan_Player(), 0.5f);
+            evMan.NewDelayedAction(() => enMan.Mulligan(), 0.5f);
             ResolveReputationEffects(2); // REPUTATION EFFECTS [RESOLVE ORDER = 2]
             ResolveReputationEffects(3); // REPUTATION EFFECTS [RESOLVE ORDER = 3]
             if (IsTutorial) evMan.NewDelayedAction(() => Tutorial_Tooltip(2), 0); // TUTORIAL!
+
+            void AllDraw()
+            {
+                coMan.DrawCard(PLAYER);
+                coMan.DrawCard(ENEMY);
+            }
+
+            void PlayStartingUnits()
+            {
+                List<UnitCard> startingUnits =
+                    enMan.EnemyHero.Reinforcements[enMan.ReinforcementGroup].StartingUnits;
+                foreach (UnitCard card in startingUnits)
+                {
+                    UnitCard newCard = caMan.NewCardInstance(card) as UnitCard;
+                    evMan.NewDelayedAction(() =>
+                    efMan.PlayCreatedCard(newCard, coMan.EnemyHero), 0.5f);
+                }
+            }
         }
 
-        void Mulligan() =>
+        void Mulligan_Player() =>
             efMan.StartEffectGroupList(new List<EffectGroup> { mulliganEffect }, gameObject);
     }
 
@@ -1133,12 +1150,9 @@ public class GameManager : MonoBehaviour
         }
 
         evMan.ClearDelayedActions();
-
-        uMan.PlayerIsTargetting = false; // TESTING
-        efMan.EffectsResolving = false; // TESTING
-        pMan.IsMyTurn = false; // TESTING
-        //uMan.UpdateEndTurnButton(pMan.IsMyTurn, false);
-
+        uMan.PlayerIsTargetting = false;
+        efMan.EffectsResolving = false;
+        pMan.IsMyTurn = false;
         FunctionTimer.Create(() => uMan.CreateCombatEndPopup(playerWins), 2f);
 
         //efMan.GiveNextEffects.Clear();
@@ -1183,12 +1197,11 @@ public class GameManager : MonoBehaviour
             {
                 pMan.IsMyTurn = true;
                 enMan.IsMyTurn = false;
-                pMan.SkillDrawn = false;
                 pMan.HeroPowerUsed = false;
                 int startEnergy = pMan.EnergyLeft;
                 pMan.EnergyLeft += pMan.EnergyPerTurn;
                 int energyChange = pMan.EnergyLeft - startEnergy;
-                anMan.ModifyHeroEnergyState(energyChange);
+                anMan.ModifyHeroEnergyState(energyChange, coMan.PlayerHero);
 
                 // TUTORIAL!
                 if (IsTutorial)
@@ -1196,19 +1209,16 @@ public class GameManager : MonoBehaviour
                     switch (pMan.EnergyPerTurn)
                     {
                         case 2:
-                            Tutorial_Tooltip(5);
+                            Tutorial_Tooltip(4);
                             break;
                     }
                 }
             }
         }
 
-        float delay = 0;
-        if (!isPlayerTurn) delay = 1;
-        evMan.NewDelayedAction(() =>
-        caMan.TriggerPlayedUnits(CardManager.TRIGGER_TURN_START, player), delay);
-
-        if (!isPlayerTurn)
+        if (isPlayerTurn) evMan.NewDelayedAction(() =>
+        caMan.TriggerPlayedUnits(CardManager.TRIGGER_TURN_START, player), 0);
+        else
         {
             pMan.IsMyTurn = false;
             enMan.IsMyTurn = true;
@@ -1230,12 +1240,18 @@ public class GameManager : MonoBehaviour
     public void EndCombatTurn(string player)
     {
         evMan.NewDelayedAction(() =>
-        caMan.TriggerPlayedUnits(CardManager.TRIGGER_TURN_END, player), 0.5f);
+        caMan.TriggerPlayedUnits(CardManager.TRIGGER_TURN_END, player), 0);
 
-        evMan.NewDelayedAction(() => coMan.RefreshUnits(player), 0.5f);
+        evMan.NewDelayedAction(() => RefreshAllUnits(), 0.5f); // TESTING
         evMan.NewDelayedAction(() => RemoveEffects(), 0.5f);
 
-        if (player == ENEMY) evMan.NewDelayedAction(() => StartCombatTurn(PLAYER), 0.5f);
+        if (player == ENEMY)
+        {
+            if (enMan.EnergyPerTurn < enMan.MaxEnergyPerTurn)
+                evMan.NewDelayedAction(() => IncreaseMaxEnergy(ENEMY), 0.5f); // TESTING
+
+            evMan.NewDelayedAction(() => StartCombatTurn(PLAYER), 0.5f);
+        }
         else if (player == PLAYER)
         {
             if (IsTutorial) // TUTORIAL!
@@ -1244,11 +1260,11 @@ public class GameManager : MonoBehaviour
                 {
                     case 1:
                         if (pMan.EnergyLeft > 0) return;
-                        else uMan.DestroyInfoPopup(false, true);
+                        else uMan.DestroyInfoPopup(UIManager.InfoPopupType.Tutorial);
                         break;
                     case 2:
                         if (!pMan.HeroPowerUsed || coMan.EnemyZoneCards.Count > 0) return;
-                        else uMan.DestroyInfoPopup(false, true);
+                        else uMan.DestroyInfoPopup(UIManager.InfoPopupType.Tutorial);
                         break;
                 }
             }
@@ -1256,23 +1272,45 @@ public class GameManager : MonoBehaviour
             pMan.IsMyTurn = false;
             coMan.SelectPlayableCards();
             if (pMan.EnergyPerTurn < pMan.MaxEnergyPerTurn)
-                evMan.NewDelayedAction(() => IncreaseMaxEnergy(), 0.5f);
+                evMan.NewDelayedAction(() => IncreaseMaxEnergy(PLAYER), 0.5f);
+
             evMan.NewDelayedAction(() => StartCombatTurn(ENEMY), 0.5f);
         }
 
-        void IncreaseMaxEnergy()
+        void RefreshAllUnits()
         {
-            int startEnergy = pMan.EnergyPerTurn;
-            pMan.EnergyPerTurn++;
-            int energyChange = pMan.EnergyPerTurn - startEnergy;
-            anMan.ModifyHeroEnergyState(energyChange);
+            coMan.RefreshUnits(PLAYER);
+            coMan.RefreshUnits(ENEMY);
+        }
+        void IncreaseMaxEnergy(string player)
+        {
+            GameObject hero;
+            int startEnergy;
+            int energyChange;
+
+            if (player == PLAYER)
+            {
+                hero = coMan.PlayerHero;
+                startEnergy = pMan.EnergyPerTurn;
+                pMan.EnergyPerTurn++;
+                energyChange = pMan.EnergyPerTurn - startEnergy;
+            }
+            else
+            {
+                hero = coMan.EnemyHero;
+                startEnergy = enMan.EnergyPerTurn;
+                enMan.EnergyPerTurn++;
+                energyChange = enMan.EnergyPerTurn - startEnergy;
+            }
+
+            anMan.ModifyHeroEnergyState(energyChange, hero);
         }
         void RemoveEffects()
         {
             efMan.RemoveTemporaryEffects(PLAYER);
             efMan.RemoveTemporaryEffects(ENEMY);
-            efMan.RemoveGiveNextEffects();
-            efMan.RemoveChangeNextCostEffects(); // TESTING
+            efMan.RemoveGiveNextEffects(player); // TESTING
+            efMan.RemoveChangeNextCostEffects(player); // TESTING
         }
     }
 

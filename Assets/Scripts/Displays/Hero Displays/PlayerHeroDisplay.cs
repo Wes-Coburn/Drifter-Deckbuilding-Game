@@ -4,9 +4,6 @@ using TMPro;
 
 public class PlayerHeroDisplay : HeroDisplay
 {
-    [SerializeField] private GameObject heroEnergy;
-    [SerializeField] private GameObject skillDrawnIcon;
-    [SerializeField] private GameObject skillsLeft;
     [SerializeField] private GameObject heroPower;
     [SerializeField] private GameObject powerImage;
     [SerializeField] private GameObject powerCost;
@@ -22,31 +19,19 @@ public class PlayerHeroDisplay : HeroDisplay
     [SerializeField] private GameObject ultimateProgressText;
 
     public PlayerHero PlayerHero { get => HeroScript as PlayerHero; }
-    public GameObject HeroEnergy { get => heroEnergy; }
-    public GameObject SkillDrawnIcon { get => skillDrawnIcon; }
-    public int SkillsLeft
-    {
-        set
-        {
-            skillsLeft.GetComponent<TextMeshProUGUI>().SetText(value.ToString());
-        }
-    }
     public GameObject HeroPower { get => heroPower; }
     public GameObject PowerUsedIcon { get => powerUsedIcon; }
     public GameObject HeroUltimate { get => heroUltimate; }
     public GameObject UltimateUsedIcon { get => ultimateUsedIcon; }
     public GameObject UltimateProgressBar { get => ultimateProgressBar; }
     public GameObject UltimateProgressFill { get => ultimateProgressFill; }
+
     public string UltimateProgressText
     {
         set
         {
             ultimateProgressText.GetComponent<TextMeshProUGUI>().SetText(value);
         }
-    }
-    public string PlayerActions
-    {
-        set => heroEnergy.GetComponent<TextMeshProUGUI>().SetText(value);
     }
 
     public override void DisplayHero()
@@ -55,7 +40,12 @@ public class PlayerHeroDisplay : HeroDisplay
         powerImage.GetComponent<Image>().sprite = PlayerHero.HeroPower.PowerSprite;
         powerCost.GetComponent<TextMeshProUGUI>().SetText(PlayerHero.HeroPower.PowerCost.ToString());
         ultimateImage.GetComponent<Image>().sprite = PlayerHero.HeroUltimate.PowerSprite;
-        ultimateCost.GetComponent<TextMeshProUGUI>().SetText
-            (PlayerManager.Instance.GetUltimateCost().ToString());
+
+        int cost = PlayerManager.Instance.GetUltimateCost(out Color ultimateColor);
+        ultimateCost.GetComponent<TextMeshProUGUI>().SetText(cost.ToString());
+        Button ultimateButton = HeroUltimate.GetComponent<Button>();
+        var colors = ultimateButton.colors;
+        colors.normalColor = ultimateColor;
+        ultimateButton.colors = colors;
     }
 }

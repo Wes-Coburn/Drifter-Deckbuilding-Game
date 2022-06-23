@@ -22,6 +22,10 @@ public abstract class Effect : ScriptableObject
     public bool ShootRay;
     public Color RayColor;
 
+    [Header("PRECHECK CONDITIONS")]
+    [Tooltip("If enabled, the effect's conditions will be checked during GetLegalTargets, as well as upon resolution")]
+    public bool PreCheckConditions;
+
     [Header("IF EXHAUSTED CONDITION")]
     [Tooltip("If enabled, the effect will not resolve unless the target IS EXHAUSTED")]
     public bool IfExhaustedCondition;
@@ -91,6 +95,8 @@ public abstract class Effect : ScriptableObject
 
         ShootRay = effect.ShootRay;
         RayColor = effect.RayColor;
+
+        PreCheckConditions = effect.PreCheckConditions;
 
         IfExhaustedCondition = effect.IfExhaustedCondition;
         IfRefreshedCondition = effect.IfRefreshedCondition;

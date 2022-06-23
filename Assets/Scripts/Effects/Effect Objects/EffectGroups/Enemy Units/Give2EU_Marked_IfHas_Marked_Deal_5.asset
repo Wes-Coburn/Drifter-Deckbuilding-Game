@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a22d7123f6ee007468cbdc6e9b6fe2b0, type: 3}
+  m_Name: Give2EU_Marked_IfHas_Marked_Deal_5
+  m_EditorClassIdentifier: 
+  Targets: {fileID: 11400000, guid: cc9b0c336c15e5940b4b56d5eb5288ea, type: 2}
+  ResolveIndependent: 0
+  Effects:
+  - {fileID: 11400000, guid: 63847c2c850ac65448dab32a75885892, type: 2}
+  - {fileID: 11400000, guid: 1949112560e638e4dbcfd250a7bbc850, type: 2}
+  EffectsDescription: "Mark two enemies. If they\u2019re already Marked, deal 5 to
+    them instead."

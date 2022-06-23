@@ -579,35 +579,41 @@ public class UIManager : MonoBehaviour
         }
     }
     // Info Popups
-    public void CreateInfoPopup(string message, bool isCentered = false, bool isSecondary = false, bool isTutorial = false)
+    public enum InfoPopupType
     {
-        DestroyInfoPopup(isSecondary, isTutorial);
+        Default,
+        Secondary,
+        Tutorial
+    }
+    public void CreateInfoPopup(string message, InfoPopupType infoPopupType, bool isCentered = false)
+    {
+        DestroyInfoPopup(infoPopupType);
         Vector2 vec2 = new Vector2();
         if (!isCentered) vec2.Set(750, 0);
 
-        if (isSecondary)
+        switch (infoPopupType)
         {
-            infoPopup_Secondary = Instantiate(infoPopup_SecondaryPrefab, UICanvas.transform);
-            infoPopup_Secondary.GetComponent<InfoPopupDisplay>().DisplayInfoPopup(message);
-            infoPopup_Secondary.transform.localPosition = vec2;
-        } 
-        else if (isTutorial)
-        {
-            infoPopup_Tutorial = Instantiate(infoPopupPrefab, UICanvas.transform);
-            infoPopup_Tutorial.GetComponent<InfoPopupDisplay>().DisplayInfoPopup(message);
-            Destroy(infoPopup_Tutorial.GetComponent<Animator>());
-            infoPopup_Tutorial.transform.localPosition = vec2;
-        }
-        else
-        {
-            infoPopup = Instantiate(infoPopupPrefab, CurrentCanvas.transform);
-            infoPopup.GetComponent<InfoPopupDisplay>().DisplayInfoPopup(message);
-            infoPopup.transform.localPosition = vec2;
+            case InfoPopupType.Default:
+                infoPopup = Instantiate(infoPopupPrefab, CurrentCanvas.transform);
+                infoPopup.GetComponent<InfoPopupDisplay>().DisplayInfoPopup(message);
+                infoPopup.transform.localPosition = vec2;
+                break;
+            case InfoPopupType.Secondary:
+                infoPopup_Secondary = Instantiate(infoPopup_SecondaryPrefab, UICanvas.transform);
+                infoPopup_Secondary.GetComponent<InfoPopupDisplay>().DisplayInfoPopup(message);
+                infoPopup_Secondary.transform.localPosition = vec2;
+                break;
+            case InfoPopupType.Tutorial:
+                infoPopup_Tutorial = Instantiate(infoPopupPrefab, CurrentZoomCanvas.transform); // TESTING
+                infoPopup_Tutorial.GetComponent<InfoPopupDisplay>().DisplayInfoPopup(message);
+                Destroy(infoPopup_Tutorial.GetComponent<Animator>());
+                infoPopup_Tutorial.transform.localPosition = vec2;
+                break;
         }
     }
     public void CreateFleetingInfoPopup(string message, bool isCentered = false)
     {
-        CreateInfoPopup(message, isCentered, true);
+        CreateInfoPopup(message, InfoPopupType.Secondary, isCentered);
         anMan.ChangeAnimationState(infoPopup_Secondary, "Enter_Exit");
     }
     public void InsufficientAetherPopup()
@@ -620,31 +626,31 @@ public class UIManager : MonoBehaviour
         if (infoPopup != null)
             anMan.ChangeAnimationState(infoPopup, "Exit");
     }
-    public void DestroyInfoPopup(bool isSecondary, bool isTutorial = false)
+    public void DestroyInfoPopup(InfoPopupType infoPopupType)
     {
-        if (isSecondary)
+        switch (infoPopupType)
         {
-            if (infoPopup_Secondary != null)
-            {
-                Destroy(infoPopup_Secondary);
-                infoPopup_Secondary = null;
-            }
-        }
-        else if (isTutorial)
-        {
-            if (infoPopup_Tutorial != null)
-            {
-                Destroy(infoPopup_Tutorial);
-                infoPopup_Tutorial = null;
-            }
-        }
-        else
-        {
-            if (infoPopup != null)
-            {
-                Destroy(infoPopup);
-                infoPopup = null;
-            }
+            case InfoPopupType.Default:
+                if (infoPopup != null)
+                {
+                    Destroy(infoPopup);
+                    infoPopup = null;
+                }
+                break;
+            case InfoPopupType.Secondary:
+                if (infoPopup_Secondary != null)
+                {
+                    Destroy(infoPopup_Secondary);
+                    infoPopup_Secondary = null;
+                }
+                break;
+            case InfoPopupType.Tutorial:
+                if (infoPopup_Tutorial != null)
+                {
+                    Destroy(infoPopup_Tutorial);
+                    infoPopup_Tutorial = null;
+                }
+                break;
         }
     }
     // Turn Popup
@@ -692,7 +698,7 @@ public class UIManager : MonoBehaviour
         }
     }
     // New Card Popup
-    public void CreateNewCardPopup(Card newCard, Card[] chooseCards = null)
+    public void CreateNewCardPopup(Card newCard, string title, Card[] chooseCards = null)
     {
         DestroyNewCardPopup();
         NewCardPopupDisplay ncpd;
@@ -707,9 +713,9 @@ public class UIManager : MonoBehaviour
             ncpd = chooseCardPopup.GetComponent<NewCardPopupDisplay>();
         }
         
+        ncpd.PopupTitle = title; // TESTING
         if (chooseCards == null) ncpd.NewCard = newCard;
         else ncpd.ChooseCards = chooseCards;
-        // play sounds
     }
     public void DestroyNewCardPopup()
     {
@@ -771,25 +777,9 @@ public class UIManager : MonoBehaviour
             Destroy(cardPagePopup);
             cardPagePopup = null;
         }
-        DestroyLearnSkillPopup();
         DestroyRemoveCardPopup();
         DestroyRecruitUnitPopup();
         DestroyCloneUnitPopup();
-    }
-    // Learn Skill Popup
-    public void CreateLearnSkillPopup(SkillCard skillCard)
-    {
-        DestroyLearnSkillPopup();
-        learnSkillPopup = Instantiate(learnSkillPopupPrefab, CurrentCanvas.transform);
-        learnSkillPopup.GetComponent<LearnSkillPopupDisplay>().SkillCard = skillCard;
-    }
-    public void DestroyLearnSkillPopup()
-    {
-        if (learnSkillPopup != null)
-        {
-            Destroy(learnSkillPopup);
-            learnSkillPopup = null;
-        }
     }
     // Recruit Unit Popup
     public void CreateRecruitUnitPopup(UnitCard unitCard)

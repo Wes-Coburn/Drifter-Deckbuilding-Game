@@ -15,9 +15,11 @@ MonoBehaviour:
   AbilityName: 'Trap: Stun the trapped unit.'
   AbilityDescription: Stun the trapped unit.
   AbilitySprite: {fileID: 0}
-  LinkedAbilites: []
+  LinkedAbilites:
+  - {fileID: 11400000, guid: 37a54b5ce20d48941893b9f48eee681f, type: 2}
   AbilityTrigger: {fileID: 11400000, guid: 7c725ce5f65acbd48a58670f0a914288, type: 2}
   EffectGroupList: []
+  ResolveLast: 0
   TrapEffects:
   - {fileID: 11400000, guid: d69c966727c88d84489e1fe64d7f7a7e, type: 2}
   SelfEffects:

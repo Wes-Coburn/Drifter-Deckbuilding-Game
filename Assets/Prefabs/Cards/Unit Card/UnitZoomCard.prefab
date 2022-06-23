@@ -1373,7 +1373,7 @@ Transform:
   - {fileID: 3821749575587824184}
   - {fileID: 3838091176845439012}
   m_Father: {fileID: 7415242867258199381}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6435982945533499454
 GameObject:
@@ -1563,8 +1563,8 @@ RectTransform:
   - {fileID: 7122803859786823644}
   - {fileID: 4965265974660508531}
   - {fileID: 4694494280116814856}
-  - {fileID: 1987251729773291172}
   - {fileID: 475164448740666798}
+  - {fileID: 1987251729773291172}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1615,8 +1615,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitZoomCardPrefab: {fileID: 7279803143792002406}
   actionZoomCardPrefab: {fileID: 7279803143792002406, guid: cb7743522e2ef634aa7afbb5890a7252,
-    type: 3}
-  abilityBoxPrefab: {fileID: 2586766476333140764, guid: 5c6eba5c01671c541a39a37fb73575a7,
     type: 3}
   abilityPopupPrefab: {fileID: 268856669738850229, guid: 5c61e8afecb13104c85071fbcc357ece,
     type: 3}
@@ -1685,12 +1683,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7415242867258199381}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -32}
-  m_SizeDelta: {x: 60, y: 45}
+  m_SizeDelta: {x: 75, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1696470216465479566
 MonoBehaviour:
@@ -1712,7 +1710,7 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 1
-  m_CellSize: {x: 60, y: 15}
+  m_CellSize: {x: 75, y: 15}
   m_Spacing: {x: 0, y: 1}
   m_Constraint: 1
   m_ConstraintCount: 1

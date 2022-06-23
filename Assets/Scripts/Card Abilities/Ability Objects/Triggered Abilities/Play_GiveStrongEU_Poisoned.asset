@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44c307312f791a64788051778519ac70, type: 3}
+  m_Name: Play_GiveStrongEU_Poisoned
+  m_EditorClassIdentifier: 
+  AbilityName: 'Play: Poison the strongest enemy.'
+  AbilityDescription: Poison the strongest enemy.
+  AbilitySprite: {fileID: 0}
+  LinkedAbilites:
+  - {fileID: 11400000, guid: a765fc1f5144bae4886ee157e1a45aa4, type: 2}
+  AbilityTrigger: {fileID: 11400000, guid: c74c9ac6a33f86347a6ac56840c5c7cc, type: 2}
+  EffectGroupList:
+  - {fileID: 11400000, guid: 741ab3c93b4a82f4d9e659d06caefe0b, type: 2}

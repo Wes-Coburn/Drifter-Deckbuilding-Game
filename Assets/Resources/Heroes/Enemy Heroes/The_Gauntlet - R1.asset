@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f70c538dcd69bd34f98c590c7729b9aa, type: 3}
   m_Name: The_Gauntlet - R1
   m_EditorClassIdentifier: 
-  ReinforcementSchedule: {fileID: 11400000, guid: 7355fe38148b8d44fb5373b55a6a5b4a,
-    type: 2}
+  StartingUnits:
+  - {fileID: 11400000, guid: 485485e617708014ca9d6d768cbef3c0, type: 2}
+  - {fileID: 11400000, guid: a469f2235281d2c4791c333acb8e1ae9, type: 2}
+  - {fileID: 11400000, guid: 18ad24a3b12436040bd84309e421cfde, type: 2}
+  - {fileID: 11400000, guid: 03468bf2d91f90048a8fa9afb29bfe9f, type: 2}
+  - {fileID: 11400000, guid: 7cecede94b2ae7743ba64fad32bb71ad, type: 2}
   ReinforcementUnits:
   - {fileID: 11400000, guid: a39c6e47bb162564b8b4a80a4e0af9cb, type: 2}
   - {fileID: 11400000, guid: abda4ffcb89447c43be37ee2a6d95757, type: 2}
@@ -28,3 +32,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5471c3b6172adb241bb1615db103cdcc, type: 2}
   - {fileID: 11400000, guid: bf26bd5a21eff2f4cabb07c29c7d22b2, type: 2}
   - {fileID: 11400000, guid: 86d9186b14cf6e441810eccf0aed4850, type: 2}
+  ReinforcementActions: []

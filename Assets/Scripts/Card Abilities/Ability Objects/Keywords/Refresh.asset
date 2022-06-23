@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e7527b44bc0b3347b54a3f404a8a59f, type: 3}
+  m_Name: Refresh
+  m_EditorClassIdentifier: 
+  AbilityName: Refresh
+  AbilityDescription: Remove Exhausted from a unit.
+  AbilitySprite: {fileID: 21300000, guid: fef0038b60191af47a911b32769e4ca7, type: 3}
+  LinkedAbilites:
+  - {fileID: 11400000, guid: da9edd80a7b529542b04b632f79005de, type: 2}
+  GainAbilitySound:
+    name: 
+    clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    source: {fileID: 0}
+  LoseAbilitySound:
+    name: 
+    clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    source: {fileID: 0}

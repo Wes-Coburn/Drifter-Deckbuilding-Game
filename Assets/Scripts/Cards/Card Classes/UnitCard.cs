@@ -11,10 +11,11 @@ public class UnitCard : Card
     [Header("ABILITIES")]
     [SerializeField] private List<CardAbility> startingAbilities;
     [SerializeField] private Sound unitDeathSound;
-
+    
     public int StartPower { get => power; }
     public int StartHealth { get => health; }
     public List<CardAbility> StartingAbilities { get => startingAbilities; }
+    public List<CardAbility> CurrentAbilities { get; set; } // TESTING
     public Sound UnitDeathSound { get => unitDeathSound; }
 
     public int CurrentPower { get; set; }
@@ -27,8 +28,45 @@ public class UnitCard : Card
         base.LoadCard(card);
         UnitCard uc = card as UnitCard;
         power = uc.StartPower;
+        CurrentPower = power;
         health = uc.StartHealth;
+        CurrentHealth = health;
+        MaxHealth = health;
+
         startingAbilities = uc.StartingAbilities;
+        CurrentAbilities = new List<CardAbility>();
+        foreach (CardAbility abi in startingAbilities)
+            CurrentAbilities.Add(abi);
+
+        unitDeathSound = uc.UnitDeathSound;
+    }
+
+    public override void CopyCard(Card card)
+    {
+        base.CopyCard(card);
+        UnitCard uc = card as UnitCard;
+        power = uc.StartPower;
+        CurrentPower = uc.CurrentPower;
+        health = uc.StartHealth;
+        CurrentHealth = uc.CurrentHealth;
+        MaxHealth = uc.MaxHealth;
+
+        startingAbilities = uc.startingAbilities;
+        CurrentAbilities = new List<CardAbility>();
+        foreach (CardAbility abi in uc.CurrentAbilities)
+        {
+            // Don't copy ChangeControl effects
+            if (abi is TriggeredAbility tra)
+            {
+                foreach (EffectGroup eg in tra.EffectGroupList)
+                    foreach (Effect e in eg.Effects)
+                        if (e is ChangeControlEffect)
+                            goto NextAbility;
+            }
+            CurrentAbilities.Add(abi);
+            NextAbility:;
+        }
+
         unitDeathSound = uc.UnitDeathSound;
     }
 }

@@ -48,10 +48,7 @@ public class DialogueManager : MonoBehaviour
      * ****** DIALOGUE_MANAGER
      * *****
      *****/
-    public void Reset_DialogueManager()
-    {
-        StopTimedText();
-    }
+    public void Reset_DialogueManager() => StopTimedText();
 
     public void DisplayCurrentHeroes()
     {
@@ -293,11 +290,13 @@ public class DialogueManager : MonoBehaviour
     public void DialogueResponse(int response)
     {
         if (SceneLoader.SceneIsLoading || !AllowResponse) return;
+
         if (currentDialogueClip == null)
         {
             Debug.LogError("CURRENT CLIP IS NULL!");
             return;
         }
+
         if (currentDialogueClip is DialoguePrompt) { }
         else
         {
@@ -351,7 +350,7 @@ public class DialogueManager : MonoBehaviour
             }
             else Debug.LogWarning("NEW LOCATIONS IS NULL!");
 
-            ChangeReputations(nextPrompt); // TESTING
+            ChangeReputations(nextPrompt);
         }
 
         if (dResponse.NPC_NextClip != null)
@@ -434,7 +433,8 @@ public class DialogueManager : MonoBehaviour
                 }
             }
             // New Card
-            if (nextPrompt.NewCard != null) uMan.CreateNewCardPopup(nextPrompt.NewCard);
+            if (nextPrompt.NewCard != null)
+                uMan.CreateNewCardPopup(nextPrompt.NewCard, "New Card!");
             // Aether Cells
             else if (nextPrompt.AetherCells > 0)
             {

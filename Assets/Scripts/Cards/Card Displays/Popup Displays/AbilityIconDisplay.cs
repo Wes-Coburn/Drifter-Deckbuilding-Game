@@ -10,8 +10,18 @@ public class AbilityIconDisplay : MonoBehaviour
     [SerializeField] private GameObject abilitySprite;
     [SerializeField] private GameObject abilityName;
     [SerializeField] private GameObject abilitySpriteObject;
+    [SerializeField] private GameObject abilityMultiplier;
 
     public GameObject AbilitySpriteObject { get => abilitySpriteObject; }
+    public int AbilityMultiplier
+    {
+        set
+        {
+            abilityMultiplier.SetActive(true);
+            string multiplier = value + "x";
+            abilityMultiplier.GetComponentInChildren<TextMeshProUGUI>().SetText(multiplier);
+        }
+    }
     public CardAbility AbilityScript
     {
         get => abilityScript;
@@ -76,6 +86,7 @@ public class AbilityIconDisplay : MonoBehaviour
             return;
         }
         SetAbilityName(abilityName);
+        abilityMultiplier.SetActive(false); // TESTING
     }
 
     /******

@@ -23,7 +23,6 @@ public class AnimationManager : MonoBehaviour
     private AudioManager auMan;
     private EnemyManager enMan;
 
-    private Vector2 playerHandStart;
     private Color previousBarColor;
     private Color previousTextCountColor;
 
@@ -214,24 +213,12 @@ public class AnimationManager : MonoBehaviour
         GameObject healthScore = hero.GetComponent<HeroDisplay>().HeroHealthObject;
         ValueChanger(healthScore.transform, healthChange);
     }
-    public void ModifyHeroEnergyState(int energyChange)
+    public void ModifyHeroEnergyState(int energyChange, GameObject hero, bool playSound = true)
     {
-        auMan.StartStopSound("SFX_EnergyRefill");
-        ChangeAnimationState(coMan.PlayerHero, "Modify_Energy");
-        GameObject energyScore = coMan.PlayerHero.GetComponent<PlayerHeroDisplay>().HeroEnergy;
+        if (playSound) auMan.StartStopSound("SFX_EnergyRefill");
+        ChangeAnimationState(hero, "Modify_Energy");
+        GameObject energyScore = hero.GetComponent<HeroDisplay>().HeroEnergyObject;
         ValueChanger(energyScore.transform, energyChange);
-    }
-    public void ReinforcementsState()
-    {
-        auMan.StartStopSound("SFX_Reinforcements");
-        ChangeAnimationState(coMan.EnemyHero, "Reinforcements");
-        CreateParticleSystem(coMan.EnemyHero.GetComponent<EnemyHeroDisplay>().Reinforcements,
-            ParticleSystemHandler.ParticlesType.Drag, 3); // TESTING
-    }
-    public void NextReinforcementsState()
-    {
-        auMan.StartStopSound("SFX_NextReinforcements");
-        ChangeAnimationState(coMan.EnemyHero, "Next_Reinforcements");
     }
 
     /******
@@ -262,8 +249,11 @@ public class AnimationManager : MonoBehaviour
     public void UnitTakeDamageState(GameObject unitCard, int damageValue)
     {
         ChangeAnimationState(unitCard.GetComponent<UnitCardDisplay>().UnitStats, "Take_Damage");
-        GameObject healthScore = unitCard.GetComponent<UnitCardDisplay>().HealthScore;
-        ValueChanger(healthScore.transform, -damageValue); // TESTING
+        UnitCardDisplay ucd = unitCard.GetComponent<UnitCardDisplay>();
+        GameObject stats = ucd.UnitStats;
+        GameObject healthScore = ucd.HealthScore;
+        ValueChanger(healthScore.transform, -damageValue);
+        SetAnimatorBool(stats, "IsDamaged", coMan.IsDamaged(unitCard));
     }
     public void DestroyUnitCardState(GameObject unitCard) =>
         ChangeAnimationState(unitCard, "Destroyed");
@@ -274,6 +264,8 @@ public class AnimationManager : MonoBehaviour
         UnitCardDisplay ucd = unitCard.GetComponent<UnitCardDisplay>();
         GameObject stats = ucd.UnitStats;
         SetAnimatorBool(stats, "IsDamaged", coMan.IsDamaged(unitCard));
+        SetAnimatorBool(stats, "PowerIsBuffed", coMan.PowerIsBuffed(unitCard));
+        SetAnimatorBool(stats, "HealthIsBuffed", coMan.HealthIsBuffed(unitCard));
 
         if (powerChange != 0)
         {
@@ -298,12 +290,12 @@ public class AnimationManager : MonoBehaviour
         void ModifyPower()
         {
             GameObject powerScore = ucd.PowerScore;
-            ValueChanger(powerScore.transform, powerChange); // TESTING
+            ValueChanger(powerScore.transform, powerChange);
         }
         void ModifyHealth()
         {
             GameObject healthScore = ucd.HealthScore;
-            ValueChanger(healthScore.transform, healthChange); // TESTING
+            ValueChanger(healthScore.transform, healthChange);
         }
     }
     private void ModifyUnitHealthState(GameObject card) =>
@@ -316,6 +308,12 @@ public class AnimationManager : MonoBehaviour
     // Ability Trigger
     public void AbilityTriggerState(GameObject triggerIcon)
     {
+        if (triggerIcon == null)
+        {
+            Debug.LogWarning("ICON IS NULL!");
+            return;
+        }
+
         ChangeAnimationState(triggerIcon.GetComponent
             <AbilityIconDisplay>().AbilitySpriteObject, "Trigger");
     }
@@ -402,12 +400,8 @@ public class AnimationManager : MonoBehaviour
         float distance;
         float yTarget;
         GameObject hand = coMan.PlayerHand;
-        if (isUpShift)
-        {
-            yTarget = -350;
-            playerHandStart = hand.transform.position;
-        }
-        else yTarget = playerHandStart.y;
+        if (isUpShift) yTarget = -350;
+        else yTarget = coMan.PlayerHandStart.y;
         Vector2 target = new Vector2(0, yTarget);
 
         do
@@ -680,7 +674,8 @@ public class AnimationManager : MonoBehaviour
         attacker.transform.SetAsLastSibling();
         Vector2 defPos = defender.transform.position;
 
-        ParticleSystemHandler particleHandler = CreateParticleSystem(attacker, ParticleSystemHandler.ParticlesType.Attack); // TESTING
+        ParticleSystemHandler particleHandler = CreateParticleSystem(attacker,
+            ParticleSystemHandler.ParticlesType.Attack);
 
         // ATTACK
         do
@@ -695,7 +690,7 @@ public class AnimationManager : MonoBehaviour
 
         coMan.PlayAttackSound(attacker);
         coMan.Strike(attacker, defender, true);
-        yield return new WaitForSeconds(0.1f); // TESTING
+        yield return new WaitForSeconds(0.1f);
 
         // RETREAT
         do
@@ -708,8 +703,10 @@ public class AnimationManager : MonoBehaviour
         }
         while (distance > 0);
 
-        particleHandler.StopParticles(); // TESTING
+        particleHandler.StopParticles();
         container.GetComponent<CardContainer>().IsDetached = false;
+        if (attacker.CompareTag(CombatManager.ENEMY_CARD)) // TESTING
+            attacker.transform.SetAsFirstSibling();
         EventManager.Instance.PauseDelayedActions(false);
     }
 

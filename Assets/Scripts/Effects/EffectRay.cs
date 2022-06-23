@@ -18,14 +18,17 @@ public class EffectRay : MonoBehaviour
     private Action rayEffect;
     private bool isEffectGroup;
 
+    private EffectManager efMan;
+
     public static int ActiveRays { get; set; }
 
     private void Awake()
     {
+        efMan = EffectManager.Instance;
         isMoving = false;
         isDestroyed = false;
-        sprite = GetComponent<SpriteRenderer>(); // TESTING
-        particles = GetComponent<ParticleSystem>(); // TESTING
+        sprite = GetComponent<SpriteRenderer>();
+        particles = GetComponent<ParticleSystem>();
         ActiveRays++;
         gameObject.SetActive(false);
     }
@@ -49,7 +52,7 @@ public class EffectRay : MonoBehaviour
         //transform.rotation = Quaternion.LookRotation(newRotation);
 
         distance = Vector2.Distance(transform.position, target.transform.position);
-        speed = distance/10; // TESTING
+        speed = distance/10;
         if (speed < minSpeed) speed = minSpeed;
         else if (speed > maxSpeed) speed = maxSpeed;
         if (distance > 0)
@@ -89,11 +92,12 @@ public class EffectRay : MonoBehaviour
         }
 
         rayEffect();
+        if (isEffectGroup) efMan.ActiveEffects--;
 
         if (ActiveRays < 1)
         {
-            if (isEffectGroup) EffectManager.Instance.FinishEffectGroupList(false); // TESTING
-            else UIManager.Instance.UpdateEndTurnButton(PlayerManager.Instance.IsMyTurn, true);
+            if (!isEffectGroup)
+                UIManager.Instance.UpdateEndTurnButton(PlayerManager.Instance.IsMyTurn, true);
         }
 
         GetComponent<SpriteRenderer>().enabled = false;
@@ -102,8 +106,7 @@ public class EffectRay : MonoBehaviour
 
     private IEnumerator DestroyRayNumerator()
     {
-        while (particles.particleCount > 0)
-            yield return null;
+        while (particles.particleCount > 0) yield return null;
         Destroy(gameObject);
     }
 }

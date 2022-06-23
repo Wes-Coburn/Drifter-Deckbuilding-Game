@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a22d7123f6ee007468cbdc6e9b6fe2b0, type: 3}
+  m_Name: PlayCard_Warrior
+  m_EditorClassIdentifier: 
+  Targets: {fileID: 11400000, guid: 2afaf2fcac3d1ca4dae9da92903ef38d, type: 2}
+  ResolveIndependent: 0
+  Effects:
+  - {fileID: 11400000, guid: 988107bdc7a93b640bd0bd5502ba7890, type: 2}
+  EffectsDescription: Create a 1|1 <color="red">Warrior</color> with Blitz.

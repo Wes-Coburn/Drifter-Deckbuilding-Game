@@ -29,7 +29,6 @@ public class PlayerManager : MonoBehaviour
     private int playerHealth;
     private int energyPerTurn;
     private int energyLeft;
-    private bool heroSkillDrawn;
     private bool heroPowerUsed;
     private int heroUltimateProgress;
 
@@ -40,7 +39,6 @@ public class PlayerManager : MonoBehaviour
     public List<HeroItem> HeroItems { get => heroItems; }
     public List<Card> PlayerDeckList { get; private set; }
     public List<Card> CurrentPlayerDeck { get; private set; }
-    public List<SkillCard> CurrentPlayerSkillDeck { get; private set; }
     public int MainDeckCount
     {
         get
@@ -51,16 +49,6 @@ public class PlayerManager : MonoBehaviour
                 if (c is SkillCard) continue;
                 else count++;
             }
-            return count;
-        }
-    }
-    public int SkillDeckCount
-    {
-        get
-        {
-            int count = 0;
-            foreach (Card c in PlayerDeckList)
-                if (c is SkillCard) count++;
             return count;
         }
     }
@@ -82,16 +70,6 @@ public class PlayerManager : MonoBehaviour
             int previousCount = aetherCells;
             aetherCells = value;
             uMan.SetAetherCount(value, previousCount);
-        }
-    }
-    public bool SkillDrawn
-    {
-        get => heroSkillDrawn;
-        set
-        {
-            heroSkillDrawn = value;
-            if (CurrentPlayerSkillDeck.Count < 1) value = true;
-            HeroDisplay.SkillDrawnIcon.SetActive(value);
         }
     }
     public bool HeroPowerUsed
@@ -178,7 +156,7 @@ public class PlayerManager : MonoBehaviour
             energyPerTurn = value;
             if (energyPerTurn > MaxEnergyPerTurn)
                 energyPerTurn = MaxEnergyPerTurn;
-            coMan.PlayerHero.GetComponent<PlayerHeroDisplay>().PlayerActions =
+            coMan.PlayerHero.GetComponent<HeroDisplay>().HeroEnergy =
                 energyLeft + "/" + EnergyPerTurn;
         }
     }
@@ -191,10 +169,7 @@ public class PlayerManager : MonoBehaviour
             return GameManager.MAXIMUM_ENERGY_PER_TURN + bonusEnergy;
         }
     }
-    private int MaxEnergy
-    {
-        get => GameManager.MAXIMUM_ENERGY;
-    }
+    private int MaxEnergy => GameManager.MAXIMUM_ENERGY;
     public int EnergyLeft
     {
         get => energyLeft;
@@ -202,7 +177,7 @@ public class PlayerManager : MonoBehaviour
         {
             energyLeft = value;
             if (energyLeft > MaxEnergy) energyLeft = MaxEnergy;
-            coMan.PlayerHero.GetComponent<PlayerHeroDisplay>().PlayerActions = 
+            coMan.PlayerHero.GetComponent<HeroDisplay>().HeroEnergy = 
                 energyLeft + "/" + EnergyPerTurn;
             if (!efMan.EffectsResolving) coMan.SelectPlayableCards();
         }
@@ -218,14 +193,13 @@ public class PlayerManager : MonoBehaviour
 
         PlayerDeckList = new List<Card>();
         CurrentPlayerDeck = new List<Card>();
-        CurrentPlayerSkillDeck = new List<SkillCard>();
 
         heroAugments = new List<HeroAugment>();
         heroItems = new List<HeroItem>();
 
         PlayerHero = null; // Unnecessary?
         AetherCells = 0;
-        IsMyTurn = true;
+        IsMyTurn = false; // TESTING
     }
 
     public void AddItem(HeroItem item, bool isNewItem = false)
@@ -267,29 +241,6 @@ public class PlayerManager : MonoBehaviour
         else return true;
     }
 
-    public void DrawSkill()
-    {
-        void ErrorSound() => auMan.StartStopSound("SFX_Error");
-
-        if (CurrentPlayerSkillDeck.Count < 1)
-        {
-            uMan.CreateFleetingInfoPopup("No skills left!");
-            ErrorSound();
-        }
-        else if (SkillDrawn)
-        {
-            uMan.CreateFleetingInfoPopup("Skill already drawn this turn!");
-            ErrorSound();
-        }
-        else
-        {
-            if (gMan.IsTutorial && EnergyPerTurn == 1) gMan.Tutorial_Tooltip(3); // TUTORIAL!
-
-            coMan.DrawCard(GameManager.PLAYER, CurrentPlayerSkillDeck[0]);
-            coMan.SelectPlayableCards();
-            //ParticleBurst(skillDeck);
-        }
-    }
     public void UseHeroPower(bool isUltimate)
     {
         void ErrorSound() => auMan.StartStopSound("SFX_Error");
@@ -343,7 +294,7 @@ public class PlayerManager : MonoBehaviour
             uMan.CreateFleetingInfoPopup("Ultimate not ready!");
             ErrorSound();
         }
-        else if (EnergyLeft < GetUltimateCost())
+        else if (EnergyLeft < GetUltimateCost(out _))
         {
             uMan.CreateFleetingInfoPopup("Not enough energy!");
             ErrorSound();
@@ -356,19 +307,26 @@ public class PlayerManager : MonoBehaviour
         else
         {
             efMan.StartEffectGroupList(groupList, heroUltimate);
-            EnergyLeft -= GetUltimateCost();
+            EnergyLeft -= GetUltimateCost(out _);
             HeroDisplay.UltimateUsedIcon.SetActive(true);
             PlayerPowerSounds(true);
             ParticleBurst(heroUltimate);
         }
     }
 
-    public int GetUltimateCost() // TESTING
+    public int GetUltimateCost(out Color ultimateColor)
     {
         int cost = PlayerHero.HeroUltimate.PowerCost;
-        if (gMan.GetReputationTier
-            (GameManager.ReputationType.Techs) > 2) cost--;
-        if (cost < 0) cost = 0;
+        if (gMan.GetReputationTier(GameManager.ReputationType.Techs) > 2)
+        {
+            if (cost > 0)
+            {
+                cost--;
+                ultimateColor = Color.green;
+            }
+            else ultimateColor = Color.white;
+        }
+        else ultimateColor = Color.white;
         return cost;
     }
 

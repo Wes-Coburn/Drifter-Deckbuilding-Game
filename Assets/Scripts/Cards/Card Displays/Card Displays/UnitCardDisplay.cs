@@ -24,7 +24,7 @@ public class UnitCardDisplay : CardDisplay
     public GameObject ZoomAbilityIconPrefab { get => zoomAbilityIconPrefab; }
 
     public List<GameObject> AbilityIcons { get; set; }
-    public List<CardAbility> CurrentAbilities { get; set; }
+    public List<CardAbility> CurrentAbilities { get => UnitCard.CurrentAbilities; } // TESTING
 
     public int CurrentPower
     {
@@ -85,7 +85,6 @@ public class UnitCardDisplay : CardDisplay
     {
         base.Awake();
         auMan = AudioManager.Instance;
-        CurrentAbilities = new List<CardAbility>();
         AbilityIcons = new List<GameObject>();
         displayedAbilities = new List<CardAbility>();
     }
@@ -96,22 +95,13 @@ public class UnitCardDisplay : CardDisplay
         DisplayPower(CurrentPower);
     }
 
-    private GameObject CreateAbilityIcon(CardAbility cardAbility)
-    {
-        GameObject abilityIcon = Instantiate(abilityIconPrefab, new Vector2(0, 0), Quaternion.identity);
-        abilityIcon.GetComponent<AbilityIconDisplay>().AbilityScript = cardAbility;
-        abilityIcon.transform.SetParent(currentAbilitiesDisplay.transform, false);
-        return abilityIcon;
-    }
-
     protected override void DisplayCard()
     {
         base.DisplayCard();
-        CurrentPower = UnitCard.StartPower;
-        MaxHealth = UnitCard.StartHealth;
-        CurrentHealth = MaxHealth;
-        foreach (CardAbility cardAbility in UnitCard.StartingAbilities)
-            AddCurrentAbility(cardAbility);
+        DisplayPower(CurrentPower);
+        DisplayHealth(CurrentHealth);
+        foreach (CardAbility cardAbility in UnitCard.CurrentAbilities)
+            AddCurrentAbility(cardAbility, true);
     }
 
     public override void DisplayZoomCard(GameObject parentCard, Card card = null)
@@ -138,16 +128,7 @@ public class UnitCardDisplay : CardDisplay
                 abilityList = ucd.CurrentAbilities;
             }
 
-            foreach (CardAbility ca in abilityList)
-            {
-                if (ca == null)
-                {
-                    Debug.LogError("EMPTY ABILITY!");
-                    continue;
-                }
-                GetComponent<CardZoom>().CreateZoomAbilityIcon(ca,
-                    currentAbilitiesDisplay.transform, 1);
-            }
+            ShowAbilities(abilityList); // TESTING
         }
         else
         {
@@ -164,15 +145,40 @@ public class UnitCardDisplay : CardDisplay
                 }
                 CurrentAbilities.Add(ca);
             }
-            foreach (CardAbility ca in uc.StartingAbilities)
+
+            ShowAbilities(uc.StartingAbilities); // TESTING
+        }
+
+        void ShowAbilities(List<CardAbility> abilityList)
+        {
+            List<CardAbility> shownAbilities = new List<CardAbility>();
+            List<GameObject> shownObjects = new List<GameObject>();
+            List<int> shownAbilityCounts = new List<int>();
+
+            foreach (CardAbility ca in abilityList)
             {
                 if (ca == null)
                 {
                     Debug.LogError("EMPTY ABILITY!");
                     continue;
                 }
-                GetComponent<CardZoom>().CreateZoomAbilityIcon(ca,
-                    currentAbilitiesDisplay.transform, 1);
+
+                int abilityIndex = shownAbilities.FindIndex(x => x.AbilityName == ca.AbilityName);
+                if (abilityIndex == -1)
+                {
+                    GameObject abilityIcon =
+                        GetComponent<CardZoom>().CreateZoomAbilityIcon(ca,
+                        currentAbilitiesDisplay.transform, 1);
+
+                    shownAbilities.Add(ca);
+                    shownObjects.Add(abilityIcon);
+                    shownAbilityCounts.Add(1);
+                }
+                else
+                {
+                    int abilityCount = ++shownAbilityCounts[abilityIndex];
+                    shownObjects[abilityIndex].GetComponent<AbilityIconDisplay>().AbilityMultiplier = abilityCount;
+                }
             }
         }
     }
@@ -191,6 +197,8 @@ public class UnitCardDisplay : CardDisplay
         cellSize.y = 16;
         glg.cellSize = cellSize;
 
+        UnitStats.transform.localPosition = new Vector2(0, -65); // TESTING
+
         foreach (CardAbility ca in UnitCard.StartingAbilities)
         {
             if (ca == null)
@@ -203,19 +211,33 @@ public class UnitCardDisplay : CardDisplay
         }
     }
 
+    public override void DisplayChooseCard(Card card)
+    {
+        base.DisplayChooseCard(card);
+        DisplayCardPageCard(card); // TESTING
+        UnitStats.transform.localPosition = new Vector2(0, -65); // TESTING
+    }
+
     /******
      * *****
      * ****** ADD_CURRENT_ABILITY
      * *****
      *****/
-    public bool AddCurrentAbility(CardAbility ca, bool isPlayed = false)
+    public bool AddCurrentAbility(CardAbility ca, bool iconOnly = false)
     {
-        if (ca is StaticAbility)
+        if (ca is StaticAbility sa)
         {
+            if (iconOnly)
+            {
+                int abilityIndex = displayedAbilities.FindIndex(x => x.AbilityName == ca.AbilityName);
+                if (abilityIndex == -1) ShowAbility(ca); // TESTING
+                return true;
+            }
+
             if (CardManager.GetAbility(gameObject, ca.AbilityName))
             {
                 Debug.Log("ABILITY ALREADY EXISTS: <" + ca.AbilityName + ">");
-                return false;
+                if (!sa.AbilityStacks) return false; // TESTING
             }
             else ShowAbility(ca);
         }
@@ -228,8 +250,7 @@ public class UnitCardDisplay : CardDisplay
                 {
                     if (ca2 is TriggeredAbility ta2)
                     {
-                        if (ta2.AbilityTrigger.AbilityName ==
-                            ta.AbilityTrigger.AbilityName)
+                        if (ta2.AbilityTrigger.AbilityName == ta.AbilityTrigger.AbilityName)
                             iconsFound = true;
                     }
                 }
@@ -237,14 +258,21 @@ public class UnitCardDisplay : CardDisplay
             }
         }
 
-        CurrentAbilities.Add(ca); // Add instances instead? (Doesn't matter yet)
-
-        if (isPlayed)
+        if (!iconOnly)
         {
-            if (ca is StaticAbility sa)
-                AudioManager.Instance.StartStopSound(null, sa.GainAbilitySound);
+            CurrentAbilities.Add(ca);
+            string abilityName;
+            if (ca is StaticAbility) abilityName = ca.AbilityName;
+            else if (ca is TriggeredAbility ta2) abilityName = ta2.AbilityTrigger.AbilityName;
+            else
+            {
+                Debug.LogError("INVALID ABILITY TYPE!");
+                return false;
+            }
+            AbilityTriggerState(abilityName); // TESTING
         }
 
+        if (ca is StaticAbility sa2) AudioManager.Instance.StartStopSound(null, sa2.GainAbilitySound);
         if (ca.AbilityName == CardManager.ABILITY_BLITZ) IsExhausted = false;
         return true;
 
@@ -252,6 +280,14 @@ public class UnitCardDisplay : CardDisplay
         {
             AbilityIcons.Add(CreateAbilityIcon(ca));
             displayedAbilities.Add(ca);
+        }
+
+        GameObject CreateAbilityIcon(CardAbility cardAbility)
+        {
+            GameObject abilityIcon = Instantiate(abilityIconPrefab, new Vector2(0, 0), Quaternion.identity);
+            abilityIcon.GetComponent<AbilityIconDisplay>().AbilityScript = cardAbility;
+            abilityIcon.transform.SetParent(currentAbilitiesDisplay.transform, false);
+            return abilityIcon;
         }
     }
 
@@ -300,9 +336,9 @@ public class UnitCardDisplay : CardDisplay
      * ****** ABILITY_TRIGGER_STATE
      * *****
      *****/
-    public void AbilityTriggerState(string triggerName)
+    public void AbilityTriggerState(string abilityName)
     {
-        if (triggerName == CardManager.TRIGGER_PLAY) return;
+        if (abilityName == CardManager.TRIGGER_PLAY) return;
 
         foreach (CardAbility ca in displayedAbilities)
         {
@@ -311,7 +347,7 @@ public class UnitCardDisplay : CardDisplay
 
             if (ca is StaticAbility)
             {
-                if (ca.AbilityName == triggerName)
+                if (ca.AbilityName == abilityName)
                 {
                     TriggerState(AbilityIcons[displayIndex]);
                     return;
@@ -319,7 +355,7 @@ public class UnitCardDisplay : CardDisplay
             }
             else if (ca is TriggeredAbility tra)
             {
-                if (tra.AbilityTrigger.AbilityName == triggerName)
+                if (tra.AbilityTrigger.AbilityName == abilityName)
                 {
                     TriggerState(AbilityIcons[displayIndex]);
                     return;
@@ -339,11 +375,19 @@ public class UnitCardDisplay : CardDisplay
     public override void ResetCard()
     {
         base.ResetCard();
+        CurrentPower = UnitCard.StartPower;
+        CurrentHealth = UnitCard.StartHealth;
+        MaxHealth = UnitCard.StartHealth;
+
         foreach (GameObject go in AbilityIcons)
             Destroy(go);
         AbilityIcons.Clear();
         displayedAbilities.Clear();
         CurrentAbilities.Clear();
+        foreach (CardAbility ca in UnitCard.StartingAbilities)
+            CurrentAbilities.Add(ca);
+        foreach (CardAbility ca in CurrentAbilities)
+            AddCurrentAbility(ca, true);
         DisplayCard();
     }
 

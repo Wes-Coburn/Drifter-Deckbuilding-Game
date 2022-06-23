@@ -3,6 +3,7 @@ using TMPro;
 
 public class NewCardPopupDisplay : MonoBehaviour
 {
+    [SerializeField] private GameObject popupTitle;
     [SerializeField] private GameObject newCardZone;
     [SerializeField] private GameObject newCardChest;
     [SerializeField] private GameObject[] addCardButtons;
@@ -13,10 +14,18 @@ public class NewCardPopupDisplay : MonoBehaviour
     private DialogueManager dMan;
     private UIManager uMan;
     private AnimationManager anMan;
+    private CardManager caMan;
 
     private Card newCard;
     private Card[] chooseCards;
 
+    public string PopupTitle
+    {
+        set
+        {
+            popupTitle.GetComponent<TextMeshProUGUI>().text = value;
+        }
+    }
     public Card NewCard
     {
         get => newCard;
@@ -43,6 +52,7 @@ public class NewCardPopupDisplay : MonoBehaviour
         dMan = DialogueManager.Instance;
         uMan = UIManager.Instance;
         anMan = AnimationManager.Instance;
+        caMan = CardManager.Instance;
 
         ignoreCardButton.GetComponentInChildren<TextMeshProUGUI>().SetText
             ("Take " + GameManager.IGNORE_CARD_AETHER + " aether instead");
@@ -54,7 +64,7 @@ public class NewCardPopupDisplay : MonoBehaviour
         newCardChest.SetActive(true);
         foreach (GameObject button in addCardButtons) button.SetActive(false);
         ignoreCardButton.SetActive(false);
-        anMan.CreateParticleSystem(newCardChest, ParticleSystemHandler.ParticlesType.NewCard, 5); // TESTING
+        anMan.CreateParticleSystem(newCardChest, ParticleSystemHandler.ParticlesType.NewCard, 5);
     }
 
     private void SwitchToCards()
@@ -63,7 +73,7 @@ public class NewCardPopupDisplay : MonoBehaviour
         newCardChest.SetActive(false);
         foreach (GameObject button in addCardButtons) button.SetActive(true);
         ignoreCardButton.SetActive(true);
-        anMan.CreateParticleSystem(null, ParticleSystemHandler.ParticlesType.ButtonPress, 1); // TESTING
+        anMan.CreateParticleSystem(null, ParticleSystemHandler.ParticlesType.ButtonPress, 1);
     }
 
     public void DisplayNewCard()
@@ -71,13 +81,18 @@ public class NewCardPopupDisplay : MonoBehaviour
         SwitchToCards();
         // Card Popup
         GameObject newCard = coMan.ShowCard(NewCard, new Vector2(), CombatManager.DisplayType.NewCard);
+        if (newCard == null)
+        {
+            Debug.LogError("CARD IS NULL!");
+            return;
+        }
         CardZoom cz = newCard.GetComponent<CardZoom>();
         newCard.transform.SetParent(newCardZone.transform, false);
         // Description Popup
         cz.CreateDescriptionPopup(new Vector2(-550, 0), 3);
         CardZoom.DescriptionPopup.transform.SetParent(newCardZone.transform, true);
         // Ability Popups
-        cz.CreateAbilityPopups(new Vector2(550, 0), 3);
+        cz.CreateAbilityPopups(new Vector2(550, 0), 3, false);
         CardZoom.AbilityPopupBox.transform.SetParent(newCardZone.transform, true);
         cz.enabled = false; // Disable more info tooltip
         // Card Popup
@@ -94,11 +109,18 @@ public class NewCardPopupDisplay : MonoBehaviour
         foreach (Card card in chooseCards)
         {
             // Card Popup
-            GameObject newCard = coMan.ShowCard(card, new Vector2(), CombatManager.DisplayType.Cardpage);
+            GameObject newCard = coMan.ShowCard(card, new Vector2(),
+                CombatManager.DisplayType.ChooseCard); // TESTING
             CardDisplay cd = newCard.GetComponent<CardDisplay>();
             newCard.transform.SetParent(newCardZone.transform, false);
             cd.DisableVisuals();
             newCard.transform.localScale = new Vector2(3, 3);
+        }
+
+        foreach (GameObject button in addCardButtons)
+        {
+            button.transform.localPosition =
+                new Vector2(button.transform.localPosition.x, -400); // TESTING
         }
     }
 
@@ -126,11 +148,21 @@ public class NewCardPopupDisplay : MonoBehaviour
         }
         else if (nextClip is CombatRewardClip crc)
         {
-            if (newCard is UnitCard) // TESTING
+            if (newCard is UnitCard)
             {
-                uMan.CreateNewCardPopup(null,
-                    CardManager.Instance.ChooseCards(CardManager.ChooseCard.Action)); // TESTING
+                uMan.CreateNewCardPopup(null, "New Action!",
+                    caMan.ChooseCards(CardManager.ChooseCard.Action));
                 return;
+            }
+            else if (newCard is SkillCard) { } // TESTING
+            else if (newCard is ActionCard) // TESTING
+            {
+                if (crc.NewSkill)
+                {
+                    uMan.CreateNewCardPopup(null, "New Hero Skill!",
+                        caMan.ChooseCards(CardManager.ChooseCard.Skill)); // TESTING
+                    return;
+                }
             }
 
             if (crc.AetherCells > 0)
@@ -142,7 +174,7 @@ public class NewCardPopupDisplay : MonoBehaviour
             else
             {
                 dMan.EngagedHero.NextDialogueClip = crc.NextDialogueClip;
-                SceneLoader.LoadScene(SceneLoader.Scene.WorldMapScene); // TESTING
+                SceneLoader.LoadScene(SceneLoader.Scene.WorldMapScene);
             }
         }
         else Debug.LogError("NEXT CLIP IS NOT COMBAT_REWARD_CLIP!");

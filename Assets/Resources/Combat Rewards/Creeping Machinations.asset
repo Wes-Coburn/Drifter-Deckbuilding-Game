@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51efad6bfc5b70344acf9c2c28efe1a1, type: 3}
+  m_Name: Creeping Machinations
+  m_EditorClassIdentifier: 
+  cardArt: {fileID: 21300000, guid: b24bd2eb98db11c4992d2eb9075814c2, type: 3}
+  cardBorder: {fileID: 21300000, guid: da4d9c0ce8b0a5744aac584cd2e675b1, type: 3}
+  energyCost: 2
+  cardName: Creeping Machinations
+  cardType: Action
+  cardSubType: 
+  isRare: 0
+  cardDescription: ...
+  cardPlaySound:
+    name: 
+    clip: {fileID: 0}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
+  zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
+  effectDescription: Set two Traps. Create <b><color="green">Creeping Machinations
+    II</b></color> in hand.
+  effectGroupList:
+  - {fileID: 11400000, guid: 3e30647b43605bc4e98d9a2055b974a5, type: 2}
+  - {fileID: 11400000, guid: 3e30647b43605bc4e98d9a2055b974a5, type: 2}
+  - {fileID: 11400000, guid: 6e9ef6ebd82a41c44b0bf553985eef18, type: 2}
+  linkedAbilities:
+  - {fileID: 11400000, guid: 7c725ce5f65acbd48a58670f0a914288, type: 2}

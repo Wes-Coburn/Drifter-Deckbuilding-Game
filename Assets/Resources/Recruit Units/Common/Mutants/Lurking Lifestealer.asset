@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardArt: {fileID: 21300000, guid: bbbfdc4b149e7b640ab48ac82812b8af, type: 3}
   cardBorder: {fileID: 21300000, guid: 743e735f744cf494c9f9081b4ba9303f, type: 3}
-  energyCost: 4
+  energyCost: 5
   cardName: Lurking Lifestealer
   cardType: Mutant
   cardSubType: 
@@ -28,9 +28,10 @@ MonoBehaviour:
     source: {fileID: 0}
   overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
   zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
-  power: 3
+  power: 2
   health: 5
   startingAbilities:
+  - {fileID: 11400000, guid: 0c9bafd0564d11947a28d93981c1f1f4, type: 2}
   - {fileID: 11400000, guid: fca4d41f7a057204eb3e7e92fc14cb46, type: 2}
   unitDeathSound:
     name: 
