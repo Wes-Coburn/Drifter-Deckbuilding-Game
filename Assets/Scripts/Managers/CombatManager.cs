@@ -730,15 +730,22 @@ public class CombatManager : MonoBehaviour
             }
             else
             {
-                card.transform.SetAsFirstSibling(); // TESTING
                 uMan.CombatLog_PlayCard(card);
                 caMan.TriggerTrapAbilities(card); // TESTING
                 caMan.TriggerUnitAbility(card, CardManager.TRIGGER_PLAY);
+
+                FunctionTimer.Create(() => SetFirstSibling(card), 0.5f); // TESTING
             }
 
             PlayCardSound();
             PlayAbilitySounds();
             ParticleBurst();
+        }
+
+        void SetFirstSibling(GameObject card)
+        {
+            if (card == null) return;
+            card.transform.SetAsFirstSibling();
         }
         void PlayAction()
         {
@@ -1127,11 +1134,9 @@ public class CombatManager : MonoBehaviour
 
         if (newTargetValue < 1)
         {
-            if (IsUnitCard(target))
-            {
-                wasDestroyed = true; // TESTING
-                DestroyUnit(target);
-            }
+            wasDestroyed = true; // TESTING
+
+            if (IsUnitCard(target)) DestroyUnit(target);
             else
             {
                 uMan.ShakeCamera(EZCameraShake.CameraShakePresets.Earthquake);

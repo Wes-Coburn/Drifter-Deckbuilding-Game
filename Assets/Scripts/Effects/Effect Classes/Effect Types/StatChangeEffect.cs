@@ -14,6 +14,9 @@ public class StatChangeEffect : Effect
     public int HealthChange;
     public bool DoubleHealth;
 
+    [Header("RESET STATS")]
+    public bool ResetStats;
+
     public override void LoadEffect(Effect effect)
     {
         base.LoadEffect(effect);
@@ -23,5 +26,6 @@ public class StatChangeEffect : Effect
         SetPowerZero = sce.SetPowerZero;
         HealthChange = sce.HealthChange;
         DoubleHealth = sce.DoubleHealth;
+        ResetStats = sce.ResetStats;
     }
 }

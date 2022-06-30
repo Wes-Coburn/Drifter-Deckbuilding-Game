@@ -40,6 +40,7 @@ public class CardManager : MonoBehaviour
     // Keywords
     public const string ABILITY_MARKED = "Marked";
     public const string ABILITY_POISONED = "Poisoned";
+    public const string ABILITY_WOUNDED = "Wounded";
     // Ability Triggers
     public const string TRIGGER_DEATHBLOW = "Deathblow";
     public const string TRIGGER_INFILTRATE = "Infiltrate";
@@ -60,7 +61,7 @@ public class CardManager : MonoBehaviour
     public const string WARRIOR = "Warrior";
 
     // Ability Keywords
-    private readonly string[] AbilityKeywords = new string[]
+    private static string[] AbilityKeywords = new string[]
     {
         // Static
         ABILITY_ARMORED,
@@ -74,11 +75,13 @@ public class CardManager : MonoBehaviour
         "Mark",
         ABILITY_POISONED,
         "Poison",
+        "Silence",
         "Stun",
         "Evade",
         "Exhausted",
         "Refreshed",
         "Refresh",
+        ABILITY_WOUNDED,
         // Triggers
         TRIGGER_DEATHBLOW,
         TRIGGER_INFILTRATE,
@@ -94,11 +97,29 @@ public class CardManager : MonoBehaviour
     };
 
     // Card Types
-    private readonly string[] CardTypes = new string[]
+    private static string[] CardTypes = new string[]
     {
         "Exploit",
         "Invention",
         "Scheme"
+    };
+
+    // Positive Abilities
+    public static string[] PositiveAbilities = new string[]
+    {
+        ABILITY_ARMORED,
+        ABILITY_BLITZ,
+        ABILITY_FORCEFIELD,
+        ABILITY_POISONOUS,
+        ABILITY_RANGED,
+        ABILITY_STEALTH
+    };
+
+    // Negative Abilities
+    public static string[] NegativeAbilities = new string[]
+    {
+        ABILITY_MARKED,
+        ABILITY_POISONED
     };
 
     public GameObject UnitCardPrefab { get => unitCardPrefab; }
@@ -600,7 +621,7 @@ public class CardManager : MonoBehaviour
         {
             ucd.AbilityTriggerState(ABILITY_POISONED);
             efMan.ResolveEffect(new List<GameObject> { unit },
-                efMan.PoisonEffect, false, 0, false);
+                efMan.PoisonEffect, false, 0, out _, false);
         }
     }
 
@@ -654,6 +675,6 @@ public class CardManager : MonoBehaviour
                 }
         }
         void TriggerEffect(GameObject unit, Effect effect, bool shootRay, GameObject source) =>
-            efMan.ResolveEffect(new List<GameObject> { unit }, effect, shootRay, 0, false, source);
+            efMan.ResolveEffect(new List<GameObject> { unit }, effect, shootRay, 0, out _, false, source);
     }
 }

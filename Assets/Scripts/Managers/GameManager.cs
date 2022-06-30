@@ -95,9 +95,10 @@ public class GameManager : MonoBehaviour
     public const string HIDE_EXPLICIT_LANGUAGE = "HideExplicitLanguage";
 
     // Universal
+    public const int WOUNDED_VALUE = 15; // TESTING
     public const int START_HAND_SIZE = 4;
     public const int MAX_HAND_SIZE = 10; // TESTING
-    public const int MAX_UNITS_PLAYED = 6; // TESTING
+    public const int MAX_UNITS_PLAYED = 6;
 
     // Player
     public const string PLAYER = "Player";
@@ -113,9 +114,11 @@ public class GameManager : MonoBehaviour
     // Enemy
     public const string ENEMY = "Enemy";
     public const int ENEMY_STARTING_HEALTH = 30;
-    //public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
-    public const int BOSS_BONUS_HEALTH = 5;
+    //public const int ENEMY_STARTING_HEALTH = 15; // FOR TESTING ONLY
     public const int ENEMY_HAND_SIZE = 0;
+
+    public const int BOSS_BONUS_HEALTH = 5;
+    public const int BOSS_BONUS_ENERGY = 2;
 
     // Aether Rewards
     public const int IGNORE_CARD_AETHER = 2;
@@ -1024,9 +1027,11 @@ public class GameManager : MonoBehaviour
         EnemyHeroDisplay eHD = coMan.EnemyHero.GetComponent<EnemyHeroDisplay>();
         uMan.EndTurnButton.SetActive(false);
         pHD.HeroStats.SetActive(false);
+        pHD.HeroNameObject.SetActive(false);
         pHD.PowerUsedIcon.SetActive(false);
         pHD.UltimateUsedIcon.SetActive(true);
         eHD.HeroStats.SetActive(false);
+        eHD.HeroNameObject.SetActive(false);
         uMan.CombatLog.SetActive(false);
 
         // EFFECT MANAGER

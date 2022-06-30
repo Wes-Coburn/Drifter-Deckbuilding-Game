@@ -369,12 +369,20 @@ public class EnemyManager : MonoBehaviour
             if (CardManager.GetAbility(legalDefender,
                 CardManager.ABILITY_POISONED)) priority -= 2; // Defender is poisoned
 
-            if (CardManager.GetAbility(legalDefender,
-                CardManager.ABILITY_FORCEFIELD)) priority -= 2;
-            else if (attackerDisplay.CurrentPower >= health) priority += 8; // Defender will be destroyed
+            if (CardManager.GetAbility(legalDefender, CardManager.ABILITY_FORCEFIELD)) priority -= 2;
+            else
+            {
+                int modHealth = health;
+                if (CardManager.GetAbility(legalDefender, CardManager.ABILITY_ARMORED)) modHealth++;
+                if (attackerDisplay.CurrentPower >= modHealth) priority += 8; // Defender will be destroyed
+            }
 
-            if (!CardManager.GetAbility(attacker, CardManager.ABILITY_RANGED) &&
-                attackerDisplay.CurrentHealth > power) priority += 4; // Attacker will survive melee
+            if (!CardManager.GetAbility(attacker, CardManager.ABILITY_RANGED))
+            {
+                int modHealth = attackerDisplay.CurrentHealth;
+                if (CardManager.GetAbility(attacker, CardManager.ABILITY_ARMORED)) modHealth++;
+                if (modHealth > power) priority += 4; // Attacker will survive melee
+            }
 
             if (priority > highestPriority)
             {

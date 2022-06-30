@@ -13,6 +13,7 @@ public class LocationPopupDisplay : MonoBehaviour
     private GameManager gMan;
     private UIManager uMan;
     private DialogueManager dMan;
+    private CardManager caMan;
 
     private Location location;
     public Location Location
@@ -22,7 +23,7 @@ public class LocationPopupDisplay : MonoBehaviour
             location = value;
             LocationName = location.LocationFullName;
             LocationDescription = location.LocationDescription;
-            ObjectivesDescription = location.CurrentObjective;
+            ObjectivesDescription = caMan.FilterCardTypes(location.CurrentObjective);
             WorldMapPosition = new Vector2(0, 0); // FOR TESTING ONLY?
 
             string hours = "Hours Closed: ";
@@ -91,6 +92,7 @@ public class LocationPopupDisplay : MonoBehaviour
         gMan = GameManager.Instance;
         uMan = UIManager.Instance;
         dMan = DialogueManager.Instance;
+        caMan = CardManager.Instance;
     }
 
     public void TravelButton_OnClick()

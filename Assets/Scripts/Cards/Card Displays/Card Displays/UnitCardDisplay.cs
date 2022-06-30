@@ -34,7 +34,7 @@ public class UnitCardDisplay : CardDisplay
             if (power < 0) power = 0;
             return power;
         }
-        private set
+        set
         {
             UnitCard.CurrentPower = value;
             DisplayPower(CurrentPower);
@@ -312,7 +312,20 @@ public class UnitCardDisplay : CardDisplay
         CurrentAbilities.RemoveAt(abilityIndex);
 
         if (ca is StaticAbility sa)
+        {
+            if (sa.AbilityStacks) // TESTING
+            {
+                List<CardAbility> stackedAbilities = new List<CardAbility>();
+                foreach (CardAbility ability in CurrentAbilities)
+                    if (ability.AbilityName == ca.AbilityName)
+                        stackedAbilities.Add(ability);
+
+                foreach (CardAbility stackedCa in stackedAbilities)
+                    CurrentAbilities.Remove(stackedCa);
+            }
+
             AudioManager.Instance.StartStopSound(null, sa.LoseAbilitySound);
+        }
         else if (ca is TriggeredAbility ta)
         {
             if (ta.AbilityTrigger.AbilityName == CardManager.TRIGGER_PLAY) return;

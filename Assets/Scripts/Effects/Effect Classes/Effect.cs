@@ -26,6 +26,16 @@ public abstract class Effect : ScriptableObject
     [Tooltip("If enabled, the effect's conditions will be checked during GetLegalTargets, as well as upon resolution")]
     public bool PreCheckConditions;
 
+    [Header("IF WOUNDED CONDITIONS")]
+    [Tooltip("If enabled, any IfWounded conditions selected will be reversed")]
+    public bool IfNotWoundedCondition;
+    [Tooltip("If enabled, the effect will not resolve unless the TARGET hero's health is 15 or less")]
+    public bool IfTargetWoundedCondition;
+    [Tooltip("If enabled, the effect will not resolve unless the PLAYER hero's health is 15 or less")]
+    public bool IfPlayerWoundedCondition;
+    [Tooltip("If enabled, the effect will not resolve unless the ENEMY hero's health is 15 or less")]
+    public bool IfEnemyWoundedCondition;
+
     [Header("IF EXHAUSTED CONDITION")]
     [Tooltip("If enabled, the effect will not resolve unless the target IS EXHAUSTED")]
     public bool IfExhaustedCondition;
@@ -46,8 +56,7 @@ public abstract class Effect : ScriptableObject
     [Tooltip("If enabled, the effect will not resolve unless the target has GREATER POWER (or LESSER if also enabled)")]
     public bool IfHasPowerCondition;
     public bool IsLessPowerCondition;
-    [Range(0, 10)]
-    public int IfHasPowerValue;
+    [Range(0, 10)] public int IfHasPowerValue;
 
     [Header("IF HAS ABILITY CONDITION")]
     [Tooltip("If not null, the effect will not resolve unless the target HAS this ABILITY")]
@@ -97,6 +106,10 @@ public abstract class Effect : ScriptableObject
         RayColor = effect.RayColor;
 
         PreCheckConditions = effect.PreCheckConditions;
+
+        IfTargetWoundedCondition = effect.IfTargetWoundedCondition;
+        IfPlayerWoundedCondition = effect.IfPlayerWoundedCondition;
+        IfEnemyWoundedCondition = effect.IfEnemyWoundedCondition;
 
         IfExhaustedCondition = effect.IfExhaustedCondition;
         IfRefreshedCondition = effect.IfRefreshedCondition;

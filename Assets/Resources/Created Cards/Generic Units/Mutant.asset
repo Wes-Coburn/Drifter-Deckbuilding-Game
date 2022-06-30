@@ -12,18 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120ae26cc4846f34db63edca720772b3, type: 3}
   m_Name: Mutant
   m_EditorClassIdentifier: 
-  cardArt: {fileID: 21300000, guid: 7ed637ad0e682b842905d16f9268d7c6, type: 3}
+  cardArt: {fileID: 21300000, guid: 8aa5e361639c0084496dd2b43ac85499, type: 3}
   cardBorder: {fileID: 21300000, guid: 743e735f744cf494c9f9081b4ba9303f, type: 3}
   energyCost: 0
   cardName: Mutant
   cardType: Mutant
   cardSubType: 
   isRare: 0
-  cardDescription: 
+  cardDescription: Each mutant experiences a unique evolution, heavily influenced
+    by their environment.
   cardPlaySound:
     name: 
-    clip: {fileID: 8300000, guid: 680b3b1151aad464282d556e317cd1a6, type: 3}
-    volume: 0.8
+    clip: {fileID: 8300000, guid: f590c663d711f354e9f4863353ab0df6, type: 3}
+    volume: 1
     pitch: 1
     source: {fileID: 0}
   overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
@@ -34,7 +35,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0c9bafd0564d11947a28d93981c1f1f4, type: 2}
   unitDeathSound:
     name: 
-    clip: {fileID: 8300000, guid: 18f6b131bfae93c4e8b4465e0550153b, type: 3}
-    volume: 0.8
+    clip: {fileID: 8300000, guid: e68c8ec31dcb16e4483ff4a4e8c230dc, type: 3}
+    volume: 1
     pitch: 1
     source: {fileID: 0}

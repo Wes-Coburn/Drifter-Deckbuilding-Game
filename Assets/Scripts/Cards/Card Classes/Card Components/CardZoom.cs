@@ -387,22 +387,31 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
             }
         }
 
-        if (singleList.Count > 4) vec2.y = 0; // TESTING
         DestroyAbilityPopups();
+        if (singleList.Count > 4) vec2.y = 0;
+        if (singleList.Count > 8) uMan.HideSkybar(true); // TESTING
+
         AbilityPopupBox = CreateZoomObject(abilityPopupBoxPrefab, vec2, scaleValue);
-        foreach (CardAbility single in singleList) 
+        foreach (CardAbility single in singleList)
             CreatePopup(single);
 
         void AddSingle(CardAbility ca)
         {
-            if (ca is TriggeredAbility ta)
+            if (ca is TriggeredAbility || ca is AbilityTrigger)
             {
+                string newTriggerName = "";
+                if (ca is TriggeredAbility ta) newTriggerName = ta.AbilityTrigger.AbilityName;
+                else if (ca is AbilityTrigger at) newTriggerName = at.AbilityName;
+
                 foreach (CardAbility ca2 in singleList)
                 {
                     if (ca2 is TriggeredAbility ta2)
                     {
-                        if (ta.AbilityTrigger.AbilityName ==
-                            ta2.AbilityTrigger.AbilityName) return;
+                        if (ta2.AbilityTrigger.AbilityName == newTriggerName) return;
+                    }
+                    else if (ca2 is AbilityTrigger at2)
+                    {
+                        if (at2.AbilityName == newTriggerName) return; // TESTING
                     }
                 }
                 singleList.Add(ca);
@@ -410,8 +419,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
             else
             {
                 if (singleList.FindIndex(x => x.AbilityName ==
-                ca.AbilityName) == -1)
-                    singleList.Add(ca);
+                ca.AbilityName) == -1) singleList.Add(ca);
             }
         }
         void CreatePopup(CardAbility ca)

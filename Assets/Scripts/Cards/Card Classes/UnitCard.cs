@@ -15,7 +15,7 @@ public class UnitCard : Card
     public int StartPower { get => power; }
     public int StartHealth { get => health; }
     public List<CardAbility> StartingAbilities { get => startingAbilities; }
-    public List<CardAbility> CurrentAbilities { get; set; } // TESTING
+    public List<CardAbility> CurrentAbilities { get; set; }
     public Sound UnitDeathSound { get => unitDeathSound; }
 
     public int CurrentPower { get; set; }

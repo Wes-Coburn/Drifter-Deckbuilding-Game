@@ -504,37 +504,55 @@ public class AnimationManager : MonoBehaviour
     private IEnumerator CombatIntroNumerator()
     {
         float distance;
-        HeroDisplay pHD = coMan.PlayerHero.GetComponent<HeroDisplay>();
-        HeroDisplay eHD = coMan.EnemyHero.GetComponent<HeroDisplay>();
-
-        GameObject turBut = uMan.EndTurnButton;
-        GameObject pFrame = pHD.HeroFrame;
-        GameObject eFrame = eHD.HeroFrame;
-        GameObject pStats = pHD.HeroStats;
-        GameObject eStats = eHD.HeroStats;
-        GameObject combatLog = uMan.CombatLog;
-
-        Vector2 turButStart = turBut.transform.position;
-        Vector2 pFrameStart = pFrame.transform.position;
-        Vector2 eFrameStart = eFrame.transform.position;
-        Vector2 pStatsStart = pStats.transform.localPosition;
-        Vector2 eStatsStart = eStats.transform.localPosition;
-        Vector2 combatLogStart = combatLog.transform.localPosition;
-
         float scaleSpeed = 0.1f;
         float fScale = 1;
         float fZoomScale = 1.5f;
         int startBuffer = 600;
 
+        GameObject turBut = uMan.EndTurnButton;
+        GameObject combatLog = uMan.CombatLog;
+
+        HeroDisplay pHD = coMan.PlayerHero.GetComponent<HeroDisplay>();
+        GameObject pFrame = pHD.HeroFrame;
+        GameObject pStats = pHD.HeroStats;
+        GameObject pName = pHD.HeroNameObject;
+
+        HeroDisplay eHD = coMan.EnemyHero.GetComponent<HeroDisplay>();
+        GameObject eFrame = eHD.HeroFrame;
+        GameObject eStats = eHD.HeroStats;
+        GameObject eName = eHD.HeroNameObject;
+
+        Vector2 turButStart = turBut.transform.position;
+        Vector2 combatLogStart = combatLog.transform.localPosition;
+
+        Vector2 pFrameStart = pFrame.transform.position;
+        Vector2 pStatsStart = pStats.transform.localPosition;
+        Vector2 pNameStart = pName.transform.localPosition;
+        Vector2 pNameEnd = new Vector2(pNameStart.x + startBuffer, pNameStart.y);
+
+        Vector2 eFrameStart = eFrame.transform.position;
+        Vector2 eStatsStart = eStats.transform.localPosition;
+        Vector2 eNameStart = eName.transform.localPosition;
+        Vector2 eNameEnd = new Vector2(eNameStart.x - startBuffer, eNameStart.y);
+
         Vector2 scaleVec = new Vector2();
         turBut.SetActive(true);
-        pStats.SetActive(true);
-        eStats.SetActive(true);
         combatLog.SetActive(true);
+
+        pStats.SetActive(true);
+        pName.SetActive(true);
+
+        eStats.SetActive(true);
+        eName.SetActive(true);
+
         turBut.transform.localPosition = new Vector2(turButStart.x + startBuffer, turButStart.y);
-        pStats.transform.localPosition = new Vector2(pStatsStart.x, pStatsStart.y - startBuffer);
-        eStats.transform.localPosition = new Vector2(eStatsStart.x, eStatsStart.y + startBuffer);
         combatLog.transform.localPosition = new Vector2(combatLogStart.x - startBuffer, combatLogStart.y);
+
+        pStats.transform.localPosition = new Vector2(pStatsStart.x, pStatsStart.y - startBuffer);
+        pName.transform.localPosition = pNameEnd;
+
+        eStats.transform.localPosition = new Vector2(eStatsStart.x, eStatsStart.y + startBuffer);
+        eName.transform.localPosition = eNameEnd;
 
         uMan.SelectTarget(coMan.PlayerHero, UIManager.SelectionType.Highlighted);
         PlayerManager.Instance.PlayerPowerSounds();
@@ -544,10 +562,17 @@ public class AnimationManager : MonoBehaviour
         do
         {
             distance = Vector2.Distance(pFrame.transform.position, eFrame.transform.position);
+
             pFrame.transform.position =
                 Vector2.MoveTowards(pFrame.transform.position, eFrame.transform.position, 30);
+            pName.transform.localPosition =
+                Vector2.MoveTowards(pName.transform.localPosition, pNameStart, 30);
+
             eFrame.transform.position =
                 Vector2.MoveTowards(eFrame.transform.position, pFrame.transform.position, 30);
+            eName.transform.localPosition =
+                Vector2.MoveTowards(eName.transform.localPosition, eNameStart, 30);
+
             if (fScale < fZoomScale) fScale += scaleSpeed;
             else if (fScale > fZoomScale) fScale = fZoomScale;
             scaleVec.Set(fScale, fScale);
@@ -567,7 +592,8 @@ public class AnimationManager : MonoBehaviour
         uMan.SelectTarget(coMan.EnemyHero, UIManager.SelectionType.Highlighted);
         Sound enemyWinSound = EnemyManager.Instance.EnemyHero.HeroWin;
         auMan.StartStopSound(null, enemyWinSound);
-        FunctionTimer.Create(() => uMan.SelectTarget(coMan.EnemyHero, UIManager.SelectionType.Disabled), 2);
+        FunctionTimer.Create(() =>
+        uMan.SelectTarget(coMan.EnemyHero, UIManager.SelectionType.Disabled), 2);
 
         EnemyHero eh = dMan.EngagedHero as EnemyHero;
         if (eh.IsBoss)
@@ -591,6 +617,7 @@ public class AnimationManager : MonoBehaviour
             itemTran.gameObject.SetActive(true);
             SkybarIconAnimation(itemTran.gameObject);
         }
+
         if (uMan.ItemBar.transform.childCount > 0)
             auMan.StartStopSound("SFX_Trigger");
 
@@ -598,10 +625,17 @@ public class AnimationManager : MonoBehaviour
         do
         {
             distance = Vector2.Distance(pFrame.transform.position, pFrameStart);
+
             pFrame.transform.position =
                 Vector2.MoveTowards(pFrame.transform.position, pFrameStart, 20);
+            pName.transform.localPosition =
+                Vector2.MoveTowards(pName.transform.localPosition, pNameEnd, 20);
+
             eFrame.transform.position =
                 Vector2.MoveTowards(eFrame.transform.position, eFrameStart, 20);
+            eName.transform.localPosition =
+                Vector2.MoveTowards(eName.transform.localPosition, eNameEnd, 20);
+
             if (fScale > 1) fScale -= scaleSpeed;
             else if (fScale < 1) fScale = 1;
             scaleVec.Set(fScale, fScale);
@@ -610,6 +644,9 @@ public class AnimationManager : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         while (distance > 0);
+
+        pName.SetActive(false);
+        eName.SetActive(false);
 
         do
         {
@@ -638,6 +675,11 @@ public class AnimationManager : MonoBehaviour
                 yield return new WaitForSeconds(countDelay);
             }
             enMan.EnemyHealth = enMan.MaxEnemyHealth;
+
+            yield return new WaitForSeconds(0.5f);
+            int bonusEnergy = GameManager.BOSS_BONUS_ENERGY;
+            enMan.EnergyLeft += bonusEnergy; // TESTING
+            ModifyHeroEnergyState(bonusEnergy, coMan.EnemyHero); // TESTING
         }
     }
 

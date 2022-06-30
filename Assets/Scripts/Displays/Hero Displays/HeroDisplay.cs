@@ -19,11 +19,13 @@ public abstract class HeroDisplay : MonoBehaviour
     [SerializeField] private GameObject heroFrame;
     [SerializeField] private GameObject heroStats;
     [SerializeField] private GameObject heroPortrait;
+    [SerializeField] private GameObject heroName;
     [SerializeField] private GameObject heroHealth;
     [SerializeField] private GameObject heroEnergy;
 
     public GameObject HeroFrame { get => heroFrame; }
     public GameObject HeroStats { get => heroStats; }
+    public GameObject HeroNameObject { get => heroName; }
     public GameObject HeroHealthObject { get => heroHealth; }
     public GameObject HeroEnergyObject { get => heroEnergy; }
 
@@ -43,6 +45,14 @@ public abstract class HeroDisplay : MonoBehaviour
         }
     }
 
+    public string HeroName
+    {
+        set
+        {
+            heroName.GetComponentInChildren<TextMeshProUGUI>().SetText(value);
+        }
+    }
+
     public int HeroHealth
     {
         set
@@ -58,6 +68,9 @@ public abstract class HeroDisplay : MonoBehaviour
         set => heroEnergy.GetComponent<TextMeshProUGUI>().SetText(value);
     }
 
-    public virtual void DisplayHero() =>
+    public virtual void DisplayHero()
+    {
         HeroPortrait = heroScript.HeroPortrait;
+        HeroName = heroScript.HeroName;
+    }
 }

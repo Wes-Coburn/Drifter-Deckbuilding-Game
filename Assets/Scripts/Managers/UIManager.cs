@@ -413,6 +413,7 @@ public class UIManager : MonoBehaviour
         }
 
         SetScreenDimmer(false);
+        HideSkybar(false); // TESTING
         CardZoom.ZoomCardIsCentered = false;
         FunctionTimer.StopTimer(CardZoom.ZOOM_CARD_TIMER);
         FunctionTimer.StopTimer(CardZoom.ABILITY_POPUP_TIMER);
@@ -938,9 +939,16 @@ public class UIManager : MonoBehaviour
      * ****** SKYBAR
      * *****
      *****/
+    public void HideSkybar(bool isHidden)
+    {
+        if (skyBar.activeInHierarchy == isHidden)
+            skyBar.SetActive(!isHidden);
+    }
     public void SetSkybar(bool enabled, bool hideChildren = false)
     {
-        skyBar.SetActive(enabled);
+        if (skyBar.activeInHierarchy != enabled)
+            skyBar.SetActive(enabled); // TESTING
+
         if (enabled)
         {
             ClearAugmentBar();
@@ -955,7 +963,7 @@ public class UIManager : MonoBehaviour
             foreach (Transform itemTran in itemBar.transform)
                 itemTran.gameObject.SetActive(!hideChildren);
 
-            SetAllReputation(); // TESTING
+            SetAllReputation();
         }
     }
     public void SetAetherCount(int newCount, int previousCount)
