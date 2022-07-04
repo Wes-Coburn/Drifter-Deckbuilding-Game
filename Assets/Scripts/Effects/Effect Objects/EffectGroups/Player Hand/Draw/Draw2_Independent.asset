@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a22d7123f6ee007468cbdc6e9b6fe2b0, type: 3}
-  m_Name: Heal2_EH
+  m_Name: Draw2_Independent
   m_EditorClassIdentifier: 
-  Targets: {fileID: 11400000, guid: f82ee7effff08a14e99ff3c7e36fe7df, type: 2}
+  Targets: {fileID: 11400000, guid: 535f743024b9de646ac044b9da88f6fc, type: 2}
+  ResolveIndependent: 1
   Effects:
-  - {fileID: 11400000, guid: 262140fc77f3e814a8cbc209bcf49201, type: 2}
-  EffectsDescription: Heal the enemy hero 2.
+  - {fileID: 11400000, guid: 52f1b0112b81152499175712bb4ee58c, type: 2}
+  EffectsDescription: 

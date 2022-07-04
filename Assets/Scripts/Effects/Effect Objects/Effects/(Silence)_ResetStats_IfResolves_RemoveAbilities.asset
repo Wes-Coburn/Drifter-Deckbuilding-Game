@@ -9,15 +9,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c257f6645b4aa02429ead13f1b40809a, type: 3}
-  m_Name: Give_TurnStart_Heal2_EH
+  m_Script: {fileID: 11500000, guid: 64bbb3283eff66646a1722eef8a565b3, type: 3}
+  m_Name: (Silence)_ResetStats_IfResolves_RemoveAbilities
   m_EditorClassIdentifier: 
   IsRequired: 0
-  Value: 1
+  Value: 0
   IsNegative: 0
   Countdown: 0
   ShootRay: 1
-  RayColor: {r: 1, g: 1, b: 0, a: 1}
+  RayColor: {r: 1, g: 1, b: 1, a: 1}
+  PreCheckConditions: 0
+  IfNotWoundedCondition: 0
+  IfTargetWoundedCondition: 0
+  IfPlayerWoundedCondition: 0
+  IfEnemyWoundedCondition: 0
   IfExhaustedCondition: 0
   IfRefreshedCondition: 0
   IfDamagedCondition: 0
@@ -37,6 +42,13 @@ MonoBehaviour:
   IfHasGreaterPowerEffects: []
   IfHasLowerPowerValue: 0
   IfHasLowerPowerEffects: []
-  IfResolvesEffects: []
+  IfResolvesEffects:
+  - {fileID: 11400000, guid: 22e34f77577af4743905cdb2a4dce66a, type: 2}
+  ResolveSimultaneous: 1
   ForEachEffects: []
-  CardAbility: {fileID: 11400000, guid: 39b0b9f871f92ab49a54013735460352, type: 2}
+  PowerChange: 0
+  DoublePower: 0
+  SetPowerZero: 0
+  HealthChange: 0
+  DoubleHealth: 0
+  ResetStats: 1

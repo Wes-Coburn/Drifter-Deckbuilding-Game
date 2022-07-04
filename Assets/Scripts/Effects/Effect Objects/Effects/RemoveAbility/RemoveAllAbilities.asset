@@ -16,8 +16,8 @@ MonoBehaviour:
   Value: 0
   IsNegative: 0
   Countdown: 0
-  ShootRay: 0
-  RayColor: {r: 0, g: 0, b: 0, a: 0}
+  ShootRay: 1
+  RayColor: {r: 1, g: 1, b: 1, a: 1}
   PreCheckConditions: 0
   IfNotWoundedCondition: 0
   IfTargetWoundedCondition: 0
@@ -43,6 +43,7 @@ MonoBehaviour:
   IfHasLowerPowerValue: 0
   IfHasLowerPowerEffects: []
   IfResolvesEffects: []
+  ResolveSimultaneous: 0
   ForEachEffects: []
   removeAllAbilities: 1
   removePositiveAbilities: 0

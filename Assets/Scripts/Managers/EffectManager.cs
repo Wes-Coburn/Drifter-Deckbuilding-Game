@@ -220,7 +220,11 @@ public class EffectManager : MonoBehaviour
     {
         EffectTargets targets = group.Targets;
 
-        if (effect is DrawEffect de && !de.IsDiscardEffect) return false;
+        if (effect is DrawEffect de) // TESTING
+        {
+            if (de.IsDiscardEffect && !de.DiscardAll) return true;
+            else return false;
+        }
 
         else if (effect is GiveNextUnitEffect) return false;
 
@@ -490,6 +494,11 @@ public class EffectManager : MonoBehaviour
                     foreach (GameObject card in coMan.PlayerZoneCards)
                         AddTarget(card);
                 }
+                if (et.PlayerHand)
+                {
+                    foreach (GameObject card in coMan.EnemyHandCards)
+                        AddTarget(card);
+                }
             }
             if (et.TargetsLowestHealth)
             {
@@ -532,8 +541,29 @@ public class EffectManager : MonoBehaviour
             }
         }
 
+        // NEW DRAWN CARDS!
+        if (CurrentEffect is DrawEffect de && de.IsDiscardEffect)
+        {
+            foreach (GameObject newTarget in newDrawnCards)
+            {
+                if (!legalTargets[currentEffectGroup].Contains(newTarget))
+                    legalTargets[currentEffectGroup].Add(newTarget);
+            }
+
+            newDrawnCards.Clear();
+
+            if (legalTargets[currentEffectGroup].Count < 1)
+            {
+                Debug.LogWarning("DISCARD EFFECT CONFIRMED WITH 0 TARGETS!");
+            }
+        }
+
         ConfirmNonTargetEffect();
-        void AddTarget(GameObject target) => targets.Add(target);
+
+        void AddTarget(GameObject target)
+        {
+            if (!targets.Contains(target)) targets.Add(target);
+        }
     }
 
     /******
@@ -880,7 +910,9 @@ public class EffectManager : MonoBehaviour
             else
             {
                 // Variable target numbers
-                if (targets.VariableNumber && handCount > 0) return true;
+                //if (targets.VariableNumber && handCount > 0) return true;
+                if (targets.VariableNumber || targets.TargetsAll) return true; // TESTING
+
                 if (handCount < effect.Value)
                 {
                     Debug.Log("NOT ENOUGH CARDS!");
@@ -984,7 +1016,7 @@ public class EffectManager : MonoBehaviour
                     additionalEffectGroups.Add(group);
         }
 
-        if (effect is DrawEffect)
+        if (effect is DrawEffect de && !de.IsDiscardEffect)
         {
             // TESTING TESTING TESTING
             bool isValidEffect = true;
@@ -1233,33 +1265,27 @@ public class EffectManager : MonoBehaviour
 
                 if (targetDestroyed)
                 {
-                    Debug.LogWarning("DEATHBLOW - 1");
-
                     foreach (EffectGroup efg in dmgE.IfDestroyedEffects)
                         additionalEffectGroups.Add(efg);
 
                     if (sourceIsUnit && targetIsUnit)
                     {
-                        Debug.LogWarning("DEATHBLOW - 2");
-
                         if (sourceUcd.CurrentHealth > 0 && !UnitsToDestroy.Contains(effectSource) &&
                             CardManager.GetTrigger(effectSource, CardManager.TRIGGER_DEATHBLOW))
                         {
-                            Debug.LogWarning("DEATHBLOW - 3");
-
                             GameObject source = effectSource;
                             evMan.NewDelayedAction(() =>
                             caMan.TriggerUnitAbility(source,
-                            CardManager.TRIGGER_DEATHBLOW), 0.5f, true); // TESTING
+                            CardManager.TRIGGER_DEATHBLOW), 0.5f, true);
                         }
                     }
                 }
-                else if (targetDamaged) // TESTING
+                else if (targetDamaged)
                 {
                     if (sourceIsUnit && targetIsUnit)
                     {
                         if (CardManager.GetAbility(effectSource, CardManager.ABILITY_POISONOUS))
-                            targetUcd.AddCurrentAbility(poisonAbility); // TESTING
+                            targetUcd.AddCurrentAbility(poisonAbility);
                     }
                 }
             }
@@ -1368,12 +1394,23 @@ public class EffectManager : MonoBehaviour
 
                 if (rae.RemoveAllAbilities)
                 {
-                    List<string> currentAbilities = new List<string>();
+                    List<string> abilitiesToRemove = new List<string>();
                     foreach (CardAbility ca in ucd.CurrentAbilities)
-                        currentAbilities.Add(ca.AbilityName);
+                    {
+                        // Don't remove ChangeControl abilities
+                        if (ca is TriggeredAbility tra)
+                        {
+                            foreach (EffectGroup eg in tra.EffectGroupList)
+                                foreach (Effect e in eg.Effects)
+                                    if (e is ChangeControlEffect)
+                                        goto NextAbility;
+                        }
+                        abilitiesToRemove.Add(ca.AbilityName);
+                        NextAbility:;
+                    }
 
-                    foreach (string ability in currentAbilities)
-                        ucd.RemoveCurrentAbility(ability);
+                    foreach (string ability in abilitiesToRemove)
+                        ucd.RemoveCurrentAbility(ability, false);
 
                     ucd.CurrentEffects.Clear();
                 }
@@ -1382,13 +1419,13 @@ public class EffectManager : MonoBehaviour
                     if (rae.RemovePositiveAbilities)
                     {
                         foreach (string positiveAbility in CardManager.PositiveAbilities)
-                            ucd.RemoveCurrentAbility(positiveAbility);
+                            ucd.RemoveCurrentAbility(positiveAbility, false);
                     }
 
                     if (rae.RemoveNegativeAbilities)
                     {
                         foreach (string negativeAbility in CardManager.NegativeAbilities)
-                            ucd.RemoveCurrentAbility(negativeAbility);
+                            ucd.RemoveCurrentAbility(negativeAbility, false);
                     }
                 }
             }
@@ -1534,8 +1571,9 @@ public class EffectManager : MonoBehaviour
         foreach (GameObject target in validTargets)
             foreach (Effect e in effect.IfResolvesEffects)
             {
-                newDelay += 0.5f;
-                ResolveEffect(new List<GameObject> { target }, e, shootRay, newDelay, out newDelay);
+                if (!e.ShootRay) ActiveEffects++;
+                if (!effect.ResolveSimultaneous) newDelay += 0.5f; // TESTING
+                ResolveEffect(new List<GameObject> { target }, e, e.ShootRay, newDelay, out newDelay);
             }
 
         // ACTIVE EFFECTS

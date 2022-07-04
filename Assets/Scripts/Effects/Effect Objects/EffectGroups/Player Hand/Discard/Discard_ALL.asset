@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a22d7123f6ee007468cbdc6e9b6fe2b0, type: 3}
-  m_Name: Give1EU_TurnStart_Heal2_EH
+  m_Name: Discard_ALL
   m_EditorClassIdentifier: 
-  Targets: {fileID: 11400000, guid: 878f131356ce5eb4dade11e2fe3691eb, type: 2}
+  Targets: {fileID: 11400000, guid: 6e05a695bb978ee429727f9f106d9e3c, type: 2}
+  ResolveIndependent: 0
   Effects:
-  - {fileID: 11400000, guid: 3ac15811789d7304e9d79a61e8053173, type: 2}
-  EffectsDescription: 'Give an enemy "Turn Start: Heal the enemy hero 2."'
+  - {fileID: 11400000, guid: 9c7306c44d6e32343a9d44efcfe20387, type: 2}
+  EffectsDescription: 

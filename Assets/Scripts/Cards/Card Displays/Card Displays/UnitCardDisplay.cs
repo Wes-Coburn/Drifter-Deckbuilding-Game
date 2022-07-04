@@ -296,7 +296,7 @@ public class UnitCardDisplay : CardDisplay
      * ****** REMOVE_CURRENT_ABILITY
      * *****
      *****/
-    public void RemoveCurrentAbility(string abilityName)
+    public void RemoveCurrentAbility(string abilityName, bool delay = true)
     {
         int abilityIndex = CurrentAbilities.FindIndex(x => x.AbilityName == abilityName);
         int displayIndex = displayedAbilities.FindIndex(x => x.AbilityName == abilityName);
@@ -339,9 +339,11 @@ public class UnitCardDisplay : CardDisplay
         }
 
         GameObject icon = AbilityIcons[displayIndex];
-        FunctionTimer.Create(() => Destroy(icon), 1);
         AbilityIcons.RemoveAt(displayIndex);
         displayedAbilities.RemoveAt(displayIndex);
+
+        if (delay) FunctionTimer.Create(() => Destroy(icon), 1);
+        else Destroy(icon);
     }
 
     /******
@@ -358,11 +360,11 @@ public class UnitCardDisplay : CardDisplay
             int displayIndex =
                 displayedAbilities.FindIndex(x => x.AbilityName == ca.AbilityName);
 
-            if (ca is StaticAbility)
+            if (ca is StaticAbility sa)
             {
                 if (ca.AbilityName == abilityName)
                 {
-                    TriggerState(AbilityIcons[displayIndex]);
+                    TriggerState(AbilityIcons[displayIndex], sa.GainAbilitySound); // TESTING
                     return;
                 }
             }
@@ -370,7 +372,7 @@ public class UnitCardDisplay : CardDisplay
             {
                 if (tra.AbilityTrigger.AbilityName == abilityName)
                 {
-                    TriggerState(AbilityIcons[displayIndex]);
+                    TriggerState(AbilityIcons[displayIndex], tra.AbilityTrigger.TriggerSound); // TESTING
                     return;
                 }
             }
@@ -378,10 +380,11 @@ public class UnitCardDisplay : CardDisplay
 
         Debug.LogError("TRIGGER NOT FOUND!");
 
-        void TriggerState(GameObject icon)
+        void TriggerState(GameObject icon, Sound triggerSFX)
         {
             AnimationManager.Instance.AbilityTriggerState(icon);
-            auMan.StartStopSound("SFX_Trigger");
+            if (triggerSFX != null) auMan.StartStopSound(null, triggerSFX);
+            else auMan.StartStopSound("SFX_Trigger");
         }
     }
 

@@ -69,14 +69,18 @@ public class PowerZoom : MonoBehaviour
         if (!isEnemyPower)
         {
             tran = coMan.PlayerHero.transform;
-            newX = tran.position.x - 200;
-            newY = tran.position.y + 300;
+            //newX = tran.position.x - 200;
+            //newY = tran.position.y + 300;
+            newX = 300;
+            newY = -200;
         }
         else
         {
             tran = coMan.EnemyHero.transform;
-            newX = tran.position.x + 200;
-            newY = tran.position.y - 300;
+            //newX = tran.position.x + 200;
+            //newY = tran.position.y - 300;
+            newX = -250;
+            newY = 150;
         }
         
         Vector3 spawnPoint = new Vector2(newX, newY);

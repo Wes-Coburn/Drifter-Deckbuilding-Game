@@ -90,6 +90,7 @@ public abstract class Effect : ScriptableObject
     [Header("IF RESOLVES EFFECTS")]
     [Tooltip("If the effect has a valid target, resolve additional effects on the target")]
     public List<Effect> IfResolvesEffects;
+    public bool ResolveSimultaneous;
 
     [Header("FOR EACH EFFECTS")]
     [Tooltip("Resolve these effects for each target")]
@@ -150,6 +151,8 @@ public abstract class Effect : ScriptableObject
         IfResolvesEffects = new List<Effect>();
         foreach (Effect e in effect.IfResolvesEffects)
             IfResolvesEffects.Add(e);
+
+        ResolveSimultaneous = effect.ResolveSimultaneous;
 
         ForEachEffects = new List<EffectGroup>();
         foreach (EffectGroup eg in effect.ForEachEffects)

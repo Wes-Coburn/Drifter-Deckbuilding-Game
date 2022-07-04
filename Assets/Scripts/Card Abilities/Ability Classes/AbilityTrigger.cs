@@ -3,5 +3,5 @@
 [CreateAssetMenu(fileName = "New Ability Trigger", menuName = "Card Abilities/Ability Trigger")]
 public class AbilityTrigger : CardAbility
 {
-    // blank
+    public Sound TriggerSound;
 }

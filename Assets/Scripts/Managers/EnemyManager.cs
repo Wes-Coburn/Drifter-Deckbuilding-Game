@@ -142,14 +142,15 @@ public class EnemyManager : MonoBehaviour
         evMan.NewDelayedAction(() => ReplenishEnergy(), 0);
 
         evMan.NewDelayedAction(() =>
-        caMan.TriggerPlayedUnits(CardManager.TRIGGER_TURN_START, GameManager.ENEMY), 0); // TESTING
+        caMan.TriggerPlayedUnits(CardManager.TRIGGER_TURN_START, GameManager.ENEMY), 0);
 
         evMan.NewDelayedAction(() => TurnDraw(), 1);
 
-        evMan.NewDelayedAction(() => CreatePlayCardSchedule(), 0); // TESTING
-        evMan.NewDelayedAction(() => CreateAttackSchedule(), 0); // TESTING
-        evMan.NewDelayedAction(() => CreatePlayCardSchedule(), 0); // TESTING
-        evMan.NewDelayedAction(() => CreateAttackSchedule(), 0); // TESTING
+        evMan.NewDelayedAction(() => CreatePlayCardSchedule(), 0); // Play Schedule 1
+        evMan.NewDelayedAction(() => CreateAttackSchedule(), 0); // Attack Schedule 1
+
+        evMan.NewDelayedAction(() => CreatePlayCardSchedule(), 0); // Play Schedule 2
+        evMan.NewDelayedAction(() => CreateAttackSchedule(), 0); // Attack Schedule 2
 
         evMan.NewDelayedAction(() =>
         GameManager.Instance.EndCombatTurn(GameManager.ENEMY), 1); // TESTING

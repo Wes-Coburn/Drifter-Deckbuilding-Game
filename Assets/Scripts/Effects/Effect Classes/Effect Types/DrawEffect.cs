@@ -4,6 +4,7 @@ using UnityEngine;
 public class DrawEffect : Effect
 {
     public bool IsDiscardEffect;
+    public bool DiscardAll;
     public bool IsMulliganEffect;
 
     public override void LoadEffect(Effect effect)
@@ -11,6 +12,7 @@ public class DrawEffect : Effect
         base.LoadEffect(effect);
         DrawEffect de = effect as DrawEffect;
         IsDiscardEffect = de.IsDiscardEffect;
+        DiscardAll = de.DiscardAll;
         IsMulliganEffect = de.IsMulliganEffect;
     }
 }

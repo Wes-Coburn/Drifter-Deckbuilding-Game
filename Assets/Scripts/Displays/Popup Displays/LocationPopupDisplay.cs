@@ -100,7 +100,9 @@ public class LocationPopupDisplay : MonoBehaviour
         if (gMan.VisitedLocations.FindIndex(x => x == location.LocationName) == -1)
         {
             gMan.VisitedLocations.Add(location.LocationName);
-            if (!location.IsHomeBase) gMan.NextHour(!location.IsRandomEncounter);
+
+            if (!location.IsHomeBase && !location.IsAugmenter)
+                gMan.NextHour(!location.IsRandomEncounter);
         }
         if (location.IsHomeBase)
         {

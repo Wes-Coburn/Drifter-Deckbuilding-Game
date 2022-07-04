@@ -653,7 +653,9 @@ public class CombatManager : MonoBehaviour
             int energyLeft = pMan.EnergyLeft;
             pMan.EnergyLeft -= cd.CurrentEnergyCost;
             int energyChange = pMan.EnergyLeft - energyLeft;
-            anMan.ModifyHeroEnergyState(energyChange, PlayerHero, false);
+
+            if (energyChange != 0)
+                anMan.ModifyHeroEnergyState(energyChange, PlayerHero, false);
 
             if (cd is UnitCardDisplay)
             {

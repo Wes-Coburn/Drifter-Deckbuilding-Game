@@ -55,7 +55,7 @@ public class UnitCard : Card
         CurrentAbilities = new List<CardAbility>();
         foreach (CardAbility abi in uc.CurrentAbilities)
         {
-            // Don't copy ChangeControl effects
+            // Don't copy ChangeControl abilities
             if (abi is TriggeredAbility tra)
             {
                 foreach (EffectGroup eg in tra.EffectGroupList)

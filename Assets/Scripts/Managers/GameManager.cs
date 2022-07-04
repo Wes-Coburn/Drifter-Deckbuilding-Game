@@ -283,8 +283,6 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        foreach (SkillCard skill in pMan.PlayerHero.HeroSkills)
-            caMan.AddCard(skill, PLAYER);
         foreach (UnitCard unit in caMan.TutorialPlayerUnits)
             for (int i = 0; i < 5; i++)
                 caMan.AddCard(unit, PLAYER);

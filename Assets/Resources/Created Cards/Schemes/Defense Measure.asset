@@ -28,8 +28,8 @@ MonoBehaviour:
     source: {fileID: 0}
   overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
   zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
-  effectDescription: Stun an enemy.
+  effectDescription: Stun an enemy. If its power is 0, deal 3 to it instead.
   effectGroupList:
-  - {fileID: 11400000, guid: cb0ec4b3836499a4cb6cac8f2d1148f5, type: 2}
+  - {fileID: 11400000, guid: 4b5a429716770f44da8d84fdfd573679, type: 2}
   linkedAbilities:
   - {fileID: 11400000, guid: 37a54b5ce20d48941893b9f48eee681f, type: 2}

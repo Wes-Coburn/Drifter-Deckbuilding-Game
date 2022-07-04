@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Give1EU_Stun_IfPowLess_1_Deal2
   m_EditorClassIdentifier: 
   Targets: {fileID: 11400000, guid: 878f131356ce5eb4dade11e2fe3691eb, type: 2}
+  ResolveIndependent: 0
   Effects:
   - {fileID: 11400000, guid: 3526f1d224e38eb4789181acd96143c6, type: 2}
   - {fileID: 11400000, guid: 70131d4c2fe67674e831f93f9d89c431, type: 2}
-  EffectsDescription: <b>Stun</b> an enemy. If its power is 0, deal 2 to it instead.
+  EffectsDescription: Stun an enemy. If its power is 0, deal 2 to it instead.
