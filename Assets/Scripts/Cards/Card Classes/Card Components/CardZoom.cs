@@ -389,7 +389,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
 
         DestroyAbilityPopups();
         if (singleList.Count > 4) vec2.y = 0;
-        if (singleList.Count > 8) uMan.HideSkybar(true); // TESTING
+        if (singleList.Count > 9) uMan.HideSkybar(true); // TESTING
 
         AbilityPopupBox = CreateZoomObject(abilityPopupBoxPrefab, vec2, scaleValue);
         foreach (CardAbility single in singleList)

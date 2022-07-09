@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a22d7123f6ee007468cbdc6e9b6fe2b0, type: 3}
-  m_Name: Deal3_1EU_IfWounded_EH
+  m_Name: GiveALLPU_Stealth_Ward
   m_EditorClassIdentifier: 
-  Targets: {fileID: 11400000, guid: 878f131356ce5eb4dade11e2fe3691eb, type: 2}
+  Targets: {fileID: 11400000, guid: 137a8a746a31eee4e8962e641f6223df, type: 2}
   ResolveIndependent: 0
   Effects:
-  - {fileID: 11400000, guid: 921da4bb2eae72b488411efebaa0ee34, type: 2}
-  EffectsDescription: Deal 3 to an enemy.
+  - {fileID: 11400000, guid: 7b7f75d67b43629429cfc2c4451100bb, type: 2}
+  - {fileID: 11400000, guid: 81f8e3bfaa1e0ce4b9865453ad0f8c25, type: 2}
+  EffectsDescription: Give ALL allies Stealth and Ward.

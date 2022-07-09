@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44c307312f791a64788051778519ac70, type: 3}
-  m_Name: Play_Deal3_1EU_IfWounded_EH
+  m_Name: Play_GiveSelf_plus2plus1_IfWounded_EH
   m_EditorClassIdentifier: 
-  AbilityName: 'Play: Deal 3 to an enemy if the enemy hero is Wounded.'
-  AbilityDescription: Deal 3 to an enemy if the enemy hero is Wounded.
+  AbilityName: 'Play: Gain +2|+1 if the enemy hero is Wounded.'
+  AbilityDescription: Gain +2|+1 if the enemy hero is Wounded.
   AbilitySprite: {fileID: 0}
   LinkedAbilites:
   - {fileID: 11400000, guid: e90fc3bafeee0d94ba2ff2fc6f53dbac, type: 2}
   AbilityTrigger: {fileID: 11400000, guid: c74c9ac6a33f86347a6ac56840c5c7cc, type: 2}
   EffectGroupList:
-  - {fileID: 11400000, guid: 5def9818d12435747b4a24626020793b, type: 2}
+  - {fileID: 11400000, guid: de5e4a1665c0d5440876940769eda31a, type: 2}

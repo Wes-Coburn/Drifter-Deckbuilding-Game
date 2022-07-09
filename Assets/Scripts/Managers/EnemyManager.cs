@@ -235,17 +235,14 @@ public class EnemyManager : MonoBehaviour
             }
         }
 
-        void SchedulePlayCard(GameObject card) => evMan.NewDelayedAction(() => PlayCard(card), 2, true);
+        void SchedulePlayCard(GameObject card) =>
+            evMan.NewDelayedAction(() => PlayCard(card), 1, true);
 
         void PlayCard(GameObject card)
         {
             if (!coMan.IsPlayable(card, true)) return;
-            if (coMan.IsUnitCard(card)) coMan.PlayCard(card);
-            else
-            {
-                evMan.PauseDelayedActions(true);
-                coMan.PlayCard(card);
-            }
+            evMan.PauseDelayedActions(true);
+            coMan.PlayCard(card);
         }
     }
 

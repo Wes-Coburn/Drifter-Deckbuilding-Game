@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44c307312f791a64788051778519ac70, type: 3}
-  m_Name: Play_GiveStrongPU_plus1plus0
+  m_Name: Play_GiveSelf_plus1plus2_IfWounded_PH
   m_EditorClassIdentifier: 
-  AbilityName: 'Play: Give the strongest ally +1|+0.'
-  AbilityDescription: Give the strongest ally +1|+0.
+  AbilityName: 'Play: Gain +1|+2 if your hero is Wounded.'
+  AbilityDescription: Gain +1|+2 if your hero is Wounded.
   AbilitySprite: {fileID: 0}
   LinkedAbilites: []
   AbilityTrigger: {fileID: 11400000, guid: c74c9ac6a33f86347a6ac56840c5c7cc, type: 2}
   EffectGroupList:
-  - {fileID: 11400000, guid: c5b31518ff112cf48a64f865390316e4, type: 2}
+  - {fileID: 11400000, guid: 38355ccfd7c283347b4d68e634a2f133, type: 2}

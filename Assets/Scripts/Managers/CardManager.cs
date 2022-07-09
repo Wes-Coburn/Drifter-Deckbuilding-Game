@@ -37,6 +37,7 @@ public class CardManager : MonoBehaviour
     public const string ABILITY_POISONOUS = "Poisonous";
     public const string ABILITY_RANGED = "Ranged";
     public const string ABILITY_STEALTH = "Stealth";
+    public const string ABILITY_WARD = "Ward";
     // Keywords
     public const string ABILITY_MARKED = "Marked";
     public const string ABILITY_POISONED = "Poisoned";
@@ -70,6 +71,7 @@ public class CardManager : MonoBehaviour
         ABILITY_POISONOUS,
         ABILITY_RANGED,
         ABILITY_STEALTH,
+        ABILITY_WARD,
         // Keyword
         ABILITY_MARKED,
         "Mark",
@@ -490,11 +492,7 @@ public class CardManager : MonoBehaviour
             return false;
         }
 
-        if (!unitCard.TryGetComponent(out UnitCardDisplay ucd))
-        {
-            Debug.LogError("TARGET IS NOT UNIT CARD!");
-            return false;
-        }
+        if (!unitCard.TryGetComponent(out UnitCardDisplay ucd)) return false;
 
         int abilityIndex = ucd.CurrentAbilities.FindIndex(x => x.AbilityName == ability);
         if (abilityIndex == -1) return false;
@@ -627,7 +625,8 @@ public class CardManager : MonoBehaviour
 
     public void TriggerTrapAbilities(GameObject trappedUnit)
     {
-        if (trappedUnit == null) return;
+        if (trappedUnit == null ||
+            GetAbility(trappedUnit, ABILITY_WARD)) return;
 
         List<GameObject> unitZoneCards;
         List<GameObject> resolveFirstTraps = new List<GameObject>();

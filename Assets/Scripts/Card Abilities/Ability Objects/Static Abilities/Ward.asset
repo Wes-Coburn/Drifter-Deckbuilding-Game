@@ -10,21 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e7527b44bc0b3347b54a3f404a8a59f, type: 3}
-  m_Name: Trigger
+  m_Name: Ward
   m_EditorClassIdentifier: 
-  AbilityName: Trigger
-  AbilityDescription: This card has a trigger.
-  AbilitySprite: {fileID: 21300000, guid: 27396e178d5fe214587b8902a9e56eca, type: 3}
+  AbilityName: Ward
+  AbilityDescription: Can't be targetted by enemy sources.
+  AbilitySprite: {fileID: 21300000, guid: 33a8791e92159a64480c5dfc56058776, type: 3}
   LinkedAbilites: []
+  AbilityStacks: 0
   GainAbilitySound:
     name: 
-    clip: {fileID: 0}
-    volume: 0
-    pitch: 0
+    clip: {fileID: 8300000, guid: 79f0d5a070153ff459fe9ef82a7c9cb6, type: 3}
+    volume: 1
+    pitch: 1
     source: {fileID: 0}
   LoseAbilitySound:
     name: 
-    clip: {fileID: 0}
-    volume: 0
-    pitch: 0
+    clip: {fileID: 8300000, guid: e5d9980dc6a472c4ca50ad44e226b458, type: 3}
+    volume: 1
+    pitch: 1
     source: {fileID: 0}

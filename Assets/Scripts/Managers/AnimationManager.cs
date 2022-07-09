@@ -314,6 +314,8 @@ public class AnimationManager : MonoBehaviour
             return;
         }
 
+        triggerIcon.transform.SetAsLastSibling(); // TESTING
+
         ChangeAnimationState(triggerIcon.GetComponent
             <AbilityIconDisplay>().AbilitySpriteObject, "Trigger");
     }

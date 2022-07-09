@@ -10,14 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64bbb3283eff66646a1722eef8a565b3, type: 3}
-  m_Name: Give_plus1plus1_3turns
+  m_Name: Give_plus1plus2_IfWounded_PH
   m_EditorClassIdentifier: 
   IsRequired: 0
   Value: 1
   IsNegative: 0
-  Countdown: 3
+  Countdown: 0
   ShootRay: 1
   RayColor: {r: 1, g: 1, b: 0, a: 1}
+  PreCheckConditions: 0
+  IfNotWoundedCondition: 0
+  IfTargetWoundedCondition: 0
+  IfPlayerWoundedCondition: 1
+  IfEnemyWoundedCondition: 0
   IfExhaustedCondition: 0
   IfRefreshedCondition: 0
   IfDamagedCondition: 0
@@ -38,9 +43,11 @@ MonoBehaviour:
   IfHasLowerPowerValue: 0
   IfHasLowerPowerEffects: []
   IfResolvesEffects: []
+  ResolveSimultaneous: 0
   ForEachEffects: []
   PowerChange: 1
   DoublePower: 0
   SetPowerZero: 0
-  HealthChange: 1
+  HealthChange: 2
   DoubleHealth: 0
+  ResetStats: 0

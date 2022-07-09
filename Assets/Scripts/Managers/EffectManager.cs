@@ -413,10 +413,11 @@ public class EffectManager : MonoBehaviour
     {
         EffectTargets et = effectGroupList[currentEffectGroup].Targets;
         List<GameObject> targets = acceptedTargets[currentEffectGroup];
+        bool isPlayerSource = IsPlayerSource(effectSource);
 
         if (et.TargetsSelf) AddTarget(effectSource);
 
-        if (IsPlayerSource(effectSource))
+        if (isPlayerSource)
         {
             if (et.PlayerHero) AddTarget(coMan.PlayerHero);
             if (et.EnemyHero) AddTarget(coMan.EnemyHero);
@@ -455,12 +456,12 @@ public class EffectManager : MonoBehaviour
             {
                 if (et.PlayerUnit)
                 {
-                    GameObject target = coMan.GetStrongestUnit(coMan.PlayerZoneCards);
+                    GameObject target = coMan.GetStrongestUnit(coMan.PlayerZoneCards, false);
                     if (target != null) AddTarget(target);
                 }
                 if (et.EnemyUnit)
                 {
-                    GameObject target = coMan.GetStrongestUnit(coMan.EnemyZoneCards);
+                    GameObject target = coMan.GetStrongestUnit(coMan.EnemyZoneCards, true);
                     if (target != null) AddTarget(target);
                 }
             }
@@ -468,12 +469,12 @@ public class EffectManager : MonoBehaviour
             {
                 if (et.PlayerUnit)
                 {
-                    GameObject target = coMan.GetWeakestUnit(coMan.PlayerZoneCards);
+                    GameObject target = coMan.GetWeakestUnit(coMan.PlayerZoneCards, false);
                     if (target != null) AddTarget(target);
                 }
                 if (et.EnemyUnit)
                 {
-                    GameObject target = coMan.GetWeakestUnit(coMan.EnemyZoneCards);
+                    GameObject target = coMan.GetWeakestUnit(coMan.EnemyZoneCards, true);
                     if (target != null) AddTarget(target);
                 }
             }
@@ -517,12 +518,12 @@ public class EffectManager : MonoBehaviour
             {
                 if (et.PlayerUnit)
                 {
-                    GameObject target = coMan.GetStrongestUnit(coMan.EnemyZoneCards);
+                    GameObject target = coMan.GetStrongestUnit(coMan.EnemyZoneCards, false);
                     if (target != null) AddTarget(target);
                 }
                 if (et.EnemyUnit)
                 {
-                    GameObject target = coMan.GetStrongestUnit(coMan.PlayerZoneCards);
+                    GameObject target = coMan.GetStrongestUnit(coMan.PlayerZoneCards, true);
                     if (target != null) AddTarget(target);
                 }
             }
@@ -530,12 +531,12 @@ public class EffectManager : MonoBehaviour
             {
                 if (et.PlayerUnit)
                 {
-                    GameObject target = coMan.GetWeakestUnit(coMan.EnemyZoneCards);
+                    GameObject target = coMan.GetWeakestUnit(coMan.EnemyZoneCards, false);
                     if (target != null) AddTarget(target);
                 }
                 if (et.EnemyUnit)
                 {
-                    GameObject target = coMan.GetWeakestUnit(coMan.PlayerZoneCards);
+                    GameObject target = coMan.GetWeakestUnit(coMan.PlayerZoneCards, true);
                     if (target != null) AddTarget(target);
                 }
             }
@@ -562,7 +563,17 @@ public class EffectManager : MonoBehaviour
 
         void AddTarget(GameObject target)
         {
-            if (!targets.Contains(target)) targets.Add(target);
+            if (targets.Contains(target)) return;
+
+            if (!et.TargetsSelf && isPlayerSource != IsPlayerSource(target))
+            {
+                if (target.TryGetComponent(out DragDrop dd) && dd.IsPlayed)
+                {
+                    if (CardManager.GetAbility(target, CardManager.ABILITY_WARD)) return;
+                }
+            }
+
+            targets.Add(target);
         }
     }
 
@@ -658,11 +669,10 @@ public class EffectManager : MonoBehaviour
                 GameObject target;
                 if (priorityTargets.Count > 0)
                 {
-                    if (!targets.PlayerHero && !targets.EnemyHero)
-                    {
-                        target = coMan.GetStrongestUnit(priorityTargets); // TESTING
-                        if (!IsPlayerSource(target)) target = GetRandomTarget(priorityTargets); // TESTING
-                    }
+                    if (targets.EnemyUnit)
+                        target = coMan.GetStrongestUnit(priorityTargets, true);
+                    else if (targets.PlayerUnit)
+                        target = GetRandomTarget(priorityTargets);
                     else target = GetRandomTarget(priorityTargets);
                     priorityTargets.Remove(target);
                 }
@@ -834,9 +844,11 @@ public class EffectManager : MonoBehaviour
         if (effect is GiveNextUnitEffect) return true;
         else if (effect is ChangeCostEffect cce && cce.ChangeNextCost) return true;
         else if (targets.TargetsSelf) return true;
-        List<List<GameObject>> targetZones = new List<List<GameObject>>();
 
-        if (IsPlayerSource(effectSource))
+        List<List<GameObject>> targetZones = new List<List<GameObject>>();
+        bool isPlayerSource = IsPlayerSource(effectSource);
+
+        if (isPlayerSource)
         {
             if (targets.PlayerHand) targetZones.Add(coMan.PlayerHandCards);
             if (targets.PlayerUnit) targetZones.Add(coMan.PlayerZoneCards);
@@ -870,7 +882,7 @@ public class EffectManager : MonoBehaviour
             int discardCount;
             int deckCount;
 
-            if (IsPlayerSource(effectSource))
+            if (isPlayerSource)
             {
                 handCount = coMan.PlayerHandCards.Count;
                 discardCount = coMan.PlayerHandCards.Count;
@@ -925,7 +937,7 @@ public class EffectManager : MonoBehaviour
             (effect is CopyCardEffect cpyCrd && !cpyCrd.PlayCopy))
         {
             List<GameObject> handCards;
-            if (IsPlayerSource(effectSource)) handCards = coMan.PlayerHandCards;
+            if (isPlayerSource) handCards = coMan.PlayerHandCards;
             else handCards = coMan.EnemyHandCards;
 
             int cardsAfterDraw = handCards.Count + 1;
@@ -945,7 +957,7 @@ public class EffectManager : MonoBehaviour
             (effect is CopyCardEffect cpyCrd2 && cpyCrd2.PlayCopy))
         {
             int unitCount;
-            if (IsPlayerSource(effectSource)) unitCount = coMan.PlayerZoneCards.Count;
+            if (isPlayerSource) unitCount = coMan.PlayerZoneCards.Count;
             else unitCount = coMan.EnemyZoneCards.Count;
 
             if (unitCount >= GameManager.MAX_UNITS_PLAYED) return false;
@@ -955,7 +967,7 @@ public class EffectManager : MonoBehaviour
         {
             if (triggerName == CardManager.TRIGGER_TURN_END) return true; // Always resolve control-returning effects
 
-            if (IsPlayerSource(effectSource))
+            if (isPlayerSource)
             {
                 if (coMan.PlayerZoneCards.Count >= GameManager.MAX_UNITS_PLAYED) return false;
             }
@@ -970,6 +982,14 @@ public class EffectManager : MonoBehaviour
 
         void AddTarget(GameObject target)
         {
+            if (isPlayerSource != IsPlayerSource(target))
+            {
+                if (target.TryGetComponent(out DragDrop dd) && dd.IsPlayed)
+                {
+                    if (CardManager.GetAbility(target, CardManager.ABILITY_WARD)) return;
+                }
+            }
+
             bool includeSelf = false;
             if (targets.TargetsWeakest || targets.TargetsStrongest ||
                 targets.TargetsLowestHealth) includeSelf = true;
@@ -1804,7 +1824,7 @@ public class EffectManager : MonoBehaviour
         string player;
         if (IsPlayerSource(effectSource)) player = GameManager.PLAYER;
         else player = GameManager.ENEMY;
-        return coMan.DrawCard(player, cardScript, true);
+        return coMan.DrawCard(player, cardScript);
     }
 
     /******
@@ -1880,6 +1900,14 @@ public class EffectManager : MonoBehaviour
                 return;
             }
             evMan.NewDelayedAction(() => caMan.TriggerTrapAbilities(card), 0, true);
+
+            FunctionTimer.Create(() => SetFirstSibling(card), 0.5f); // TESTING
+        }
+
+        void SetFirstSibling(GameObject card)
+        {
+            if (card == null) return;
+            card.transform.SetAsFirstSibling();
         }
     }
 
@@ -2016,9 +2044,7 @@ public class EffectManager : MonoBehaviour
                 if (coMan.IsActionCard(effectSource))
                 {
                     uMan.CombatLog_PlayCard(effectSource);
-
-                    if (IsPlayerSource(effectSource)) ResolveChangeNextCostEffects(effectSource);
-                    else evMan.PauseDelayedActions(false);
+                    ResolveChangeNextCostEffects(effectSource); // TESTING
 
                     GameObject source = effectSource;
                     evMan.NewDelayedAction(() => DiscardAction(source), 0, true);
@@ -2137,12 +2163,26 @@ public class EffectManager : MonoBehaviour
      *****/
     public void SelectEffectTarget(GameObject target)
     {
-        if (acceptedTargets == null || currentEffectGroup > acceptedTargets.Count - 1) return;
-        else if (legalTargets == null || currentEffectGroup > legalTargets.Count - 1) return;
+        if (acceptedTargets == null || currentEffectGroup > acceptedTargets.Count - 1) return; // Unnecessary?
+        else if (legalTargets == null || currentEffectGroup > legalTargets.Count - 1) return; // Unnecessary?
 
         if (acceptedTargets[currentEffectGroup].Contains(target)) RemoveEffectTarget(target);
         else if (legalTargets[currentEffectGroup].Contains(target)) AcceptEffectTarget(target);
-        else RejectEffectTarget();
+        else
+        {
+            string message = "You can't target that!";
+
+            if (effectSource != null)
+            {
+                if (IsPlayerSource(effectSource) != IsPlayerSource(target))
+                {
+                    if (CardManager.GetAbility(target, CardManager.ABILITY_WARD))
+                        message = "Enemies with Ward can't be targetted!";
+                }
+            }
+
+            RejectEffectTarget(message);
+        }
     }
     private void AcceptEffectTarget(GameObject target)
     {
@@ -2188,9 +2228,9 @@ public class EffectManager : MonoBehaviour
         else if (acceptedTargets[currentEffectGroup].Count == targetNumber)
             ConfirmTargetEffect();
     }
-    private void RejectEffectTarget()
+    private void RejectEffectTarget(string message)
     {
-        uMan.CreateFleetingInfoPopup("You can't target that!");
+        uMan.CreateFleetingInfoPopup(message);
         auMan.StartStopSound("SFX_Error");
     }
     private void RemoveEffectTarget(GameObject target)
@@ -2215,6 +2255,12 @@ public class EffectManager : MonoBehaviour
      *****/
     public void AddEffect(GameObject card, Effect effect, bool newInstance = true, bool applyEffect = true)
     {
+        if (card == null)
+        {
+            Debug.LogError("CARD IS NULL!");
+            return;
+        }
+
         UnitCardDisplay ucd = null;
         if (coMan.IsUnitCard(card))
         {

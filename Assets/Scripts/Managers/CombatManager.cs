@@ -254,7 +254,7 @@ public class CombatManager : MonoBehaviour
             Card newCard = caMan.NewCardInstance(card);
             if (type is DisplayType.HeroSelect) cd.CardScript = newCard;
             else if (type is DisplayType.NewCard) cd.DisplayZoomCard(null, newCard);
-            else if (type is DisplayType.ChooseCard) cd.DisplayChooseCard(newCard); // TESTING
+            else if (type is DisplayType.ChooseCard) cd.DisplayChooseCard(newCard);
             else if (type is DisplayType.Cardpage) cd.DisplayCardPageCard(newCard);
         }
         return prefab;
@@ -271,22 +271,6 @@ public class CombatManager : MonoBehaviour
         Card cardScript = card.GetComponent<CardDisplay>().CardScript;
         Destroy(card.GetComponent<CardDisplay>().CardContainer);
         if (card != null) Destroy(card);
-
-        /*
-        if (cardScript is SkillCard && !cardScript.BanishAfterPlay) // TESTING
-        {
-            Card script;
-            int index = pMan.PlayerDeckList.FindIndex(x => x.CardName == cardScript.CardName);
-            if (index != -1) script = pMan.PlayerDeckList[index];
-            else
-            {
-                Debug.LogError("SKILL NOT FOUND!");
-                return null;
-            }
-            caMan.RemovePlayerCard(script); // TESTING
-        }
-        */
-
         return cardScript;
     }
 
@@ -295,19 +279,13 @@ public class CombatManager : MonoBehaviour
      * ****** DRAW_CARD
      * *****
      *****/
-    public GameObject DrawCard(string hero, Card drawnCard = null, bool isCreated = false)
+    public GameObject DrawCard(string hero, Card drawnCard = null)
     {
         List<Card> deck;
         List<GameObject> hand;
         string cardTag;
         string cardZone;
         Vector2 position = new Vector2();
-
-        if (drawnCard != null && hero != PLAYER)
-        {
-            Debug.LogError("CANNOT CREATE CARDS FOR ENEMY!");
-            hero = PLAYER;
-        }
 
         if (hero == PLAYER)
         {
@@ -321,8 +299,8 @@ public class CombatManager : MonoBehaviour
             }
             cardTag = PLAYER_CARD;
             cardZone = PLAYER_HAND;
+
             if (drawnCard == null) position.Set(-850, -350);
-            else if (drawnCard is SkillCard && !isCreated) position.Set(-675, -350);
             else position.Set(0, -350);
         }
         else if (hero == ENEMY)
@@ -337,7 +315,9 @@ public class CombatManager : MonoBehaviour
             }
             cardTag = ENEMY_CARD;
             cardZone = ENEMY_HAND;
-            position.Set(685, 370);
+            
+            if (drawnCard == null) position.Set(685, 370);
+            else position.Set(0, 300);
         }
         else
         {
@@ -642,12 +622,13 @@ public class CombatManager : MonoBehaviour
         CardDisplay cd = card.GetComponent<CardDisplay>();
         CardContainer container = cd.CardContainer.GetComponent<CardContainer>();
 
+        // TESTING
+        evMan.PauseDelayedActions(true);
+        container.OnAttachAction += () => evMan.PauseDelayedActions(false);
+
         // PLAYER
         if (card.CompareTag(PLAYER_CARD))
         {
-            evMan.PauseDelayedActions(true);
-            container.OnAttachAction += () => evMan.PauseDelayedActions(false);
-
             PlayerHandCards.Remove(card);
 
             int energyLeft = pMan.EnergyLeft;
@@ -705,6 +686,7 @@ public class CombatManager : MonoBehaviour
                 return;
             }
 
+            card.GetComponent<DragDrop>().IsPlayed = true; // TESTING
             EnemyHandCards.Remove(card);
 
             int energyLeft = enMan.EnergyLeft;
@@ -743,12 +725,6 @@ public class CombatManager : MonoBehaviour
             PlayAbilitySounds();
             ParticleBurst();
         }
-
-        void SetFirstSibling(GameObject card)
-        {
-            if (card == null) return;
-            card.transform.SetAsFirstSibling();
-        }
         void PlayAction()
         {
             auMan.StartStopSound("SFX_PlayCard");
@@ -773,7 +749,14 @@ public class CombatManager : MonoBehaviour
                     auMan.StartStopSound(null, sa.GainAbilitySound), delay);
                     delay += 0.5f;
                 }
+                else if (ca is TriggeredAbility tra)
+                    auMan.StartStopSound(null, tra.AbilityTrigger.TriggerSound); // TESTING
             }
+        }
+        void SetFirstSibling(GameObject card)
+        {
+            if (card == null) return;
+            card.transform.SetAsFirstSibling();
         }
 
         void ParticleBurst() =>
@@ -805,8 +788,7 @@ public class CombatManager : MonoBehaviour
         }
 
         previousZone.Remove(card);
-        if (cd.CardScript.BanishAfterPlay ||
-            cd.CardScript is SkillCard) HideCard(card); // TESTING
+        if (cd.CardScript.BanishAfterPlay) HideCard(card); // TESTING
         else newZone.Add(HideCard(card));
 
         if (!isAction) auMan.StartStopSound("SFX_DiscardCard");
@@ -1275,7 +1257,7 @@ public class CombatManager : MonoBehaviour
      * ****** GET_STRONGEST_UNIT
      * *****
      *****/
-    public GameObject GetStrongestUnit(List<GameObject> unitList)
+    public GameObject GetStrongestUnit(List<GameObject> unitList, bool targetsEnemy)
     {
         if (unitList.Count < 1) return null;
         int highestPower = 0;
@@ -1283,6 +1265,8 @@ public class CombatManager : MonoBehaviour
 
         foreach (GameObject unit in unitList)
         {
+            if (targetsEnemy && CardManager.GetAbility(unit, CardManager.ABILITY_WARD)) continue; // TESTING
+
             int health = GetUnitDisplay(unit).CurrentHealth;
             if (health < 1 || efMan.UnitsToDestroy.Contains(unit)) continue;
 
@@ -1309,7 +1293,7 @@ public class CombatManager : MonoBehaviour
      * ****** GET_WEAKEST_UNIT
      * *****
      *****/
-    public GameObject GetWeakestUnit(List<GameObject> unitList)
+    public GameObject GetWeakestUnit(List<GameObject> unitList, bool targetsEnemy)
     {
         if (unitList.Count < 1) return null;
         int lowestPower = 999;
@@ -1317,6 +1301,8 @@ public class CombatManager : MonoBehaviour
 
         foreach (GameObject unit in unitList)
         {
+            if (targetsEnemy && CardManager.GetAbility(unit, CardManager.ABILITY_WARD)) continue; // TESTING
+
             int health = GetUnitDisplay(unit).CurrentHealth;
             if (health < 1 || efMan.UnitsToDestroy.Contains(unit)) continue;
 
