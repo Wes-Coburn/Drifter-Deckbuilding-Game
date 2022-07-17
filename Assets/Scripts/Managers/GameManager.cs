@@ -269,7 +269,7 @@ public class GameManager : MonoBehaviour
     {
         pMan.AetherCells = 0;
         string playerHeroName = "Kili, Neon Rider";
-        string enemyHeroName = "Tutorial Enemy Hero";
+        string enemyHeroName = "Tiny Mutant";
         Hero[] heroes = Resources.LoadAll<Hero>("Tutorial");
         EnemyHero enemyHero = ScriptableObject.CreateInstance<EnemyHero>();
 
@@ -295,26 +295,25 @@ public class GameManager : MonoBehaviour
         switch (tipNumber)
         {
             case 1:
-                tip = "Replace any number of cards (0 or more) from your starting hand. Click each card you want to replace, then click the confirm button.";
+                tip = "Replace any number of cards from your starting hand. Click each card you want to replace, then click the confirm button.";
                 isCentered = true;
                 break;
             case 2:
                 tip = "Play a card from your hand by dragging it into play. Cards you can play are highlighted in <color=\"green\">green<color=\"yellow\">.";
                 break;
             case 3:
-                tip = "End your turn by clicking the <b>end turn button</b> or pressing the <b>space bar</b>.";
+                tip = "End your turn by clicking the <b>end turn button</b> (or pressing the <b>space bar</b>).";
                 isCentered = true;
                 break;
             case 4:
-                tip = "Use your hero power by clicking on the icon next to your hero.";
+                tip = "Use your hero power by clicking on the icon next to your hero (bottom right).";
                 isCentered = true;
                 break;
             case 5:
                 tip = "Attack an enemy unit by dragging your ally to them.";
                 break;
             case 6:
-                tip = "<i>Attack the enemy hero to win!</i>\nRead more game rules in settings (top right), and " +
-                    "right click on cards for more information.\n<i>End your turn to continue.</i>";
+                tip = "<i>Attack the enemy hero to win!</i>\nRead more game rules in settings (top right).\n<i>End your turn to continue.</i>";
                 isCentered = true;
                 break;
             default:

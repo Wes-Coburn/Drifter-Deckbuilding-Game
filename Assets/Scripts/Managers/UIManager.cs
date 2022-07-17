@@ -412,8 +412,10 @@ public class UIManager : MonoBehaviour
             go = null;
         }
 
+        if (SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene))
+            HideSkybar(false); // TESTING
+
         SetScreenDimmer(false);
-        HideSkybar(false); // TESTING
         CardZoom.ZoomCardIsCentered = false;
         FunctionTimer.StopTimer(CardZoom.ZOOM_CARD_TIMER);
         FunctionTimer.StopTimer(CardZoom.ABILITY_POPUP_TIMER);

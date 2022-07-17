@@ -34,7 +34,7 @@ public class RemoveCardPopupDisplay : MonoBehaviour
             if (card.IsRare) cost = GameManager.REMOVE_RARE_CARD_COST;
             else cost = GameManager.REMOVE_CARD_COST;
 
-            string text = "Sell " + card.CardName +
+            string text = "SELL <color=\"yellow\"><u>" + card.CardName + "</u></color>" +
                 " for " + cost + " aether?";
             PopupText = text;
         }

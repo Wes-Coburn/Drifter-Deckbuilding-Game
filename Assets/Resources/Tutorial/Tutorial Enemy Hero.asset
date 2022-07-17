@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bb145cc0311afb449113575373eae4d, type: 3}
   m_Name: Tutorial Enemy Hero
   m_EditorClassIdentifier: 
-  developerNotes: 
-  heroName: Tutorial Enemy Hero
+  heroName: Tiny Mutant
   heroShortName: 
   heroPortrait: {fileID: 21300000, guid: 590950b8a5b216048829cb373c258c05, type: 3}
   heroDescription: Tutorial Enemy Hero
@@ -30,6 +29,7 @@ MonoBehaviour:
     pitch: 1
     source: {fileID: 0}
   firstDialogueClip: {fileID: 11400000, guid: 6339bc66589614146b35deb00843e218, type: 2}
+  isBoss: 0
   reinforcements:
   - {fileID: 11400000, guid: 92cdf4f7b24a543469cb38ad734cd574, type: 2}
-  isBoss: 0
+  enemyHeroPower: {fileID: 0}

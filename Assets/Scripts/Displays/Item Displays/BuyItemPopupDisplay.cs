@@ -30,7 +30,7 @@ public class BuyItemPopupDisplay : MonoBehaviour
         {
             int aether = pMan.AetherCells;
             heroItem = value;
-            string text = "Buy " + heroItem.ItemName +
+            string text = "BUY <color=\"yellow\"><u>" + heroItem.ItemName + "</u></color>" +
                 " for " + gMan.GetItemCost(heroItem, out _) +
                 " aether? (You have " + aether + " aether)";
             PopupText = text;

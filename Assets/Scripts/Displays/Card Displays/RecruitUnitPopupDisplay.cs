@@ -32,7 +32,7 @@ public class RecruitUnitPopupDisplay : MonoBehaviour
         {
             int aether = pMan.AetherCells;
             unitCard = value;
-            string text = "Recruit " + unitCard.CardName +
+            string text = "RECRUIT <color=\"yellow\"><u>" + unitCard.CardName + "</u></color>" +
                 " for " + gMan.GetRecruitCost(unitCard, out _) +
                 " aether? (You have " + aether + " aether)";
             PopupText = text;
