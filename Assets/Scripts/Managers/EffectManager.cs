@@ -991,7 +991,9 @@ public class EffectManager : MonoBehaviour
             }
 
             bool includeSelf = false;
-            if (targets.TargetsWeakest || targets.TargetsStrongest ||
+            if (targets.TargetsAll ||
+                targets.TargetsWeakest ||
+                targets.TargetsStrongest ||
                 targets.TargetsLowestHealth) includeSelf = true;
             if (target == effectSource && !includeSelf) return;
 
@@ -1042,12 +1044,8 @@ public class EffectManager : MonoBehaviour
             bool isValidEffect = true;
             if (effect.PreCheckConditions)
             {
-                List<GameObject> targets;
-                if (effect.IfPlayerWoundedCondition || effect.IfEnemyWoundedCondition)
-                    targets = new List<GameObject> { effectSource };
-                else targets = acceptedTargets[currentEffectGroup]; // TESTING
-                
-                List<GameObject> validTargets = GetValidTargets(effect, targets);
+                List<GameObject> validTargets =
+                    GetValidTargets(effect, new List<GameObject> { effectSource });
                 if (validTargets.Count < 1) isValidEffect = false;
             }
 
@@ -1374,6 +1372,7 @@ public class EffectManager : MonoBehaviour
 
             newEnergy = startEnergy + effect.Value;
             if (newEnergy > energyPerTurn) newEnergy = energyPerTurn;
+            if (newEnergy < startEnergy) newEnergy = startEnergy;
 
             if (newEnergy > startEnergy)
             {
@@ -1514,7 +1513,7 @@ public class EffectManager : MonoBehaviour
             cardScript = caMan.NewCardInstance(cardScript);
             GameObject newCardObj = PlayCreatedCard(cardScript);
 
-            foreach (Effect addEffect in pce.AdditionalEffects) // TESTING
+            foreach (Effect addEffect in pce.AdditionalEffects)
                 ResolveEffect(new List<GameObject> { newCardObj }, addEffect, false, 0, out _, false);
         }
         // COPY_CARD
@@ -1537,8 +1536,11 @@ public class EffectManager : MonoBehaviour
                     continue;
                 }
 
-                foreach (Effect e in cardDisplay.CurrentEffects) // TESTING
-                    AddEffect(newCardObj, e, true, false); // TESTING
+                if (cpyCrd.IsExactCopy) // TESTING
+                {
+                    foreach (Effect e in cardDisplay.CurrentEffects)
+                        AddEffect(newCardObj, e, true, false);
+                }
 
                 foreach (Effect addEffect in cpyCrd.AdditionalEffects)
                     ResolveEffect(new List<GameObject> { newCardObj }, addEffect, false, 0, out _, false);
@@ -1645,77 +1647,64 @@ public class EffectManager : MonoBehaviour
             }
         }
 
-        // IF_TARGET_WOUNDED_CONDITION
-        if (effect.IfTargetWoundedCondition) // TESTING
+        // IF_ANY_WOUNDED_CONDITION
+        if (effect.IfAnyWoundedCondition)
         {
-            foreach (GameObject t in allTargets)
-            {
-                int health;
-                if (t.CompareTag(CombatManager.PLAYER_HERO))
-                    health = pMan.PlayerHealth;
-                else if (t.CompareTag(CombatManager.ENEMY_HERO))
-                    health = enMan.EnemyHealth;
-                else
-                {
-                    Debug.LogError("INVALID HERO TAG!");
-                    continue;
-                }
+            bool isValid;
+            if (HeroIsWounded(effectSource, true) ||
+                HeroIsWounded(effectSource, false)) isValid = true;
+            else isValid = false;
 
-                bool isValid = true;
-                if (effect.IfNotWoundedCondition)
-                {
-                    if (health <= GameManager.WOUNDED_VALUE)
-                        isValid = false;
-                }
-                else
-                {
-                    if (health > GameManager.WOUNDED_VALUE)
-                        isValid = false;
-                }
-
-                if (!isValid) invalidTargets.Add(t);
-            }
-        }
-        // IF_PLAYER_WOUNDED_CONDITION
-        if (effect.IfPlayerWoundedCondition) // TESTING
-        {
-            if (GetHeroHealth(effectSource, true) > GameManager.WOUNDED_VALUE)
+            if (!isValid)
             {
                 foreach (GameObject t in allTargets)
                     invalidTargets.Add(t);
             }
         }
-        // IF_ENEMY_WOUNDED_CONDITION
-        if (effect.IfEnemyWoundedCondition) // TESTING
+        else
         {
-            if (GetHeroHealth(effectSource, false) > GameManager.WOUNDED_VALUE)
+            // IF_PLAYER_WOUNDED_CONDITION
+            if (effect.IfPlayerWoundedCondition)
             {
-                foreach (GameObject t in allTargets)
-                    invalidTargets.Add(t);
+                if (HeroIsWounded(effectSource, true))
+                {
+                    foreach (GameObject t in allTargets)
+                        invalidTargets.Add(t);
+                }
+            }
+            // IF_ENEMY_WOUNDED_CONDITION
+            if (effect.IfEnemyWoundedCondition)
+            {
+                if (HeroIsWounded(effectSource, false))
+                {
+                    foreach (GameObject t in allTargets)
+                        invalidTargets.Add(t);
+                }
             }
         }
 
-        int GetHeroHealth(GameObject effectSource, bool getPlayerHealth)
+        bool HeroIsWounded(GameObject effectSource, bool getPlayerHealth)
         {
             if (effectSource == null)
             {
                 Debug.LogError("SOURCE IS NULL!");
-                return 0;
+                return false;
             }
 
-            int playerHeroHealth = pMan.PlayerHealth;
-            int enemyHeroHealth = enMan.EnemyHealth;
-
+            int heroHealth;
             if (IsPlayerSource(effectSource))
             {
-                if (getPlayerHealth) return playerHeroHealth;
-                else return enemyHeroHealth;
+                if (getPlayerHealth) heroHealth = pMan.PlayerHealth;
+                else heroHealth = enMan.EnemyHealth;
             }
             else
             {
-                if (getPlayerHealth) return enemyHeroHealth;
-                else return playerHeroHealth;
+                if (getPlayerHealth) heroHealth = enMan.EnemyHealth;
+                else heroHealth = pMan.PlayerHealth;
             }
+
+            if (heroHealth <= GameManager.WOUNDED_VALUE) return true;
+            else return false;
         }
 
 
@@ -2108,7 +2097,7 @@ public class EffectManager : MonoBehaviour
 
         DeselectTargets();
         FinishEffectCleanup();
-        coMan.SelectPlayableCards();
+        if (pMan.IsMyTurn) coMan.SelectPlayableCards(); // TESTING
 
         void DeselectTargets()
         {

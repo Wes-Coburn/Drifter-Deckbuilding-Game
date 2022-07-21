@@ -22,6 +22,9 @@ public class HomeBaseSceneDisplay : MonoBehaviour
     [SerializeField] private GameObject heroUltimateDescription;
     [SerializeField] private GameObject heroUltimateImage;
 
+    [Header("CLAIM REWARD BUTTON")]
+    [SerializeField] private GameObject claimRewardButton;
+
     private PlayerManager pMan;
     private UIManager uMan;
 
@@ -114,6 +117,8 @@ public class HomeBaseSceneDisplay : MonoBehaviour
         }
     }
 
+    public GameObject ClaimRewardButton => claimRewardButton;
+
     private void Start()
     {
         pMan = PlayerManager.Instance;
@@ -144,6 +149,39 @@ public class HomeBaseSceneDisplay : MonoBehaviour
     public void RemoveCardButton_OnClick(bool playSound = true) =>
         uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.RemoveCard, playSound);
 
-    public void BackButton_OnClick() => 
+    public void ClaimRewardButton_OnClick()
+    {
+        claimRewardButton.GetComponent<TooltipPopupDisplay>().DestroyToolTip();
+        claimRewardButton.SetActive(false);
+
+        int random = Random.Range(1, 2);
+        CardManager.ChooseCard chooseCard;
+
+        switch (random)
+        {
+            case 1:
+                chooseCard = CardManager.ChooseCard.Action;
+                break;
+            case 2:
+                chooseCard = CardManager.ChooseCard.Unit;
+                break;
+            default:
+                Debug.LogError("INVALID CASE!");
+                return;
+        }
+
+        uMan.CreateNewCardPopup(null, "Claim Your Reward!",
+            CardManager.Instance.ChooseCards(chooseCard));
+    }
+
+    public void BackButton_OnClick()
+    {
+        if (claimRewardButton.activeSelf)
+        {
+            uMan.CreateFleetingInfoPopup("Claim Your Reward!");
+            return;
+        }
+        
         SceneLoader.LoadScene(SceneLoader.Scene.WorldMapScene);
+    }
 }

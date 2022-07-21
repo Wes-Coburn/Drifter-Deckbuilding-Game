@@ -28,11 +28,7 @@ public class TooltipPopupDisplay : MonoBehaviour, IPointerEnterHandler, IPointer
         }
     }
 
-    public void OnPointerExit(PointerEventData pointerEventData)
-    {
-        FunctionTimer.StopTimer(TOOLTIP_TIMER);
-        DestroyToolTip();
-    }
+    public void OnPointerExit(PointerEventData pointerEventData) => DestroyToolTip();
 
     private void DisplayTooltipPopup()
     {
@@ -40,8 +36,10 @@ public class TooltipPopupDisplay : MonoBehaviour, IPointerEnterHandler, IPointer
         tooltipPopup.GetComponentInChildren<TextMeshPro>().SetText(tooltipText);
     }
 
-    private void DestroyToolTip()
+    public void DestroyToolTip()
     {
+        FunctionTimer.StopTimer(TOOLTIP_TIMER);
+
         if (tooltipPopup != null)
         {
             Destroy(tooltipPopup);

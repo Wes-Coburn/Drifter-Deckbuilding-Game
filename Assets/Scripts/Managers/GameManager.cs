@@ -106,7 +106,7 @@ public class GameManager : MonoBehaviour
     public const int PLAYER_STARTING_HEALTH = 30;
     public const int PLAYER_START_UNITS = 3;
     public const int START_ENERGY_PER_TURN = 1;
-    public const int MAXIMUM_ENERGY_PER_TURN = 5;
+    public const int MAXIMUM_ENERGY_PER_TURN = 10; // TESTING
     public const int MAXIMUM_ENERGY = 10;
     public const int HERO_ULTMATE_GOAL = 3;
     public const int PLAYER_START_AETHER = 0;
@@ -133,8 +133,8 @@ public class GameManager : MonoBehaviour
     public const int CLONE_UNIT_COST = 3;
     public const int CLONE_RARE_UNIT_COST = 5;
     // Items
-    public const int BUY_ITEM_COST = 2;
-    public const int BUY_RARE_ITEM_COST = 3;
+    public const int BUY_ITEM_COST = 3;
+    public const int BUY_RARE_ITEM_COST = 5;
     public const int SHOP_LOYALTY_GOAL = 3;
     // Reputation
     public const int REPUTATION_TIER_1 = 10;
@@ -343,7 +343,7 @@ public class GameManager : MonoBehaviour
         firstLocation = LoadLocation("Sekherd and 7th");
 
         // Hour
-        CurrentHour = 1;
+        CurrentHour = 4; // TESTING
         IsNewHour = true;
 
         // Location
@@ -965,8 +965,14 @@ public class GameManager : MonoBehaviour
     {
         auMan.StopCurrentSoundscape();
         auMan.StartStopSound("SFX_EnterHomeBase");
-        
-        if (CurrentHour == 4)
+
+        bool hasRested;
+        if (CurrentHour == 4) hasRested = true;
+        else hasRested = false;
+
+        FindObjectOfType<HomeBaseSceneDisplay>().ClaimRewardButton.SetActive(hasRested); // TESTING
+
+        if (hasRested)
         {
             uMan.CreateFleetingInfoPopup("You have rested!", true);
             NextHour(true);
@@ -1051,10 +1057,16 @@ public class GameManager : MonoBehaviour
         }
 
         enMan.EnemyHero = enemyHero;
+
         int enemyHealth;
         if (IsTutorial) enemyHealth = 10;
         else enemyHealth = ENEMY_STARTING_HEALTH;
         enMan.EnemyHealth = enemyHealth;
+
+        int energyPerTurn = START_ENERGY_PER_TURN;
+        if (enMan.EnemyHero.IsBoss) energyPerTurn += BOSS_BONUS_ENERGY;
+        enMan.EnergyPerTurn = energyPerTurn;
+        enMan.EnergyLeft = 0;
 
         // PLAYER MANAGER
         pMan.PlayerHealth = pMan.MaxPlayerHealth;
@@ -1405,18 +1417,27 @@ public class GameManager : MonoBehaviour
     {
         HeroItem[] allItems = Resources.LoadAll<HeroItem>("Items");
         allItems.Shuffle();
+
         List<HeroItem> shopItems = new List<HeroItem>();
-        int itemsFound = 0;
-        foreach (HeroItem item in allItems)
+        GetItems(false);
+        if (shopItems.Count < 8)
         {
-            if (pMan.HeroItems.FindIndex(x => x.ItemName == item.ItemName) == -1)
-            {
-                shopItems.Add(item);
-                itemsFound++;
-            }
-            if (itemsFound == 3) break;
+            shopItems.Clear();
+            GetItems(true);
         }
         return shopItems;
+
+        void GetItems(bool allowDuplicates)
+        {
+            foreach (HeroItem item in allItems)
+            {
+                if (allowDuplicates ||
+                    (pMan.HeroItems.FindIndex(x => x.ItemName == item.ItemName) == -1))
+                    shopItems.Add(item);
+                
+                if (shopItems.Count == 8) return;
+            }
+        }
     }
 
     /******

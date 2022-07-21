@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class ItemPageDisplay : MonoBehaviour
@@ -35,11 +36,23 @@ public class ItemPageDisplay : MonoBehaviour
             return;
         }
         noItemsTooltip.SetActive(false);
+
+        ScrollRect scrollRect = GetComponent<ScrollRect>();
+
+        int rows = currentItems.Count / 4;
+        if (rows < 1) rows = 1;
+        float height = rows * 450;
+        RectTransform itemRect = scrollRect.content.GetComponent<RectTransform>();
+        itemRect.sizeDelta = new Vector2(itemRect.rect.width, height);
+
         foreach (HeroItem item in currentItems)
         {
             GameObject description = Instantiate(itemDescriptionPrefab, items.transform);
             description.GetComponentInChildren<ItemDescriptionDisplay>().LoadedItem = item;
         }
+
+        scrollRect.verticalNormalizedPosition = 1;
+
         int progress = GameManager.Instance.ShopLoyalty;
         SetProgressBar(0, progress, false, true);
     }

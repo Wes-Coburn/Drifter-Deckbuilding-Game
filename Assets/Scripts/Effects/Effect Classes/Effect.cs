@@ -29,8 +29,9 @@ public abstract class Effect : ScriptableObject
     [Header("IF WOUNDED CONDITIONS")]
     [Tooltip("If enabled, any IfWounded conditions selected will be reversed")]
     public bool IfNotWoundedCondition;
-    [Tooltip("If enabled, the effect will not resolve unless the TARGET hero's health is 15 or less")]
-    public bool IfTargetWoundedCondition;
+    [Space]
+    [Tooltip("If enabled, the effect will not resolve unless ANY hero's health is 15 or less")]
+    public bool IfAnyWoundedCondition;
     [Tooltip("If enabled, the effect will not resolve unless the PLAYER hero's health is 15 or less")]
     public bool IfPlayerWoundedCondition;
     [Tooltip("If enabled, the effect will not resolve unless the ENEMY hero's health is 15 or less")]
@@ -108,7 +109,7 @@ public abstract class Effect : ScriptableObject
 
         PreCheckConditions = effect.PreCheckConditions;
 
-        IfTargetWoundedCondition = effect.IfTargetWoundedCondition;
+        IfAnyWoundedCondition = effect.IfAnyWoundedCondition;
         IfPlayerWoundedCondition = effect.IfPlayerWoundedCondition;
         IfEnemyWoundedCondition = effect.IfEnemyWoundedCondition;
 

@@ -300,6 +300,22 @@ public class UIManager : MonoBehaviour
         Button[] buttons = endTurnButton.GetComponentsInChildren<Button>();
         foreach (Button b in buttons) b.interactable = isInteractable;
     }
+    public void SetActiveEndTurnButton(bool isActive)
+    {
+        if (endTurnButton == null) return;
+
+        float alpha;
+        if (isActive) alpha = 1;
+        else alpha = 0.4f;
+
+        EndTurnButtonDisplay etbd =
+             endTurnButton.GetComponent<EndTurnButtonDisplay>();
+
+        Image endTurnImage = etbd.EndTurnSide.GetComponent<Image>();
+        var color = endTurnImage.color;
+        color.a = alpha;
+        endTurnImage.color = color;
+    }
     /******
      * *****
      * ****** CANCEL/CONFIRM_EFFECT_BUTTON

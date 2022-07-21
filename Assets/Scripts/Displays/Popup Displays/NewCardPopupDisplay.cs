@@ -134,6 +134,8 @@ public class NewCardPopupDisplay : MonoBehaviour
         else newCard = chooseCards[cardSelection - 1];
         CardManager.Instance.AddCard(newCard, GameManager.PLAYER, true);
 
+        if (SceneLoader.IsActiveScene(SceneLoader.Scene.HomeBaseScene)) return; // TESTING
+
         DialogueClip nextClip = dMan.EngagedHero.NextDialogueClip;
         if (!SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene))
         {
@@ -185,6 +187,8 @@ public class NewCardPopupDisplay : MonoBehaviour
         GetComponent<SoundPlayer>().PlaySound(3);
         pMan.AetherCells += GameManager.IGNORE_CARD_AETHER;
         uMan.DestroyNewCardPopup();
+
+        if (SceneLoader.IsActiveScene(SceneLoader.Scene.HomeBaseScene)) return; // TESTING
 
         DialogueClip nextClip = dMan.EngagedHero.NextDialogueClip;
         if (!SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene))

@@ -677,11 +677,6 @@ public class AnimationManager : MonoBehaviour
                 yield return new WaitForSeconds(countDelay);
             }
             enMan.EnemyHealth = enMan.MaxEnemyHealth;
-
-            yield return new WaitForSeconds(0.5f);
-            int bonusEnergy = GameManager.BOSS_BONUS_ENERGY;
-            enMan.EnergyLeft += bonusEnergy; // TESTING
-            ModifyHeroEnergyState(bonusEnergy, coMan.EnemyHero); // TESTING
         }
     }
 

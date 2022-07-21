@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb145cc0311afb449113575373eae4d, type: 3}
+  m_Name: Burning Hand Fearmonger
+  m_EditorClassIdentifier: 
+  heroName: Burning Hand Fearmonger
+  heroShortName: 
+  heroPortrait: {fileID: 21300000, guid: 74b63a8ebc7eccc499b57f42c4ac43f6, type: 3}
+  heroDescription: 
+  heroWin:
+    name: 
+    clip: {fileID: 8300000, guid: 6e5454f18b0870745ab3272abb71eed2, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  heroLose:
+    name: 
+    clip: {fileID: 8300000, guid: 3be84f9c777f4be41a2422c4bab7b1c9, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  firstDialogueClip: {fileID: 11400000, guid: 29432b0c161c03646874e2278a6eb4fb, type: 2}
+  isBoss: 0
+  reinforcements:
+  - {fileID: 11400000, guid: ca92ec5c499baa646804300413269a04, type: 2}
+  enemyHeroPower: {fileID: 11400000, guid: f14ae2a6ff160ec40a8dda382a7e0af5, type: 2}

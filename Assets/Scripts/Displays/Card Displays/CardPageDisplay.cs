@@ -56,7 +56,7 @@ public class CardPageDisplay : MonoBehaviour
     private void Update()
     {
         if (!isScrollPage) return;
-        float newValue = scrollbar.value + Input.mouseScrollDelta.y * 0.1f;
+        float newValue = scrollbar.value + Input.mouseScrollDelta.y * 0.05f;
         if (newValue > 1) newValue = 1;
         else if (newValue < 0) newValue = 0;
         scrollbar.value = newValue;
@@ -78,7 +78,6 @@ public class CardPageDisplay : MonoBehaviour
         cardGroupList = new List<Card>();
         string titleText;
         bool setProgressBar = false;
-        bool showTabs = true;
         int progress = 0;
 
         switch (cardPageType)
@@ -93,14 +92,12 @@ public class CardPageDisplay : MonoBehaviour
                 break;
             case CardPageType.RecruitUnit:
                 setProgressBar = true;
-                showTabs = false;
                 progress = GameManager.Instance.RecruitLoyalty;
                 titleText = "Recruit a Unit";
                 foreach (Card c in CardManager.Instance.PlayerRecruitUnits)
                     cardGroupList.Add(c);
                 break;
             case CardPageType.CloneUnit:
-                showTabs = false;
                 titleText = "Clone a Unit";
                 foreach (Card c in pMan.PlayerDeckList)
                     if (c is UnitCard)
@@ -124,12 +121,12 @@ public class CardPageDisplay : MonoBehaviour
             noCardsTooltip.SetActive(false);
         }
         else noCardsTooltip.SetActive(true);
-        if (isScrollPage) LoadScrollPage(scrollValue, showTabs);
+        if (isScrollPage) LoadScrollPage(scrollValue);
         else LoadCardPage();
         if (playSound) AudioManager.Instance.StartStopSound("SFX_CreatePopup1");
     }
 
-    private void LoadScrollPage(float scrollValue, bool showTabs)
+    private void LoadScrollPage(float scrollValue)
     {
         Rect rect = cardGroup.GetComponent<RectTransform>().rect;
         int rows = Mathf.CeilToInt(cardGroupList.Count / 4f);

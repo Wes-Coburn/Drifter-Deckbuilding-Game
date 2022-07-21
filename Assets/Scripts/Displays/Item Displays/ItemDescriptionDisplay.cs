@@ -31,9 +31,10 @@ public class ItemDescriptionDisplay : MonoBehaviour, IPointerClickHandler, IPoin
 
             TextMeshProUGUI txtGui = itemCost.GetComponent<TextMeshProUGUI>();
             txtGui.SetText(gMan.GetItemCost(loadedItem, out bool isDiscounted).ToString());
+
             if (isDiscounted)
             {
-                Button button = itemCost.GetComponent<Button>();
+                Button button = GetComponent<Button>();
                 var colors = button.colors;
                 colors.normalColor = Color.green;
                 button.colors = colors;

@@ -38,7 +38,7 @@ public class CardManager : MonoBehaviour
     public const string ABILITY_RANGED = "Ranged";
     public const string ABILITY_STEALTH = "Stealth";
     public const string ABILITY_WARD = "Ward";
-    // Keywords
+    // Status Abilities
     public const string ABILITY_MARKED = "Marked";
     public const string ABILITY_POISONED = "Poisoned";
     public const string ABILITY_WOUNDED = "Wounded";

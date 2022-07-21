@@ -116,9 +116,6 @@ public class EnemyManager : MonoBehaviour
         EnemyDeckList = new List<Card>();
         CurrentEnemyDeck = new List<Card>();
         ReinforcementGroup = 0; // FOR TESTING ONLY?
-
-        EnergyPerTurn = GameManager.START_ENERGY_PER_TURN;
-        EnergyLeft = 0;
     }
 
     public void Mulligan()
