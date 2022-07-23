@@ -45,7 +45,7 @@ public class BuyItemPopupDisplay : MonoBehaviour
         bool isReady = false;
         int previousProgress = gMan.ShopLoyalty;
         if (++gMan.ShopLoyalty == GameManager.SHOP_LOYALTY_GOAL) isReady = true;
-        else if (gMan.ShopLoyalty > GameManager.SHOP_LOYALTY_GOAL) gMan.ShopLoyalty = 0; // TESTING
+        else if (gMan.ShopLoyalty > GameManager.SHOP_LOYALTY_GOAL) gMan.ShopLoyalty = 0;
         uMan.CreateItemPagePopup();
         FindObjectOfType<ItemPageDisplay>().SetProgressBar(previousProgress, gMan.ShopLoyalty, isReady);
     }

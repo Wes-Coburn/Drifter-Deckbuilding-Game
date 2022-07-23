@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb145cc0311afb449113575373eae4d, type: 3}
+  m_Name: Vektor Juggernaut
+  m_EditorClassIdentifier: 
+  heroName: Vektor Juggernaut
+  heroShortName: 
+  heroPortrait: {fileID: 21300000, guid: 4dab99f408088d648b1cb54e6d26228a, type: 3}
+  heroDescription: 
+  heroWin:
+    name: 
+    clip: {fileID: 8300000, guid: 0f48e8c6ccdb1d545b8b5a0c8829fc9c, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  heroLose:
+    name: 
+    clip: {fileID: 8300000, guid: 0b9cf93f75dc0c24fb742814410cc6f4, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  firstDialogueClip: {fileID: 11400000, guid: e113ef70d90791044b9c4a479fb48e9c, type: 2}
+  isBoss: 1
+  reinforcements:
+  - {fileID: 11400000, guid: 1b4acf0e786c3194f986eebdd3651550, type: 2}
+  enemyHeroPower: {fileID: 11400000, guid: 35e9ff6b73bc265469083949b64ec69b, type: 2}

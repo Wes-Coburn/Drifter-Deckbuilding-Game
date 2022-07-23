@@ -70,7 +70,7 @@ public class CombatManager : MonoBehaviour
                 else player = GameManager.ENEMY;
 
                 evMan.NewDelayedAction(() =>
-                caMan.TriggerPlayedUnits(CardManager.TRIGGER_SPARK, player), 0);
+                caMan.TriggerPlayedUnits(CardManager.TRIGGER_SPARK, player), 0, true); // TESTING
             }
         }
     }
@@ -1227,6 +1227,8 @@ public class CombatManager : MonoBehaviour
 
         foreach (GameObject unit in unitList)
         {
+            if (!IsUnitCard(unit)) continue;
+
             int health = GetUnitDisplay(unit).CurrentHealth;
             if (health < 1 || efMan.UnitsToDestroy.Contains(unit)) continue;
             if (health < lowestHealth)
@@ -1259,7 +1261,9 @@ public class CombatManager : MonoBehaviour
 
         foreach (GameObject unit in unitList)
         {
-            if (targetsEnemy && CardManager.GetAbility(unit, CardManager.ABILITY_WARD)) continue; // TESTING
+            if (!IsUnitCard(unit)) continue;
+
+            if (targetsEnemy && CardManager.GetAbility(unit, CardManager.ABILITY_WARD)) continue;
 
             int health = GetUnitDisplay(unit).CurrentHealth;
             if (health < 1 || efMan.UnitsToDestroy.Contains(unit)) continue;
@@ -1295,7 +1299,9 @@ public class CombatManager : MonoBehaviour
 
         foreach (GameObject unit in unitList)
         {
-            if (targetsEnemy && CardManager.GetAbility(unit, CardManager.ABILITY_WARD)) continue; // TESTING
+            if (!IsUnitCard(unit)) continue;
+
+            if (targetsEnemy && CardManager.GetAbility(unit, CardManager.ABILITY_WARD)) continue;
 
             int health = GetUnitDisplay(unit).CurrentHealth;
             if (health < 1 || efMan.UnitsToDestroy.Contains(unit)) continue;

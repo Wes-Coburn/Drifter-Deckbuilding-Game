@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Give2EU_Stun_IfPowLess_1_Deal3
   m_EditorClassIdentifier: 
   Targets: {fileID: 11400000, guid: cc9b0c336c15e5940b4b56d5eb5288ea, type: 2}
+  ResolveIndependent: 0
   Effects:
   - {fileID: 11400000, guid: cfe11ea77fdba8a4189be6c3faef0e0a, type: 2}
   - {fileID: 11400000, guid: 70131d4c2fe67674e831f93f9d89c431, type: 2}
-  EffectsDescription: Stun two enemies. If their power is 0, deal 3 to them instead.
+  EffectsDescription: Stun two enemies, or deal 3 to them if their power is 0.

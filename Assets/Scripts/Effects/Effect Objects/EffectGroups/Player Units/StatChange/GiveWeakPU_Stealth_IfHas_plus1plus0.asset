@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: GiveWeakPU_Stealth_IfHas_plus1plus0
   m_EditorClassIdentifier: 
   Targets: {fileID: 11400000, guid: 29ffbff22f405ea4ca0815d9902d1931, type: 2}
+  ResolveIndependent: 0
   Effects:
   - {fileID: 11400000, guid: b463298bd4c86284b8757bf58cdfe260, type: 2}
   - {fileID: 11400000, guid: 42ca95aab3fe4674baaa0ea855573455, type: 2}
-  EffectsDescription: Give the weakest ally Stealth. If it already has it, give it
-    +1|+0 instead.
+  EffectsDescription: 'Turn End: Give the weakest ally Stealth, or +1|+0 if it already
+    has it.'

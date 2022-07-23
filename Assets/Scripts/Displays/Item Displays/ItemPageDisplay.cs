@@ -39,9 +39,10 @@ public class ItemPageDisplay : MonoBehaviour
 
         ScrollRect scrollRect = GetComponent<ScrollRect>();
 
-        int rows = currentItems.Count / 4;
+        int rows = Mathf.CeilToInt(currentItems.Count / 4f);
         if (rows < 1) rows = 1;
         float height = rows * 450;
+
         RectTransform itemRect = scrollRect.content.GetComponent<RectTransform>();
         itemRect.sizeDelta = new Vector2(itemRect.rect.width, height);
 

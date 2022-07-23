@@ -669,9 +669,9 @@ public class EffectManager : MonoBehaviour
                 GameObject target;
                 if (priorityTargets.Count > 0)
                 {
-                    if (targets.EnemyUnit)
+                    if (targets.EnemyUnit && (!targets.EnemyHero))
                         target = coMan.GetStrongestUnit(priorityTargets, true);
-                    else if (targets.PlayerUnit)
+                    else if (targets.PlayerUnit && (!targets.PlayerHero))
                         target = GetRandomTarget(priorityTargets);
                     else target = GetRandomTarget(priorityTargets);
                     priorityTargets.Remove(target);
@@ -1655,31 +1655,27 @@ public class EffectManager : MonoBehaviour
                 HeroIsWounded(effectSource, false)) isValid = true;
             else isValid = false;
 
-            if (!isValid)
-            {
-                foreach (GameObject t in allTargets)
-                    invalidTargets.Add(t);
-            }
+            ValidateWoundedTargets(isValid);
         }
         else
         {
             // IF_PLAYER_WOUNDED_CONDITION
             if (effect.IfPlayerWoundedCondition)
-            {
-                if (HeroIsWounded(effectSource, true))
-                {
-                    foreach (GameObject t in allTargets)
-                        invalidTargets.Add(t);
-                }
-            }
+                ValidateWoundedTargets(HeroIsWounded(effectSource, true));
+
             // IF_ENEMY_WOUNDED_CONDITION
             if (effect.IfEnemyWoundedCondition)
+                ValidateWoundedTargets(HeroIsWounded(effectSource, false));
+        }
+
+        void ValidateWoundedTargets(bool isValid)
+        {
+            if (effect.IfNotWoundedCondition) isValid = !isValid;
+
+            if (!isValid)
             {
-                if (HeroIsWounded(effectSource, false))
-                {
-                    foreach (GameObject t in allTargets)
-                        invalidTargets.Add(t);
-                }
+                foreach (GameObject t in allTargets)
+                    invalidTargets.Add(t);
             }
         }
 

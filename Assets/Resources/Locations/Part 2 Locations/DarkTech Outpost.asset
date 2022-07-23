@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b47e9eb1cc6fb34cbca4d90c15dd059, type: 3}
+  m_Name: DarkTech Outpost
+  m_EditorClassIdentifier: 
+  isPriorityLocation: 1
+  locationName: DarkTech Outpost
+  locationFullName: DarkTech Outpost
+  locationDescription: A DarkTech intelligence center.
+  firstObjective: Find the location of the Vektor Sanctum.
+  worldMapPosition: {x: -790, y: 80}
+  firstNPC: {fileID: 11400000, guid: 41b85d4f1cc7fa44f80329366f378102, type: 2}
+  locationSoundscape:
+    name: 
+    clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    source: {fileID: 0}
+  locationBackground: 1
+  isCombatOnly: 1
+  isHomeBase: 0
+  isAugmenter: 0
+  isRecruitment: 0
+  isShop: 0
+  isCloning: 0
+  isRandomEncounter: 0
+  isClosed_Hour1: 0
+  isClosed_Hour2: 0
+  isClosed_Hour3: 0

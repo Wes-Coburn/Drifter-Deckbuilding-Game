@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Deal3_ 1EU_Give_Marked_IfHas_Destroy
   m_EditorClassIdentifier: 
   Targets: {fileID: 11400000, guid: 878f131356ce5eb4dade11e2fe3691eb, type: 2}
+  ResolveIndependent: 0
   Effects:
   - {fileID: 11400000, guid: 7c188fce7bc378348b23b6463ec13cda, type: 2}
   - {fileID: 11400000, guid: e07a2cfeee9281847aae2686dcc3a5d3, type: 2}
-  EffectsDescription: Deal 3 to an enemy and Mark it. If it's already Marked, destroy
-    it instead.
+  EffectsDescription: "Deal 3 to an enemy and Mark it, or destroy it if it\u2019s
+    already Marked."

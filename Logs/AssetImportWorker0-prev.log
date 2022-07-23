@@ -15,11 +15,11 @@ C:/Users/wgCob/Programming/Unity/Drifter (Unity 2D)
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-50484
+54393
 Successfully changed project path to: C:/Users/wgCob/Programming/Unity/Drifter (Unity 2D)
 C:/Users/wgCob/Programming/Unity/Drifter (Unity 2D)
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 93.07 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 99.38 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.5f1 (8095aa901b9b)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/Resources/UnitySubsystems
@@ -35,1995 +35,407 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56872
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56144
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.001814 seconds.
+Registered in 0.002470 seconds.
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 91.49 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 108.11 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.956 seconds
+- Completed reload, in  1.101 seconds
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.002399 seconds.
+Registered in 0.002527 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 90.74 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 104.32 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.830 seconds
+- Completed reload, in  0.916 seconds
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.03 seconds
-Refreshing native plugins compatible for Editor in 1.09 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 1.13 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 2122 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 104.6 MB.
 System memory in use after: 104.7 MB.
 
 Unloading 25 unused Assets to reduce memory usage. Loaded Objects now: 2570.
-Total: 2.188300 ms (FindLiveObjects: 0.297800 ms CreateObjectMapping: 0.121900 ms MarkObjects: 1.746500 ms  DeleteObjects: 0.021200 ms)
+Total: 1.789600 ms (FindLiveObjects: 0.233300 ms CreateObjectMapping: 0.109800 ms MarkObjects: 1.425000 ms  DeleteObjects: 0.020700 ms)
 
 ========================================================================
 Received Import Request.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_50_nobg.png
-  artifactKey: Guid(4ae09888fe3b355409edad6f029a4f57) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_50_nobg.png using Guid(4ae09888fe3b355409edad6f029a4f57) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f2fe239844db6e7fcb569d8cf1f36ff9') in 0.074707 seconds
-  Import took 0.078034 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000200 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_03_nobg.png
-  artifactKey: Guid(a86c7739b94df124d84e74264c3582bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_03_nobg.png using Guid(a86c7739b94df124d84e74264c3582bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3e130a41dcb1c9e09ce4adeec76a7974') in 0.010157 seconds
-  Import took 0.013469 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000205 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_13_nobg.png
-  artifactKey: Guid(054bb31d45d691c40b39ddf9e8334317) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_13_nobg.png using Guid(054bb31d45d691c40b39ddf9e8334317) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7d8f66c06f431ecb31d0aa4acdcce5f8') in 0.010277 seconds
-  Import took 0.013701 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000207 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_36_nobg.png
-  artifactKey: Guid(ecb8d8d669bbdf6448071d2f60c93782) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_36_nobg.png using Guid(ecb8d8d669bbdf6448071d2f60c93782) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '147176702a2cbf065a8e5cc8c54834c1') in 0.009914 seconds
-  Import took 0.013367 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000170 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_44_nobg.png
-  artifactKey: Guid(63a444b69884c7144ac4149c30d35917) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_44_nobg.png using Guid(63a444b69884c7144ac4149c30d35917) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9a287e472ae15a196a2b53abb6f895e7') in 0.011246 seconds
-  Import took 0.015044 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000269 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_27_nobg.png
-  artifactKey: Guid(047101681612c7f4796f46b71b1f1385) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_27_nobg.png using Guid(047101681612c7f4796f46b71b1f1385) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '555d588f1ddbf96c81b2c750ebbf8184') in 0.010067 seconds
-  Import took 0.013532 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000223 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_40_nobg.png
-  artifactKey: Guid(be591fffd3501934a942d222b80034e1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_40_nobg.png using Guid(be591fffd3501934a942d222b80034e1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9d98570324395892345b84ce2db3c49f') in 0.011682 seconds
-  Import took 0.015037 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000316 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_30_nobg.png
-  artifactKey: Guid(9c3edc95b521c1d4588d9db603192b61) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_30_nobg.png using Guid(9c3edc95b521c1d4588d9db603192b61) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '020e4be6703aec6ccdc2036da3127e34') in 0.011374 seconds
-  Import took 0.016222 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000232 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_32_nobg.png
-  artifactKey: Guid(9d23e8d846a34c84c9ea30af3940ffde) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_32_nobg.png using Guid(9d23e8d846a34c84c9ea30af3940ffde) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '49403ff0517b1944a17709e434c8fd35') in 0.009243 seconds
-  Import took 0.012694 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000265 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_37_nobg.png
-  artifactKey: Guid(fd167d9f7a57c3c48ba348ece17a0b84) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_37_nobg.png using Guid(fd167d9f7a57c3c48ba348ece17a0b84) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7607b3e5ee6512d540b16bc85c30a8ff') in 0.012119 seconds
-  Import took 0.016045 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000192 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_18_nobg.png
-  artifactKey: Guid(24adb6494cc6ae44dae2b7936901ebf7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_18_nobg.png using Guid(24adb6494cc6ae44dae2b7936901ebf7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '374b426a9b872498548a2114cf087b49') in 0.011266 seconds
-  Import took 0.014837 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000304 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_26_nobg.png
-  artifactKey: Guid(4f7a26dec19170148b0a99b1b87ae583) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_26_nobg.png using Guid(4f7a26dec19170148b0a99b1b87ae583) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fd7d52a5b1c0f679e8b64226f733faea') in 0.010698 seconds
-  Import took 0.014150 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000161 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_08_nobg.png
-  artifactKey: Guid(a50b91b048ca32c45a3473b4fa55402f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_08_nobg.png using Guid(a50b91b048ca32c45a3473b4fa55402f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f49cea08d3cba38daeb02001aca08b57') in 0.014020 seconds
-  Import took 0.018014 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000219 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_46_nobg.png
-  artifactKey: Guid(e3627f279441a3b45aacc8518c699077) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_46_nobg.png using Guid(e3627f279441a3b45aacc8518c699077) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '953854ccf9640b2e5752cd2a399348f2') in 0.013681 seconds
-  Import took 0.016964 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000271 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_41_nobg.png
-  artifactKey: Guid(ab7f5f1261c845146912f0f7870b5c3b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_41_nobg.png using Guid(ab7f5f1261c845146912f0f7870b5c3b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '84edb23d27c943302a1b6deb974005ea') in 0.010606 seconds
-  Import took 0.014047 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000273 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_11_nobg.png
-  artifactKey: Guid(3ee01c8cf20c7b0429b617e68b9d5d8f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_11_nobg.png using Guid(3ee01c8cf20c7b0429b617e68b9d5d8f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0f0018b16c5c11f2a7a92d442cfcbb98') in 0.011328 seconds
-  Import took 0.015487 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000191 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_09_nobg.png
-  artifactKey: Guid(0818e6a30cb4b52438b353b295fadf25) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_09_nobg.png using Guid(0818e6a30cb4b52438b353b295fadf25) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8d5c95b47403892902ed7ab22171b952') in 0.011354 seconds
-  Import took 0.014912 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000261 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_15_nobg.png
-  artifactKey: Guid(06360dbaed45f2a4da9a2d370c69b752) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_15_nobg.png using Guid(06360dbaed45f2a4da9a2d370c69b752) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a8d1eeb478e764109eb1f6f31023c594') in 0.010509 seconds
-  Import took 0.014143 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000174 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_07_nobg.png
-  artifactKey: Guid(83f46299e0489ec4984806c2b93148de) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_07_nobg.png using Guid(83f46299e0489ec4984806c2b93148de) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '40ff985f64522cd6f65a5578368718b3') in 0.011571 seconds
-  Import took 0.015130 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000321 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_45_nobg.png
-  artifactKey: Guid(a2db5b2a9a1c5064e9f81b1deb115490) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_45_nobg.png using Guid(a2db5b2a9a1c5064e9f81b1deb115490) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '33645e1a07c605671ea5e774786b5ed3') in 0.010543 seconds
-  Import took 0.015070 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000257 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_39_nobg.png
-  artifactKey: Guid(8f3b37badf0bda140b0d6fe70107ebfd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_39_nobg.png using Guid(8f3b37badf0bda140b0d6fe70107ebfd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '583d4ced0c8940e3dde521cbcdcdccb7') in 0.010342 seconds
-  Import took 0.014907 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000181 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_22_nobg.png
-  artifactKey: Guid(77ae75288123c344d859e8ef78b89bf3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_22_nobg.png using Guid(77ae75288123c344d859e8ef78b89bf3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd4347dddf6b603527d142954c9c8fffe') in 0.012637 seconds
-  Import took 0.016015 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000244 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_35_nobg.png
-  artifactKey: Guid(72d55dda842e17844b76a28530b7c3bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_35_nobg.png using Guid(72d55dda842e17844b76a28530b7c3bb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'af9dd3e639314afa925921ae0d8d9e3d') in 0.010200 seconds
-  Import took 0.013624 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000202 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_29_nobg.png
-  artifactKey: Guid(d9f60079e1e515f40bcb16125e6ac31b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_29_nobg.png using Guid(d9f60079e1e515f40bcb16125e6ac31b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dd9c030e05f1b12bc303091e8d092072') in 0.014143 seconds
-  Import took 0.018257 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000174 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_43_nobg.png
-  artifactKey: Guid(36dc4d7d3d30e7546bf3612c0abaa9bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_43_nobg.png using Guid(36dc4d7d3d30e7546bf3612c0abaa9bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '187ba906be3a111004bfce878b208064') in 0.012712 seconds
-  Import took 0.016049 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000172 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_05_nobg.png
-  artifactKey: Guid(a4fc444b0118b36458d3449db9493adf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_05_nobg.png using Guid(a4fc444b0118b36458d3449db9493adf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b3bbc98c7b41ac6d6ab53322f4daf22e') in 0.011926 seconds
-  Import took 0.015424 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000346 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_34_nobg.png
-  artifactKey: Guid(3af04a0fd3b6ba54f95d138f7e33260c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_34_nobg.png using Guid(3af04a0fd3b6ba54f95d138f7e33260c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '166155282c04664d276c6fa2b86997ba') in 0.013794 seconds
-  Import took 0.018138 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000179 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_48_nobg.png
-  artifactKey: Guid(831330890dc2cbb4089a4e9e43eb16fb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_48_nobg.png using Guid(831330890dc2cbb4089a4e9e43eb16fb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '01b67a5d2d1d30ae5adbed0daf1e4fa0') in 0.011908 seconds
-  Import took 0.015895 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000244 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_04_nobg.png
-  artifactKey: Guid(4417326597136584b8ccfcc9be4dfdfa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_04_nobg.png using Guid(4417326597136584b8ccfcc9be4dfdfa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '536eae5b3fa66733cc6edcceca5a8cc4') in 0.013535 seconds
-  Import took 0.017314 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000223 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_20_nobg.png
-  artifactKey: Guid(cac792c45886af648a87a042eaae9cad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_20_nobg.png using Guid(cac792c45886af648a87a042eaae9cad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2f971a788212cf846e6f2af1bf4fbafd') in 0.012896 seconds
-  Import took 0.015999 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000156 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_47_nobg.png
-  artifactKey: Guid(de44a534e41c76c4896698e9ec76ce71) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_47_nobg.png using Guid(de44a534e41c76c4896698e9ec76ce71) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a86af82b2cf5abf5021b4fd8f4654642') in 0.014283 seconds
-  Import took 0.018520 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000205 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_31_nobg.png
-  artifactKey: Guid(4d15d74f8df8bc24fb3f26f23945520e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_31_nobg.png using Guid(4d15d74f8df8bc24fb3f26f23945520e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1b6936990573fe1598fde439106de1f5') in 0.012606 seconds
-  Import took 0.015912 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000206 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_42_nobg.png
-  artifactKey: Guid(f1775c82925eef04499b0eca3b931f19) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_42_nobg.png using Guid(f1775c82925eef04499b0eca3b931f19) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ffbb0469f03fa62e74d38b56c29575e1') in 0.013131 seconds
-  Import took 0.017245 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000185 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_38_nobg.png
-  artifactKey: Guid(e5c3601dee8ba7d43a9778dca31abe76) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_38_nobg.png using Guid(e5c3601dee8ba7d43a9778dca31abe76) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1fbd7ecc9039dc4a8626fbe233f0d68b') in 0.011299 seconds
-  Import took 0.014627 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000212 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_12_nobg.png
-  artifactKey: Guid(7819250c283bc2349ad29da622ab2d16) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_12_nobg.png using Guid(7819250c283bc2349ad29da622ab2d16) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ae3e6703272412605a5aed977e823142') in 0.013266 seconds
-  Import took 0.016630 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000274 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_19_nobg.png
-  artifactKey: Guid(74b63a8ebc7eccc499b57f42c4ac43f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_19_nobg.png using Guid(74b63a8ebc7eccc499b57f42c4ac43f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9c70cc55f1ebf5fd0908d19b36a4c6eb') in 0.011511 seconds
-  Import took 0.015336 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000186 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_33_nobg.png
-  artifactKey: Guid(7257d2588e57e2e44a6667cddbfa26f1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_33_nobg.png using Guid(7257d2588e57e2e44a6667cddbfa26f1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '293cc6274912d9cd457589a313864b51') in 0.011211 seconds
-  Import took 0.015141 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000180 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_51_nobg.png
-  artifactKey: Guid(63fc3f590875c9e4997d2484019106be) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_51_nobg.png using Guid(63fc3f590875c9e4997d2484019106be) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5ddd4b60c462b3650f97755c8e0b6c32') in 0.012972 seconds
-  Import took 0.016411 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000184 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_10_nobg.png
-  artifactKey: Guid(008deb685ac9d284282da7d7379b769e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_10_nobg.png using Guid(008deb685ac9d284282da7d7379b769e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dfdba6188bcdafa79d3a2183bc2f6bcd') in 0.010975 seconds
-  Import took 0.014605 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000177 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_16_nobg.png
-  artifactKey: Guid(202dc8264207c7f458d7975aa9e2bb5a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_16_nobg.png using Guid(202dc8264207c7f458d7975aa9e2bb5a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '72a178ca25110f5cf93b79c59fb0ed63') in 0.011885 seconds
-  Import took 0.015856 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000157 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_28_nobg.png
-  artifactKey: Guid(ca7ac9ef11422e04b900a6409bf4b124) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_28_nobg.png using Guid(ca7ac9ef11422e04b900a6409bf4b124) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '54dcff88802bf050fa755c5fb2f51323') in 0.009700 seconds
-  Import took 0.013292 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000197 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_02_nobg.png
-  artifactKey: Guid(ebe54c66a6e147c4f93879460161455a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_02_nobg.png using Guid(ebe54c66a6e147c4f93879460161455a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4c8d6b1d1c742abbafda1015f8b8c9fb') in 0.011752 seconds
-  Import took 0.015154 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000287 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_25_nobg.png
-  artifactKey: Guid(c7304779cee7bd841b823c24d7c0dd9f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_25_nobg.png using Guid(c7304779cee7bd841b823c24d7c0dd9f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0b5aee3185f22ad8d0cc9008288b8912') in 0.013061 seconds
-  Import took 0.016430 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000231 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_06_nobg.png
-  artifactKey: Guid(0d5fda8e81cb24846a2183694d50ac76) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_06_nobg.png using Guid(0d5fda8e81cb24846a2183694d50ac76) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'af8101c276d8d7da67ae353dec9a15c7') in 0.011401 seconds
-  Import took 0.015216 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000257 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_01_nobg.png
-  artifactKey: Guid(287490562ec7be24aa4b9cdba756b704) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_01_nobg.png using Guid(287490562ec7be24aa4b9cdba756b704) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '805982e396a589b72b576e47abb97d24') in 0.011912 seconds
-  Import took 0.015405 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000254 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_49_nobg.png
-  artifactKey: Guid(158bcde84f3f9a4478013d38ea7f1933) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_49_nobg.png using Guid(158bcde84f3f9a4478013d38ea7f1933) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '215630191fab3533c8922eb677fd905d') in 0.012235 seconds
-  Import took 0.015541 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000215 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_23_nobg.png
-  artifactKey: Guid(a4a25edc04995f148a09f6b55f685709) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_23_nobg.png using Guid(a4a25edc04995f148a09f6b55f685709) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd928a95513ddd9e5aa1cfe1ed5ac61b1') in 0.013175 seconds
-  Import took 0.017000 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000231 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_17_nobg.png
-  artifactKey: Guid(301696aaf51ecf442bac53da01a10895) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_17_nobg.png using Guid(301696aaf51ecf442bac53da01a10895) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a9918f9924caacae0ef60b9f86247fdc') in 0.014053 seconds
-  Import took 0.017878 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000236 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_21_nobg.png
-  artifactKey: Guid(ca0f3d6e238c988458ca2393bf167a09) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_21_nobg.png using Guid(ca0f3d6e238c988458ca2393bf167a09) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0ed76de8154a2c6a7477bedc1ccce799') in 0.010975 seconds
-  Import took 0.016025 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000247 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_14_nobg.png
-  artifactKey: Guid(2b882dd375742f9459a26a4da210f44b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_14_nobg.png using Guid(2b882dd375742f9459a26a4da210f44b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '79b2a2eabb364e0522bcdf1aa2ebafa2') in 0.011006 seconds
-  Import took 0.015386 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000184 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_24_nobg.png
-  artifactKey: Guid(c8678e1905429fa41a9dada0dfcceb39) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_24_nobg.png using Guid(c8678e1905429fa41a9dada0dfcceb39) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '40bfa6e75ce2ac022be2d8011b7909d9') in 0.011536 seconds
-  Import took 0.015147 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 2.351795 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_01.png
-  artifactKey: Guid(8a611c1f810fc3746a7ec3a491fe5b19) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_01.png using Guid(8a611c1f810fc3746a7ec3a491fe5b19) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '49d8b55db983578801b62fbcba2fcc55') in 0.016743 seconds
-  Import took 0.020279 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000161 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_22.png
-  artifactKey: Guid(31ff0dd1843c393489a0beda64029a1c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_22.png using Guid(31ff0dd1843c393489a0beda64029a1c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '745975b987ae8e4ea500c6f40e93e0e0') in 0.011069 seconds
-  Import took 0.014253 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000241 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_28.png
-  artifactKey: Guid(8ef9b89e8d0b1b244bbe72134224c8fc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_28.png using Guid(8ef9b89e8d0b1b244bbe72134224c8fc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c7d04ed52645ed7473eb882db0b68650') in 0.013714 seconds
-  Import took 0.017473 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000242 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_40.png
-  artifactKey: Guid(3377ab360ecbf3d46ac13279c24624f1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_40.png using Guid(3377ab360ecbf3d46ac13279c24624f1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'daa9270c98d0171ac8f64fd89653d356') in 0.013095 seconds
-  Import took 0.017177 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000236 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_34.png
-  artifactKey: Guid(1c76ab6c1f061004a8c3d222c58824c9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_34.png using Guid(1c76ab6c1f061004a8c3d222c58824c9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a44d0fc8c991527f2ec72840489bf67a') in 0.013088 seconds
-  Import took 0.016940 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000217 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_07.png
-  artifactKey: Guid(696cd0bef24cd304284d36fd8002c32b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_07.png using Guid(696cd0bef24cd304284d36fd8002c32b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '609c68367be79737baa45f967d8f6665') in 0.018002 seconds
-  Import took 0.022535 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000258 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_04.png
-  artifactKey: Guid(dcb3f251b189d7740b32f17816f71fee) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_04.png using Guid(dcb3f251b189d7740b32f17816f71fee) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '52a52d3c7241fe608bbb0da18a51d5e0') in 0.013616 seconds
-  Import took 0.017165 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000174 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_41.png
-  artifactKey: Guid(661e40855be81e64888d724f039b4ba0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_41.png using Guid(661e40855be81e64888d724f039b4ba0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5dd1b200acc2277a319b1ea554355b2f') in 0.012251 seconds
-  Import took 0.016497 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000204 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_49.png
-  artifactKey: Guid(023af435ed02e1a488d9d45cc497ab68) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_49.png using Guid(023af435ed02e1a488d9d45cc497ab68) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c64ceec633168526790198660953873e') in 0.012889 seconds
-  Import took 0.016605 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000178 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_50.png
-  artifactKey: Guid(f921d860530ff174fa3f240255d2d26d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_50.png using Guid(f921d860530ff174fa3f240255d2d26d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5a4bad3579f10502c713229c42840b7a') in 0.012413 seconds
-  Import took 0.016317 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000365 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_09.png
-  artifactKey: Guid(9c729f623b91ae34f826d7a6c6977ae9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_09.png using Guid(9c729f623b91ae34f826d7a6c6977ae9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '41a04a0a93125e5056bcfe8b5b17ab78') in 0.013287 seconds
-  Import took 0.017139 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000175 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_16.png
-  artifactKey: Guid(0ea123706de0dea46b9346978b186141) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_16.png using Guid(0ea123706de0dea46b9346978b186141) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5a1cbc25f3d8e9097df96836724c3f72') in 0.013152 seconds
-  Import took 0.017993 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000209 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_26.png
-  artifactKey: Guid(b644dc188e912a443bf54018bc8d88c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_26.png using Guid(b644dc188e912a443bf54018bc8d88c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '070e5aeb7bbe2ae55b10c207daee18be') in 0.012178 seconds
-  Import took 0.016026 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000190 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_20.png
-  artifactKey: Guid(91ad10d4904a3a94e9da33feda733a53) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_20.png using Guid(91ad10d4904a3a94e9da33feda733a53) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '97dbc3eda86bd7e5af133e59eb0ea111') in 0.010433 seconds
-  Import took 0.014067 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000196 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_08.png
-  artifactKey: Guid(03efc6d00aea837499019ff755627d66) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_08.png using Guid(03efc6d00aea837499019ff755627d66) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ddda8e72207cddb7925a2ef49d37230c') in 0.013285 seconds
-  Import took 0.017337 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000315 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_21.png
-  artifactKey: Guid(aef3f5492cb41194faa8319f9b225ca1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_21.png using Guid(aef3f5492cb41194faa8319f9b225ca1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6822159e7fdda32038569373bc787445') in 0.017521 seconds
-  Import took 0.021793 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000178 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_03.png
-  artifactKey: Guid(a8c875a551870e44485c1a0d2963706a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_03.png using Guid(a8c875a551870e44485c1a0d2963706a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'edc6a36f8e888db3f0e544088a4121cb') in 0.013482 seconds
-  Import took 0.017279 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000261 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_39.png
-  artifactKey: Guid(ff9e1ded642129f409697b0d179d6897) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_39.png using Guid(ff9e1ded642129f409697b0d179d6897) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f4766ca0a53446429ae946e37ce0bc4a') in 0.012402 seconds
-  Import took 0.016414 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000168 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_23.png
-  artifactKey: Guid(3e31eba8612c06242a2793ea9e0c49e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_23.png using Guid(3e31eba8612c06242a2793ea9e0c49e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '14882319df3a0d5be491e887dc492593') in 0.013299 seconds
-  Import took 0.016789 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000188 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_47.png
-  artifactKey: Guid(cb2f84cb97fbdf340949d122bafc0ea4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_47.png using Guid(cb2f84cb97fbdf340949d122bafc0ea4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3419540dc461cdcd684b9f994d5fe234') in 0.012077 seconds
-  Import took 0.016611 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000184 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_30.png
-  artifactKey: Guid(fa62d58d2622ac041add6a5dda1942bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_30.png using Guid(fa62d58d2622ac041add6a5dda1942bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2a0447bab79bc2f256b8b49947d228a2') in 0.012506 seconds
-  Import took 0.016323 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000172 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_17.png
-  artifactKey: Guid(5ef3da3775b97a1439ebb9addd88d213) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_17.png using Guid(5ef3da3775b97a1439ebb9addd88d213) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8fa7e27b5fe0033bfbd220712965ed4a') in 0.013932 seconds
-  Import took 0.017512 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000180 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_10.png
-  artifactKey: Guid(66ce386aba6fa4a42b2ef8b676504771) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_10.png using Guid(66ce386aba6fa4a42b2ef8b676504771) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2dbdcfd4e2df00bd626d42c2b38b313f') in 0.015686 seconds
-  Import took 0.019287 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000175 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_33.png
-  artifactKey: Guid(ffab6fb828ff11944b824e3b2a7e99cc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_33.png using Guid(ffab6fb828ff11944b824e3b2a7e99cc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bc34396d9c07d01c322df4f0d61de377') in 0.010896 seconds
-  Import took 0.014751 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000235 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_37.png
-  artifactKey: Guid(f7de8d8e2bdcdfc49a35243ed04c4142) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_37.png using Guid(f7de8d8e2bdcdfc49a35243ed04c4142) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8861a5b360517d330535f5fa3a87a384') in 0.014918 seconds
-  Import took 0.018156 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000158 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_48.png
-  artifactKey: Guid(7d7ddc01e0103be4eabcc2ec218facf8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_48.png using Guid(7d7ddc01e0103be4eabcc2ec218facf8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '87a4df60fb2bdc029bc2ad3b77ce9e4b') in 0.012510 seconds
-  Import took 0.016941 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000209 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_05.png
-  artifactKey: Guid(25ec2ce59325be74a9e14efbbb48dd1d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_05.png using Guid(25ec2ce59325be74a9e14efbbb48dd1d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd26e8402ce09398fd9750a3c6d2ece0a') in 0.012834 seconds
-  Import took 0.016149 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000270 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_35.png
-  artifactKey: Guid(157203b1b7a0b09448728c4a5f5d9bde) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_35.png using Guid(157203b1b7a0b09448728c4a5f5d9bde) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f48ae470c3b3676ee8c7a9e3dc131310') in 0.011691 seconds
-  Import took 0.015809 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000310 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_18.png
-  artifactKey: Guid(779ef6a75dc693a49ab9b0ed5105b589) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_18.png using Guid(779ef6a75dc693a49ab9b0ed5105b589) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b094e35dadb69d04deb79231f7460f0f') in 0.014163 seconds
-  Import took 0.018069 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000188 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_32.png
-  artifactKey: Guid(2c336c4eac046474ca47b2df649a994d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_32.png using Guid(2c336c4eac046474ca47b2df649a994d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '493b8d4bca80ca4bd38cd614ce43f87f') in 0.011326 seconds
-  Import took 0.014732 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000170 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_14.png
-  artifactKey: Guid(3e378963f979d2a4ead1547710f3e7f5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_14.png using Guid(3e378963f979d2a4ead1547710f3e7f5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '407f6c17b98a1a601e9afca49ee9f5de') in 0.009714 seconds
-  Import took 0.013423 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000165 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_24.png
-  artifactKey: Guid(f28940cf40bcfe34388fbab7cd3e7b03) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_24.png using Guid(f28940cf40bcfe34388fbab7cd3e7b03) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bf7495a8d91481e59f737e841311bdf3') in 0.013655 seconds
-  Import took 0.018946 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000282 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_31.png
-  artifactKey: Guid(36aaaf48a2cf7454780be566c277071e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_31.png using Guid(36aaaf48a2cf7454780be566c277071e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1378ef0a1904ea3298fa7b1711c43e53') in 0.016127 seconds
-  Import took 0.019747 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000227 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_02.png
-  artifactKey: Guid(88e01637216b9874e8a299f482aa135e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_02.png using Guid(88e01637216b9874e8a299f482aa135e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '39872951bcb03c709b75d94f74ff86cc') in 0.012405 seconds
-  Import took 0.015868 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000197 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_06.png
-  artifactKey: Guid(7cfb5fb7b683c2149a751396b7c57a21) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_06.png using Guid(7cfb5fb7b683c2149a751396b7c57a21) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5fe4705a8bdab79370ef5795a2025800') in 0.011720 seconds
-  Import took 0.015843 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000227 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_25.png
-  artifactKey: Guid(ad1aafb39d0f8fc49940bb54f8a49616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_25.png using Guid(ad1aafb39d0f8fc49940bb54f8a49616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cc912eeb85e3aa4bae56014217f00837') in 0.011586 seconds
-  Import took 0.015407 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000186 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_13.png
-  artifactKey: Guid(2125713f0d55ee64abd8e34f693d2926) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_13.png using Guid(2125713f0d55ee64abd8e34f693d2926) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b565fcd5fb9d7e143b491dc2483e6fe6') in 0.012631 seconds
-  Import took 0.016352 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000226 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_38.png
-  artifactKey: Guid(2a855c98e75097646a53b07aedc8154b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_38.png using Guid(2a855c98e75097646a53b07aedc8154b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bc684eb920ef23bcaa332a397e409ca5') in 0.011616 seconds
-  Import took 0.015669 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000234 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_15.png
-  artifactKey: Guid(4cc51a1e2dc063241a005807fb6d0da2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_15.png using Guid(4cc51a1e2dc063241a005807fb6d0da2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '97155f62c85735de36540a050785c4fa') in 0.012116 seconds
-  Import took 0.016205 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000182 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_36.png
-  artifactKey: Guid(d6e1200bbd6cf7941b3a1d9db1885b74) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_36.png using Guid(d6e1200bbd6cf7941b3a1d9db1885b74) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e688e78f9a2e733352c928d732026f51') in 0.010799 seconds
-  Import took 0.014245 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000181 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_19.png
-  artifactKey: Guid(8c012b123b600654190f7b04948fed1f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_19.png using Guid(8c012b123b600654190f7b04948fed1f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3d48e402e2c3a274f70aa6c7a1b2b1fb') in 0.012062 seconds
-  Import took 0.015484 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000179 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_43.png
-  artifactKey: Guid(2a48fcc6a8aac884e8d0e3a2f849189f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_43.png using Guid(2a48fcc6a8aac884e8d0e3a2f849189f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '887be21014089185daa7399fa2a68fb2') in 0.010776 seconds
-  Import took 0.014910 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000251 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_46.png
-  artifactKey: Guid(4f66caaaa206b3240b51223915679369) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_46.png using Guid(4f66caaaa206b3240b51223915679369) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '996a3dbc42b00f0d8d6cb7a3a1eab5d4') in 0.010450 seconds
-  Import took 0.014415 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000166 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_45.png
-  artifactKey: Guid(0786c9d4969a4984284f0acbaace19dc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_45.png using Guid(0786c9d4969a4984284f0acbaace19dc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6a1177f487caac941623835a1a74b639') in 0.012378 seconds
-  Import took 0.015836 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000267 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_44.png
-  artifactKey: Guid(b94b77d2dce09d941b6ca4517121fabe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_44.png using Guid(b94b77d2dce09d941b6ca4517121fabe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '397302edf3ae5b3f3759fcceb738790b') in 0.012685 seconds
-  Import took 0.016090 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000199 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_27.png
-  artifactKey: Guid(ff49e0a2ccfa38d4e85084587bdc764a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_27.png using Guid(ff49e0a2ccfa38d4e85084587bdc764a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'efbadfd54556ed3d9491d414102061f4') in 0.011951 seconds
-  Import took 0.016289 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000191 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_42.png
-  artifactKey: Guid(82cfab3ca8d8cf54181ffbf3c4c01fe4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_42.png using Guid(82cfab3ca8d8cf54181ffbf3c4c01fe4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '18961646909a282aeca6704de16d79e0') in 0.011612 seconds
-  Import took 0.015265 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000208 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_12.png
-  artifactKey: Guid(809ff77c308b4054fbc221f9107f25c0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_12.png using Guid(809ff77c308b4054fbc221f9107f25c0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ace0b5a806802e916a63131d5a899096') in 0.011631 seconds
-  Import took 0.015433 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000201 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_11.png
-  artifactKey: Guid(a17dfa15db7b95443befc19e09497e08) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_11.png using Guid(a17dfa15db7b95443befc19e09497e08) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ec7183b8d93ec99aea412e92623e5c76') in 0.011784 seconds
-  Import took 0.015821 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000259 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_29.png
-  artifactKey: Guid(99fe238e601dab64c9e4f43942f7941e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Standart/Human_29.png using Guid(99fe238e601dab64c9e4f43942f7941e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '010020f8f2a799470a87f044ac6993ff') in 0.014476 seconds
-  Import took 0.018149 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.284741 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Buildings/Barracks_01.png
-  artifactKey: Guid(567bb37deee47784995717ba9eea08b9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Buildings/Barracks_01.png using Guid(567bb37deee47784995717ba9eea08b9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6f15145467cc9276c7ae6e1010163591') in 0.006749 seconds
-  Import took 0.011313 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000163 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Buildings/Tower_06.png
-  artifactKey: Guid(7ac5681f5bbd0c54387ce9b3f1fee1f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Buildings/Tower_06.png using Guid(7ac5681f5bbd0c54387ce9b3f1fee1f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ec029be751b07c4b1e3d358be574485a') in 0.008928 seconds
-  Import took 0.012462 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000195 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Buildings/Town_01.png
-  artifactKey: Guid(2b01243f107507a4397e39c402700f09) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Buildings/Town_01.png using Guid(2b01243f107507a4397e39c402700f09) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7c1b5b6562dbcdc7e20de0a46699b688') in 0.008527 seconds
-  Import took 0.012120 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000285 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Buildings/Town_02.png
-  artifactKey: Guid(3211042c90ddf004fba11857b54e1663) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Buildings/Town_02.png using Guid(3211042c90ddf004fba11857b54e1663) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7a189a4d5d08a378a36a6f3dcc746634') in 0.006641 seconds
-  Import took 0.010592 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000237 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Buildings/Tower_02.png
-  artifactKey: Guid(b6cc3b2742d0c814299f2feafd5d18bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Buildings/Tower_02.png using Guid(b6cc3b2742d0c814299f2feafd5d18bc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '13e575362de7408c49f8d821046fcac1') in 0.009526 seconds
-  Import took 0.013532 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000167 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Buildings/Town_03.png
-  artifactKey: Guid(a56e9c6149f7a3b479a95888fe04db93) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Buildings/Town_03.png using Guid(a56e9c6149f7a3b479a95888fe04db93) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2e355ebc7f3bf5ee68d11bcfa94979c4') in 0.007004 seconds
-  Import took 0.010763 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000254 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Buildings/Windmill_01.png
-  artifactKey: Guid(4c67087983a8d4b408f614f8c7b40a71) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Buildings/Windmill_01.png using Guid(4c67087983a8d4b408f614f8c7b40a71) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '13f5800d4076547678f11830e87f08bc') in 0.007210 seconds
-  Import took 0.011103 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000250 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Buildings/Tower_01.png
-  artifactKey: Guid(a8c4eb0be6c8a3747aaa39f98570ac25) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Buildings/Tower_01.png using Guid(a8c4eb0be6c8a3747aaa39f98570ac25) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cface6155918cc9cd6c95ce9b0bb68c8') in 0.006742 seconds
-  Import took 0.011035 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000199 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Buildings/Tower_05.png
-  artifactKey: Guid(79162b23b6427334e960fa781bbb605c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Buildings/Tower_05.png using Guid(79162b23b6427334e960fa781bbb605c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f77f4577c68885bae38824995ef6fe7b') in 0.006804 seconds
-  Import took 0.010240 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000172 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Buildings/House_01.png
-  artifactKey: Guid(ff0eccfb6baa248449adec6590afd280) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Buildings/House_01.png using Guid(ff0eccfb6baa248449adec6590afd280) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e8ddceaee7f616e521d52c5cba10c45c') in 0.007098 seconds
-  Import took 0.010800 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000223 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Buildings/Farm_01.png
-  artifactKey: Guid(ee26bb70c225aea40b1c26199af2f9c3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Buildings/Farm_01.png using Guid(ee26bb70c225aea40b1c26199af2f9c3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f422facca07b74ad8e2431a556e8d2c8') in 0.009304 seconds
-  Import took 0.013023 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000224 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Buildings/Church_01.png
-  artifactKey: Guid(f865ea26d72d728458315e79cb75e123) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Buildings/Church_01.png using Guid(f865ea26d72d728458315e79cb75e123) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f5cf20c31576fb534c43f1503af85f0f') in 0.007348 seconds
-  Import took 0.011703 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000249 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Buildings/Tower_04.png
-  artifactKey: Guid(3f303cf61d734d048abfcb7493f6e53c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Buildings/Tower_04.png using Guid(3f303cf61d734d048abfcb7493f6e53c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '325d52279cf7ab34c1f5503977e907d1') in 0.006700 seconds
-  Import took 0.010549 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000181 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Buildings/Tower_03.png
-  artifactKey: Guid(e6f88e0933a15a04cbb56d854cec2518) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Buildings/Tower_03.png using Guid(e6f88e0933a15a04cbb56d854cec2518) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c7e9238a54c9fb48d424d0e0146e490a') in 0.005820 seconds
-  Import took 0.009493 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000308 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/Buildings/Castle_01.png
-  artifactKey: Guid(2f0ec7f2075516442a366750824f9de0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/Buildings/Castle_01.png using Guid(2f0ec7f2075516442a366750824f9de0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1a3522b1312eefe3922875c98d255b2e') in 0.006406 seconds
-  Import took 0.009801 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 26.125925 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_52_nobg.png
-  artifactKey: Guid(97929f6f940d0754cb2abbeba7a50716) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_52_nobg.png using Guid(97929f6f940d0754cb2abbeba7a50716) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '839645d291cb165671194ad4f9448750') in 0.010984 seconds
-  Import took 0.015630 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000246 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_54_nobg.png
-  artifactKey: Guid(f9a49af588729b3408b3c0b43fcec923) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_54_nobg.png using Guid(f9a49af588729b3408b3c0b43fcec923) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dd99bc9b34c26a70a44836480bca2dcf') in 0.016833 seconds
-  Import took 0.020711 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000420 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_52_nobg.png
-  artifactKey: Guid(97929f6f940d0754cb2abbeba7a50716) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_52_nobg.png using Guid(97929f6f940d0754cb2abbeba7a50716) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '839645d291cb165671194ad4f9448750') in 0.013709 seconds
-  Import took 0.017307 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000216 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_61_nobg.png
-  artifactKey: Guid(de85814e736da474a90bd4e436d594b3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_61_nobg.png using Guid(de85814e736da474a90bd4e436d594b3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6d4ce37f75e26c23999da0160c6527ed') in 0.017966 seconds
-  Import took 0.021543 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000516 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_58_nobg.png
-  artifactKey: Guid(6d8790294105f47429243087aafa5778) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_58_nobg.png using Guid(6d8790294105f47429243087aafa5778) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '372215369e454105ca4fc6746b53a489') in 0.013324 seconds
-  Import took 0.017665 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000302 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_56_nobg.png
-  artifactKey: Guid(71ab16d199a43b14b915ead4c556892b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_56_nobg.png using Guid(71ab16d199a43b14b915ead4c556892b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'adfe7480a7dab237ebc7ddf9c73702ef') in 0.012881 seconds
-  Import took 0.016277 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000232 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_57_nobg.png
-  artifactKey: Guid(6b475ef3ff2f46c4cbb8349fc78eec12) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_57_nobg.png using Guid(6b475ef3ff2f46c4cbb8349fc78eec12) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c9e8e615389e6193223debdd1d808309') in 0.012109 seconds
-  Import took 0.016495 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000245 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_53_nobg.png
-  artifactKey: Guid(c5c8e191aaf8db24ba896028120f65b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_53_nobg.png using Guid(c5c8e191aaf8db24ba896028120f65b8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8bee99f67c0cbdfa76e1652a1770e7ab') in 0.014707 seconds
-  Import took 0.018119 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000386 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_63_nobg.png
-  artifactKey: Guid(9c7853e5194e86747a57174368eee693) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_63_nobg.png using Guid(9c7853e5194e86747a57174368eee693) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a11103f255e1acee578a96dcda56874f') in 0.010727 seconds
-  Import took 0.014801 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000221 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_04_nobg.png
-  artifactKey: Guid(a7b1557df19864d43bfa3ea84540a9a2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_04_nobg.png using Guid(a7b1557df19864d43bfa3ea84540a9a2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ded90b1aaeb80536be07661d2795f979') in 0.010173 seconds
-  Import took 0.014296 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000252 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_03_nobg.png
-  artifactKey: Guid(3079cf3a73104d34eb7f0e176b585e45) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_03_nobg.png using Guid(3079cf3a73104d34eb7f0e176b585e45) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '68bc2332bb80874773f22c523ecd31f8') in 0.012531 seconds
-  Import took 0.015859 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000211 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_65_nobg.png
-  artifactKey: Guid(b9ad90e1ae1ecf743b8ed9438d4dd578) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_65_nobg.png using Guid(b9ad90e1ae1ecf743b8ed9438d4dd578) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '80745c2ff0c5231e56202ce5cc3f18e6') in 0.015009 seconds
-  Import took 0.018802 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000211 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_01_nobg.png
-  artifactKey: Guid(4d58f69279d9f2941bec5a6b040ec283) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_01_nobg.png using Guid(4d58f69279d9f2941bec5a6b040ec283) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8d137c4ee941785aae5aa7d432615223') in 0.010890 seconds
-  Import took 0.014494 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000235 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_62_nobg.png
-  artifactKey: Guid(43c77d07be2839f498732d80b00649d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_62_nobg.png using Guid(43c77d07be2839f498732d80b00649d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c852b3c109a90f78b5035b891d227aa5') in 0.010617 seconds
-  Import took 0.014537 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000207 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_66_nobg.png
-  artifactKey: Guid(6598178a122905f43a843dc600a35a36) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_66_nobg.png using Guid(6598178a122905f43a843dc600a35a36) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c36e121f543f9fe329dc6c3a674da5ff') in 0.010765 seconds
-  Import took 0.014226 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000188 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_02_nobg.png
-  artifactKey: Guid(f42a49b9bed911c4e816383f991b3fb4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_02_nobg.png using Guid(f42a49b9bed911c4e816383f991b3fb4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1722aebcd477ded2e34d6ce302613416') in 0.010130 seconds
-  Import took 0.013872 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000180 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_05_nobg.png
-  artifactKey: Guid(a25f5e6dc6b5ad140ac89bf3e42ed970) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_05_nobg.png using Guid(a25f5e6dc6b5ad140ac89bf3e42ed970) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a9a4c9870ba8ae9712ed8bc02f311bb0') in 0.009350 seconds
-  Import took 0.012701 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000187 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_64_nobg.png
-  artifactKey: Guid(316c06c3ac75ebe4d8eb8875572ab961) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_64_nobg.png using Guid(316c06c3ac75ebe4d8eb8875572ab961) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6957c261e5dece339ab5277e153de173') in 0.013146 seconds
-  Import took 0.017043 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000353 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_55_nobg.png
-  artifactKey: Guid(4e215c1783a92ee4088e24abd215b319) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_55_nobg.png using Guid(4e215c1783a92ee4088e24abd215b319) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9b80dd635741c3fa7c840823515c5503') in 0.011340 seconds
-  Import took 0.015107 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000219 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_59_nobg.png
-  artifactKey: Guid(2259ed146fc630f4fb2f142ef7061b13) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_59_nobg.png using Guid(2259ed146fc630f4fb2f142ef7061b13) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c00b3da7f5658813bae5837d6f1e913b') in 0.010933 seconds
-  Import took 0.017499 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000287 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_60_nobg.png
-  artifactKey: Guid(d48397ed1e2b1a340a8b17e141bda910) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Human_60_nobg.png using Guid(d48397ed1e2b1a340a8b17e141bda910) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '08a9948a4c97834fecd8fb151f7b1947') in 0.016232 seconds
-  Import took 0.020231 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.224281 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_06_nobg.png
-  artifactKey: Guid(d60155f929040824a838ff2813816c2f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_06_nobg.png using Guid(d60155f929040824a838ff2813816c2f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '002854f9676847d4932e72076aa03705') in 0.014356 seconds
-  Import took 0.018315 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000444 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_08_nobg.png
-  artifactKey: Guid(f064a2e96e3d25b4da39d75676ec0ac3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_08_nobg.png using Guid(f064a2e96e3d25b4da39d75676ec0ac3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1e1eabe5cc9730c2babd8ec934e2ee0d') in 0.012484 seconds
-  Import took 0.016502 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000203 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_12_nobg.png
-  artifactKey: Guid(87f97aa0be3603e4e87e919755dc418c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_12_nobg.png using Guid(87f97aa0be3603e4e87e919755dc418c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9fc50efd0aabd335e2587e244d1c0284') in 0.012750 seconds
-  Import took 0.016244 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000172 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_13_nobg.png
-  artifactKey: Guid(d21ef620095115447954612c69dac89f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_13_nobg.png using Guid(d21ef620095115447954612c69dac89f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1987f6b457cdcd9248736f557b5db302') in 0.013721 seconds
-  Import took 0.017774 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000253 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_19_nobg.png
-  artifactKey: Guid(cb8469693b05d524d953df226d90257b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_19_nobg.png using Guid(cb8469693b05d524d953df226d90257b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '99df8b365ea50e3185b85e75f1b8720c') in 0.011665 seconds
-  Import took 0.015410 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000219 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_22_nobg.png
-  artifactKey: Guid(8b623656f463cc64b854bbb4e10dbd1c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_22_nobg.png using Guid(8b623656f463cc64b854bbb4e10dbd1c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e8fd84a42aae175060439c6b5c38b8bc') in 0.010960 seconds
-  Import took 0.014933 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000160 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_23_nobg.png
-  artifactKey: Guid(2b348086c2816534a941ae1722bd08e9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_23_nobg.png using Guid(2b348086c2816534a941ae1722bd08e9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6e8d50febb283f83e3f5d1a5b9f9b0aa') in 0.011024 seconds
-  Import took 0.014452 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000219 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_24_nobg.png
-  artifactKey: Guid(ba3af9248ea86d746a4d288fecb87822) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_24_nobg.png using Guid(ba3af9248ea86d746a4d288fecb87822) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4149aa0e94da15f3bf720921c8c7e857') in 0.010720 seconds
-  Import took 0.015227 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000241 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_17_nobg.png
-  artifactKey: Guid(16798b8a5e6043c4d8e4bfd1de81840c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_17_nobg.png using Guid(16798b8a5e6043c4d8e4bfd1de81840c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e1476ba60934303e99898bec1aab6a18') in 0.010110 seconds
-  Import took 0.014475 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000210 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_21_nobg.png
-  artifactKey: Guid(d55cc3e2917c7eb47a57ff4c98c4f49e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_21_nobg.png using Guid(d55cc3e2917c7eb47a57ff4c98c4f49e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '72d4241032102a029e5e5be5bb49be2b') in 0.011695 seconds
-  Import took 0.015714 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000194 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_25_nobg.png
-  artifactKey: Guid(001e79627f62e1d49b48d5632269abc1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_25_nobg.png using Guid(001e79627f62e1d49b48d5632269abc1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a2f6a1a93c9c710aa29d8baf78da7dfd') in 0.011111 seconds
-  Import took 0.015353 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000170 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_11_nobg.png
-  artifactKey: Guid(8dd667685e7412344b654e53320bc260) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_11_nobg.png using Guid(8dd667685e7412344b654e53320bc260) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '628413470423e38baf248273108e0ab9') in 0.012430 seconds
-  Import took 0.017346 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000303 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_14_nobg.png
-  artifactKey: Guid(089dc20d40b00c3409d6d588676f99a6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_14_nobg.png using Guid(089dc20d40b00c3409d6d588676f99a6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd3c12b976d8ca7a2343bf2b2a5c1051c') in 0.013031 seconds
-  Import took 0.016850 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000250 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_10_nobg.png
-  artifactKey: Guid(9436d5998fd62914986b07e8bd9dd71b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_10_nobg.png using Guid(9436d5998fd62914986b07e8bd9dd71b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b4cd56f4774f50f98a8e0da3d0beea00') in 0.012794 seconds
-  Import took 0.017739 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000277 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_16_nobg.png
-  artifactKey: Guid(dbcf3f94804ff854990d6a2a9ef1a224) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_16_nobg.png using Guid(dbcf3f94804ff854990d6a2a9ef1a224) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '360aa999e70806d5d482ebd1f881ca85') in 0.011885 seconds
-  Import took 0.015339 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000176 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_18_nobg.png
-  artifactKey: Guid(5fd10d634cae71f479e3f753adeadfaf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_18_nobg.png using Guid(5fd10d634cae71f479e3f753adeadfaf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1f9d2eb4554f0819abf664c55539c005') in 0.012697 seconds
-  Import took 0.016705 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000233 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_20_nobg.png
-  artifactKey: Guid(de90d5dd0abf6b34a85aed95b7e8083f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_20_nobg.png using Guid(de90d5dd0abf6b34a85aed95b7e8083f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '666b3881bf2e4e01858ac31034613d7b') in 0.012493 seconds
-  Import took 0.016649 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000243 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_09_nobg.png
-  artifactKey: Guid(5cae90addca1c9d48bcf920101ca0c48) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_09_nobg.png using Guid(5cae90addca1c9d48bcf920101ca0c48) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0099989fefc715550e73450b96393f11') in 0.010615 seconds
-  Import took 0.014262 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000186 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_15_nobg.png
-  artifactKey: Guid(f60f76ecd4f50d84ca419edcbf2f12f1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_15_nobg.png using Guid(f60f76ecd4f50d84ca419edcbf2f12f1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '88e866605aa215a4ac1a36ea1ef6f9a9') in 0.012546 seconds
-  Import took 0.016332 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000270 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_07_nobg.png
-  artifactKey: Guid(9cb6ec73b08639d41a6974be1b8a4afa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_07_nobg.png using Guid(9cb6ec73b08639d41a6974be1b8a4afa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a0be0a7e3efbe1f13640db62dcf9a199') in 0.011614 seconds
-  Import took 0.015705 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.456011 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_26_nobg.png
-  artifactKey: Guid(af0393c02f5292f448b80321290785d7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_26_nobg.png using Guid(af0393c02f5292f448b80321290785d7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '76c09fcac5b47a86768a8ed507f79b4c') in 0.009466 seconds
-  Import took 0.013575 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000249 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_28_nobg.png
-  artifactKey: Guid(01421f90dadbc7c4c8bf8037eb91af8f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_28_nobg.png using Guid(01421f90dadbc7c4c8bf8037eb91af8f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e4c03015efe299073a65a4f0cdfdd530') in 0.012428 seconds
-  Import took 0.016377 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000211 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_27_nobg.png
-  artifactKey: Guid(615a93ac6bd837c49bfe0c3856e4207d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_27_nobg.png using Guid(615a93ac6bd837c49bfe0c3856e4207d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4b74b76b4c42f188607639769cf1d474') in 0.011400 seconds
-  Import took 0.015055 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000232 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_30_nobg.png
-  artifactKey: Guid(59bb1c5d0cf9f684d870cb575022f453) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_30_nobg.png using Guid(59bb1c5d0cf9f684d870cb575022f453) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd10d6e682762a2e2f992a52862ddf3c2') in 0.011676 seconds
-  Import took 0.015305 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000233 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_34_nobg.png
-  artifactKey: Guid(41d547c22292de742aa4028c6e05af11) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_34_nobg.png using Guid(41d547c22292de742aa4028c6e05af11) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '758218255113ce2c6fe84e85ffbbb1d2') in 0.012358 seconds
-  Import took 0.016462 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000371 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_33_nobg.png
-  artifactKey: Guid(5345ecd382a602049b84bd1e372bf41b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_33_nobg.png using Guid(5345ecd382a602049b84bd1e372bf41b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6c77dec97ddbb31e71a1093dcb17b456') in 0.013082 seconds
-  Import took 0.016783 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000271 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_29_nobg.png
-  artifactKey: Guid(45da4d6cf3b80ee43ac63cf203dbf63c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_29_nobg.png using Guid(45da4d6cf3b80ee43ac63cf203dbf63c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1ab08f23af650310b072a0b9141c7f2a') in 0.011036 seconds
-  Import took 0.015916 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000229 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_35_nobg.png
-  artifactKey: Guid(04976eb638bba3740a20f94990e0973d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_35_nobg.png using Guid(04976eb638bba3740a20f94990e0973d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '36fc2a5873941d81697633f53289ea01') in 0.010769 seconds
-  Import took 0.014527 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000282 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_32_nobg.png
-  artifactKey: Guid(899b2c0c5f066fb4e8bd8655e8cadcea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_32_nobg.png using Guid(899b2c0c5f066fb4e8bd8655e8cadcea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '95aa5c419bdbab5ca6874be756c826c8') in 0.011425 seconds
-  Import took 0.015158 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000215 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_31_nobg.png
-  artifactKey: Guid(5850112917d509a4e8b515fa31e5cc94) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_31_nobg.png using Guid(5850112917d509a4e8b515fa31e5cc94) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4719e2ec6064c452a267046b51d8cc82') in 0.013654 seconds
-  Import took 0.017679 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 4.277800 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_36_nobg.png
-  artifactKey: Guid(0f83f25ff03776d41833abbf09546044) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_36_nobg.png using Guid(0f83f25ff03776d41833abbf09546044) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fec16fafdcf1f7b325d1fbedc4b94525') in 0.011279 seconds
-  Import took 0.018163 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000318 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_43_nobg.png
-  artifactKey: Guid(f7166d8a4802c534d8edf0f2c2f7543d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_43_nobg.png using Guid(f7166d8a4802c534d8edf0f2c2f7543d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f5f6a0ef447ae616dd533e558408999b') in 0.011618 seconds
-  Import took 0.015982 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000277 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_38_nobg.png
-  artifactKey: Guid(de5dc43c268c4964e9d7f397fd23d968) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_38_nobg.png using Guid(de5dc43c268c4964e9d7f397fd23d968) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '30782efe6f2a16a72a0446c98d286a7a') in 0.014335 seconds
-  Import took 0.018571 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000279 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_44_nobg.png
-  artifactKey: Guid(9a4e564166d8eb54481e3b533e434d29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_44_nobg.png using Guid(9a4e564166d8eb54481e3b533e434d29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aa5bfa25108b16a5cf164d5dea7a13ef') in 0.014315 seconds
-  Import took 0.018117 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000298 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_42_nobg.png
-  artifactKey: Guid(9edf55b3b6742214a8035a13ac87d143) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_42_nobg.png using Guid(9edf55b3b6742214a8035a13ac87d143) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a776223f0a87b7bc01ccfcc8e4004d97') in 0.014416 seconds
-  Import took 0.018529 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000236 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_45_nobg.png
-  artifactKey: Guid(ca49b29f29651ef41be0ac9d3e717267) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_45_nobg.png using Guid(ca49b29f29651ef41be0ac9d3e717267) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1b0673e4264fc52b07b262c8b284e4d9') in 0.011640 seconds
-  Import took 0.015208 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000183 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_47_nobg.png
-  artifactKey: Guid(ab1a067be6e41f14b9930837a8ca9969) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_47_nobg.png using Guid(ab1a067be6e41f14b9930837a8ca9969) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '44010efb2bae4fad55729dbd847c42a1') in 0.013289 seconds
-  Import took 0.016829 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000243 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_50_nobg.png
-  artifactKey: Guid(043679ca06ba94340906e7c023f47c80) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_50_nobg.png using Guid(043679ca06ba94340906e7c023f47c80) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '062e715a4ff54fd8c266b70e5203bc3e') in 0.011509 seconds
-  Import took 0.015607 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000269 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_51_nobg.png
-  artifactKey: Guid(57300eb9a1c1d624ab5327bd6e23179c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_51_nobg.png using Guid(57300eb9a1c1d624ab5327bd6e23179c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b69b9677630421b3e034f243ca57852f') in 0.011014 seconds
-  Import took 0.014490 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000232 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_48_nobg.png
-  artifactKey: Guid(229a43a438439e6478c6abd619d92dbd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_48_nobg.png using Guid(229a43a438439e6478c6abd619d92dbd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a7032cde920ae241490d079e140bd2e4') in 0.012244 seconds
-  Import took 0.015422 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000221 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_55_nobg.png
-  artifactKey: Guid(ec0dd9d1817c54143a4e134f49ade38f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_55_nobg.png using Guid(ec0dd9d1817c54143a4e134f49ade38f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9dc2e3cc60f44a1758f4ce4194706804') in 0.013593 seconds
-  Import took 0.017249 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000285 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_52_nobg.png
-  artifactKey: Guid(baeb2b1c464da5d419d50cf23ef33210) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_52_nobg.png using Guid(baeb2b1c464da5d419d50cf23ef33210) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '493b02ee99373c993e892b0dcf1e99a5') in 0.010896 seconds
-  Import took 0.014590 seconds .
+  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Research_Replenish3.asset
+  artifactKey: Guid(ed26b0f4d91cb6148b63805c289e873f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Research_Replenish3.asset using Guid(ed26b0f4d91cb6148b63805c289e873f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c81ed42daff7960c455b0fa499b9662a') in 0.042567 seconds
+  Import took 0.053191 seconds .
 
 ========================================================================
 Received Import Request.
   Time since last request: 0.000220 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_37_nobg.png
-  artifactKey: Guid(07be06a8bca4e6d4990809fd04dd7d34) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_37_nobg.png using Guid(07be06a8bca4e6d4990809fd04dd7d34) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b325f50745d021ee4841cc1b822dcd2e') in 0.010383 seconds
-  Import took 0.013930 seconds .
+  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Revenge_CopyCard_Self_Perpetual.asset
+  artifactKey: Guid(17dba94e947424a4b9eaf39eb86afec7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Revenge_CopyCard_Self_Perpetual.asset using Guid(17dba94e947424a4b9eaf39eb86afec7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b8ee34d18454758a5e2b1ace6f416e28') in 0.005162 seconds
+  Import took 0.009355 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000241 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_53_nobg.png
-  artifactKey: Guid(38a402aefe0af954a883be3fd175aee3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_53_nobg.png using Guid(38a402aefe0af954a883be3fd175aee3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9516eb0f813ef922fc0b2dcc86fb32b3') in 0.014118 seconds
-  Import took 0.017901 seconds .
+  Time since last request: 0.000306 seconds.
+  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Play_Deal4_1EU_IfWounded_Any.asset
+  artifactKey: Guid(760bedd091b35a6458b8034ca7cb923e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Play_Deal4_1EU_IfWounded_Any.asset using Guid(760bedd091b35a6458b8034ca7cb923e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a7d8cd3a3cb116768e9331a143e4e351') in 0.005771 seconds
+  Import took 0.009817 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000172 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_58_nobg.png
-  artifactKey: Guid(61ee9f0bd00982348ba6f28fcc8a205d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_58_nobg.png using Guid(61ee9f0bd00982348ba6f28fcc8a205d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '944616449e4f2d464df1ceb668aa3beb') in 0.008814 seconds
-  Import took 0.012278 seconds .
+  Time since last request: 3.736493 seconds.
+  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Infiltrate_Draw1_IfWounded_EH.asset
+  artifactKey: Guid(b6162a3a196d3a54991830fbaeafc23b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Infiltrate_Draw1_IfWounded_EH.asset using Guid(b6162a3a196d3a54991830fbaeafc23b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '43ce941c0440a7c73599b4bb8d533438') in 0.006047 seconds
+  Import took 0.012703 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000253 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_59_nobg.png
-  artifactKey: Guid(f0a2eae60db4c89429d67aa44d89710e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_59_nobg.png using Guid(f0a2eae60db4c89429d67aa44d89710e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2a7b991f0396c4697893015c31dde17e') in 0.013755 seconds
-  Import took 0.017516 seconds .
+  Time since last request: 16.653335 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/Draw/Draw1_IfWounded_EH.asset
+  artifactKey: Guid(3aa38b49064f27c4d87358ab6860ac47) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/Draw/Draw1_IfWounded_EH.asset using Guid(3aa38b49064f27c4d87358ab6860ac47) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '672deff19ab5ef22eaa36644545df180') in 0.002832 seconds
+  Import took 0.006979 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000210 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_64_nobg.png
-  artifactKey: Guid(9f7f17a24aad0ef41b3359462f18a090) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_64_nobg.png using Guid(9f7f17a24aad0ef41b3359462f18a090) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0245a95efb376ff26ba6081584781a80') in 0.011647 seconds
-  Import took 0.015157 seconds .
+  Time since last request: 6.195351 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/Draw/Draw_1_IfWounded_EH_Precheck.asset
+  artifactKey: Guid(9e96ca195d4a6bc43972c40133ccfee5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/Draw/Draw_1_IfWounded_EH_Precheck.asset using Guid(9e96ca195d4a6bc43972c40133ccfee5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '509398c3adf6fe612095cc7141ed9a2e') in 0.002520 seconds
+  Import took 0.006777 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000192 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_56_nobg.png
-  artifactKey: Guid(e587b260b7e5c6f4687cfd87ac91f0fb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_56_nobg.png using Guid(e587b260b7e5c6f4687cfd87ac91f0fb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '813c653bdbb78c999bfa7482f6d77fd6') in 0.010085 seconds
-  Import took 0.013528 seconds .
+  Time since last request: 4.228413 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/Draw/Draw_1_IfWounded_EH_Precheck.asset
+  artifactKey: Guid(9e96ca195d4a6bc43972c40133ccfee5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/Draw/Draw_1_IfWounded_EH_Precheck.asset using Guid(9e96ca195d4a6bc43972c40133ccfee5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1c1b8ea17044d6f265ebda2f335959cd') in 0.002382 seconds
+  Import took 0.006521 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000227 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_60_nobg.png
-  artifactKey: Guid(a725b92a6cbcc204faaa6273ef9c138e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_60_nobg.png using Guid(a725b92a6cbcc204faaa6273ef9c138e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a58349b7ad88bc1adc7f70e117659836') in 0.013632 seconds
-  Import took 0.017775 seconds .
+  Time since last request: 56.494406 seconds.
+  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Play_Deal4_1EU_IfWounded_EH.asset
+  artifactKey: Guid(760bedd091b35a6458b8034ca7cb923e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Play_Deal4_1EU_IfWounded_EH.asset using Guid(760bedd091b35a6458b8034ca7cb923e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '41cb271788dbbe7ccab24f97873e44a4') in 0.004232 seconds
+  Import took 0.008412 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000197 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_65_nobg.png
-  artifactKey: Guid(ecf33a3e2b8b3bf4e84af8fdead7d46f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_65_nobg.png using Guid(ecf33a3e2b8b3bf4e84af8fdead7d46f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ab5fd59d8ee2e8f6fcf6edc7a557a84d') in 0.015231 seconds
-  Import took 0.018952 seconds .
+  Time since last request: 16.347194 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal4_1EU_IfWounded_EH.asset
+  artifactKey: Guid(5def9818d12435747b4a24626020793b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal4_1EU_IfWounded_EH.asset using Guid(5def9818d12435747b4a24626020793b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8b08a9701168627b4867453ea4164d70') in 0.002906 seconds
+  Import took 0.007049 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000216 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_39_nobg.png
-  artifactKey: Guid(2fb60b770c04a384e8b4167f6994a300) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_39_nobg.png using Guid(2fb60b770c04a384e8b4167f6994a300) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '46352146a946dc50c0973bd125481e27') in 0.012659 seconds
-  Import took 0.017463 seconds .
+  Time since last request: 19.856349 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_4_IfWounded_EH_Precheck.asset
+  artifactKey: Guid(921da4bb2eae72b488411efebaa0ee34) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_4_IfWounded_EH_Precheck.asset using Guid(921da4bb2eae72b488411efebaa0ee34) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '20f1d49f90569e472d88c0f580a4bd9b') in 0.002729 seconds
+  Import took 0.007232 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000248 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_46_nobg.png
-  artifactKey: Guid(848773cdf315dc94a8cd2641323bf63b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_46_nobg.png using Guid(848773cdf315dc94a8cd2641323bf63b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f00749a7fd323a5c83344abee00797fe') in 0.013360 seconds
-  Import took 0.017491 seconds .
+  Time since last request: 50.300220 seconds.
+  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Play_GiveSelf_plus2plus1_IfWounded_EH.asset
+  artifactKey: Guid(007c68a9806bc1740a0a0c314c8728c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Play_GiveSelf_plus2plus1_IfWounded_EH.asset using Guid(007c68a9806bc1740a0a0c314c8728c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '672451c455cbd4f0aeeacac5f85752ed') in 0.005272 seconds
+  Import took 0.008678 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000225 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_41_nobg.png
-  artifactKey: Guid(f6757501ec5c4c84c83725567f852bb5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_41_nobg.png using Guid(f6757501ec5c4c84c83725567f852bb5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '89e610aef056d0587d4c95655c4110b3') in 0.011046 seconds
-  Import took 0.014823 seconds .
+  Time since last request: 14.523295 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus2plus1_IfWounded_EH.asset
+  artifactKey: Guid(de5e4a1665c0d5440876940769eda31a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus2plus1_IfWounded_EH.asset using Guid(de5e4a1665c0d5440876940769eda31a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f5e4b1f6c2f511755d10d1852515756c') in 0.002808 seconds
+  Import took 0.006821 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000186 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_49_nobg.png
-  artifactKey: Guid(f99ca9c1a6da7aa44a6e29f838adbdaa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_49_nobg.png using Guid(f99ca9c1a6da7aa44a6e29f838adbdaa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c9ebe99cf6c949b18e4aa71390d2f3a3') in 0.011026 seconds
-  Import took 0.014840 seconds .
+  Time since last request: 6.247550 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus2plus1_IfWounded_EH.asset
+  artifactKey: Guid(b7195df3e662ca5468a675423c9e91c5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus2plus1_IfWounded_EH.asset using Guid(b7195df3e662ca5468a675423c9e91c5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5f9ed9edf225c5a3b2ce136d6adc9426') in 0.002573 seconds
+  Import took 0.006472 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000179 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_40_nobg.png
-  artifactKey: Guid(179cdb66f85462643acc325cd2ddf774) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_40_nobg.png using Guid(179cdb66f85462643acc325cd2ddf774) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2593e5683d8914cd322882eb6ee34656') in 0.009338 seconds
-  Import took 0.012696 seconds .
+  Time since last request: 24.075535 seconds.
+  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Play_GiveSelf_plus1plus2_IfWounded_PH.asset
+  artifactKey: Guid(d381eda006bf0ef4e86dd2233662e4ff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Play_GiveSelf_plus1plus2_IfWounded_PH.asset using Guid(d381eda006bf0ef4e86dd2233662e4ff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e654f5d75fd16e826b6494bf1c681d1a') in 0.004044 seconds
+  Import took 0.007955 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000242 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_62_nobg.png
-  artifactKey: Guid(997697f4a852f75408e7c21c06bad579) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_62_nobg.png using Guid(997697f4a852f75408e7c21c06bad579) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '68c9dfe1371f5d1024bd60d98149664f') in 0.010822 seconds
-  Import took 0.015133 seconds .
+  Time since last request: 11.928008 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus1plus2_IfWounded_Any.asset
+  artifactKey: Guid(38355ccfd7c283347b4d68e634a2f133) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus1plus2_IfWounded_Any.asset using Guid(38355ccfd7c283347b4d68e634a2f133) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '97ffed48baaa1b0bdaf6b84f8032f7d7') in 0.006077 seconds
+  Import took 0.010142 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000225 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_61_nobg.png
-  artifactKey: Guid(e01c6534aeb64cd4fae05ae86771237e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_61_nobg.png using Guid(e01c6534aeb64cd4fae05ae86771237e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '379fb8611b372af3d58e2fb502f091c7') in 0.010554 seconds
-  Import took 0.014641 seconds .
+  Time since last request: 2.918896 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus1plus2_IfWounded_PH.asset
+  artifactKey: Guid(38355ccfd7c283347b4d68e634a2f133) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus1plus2_IfWounded_PH.asset using Guid(38355ccfd7c283347b4d68e634a2f133) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4872eab99fb860a1f34f52207055be69') in 0.002648 seconds
+  Import took 0.006676 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000178 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_57_nobg.png
-  artifactKey: Guid(1a024348210a9ee4a8c5d6ed707ec1e4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_57_nobg.png using Guid(1a024348210a9ee4a8c5d6ed707ec1e4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b1a7768adcc37cf77069bd32195fa821') in 0.010987 seconds
-  Import took 0.014834 seconds .
+  Time since last request: 5.635704 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus1plus2_IfWounded_PH.asset
+  artifactKey: Guid(9efbaecd06751be478ccb756d3b8bdb0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus1plus2_IfWounded_PH.asset using Guid(9efbaecd06751be478ccb756d3b8bdb0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '092d06c6de756ddaa2f2143c2d90003a') in 0.002790 seconds
+  Import took 0.006736 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000191 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_36_nobg.png
-  artifactKey: Guid(0f83f25ff03776d41833abbf09546044) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_36_nobg.png using Guid(0f83f25ff03776d41833abbf09546044) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fec16fafdcf1f7b325d1fbedc4b94525') in 0.011909 seconds
-  Import took 0.016356 seconds .
+  Time since last request: 3.405047 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus1plus2_IfWounded_PH.asset
+  artifactKey: Guid(9efbaecd06751be478ccb756d3b8bdb0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus1plus2_IfWounded_PH.asset using Guid(9efbaecd06751be478ccb756d3b8bdb0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '28cafefd5d66c5b720fa933e90164cc9') in 0.002248 seconds
+  Import took 0.005983 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000301 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_63_nobg.png
-  artifactKey: Guid(7a52f3884f7bf1940bebf6757484c1e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_63_nobg.png using Guid(7a52f3884f7bf1940bebf6757484c1e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1d6581b56b091b64c140a657eb123c4c') in 0.011937 seconds
-  Import took 0.016167 seconds .
+  Time since last request: 534.943305 seconds.
+  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Play_GiveSelf_plus1plus2_IfWounded_PH.asset
+  artifactKey: Guid(d381eda006bf0ef4e86dd2233662e4ff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Play_GiveSelf_plus1plus2_IfWounded_PH.asset using Guid(d381eda006bf0ef4e86dd2233662e4ff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fe4a54c7b8dfc7e7ce3566114d648c31') in 0.004471 seconds
+  Import took 0.011617 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000246 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_54_nobg.png
-  artifactKey: Guid(126b55083a1133743935bb5a58fd533e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_54_nobg.png using Guid(126b55083a1133743935bb5a58fd533e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aa8e1a1207af2839b83d81c7f7612642') in 0.009842 seconds
-  Import took 0.014637 seconds .
+  Time since last request: 2.538705 seconds.
+  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Play_GiveSelf_plus1plus2_IfWounded_EH.asset
+  artifactKey: Guid(d381eda006bf0ef4e86dd2233662e4ff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Play_GiveSelf_plus1plus2_IfWounded_EH.asset using Guid(d381eda006bf0ef4e86dd2233662e4ff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '76395511b225833f5654e1268198698e') in 0.004023 seconds
+  Import took 0.008481 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.606714 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_66_nobg.png
-  artifactKey: Guid(61e9e1bb115b63d4fbaea8fdb0ab2981) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_66_nobg.png using Guid(61e9e1bb115b63d4fbaea8fdb0ab2981) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e30a32266b62ea444cb657ae7c85b9a2') in 0.010536 seconds
-  Import took 0.014357 seconds .
+  Time since last request: 16.167240 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus1plus2_IfWounded_PH.asset
+  artifactKey: Guid(38355ccfd7c283347b4d68e634a2f133) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus1plus2_IfWounded_PH.asset using Guid(38355ccfd7c283347b4d68e634a2f133) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c0188f14c18a65431910292fd056b077') in 0.002832 seconds
+  Import took 0.010604 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.002408 seconds.
-  path: Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_66_nobg.png
-  artifactKey: Guid(61e9e1bb115b63d4fbaea8fdb0ab2981) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Dependencies/Human_and_Monster_avatar_icons/No_bg/Monsters_66_nobg.png using Guid(61e9e1bb115b63d4fbaea8fdb0ab2981) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e30a32266b62ea444cb657ae7c85b9a2') in 0.009891 seconds
-  Import took 0.014139 seconds .
+  Time since last request: 3.563169 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus1plus2_IfWounded_EH.asset
+  artifactKey: Guid(38355ccfd7c283347b4d68e634a2f133) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus1plus2_IfWounded_EH.asset using Guid(38355ccfd7c283347b4d68e634a2f133) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6f8464c6eeeefc11e70233a02bbddcc0') in 0.003224 seconds
+  Import took 0.007234 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 145.846051 seconds.
-  path: Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/human_1.PNG
-  artifactKey: Guid(2e19c8e5b3a1b9942b220e157495412d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/human_1.PNG using Guid(2e19c8e5b3a1b9942b220e157495412d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bdcf2d11f82fb3e4848a6337888258c3') in 0.015636 seconds
-  Import took 0.019667 seconds .
+  Time since last request: 5.001750 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus1plus2_IfWounded_EH.asset
+  artifactKey: Guid(9efbaecd06751be478ccb756d3b8bdb0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus1plus2_IfWounded_EH.asset using Guid(9efbaecd06751be478ccb756d3b8bdb0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '53140789188a14b8a2f7f3c838519223') in 0.002324 seconds
+  Import took 0.006806 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 4.362578 seconds.
-  path: Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Burning_Hand_Reaper.png
-  artifactKey: Guid(ca0f3d6e238c988458ca2393bf167a09) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Burning_Hand_Reaper.png using Guid(ca0f3d6e238c988458ca2393bf167a09) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '78d4faf5d477679805416e0e984b69b5') in 0.019803 seconds
-  Import took 0.024385 seconds .
+  Time since last request: 3.784196 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus1plus2_IfWounded_EH.asset
+  artifactKey: Guid(9efbaecd06751be478ccb756d3b8bdb0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus1plus2_IfWounded_EH.asset using Guid(9efbaecd06751be478ccb756d3b8bdb0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd800d214bc0f7493b42323d647080ea0') in 0.002138 seconds
+  Import took 0.006172 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 51.701695 seconds.
-  path: Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/human_2.png
-  artifactKey: Guid(1d800df8c5c96f04a96fddc6b8b5b6e9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/human_2.png using Guid(1d800df8c5c96f04a96fddc6b8b5b6e9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b25f5e7f6e9bf09c3bd82a3d2987fcd7') in 0.013570 seconds
-  Import took 0.018083 seconds .
+  Time since last request: 852.818001 seconds.
+  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Play_GiveSelf_plus2plus1_IfWounded_EH.asset
+  artifactKey: Guid(007c68a9806bc1740a0a0c314c8728c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Play_GiveSelf_plus2plus1_IfWounded_EH.asset using Guid(007c68a9806bc1740a0a0c314c8728c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'af43759ff619665d79daf76b29aadb69') in 0.004310 seconds
+  Import took 0.012220 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 4.023332 seconds.
-  path: Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Burning_Hand_Fearmonger.png
-  artifactKey: Guid(74b63a8ebc7eccc499b57f42c4ac43f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Burning_Hand_Fearmonger.png using Guid(74b63a8ebc7eccc499b57f42c4ac43f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b45b22fd645fa8be250f23d37693c0da') in 0.012068 seconds
-  Import took 0.016371 seconds .
+  Time since last request: 5.620063 seconds.
+  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Play_GiveSelf_plus1plus1_Ranged_IfWounded_EH.asset
+  artifactKey: Guid(007c68a9806bc1740a0a0c314c8728c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Play_GiveSelf_plus1plus1_Ranged_IfWounded_EH.asset using Guid(007c68a9806bc1740a0a0c314c8728c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ee9e115ca0034f5aa9c980fb5e0c33f1') in 0.004124 seconds
+  Import took 0.008233 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 15.413528 seconds.
-  path: Assets/Resources/Heroes/Enemy Heroes/Part 2 Enemies/Burning Hand/Burning Hand Fearmonger/Burning Hand Fearmonger.asset
-  artifactKey: Guid(76f745cb55a9e86428fc4fc05b8877df) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Heroes/Enemy Heroes/Part 2 Enemies/Burning Hand/Burning Hand Fearmonger/Burning Hand Fearmonger.asset using Guid(76f745cb55a9e86428fc4fc05b8877df) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f698f818215a73fae5999395f9322fcd') in 0.069158 seconds
-  Import took 0.074081 seconds .
+  Time since last request: 18.482697 seconds.
+  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Play_GiveSelf_plus1plus1_Ranged_IfWounded_EH.asset
+  artifactKey: Guid(007c68a9806bc1740a0a0c314c8728c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Play_GiveSelf_plus1plus1_Ranged_IfWounded_EH.asset using Guid(007c68a9806bc1740a0a0c314c8728c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b9a234345b9c268d3c9ff190132ba43e') in 0.005211 seconds
+  Import took 0.009399 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 15.537785 seconds.
-  path: Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Burning_Hand_Reaper.png
-  artifactKey: Guid(ca0f3d6e238c988458ca2393bf167a09) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Burning_Hand_Reaper.png using Guid(ca0f3d6e238c988458ca2393bf167a09) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cedd4c48ab6f4d983f8f3b21112b06b4') in 0.010273 seconds
-  Import took 0.014110 seconds .
+  Time since last request: 5.929114 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus2plus1_IfWounded_EH.asset
+  artifactKey: Guid(de5e4a1665c0d5440876940769eda31a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus2plus1_IfWounded_EH.asset using Guid(de5e4a1665c0d5440876940769eda31a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '92464c88d74181c79641c753050a3641') in 0.003077 seconds
+  Import took 0.021707 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000950 seconds.
-  path: Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Burning_Hand_Fearmonger.png
-  artifactKey: Guid(74b63a8ebc7eccc499b57f42c4ac43f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Burning_Hand_Fearmonger.png using Guid(74b63a8ebc7eccc499b57f42c4ac43f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '56c21d9beada644a05044c54b95415d9') in 0.015620 seconds
-  Import took 0.019694 seconds .
+  Time since last request: 6.079874 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus1plus1_Ranged_IfWounded_EH.asset
+  artifactKey: Guid(de5e4a1665c0d5440876940769eda31a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus1plus1_Ranged_IfWounded_EH.asset using Guid(de5e4a1665c0d5440876940769eda31a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '36b15c5370a162decaa8cd155cd131bb') in 0.002739 seconds
+  Import took 0.007107 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000201 seconds.
-  path: Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Iron-Clan_Enforcer.png
-  artifactKey: Guid(14b1004efdcdcbc439beeb169eea5550) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Iron-Clan_Enforcer.png using Guid(14b1004efdcdcbc439beeb169eea5550) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c8405bc18c1c5276321bfd90a8f0a907') in 0.011403 seconds
-  Import took 0.016258 seconds .
+  Time since last request: 2.836298 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus2plus1_IfWounded_EH.asset
+  artifactKey: Guid(b7195df3e662ca5468a675423c9e91c5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus2plus1_IfWounded_EH.asset using Guid(b7195df3e662ca5468a675423c9e91c5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e3f177863cac7d144547ebb81bd42e2d') in 0.002158 seconds
+  Import took 0.009710 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000260 seconds.
-  path: Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Mega-Corp_Operative.psd
-  artifactKey: Guid(b8a08e46854836c4ebf1992f6ffbcdcd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Mega-Corp_Operative.psd using Guid(b8a08e46854836c4ebf1992f6ffbcdcd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3adbaeade3720674d6c5f56f3cf21ecc') in 0.013449 seconds
-  Import took 0.016998 seconds .
+  Time since last request: 5.304435 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus1plus1_Ranged_IfWounded_EH.asset
+  artifactKey: Guid(b7195df3e662ca5468a675423c9e91c5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus1plus1_Ranged_IfWounded_EH.asset using Guid(b7195df3e662ca5468a675423c9e91c5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e6496e3b805bae5cad10ee742a303e4b') in 0.002427 seconds
+  Import took 0.006758 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000230 seconds.
-  path: Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Shadowblade_Assassin.psd
-  artifactKey: Guid(8ca03a7233688ac4e96a191e578fa217) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Shadowblade_Assassin.psd using Guid(8ca03a7233688ac4e96a191e578fa217) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c5bd3d8fb29927d0eb2b608cc44806bc') in 0.011996 seconds
-  Import took 0.016063 seconds .
+  Time since last request: 11.401903 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus1plus1_IfWounded_EH.asset
+  artifactKey: Guid(b7195df3e662ca5468a675423c9e91c5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus1plus1_IfWounded_EH.asset using Guid(b7195df3e662ca5468a675423c9e91c5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7fa7b070dbb16b54af6734cef0b2d14a') in 0.002331 seconds
+  Import took 0.006166 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000273 seconds.
-  path: Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Mutant_Alpha.psd
-  artifactKey: Guid(1a1e30c1307f68345a76a603b1f667dc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Mutant_Alpha.psd using Guid(1a1e30c1307f68345a76a603b1f667dc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '56680b275317a5ac31b794d3d13fbf9a') in 0.014151 seconds
-  Import took 0.018115 seconds .
+  Time since last request: 40.059409 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Ranged 1.asset
+  artifactKey: Guid(63c7e13f16e7470478ca62f4f739712c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Ranged 1.asset using Guid(63c7e13f16e7470478ca62f4f739712c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '262f9ba0180fab2380816c94f34ab129') in 0.003277 seconds
+  Import took 0.007406 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000229 seconds.
-  path: Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Iron-Clan_Brute.png
-  artifactKey: Guid(38dca8bb6c55ab0418d101ad16ae3c65) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Iron-Clan_Brute.png using Guid(38dca8bb6c55ab0418d101ad16ae3c65) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '56dd8208d08ff6d6c8751e51e8440a40') in 0.013392 seconds
-  Import took 0.018125 seconds .
+  Time since last request: 5.547659 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Ranged_IfWounded.asset
+  artifactKey: Guid(63c7e13f16e7470478ca62f4f739712c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Ranged_IfWounded.asset using Guid(63c7e13f16e7470478ca62f4f739712c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a09223cc36f2017bd0fd4192dde7ad95') in 0.003207 seconds
+  Import took 0.007209 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000235 seconds.
-  path: Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Shadowblade_Specialist.png
-  artifactKey: Guid(d3a40188f01b88444a3718972c683968) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Shadowblade_Specialist.png using Guid(d3a40188f01b88444a3718972c683968) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ece255d45563251e81e4bbc6cef2b427') in 0.012584 seconds
-  Import took 0.016281 seconds .
+  Time since last request: 8.843775 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Ranged_IfWounded_EH.asset
+  artifactKey: Guid(63c7e13f16e7470478ca62f4f739712c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Ranged_IfWounded_EH.asset using Guid(63c7e13f16e7470478ca62f4f739712c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '73d46b0f418f038c0ac97bd1b0c2b152') in 0.003158 seconds
+  Import took 0.007032 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000206 seconds.
-  path: Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/DarkTech_Analyzer.psd
-  artifactKey: Guid(72775608e6783704a9b9c4d1c4782778) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/DarkTech_Analyzer.psd using Guid(72775608e6783704a9b9c4d1c4782778) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1a6b50585652ccff2135b964018f2811') in 0.012067 seconds
-  Import took 0.016416 seconds .
+  Time since last request: 8.590294 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus1plus1_Ranged_IfWounded_EH.asset
+  artifactKey: Guid(de5e4a1665c0d5440876940769eda31a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus1plus1_Ranged_IfWounded_EH.asset using Guid(de5e4a1665c0d5440876940769eda31a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0dd9f5ff6ce5ed9795e792be686d71ea') in 0.003696 seconds
+  Import took 0.010959 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.002952 seconds.
-  path: Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Shadowblade_Specialist.png
-  artifactKey: Guid(d3a40188f01b88444a3718972c683968) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Shadowblade_Specialist.png using Guid(d3a40188f01b88444a3718972c683968) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ece255d45563251e81e4bbc6cef2b427') in 0.016007 seconds
-  Import took 0.020032 seconds .
+  Time since last request: 10.994691 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus1plus1_IfWounded_EH.asset
+  artifactKey: Guid(b7195df3e662ca5468a675423c9e91c5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus1plus1_IfWounded_EH.asset using Guid(b7195df3e662ca5468a675423c9e91c5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4dff441f7d5600df989786b687db7e05') in 0.003147 seconds
+  Import took 0.009850 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 19.395967 seconds.
-  path: Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Powers/Vindication.png
-  artifactKey: Guid(6503fe7f24c22464d8db10b0698a40d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Powers/Vindication.png using Guid(6503fe7f24c22464d8db10b0698a40d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8e2ab8e1c1f6c92d84dc8649c714bf0b') in 0.010652 seconds
-  Import took 0.014148 seconds .
+  Time since last request: 21.349177 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Ranged_IfWounded_EH.asset
+  artifactKey: Guid(63c7e13f16e7470478ca62f4f739712c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Ranged_IfWounded_EH.asset using Guid(63c7e13f16e7470478ca62f4f739712c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c7fb209daa3b91b941d9a7ca886efb27') in 0.003360 seconds
+  Import took 0.007458 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.007004 seconds.
-  path: Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Powers/Cloak_In_Shadow.png
-  artifactKey: Guid(0231813a13161634eae0fa1c3b24b906) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Powers/Cloak_In_Shadow.png using Guid(0231813a13161634eae0fa1c3b24b906) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '55075ebd832aa0c9e7f400c449bfa8b2') in 0.017883 seconds
-  Import took 0.022779 seconds .
+  Time since last request: 7.584263 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal4_1EU_IfWounded_EH.asset
+  artifactKey: Guid(5def9818d12435747b4a24626020793b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal4_1EU_IfWounded_EH.asset using Guid(5def9818d12435747b4a24626020793b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '569b4e95b253038da16c49762c4181eb') in 0.002724 seconds
+  Import took 0.009515 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000210 seconds.
-  path: Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Powers/Fastidious_Learner.png
-  artifactKey: Guid(e419597b96ef8204f81b44bc7f5ec41e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Powers/Fastidious_Learner.png using Guid(e419597b96ef8204f81b44bc7f5ec41e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8134bd152dc82118f912f5d60db4bea5') in 0.011933 seconds
-  Import took 0.016576 seconds .
+  Time since last request: 49.500090 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus1plus1_Ranged_IfWounded_EH.asset
+  artifactKey: Guid(de5e4a1665c0d5440876940769eda31a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus1plus1_Ranged_IfWounded_EH.asset using Guid(de5e4a1665c0d5440876940769eda31a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '473a4d34ebd66d9fbcc5033579e242bf') in 0.004760 seconds
+  Import took 0.012296 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000183 seconds.
-  path: Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Powers/Domination.PNG
-  artifactKey: Guid(d6b135eb184293d49b973ff2bd163af6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Powers/Domination.PNG using Guid(d6b135eb184293d49b973ff2bd163af6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4906549ff28f062f98f118a699e4a54e') in 0.013015 seconds
-  Import took 0.016827 seconds .
+  Time since last request: 0.001650 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus1plus1_Ranged_IfWounded_EH.asset
+  artifactKey: Guid(de5e4a1665c0d5440876940769eda31a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus1plus1_Ranged_IfWounded_EH.asset using Guid(de5e4a1665c0d5440876940769eda31a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '473a4d34ebd66d9fbcc5033579e242bf') in 0.003695 seconds
+  Import took 0.007806 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000191 seconds.
-  path: Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Powers/Unseen_Fears.PNG
-  artifactKey: Guid(7d1b4497036b5784dbe08d1dd04bcd30) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Powers/Unseen_Fears.PNG using Guid(7d1b4497036b5784dbe08d1dd04bcd30) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd85d63223a1616a2cd26fdea1bf83e2a') in 0.018808 seconds
-  Import took 0.023335 seconds .
+  Time since last request: 8449.512675 seconds.
+  path: Assets/Scripts/Effects/Effect Classes/EffectGroup.cs
+  artifactKey: Guid(a22d7123f6ee007468cbdc6e9b6fe2b0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Classes/EffectGroup.cs using Guid(a22d7123f6ee007468cbdc6e9b6fe2b0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7e16bfbd7bfcf9d9839615b2cc40d6cc') in 0.010441 seconds
+  Import took 0.039475 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000212 seconds.
-  path: Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Powers/Onslaught.PNG
-  artifactKey: Guid(da51d0cf7c3cd6e44b010d348d27df78) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Powers/Onslaught.PNG using Guid(da51d0cf7c3cd6e44b010d348d27df78) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e1f090135171a54007c1c74aa36b7e81') in 0.012221 seconds
-  Import took 0.015969 seconds .
+  Time since last request: 1.011560 seconds.
+  path: Assets/Scripts/Effects/Effect Classes/Effect.cs
+  artifactKey: Guid(9d9964960e4db824faf990b8b5e47ae6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Classes/Effect.cs using Guid(9d9964960e4db824faf990b8b5e47ae6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1fc613ec56b84214b9f1da948e434992') in 0.003967 seconds
+  Import took 0.009740 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000182 seconds.
-  path: Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Powers/Iron_Dominion.png
-  artifactKey: Guid(f0b4c7296fdabe148acc9b4488e1ad08) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Powers/Iron_Dominion.png using Guid(f0b4c7296fdabe148acc9b4488e1ad08) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1b9976cbc575fbf6a6d5cba09520be3f') in 0.016082 seconds
-  Import took 0.019825 seconds .
+  Time since last request: 0.000700 seconds.
+  path: Assets/Scripts/Effects/Effect Classes/Effect.cs
+  artifactKey: Guid(9d9964960e4db824faf990b8b5e47ae6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Classes/Effect.cs using Guid(9d9964960e4db824faf990b8b5e47ae6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1fc613ec56b84214b9f1da948e434992') in 0.002138 seconds
+  Import took 0.007665 seconds .
 
 ========================================================================
-Received Import Request.
-  Time since last request: 0.000178 seconds.
-  path: Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Powers/Regeneration.png
-  artifactKey: Guid(465443e30d7a6e241a291b1f719bf3ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Powers/Regeneration.png using Guid(465443e30d7a6e241a291b1f719bf3ab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0e064d5a2132e0a705adb0ce17491e94') in 0.013486 seconds
-  Import took 0.017873 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 8.392758 seconds.
-  path: Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Burning_Hand_Reaper.png
-  artifactKey: Guid(ca0f3d6e238c988458ca2393bf167a09) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Burning_Hand_Reaper.png using Guid(ca0f3d6e238c988458ca2393bf167a09) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b07cab045aa091278c0f8fcabff438e3') in 0.010124 seconds
-  Import took 0.013547 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.001586 seconds.
-  path: Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Burning_Hand_Fearmonger.png
-  artifactKey: Guid(74b63a8ebc7eccc499b57f42c4ac43f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Burning_Hand_Fearmonger.png using Guid(74b63a8ebc7eccc499b57f42c4ac43f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '144124d093849371c59976984eccfe2a') in 0.016802 seconds
-  Import took 0.021488 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000239 seconds.
-  path: Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Iron-Clan_Enforcer.png
-  artifactKey: Guid(14b1004efdcdcbc439beeb169eea5550) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Iron-Clan_Enforcer.png using Guid(14b1004efdcdcbc439beeb169eea5550) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c57b9411707cac52556dd2e837854503') in 0.019910 seconds
-  Import took 0.024277 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000245 seconds.
-  path: Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Mega-Corp_Operative.psd
-  artifactKey: Guid(b8a08e46854836c4ebf1992f6ffbcdcd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Mega-Corp_Operative.psd using Guid(b8a08e46854836c4ebf1992f6ffbcdcd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '31a2d3a1d4f7ee973198488bc785c109') in 0.018555 seconds
-  Import took 0.021836 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000218 seconds.
-  path: Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Shadowblade_Assassin.psd
-  artifactKey: Guid(8ca03a7233688ac4e96a191e578fa217) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Shadowblade_Assassin.psd using Guid(8ca03a7233688ac4e96a191e578fa217) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6c9afadd94cc00e231fdf551baa0454b') in 0.015647 seconds
-  Import took 0.020101 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000188 seconds.
-  path: Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Mutant_Alpha.psd
-  artifactKey: Guid(1a1e30c1307f68345a76a603b1f667dc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Mutant_Alpha.psd using Guid(1a1e30c1307f68345a76a603b1f667dc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0280d35ee521f73fdb9da2e64e44abfa') in 0.011333 seconds
-  Import took 0.014747 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000218 seconds.
-  path: Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Iron-Clan_Brute.png
-  artifactKey: Guid(38dca8bb6c55ab0418d101ad16ae3c65) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Iron-Clan_Brute.png using Guid(38dca8bb6c55ab0418d101ad16ae3c65) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a535f0d7dac63cea40518e0544cad2df') in 0.010530 seconds
-  Import took 0.014495 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000226 seconds.
-  path: Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Shadowblade_Specialist.png
-  artifactKey: Guid(d3a40188f01b88444a3718972c683968) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/Shadowblade_Specialist.png using Guid(d3a40188f01b88444a3718972c683968) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3cc9d093e9f828b43e5a9ba5fca54890') in 0.013946 seconds
-  Import took 0.017566 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000219 seconds.
-  path: Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/DarkTech_Analyzer.psd
-  artifactKey: Guid(72775608e6783704a9b9c4d1c4782778) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Enemy Heroes/Enemy Hero Portraits/DarkTech_Analyzer.psd using Guid(72775608e6783704a9b9c4d1c4782778) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ce32e34d82d80f3149cf51393ba495ea') in 0.011487 seconds
-  Import took 0.015456 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 16.110622 seconds.
-  path: Assets/Sprites/Heroes/Player Heroes/Hero Augments/Cognitive_Magnifier.png
-  artifactKey: Guid(045268d7be2ad8746ac7d98d40bd9a7a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Player Heroes/Hero Augments/Cognitive_Magnifier.png using Guid(045268d7be2ad8746ac7d98d40bd9a7a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '13a11ca4c528b263a055d34bea510edf') in 0.010342 seconds
-  Import took 0.014120 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000256 seconds.
-  path: Assets/Sprites/Heroes/Player Heroes/Hero Augments/Inertial_Catalyzer.PNG
-  artifactKey: Guid(9722aafd5c77ada4b96a566fd3fce807) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Player Heroes/Hero Augments/Inertial_Catalyzer.PNG using Guid(9722aafd5c77ada4b96a566fd3fce807) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '38778b524cc2b1e32d8a1db21ed2c239') in 0.011044 seconds
-  Import took 0.015362 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000206 seconds.
-  path: Assets/Sprites/Heroes/Player Heroes/Hero Augments/Synaptic_Stabilizer.PNG
-  artifactKey: Guid(273c7a67328aca746af114716dbd23e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Player Heroes/Hero Augments/Synaptic_Stabilizer.PNG using Guid(273c7a67328aca746af114716dbd23e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7f70d30ce6b0ef907663489114254fbe') in 0.011239 seconds
-  Import took 0.015122 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000207 seconds.
-  path: Assets/Sprites/Heroes/Player Heroes/Hero Augments/Kinetic_Amplifier.PNG
-  artifactKey: Guid(42915c5b4bd38a747823194d5a7b8d1d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Player Heroes/Hero Augments/Kinetic_Amplifier.PNG using Guid(42915c5b4bd38a747823194d5a7b8d1d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bb1ac59110cb87490bce6aa0fcbb8b44') in 0.010668 seconds
-  Import took 0.014233 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000211 seconds.
-  path: Assets/Sprites/Heroes/Player Heroes/Hero Augments/p_19.PNG
-  artifactKey: Guid(1a717bca251d24140afbc8cf60047c94) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Player Heroes/Hero Augments/p_19.PNG using Guid(1a717bca251d24140afbc8cf60047c94) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e8401527aa7a48da635089845dec4850') in 0.013940 seconds
-  Import took 0.017465 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 33.441370 seconds.
-  path: Assets/Sprites/Heroes/Player Heroes/Hero Portraits/Madrik_Obsessed_Mage.jpg
-  artifactKey: Guid(c432fe59cf372414e91e3bdcfb065792) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Player Heroes/Hero Portraits/Madrik_Obsessed_Mage.jpg using Guid(c432fe59cf372414e91e3bdcfb065792) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ab88611753f06f6da9c04f9268c55249') in 0.038054 seconds
-  Import took 0.041600 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 23.680863 seconds.
-  path: Assets/Sprites/Heroes/Random Encounters/Corrupted_Crawler.png
-  artifactKey: Guid(31d3517f0abf7704ba66d33cf4d73909) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Random Encounters/Corrupted_Crawler.png using Guid(31d3517f0abf7704ba66d33cf4d73909) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b9a5e143982b79def445ef39541f4813') in 0.014598 seconds
-  Import took 0.018579 seconds .
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002717 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.10 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.899 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.25 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2093 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.3 MB.
+System memory in use after: 102.4 MB.
 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000192 seconds.
-  path: Assets/Sprites/Heroes/Random Encounters/Roughneck_Raider.PNG
-  artifactKey: Guid(750ad5714b0edb64b97f9a30416487fc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Random Encounters/Roughneck_Raider.PNG using Guid(750ad5714b0edb64b97f9a30416487fc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd18b26e86708e1eeec4f902743999b94') in 0.016499 seconds
-  Import took 0.020152 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000357 seconds.
-  path: Assets/Sprites/Heroes/Random Encounters/Slinking_Krenjer.png
-  artifactKey: Guid(4121fc06779821749a209ec769e3855e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Random Encounters/Slinking_Krenjer.png using Guid(4121fc06779821749a209ec769e3855e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '463335d3a9bbe8bfc9961cdfc719c75b') in 0.014205 seconds
-  Import took 0.018108 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000174 seconds.
-  path: Assets/Sprites/Heroes/Random Encounters/Undercity_Brawler.PSD
-  artifactKey: Guid(f867da4fbaa0f014c9b39efe03d4445c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Random Encounters/Undercity_Brawler.PSD using Guid(f867da4fbaa0f014c9b39efe03d4445c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9c6a6c24ea5751d36db5593761ebc5ac') in 0.012446 seconds
-  Import took 0.016309 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000263 seconds.
-  path: Assets/Sprites/Heroes/Random Encounters/Elusive_Razorfist.PSD
-  artifactKey: Guid(2f85009d77ad0c5429356083dcd83d3a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Random Encounters/Elusive_Razorfist.PSD using Guid(2f85009d77ad0c5429356083dcd83d3a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bba57dd4d31fa350381e8954ddc4e318') in 0.018241 seconds
-  Import took 0.022127 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 18.318625 seconds.
-  path: Assets/Sprites/_Unused_Sprites/Avatars/male_2.PNG
-  artifactKey: Guid(2e19c8e5b3a1b9942b220e157495412d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/_Unused_Sprites/Avatars/male_2.PNG using Guid(2e19c8e5b3a1b9942b220e157495412d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8a782e39dfbb89d61a9d471c60cb20b6') in 0.013337 seconds
-  Import took 0.016788 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 5.579476 seconds.
-  path: Assets/Sprites/_Unused_Sprites/Avatars/female_3.png
-  artifactKey: Guid(1d800df8c5c96f04a96fddc6b8b5b6e9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/_Unused_Sprites/Avatars/female_3.png using Guid(1d800df8c5c96f04a96fddc6b8b5b6e9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7e7b0116aa2d67ffbed3bbe1f3795c54') in 0.014561 seconds
-  Import took 0.017921 seconds .
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2573.
+Total: 2.930300 ms (FindLiveObjects: 0.255000 ms CreateObjectMapping: 0.102600 ms MarkObjects: 2.552600 ms  DeleteObjects: 0.018900 ms)
 
 AssetImportWorkerClient::OnTransportError - code=2 error=End of file
