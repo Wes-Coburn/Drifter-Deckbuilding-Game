@@ -33,8 +33,7 @@ public class CombatEndPopupDisplay : MonoBehaviour
         {
             if (dMan.EngagedHero.NextDialogueClip is CombatRewardClip crc)
             {
-                uMan.CreateNewCardPopup(null, "New Unit!",
-                    CardManager.Instance.ChooseCards(CardManager.ChooseCard.Unit));
+                uMan.CreateChooseRewardPopup();
 
                 if (crc.NewNarrative != null) gMan.CurrentNarrative = crc.NewNarrative;
 
@@ -61,6 +60,7 @@ public class CombatEndPopupDisplay : MonoBehaviour
             SceneLoader.LoadAction += () => gMan.LoadGame();
             SceneLoader.LoadScene(SceneLoader.Scene.WorldMapScene, true);
         }
-        uMan.DestroyCombatEndPopup();
+
+        uMan.DestroyInteractablePopup(gameObject);
     }
 }

@@ -32,7 +32,7 @@ public class RecruitUnitPopupDisplay : MonoBehaviour
         {
             int aether = pMan.AetherCells;
             unitCard = value;
-            string text = "RECRUIT <color=\"yellow\"><u>" + unitCard.CardName + "</u></color>" +
+            string text = "RECRUIT <u>" + unitCard.CardName + "</u>" +
                 " for " + gMan.GetRecruitCost(unitCard, out _) +
                 " aether? (You have " + aether + " aether)";
             PopupText = text;
@@ -52,5 +52,5 @@ public class RecruitUnitPopupDisplay : MonoBehaviour
     }
 
     public void CancelButton_OnClick() =>
-        uMan.DestroyRecruitUnitPopup();
+        uMan.DestroyInteractablePopup(gameObject);
 }

@@ -58,7 +58,7 @@ public class PlayerManager : MonoBehaviour
         set
         {
             isMyTurn = value;
-            uMan.UpdateEndTurnButton(isMyTurn);
+            uMan.UpdateEndTurnButton();
         }
     }
 
@@ -130,15 +130,7 @@ public class PlayerManager : MonoBehaviour
             coMan.PlayerHero.GetComponent<HeroDisplay>().HeroHealth = playerHealth;
         }
     }
-    public int MaxPlayerHealth
-    {
-        get
-        {
-            int bonusHealth = 0;
-            if (GetAugment("Kinetic Amplifier")) bonusHealth = 5;
-            return GameManager.PLAYER_STARTING_HEALTH + bonusHealth;
-        }
-    }
+    public int MaxPlayerHealth => GameManager.PLAYER_STARTING_HEALTH;
     public int StartEnergy
     {
         get
@@ -160,16 +152,16 @@ public class PlayerManager : MonoBehaviour
                 energyLeft + "/" + EnergyPerTurn;
         }
     }
-    public int MaxEnergyPerTurn
+    public int MaxEnergyPerTurn => GameManager.MAXIMUM_ENERGY_PER_TURN;
+    private int MaxEnergy
     {
         get
         {
             int bonusEnergy = 0;
-            if (GetAugment("Inertial Catalyzer")) bonusEnergy = 1;
-            return GameManager.MAXIMUM_ENERGY_PER_TURN + bonusEnergy;
+            if (GetAugment("Inertial Catalyzer")) bonusEnergy = 5;
+            return GameManager.MAXIMUM_ENERGY + bonusEnergy;
         }
     }
-    private int MaxEnergy => GameManager.MAXIMUM_ENERGY;
     public int EnergyLeft
     {
         get => energyLeft;
@@ -199,7 +191,7 @@ public class PlayerManager : MonoBehaviour
 
         PlayerHero = null; // Unnecessary?
         AetherCells = 0;
-        IsMyTurn = false; // TESTING
+        IsMyTurn = true;
     }
 
     public void AddItem(HeroItem item, bool isNewItem = false)
@@ -241,23 +233,21 @@ public class PlayerManager : MonoBehaviour
         else return true;
     }
 
-    public void UseHeroPower(bool isUltimate)
+    public bool UseHeroPower(bool isUltimate, bool isPreCheck = false)
     {
         void ErrorSound() => auMan.StartStopSound("SFX_Error");
 
-        if (isUltimate)
-        {
-            UseHeroUltimate();
-            return;
-        }
+        if (isUltimate) return UseHeroUltimate(isPreCheck);
 
         if (HeroPowerUsed)
         {
+            if (isPreCheck) return false;
             uMan.CreateFleetingInfoPopup("Hero power already used this turn!");
             ErrorSound();
         }
         else if (EnergyLeft < PlayerHero.HeroPower.PowerCost)
         {
+            if (isPreCheck) return false;
             uMan.CreateFleetingInfoPopup("Not enough energy!");
             ErrorSound();
         }
@@ -268,11 +258,13 @@ public class PlayerManager : MonoBehaviour
 
             if (!efMan.CheckLegalTargets(PlayerHero.HeroPower.EffectGroupList, heroPower, true))
             {
+                if (isPreCheck) return false;
                 uMan.CreateFleetingInfoPopup("You can't do that right now!");
                 ErrorSound();
             }
             else
             {
+                if (isPreCheck) return true;
                 efMan.StartEffectGroupList(groupList, heroPower);
                 EnergyLeft -= PlayerHero.HeroPower.PowerCost;
                 HeroPowerUsed = true;
@@ -280,9 +272,11 @@ public class PlayerManager : MonoBehaviour
                 ParticleBurst(heroPower);
             }
         }
+
+        return true;
     }
 
-    private void UseHeroUltimate()
+    private bool UseHeroUltimate(bool isPreCheck)
     {
         void ErrorSound() => auMan.StartStopSound("SFX_Error");
 
@@ -291,27 +285,33 @@ public class PlayerManager : MonoBehaviour
 
         if (HeroUltimateProgress < GameManager.HERO_ULTMATE_GOAL)
         {
+            if (isPreCheck) return false;
             uMan.CreateFleetingInfoPopup("Ultimate not ready!");
             ErrorSound();
         }
         else if (EnergyLeft < GetUltimateCost(out _))
         {
+            if (isPreCheck) return false;
             uMan.CreateFleetingInfoPopup("Not enough energy!");
             ErrorSound();
         }
         else if (!efMan.CheckLegalTargets(PlayerHero.HeroUltimate.EffectGroupList, heroUltimate, true))
         {
+            if (isPreCheck) return false;
             uMan.CreateFleetingInfoPopup("You can't do that right now!");
             ErrorSound();
         }
         else
         {
+            if (isPreCheck) return true;
             efMan.StartEffectGroupList(groupList, heroUltimate);
             EnergyLeft -= GetUltimateCost(out _);
             HeroDisplay.UltimateUsedIcon.SetActive(true);
             PlayerPowerSounds(true);
             ParticleBurst(heroUltimate);
         }
+
+        return true;
     }
 
     public int GetUltimateCost(out Color ultimateColor)

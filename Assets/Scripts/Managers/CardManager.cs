@@ -25,6 +25,8 @@ public class CardManager : MonoBehaviour
     [Header("PREFABS")]
     [SerializeField] private GameObject unitCardPrefab;
     [SerializeField] private GameObject actionCardPrefab;
+    [SerializeField] private GameObject cardContainerPrefab;
+    [SerializeField] private GameObject dragArrowPrefab;
     [Header("PLAYER START UNITS")]
     [SerializeField] private UnitCard[] playerStartUnits;
     [Header("TUTORIAL PLAYER UNITS")]
@@ -53,13 +55,6 @@ public class CardManager : MonoBehaviour
     public const string TRIGGER_TRAP = "Trap";
     public const string TRIGGER_TURN_START = "Turn Start";
     public const string TRIGGER_TURN_END = "Turn End";
-
-    // Unit Types
-    public const string MAGE = "Mage";
-    public const string MUTANT = "Mutant";
-    public const string ROGUE = "Rogue";
-    public const string TECH = "Tech";
-    public const string WARRIOR = "Warrior";
 
     // Ability Keywords
     private static string[] AbilityKeywords = new string[]
@@ -106,6 +101,13 @@ public class CardManager : MonoBehaviour
         "Scheme"
     };
 
+    // Unit Types
+    public const string MAGE = "Mage";
+    public const string MUTANT = "Mutant";
+    public const string ROGUE = "Rogue";
+    public const string TECH = "Tech";
+    public const string WARRIOR = "Warrior";
+
     // Positive Abilities
     public static string[] PositiveAbilities = new string[]
     {
@@ -126,6 +128,9 @@ public class CardManager : MonoBehaviour
 
     public GameObject UnitCardPrefab { get => unitCardPrefab; }
     public GameObject ActionCardPrefab { get => actionCardPrefab; }
+    public GameObject CardContainerPrefab { get => cardContainerPrefab; }
+    public GameObject DragArrowPrefab { get => dragArrowPrefab; }
+
     public UnitCard[] PlayerStartUnits { get => playerStartUnits; }
     public UnitCard[] TutorialPlayerUnits { get => tutorialPlayerUnits; }
 
@@ -481,7 +486,7 @@ public class CardManager : MonoBehaviour
 
     /******
      * *****
-     * ****** CARD_ABILITIES
+     * ****** GET_ABILITY
      * *****
      *****/
     public static bool GetAbility(GameObject unitCard, string ability)
@@ -498,6 +503,11 @@ public class CardManager : MonoBehaviour
         if (abilityIndex == -1) return false;
         else return true;
     }
+    /******
+     * *****
+     * ****** GET_TRIGGER
+     * *****
+     *****/
     public static bool GetTrigger(GameObject card, string triggerName)
     {
         if (card == null)
@@ -511,6 +521,11 @@ public class CardManager : MonoBehaviour
                 if (tra.AbilityTrigger.AbilityName == triggerName) return true;
         return false;
     }
+    /******
+     * *****
+     * ****** TRIGGER_UNIT_ABILITY
+     * *****
+     *****/
     public bool TriggerUnitAbility(GameObject unitCard, string triggerName)
     {
         if (unitCard == null)
@@ -534,8 +549,15 @@ public class CardManager : MonoBehaviour
                 {
                     Debug.Log("TRIGGER! <" + triggerName + ">");
                     effectFound = true;
-                    if (HasControlAbility(tra)) ctrlAbilities.Add(tra);
-                    else traAbilities.Add(tra);
+                    int additionalTriggers =
+                        efMan.TriggerModifiers_TriggerAbility(triggerName, unitCard);
+                    int totalTriggers = 1 + additionalTriggers;
+
+                    List<TriggeredAbility> targetList;
+                    if (HasControlAbility(tra)) targetList = ctrlAbilities;
+                    else targetList = traAbilities;
+
+                    for (int i = 0; i < totalTriggers; i++) targetList.Add(tra);
                 }
 
         float delay = 0.25f;
@@ -568,14 +590,14 @@ public class CardManager : MonoBehaviour
             return false;
         }
 
-        void TriggerAbility(TriggeredAbility tra)
-        {
-            string triggerName = tra.AbilityTrigger.AbilityName;
-            if (triggerName != TRIGGER_PLAY)
-                auMan.StartStopSound(null, ucd.CardScript.CardPlaySound);
+        void TriggerAbility(TriggeredAbility tra) =>
             efMan.StartEffectGroupList(tra.EffectGroupList, unitCard, triggerName);
-        }
     }
+    /******
+     * *****
+     * ****** TRIGGER_PLAYED_UNITS
+     * *****
+     *****/
     public void TriggerPlayedUnits(string triggerName, string player)
     {
         List<GameObject> unitZoneCards;
@@ -622,7 +644,11 @@ public class CardManager : MonoBehaviour
                 efMan.PoisonEffect, false, 0, out _, false);
         }
     }
-
+    /******
+     * *****
+     * ****** TRIGGER_TRAP_ABILITIES
+     * *****
+     *****/
     public void TriggerTrapAbilities(GameObject trappedUnit)
     {
         if (trappedUnit == null ||

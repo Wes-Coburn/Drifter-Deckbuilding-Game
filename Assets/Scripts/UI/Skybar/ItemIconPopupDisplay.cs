@@ -27,7 +27,7 @@ public class ItemIconPopupDisplay : MonoBehaviour
         set
         {
             loadedItem = value;
-            string description = "<b>" + value.ItemName + "</b>: " +
+            string description = "<b><u>" + value.ItemName + "</u></b>\n" +
                 CardManager.Instance.FilterKeywords(value.ItemDescription);
             itemText.GetComponent<TextMeshProUGUI>().SetText(description);
         }

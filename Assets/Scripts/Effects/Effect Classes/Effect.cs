@@ -23,8 +23,10 @@ public abstract class Effect : ScriptableObject
     public Color RayColor;
 
     [Header("PRECHECK CONDITIONS")]
-    [Tooltip("If enabled, the effect's conditions will be checked during GetLegalTargets, as well as upon resolution")]
+    [Tooltip("If enabled, the effect's conditions will be checked during GetLegalTargets, as well as during resolution")]
     public bool PreCheckConditions;
+    [Tooltip("If enabled, the effect's conditions will be checked independently")]
+    public bool CheckConditionsIndependent;
 
     [Header("IF WOUNDED CONDITIONS")]
     [Tooltip("If enabled, any IfWounded conditions selected will be reversed")]

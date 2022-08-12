@@ -26,21 +26,41 @@ public class CardSelect : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
-        if (!DragDrop.ArrowIsDragging || DragDrop.DraggingCard == gameObject) return;
-        if (coMan.EnemyHandCards.Contains(gameObject)) return; // TESTING
-        DragDrop.Enemy = gameObject;
-        if (coMan.CanAttack(DragDrop.DraggingCard, gameObject, true))
-            uMan.SelectTarget(gameObject, UIManager.SelectionType.Selected);
-        else uMan.SelectTarget(gameObject, UIManager.SelectionType.Rejected);
+        if (DragDrop.DraggingCard == gameObject) return;
+
+        if (uMan.PlayerIsTargetting) efMan.HighlightEffectTarget(gameObject, true);
+        else if (DragDrop.ArrowIsDragging)
+        {
+            if (coMan.EnemyHandCards.Contains(gameObject)) return;
+
+            DragDrop.Enemy = gameObject;
+            UIManager.SelectionType type;
+
+            if (coMan.CanAttack(DragDrop.DraggingCard, gameObject, true))
+                type = UIManager.SelectionType.Selected;
+            else type = UIManager.SelectionType.Rejected;
+
+            uMan.SelectTarget(gameObject, type);
+        }
     }
 
     public void OnPointerExit(PointerEventData pointerEventData)
     {
-        if (!DragDrop.ArrowIsDragging || DragDrop.DraggingCard == gameObject) return;
-        if (coMan.EnemyHandCards.Contains(gameObject)) return; // TESTING
-        DragDrop.Enemy = null;
-        if (coMan.CanAttack(DragDrop.DraggingCard, gameObject, true))
-            uMan.SelectTarget(gameObject, UIManager.SelectionType.Highlighted);
-        else uMan.SelectTarget(gameObject, UIManager.SelectionType.Disabled);
+        if (DragDrop.DraggingCard == gameObject) return;
+
+        if (uMan.PlayerIsTargetting) efMan.HighlightEffectTarget(gameObject, false);
+        else if (DragDrop.ArrowIsDragging)
+        {
+            if (coMan.EnemyHandCards.Contains(gameObject)) return;
+
+            DragDrop.Enemy = null;
+            UIManager.SelectionType type;
+
+            if (coMan.CanAttack(DragDrop.DraggingCard, gameObject, true))
+                type = UIManager.SelectionType.Highlighted;
+            else type = UIManager.SelectionType.Disabled;
+
+            uMan.SelectTarget(gameObject, type);
+        }
     }
 }

@@ -15,11 +15,11 @@ C:/Users/wgCob/Programming/Unity/Drifter (Unity 2D)
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-54393
+64192
 Successfully changed project path to: C:/Users/wgCob/Programming/Unity/Drifter (Unity 2D)
 C:/Users/wgCob/Programming/Unity/Drifter (Unity 2D)
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 99.38 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 111.97 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.5f1 (8095aa901b9b)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/Resources/UnitySubsystems
@@ -35,407 +35,342 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56144
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56872
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.002470 seconds.
+Registered in 0.003503 seconds.
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 108.11 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 120.42 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.101 seconds
+- Completed reload, in  4.011 seconds
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.002527 seconds.
+Registered in 0.002636 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 104.32 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 112.50 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.916 seconds
+- Completed reload, in  0.993 seconds
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.03 seconds
-Refreshing native plugins compatible for Editor in 1.13 ms, found 4 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.09 seconds
+Refreshing native plugins compatible for Editor in 1.15 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2122 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 2125 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 104.6 MB.
-System memory in use after: 104.7 MB.
+System memory in use after: 104.8 MB.
 
-Unloading 25 unused Assets to reduce memory usage. Loaded Objects now: 2570.
-Total: 1.789600 ms (FindLiveObjects: 0.233300 ms CreateObjectMapping: 0.109800 ms MarkObjects: 1.425000 ms  DeleteObjects: 0.020700 ms)
-
-========================================================================
-Received Import Request.
-  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Research_Replenish3.asset
-  artifactKey: Guid(ed26b0f4d91cb6148b63805c289e873f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Research_Replenish3.asset using Guid(ed26b0f4d91cb6148b63805c289e873f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c81ed42daff7960c455b0fa499b9662a') in 0.042567 seconds
-  Import took 0.053191 seconds .
+Unloading 25 unused Assets to reduce memory usage. Loaded Objects now: 2573.
+Total: 2.584000 ms (FindLiveObjects: 0.238500 ms CreateObjectMapping: 0.095200 ms MarkObjects: 2.219400 ms  DeleteObjects: 0.029600 ms)
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000220 seconds.
-  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Revenge_CopyCard_Self_Perpetual.asset
-  artifactKey: Guid(17dba94e947424a4b9eaf39eb86afec7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Revenge_CopyCard_Self_Perpetual.asset using Guid(17dba94e947424a4b9eaf39eb86afec7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b8ee34d18454758a5e2b1ace6f416e28') in 0.005162 seconds
-  Import took 0.009355 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000306 seconds.
-  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Play_Deal4_1EU_IfWounded_Any.asset
-  artifactKey: Guid(760bedd091b35a6458b8034ca7cb923e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Play_Deal4_1EU_IfWounded_Any.asset using Guid(760bedd091b35a6458b8034ca7cb923e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a7d8cd3a3cb116768e9331a143e4e351') in 0.005771 seconds
-  Import took 0.009817 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 3.736493 seconds.
-  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Infiltrate_Draw1_IfWounded_EH.asset
-  artifactKey: Guid(b6162a3a196d3a54991830fbaeafc23b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Infiltrate_Draw1_IfWounded_EH.asset using Guid(b6162a3a196d3a54991830fbaeafc23b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '43ce941c0440a7c73599b4bb8d533438') in 0.006047 seconds
-  Import took 0.012703 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 16.653335 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/Draw/Draw1_IfWounded_EH.asset
-  artifactKey: Guid(3aa38b49064f27c4d87358ab6860ac47) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/Draw/Draw1_IfWounded_EH.asset using Guid(3aa38b49064f27c4d87358ab6860ac47) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '672deff19ab5ef22eaa36644545df180') in 0.002832 seconds
-  Import took 0.006979 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 6.195351 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/Draw/Draw_1_IfWounded_EH_Precheck.asset
-  artifactKey: Guid(9e96ca195d4a6bc43972c40133ccfee5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/Draw/Draw_1_IfWounded_EH_Precheck.asset using Guid(9e96ca195d4a6bc43972c40133ccfee5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '509398c3adf6fe612095cc7141ed9a2e') in 0.002520 seconds
-  Import took 0.006777 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 4.228413 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/Draw/Draw_1_IfWounded_EH_Precheck.asset
-  artifactKey: Guid(9e96ca195d4a6bc43972c40133ccfee5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/Draw/Draw_1_IfWounded_EH_Precheck.asset using Guid(9e96ca195d4a6bc43972c40133ccfee5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1c1b8ea17044d6f265ebda2f335959cd') in 0.002382 seconds
-  Import took 0.006521 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 56.494406 seconds.
-  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Play_Deal4_1EU_IfWounded_EH.asset
-  artifactKey: Guid(760bedd091b35a6458b8034ca7cb923e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Play_Deal4_1EU_IfWounded_EH.asset using Guid(760bedd091b35a6458b8034ca7cb923e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '41cb271788dbbe7ccab24f97873e44a4') in 0.004232 seconds
-  Import took 0.008412 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 16.347194 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal4_1EU_IfWounded_EH.asset
-  artifactKey: Guid(5def9818d12435747b4a24626020793b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal4_1EU_IfWounded_EH.asset using Guid(5def9818d12435747b4a24626020793b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8b08a9701168627b4867453ea4164d70') in 0.002906 seconds
-  Import took 0.007049 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 19.856349 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_4_IfWounded_EH_Precheck.asset
-  artifactKey: Guid(921da4bb2eae72b488411efebaa0ee34) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_4_IfWounded_EH_Precheck.asset using Guid(921da4bb2eae72b488411efebaa0ee34) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '20f1d49f90569e472d88c0f580a4bd9b') in 0.002729 seconds
-  Import took 0.007232 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 50.300220 seconds.
-  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Play_GiveSelf_plus2plus1_IfWounded_EH.asset
-  artifactKey: Guid(007c68a9806bc1740a0a0c314c8728c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Play_GiveSelf_plus2plus1_IfWounded_EH.asset using Guid(007c68a9806bc1740a0a0c314c8728c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '672451c455cbd4f0aeeacac5f85752ed') in 0.005272 seconds
-  Import took 0.008678 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 14.523295 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus2plus1_IfWounded_EH.asset
-  artifactKey: Guid(de5e4a1665c0d5440876940769eda31a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus2plus1_IfWounded_EH.asset using Guid(de5e4a1665c0d5440876940769eda31a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f5e4b1f6c2f511755d10d1852515756c') in 0.002808 seconds
-  Import took 0.006821 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 6.247550 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus2plus1_IfWounded_EH.asset
-  artifactKey: Guid(b7195df3e662ca5468a675423c9e91c5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus2plus1_IfWounded_EH.asset using Guid(b7195df3e662ca5468a675423c9e91c5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5f9ed9edf225c5a3b2ce136d6adc9426') in 0.002573 seconds
-  Import took 0.006472 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 24.075535 seconds.
-  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Play_GiveSelf_plus1plus2_IfWounded_PH.asset
-  artifactKey: Guid(d381eda006bf0ef4e86dd2233662e4ff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Play_GiveSelf_plus1plus2_IfWounded_PH.asset using Guid(d381eda006bf0ef4e86dd2233662e4ff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e654f5d75fd16e826b6494bf1c681d1a') in 0.004044 seconds
-  Import took 0.007955 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 11.928008 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus1plus2_IfWounded_Any.asset
-  artifactKey: Guid(38355ccfd7c283347b4d68e634a2f133) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus1plus2_IfWounded_Any.asset using Guid(38355ccfd7c283347b4d68e634a2f133) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '97ffed48baaa1b0bdaf6b84f8032f7d7') in 0.006077 seconds
-  Import took 0.010142 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 2.918896 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus1plus2_IfWounded_PH.asset
-  artifactKey: Guid(38355ccfd7c283347b4d68e634a2f133) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus1plus2_IfWounded_PH.asset using Guid(38355ccfd7c283347b4d68e634a2f133) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4872eab99fb860a1f34f52207055be69') in 0.002648 seconds
-  Import took 0.006676 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 5.635704 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus1plus2_IfWounded_PH.asset
-  artifactKey: Guid(9efbaecd06751be478ccb756d3b8bdb0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus1plus2_IfWounded_PH.asset using Guid(9efbaecd06751be478ccb756d3b8bdb0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '092d06c6de756ddaa2f2143c2d90003a') in 0.002790 seconds
-  Import took 0.006736 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 3.405047 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus1plus2_IfWounded_PH.asset
-  artifactKey: Guid(9efbaecd06751be478ccb756d3b8bdb0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus1plus2_IfWounded_PH.asset using Guid(9efbaecd06751be478ccb756d3b8bdb0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '28cafefd5d66c5b720fa933e90164cc9') in 0.002248 seconds
-  Import took 0.005983 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 534.943305 seconds.
-  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Play_GiveSelf_plus1plus2_IfWounded_PH.asset
-  artifactKey: Guid(d381eda006bf0ef4e86dd2233662e4ff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Play_GiveSelf_plus1plus2_IfWounded_PH.asset using Guid(d381eda006bf0ef4e86dd2233662e4ff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fe4a54c7b8dfc7e7ce3566114d648c31') in 0.004471 seconds
-  Import took 0.011617 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 2.538705 seconds.
-  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Play_GiveSelf_plus1plus2_IfWounded_EH.asset
-  artifactKey: Guid(d381eda006bf0ef4e86dd2233662e4ff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Play_GiveSelf_plus1plus2_IfWounded_EH.asset using Guid(d381eda006bf0ef4e86dd2233662e4ff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '76395511b225833f5654e1268198698e') in 0.004023 seconds
-  Import took 0.008481 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 16.167240 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus1plus2_IfWounded_PH.asset
-  artifactKey: Guid(38355ccfd7c283347b4d68e634a2f133) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus1plus2_IfWounded_PH.asset using Guid(38355ccfd7c283347b4d68e634a2f133) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c0188f14c18a65431910292fd056b077') in 0.002832 seconds
-  Import took 0.010604 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 3.563169 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus1plus2_IfWounded_EH.asset
-  artifactKey: Guid(38355ccfd7c283347b4d68e634a2f133) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus1plus2_IfWounded_EH.asset using Guid(38355ccfd7c283347b4d68e634a2f133) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6f8464c6eeeefc11e70233a02bbddcc0') in 0.003224 seconds
-  Import took 0.007234 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 5.001750 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus1plus2_IfWounded_EH.asset
-  artifactKey: Guid(9efbaecd06751be478ccb756d3b8bdb0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus1plus2_IfWounded_EH.asset using Guid(9efbaecd06751be478ccb756d3b8bdb0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '53140789188a14b8a2f7f3c838519223') in 0.002324 seconds
-  Import took 0.006806 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 3.784196 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus1plus2_IfWounded_EH.asset
-  artifactKey: Guid(9efbaecd06751be478ccb756d3b8bdb0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus1plus2_IfWounded_EH.asset using Guid(9efbaecd06751be478ccb756d3b8bdb0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd800d214bc0f7493b42323d647080ea0') in 0.002138 seconds
-  Import took 0.006172 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 852.818001 seconds.
-  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Play_GiveSelf_plus2plus1_IfWounded_EH.asset
-  artifactKey: Guid(007c68a9806bc1740a0a0c314c8728c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Play_GiveSelf_plus2plus1_IfWounded_EH.asset using Guid(007c68a9806bc1740a0a0c314c8728c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'af43759ff619665d79daf76b29aadb69') in 0.004310 seconds
-  Import took 0.012220 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 5.620063 seconds.
-  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Play_GiveSelf_plus1plus1_Ranged_IfWounded_EH.asset
-  artifactKey: Guid(007c68a9806bc1740a0a0c314c8728c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Play_GiveSelf_plus1plus1_Ranged_IfWounded_EH.asset using Guid(007c68a9806bc1740a0a0c314c8728c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ee9e115ca0034f5aa9c980fb5e0c33f1') in 0.004124 seconds
-  Import took 0.008233 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 18.482697 seconds.
-  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Play_GiveSelf_plus1plus1_Ranged_IfWounded_EH.asset
-  artifactKey: Guid(007c68a9806bc1740a0a0c314c8728c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Play_GiveSelf_plus1plus1_Ranged_IfWounded_EH.asset using Guid(007c68a9806bc1740a0a0c314c8728c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b9a234345b9c268d3c9ff190132ba43e') in 0.005211 seconds
-  Import took 0.009399 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 5.929114 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus2plus1_IfWounded_EH.asset
-  artifactKey: Guid(de5e4a1665c0d5440876940769eda31a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus2plus1_IfWounded_EH.asset using Guid(de5e4a1665c0d5440876940769eda31a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '92464c88d74181c79641c753050a3641') in 0.003077 seconds
-  Import took 0.021707 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 6.079874 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus1plus1_Ranged_IfWounded_EH.asset
-  artifactKey: Guid(de5e4a1665c0d5440876940769eda31a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus1plus1_Ranged_IfWounded_EH.asset using Guid(de5e4a1665c0d5440876940769eda31a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '36b15c5370a162decaa8cd155cd131bb') in 0.002739 seconds
-  Import took 0.007107 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 2.836298 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus2plus1_IfWounded_EH.asset
-  artifactKey: Guid(b7195df3e662ca5468a675423c9e91c5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus2plus1_IfWounded_EH.asset using Guid(b7195df3e662ca5468a675423c9e91c5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e3f177863cac7d144547ebb81bd42e2d') in 0.002158 seconds
-  Import took 0.009710 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 5.304435 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus1plus1_Ranged_IfWounded_EH.asset
-  artifactKey: Guid(b7195df3e662ca5468a675423c9e91c5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus1plus1_Ranged_IfWounded_EH.asset using Guid(b7195df3e662ca5468a675423c9e91c5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e6496e3b805bae5cad10ee742a303e4b') in 0.002427 seconds
-  Import took 0.006758 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 11.401903 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus1plus1_IfWounded_EH.asset
-  artifactKey: Guid(b7195df3e662ca5468a675423c9e91c5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus1plus1_IfWounded_EH.asset using Guid(b7195df3e662ca5468a675423c9e91c5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7fa7b070dbb16b54af6734cef0b2d14a') in 0.002331 seconds
-  Import took 0.006166 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 40.059409 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Ranged 1.asset
-  artifactKey: Guid(63c7e13f16e7470478ca62f4f739712c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Ranged 1.asset using Guid(63c7e13f16e7470478ca62f4f739712c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '262f9ba0180fab2380816c94f34ab129') in 0.003277 seconds
-  Import took 0.007406 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 5.547659 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Ranged_IfWounded.asset
-  artifactKey: Guid(63c7e13f16e7470478ca62f4f739712c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Ranged_IfWounded.asset using Guid(63c7e13f16e7470478ca62f4f739712c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a09223cc36f2017bd0fd4192dde7ad95') in 0.003207 seconds
-  Import took 0.007209 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 8.843775 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Ranged_IfWounded_EH.asset
-  artifactKey: Guid(63c7e13f16e7470478ca62f4f739712c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Ranged_IfWounded_EH.asset using Guid(63c7e13f16e7470478ca62f4f739712c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '73d46b0f418f038c0ac97bd1b0c2b152') in 0.003158 seconds
-  Import took 0.007032 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 8.590294 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus1plus1_Ranged_IfWounded_EH.asset
-  artifactKey: Guid(de5e4a1665c0d5440876940769eda31a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus1plus1_Ranged_IfWounded_EH.asset using Guid(de5e4a1665c0d5440876940769eda31a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0dd9f5ff6ce5ed9795e792be686d71ea') in 0.003696 seconds
-  Import took 0.010959 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 10.994691 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus1plus1_IfWounded_EH.asset
-  artifactKey: Guid(b7195df3e662ca5468a675423c9e91c5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus1plus1_IfWounded_EH.asset using Guid(b7195df3e662ca5468a675423c9e91c5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4dff441f7d5600df989786b687db7e05') in 0.003147 seconds
-  Import took 0.009850 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 21.349177 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Ranged_IfWounded_EH.asset
-  artifactKey: Guid(63c7e13f16e7470478ca62f4f739712c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Ranged_IfWounded_EH.asset using Guid(63c7e13f16e7470478ca62f4f739712c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c7fb209daa3b91b941d9a7ca886efb27') in 0.003360 seconds
-  Import took 0.007458 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 7.584263 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal4_1EU_IfWounded_EH.asset
-  artifactKey: Guid(5def9818d12435747b4a24626020793b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal4_1EU_IfWounded_EH.asset using Guid(5def9818d12435747b4a24626020793b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '569b4e95b253038da16c49762c4181eb') in 0.002724 seconds
-  Import took 0.009515 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 49.500090 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus1plus1_Ranged_IfWounded_EH.asset
-  artifactKey: Guid(de5e4a1665c0d5440876940769eda31a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus1plus1_Ranged_IfWounded_EH.asset using Guid(de5e4a1665c0d5440876940769eda31a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '473a4d34ebd66d9fbcc5033579e242bf') in 0.004760 seconds
-  Import took 0.012296 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.001650 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus1plus1_Ranged_IfWounded_EH.asset
-  artifactKey: Guid(de5e4a1665c0d5440876940769eda31a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plus1plus1_Ranged_IfWounded_EH.asset using Guid(de5e4a1665c0d5440876940769eda31a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '473a4d34ebd66d9fbcc5033579e242bf') in 0.003695 seconds
-  Import took 0.007806 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 8449.512675 seconds.
-  path: Assets/Scripts/Effects/Effect Classes/EffectGroup.cs
-  artifactKey: Guid(a22d7123f6ee007468cbdc6e9b6fe2b0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Classes/EffectGroup.cs using Guid(a22d7123f6ee007468cbdc6e9b6fe2b0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7e16bfbd7bfcf9d9839615b2cc40d6cc') in 0.010441 seconds
-  Import took 0.039475 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 1.011560 seconds.
-  path: Assets/Scripts/Effects/Effect Classes/Effect.cs
-  artifactKey: Guid(9d9964960e4db824faf990b8b5e47ae6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Classes/Effect.cs using Guid(9d9964960e4db824faf990b8b5e47ae6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1fc613ec56b84214b9f1da948e434992') in 0.003967 seconds
-  Import took 0.009740 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000700 seconds.
-  path: Assets/Scripts/Effects/Effect Classes/Effect.cs
-  artifactKey: Guid(9d9964960e4db824faf990b8b5e47ae6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Classes/Effect.cs using Guid(9d9964960e4db824faf990b8b5e47ae6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1fc613ec56b84214b9f1da948e434992') in 0.002138 seconds
-  Import took 0.007665 seconds .
+  path: Assets/Scenes/ManagerScene.unity
+  artifactKey: Guid(a89541fef70f04a409ec6b78d88198b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/ManagerScene.unity using Guid(a89541fef70f04a409ec6b78d88198b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '97f5586a4d0489bc9214f6dbb0098a6c') in 0.013795 seconds
+  Import took 0.019286 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.002717 seconds.
+Registered in 0.002845 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.10 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 1.41 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.899 seconds
+- Completed reload, in  0.844 seconds
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.25 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 1.56 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2093 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 102.3 MB.
-System memory in use after: 102.4 MB.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.4 MB.
+System memory in use after: 102.5 MB.
 
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2573.
-Total: 2.930300 ms (FindLiveObjects: 0.255000 ms CreateObjectMapping: 0.102600 ms MarkObjects: 2.552600 ms  DeleteObjects: 0.018900 ms)
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2576.
+Total: 1.940000 ms (FindLiveObjects: 0.343100 ms CreateObjectMapping: 0.145700 ms MarkObjects: 1.434700 ms  DeleteObjects: 0.014300 ms)
 
-AssetImportWorkerClient::OnTransportError - code=2 error=End of file
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003352 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.26 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.813 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.20 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.4 MB.
+System memory in use after: 102.5 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2579.
+Total: 2.729000 ms (FindLiveObjects: 0.206100 ms CreateObjectMapping: 0.093700 ms MarkObjects: 2.326500 ms  DeleteObjects: 0.099100 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002600 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.81 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.876 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.13 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.4 MB.
+System memory in use after: 102.6 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2582.
+Total: 2.356700 ms (FindLiveObjects: 0.398000 ms CreateObjectMapping: 0.113700 ms MarkObjects: 1.827700 ms  DeleteObjects: 0.014700 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003040 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.41 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.826 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.16 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.5 MB.
+System memory in use after: 102.6 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2585.
+Total: 2.706700 ms (FindLiveObjects: 0.489300 ms CreateObjectMapping: 0.301900 ms MarkObjects: 1.876000 ms  DeleteObjects: 0.038100 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002704 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.11 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.828 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.13 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.5 MB.
+System memory in use after: 102.6 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2588.
+Total: 2.229400 ms (FindLiveObjects: 0.419700 ms CreateObjectMapping: 0.177600 ms MarkObjects: 1.613800 ms  DeleteObjects: 0.016700 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002674 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.45 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.839 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.29 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.5 MB.
+System memory in use after: 102.6 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2591.
+Total: 1.815600 ms (FindLiveObjects: 0.238700 ms CreateObjectMapping: 0.087300 ms MarkObjects: 1.474500 ms  DeleteObjects: 0.013900 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003646 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.23 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.834 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.13 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.5 MB.
+System memory in use after: 102.6 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2594.
+Total: 1.715500 ms (FindLiveObjects: 0.209900 ms CreateObjectMapping: 0.087200 ms MarkObjects: 1.403400 ms  DeleteObjects: 0.013900 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002533 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.39 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.818 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.31 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.5 MB.
+System memory in use after: 102.6 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2597.
+Total: 3.057900 ms (FindLiveObjects: 0.275400 ms CreateObjectMapping: 0.113200 ms MarkObjects: 2.648300 ms  DeleteObjects: 0.019900 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002481 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.64 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.833 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.36 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.5 MB.
+System memory in use after: 102.6 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2600.
+Total: 1.941500 ms (FindLiveObjects: 0.184800 ms CreateObjectMapping: 0.075500 ms MarkObjects: 1.665500 ms  DeleteObjects: 0.014800 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003842 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.34 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.921 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.23 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.5 MB.
+System memory in use after: 102.6 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2603.
+Total: 3.394100 ms (FindLiveObjects: 0.392900 ms CreateObjectMapping: 0.193700 ms MarkObjects: 2.721900 ms  DeleteObjects: 0.083300 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002847 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.51 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.821 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.64 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.5 MB.
+System memory in use after: 102.6 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2606.
+Total: 3.323400 ms (FindLiveObjects: 0.661400 ms CreateObjectMapping: 0.187600 ms MarkObjects: 2.455000 ms  DeleteObjects: 0.017900 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002630 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 2.72 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.839 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.63 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.5 MB.
+System memory in use after: 102.6 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2609.
+Total: 3.609000 ms (FindLiveObjects: 0.413200 ms CreateObjectMapping: 0.185500 ms MarkObjects: 2.988400 ms  DeleteObjects: 0.020200 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.004070 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.20 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.868 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.39 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.5 MB.
+System memory in use after: 102.6 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2612.
+Total: 4.101700 ms (FindLiveObjects: 0.339500 ms CreateObjectMapping: 0.262200 ms MarkObjects: 3.477300 ms  DeleteObjects: 0.019700 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003237 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.22 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.833 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.49 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.5 MB.
+System memory in use after: 102.7 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2615.
+Total: 2.714000 ms (FindLiveObjects: 0.248400 ms CreateObjectMapping: 0.100000 ms MarkObjects: 2.331900 ms  DeleteObjects: 0.031600 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002878 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.65 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.840 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.47 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.5 MB.
+System memory in use after: 102.7 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2618.
+Total: 2.094800 ms (FindLiveObjects: 0.284500 ms CreateObjectMapping: 0.134800 ms MarkObjects: 1.658700 ms  DeleteObjects: 0.014800 ms)
+

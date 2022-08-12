@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: VektorJuggernaut_CReward_1
   m_EditorClassIdentifier: 
   nextDialogueClip: {fileID: 11400000}
-  aetherCells: 15
+  aetherCells: 7
   newSkill: 1
-  newLocations: []
-  newNarrative: {fileID: 0}
+  newLocations:
+  - Location: {fileID: 11400000, guid: 03eff2931c7e5734fbc5df2aac674d93, type: 2}
+    NewNpc: {fileID: 0}
+  newNarrative: {fileID: 11400000, guid: bf76471ce1b89604b9eb14e06f9fa36a, type: 2}
   reputation_Mages: 1
   reputation_Mutants: 1
   reputation_Rogues: 1

@@ -78,6 +78,7 @@ public class AnimationManager : MonoBehaviour
             }
         Debug.LogWarning("ANIMATOR NOT FOUND!");
     }
+
     public void SetAnimatorBool(GameObject go, string boolName, bool animBool)
     {
         if (go == null)
@@ -97,7 +98,7 @@ public class AnimationManager : MonoBehaviour
 
     /******
      * *****
-     * ****** VALUE_CHANGE_ANIMATION
+     * ****** VALUE_CHANGE
      * *****
      *****/
     public void ValueChanger(Transform parent, int value, float yBuffer = 0)
@@ -110,9 +111,9 @@ public class AnimationManager : MonoBehaviour
             newParent = uMan.UICanvas.transform;
             valueChanger.transform.localScale = new Vector2(2, 2);
         }
-        else newParent = parent.parent.parent.parent; // TESTING
-        valueChanger.transform.SetParent(newParent); // TESTING
-        valueChanger.transform.SetAsLastSibling(); // TESTING
+        else newParent = parent.parent.parent.parent;
+        valueChanger.transform.SetParent(newParent);
+        valueChanger.transform.SetAsLastSibling();
 
         string valueText = "+";
         bool isPositiveChange = true;
@@ -246,6 +247,11 @@ public class AnimationManager : MonoBehaviour
      * ****** STAT_CHANGES
      * *****
      *****/
+    private void ModifyUnitHealthState(GameObject card) => ChangeAnimationState(card, "Modify_Health");
+    private void ModifyUnitPowerState(GameObject card) => ChangeAnimationState(card, "Modify_Power");
+    private void ModifyAllUnitStatsState(GameObject card) => ChangeAnimationState(card, "Modify_All");
+    public void DestroyUnitCardState(GameObject unitCard) => ChangeAnimationState(unitCard, "Destroyed");
+
     public void UnitTakeDamageState(GameObject unitCard, int damageValue)
     {
         ChangeAnimationState(unitCard.GetComponent<UnitCardDisplay>().UnitStats, "Take_Damage");
@@ -255,8 +261,26 @@ public class AnimationManager : MonoBehaviour
         ValueChanger(healthScore.transform, -damageValue);
         SetAnimatorBool(stats, "IsDamaged", coMan.IsDamaged(unitCard));
     }
-    public void DestroyUnitCardState(GameObject unitCard) =>
-        ChangeAnimationState(unitCard, "Destroyed");
+
+    public void ShowStatChange(GameObject unitCard, StatChangeEffect sce, bool isRemoval)
+    {
+        bool isNegativeChange = false;
+        int powerChange = sce.PowerChange;
+        int healthChange = sce.HealthChange;
+
+        if (sce.PowerChange < 0 || sce.HealthChange < 0) isNegativeChange = true;
+        if (isRemoval)
+        {
+            isNegativeChange = !isNegativeChange;
+            powerChange = -powerChange;
+            healthChange = -healthChange;
+        }
+
+        if (!isNegativeChange) auMan.StartStopSound("SFX_StatPlus");
+        else auMan.StartStopSound("SFX_StatMinus");
+        UnitStatChangeState(unitCard, powerChange, healthChange);
+    }
+
     public void UnitStatChangeState(GameObject unitCard, int powerChange, int healthChange, bool isHealing = false)
     {
         if (powerChange == 0 && healthChange == 0 && !isHealing) return;
@@ -298,12 +322,6 @@ public class AnimationManager : MonoBehaviour
             ValueChanger(healthScore.transform, healthChange);
         }
     }
-    private void ModifyUnitHealthState(GameObject card) =>
-        ChangeAnimationState(card, "Modify_Health");
-    private void ModifyUnitPowerState(GameObject card) =>
-        ChangeAnimationState(card, "Modify_Power");
-    private void ModifyAllUnitStatsState(GameObject card) =>
-        ChangeAnimationState(card, "Modify_All");
 
     // Ability Trigger
     public void AbilityTriggerState(GameObject triggerIcon)
@@ -314,17 +332,12 @@ public class AnimationManager : MonoBehaviour
             return;
         }
 
-        triggerIcon.transform.SetAsLastSibling(); // TESTING
-
-        ChangeAnimationState(triggerIcon.GetComponent
-            <AbilityIconDisplay>().AbilitySpriteObject, "Trigger");
+        triggerIcon.transform.SetAsLastSibling();
+        ChangeAnimationState(triggerIcon.GetComponent<AbilityIconDisplay>().AbilitySpriteObject, "Trigger");
     }
 
     // Icon Animation
-    public void SkybarIconAnimation(GameObject icon)
-    {
-        ChangeAnimationState(icon, "Trigger");
-    }
+    public void SkybarIconAnimation(GameObject icon) => ChangeAnimationState(icon, "Trigger");
 
     /******
      * *****
@@ -459,8 +472,7 @@ public class AnimationManager : MonoBehaviour
      * ****** NEW_ENGAGED_HERO
      * *****
      *****/
-    public void NewEngagedHero(bool isExitOnly) =>
-        StartCoroutine(NewEngagedHeroNumerator(isExitOnly));
+    public void NewEngagedHero(bool isExitOnly) => StartCoroutine(NewEngagedHeroNumerator(isExitOnly));
     private IEnumerator NewEngagedHeroNumerator(bool isExitOnly)
     {
         auMan.StartStopSound("SFX_PortraitClick");
@@ -501,8 +513,7 @@ public class AnimationManager : MonoBehaviour
      * ****** COMBAT_INTRO
      * *****
      *****/
-    public void CombatIntro() =>
-        StartCoroutine(CombatIntroNumerator());
+    public void CombatIntro() => StartCoroutine(CombatIntroNumerator());
     private IEnumerator CombatIntroNumerator()
     {
         float distance;
@@ -664,20 +675,6 @@ public class AnimationManager : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         while (distance > 0);
-
-        if (enMan.EnemyHero.IsBoss)
-        {
-            float countDelay = 0.15f;
-            CountingText(eHD.HeroHealthObject.GetComponent
-                <TextMeshProUGUI>(), GameManager.ENEMY_STARTING_HEALTH, enMan.MaxEnemyHealth, countDelay);
-
-            while (TextCountRoutine != null)
-            {
-                ModifyHeroHealthState(coMan.EnemyHero, 1);
-                yield return new WaitForSeconds(countDelay);
-            }
-            enMan.EnemyHealth = enMan.MaxEnemyHealth;
-        }
     }
 
     /******
@@ -809,24 +806,21 @@ public class AnimationManager : MonoBehaviour
             {
                 case ProgressBarType.Ultimate:
                     PlayerHeroDisplay phd = coMan.PlayerHero.GetComponent<PlayerHeroDisplay>();
-                    phd.UltimateUsedIcon.SetActive(false); // TESTING
+                    phd.UltimateUsedIcon.SetActive(false);
                     GameObject heroUltimate = phd.HeroUltimate;
                     TriggerHeroPower(heroUltimate);
                     auMan.StartStopSound("SFX_HeroUltimateReady");
                     break;
                 case ProgressBarType.Recruit:
-                    Debug.LogWarning("RECRUIT REWARD!");
-                    //gMan.RecruitLoyalty = 0;
+                    Debug.Log("RECRUIT REWARD!");
                     break;
                 case ProgressBarType.Item:
-                    Debug.LogWarning("SHOP REWARD!");
-                    //gMan.ShopLoyalty = 0;
+                    Debug.Log("SHOP REWARD!");
                     break;
             }
         }
-        ProgressBarRoutine = null; // TESTING
+        ProgressBarRoutine = null;
     }
 
-    public void TriggerHeroPower(GameObject heroPower) =>
-        ChangeAnimationState(heroPower, "Trigger");
+    public void TriggerHeroPower(GameObject heroPower) => ChangeAnimationState(heroPower, "Trigger");
 }

@@ -4,10 +4,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Effect Group", menuName = "Effects/Effect Group")]
 public class EffectGroup : ScriptableObject
 {
-    public EffectTargets Targets;
-    [Header("RESOLVE SEPARATELY")]
-    public bool ResolveIndependent;
-    public List<Effect> Effects;
-    [Tooltip("Description of the effects")]
-    [TextArea] public string EffectsDescription;
+    [Header("Effect Targets")] public EffectTargets Targets;
+    [Header("Resolve Independent")] public bool ResolveIndependent;
+    [TextArea, Header("Effects Description")] public string EffectsDescription;
+    [Header("Effects List")] public List<Effect> Effects;
 }

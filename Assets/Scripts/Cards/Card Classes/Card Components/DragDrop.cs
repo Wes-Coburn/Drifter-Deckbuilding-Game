@@ -12,10 +12,11 @@ public class DragDrop : MonoBehaviour
     private CardContainer container;
     private GameObject dragArrow;
     private bool isOverDropZone;
-    private const string SFX_DRAG_CARD = "SFX_DragCard";
     private bool isDragging;
     private int lastIndex;
     private ParticleSystemHandler particleHandler;
+
+    private const string SFX_DRAG_CARD = "SFX_DragCard";
 
     private bool IsDragging
     {
@@ -29,6 +30,7 @@ public class DragDrop : MonoBehaviour
 
     public int LastIndex { get => lastIndex; }
     public bool IsPlayed { get; set; }
+
     public static GameObject DraggingCard;
     public static bool ArrowIsDragging;
     public static GameObject Enemy;
@@ -118,14 +120,16 @@ public class DragDrop : MonoBehaviour
                 DraggingCard = null;
                 return;
             }
+
             ArrowIsDragging = true;
             if (dragArrow != null) Destroy(dragArrow);
-            dragArrow = Instantiate(coMan.DragArrowPrefab, 
-                uMan.CurrentCanvas.transform);
+            dragArrow = Instantiate(CardManager.Instance.DragArrowPrefab, uMan.CurrentCanvas.transform);
             dragArrow.GetComponent<DragArrow>().SourceCard = gameObject;
+
             foreach (GameObject enemyUnit in coMan.EnemyZoneCards)
                 if (coMan.CanAttack(gameObject, enemyUnit, true))
                     uMan.SelectTarget(enemyUnit, UIManager.SelectionType.Highlighted);
+
             if (coMan.CanAttack(gameObject, coMan.EnemyHero, true)) 
                 uMan.SelectTarget(coMan.EnemyHero, UIManager.SelectionType.Highlighted);
 

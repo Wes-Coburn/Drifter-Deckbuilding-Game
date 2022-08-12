@@ -12,9 +12,10 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     [SerializeField] private CardAbility exhaustedAbility;
     
     private const float  ZOOM_BUFFER                 =  350;
-    public const float  ZOOM_SCALE_VALUE            =  4;
+    public const float   ZOOM_SCALE_VALUE            =  4;
     private const float  CENTER_SCALE_VALUE          =  6;
     private const float  POPUP_SCALE_VALUE           =  3;
+    private const float  MED_POPUP_SCALE_VALUE       =  2.5f;
     private const float  SMALL_POPUP_SCALE_VALUE     =  2;
 
     private UIManager uMan;
@@ -80,7 +81,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         ZoomCardIsCentered = true;
         uMan.SetScreenDimmer(true);
         CreateDescriptionPopup(new Vector2(-590, 0), POPUP_SCALE_VALUE);
-        CreateAbilityPopups(new Vector2(590, 0), POPUP_SCALE_VALUE, false); // TESTING
+        CreateAbilityPopups(new Vector2(590, 0), POPUP_SCALE_VALUE, false);
         CreateZoomCard(new Vector2(0, 50), CENTER_SCALE_VALUE);
 
         void RightClickTooltip()
@@ -109,7 +110,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         GameObject container = GetComponent<CardDisplay>().CardContainer;
         if (container != null) parent = container.transform.parent.gameObject;
 
-        if (uMan.PlayerIsTargetting && parent != playerActionZone) // TESTING
+        if (uMan.PlayerIsTargetting && parent != playerActionZone)
         {
             if (EffectManager.Instance.CurrentEffect is DrawEffect de && de.IsDiscardEffect) { }
             else return;
@@ -191,7 +192,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
                 else if (uMan.CardPagePopup != null)
                     FunctionTimer.Create(() =>
                     CreateAbilityPopups(new Vector2(0, -300),
-                    POPUP_SCALE_VALUE, false), 0.5f, ABILITY_POPUP_TIMER);
+                    MED_POPUP_SCALE_VALUE, false), 0.5f, ABILITY_POPUP_TIMER);
                 // New Card Popup
                 else if (uMan.NewCardPopup != null)
                     FunctionTimer.Create(() =>
@@ -297,7 +298,6 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         zoomAbilityIcon.transform.localScale = new Vector2(scaleValue, scaleValue);
         zoomAbilityIcon.GetComponent<AbilityIconDisplay>().ZoomAbilityScript = ca;
 
-        // TESTING
         if (ZoomCardIsCentered)
         {
             foreach (Transform tran in zoomAbilityIcon.transform)
@@ -389,7 +389,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
 
         DestroyAbilityPopups();
         if (singleList.Count > 4) vec2.y = 0;
-        if (singleList.Count > 9) uMan.HideSkybar(true); // TESTING
+        if (singleList.Count > 9) uMan.HideSkybar(true);
 
         AbilityPopupBox = CreateZoomObject(abilityPopupBoxPrefab, vec2, scaleValue);
         foreach (CardAbility single in singleList)
@@ -411,11 +411,12 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
                     }
                     else if (ca2 is AbilityTrigger at2)
                     {
-                        if (at2.AbilityName == newTriggerName) return; // TESTING
+                        if (at2.AbilityName == newTriggerName) return;
                     }
                 }
                 singleList.Add(ca);
             }
+            else if (ca is ModifierAbility) { }
             else
             {
                 if (singleList.FindIndex(x => x.AbilityName ==
@@ -433,17 +434,9 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     public void DestroyZoomPopups()
     {
         if (ZoomCardIsCentered) return;
-        //FunctionTimer.StopTimer(ZOOM_CARD_TIMER);
         foreach (GameObject go in zoomPopups)
-            DestroyObject(go);
-
-        static void DestroyObject(GameObject go)
-        {
-            if (go != null)
-            {
-                Destroy(go);
-                go = null;
-            }
-        }
+            Destroy(go);
     }
+
+    private void OnDestroy() => DestroyZoomPopups();
 }

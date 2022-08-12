@@ -15,7 +15,8 @@ MonoBehaviour:
   AbilityName: 'Play: Refresh an ally.'
   AbilityDescription: Refresh an ally.
   AbilitySprite: {fileID: 0}
-  LinkedAbilites: []
+  LinkedAbilites:
+  - {fileID: 11400000, guid: dd1e5adc210ef4f4387a7fa5ee2988e8, type: 2}
   AbilityTrigger: {fileID: 11400000, guid: c74c9ac6a33f86347a6ac56840c5c7cc, type: 2}
   EffectGroupList:
   - {fileID: 11400000, guid: e865f57b5d1861144a6ab6e3bd8d93af, type: 2}

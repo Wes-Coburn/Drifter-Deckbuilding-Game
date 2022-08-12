@@ -406,7 +406,7 @@ public class DialogueManager : MonoBehaviour
         // Exit
         if (dResponse.Response_IsExit)
         {
-            uMan.CreateBetaFinishPopup(); // FOR BETA ONLY
+            uMan.CreateGameEndPopup(); // FOR BETA ONLY
             gMan.SaveGame(); // FOR BETA ONLY
             return;
         }
@@ -437,11 +437,7 @@ public class DialogueManager : MonoBehaviour
                 uMan.CreateNewCardPopup(nextPrompt.NewCard, "New Card!");
             // Aether Cells
             else if (nextPrompt.AetherCells > 0)
-            {
-                int newAether = nextPrompt.AetherCells;
-                int newTotal = newAether + pMan.AetherCells;
-                uMan.CreateAetherCellPopup(newAether, newTotal);
-            }
+                uMan.CreateAetherCellPopup(nextPrompt.AetherCells);
         }
 
         currentDialogueClip = nextClip;

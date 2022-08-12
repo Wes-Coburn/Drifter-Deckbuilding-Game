@@ -46,11 +46,8 @@ public class EffectRay : MonoBehaviour
             }
             return;
         }
+
         isMoving = true;
-
-        //Vector3 newDirection = Vector3.RotateTowards(transform.forward, Target.transform.position, 10, 10);
-        //transform.rotation = Quaternion.LookRotation(newRotation);
-
         distance = Vector2.Distance(transform.position, target.transform.position);
         speed = distance/10;
         if (speed < minSpeed) speed = minSpeed;
@@ -69,6 +66,13 @@ public class EffectRay : MonoBehaviour
 
     public void SetEffectRay(GameObject target, Action rayEffect, Color rayColor, bool isEffectGroup)
     {
+        if (target == null)
+        {
+            Debug.LogError("TARGET IS NULL!");
+            DestroyRay();
+            return;
+        }
+
         this.rayEffect = rayEffect;
         this.isEffectGroup = isEffectGroup;
         this.target = target;
@@ -83,7 +87,7 @@ public class EffectRay : MonoBehaviour
     {
         isDestroyed = true;
         ActiveRays--;
-        Debug.Log("ACTIVE EFFECT RAYS: <" + ActiveRays + ">");
+        //Debug.Log("ACTIVE EFFECT RAYS: <" + ActiveRays + ">");
 
         if (rayEffect == null)
         {
@@ -93,12 +97,7 @@ public class EffectRay : MonoBehaviour
 
         rayEffect();
         if (isEffectGroup) efMan.ActiveEffects--;
-
-        if (ActiveRays < 1)
-        {
-            if (!isEffectGroup)
-                UIManager.Instance.UpdateEndTurnButton(PlayerManager.Instance.IsMyTurn, true);
-        }
+        else if (ActiveRays < 1) UIManager.Instance.UpdateEndTurnButton(true);
 
         GetComponent<SpriteRenderer>().enabled = false;
         StartCoroutine(DestroyRayNumerator());

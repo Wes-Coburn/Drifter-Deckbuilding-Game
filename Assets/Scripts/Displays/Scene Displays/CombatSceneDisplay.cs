@@ -9,6 +9,6 @@ public class CombatSceneDisplay : MonoBehaviour
         Sprite background = gMan.GetLocationBackground();
         if (background != null)
             backgroundImage.GetComponent<SpriteRenderer>().sprite = background;
-        else Debug.LogError("BACKGROUND IS NULL!");
+        else Debug.LogWarning("BACKGROUND IS NULL!");
     }
 }

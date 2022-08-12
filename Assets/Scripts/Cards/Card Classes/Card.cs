@@ -36,7 +36,7 @@ public abstract class Card : ScriptableObject
         cardArt = card.CardArt;
         cardBorder = card.CardBorder;
         energyCost = card.StartEnergyCost;
-        CurrentEnergyCost = energyCost; // TESTING
+        CurrentEnergyCost = energyCost;
         cardName = card.CardName;
         cardType = card.CardType;
         cardSubType = card.CardSubType;
@@ -53,7 +53,7 @@ public abstract class Card : ScriptableObject
         cardArt = card.CardArt;
         cardBorder = card.CardBorder;
         energyCost = card.StartEnergyCost;
-        CurrentEnergyCost = card.CurrentEnergyCost; // TESTING
+        CurrentEnergyCost = card.CurrentEnergyCost;
         cardName = card.CardName;
         cardType = card.CardType;
         cardSubType = card.CardSubType;

@@ -34,7 +34,7 @@ public class RemoveCardPopupDisplay : MonoBehaviour
             if (card.IsRare) cost = GameManager.REMOVE_RARE_CARD_COST;
             else cost = GameManager.REMOVE_CARD_COST;
 
-            string text = "SELL <color=\"yellow\"><u>" + card.CardName + "</u></color>" +
+            string text = "SELL <u>" + card.CardName + "</u>" +
                 " for " + cost + " aether?";
             PopupText = text;
         }
@@ -51,5 +51,5 @@ public class RemoveCardPopupDisplay : MonoBehaviour
     }
 
     public void CancelButton_OnClick() =>
-        uMan.DestroyRemoveCardPopup();
+        uMan.DestroyInteractablePopup(gameObject);
 }

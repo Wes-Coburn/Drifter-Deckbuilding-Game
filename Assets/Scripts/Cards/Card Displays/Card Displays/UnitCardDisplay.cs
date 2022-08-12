@@ -25,6 +25,7 @@ public class UnitCardDisplay : CardDisplay
 
     public List<GameObject> AbilityIcons { get; set; }
     public List<CardAbility> CurrentAbilities { get => UnitCard.CurrentAbilities; }
+    public List<CardAbility> DisplayAbilities { get => displayedAbilities; }
 
     public int CurrentPower
     {
@@ -244,17 +245,26 @@ public class UnitCardDisplay : CardDisplay
         {
             if (ta.AbilityTrigger.AbilityName != CardManager.TRIGGER_PLAY)
             {
-                bool iconsFound = false;
+                bool iconFound = false;
                 foreach (CardAbility ca2 in displayedAbilities)
                 {
                     if (ca2 is TriggeredAbility ta2)
                     {
                         if (ta2.AbilityTrigger.AbilityName == ta.AbilityTrigger.AbilityName)
-                            iconsFound = true;
+                            iconFound = true;
                     }
                 }
-                if (!iconsFound) ShowAbility(ta);
+                if (!iconFound) ShowAbility(ta);
             }
+        }
+        else if (ca is ModifierAbility ma) // TESTING
+        {
+            bool iconFound = false;
+            foreach (CardAbility ca3 in displayedAbilities)
+            {
+                if (ca3 is ModifierAbility ma2) iconFound = true;
+            }
+            if (!iconFound) ShowAbility(ma);
         }
 
         if (!iconOnly)
@@ -332,6 +342,19 @@ public class UnitCardDisplay : CardDisplay
             if (ta.AbilityTrigger.AbilityName == CardManager.TRIGGER_PLAY) return;
             if (CardManager.GetTrigger(gameObject, ta.AbilityTrigger.AbilityName)) return;
         }
+        else if (ca is ModifierAbility ma) // TESTING
+        {
+            List<CardAbility> modAbilities = new List<CardAbility>();
+            foreach (CardAbility ability in CurrentAbilities)
+                if (ability.AbilityName == ca.AbilityName)
+                    modAbilities.Add(ability);
+
+            foreach (CardAbility modCa in modAbilities)
+                CurrentAbilities.Remove(modCa);
+
+            foreach (CardAbility ability2 in CurrentAbilities)
+                if (ability2 is ModifierAbility) return;
+        }
 
         if (displayIndex == -1)
         {
@@ -374,7 +397,15 @@ public class UnitCardDisplay : CardDisplay
             {
                 if (tra.AbilityTrigger.AbilityName == abilityName)
                 {
-                    TriggerState(AbilityIcons[displayIndex], tra.AbilityTrigger.TriggerSound); // TESTING
+                    TriggerState(AbilityIcons[displayIndex], tra.AbilityTrigger.TriggerSound);
+                    return;
+                }
+            }
+            else if (ca is ModifierAbility ma)
+            {
+                if (ma.AbilityName == abilityName)
+                {
+                    TriggerState(AbilityIcons[displayIndex], null);
                     return;
                 }
             }

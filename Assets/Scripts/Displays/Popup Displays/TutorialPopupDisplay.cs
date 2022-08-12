@@ -6,7 +6,7 @@ public class TutorialPopupDisplay : MonoBehaviour
     private void Start() => gMan = GameManager.Instance;
 
     private void DestroySelf() =>
-        UIManager.Instance.DestroyTutorialPopup();
+        UIManager.Instance.DestroyInteractablePopup(gameObject);
 
     public void CloseButton_OnClick() =>
         DestroySelf();

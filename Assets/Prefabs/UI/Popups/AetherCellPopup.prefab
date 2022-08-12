@@ -415,6 +415,8 @@ GameObject:
   - component: {fileID: 4073479709359096580}
   - component: {fileID: 7962289469445740695}
   - component: {fileID: 964064605474463512}
+  - component: {fileID: 7176846027520469313}
+  - component: {fileID: 8341290712847757641}
   m_Layer: 5
   m_Name: AetherCellPopup
   m_TagString: Untagged
@@ -481,6 +483,37 @@ MonoBehaviour:
   - SFX_AddCard
   - SFX_Click1
   sounds2: []
+--- !u!225 &7176846027520469313
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4073479709359096583}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!95 &8341290712847757641
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4073479709359096583}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 12d403e92b867f74795c5a12a0403ae2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4073479710032761409
 GameObject:
   m_ObjectHideFlags: 0

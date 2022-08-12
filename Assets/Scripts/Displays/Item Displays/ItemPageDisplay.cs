@@ -54,8 +54,12 @@ public class ItemPageDisplay : MonoBehaviour
 
         scrollRect.verticalNormalizedPosition = 1;
 
+        bool isReady;
         int progress = GameManager.Instance.ShopLoyalty;
-        SetProgressBar(0, progress, false, true);
+        if (progress == GameManager.SHOP_LOYALTY_GOAL) isReady = true;
+        else isReady = false;
+
+        SetProgressBar(0, progress, isReady, true); // TESTING
     }
 
     public void CloseItemPageButton_OnClick()

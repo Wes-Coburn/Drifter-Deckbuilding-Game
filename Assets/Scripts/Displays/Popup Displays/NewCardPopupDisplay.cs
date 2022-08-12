@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class NewCardPopupDisplay : MonoBehaviour
@@ -55,7 +56,7 @@ public class NewCardPopupDisplay : MonoBehaviour
         caMan = CardManager.Instance;
 
         ignoreCardButton.GetComponentInChildren<TextMeshProUGUI>().SetText
-            ("Take " + GameManager.IGNORE_CARD_AETHER + " aether instead");
+            ("Take " + GameManager.IGNORE_CARD_AETHER + " Aether");
         GetComponent<SoundPlayer>().PlaySound(0);
     }
 
@@ -120,59 +121,48 @@ public class NewCardPopupDisplay : MonoBehaviour
         foreach (GameObject button in addCardButtons)
         {
             button.transform.localPosition =
-                new Vector2(button.transform.localPosition.x, -400); // TESTING
+                new Vector2(button.transform.localPosition.x, -400);
         }
     }
 
     public void AddCard_OnClick(int cardSelection)
     {
         GetComponent<SoundPlayer>().PlaySound(2);
-        uMan.DestroyNewCardPopup();
+        uMan.DestroyInteractablePopup(gameObject);
+        DisableButtons();
 
         Card newCard;
         if (cardSelection == 0) newCard = NewCard;
         else newCard = chooseCards[cardSelection - 1];
         CardManager.Instance.AddCard(newCard, GameManager.PLAYER, true);
 
-        if (SceneLoader.IsActiveScene(SceneLoader.Scene.HomeBaseScene)) return; // TESTING
+        if (SceneLoader.IsActiveScene(SceneLoader.Scene.HomeBaseScene))
+        {
+            RewardBonusAugment();
+            return;
+        }
 
         DialogueClip nextClip = dMan.EngagedHero.NextDialogueClip;
         if (!SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene))
         {
             DialoguePrompt dp = nextClip as DialoguePrompt;
-            if (dp.AetherCells > 0)
-            {
-                int newAether = dp.AetherCells;
-                int newTotal = newAether + pMan.AetherCells;
-                uMan.CreateAetherCellPopup(newAether, newTotal);
-            }
+            if (dp.AetherCells > 0) uMan.CreateAetherCellPopup(dp.AetherCells);
             else dMan.DisplayDialoguePopup();
         }
         else if (nextClip is CombatRewardClip crc)
         {
-            if (newCard is UnitCard)
-            {
-                uMan.CreateNewCardPopup(null, "New Action!",
-                    caMan.ChooseCards(CardManager.ChooseCard.Action));
-                return;
-            }
-            else if (newCard is SkillCard) { } // TESTING
-            else if (newCard is ActionCard) // TESTING
+            if (newCard is SkillCard) { }
+            else
             {
                 if (crc.NewSkill)
                 {
                     uMan.CreateNewCardPopup(null, "New Hero Skill!",
-                        caMan.ChooseCards(CardManager.ChooseCard.Skill)); // TESTING
+                        caMan.ChooseCards(CardManager.ChooseCard.Skill));
                     return;
                 }
             }
 
-            if (crc.AetherCells > 0)
-            {
-                int newAether = crc.AetherCells;
-                int newTotal = newAether + pMan.AetherCells;
-                uMan.CreateAetherCellPopup(newAether, newTotal);
-            }
+            if (crc.AetherCells > 0) uMan.CreateAetherCellPopup(crc.AetherCells);
             else
             {
                 dMan.EngagedHero.NextDialogueClip = crc.NextDialogueClip;
@@ -186,30 +176,25 @@ public class NewCardPopupDisplay : MonoBehaviour
     {
         GetComponent<SoundPlayer>().PlaySound(3);
         pMan.AetherCells += GameManager.IGNORE_CARD_AETHER;
-        uMan.DestroyNewCardPopup();
+        uMan.DestroyInteractablePopup(gameObject);
+        DisableButtons();
 
-        if (SceneLoader.IsActiveScene(SceneLoader.Scene.HomeBaseScene)) return; // TESTING
+        if (SceneLoader.IsActiveScene(SceneLoader.Scene.HomeBaseScene))
+        {
+            RewardBonusAugment();
+            return;
+        }
 
         DialogueClip nextClip = dMan.EngagedHero.NextDialogueClip;
         if (!SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene))
         {
             DialoguePrompt dp = nextClip as DialoguePrompt;
-            if (dp.AetherCells > 0)
-            {
-                int newAether = dp.AetherCells;
-                int newTotal = newAether + pMan.AetherCells;
-                uMan.CreateAetherCellPopup(newAether, newTotal);
-            }
+            if (dp.AetherCells > 0) uMan.CreateAetherCellPopup(dp.AetherCells);
             else dMan.DisplayDialoguePopup();
         }
         else if (dMan.EngagedHero.NextDialogueClip is CombatRewardClip crc)
         {
-            if (crc.AetherCells > 0)
-            {
-                int newAether = crc.AetherCells;
-                int newTotal = newAether + pMan.AetherCells;
-                uMan.CreateAetherCellPopup(newAether, newTotal);
-            }
+            if (crc.AetherCells > 0) uMan.CreateAetherCellPopup(crc.AetherCells);
             else
             {
                 dMan.EngagedHero.NextDialogueClip = crc.NextDialogueClip;
@@ -217,5 +202,18 @@ public class NewCardPopupDisplay : MonoBehaviour
             }
         }
         else Debug.LogError("NEXT CLIP IS NOT COMBAT_REWARD_CLIP!");
+    }
+
+    private void RewardBonusAugment()
+    {
+        if (pMan.GetAugment("Aether Magnet"))
+            uMan.CreateAetherCellPopup(3);
+    }
+
+    private void DisableButtons()
+    {
+        foreach (GameObject button in addCardButtons)
+            button.GetComponent<Button>().interactable = false;
+        ignoreCardButton.GetComponent<Button>().interactable |= false;
     }
 }

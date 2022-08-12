@@ -16,10 +16,12 @@ public class EventManager : MonoBehaviour
         }
         else Destroy(gameObject);
         delayedActions = new List<DelayedAction>();
+        delayedActions_priority = new List<DelayedAction>();
         isPaused = false;
     }
 
     private static List<DelayedAction> delayedActions;
+    private static List<DelayedAction> delayedActions_priority;
     private Coroutine currentActionRoutine;
     private bool isPaused;
 
@@ -32,11 +34,12 @@ public class EventManager : MonoBehaviour
         }
     }
 
+    public bool ActionsPaused => isPaused;
+
     public class DelayedAction
     {
         public Action Action;
         public float Delay;
-        public static int CurrentAction;
     }
 
     /******
@@ -55,8 +58,7 @@ public class EventManager : MonoBehaviour
      * ****** NEW_DELAYED_ACTION
      * *****
      *****/
-    public void NewDelayedAction(Action action,
-        float delay, bool resolveNext = false)
+    public void NewDelayedAction(Action action, float delay, bool resolveNext = false, bool priorityAction = false)
     {
         DelayedAction da = new DelayedAction
         {
@@ -64,24 +66,33 @@ public class EventManager : MonoBehaviour
             Delay = delay,
         };
 
-        if (resolveNext)
-            delayedActions.Insert(DelayedAction.CurrentAction, da);
-        else delayedActions.Add(da);
-
-        if (delayedActions.Count == 1)
+        if (priorityAction)
         {
-            DelayedAction.CurrentAction = 0;
-            NextDelayedAction();
+            if (resolveNext) delayedActions_priority.Insert(0, da);
+            else delayedActions_priority.Add(da);
         }
+        else
+        {
+            if (resolveNext) delayedActions.Insert(0, da);
+            else delayedActions.Add(da);
+        }
+
+        if (currentActionRoutine == null && !isPaused) NextDelayedAction();
     }
 
     private void NextDelayedAction()
     {
-        if (DelayedAction.CurrentAction < delayedActions.Count)
+        if (isPaused) return;
+
+        if (currentActionRoutine != null)
         {
-            if (isPaused) return;
-            currentActionRoutine = StartCoroutine(ActionNumerator());
+            Debug.LogError("ACTION ROUTINE IS NOT NULL!");
+            return;
         }
+
+        if (delayedActions.Count > 0 || delayedActions_priority.Count > 0)
+            currentActionRoutine = StartCoroutine(ActionNumerator());
+
         else ClearDelayedActions();
     }
 
@@ -94,7 +105,9 @@ public class EventManager : MonoBehaviour
         this.isPaused = isPaused;
         if (isResuming) NextDelayedAction();
 
-        UIManager.Instance.UpdateEndTurnButton(PlayerManager.Instance.IsMyTurn, !isPaused); // TESTING
+        UIManager.Instance.UpdateEndTurnButton(!isPaused);
+
+        Debug.Log("ACTIONS PAUSED === <" + isPaused + ">");
     }
 
     public void ClearDelayedActions()
@@ -104,14 +117,28 @@ public class EventManager : MonoBehaviour
             StopCoroutine(currentActionRoutine);
             currentActionRoutine = null;
         }
+
         delayedActions.Clear();
-        DelayedAction.CurrentAction = 0;
+        delayedActions_priority.Clear();
     }
 
     IEnumerator ActionNumerator()
     {
-        yield return new WaitForSeconds(delayedActions[DelayedAction.CurrentAction].Delay);
-        delayedActions[DelayedAction.CurrentAction++].Action();
+        DelayedAction da;
+        if (delayedActions_priority.Count > 0)
+        {
+            da = delayedActions_priority[0];
+            delayedActions_priority.RemoveAt(0);
+        }
+        else
+        {
+            da = delayedActions[0];
+            delayedActions.RemoveAt(0);
+        }
+
+        yield return new WaitForSeconds(da.Delay);
+        da.Action();
+
         currentActionRoutine = null;
         NextDelayedAction();
     }

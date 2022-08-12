@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4349856387716167952}
   - component: {fileID: 6301997532317855252}
   - component: {fileID: 12715925793138104}
+  - component: {fileID: 5896700268041610924}
   m_Layer: 5
   m_Name: InfoPopup
   m_TagString: Untagged
@@ -66,6 +67,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!225 &5896700268041610924
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 268856669738850229}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &670626867979860146
 GameObject:
   m_ObjectHideFlags: 0

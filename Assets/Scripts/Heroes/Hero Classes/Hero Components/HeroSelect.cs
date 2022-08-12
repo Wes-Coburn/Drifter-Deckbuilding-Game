@@ -26,17 +26,33 @@ public class HeroSelect : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
-        if (!DragDrop.ArrowIsDragging) return;
-        DragDrop.Enemy = gameObject;
-        if (coMan.CanAttack(DragDrop.DraggingCard, gameObject, true))
-            uMan.SelectTarget(gameObject, UIManager.SelectionType.Selected);
+        if (uMan.PlayerIsTargetting) efMan.HighlightEffectTarget(gameObject, true);
+        else if (DragDrop.ArrowIsDragging)
+        {
+            DragDrop.Enemy = gameObject;
+            UIManager.SelectionType type;
+
+            if (coMan.CanAttack(DragDrop.DraggingCard, gameObject, true))
+                type = UIManager.SelectionType.Selected;
+            else type = UIManager.SelectionType.Rejected;
+
+            uMan.SelectTarget(gameObject, type);
+        }
     }
 
     public void OnPointerExit(PointerEventData pointerEventData)
     {
-        if (!DragDrop.ArrowIsDragging) return;
-        DragDrop.Enemy = null;
-        if (coMan.CanAttack(DragDrop.DraggingCard, gameObject, true))
-            uMan.SelectTarget(gameObject, UIManager.SelectionType.Highlighted);
+        if (uMan.PlayerIsTargetting) efMan.HighlightEffectTarget(gameObject, false);
+        else if (DragDrop.ArrowIsDragging)
+        {
+            DragDrop.Enemy = null;
+            UIManager.SelectionType type;
+
+            if (coMan.CanAttack(DragDrop.DraggingCard, gameObject, true))
+                type = UIManager.SelectionType.Highlighted;
+            else type = UIManager.SelectionType.Disabled;
+
+            uMan.SelectTarget(gameObject, type);
+        }
     }
 }

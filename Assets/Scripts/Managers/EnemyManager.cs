@@ -71,9 +71,9 @@ public class EnemyManager : MonoBehaviour
     {
         get
         {
-            int bonusHealth = 0;
-            if (enemyHero.IsBoss) bonusHealth = GameManager.BOSS_BONUS_HEALTH;
-            return GameManager.ENEMY_STARTING_HEALTH + bonusHealth;
+            if (GameManager.Instance.IsTutorial)
+                return GameManager.TUTORIAL_STARTING_HEALTH;
+            return GameManager.ENEMY_STARTING_HEALTH;
         }
     }
 
@@ -100,6 +100,11 @@ public class EnemyManager : MonoBehaviour
             if (energyLeft > MaxEnergy) energyLeft = MaxEnergy;
             coMan.EnemyHero.GetComponent<HeroDisplay>().HeroEnergy =
                 energyLeft + "/" + EnergyPerTurn;
+
+            if (energyLeft < 0)
+            {
+                Debug.LogError("NEGATIVE ENERGY LEFT <" + energyLeft + ">");
+            }
         }
     }
 
@@ -150,7 +155,7 @@ public class EnemyManager : MonoBehaviour
         evMan.NewDelayedAction(() => CreateAttackSchedule(), 0); // Attack Schedule 2
 
         evMan.NewDelayedAction(() =>
-        GameManager.Instance.EndCombatTurn(GameManager.ENEMY), 1); // TESTING
+        GameManager.Instance.EndCombatTurn(GameManager.ENEMY), 1);
 
         void ReplenishEnergy()
         {
@@ -173,8 +178,17 @@ public class EnemyManager : MonoBehaviour
 
     private void CreatePlayCardSchedule()
     {
+        if (EffectManager.Instance.EffectsResolving)
+        {
+            Debug.LogError("PLAY SCHEDULE DELAYED!");
+            evMan.NewDelayedAction(() => CreatePlayCardSchedule(), 0, true);
+            return;
+        }
+
         List<GameObject> actionCards = new List<GameObject>();
-        foreach (GameObject card in FindPriorityCards())
+        List<GameObject> priorityCards = FindPriorityCards();
+
+        foreach (GameObject card in priorityCards)
         {
             if (coMan.IsUnitCard(card)) SchedulePlayCard(card);
             else actionCards.Add(card);
@@ -186,8 +200,9 @@ public class EnemyManager : MonoBehaviour
             int totalCost = 0;
             int cardsToPlay = 0;
 
-            List<GameObject> highestCostCards = new List<GameObject>();
             List<GameObject> priorityCards = new List<GameObject>();
+
+            List<GameObject> highestCostCards = new List<GameObject>();
             foreach (GameObject card in coMan.EnemyHandCards)
                 highestCostCards.Add(card);
 
@@ -202,21 +217,28 @@ public class EnemyManager : MonoBehaviour
             if (cardsToPlay_1 > cardsToPlay_2) GetNewPriorityCards();
 
             priorityCards.Reverse();
-            return priorityCards;
-            
-            bool AddPriorityCard(GameObject card)
+
+            foreach (GameObject card in priorityCards)
             {
-                int cost = card.GetComponent<CardDisplay>().CurrentEnergyCost;
-                if ((totalCost + cost) > EnergyLeft || !coMan.IsPlayable(card, true)) return false;
-                priorityCards.Add(card);
-                totalCost += cost;
-                cardsToPlay++;
-                return true;
+                CardDisplay cd = card.GetComponent<CardDisplay>();
+                Debug.LogWarning("<" + cd.CardName + "> COST <" + cd.CurrentEnergyCost + "> // TOTAL COST <" + totalCost + ">");
             }
+
+            return priorityCards;
+
             void AddPriorityCards()
             {
                 foreach (GameObject card in highestCostCards)
-                    if (!AddPriorityCard(card)) continue;
+                    AddPriorityCard(card);
+            }
+            void AddPriorityCard(GameObject card)
+            {
+                CardDisplay cd = card.GetComponent<CardDisplay>();
+                int cost = cd.CurrentEnergyCost;
+                if ((totalCost + cost) > EnergyLeft || !coMan.IsPlayable(card, true)) return;
+                priorityCards.Add(card);
+                totalCost += cost;
+                cardsToPlay++;
             }
             void GetNewPriorityCards()
             {
@@ -232,14 +254,26 @@ public class EnemyManager : MonoBehaviour
             }
         }
 
-        void SchedulePlayCard(GameObject card) =>
-            evMan.NewDelayedAction(() => PlayCard(card), 1, true);
+        void SchedulePlayCard(GameObject card, float delay = 1) =>
+            evMan.NewDelayedAction(() => PlayCard(card), delay, true);
 
         void PlayCard(GameObject card)
         {
-            if (!coMan.IsPlayable(card, true)) return;
-            evMan.PauseDelayedActions(true);
-            coMan.PlayCard(card);
+            if (EffectManager.Instance.EffectsResolving)
+            {
+                Debug.LogError("PLAY CARD DELAYED! \nEffects Resolving <" +
+                    EffectManager.Instance.EffectsResolving + ">\nActions Paused <" + evMan.ActionsPaused + ">");
+                SchedulePlayCard(card, 0);
+                return;
+            }
+
+            if (coMan.IsPlayable(card, true))
+            {
+                coMan.PlayCard(card);
+
+                CardDisplay cd = card.GetComponent<CardDisplay>();
+                Debug.LogWarning("<" + cd.CardName + "> PLAYED for <" + cd.CurrentEnergyCost + ">");
+            }
         }
     }
 
@@ -253,15 +287,13 @@ public class EnemyManager : MonoBehaviour
         
         void SchedulePreAttack(GameObject attacker)
         {
-            evMan.NewDelayedAction(() =>
-            ScheduleAttack(attacker), 0, true);
+            evMan.NewDelayedAction(() => ScheduleAttack(attacker), 0, true);
         }
 
         void ScheduleAttack(GameObject attacker)
         {
-            if (CanAttack(attacker))
-                evMan.NewDelayedAction(() =>
-                ResolveAttack(attacker), 1, true);
+            if (CanAttack(attacker)) evMan.NewDelayedAction(() =>
+            ResolveAttack(attacker), 1, true);
         }
 
         void ResolveAttack(GameObject attacker)
@@ -288,7 +320,7 @@ public class EnemyManager : MonoBehaviour
             }
 
             UnitCardDisplay ucd = coMan.GetUnitDisplay(unit);
-            if (ucd.IsExhausted) return false; // TESTING
+            if (ucd.IsExhausted) return false;
             if (ucd.CurrentPower < 1 || ucd.CurrentHealth < 1) return false;
 
             return true;
@@ -316,10 +348,14 @@ public class EnemyManager : MonoBehaviour
 
     private GameObject FindDefender(GameObject attacker)
     {
-        GameObject defender = null;
         int playerHealth = PlayerManager.Instance.PlayerHealth;
-
+        List<GameObject> legalDefenders = new List<GameObject>();
         UnitCardDisplay attackerDisplay = attacker.GetComponent<UnitCardDisplay>();
+
+        foreach (GameObject playerUnit in coMan.PlayerZoneCards)
+            if (coMan.GetUnitDisplay(playerUnit).CurrentHealth > 0 &&
+                !CardManager.GetAbility(playerUnit, CardManager.ABILITY_STEALTH))
+                legalDefenders.Add(playerUnit);
 
         // If player hero is <LETHALLY THREATENED>
         if (TotalEnemyPower() >= playerHealth) return coMan.PlayerHero;
@@ -327,8 +363,8 @@ public class EnemyManager : MonoBehaviour
         // If enemy hero is <UNTHREATENED>
         if (EnemyHealth > (MaxEnemyHealth * 0.65f) && TotalAllyPower() < (EnemyHealth * 0.35f))
         {
-            // Always attacker the player hero when unthreatened
-            return coMan.PlayerHero;
+            // Attack an enemy unless there are no good attacks
+            return GetBestDefender(true);
         }
         // If enemy hero is <MILDLY THREATENED>
         else if (EnemyHealth > (MaxEnemyHealth * 0.5f) && TotalAllyPower() < (EnemyHealth * 0.65f))
@@ -342,51 +378,65 @@ public class EnemyManager : MonoBehaviour
                 return coMan.PlayerHero;
         }
 
-        List<GameObject> legalDefenders = new List<GameObject>();
-        foreach (GameObject playerUnit in coMan.PlayerZoneCards)
-            if (coMan.GetUnitDisplay(playerUnit).CurrentHealth > 0 &&
-                !CardManager.GetAbility(playerUnit, CardManager.ABILITY_STEALTH))
-                legalDefenders.Add(playerUnit);
-
-        int highestPriority = -99;
-        foreach (GameObject legalDefender in legalDefenders)
+        return GetBestDefender(false);
+        
+        GameObject GetBestDefender(bool goodAttacksOnly)
         {
-            UnitCardDisplay ucd = coMan.GetUnitDisplay(legalDefender);
-            int priority = 0;
-            int power = ucd.CurrentPower;
-            int health = ucd.CurrentHealth;
+            GameObject defender = null;
+            int highestPriority = -99;
 
-            priority += power + (power/3) - health/2;
+            int attackerPower = attackerDisplay.CurrentPower;
 
-            if (CardManager.GetAbility(legalDefender,
-                CardManager.ABILITY_RANGED)) priority += 2; // Defender has ranged
-
-            if (CardManager.GetAbility(legalDefender,
-                CardManager.ABILITY_POISONED)) priority -= 2; // Defender is poisoned
-
-            if (CardManager.GetAbility(legalDefender, CardManager.ABILITY_FORCEFIELD)) priority -= 2;
-            else
+            foreach (GameObject legalDefender in legalDefenders)
             {
-                int modHealth = health;
-                if (CardManager.GetAbility(legalDefender, CardManager.ABILITY_ARMORED)) modHealth++;
-                if (attackerDisplay.CurrentPower >= modHealth) priority += 8; // Defender will be destroyed
-            }
+                UnitCardDisplay ucd = coMan.GetUnitDisplay(legalDefender);
+                int priority = 0;
+                int defenderPower = ucd.CurrentPower;
+                int defenderHealth = ucd.CurrentHealth;
+                priority += defenderPower + (defenderPower / 3) - defenderHealth / 2;
 
-            if (!CardManager.GetAbility(attacker, CardManager.ABILITY_RANGED))
-            {
-                int modHealth = attackerDisplay.CurrentHealth;
-                if (CardManager.GetAbility(attacker, CardManager.ABILITY_ARMORED)) modHealth++;
-                if (modHealth > power) priority += 4; // Attacker will survive melee
-            }
+                bool defender_Armored =
+                    CardManager.GetAbility(legalDefender, CardManager.ABILITY_ARMORED);
+                if (defender_Armored && attackerPower < 2) continue;
 
-            if (priority > highestPriority)
-            {
-                highestPriority = priority;
-                defender = legalDefender;
+                if (CardManager.GetAbility(legalDefender,
+                    CardManager.ABILITY_RANGED)) priority += 2; // Defender has Ranged
+
+                if (CardManager.GetAbility(legalDefender,
+                    CardManager.ABILITY_POISONED)) priority -= 2; // Defender is Poisoned
+
+                if (CardManager.GetTrigger(legalDefender,
+                    CardManager.TRIGGER_REVENGE)) priority -= 2; // Defender has Revenge
+
+                if (CardManager.GetAbility(legalDefender, CardManager.ABILITY_FORCEFIELD))
+                {
+                    if (goodAttacksOnly) continue;
+                    priority -= 2;
+                }
+                else
+                {
+                    int modHealth = defenderHealth;
+                    if (defender_Armored) modHealth++;
+                    if (attackerPower >= modHealth) priority += 6; // Defender will be destroyed
+                    else if (goodAttacksOnly) continue;
+                }
+
+                if (!CardManager.GetAbility(attacker, CardManager.ABILITY_RANGED))
+                {
+                    int modHealth = attackerDisplay.CurrentHealth;
+                    if (CardManager.GetAbility(attacker, CardManager.ABILITY_ARMORED)) modHealth++;
+                    if (modHealth > defenderPower) priority += 4; // Attacker will survive
+                }
+
+                if (priority > highestPriority)
+                {
+                    highestPriority = priority;
+                    defender = legalDefender;
+                }
             }
+            if (defender == null) return coMan.PlayerHero;
+            return defender;
         }
-        if (defender == null) return coMan.PlayerHero;
-        return defender;
     }
 
     public void UseHeroPower()

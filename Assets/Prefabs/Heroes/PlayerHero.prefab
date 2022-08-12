@@ -899,8 +899,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa007eff4e492ba4bad63f21cbf4c4d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltipText: Your <b>deck</b>. When it runs out of cards, you'll shuffle your discard
-    pile back into it.
+  tooltipText: Your <color="yellow"><b>Deck</b></color>. When it runs out of cards,
+    you'll shuffle your discard pile back into it.
   tooltipPosition: {x: -375, y: -420}
   isZoomCardTooltip: 0
 --- !u!114 &899503885
@@ -1378,7 +1378,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa007eff4e492ba4bad63f21cbf4c4d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltipText: Each time you use your hero power 3+ times, you can use your <b>Ultimate</b>
+  tooltipText: Each time you use your hero power 3+ times, you can use your <color="yellow"><b>Ultimate</b></color>
     once.
   tooltipPosition: {x: 350, y: -350}
   isZoomCardTooltip: 0
@@ -1563,7 +1563,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa007eff4e492ba4bad63f21cbf4c4d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltipText: Your hero's <b>health</b>. If it reaches 0, you lose.
+  tooltipText: Your hero's <color="yellow"><b>Health</b></color>. If it reaches 0,
+    you lose.
   tooltipPosition: {x: 350, y: -350}
   isZoomCardTooltip: 0
 --- !u!114 &822110272309271025
@@ -2401,8 +2402,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa007eff4e492ba4bad63f21cbf4c4d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltipText: Your current <b>energy</b> and your energy per turn. You can store
-    up to 10 energy.
+  tooltipText: Your current <color="yellow"><b>Energy</b></color> and your energy
+    per turn. You can store up to 10 energy.
   tooltipPosition: {x: 350, y: -350}
   isZoomCardTooltip: 0
 --- !u!1 &5292934362312869072

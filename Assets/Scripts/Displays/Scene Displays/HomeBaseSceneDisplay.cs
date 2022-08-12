@@ -153,25 +153,7 @@ public class HomeBaseSceneDisplay : MonoBehaviour
     {
         claimRewardButton.GetComponent<TooltipPopupDisplay>().DestroyToolTip();
         claimRewardButton.SetActive(false);
-
-        int random = Random.Range(1, 2);
-        CardManager.ChooseCard chooseCard;
-
-        switch (random)
-        {
-            case 1:
-                chooseCard = CardManager.ChooseCard.Action;
-                break;
-            case 2:
-                chooseCard = CardManager.ChooseCard.Unit;
-                break;
-            default:
-                Debug.LogError("INVALID CASE!");
-                return;
-        }
-
-        uMan.CreateNewCardPopup(null, "Claim Your Reward!",
-            CardManager.Instance.ChooseCards(chooseCard));
+        uMan.CreateChooseRewardPopup();
     }
 
     public void BackButton_OnClick()

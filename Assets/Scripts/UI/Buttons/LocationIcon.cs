@@ -32,10 +32,10 @@ public class LocationIcon : MonoBehaviour
             transform.position = location.WorldMapPosition;
             
             bool visited = false;
-            if (GameManager.Instance.VisitedLocations.FindIndex
+            if (!location.IsAugmenter && GameManager.Instance.VisitedLocations.FindIndex
                 (x => x == location.LocationName) != -1) visited = true;
-            unvisitedIcon.SetActive(!visited);
 
+            unvisitedIcon.SetActive(!visited);
             priorityIcon.SetActive(location.IsPriorityLocation);
             nonPriorityLocation.SetActive(!location.IsPriorityLocation);
 

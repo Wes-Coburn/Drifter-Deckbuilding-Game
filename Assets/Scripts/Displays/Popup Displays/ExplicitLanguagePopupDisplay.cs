@@ -13,13 +13,12 @@ public class ExplicitLanguagePopupDisplay : MonoBehaviour
     {
         gMan.HideExplicitLanguage = hideExplicitLanguage;
         gMan.SavePlayerPreferences();
-        uMan.CreateTutorialPopup(); // TESTING
+        uMan.CreateTutorialPopup();
     }
     private void DestroySelf() =>
-        uMan.DestroyExplicitLanguagePopup();
+        uMan.DestroyInteractablePopup(gameObject);
 
-    public void CloseButton_OnClick() =>
-        DestroySelf();
+    public void CloseButton_OnClick() => DestroySelf();
 
     public void ShowButton_OnClick()
     {

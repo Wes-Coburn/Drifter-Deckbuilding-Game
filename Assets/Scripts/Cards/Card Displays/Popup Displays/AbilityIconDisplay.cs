@@ -11,7 +11,7 @@ public class AbilityIconDisplay : MonoBehaviour
     [SerializeField] private GameObject abilityName;
     [SerializeField] private GameObject abilitySpriteObject;
     [SerializeField] private GameObject abilityMultiplier;
-
+    
     public GameObject AbilitySpriteObject { get => abilitySpriteObject; }
     public int AbilityMultiplier
     {
@@ -56,6 +56,8 @@ public class AbilityIconDisplay : MonoBehaviour
             AbilityTrigger trigger = ta.AbilityTrigger;
             sprite = trigger.AbilitySprite;
         }
+        else if (AbilityScript is ModifierAbility ma) // TESTING
+            sprite = ma.AbilitySprite;
         else
         {
             Debug.LogError("SCRIPT TYPE NOT FOUND!");
@@ -80,6 +82,8 @@ public class AbilityIconDisplay : MonoBehaviour
             string triggerName = ta.AbilityTrigger.AbilityName;
             abilityName = "<b>" + triggerName + "</b>: " + ta.AbilityDescription;
         }
+        else if (AbilityScript is ModifierAbility ma) // TESTING
+            abilityName = ma.AbilityName;
         else
         {
             Debug.LogError("SCRIPT TYPE NOT FOUND!");

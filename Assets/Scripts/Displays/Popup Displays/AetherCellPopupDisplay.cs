@@ -5,8 +5,6 @@ public class AetherCellPopupDisplay : MonoBehaviour
 {
     private DialogueManager dMan;
     private AnimationManager anMan;
-    private PlayerManager pMan;
-
     private int aetherValue;
 
     [SerializeField] private GameObject aetherQuantity;
@@ -37,7 +35,6 @@ public class AetherCellPopupDisplay : MonoBehaviour
     {
         dMan = DialogueManager.Instance;
         anMan = AnimationManager.Instance;
-        pMan = PlayerManager.Instance;
 
         newAetherChest.SetActive(true);
         continueButton.SetActive(false);
@@ -61,8 +58,10 @@ public class AetherCellPopupDisplay : MonoBehaviour
 
     public void ContinueButton_OnClick()
     {
-        UIManager.Instance.DestroyAetherCellPopup();
+        UIManager.Instance.DestroyInteractablePopup(gameObject);
 
+        if (SceneLoader.IsActiveScene(SceneLoader.Scene.HomeBaseScene)) return;
+        
         if (!SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene)) dMan.DisplayDialoguePopup();
         else if (dMan.EngagedHero.NextDialogueClip is CombatRewardClip crc)
         {

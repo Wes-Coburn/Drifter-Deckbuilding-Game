@@ -16,8 +16,18 @@ MonoBehaviour:
   Value: 2
   IsNegative: 0
   Countdown: 0
+  ShootRay: 1
+  RayColor: {r: 1, g: 0, b: 0, a: 1}
+  PreCheckConditions: 0
+  CheckConditionsIndependent: 0
+  IfNotWoundedCondition: 0
+  IfAnyWoundedCondition: 0
+  IfPlayerWoundedCondition: 0
+  IfEnemyWoundedCondition: 0
   IfExhaustedCondition: 0
   IfRefreshedCondition: 0
+  IfDamagedCondition: 0
+  IfNotDamagedCondition: 0
   IfHasPowerCondition: 0
   IsLessPowerCondition: 0
   IfHasPowerValue: 0
@@ -33,6 +43,8 @@ MonoBehaviour:
   IfHasGreaterPowerEffects: []
   IfHasLowerPowerValue: 0
   IfHasLowerPowerEffects: []
+  IfResolvesEffects: []
+  ResolveSimultaneous: 0
   ForEachEffects: []
   IfDestroyedEffects:
   - {fileID: 11400000, guid: 45a8a9afa65b37541897226d439c4de4, type: 2}

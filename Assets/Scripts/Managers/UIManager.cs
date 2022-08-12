@@ -49,12 +49,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject menuPopupPrefab;
     [SerializeField] private GameObject explicitLanguagePopupPrefab;
     [SerializeField] private GameObject tutorialPopupPrefab;
+    [SerializeField] private GameObject tutorialActionPopupPrefab;
     [SerializeField] private GameObject newCardPopupPrefab;
     [SerializeField] private GameObject chooseCardPopupPrefab;
+    [SerializeField] private GameObject chooseRewardPopupPrefab;
     [SerializeField] private GameObject aetherCellPopupPrefab;
     [SerializeField] private GameObject cardPagePopupPrefab;
     [SerializeField] private GameObject cardScrollPopupPrefab;
-    [SerializeField] private GameObject learnSkillPopupPrefab;
     [SerializeField] private GameObject recruitUnitPopupPrefab;
     [SerializeField] private GameObject removeCardPopupPrefab;
     [SerializeField] private GameObject cloneUnitPopupPrefab;
@@ -70,9 +71,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject abilityPopupPrefab;
     [SerializeField] private GameObject abilityPopupBoxPrefab;
     [SerializeField] private GameObject reputationPopupPrefab;
-
-    [Header("BETA PREFABS")]
-    [SerializeField] private GameObject betaFinishPopupPrefab;
+    [SerializeField] private GameObject gameEndPopupPrefab;
 
     [Header("COLORS")]
     [SerializeField] private Color highlightedColor;
@@ -94,11 +93,12 @@ public class UIManager : MonoBehaviour
     private GameObject menuPopup;
     private GameObject explicitLanguagePopup;
     private GameObject tutorialPopup;
+    private GameObject tutorialActionPopup;
     private GameObject newCardPopup;
     private GameObject chooseCardPopup;
+    private GameObject chooseRewardPopup;
     private GameObject aetherCellPopup;
     private GameObject cardPagePopup;
-    private GameObject learnSkillPopup;
     private GameObject recruitUnitPopup;
     private GameObject removeCardPopup;
     private GameObject cloneUnitPopup;
@@ -287,12 +287,12 @@ public class UIManager : MonoBehaviour
      * ****** END_TURN_BUTTON
      * *****
      *****/
-    public void UpdateEndTurnButton(bool isMyTurn, bool isInteractable = true)
+    public void UpdateEndTurnButton(bool isInteractable = true)
     {
         if (endTurnButton == null) return;
 
-        EndTurnButtonDisplay etbd =
-            endTurnButton.GetComponent<EndTurnButtonDisplay>();
+        bool isMyTurn = pMan.IsMyTurn;
+        EndTurnButtonDisplay etbd = endTurnButton.GetComponent<EndTurnButtonDisplay>();
         etbd.EndTurnSide.SetActive(isMyTurn);
         etbd.OpponentTurnSide.SetActive(!isMyTurn);
 
@@ -300,21 +300,37 @@ public class UIManager : MonoBehaviour
         Button[] buttons = endTurnButton.GetComponentsInChildren<Button>();
         foreach (Button b in buttons) b.interactable = isInteractable;
     }
-    public void SetActiveEndTurnButton(bool isActive)
+    public void SetReadyEndTurnButton(bool isReady)
     {
         if (endTurnButton == null) return;
 
-        float alpha;
-        if (isActive) alpha = 1;
-        else alpha = 0.4f;
+        EndTurnButtonDisplay etbd = endTurnButton.GetComponent<EndTurnButtonDisplay>();
+        Button etb = etbd.EndTurnSide.GetComponent<Button>();
 
-        EndTurnButtonDisplay etbd =
-             endTurnButton.GetComponent<EndTurnButtonDisplay>();
+        Color normalColor;
+        Color highlightedColor;
+        Color disabledColor;
 
-        Image endTurnImage = etbd.EndTurnSide.GetComponent<Image>();
-        var color = endTurnImage.color;
-        color.a = alpha;
-        endTurnImage.color = color;
+        if (isReady)
+        {
+            normalColor = Color.white;
+            highlightedColor = Color.gray;
+            disabledColor = Color.gray;
+        }
+        else
+        {
+            normalColor = Color.black;
+            highlightedColor = Color.gray;
+            disabledColor = Color.black;
+        }
+
+        disabledColor.a = 0.3f;
+
+        var btnClr = etb.colors;
+        btnClr.normalColor = normalColor;
+        btnClr.highlightedColor = highlightedColor;
+        btnClr.disabledColor = disabledColor;
+        etb.colors = btnClr;
     }
     /******
      * *****
@@ -348,7 +364,7 @@ public class UIManager : MonoBehaviour
 
         if (target.TryGetComponent(out CardSelect cs))
         {
-            if (selectionType is SelectionType.Disabled) // TESTING
+            if (selectionType is SelectionType.Disabled)
             {
                 cs.CardOutline.SetActive(false);
                 return;
@@ -552,6 +568,10 @@ public class UIManager : MonoBehaviour
      * ****** POPUPS
      * *****
      *****/
+    // Destroy Interactable Popup
+    public void DestroyInteractablePopup(GameObject popup) =>
+        anMan.ChangeAnimationState(popup, "Exit");
+
     // Explicit Language Popup
     public void CreateExplicitLanguagePopup()
     {
@@ -580,6 +600,21 @@ public class UIManager : MonoBehaviour
         {
             Destroy(tutorialPopup);
             tutorialPopup = null;
+        }
+    }
+    // Tutorial Action Popup
+    public void CreateTutorialActionPopup()
+    {
+        if (tutorialActionPopup != null) return;
+        tutorialActionPopup = Instantiate(tutorialActionPopupPrefab,
+            CurrentCanvas.transform);
+    }
+    public void DestroyTutorialActionPopup()
+    {
+        if (tutorialActionPopup != null)
+        {
+            Destroy(tutorialActionPopup);
+            tutorialActionPopup = null;
         }
     }
     // Menu Popup
@@ -749,15 +784,28 @@ public class UIManager : MonoBehaviour
             chooseCardPopup = null;
         }
     }
+    // Choose Reward Popup
+    public void CreateChooseRewardPopup()
+    {
+        chooseRewardPopup = Instantiate(chooseRewardPopupPrefab, CurrentCanvas.transform); // TESTING
+    }
+    public void DestroyChooseRewardPopup()
+    {
+        if (chooseRewardPopup != null)
+        {
+            Destroy(chooseRewardPopup);
+            chooseRewardPopup = null;
+        }
+    }
     // Aether Cell Popup
-    public void CreateAetherCellPopup(int quanity, int total)
+    public void CreateAetherCellPopup(int quanity)
     {
         DestroyAetherCellPopup();
         aetherCellPopup = Instantiate(aetherCellPopupPrefab, CurrentCanvas.transform);
         AetherCellPopupDisplay acpd =
             aetherCellPopup.GetComponent<AetherCellPopupDisplay>();
         acpd.AetherQuantity = quanity;
-        acpd.TotalAether = total;
+        acpd.TotalAether = pMan.AetherCells + quanity;
     }
     public void DestroyAetherCellPopup()
     {
@@ -788,10 +836,10 @@ public class UIManager : MonoBehaviour
         cardPagePopup = Instantiate(prefab, CurrentCanvas.transform);
         cardPagePopup.GetComponent<CardPageDisplay>().DisplayCardPage(cardPageType, playSound, scrollValue);
     }
-    public void DestroyCardPagePopup()
+    public void DestroyCardPagePopup(bool childPopupsOnly = false)
     {
         anMan.ProgressBarRoutine_Stop();
-        if (cardPagePopup != null)
+        if (!childPopupsOnly && cardPagePopup != null)
         {
             Destroy(cardPagePopup);
             cardPagePopup = null;
@@ -902,7 +950,7 @@ public class UIManager : MonoBehaviour
         if (isFleeting)
         {
             anMan.ChangeAnimationState(locationPopup, "Enter_Exit");
-            locationPopup.transform.position = new Vector2(685, 0);
+            locationPopup.transform.position = new Vector2(500, 0);
             locationPopup = null;
         }
     }
@@ -1168,6 +1216,6 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void CreateBetaFinishPopup() =>
-        Instantiate(betaFinishPopupPrefab, CurrentCanvas.transform);
+    public void CreateGameEndPopup() =>
+        Instantiate(gameEndPopupPrefab, CurrentCanvas.transform);
 }

@@ -108,15 +108,23 @@ public class CardPageDisplay : MonoBehaviour
                 return;
         }
 
-        if (progressBar != null) progressBar.SetActive(setProgressBar);
-        if (setProgressBar) SetProgressBar(0, progress, false, true);
+        if (progressBar != null)
+        {
+            bool isReady;
+            if (progress == GameManager.SHOP_LOYALTY_GOAL) isReady = true;
+            else isReady = false;
+
+            progressBar.SetActive(setProgressBar);
+            if (setProgressBar) SetProgressBar(0, progress, isReady, true); // TESTING
+        }
+
         pageTitle.GetComponent<TextMeshProUGUI>().SetText(titleText);
 
         if (cardGroupList.Count > 0)
         {
             cardGroupList.Sort((s1, s2) => s1.StartEnergyCost - s2.StartEnergyCost);
 
-            cardGroupList.Sort((x, y) => string.Compare(x.CardName, y.CardName)); // TESTING
+            cardGroupList.Sort((x, y) => string.Compare(x.CardName, y.CardName));
 
             noCardsTooltip.SetActive(false);
         }
@@ -246,6 +254,8 @@ public class CardPageDisplay : MonoBehaviour
     {
         if (SceneLoader.IsActiveScene(SceneLoader.Scene.DialogueScene))
             DialogueManager.Instance.DisplayDialoguePopup();
-        uMan.DestroyCardPagePopup();
+
+        uMan.DestroyInteractablePopup(gameObject);
+        uMan.DestroyCardPagePopup(true);
     }
 }

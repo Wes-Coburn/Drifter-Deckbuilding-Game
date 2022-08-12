@@ -21,8 +21,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Sprite locationBG_Wasteland;
     [Header("LOCATION ICON")]
     [SerializeField] GameObject locationIconPrefab;
-    [Header("MULLIGAN EFFECT")]
-    [SerializeField] private EffectGroup mulliganEffect;
     [Header("LOADING TIPS")]
     [SerializeField] [TextArea] private string[] loadingTips;
     [Header("REPUTATION BONUSES")]
@@ -31,6 +29,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ReputationBonuses reputation_Rogues;
     [SerializeField] private ReputationBonuses reputation_Techs;
     [SerializeField] private ReputationBonuses reputation_Warriors;
+    [Header("MULLIGAN EFFECT")]
+    [SerializeField] private EffectGroup mulliganEffect;
+    [Header("COGNITIVE MAGNIFIER EFFECT")]
+    [SerializeField] private EffectGroup cognitiveMagnifierEffect;
 
     private PlayerManager pMan;
     private EnemyManager enMan;
@@ -95,9 +97,9 @@ public class GameManager : MonoBehaviour
     public const string HIDE_EXPLICIT_LANGUAGE = "HideExplicitLanguage";
 
     // Universal
-    public const int WOUNDED_VALUE = 15; // TESTING
+    public const int WOUNDED_VALUE = 15;
     public const int START_HAND_SIZE = 4;
-    public const int MAX_HAND_SIZE = 10; // TESTING
+    public const int MAX_HAND_SIZE = 10;
     public const int MAX_UNITS_PLAYED = 6;
 
     // Player
@@ -106,7 +108,7 @@ public class GameManager : MonoBehaviour
     public const int PLAYER_STARTING_HEALTH = 30;
     public const int PLAYER_START_UNITS = 3;
     public const int START_ENERGY_PER_TURN = 1;
-    public const int MAXIMUM_ENERGY_PER_TURN = 10; // TESTING
+    public const int MAXIMUM_ENERGY_PER_TURN = 10;
     public const int MAXIMUM_ENERGY = 10;
     public const int HERO_ULTMATE_GOAL = 3;
     public const int PLAYER_START_AETHER = 0;
@@ -114,10 +116,11 @@ public class GameManager : MonoBehaviour
     // Enemy
     public const string ENEMY = "Enemy";
     public const int ENEMY_STARTING_HEALTH = 30;
-    //public const int ENEMY_STARTING_HEALTH = 15; // FOR TESTING ONLY
+    //public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
     public const int ENEMY_HAND_SIZE = 0;
-
-    public const int BOSS_BONUS_HEALTH = 5;
+    // Tutorial Enemy
+    public const int TUTORIAL_STARTING_HEALTH = 10;
+    // Boss Enemy
     public const int BOSS_BONUS_ENERGY = 2;
 
     // Aether Rewards
@@ -213,7 +216,7 @@ public class GameManager : MonoBehaviour
     {
         if (CurrentLocation == null)
         {
-            Debug.LogError("CURRENT LOCATION IS NULL!");
+            Debug.LogWarning("CURRENT LOCATION IS NULL!");
             return null;
         }
 
@@ -291,36 +294,32 @@ public class GameManager : MonoBehaviour
     public void Tutorial_Tooltip(int tipNumber)
     {
         string tip;
-        bool isCentered = false;
+        bool isCentered = true;
         switch (tipNumber)
         {
             case 1:
                 tip = "Replace any number of cards from your starting hand. Click each card you want to replace, then click the confirm button.";
-                isCentered = true;
                 break;
             case 2:
-                tip = "Play a card from your hand by dragging it into play. Cards you can play are highlighted in <color=\"green\">green<color=\"yellow\">.";
+                tip = "Play a card by dragging it out of your hand. Cards you can play are highlighted in <color=\"green\">green<color=\"yellow\">.";
                 break;
             case 3:
                 tip = "End your turn by clicking the <b>end turn button</b> (or pressing the <b>space bar</b>).";
-                isCentered = true;
                 break;
             case 4:
-                tip = "Use your hero power by clicking on the icon next to your hero (bottom right).";
-                isCentered = true;
+                tip = "Click your hero power to use it (the first icon on the left of your hero).";
                 break;
             case 5:
-                tip = "Attack an enemy unit by dragging your ally to them.";
+                tip = "Attack an enemy unit by dragging an ally to them.";
+                isCentered = false;
                 break;
             case 6:
-                tip = "<i>Attack the enemy hero to win!</i>\nRead more game rules in settings (top right).\n<i>End your turn to continue.</i>";
-                isCentered = true;
+                tip = "<b>Attack the enemy hero to win!</b>\nRead more game rules in settings (top right).\n<b>End your turn to continue.</b>";
                 break;
             default:
                 Debug.LogError("INVALID TIP NUMBER!");
                 return;
         }
-        tip = "<color=\"yellow\"><b>[Tutorial]</b>\n" + tip + "</color>";
         uMan.CreateInfoPopup(tip, UIManager.InfoPopupType.Tutorial, isCentered);
     }
 
@@ -377,10 +376,18 @@ public class GameManager : MonoBehaviour
     public void EndGame()
     {
         // Game Manager
-        foreach (NPCHero npc in ActiveNPCHeroes) Destroy(npc);
+        foreach (NPCHero npc in ActiveNPCHeroes)
+        {
+            if (npc != null) Destroy(npc);
+        }
         ActiveNPCHeroes.Clear();
-        foreach (Location loc in ActiveLocations) Destroy(loc);
+
+        foreach (Location loc in ActiveLocations)
+        {
+            if (loc != null) Destroy(loc);
+        }
         ActiveLocations.Clear();
+        VisitedLocations.Clear();
         // Player Manager
         // Don't destroy pMan objects, they are assets not instances
         pMan.PlayerHero = null;
@@ -764,12 +771,13 @@ public class GameManager : MonoBehaviour
         SaveGame();
         if (CurrentNarrative != null)
         {
-            uMan.CreateNarrativePopup(CurrentNarrative);
+            if (CurrentNarrative.IsGameEnd) uMan.CreateGameEndPopup();
+            else uMan.CreateNarrativePopup(CurrentNarrative);
             CurrentNarrative = null;
         }
 
         FindObjectOfType<TimeClockDisplay>().SetClockValues(CurrentHour, IsNewHour);
-        if (IsNewHour) IsNewHour = false; // TESTING
+        if (IsNewHour) IsNewHour = false;
     }
 
     /******
@@ -896,7 +904,7 @@ public class GameManager : MonoBehaviour
         void GetBonusEffects(ReputationBonuses bonuses, int reputationTier)
         {
             float delay = 0;
-            if (resolveOrder == 3) delay = 0.25f;
+            if (resolveOrder == 3) delay = 0.5f;
 
             if (reputationTier > 0 && resolveOrder == bonuses.Tier1_ResolveOrder) ScheduleEffects(bonuses.Tier1_Effects);
             if (reputationTier > 1 && resolveOrder == bonuses.Tier2_ResolveOrder) ScheduleEffects(bonuses.Tier2_Effects);
@@ -1056,10 +1064,11 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        // ENEMY HERO
         enMan.EnemyHero = enemyHero;
 
         int enemyHealth;
-        if (IsTutorial) enemyHealth = 10;
+        if (IsTutorial) enemyHealth = TUTORIAL_STARTING_HEALTH;
         else enemyHealth = ENEMY_STARTING_HEALTH;
         enMan.EnemyHealth = enemyHealth;
 
@@ -1097,8 +1106,8 @@ public class GameManager : MonoBehaviour
 
         void CombatStart()
         {
-            int bonusCards = 0;
-            if (pMan.GetAugment("Cognitive Magnifier")) bonusCards = 1;
+            uMan.CombatLogEntry("<b><color=\"green\">" + pMan.PlayerHero.HeroShortName +
+                "</color> VS <color=\"red\">" + enMan.EnemyHero.HeroName + "</b></color>");
 
             caMan.ShuffleDeck(PLAYER, false);
             caMan.ShuffleDeck(ENEMY, false);
@@ -1106,16 +1115,26 @@ public class GameManager : MonoBehaviour
             for (int i = 0; i < START_HAND_SIZE; i++)
                 evMan.NewDelayedAction(() => AllDraw(), 0.5f);
 
-            for (int i = 0; i < bonusCards; i++)
-                evMan.NewDelayedAction(() => coMan.DrawCard(PLAYER), 0.5f);
-
-            if (IsTutorial) evMan.NewDelayedAction(() => Tutorial_Tooltip(1), 0); // TUTORIAL!
+            if (IsTutorial) // TUTORIAL!
+            {
+                evMan.NewDelayedAction(() => uMan.CreateTutorialActionPopup(), 0);
+                evMan.NewDelayedAction(() => evMan.PauseDelayedActions(true), 0);
+                evMan.NewDelayedAction(() => Tutorial_Tooltip(1), 0);
+            }
             ResolveReputationEffects(1); // REPUTATION EFFECTS [RESOLVE ORDER = 1]
-            PlayStartingUnits(); // TESTING
+            PlayStartingUnits();
             evMan.NewDelayedAction(() => Mulligan_Player(), 0.5f);
             evMan.NewDelayedAction(() => enMan.Mulligan(), 0.5f);
             ResolveReputationEffects(2); // REPUTATION EFFECTS [RESOLVE ORDER = 2]
             ResolveReputationEffects(3); // REPUTATION EFFECTS [RESOLVE ORDER = 3]
+
+            if (pMan.GetAugment("Cognitive Magnifier"))
+            {
+                evMan.NewDelayedAction(() =>
+                efMan.StartEffectGroupList(new List<EffectGroup>
+                { cognitiveMagnifierEffect }, coMan.PlayerHero), 0.25f);
+            }
+
             if (IsTutorial) evMan.NewDelayedAction(() => Tutorial_Tooltip(2), 0); // TUTORIAL!
 
             void AllDraw()
@@ -1175,7 +1194,7 @@ public class GameManager : MonoBehaviour
 
     /******
      * *****
-     * ****** START_TURN
+     * ****** START_COMBAT_TURN
      * *****
      *****/
     private void StartCombatTurn(string player)
@@ -1202,11 +1221,6 @@ public class GameManager : MonoBehaviour
             evMan.NewDelayedAction(() => PlayerTurnStart(), 2);
             evMan.NewDelayedAction(() => TurnDraw(), 0.5f);
 
-            void TurnDraw()
-            {
-                coMan.DrawCard(PLAYER);
-                coMan.SelectPlayableCards();
-            }
             void PlayerTurnStart()
             {
                 pMan.IsMyTurn = true;
@@ -1227,6 +1241,12 @@ public class GameManager : MonoBehaviour
                             break;
                     }
                 }
+            }
+
+            void TurnDraw()
+            {
+                coMan.DrawCard(PLAYER);
+                coMan.SelectPlayableCards();
             }
         }
 

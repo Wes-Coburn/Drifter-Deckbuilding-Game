@@ -90,6 +90,13 @@ public class AbilityPopupDisplay : MonoBehaviour
                 description = at.AbilityDescription;
             }
         }
+        else if (abilityScript is ModifierAbility ma) // TESTING
+        {
+            AbilitySprite = ma.AbilitySprite;
+
+            name = "";
+            description = ma.AbilityName;
+        }
         else
         {
             if (AbilityScript == null) Debug.LogError("SCRIPT IS NULL!");
@@ -97,6 +104,6 @@ public class AbilityPopupDisplay : MonoBehaviour
             return;
         }
         if (!string.IsNullOrEmpty(name)) name += ": ";
-        AbilityDescription = CardManager.Instance.FilterKeywords(name + description); // TESTING
+        AbilityDescription = CardManager.Instance.FilterKeywords(name + description);
     }
 }

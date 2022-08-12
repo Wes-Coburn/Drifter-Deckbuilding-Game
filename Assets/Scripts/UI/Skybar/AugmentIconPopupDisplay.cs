@@ -9,7 +9,7 @@ public class AugmentIconPopupDisplay : MonoBehaviour
     {
         set
         {
-            string description = "<b>" + value.AugmentName + ":</b> " + value.AugmentDescription;
+            string description = "<b><u>" + value.AugmentName + "</u></b>\n" + value.AugmentDescription;
             augmentText.GetComponent<TextMeshProUGUI>().SetText(description);
         }
     }
