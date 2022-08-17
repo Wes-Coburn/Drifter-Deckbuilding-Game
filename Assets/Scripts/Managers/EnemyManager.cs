@@ -160,6 +160,7 @@ public class EnemyManager : MonoBehaviour
         void ReplenishEnergy()
         {
             int startEnergy = EnergyLeft;
+            if (energyPerTurn < MaxEnergyPerTurn) energyPerTurn++;
             EnergyLeft += EnergyPerTurn;
             int energyChange = EnergyLeft - startEnergy;
             anMan.ModifyHeroEnergyState(energyChange, coMan.EnemyHero);
@@ -178,13 +179,6 @@ public class EnemyManager : MonoBehaviour
 
     private void CreatePlayCardSchedule()
     {
-        if (EffectManager.Instance.EffectsResolving)
-        {
-            Debug.LogError("PLAY SCHEDULE DELAYED!");
-            evMan.NewDelayedAction(() => CreatePlayCardSchedule(), 0, true);
-            return;
-        }
-
         List<GameObject> actionCards = new List<GameObject>();
         List<GameObject> priorityCards = FindPriorityCards();
 
@@ -217,13 +211,6 @@ public class EnemyManager : MonoBehaviour
             if (cardsToPlay_1 > cardsToPlay_2) GetNewPriorityCards();
 
             priorityCards.Reverse();
-
-            foreach (GameObject card in priorityCards)
-            {
-                CardDisplay cd = card.GetComponent<CardDisplay>();
-                Debug.LogWarning("<" + cd.CardName + "> COST <" + cd.CurrentEnergyCost + "> // TOTAL COST <" + totalCost + ">");
-            }
-
             return priorityCards;
 
             void AddPriorityCards()
@@ -254,25 +241,19 @@ public class EnemyManager : MonoBehaviour
             }
         }
 
-        void SchedulePlayCard(GameObject card, float delay = 1) =>
+        void SchedulePlayCard(GameObject card, float delay = 1)
+        {
+            CardDisplay cd = card.GetComponent<CardDisplay>();
             evMan.NewDelayedAction(() => PlayCard(card), delay, true);
+            UIManager.Instance.SelectTarget(card, UIManager.SelectionType.Playable); // TESTING
+        }
 
         void PlayCard(GameObject card)
         {
-            if (EffectManager.Instance.EffectsResolving)
-            {
-                Debug.LogError("PLAY CARD DELAYED! \nEffects Resolving <" +
-                    EffectManager.Instance.EffectsResolving + ">\nActions Paused <" + evMan.ActionsPaused + ">");
-                SchedulePlayCard(card, 0);
-                return;
-            }
-
             if (coMan.IsPlayable(card, true))
             {
-                coMan.PlayCard(card);
-
                 CardDisplay cd = card.GetComponent<CardDisplay>();
-                Debug.LogWarning("<" + cd.CardName + "> PLAYED for <" + cd.CurrentEnergyCost + ">");
+                coMan.PlayCard(card);
             }
         }
     }

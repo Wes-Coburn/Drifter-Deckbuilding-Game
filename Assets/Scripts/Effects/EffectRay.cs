@@ -5,7 +5,7 @@ using UnityEngine;
 public class EffectRay : MonoBehaviour
 {
     private readonly float minSpeed = 30;
-    private readonly float maxSpeed = 100;
+    private float maxSpeed = 90;
 
     private float distance;
     private float speed;
@@ -16,7 +16,7 @@ public class EffectRay : MonoBehaviour
     private ParticleSystem particles;
     private GameObject target;
     private Action rayEffect;
-    private bool isEffectGroup;
+    private EffectRayType effectRayType;
 
     private EffectManager efMan;
 
@@ -49,13 +49,23 @@ public class EffectRay : MonoBehaviour
 
         isMoving = true;
         distance = Vector2.Distance(transform.position, target.transform.position);
-        speed = distance/10;
+        speed = distance/20;
         if (speed < minSpeed) speed = minSpeed;
         else if (speed > maxSpeed) speed = maxSpeed;
-        if (distance > 0)
+        if (distance > 5)
         {
-            transform.position =
-                Vector3.MoveTowards(transform.position, target.transform.position, speed);
+            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed);
+
+            Vector3 targ = target.transform.position;
+            targ.z = 0f;
+
+            Vector3 objectPos = transform.position;
+            targ.x -= objectPos.x;
+            targ.y -= objectPos.y;
+
+            float angle = Mathf.Atan2(targ.y, targ.x) * Mathf.Rad2Deg;
+            angle -= 90;
+            transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         }
         else
         {
@@ -64,7 +74,13 @@ public class EffectRay : MonoBehaviour
         }
     }
 
-    public void SetEffectRay(GameObject target, Action rayEffect, Color rayColor, bool isEffectGroup)
+    public enum EffectRayType
+    {
+        Default,
+        EffectGroup,
+        RangedAttack
+    }
+    public void SetEffectRay(GameObject target, Action rayEffect, Color rayColor, EffectRayType effectRayType)
     {
         if (target == null)
         {
@@ -74,13 +90,19 @@ public class EffectRay : MonoBehaviour
         }
 
         this.rayEffect = rayEffect;
-        this.isEffectGroup = isEffectGroup;
+        this.effectRayType = effectRayType;
         this.target = target;
 
         sprite.color = rayColor;
         var main = particles.main;
         main.startColor = sprite.color;
         gameObject.SetActive(true);
+
+        if (effectRayType is EffectRayType.RangedAttack)
+        {
+            AnimationManager.Instance.ChangeAnimationState(gameObject, "Ranged_Attack");
+            maxSpeed = minSpeed;
+        }
     }
 
     private void DestroyRay()
@@ -96,7 +118,7 @@ public class EffectRay : MonoBehaviour
         }
 
         rayEffect();
-        if (isEffectGroup) efMan.ActiveEffects--;
+        if (effectRayType is EffectRayType.EffectGroup) efMan.ActiveEffects--;
         else if (ActiveRays < 1) UIManager.Instance.UpdateEndTurnButton(true);
 
         GetComponent<SpriteRenderer>().enabled = false;

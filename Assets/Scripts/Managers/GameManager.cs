@@ -101,13 +101,14 @@ public class GameManager : MonoBehaviour
     public const int START_HAND_SIZE = 4;
     public const int MAX_HAND_SIZE = 10;
     public const int MAX_UNITS_PLAYED = 6;
+    public const int START_ENERGY_PER_TURN = 0;
 
     // Player
     public const string PLAYER = "Player";
     public const int MINIMUM_MAIN_DECK_SIZE = 15;
     public const int PLAYER_STARTING_HEALTH = 30;
+    //public const int PLAYER_STARTING_HEALTH = 1; // FOR TESTING ONLY
     public const int PLAYER_START_UNITS = 3;
-    public const int START_ENERGY_PER_TURN = 1;
     public const int MAXIMUM_ENERGY_PER_TURN = 10;
     public const int MAXIMUM_ENERGY = 10;
     public const int HERO_ULTMATE_GOAL = 3;
@@ -350,7 +351,6 @@ public class GameManager : MonoBehaviour
         CurrentNarrative = settingNarrative;
         GetActiveLocation(homeBaseLocation);
 
-        IsCombatTest = false;
         IsTutorial = false;
         caMan.LoadNewRecruits();
         ShopItems = GetShopItems();
@@ -737,6 +737,8 @@ public class GameManager : MonoBehaviour
         auMan.StartStopSound("Soundtrack_TitleScene", null, AudioManager.SoundType.Soundtrack);
         auMan.StartStopSound("Soundscape_TitleScene", null, AudioManager.SoundType.Soundscape);
         GameObject.Find("VersionNumber").GetComponent<TextMeshProUGUI>().SetText(Application.version);
+
+        IsCombatTest = false;
     }
 
     /******
@@ -906,12 +908,23 @@ public class GameManager : MonoBehaviour
             float delay = 0;
             if (resolveOrder == 3) delay = 0.5f;
 
-            if (reputationTier > 0 && resolveOrder == bonuses.Tier1_ResolveOrder) ScheduleEffects(bonuses.Tier1_Effects);
-            if (reputationTier > 1 && resolveOrder == bonuses.Tier2_ResolveOrder) ScheduleEffects(bonuses.Tier2_Effects);
-            if (reputationTier > 2 && resolveOrder == bonuses.Tier3_ResolveOrder) ScheduleEffects(bonuses.Tier3_Effects);
+            if (reputationTier > 0 && resolveOrder == bonuses.Tier1_ResolveOrder)
+                ScheduleEffects(bonuses.ReputationType, bonuses.Tier1_Effects);
 
-            void ScheduleEffects(List<EffectGroup> effects) =>
-                evMan.NewDelayedAction(() => efMan.StartEffectGroupList(effects, coMan.PlayerHero), delay);
+            if (reputationTier > 1 && resolveOrder == bonuses.Tier2_ResolveOrder)
+                ScheduleEffects(bonuses.ReputationType, bonuses.Tier2_Effects);
+
+            if (reputationTier > 2 && resolveOrder == bonuses.Tier3_ResolveOrder)
+                ScheduleEffects(bonuses.ReputationType, bonuses.Tier3_Effects);
+
+            void ScheduleEffects(ReputationType repType, List<EffectGroup> effects) =>
+                evMan.NewDelayedAction(() => ResolveEffects(repType, effects), delay);
+        }
+
+        void ResolveEffects(ReputationType repType, List<EffectGroup> repEffects)
+        {
+            uMan.SetReputation(repType, 0, true);
+            efMan.StartEffectGroupList(repEffects, coMan.PlayerHero);
         }
     }
 
@@ -1226,8 +1239,11 @@ public class GameManager : MonoBehaviour
                 pMan.IsMyTurn = true;
                 enMan.IsMyTurn = false;
                 pMan.HeroPowerUsed = false;
+
                 int startEnergy = pMan.EnergyLeft;
+                if (pMan.EnergyPerTurn < pMan.MaxEnergyPerTurn) pMan.EnergyPerTurn++;
                 pMan.EnergyLeft += pMan.EnergyPerTurn;
+
                 int energyChange = pMan.EnergyLeft - startEnergy;
                 anMan.ModifyHeroEnergyState(energyChange, coMan.PlayerHero);
 
@@ -1276,14 +1292,11 @@ public class GameManager : MonoBehaviour
         evMan.NewDelayedAction(() =>
         caMan.TriggerPlayedUnits(CardManager.TRIGGER_TURN_END, player), 0);
 
-        evMan.NewDelayedAction(() => RefreshAllUnits(), 0.5f); // TESTING
+        evMan.NewDelayedAction(() => RefreshAllUnits(), 0.5f);
         evMan.NewDelayedAction(() => RemoveEffects(), 0.5f);
 
         if (player == ENEMY)
         {
-            if (enMan.EnergyPerTurn < enMan.MaxEnergyPerTurn)
-                evMan.NewDelayedAction(() => IncreaseMaxEnergy(ENEMY), 0.5f); // TESTING
-
             evMan.NewDelayedAction(() => StartCombatTurn(PLAYER), 0.5f);
         }
         else if (player == PLAYER)
@@ -1304,10 +1317,7 @@ public class GameManager : MonoBehaviour
             }
 
             pMan.IsMyTurn = false;
-            coMan.SelectPlayableCards();
-            if (pMan.EnergyPerTurn < pMan.MaxEnergyPerTurn)
-                evMan.NewDelayedAction(() => IncreaseMaxEnergy(PLAYER), 0.5f);
-
+            coMan.SelectPlayableCards(true);
             evMan.NewDelayedAction(() => StartCombatTurn(ENEMY), 0.5f);
         }
 
@@ -1316,35 +1326,12 @@ public class GameManager : MonoBehaviour
             coMan.RefreshUnits(PLAYER);
             coMan.RefreshUnits(ENEMY);
         }
-        void IncreaseMaxEnergy(string player)
-        {
-            GameObject hero;
-            int startEnergy;
-            int energyChange;
-
-            if (player == PLAYER)
-            {
-                hero = coMan.PlayerHero;
-                startEnergy = pMan.EnergyPerTurn;
-                pMan.EnergyPerTurn++;
-                energyChange = pMan.EnergyPerTurn - startEnergy;
-            }
-            else
-            {
-                hero = coMan.EnemyHero;
-                startEnergy = enMan.EnergyPerTurn;
-                enMan.EnergyPerTurn++;
-                energyChange = enMan.EnergyPerTurn - startEnergy;
-            }
-
-            anMan.ModifyHeroEnergyState(energyChange, hero);
-        }
         void RemoveEffects()
         {
             efMan.RemoveTemporaryEffects(PLAYER);
             efMan.RemoveTemporaryEffects(ENEMY);
-            efMan.RemoveGiveNextEffects(player); // TESTING
-            efMan.RemoveChangeNextCostEffects(player); // TESTING
+            efMan.RemoveGiveNextEffects(player);
+            efMan.RemoveChangeNextCostEffects(player);
         }
     }
 

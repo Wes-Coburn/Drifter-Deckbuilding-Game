@@ -320,7 +320,7 @@ public class UIManager : MonoBehaviour
         else
         {
             normalColor = Color.black;
-            highlightedColor = Color.gray;
+            highlightedColor = Color.red; // TESTING
             disabledColor = Color.black;
         }
 
@@ -1133,7 +1133,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void SetReputation(GameManager.ReputationType type, int valueChange = 0)
+    public void SetReputation(GameManager.ReputationType type, int valueChange = 0, bool triggerOnly = false)
     {
         if (!skyBar.activeSelf) return;
 
@@ -1166,6 +1166,12 @@ public class UIManager : MonoBehaviour
                 return;
         }
 
+        if (triggerOnly)
+        {
+            ReputationTrigger();
+            return;
+        }
+
         repIcon.GetComponentInChildren<TextMeshProUGUI>().SetText(repScore.ToString());
         if (repScore >= GameManager.REPUTATION_TIER_1)
         {
@@ -1177,9 +1183,14 @@ public class UIManager : MonoBehaviour
 
         if (valueChange != 0)
         {
+            ReputationTrigger();
+            anMan.ValueChanger(repIcon.transform, valueChange, -100);
+        }
+
+        void ReputationTrigger()
+        {
             AudioManager.Instance.StartStopSound("SFX_Reputation");
             anMan.SkybarIconAnimation(repIcon);
-            anMan.ValueChanger(repIcon.transform, valueChange, -100);
         }
     }
 

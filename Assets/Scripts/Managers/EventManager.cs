@@ -106,8 +106,6 @@ public class EventManager : MonoBehaviour
         if (isResuming) NextDelayedAction();
 
         UIManager.Instance.UpdateEndTurnButton(!isPaused);
-
-        Debug.Log("ACTIONS PAUSED === <" + isPaused + ">");
     }
 
     public void ClearDelayedActions()

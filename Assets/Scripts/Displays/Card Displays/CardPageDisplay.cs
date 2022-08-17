@@ -122,11 +122,40 @@ public class CardPageDisplay : MonoBehaviour
 
         if (cardGroupList.Count > 0)
         {
+            noCardsTooltip.SetActive(false);
+
             cardGroupList.Sort((s1, s2) => s1.StartEnergyCost - s2.StartEnergyCost);
 
-            cardGroupList.Sort((x, y) => string.Compare(x.CardName, y.CardName));
+            List<List<Card>> sortList = new List<List<Card>>
+            {
+                new List<Card>()
+            };
 
-            noCardsTooltip.SetActive(false);
+            int currentList = 0;
+            int currentCost = 0;
+
+            foreach (Card c in cardGroupList)
+            {
+                int cardCost = c.StartEnergyCost;
+
+                if (cardCost != currentCost)
+                {
+                    sortList.Add(new List<Card>());
+                    currentList++;
+                    currentCost = cardCost;
+                }
+
+                sortList[currentList].Add(c);
+            }
+
+            foreach (List<Card> cardList in sortList)
+            {
+                cardList.Sort((x, y) => string.Compare(x.CardName, y.CardName));
+            }
+
+            cardGroupList.Clear();
+            foreach (List<Card> cardList in sortList)
+                foreach (Card c in cardList) cardGroupList.Add(c);
         }
         else noCardsTooltip.SetActive(true);
         if (isScrollPage) LoadScrollPage(scrollValue);

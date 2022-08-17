@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6905d9529a6c1f048b40c0cd80a097d3, type: 3}
+  m_Name: Draw_2_IfResolves_Discard2
+  m_EditorClassIdentifier: 
+  IsRequired: 0
+  Value: 2
+  IsNegative: 0
+  Countdown: 0
+  ShootRay: 0
+  RayColor: {r: 0, g: 0, b: 0, a: 0}
+  PreCheckConditions: 0
+  CheckConditionsIndependent: 0
+  IfNotWoundedCondition: 0
+  IfAnyWoundedCondition: 0
+  IfPlayerWoundedCondition: 0
+  IfEnemyWoundedCondition: 0
+  IfExhaustedCondition: 0
+  IfRefreshedCondition: 0
+  IfDamagedCondition: 0
+  IfNotDamagedCondition: 0
+  IfHasPowerCondition: 0
+  IsLessPowerCondition: 0
+  IfHasPowerValue: 0
+  IfHasAbilityCondition: {fileID: 0}
+  IfNotHasAbilityCondition: 0
+  IfHasTriggerCondition: {fileID: 0}
+  IfNotHasTriggerCondition: 0
+  IfHasAbility: {fileID: 0}
+  IfHasAbilityEffects: []
+  IfHasTrigger: {fileID: 0}
+  IfHasTriggerEffects: []
+  IfHasGreaterPowerValue: 0
+  IfHasGreaterPowerEffects: []
+  IfHasLowerPowerValue: 0
+  IfHasLowerPowerEffects: []
+  IfResolvesEffects: []
+  ResolveSimultaneous: 0
+  IfResolvesGroups:
+  - {fileID: 11400000, guid: 7ed78cecc082b8d4ea0aae41820b6d7d, type: 2}
+  ForEachEffects: []
+  IsDiscardEffect: 0
+  DiscardAll: 0
+  IsMulliganEffect: 0
+  AdditionalEffects: []

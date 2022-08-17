@@ -69,6 +69,12 @@ public class AnimationManager : MonoBehaviour
             Debug.LogError("GAMEOBJECT IS NULL!");
             return;
         }
+        
+        if (!go.activeSelf)
+        {
+            Debug.LogError("GAMEOBJECT IS INACTIVE!");
+            return;
+        }
 
         if (go.TryGetComponent(out Animator anim))
             if (anim.enabled)

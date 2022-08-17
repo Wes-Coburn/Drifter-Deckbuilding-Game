@@ -171,7 +171,6 @@ public class PlayerManager : MonoBehaviour
             if (energyLeft > MaxEnergy) energyLeft = MaxEnergy;
             coMan.PlayerHero.GetComponent<HeroDisplay>().HeroEnergy = 
                 energyLeft + "/" + EnergyPerTurn;
-            if (!efMan.EffectsResolving) coMan.SelectPlayableCards();
         }
     }
 

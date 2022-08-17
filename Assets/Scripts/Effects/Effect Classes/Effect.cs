@@ -7,6 +7,10 @@ public abstract class Effect : ScriptableObject
     [Tooltip("The effect is required by the effect group")]
     public bool IsRequired;
 
+    [Header("IGNORE LEGALITY")]
+    [Tooltip("Skip GetLegalTargets for this effect")]
+    public bool IgnoreLegality;
+
     [Header("VALUE")]
     [Tooltip("The value of the effect (1-10)")]
     [Range(1, 10)]
@@ -91,9 +95,13 @@ public abstract class Effect : ScriptableObject
     public List<EffectGroup> IfHasLowerPowerEffects;
 
     [Header("IF RESOLVES EFFECTS")]
-    [Tooltip("If the effect has a valid target, resolve additional effects on the target")]
+    [Tooltip("If the effect resolves, resolve additional effects on the target")]
     public List<Effect> IfResolvesEffects;
     public bool ResolveSimultaneous;
+
+    [Header("IF RESOLVES GROUPS")]
+    [Tooltip("If the effect resolves, resolve additional effect groups")]
+    public List<EffectGroup> IfResolvesGroups;
 
     [Header("FOR EACH EFFECTS")]
     [Tooltip("Resolve these effects for each target")]
@@ -102,6 +110,8 @@ public abstract class Effect : ScriptableObject
     public virtual void LoadEffect(Effect effect)
     {
         IsRequired = effect.IsRequired;
+        IgnoreLegality = effect.IgnoreLegality;
+
         Value = effect.Value;
         IsNegative = effect.IsNegative;
         Countdown = effect.Countdown;
@@ -156,6 +166,10 @@ public abstract class Effect : ScriptableObject
             IfResolvesEffects.Add(e);
 
         ResolveSimultaneous = effect.ResolveSimultaneous;
+
+        IfResolvesGroups = new List<EffectGroup>();
+        foreach (EffectGroup eg in effect.IfResolvesGroups)
+            IfResolvesGroups.Add(eg);
 
         ForEachEffects = new List<EffectGroup>();
         foreach (EffectGroup eg in effect.ForEachEffects)

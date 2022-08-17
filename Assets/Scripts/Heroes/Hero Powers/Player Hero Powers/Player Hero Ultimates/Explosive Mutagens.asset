@@ -26,9 +26,10 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
-  PowerDescription: 'Give ALL allies "Revenge: Deal 2 to ALL enemies and the enemy
-    hero."'
+  PowerDescription: 'Give ALL allies Poisonous and "Revenge: Deal 1 to ALL enemies
+    and the enemy hero."'
   EffectGroupList:
   - {fileID: 11400000, guid: 07d0a7d3212fa6d41b55d8b8e17b300a, type: 2}
   LinkedAbilities:
+  - {fileID: 11400000, guid: 0c9bafd0564d11947a28d93981c1f1f4, type: 2}
   - {fileID: 11400000, guid: 55d83941db05710428faf12e595b4a38, type: 2}
