@@ -4,13 +4,13 @@ using UnityEngine.EventSystems;
 
 public class TooltipPopupDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    private const string TOOLTIP_TIMER = "TooltipTimer";
-    private GameObject tooltipPopup;
-    private UIManager uMan;
-
     [SerializeField] [TextArea] private string tooltipText;
     [SerializeField] private Vector2 tooltipPosition;
     [SerializeField] private bool isZoomCardTooltip;
+
+    private const string TOOLTIP_TIMER = "TooltipTimer";
+    private GameObject tooltipPopup;
+    private UIManager uMan;
 
     private void Start() => uMan = UIManager.Instance;
 

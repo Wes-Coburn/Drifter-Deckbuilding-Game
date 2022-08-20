@@ -15,11 +15,11 @@ C:/Users/wgCob/Programming/Unity/Drifter (Unity 2D)
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-54259
+56532
 Successfully changed project path to: C:/Users/wgCob/Programming/Unity/Drifter (Unity 2D)
 C:/Users/wgCob/Programming/Unity/Drifter (Unity 2D)
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 89.40 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 90.88 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.5f1 (8095aa901b9b)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/Resources/UnitySubsystems
@@ -35,1052 +35,712 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56704
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56368
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.001892 seconds.
+Registered in 0.001837 seconds.
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 89.01 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 99.43 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
 - Completed reload, in  0.993 seconds
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.002363 seconds.
+Registered in 0.002429 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 91.18 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 94.51 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.811 seconds
+- Completed reload, in  0.876 seconds
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.03 seconds
-Refreshing native plugins compatible for Editor in 1.09 ms, found 4 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.04 seconds
+Refreshing native plugins compatible for Editor in 1.95 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 2125 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 104.7 MB.
 System memory in use after: 104.8 MB.
 
 Unloading 25 unused Assets to reduce memory usage. Loaded Objects now: 2573.
-Total: 1.783800 ms (FindLiveObjects: 0.218100 ms CreateObjectMapping: 0.104800 ms MarkObjects: 1.440800 ms  DeleteObjects: 0.019100 ms)
+Total: 2.783800 ms (FindLiveObjects: 0.523900 ms CreateObjectMapping: 0.175400 ms MarkObjects: 2.056000 ms  DeleteObjects: 0.027100 ms)
 
 ========================================================================
 Received Import Request.
-  path: Assets/Animations/Effects/Effect Ray
-  artifactKey: Guid(25d5c2b406169aa41a971907ff2296ea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray using Guid(25d5c2b406169aa41a971907ff2296ea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '58904ddba7c5ff559ee47a250cc66ec9') in 0.004632 seconds
-  Import took 0.008470 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 19.823846 seconds.
-  path: Assets/Animations/Effects/Effect Ray
-  artifactKey: Guid(966c3db085123e1419c6cff8282021b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray using Guid(966c3db085123e1419c6cff8282021b4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5dc724e71e4319abc98944f5aa8b37e6') in 0.001962 seconds
-  Import took 0.006374 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 58.949956 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Effect Ray.controller
-  artifactKey: Guid(54e4d4f6f9c790d47ad0289456040ac2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Effect Ray.controller using Guid(54e4d4f6f9c790d47ad0289456040ac2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2296175b65a42ee0956c4e8ad3e6662f') in 0.026482 seconds
-  Import took 0.030707 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 15.299358 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Effect_Ray.controller
-  artifactKey: Guid(54e4d4f6f9c790d47ad0289456040ac2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Effect_Ray.controller using Guid(54e4d4f6f9c790d47ad0289456040ac2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6b68023819e335342c37283ef67523c9') in 0.002394 seconds
-  Import took 0.008549 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 67.859092 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Attack.anim
-  artifactKey: Guid(bf74181fc1968c44c87100662ad3ae1a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Attack.anim using Guid(bf74181fc1968c44c87100662ad3ae1a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ff3876d4ba0279b8b9b8710838b144f2') in 0.008274 seconds
-  Import took 0.013493 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 59.249619 seconds.
-  path: Assets/Animations/Effects/Effect Ray/ProjectileV1_Animation_Frames/Ranged_Fire0001.png
-  artifactKey: Guid(3e86d80b40073aa4c8dbaeb016e1a18b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/ProjectileV1_Animation_Frames/Ranged_Fire0001.png using Guid(3e86d80b40073aa4c8dbaeb016e1a18b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2c87b54517a439f58590938ff7f2b8f6') in 0.077120 seconds
-  Import took 0.082007 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000245 seconds.
-  path: Assets/Animations/Effects/Effect Ray/ProjectileV1_Animation_Frames/Ranged_Fire0003.png
-  artifactKey: Guid(820d905283fb43f46b47e51ab7223fd5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/ProjectileV1_Animation_Frames/Ranged_Fire0003.png using Guid(820d905283fb43f46b47e51ab7223fd5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ec921ae8008b5a821a20b00dec1ad202') in 0.016055 seconds
-  Import took 0.020766 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000260 seconds.
-  path: Assets/Animations/Effects/Effect Ray/ProjectileV1_Animation_Frames/Ranged_Fire0007.png
-  artifactKey: Guid(26b6c30c2078f7549988fdc160e1634e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/ProjectileV1_Animation_Frames/Ranged_Fire0007.png using Guid(26b6c30c2078f7549988fdc160e1634e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ea4c5655080977667e071a199403a5bf') in 0.014646 seconds
-  Import took 0.018271 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000503 seconds.
-  path: Assets/Animations/Effects/Effect Ray/ProjectileV1_Animation_Frames/Ranged_Fire0010.png
-  artifactKey: Guid(c998ce8ae189bed4ab8edbf9cf436e25) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/ProjectileV1_Animation_Frames/Ranged_Fire0010.png using Guid(c998ce8ae189bed4ab8edbf9cf436e25) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '17d307c94fc28e1a2b8314cdcf888394') in 0.013477 seconds
-  Import took 0.017774 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000287 seconds.
-  path: Assets/Animations/Effects/Effect Ray/ProjectileV1_Animation_Frames/Ranged_Fire0008.png
-  artifactKey: Guid(0d6728e6acb2ba241a2f364da0b31e64) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/ProjectileV1_Animation_Frames/Ranged_Fire0008.png using Guid(0d6728e6acb2ba241a2f364da0b31e64) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '47c6181c47d8071d1c36f13181acf85c') in 0.010684 seconds
-  Import took 0.015343 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000215 seconds.
-  path: Assets/Animations/Effects/Effect Ray/ProjectileV1_Animation_Frames/Ranged_Fire0013.png
-  artifactKey: Guid(6de907817e351ad49aad4cfab790a81d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/ProjectileV1_Animation_Frames/Ranged_Fire0013.png using Guid(6de907817e351ad49aad4cfab790a81d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b0d46d2e988a29161ea6d3f9e30b7ef5') in 0.015300 seconds
-  Import took 0.020462 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000237 seconds.
-  path: Assets/Animations/Effects/Effect Ray/ProjectileV1_Animation_Frames/Ranged_Fire0009.png
-  artifactKey: Guid(e6a831cabab4ede4f8888cf317276d8a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/ProjectileV1_Animation_Frames/Ranged_Fire0009.png using Guid(e6a831cabab4ede4f8888cf317276d8a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd137d6a369126868a37cfcc622545ff2') in 0.013198 seconds
-  Import took 0.017785 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000190 seconds.
-  path: Assets/Animations/Effects/Effect Ray/ProjectileV1_Animation_Frames/Ranged_Fire0011.png
-  artifactKey: Guid(fbee2e202d6af524095891aba3949d38) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/ProjectileV1_Animation_Frames/Ranged_Fire0011.png using Guid(fbee2e202d6af524095891aba3949d38) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1ef36612a19767f7bc42cff2245828da') in 0.013899 seconds
-  Import took 0.018062 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000235 seconds.
-  path: Assets/Animations/Effects/Effect Ray/ProjectileV1_Animation_Frames/Ranged_Fire0004.png
-  artifactKey: Guid(46e5b672e37e2bf4eafb1ed4f8d77926) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/ProjectileV1_Animation_Frames/Ranged_Fire0004.png using Guid(46e5b672e37e2bf4eafb1ed4f8d77926) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '586ee3a157c3bd34e1091a477698c025') in 0.010696 seconds
-  Import took 0.015350 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000262 seconds.
-  path: Assets/Animations/Effects/Effect Ray/ProjectileV1_Animation_Frames/Ranged_Fire0005.png
-  artifactKey: Guid(d629f3066ccdb9248b3480c3fc8d7b45) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/ProjectileV1_Animation_Frames/Ranged_Fire0005.png using Guid(d629f3066ccdb9248b3480c3fc8d7b45) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c9eabe0ae707bf7bd4e5d888461005c0') in 0.014461 seconds
-  Import took 0.018538 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000255 seconds.
-  path: Assets/Animations/Effects/Effect Ray/ProjectileV1_Animation_Frames/Ranged_Fire0006.png
-  artifactKey: Guid(44ac14f1fe76e7b44af9d6a26d0b68b7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/ProjectileV1_Animation_Frames/Ranged_Fire0006.png using Guid(44ac14f1fe76e7b44af9d6a26d0b68b7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3e5e43151edc6b81304cac23b448121f') in 0.011022 seconds
-  Import took 0.015625 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000175 seconds.
-  path: Assets/Animations/Effects/Effect Ray/ProjectileV1_Animation_Frames/Ranged_Fire0015.png
-  artifactKey: Guid(5bb6043bb9a97ec47bd8d7b399ac80d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/ProjectileV1_Animation_Frames/Ranged_Fire0015.png using Guid(5bb6043bb9a97ec47bd8d7b399ac80d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4782fda6b9db935e40471e8b16f23223') in 0.012006 seconds
-  Import took 0.015395 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000194 seconds.
-  path: Assets/Animations/Effects/Effect Ray/ProjectileV1_Animation_Frames/Ranged_Fire0016.png
-  artifactKey: Guid(befadf9970a304348870d9946ca5a5a9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/ProjectileV1_Animation_Frames/Ranged_Fire0016.png using Guid(befadf9970a304348870d9946ca5a5a9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e239b77704d49f170d0bb97b5b9ad033') in 0.009928 seconds
-  Import took 0.013354 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000173 seconds.
-  path: Assets/Animations/Effects/Effect Ray/ProjectileV1_Animation_Frames/Ranged_Fire0012.png
-  artifactKey: Guid(3d251f6b5a97cd74881f46eefd89ebc6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/ProjectileV1_Animation_Frames/Ranged_Fire0012.png using Guid(3d251f6b5a97cd74881f46eefd89ebc6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1c4e3ad3a5519c8563eec931198acfa6') in 0.010357 seconds
-  Import took 0.014068 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000204 seconds.
-  path: Assets/Animations/Effects/Effect Ray/ProjectileV1_Animation_Frames/Ranged_Fire0017.png
-  artifactKey: Guid(47e00252f181af545b9a37eea1411a5d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/ProjectileV1_Animation_Frames/Ranged_Fire0017.png using Guid(47e00252f181af545b9a37eea1411a5d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '725ef53e192652c306ca57f594d55e66') in 0.010022 seconds
-  Import took 0.013458 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000243 seconds.
-  path: Assets/Animations/Effects/Effect Ray/ProjectileV1_Animation_Frames/Ranged_Fire0002.png
-  artifactKey: Guid(c2107ddf330b4b54ea35e1ea04150fc2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/ProjectileV1_Animation_Frames/Ranged_Fire0002.png using Guid(c2107ddf330b4b54ea35e1ea04150fc2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '69348d817b13d99c7269e433739d4127') in 0.011711 seconds
-  Import took 0.015604 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000245 seconds.
-  path: Assets/Animations/Effects/Effect Ray/ProjectileV1_Animation_Frames/Ranged_Fire0014.png
-  artifactKey: Guid(38704152df446514eaa24d7dcc708302) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/ProjectileV1_Animation_Frames/Ranged_Fire0014.png using Guid(38704152df446514eaa24d7dcc708302) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd50a99d57a738ae1cf2f2e001e8d7e8c') in 0.011049 seconds
-  Import took 0.015403 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 2997.863050 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames
-  artifactKey: Guid(c412ccd4daf611645a39b9508777192f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames using Guid(c412ccd4daf611645a39b9508777192f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c890da1a3ce545b38914ce31a7f7523e') in 0.002484 seconds
-  Import took 0.013984 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 1.471100 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0000.png
-  artifactKey: Guid(394a10648421c0342b832426d07d0163) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0000.png using Guid(394a10648421c0342b832426d07d0163) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '64eedb972c8b1d6af8417edc76151306') in 0.027044 seconds
-  Import took 0.031379 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.286539 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0003.png
-  artifactKey: Guid(f85127576e01c1d429c7926ea25cbe1a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0003.png using Guid(f85127576e01c1d429c7926ea25cbe1a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c3aab6ecbf6c2b13e74e6504e610df68') in 0.012512 seconds
-  Import took 0.017124 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.002201 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0003.png
-  artifactKey: Guid(f85127576e01c1d429c7926ea25cbe1a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0003.png using Guid(f85127576e01c1d429c7926ea25cbe1a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c3aab6ecbf6c2b13e74e6504e610df68') in 0.020347 seconds
-  Import took 0.024419 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 4.055507 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0001.png
-  artifactKey: Guid(7625033006cc3f54e851213b20b7b882) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0001.png using Guid(7625033006cc3f54e851213b20b7b882) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2b0e444693e3be98e6f6e594dfe9249c') in 0.011201 seconds
-  Import took 0.019230 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000280 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0009.png
-  artifactKey: Guid(fc9071d622cc8a942b10f11a65415954) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0009.png using Guid(fc9071d622cc8a942b10f11a65415954) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ae09058aacf590c5bcca54632f3a1742') in 0.016777 seconds
-  Import took 0.021147 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000233 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0010.png
-  artifactKey: Guid(555a372a30f01e348b443e29e4898d22) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0010.png using Guid(555a372a30f01e348b443e29e4898d22) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '60979d68e29fcaee4c6a2f6312838724') in 0.017505 seconds
-  Import took 0.022136 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000220 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0004.png
-  artifactKey: Guid(510d490bcb0e09e43ba09955185013a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0004.png using Guid(510d490bcb0e09e43ba09955185013a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ca2122156b47bf4ea6988935f04a243c') in 0.011823 seconds
-  Import took 0.015984 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000242 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0008.png
-  artifactKey: Guid(607a6b830643a154691a202d0644d590) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0008.png using Guid(607a6b830643a154691a202d0644d590) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '352ef644b9c932a330aa5e7c7f17a273') in 0.012486 seconds
-  Import took 0.018496 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000319 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0005.png
-  artifactKey: Guid(cdbc99e4a2d0ddc46a306a83af6b7d55) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0005.png using Guid(cdbc99e4a2d0ddc46a306a83af6b7d55) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7a9b408d7b41377d6268c25ef6bd4e9d') in 0.012300 seconds
-  Import took 0.016812 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000304 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0016.png
-  artifactKey: Guid(862c4d29f8b063a48af568706cdd0d53) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0016.png using Guid(862c4d29f8b063a48af568706cdd0d53) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4f956e78ab8d875cd095ecd873764f01') in 0.013135 seconds
-  Import took 0.017473 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000287 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0011.png
-  artifactKey: Guid(69cd4c56eab94894093815848d6e0533) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0011.png using Guid(69cd4c56eab94894093815848d6e0533) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9fd3489062fc96cb78a45fc4cde15d6e') in 0.012024 seconds
-  Import took 0.016664 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000265 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0015.png
-  artifactKey: Guid(e4431120120384047a0c142291abad33) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0015.png using Guid(e4431120120384047a0c142291abad33) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '379644627e3e46f8d0c96fa8c84a74c2') in 0.014986 seconds
-  Import took 0.019427 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000329 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0012.png
-  artifactKey: Guid(d01d06688aec6364f8576a9c46d98422) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0012.png using Guid(d01d06688aec6364f8576a9c46d98422) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '158e1bdbd961854baee5eb2fbf7c8c54') in 0.011805 seconds
-  Import took 0.016442 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000276 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0013.png
-  artifactKey: Guid(f444826688907004e935669c25bbfd31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0013.png using Guid(f444826688907004e935669c25bbfd31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3e75d238a003f06ed6634c2e2cf4d128') in 0.020400 seconds
-  Import took 0.024695 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000468 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0014.png
-  artifactKey: Guid(f9a9436385d55bd42a8e74fbff8d366e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0014.png using Guid(f9a9436385d55bd42a8e74fbff8d366e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '651b2427cf8d8095888d4340d517890e') in 0.012323 seconds
-  Import took 0.017805 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000236 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0007.png
-  artifactKey: Guid(a88479b1c8c8cc649afbce9af3e58b30) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0007.png using Guid(a88479b1c8c8cc649afbce9af3e58b30) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '48314b5eb25ee9f9097089846d496301') in 0.012038 seconds
-  Import took 0.017643 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000244 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0002.png
-  artifactKey: Guid(2438da1e54b41b64fae94496230f3175) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0002.png using Guid(2438da1e54b41b64fae94496230f3175) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd27a4dfbe712e8030555b1faf8148297') in 0.014099 seconds
-  Import took 0.018474 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000326 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0001.png
-  artifactKey: Guid(7625033006cc3f54e851213b20b7b882) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0001.png using Guid(7625033006cc3f54e851213b20b7b882) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2b0e444693e3be98e6f6e594dfe9249c') in 0.010194 seconds
-  Import took 0.014311 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000255 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0006.png
-  artifactKey: Guid(3865665bf1e7b034ea9e125c15a46b31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0006.png using Guid(3865665bf1e7b034ea9e125c15a46b31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b0bd9cb9024c00a24130fc3ccecb9991') in 0.013366 seconds
-  Import took 0.016941 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000260 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0002.png
-  artifactKey: Guid(2438da1e54b41b64fae94496230f3175) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0002.png using Guid(2438da1e54b41b64fae94496230f3175) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd27a4dfbe712e8030555b1faf8148297') in 0.010876 seconds
-  Import took 0.015075 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000236 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0006.png
-  artifactKey: Guid(3865665bf1e7b034ea9e125c15a46b31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0006.png using Guid(3865665bf1e7b034ea9e125c15a46b31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b0bd9cb9024c00a24130fc3ccecb9991') in 0.014273 seconds
-  Import took 0.018302 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000258 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0017.png
-  artifactKey: Guid(8d93204f8a7c7764199db206e4bbd0a5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0017.png using Guid(8d93204f8a7c7764199db206e4bbd0a5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dff05bb6bc69240e45c78d85b2c7b29a') in 0.012984 seconds
-  Import took 0.017813 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 525.469265 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0003.png
-  artifactKey: Guid(f85127576e01c1d429c7926ea25cbe1a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0003.png using Guid(f85127576e01c1d429c7926ea25cbe1a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '86f86e3e8faa4f482e7add35349d8f48') in 0.019155 seconds
-  Import took 0.024803 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.001496 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0016.png
-  artifactKey: Guid(862c4d29f8b063a48af568706cdd0d53) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0016.png using Guid(862c4d29f8b063a48af568706cdd0d53) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9375ab7c1fe9c25b1dd316e0dda56566') in 0.008861 seconds
-  Import took 0.013405 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000285 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0009.png
-  artifactKey: Guid(fc9071d622cc8a942b10f11a65415954) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0009.png using Guid(fc9071d622cc8a942b10f11a65415954) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e6fb291476fd777146be32e361bcf637') in 0.008613 seconds
-  Import took 0.012447 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000253 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0000.png
-  artifactKey: Guid(394a10648421c0342b832426d07d0163) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0000.png using Guid(394a10648421c0342b832426d07d0163) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4e21e5258c952b26c0df3a45fcdaa285') in 0.010271 seconds
-  Import took 0.015206 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000269 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0010.png
-  artifactKey: Guid(555a372a30f01e348b443e29e4898d22) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0010.png using Guid(555a372a30f01e348b443e29e4898d22) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '83b7774238a5bd1846df4e59426183c7') in 0.008728 seconds
-  Import took 0.013707 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000247 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0004.png
-  artifactKey: Guid(510d490bcb0e09e43ba09955185013a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0004.png using Guid(510d490bcb0e09e43ba09955185013a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '06028649c48bd7c43d8c99dbfde4a0c6') in 0.012008 seconds
-  Import took 0.016645 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000316 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0008.png
-  artifactKey: Guid(607a6b830643a154691a202d0644d590) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0008.png using Guid(607a6b830643a154691a202d0644d590) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b20a43ae9b891ec70fd0414dcb779c48') in 0.009328 seconds
-  Import took 0.013980 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000407 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0005.png
-  artifactKey: Guid(cdbc99e4a2d0ddc46a306a83af6b7d55) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0005.png using Guid(cdbc99e4a2d0ddc46a306a83af6b7d55) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd7ca7ca1b9731f0d5550b80fdf48e38e') in 0.010269 seconds
-  Import took 0.015166 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000233 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0015.png
-  artifactKey: Guid(e4431120120384047a0c142291abad33) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0015.png using Guid(e4431120120384047a0c142291abad33) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b18a08c1e79dbdb284f0962105f62b0f') in 0.008681 seconds
-  Import took 0.013266 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000344 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0011.png
-  artifactKey: Guid(69cd4c56eab94894093815848d6e0533) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0011.png using Guid(69cd4c56eab94894093815848d6e0533) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '57d8f49e0b89210edbca275e730dba68') in 0.010793 seconds
-  Import took 0.015338 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000306 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0012.png
-  artifactKey: Guid(d01d06688aec6364f8576a9c46d98422) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0012.png using Guid(d01d06688aec6364f8576a9c46d98422) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4324f774b52be0d6da2f779fbb891330') in 0.009157 seconds
-  Import took 0.013740 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000207 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0013.png
-  artifactKey: Guid(f444826688907004e935669c25bbfd31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0013.png using Guid(f444826688907004e935669c25bbfd31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a5f079206434e8af3c920b50a8dccfb1') in 0.009185 seconds
-  Import took 0.014507 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000264 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0014.png
-  artifactKey: Guid(f9a9436385d55bd42a8e74fbff8d366e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0014.png using Guid(f9a9436385d55bd42a8e74fbff8d366e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '87890a34235c33180ac4d791686ea7b0') in 0.009468 seconds
-  Import took 0.017055 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000257 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0007.png
-  artifactKey: Guid(a88479b1c8c8cc649afbce9af3e58b30) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0007.png using Guid(a88479b1c8c8cc649afbce9af3e58b30) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '878d8b82d1af6b80ceda7c34010fb0ff') in 0.013709 seconds
-  Import took 0.017798 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000404 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0002.png
-  artifactKey: Guid(2438da1e54b41b64fae94496230f3175) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0002.png using Guid(2438da1e54b41b64fae94496230f3175) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '965bac6c10b45cd5ae0da969ef012a4f') in 0.008715 seconds
-  Import took 0.013817 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000277 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0007.png
-  artifactKey: Guid(a88479b1c8c8cc649afbce9af3e58b30) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0007.png using Guid(a88479b1c8c8cc649afbce9af3e58b30) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '878d8b82d1af6b80ceda7c34010fb0ff') in 0.007797 seconds
-  Import took 0.011611 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000241 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0001.png
-  artifactKey: Guid(7625033006cc3f54e851213b20b7b882) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0001.png using Guid(7625033006cc3f54e851213b20b7b882) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8633622cf8934747fa68800fa24f9e11') in 0.009333 seconds
-  Import took 0.014710 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000211 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0006.png
-  artifactKey: Guid(3865665bf1e7b034ea9e125c15a46b31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0006.png using Guid(3865665bf1e7b034ea9e125c15a46b31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0b9bbbdf843f38b700e6a1a66518b140') in 0.008005 seconds
-  Import took 0.012203 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000719 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0001.png
-  artifactKey: Guid(7625033006cc3f54e851213b20b7b882) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0001.png using Guid(7625033006cc3f54e851213b20b7b882) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8633622cf8934747fa68800fa24f9e11') in 0.009349 seconds
-  Import took 0.013958 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 37.784977 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0003.png
-  artifactKey: Guid(f85127576e01c1d429c7926ea25cbe1a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0003.png using Guid(f85127576e01c1d429c7926ea25cbe1a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '701c7264ff8cab6f1f4a82d4a46c7793') in 0.017685 seconds
-  Import took 0.023370 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.001732 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0016.png
-  artifactKey: Guid(862c4d29f8b063a48af568706cdd0d53) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0016.png using Guid(862c4d29f8b063a48af568706cdd0d53) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f649617cadd714270ce283ebfa0a516c') in 0.008272 seconds
-  Import took 0.013306 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000508 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0009.png
-  artifactKey: Guid(fc9071d622cc8a942b10f11a65415954) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0009.png using Guid(fc9071d622cc8a942b10f11a65415954) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5489eee0603162455e0201404da109a6') in 0.008723 seconds
-  Import took 0.013660 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000228 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0000.png
-  artifactKey: Guid(394a10648421c0342b832426d07d0163) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0000.png using Guid(394a10648421c0342b832426d07d0163) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f1249cb088a826e03ee5fdc559ce197a') in 0.010730 seconds
-  Import took 0.015915 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000502 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0010.png
-  artifactKey: Guid(555a372a30f01e348b443e29e4898d22) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0010.png using Guid(555a372a30f01e348b443e29e4898d22) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3e0097b4c20c0baa146d7baa7e79538d') in 0.009737 seconds
-  Import took 0.016085 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000390 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0004.png
-  artifactKey: Guid(510d490bcb0e09e43ba09955185013a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0004.png using Guid(510d490bcb0e09e43ba09955185013a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f6cb5e02888382e4c8e20ca62c99d781') in 0.010607 seconds
-  Import took 0.015043 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000355 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0008.png
-  artifactKey: Guid(607a6b830643a154691a202d0644d590) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0008.png using Guid(607a6b830643a154691a202d0644d590) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4f9b5174b3986bb24e8af8f48844a929') in 0.009047 seconds
-  Import took 0.014943 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000465 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0005.png
-  artifactKey: Guid(cdbc99e4a2d0ddc46a306a83af6b7d55) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0005.png using Guid(cdbc99e4a2d0ddc46a306a83af6b7d55) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ec9d3b6b549e593dc8230c0997285f19') in 0.009649 seconds
-  Import took 0.015015 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000286 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0015.png
-  artifactKey: Guid(e4431120120384047a0c142291abad33) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0015.png using Guid(e4431120120384047a0c142291abad33) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a3a78efa250dedf2ab4238173e537c20') in 0.009464 seconds
-  Import took 0.014304 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000312 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0011.png
-  artifactKey: Guid(69cd4c56eab94894093815848d6e0533) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0011.png using Guid(69cd4c56eab94894093815848d6e0533) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0d802fff9f7ac14e80c335f377a4e4a5') in 0.009959 seconds
-  Import took 0.014485 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000216 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0012.png
-  artifactKey: Guid(d01d06688aec6364f8576a9c46d98422) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0012.png using Guid(d01d06688aec6364f8576a9c46d98422) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2f32b7422af2fa86d6b3050f435a6222') in 0.010365 seconds
-  Import took 0.014163 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000428 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0013.png
-  artifactKey: Guid(f444826688907004e935669c25bbfd31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0013.png using Guid(f444826688907004e935669c25bbfd31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8ff778e0b54cb10e611719f201efe5ab') in 0.010610 seconds
-  Import took 0.016405 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000333 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0014.png
-  artifactKey: Guid(f9a9436385d55bd42a8e74fbff8d366e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0014.png using Guid(f9a9436385d55bd42a8e74fbff8d366e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b0601c0328e964fff047d628aca65adc') in 0.010393 seconds
-  Import took 0.015333 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000228 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0007.png
-  artifactKey: Guid(a88479b1c8c8cc649afbce9af3e58b30) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0007.png using Guid(a88479b1c8c8cc649afbce9af3e58b30) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1b99f47b9d074a18dc11c2ecbca3d850') in 0.011005 seconds
-  Import took 0.015067 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000206 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0013.png
-  artifactKey: Guid(f444826688907004e935669c25bbfd31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0013.png using Guid(f444826688907004e935669c25bbfd31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8ff778e0b54cb10e611719f201efe5ab') in 0.008897 seconds
-  Import took 0.012921 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000301 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0002.png
-  artifactKey: Guid(2438da1e54b41b64fae94496230f3175) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0002.png using Guid(2438da1e54b41b64fae94496230f3175) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '75c61dfd3c258b35a03de28bc13fd7fa') in 0.010113 seconds
-  Import took 0.015707 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000371 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0007.png
-  artifactKey: Guid(a88479b1c8c8cc649afbce9af3e58b30) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0007.png using Guid(a88479b1c8c8cc649afbce9af3e58b30) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1b99f47b9d074a18dc11c2ecbca3d850') in 0.008806 seconds
-  Import took 0.012572 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000375 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0001.png
-  artifactKey: Guid(7625033006cc3f54e851213b20b7b882) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0001.png using Guid(7625033006cc3f54e851213b20b7b882) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '88ab312ade98288e2f7e55d08caf3c23') in 0.009630 seconds
-  Import took 0.014180 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000288 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0006.png
-  artifactKey: Guid(3865665bf1e7b034ea9e125c15a46b31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0006.png using Guid(3865665bf1e7b034ea9e125c15a46b31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '758a588d8c7e53bfece676b5a550a06d') in 0.008918 seconds
-  Import took 0.013069 seconds .
+  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Retaliate_Deal2_EH_IfWounded_PH_Deal4.asset
+  artifactKey: Guid(512a236e3548d49488a2dcf99d1351eb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Retaliate_Deal2_EH_IfWounded_PH_Deal4.asset using Guid(512a236e3548d49488a2dcf99d1351eb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9b19d0638be41cb1b599129d3d213699') in 0.034999 seconds
+  Import took 0.038948 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.003088 seconds.
+Registered in 0.002963 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.14 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.754 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.22 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.4 MB.
+System memory in use after: 102.5 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2576.
+Total: 1.548800 ms (FindLiveObjects: 0.185500 ms CreateObjectMapping: 0.074500 ms MarkObjects: 1.254100 ms  DeleteObjects: 0.033800 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002699 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.07 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.733 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.38 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.4 MB.
+System memory in use after: 102.5 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2579.
+Total: 1.932600 ms (FindLiveObjects: 0.240700 ms CreateObjectMapping: 0.098000 ms MarkObjects: 1.575200 ms  DeleteObjects: 0.017300 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002726 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
 Refreshing native plugins compatible for Editor in 1.17 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.828 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.13 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.4 MB.
-System memory in use after: 105.5 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2582.
-Total: 5.134900 ms (FindLiveObjects: 0.530700 ms CreateObjectMapping: 0.301800 ms MarkObjects: 4.285100 ms  DeleteObjects: 0.014700 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.004113 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.14 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.767 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.60 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.4 MB.
-System memory in use after: 105.6 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2585.
-Total: 1.643300 ms (FindLiveObjects: 0.196500 ms CreateObjectMapping: 0.081600 ms MarkObjects: 1.347600 ms  DeleteObjects: 0.016900 ms)
-
-========================================================================
-Received Import Request.
-  Time since last request: 350.275981 seconds.
-  path: Assets/Scenes/SplashScene.unity
-  artifactKey: Guid(692e33912bc36864f856c885357b4249) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scenes/SplashScene.unity using Guid(692e33912bc36864f856c885357b4249) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '14226726e5c9df70e3511c25ee950e5d') in 0.011019 seconds
-  Import took 0.018585 seconds .
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.003069 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.18 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.758 seconds
+- Completed reload, in  0.762 seconds
 Platform modules already initialized, skipping
 Refreshing native plugins compatible for Editor in 1.10 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.5 MB.
-System memory in use after: 105.6 MB.
+System memory in use before: 102.5 MB.
+System memory in use after: 102.6 MB.
 
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2588.
-Total: 1.565700 ms (FindLiveObjects: 0.179800 ms CreateObjectMapping: 0.075700 ms MarkObjects: 1.296800 ms  DeleteObjects: 0.012600 ms)
-
-========================================================================
-Received Import Request.
-  Time since last request: 65.054860 seconds.
-  path: Assets/Prefabs/EffectRay.prefab
-  artifactKey: Guid(c4e56d34cc2bbff469f616ec19ff8942) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/EffectRay.prefab using Guid(c4e56d34cc2bbff469f616ec19ff8942) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9b126216aaa8c2fe016f829fa1c524ed') in 0.063258 seconds
-  Import took 0.067457 seconds .
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2582.
+Total: 1.890400 ms (FindLiveObjects: 0.279500 ms CreateObjectMapping: 0.110000 ms MarkObjects: 1.487900 ms  DeleteObjects: 0.012300 ms)
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.001214 seconds.
-  path: Assets/Prefabs/EffectRay.prefab
-  artifactKey: Guid(c4e56d34cc2bbff469f616ec19ff8942) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/EffectRay.prefab using Guid(c4e56d34cc2bbff469f616ec19ff8942) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9b126216aaa8c2fe016f829fa1c524ed') in 0.009891 seconds
-  Import took 0.013376 seconds .
+  Time since last request: 1169.505286 seconds.
+  path: Assets/Prefabs/UI/Popups/AetherCellPopup.prefab
+  artifactKey: Guid(e037262130c35f440ba9d2d2ee87c44b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/UI/Popups/AetherCellPopup.prefab using Guid(e037262130c35f440ba9d2d2ee87c44b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4147b3a6f34f7108b2505246af3c2dcd') in 0.110308 seconds
+  Import took 0.114464 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.003906 seconds.
+Registered in 0.002388 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.46 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 1.05 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.726 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.47 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.5 MB.
-System memory in use after: 105.7 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2597.
-Total: 1.759000 ms (FindLiveObjects: 0.205100 ms CreateObjectMapping: 0.070600 ms MarkObjects: 1.469700 ms  DeleteObjects: 0.012700 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002416 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.55 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.754 seconds
+- Completed reload, in  0.701 seconds
 Platform modules already initialized, skipping
 Refreshing native plugins compatible for Editor in 1.12 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.6 MB.
-System memory in use after: 105.7 MB.
+System memory in use before: 102.5 MB.
+System memory in use after: 102.6 MB.
 
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2600.
-Total: 1.756800 ms (FindLiveObjects: 0.241100 ms CreateObjectMapping: 0.090200 ms MarkObjects: 1.412100 ms  DeleteObjects: 0.012500 ms)
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2585.
+Total: 1.753900 ms (FindLiveObjects: 0.185100 ms CreateObjectMapping: 0.084300 ms MarkObjects: 1.471200 ms  DeleteObjects: 0.012600 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 146.936951 seconds.
+  path: Assets/Resources/Recruit Units/Common/Rogue/Callous Heartseeker.asset
+  artifactKey: Guid(d03268c6611c49243af6ee79b3db0b26) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Recruit Units/Common/Rogue/Callous Heartseeker.asset using Guid(d03268c6611c49243af6ee79b3db0b26) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b1815a383582c91d411735f1893fcb65') in 0.024296 seconds
+  Import took 0.029408 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 4556.425648 seconds.
+  path: Assets/Scripts/Cards/Card Displays/Card Displays/UnitCardDisplay.cs
+  artifactKey: Guid(431d01cce3b7eae46899bf342344ca3a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Displays/Card Displays/UnitCardDisplay.cs using Guid(431d01cce3b7eae46899bf342344ca3a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c4144d657124879e8a31640c0c05a194') in 0.005599 seconds
+  Import took 0.009798 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.002835 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.25 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.720 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.12 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.6 MB.
-System memory in use after: 105.7 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2603.
-Total: 1.863600 ms (FindLiveObjects: 0.223700 ms CreateObjectMapping: 0.067900 ms MarkObjects: 1.555300 ms  DeleteObjects: 0.016000 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.003038 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.14 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.736 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.09 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.6 MB.
-System memory in use after: 105.7 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2606.
-Total: 1.678500 ms (FindLiveObjects: 0.202800 ms CreateObjectMapping: 0.086800 ms MarkObjects: 1.375000 ms  DeleteObjects: 0.013000 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002484 seconds.
+Registered in 0.002713 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
 Refreshing native plugins compatible for Editor in 1.08 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.732 seconds
+- Completed reload, in  0.714 seconds
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.11 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 1.16 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.6 MB.
-System memory in use after: 105.7 MB.
+System memory in use before: 102.5 MB.
+System memory in use after: 102.6 MB.
 
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2609.
-Total: 1.901600 ms (FindLiveObjects: 0.251800 ms CreateObjectMapping: 0.102900 ms MarkObjects: 1.530500 ms  DeleteObjects: 0.015100 ms)
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2588.
+Total: 1.673700 ms (FindLiveObjects: 0.214900 ms CreateObjectMapping: 0.107700 ms MarkObjects: 1.338700 ms  DeleteObjects: 0.011300 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 106.579272 seconds.
+  path: Assets/Scripts/Cards/Card Displays/Card Displays/UnitCardDisplay.cs
+  artifactKey: Guid(431d01cce3b7eae46899bf342344ca3a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Displays/Card Displays/UnitCardDisplay.cs using Guid(431d01cce3b7eae46899bf342344ca3a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f2a02a5ad51d1a2a298a0d8fb7dd2975') in 0.003596 seconds
+  Import took 0.010461 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.192538 seconds.
+  path: Assets/Prefabs/Cards/Unit Card/UnitZoomCard.prefab
+  artifactKey: Guid(c07a0922a28da3343827254dbc38f442) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Cards/Unit Card/UnitZoomCard.prefab using Guid(c07a0922a28da3343827254dbc38f442) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '13fbd714d7370c23df078a2cbcf0eb40') in 0.087256 seconds
+  Import took 0.091764 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.777484 seconds.
+  path: Assets/Animations/Cards/Card (Base Controller)/Controllers/Card_Zoomed.controller
+  artifactKey: Guid(092787e92db6b2a459f76becfb7999b6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animations/Cards/Card (Base Controller)/Controllers/Card_Zoomed.controller using Guid(092787e92db6b2a459f76becfb7999b6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9f25a6a6c545ace1107dc68b04bf5b23') in 0.005473 seconds
+  Import took 0.009461 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 41.013081 seconds.
+  path: Assets/Prefabs/Cards/Unit Card/UnitCard.prefab
+  artifactKey: Guid(1699411500fdc00408cd317524df96b6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Cards/Unit Card/UnitCard.prefab using Guid(1699411500fdc00408cd317524df96b6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6813a1b840abbdd8031f8b8370ac7a00') in 0.054086 seconds
+  Import took 0.058439 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.002443 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.09 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.753 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.19 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.6 MB.
-System memory in use after: 105.7 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2612.
-Total: 2.002000 ms (FindLiveObjects: 0.283200 ms CreateObjectMapping: 0.129800 ms MarkObjects: 1.573700 ms  DeleteObjects: 0.014100 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.003008 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.12 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.721 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.09 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.6 MB.
-System memory in use after: 105.7 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2615.
-Total: 1.924000 ms (FindLiveObjects: 0.269300 ms CreateObjectMapping: 0.087400 ms MarkObjects: 1.553900 ms  DeleteObjects: 0.012700 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002762 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.28 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.763 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.10 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.6 MB.
-System memory in use after: 105.7 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2618.
-Total: 2.103400 ms (FindLiveObjects: 0.290200 ms CreateObjectMapping: 0.141900 ms MarkObjects: 1.657400 ms  DeleteObjects: 0.013100 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.003461 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.06 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.744 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.13 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.6 MB.
-System memory in use after: 105.7 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2621.
-Total: 2.105600 ms (FindLiveObjects: 0.237400 ms CreateObjectMapping: 0.085100 ms MarkObjects: 1.769700 ms  DeleteObjects: 0.012800 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002776 seconds.
+Registered in 0.003025 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
 Refreshing native plugins compatible for Editor in 1.22 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.777 seconds
+- Completed reload, in  0.793 seconds
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.08 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 1.12 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.6 MB.
-System memory in use after: 105.7 MB.
+System memory in use before: 102.6 MB.
+System memory in use after: 102.7 MB.
 
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2624.
-Total: 1.829600 ms (FindLiveObjects: 0.208800 ms CreateObjectMapping: 0.107200 ms MarkObjects: 1.499600 ms  DeleteObjects: 0.013200 ms)
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2591.
+Total: 1.585400 ms (FindLiveObjects: 0.186400 ms CreateObjectMapping: 0.078300 ms MarkObjects: 1.306800 ms  DeleteObjects: 0.012900 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 448.298754 seconds.
+  path: Assets/Animations/Cards/Unit Cards/Unit Stats/Stats_FullHealth.anim
+  artifactKey: Guid(052a2083f50dd804b8e320d1a5d5588f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animations/Cards/Unit Cards/Unit Stats/Stats_FullHealth.anim using Guid(052a2083f50dd804b8e320d1a5d5588f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c916ebf1cbc16049ac0670144f293a6c') in 0.013314 seconds
+  Import took 0.017350 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 24.718104 seconds.
+  path: Assets/Animations/Cards/Unit Cards/Unit Stats/Stats_Starting.anim
+  artifactKey: Guid(052a2083f50dd804b8e320d1a5d5588f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animations/Cards/Unit Cards/Unit Stats/Stats_Starting.anim using Guid(052a2083f50dd804b8e320d1a5d5588f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0fbb6d991bcba53849c218b6803889c8') in 0.002664 seconds
+  Import took 0.006709 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 230.843437 seconds.
+  path: Assets/Animations/Cards/Unit Cards/Unit Stats/Stats_Modified/Damaged/Stats_Damaged_PowerBuffed 1.anim
+  artifactKey: Guid(42e58d053f0b8e448918801be1528fec) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animations/Cards/Unit Cards/Unit Stats/Stats_Modified/Damaged/Stats_Damaged_PowerBuffed 1.anim using Guid(42e58d053f0b8e448918801be1528fec) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b9236dd618e17d9c589dc4b8ac62dc26') in 0.003272 seconds
+  Import took 0.007224 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 9.072654 seconds.
+  path: Assets/Animations/Cards/Unit Cards/Unit Stats/Stats_Modified/Damaged/Stats_Damaged_PowerDebuffed.anim
+  artifactKey: Guid(42e58d053f0b8e448918801be1528fec) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animations/Cards/Unit Cards/Unit Stats/Stats_Modified/Damaged/Stats_Damaged_PowerDebuffed.anim using Guid(42e58d053f0b8e448918801be1528fec) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '41efc7346feef621e0c1e723503f2594') in 0.003173 seconds
+  Import took 0.008066 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 20.647409 seconds.
+  path: Assets/Animations/Cards/Unit Cards/Unit Stats/Unit_Stats.controller
+  artifactKey: Guid(3e80ce22c7c9bfa4291ff8205d6f7e86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animations/Cards/Unit Cards/Unit Stats/Unit_Stats.controller using Guid(3e80ce22c7c9bfa4291ff8205d6f7e86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '83b84a02a9bb468203f1f015a763ca7c') in 0.010952 seconds
+  Import took 0.015108 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 94.895606 seconds.
+  path: Assets/Animations/Cards/Unit Cards/Unit Stats/Stats_Modified/Undamaged/Stats_PowerBuffed 1.anim
+  artifactKey: Guid(7b642aea684e6994b9d39400417a67dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animations/Cards/Unit Cards/Unit Stats/Stats_Modified/Undamaged/Stats_PowerBuffed 1.anim using Guid(7b642aea684e6994b9d39400417a67dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a08fa909bf17abb1101de16329689288') in 0.003444 seconds
+  Import took 0.007635 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 13.169947 seconds.
+  path: Assets/Animations/Cards/Unit Cards/Unit Stats/Stats_Modified/Undamaged/Stats_PowerDebuffed.anim
+  artifactKey: Guid(7b642aea684e6994b9d39400417a67dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animations/Cards/Unit Cards/Unit Stats/Stats_Modified/Undamaged/Stats_PowerDebuffed.anim using Guid(7b642aea684e6994b9d39400417a67dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ad99006686085902ed698bbfd8d81d63') in 0.003133 seconds
+  Import took 0.008003 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 99.108119 seconds.
+  path: Assets/Animations/Cards/Unit Cards/Unit Stats/Stats_Modified/Undamaged/Stats_PowerDebuffed.anim
+  artifactKey: Guid(7b642aea684e6994b9d39400417a67dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animations/Cards/Unit Cards/Unit Stats/Stats_Modified/Undamaged/Stats_PowerDebuffed.anim using Guid(7b642aea684e6994b9d39400417a67dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a1e496c00ab43496c11ff4745b234d9a') in 0.002743 seconds
+  Import took 0.010139 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.846033 seconds.
+  path: Assets/Animations/Cards/Unit Cards/Unit Stats/Stats_Modified/Undamaged/Stats_PowerDebuffed 1.anim
+  artifactKey: Guid(6c9667aa541ff2c43b26be872ed05e75) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animations/Cards/Unit Cards/Unit Stats/Stats_Modified/Undamaged/Stats_PowerDebuffed 1.anim using Guid(6c9667aa541ff2c43b26be872ed05e75) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'af9e345d5172ef2ec3bc4ed9ff27c386') in 0.002804 seconds
+  Import took 0.007141 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 6.273414 seconds.
+  path: Assets/Animations/Cards/Unit Cards/Unit Stats/Stats_Modified/Undamaged/Stats_HealthBuffed_PowerDebuffed.anim
+  artifactKey: Guid(6c9667aa541ff2c43b26be872ed05e75) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animations/Cards/Unit Cards/Unit Stats/Stats_Modified/Undamaged/Stats_HealthBuffed_PowerDebuffed.anim using Guid(6c9667aa541ff2c43b26be872ed05e75) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3860c202f97472ea0a4a7b2265a2455c') in 0.002980 seconds
+  Import took 0.007293 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 52.100810 seconds.
+  path: Assets/Animations/Cards/Unit Cards/Unit Stats/Unit_Stats.controller
+  artifactKey: Guid(3e80ce22c7c9bfa4291ff8205d6f7e86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animations/Cards/Unit Cards/Unit Stats/Unit_Stats.controller using Guid(3e80ce22c7c9bfa4291ff8205d6f7e86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8c02278ce0656e8e9ad1989b288665ea') in 0.008594 seconds
+  Import took 0.016531 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.003815 seconds.
+Registered in 0.003949 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.17 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.732 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.09 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.7 MB.
+System memory in use after: 102.8 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2594.
+Total: 1.738700 ms (FindLiveObjects: 0.164700 ms CreateObjectMapping: 0.113300 ms MarkObjects: 1.447200 ms  DeleteObjects: 0.012900 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003308 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.23 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.809 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.16 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.7 MB.
+System memory in use after: 102.8 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2597.
+Total: 1.746200 ms (FindLiveObjects: 0.196400 ms CreateObjectMapping: 0.081900 ms MarkObjects: 1.448000 ms  DeleteObjects: 0.018900 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 332.434453 seconds.
+  path: Assets/Scripts/Effects/EffectRay.cs
+  artifactKey: Guid(55be734c697865f46b48ddebd76156dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/EffectRay.cs using Guid(55be734c697865f46b48ddebd76156dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c52d19137322a2f1290e1fb6a6c534fe') in 0.004821 seconds
+  Import took 0.009644 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003908 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.07 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.725 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.15 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.7 MB.
+System memory in use after: 102.8 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2600.
+Total: 1.528900 ms (FindLiveObjects: 0.186500 ms CreateObjectMapping: 0.072300 ms MarkObjects: 1.256700 ms  DeleteObjects: 0.012600 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 13.064960 seconds.
+  path: Assets/Scripts/Effects/EffectRay.cs
+  artifactKey: Guid(55be734c697865f46b48ddebd76156dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/EffectRay.cs using Guid(55be734c697865f46b48ddebd76156dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e9f738de169aa66335e0ed11de7993b7') in 0.003941 seconds
+  Import took 0.010637 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 50.771310 seconds.
+  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0000.png
+  artifactKey: Guid(394a10648421c0342b832426d07d0163) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0000.png using Guid(394a10648421c0342b832426d07d0163) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f8432b60e8f9e8e11c087e79bf68d713') in 0.080824 seconds
+  Import took 0.084775 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002550 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
 Refreshing native plugins compatible for Editor in 1.14 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.740 seconds
+- Completed reload, in  0.713 seconds
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.11 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.6 MB.
-System memory in use after: 105.7 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2627.
-Total: 2.093700 ms (FindLiveObjects: 0.272400 ms CreateObjectMapping: 0.119300 ms MarkObjects: 1.685600 ms  DeleteObjects: 0.015400 ms)
-
-========================================================================
-Received Import Request.
-  Time since last request: 1161.275522 seconds.
-  path: Assets/Scenes/CombatScene.unity
-  artifactKey: Guid(0e29b94a6479dc34a849aa71b7992813) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scenes/CombatScene.unity using Guid(0e29b94a6479dc34a849aa71b7992813) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7052639db10fa319f033ea463cdf1eae') in 0.013353 seconds
-  Import took 0.017677 seconds .
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002740 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.24 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.813 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.29 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.6 MB.
-System memory in use after: 105.7 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2630.
-Total: 1.888400 ms (FindLiveObjects: 0.202800 ms CreateObjectMapping: 0.075600 ms MarkObjects: 1.582400 ms  DeleteObjects: 0.026100 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002570 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.68 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.782 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.08 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 1.14 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 105.6 MB.
 System memory in use after: 105.8 MB.
 
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2609.
+Total: 1.718600 ms (FindLiveObjects: 0.162100 ms CreateObjectMapping: 0.081800 ms MarkObjects: 1.462200 ms  DeleteObjects: 0.011800 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002746 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.17 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.723 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.11 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 105.7 MB.
+System memory in use after: 105.8 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2612.
+Total: 1.584500 ms (FindLiveObjects: 0.191400 ms CreateObjectMapping: 0.070300 ms MarkObjects: 1.309600 ms  DeleteObjects: 0.012500 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002927 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.26 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.732 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.10 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 105.7 MB.
+System memory in use after: 105.8 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2615.
+Total: 1.926100 ms (FindLiveObjects: 0.245100 ms CreateObjectMapping: 0.062300 ms MarkObjects: 1.604700 ms  DeleteObjects: 0.013200 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002516 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.06 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.706 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.11 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 105.7 MB.
+System memory in use after: 105.8 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2618.
+Total: 1.783800 ms (FindLiveObjects: 0.209100 ms CreateObjectMapping: 0.066900 ms MarkObjects: 1.494400 ms  DeleteObjects: 0.012400 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002587 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.10 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.736 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.10 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 105.7 MB.
+System memory in use after: 105.8 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2621.
+Total: 1.879400 ms (FindLiveObjects: 0.205500 ms CreateObjectMapping: 0.089100 ms MarkObjects: 1.569600 ms  DeleteObjects: 0.014300 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002693 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.25 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.760 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.13 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 105.7 MB.
+System memory in use after: 105.8 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2624.
+Total: 1.979600 ms (FindLiveObjects: 0.304900 ms CreateObjectMapping: 0.129400 ms MarkObjects: 1.526600 ms  DeleteObjects: 0.016800 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002853 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.21 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.884 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.40 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 105.7 MB.
+System memory in use after: 105.8 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2627.
+Total: 2.107100 ms (FindLiveObjects: 0.347200 ms CreateObjectMapping: 0.167700 ms MarkObjects: 1.575800 ms  DeleteObjects: 0.015100 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003318 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.13 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.862 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.42 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 105.7 MB.
+System memory in use after: 105.8 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2630.
+Total: 2.318700 ms (FindLiveObjects: 0.212900 ms CreateObjectMapping: 0.074000 ms MarkObjects: 2.012100 ms  DeleteObjects: 0.018800 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003064 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.29 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.815 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 2.71 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 105.7 MB.
+System memory in use after: 105.8 MB.
+
 Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2633.
-Total: 1.901200 ms (FindLiveObjects: 0.200400 ms CreateObjectMapping: 0.077100 ms MarkObjects: 1.605700 ms  DeleteObjects: 0.016800 ms)
+Total: 1.620600 ms (FindLiveObjects: 0.204800 ms CreateObjectMapping: 0.078300 ms MarkObjects: 1.323100 ms  DeleteObjects: 0.013200 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 11207.603520 seconds.
+  path: Assets/Resources/Dialogue/Enemy Dialogue/Random Encounters/Undercity Brawler/UndercityBrawler_CReward_1.asset
+  artifactKey: Guid(53811e70f7885804cb584f33af7fe198) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/Enemy Dialogue/Random Encounters/Undercity Brawler/UndercityBrawler_CReward_1.asset using Guid(53811e70f7885804cb584f33af7fe198) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bff7bc9c0fa3668bf0b71339ca6a6320') in 0.017080 seconds
+  Import took 0.022399 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001560 seconds.
+  path: Assets/Resources/Dialogue/Enemy Dialogue/Random Encounters/Undercity Brawler/UndercityBrawler_CReward_1.asset
+  artifactKey: Guid(53811e70f7885804cb584f33af7fe198) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/Enemy Dialogue/Random Encounters/Undercity Brawler/UndercityBrawler_CReward_1.asset using Guid(53811e70f7885804cb584f33af7fe198) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bff7bc9c0fa3668bf0b71339ca6a6320') in 0.002565 seconds
+  Import took 0.007622 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.870476 seconds.
+  path: Assets/Resources/Dialogue/Enemy Dialogue/Random Encounters/Elusive Razorfist/ElusiveRazorfist_CReward_1.asset
+  artifactKey: Guid(288c1a6839952fa4faa08d5b2ce4f4a2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/Enemy Dialogue/Random Encounters/Elusive Razorfist/ElusiveRazorfist_CReward_1.asset using Guid(288c1a6839952fa4faa08d5b2ce4f4a2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b505d9b090a1410150e7d2d703f1b8a5') in 0.018382 seconds
+  Import took 0.022912 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 5.215976 seconds.
+  path: Assets/Resources/Dialogue/Enemy Dialogue/Random Encounters/Corrupted Crawler/CorruptedCrawler_CReward_1.asset
+  artifactKey: Guid(8b5af784ca503474ead86ee385a1244d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/Enemy Dialogue/Random Encounters/Corrupted Crawler/CorruptedCrawler_CReward_1.asset using Guid(8b5af784ca503474ead86ee385a1244d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3d7f41dce6032b6d1736943217922263') in 0.003064 seconds
+  Import took 0.010239 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002958 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.42 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.825 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.28 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 105.7 MB.
+System memory in use after: 105.8 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2636.
+Total: 2.328500 ms (FindLiveObjects: 0.224700 ms CreateObjectMapping: 0.074300 ms MarkObjects: 2.000200 ms  DeleteObjects: 0.028100 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003239 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.16 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.827 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.72 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 105.7 MB.
+System memory in use after: 105.8 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2639.
+Total: 1.758500 ms (FindLiveObjects: 0.273400 ms CreateObjectMapping: 0.082500 ms MarkObjects: 1.388700 ms  DeleteObjects: 0.012800 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002675 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.45 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.820 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 2.04 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 105.7 MB.
+System memory in use after: 105.9 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2642.
+Total: 1.994700 ms (FindLiveObjects: 0.229100 ms CreateObjectMapping: 0.102300 ms MarkObjects: 1.634600 ms  DeleteObjects: 0.027500 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 1039.549460 seconds.
+  path: Assets/Animations/Cards/Unit Cards/Unit Stats/Unit_Stats.controller
+  artifactKey: Guid(3e80ce22c7c9bfa4291ff8205d6f7e86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Animations/Cards/Unit Cards/Unit Stats/Unit_Stats.controller using Guid(3e80ce22c7c9bfa4291ff8205d6f7e86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5d763bf8e14cfeba8c256d09307f2cf2') in 0.028918 seconds
+  Import took 0.034782 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003119 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.23 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.812 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.17 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 105.7 MB.
+System memory in use after: 105.9 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2645.
+Total: 2.347500 ms (FindLiveObjects: 0.296200 ms CreateObjectMapping: 0.101700 ms MarkObjects: 1.926400 ms  DeleteObjects: 0.021500 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002971 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.38 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.802 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.19 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 105.8 MB.
+System memory in use after: 105.9 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2648.
+Total: 2.576100 ms (FindLiveObjects: 0.201700 ms CreateObjectMapping: 0.083100 ms MarkObjects: 2.231600 ms  DeleteObjects: 0.057800 ms)
 
 ========================================================================
 Received Prepare
@@ -1088,998 +748,386 @@ Registering precompiled user dll's ...
 Registered in 0.002508 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.49 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.771 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.10 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.7 MB.
-System memory in use after: 105.8 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2636.
-Total: 2.157200 ms (FindLiveObjects: 0.344700 ms CreateObjectMapping: 0.098000 ms MarkObjects: 1.701500 ms  DeleteObjects: 0.011900 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002474 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.31 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.784 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.09 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.7 MB.
-System memory in use after: 105.8 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2639.
-Total: 1.921500 ms (FindLiveObjects: 0.239600 ms CreateObjectMapping: 0.098400 ms MarkObjects: 1.567000 ms  DeleteObjects: 0.015500 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002397 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
 Refreshing native plugins compatible for Editor in 1.22 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.743 seconds
+- Completed reload, in  0.872 seconds
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.11 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 1.36 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.7 MB.
-System memory in use after: 105.8 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2642.
-Total: 1.985400 ms (FindLiveObjects: 0.224300 ms CreateObjectMapping: 0.091100 ms MarkObjects: 1.654800 ms  DeleteObjects: 0.014200 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002432 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.26 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.727 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.19 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.7 MB.
-System memory in use after: 105.8 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2645.
-Total: 1.984400 ms (FindLiveObjects: 0.255000 ms CreateObjectMapping: 0.090500 ms MarkObjects: 1.623800 ms  DeleteObjects: 0.014200 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002752 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.75 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.779 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.21 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.7 MB.
-System memory in use after: 105.8 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2648.
-Total: 1.993700 ms (FindLiveObjects: 0.301800 ms CreateObjectMapping: 0.088900 ms MarkObjects: 1.589900 ms  DeleteObjects: 0.012300 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002495 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.16 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.777 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.09 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.7 MB.
-System memory in use after: 105.8 MB.
+System memory in use before: 105.8 MB.
+System memory in use after: 105.9 MB.
 
 Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2651.
-Total: 1.737000 ms (FindLiveObjects: 0.211000 ms CreateObjectMapping: 0.085600 ms MarkObjects: 1.426000 ms  DeleteObjects: 0.013400 ms)
+Total: 2.223700 ms (FindLiveObjects: 0.344300 ms CreateObjectMapping: 0.142700 ms MarkObjects: 1.703800 ms  DeleteObjects: 0.031400 ms)
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.002969 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.08 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.776 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.28 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.7 MB.
-System memory in use after: 105.8 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2654.
-Total: 1.809600 ms (FindLiveObjects: 0.199800 ms CreateObjectMapping: 0.082600 ms MarkObjects: 1.512500 ms  DeleteObjects: 0.013300 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002577 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.29 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.773 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.20 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.7 MB.
-System memory in use after: 105.8 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2657.
-Total: 1.940800 ms (FindLiveObjects: 0.274300 ms CreateObjectMapping: 0.097000 ms MarkObjects: 1.556200 ms  DeleteObjects: 0.012500 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.004039 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.92 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.785 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.26 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.7 MB.
-System memory in use after: 105.8 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2660.
-Total: 2.622100 ms (FindLiveObjects: 0.496200 ms CreateObjectMapping: 0.263900 ms MarkObjects: 1.829600 ms  DeleteObjects: 0.031100 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002395 seconds.
+Registered in 0.002779 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
 Refreshing native plugins compatible for Editor in 1.19 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.791 seconds
+- Completed reload, in  0.804 seconds
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.47 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.7 MB.
-System memory in use after: 105.8 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2663.
-Total: 1.738200 ms (FindLiveObjects: 0.290100 ms CreateObjectMapping: 0.116900 ms MarkObjects: 1.315900 ms  DeleteObjects: 0.014200 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002448 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.14 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.737 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.09 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.7 MB.
-System memory in use after: 105.8 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2666.
-Total: 1.879600 ms (FindLiveObjects: 0.248400 ms CreateObjectMapping: 0.081300 ms MarkObjects: 1.536200 ms  DeleteObjects: 0.012900 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.003116 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.14 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.800 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.10 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.7 MB.
-System memory in use after: 105.8 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2669.
-Total: 1.824600 ms (FindLiveObjects: 0.279200 ms CreateObjectMapping: 0.105200 ms MarkObjects: 1.427200 ms  DeleteObjects: 0.012100 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002975 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.06 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.761 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.14 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.7 MB.
-System memory in use after: 105.9 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2672.
-Total: 1.887200 ms (FindLiveObjects: 0.220600 ms CreateObjectMapping: 0.077200 ms MarkObjects: 1.574800 ms  DeleteObjects: 0.013700 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.003566 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.53 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.736 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.16 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.7 MB.
-System memory in use after: 105.9 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2675.
-Total: 1.608800 ms (FindLiveObjects: 0.215700 ms CreateObjectMapping: 0.071700 ms MarkObjects: 1.308400 ms  DeleteObjects: 0.012100 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.003059 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.06 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.739 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.13 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 1.22 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 105.8 MB.
 System memory in use after: 105.9 MB.
 
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2678.
-Total: 1.687900 ms (FindLiveObjects: 0.205200 ms CreateObjectMapping: 0.086200 ms MarkObjects: 1.381400 ms  DeleteObjects: 0.014100 ms)
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2654.
+Total: 2.994500 ms (FindLiveObjects: 0.414100 ms CreateObjectMapping: 0.115400 ms MarkObjects: 2.446900 ms  DeleteObjects: 0.015300 ms)
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.002522 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.06 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.723 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.12 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.8 MB.
-System memory in use after: 105.9 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2681.
-Total: 2.204300 ms (FindLiveObjects: 0.409600 ms CreateObjectMapping: 0.101200 ms MarkObjects: 1.652100 ms  DeleteObjects: 0.040100 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002517 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.12 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.759 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.18 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.8 MB.
-System memory in use after: 105.9 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2684.
-Total: 1.825700 ms (FindLiveObjects: 0.249000 ms CreateObjectMapping: 0.098400 ms MarkObjects: 1.462100 ms  DeleteObjects: 0.015200 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.003442 seconds.
+Registered in 0.002555 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
 Refreshing native plugins compatible for Editor in 1.21 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.783 seconds
+- Completed reload, in  0.811 seconds
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.08 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 1.58 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 105.8 MB.
 System memory in use after: 105.9 MB.
 
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2687.
-Total: 2.098800 ms (FindLiveObjects: 0.202900 ms CreateObjectMapping: 0.073400 ms MarkObjects: 1.806000 ms  DeleteObjects: 0.015500 ms)
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2657.
+Total: 2.648600 ms (FindLiveObjects: 0.324400 ms CreateObjectMapping: 0.082900 ms MarkObjects: 2.223100 ms  DeleteObjects: 0.014600 ms)
 
 ========================================================================
 Received Import Request.
-  Time since last request: 1822.759552 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0003.png
-  artifactKey: Guid(f85127576e01c1d429c7926ea25cbe1a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0003.png using Guid(f85127576e01c1d429c7926ea25cbe1a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a2baef110920cc2fb2de20cb192650f9') in 0.055471 seconds
-  Import took 0.060867 seconds .
+  Time since last request: 957.056253 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/CreateCard/CreateCard_Invention 1.asset
+  artifactKey: Guid(e82df7542b4888b4d8a797f2a2cb49e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/CreateCard/CreateCard_Invention 1.asset using Guid(e82df7542b4888b4d8a797f2a2cb49e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c146463c1edc751b72ffc88fc2a7680d') in 0.016096 seconds
+  Import took 0.022576 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 6.882592 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0003.png
-  artifactKey: Guid(f85127576e01c1d429c7926ea25cbe1a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0003.png using Guid(f85127576e01c1d429c7926ea25cbe1a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1b3672f15c2153ac5a0c5788a819d13a') in 0.024327 seconds
-  Import took 0.028793 seconds .
+  Time since last request: 2.950962 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/CreateCard/CreateCard_Random.asset
+  artifactKey: Guid(e82df7542b4888b4d8a797f2a2cb49e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/CreateCard/CreateCard_Random.asset using Guid(e82df7542b4888b4d8a797f2a2cb49e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c24aad0f61aa3c5afebfb3a90a0f3901') in 0.006970 seconds
+  Import took 0.011627 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 69.102472 seconds.
-  path: Assets/Prefabs/EffectRay.prefab
-  artifactKey: Guid(c4e56d34cc2bbff469f616ec19ff8942) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/EffectRay.prefab using Guid(c4e56d34cc2bbff469f616ec19ff8942) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bbe2d98e66a1ba076cfa76aeb2d09bf1') in 0.035306 seconds
-  Import took 0.039850 seconds .
+  Time since last request: 7.928544 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/CreateCard/CreateCard_Random.asset
+  artifactKey: Guid(e82df7542b4888b4d8a797f2a2cb49e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/CreateCard/CreateCard_Random.asset using Guid(e82df7542b4888b4d8a797f2a2cb49e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '47bdfe5d84f983ebe60f162290ba4c92') in 0.003314 seconds
+  Import took 0.008439 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 48.500579 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Effect_Ray.anim
-  artifactKey: Guid(c167baa237b8ec249825230f475071da) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Effect_Ray.anim using Guid(c167baa237b8ec249825230f475071da) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a12534f3cc3a1b01db8b8ee44a2b2e0d') in 0.002259 seconds
-  Import took 0.005732 seconds .
+  Time since last request: 2.982108 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/CreateCard/CreateCard_Invention 1.asset
+  artifactKey: Guid(77039286f02bcab49abec6e7beb4913d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/CreateCard/CreateCard_Invention 1.asset using Guid(77039286f02bcab49abec6e7beb4913d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '577a45c68980a102e967d1bdd082104a') in 0.003143 seconds
+  Import took 0.008275 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 38.640862 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Effect_Ray.controller
-  artifactKey: Guid(54e4d4f6f9c790d47ad0289456040ac2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Effect_Ray.controller using Guid(54e4d4f6f9c790d47ad0289456040ac2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fbdbda9ad80bbd45538d852cab799bde') in 0.003178 seconds
-  Import took 0.007762 seconds .
+  Time since last request: 2.776338 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/CreateCard/CreateCard_Random.asset
+  artifactKey: Guid(77039286f02bcab49abec6e7beb4913d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/CreateCard/CreateCard_Random.asset using Guid(77039286f02bcab49abec6e7beb4913d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd884cffcb8645b3ca5833dfb84af4598') in 0.002942 seconds
+  Import took 0.007829 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 25.511792 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0016.png
-  artifactKey: Guid(862c4d29f8b063a48af568706cdd0d53) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0016.png using Guid(862c4d29f8b063a48af568706cdd0d53) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9721b48408a6925a7cf8b7fca15f8807') in 0.013098 seconds
-  Import took 0.017386 seconds .
+  Time since last request: 23.891448 seconds.
+  path: Assets/Resources/Cards_Actions/Quantum Accelerator.asset
+  artifactKey: Guid(7471a63801c7c5c46b390fe221b81ec3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards_Actions/Quantum Accelerator.asset using Guid(7471a63801c7c5c46b390fe221b81ec3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '95b596215cc532fdeca7a1f85503b89a') in 0.018965 seconds
+  Import took 0.025169 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000249 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0009.png
-  artifactKey: Guid(fc9071d622cc8a942b10f11a65415954) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0009.png using Guid(fc9071d622cc8a942b10f11a65415954) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd6e3baabd8ba4a3afe5d96ac9cdc6dbf') in 0.011601 seconds
-  Import took 0.019437 seconds .
+  Time since last request: 9.838908 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/CreateCard/CreateCard_Random.asset
+  artifactKey: Guid(e82df7542b4888b4d8a797f2a2cb49e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/CreateCard/CreateCard_Random.asset using Guid(e82df7542b4888b4d8a797f2a2cb49e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c31dc1d9816470120527032332ace9cf') in 0.003827 seconds
+  Import took 0.008355 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000223 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0000.png
-  artifactKey: Guid(394a10648421c0342b832426d07d0163) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0000.png using Guid(394a10648421c0342b832426d07d0163) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '398c4cc1cc6e682b080e332432597698') in 0.014645 seconds
-  Import took 0.019244 seconds .
+  Time since last request: 0.004447 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/CreateCard/CreateCard_Random.asset
+  artifactKey: Guid(e82df7542b4888b4d8a797f2a2cb49e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/CreateCard/CreateCard_Random.asset using Guid(e82df7542b4888b4d8a797f2a2cb49e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c31dc1d9816470120527032332ace9cf') in 0.002877 seconds
+  Import took 0.007261 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000269 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0010.png
-  artifactKey: Guid(555a372a30f01e348b443e29e4898d22) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0010.png using Guid(555a372a30f01e348b443e29e4898d22) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '406e414f27a3f06d10621728d57b4425') in 0.023251 seconds
-  Import took 0.026734 seconds .
+  Time since last request: 3.016441 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/CreateCard/CreateCard_Random.asset
+  artifactKey: Guid(77039286f02bcab49abec6e7beb4913d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/CreateCard/CreateCard_Random.asset using Guid(77039286f02bcab49abec6e7beb4913d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c1fe813a93c2cd6e78b50cac32818a4e') in 0.003653 seconds
+  Import took 0.011637 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000216 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0004.png
-  artifactKey: Guid(510d490bcb0e09e43ba09955185013a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0004.png using Guid(510d490bcb0e09e43ba09955185013a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0fd220031bf5204bb797d3e69f742bdc') in 0.012127 seconds
-  Import took 0.016248 seconds .
+  Time since last request: 6.577515 seconds.
+  path: Assets/Scenes/TitleScene.unity
+  artifactKey: Guid(63f34e354ce4f5a4c9cab5ca9e05533c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/TitleScene.unity using Guid(63f34e354ce4f5a4c9cab5ca9e05533c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '48fccc72cce4a26412e7cf079204550b') in 0.003533 seconds
+  Import took 0.011508 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000443 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0008.png
-  artifactKey: Guid(607a6b830643a154691a202d0644d590) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0008.png using Guid(607a6b830643a154691a202d0644d590) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '71b80838070f79d99834ea91a44571b6') in 0.011890 seconds
-  Import took 0.016294 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000219 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0005.png
-  artifactKey: Guid(cdbc99e4a2d0ddc46a306a83af6b7d55) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0005.png using Guid(cdbc99e4a2d0ddc46a306a83af6b7d55) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9776495dd1813654516af139968bb7f6') in 0.012204 seconds
-  Import took 0.016071 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000307 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0016.png
-  artifactKey: Guid(862c4d29f8b063a48af568706cdd0d53) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0016.png using Guid(862c4d29f8b063a48af568706cdd0d53) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9721b48408a6925a7cf8b7fca15f8807') in 0.014414 seconds
-  Import took 0.018378 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000269 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0015.png
-  artifactKey: Guid(e4431120120384047a0c142291abad33) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0015.png using Guid(e4431120120384047a0c142291abad33) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '667a3364bc7453eeea05bc9a74719ac0') in 0.011949 seconds
-  Import took 0.015821 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000329 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0011.png
-  artifactKey: Guid(69cd4c56eab94894093815848d6e0533) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0011.png using Guid(69cd4c56eab94894093815848d6e0533) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e54f72704cc6f5033deab602b2959efb') in 0.011061 seconds
-  Import took 0.015959 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000357 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0012.png
-  artifactKey: Guid(d01d06688aec6364f8576a9c46d98422) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0012.png using Guid(d01d06688aec6364f8576a9c46d98422) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd6d6ea9c585301cc9abaafba271372da') in 0.011581 seconds
-  Import took 0.015215 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000365 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0013.png
-  artifactKey: Guid(f444826688907004e935669c25bbfd31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0013.png using Guid(f444826688907004e935669c25bbfd31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '53d604a3f36c65cc3572a98d49162bbd') in 0.018239 seconds
-  Import took 0.021614 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000260 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0014.png
-  artifactKey: Guid(f9a9436385d55bd42a8e74fbff8d366e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0014.png using Guid(f9a9436385d55bd42a8e74fbff8d366e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '39f74ef839b12f3f55234311fae70925') in 0.018244 seconds
-  Import took 0.022185 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000318 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0007.png
-  artifactKey: Guid(a88479b1c8c8cc649afbce9af3e58b30) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0007.png using Guid(a88479b1c8c8cc649afbce9af3e58b30) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '47ae08beae2494ee60565765e40bb97d') in 0.014311 seconds
-  Import took 0.018444 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000435 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0002.png
-  artifactKey: Guid(2438da1e54b41b64fae94496230f3175) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0002.png using Guid(2438da1e54b41b64fae94496230f3175) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '05c16b773f4c9a83d6df5f54b8da9283') in 0.010897 seconds
-  Import took 0.015649 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000254 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0001.png
-  artifactKey: Guid(7625033006cc3f54e851213b20b7b882) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0001.png using Guid(7625033006cc3f54e851213b20b7b882) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '444933a207310af0f8e5a21c624c0e9d') in 0.010877 seconds
-  Import took 0.015720 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000236 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0006.png
-  artifactKey: Guid(3865665bf1e7b034ea9e125c15a46b31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0006.png using Guid(3865665bf1e7b034ea9e125c15a46b31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '93d3b21b72442e14b35df3d402d396c8') in 0.013144 seconds
-  Import took 0.017243 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000230 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0001.png
-  artifactKey: Guid(7625033006cc3f54e851213b20b7b882) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0001.png using Guid(7625033006cc3f54e851213b20b7b882) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '444933a207310af0f8e5a21c624c0e9d') in 0.012611 seconds
-  Import took 0.016728 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 44.955798 seconds.
-  path: Assets/Sprites/Blank_Sprites/Circle_White.png
-  artifactKey: Guid(f6dd7c8a6e77acb459a445134aeeeff1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Blank_Sprites/Circle_White.png using Guid(f6dd7c8a6e77acb459a445134aeeeff1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b267245cc9b31f5afc76f85e34b03a27') in 0.012308 seconds
-  Import took 0.017421 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.001118 seconds.
-  path: Assets/Sprites/Blank_Sprites/Circle_White.png
-  artifactKey: Guid(f6dd7c8a6e77acb459a445134aeeeff1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Blank_Sprites/Circle_White.png using Guid(f6dd7c8a6e77acb459a445134aeeeff1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b267245cc9b31f5afc76f85e34b03a27') in 0.010244 seconds
-  Import took 0.014198 seconds .
+  Time since last request: 16.403453 seconds.
+  path: Assets/Scenes/SplashScene.unity
+  artifactKey: Guid(692e33912bc36864f856c885357b4249) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/SplashScene.unity using Guid(692e33912bc36864f856c885357b4249) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3c14524b2f0b44ea7f3c02d8644d6ceb') in 0.003112 seconds
+  Import took 0.023974 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.002605 seconds.
+Registered in 0.002813 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.34 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 1.35 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.800 seconds
+- Completed reload, in  0.840 seconds
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.40 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 1.21 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.9 MB.
-System memory in use after: 106.0 MB.
+System memory in use before: 105.8 MB.
+System memory in use after: 105.9 MB.
 
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2692.
-Total: 1.893900 ms (FindLiveObjects: 0.176600 ms CreateObjectMapping: 0.072800 ms MarkObjects: 1.628200 ms  DeleteObjects: 0.015500 ms)
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2660.
+Total: 2.191400 ms (FindLiveObjects: 0.179400 ms CreateObjectMapping: 0.076800 ms MarkObjects: 1.918900 ms  DeleteObjects: 0.015000 ms)
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.002465 seconds.
+Registered in 0.002542 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.06 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 1.23 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.753 seconds
+- Completed reload, in  0.849 seconds
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.17 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 1.42 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.9 MB.
-System memory in use after: 106.0 MB.
+System memory in use before: 105.8 MB.
+System memory in use after: 105.9 MB.
 
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2695.
-Total: 1.738600 ms (FindLiveObjects: 0.245800 ms CreateObjectMapping: 0.074600 ms MarkObjects: 1.404600 ms  DeleteObjects: 0.012500 ms)
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2663.
+Total: 2.261800 ms (FindLiveObjects: 0.243400 ms CreateObjectMapping: 0.077000 ms MarkObjects: 1.922200 ms  DeleteObjects: 0.017900 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 110.777650 seconds.
+  path: Assets/Audio/Heroes/Enemy Heroes/Random Encounters
+  artifactKey: Guid(95c98d61034e2af448a6f3fbdb52dd47) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Audio/Heroes/Enemy Heroes/Random Encounters using Guid(95c98d61034e2af448a6f3fbdb52dd47) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2517c462cf6e43d848f7405effa7e139') in 0.006543 seconds
+  Import took 0.014940 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.473286 seconds.
+  path: Assets/Resources/Dialogue/Enemy Dialogue/Random Encounters
+  artifactKey: Guid(3487b3b936d43ce448ac85da5be0199c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Dialogue/Enemy Dialogue/Random Encounters using Guid(3487b3b936d43ce448ac85da5be0199c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '20ede20c71e1674dc47a5a9903eaac11') in 0.005309 seconds
+  Import took 0.010943 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.038539 seconds.
+  path: Assets/Resources/Heroes/Enemy Heroes/Random Encounters
+  artifactKey: Guid(2ba9d514d20503c47a3fb31508cbef67) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Heroes/Enemy Heroes/Random Encounters using Guid(2ba9d514d20503c47a3fb31508cbef67) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b6105164a5737108eeace984590bd97e') in 0.002970 seconds
+  Import took 0.008362 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.028066 seconds.
+  path: Assets/Resources/Random Encounters
+  artifactKey: Guid(de8b366c8cb4f5d428252f19b4f52755) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Random Encounters using Guid(de8b366c8cb4f5d428252f19b4f52755) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4fd5ba1c2cb0e8a91c810c460ebe642d') in 0.003252 seconds
+  Import took 0.009229 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.012501 seconds.
+  path: Assets/Sprites/Heroes/Random Encounters
+  artifactKey: Guid(2decab43d5f43474883152eef9a625f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Heroes/Random Encounters using Guid(2decab43d5f43474883152eef9a625f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ce62a8a90f99702ba31745ba435eff0b') in 0.002342 seconds
+  Import took 0.007386 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.017385 seconds.
+  path: Assets/Sprites/Heroes/Random Encounters
+  artifactKey: Guid(2decab43d5f43474883152eef9a625f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Heroes/Random Encounters using Guid(2decab43d5f43474883152eef9a625f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ce62a8a90f99702ba31745ba435eff0b') in 0.002050 seconds
+  Import took 0.006808 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 5.603158 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/CreateCard/CreateCard_Random.asset
+  artifactKey: Guid(77039286f02bcab49abec6e7beb4913d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/CreateCard/CreateCard_Random.asset using Guid(77039286f02bcab49abec6e7beb4913d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7a29ffbd4c9ddc0d063097d08873b31f') in 0.008877 seconds
+  Import took 0.014640 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 189.213368 seconds.
+  path: Assets/Resources/Cards_Actions/Sinner's Judgement.asset
+  artifactKey: Guid(3f472d52c0bf1e44986c59140f1f12c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards_Actions/Sinner's Judgement.asset using Guid(3f472d52c0bf1e44986c59140f1f12c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '36f98a60c08d989eefc1b4039445f624') in 0.038100 seconds
+  Import took 0.043179 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 6.230816 seconds.
+  path: Assets/Resources/Cards_Actions/Bio-Defensive Injection.asset
+  artifactKey: Guid(ae28e61f7a268af41bf9aecd5c39a07e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards_Actions/Bio-Defensive Injection.asset using Guid(ae28e61f7a268af41bf9aecd5c39a07e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f14c1b2f3cde06c2cd88cdef5eba3c8a') in 0.013870 seconds
+  Import took 0.020633 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.003893 seconds.
+Registered in 0.002790 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.09 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 1.13 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.743 seconds
+- Completed reload, in  0.827 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.36 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 105.8 MB.
+System memory in use after: 106.0 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2666.
+Total: 2.014100 ms (FindLiveObjects: 0.193500 ms CreateObjectMapping: 0.069100 ms MarkObjects: 1.726800 ms  DeleteObjects: 0.023300 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.004239 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.18 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.812 seconds
 Platform modules already initialized, skipping
 Refreshing native plugins compatible for Editor in 1.13 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.9 MB.
+System memory in use before: 105.8 MB.
 System memory in use after: 106.0 MB.
 
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2698.
-Total: 2.080300 ms (FindLiveObjects: 0.329500 ms CreateObjectMapping: 0.084000 ms MarkObjects: 1.650400 ms  DeleteObjects: 0.014000 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002434 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.10 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.732 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.11 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.9 MB.
-System memory in use after: 106.0 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2701.
-Total: 2.006000 ms (FindLiveObjects: 0.213100 ms CreateObjectMapping: 0.082700 ms MarkObjects: 1.676400 ms  DeleteObjects: 0.033000 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.003380 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.12 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.763 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.10 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.9 MB.
-System memory in use after: 106.0 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2704.
-Total: 2.372500 ms (FindLiveObjects: 0.378500 ms CreateObjectMapping: 0.144900 ms MarkObjects: 1.830800 ms  DeleteObjects: 0.016800 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002661 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.87 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.731 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.14 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.9 MB.
-System memory in use after: 106.1 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2707.
-Total: 2.183200 ms (FindLiveObjects: 0.563500 ms CreateObjectMapping: 0.130200 ms MarkObjects: 1.474800 ms  DeleteObjects: 0.013700 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.003902 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.07 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.738 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.37 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 106.0 MB.
-System memory in use after: 106.1 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2710.
-Total: 1.965300 ms (FindLiveObjects: 0.272400 ms CreateObjectMapping: 0.099100 ms MarkObjects: 1.578400 ms  DeleteObjects: 0.013900 ms)
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2669.
+Total: 2.120600 ms (FindLiveObjects: 0.232500 ms CreateObjectMapping: 0.088100 ms MarkObjects: 1.782500 ms  DeleteObjects: 0.016300 ms)
 
 ========================================================================
 Received Import Request.
-  Time since last request: 1217.999566 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Poisonous 1.asset
-  artifactKey: Guid(dcbd6be5349134541869b5c21ce37b00) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Poisonous 1.asset using Guid(dcbd6be5349134541869b5c21ce37b00) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2e16b03d4cf58028a943df0ddf8880b9') in 0.020023 seconds
-  Import took 0.025914 seconds .
+  Time since last request: 385.683913 seconds.
+  path: Assets/Resources/Cards_Actions/Guns Blazing.asset
+  artifactKey: Guid(e3a6c6af3db680742831b4165e3ce957) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards_Actions/Guns Blazing.asset using Guid(e3a6c6af3db680742831b4165e3ce957) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '99412241ab9aad65ced26cbe1c1413bf') in 0.021492 seconds
+  Import took 0.030816 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 3.530497 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Poisonous_1turn.asset
-  artifactKey: Guid(dcbd6be5349134541869b5c21ce37b00) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/GiveAbility/Give_Poisonous_1turn.asset using Guid(dcbd6be5349134541869b5c21ce37b00) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b6c77000bd5e207b50334af75183b47e') in 0.004691 seconds
-  Import took 0.012285 seconds .
+  Time since last request: 17.811833 seconds.
+  path: Assets/Resources/Cards_Actions/Guns Blazing.asset
+  artifactKey: Guid(e3a6c6af3db680742831b4165e3ce957) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards_Actions/Guns Blazing.asset using Guid(e3a6c6af3db680742831b4165e3ce957) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '633c56a6e74c5b1ec3ed3f054de68cab') in 0.007318 seconds
+  Import took 0.013323 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 16.703859 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_Poisonous_Ranged_1turn.asset
-  artifactKey: Guid(8c3e111d2c99a3548890f10b684ead79) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_Poisonous_Ranged_1turn.asset using Guid(8c3e111d2c99a3548890f10b684ead79) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '630862f5f914376184715c09798b3513') in 0.011391 seconds
-  Import took 0.015705 seconds .
+  Time since last request: 14.919566 seconds.
+  path: Assets/Prefabs/Cards/Action Card/ActionCard.prefab
+  artifactKey: Guid(1a4b96b16aa18c74490df04672670e01) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Cards/Action Card/ActionCard.prefab using Guid(1a4b96b16aa18c74490df04672670e01) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2b9d510bd644ef65da956235d6c56806') in 0.105058 seconds
+  Import took 0.112042 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 3.906306 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_Poisonous_Ranged_1turn.asset
-  artifactKey: Guid(8c3e111d2c99a3548890f10b684ead79) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_Poisonous_Ranged_1turn.asset using Guid(8c3e111d2c99a3548890f10b684ead79) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4cd093cf62e960800b455d3d09eb5aa8') in 0.006606 seconds
-  Import took 0.011505 seconds .
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002917 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.06 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.727 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.10 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 106.1 MB.
-System memory in use after: 106.2 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2713.
-Total: 2.401000 ms (FindLiveObjects: 0.279200 ms CreateObjectMapping: 0.096800 ms MarkObjects: 2.010500 ms  DeleteObjects: 0.013400 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002619 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.11 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.783 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 2.01 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 106.1 MB.
-System memory in use after: 106.2 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2716.
-Total: 1.881800 ms (FindLiveObjects: 0.275900 ms CreateObjectMapping: 0.088700 ms MarkObjects: 1.481100 ms  DeleteObjects: 0.034800 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002736 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.56 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.736 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.74 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 106.1 MB.
-System memory in use after: 106.2 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2719.
-Total: 1.848400 ms (FindLiveObjects: 0.190400 ms CreateObjectMapping: 0.084200 ms MarkObjects: 1.545300 ms  DeleteObjects: 0.027600 ms)
+  Time since last request: 4.580310 seconds.
+  path: Assets/Prefabs/Cards/Action Card/ActionZoomCard.prefab
+  artifactKey: Guid(cb7743522e2ef634aa7afbb5890a7252) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Cards/Action Card/ActionZoomCard.prefab using Guid(cb7743522e2ef634aa7afbb5890a7252) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '28d752b31e0c258dc1f0e518e5bcb1fc') in 0.039522 seconds
+  Import took 0.045269 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 6754.352856 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1
-  artifactKey: Guid(21c9034e9e992554f826760476ce0e19) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1 using Guid(21c9034e9e992554f826760476ce0e19) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cb5d4c227265c64351f5622f2f355e58') in 0.073136 seconds
-  Import took 0.140967 seconds .
+  Time since last request: 550.005246 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Give1EU_Marked 1.asset
+  artifactKey: Guid(60036db74093bd149b27ab05b43ebf43) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Give1EU_Marked 1.asset using Guid(60036db74093bd149b27ab05b43ebf43) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b1617983b69ee76873eabe10233b4b9d') in 0.007377 seconds
+  Import took 0.012776 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 12.117997 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0002.png
-  artifactKey: Guid(d66924c4536712341a472aade04bce90) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0002.png using Guid(d66924c4536712341a472aade04bce90) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'da9363583377af3077d6944027610904') in 0.133090 seconds
-  Import took 0.138061 seconds .
+  Time since last request: 4.661453 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Give1EU_Marked_Poisoned.asset
+  artifactKey: Guid(60036db74093bd149b27ab05b43ebf43) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Give1EU_Marked_Poisoned.asset using Guid(60036db74093bd149b27ab05b43ebf43) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bff7b97d8f8d6e9f4edc059ec4fc7edd') in 0.005899 seconds
+  Import took 0.011927 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 4.440008 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0004.png
-  artifactKey: Guid(fabd25a2e11017b418650987b074eee0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0004.png using Guid(fabd25a2e11017b418650987b074eee0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f3aadb5a8ead15f79d713aefe834d874') in 0.014909 seconds
-  Import took 0.022382 seconds .
+  Time since last request: 8.963263 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Give1EU_Marked_Poisoned.asset
+  artifactKey: Guid(60036db74093bd149b27ab05b43ebf43) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Give1EU_Marked_Poisoned.asset using Guid(60036db74093bd149b27ab05b43ebf43) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd6bb8bfd0095c45ad997fca1f56252f3') in 0.008679 seconds
+  Import took 0.013855 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.647485 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0017.png
-  artifactKey: Guid(1419aa6110f2bc44baddee492586d535) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0017.png using Guid(1419aa6110f2bc44baddee492586d535) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4a9a84af5f7d03b79d4e71a132e7043f') in 0.011046 seconds
-  Import took 0.016985 seconds .
+  Time since last request: 24.975360 seconds.
+  path: Assets/Resources/Cards_Actions/Sinner's Judgement.asset
+  artifactKey: Guid(3f472d52c0bf1e44986c59140f1f12c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards_Actions/Sinner's Judgement.asset using Guid(3f472d52c0bf1e44986c59140f1f12c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '217619d86535f68659f1390bc4aa8eb3') in 0.012192 seconds
+  Import took 0.033462 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 5.619833 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0017.png
-  artifactKey: Guid(1419aa6110f2bc44baddee492586d535) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0017.png using Guid(1419aa6110f2bc44baddee492586d535) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6db283bb8d934e16ba78557df58648ca') in 0.009997 seconds
-  Import took 0.014733 seconds .
+  Time since last request: 10.980453 seconds.
+  path: Assets/Resources/Cards_Actions/Sinner's Judgement.asset
+  artifactKey: Guid(3f472d52c0bf1e44986c59140f1f12c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards_Actions/Sinner's Judgement.asset using Guid(3f472d52c0bf1e44986c59140f1f12c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ea5e338e8159e99dbd009c22d4a20b42') in 0.011385 seconds
+  Import took 0.017280 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.922307 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0001.png
-  artifactKey: Guid(5540b73a01fb6e347a69c6f9c86e895b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0001.png using Guid(5540b73a01fb6e347a69c6f9c86e895b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '12ca2db4760098e726cdbf6db96ff0c9') in 0.010579 seconds
-  Import took 0.015152 seconds .
+  Time since last request: 4.021136 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Give1EU_Marked_Poisoned.asset
+  artifactKey: Guid(60036db74093bd149b27ab05b43ebf43) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Give1EU_Marked_Poisoned.asset using Guid(60036db74093bd149b27ab05b43ebf43) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '69fb1be0eac70db772503b231357ef27') in 0.005895 seconds
+  Import took 0.010906 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.003096 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0001.png
-  artifactKey: Guid(5540b73a01fb6e347a69c6f9c86e895b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0001.png using Guid(5540b73a01fb6e347a69c6f9c86e895b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '12ca2db4760098e726cdbf6db96ff0c9') in 0.013463 seconds
-  Import took 0.017537 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 1.378572 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0000.png
-  artifactKey: Guid(c2bc44f10fee9a3429dc8cd48df885a6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0000.png using Guid(c2bc44f10fee9a3429dc8cd48df885a6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b47b05d9a1a4ac41ca00df2672a9b9e6') in 0.011414 seconds
-  Import took 0.019831 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.001086 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0000.png
-  artifactKey: Guid(c2bc44f10fee9a3429dc8cd48df885a6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0000.png using Guid(c2bc44f10fee9a3429dc8cd48df885a6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b47b05d9a1a4ac41ca00df2672a9b9e6') in 0.010943 seconds
-  Import took 0.014594 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 3.322582 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0002.png
-  artifactKey: Guid(d66924c4536712341a472aade04bce90) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0002.png using Guid(d66924c4536712341a472aade04bce90) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3e4b606d52af4b1a2ea464b61a849bdd') in 0.013142 seconds
-  Import took 0.022816 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000265 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0011.png
-  artifactKey: Guid(5ba172862f78f8d43af02385c475e23e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0011.png using Guid(5ba172862f78f8d43af02385c475e23e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ca707aa3006e74c32a256f8f831c5537') in 0.017949 seconds
-  Import took 0.022335 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000302 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0006.png
-  artifactKey: Guid(2b9883b88dfa6bb44a8b821b3626d832) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0006.png using Guid(2b9883b88dfa6bb44a8b821b3626d832) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fc28b6f7de5ce1e40af984a6f6c45db0') in 0.016248 seconds
-  Import took 0.022341 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000558 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0004.png
-  artifactKey: Guid(fabd25a2e11017b418650987b074eee0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0004.png using Guid(fabd25a2e11017b418650987b074eee0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c37c7898d57311a79ed1fe187e22bf7b') in 0.012507 seconds
-  Import took 0.017330 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000319 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0008.png
-  artifactKey: Guid(f850a488fcd9f324c8f2196e514ad772) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0008.png using Guid(f850a488fcd9f324c8f2196e514ad772) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6ff0f91130fba711b0714bde35096535') in 0.014289 seconds
-  Import took 0.020491 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000323 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0012.png
-  artifactKey: Guid(c9f86e8ca588a504f9c983cb293d7ab1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0012.png using Guid(c9f86e8ca588a504f9c983cb293d7ab1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a36ad45d9cb26fd8ca59924b84583084') in 0.022409 seconds
-  Import took 0.027770 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000218 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0013.png
-  artifactKey: Guid(9db63b9d8938d9040961d4a6374b8552) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0013.png using Guid(9db63b9d8938d9040961d4a6374b8552) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c90753e5e19a648ed55841e02933b7e8') in 0.011660 seconds
-  Import took 0.018800 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000367 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0016.png
-  artifactKey: Guid(c5e4547d6e09b394a934e235dd33d14c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0016.png using Guid(c5e4547d6e09b394a934e235dd33d14c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1db6e03ad33107a8996e2271ad51a035') in 0.016582 seconds
-  Import took 0.021059 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000276 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0002.png
-  artifactKey: Guid(d66924c4536712341a472aade04bce90) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0002.png using Guid(d66924c4536712341a472aade04bce90) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3e4b606d52af4b1a2ea464b61a849bdd') in 0.014145 seconds
-  Import took 0.019204 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000374 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0014.png
-  artifactKey: Guid(f38524551990f9141a7931fd0ef7b637) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0014.png using Guid(f38524551990f9141a7931fd0ef7b637) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5127ab462211c4106827fcdb71147280') in 0.016840 seconds
-  Import took 0.023818 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000935 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0015.png
-  artifactKey: Guid(38f4a824e38ee3344b40ac1ca06e9cad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0015.png using Guid(38f4a824e38ee3344b40ac1ca06e9cad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '07fdb52db93643735f5083a82b0cd1cd') in 0.014903 seconds
-  Import took 0.019503 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000853 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0010.png
-  artifactKey: Guid(c8924a528cb6caa47ab862d897c758ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0010.png using Guid(c8924a528cb6caa47ab862d897c758ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0fa7c39886a840b688ba96d2fdeddeb1') in 0.020269 seconds
-  Import took 0.024813 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000349 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0003.png
-  artifactKey: Guid(5527bd9735f4e0648bf5929f4b3287fe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0003.png using Guid(5527bd9735f4e0648bf5929f4b3287fe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '757808d64ff28cb1e77e2fcce882d3db') in 0.015494 seconds
-  Import took 0.020414 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000328 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0009.png
-  artifactKey: Guid(41c52a72a13d475409e8ce2eaa9e1224) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0009.png using Guid(41c52a72a13d475409e8ce2eaa9e1224) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '15b31f7217b54165a6dce21dde26e5f4') in 0.013367 seconds
-  Import took 0.020344 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000356 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0007.png
-  artifactKey: Guid(56001150d16f2a24b93636edee0aadc9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0007.png using Guid(56001150d16f2a24b93636edee0aadc9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9ff104161fb7ad49d0b9632b9250699e') in 0.016898 seconds
-  Import took 0.025092 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000351 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0005.png
-  artifactKey: Guid(c3fa5c45f3bcf944c97a9689b84c76a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0005.png using Guid(c3fa5c45f3bcf944c97a9689b84c76a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e81f3ddc761665d538c6238c7aa794bf') in 0.013180 seconds
-  Import took 0.018652 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000647 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0007.png
-  artifactKey: Guid(56001150d16f2a24b93636edee0aadc9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames 1/Ranged_Fire0007.png using Guid(56001150d16f2a24b93636edee0aadc9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9ff104161fb7ad49d0b9632b9250699e') in 0.018759 seconds
-  Import took 0.022552 seconds .
+  Time since last request: 0.000711 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Give1EU_Marked_Poisoned.asset
+  artifactKey: Guid(60036db74093bd149b27ab05b43ebf43) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Give1EU_Marked_Poisoned.asset using Guid(60036db74093bd149b27ab05b43ebf43) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '69fb1be0eac70db772503b231357ef27') in 0.006102 seconds
+  Import took 0.010198 seconds .
 
 AssetImportWorkerClient::OnTransportError - code=2 error=End of file

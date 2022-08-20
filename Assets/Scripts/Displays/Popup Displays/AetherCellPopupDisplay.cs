@@ -20,14 +20,14 @@ public class AetherCellPopupDisplay : MonoBehaviour
         set
         {
             aetherValue = value;
-            aetherQuantity.GetComponent<TextMeshProUGUI>().SetText(value + "X");
+            aetherQuantity.GetComponent<TextMeshProUGUI>().SetText(value + "x");
         }
     }
     public int TotalAether
     {
         set
         {
-            totalAether.GetComponent<TextMeshProUGUI>().SetText("Total Aether: " + value);
+            totalAether.GetComponent<TextMeshProUGUI>().SetText("<u>Total Aether</u>\n" + value);
         }
     }
 

@@ -27,13 +27,13 @@ public class PlayerManager : MonoBehaviour
 
     private bool isMyTurn;
     private int playerHealth;
+    private int damageTaken_Turn;
     private int energyPerTurn;
     private int energyLeft;
     private bool heroPowerUsed;
     private int heroUltimateProgress;
 
-    private PlayerHeroDisplay HeroDisplay { get => 
-            coMan.PlayerHero.GetComponent<PlayerHeroDisplay>(); }
+    private PlayerHeroDisplay HeroDisplay { get => coMan.PlayerHero.GetComponent<PlayerHeroDisplay>(); }
     public PlayerHero PlayerHero { get; set; }
     public List<HeroAugment> HeroAugments { get => heroAugments; }
     public List<HeroItem> HeroItems { get => heroItems; }
@@ -138,6 +138,18 @@ public class PlayerManager : MonoBehaviour
             int bonusEnergy = 0;
             if (GetAugment("Synaptic Stabilizer")) bonusEnergy = 1;
             return bonusEnergy;
+        }
+    }
+    public int DamageTaken_Turn
+    {
+        get => damageTaken_Turn;
+        set
+        {
+            damageTaken_Turn = value;
+            bool isWounded;
+            if (damageTaken_Turn >= GameManager.WOUNDED_VALUE) isWounded = true;
+            else isWounded = false;
+            coMan.PlayerHero.GetComponent<HeroDisplay>().IsWounded = isWounded;
         }
     }
     public int EnergyPerTurn

@@ -21,6 +21,7 @@ public abstract class HeroDisplay : MonoBehaviour
     [SerializeField] private GameObject heroPortrait;
     [SerializeField] private GameObject heroName;
     [SerializeField] private GameObject heroHealth;
+    [SerializeField] private GameObject heroHealthFrame;
     [SerializeField] private GameObject heroEnergy;
 
     public GameObject HeroFrame { get => heroFrame; }
@@ -60,6 +61,17 @@ public abstract class HeroDisplay : MonoBehaviour
             int health = value;
             if (health < 0) health = 0;
             heroHealth.GetComponent<TextMeshProUGUI>().SetText(health.ToString());
+        }
+    }
+
+    public bool IsWounded
+    {
+        set
+        {
+            Color color;
+            if (value) color = Color.red;
+            else color = Color.white;
+            heroHealthFrame.GetComponent<Image>().color = color;
         }
     }
 

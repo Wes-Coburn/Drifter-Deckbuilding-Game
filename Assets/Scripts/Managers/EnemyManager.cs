@@ -22,9 +22,9 @@ public class EnemyManager : MonoBehaviour
 
     private EnemyHero enemyHero;
     private int enemyHealth;
+    private int damageTaken_Turn;
     private int energyPerTurn;
     private int energyLeft;
-
     public bool IsMyTurn { get; set; }
     public List<Card> EnemyDeckList { get; private set; }
     public List<Card> CurrentEnemyDeck { get; private set; }
@@ -76,7 +76,18 @@ public class EnemyManager : MonoBehaviour
             return GameManager.ENEMY_STARTING_HEALTH;
         }
     }
-
+    public int DamageTaken_Turn
+    {
+        get => damageTaken_Turn;
+        set
+        {
+            damageTaken_Turn = value;
+            bool isWounded;
+            if (damageTaken_Turn >= GameManager.WOUNDED_VALUE) isWounded = true;
+            else isWounded = false;
+            coMan.EnemyHero.GetComponent<HeroDisplay>().IsWounded = isWounded;
+        }
+    }
     public int EnergyPerTurn
     {
         get => energyPerTurn;

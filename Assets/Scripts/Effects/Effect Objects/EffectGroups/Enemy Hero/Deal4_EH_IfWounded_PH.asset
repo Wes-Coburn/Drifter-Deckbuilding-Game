@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a22d7123f6ee007468cbdc6e9b6fe2b0, type: 3}
+  m_Name: Deal4_EH_IfWounded_PH
+  m_EditorClassIdentifier: 
+  Targets: {fileID: 11400000, guid: f82ee7effff08a14e99ff3c7e36fe7df, type: 2}
+  ResolveIndependent: 0
+  EffectsDescription: Deal 4 to the enemy hero.
+  Effects:
+  - {fileID: 11400000, guid: 06682033ceb91f04598763d54052e711, type: 2}

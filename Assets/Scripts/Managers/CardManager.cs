@@ -228,7 +228,7 @@ public class CardManager : MonoBehaviour
 
     public void LoadNewRecruits()
     {
-        UnitCard[] allRecruits = Resources.LoadAll<UnitCard>("Recruit Units");
+        UnitCard[] allRecruits = Resources.LoadAll<UnitCard>("Cards_Units");
         foreach (UnitCard unitCard in allRecruits)
         {
             switch (unitCard.CardType)
@@ -269,10 +269,10 @@ public class CardManager : MonoBehaviour
         switch (chooseCard)
         {
             case ChooseCard.Action:
-                chooseCardType = "Combat Rewards";
+                chooseCardType = "Cards_Actions";
                 break;
             case ChooseCard.Unit:
-                chooseCardType = "Recruit Units";
+                chooseCardType = "Cards_Units";
                 break;
             case ChooseCard.Skill:
                 break;

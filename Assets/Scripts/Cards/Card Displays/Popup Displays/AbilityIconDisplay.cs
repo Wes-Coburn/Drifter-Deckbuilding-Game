@@ -56,7 +56,7 @@ public class AbilityIconDisplay : MonoBehaviour
             AbilityTrigger trigger = ta.AbilityTrigger;
             sprite = trigger.AbilitySprite;
         }
-        else if (AbilityScript is ModifierAbility ma) // TESTING
+        else if (AbilityScript is ModifierAbility ma)
             sprite = ma.AbilitySprite;
         else
         {
@@ -82,7 +82,7 @@ public class AbilityIconDisplay : MonoBehaviour
             string triggerName = ta.AbilityTrigger.AbilityName;
             abilityName = "<b>" + triggerName + "</b>: " + ta.AbilityDescription;
         }
-        else if (AbilityScript is ModifierAbility ma) // TESTING
+        else if (AbilityScript is ModifierAbility ma)
             abilityName = ma.AbilityName;
         else
         {

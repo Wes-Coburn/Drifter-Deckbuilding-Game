@@ -125,11 +125,19 @@ public class UnitCardDisplay : CardDisplay
             else
             {
                 DisplayPower(uc.CurrentPower);
+                TextMeshProUGUI powerTxt = powerScoreDisplay.GetComponent<TextMeshProUGUI>();
+                if (uc.CurrentPower < uc.StartPower) powerTxt.color = Color.red;
+                else if (uc.CurrentPower > uc.StartPower) powerTxt.color = Color.green;
+
                 DisplayHealth(uc.CurrentHealth);
+                TextMeshProUGUI healthTxt = healthScoreDisplay.GetComponent<TextMeshProUGUI>();
+                if (uc.CurrentHealth < uc.MaxHealth) healthTxt.color = Color.red;
+                else if (uc.CurrentHealth > uc.StartHealth) healthTxt.color = Color.green;
+
                 abilityList = ucd.CurrentAbilities;
             }
 
-            ShowAbilities(abilityList); // TESTING
+            ShowAbilities(abilityList);
         }
         else
         {
@@ -257,7 +265,7 @@ public class UnitCardDisplay : CardDisplay
                 if (!iconFound) ShowAbility(ta);
             }
         }
-        else if (ca is ModifierAbility ma) // TESTING
+        else if (ca is ModifierAbility ma)
         {
             bool iconFound = false;
             foreach (CardAbility ca3 in displayedAbilities)
@@ -342,7 +350,7 @@ public class UnitCardDisplay : CardDisplay
             if (ta.AbilityTrigger.AbilityName == CardManager.TRIGGER_PLAY) return;
             if (CardManager.GetTrigger(gameObject, ta.AbilityTrigger.AbilityName)) return;
         }
-        else if (ca is ModifierAbility ma) // TESTING
+        else if (ca is ModifierAbility ma)
         {
             List<CardAbility> modAbilities = new List<CardAbility>();
             foreach (CardAbility ability in CurrentAbilities)

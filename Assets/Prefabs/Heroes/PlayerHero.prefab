@@ -1546,6 +1546,7 @@ GameObject:
   - component: {fileID: 4767328649509417781}
   - component: {fileID: 8853230536853822522}
   - component: {fileID: 154794241893568158}
+  - component: {fileID: 5024912138793582903}
   - component: {fileID: 822110272309271025}
   m_Layer: 5
   m_Name: HeroHealth
@@ -1640,9 +1641,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tooltipText: Your hero's <color="yellow"><b>Health</b></color>. If it reaches 0,
-    you lose.
+    you lose. (<color="red"><b>Red</b></color> when <color="yellow"><b>Wounded</b></color>.)
   tooltipPosition: {x: 350, y: -350}
   isZoomCardTooltip: 0
+--- !u!114 &5024912138793582903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3486878815810518621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6691234b395cbb341a2e43b640d552bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityPopupPrefab: {fileID: 268856669738850229, guid: 5c61e8afecb13104c85071fbcc357ece,
+    type: 3}
+  woundedAbility: {fileID: 11400000, guid: e90fc3bafeee0d94ba2ff2fc6f53dbac, type: 2}
+  tooltipPosition: {x: 350, y: -150}
 --- !u!114 &822110272309271025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2567,6 +2584,7 @@ MonoBehaviour:
   heroPortrait: {fileID: 7436525904349580785}
   heroName: {fileID: 3817669687430428836}
   heroHealth: {fileID: 4697489652902391323}
+  heroHealthFrame: {fileID: 5358228273893000924}
   heroEnergy: {fileID: 5927651155234388886}
   heroPower: {fileID: 291181612}
   powerImage: {fileID: 5995273572305166822}

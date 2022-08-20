@@ -69,16 +69,12 @@ public class PowerZoom : MonoBehaviour
         if (!isEnemyPower)
         {
             tran = coMan.PlayerHero.transform;
-            //newX = tran.position.x - 200;
-            //newY = tran.position.y + 300;
             newX = 300;
             newY = -200;
         }
         else
         {
             tran = coMan.EnemyHero.transform;
-            //newX = tran.position.x + 200;
-            //newY = tran.position.y - 300;
             newX = -250;
             newY = 150;
         }
@@ -121,9 +117,10 @@ public class PowerZoom : MonoBehaviour
             Debug.LogError("HERO POWER IS NULL!");
             return;
         }
-        abilityPopupBox = Instantiate(abilityPopupBoxPrefab,
-            uMan.CurrentZoomCanvas.transform);
+
+        abilityPopupBox = Instantiate(abilityPopupBoxPrefab, uMan.CurrentZoomCanvas.transform);
         Vector2 position = new Vector2();
+
         if (!abilityPopupOnly) // Combat Scene
         {
             if (!isEnemyPower) position.Set(-75, -50);

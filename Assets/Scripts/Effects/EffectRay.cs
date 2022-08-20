@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EffectRay : MonoBehaviour
 {
-    private readonly float minSpeed = 30;
+    private float minSpeed = 40;
     private float maxSpeed = 90;
 
     private float distance;
@@ -49,10 +49,13 @@ public class EffectRay : MonoBehaviour
 
         isMoving = true;
         distance = Vector2.Distance(transform.position, target.transform.position);
-        speed = distance/20;
+
+        //speed = distance/20;
+        speed = 15000/distance;
         if (speed < minSpeed) speed = minSpeed;
         else if (speed > maxSpeed) speed = maxSpeed;
-        if (distance > 5)
+
+        if (distance > 50) // TESTING
         {
             transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed);
 
@@ -101,7 +104,8 @@ public class EffectRay : MonoBehaviour
         if (effectRayType is EffectRayType.RangedAttack)
         {
             AnimationManager.Instance.ChangeAnimationState(gameObject, "Ranged_Attack");
-            maxSpeed = minSpeed;
+            maxSpeed /= 2;
+            minSpeed /= 2;
         }
     }
 

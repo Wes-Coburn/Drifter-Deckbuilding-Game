@@ -16,6 +16,7 @@ public class NewCardPopupDisplay : MonoBehaviour
     private UIManager uMan;
     private AnimationManager anMan;
     private CardManager caMan;
+    private GameManager gMan;
 
     private Card newCard;
     private Card[] chooseCards;
@@ -54,6 +55,7 @@ public class NewCardPopupDisplay : MonoBehaviour
         uMan = UIManager.Instance;
         anMan = AnimationManager.Instance;
         caMan = CardManager.Instance;
+        gMan = GameManager.Instance;
 
         ignoreCardButton.GetComponentInChildren<TextMeshProUGUI>().SetText
             ("Take " + GameManager.IGNORE_CARD_AETHER + " Aether");
@@ -162,7 +164,8 @@ public class NewCardPopupDisplay : MonoBehaviour
                 }
             }
 
-            if (crc.AetherCells > 0) uMan.CreateAetherCellPopup(crc.AetherCells);
+            int aetherReward = gMan.GetAetherReward(crc.Difficulty);
+            if (aetherReward > 0) uMan.CreateAetherCellPopup(aetherReward);
             else
             {
                 dMan.EngagedHero.NextDialogueClip = crc.NextDialogueClip;
@@ -194,7 +197,8 @@ public class NewCardPopupDisplay : MonoBehaviour
         }
         else if (dMan.EngagedHero.NextDialogueClip is CombatRewardClip crc)
         {
-            if (crc.AetherCells > 0) uMan.CreateAetherCellPopup(crc.AetherCells);
+            int aetherReward = gMan.GetAetherReward(crc.Difficulty);
+            if (aetherReward > 0) uMan.CreateAetherCellPopup(aetherReward);
             else
             {
                 dMan.EngagedHero.NextDialogueClip = crc.NextDialogueClip;
@@ -207,7 +211,7 @@ public class NewCardPopupDisplay : MonoBehaviour
     private void RewardBonusAugment()
     {
         if (pMan.GetAugment("Aether Magnet"))
-            uMan.CreateAetherCellPopup(3);
+            uMan.CreateAetherCellPopup(GameManager.AETHER_MAGNET_REWARD);
     }
 
     private void DisableButtons()

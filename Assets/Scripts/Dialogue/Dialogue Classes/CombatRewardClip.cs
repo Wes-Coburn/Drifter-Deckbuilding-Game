@@ -4,8 +4,8 @@ using UnityEngine;
 public class CombatRewardClip : DialogueClip
 {
     [SerializeField] private DialogueClip nextDialogueClip;
-    [Header("AETHER CELLS")]
-    [SerializeField] [Range(1, 30)] private int aetherCells;
+    [Header("DIFFICULTY LEVEL")]
+    [SerializeField] private GameManager.DifficultyLevel difficulty;
     [Header("NEW SKILL")]
     [SerializeField] private bool newSkill;
     [Header("NEW LOCATIONS")]
@@ -20,7 +20,7 @@ public class CombatRewardClip : DialogueClip
     [SerializeField][Range(-5, 5)] private int reputation_Warriors;
 
     public DialogueClip NextDialogueClip { get => nextDialogueClip; }
-    public int AetherCells { get => aetherCells; }
+    public GameManager.DifficultyLevel Difficulty { get => difficulty; }
     public bool NewSkill { get => newSkill; }
     public NewLocation[] NewLocations { get => newLocations; }
     public Narrative NewNarrative { get => newNarrative; }
@@ -35,7 +35,7 @@ public class CombatRewardClip : DialogueClip
         base.LoadDialogueClip(dc);
         CombatRewardClip crc = dc as CombatRewardClip;
         nextDialogueClip = crc.NextDialogueClip;
-        aetherCells = crc.AetherCells;
+        difficulty = crc.Difficulty;
         newSkill = crc.NewSkill;
         newLocations = (NewLocation[])crc.NewLocations.Clone();
         newNarrative = crc.NewNarrative;

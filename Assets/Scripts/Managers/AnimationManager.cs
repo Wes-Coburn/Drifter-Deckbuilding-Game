@@ -21,7 +21,6 @@ public class AnimationManager : MonoBehaviour
     private CombatManager coMan;
     private DialogueManager dMan;
     private AudioManager auMan;
-    private EnemyManager enMan;
 
     private Color previousBarColor;
     private Color previousTextCountColor;
@@ -49,7 +48,6 @@ public class AnimationManager : MonoBehaviour
         coMan = CombatManager.Instance;
         dMan = DialogueManager.Instance;
         auMan = AudioManager.Instance;
-        enMan = EnemyManager.Instance;
     }
 
     public void ProgressBarRoutine_Stop()
@@ -294,6 +292,7 @@ public class AnimationManager : MonoBehaviour
         UnitCardDisplay ucd = unitCard.GetComponent<UnitCardDisplay>();
         GameObject stats = ucd.UnitStats;
         SetAnimatorBool(stats, "IsDamaged", coMan.IsDamaged(unitCard));
+        SetAnimatorBool(stats, "PowerIsDebuffed", coMan.PowerIsDebuffed(unitCard));
         SetAnimatorBool(stats, "PowerIsBuffed", coMan.PowerIsBuffed(unitCard));
         SetAnimatorBool(stats, "HealthIsBuffed", coMan.HealthIsBuffed(unitCard));
 
@@ -350,18 +349,20 @@ public class AnimationManager : MonoBehaviour
      * ****** COUNTING_TEXT
      * *****
      *****/
-    public void CountingText(TextMeshProUGUI text, int start, int end, float delay = 0.3f)
+    public void CountingText(TextMeshProUGUI text, int start, int end, float delay = 0.05f)
     {
         if (start == end)
         {
             Debug.LogError("START == END!");
             return;
         }
+
         if (TextCountRoutine != null) // TESTING
         {
-            text.color = previousTextCountColor;
             StopCoroutine(TextCountRoutine);
+            text.color = previousTextCountColor;
         }
+
         TextCountRoutine = StartCoroutine(CountingTextNumerator(text, start, end, delay));
     }
     private IEnumerator CountingTextNumerator(TextMeshProUGUI text, int start, int end, float delay)

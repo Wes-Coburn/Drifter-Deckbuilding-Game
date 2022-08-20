@@ -31,8 +31,8 @@ public class RemoveCardPopupDisplay : MonoBehaviour
         {
             card = value;
             int cost;
-            if (card.IsRare) cost = GameManager.REMOVE_RARE_CARD_COST;
-            else cost = GameManager.REMOVE_CARD_COST;
+            if (card.IsRare) cost = GameManager.SELL_RARE_CARD_VALUE;
+            else cost = GameManager.SELL_CARD_VALUE;
 
             string text = "SELL <u>" + card.CardName + "</u>" +
                 " for " + cost + " aether?";
@@ -44,8 +44,8 @@ public class RemoveCardPopupDisplay : MonoBehaviour
     {
         CardManager.Instance.RemovePlayerCard(card);
         int cost;
-        if (card.IsRare) cost = GameManager.REMOVE_RARE_CARD_COST;
-        else cost = GameManager.REMOVE_CARD_COST;
+        if (card.IsRare) cost = GameManager.SELL_RARE_CARD_VALUE;
+        else cost = GameManager.SELL_CARD_VALUE;
         pMan.AetherCells += cost;
         uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.RemoveCard, false);
     }

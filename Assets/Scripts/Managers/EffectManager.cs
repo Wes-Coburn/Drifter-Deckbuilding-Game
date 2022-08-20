@@ -24,8 +24,6 @@ public class EffectManager : MonoBehaviour
     private EventManager evMan;
     private CardManager caMan;
 
-    //private const string IS_ADDITIONAL_EFFECT = "IsAdditionalEffect";
-
     private GameObject effectSource;
     private bool effectsResolving;
     private bool isAdditionalEffect;
@@ -50,8 +48,7 @@ public class EffectManager : MonoBehaviour
     private List<ChangeCostEffect> changeNextCostEffects_Enemy;
 
     [Header("Effect Ray"), SerializeField] private GameObject effectRay;
-    [Header("Ray Colors")]
-    [SerializeField] private Color damageRayColor;
+    [Header("Ray Colors"), SerializeField] private Color damageRayColor;
     [SerializeField] private Color healRayColor;
     [Header("POISON EFFECT"), SerializeField] private Effect poisonEffect;
     [SerializeField] private CardAbility poisonAbility;
@@ -103,18 +100,6 @@ public class EffectManager : MonoBehaviour
             }
         }
     }
-    public List<GameObject> CurrentLegalTargets
-    {
-        get
-        {
-            if (effectGroupList == null)
-            {
-                Debug.LogError("GROUP LIST IS NULL!");
-                return null;
-            }
-            else return legalTargets[currentEffectGroup];
-        }
-    }
 
     public List<GameObject> NewDrawnCards { get => newDrawnCards; }
     public List<GameObject> UnitsToDestroy { get => unitsToDestroy; }
@@ -136,6 +121,7 @@ public class EffectManager : MonoBehaviour
         anMan = AnimationManager.Instance;
         evMan = EventManager.Instance;
         caMan = CardManager.Instance;
+
         giveNextEffects_Player = new List<GiveNextUnitEffect>();
         changeNextCostEffects_Player = new List<ChangeCostEffect>();
         giveNextEffects_Enemy = new List<GiveNextUnitEffect>();
@@ -213,16 +199,16 @@ public class EffectManager : MonoBehaviour
 
         if (source == null)
         {
-            Debug.LogWarning("SOURCE IS NULL!");
+            Debug.LogError("SOURCE IS NULL!");
             return;
         }
-        else if (groupList == null || groupList.Count < 1)
+        
+        if (groupList == null || groupList.Count < 1)
         {
-            Debug.LogWarning("GROUP LIST IS EMPTY!");
+            Debug.LogError("GROUP LIST IS EMPTY!");
             return;
         }
 
-        // EFFECTS RESOLVING ERROR
         if (EffectsResolving)
         {
             Debug.LogError("EFFECTS RESOLVING!");
@@ -275,17 +261,9 @@ public class EffectManager : MonoBehaviour
         }
         else isAdditionalEffect = false;
 
-        /*
-        if (additionalEffectGroups.Count > 0) isAdditionalEffect = true;
-        else isAdditionalEffect = false;
-        foreach (EffectGroup additionalGroup in effectGroupList)
-            additionalEffectGroups.Remove(additionalGroup);
-        */
-
         // UNIT ABILITY TRIGGER
         if (effectSource.TryGetComponent(out UnitCardDisplay ucd))
         {
-            // TESTING !isAdditionalEffect
             if (!isAdditionalEffect && !string.IsNullOrEmpty(triggerName))
                 ucd.AbilityTriggerState(triggerName);
         }
@@ -847,7 +825,6 @@ public class EffectManager : MonoBehaviour
             else
             {
                 // Variable target numbers
-                //if (targets.VariableNumber && handCount > 0) return true;
                 if (targets.VariableNumber || targets.TargetsAll) return true;
 
                 if (handCount < effect.Value)
@@ -951,10 +928,6 @@ public class EffectManager : MonoBehaviour
      *****/
     private void ConfirmNonTargetEffect()
     {
-        EffectGroup eg = effectGroupList[currentEffectGroup];
-        Effect effect = eg.Effects[currentEffect];
-        float delay = 0;
-
         // FOR_EACH_EFFECTS
         if (CurrentEffect.ForEachEffects.Count > 0)
         {
@@ -963,34 +936,7 @@ public class EffectManager : MonoBehaviour
                     additionalEffectGroups.Add(group);
         }
 
-        /*
-        if (effect is DrawEffect de && !de.IsDiscardEffect)
-        {
-            bool isValidEffect = true;
-            if (effect.PreCheckConditions)
-            {
-                List<GameObject> validTargets =
-                    GetValidTargets(effect, new List<GameObject> { effectSource });
-                if (validTargets.Count < 1) isValidEffect = false;
-            }
-
-            if (isValidEffect)
-            {
-                string hero;
-                if (IsPlayerSource(effectSource)) hero = GameManager.PLAYER;
-                else hero = GameManager.ENEMY;
-
-                for (int i = 0; i < effect.Value; i++)
-                {
-                    List<Effect> addEffects = de.AdditionalEffects;
-                    FunctionTimer.Create(() => coMan.DrawCard(hero, null, addEffects), delay);
-                    delay += 0.5f;
-                }
-            }
-        }
-        */
-
-        FunctionTimer.Create(() => StartNextEffect(), delay);
+        StartNextEffect();
     }
     public void ConfirmTargetEffect()
     {
@@ -1430,9 +1376,19 @@ public class EffectManager : MonoBehaviour
                     foreach (Card c in pMan.PlayerHero.HeroSkills)
                         cardPool.Add(c);
                 }
+                else if (cardType == "Random")
+                {
+                    Card[] unitCards = Resources.LoadAll<Card>("Cards_Units");
+                    Card[] actionCards = Resources.LoadAll<Card>("Cards_Actions");
+
+                    foreach (Card c in unitCards)
+                        cardPool.Add(c);
+                    foreach (Card c in actionCards)
+                        cardPool.Add(c);
+                }
                 else
                 {
-                    Card[] createdCards = Resources.LoadAll<Card>("Created Cards");
+                    Card[] createdCards = Resources.LoadAll<Card>("Cards_Created");
                     foreach (Card c in createdCards)
                         if (c.CardSubType == cardType) cardPool.Add(c);
                 }
@@ -1459,7 +1415,7 @@ public class EffectManager : MonoBehaviour
             else if (!string.IsNullOrEmpty(pce.PlayedCardType))
             {
                 List<Card> cardPool = new List<Card>();
-                Card[] createdCards = Resources.LoadAll<Card>("Created Cards");
+                Card[] createdCards = Resources.LoadAll<Card>("Cards_Created");
                 foreach (Card c in createdCards)
                     if (c.CardSubType == pce.PlayedCardType) cardPool.Add(c);
                 if (cardPool.Count < 1)
@@ -1667,19 +1623,19 @@ public class EffectManager : MonoBehaviour
                 return false;
             }
 
-            int heroHealth;
+            int damageTaken_Turn;
             if (IsPlayerSource(effectSource))
             {
-                if (getPlayerHealth) heroHealth = pMan.PlayerHealth;
-                else heroHealth = enMan.EnemyHealth;
+                if (getPlayerHealth) damageTaken_Turn = pMan.DamageTaken_Turn;
+                else damageTaken_Turn = enMan.DamageTaken_Turn;
             }
             else
             {
-                if (getPlayerHealth) heroHealth = enMan.EnemyHealth;
-                else heroHealth = pMan.PlayerHealth;
+                if (getPlayerHealth) damageTaken_Turn = enMan.DamageTaken_Turn;
+                else damageTaken_Turn = pMan.DamageTaken_Turn;
             }
 
-            if (heroHealth <= GameManager.WOUNDED_VALUE) return true;
+            if (damageTaken_Turn >= GameManager.WOUNDED_VALUE) return true;
             else return false;
         }
 

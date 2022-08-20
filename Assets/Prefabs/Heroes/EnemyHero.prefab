@@ -234,6 +234,7 @@ MonoBehaviour:
   heroPortrait: {fileID: 2022738972}
   heroName: {fileID: 3932838133850702921}
   heroHealth: {fileID: 2728471173392787262}
+  heroHealthFrame: {fileID: 6519123069116072903}
   heroEnergy: {fileID: 5790857931421389761}
   heroPower: {fileID: 7850682380205833446}
   powerImage: {fileID: 1131653888593559759}
@@ -907,8 +908,9 @@ GameObject:
   - component: {fileID: 8035949493255531143}
   - component: {fileID: 191580951165087678}
   - component: {fileID: 8018458141765647247}
-  - component: {fileID: 1346510914572750483}
   - component: {fileID: 1073985718470144367}
+  - component: {fileID: 3642348069161435840}
+  - component: {fileID: 1346510914572750483}
   m_Layer: 5
   m_Name: HeroHealth
   m_TagString: Untagged
@@ -989,6 +991,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
+--- !u!114 &1073985718470144367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3625639515259829232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa007eff4e492ba4bad63f21cbf4c4d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltipText: The enemy hero's <color="yellow"><b>Health</b></color>. If it reaches
+    0, you win. (<color="red"><b>Red</b></color> when <color="yellow"><b>Wounded</b></color>.)
+  tooltipPosition: {x: -350, y: 190}
+  isZoomCardTooltip: 0
+--- !u!114 &3642348069161435840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3625639515259829232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6691234b395cbb341a2e43b640d552bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityPopupPrefab: {fileID: 268856669738850229, guid: 5c61e8afecb13104c85071fbcc357ece,
+    type: 3}
+  woundedAbility: {fileID: 11400000, guid: e90fc3bafeee0d94ba2ff2fc6f53dbac, type: 2}
+  tooltipPosition: {x: -350, y: -10}
 --- !u!114 &1346510914572750483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1033,22 +1067,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1073985718470144367
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3625639515259829232}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa007eff4e492ba4bad63f21cbf4c4d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tooltipText: The enemy hero's <color="yellow"><b>Health</b></color>. If it reaches
-    0, you win.
-  tooltipPosition: {x: -350, y: 190}
-  isZoomCardTooltip: 0
 --- !u!1 &3932838133850702921
 GameObject:
   m_ObjectHideFlags: 0

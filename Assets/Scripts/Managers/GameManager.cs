@@ -97,7 +97,7 @@ public class GameManager : MonoBehaviour
     public const string HIDE_EXPLICIT_LANGUAGE = "HideExplicitLanguage";
 
     // Universal
-    public const int WOUNDED_VALUE = 15;
+    public const int WOUNDED_VALUE = 5;
     public const int START_HAND_SIZE = 4;
     public const int MAX_HAND_SIZE = 10;
     public const int MAX_UNITS_PLAYED = 6;
@@ -125,25 +125,37 @@ public class GameManager : MonoBehaviour
     public const int BOSS_BONUS_ENERGY = 2;
 
     // Aether Rewards
-    public const int IGNORE_CARD_AETHER = 2;
-    // Card Removal
-    public const int REMOVE_CARD_COST = 2;
-    public const int REMOVE_RARE_CARD_COST = 4;
+    public const int IGNORE_CARD_AETHER = 15;
+    // Sell Cards
+    public const int SELL_CARD_VALUE = 20;
+    public const int SELL_RARE_CARD_VALUE = 30;
     // Recruits
-    public const int RECRUIT_UNIT_COST = 3;
-    public const int RECRUIT_RARE_UNIT_COST = 5;
+    public const int RECRUIT_UNIT_COST = 40;
+    public const int RECRUIT_RARE_UNIT_COST = 60;
     public const int RECRUIT_LOYALTY_GOAL = 3;
     // Cloning
-    public const int CLONE_UNIT_COST = 3;
-    public const int CLONE_RARE_UNIT_COST = 5;
+    public const int CLONE_UNIT_COST = 40;
+    public const int CLONE_RARE_UNIT_COST = 60;
     // Items
-    public const int BUY_ITEM_COST = 3;
-    public const int BUY_RARE_ITEM_COST = 5;
+    public const int BUY_ITEM_COST = 25;
+    public const int BUY_RARE_ITEM_COST = 45;
     public const int SHOP_LOYALTY_GOAL = 3;
     // Reputation
     public const int REPUTATION_TIER_1 = 10;
     public const int REPUTATION_TIER_2 = 20;
     public const int REPUTATION_TIER_3 = 30;
+
+    // Combat Reward
+    public const int AETHER_COMBAT_REWARD_1 = 20;
+    public const int AETHER_COMBAT_REWARD_2 = 30;
+    public const int AETHER_COMBAT_REWARD_3 = 40;
+
+    public const int AETHER_COMBAT_REWARD_BOSS_1 = 30;
+    public const int AETHER_COMBAT_REWARD_BOSS_2 = 45;
+    public const int AETHER_COMBAT_REWARD_BOSS_3 = 60;
+
+    // Augments
+    public const int AETHER_MAGNET_REWARD = 15;
 
     /******
      * *****
@@ -171,7 +183,7 @@ public class GameManager : MonoBehaviour
 
         LoadPlayerPreferences();
         Debug.Log("Application Version: " + Application.version);
-        SceneLoader.LoadScene(SceneLoader.Scene.TitleScene, false, false); // TESTING
+        SceneLoader.LoadScene(SceneLoader.Scene.TitleScene, false, false);
     }
 
     /******
@@ -535,18 +547,26 @@ public class GameManager : MonoBehaviour
 
         /** LOAD RESOURCES **/
         // NARRATIVES
-        Narrative[] narratives = Resources.LoadAll<Narrative>("Narratives");
+        //Narrative[] narratives = Resources.LoadAll<Narrative>("Narratives");
+        Narrative[] narratives = Resources.LoadAll<Narrative>("");
         List<Narrative> allNarratives = new List<Narrative>();
         for (int i = 0; i < narratives.Length; i++)
             allNarratives.Add(narratives[i]);
 
         // HEROES
-        Hero[] heroes = Resources.LoadAll<Hero>("Heroes");
+        //Hero[] heroes = Resources.LoadAll<Hero>("Heroes");
+        Hero[] heroes = Resources.LoadAll<Hero>("");
         List<Hero> allHeroes = new List<Hero>();
         for (int i = 0; i < heroes.Length; i++)
             allHeroes.Add(heroes[i]);
 
         // CARDS
+        List<Card> allcards = new List<Card>();
+        Card[] cards = Resources.LoadAll<Card>("");
+        for (int i = 0; i < cards.Length; i++)
+            allcards.Add(cards[i]);
+
+        /*
         List<Card> allcards = new List<Card>();
         Card[] cards = Resources.LoadAll<Card>("Cards");
         Card[] combatRewards = Resources.LoadAll<Card>("Combat Rewards");
@@ -560,8 +580,15 @@ public class GameManager : MonoBehaviour
             allcards.Add(recruitUnits[i]);
         for (int i = 0; i < executionCards.Length; i++)
             allcards.Add(executionCards[i]);
+        */
 
         // LOCATIONS
+        Location[] locations = Resources.LoadAll<Location>("");
+        List<Location> allLocations = new List<Location>();
+        for (int i = 0; i < locations.Length; i++)
+            allLocations.Add(locations[i]);
+
+        /*
         Location[] locations = Resources.LoadAll<Location>("Locations");
         Location[] randomEncounters = Resources.LoadAll<Location>("Random Encounters");
         List<Location> allLocations = new List<Location>();
@@ -569,27 +596,31 @@ public class GameManager : MonoBehaviour
             allLocations.Add(locations[i]);
         for (int i = 0; i < randomEncounters.Length; i++)
             allLocations.Add(randomEncounters[i]);
+        */
 
         // DIALOGUE
-        DialogueClip[] clips = Resources.LoadAll<DialogueClip>("Dialogue");
+        //DialogueClip[] clips = Resources.LoadAll<DialogueClip>("Dialogue");
+        DialogueClip[] clips = Resources.LoadAll<DialogueClip>("");
         List<DialogueClip> allClips = new List<DialogueClip>();
         for (int i = 0; i < clips.Length; i++)
             allClips.Add(clips[i]);
 
         // AGUMENTS
-        HeroAugment[] augments = Resources.LoadAll<HeroAugment>("Hero Augments");
+        //HeroAugment[] augments = Resources.LoadAll<HeroAugment>("Hero Augments");
+        HeroAugment[] augments = Resources.LoadAll<HeroAugment>("");
         List<HeroAugment> allAugments = new List<HeroAugment>();
         for (int i = 0; i < augments.Length; i++)
             allAugments.Add(augments[i]);
 
         // ITEMS
-        HeroItem[] items = Resources.LoadAll<HeroItem>("Items");
+        //HeroItem[] items = Resources.LoadAll<HeroItem>("Items");
+        HeroItem[] items = Resources.LoadAll<HeroItem>("");
         List<HeroItem> allItems = new List<HeroItem>();
         for (int i = 0; i < items.Length; i++)
             allItems.Add(items[i]);
 
         // CURRENT HOUR
-        CurrentHour = data.CurrentHour; // TESTING
+        CurrentHour = data.CurrentHour;
 
         // CURRENT NARRATIVE
         if (data.CurrentNarrative != "")
@@ -782,6 +813,38 @@ public class GameManager : MonoBehaviour
         if (IsNewHour) IsNewHour = false;
     }
 
+    public enum DifficultyLevel
+    {
+        Standard_1,
+        Standard_2,
+        Standard_3,
+
+        Boss_1,
+        Boss_2,
+        Boss_3
+    }
+    public int GetAetherReward(DifficultyLevel difficultyLevel)
+    {
+        switch (difficultyLevel)
+        {
+            case DifficultyLevel.Standard_1:
+                return AETHER_COMBAT_REWARD_1;
+            case DifficultyLevel.Standard_2:
+                return AETHER_COMBAT_REWARD_2;
+            case DifficultyLevel.Standard_3:
+                return AETHER_COMBAT_REWARD_3;
+            case DifficultyLevel.Boss_1:
+                return AETHER_COMBAT_REWARD_BOSS_1;
+            case DifficultyLevel.Boss_2:
+                return AETHER_COMBAT_REWARD_BOSS_2;
+            case DifficultyLevel.Boss_3:
+                return AETHER_COMBAT_REWARD_BOSS_3;
+        }
+
+        Debug.LogError("INVALID DIFFICULTY!");
+        return 0;
+    }
+
     /******
      * *****
      * ****** CHANGE_REPUTATION
@@ -924,7 +987,9 @@ public class GameManager : MonoBehaviour
         void ResolveEffects(ReputationType repType, List<EffectGroup> repEffects)
         {
             uMan.SetReputation(repType, 0, true);
-            efMan.StartEffectGroupList(repEffects, coMan.PlayerHero);
+
+            if (repEffects != null && repEffects.Count > 0)
+                efMan.StartEffectGroupList(repEffects, coMan.PlayerHero);
         }
     }
 
@@ -1089,12 +1154,14 @@ public class GameManager : MonoBehaviour
         if (enMan.EnemyHero.IsBoss) energyPerTurn += BOSS_BONUS_ENERGY;
         enMan.EnergyPerTurn = energyPerTurn;
         enMan.EnergyLeft = 0;
+        enMan.DamageTaken_Turn = 0;
 
         // PLAYER MANAGER
         pMan.PlayerHealth = pMan.MaxPlayerHealth;
         pMan.EnergyPerTurn = START_ENERGY_PER_TURN;
         pMan.EnergyLeft = pMan.StartEnergy;
         pMan.HeroUltimateProgress_Direct = 0;
+        pMan.DamageTaken_Turn = 0;
 
         // UPDATE DECKS
         caMan.UpdateDeck(PLAYER);
@@ -1332,6 +1399,9 @@ public class GameManager : MonoBehaviour
             efMan.RemoveTemporaryEffects(ENEMY);
             efMan.RemoveGiveNextEffects(player);
             efMan.RemoveChangeNextCostEffects(player);
+
+            pMan.DamageTaken_Turn = 0;
+            enMan.DamageTaken_Turn = 0;
         }
     }
 

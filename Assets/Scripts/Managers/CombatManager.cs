@@ -1099,13 +1099,17 @@ public class CombatManager : MonoBehaviour
         // Damage to heroes
         if (target == PlayerHero)
         {
+            pMan.DamageTaken_Turn += damageValue; // TESTING
             pMan.PlayerHealth = newTargetValue;
+
             anMan.ModifyHeroHealthState(target, -damageValue);
             wasDamaged = true;
         }
         else if (target == EnemyHero)
         {
+            enMan.DamageTaken_Turn += damageValue; // TESTING
             enMan.EnemyHealth = newTargetValue;
+
             anMan.ModifyHeroHealthState(target, -damageValue);
             wasDamaged = true;
         }
@@ -1226,6 +1230,13 @@ public class CombatManager : MonoBehaviour
         bool isDamaged = false;
         if (ucd.CurrentHealth < ucd.MaxHealth) isDamaged = true;
         return isDamaged;
+    }
+    public bool PowerIsDebuffed(GameObject unitCard)
+    {
+        UnitCardDisplay ucd = unitCard.GetComponent<UnitCardDisplay>();
+        bool powerIsDebuffed = false;
+        if (ucd.CurrentPower < ucd.UnitCard.StartPower) powerIsDebuffed = true;
+        return powerIsDebuffed;
     }
     public bool PowerIsBuffed(GameObject unitCard)
     {
