@@ -1189,7 +1189,10 @@ public class UIManager : MonoBehaviour
 
         void ReputationTrigger()
         {
-            AudioManager.Instance.StartStopSound("SFX_Reputation");
+            string sound;
+            if (triggerOnly) sound = "SFX_Trigger";
+            else sound = "SFX_Reputation";
+            AudioManager.Instance.StartStopSound(sound);
             anMan.SkybarIconAnimation(repIcon);
         }
     }

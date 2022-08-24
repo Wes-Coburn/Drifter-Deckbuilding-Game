@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51efad6bfc5b70344acf9c2c28efe1a1, type: 3}
+  m_Name: Deathrage 1
+  m_EditorClassIdentifier: 
+  cardArt: {fileID: 21300000, guid: 27c2c34822c1cf74d9d31e90c344d797, type: 3}
+  cardBorder: {fileID: 21300000, guid: da4d9c0ce8b0a5744aac584cd2e675b1, type: 3}
+  energyCost: 1
+  cardName: Deathrage
+  cardType: Action
+  cardSubType: 
+  isRare: 0
+  cardDescription: Deathrage is...
+  cardPlaySound:
+    name: 
+    clip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    source: {fileID: 0}
+  overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
+  zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
+  effectDescription: 'Give an ally +4|+4 and "Turn End: Destroy this unit."'
+  effectGroupList:
+  - {fileID: 11400000, guid: c990ce2f00d242840b0c1d30ea7bf1aa, type: 2}
+  linkedAbilities:
+  - {fileID: 11400000, guid: f9f029cd91a81544eb06ce77a5f40ab8, type: 2}

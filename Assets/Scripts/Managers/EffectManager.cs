@@ -1378,13 +1378,21 @@ public class EffectManager : MonoBehaviour
                 }
                 else if (cardType == "Random")
                 {
-                    Card[] unitCards = Resources.LoadAll<Card>("Cards_Units");
-                    Card[] actionCards = Resources.LoadAll<Card>("Cards_Actions");
+                    if (!cce.RestrictType || cce.IncludeUnits)
+                    {
+                        Card[] unitCards;
+                        unitCards = Resources.LoadAll<Card>("Cards_Units");
+                        foreach (Card c in unitCards)
+                            cardPool.Add(c);
+                    }
 
-                    foreach (Card c in unitCards)
-                        cardPool.Add(c);
-                    foreach (Card c in actionCards)
-                        cardPool.Add(c);
+                    if (!cce.RestrictType || cce.IncludeActions)
+                    {
+                        Card[] actionCards;
+                        actionCards = Resources.LoadAll<Card>("Cards_Actions");
+                        foreach (Card c in actionCards)
+                            cardPool.Add(c);
+                    }
                 }
                 else
                 {
@@ -1392,6 +1400,45 @@ public class EffectManager : MonoBehaviour
                     foreach (Card c in createdCards)
                         if (c.CardSubType == cardType) cardPool.Add(c);
                 }
+
+                // Created Card Parameters
+                List<Card> invalidCards = new List<Card>();
+
+                if (cce.RestrictCost)
+                {
+                    foreach (Card c in cardPool)
+                        if (c.StartEnergyCost < cce.MinCost ||
+                            c.StartEnergyCost > cce.MaxCost) invalidCards.Add(c);
+                }
+
+                if (cce.RestrictType)
+                {
+                    foreach (Card c in cardPool)
+                        if ((!cce.IncludeUnits && c is UnitCard) ||
+                            (!cce.IncludeActions && c is ActionCard)) invalidCards.Add(c);
+                }
+
+                if (cce.RestrictSubtype)
+                {
+                    foreach (Card c in cardPool)
+                        if (c.CardType != cce.CardSubtype) invalidCards.Add(c);
+                }
+
+                if (cce.ExcludeSelf)
+                {
+                    if (!effectSource.TryGetComponent(out CardDisplay cardDisplay))
+                    {
+                        Debug.LogError("SOURCE IS NOT A CARD!");
+                    }
+                    else
+                    {
+                        int selfIndex = cardPool.FindIndex(x => x.CardName == cardDisplay.CardName);
+                        if (selfIndex != -1) cardPool.RemoveAt(selfIndex);
+                    }
+                }
+
+                foreach (Card c in invalidCards) cardPool.Remove(c);
+
                 cardScript = cardPool[Random.Range(0, cardPool.Count)];
             }
             else
@@ -1430,8 +1477,12 @@ public class EffectManager : MonoBehaviour
                 Debug.LogError("INVALID TYPE!");
                 return;
             }
+
+            if (cardScript is UnitCard) { }
+            else Debug.LogError("SCRIPT IS NOT UNIT CARD!");
+
             cardScript = caMan.NewCardInstance(cardScript);
-            GameObject newCardObj = PlayCreatedCard(cardScript);
+            GameObject newCardObj = PlayCreatedUnit(cardScript as UnitCard);
 
             foreach (Effect addEffect in pce.AdditionalEffects)
                 ResolveEffect(new List<GameObject> { newCardObj }, addEffect, false, 0, out _, false);
@@ -1447,7 +1498,11 @@ public class EffectManager : MonoBehaviour
                 Card card = cardDisplay.CardScript;
                 Card newCard = caMan.NewCardInstance(card, cpyCrd.IsExactCopy);
                 GameObject newCardObj;
-                if (cpyCrd.PlayCopy) newCardObj = PlayCreatedCard(newCard);
+
+                if (newCard is UnitCard) { }
+                else Debug.LogError("SCRIPT IS NOT UNIT CARD!");
+
+                if (cpyCrd.PlayCopy) newCardObj = PlayCreatedUnit(newCard as UnitCard);
                 else newCardObj = DrawCreatedCard(newCard);
 
                 if (newCardObj == null)
@@ -1522,7 +1577,7 @@ public class EffectManager : MonoBehaviour
         }
 
         // IF RESOLVES GROUPS
-        foreach (EffectGroup eg in effect.IfResolvesGroups) additionalEffectGroups.Add(eg); // TESTING
+        foreach (EffectGroup eg in effect.IfResolvesGroups) additionalEffectGroups.Insert(0, eg); // TESTING
 
         // ACTIVE EFFECTS
         if (isEffectGroup && !shootRay)
@@ -1750,10 +1805,10 @@ public class EffectManager : MonoBehaviour
 
     /******
      * *****
-     * ****** PLAY_CREATED_CARD
+     * ****** PLAY_CREATED_UNIT
      * *****
      *****/
-    public GameObject PlayCreatedCard(Card cardScript, GameObject newEffectSource = null)
+    public GameObject PlayCreatedUnit(UnitCard unitCardScript, GameObject newEffectSource = null)
     {
         if (newEffectSource == null)
         {
@@ -1792,7 +1847,7 @@ public class EffectManager : MonoBehaviour
         }
 
         Vector2 newPosition = newEffectSource.transform.position;
-        GameObject card = coMan.ShowCard(cardScript, newPosition,
+        GameObject card = coMan.ShowCard(unitCardScript, newPosition,
             CombatManager.DisplayType.Default, true);
 
         card.tag = cardTag;
@@ -1813,15 +1868,9 @@ public class EffectManager : MonoBehaviour
                 auMan.StartStopSound(null, ucd.UnitCard.CardPlaySound);
 
             card.GetComponent<DragDrop>().IsPlayed = true;
+            anMan.UnitStatChangeState(card, 0, 0, false, true); // TESTING
 
-            if (ucd.CurrentHealth < 1)
-            {
-                Debug.LogError("PLAYED UNIT HEALTH < 1!");
-                coMan.DestroyUnit(card);
-                return;
-            }
             //evMan.NewDelayedAction(() => caMan.TriggerTrapAbilities(card), 0, true);
-
             FunctionTimer.Create(() => SetFirstSibling(card), 0.5f);
         }
 

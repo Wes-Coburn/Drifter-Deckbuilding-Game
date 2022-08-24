@@ -210,8 +210,12 @@ public class NewCardPopupDisplay : MonoBehaviour
 
     private void RewardBonusAugment()
     {
-        if (pMan.GetAugment("Aether Magnet"))
+        string aetherMagnet = "Aether Magnet";
+        if (pMan.GetAugment(aetherMagnet))
+        {
+            anMan.TriggerAugment(aetherMagnet);
             uMan.CreateAetherCellPopup(GameManager.AETHER_MAGNET_REWARD);
+        }
     }
 
     private void DisableButtons()

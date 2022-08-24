@@ -49,7 +49,8 @@ MonoBehaviour:
   locationIconPrefab: {fileID: 7001515754728082527, guid: 66d6680aaf145824992863dceab07391,
     type: 3}
   loadingTips:
-  - Unused energy is saved across turns. You can store up to 10 energy.
+  - You gain 1 energy at the start of your turn, increased by 1 each turn to a maximum
+    of 10.
   - Units with Deathblow do something after they destroy another unit.
   - Visit <b>Your Ship</b> to sell cards and claim your rewards!
   - Units with Spark do something after you play your first <b>action</b> card each
@@ -59,7 +60,8 @@ MonoBehaviour:
   - Units with Research do something after you use your hero power or ultimate.
   - Look out for <b>The Augmenter</b> to permanently upgrade your hero!
   - Units with Infiltrate do something after they attack the enemy hero.
-  - Recruiting a unit increases your <b>Reputation</b> with that unit's faction.
+  - Adding a unit to your deck increases your <b>Reputation</b> with that unit's
+    faction.
   - Units with Ranged aren't struck back when they attack.
   - Units with Armored take 1 less damage from all sources.
   - A hero is Wounded if they have 15 or less health.

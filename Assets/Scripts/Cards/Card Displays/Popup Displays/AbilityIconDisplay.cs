@@ -90,7 +90,7 @@ public class AbilityIconDisplay : MonoBehaviour
             return;
         }
         SetAbilityName(abilityName);
-        abilityMultiplier.SetActive(false); // TESTING
+        abilityMultiplier.SetActive(false);
     }
 
     /******

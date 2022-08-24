@@ -207,16 +207,32 @@ public class CardManager : MonoBehaviour
             text = text.Replace(s, "<b><color=\"yellow\">" + s + "</b></color>");
         foreach (string s in CardTypes)
             text = text.Replace(s, "<b><color=\"green\">" + s + "</b></color>");
+
+        text = FilterCardTypes(text); // TESTING
         return text;
     }
 
     public string FilterCardTypes(string text)
     {
-        text = ReplaceText(MAGE, "orange");
-        text = ReplaceText(MUTANT, "green");
-        text = ReplaceText(ROGUE, "purple");
-        text = ReplaceText(TECH, "blue");
-        text = ReplaceText(WARRIOR, "red");
+        string orange = "orange";
+        text = ReplaceText(MAGE + "s", orange);
+        text = ReplaceText(MAGE, orange);
+
+        string green = "green";
+        text = ReplaceText(MUTANT + "s", green);
+        text = ReplaceText(MUTANT, green);
+
+        string purple = "purple";
+        text = ReplaceText(ROGUE + "s", purple);
+        text = ReplaceText(ROGUE, purple);
+
+        string blue = "blue";
+        text = ReplaceText(TECH + "s", blue);
+        text = ReplaceText(TECH, blue);
+
+        string red = "red";
+        text = ReplaceText(WARRIOR + "s", red);
+        text = ReplaceText(WARRIOR, red);
         return text;
 
         string ReplaceText(string target, string color)

@@ -172,7 +172,7 @@ public class EnemyManager : MonoBehaviour
         {
             int startEnergy = EnergyLeft;
             if (energyPerTurn < MaxEnergyPerTurn) energyPerTurn++;
-            EnergyLeft += EnergyPerTurn;
+            EnergyLeft = EnergyPerTurn;
             int energyChange = EnergyLeft - startEnergy;
             anMan.ModifyHeroEnergyState(energyChange, coMan.EnemyHero);
         }

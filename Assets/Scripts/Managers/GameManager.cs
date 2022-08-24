@@ -118,17 +118,16 @@ public class GameManager : MonoBehaviour
     public const string ENEMY = "Enemy";
     public const int ENEMY_STARTING_HEALTH = 30;
     //public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
-    public const int ENEMY_HAND_SIZE = 0;
     // Tutorial Enemy
     public const int TUTORIAL_STARTING_HEALTH = 10;
     // Boss Enemy
     public const int BOSS_BONUS_ENERGY = 2;
 
     // Aether Rewards
-    public const int IGNORE_CARD_AETHER = 15;
+    public const int IGNORE_CARD_AETHER = 10;
     // Sell Cards
-    public const int SELL_CARD_VALUE = 20;
-    public const int SELL_RARE_CARD_VALUE = 30;
+    public const int SELL_CARD_VALUE = 15;
+    public const int SELL_RARE_CARD_VALUE = 25;
     // Recruits
     public const int RECRUIT_UNIT_COST = 40;
     public const int RECRUIT_RARE_UNIT_COST = 60;
@@ -137,8 +136,8 @@ public class GameManager : MonoBehaviour
     public const int CLONE_UNIT_COST = 40;
     public const int CLONE_RARE_UNIT_COST = 60;
     // Items
-    public const int BUY_ITEM_COST = 25;
-    public const int BUY_RARE_ITEM_COST = 45;
+    public const int BUY_ITEM_COST = 20;
+    public const int BUY_RARE_ITEM_COST = 40;
     public const int SHOP_LOYALTY_GOAL = 3;
     // Reputation
     public const int REPUTATION_TIER_1 = 10;
@@ -150,8 +149,8 @@ public class GameManager : MonoBehaviour
     public const int AETHER_COMBAT_REWARD_2 = 30;
     public const int AETHER_COMBAT_REWARD_3 = 40;
 
-    public const int AETHER_COMBAT_REWARD_BOSS_1 = 30;
-    public const int AETHER_COMBAT_REWARD_BOSS_2 = 45;
+    public const int AETHER_COMBAT_REWARD_BOSS_1 = 40;
+    public const int AETHER_COMBAT_REWARD_BOSS_2 = 50;
     public const int AETHER_COMBAT_REWARD_BOSS_3 = 60;
 
     // Augments
@@ -1159,7 +1158,7 @@ public class GameManager : MonoBehaviour
         // PLAYER MANAGER
         pMan.PlayerHealth = pMan.MaxPlayerHealth;
         pMan.EnergyPerTurn = START_ENERGY_PER_TURN;
-        pMan.EnergyLeft = pMan.StartEnergy;
+        pMan.EnergyLeft = 0;
         pMan.HeroUltimateProgress_Direct = 0;
         pMan.DamageTaken_Turn = 0;
 
@@ -1174,7 +1173,7 @@ public class GameManager : MonoBehaviour
         // SCHEDULE ACTIONS
         evMan.NewDelayedAction(() => anMan.CombatIntro(), 1);
         evMan.NewDelayedAction(() => CombatStart(), 1);
-        evMan.NewDelayedAction(() => StartCombatTurn(PLAYER), 2);
+        evMan.NewDelayedAction(() => StartCombatTurn(PLAYER, true), 2);
 
         // AUDIO
         string soundtrack;
@@ -1208,11 +1207,18 @@ public class GameManager : MonoBehaviour
             ResolveReputationEffects(2); // REPUTATION EFFECTS [RESOLVE ORDER = 2]
             ResolveReputationEffects(3); // REPUTATION EFFECTS [RESOLVE ORDER = 3]
 
-            if (pMan.GetAugment("Cognitive Magnifier"))
+            string cognitiveMagnifier = "Cognitive Magnifier";
+            if (pMan.GetAugment(cognitiveMagnifier))
             {
-                evMan.NewDelayedAction(() =>
-                efMan.StartEffectGroupList(new List<EffectGroup>
-                { cognitiveMagnifierEffect }, coMan.PlayerHero), 0.25f);
+                evMan.NewDelayedAction(() => CognitiveMagnifierEffect(), 0.25f);
+
+                void CognitiveMagnifierEffect()
+                {
+                    anMan.TriggerAugment(cognitiveMagnifier);
+
+                    efMan.StartEffectGroupList(new List<EffectGroup>
+                    { cognitiveMagnifierEffect }, coMan.PlayerHero);
+                }
             }
 
             if (IsTutorial) evMan.NewDelayedAction(() => Tutorial_Tooltip(2), 0); // TUTORIAL!
@@ -1231,7 +1237,7 @@ public class GameManager : MonoBehaviour
                 {
                     UnitCard newCard = caMan.NewCardInstance(card) as UnitCard;
                     evMan.NewDelayedAction(() =>
-                    efMan.PlayCreatedCard(newCard, coMan.EnemyHero), 0.5f);
+                    efMan.PlayCreatedUnit(newCard, coMan.EnemyHero), 0.5f);
                 }
             }
         }
@@ -1277,7 +1283,7 @@ public class GameManager : MonoBehaviour
      * ****** START_COMBAT_TURN
      * *****
      *****/
-    private void StartCombatTurn(string player)
+    private void StartCombatTurn(string player, bool isFirstTurn = false)
     {
         bool isPlayerTurn;
         if (player == PLAYER) isPlayerTurn = true;
@@ -1301,6 +1307,21 @@ public class GameManager : MonoBehaviour
             evMan.NewDelayedAction(() => PlayerTurnStart(), 2);
             evMan.NewDelayedAction(() => TurnDraw(), 0.5f);
 
+            string synapticStabilizer = "Synaptic Stabilizer";
+
+            if (isFirstTurn && pMan.GetAugment(synapticStabilizer))
+            {
+                evMan.NewDelayedAction(() => SynapticStabilizerEffect(), 0.5f);
+            }
+
+            void SynapticStabilizerEffect()
+            {
+                pMan.EnergyLeft++;
+                anMan.ModifyHeroEnergyState(1, coMan.PlayerHero);
+                anMan.TriggerAugment(synapticStabilizer);
+                coMan.SelectPlayableCards();
+            }
+
             void PlayerTurnStart()
             {
                 pMan.IsMyTurn = true;
@@ -1309,7 +1330,7 @@ public class GameManager : MonoBehaviour
 
                 int startEnergy = pMan.EnergyLeft;
                 if (pMan.EnergyPerTurn < pMan.MaxEnergyPerTurn) pMan.EnergyPerTurn++;
-                pMan.EnergyLeft += pMan.EnergyPerTurn;
+                pMan.EnergyLeft = pMan.EnergyPerTurn;
 
                 int energyChange = pMan.EnergyLeft - startEnergy;
                 anMan.ModifyHeroEnergyState(energyChange, coMan.PlayerHero);

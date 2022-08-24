@@ -131,15 +131,6 @@ public class PlayerManager : MonoBehaviour
         }
     }
     public int MaxPlayerHealth => GameManager.PLAYER_STARTING_HEALTH;
-    public int StartEnergy
-    {
-        get
-        {
-            int bonusEnergy = 0;
-            if (GetAugment("Synaptic Stabilizer")) bonusEnergy = 1;
-            return bonusEnergy;
-        }
-    }
     public int DamageTaken_Turn
     {
         get => damageTaken_Turn;
@@ -238,8 +229,7 @@ public class PlayerManager : MonoBehaviour
 
     public bool GetAugment(string augmentName)
     {
-        int augmentIndex =
-            heroAugments.FindIndex(x => x.AugmentName == augmentName);
+        int augmentIndex = heroAugments.FindIndex(x => x.AugmentName == augmentName);
         if (augmentIndex == -1) return false;
         else return true;
     }

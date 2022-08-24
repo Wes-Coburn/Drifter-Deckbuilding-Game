@@ -285,9 +285,9 @@ public class AnimationManager : MonoBehaviour
         UnitStatChangeState(unitCard, powerChange, healthChange);
     }
 
-    public void UnitStatChangeState(GameObject unitCard, int powerChange, int healthChange, bool isHealing = false)
+    public void UnitStatChangeState(GameObject unitCard, int powerChange, int healthChange, bool showZero = false, bool setStatsOnly = false)
     {
-        if (powerChange == 0 && healthChange == 0 && !isHealing) return;
+        if (!setStatsOnly && !showZero && powerChange == 0 && healthChange == 0) return;
 
         UnitCardDisplay ucd = unitCard.GetComponent<UnitCardDisplay>();
         GameObject stats = ucd.UnitStats;
@@ -295,6 +295,8 @@ public class AnimationManager : MonoBehaviour
         SetAnimatorBool(stats, "PowerIsDebuffed", coMan.PowerIsDebuffed(unitCard));
         SetAnimatorBool(stats, "PowerIsBuffed", coMan.PowerIsBuffed(unitCard));
         SetAnimatorBool(stats, "HealthIsBuffed", coMan.HealthIsBuffed(unitCard));
+
+        if (setStatsOnly) return;
 
         if (powerChange != 0)
         {
@@ -310,7 +312,7 @@ public class AnimationManager : MonoBehaviour
                 ModifyPower();
             }
         }
-        else if (healthChange != 0 || isHealing)
+        else if (healthChange != 0 || showZero)
         {
             ModifyUnitHealthState(stats);
             ModifyHealth();
@@ -337,12 +339,26 @@ public class AnimationManager : MonoBehaviour
             return;
         }
 
-        triggerIcon.transform.SetAsLastSibling();
+        triggerIcon.transform.SetAsLastSibling(); // TESTING
         ChangeAnimationState(triggerIcon.GetComponent<AbilityIconDisplay>().AbilitySpriteObject, "Trigger");
     }
 
     // Icon Animation
     public void SkybarIconAnimation(GameObject icon) => ChangeAnimationState(icon, "Trigger");
+
+    public void TriggerAugment(string augmentName)
+    {
+        foreach (Transform icon in uMan.AugmentBar.transform)
+        {
+            AugmentIcon augmentIcon = icon.GetComponent<AugmentIcon>();
+            if (augmentIcon.LoadedAugment.AugmentName == augmentName)
+            {
+                SkybarIconAnimation(icon.gameObject);
+                auMan.StartStopSound("SFX_Trigger");
+                return;
+            }
+        }
+    }
 
     /******
      * *****

@@ -80,7 +80,7 @@ public class TutorialActionPopupDisplay : MonoBehaviour
 
             case 5:
                 text = "<color=\"green\"><b>Energy</b></color> is used to play cards and use hero powers. " +
-                    "You start with 1 energy, and it increases by 1 each turn, to a maximum of 10.";
+                    "You gain 1 energy at the start of your turn, increased by 1 each turn to a maximum of 10.";
                 position.Set(470, 0);
                 break;
 
@@ -96,7 +96,7 @@ public class TutorialActionPopupDisplay : MonoBehaviour
                 break;
 
             case 8:
-                text = "You draw 4 cards at the beginning of each combat, and 1 each turn after that.";
+                text = "You draw " + GameManager.START_HAND_SIZE + " cards at the beginning of each combat, and 1 each turn after that.";
                 position.Set(-570, -190);
                 break;
 
