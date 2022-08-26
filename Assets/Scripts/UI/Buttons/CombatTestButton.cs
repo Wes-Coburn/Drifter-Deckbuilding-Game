@@ -3,7 +3,6 @@ using UnityEngine;
 public class CombatTestButton : MonoBehaviour
 {
     [SerializeField] private bool addStartUnits;
-    [SerializeField] private bool addStartSkills;
     [SerializeField] [Range(0, 3)] private int reputationTier;
     [SerializeField] private PlayerHero developerTestHero;
     [SerializeField] private EnemyHero enemyTestHero;
@@ -107,13 +106,6 @@ public class CombatTestButton : MonoBehaviour
             foreach (UnitCard uc in caMan.PlayerStartUnits)
                 for (int i = 0; i < GameManager.PLAYER_START_UNITS; i++)
                     caMan.AddCard(uc, GameManager.PLAYER);
-        }
-
-        // Start Skills
-        if (addStartSkills)
-        {
-            foreach (SkillCard skill in pMan.PlayerHero.HeroSkills)
-                caMan.AddCard(skill, GameManager.PLAYER);
         }
 
         // Reputation

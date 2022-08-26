@@ -153,17 +153,6 @@ public class NewCardPopupDisplay : MonoBehaviour
         }
         else if (nextClip is CombatRewardClip crc)
         {
-            if (newCard is SkillCard) { }
-            else
-            {
-                if (crc.NewSkill)
-                {
-                    uMan.CreateNewCardPopup(null, "New Hero Skill!",
-                        caMan.ChooseCards(CardManager.ChooseCard.Skill));
-                    return;
-                }
-            }
-
             int aetherReward = gMan.GetAetherReward(crc.Difficulty);
             if (aetherReward > 0) uMan.CreateAetherCellPopup(aetherReward);
             else

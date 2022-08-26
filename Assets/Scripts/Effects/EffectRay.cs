@@ -104,8 +104,8 @@ public class EffectRay : MonoBehaviour
         if (effectRayType is EffectRayType.RangedAttack)
         {
             AnimationManager.Instance.ChangeAnimationState(gameObject, "Ranged_Attack");
-            maxSpeed /= 2;
-            minSpeed /= 2;
+            //maxSpeed /= 2;
+            //minSpeed /= 2;
         }
     }
 

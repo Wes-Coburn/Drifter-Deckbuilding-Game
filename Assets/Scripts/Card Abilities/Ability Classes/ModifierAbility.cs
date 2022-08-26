@@ -4,11 +4,16 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Modifier Ability", menuName = "Card Abilities/Modifier Ability")]
 public class ModifierAbility : CardAbility
 {
-    [Header("MODIFIER ABILITY")]
-
-    [Header("ABILITY TRIGGER")]
     public AbilityTrigger AbilityTrigger;
-
-    [Header("PLAY UNIT")]
     public List<Effect> PlayUnitEffects;
+
+    public override void LoadCardAbility(CardAbility cardAbility)
+    {
+        base.LoadCardAbility(cardAbility);
+        ModifierAbility modifierAbility = cardAbility as ModifierAbility;
+        AbilityTrigger = modifierAbility.AbilityTrigger;
+        PlayUnitEffects = new List<Effect>();
+        foreach (Effect e in modifierAbility.PlayUnitEffects)
+            PlayUnitEffects.Add(e);
+    }
 }

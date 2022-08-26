@@ -14,4 +14,14 @@ public class RemoveAbilityEffect : Effect
     public bool RemoveAllButNegativeAbilities { get => removeAllButNegativeAbilities; }
     public bool RemovePositiveAbilities { get => removePositiveAbilities; }
     public bool RemoveNegativeAbilities { get => removeNegativeAbilities; }
+
+    public override void LoadEffect(Effect effect)
+    {
+        base.LoadEffect(effect);
+        RemoveAbilityEffect removeAbilityEffect = effect as RemoveAbilityEffect;
+        removeAllAbilities = removeAbilityEffect.RemoveAllAbilities;
+        removeAllButNegativeAbilities = removeAbilityEffect.RemoveAllButNegativeAbilities;
+        removePositiveAbilities = removeAbilityEffect.RemovePositiveAbilities;
+        removeNegativeAbilities = removeAbilityEffect.RemoveNegativeAbilities;
+    }
 }

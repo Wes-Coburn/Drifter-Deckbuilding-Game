@@ -15,11 +15,11 @@ C:/Users/wgCob/Programming/Unity/Drifter (Unity 2D)
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-50993
+61380
 Successfully changed project path to: C:/Users/wgCob/Programming/Unity/Drifter (Unity 2D)
 C:/Users/wgCob/Programming/Unity/Drifter (Unity 2D)
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 92.36 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 103.55 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.5f1 (8095aa901b9b)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/Resources/UnitySubsystems
@@ -35,1954 +35,574 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56236
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56124
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.001924 seconds.
+Registered in 0.001859 seconds.
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 91.18 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 91.28 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.999 seconds
+- Completed reload, in  1.076 seconds
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.002279 seconds.
+Registered in 0.002838 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 96.59 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 104.28 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.856 seconds
+- Completed reload, in  0.866 seconds
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.03 seconds
-Refreshing native plugins compatible for Editor in 1.09 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 1.22 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2126 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 2125 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 104.7 MB.
 System memory in use after: 104.8 MB.
 
-Unloading 25 unused Assets to reduce memory usage. Loaded Objects now: 2574.
-Total: 1.637300 ms (FindLiveObjects: 0.212400 ms CreateObjectMapping: 0.101100 ms MarkObjects: 1.304200 ms  DeleteObjects: 0.018900 ms)
+Unloading 25 unused Assets to reduce memory usage. Loaded Objects now: 2573.
+Total: 1.699300 ms (FindLiveObjects: 0.217700 ms CreateObjectMapping: 0.098400 ms MarkObjects: 1.362400 ms  DeleteObjects: 0.020100 ms)
 
 ========================================================================
 Received Import Request.
-  path: Assets/Resources/Cards_Actions/Guns Blazing.asset
-  artifactKey: Guid(e3a6c6af3db680742831b4165e3ce957) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Actions/Guns Blazing.asset using Guid(e3a6c6af3db680742831b4165e3ce957) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'feac7c4bdcd3f8f4f739fffcbd8303c9') in 0.031554 seconds
-  Import took 0.037702 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 153.496211 seconds.
-  path: Assets/Scripts/Displays/Popup Displays/TutorialActionPopupDisplay.cs
-  artifactKey: Guid(ec34c2010300b9d4db3f38b715a61b76) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Displays/Popup Displays/TutorialActionPopupDisplay.cs using Guid(ec34c2010300b9d4db3f38b715a61b76) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4dfff988798bf9c8a9e165225a74fb19') in 0.005037 seconds
-  Import took 0.009057 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 56.436728 seconds.
-  path: Assets/Scripts/Displays/Popup Displays/TutorialActionPopupDisplay.cs
-  artifactKey: Guid(ec34c2010300b9d4db3f38b715a61b76) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Displays/Popup Displays/TutorialActionPopupDisplay.cs using Guid(ec34c2010300b9d4db3f38b715a61b76) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8f3a91763f2ff890a5d471c342316198') in 0.002287 seconds
-  Import took 0.006822 seconds .
+  path: Assets/Scenes/TitleScene.unity
+  artifactKey: Guid(63f34e354ce4f5a4c9cab5ca9e05533c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/TitleScene.unity using Guid(63f34e354ce4f5a4c9cab5ca9e05533c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '56ca64c0c5fba64d8f0c0d60094d9677') in 0.010424 seconds
+  Import took 0.014516 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.002520 seconds.
+Registered in 0.002674 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
 Refreshing native plugins compatible for Editor in 1.11 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.706 seconds
+- Completed reload, in  0.721 seconds
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.10 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 1.09 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 102.4 MB.
 System memory in use after: 102.5 MB.
 
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2577.
-Total: 1.550800 ms (FindLiveObjects: 0.183300 ms CreateObjectMapping: 0.075200 ms MarkObjects: 1.278300 ms  DeleteObjects: 0.013100 ms)
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2576.
+Total: 1.718200 ms (FindLiveObjects: 0.203700 ms CreateObjectMapping: 0.072100 ms MarkObjects: 1.429400 ms  DeleteObjects: 0.012300 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 289.316811 seconds.
+  path: Assets/Scripts/Cards/Card Displays/Card Displays/UnitCardDisplay.cs
+  artifactKey: Guid(431d01cce3b7eae46899bf342344ca3a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Displays/Card Displays/UnitCardDisplay.cs using Guid(431d01cce3b7eae46899bf342344ca3a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '35300c5c128462a734a9f43311830a80') in 0.021758 seconds
+  Import took 0.026161 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.006172 seconds.
+  path: Assets/Scripts/Cards/Card Displays/Card Displays/UnitCardDisplay.cs
+  artifactKey: Guid(431d01cce3b7eae46899bf342344ca3a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Displays/Card Displays/UnitCardDisplay.cs using Guid(431d01cce3b7eae46899bf342344ca3a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '35300c5c128462a734a9f43311830a80') in 0.002288 seconds
+  Import took 0.006031 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.002591 seconds.
+Registered in 0.002651 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.33 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 1.26 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.826 seconds
+- Completed reload, in  0.762 seconds
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.24 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 1.16 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 102.5 MB.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.4 MB.
 System memory in use after: 102.6 MB.
 
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2580.
-Total: 1.557200 ms (FindLiveObjects: 0.161000 ms CreateObjectMapping: 0.065800 ms MarkObjects: 1.317800 ms  DeleteObjects: 0.011900 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002486 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.06 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.715 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.11 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 102.5 MB.
-System memory in use after: 102.6 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2583.
-Total: 2.208000 ms (FindLiveObjects: 0.245300 ms CreateObjectMapping: 0.103400 ms MarkObjects: 1.805000 ms  DeleteObjects: 0.053600 ms)
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2579.
+Total: 1.848900 ms (FindLiveObjects: 0.283500 ms CreateObjectMapping: 0.102000 ms MarkObjects: 1.448000 ms  DeleteObjects: 0.014600 ms)
 
 ========================================================================
 Received Import Request.
-  Time since last request: 12336.939744 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames_Clear/Ranged_Fire0000.png
-  artifactKey: Guid(c2bc44f10fee9a3429dc8cd48df885a6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames_Clear/Ranged_Fire0000.png using Guid(c2bc44f10fee9a3429dc8cd48df885a6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0ba686f940f186771c13d835fce4fe59') in 0.085768 seconds
-  Import took 0.090994 seconds .
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002680 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.15 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.737 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.11 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.5 MB.
-System memory in use after: 105.6 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2592.
-Total: 2.000600 ms (FindLiveObjects: 0.166000 ms CreateObjectMapping: 0.089900 ms MarkObjects: 1.730700 ms  DeleteObjects: 0.013400 ms)
+  Time since last request: 355.698022 seconds.
+  path: Assets/Scripts/Cards/Card Displays/Card Displays/UnitCardDisplay.cs
+  artifactKey: Guid(431d01cce3b7eae46899bf342344ca3a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Displays/Card Displays/UnitCardDisplay.cs using Guid(431d01cce3b7eae46899bf342344ca3a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '99a664e7f0ad31c5a1acdfe7f0a6aa0c') in 0.004462 seconds
+  Import took 0.012350 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 62.155057 seconds.
-  path: Assets/Scenes/TitleScene.unity
-  artifactKey: Guid(63f34e354ce4f5a4c9cab5ca9e05533c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scenes/TitleScene.unity using Guid(63f34e354ce4f5a4c9cab5ca9e05533c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3b150d2a845de4780d716ffe4a29a001') in 0.014226 seconds
-  Import took 0.018597 seconds .
+  Time since last request: 7.004946 seconds.
+  path: Assets/Scripts/Card Abilities/Ability Classes/AbilityTrigger.cs
+  artifactKey: Guid(412c9dcfd26d235459d17a03f8ba81c1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Card Abilities/Ability Classes/AbilityTrigger.cs using Guid(412c9dcfd26d235459d17a03f8ba81c1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c5c0050ecaa8dca27d1c831337123612') in 0.002220 seconds
+  Import took 0.009917 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.003363 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.11 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.737 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.11 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.5 MB.
-System memory in use after: 105.6 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2595.
-Total: 1.592400 ms (FindLiveObjects: 0.171000 ms CreateObjectMapping: 0.073300 ms MarkObjects: 1.333700 ms  DeleteObjects: 0.013600 ms)
-
-========================================================================
-Received Import Request.
-  Time since last request: 239.728783 seconds.
-  path: Assets/Sprites/Heroes/Player Heroes/Hero Augments
-  artifactKey: Guid(6623e8694afae61479f1aedd3c46a98a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Heroes/Player Heroes/Hero Augments using Guid(6623e8694afae61479f1aedd3c46a98a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0861fc5d01db7d4c2289908eba5df4ae') in 0.020579 seconds
-  Import took 0.025079 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 4.988280 seconds.
-  path: Assets/Resources/Hero Augments
-  artifactKey: Guid(4281a0e99c22f2449b25f78dc011d7fb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Hero Augments using Guid(4281a0e99c22f2449b25f78dc011d7fb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5228d57defa816cf02d4773b7fed39a2') in 0.005468 seconds
-  Import took 0.010839 seconds .
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002680 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.09 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.796 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 2.34 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.5 MB.
-System memory in use after: 105.6 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2598.
-Total: 2.575900 ms (FindLiveObjects: 0.366200 ms CreateObjectMapping: 0.171900 ms MarkObjects: 2.016500 ms  DeleteObjects: 0.020200 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002521 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.09 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.719 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.10 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.5 MB.
-System memory in use after: 105.6 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2601.
-Total: 1.545000 ms (FindLiveObjects: 0.163800 ms CreateObjectMapping: 0.068000 ms MarkObjects: 1.300000 ms  DeleteObjects: 0.012300 ms)
-
-========================================================================
-Received Import Request.
-  Time since last request: 338.610790 seconds.
-  path: Assets/Resources/Hero Augments/Synaptic Stabilizer.asset
-  artifactKey: Guid(57fe36df3e9c87e499ab987a471e140b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Hero Augments/Synaptic Stabilizer.asset using Guid(57fe36df3e9c87e499ab987a471e140b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a7d05089fc009c7ae88c21c709986e79') in 0.011258 seconds
-  Import took 0.015829 seconds .
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002991 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.05 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.698 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.10 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.5 MB.
-System memory in use after: 105.6 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2604.
-Total: 1.646000 ms (FindLiveObjects: 0.219700 ms CreateObjectMapping: 0.068200 ms MarkObjects: 1.344600 ms  DeleteObjects: 0.012800 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002959 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.06 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.703 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.28 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.5 MB.
-System memory in use after: 105.6 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2607.
-Total: 2.249900 ms (FindLiveObjects: 0.194400 ms CreateObjectMapping: 0.086300 ms MarkObjects: 1.952500 ms  DeleteObjects: 0.015800 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002610 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.22 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.695 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.09 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.5 MB.
-System memory in use after: 105.6 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2610.
-Total: 1.927600 ms (FindLiveObjects: 0.223200 ms CreateObjectMapping: 0.087900 ms MarkObjects: 1.560100 ms  DeleteObjects: 0.055200 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.003982 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.94 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.740 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.11 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.5 MB.
-System memory in use after: 105.6 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2613.
-Total: 2.504800 ms (FindLiveObjects: 0.181800 ms CreateObjectMapping: 0.075300 ms MarkObjects: 2.231700 ms  DeleteObjects: 0.014900 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002547 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.05 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.681 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.15 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.5 MB.
-System memory in use after: 105.6 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2616.
-Total: 1.820600 ms (FindLiveObjects: 0.213200 ms CreateObjectMapping: 0.064600 ms MarkObjects: 1.528700 ms  DeleteObjects: 0.013200 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002883 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.22 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.747 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.15 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.5 MB.
-System memory in use after: 105.7 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2619.
-Total: 2.396200 ms (FindLiveObjects: 0.192900 ms CreateObjectMapping: 0.080800 ms MarkObjects: 2.106300 ms  DeleteObjects: 0.015100 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002550 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.25 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.708 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.11 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.5 MB.
-System memory in use after: 105.7 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2622.
-Total: 2.198100 ms (FindLiveObjects: 0.344200 ms CreateObjectMapping: 0.123700 ms MarkObjects: 1.715000 ms  DeleteObjects: 0.014200 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002899 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.13 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.701 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.10 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.6 MB.
-System memory in use after: 105.7 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2625.
-Total: 1.869500 ms (FindLiveObjects: 0.184300 ms CreateObjectMapping: 0.076800 ms MarkObjects: 1.595700 ms  DeleteObjects: 0.012100 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002926 seconds.
+Registered in 0.002471 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
 Refreshing native plugins compatible for Editor in 1.08 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.721 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.13 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.6 MB.
-System memory in use after: 105.7 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2628.
-Total: 2.415900 ms (FindLiveObjects: 0.415300 ms CreateObjectMapping: 0.104200 ms MarkObjects: 1.849600 ms  DeleteObjects: 0.045600 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002654 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.11 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.704 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.09 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.6 MB.
-System memory in use after: 105.7 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2631.
-Total: 2.071000 ms (FindLiveObjects: 0.231200 ms CreateObjectMapping: 0.081900 ms MarkObjects: 1.720900 ms  DeleteObjects: 0.013700 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002537 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.25 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.735 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.12 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.6 MB.
-System memory in use after: 105.7 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2634.
-Total: 1.558900 ms (FindLiveObjects: 0.175200 ms CreateObjectMapping: 0.076600 ms MarkObjects: 1.294400 ms  DeleteObjects: 0.011900 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002456 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.11 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.716 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.10 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.6 MB.
-System memory in use after: 105.7 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2637.
-Total: 1.910400 ms (FindLiveObjects: 0.209100 ms CreateObjectMapping: 0.086600 ms MarkObjects: 1.601100 ms  DeleteObjects: 0.012600 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002692 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.38 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.765 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.10 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.6 MB.
-System memory in use after: 105.7 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2640.
-Total: 1.753700 ms (FindLiveObjects: 0.225200 ms CreateObjectMapping: 0.071000 ms MarkObjects: 1.443600 ms  DeleteObjects: 0.013100 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002847 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.06 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.699 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.11 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.6 MB.
-System memory in use after: 105.7 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2643.
-Total: 2.091800 ms (FindLiveObjects: 0.351500 ms CreateObjectMapping: 0.075300 ms MarkObjects: 1.652000 ms  DeleteObjects: 0.012500 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.003213 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.07 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.712 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.09 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.6 MB.
-System memory in use after: 105.7 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2646.
-Total: 1.792300 ms (FindLiveObjects: 0.185800 ms CreateObjectMapping: 0.067800 ms MarkObjects: 1.525600 ms  DeleteObjects: 0.012400 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002522 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.18 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.768 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.13 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.6 MB.
-System memory in use after: 105.7 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2649.
-Total: 1.895100 ms (FindLiveObjects: 0.283600 ms CreateObjectMapping: 0.099400 ms MarkObjects: 1.498100 ms  DeleteObjects: 0.013300 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.003031 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.14 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.717 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.10 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.6 MB.
-System memory in use after: 105.7 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2652.
-Total: 1.896100 ms (FindLiveObjects: 0.234600 ms CreateObjectMapping: 0.128100 ms MarkObjects: 1.516600 ms  DeleteObjects: 0.015600 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002810 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.18 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.738 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.18 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.6 MB.
-System memory in use after: 105.7 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2655.
-Total: 1.677900 ms (FindLiveObjects: 0.214500 ms CreateObjectMapping: 0.074300 ms MarkObjects: 1.375300 ms  DeleteObjects: 0.013100 ms)
-
-========================================================================
-Received Import Request.
-  Time since last request: 2182.171916 seconds.
-  path: Assets/Scenes/TitleScene.unity
-  artifactKey: Guid(63f34e354ce4f5a4c9cab5ca9e05533c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scenes/TitleScene.unity using Guid(63f34e354ce4f5a4c9cab5ca9e05533c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '90447b2df17fc88d27f7e9fefefd5b74') in 0.009777 seconds
-  Import took 0.017143 seconds .
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002791 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.18 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.762 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.14 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.6 MB.
-System memory in use after: 105.8 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2658.
-Total: 1.654100 ms (FindLiveObjects: 0.243800 ms CreateObjectMapping: 0.067400 ms MarkObjects: 1.329700 ms  DeleteObjects: 0.012500 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002790 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.36 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.768 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.10 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.7 MB.
-System memory in use after: 105.8 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2661.
-Total: 2.113700 ms (FindLiveObjects: 0.195200 ms CreateObjectMapping: 0.075000 ms MarkObjects: 1.829400 ms  DeleteObjects: 0.013300 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002390 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.06 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.732 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.10 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.7 MB.
-System memory in use after: 105.8 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2664.
-Total: 1.664400 ms (FindLiveObjects: 0.176600 ms CreateObjectMapping: 0.065400 ms MarkObjects: 1.408000 ms  DeleteObjects: 0.013800 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002955 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.12 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.702 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.11 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.7 MB.
-System memory in use after: 105.8 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2667.
-Total: 2.040400 ms (FindLiveObjects: 0.240400 ms CreateObjectMapping: 0.080300 ms MarkObjects: 1.705800 ms  DeleteObjects: 0.013200 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002497 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.07 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.709 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.12 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.7 MB.
-System memory in use after: 105.8 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2670.
-Total: 1.819500 ms (FindLiveObjects: 0.197600 ms CreateObjectMapping: 0.064200 ms MarkObjects: 1.519900 ms  DeleteObjects: 0.037100 ms)
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002561 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.25 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.744 seconds
+- Completed reload, in  0.726 seconds
 Platform modules already initialized, skipping
 Refreshing native plugins compatible for Editor in 1.17 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.7 MB.
-System memory in use after: 105.8 MB.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.5 MB.
+System memory in use after: 102.6 MB.
 
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2673.
-Total: 1.968900 ms (FindLiveObjects: 0.233900 ms CreateObjectMapping: 0.111800 ms MarkObjects: 1.609700 ms  DeleteObjects: 0.012600 ms)
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2582.
+Total: 1.709900 ms (FindLiveObjects: 0.200900 ms CreateObjectMapping: 0.079000 ms MarkObjects: 1.417100 ms  DeleteObjects: 0.012200 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 574.401900 seconds.
+  path: Assets/Scripts/Card Abilities/Ability Classes/CardAbility.cs
+  artifactKey: Guid(abcaa1592c7f5f9488545d1d034ab71a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Card Abilities/Ability Classes/CardAbility.cs using Guid(abcaa1592c7f5f9488545d1d034ab71a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd8aec1a5fa13548df73ccff12d63c9bd') in 0.003951 seconds
+  Import took 0.010684 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000239 seconds.
+  path: Assets/Scripts/Card Abilities/Ability Classes/AbilityTrigger.cs
+  artifactKey: Guid(412c9dcfd26d235459d17a03f8ba81c1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Card Abilities/Ability Classes/AbilityTrigger.cs using Guid(412c9dcfd26d235459d17a03f8ba81c1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dc0ff4a00c5314f2f2c5025313f1e8b2') in 0.001426 seconds
+  Import took 0.005498 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.002463 seconds.
+Registered in 0.002421 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.47 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 1.65 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.738 seconds
+- Completed reload, in  0.749 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.99 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.5 MB.
+System memory in use after: 102.6 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2585.
+Total: 2.392200 ms (FindLiveObjects: 0.378300 ms CreateObjectMapping: 0.131900 ms MarkObjects: 1.862300 ms  DeleteObjects: 0.017900 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 226.511127 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/(Silence)_ResetStats_IfResolves_RemoveAllButNegativeAbilities.asset
+  artifactKey: Guid(49d842d724bd5324597f9ee4a8e32b15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/(Silence)_ResetStats_IfResolves_RemoveAllButNegativeAbilities.asset using Guid(49d842d724bd5324597f9ee4a8e32b15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5c538fd84b63f7e4d20e22c1365b0f2b') in 0.016820 seconds
+  Import took 0.022405 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 61.199581 seconds.
+  path: Assets/Scripts/Effects/Effect Classes/Effect Types/RemoveAbilityEffect.cs
+  artifactKey: Guid(3f3157ea15b0cf341bb27506b35eee1e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Classes/Effect Types/RemoveAbilityEffect.cs using Guid(3f3157ea15b0cf341bb27506b35eee1e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5bb0f66d14faab83e562bea4e9fa9ca8') in 0.002059 seconds
+  Import took 0.009223 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000915 seconds.
+  path: Assets/Scripts/Effects/Effect Classes/Effect Types/RemoveAbilityEffect.cs
+  artifactKey: Guid(3f3157ea15b0cf341bb27506b35eee1e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Classes/Effect Types/RemoveAbilityEffect.cs using Guid(3f3157ea15b0cf341bb27506b35eee1e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5bb0f66d14faab83e562bea4e9fa9ca8') in 0.002011 seconds
+  Import took 0.005359 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002351 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.07 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.707 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.23 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.5 MB.
+System memory in use after: 102.6 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2588.
+Total: 1.824000 ms (FindLiveObjects: 0.276700 ms CreateObjectMapping: 0.078500 ms MarkObjects: 1.453900 ms  DeleteObjects: 0.014100 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 186.871116 seconds.
+  path: Assets/Scripts/Effects/Effect Classes/Effect Types/GiveAbilityEffect.cs
+  artifactKey: Guid(c257f6645b4aa02429ead13f1b40809a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Classes/Effect Types/GiveAbilityEffect.cs using Guid(c257f6645b4aa02429ead13f1b40809a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bfdf2170f56fa790fc20a1b9673ce353') in 0.004521 seconds
+  Import took 0.009778 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002640 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.08 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.752 seconds
 Platform modules already initialized, skipping
 Refreshing native plugins compatible for Editor in 1.12 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.7 MB.
-System memory in use after: 105.8 MB.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.5 MB.
+System memory in use after: 102.6 MB.
 
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2676.
-Total: 2.454600 ms (FindLiveObjects: 0.187900 ms CreateObjectMapping: 0.069700 ms MarkObjects: 2.180500 ms  DeleteObjects: 0.015500 ms)
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2591.
+Total: 1.820800 ms (FindLiveObjects: 0.176800 ms CreateObjectMapping: 0.075300 ms MarkObjects: 1.553900 ms  DeleteObjects: 0.013800 ms)
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.002489 seconds.
+Registered in 0.002481 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.12 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.761 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.11 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.5 MB.
+System memory in use after: 102.6 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2594.
+Total: 2.469700 ms (FindLiveObjects: 0.383900 ms CreateObjectMapping: 0.095600 ms MarkObjects: 1.974600 ms  DeleteObjects: 0.014700 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 964.511708 seconds.
+  path: Assets/Scenes/TitleScene.unity
+  artifactKey: Guid(63f34e354ce4f5a4c9cab5ca9e05533c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/TitleScene.unity using Guid(63f34e354ce4f5a4c9cab5ca9e05533c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '026eba79d4629e17f5634bed57bd9e5a') in 0.011909 seconds
+  Import took 0.019128 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 50.821751 seconds.
+  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/TurnEnd_Heal1_ALLPU_Self.asset
+  artifactKey: Guid(206e7f2072563e143b22c2e0762b8c76) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/TurnEnd_Heal1_ALLPU_Self.asset using Guid(206e7f2072563e143b22c2e0762b8c76) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '567274eae42f845e58a37ae20b3d92bb') in 0.007400 seconds
+  Import took 0.012307 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 24.174108 seconds.
+  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/TurnEnd_Heal{Source_Power}_ALLPU_Self.asset
+  artifactKey: Guid(206e7f2072563e143b22c2e0762b8c76) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/TurnEnd_Heal{Source_Power}_ALLPU_Self.asset using Guid(206e7f2072563e143b22c2e0762b8c76) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '09e6b6216219ff0e25e98b9d987ed7e6') in 0.003400 seconds
+  Import took 0.008436 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 26.784881 seconds.
+  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/TurnEnd_Heal{Source_Power}_ALLPU_Self.asset
+  artifactKey: Guid(206e7f2072563e143b22c2e0762b8c76) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/TurnEnd_Heal{Source_Power}_ALLPU_Self.asset using Guid(206e7f2072563e143b22c2e0762b8c76) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '427172c8af1adf2c96cc0042412f8216') in 0.003251 seconds
+  Import took 0.007277 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 53.465681 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Heal/Heal1_ALLPU_Self.asset
+  artifactKey: Guid(6552225ce15e7b0458ec01cf22871b10) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Heal/Heal1_ALLPU_Self.asset using Guid(6552225ce15e7b0458ec01cf22871b10) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b565e06ec08d400b7e46ff45af6c6fc2') in 0.006307 seconds
+  Import took 0.010394 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 6.187745 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Heal/Heal{Source_Power}_ALLPU_Self.asset
+  artifactKey: Guid(6552225ce15e7b0458ec01cf22871b10) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Heal/Heal{Source_Power}_ALLPU_Self.asset using Guid(6552225ce15e7b0458ec01cf22871b10) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e8122991251a208e23caa82aa28453a4') in 0.003126 seconds
+  Import took 0.006812 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 11.532540 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Heal/Heal{Source_Power}_ALLPU_Self.asset
+  artifactKey: Guid(6552225ce15e7b0458ec01cf22871b10) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/Heal/Heal{Source_Power}_ALLPU_Self.asset using Guid(6552225ce15e7b0458ec01cf22871b10) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fd381a1f06c094a3d504737b9d4097a6') in 0.002850 seconds
+  Import took 0.007164 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 6.466990 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/Heal/Heal_1 1.asset
+  artifactKey: Guid(b84579b6d9f41514ea019c095173432f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/Heal/Heal_1 1.asset using Guid(b84579b6d9f41514ea019c095173432f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7290e8a6738f29c39b2b87232c71506a') in 0.003279 seconds
+  Import took 0.007392 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 6.520152 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/Heal/Heal_{Source_Power}.asset
+  artifactKey: Guid(b84579b6d9f41514ea019c095173432f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/Heal/Heal_{Source_Power}.asset using Guid(b84579b6d9f41514ea019c095173432f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c7a2b9b08a23b65dd3fab014d56ad2d1') in 0.002732 seconds
+  Import took 0.006826 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 5.222185 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/Heal/Heal_{Source_Power}.asset
+  artifactKey: Guid(b84579b6d9f41514ea019c095173432f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/Heal/Heal_{Source_Power}.asset using Guid(b84579b6d9f41514ea019c095173432f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '559247f08864bfc3221a2b216f9e6040') in 0.002560 seconds
+  Import took 0.007138 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 33.473957 seconds.
+  path: Assets/Resources/Cards_Units/Common/Mutants/Regenerative Symbiote.asset
+  artifactKey: Guid(c594e0bef27dc5a4f84bde1a330f227b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards_Units/Common/Mutants/Regenerative Symbiote.asset using Guid(c594e0bef27dc5a4f84bde1a330f227b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6fd4e7ddc82f95f85712e541760689fd') in 0.010690 seconds
+  Import took 0.014580 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002655 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.31 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.778 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.10 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.6 MB.
+System memory in use after: 102.7 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2597.
+Total: 1.834200 ms (FindLiveObjects: 0.271000 ms CreateObjectMapping: 0.077500 ms MarkObjects: 1.468500 ms  DeleteObjects: 0.016100 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 239.831521 seconds.
+  path: Assets/Resources/Cards_Units/Common/Mutants/Regenerative Symbiote.asset
+  artifactKey: Guid(c594e0bef27dc5a4f84bde1a330f227b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards_Units/Common/Mutants/Regenerative Symbiote.asset using Guid(c594e0bef27dc5a4f84bde1a330f227b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bd6a9935f5b448db47b05535e1e86471') in 0.022254 seconds
+  Import took 0.026887 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1646.520966 seconds.
+  path: Assets/Audio/Cards/Units/Recruit Units/Mutants/Monstrous Mutant
+  artifactKey: Guid(6cd58aa5636b3bf4897f29725188dbb0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Audio/Cards/Units/Recruit Units/Mutants/Monstrous Mutant using Guid(6cd58aa5636b3bf4897f29725188dbb0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0a35556184042e75a738dd414dbb873d') in 0.005719 seconds
+  Import took 0.010629 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 12.621996 seconds.
+  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/TurnEnd_Heal{Source_Power}_PH.asset
+  artifactKey: Guid(67b49ccafe0d8ee49a2808adf5a2a11d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/TurnEnd_Heal{Source_Power}_PH.asset using Guid(67b49ccafe0d8ee49a2808adf5a2a11d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c6ebe94aedaa7caeefd179cf6218c7d9') in 0.004410 seconds
+  Import took 0.009686 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 17.678416 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hero/Heal2_PH 1.asset
+  artifactKey: Guid(3fa3f87ccc1790c44b02861f89ff275e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hero/Heal2_PH 1.asset using Guid(3fa3f87ccc1790c44b02861f89ff275e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '099271f88e34af2c9d4e63541ff6b636') in 0.003596 seconds
+  Import took 0.007401 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 8.421494 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hero/Heal{Source_Power}_PH.asset
+  artifactKey: Guid(3fa3f87ccc1790c44b02861f89ff275e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hero/Heal{Source_Power}_PH.asset using Guid(3fa3f87ccc1790c44b02861f89ff275e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a775028f31343b590714f92f07ae23a0') in 0.002706 seconds
+  Import took 0.007029 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 8.407545 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hero/Heal{Source_Power}_PH.asset
+  artifactKey: Guid(3fa3f87ccc1790c44b02861f89ff275e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hero/Heal{Source_Power}_PH.asset using Guid(3fa3f87ccc1790c44b02861f89ff275e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e2e5d3641f38842328f37cd1084408b7') in 0.002422 seconds
+  Import took 0.006670 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.404724 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/Heal/Heal_2.asset
+  artifactKey: Guid(262140fc77f3e814a8cbc209bcf49201) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/Heal/Heal_2.asset using Guid(262140fc77f3e814a8cbc209bcf49201) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '870c84eafbb3e286b6869403fdc83071') in 0.005500 seconds
+  Import took 0.009629 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.655148 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/Heal/Heal_2 1.asset
+  artifactKey: Guid(076c17009a32d264397cbae11083824b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/Heal/Heal_2 1.asset using Guid(076c17009a32d264397cbae11083824b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7337d39f71750787f52d56768a7f5a09') in 0.002438 seconds
+  Import took 0.006734 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 28.385437 seconds.
+  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/TurnEnd_Heal{Source_Power}_PH.asset
+  artifactKey: Guid(67b49ccafe0d8ee49a2808adf5a2a11d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/TurnEnd_Heal{Source_Power}_PH.asset using Guid(67b49ccafe0d8ee49a2808adf5a2a11d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7157a617c5ace2887365775607483d1c') in 0.003647 seconds
+  Import took 0.010656 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001825 seconds.
+  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/TurnEnd_Heal{Source_Power}_PH.asset
+  artifactKey: Guid(67b49ccafe0d8ee49a2808adf5a2a11d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/TurnEnd_Heal{Source_Power}_PH.asset using Guid(67b49ccafe0d8ee49a2808adf5a2a11d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7157a617c5ace2887365775607483d1c') in 0.003334 seconds
+  Import took 0.007137 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 11.881239 seconds.
+  path: Assets/Scenes/TitleScene.unity
+  artifactKey: Guid(63f34e354ce4f5a4c9cab5ca9e05533c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/TitleScene.unity using Guid(63f34e354ce4f5a4c9cab5ca9e05533c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2bd167c85bc04bb2e4ace678aef463c8') in 0.002620 seconds
+  Import took 0.009432 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002816 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
 Refreshing native plugins compatible for Editor in 1.06 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.722 seconds
+- Completed reload, in  0.776 seconds
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.93 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 1.65 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.7 MB.
-System memory in use after: 105.8 MB.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.6 MB.
+System memory in use after: 102.7 MB.
 
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2679.
-Total: 2.898000 ms (FindLiveObjects: 0.284000 ms CreateObjectMapping: 0.195800 ms MarkObjects: 2.400600 ms  DeleteObjects: 0.015900 ms)
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2600.
+Total: 2.208700 ms (FindLiveObjects: 0.368900 ms CreateObjectMapping: 0.127900 ms MarkObjects: 1.691600 ms  DeleteObjects: 0.018100 ms)
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.002688 seconds.
+Registered in 0.002531 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.19 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 1.12 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.777 seconds
+- Completed reload, in  0.708 seconds
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.11 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 1.12 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.7 MB.
-System memory in use after: 105.8 MB.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.6 MB.
+System memory in use after: 102.7 MB.
 
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2682.
-Total: 1.698500 ms (FindLiveObjects: 0.213500 ms CreateObjectMapping: 0.090600 ms MarkObjects: 1.374600 ms  DeleteObjects: 0.018700 ms)
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2603.
+Total: 2.187800 ms (FindLiveObjects: 0.402600 ms CreateObjectMapping: 0.133200 ms MarkObjects: 1.611300 ms  DeleteObjects: 0.039900 ms)
 
 ========================================================================
 Received Import Request.
-  Time since last request: 4606.422238 seconds.
-  path: Assets/Scripts/Cards/Card Classes/SkillCard.cs
-  artifactKey: Guid(befaa541343256949b44a33f6e1a5f50) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Cards/Card Classes/SkillCard.cs using Guid(befaa541343256949b44a33f6e1a5f50) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '33d420b36e7c7bac47575bae92b9001d') in 0.062087 seconds
-  Import took 0.140895 seconds .
+  Time since last request: 375.160427 seconds.
+  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/TurnEnd_Heal{Source_Power}_PH.asset
+  artifactKey: Guid(67b49ccafe0d8ee49a2808adf5a2a11d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/TurnEnd_Heal{Source_Power}_PH.asset using Guid(67b49ccafe0d8ee49a2808adf5a2a11d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '386a69c4d7e0bb6083f3e2a52283bb98') in 0.013226 seconds
+  Import took 0.021259 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 122.405154 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Death Notice 1.asset
-  artifactKey: Guid(1f7ee14bc2e76094694e0483af68c3b7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Death Notice 1.asset using Guid(1f7ee14bc2e76094694e0483af68c3b7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dbadc9f94c2077afd33efbc967acd02e') in 0.047980 seconds
-  Import took 0.054395 seconds .
+  Time since last request: 10.364068 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hero/Heal{Source_Power}_PH.asset
+  artifactKey: Guid(3fa3f87ccc1790c44b02861f89ff275e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hero/Heal{Source_Power}_PH.asset using Guid(3fa3f87ccc1790c44b02861f89ff275e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '66af235fc1bfc8d27c9f1874521a6422') in 0.003025 seconds
+  Import took 0.007290 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 149.606439 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Death Notice 1.asset
-  artifactKey: Guid(1f7ee14bc2e76094694e0483af68c3b7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Death Notice 1.asset using Guid(1f7ee14bc2e76094694e0483af68c3b7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4ca12bf9f0253d97f32a7823e36b95f5') in 0.020097 seconds
-  Import took 0.026236 seconds .
+  Time since last request: 141.305845 seconds.
+  path: Assets/Resources/Cards_Units/Common/Mutants/Monstrous Mutant.asset
+  artifactKey: Guid(05a12a5f30765cb45b8b767bf76eedf4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards_Units/Common/Mutants/Monstrous Mutant.asset using Guid(05a12a5f30765cb45b8b767bf76eedf4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c798f08706ed3cf33b7d7fbd051b21f9') in 0.010235 seconds
+  Import took 0.014170 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 3.721755 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Death Notice 2.asset
-  artifactKey: Guid(36149daeffaf55e4297a48fb8ff111dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Death Notice 2.asset using Guid(36149daeffaf55e4297a48fb8ff111dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ffc520ce399e2176f5d1258ad59358d1') in 0.010393 seconds
-  Import took 0.016554 seconds .
+  Time since last request: 19.530171 seconds.
+  path: Assets/Resources/Cards_Units/Common/Mutants/Sprelik Rejuvenator.asset
+  artifactKey: Guid(05a12a5f30765cb45b8b767bf76eedf4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards_Units/Common/Mutants/Sprelik Rejuvenator.asset using Guid(05a12a5f30765cb45b8b767bf76eedf4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '60ceef7a2e2e3ccc7d2481e80b2981d0') in 0.008440 seconds
+  Import took 0.012787 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 8.728425 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Distortion Field 1.asset
-  artifactKey: Guid(36149daeffaf55e4297a48fb8ff111dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Distortion Field 1.asset using Guid(36149daeffaf55e4297a48fb8ff111dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c61aa2aa27afe575bab3939ccc16f6de') in 0.011253 seconds
-  Import took 0.017282 seconds .
+  Time since last request: 5.487721 seconds.
+  path: Assets/Sprites/Cards/Unit Cards/Common/Mutants/Sprelik_Rejuvenator.PSD
+  artifactKey: Guid(1b2cbc90f829b0d41a7e3399b3b201e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/Cards/Unit Cards/Common/Mutants/Sprelik_Rejuvenator.PSD using Guid(1b2cbc90f829b0d41a7e3399b3b201e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bb4769b600b819bac8aa775afb250401') in 0.070341 seconds
+  Import took 0.074015 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 3.017393 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Distortion Field.asset
-  artifactKey: Guid(f515cd78841c1854496a4803bfd37458) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Distortion Field.asset using Guid(f515cd78841c1854496a4803bfd37458) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cfc4a446e4ef680afa546bdb4d597397') in 0.015135 seconds
-  Import took 0.021912 seconds .
+  Time since last request: 5.172529 seconds.
+  path: Assets/Audio/Cards/Units/Recruit Units/Mutants/Sprelik_Rejuvenator
+  artifactKey: Guid(6cd58aa5636b3bf4897f29725188dbb0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Audio/Cards/Units/Recruit Units/Mutants/Sprelik_Rejuvenator using Guid(6cd58aa5636b3bf4897f29725188dbb0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e21abe6a552c99098f0ca95683198990') in 0.002576 seconds
+  Import took 0.006831 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 32.025940 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Distortion Field 1.asset
-  artifactKey: Guid(36149daeffaf55e4297a48fb8ff111dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Distortion Field 1.asset using Guid(36149daeffaf55e4297a48fb8ff111dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1c9fa4a30cdb2802cf31b0b13c42ea50') in 0.010372 seconds
-  Import took 0.016212 seconds .
+  Time since last request: 16.127953 seconds.
+  path: Assets/Resources/Cards_Units/Common/Mutants/Sprelik Rejuvenator.asset
+  artifactKey: Guid(05a12a5f30765cb45b8b767bf76eedf4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards_Units/Common/Mutants/Sprelik Rejuvenator.asset using Guid(05a12a5f30765cb45b8b767bf76eedf4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c6599102c98a016ab1f2f939ad2d352c') in 0.007983 seconds
+  Import took 0.011656 seconds .
 
 ========================================================================
-Received Import Request.
-  Time since last request: 4.059691 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Distortion Field 1.asset
-  artifactKey: Guid(36149daeffaf55e4297a48fb8ff111dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Distortion Field 1.asset using Guid(36149daeffaf55e4297a48fb8ff111dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '37bf36ac0806de0a3ec5ac8dd4646788') in 0.008545 seconds
-  Import took 0.014593 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 11.228762 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Distortion Field 2.asset
-  artifactKey: Guid(5f420da6e6684fc4e90c349d5e66cca0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Distortion Field 2.asset using Guid(5f420da6e6684fc4e90c349d5e66cca0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '471aabb5e9e8815cc81ce7fdce012723') in 0.009518 seconds
-  Import took 0.015138 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 3.676751 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Flashbang 1.asset
-  artifactKey: Guid(5f420da6e6684fc4e90c349d5e66cca0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Flashbang 1.asset using Guid(5f420da6e6684fc4e90c349d5e66cca0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bdf3529a56a97454c6bf125a3aabf99a') in 0.009744 seconds
-  Import took 0.015461 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 13.008069 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Flashbang 1.asset
-  artifactKey: Guid(5f420da6e6684fc4e90c349d5e66cca0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Flashbang 1.asset using Guid(5f420da6e6684fc4e90c349d5e66cca0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c6ae94cecef3d8c61460715a2224bff7') in 0.008925 seconds
-  Import took 0.015027 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 9.414659 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Flashbang 1.asset
-  artifactKey: Guid(5f420da6e6684fc4e90c349d5e66cca0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Flashbang 1.asset using Guid(5f420da6e6684fc4e90c349d5e66cca0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9e9bda7e87a79c5dec6a77c2c6e35715') in 0.009424 seconds
-  Import took 0.014383 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 44.891744 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Distortion Field 1.asset
-  artifactKey: Guid(36149daeffaf55e4297a48fb8ff111dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Distortion Field 1.asset using Guid(36149daeffaf55e4297a48fb8ff111dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8ad13410eca98f838a15405aad12b589') in 0.008311 seconds
-  Import took 0.029711 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 11.290140 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Flashbang 2.asset
-  artifactKey: Guid(7452fc336c0342344b6ff9bbd9d5ecae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Flashbang 2.asset using Guid(7452fc336c0342344b6ff9bbd9d5ecae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e2d1ead1d4a5193c84366dff09bc7ae0') in 0.014139 seconds
-  Import took 0.020661 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 6.495571 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Inevitable Demise 1.asset
-  artifactKey: Guid(7452fc336c0342344b6ff9bbd9d5ecae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Inevitable Demise 1.asset using Guid(7452fc336c0342344b6ff9bbd9d5ecae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '247c4e922f429cbe4c192307fb1a802c') in 0.011357 seconds
-  Import took 0.017002 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 42.186240 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Inevitable Demise 1.asset
-  artifactKey: Guid(7452fc336c0342344b6ff9bbd9d5ecae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Inevitable Demise 1.asset using Guid(7452fc336c0342344b6ff9bbd9d5ecae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9bb31f7d5a6b4a5c6e17cb6264d6bfb7') in 0.011230 seconds
-  Import took 0.018614 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 47.543196 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Inevitable Demise 1.asset
-  artifactKey: Guid(7452fc336c0342344b6ff9bbd9d5ecae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Inevitable Demise 1.asset using Guid(7452fc336c0342344b6ff9bbd9d5ecae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd0d086161701d458e900e8ad2c439a0d') in 0.012626 seconds
-  Import took 0.018835 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 15.173706 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Inevitable Demise 2.asset
-  artifactKey: Guid(2167031474327c946b55e11762d19582) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Inevitable Demise 2.asset using Guid(2167031474327c946b55e11762d19582) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e5d9c5df1531810c7be80b24471fc646') in 0.012750 seconds
-  Import took 0.018717 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 4.701434 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Intimidation Tactics 1.asset
-  artifactKey: Guid(2167031474327c946b55e11762d19582) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Intimidation Tactics 1.asset using Guid(2167031474327c946b55e11762d19582) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd6550c7e5fd102db9807a9dde0133fa0') in 0.009600 seconds
-  Import took 0.016117 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 15.194562 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Intimidation Tactics 1.asset
-  artifactKey: Guid(2167031474327c946b55e11762d19582) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Intimidation Tactics 1.asset using Guid(2167031474327c946b55e11762d19582) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '93bafa8a9ee4782fb2727228c8277ed4') in 0.010869 seconds
-  Import took 0.015627 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 41.079409 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal1_WeakEU_Give_Poisoned.asset
-  artifactKey: Guid(c1fae37f496679a4d91cb6eed35b9e9a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal1_WeakEU_Give_Poisoned.asset using Guid(c1fae37f496679a4d91cb6eed35b9e9a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cdeed15a280f955885a05fc930ee6fcb') in 0.020002 seconds
-  Import took 0.025724 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 10.613677 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal1_WeakEU_IfResolves_Give_Poisoned.asset
-  artifactKey: Guid(c1fae37f496679a4d91cb6eed35b9e9a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal1_WeakEU_IfResolves_Give_Poisoned.asset using Guid(c1fae37f496679a4d91cb6eed35b9e9a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '46d3127f83622a9babcc9e11c334cc69') in 0.006577 seconds
-  Import took 0.012790 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 60.626176 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Intimidation Tactics 2.asset
-  artifactKey: Guid(c6da4fa5d0206b54491f4d913d0f2f0f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Intimidation Tactics 2.asset using Guid(c6da4fa5d0206b54491f4d913d0f2f0f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f6f6474cfec02c51cd58c652b7e0ad5e') in 0.012231 seconds
-  Import took 0.018558 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 10.387421 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Marked for Death 1.asset
-  artifactKey: Guid(c6da4fa5d0206b54491f4d913d0f2f0f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Marked for Death 1.asset using Guid(c6da4fa5d0206b54491f4d913d0f2f0f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a5311c01cfb5a20789d1ccb438bb8b2c') in 0.010010 seconds
-  Import took 0.015369 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 7.374571 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Marked for Death.asset
-  artifactKey: Guid(9c76934f1f401e041a837f4396ee1751) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Marked for Death.asset using Guid(9c76934f1f401e041a837f4396ee1751) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '678c73f687c6f1df3ad6252f2565a9d9') in 0.009864 seconds
-  Import took 0.020799 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 23.186662 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Marked for Death 1.asset
-  artifactKey: Guid(c6da4fa5d0206b54491f4d913d0f2f0f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Marked for Death 1.asset using Guid(c6da4fa5d0206b54491f4d913d0f2f0f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '40567cc3227b4f74df9d5b61746f3c00') in 0.009637 seconds
-  Import took 0.014357 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 15.063941 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Marked for Death 1.asset
-  artifactKey: Guid(c6da4fa5d0206b54491f4d913d0f2f0f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Marked for Death 1.asset using Guid(c6da4fa5d0206b54491f4d913d0f2f0f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6657d51b4879a15951cbda3e6a3bc80e') in 0.010533 seconds
-  Import took 0.017458 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 8.495322 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Marked for Death 1.asset
-  artifactKey: Guid(c6da4fa5d0206b54491f4d913d0f2f0f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Marked for Death 1.asset using Guid(c6da4fa5d0206b54491f4d913d0f2f0f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '27f65fc38827fdc85eb3257d2f6621ea') in 0.009253 seconds
-  Import took 0.015066 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 7.503079 seconds.
-  path: Assets/Sprites/Cards/Action Cards/Skills/Faydra/Marked_for_Death.png
-  artifactKey: Guid(355a6951bcd290b4280c4525211d49e0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Cards/Action Cards/Skills/Faydra/Marked_for_Death.png using Guid(355a6951bcd290b4280c4525211d49e0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8655f0a8be4be66d1026c73126f5bf15') in 0.075509 seconds
-  Import took 0.079964 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 19.854415 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg
-  artifactKey: Guid(d082f9d4f3cbdae499b41cc2ddb5bcb1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg using Guid(d082f9d4f3cbdae499b41cc2ddb5bcb1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '23defafb81eb767de4b18b7f14b71d75') in 0.002482 seconds
-  Import took 0.012023 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 5.371512 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Old Skills
-  artifactKey: Guid(379e5d51c2cf7d045af0a3a1c3712ff9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/Old Skills using Guid(379e5d51c2cf7d045af0a3a1c3712ff9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5e9ca0ca40ea81db4e80e04d42495429') in 0.002061 seconds
-  Import took 0.007110 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 5.259829 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/New Actions
-  artifactKey: Guid(379e5d51c2cf7d045af0a3a1c3712ff9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Faydra, Rogue Cyborg/New Actions using Guid(379e5d51c2cf7d045af0a3a1c3712ff9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0ba12f3e27debdbf0260f198e0af38b4') in 0.003211 seconds
-  Import took 0.007623 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 39.055687 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Coordinated Hit 1.asset
-  artifactKey: Guid(3ca1427935a65334b9320945fc5efcda) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Coordinated Hit 1.asset using Guid(3ca1427935a65334b9320945fc5efcda) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6e033c4b12b565bc50ec5245471de23c') in 0.003152 seconds
-  Import took 0.010034 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000566 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Coordinated Hit 1.asset
-  artifactKey: Guid(3ca1427935a65334b9320945fc5efcda) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Coordinated Hit 1.asset using Guid(3ca1427935a65334b9320945fc5efcda) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6e033c4b12b565bc50ec5245471de23c') in 0.002578 seconds
-  Import took 0.007818 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 34.987779 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Coordinated Hit 1.asset
-  artifactKey: Guid(3ca1427935a65334b9320945fc5efcda) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Coordinated Hit 1.asset using Guid(3ca1427935a65334b9320945fc5efcda) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '38770fcc67b34ca3b3b64d358175076c') in 0.004904 seconds
-  Import took 0.010410 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 33.796375 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Coordinated Hit 2.asset
-  artifactKey: Guid(52d5ccfbf2f680146af18024f829a6cd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Coordinated Hit 2.asset using Guid(52d5ccfbf2f680146af18024f829a6cd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '584f3842578bc3162edb6fccfab03a31') in 0.008384 seconds
-  Import took 0.014861 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 3.552105 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Deadly Aim 1.asset
-  artifactKey: Guid(52d5ccfbf2f680146af18024f829a6cd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Deadly Aim 1.asset using Guid(52d5ccfbf2f680146af18024f829a6cd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '16f7b59a451146128e7f3ea2d7118db9') in 0.011168 seconds
-  Import took 0.015659 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 21.088827 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Deadly Aim 1.asset
-  artifactKey: Guid(52d5ccfbf2f680146af18024f829a6cd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Deadly Aim 1.asset using Guid(52d5ccfbf2f680146af18024f829a6cd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f1cb7b0739665dcdc16c03daf3c363d8') in 0.007675 seconds
-  Import took 0.027185 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 39.452874 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Deadly Aim 2.asset
-  artifactKey: Guid(2601c084585ead344bdaed16ef950c84) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Deadly Aim 2.asset using Guid(2601c084585ead344bdaed16ef950c84) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2d112c1e1d36b855d532958a0e03c0ca') in 0.010732 seconds
-  Import took 0.016094 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 9.173714 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Explosive Aggression 1.asset
-  artifactKey: Guid(2601c084585ead344bdaed16ef950c84) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Explosive Aggression 1.asset using Guid(2601c084585ead344bdaed16ef950c84) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2408e5a6e9a4a4fdbbf37e8c99f3bcd9') in 0.009161 seconds
-  Import took 0.015149 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 45.057645 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Coordinated Hit 1.asset
-  artifactKey: Guid(3ca1427935a65334b9320945fc5efcda) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Coordinated Hit 1.asset using Guid(3ca1427935a65334b9320945fc5efcda) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '93922408ba03229ec97ab48085d8f899') in 0.008571 seconds
-  Import took 0.029396 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 2.355677 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Deadly Aim 1.asset
-  artifactKey: Guid(52d5ccfbf2f680146af18024f829a6cd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Deadly Aim 1.asset using Guid(52d5ccfbf2f680146af18024f829a6cd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f8b5e246c19e35c96912dc61f494eeb5') in 0.009415 seconds
-  Import took 0.014409 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 28.034163 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plusDoubleplusDouble_2turns.asset
-  artifactKey: Guid(a02367b499696204c88066a8128c0bde) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plusDoubleplusDouble_2turns.asset using Guid(a02367b499696204c88066a8128c0bde) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a8099c03eaa6eea3c76ad8532aaace9e') in 0.004894 seconds
-  Import took 0.012374 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.001286 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plusDoubleplusDouble_2turns.asset
-  artifactKey: Guid(a02367b499696204c88066a8128c0bde) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/GiveSelf_plusDoubleplusDouble_2turns.asset using Guid(a02367b499696204c88066a8128c0bde) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a8099c03eaa6eea3c76ad8532aaace9e') in 0.003456 seconds
-  Import took 0.008458 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 39.310993 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Rapid Deployment.asset
-  artifactKey: Guid(3f28ac5e38cd32d4a843f13276b06038) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Rapid Deployment.asset using Guid(3f28ac5e38cd32d4a843f13276b06038) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c2d417d814a040b1a2e13ca0f9d36a2b') in 0.029279 seconds
-  Import took 0.035075 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 26.401330 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Explosive Aggression 2.asset
-  artifactKey: Guid(9e0ceaa2f870f6141850308cfb33e18c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Explosive Aggression 2.asset using Guid(9e0ceaa2f870f6141850308cfb33e18c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5573e137a4db798947280f50893d5ed0') in 0.009982 seconds
-  Import took 0.015277 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 5.102469 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Rapid Deployment 1.asset
-  artifactKey: Guid(9e0ceaa2f870f6141850308cfb33e18c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Rapid Deployment 1.asset using Guid(9e0ceaa2f870f6141850308cfb33e18c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9f201ccffcf4e92b91c27fc7a11c157f') in 0.009603 seconds
-  Import took 0.014718 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 15.341852 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Rapid Deployment 1.asset
-  artifactKey: Guid(9e0ceaa2f870f6141850308cfb33e18c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Rapid Deployment 1.asset using Guid(9e0ceaa2f870f6141850308cfb33e18c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7dcb9c66d53cc1119928baf7fe256a09') in 0.008327 seconds
-  Import took 0.013819 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 40.541955 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Rapid Deployment 1.asset
-  artifactKey: Guid(9e0ceaa2f870f6141850308cfb33e18c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Rapid Deployment 1.asset using Guid(9e0ceaa2f870f6141850308cfb33e18c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3f5d8c42cad89f9b49c762259ee28d06') in 0.011877 seconds
-  Import took 0.017776 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 15.494956 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Rapid Deployment 2.asset
-  artifactKey: Guid(131cf432095eda5409fdb5983491f670) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Rapid Deployment 2.asset using Guid(131cf432095eda5409fdb5983491f670) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd52c37ba88e8082e6411d98f0e3b3c81') in 0.010404 seconds
-  Import took 0.016799 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 8.207412 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Takedown 1.asset
-  artifactKey: Guid(131cf432095eda5409fdb5983491f670) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Takedown 1.asset using Guid(131cf432095eda5409fdb5983491f670) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2a67d2ac89c17f37ed826905f711b020') in 0.009925 seconds
-  Import took 0.015746 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 2.608907 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0005.png
-  artifactKey: Guid(cdbc99e4a2d0ddc46a306a83af6b7d55) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0005.png using Guid(cdbc99e4a2d0ddc46a306a83af6b7d55) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8e3b6acd3f62d06e5c8319b359296ef0') in 0.028519 seconds
-  Import took 0.033268 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000427 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0017.png
-  artifactKey: Guid(8d93204f8a7c7764199db206e4bbd0a5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0017.png using Guid(8d93204f8a7c7764199db206e4bbd0a5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4701fe3c43823f5dd6abd5a7f8f188af') in 0.017510 seconds
-  Import took 0.022448 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000223 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames_Clear/Ranged_Fire0011.png
-  artifactKey: Guid(5ba172862f78f8d43af02385c475e23e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames_Clear/Ranged_Fire0011.png using Guid(5ba172862f78f8d43af02385c475e23e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5abe9fedae2fdba0d5262fb719b02b1b') in 0.012783 seconds
-  Import took 0.017339 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000232 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames_Clear/Ranged_Fire0006.png
-  artifactKey: Guid(2b9883b88dfa6bb44a8b821b3626d832) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames_Clear/Ranged_Fire0006.png using Guid(2b9883b88dfa6bb44a8b821b3626d832) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fe57b626604477cb6c685208ae0bc54d') in 0.012878 seconds
-  Import took 0.018408 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000258 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames_Clear/Ranged_Fire0008.png
-  artifactKey: Guid(f850a488fcd9f324c8f2196e514ad772) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames_Clear/Ranged_Fire0008.png using Guid(f850a488fcd9f324c8f2196e514ad772) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fa8dd5fc858f28c4eba788dd6974a040') in 0.013091 seconds
-  Import took 0.018763 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000305 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames_Clear/Ranged_Fire0012.png
-  artifactKey: Guid(c9f86e8ca588a504f9c983cb293d7ab1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames_Clear/Ranged_Fire0012.png using Guid(c9f86e8ca588a504f9c983cb293d7ab1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '696ba19b0c432c1d354c560597dee300') in 0.015913 seconds
-  Import took 0.021664 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000236 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames_Clear/Ranged_Fire0013.png
-  artifactKey: Guid(9db63b9d8938d9040961d4a6374b8552) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames_Clear/Ranged_Fire0013.png using Guid(9db63b9d8938d9040961d4a6374b8552) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7e14b03128752d5e6ff0f79fa508ec99') in 0.015580 seconds
-  Import took 0.019625 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000445 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0009.png
-  artifactKey: Guid(fc9071d622cc8a942b10f11a65415954) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0009.png using Guid(fc9071d622cc8a942b10f11a65415954) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6a03776e872fdb89195ed82195c3b8d2') in 0.016592 seconds
-  Import took 0.021727 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000289 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames_Clear/Ranged_Fire0016.png
-  artifactKey: Guid(c5e4547d6e09b394a934e235dd33d14c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames_Clear/Ranged_Fire0016.png using Guid(c5e4547d6e09b394a934e235dd33d14c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '16711e913654baa4835ded804ae7ecd3') in 0.015509 seconds
-  Import took 0.020379 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000213 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0010.png
-  artifactKey: Guid(555a372a30f01e348b443e29e4898d22) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0010.png using Guid(555a372a30f01e348b443e29e4898d22) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '653b9400525827b14fe90798d51fa653') in 0.024172 seconds
-  Import took 0.028480 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000218 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0008.png
-  artifactKey: Guid(607a6b830643a154691a202d0644d590) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0008.png using Guid(607a6b830643a154691a202d0644d590) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '45916f770f13bd92d5a5385bb5547c1e') in 0.020513 seconds
-  Import took 0.025946 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000307 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0005.png
-  artifactKey: Guid(cdbc99e4a2d0ddc46a306a83af6b7d55) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0005.png using Guid(cdbc99e4a2d0ddc46a306a83af6b7d55) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8e3b6acd3f62d06e5c8319b359296ef0') in 0.013474 seconds
-  Import took 0.018925 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000250 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0016.png
-  artifactKey: Guid(862c4d29f8b063a48af568706cdd0d53) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0016.png using Guid(862c4d29f8b063a48af568706cdd0d53) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '47ff8cc712da55fda17174e7a83d96b1') in 0.017994 seconds
-  Import took 0.022492 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000250 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames_Clear/Ranged_Fire0014.png
-  artifactKey: Guid(f38524551990f9141a7931fd0ef7b637) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames_Clear/Ranged_Fire0014.png using Guid(f38524551990f9141a7931fd0ef7b637) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9db156e16c745fc3a13a3d9a034a75eb') in 0.011524 seconds
-  Import took 0.017919 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000712 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0011.png
-  artifactKey: Guid(69cd4c56eab94894093815848d6e0533) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0011.png using Guid(69cd4c56eab94894093815848d6e0533) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3cff211a6dff0773fc5ce0a6fa094238') in 0.015829 seconds
-  Import took 0.020472 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000240 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0015.png
-  artifactKey: Guid(e4431120120384047a0c142291abad33) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0015.png using Guid(e4431120120384047a0c142291abad33) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c26fb8134c3b63ea37962eb2da2f29d2') in 0.025902 seconds
-  Import took 0.029767 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000273 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0012.png
-  artifactKey: Guid(d01d06688aec6364f8576a9c46d98422) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0012.png using Guid(d01d06688aec6364f8576a9c46d98422) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '60ce40b660da7443307816531db79a44') in 0.020954 seconds
-  Import took 0.027223 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000279 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0013.png
-  artifactKey: Guid(f444826688907004e935669c25bbfd31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0013.png using Guid(f444826688907004e935669c25bbfd31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '624da841928e2ce8f7f0cb170c0c366c') in 0.018758 seconds
-  Import took 0.025571 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000217 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0014.png
-  artifactKey: Guid(f9a9436385d55bd42a8e74fbff8d366e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0014.png using Guid(f9a9436385d55bd42a8e74fbff8d366e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e7ac87bf31219a1af5d5571934ec19d2') in 0.018399 seconds
-  Import took 0.022746 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000239 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0007.png
-  artifactKey: Guid(a88479b1c8c8cc649afbce9af3e58b30) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0007.png using Guid(a88479b1c8c8cc649afbce9af3e58b30) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9d5ff4be1af74d0117848ebaf56eded5') in 0.017645 seconds
-  Import took 0.023096 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000396 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames_Clear/Ranged_Fire0015.png
-  artifactKey: Guid(38f4a824e38ee3344b40ac1ca06e9cad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames_Clear/Ranged_Fire0015.png using Guid(38f4a824e38ee3344b40ac1ca06e9cad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '39aa2a28856803253a82a9b367fe70ad') in 0.016987 seconds
-  Import took 0.022534 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000214 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames_Clear/Ranged_Fire0017.png
-  artifactKey: Guid(1419aa6110f2bc44baddee492586d535) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames_Clear/Ranged_Fire0017.png using Guid(1419aa6110f2bc44baddee492586d535) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fe2aa911190ede5da23c9fe1102c6a5b') in 0.011479 seconds
-  Import took 0.016981 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000239 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames_Clear/Ranged_Fire0010.png
-  artifactKey: Guid(c8924a528cb6caa47ab862d897c758ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames_Clear/Ranged_Fire0010.png using Guid(c8924a528cb6caa47ab862d897c758ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '367ff27dad6d1ed7e08cb95f4a6634db') in 0.013130 seconds
-  Import took 0.018173 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000335 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames_Clear/Ranged_Fire0009.png
-  artifactKey: Guid(41c52a72a13d475409e8ce2eaa9e1224) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames_Clear/Ranged_Fire0009.png using Guid(41c52a72a13d475409e8ce2eaa9e1224) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '213738e9ca71bc09d5c1457ad2b42a4c') in 0.010762 seconds
-  Import took 0.017673 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000220 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames_Clear/Ranged_Fire0007.png
-  artifactKey: Guid(56001150d16f2a24b93636edee0aadc9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames_Clear/Ranged_Fire0007.png using Guid(56001150d16f2a24b93636edee0aadc9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '01c90b4999a7878542c61cfa0c19be38') in 0.012827 seconds
-  Import took 0.016669 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000455 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0006.png
-  artifactKey: Guid(3865665bf1e7b034ea9e125c15a46b31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames/Ranged_Fire0006.png using Guid(3865665bf1e7b034ea9e125c15a46b31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eac6cc2ed74411409909d30fcc0f963a') in 0.017963 seconds
-  Import took 0.023977 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000219 seconds.
-  path: Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames_Clear/Ranged_Fire0005.png
-  artifactKey: Guid(c3fa5c45f3bcf944c97a9689b84c76a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Animations/Effects/Effect Ray/Ranged_Animation_Frames_Clear/Ranged_Fire0005.png using Guid(c3fa5c45f3bcf944c97a9689b84c76a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a4ed070fbeaf8646c325e0bcaad13263') in 0.013647 seconds
-  Import took 0.018209 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 42.577335 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Takedown 2.asset
-  artifactKey: Guid(728c3d7a0b25da44fbe62d3e691bc25b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Takedown 2.asset using Guid(728c3d7a0b25da44fbe62d3e691bc25b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '99747ba8e771369000a79dae0c702ab3') in 0.011428 seconds
-  Import took 0.016620 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.005135 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Takedown 2.asset
-  artifactKey: Guid(728c3d7a0b25da44fbe62d3e691bc25b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Takedown 2.asset using Guid(728c3d7a0b25da44fbe62d3e691bc25b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '99747ba8e771369000a79dae0c702ab3') in 0.010079 seconds
-  Import took 0.014859 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 7.335241 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Trained Killer 1.asset
-  artifactKey: Guid(728c3d7a0b25da44fbe62d3e691bc25b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Trained Killer 1.asset using Guid(728c3d7a0b25da44fbe62d3e691bc25b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5babd481c8e7bb284856422785edbe14') in 0.009515 seconds
-  Import took 0.016034 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 54.559116 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Trained Killer 1.asset
-  artifactKey: Guid(728c3d7a0b25da44fbe62d3e691bc25b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Trained Killer 1.asset using Guid(728c3d7a0b25da44fbe62d3e691bc25b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dd65120b92e34afffff018fee11f7d89') in 0.013134 seconds
-  Import took 0.018382 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 14.206998 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Takedown 1.asset
-  artifactKey: Guid(131cf432095eda5409fdb5983491f670) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Takedown 1.asset using Guid(131cf432095eda5409fdb5983491f670) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '71799568f36d502d79f45dccc88423ca') in 0.009820 seconds
-  Import took 0.019228 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 1.046742 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Explosive Aggression 1.asset
-  artifactKey: Guid(2601c084585ead344bdaed16ef950c84) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Kili, Neon Rider/Explosive Aggression 1.asset using Guid(2601c084585ead344bdaed16ef950c84) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a87fecccf96a587f6f5cf04b6d495263') in 0.009377 seconds
-  Import took 0.016448 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 24.755309 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/New Actions/Flashbang 1.asset
-  artifactKey: Guid(5f420da6e6684fc4e90c349d5e66cca0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/New Actions/Flashbang 1.asset using Guid(5f420da6e6684fc4e90c349d5e66cca0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5dbaa09791363dc6bfbf0aed73164df8') in 0.010458 seconds
-  Import took 0.019640 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.069967 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/New Actions/Intimidation Tactics 1.asset
-  artifactKey: Guid(2167031474327c946b55e11762d19582) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/New Actions/Intimidation Tactics 1.asset using Guid(2167031474327c946b55e11762d19582) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8d979b0b678f0d484a7aa4753bfec0f7') in 0.010259 seconds
-  Import took 0.017291 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 182.121566 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/_NEW ACTIONS_/Coordinated Hit 2.asset
-  artifactKey: Guid(4baab85d8373c504b88f4ff950b05f2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/_NEW ACTIONS_/Coordinated Hit 2.asset using Guid(4baab85d8373c504b88f4ff950b05f2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2d39b0fcc8245ab4f6fa87232b47bf4b') in 0.008375 seconds
-  Import took 0.014168 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 13.495692 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Choking Words 1.asset
-  artifactKey: Guid(4baab85d8373c504b88f4ff950b05f2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Choking Words 1.asset using Guid(4baab85d8373c504b88f4ff950b05f2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c4824d7cbd990fb6ed183b818804e646') in 0.008848 seconds
-  Import took 0.017443 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.001586 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Choking Words 1.asset
-  artifactKey: Guid(4baab85d8373c504b88f4ff950b05f2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Choking Words 1.asset using Guid(4baab85d8373c504b88f4ff950b05f2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c4824d7cbd990fb6ed183b818804e646') in 0.010078 seconds
-  Import took 0.014819 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 55.377886 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Choking Words 2.asset
-  artifactKey: Guid(96372199dc5e1e44481c5eb334427747) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Choking Words 2.asset using Guid(96372199dc5e1e44481c5eb334427747) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9a6d255828106cf1d2c06ea54a075591') in 0.010208 seconds
-  Import took 0.016166 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 7.534711 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Coven Call 1.asset
-  artifactKey: Guid(96372199dc5e1e44481c5eb334427747) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Coven Call 1.asset using Guid(96372199dc5e1e44481c5eb334427747) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7a78b32b5b2e4f0f79df488a94c857db') in 0.008913 seconds
-  Import took 0.014322 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.002507 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Coven Call 1.asset
-  artifactKey: Guid(96372199dc5e1e44481c5eb334427747) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Coven Call 1.asset using Guid(96372199dc5e1e44481c5eb334427747) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7a78b32b5b2e4f0f79df488a94c857db') in 0.008261 seconds
-  Import took 0.013827 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 6.253447 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Coven Call 1.asset
-  artifactKey: Guid(96372199dc5e1e44481c5eb334427747) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Coven Call 1.asset using Guid(96372199dc5e1e44481c5eb334427747) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2cae8f03b528e9dc40ca824c237bb997') in 0.010162 seconds
-  Import took 0.014812 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 1.330181 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Choking Words 1.asset
-  artifactKey: Guid(4baab85d8373c504b88f4ff950b05f2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Choking Words 1.asset using Guid(4baab85d8373c504b88f4ff950b05f2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ecca9f4b16833185a955a59d66ee9c2e') in 0.008656 seconds
-  Import took 0.016676 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 35.993257 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Coven Call 1.asset
-  artifactKey: Guid(96372199dc5e1e44481c5eb334427747) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Coven Call 1.asset using Guid(96372199dc5e1e44481c5eb334427747) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '88047fde635efc48a5761228c8f5525e') in 0.017033 seconds
-  Import took 0.022384 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 9.680149 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Coven Call 1.asset
-  artifactKey: Guid(96372199dc5e1e44481c5eb334427747) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Coven Call 1.asset using Guid(96372199dc5e1e44481c5eb334427747) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '87c0816f7803d382aeb819262b67a2f9') in 0.010574 seconds
-  Import took 0.018299 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 12.684226 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Coven Call 2.asset
-  artifactKey: Guid(21142869c8ea4d34aac86558789ad34e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Coven Call 2.asset using Guid(21142869c8ea4d34aac86558789ad34e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bffc7722500741bbedf386b3c5430aac') in 0.009907 seconds
-  Import took 0.015557 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 7.095640 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Disrupting Energy 1.asset
-  artifactKey: Guid(21142869c8ea4d34aac86558789ad34e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Disrupting Energy 1.asset using Guid(21142869c8ea4d34aac86558789ad34e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c136be0d5b598d66596aff2a5f794e4d') in 0.010603 seconds
-  Import took 0.017531 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.001219 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Disrupting Energy 1.asset
-  artifactKey: Guid(21142869c8ea4d34aac86558789ad34e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Disrupting Energy 1.asset using Guid(21142869c8ea4d34aac86558789ad34e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c136be0d5b598d66596aff2a5f794e4d') in 0.009950 seconds
-  Import took 0.018397 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 24.341987 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Disrupting Energy 1.asset
-  artifactKey: Guid(21142869c8ea4d34aac86558789ad34e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Disrupting Energy 1.asset using Guid(21142869c8ea4d34aac86558789ad34e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '98bb3065e3a99ea4e7e34eb16cfa3525') in 0.011153 seconds
-  Import took 0.017687 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 21.106934 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Disrupting Energy 1.asset
-  artifactKey: Guid(21142869c8ea4d34aac86558789ad34e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Disrupting Energy 1.asset using Guid(21142869c8ea4d34aac86558789ad34e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '80bbec19b82b1a9c8a5ce7db45cceb73') in 0.010097 seconds
-  Import took 0.016840 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 5.492718 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Gaze Into Darkness.asset
-  artifactKey: Guid(cd8632f90d7680e40850a9e24653c0a4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Gaze Into Darkness.asset using Guid(cd8632f90d7680e40850a9e24653c0a4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '80dc696ffbe5768489f640d755a0ac06') in 0.015837 seconds
-  Import took 0.022151 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 18.386355 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Disrupting Energy 2.asset
-  artifactKey: Guid(0314b669b360f8142b69b678b7729693) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Disrupting Energy 2.asset using Guid(0314b669b360f8142b69b678b7729693) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0d46eaab3ab29dc5eab1519db5cbd0db') in 0.009188 seconds
-  Import took 0.018813 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 8.008661 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Gaze Into Darkness 1.asset
-  artifactKey: Guid(0314b669b360f8142b69b678b7729693) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Gaze Into Darkness 1.asset using Guid(0314b669b360f8142b69b678b7729693) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6e96d1e369df38d81932ce93d1ad852e') in 0.010763 seconds
-  Import took 0.017947 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 15.393563 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Gaze Into Darkness 1.asset
-  artifactKey: Guid(0314b669b360f8142b69b678b7729693) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Gaze Into Darkness 1.asset using Guid(0314b669b360f8142b69b678b7729693) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '36eee293c979bb6c9dc201b03dddc081') in 0.012910 seconds
-  Import took 0.018675 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 88.646337 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Gaze Into Darkness.asset
-  artifactKey: Guid(cd8632f90d7680e40850a9e24653c0a4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Gaze Into Darkness.asset using Guid(cd8632f90d7680e40850a9e24653c0a4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd4491ec81a79ee1321c19f75d6e8c470') in 0.010633 seconds
-  Import took 0.017235 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 1.286358 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Gaze Into Darkness 1.asset
-  artifactKey: Guid(0314b669b360f8142b69b678b7729693) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Gaze Into Darkness 1.asset using Guid(0314b669b360f8142b69b678b7729693) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd6e1bd69b41fd1b556155e47f1455d49') in 0.009633 seconds
-  Import took 0.018571 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 8.620093 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Gaze Into Darkness 2.asset
-  artifactKey: Guid(4f5a3b76ed000c64d800c51bc897e59f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Gaze Into Darkness 2.asset using Guid(4f5a3b76ed000c64d800c51bc897e59f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dfa9ed8f76fe63fadff2ae7687851c2c') in 0.010719 seconds
-  Import took 0.020044 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.005773 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Gaze Into Darkness 2.asset
-  artifactKey: Guid(4f5a3b76ed000c64d800c51bc897e59f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Gaze Into Darkness 2.asset using Guid(4f5a3b76ed000c64d800c51bc897e59f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dfa9ed8f76fe63fadff2ae7687851c2c') in 0.012227 seconds
-  Import took 0.016947 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 3.834333 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Master Casting 1.asset
-  artifactKey: Guid(4f5a3b76ed000c64d800c51bc897e59f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Master Casting 1.asset using Guid(4f5a3b76ed000c64d800c51bc897e59f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '98f4522d30ae58a3a281248c4f9caab4') in 0.010153 seconds
-  Import took 0.015831 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 23.172117 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Master Casting 1.asset
-  artifactKey: Guid(4f5a3b76ed000c64d800c51bc897e59f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Master Casting 1.asset using Guid(4f5a3b76ed000c64d800c51bc897e59f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c402382c4b49b0265d02cf279617e539') in 0.009334 seconds
-  Import took 0.016472 seconds .
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002819 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.09 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.779 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.20 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 105.5 MB.
+System memory in use after: 105.7 MB.
 
-========================================================================
-Received Import Request.
-  Time since last request: 15.607627 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Master Casting 1.asset
-  artifactKey: Guid(4f5a3b76ed000c64d800c51bc897e59f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Master Casting 1.asset using Guid(4f5a3b76ed000c64d800c51bc897e59f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '80d2e37c973363db1a2419cb8f388809') in 0.009779 seconds
-  Import took 0.016265 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 8.371130 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Master Casting 2.asset
-  artifactKey: Guid(da16ba8ef65ab6c47bb3b2052df0db42) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Master Casting 2.asset using Guid(da16ba8ef65ab6c47bb3b2052df0db42) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3a4b7ba6cb16818a01b4ee08670e564f') in 0.009401 seconds
-  Import took 0.014477 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.005560 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Master Casting 2.asset
-  artifactKey: Guid(da16ba8ef65ab6c47bb3b2052df0db42) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Master Casting 2.asset using Guid(da16ba8ef65ab6c47bb3b2052df0db42) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3a4b7ba6cb16818a01b4ee08670e564f') in 0.008681 seconds
-  Import took 0.013059 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 7.652487 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Searing Voidblast 1.asset
-  artifactKey: Guid(da16ba8ef65ab6c47bb3b2052df0db42) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Searing Voidblast 1.asset using Guid(da16ba8ef65ab6c47bb3b2052df0db42) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fa24783cfa927d5b16dd18fd2554bb87') in 0.008509 seconds
-  Import took 0.015108 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 11.981992 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Searing Voidblast 1.asset
-  artifactKey: Guid(da16ba8ef65ab6c47bb3b2052df0db42) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Searing Voidblast 1.asset using Guid(da16ba8ef65ab6c47bb3b2052df0db42) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '21b1fcef70c171a6b29b12ee5c3a6fc4') in 0.009119 seconds
-  Import took 0.016586 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 26.081490 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Searing Voidblast 1.asset
-  artifactKey: Guid(da16ba8ef65ab6c47bb3b2052df0db42) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Searing Voidblast 1.asset using Guid(da16ba8ef65ab6c47bb3b2052df0db42) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd034b173f3602c8bf81b3e053f71c278') in 0.010420 seconds
-  Import took 0.017455 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 8.618515 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Searing Voidblast.asset
-  artifactKey: Guid(a32806c10bb88b645a389ec97130804a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Searing Voidblast.asset using Guid(a32806c10bb88b645a389ec97130804a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '874e405da039b174b60527b16af2a211') in 0.009917 seconds
-  Import took 0.018379 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 6.194372 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Searing Voidblast 2.asset
-  artifactKey: Guid(7100cbfa8c99def42b3c3a2109d65aa9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Searing Voidblast 2.asset using Guid(7100cbfa8c99def42b3c3a2109d65aa9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bfc4513beea4b5841ee1582698cefad4') in 0.011409 seconds
-  Import took 0.015596 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 12.693547 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Searing Voidblast 2.asset
-  artifactKey: Guid(7100cbfa8c99def42b3c3a2109d65aa9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Searing Voidblast 2.asset using Guid(7100cbfa8c99def42b3c3a2109d65aa9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3e8d09754cae2de753063c73f98b311b') in 0.009607 seconds
-  Import took 0.017702 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.002224 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Searing Voidblast 2.asset
-  artifactKey: Guid(7100cbfa8c99def42b3c3a2109d65aa9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Searing Voidblast 2.asset using Guid(7100cbfa8c99def42b3c3a2109d65aa9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3e8d09754cae2de753063c73f98b311b') in 0.010354 seconds
-  Import took 0.015660 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 8.033693 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Choking Words 2.asset
-  artifactKey: Guid(8c11bbd7bd8a5ac42a0bdb4faa3d70f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Choking Words 2.asset using Guid(8c11bbd7bd8a5ac42a0bdb4faa3d70f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8d16597d0f94aa5748c7c06d20f401f2') in 0.010590 seconds
-  Import took 0.018935 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 7.348941 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Coven Call 2.asset
-  artifactKey: Guid(6cda6744dc971fb499a18d01b54e4521) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Coven Call 2.asset using Guid(6cda6744dc971fb499a18d01b54e4521) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a68b5e2f96bdd0833dfee92ec2c109a5') in 0.012239 seconds
-  Import took 0.019880 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 2.015184 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Disrupting Energy 2.asset
-  artifactKey: Guid(e5d0fb984347e45459d0f839351033d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Madrik, Obsessed Mage/Disrupting Energy 2.asset using Guid(e5d0fb984347e45459d0f839351033d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '15fbe1526abd3138a433c64852793416') in 0.009367 seconds
-  Import took 0.018434 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 37.713854 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Blood Research 1.asset
-  artifactKey: Guid(7100cbfa8c99def42b3c3a2109d65aa9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Blood Research 1.asset using Guid(7100cbfa8c99def42b3c3a2109d65aa9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1c9e205dc45876a0c1b9303e08f17744') in 0.010004 seconds
-  Import took 0.016774 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 3.002178 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Blood Research 1.asset
-  artifactKey: Guid(7100cbfa8c99def42b3c3a2109d65aa9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Blood Research 1.asset using Guid(7100cbfa8c99def42b3c3a2109d65aa9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '94ed35822ea3dbd60f9be6bf4404c379') in 0.008428 seconds
-  Import took 0.013879 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 57.749944 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Blood Research 2.asset
-  artifactKey: Guid(25d8873cf94ee7c479e6d89a8508ed07) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Blood Research 2.asset using Guid(25d8873cf94ee7c479e6d89a8508ed07) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1baa304025f926c8130f98d220e4bb0b') in 0.012513 seconds
-  Import took 0.018894 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.006005 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Blood Research 2.asset
-  artifactKey: Guid(25d8873cf94ee7c479e6d89a8508ed07) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Blood Research 2.asset using Guid(25d8873cf94ee7c479e6d89a8508ed07) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1baa304025f926c8130f98d220e4bb0b') in 0.010691 seconds
-  Import took 0.014979 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 7.695589 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Caustic Mutagen 1.asset
-  artifactKey: Guid(25d8873cf94ee7c479e6d89a8508ed07) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Caustic Mutagen 1.asset using Guid(25d8873cf94ee7c479e6d89a8508ed07) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f7a293f459b343512fe9dabc9afe8866') in 0.010284 seconds
-  Import took 0.019349 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 59.455258 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Caustic Mutagen 2.asset
-  artifactKey: Guid(5787f1b59dcbacf4d851cb203f083af3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Caustic Mutagen 2.asset using Guid(5787f1b59dcbacf4d851cb203f083af3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3463420937dd9dc5c7a6517b6ed80dbb') in 0.011063 seconds
-  Import took 0.016698 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 6.759628 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Chain of Violence 1.asset
-  artifactKey: Guid(5787f1b59dcbacf4d851cb203f083af3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Chain of Violence 1.asset using Guid(5787f1b59dcbacf4d851cb203f083af3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6ada440c12882eb0b6fa60082f42fef8') in 0.010773 seconds
-  Import took 0.017406 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 8.634986 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Chain of Violence.asset
-  artifactKey: Guid(e1da213119238694e974c94f1fa9e0c2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Chain of Violence.asset using Guid(e1da213119238694e974c94f1fa9e0c2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e021d189642a3b38bd5afc11232dd7c0') in 0.013696 seconds
-  Import took 0.020546 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 25.217515 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Chain of Violence 1.asset
-  artifactKey: Guid(5787f1b59dcbacf4d851cb203f083af3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Chain of Violence 1.asset using Guid(5787f1b59dcbacf4d851cb203f083af3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6d4a4afc744e7d273b545f1555ed7520') in 0.008643 seconds
-  Import took 0.014740 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 10.198578 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Chain of Violence 2.asset
-  artifactKey: Guid(6091d6cabe8f1ef4e9f56f25edd944d6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Chain of Violence 2.asset using Guid(6091d6cabe8f1ef4e9f56f25edd944d6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00cf3a2f21039c17ad38fc05410f1b82') in 0.009150 seconds
-  Import took 0.016028 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 5.851514 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Deathrage 1.asset
-  artifactKey: Guid(6091d6cabe8f1ef4e9f56f25edd944d6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Deathrage 1.asset using Guid(6091d6cabe8f1ef4e9f56f25edd944d6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a8298184902afd7028c5e03b3ccde3e5') in 0.008123 seconds
-  Import took 0.028431 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 9.507621 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Deathrage.asset
-  artifactKey: Guid(a6e523ee3c15c0448becb05400494916) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Deathrage.asset using Guid(a6e523ee3c15c0448becb05400494916) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2fb6c9566ad623a7aabd24e1376c6a2b') in 0.014216 seconds
-  Import took 0.019304 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 36.887999 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Deathrage 2.asset
-  artifactKey: Guid(e9cce07781d8b0949859ac080b205dff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Deathrage 2.asset using Guid(e9cce07781d8b0949859ac080b205dff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9a003903d97819fae8e7bcd9180be567') in 0.009469 seconds
-  Import took 0.017009 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 5.956655 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Genesis Formula 1.asset
-  artifactKey: Guid(e9cce07781d8b0949859ac080b205dff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Genesis Formula 1.asset using Guid(e9cce07781d8b0949859ac080b205dff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a2bd5336adbefab80f3fd996afc5695b') in 0.009203 seconds
-  Import took 0.017893 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 12.472762 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Genesis Formula 1.asset
-  artifactKey: Guid(e9cce07781d8b0949859ac080b205dff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Genesis Formula 1.asset using Guid(e9cce07781d8b0949859ac080b205dff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '97bbcb54cc58c01fa3b1a5dcf088f818') in 0.010498 seconds
-  Import took 0.017421 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 34.533240 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Genesis Formula 2.asset
-  artifactKey: Guid(b4b96678ea8d48c43895d74af270922d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Genesis Formula 2.asset using Guid(b4b96678ea8d48c43895d74af270922d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'db348b1a7f5ed4d6bdbb334c07903557') in 0.009527 seconds
-  Import took 0.015711 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.003821 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Genesis Formula 2.asset
-  artifactKey: Guid(b4b96678ea8d48c43895d74af270922d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Genesis Formula 2.asset using Guid(b4b96678ea8d48c43895d74af270922d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'db348b1a7f5ed4d6bdbb334c07903557') in 0.008526 seconds
-  Import took 0.012820 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 5.161355 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Power Transfer 1.asset
-  artifactKey: Guid(b4b96678ea8d48c43895d74af270922d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Power Transfer 1.asset using Guid(b4b96678ea8d48c43895d74af270922d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e1fcc5ea35094e365cd15d658d2e4e35') in 0.009180 seconds
-  Import took 0.015253 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 14.581741 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Power Transfer 1.asset
-  artifactKey: Guid(b4b96678ea8d48c43895d74af270922d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Power Transfer 1.asset using Guid(b4b96678ea8d48c43895d74af270922d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3d389b1a26c3d739367c15135472abe0') in 0.010541 seconds
-  Import took 0.017050 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 21.852525 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Power Transfer 1.asset
-  artifactKey: Guid(b4b96678ea8d48c43895d74af270922d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Power Transfer 1.asset using Guid(b4b96678ea8d48c43895d74af270922d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '13672dd9ec29a939a421b9970eae629f') in 0.014001 seconds
-  Import took 0.034411 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 475.962840 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Blood Research 1.asset
-  artifactKey: Guid(7100cbfa8c99def42b3c3a2109d65aa9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/Skills/Yergov, Biochemist/Blood Research 1.asset using Guid(7100cbfa8c99def42b3c3a2109d65aa9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bffbd4caf02067907dacd9cf4521221c') in 0.008349 seconds
-  Import took 0.013037 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 18.639404 seconds.
-  path: Assets/Resources/Cards_Starting/Actions/_NEW ACTIONS_/Caustic Mutagen 1.asset
-  artifactKey: Guid(25d8873cf94ee7c479e6d89a8508ed07) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Starting/Actions/_NEW ACTIONS_/Caustic Mutagen 1.asset using Guid(25d8873cf94ee7c479e6d89a8508ed07) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cf8810c3c02bf0484dc7afd6238fa209') in 0.008574 seconds
-  Import took 0.012750 seconds .
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2612.
+Total: 1.557100 ms (FindLiveObjects: 0.176300 ms CreateObjectMapping: 0.068000 ms MarkObjects: 1.300600 ms  DeleteObjects: 0.011300 ms)
 

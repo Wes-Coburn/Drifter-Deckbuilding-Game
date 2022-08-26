@@ -231,20 +231,20 @@ public class AnimationManager : MonoBehaviour
      * ****** CARD_STATE_ANIMATIONS
      * *****
      *****/
+    public void HiddenHandState(GameObject card) =>
+        ChangeAnimationState(card, "Hidden_Hand");
     public void RevealedHandState(GameObject card) =>
         ChangeAnimationState(card, "Revealed_Hand");
     public void RevealedDragState(GameObject card) =>
         ChangeAnimationState(card, "Revealed_Drag");
     public void RevealedPlayState(GameObject card) =>
         ChangeAnimationState(card, "Revealed_Play");
-    public void PlayedState(GameObject card)
-    {
-        card.GetComponent<CardDisplay>().CardArt =
-            card.GetComponent<CardDisplay>().CardScript.CardArt;
-        ChangeAnimationState(card, "Played");
-    }
     public void ZoomedState(GameObject card) =>
         ChangeAnimationState(card, "Zoomed");
+    public void PlayedUnitState(GameObject card) =>
+        ChangeAnimationState(card, "Played_Unit");
+    public void PlayedActionState(GameObject card) =>
+        ChangeAnimationState(card, "Played_Action");
 
     /******
      * *****
@@ -722,7 +722,6 @@ public class AnimationManager : MonoBehaviour
     private IEnumerator AttackNumerator(GameObject attacker,
         GameObject defender, bool defenderIsUnit = true)
     {
-        EventManager.Instance.PauseDelayedActions(true);
         float distance;
         float bufferDistance;
 

@@ -5,8 +5,6 @@ using TMPro;
 
 public class HeroSelectSceneDisplay : MonoBehaviour
 {
-    [SerializeField] private GameObject skillCard_1;
-    [SerializeField] private GameObject skillCard_2;
     [SerializeField] private GameObject heroPortrait;
     [SerializeField] private GameObject heroName;
     [SerializeField] private GameObject heroDescription;
@@ -28,8 +26,6 @@ public class HeroSelectSceneDisplay : MonoBehaviour
     private CardManager caMan;
 
     private PlayerHero[] playerHeroes;
-    private GameObject currentSkill_1;
-    private GameObject currentSkill_2;
     private int currentHero;
 
     private PlayerHero LoadedHero
@@ -113,37 +109,5 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         heroUltimateDescription.GetComponent<TextMeshProUGUI>().SetText
             ("<b><u>" + LoadedHero.HeroUltimate.PowerName +
             " (Ultimate):</b></u> " + caMan.FilterKeywords(LoadedHero.HeroUltimate.PowerDescription));
-
-        if (currentSkill_1 != null)
-        {
-            Destroy(currentSkill_1);
-            currentSkill_1 = null;
-        }
-        if (currentSkill_2 != null)
-        {
-            Destroy(currentSkill_2);
-            currentSkill_2 = null;
-        }
-        Vector2 vec2 = new Vector2();
-
-        List<SkillCard> skills = new List<SkillCard>();
-        foreach (SkillCard sc in LoadedHero.HeroSkills)
-            skills.Add(sc);
-
-        int skill_1 = Random.Range(0, skills.Count);
-        SkillCard card_1 = skills[skill_1];
-        skills.RemoveAt(skill_1);
-        int skill_2 = Random.Range(0, skills.Count);
-        SkillCard card_2 = skills[skill_2];
-
-        currentSkill_1 = coMan.ShowCard(card_1, vec2, CombatManager.DisplayType.HeroSelect);
-        currentSkill_2 = coMan.ShowCard(card_2, vec2, CombatManager.DisplayType.HeroSelect);
-        currentSkill_1.GetComponent<CardDisplay>().DisableVisuals();
-        currentSkill_2.GetComponent<CardDisplay>().DisableVisuals();
-        currentSkill_1.transform.SetParent(skillCard_1.transform, false);
-        currentSkill_2.transform.SetParent(skillCard_2.transform, false);
-        Vector2 scaleVec = new Vector2(4, 4);
-        currentSkill_1.transform.localScale = scaleVec;
-        currentSkill_2.transform.localScale = scaleVec;
     }
 }

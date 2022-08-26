@@ -233,6 +233,13 @@ public class UnitCardDisplay : CardDisplay
      *****/
     public bool AddCurrentAbility(CardAbility ca, bool iconOnly = false)
     {
+        // NEW CARD ABILITY INSTANCE
+        /*
+        CardAbility newCardAbility = ScriptableObject.CreateInstance(ca.GetType().Name) as CardAbility;
+        newCardAbility.LoadCardAbility(ca);
+        ca = newCardAbility;
+        */
+
         if (ca is StaticAbility sa)
         {
             if (iconOnly)

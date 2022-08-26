@@ -126,18 +126,18 @@ public class GameManager : MonoBehaviour
     // Aether Rewards
     public const int IGNORE_CARD_AETHER = 10;
     // Sell Cards
-    public const int SELL_CARD_VALUE = 15;
-    public const int SELL_RARE_CARD_VALUE = 25;
+    public const int SELL_CARD_VALUE = 10;
+    public const int SELL_RARE_CARD_VALUE = 20;
     // Recruits
-    public const int RECRUIT_UNIT_COST = 40;
-    public const int RECRUIT_RARE_UNIT_COST = 60;
+    public const int RECRUIT_UNIT_COST = 30;
+    public const int RECRUIT_RARE_UNIT_COST = 50;
     public const int RECRUIT_LOYALTY_GOAL = 3;
     // Cloning
-    public const int CLONE_UNIT_COST = 40;
-    public const int CLONE_RARE_UNIT_COST = 60;
+    public const int CLONE_UNIT_COST = 30;
+    public const int CLONE_RARE_UNIT_COST = 50;
     // Items
-    public const int BUY_ITEM_COST = 20;
-    public const int BUY_RARE_ITEM_COST = 40;
+    public const int BUY_ITEM_COST = 15;
+    public const int BUY_RARE_ITEM_COST = 25;
     public const int SHOP_LOYALTY_GOAL = 3;
     // Reputation
     public const int REPUTATION_TIER_1 = 10;

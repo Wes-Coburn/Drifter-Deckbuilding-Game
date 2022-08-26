@@ -64,7 +64,7 @@ MonoBehaviour:
     faction.
   - Units with Ranged aren't struck back when they attack.
   - Units with Armored take 1 less damage from all sources.
-  - A hero is Wounded if they have 15 or less health.
+  - A hero is Wounded if they have taken 5+ damage this turn.
   reputation_Mages: {fileID: 11400000, guid: eb3b373fe9394ca4cb6ee52db1027c17, type: 2}
   reputation_Mutants: {fileID: 11400000, guid: 5d97d4a9ed164724fb092edb8a07b440, type: 2}
   reputation_Rogues: {fileID: 11400000, guid: 3f85162fed2fdca409e38a3b4c0ea760, type: 2}

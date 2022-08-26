@@ -11,7 +11,6 @@ public class DamageEffect : Effect
     {
         base.LoadEffect(effect);
         DamageEffect dmgEffect = effect as DamageEffect;
-
         IfDestroyedEffects = new List<EffectGroup>();
         foreach (EffectGroup eg in dmgEffect.IfDestroyedEffects)
             IfDestroyedEffects.Add(eg);

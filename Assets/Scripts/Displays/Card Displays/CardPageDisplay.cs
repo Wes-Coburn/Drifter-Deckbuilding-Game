@@ -85,10 +85,7 @@ public class CardPageDisplay : MonoBehaviour
             case CardPageType.RemoveCard:
                 titleText = "Sell a Card";
                 foreach (Card c in pMan.PlayerDeckList)
-                {
-                    if (c is SkillCard) continue;
-                    else cardGroupList.Add(c);
-                }
+                    cardGroupList.Add(c);
                 break;
             case CardPageType.RecruitUnit:
                 setProgressBar = true;
@@ -260,7 +257,7 @@ public class CardPageDisplay : MonoBehaviour
     {
         if (anMan.ProgressBarRoutine != null) return;
 
-        if (pMan.MainDeckCount <= GameManager.MINIMUM_MAIN_DECK_SIZE)
+        if (pMan.PlayerDeckList.Count <= GameManager.MINIMUM_MAIN_DECK_SIZE)
         {
             string warning = "Your deck can't have less than " +
                 GameManager.MINIMUM_MAIN_DECK_SIZE + " cards!";

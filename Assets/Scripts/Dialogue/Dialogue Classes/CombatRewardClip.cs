@@ -6,8 +6,6 @@ public class CombatRewardClip : DialogueClip
     [SerializeField] private DialogueClip nextDialogueClip;
     [Header("DIFFICULTY LEVEL")]
     [SerializeField] private GameManager.DifficultyLevel difficulty;
-    [Header("NEW SKILL")]
-    [SerializeField] private bool newSkill;
     [Header("NEW LOCATIONS")]
     [SerializeField] private NewLocation[] newLocations;
     [Header("NEW NARRATIVE")]
@@ -21,7 +19,6 @@ public class CombatRewardClip : DialogueClip
 
     public DialogueClip NextDialogueClip { get => nextDialogueClip; }
     public GameManager.DifficultyLevel Difficulty { get => difficulty; }
-    public bool NewSkill { get => newSkill; }
     public NewLocation[] NewLocations { get => newLocations; }
     public Narrative NewNarrative { get => newNarrative; }
     public int Reputation_Mages { get => reputation_Mages; }
@@ -36,7 +33,6 @@ public class CombatRewardClip : DialogueClip
         CombatRewardClip crc = dc as CombatRewardClip;
         nextDialogueClip = crc.NextDialogueClip;
         difficulty = crc.Difficulty;
-        newSkill = crc.NewSkill;
         newLocations = (NewLocation[])crc.NewLocations.Clone();
         newNarrative = crc.NewNarrative;
         reputation_Mages = crc.Reputation_Mages;

@@ -153,8 +153,11 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
                 }
                 else if (parent == enemyHand)
                 {
+                    /*
                     rect = enemyHand.GetComponent<RectTransform>();
                     cardYPos = rect.position.y - ZOOM_BUFFER - 50;
+                    */
+                    return;
                 }
                 else if (parent == enemyZone)
                 {
@@ -163,12 +166,13 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
                 }
                 else if (parent == enemyActionZone)
                 {
-                    /*
                     rect = enemyActionZone.GetComponent<RectTransform>();
                     cardYPos = rect.position.y + ZOOM_BUFFER;
-                    */
-                    Debug.Log("ZOOM DISABLED!");
+                    
+                    /*
+                    Debug.Log("ZOOM DISABLED FOR <ENEMY ACTION ZONE>!");
                     return;
+                    */
                 }
                 else
                 {

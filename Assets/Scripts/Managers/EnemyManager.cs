@@ -256,7 +256,6 @@ public class EnemyManager : MonoBehaviour
         {
             CardDisplay cd = card.GetComponent<CardDisplay>();
             evMan.NewDelayedAction(() => PlayCard(card), delay, true);
-            UIManager.Instance.SelectTarget(card, UIManager.SelectionType.Playable); // TESTING
         }
 
         void PlayCard(GameObject card)
@@ -285,7 +284,7 @@ public class EnemyManager : MonoBehaviour
         void ScheduleAttack(GameObject attacker)
         {
             if (CanAttack(attacker)) evMan.NewDelayedAction(() =>
-            ResolveAttack(attacker), 1, true);
+            ResolveAttack(attacker), 0.5f, true);
         }
 
         void ResolveAttack(GameObject attacker)
@@ -322,19 +321,19 @@ public class EnemyManager : MonoBehaviour
     private int TotalEnemyPower()
     {
         int totalPower = 0;
-        foreach (GameObject enemy in coMan.EnemyZoneCards)
-            totalPower += coMan.GetUnitDisplay(enemy).CurrentPower;
+        foreach (GameObject unit in coMan.EnemyZoneCards)
+        {
+            UnitCardDisplay ucd = coMan.GetUnitDisplay(unit);
+            if (!ucd.IsExhausted) totalPower += ucd.CurrentPower;
+        }
         return totalPower;
     }
     
-    private int TotalAllyPower()
+    private int TotalPlayerPower()
     {
         int totalPower = 0;
-        foreach (GameObject ally in coMan.PlayerZoneCards)
-        {
-            UnitCardDisplay ucd = coMan.GetUnitDisplay(ally);
-            if (!ucd.IsExhausted) totalPower += ucd.CurrentPower;
-        }
+        foreach (GameObject unit in coMan.PlayerZoneCards)
+            totalPower += coMan.GetUnitDisplay(unit).CurrentPower;
         return totalPower;
     }
 
@@ -353,13 +352,13 @@ public class EnemyManager : MonoBehaviour
         if (TotalEnemyPower() >= playerHealth) return coMan.PlayerHero;
 
         // If enemy hero is <UNTHREATENED>
-        if (EnemyHealth > (MaxEnemyHealth * 0.65f) && TotalAllyPower() < (EnemyHealth * 0.35f))
+        if (EnemyHealth > (MaxEnemyHealth * 0.65f) && TotalPlayerPower() < (EnemyHealth * 0.35f))
         {
             // Attack an enemy unless there are no good attacks
             return GetBestDefender(true);
         }
         // If enemy hero is <MILDLY THREATENED>
-        else if (EnemyHealth > (MaxEnemyHealth * 0.5f) && TotalAllyPower() < (EnemyHealth * 0.65f))
+        else if (EnemyHealth > (MaxEnemyHealth * 0.5f) && TotalPlayerPower() < (EnemyHealth * 0.65f))
         {
             /*
              * If player hero is <SEVERELY THREATENED> or the attacker has Infiltrate,

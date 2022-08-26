@@ -48,8 +48,9 @@ MonoBehaviour:
   ResolveSimultaneous: 0
   IfResolvesGroups: []
   ForEachEffects: []
+  randomCard: 1
   createdCard: {fileID: 0}
-  createdCardType: Random
+  createdCardType: 
   additionalEffects: []
   restrictCost: 1
   minCost: 0
@@ -57,4 +58,6 @@ MonoBehaviour:
   restrictType: 1
   includeUnits: 0
   includeActions: 1
+  restrictSubtype: 0
+  cardSubtype: 
   excludeSelf: 1

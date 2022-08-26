@@ -4,8 +4,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Draw Effect", menuName = "Effects/Effect/Draw")]
 public class DrawEffect : Effect
 {
-    [Header("DRAW EFFECT")]
-
     public bool IsDiscardEffect;
     public bool DiscardAll;
     public bool IsMulliganEffect;

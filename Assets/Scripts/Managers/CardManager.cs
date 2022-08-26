@@ -274,8 +274,7 @@ public class CardManager : MonoBehaviour
     public enum ChooseCard
     {
         Action,
-        Unit,
-        Skill
+        Unit
     }
     public Card[] ChooseCards(ChooseCard chooseCard)
     {
@@ -290,16 +289,12 @@ public class CardManager : MonoBehaviour
             case ChooseCard.Unit:
                 chooseCardType = "Cards_Units";
                 break;
-            case ChooseCard.Skill:
-                break;
             default:
                 Debug.LogError("INVALID TYPE!");
                 return null;
         }
 
-        if (chooseCard is ChooseCard.Skill)
-            allChooseCards = pMan.PlayerHero.HeroSkills.ToArray();
-        else allChooseCards = Resources.LoadAll<Card>(chooseCardType);
+        allChooseCards = Resources.LoadAll<Card>(chooseCardType);
 
         if (allChooseCards.Length < 1)
         {
@@ -353,7 +348,7 @@ public class CardManager : MonoBehaviour
                     }
                 }
 
-                if (!limitDuplicates || copies < 1 || (card is SkillCard && copies < 3))
+                if (!limitDuplicates || copies < 1)
                 {
                     chooseCards[index++] = card;
                     if (index == 3) break;
@@ -393,11 +388,7 @@ public class CardManager : MonoBehaviour
             return;
         }
         if (card is UnitCard) cardInstance = ScriptableObject.CreateInstance<UnitCard>();
-        else if (card is ActionCard)
-        {
-            if (card is SkillCard) cardInstance = ScriptableObject.CreateInstance<SkillCard>();
-            else cardInstance = ScriptableObject.CreateInstance<ActionCard>();
-        }
+        else if (card is ActionCard) cardInstance = ScriptableObject.CreateInstance<ActionCard>();
         else
         {
             Debug.LogError("CARD TYPE NOT FOUND!");
@@ -637,7 +628,7 @@ public class CardManager : MonoBehaviour
             if (!GetTrigger(unit, triggerName)) continue;
 
             evMan.NewDelayedAction(() =>
-            TriggerUnitAbility(unit, triggerName), 0.5f, true);
+            TriggerUnitAbility(unit, triggerName), 0.25f, true);
         }
 
         if (player == GameManager.ENEMY)

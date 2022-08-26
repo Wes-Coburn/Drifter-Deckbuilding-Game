@@ -6,6 +6,7 @@ public class CreateCardEffect : Effect
 {
     [Header("CREATE CARD EFFECT")]
 
+    [SerializeField] private bool randomCard;
     [SerializeField, Tooltip("The card to create")] private Card createdCard;
     [SerializeField, Tooltip("The type of card to create")] private string createdCardType;
     [SerializeField] private List<Effect> additionalEffects;
@@ -23,6 +24,7 @@ public class CreateCardEffect : Effect
 
     [SerializeField] private bool excludeSelf;
 
+    public bool RandomCard { get => randomCard; }
     public Card CreatedCard { get => createdCard; }
     public string CreatedCardType { get => createdCardType; }
     public List<Effect> AdditionalEffects { get => additionalEffects; }
@@ -40,6 +42,7 @@ public class CreateCardEffect : Effect
     {
         base.LoadEffect(effect);
         CreateCardEffect createCardEffect = effect as CreateCardEffect;
+        randomCard = createCardEffect.RandomCard;
         createdCard = createCardEffect.CreatedCard;
         createdCardType = createCardEffect.CreatedCardType;
         additionalEffects = createCardEffect.AdditionalEffects;

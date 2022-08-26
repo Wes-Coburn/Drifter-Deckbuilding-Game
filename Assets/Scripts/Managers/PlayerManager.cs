@@ -39,19 +39,7 @@ public class PlayerManager : MonoBehaviour
     public List<HeroItem> HeroItems { get => heroItems; }
     public List<Card> PlayerDeckList { get; private set; }
     public List<Card> CurrentPlayerDeck { get; private set; }
-    public int MainDeckCount
-    {
-        get
-        {
-            int count = 0;
-            foreach (Card c in PlayerDeckList)
-            {
-                if (c is SkillCard) continue;
-                else count++;
-            }
-            return count;
-        }
-    }
+
     public bool IsMyTurn
     {
         get => isMyTurn;
