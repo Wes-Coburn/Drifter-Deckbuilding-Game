@@ -310,7 +310,7 @@ public class GameManager : MonoBehaviour
         switch (tipNumber)
         {
             case 1:
-                tip = "Replace any number of cards from your starting hand. Click each card you want to replace, then click the confirm button.";
+                tip = "Redraw any number of cards from your starting hand. Click each card you want to redraw, then click the confirm button."; // "Redraw" or "Replace"
                 break;
             case 2:
                 tip = "Play a card by dragging it out of your hand. Cards you can play are highlighted in <color=\"green\">green<color=\"yellow\">.";

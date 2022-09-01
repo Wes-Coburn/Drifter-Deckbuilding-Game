@@ -32,15 +32,16 @@ public class CardManager : MonoBehaviour
     [Header("TUTORIAL PLAYER UNITS")]
     [SerializeField] private UnitCard[] tutorialPlayerUnits;
 
-    // Static Abilities
+    // Positive Keywords
     public const string ABILITY_ARMORED = "Armored";
     public const string ABILITY_BLITZ = "Blitz";
     public const string ABILITY_FORCEFIELD = "Forcefield";
     public const string ABILITY_POISONOUS = "Poisonous";
     public const string ABILITY_RANGED = "Ranged";
+    public const string ABILITY_REGENERATION = "Regeneration";
     public const string ABILITY_STEALTH = "Stealth";
     public const string ABILITY_WARD = "Ward";
-    // Status Abilities
+    // Status Keywords
     public const string ABILITY_MARKED = "Marked";
     public const string ABILITY_POISONED = "Poisoned";
     public const string ABILITY_WOUNDED = "Wounded";
@@ -59,15 +60,16 @@ public class CardManager : MonoBehaviour
     // Ability Keywords
     private static string[] AbilityKeywords = new string[]
     {
-        // Static
+        // Positive Keywords
         ABILITY_ARMORED,
         ABILITY_BLITZ,
         ABILITY_FORCEFIELD,
         ABILITY_POISONOUS,
         ABILITY_RANGED,
+        ABILITY_REGENERATION,
         ABILITY_STEALTH,
         ABILITY_WARD,
-        // Keyword
+        // Status Keywords
         ABILITY_MARKED,
         "Mark",
         ABILITY_POISONED,
@@ -79,7 +81,7 @@ public class CardManager : MonoBehaviour
         "Refreshed",
         "Refresh",
         ABILITY_WOUNDED,
-        // Triggers
+        // Ability Triggers
         TRIGGER_DEATHBLOW,
         TRIGGER_INFILTRATE,
         TRIGGER_PLAY,
@@ -108,6 +110,10 @@ public class CardManager : MonoBehaviour
     public const string TECH = "Tech";
     public const string WARRIOR = "Warrior";
 
+    // Generatable Keywords
+    [Header("GENERATABLE KEYWORDS")]
+    public List<StaticAbility> GeneratableKeywords;
+
     // Positive Abilities
     public static string[] PositiveAbilities = new string[]
     {
@@ -116,7 +122,9 @@ public class CardManager : MonoBehaviour
         ABILITY_FORCEFIELD,
         ABILITY_POISONOUS,
         ABILITY_RANGED,
-        ABILITY_STEALTH
+        ABILITY_REGENERATION,
+        ABILITY_STEALTH,
+        ABILITY_WARD
     };
 
     // Negative Abilities
@@ -510,6 +518,22 @@ public class CardManager : MonoBehaviour
         if (abilityIndex == -1) return false;
         else return true;
     }
+    public int GetPositiveKeywords(GameObject target)
+    {
+        if (!target.TryGetComponent(out UnitCardDisplay _))
+        {
+            Debug.LogError("TARGET IS NOT UNIT!");
+            return 0;
+        }
+
+        int positiveKeywords = 0;
+        foreach (string positiveKeyword in PositiveAbilities)
+        {
+            if (GetAbility(target, positiveKeyword)) positiveKeywords++;
+        }
+
+        return positiveKeywords;
+    }
     /******
      * *****
      * ****** GET_TRIGGER
@@ -613,16 +637,28 @@ public class CardManager : MonoBehaviour
 
         foreach (GameObject unit in unitZoneCards)
         {
+            UnitCardDisplay ucd = unit.GetComponent<UnitCardDisplay>();
+
             if (triggerName == TRIGGER_TURN_START)
             {
                 int poisonCount = 0;
-                UnitCardDisplay ucd = unit.GetComponent<UnitCardDisplay>();
                 foreach (CardAbility ca in ucd.CurrentAbilities)
                     if (ca.AbilityName == ABILITY_POISONED) poisonCount++;
 
                 for (int i = 0; i < poisonCount; i++)
                     evMan.NewDelayedAction(() =>
-                    SchedulePoisonEffect(unit, ucd), 0, true);
+                    SchedulePoisonEffect(unit), 0, true);
+            }
+
+            if (triggerName == TRIGGER_TURN_END)
+            {
+                foreach (CardAbility ca in ucd.CurrentAbilities)
+                    if (ca.AbilityName == ABILITY_REGENERATION)
+                    {
+                        evMan.NewDelayedAction(() =>
+                        ScheduleRegenerationEffect(unit), 0, true);
+                        break;
+                    }
             }
 
             if (!GetTrigger(unit, triggerName)) continue;
@@ -639,13 +675,34 @@ public class CardManager : MonoBehaviour
                 enMan.UseHeroPower(), 0.5f, true);
         }
 
-        void SchedulePoisonEffect(GameObject unit, UnitCardDisplay ucd)
+        void ScheduleRegenerationEffect(GameObject unit)
         {
-            if (unit != null && ucd.CurrentHealth > 0)
-                evMan.NewDelayedAction(() => PoisonEffect(unit, ucd), 0.5f, true);
+            if (unit != null)
+            {
+                UnitCardDisplay ucd = unit.GetComponent<UnitCardDisplay>();
+                if (ucd.CurrentHealth > 0)
+                    evMan.NewDelayedAction(() => RegenerationEffect(unit), 0.5f, true);
+            }
         }
-        void PoisonEffect(GameObject unit, UnitCardDisplay ucd)
+        void SchedulePoisonEffect(GameObject unit)
         {
+            if (unit != null)
+            {
+                UnitCardDisplay ucd = unit.GetComponent<UnitCardDisplay>();
+                if (ucd.CurrentHealth > 0)
+                    evMan.NewDelayedAction(() => PoisonEffect(unit), 0.5f, true);
+            }
+        }
+        void RegenerationEffect(GameObject unit)
+        {
+            UnitCardDisplay ucd = unit.GetComponent<UnitCardDisplay>();
+            ucd.AbilityTriggerState(ABILITY_REGENERATION);
+            efMan.ResolveEffect(new List<GameObject> { unit },
+                efMan.RegenerationEffect, false, 0, out _, false);
+        }
+        void PoisonEffect(GameObject unit)
+        {
+            UnitCardDisplay ucd = unit.GetComponent<UnitCardDisplay>();
             ucd.AbilityTriggerState(ABILITY_POISONED);
             efMan.ResolveEffect(new List<GameObject> { unit },
                 efMan.PoisonEffect, false, 0, out _, false);

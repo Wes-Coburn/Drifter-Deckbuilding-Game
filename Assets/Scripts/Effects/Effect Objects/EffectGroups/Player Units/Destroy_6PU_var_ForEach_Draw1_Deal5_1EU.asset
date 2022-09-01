@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a22d7123f6ee007468cbdc6e9b6fe2b0, type: 3}
+  m_Name: Destroy_6PU_var_ForEach_Draw1_Deal5_1EU
+  m_EditorClassIdentifier: 
+  Targets: {fileID: 11400000, guid: 5d42775887df9964288ced98db570e50, type: 2}
+  ResolveIndependent: 0
+  EffectsDescription: Destroy any number of allies. For each destroyed, draw 1 and
+    deal 5 to an enemy.
+  Effects:
+  - {fileID: 11400000, guid: 50261ef39d6732446af5003d5ae5154e, type: 2}

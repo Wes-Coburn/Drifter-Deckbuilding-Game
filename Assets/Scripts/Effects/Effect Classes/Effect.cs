@@ -17,11 +17,11 @@ public abstract class Effect : ScriptableObject
     public bool IsDerivedValue;
     [Tooltip("Specifies where the value is derived from")]
     public DerivedValueType DerivedValue;
-    
     public enum DerivedValueType
     {
         Source_Power,
-        Source_Health
+        Source_Health,
+        Target_Keywords
     }
 
     [Header("COUNTDOWN"), Tooltip("The number of turns the effect lasts, 0 if permanent"), Range(0, 5)]
@@ -113,6 +113,7 @@ public abstract class Effect : ScriptableObject
         RayColor = effect.RayColor;
 
         PreCheckConditions = effect.PreCheckConditions;
+        CheckConditionsIndependent = effect.CheckConditionsIndependent;
 
         IfAnyWoundedCondition = effect.IfAnyWoundedCondition;
         IfPlayerWoundedCondition = effect.IfPlayerWoundedCondition;

@@ -13,11 +13,20 @@ MonoBehaviour:
   m_Name: Give_Marked_IfNotHas_Marked
   m_EditorClassIdentifier: 
   IsRequired: 0
+  IgnoreLegality: 0
   Value: 1
   IsNegative: 0
+  IsDerivedValue: 0
+  DerivedValue: 0
   Countdown: 0
   ShootRay: 1
   RayColor: {r: 0, g: 0, b: 0, a: 1}
+  PreCheckConditions: 0
+  CheckConditionsIndependent: 0
+  IfNotWoundedCondition: 0
+  IfAnyWoundedCondition: 0
+  IfPlayerWoundedCondition: 0
+  IfEnemyWoundedCondition: 0
   IfExhaustedCondition: 0
   IfRefreshedCondition: 0
   IfDamagedCondition: 0
@@ -39,5 +48,8 @@ MonoBehaviour:
   IfHasLowerPowerValue: 0
   IfHasLowerPowerEffects: []
   IfResolvesEffects: []
+  ResolveSimultaneous: 0
+  IfResolvesGroups: []
   ForEachEffects: []
   CardAbility: {fileID: 11400000, guid: 67b65f6bf1f93db43afb76d61b1435b2, type: 2}
+  RandomPositiveKeyword: 0

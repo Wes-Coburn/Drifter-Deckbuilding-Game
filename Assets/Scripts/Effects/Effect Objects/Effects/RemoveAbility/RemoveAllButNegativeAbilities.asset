@@ -13,8 +13,11 @@ MonoBehaviour:
   m_Name: RemoveAllButNegativeAbilities
   m_EditorClassIdentifier: 
   IsRequired: 0
+  IgnoreLegality: 0
   Value: 0
   IsNegative: 0
+  IsDerivedValue: 0
+  DerivedValue: 0
   Countdown: 0
   ShootRay: 1
   RayColor: {r: 1, g: 1, b: 1, a: 1}
@@ -45,7 +48,9 @@ MonoBehaviour:
   IfHasLowerPowerEffects: []
   IfResolvesEffects: []
   ResolveSimultaneous: 0
+  IfResolvesGroups: []
   ForEachEffects: []
+  removeAbility: {fileID: 0}
   removeAllAbilities: 0
   removeAllButNegativeAbilities: 1
   removePositiveAbilities: 0

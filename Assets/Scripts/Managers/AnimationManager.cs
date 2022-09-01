@@ -340,7 +340,8 @@ public class AnimationManager : MonoBehaviour
         }
 
         triggerIcon.transform.SetAsLastSibling(); // TESTING
-        ChangeAnimationState(triggerIcon.GetComponent<AbilityIconDisplay>().AbilitySpriteObject, "Trigger");
+        //ChangeAnimationState(triggerIcon.GetComponent<AbilityIconDisplay>().AbilitySpriteObject, "Trigger");
+        ChangeAnimationState(triggerIcon, "Trigger");
     }
 
     // Icon Animation

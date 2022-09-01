@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e7527b44bc0b3347b54a3f404a8a59f, type: 3}
+  m_Name: Stealth
+  m_EditorClassIdentifier: 
+  AbilityName: Stealth
+  AbilityDescription: Can't be attacked until it attacks.
+  AbilitySprite: {fileID: 21300000, guid: 81822a4ef6b9d754e8f68fa3c090acbe, type: 3}
+  LinkedAbilites: []
+  AbilityStacks: 0
+  GainAbilitySound:
+    name: 
+    clip: {fileID: 8300000, guid: 21c4e849bc60f61469992c8e8d7f9ec9, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  LoseAbilitySound:
+    name: 
+    clip: {fileID: 8300000, guid: 663b5afc8764e534aaa86122dcc67d05, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}

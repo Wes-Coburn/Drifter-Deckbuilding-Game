@@ -320,7 +320,7 @@ public class UIManager : MonoBehaviour
         else
         {
             normalColor = Color.black;
-            highlightedColor = Color.red; // TESTING
+            highlightedColor = Color.red;
             disabledColor = Color.black;
         }
 
@@ -475,24 +475,6 @@ public class UIManager : MonoBehaviour
         scale = new Vector2();
         switch (heroName)
         {
-            // FENTIS
-            case "Madrik, Obsessed Mage":
-                switch (scene)
-                {
-                    case SceneLoader.Scene.HeroSelectScene:
-                        position.Set(0, -10);
-                        scale.Set(1.4f, 1.4f);
-                        break;
-                    case SceneLoader.Scene.DialogueScene:
-                        position.Set(0, -45);
-                        scale.Set(2f, 2f);
-                        break;
-                    case SceneLoader.Scene.CombatScene:
-                        position.Set(15, -25);
-                        scale.Set(2, 2);
-                        break;
-                }
-                break;
             // FAYDRA
             case "Faydra, Rogue Cyborg":
                 switch (scene)
@@ -511,6 +493,24 @@ public class UIManager : MonoBehaviour
                         break;
                 }
                 break;
+            // GENZER
+            case "Genzer, Evolved Mutant":
+                switch (scene)
+                {
+                    case SceneLoader.Scene.HeroSelectScene:
+                        position.Set(0, 0);
+                        scale.Set(1f, 1f);
+                        break;
+                    case SceneLoader.Scene.DialogueScene:
+                        position.Set(0, 0);
+                        scale.Set(1f, 1f);
+                        break;
+                    case SceneLoader.Scene.CombatScene:
+                        position.Set(0, 0);
+                        scale.Set(1f, 1f);
+                        break;
+                }
+                break;
             // KILI
             case "Kili, Neon Rider":
                 switch (scene)
@@ -526,6 +526,24 @@ public class UIManager : MonoBehaviour
                     case SceneLoader.Scene.CombatScene:
                         position.Set(-60, -190);
                         scale.Set(2.5f, 2.5f);
+                        break;
+                }
+                break;
+            // MARDRIK
+            case "Madrik, Obsessed Mage":
+                switch (scene)
+                {
+                    case SceneLoader.Scene.HeroSelectScene:
+                        position.Set(0, -10);
+                        scale.Set(1.4f, 1.4f);
+                        break;
+                    case SceneLoader.Scene.DialogueScene:
+                        position.Set(0, -45);
+                        scale.Set(2f, 2f);
+                        break;
+                    case SceneLoader.Scene.CombatScene:
+                        position.Set(15, -25);
+                        scale.Set(2, 2);
                         break;
                 }
                 break;

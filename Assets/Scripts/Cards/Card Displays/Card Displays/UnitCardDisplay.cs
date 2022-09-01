@@ -96,6 +96,34 @@ public class UnitCardDisplay : CardDisplay
         DisplayPower(CurrentPower);
     }
 
+    public Color GetAbilityIconColor(CardAbility cardAbility)
+    {
+        Color iconColor = Color.white;
+
+        foreach (string posAbi in CardManager.PositiveAbilities)
+        {
+            if (cardAbility.AbilityName == posAbi)
+            {
+                iconColor = Color.green;
+                break;
+            }
+        }
+
+        if (iconColor == Color.white)
+        {
+            foreach (string negAbi in CardManager.NegativeAbilities)
+            {
+                if (cardAbility.AbilityName == negAbi)
+                {
+                    iconColor = Color.red;
+                    break;
+                }
+            }
+        }
+
+        return iconColor;
+    }
+
     protected override void DisplayCard()
     {
         base.DisplayCard();
@@ -179,6 +207,9 @@ public class UnitCardDisplay : CardDisplay
                         GetComponent<CardZoom>().CreateZoomAbilityIcon(ca,
                         currentAbilitiesDisplay.transform, 1);
 
+                    AbilityIconDisplay aid = abilityIcon.GetComponent<AbilityIconDisplay>();
+                    aid.AbilitySprite.GetComponent<Image>().color = GetAbilityIconColor(ca);
+
                     shownAbilities.Add(ca);
                     shownObjects.Add(abilityIcon);
                     shownAbilityCounts.Add(1);
@@ -215,8 +246,12 @@ public class UnitCardDisplay : CardDisplay
                 Debug.LogError("EMPTY ABILITY!");
                 continue;
             }
-            GetComponent<CardZoom>().CreateZoomAbilityIcon(ca,
+
+            GameObject abilityIcon = GetComponent<CardZoom>().CreateZoomAbilityIcon(ca,
                 currentAbilitiesDisplay.transform, 1);
+
+            AbilityIconDisplay aid = abilityIcon.GetComponent<AbilityIconDisplay>();
+            aid.AbilitySprite.GetComponent<Image>().color = GetAbilityIconColor(ca);
         }
     }
 
@@ -311,8 +346,10 @@ public class UnitCardDisplay : CardDisplay
         GameObject CreateAbilityIcon(CardAbility cardAbility)
         {
             GameObject abilityIcon = Instantiate(abilityIconPrefab, new Vector2(0, 0), Quaternion.identity);
-            abilityIcon.GetComponent<AbilityIconDisplay>().AbilityScript = cardAbility;
+            AbilityIconDisplay aid = abilityIcon.GetComponent<AbilityIconDisplay>();
+            aid.AbilityScript = cardAbility;
             abilityIcon.transform.SetParent(currentAbilitiesDisplay.transform, false);
+            aid.AbilitySprite.GetComponent<Image>().color = GetAbilityIconColor(cardAbility);
             return abilityIcon;
         }
     }

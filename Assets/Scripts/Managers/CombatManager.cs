@@ -547,7 +547,6 @@ public class CombatManager : MonoBehaviour
 
             if (newZoneName == ENEMY_HAND) card.transform.SetAsFirstSibling();
             else card.transform.SetAsLastSibling();
-
         }
 
         cd.CardContainer.GetComponent<CardContainer>().MoveContainer(newZone);
@@ -758,7 +757,7 @@ public class CombatManager : MonoBehaviour
                 efMan.TriggerModifiers_PlayUnit(card); // Resolves 2nd
                 caMan.TriggerUnitAbility(card, CardManager.TRIGGER_PLAY); // Resolves 1st
 
-                FunctionTimer.Create(() => SetFirstSibling(card), 0.5f);
+                FunctionTimer.Create(() => SetFirstSibling(card), 1);
             }
 
             PlayCardSound();

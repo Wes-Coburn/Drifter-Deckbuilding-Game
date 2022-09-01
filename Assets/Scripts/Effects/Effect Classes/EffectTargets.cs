@@ -3,6 +3,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Effect Targets", menuName = "Effects/Effect Targets")]
 public class EffectTargets : ScriptableObject
 {
+    [Header("NO TARGETS")]
+    public bool NoTargets;
+
     [Header("TARGET NUMBER")]
     [Range(1, 10)]
     public int TargetNumber;
@@ -36,6 +39,7 @@ public class EffectTargets : ScriptableObject
     {
         //if (TargetNumber != targets.TargetNumber) return false;
         //if (VariableNumber != targets.VariableNumber) return false;
+        if (NoTargets != targets.NoTargets) return false;
         if (TargetsAll != targets.TargetsAll) return false;
         if (TargetsLowestHealth != targets.TargetsLowestHealth) return false;
         if (TargetsStrongest != targets.TargetsStrongest) return false;
