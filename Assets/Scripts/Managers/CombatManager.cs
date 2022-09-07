@@ -27,7 +27,11 @@ public class CombatManager : MonoBehaviour
     private readonly string PLAYER = GameManager.PLAYER;
     private readonly string ENEMY = GameManager.ENEMY;
 
-    private int actionsPlayedThisTurn;
+    private int actionsPlayed_ThisTurn;
+    private int exploitsPlayed_ThisTurn;
+    private int inventionsPlayed_ThisTurn;
+    private int schemesPlayed_ThisTurn;
+
     private int lastCardIndex;
     private int lastContainerIndex;
 
@@ -53,21 +57,96 @@ public class CombatManager : MonoBehaviour
     public const string ENEMY_DISCARD = "EnemyDiscard";
     public const string ENEMY_HERO_POWER = "EnemyHeroPower";
 
-    public int ActionsPlayedThisTurn
+    public int ActionsPlayed_ThisTurn
     {
-        get => actionsPlayedThisTurn;
+        get => actionsPlayed_ThisTurn;
         set
         {
-            actionsPlayedThisTurn = value;
-            if (actionsPlayedThisTurn == 1)
+            actionsPlayed_ThisTurn = value;
+            if (actionsPlayed_ThisTurn == 1)
             {
                 string player;
                 if (pMan.IsMyTurn) player = GameManager.PLAYER;
                 else player = GameManager.ENEMY;
 
                 evMan.NewDelayedAction(() =>
-                caMan.TriggerPlayedUnits(CardManager.TRIGGER_SPARK, player), 0, true); // TESTING
+                caMan.TriggerPlayedUnits(CardManager.TRIGGER_SPARK, player), 0, true);
             }
+        }
+    }
+
+    public int ExploitsPlayed_ThisTurn
+    {
+        get => exploitsPlayed_ThisTurn;
+        set
+        {
+            exploitsPlayed_ThisTurn = value;
+            if (value == 3)
+            {
+                exploitsPlayed_ThisTurn = 0;
+
+                string hero;
+                if (pMan.IsMyTurn) hero = GameManager.PLAYER;
+                else hero = GameManager.ENEMY;
+
+                evMan.NewDelayedAction(() => DrawUltimate(), 0, true);
+                void DrawUltimate()
+                {
+                    Card card = caMan.NewCardInstance(caMan.Exploit_Ultimate);
+                    DrawCard(hero, card);
+                }
+            }
+            else if (value > 3) Debug.LogError("VALUE > 3!");
+        }
+    }
+
+    public int InventionsPlayed_ThisTurn
+    {
+        get => inventionsPlayed_ThisTurn;
+        set
+        {
+            inventionsPlayed_ThisTurn = value;
+            if (value == 3)
+            {
+                inventionsPlayed_ThisTurn = 0;
+
+                string hero;
+                if (pMan.IsMyTurn) hero = GameManager.PLAYER;
+                else hero = GameManager.ENEMY;
+
+                evMan.NewDelayedAction(() => DrawUltimate(), 0, true);
+                void DrawUltimate()
+                {
+                    Card card = caMan.NewCardInstance(caMan.Invention_Ultimate);
+                    DrawCard(hero, card);
+                }
+            }
+            else if (value > 3) Debug.LogError("VALUE > 3!");
+        }
+    }
+
+    public int SchemesPlayed_ThisTurn
+    {
+        get => schemesPlayed_ThisTurn;
+        set
+        {
+            schemesPlayed_ThisTurn = value;
+            if (value == 3)
+            {
+                schemesPlayed_ThisTurn = 0;
+
+                string hero;
+                if (pMan.IsMyTurn) hero = GameManager.PLAYER;
+                else hero = GameManager.ENEMY;
+
+                evMan.NewDelayedAction(() => DrawUltimate(), 0, true);
+                void DrawUltimate()
+                {
+                    Card card = caMan.NewCardInstance(caMan.Scheme_Ultimate);
+                    DrawCard(hero, card);
+                }
+            }
+            else if (value > 3) Debug.LogError("VALUE > 3!");
         }
     }
 

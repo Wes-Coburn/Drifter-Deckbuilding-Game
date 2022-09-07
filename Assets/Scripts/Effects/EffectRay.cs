@@ -55,7 +55,7 @@ public class EffectRay : MonoBehaviour
         if (speed < minSpeed) speed = minSpeed;
         else if (speed > maxSpeed) speed = maxSpeed;
 
-        if (distance > 50) // TESTING
+        if (distance > 50)
         {
             transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed);
 

@@ -10,6 +10,7 @@ public class EffectTargets : ScriptableObject
     [Range(1, 10)]
     public int TargetNumber;
     public bool VariableNumber;
+    public bool AllowZero;
 
     [Header("TARGETS ALL")]
     public bool TargetsAll;

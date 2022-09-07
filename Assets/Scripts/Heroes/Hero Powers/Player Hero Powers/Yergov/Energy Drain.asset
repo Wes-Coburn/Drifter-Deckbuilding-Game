@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Energy Drain
   m_EditorClassIdentifier: 
   PowerName: Energy Drain
-  PowerCost: 0
+  PowerCost: 1
   PowerSprite: {fileID: 21300000, guid: 25f2c3732283300459c625b731ef7c71, type: 3}
   PowerSounds:
   - name: 
@@ -26,9 +26,9 @@ MonoBehaviour:
     volume: 0.8
     pitch: 1
     source: {fileID: 0}
-  PowerDescription: Deal 1 to an ally to replenish 2 energy. If this destroys it,
-    draw 1.
+  PowerDescription: Deal 1 to an ally to create an Extraction in hand. If this destroys
+    it, create another.
   EffectGroupList:
   - {fileID: 11400000, guid: 37935cc54137a4b4fae4b78594ef0433, type: 2}
-  - {fileID: 11400000, guid: 1296c25eb7806194d8e06e6ca52b67fa, type: 2}
+  - {fileID: 11400000, guid: 1a57cadd97d60314a997b74639dc3656, type: 2}
   LinkedAbilities: []

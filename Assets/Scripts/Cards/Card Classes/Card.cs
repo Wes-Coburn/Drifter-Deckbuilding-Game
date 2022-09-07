@@ -4,7 +4,7 @@ public abstract class Card : ScriptableObject
 {
     [SerializeField] private Sprite cardArt;
     [SerializeField] private Sprite cardBorder;
-    [SerializeField] private int energyCost;
+    [SerializeField, Range(0, 10)] private int energyCost;
     [SerializeField] private string cardName;
     [SerializeField] private string cardType;
     [SerializeField] private string cardSubType;

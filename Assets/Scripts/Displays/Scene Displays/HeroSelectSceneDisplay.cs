@@ -41,7 +41,7 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         caMan = CardManager.Instance;
         playerHeroes = Resources.LoadAll<PlayerHero>("Heroes");
         heroBackstory.SetActive(false);
-        currentHero = 1; // Start with Kili
+        currentHero = 2; // Start with Kili
     }
 
     private void LoadSelection()

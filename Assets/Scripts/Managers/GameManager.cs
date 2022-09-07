@@ -365,8 +365,8 @@ public class GameManager : MonoBehaviour
         IsTutorial = false;
         caMan.LoadNewRecruits();
         ShopItems = GetShopItems();
-        ShopLoyalty = 0;
-        RecruitLoyalty = 0;
+        ShopLoyalty = 3; // First item free
+        RecruitLoyalty = 3; // First recruit free
         pMan.AetherCells = PLAYER_START_AETHER;
         pMan.PlayerDeckList.Clear();
 
@@ -1237,7 +1237,7 @@ public class GameManager : MonoBehaviour
                 {
                     UnitCard newCard = caMan.NewCardInstance(card) as UnitCard;
                     evMan.NewDelayedAction(() =>
-                    efMan.PlayCreatedUnit(newCard, coMan.EnemyHero), 0.5f);
+                    efMan.PlayCreatedUnit(newCard, false, coMan.EnemyHero), 0.5f); // TESTING
                 }
             }
         }
@@ -1294,7 +1294,11 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        coMan.ActionsPlayedThisTurn = 0;
+        coMan.ActionsPlayed_ThisTurn = 0;
+        coMan.ExploitsPlayed_ThisTurn = 0;
+        coMan.InventionsPlayed_ThisTurn = 0;
+        coMan.SchemesPlayed_ThisTurn = 0;
+
         evMan.NewDelayedAction(() => TurnPopup(), 0);
 
         string logText = "\n";

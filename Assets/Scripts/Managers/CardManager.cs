@@ -31,6 +31,10 @@ public class CardManager : MonoBehaviour
     [SerializeField] private UnitCard[] playerStartUnits;
     [Header("TUTORIAL PLAYER UNITS")]
     [SerializeField] private UnitCard[] tutorialPlayerUnits;
+    [Header("CREATED CARD ULTIMATES")]
+    [SerializeField] private ActionCard exploit_Ultimate;
+    [SerializeField] private ActionCard invention_Ultimate;
+    [SerializeField] private ActionCard scheme_Ultimate;
 
     // Positive Keywords
     public const string ABILITY_ARMORED = "Armored";
@@ -56,6 +60,13 @@ public class CardManager : MonoBehaviour
     public const string TRIGGER_TRAP = "Trap";
     public const string TRIGGER_TURN_START = "Turn Start";
     public const string TRIGGER_TURN_END = "Turn End";
+
+    // Card Types
+    public const string EXPLOIT = "Exploit";
+    public const string INVENTION = "Invention";
+    public const string SCHEME = "Scheme";
+
+    public const string EXTRACTION = "Extraction";
 
     // Ability Keywords
     private static string[] AbilityKeywords = new string[]
@@ -98,9 +109,11 @@ public class CardManager : MonoBehaviour
     // Card Types
     private static string[] CardTypes = new string[]
     {
-        "Exploit",
-        "Invention",
-        "Scheme"
+        EXPLOIT,
+        INVENTION,
+        SCHEME,
+
+        EXTRACTION
     };
 
     // Unit Types
@@ -141,6 +154,10 @@ public class CardManager : MonoBehaviour
 
     public UnitCard[] PlayerStartUnits { get => playerStartUnits; }
     public UnitCard[] TutorialPlayerUnits { get => tutorialPlayerUnits; }
+
+    public ActionCard Exploit_Ultimate { get => exploit_Ultimate; }
+    public ActionCard Invention_Ultimate { get => invention_Ultimate; }
+    public ActionCard Scheme_Ultimate { get => scheme_Ultimate; }
 
     public List<UnitCard> PlayerRecruitMages { get; private set; }
     public List<UnitCard> PlayerRecruitMutants { get; private set; }
@@ -207,6 +224,14 @@ public class CardManager : MonoBehaviour
         if (isExactCopy) cardScript.CopyCard(card);
         else cardScript.LoadCard(card);
         return cardScript;
+    }
+
+    public string FilterCreatedCardProgress(string text)
+    {
+        text = text.Replace("{EXPLOITS}", coMan.ExploitsPlayed_ThisTurn + "");
+        text = text.Replace("{INVENTIONS}", coMan.InventionsPlayed_ThisTurn + "");
+        text = text.Replace("{SCHEMES}", coMan.SchemesPlayed_ThisTurn + "");
+        return text;
     }
 
     public string FilterKeywords(string text)

@@ -8,6 +8,7 @@ public class AbilityPopupDisplay : MonoBehaviour
     [SerializeField] private GameObject abilityDescription;
 
     private CardAbility abilityScript;
+    private CardManager caMan;
 
     public CardAbility AbilityScript
     {
@@ -33,6 +34,11 @@ public class AbilityPopupDisplay : MonoBehaviour
     public string AbilityDescription
     {
         set => abilityDescription.GetComponent<TextMeshProUGUI>().SetText(value);
+    }
+
+    private void Awake()
+    {
+        caMan = CardManager.Instance;
     }
 
     /******
@@ -104,6 +110,9 @@ public class AbilityPopupDisplay : MonoBehaviour
             return;
         }
         if (!string.IsNullOrEmpty(name)) name += ": ";
-        AbilityDescription = CardManager.Instance.FilterKeywords(name + description);
+
+        string filteredDescription = caMan.FilterKeywords(name + description);
+        filteredDescription = caMan.FilterCreatedCardProgress(filteredDescription); // TESTING
+        AbilityDescription = CardManager.Instance.FilterKeywords(filteredDescription);
     }
 }

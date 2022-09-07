@@ -26,8 +26,8 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
-  PowerDescription: Destroy any number of allies. For each destroyed, draw 1 and
-    deal 5 to an enemy.
+  PowerDescription: "Give ALL allies \u201CRevenge: Create a copy of this unit.\u201D"
   EffectGroupList:
-  - {fileID: 11400000, guid: 4fc6a5bbe3dfcb34b922a31a3f7cfd17, type: 2}
-  LinkedAbilities: []
+  - {fileID: 11400000, guid: 8f65a0775ce80af46a6d8999c0d61546, type: 2}
+  LinkedAbilities:
+  - {fileID: 11400000, guid: 55d83941db05710428faf12e595b4a38, type: 2}

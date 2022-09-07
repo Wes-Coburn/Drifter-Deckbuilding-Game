@@ -179,11 +179,11 @@ public class EffectManager : MonoBehaviour
 
         if (effect is DrawEffect de && de.IsDiscardEffect && de.DiscardAll) return false; // TESTING
 
-        else if (effect is GiveNextUnitEffect) return false;
+        else if (effect is GiveNextUnitEffect) return false; // CHANGE TO <NO TARGETS>
 
-        else if (effect is ChangeCostEffect cce && cce.ChangeNextCost) return false;
+        else if (effect is ChangeCostEffect cce && cce.ChangeNextCost) return false; // CHANGE TO <NO TARGETS>
 
-        else if (effect is CreateCardEffect || effect is PlayCardEffect) return false;
+        else if (effect is CreateCardEffect || effect is PlayCardEffect) return false; // CHANGE TO <NO TARGETS>
 
         else if (targets.TargetsAll || targets.TargetsSelf) return false;
 
@@ -567,7 +567,9 @@ public class EffectManager : MonoBehaviour
             anMan.ShiftPlayerHand(true);
             if (et.VariableNumber)
             {
-                uMan.SetConfirmEffectButton(true);
+                if (et.AllowZero) uMan.SetConfirmEffectButton(true);
+                else uMan.SetCancelEffectButton(true); // TESTING
+
                 if (de3.IsMulliganEffect) description = "Choose cards to redraw."; // "Redraw" or "Replace"
                 else if (et.TargetNumber < 8)
                 {
@@ -829,12 +831,22 @@ public class EffectManager : MonoBehaviour
             }
             return true;
         }
-        else if (effect is PlayCardEffect ||
-            (effect is CopyCardEffect cpyCrd2 && cpyCrd2.PlayCopy))
+        else if (effect is PlayCardEffect || (effect is CopyCardEffect cpyCrd2 && cpyCrd2.PlayCopy))
         {
+            PlayCardEffect pce = null;
+            if (effect is PlayCardEffect) pce = effect as PlayCardEffect;
+
             int unitCount;
-            if (isPlayerSource) unitCount = coMan.PlayerZoneCards.Count;
-            else unitCount = coMan.EnemyZoneCards.Count;
+            if (isPlayerSource)
+            {
+                if (pce != null && pce.EnemyCard) unitCount = coMan.EnemyZoneCards.Count; // TESTING
+                else unitCount = coMan.PlayerZoneCards.Count;
+            }
+            else
+            {
+                if (pce != null && pce.EnemyCard) unitCount = coMan.PlayerZoneCards.Count; // TESTING
+                else unitCount = coMan.EnemyZoneCards.Count;
+            }
 
             if (unitCount >= GameManager.MAX_UNITS_PLAYED) return false;
             return true;
@@ -916,6 +928,7 @@ public class EffectManager : MonoBehaviour
     {
         uMan.PlayerIsTargetting = false;
         uMan.DismissInfoPopup();
+        uMan.SetCancelEffectButton(false); // TESTING
 
         foreach (GameObject target in legalTargets[currentEffectGroup])
             uMan.SelectTarget(target, UIManager.SelectionType.Disabled);
@@ -938,7 +951,7 @@ public class EffectManager : MonoBehaviour
             if (CurrentEffect is ChangeCostEffect || CurrentEffect is CopyCardEffect)
                 anMan.ShiftPlayerHand(false);
 
-            uMan.SetCancelEffectButton(false);
+            //uMan.SetCancelEffectButton(false);
             
             if (dragArrow != null)
             {
@@ -1000,6 +1013,11 @@ public class EffectManager : MonoBehaviour
             }
 
             bool shootRay = false;
+            if (effect is DamageEffect ||
+                effect is DestroyEffect ||
+                effect is HealEffect ||
+                effect.ShootRay) shootRay = true;
+            /*
             if (!eg.Targets.TargetsSelf || eg.Targets.TargetsAll)
             {
                 if (effect is DamageEffect ||
@@ -1007,6 +1025,7 @@ public class EffectManager : MonoBehaviour
                 effect is HealEffect ||
                 effect.ShootRay) shootRay = true;
             }
+            */
 
             if (shootRay) ResolveEffect(targetList, effect, shootRay, newDelay, out newDelay);
             else
@@ -1121,7 +1140,7 @@ public class EffectManager : MonoBehaviour
             else if (isValidEffect)
             {
                 string hero;
-                if (IsPlayerSource(effectSource)) hero = GameManager.PLAYER;
+                if (IsPlayerSource(newEffectSource)) hero = GameManager.PLAYER;
                 else hero = GameManager.ENEMY;
 
                 GameObject target;
@@ -1190,7 +1209,7 @@ public class EffectManager : MonoBehaviour
                 {
                     if (sourceIsUnit && targetIsUnit)
                     {
-                        if (CardManager.GetAbility(effectSource, CardManager.ABILITY_POISONOUS))
+                        if (CardManager.GetAbility(newEffectSource, CardManager.ABILITY_POISONOUS))
                             targetUcd.AddCurrentAbility(poisonAbility);
                     }
                 }
@@ -1245,7 +1264,7 @@ public class EffectManager : MonoBehaviour
             int energyPerTurn;
             int newEnergy;
 
-            if (IsPlayerSource(effectSource))
+            if (IsPlayerSource(newEffectSource))
             {
                 hero = coMan.PlayerHero;
                 startEnergy = pMan.EnergyLeft;
@@ -1264,7 +1283,7 @@ public class EffectManager : MonoBehaviour
 
             if (newEnergy > startEnergy)
             {
-                if (IsPlayerSource(effectSource)) pMan.EnergyLeft = newEnergy;
+                if (IsPlayerSource(newEffectSource)) pMan.EnergyLeft = newEnergy;
                 else enMan.EnergyLeft = newEnergy;
             }
 
@@ -1281,7 +1300,7 @@ public class EffectManager : MonoBehaviour
             newGnfe.LoadEffect(gnfe);
 
             List<GiveNextUnitEffect> giveNextUnitEffects;
-            if (IsPlayerSource(effectSource)) giveNextUnitEffects = giveNextEffects_Player;
+            if (IsPlayerSource(newEffectSource)) giveNextUnitEffects = giveNextEffects_Player;
             else giveNextUnitEffects = giveNextEffects_Enemy;
 
             giveNextUnitEffects.Add(newGnfe);
@@ -1433,7 +1452,7 @@ public class EffectManager : MonoBehaviour
 
                 if (cce.ExcludeSelf)
                 {
-                    if (!effectSource.TryGetComponent(out CardDisplay cardDisplay))
+                    if (!newEffectSource.TryGetComponent(out CardDisplay cardDisplay))
                     {
                         Debug.LogError("SOURCE IS NOT A CARD!");
                     }
@@ -1489,7 +1508,7 @@ public class EffectManager : MonoBehaviour
             else Debug.LogError("SCRIPT IS NOT UNIT CARD!");
 
             cardScript = caMan.NewCardInstance(cardScript);
-            GameObject newCardObj = PlayCreatedUnit(cardScript as UnitCard);
+            GameObject newCardObj = PlayCreatedUnit(cardScript as UnitCard, pce.EnemyCard); // TESTING
 
             foreach (Effect addEffect in pce.AdditionalEffects)
                 ResolveEffect(new List<GameObject> { newCardObj }, addEffect, false, 0, out _, false);
@@ -1509,7 +1528,7 @@ public class EffectManager : MonoBehaviour
                 if (newCard is UnitCard) { }
                 else Debug.LogError("SCRIPT IS NOT UNIT CARD!");
 
-                if (cpyCrd.PlayCopy) newCardObj = PlayCreatedUnit(newCard as UnitCard);
+                if (cpyCrd.PlayCopy) newCardObj = PlayCreatedUnit(newCard as UnitCard, false); // TESTING
                 else newCardObj = DrawCreatedCard(newCard);
 
                 if (newCardObj == null)
@@ -1541,7 +1560,7 @@ public class EffectManager : MonoBehaviour
                 List<ChangeCostEffect> changeCostEffects;
                 List<GameObject> affectedCards;
 
-                if (IsPlayerSource(effectSource))
+                if (IsPlayerSource(newEffectSource))
                 {
                     changeCostEffects = ChangeNextCostEffects_Player;
                     affectedCards = coMan.PlayerHandCards;
@@ -1633,7 +1652,7 @@ public class EffectManager : MonoBehaviour
 
             if (effect.IsDerivedValue)
             {
-                effectSource.TryGetComponent(out UnitCardDisplay ucd); // TESTING
+                newEffectSource.TryGetComponent(out UnitCardDisplay ucd); // TESTING
 
                 int newValue;
                 switch (effect.DerivedValue)
@@ -1881,10 +1900,10 @@ public class EffectManager : MonoBehaviour
     {
         Debug.LogWarning("DRAW CREATED CARD!");
 
-        string player;
-        if (IsPlayerSource(effectSource)) player = GameManager.PLAYER;
-        else player = GameManager.ENEMY;
-        return coMan.DrawCard(player, cardScript);
+        string hero;
+        if (IsPlayerSource(effectSource)) hero = GameManager.PLAYER;
+        else hero = GameManager.ENEMY;
+        return coMan.DrawCard(hero, cardScript);
     }
 
     /******
@@ -1892,7 +1911,7 @@ public class EffectManager : MonoBehaviour
      * ****** PLAY_CREATED_UNIT
      * *****
      *****/
-    public GameObject PlayCreatedUnit(UnitCard unitCardScript, GameObject newEffectSource = null)
+    public GameObject PlayCreatedUnit(UnitCard unitCardScript, bool enemyCard, GameObject newEffectSource = null)
     {
         if (newEffectSource == null)
         {
@@ -1909,7 +1928,10 @@ public class EffectManager : MonoBehaviour
         List<GameObject> zoneList;
         string errorMessage;
 
-        if (IsPlayerSource(newEffectSource))
+        bool isPlayerCard = IsPlayerSource(newEffectSource); // TESTING
+        if (enemyCard) isPlayerCard = !isPlayerCard;
+
+        if (isPlayerCard)
         {
             cardTag = CombatManager.PLAYER_CARD;
             cardZone = CombatManager.PLAYER_ZONE;
@@ -2082,7 +2104,7 @@ public class EffectManager : MonoBehaviour
 
         if (!wasAborted || isAdditionalEffect)
         {
-            if (/*!wasAborted && */additionalEffectGroups.Count > 0)
+            if (additionalEffectGroups.Count > 0)
             {
                 GameObject source = effectSource;
                 EffectGroup group = additionalEffectGroups[0];
@@ -2112,7 +2134,21 @@ public class EffectManager : MonoBehaviour
                         }
 
                         coMan.DiscardCard(source, true);
-                        coMan.ActionsPlayedThisTurn++;
+                        coMan.ActionsPlayed_ThisTurn++;
+
+                        CardDisplay cd = source.GetComponent<CardDisplay>();
+                        switch(cd.CardScript.CardType)
+                        {
+                            case CardManager.EXPLOIT:
+                                coMan.ExploitsPlayed_ThisTurn++;
+                                break;
+                            case CardManager.INVENTION:
+                                coMan.InventionsPlayed_ThisTurn++;
+                                break;
+                            case CardManager.SCHEME:
+                                coMan.SchemesPlayed_ThisTurn++;
+                                break;
+                        }
                     }
                 }
                 else if (coMan.IsUnitCard(effectSource) && IsPlayerSource(effectSource))
@@ -2315,6 +2351,8 @@ public class EffectManager : MonoBehaviour
     }
     private void RemoveEffectTarget(GameObject target)
     {
+        EffectTargets et = effectGroupList[currentEffectGroup].Targets;
+
         auMan.StartStopSound("SFX_AcceptTarget");
         uMan.SelectTarget(target, UIManager.SelectionType.Highlighted);
         acceptedTargets[currentEffectGroup].Remove(target);
@@ -2322,7 +2360,7 @@ public class EffectManager : MonoBehaviour
 
         if (acceptedTargets[currentEffectGroup].Count < 1)
         {
-            if (CurrentEffect is DrawEffect de && de.IsMulliganEffect) { }
+            if (CurrentEffect is DrawEffect de && de.IsMulliganEffect || et.AllowZero) { } // TESTING
             else uMan.SetConfirmEffectButton(false);
         }
     }
