@@ -8,6 +8,7 @@ public class RecruitUnitPopupDisplay : MonoBehaviour
     private UIManager uMan;
     private PlayerManager pMan;
     private GameManager gMan;
+    private CardManager caMan;
 
     private UnitCard unitCard;
 
@@ -24,6 +25,7 @@ public class RecruitUnitPopupDisplay : MonoBehaviour
         uMan = UIManager.Instance;
         pMan = PlayerManager.Instance;
         gMan = GameManager.Instance;
+        caMan = CardManager.Instance;
     }
 
     public UnitCard UnitCard
@@ -41,8 +43,12 @@ public class RecruitUnitPopupDisplay : MonoBehaviour
 
     public void ConfirmButton_OnClick()
     {
-        CardManager.Instance.AddCard(unitCard, GameManager.PLAYER, true);
+        caMan.AddCard(unitCard, GameManager.PLAYER, true);
         pMan.AetherCells -= gMan.GetRecruitCost(unitCard, out _);
+        int recruitIndex = caMan.PlayerRecruitUnits.FindIndex(x => x.CardName == unitCard.CardName);
+        if (recruitIndex != -1) caMan.PlayerRecruitUnits.RemoveAt(recruitIndex);
+        else Debug.LogError("RECRUIT UNIT NOT FOUND!");
+
         bool isReady = false;
         int previousProgress = gMan.RecruitLoyalty;
         if (++gMan.RecruitLoyalty == GameManager.RECRUIT_LOYALTY_GOAL) isReady = true;

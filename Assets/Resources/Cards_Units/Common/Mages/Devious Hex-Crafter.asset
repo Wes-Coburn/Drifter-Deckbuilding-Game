@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Devious Hex-Crafter
   m_EditorClassIdentifier: 
   cardArt: {fileID: 21300000, guid: 7af3952f69935794e84962a1a0de294b, type: 3}
-  cardBorder: {fileID: 21300000, guid: caed35b7a0393484d87efcaf3df2c415, type: 3}
+  cardBorder: {fileID: 21300000, guid: d3683a2654ab4574a806b769dfcfc062, type: 3}
   energyCost: 1
   cardName: Devious Hex-Crafter
   cardType: Mage
@@ -31,6 +31,7 @@ MonoBehaviour:
   power: 2
   health: 1
   startingAbilities:
+  - {fileID: 11400000, guid: edfe3b459c9ebb14eb21ba3bb2f309a0, type: 2}
   - {fileID: 11400000, guid: ae17e442c10913645a4f640cc0803ab1, type: 2}
   unitDeathSound:
     name: 

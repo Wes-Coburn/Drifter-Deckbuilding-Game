@@ -8,7 +8,7 @@ public class AugmentIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     private UIManager uMan;
     private HeroAugment loadedAugment;
-    private const string AUGMENT_POPUP_TIMER = "AugmentPopupTimer";
+    //private const string AUGMENT_POPUP_TIMER = "AugmentPopupTimer";
     public HeroAugment LoadedAugment
     {
         get => loadedAugment;
@@ -20,18 +20,19 @@ public class AugmentIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
     }
 
-    private void Start() => 
-        uMan = UIManager.Instance;
+    private void Start() => uMan = UIManager.Instance;
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
-        FunctionTimer.Create(() =>
-        uMan.CreateAugmentIconPopup(LoadedAugment, gameObject), 0.5f, AUGMENT_POPUP_TIMER);
+        //FunctionTimer.Create(() =>
+        //uMan.CreateAugmentIconPopup(LoadedAugment, gameObject), 0.5f, AUGMENT_POPUP_TIMER);
+
+        uMan.CreateAugmentIconPopup(LoadedAugment, gameObject);
     }
 
     public void OnPointerExit(PointerEventData pointerEventData)
     {
-        FunctionTimer.StopTimer(AUGMENT_POPUP_TIMER);
+        //FunctionTimer.StopTimer(AUGMENT_POPUP_TIMER);
         uMan.DestroyAugmentIconPopup();
     }
 }

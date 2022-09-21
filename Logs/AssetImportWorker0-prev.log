@@ -1,6 +1,6 @@
 Using pre-set license
 Built from '2020.3/staging' branch; Version is '2020.3.5f1 (8095aa901b9b) revision 8426922'; Using compiler version '192528614'; Build Type 'Release'
-OS: 'Windows 10 Home; OS build 19044.1889; Version 2009; 64bit' Language: 'en' Physical Memory: 16204 MB
+OS: 'Windows 10 Home; OS build 19044.2006; Version 2009; 64bit' Language: 'en' Physical Memory: 16204 MB
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
 
  COMMAND LINE ARGUMENTS:
@@ -15,11 +15,11 @@ C:/Users/wgCob/Programming/Unity/Drifter (Unity 2D)
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-58405
+54155
 Successfully changed project path to: C:/Users/wgCob/Programming/Unity/Drifter (Unity 2D)
 C:/Users/wgCob/Programming/Unity/Drifter (Unity 2D)
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 115.66 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 111.95 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.5f1 (8095aa901b9b)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/Resources/UnitySubsystems
@@ -35,743 +35,639 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56472
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56800
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.002170 seconds.
+Registered in 0.002470 seconds.
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 111.01 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 116.60 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.096 seconds
+- Completed reload, in  1.084 seconds
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.003426 seconds.
+Registered in 0.002575 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 126.14 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 120.18 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.073 seconds
+- Completed reload, in  0.981 seconds
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.04 seconds
-Refreshing native plugins compatible for Editor in 1.76 ms, found 4 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.03 seconds
+Refreshing native plugins compatible for Editor in 1.83 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2125 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 2126 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 104.7 MB.
-System memory in use after: 104.8 MB.
+System memory in use after: 104.9 MB.
 
-Unloading 25 unused Assets to reduce memory usage. Loaded Objects now: 2573.
-Total: 3.371800 ms (FindLiveObjects: 0.392600 ms CreateObjectMapping: 0.211900 ms MarkObjects: 2.736600 ms  DeleteObjects: 0.028300 ms)
-
-========================================================================
-Received Import Request.
-  path: Assets/Resources/Cards_Actions/Chemical Combustion.asset
-  artifactKey: Guid(f392b4aabaebf684d93c6570eebc50f8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Actions/Chemical Combustion.asset using Guid(f392b4aabaebf684d93c6570eebc50f8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1fb0b217c92b8a465efd0a30f4606931') in 0.049693 seconds
-  Import took 0.054370 seconds .
+Unloading 25 unused Assets to reduce memory usage. Loaded Objects now: 2574.
+Total: 2.506700 ms (FindLiveObjects: 0.281300 ms CreateObjectMapping: 0.138700 ms MarkObjects: 2.061400 ms  DeleteObjects: 0.024600 ms)
 
 ========================================================================
 Received Import Request.
-  Time since last request: 4.576657 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Anything/Deal5_1Any 1.asset
-  artifactKey: Guid(aee26684d190eb84baf3faf1adce7d2d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Anything/Deal5_1Any 1.asset using Guid(aee26684d190eb84baf3faf1adce7d2d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dbf7a83286db8d37044d1d2c4f27dd87') in 0.003001 seconds
-  Import took 0.009073 seconds .
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/StatChange/Give1PU_plus1plus2_Armored.asset
+  artifactKey: Guid(a41f552b1bddeda4ba729a4faf77d4c3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/StatChange/Give1PU_plus1plus2_Armored.asset using Guid(a41f552b1bddeda4ba729a4faf77d4c3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3a904a66470d04b53a262abed3702f6c') in 0.041674 seconds
+  Import took 0.046434 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 11.877477 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Anything/Deal5_1Any_IfDsty_CreateCard_Mutant_3.asset
-  artifactKey: Guid(aee26684d190eb84baf3faf1adce7d2d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Anything/Deal5_1Any_IfDsty_CreateCard_Mutant_3.asset using Guid(aee26684d190eb84baf3faf1adce7d2d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b0bf0960ccd1645f086d12321a1a4799') in 0.003836 seconds
-  Import took 0.025216 seconds .
+  Time since last request: 5.880458 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/StatChange/Give1PU_plus1plus2_Armored.asset
+  artifactKey: Guid(a41f552b1bddeda4ba729a4faf77d4c3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/StatChange/Give1PU_plus1plus2_Armored.asset using Guid(a41f552b1bddeda4ba729a4faf77d4c3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '02cbbffea7aa6a475b70d1104ee510b3') in 0.005113 seconds
+  Import took 0.009592 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 9.433430 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_5.asset
-  artifactKey: Guid(223856f66f5130444a19e52c1fcc5982) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_5.asset using Guid(223856f66f5130444a19e52c1fcc5982) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '24314be7ce5636ba35b2da5c915ec626') in 0.002476 seconds
-  Import took 0.007309 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.673554 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_5 1.asset
-  artifactKey: Guid(e0a1741e3a0ba1647ad667cf6026be7a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_5 1.asset using Guid(e0a1741e3a0ba1647ad667cf6026be7a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7d5936890bab196115196b7b4b1e54b6') in 0.003708 seconds
-  Import took 0.010113 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 12.527392 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_5_IfDsty_PlayCard_Mutant_3.asset
-  artifactKey: Guid(e0a1741e3a0ba1647ad667cf6026be7a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_5_IfDsty_PlayCard_Mutant_3.asset using Guid(e0a1741e3a0ba1647ad667cf6026be7a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2a0967066f9c56c04b75433bcea1e8a3') in 0.002264 seconds
-  Import took 0.007424 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 12.828592 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_5_IfDsty_PlayCard_Mutant_3.asset
-  artifactKey: Guid(e0a1741e3a0ba1647ad667cf6026be7a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_5_IfDsty_PlayCard_Mutant_3.asset using Guid(e0a1741e3a0ba1647ad667cf6026be7a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '55ff78450b91c3ea0259b060bb4f8276') in 0.016013 seconds
-  Import took 0.021417 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 10.250486 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Anything/Deal5_1Any_IfDsty_CreateCard_Mutant_3.asset
-  artifactKey: Guid(aee26684d190eb84baf3faf1adce7d2d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Anything/Deal5_1Any_IfDsty_CreateCard_Mutant_3.asset using Guid(aee26684d190eb84baf3faf1adce7d2d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c052ca582cb01f79a13fff4d44a791e1') in 0.002808 seconds
-  Import took 0.007063 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 3.466308 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Anything/Deal5_1Any_IfDsty_PlayCard_Mutant_3.asset
-  artifactKey: Guid(aee26684d190eb84baf3faf1adce7d2d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Anything/Deal5_1Any_IfDsty_PlayCard_Mutant_3.asset using Guid(aee26684d190eb84baf3faf1adce7d2d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '326d7c60abbd11852604f846e9608169') in 0.002588 seconds
-  Import took 0.007666 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 211.103239 seconds.
-  path: Assets/Resources/Cards_Actions/Chemical Combustion.asset
-  artifactKey: Guid(f392b4aabaebf684d93c6570eebc50f8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Actions/Chemical Combustion.asset using Guid(f392b4aabaebf684d93c6570eebc50f8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '009bea99e786fe5a5de2ad54edb0c81d') in 0.012591 seconds
-  Import took 0.018355 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 1.465236 seconds.
-  path: Assets/Resources/Cards_Actions/Intimidation Tactics.asset
-  artifactKey: Guid(2167031474327c946b55e11762d19582) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Actions/Intimidation Tactics.asset using Guid(2167031474327c946b55e11762d19582) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '76ae8930a985df970d0b01e2f5bc9b16') in 0.012893 seconds
-  Import took 0.016860 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.006338 seconds.
-  path: Assets/Resources/Cards_Actions/Intimidation Tactics.asset
-  artifactKey: Guid(2167031474327c946b55e11762d19582) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Actions/Intimidation Tactics.asset using Guid(2167031474327c946b55e11762d19582) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '76ae8930a985df970d0b01e2f5bc9b16') in 0.009768 seconds
-  Import took 0.014345 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.066193 seconds.
-  path: Assets/Resources/Cards_Actions/Power Transfer.asset
-  artifactKey: Guid(b4b96678ea8d48c43895d74af270922d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Actions/Power Transfer.asset using Guid(b4b96678ea8d48c43895d74af270922d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9488c44e4fc9ca8c8292441138860846') in 0.014260 seconds
-  Import took 0.019624 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000333 seconds.
-  path: Assets/Resources/Cards_Actions/Rapid Deployment.asset
-  artifactKey: Guid(9e0ceaa2f870f6141850308cfb33e18c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Actions/Rapid Deployment.asset using Guid(9e0ceaa2f870f6141850308cfb33e18c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a4fbea99c460997dd15d672989d520fa') in 0.011797 seconds
-  Import took 0.015627 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000255 seconds.
-  path: Assets/Resources/Cards_Actions/Searing Voidblast.asset
-  artifactKey: Guid(da16ba8ef65ab6c47bb3b2052df0db42) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Actions/Searing Voidblast.asset using Guid(da16ba8ef65ab6c47bb3b2052df0db42) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '249c45915c6ca1f2ec7cd24c89929797') in 0.012494 seconds
-  Import took 0.016450 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000325 seconds.
-  path: Assets/Resources/Cards_Actions/Seize The Moment.asset
-  artifactKey: Guid(cba4bf8f86bbe1149b17337cc1c32e8f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Actions/Seize The Moment.asset using Guid(cba4bf8f86bbe1149b17337cc1c32e8f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cbb0bc2dcc7b4c8b6ff39aa35968fa0d') in 0.008943 seconds
-  Import took 0.013093 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.074695 seconds.
-  path: Assets/Resources/Cards_Actions/Takedown.asset
-  artifactKey: Guid(131cf432095eda5409fdb5983491f670) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Actions/Takedown.asset using Guid(131cf432095eda5409fdb5983491f670) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1b4311196c87fbd1632da8471a0405ce') in 0.009905 seconds
-  Import took 0.014110 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000363 seconds.
+  Time since last request: 35.606105 seconds.
   path: Assets/Resources/Cards_Actions/Trained Killer.asset
   artifactKey: Guid(728c3d7a0b25da44fbe62d3e691bc25b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Actions/Trained Killer.asset using Guid(728c3d7a0b25da44fbe62d3e691bc25b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e783832126e33077697a2198126d20f1') in 0.011604 seconds
-  Import took 0.016663 seconds .
+Start importing Assets/Resources/Cards_Actions/Trained Killer.asset using Guid(728c3d7a0b25da44fbe62d3e691bc25b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '06aa87c55ebdb5aae3a0fd43e030a078') in 0.015439 seconds
+  Import took 0.021399 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 48.025001 seconds.
-  path: Assets/Resources/Cards_Actions/Choking Words 1.asset
-  artifactKey: Guid(f5e78f8885d47c04499769952871b955) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Actions/Choking Words 1.asset using Guid(f5e78f8885d47c04499769952871b955) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1e942db0a83ecd71cf4f7ce93ec327f9') in 0.009968 seconds
-  Import took 0.014531 seconds .
+  Time since last request: 6.927870 seconds.
+  path: Assets/Resources/Cards_Actions/Trained Killer.asset
+  artifactKey: Guid(728c3d7a0b25da44fbe62d3e691bc25b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards_Actions/Trained Killer.asset using Guid(728c3d7a0b25da44fbe62d3e691bc25b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dbb8d67a5a048482558af5d2579f691c') in 0.015037 seconds
+  Import took 0.021242 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 10.573568 seconds.
-  path: Assets/Resources/Cards_Created/Unique Cards/Choking Words
-  artifactKey: Guid(1657932096e359c43b319043697d9880) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Created/Unique Cards/Choking Words using Guid(1657932096e359c43b319043697d9880) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b777978a46dfa9709520e6d4f8a1569e') in 0.002678 seconds
-  Import took 0.006659 seconds .
+  Time since last request: 10.265658 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/StatChange/Give1PU_plus1plus1_IfHas_Stealth_plus1plus1.asset
+  artifactKey: Guid(e924cd726381fbb46aeace3a2e4b9128) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/StatChange/Give1PU_plus1plus1_IfHas_Stealth_plus1plus1.asset using Guid(e924cd726381fbb46aeace3a2e4b9128) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '902d91507b6e85ece63b0c8bc193d590') in 0.008288 seconds
+  Import took 0.013778 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 12.113905 seconds.
-  path: Assets/Resources/Cards_Created/Unique Cards/Choking Words/Choking Words 2.asset
-  artifactKey: Guid(f5e78f8885d47c04499769952871b955) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Created/Unique Cards/Choking Words/Choking Words 2.asset using Guid(f5e78f8885d47c04499769952871b955) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '704b2e26957fdad29fe22cfcf80f9925') in 0.008427 seconds
-  Import took 0.015927 seconds .
+  Time since last request: 4.849986 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/StatChange/Give1PU_plus1plus1_IfHas_Stealth_plus2plus2.asset
+  artifactKey: Guid(e924cd726381fbb46aeace3a2e4b9128) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/StatChange/Give1PU_plus1plus1_IfHas_Stealth_plus2plus2.asset using Guid(e924cd726381fbb46aeace3a2e4b9128) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd449b459c0c3fa61a682107e71f9f2f4') in 0.007414 seconds
+  Import took 0.013412 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 22.825013 seconds.
-  path: Assets/Resources/Cards_Actions/Choking Words.asset
-  artifactKey: Guid(4baab85d8373c504b88f4ff950b05f2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Actions/Choking Words.asset using Guid(4baab85d8373c504b88f4ff950b05f2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'edf0d63d4ac4380b6168049cd705dad7') in 0.008475 seconds
-  Import took 0.012746 seconds .
+  Time since last request: 10.840034 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/StatChange/Give1PU_plus1plus1_IfHas_Stealth_plus2plus2.asset
+  artifactKey: Guid(e924cd726381fbb46aeace3a2e4b9128) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/StatChange/Give1PU_plus1plus1_IfHas_Stealth_plus2plus2.asset using Guid(e924cd726381fbb46aeace3a2e4b9128) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '005e1748f0985bfb328c8cbb5a955c42') in 0.010145 seconds
+  Import took 0.015369 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 4.362033 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal3_1EU 1.asset
-  artifactKey: Guid(2a7b7ffb6ce86b34bbd222f716ca4c46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal3_1EU 1.asset using Guid(2a7b7ffb6ce86b34bbd222f716ca4c46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '019bb885bbeccd252f73540bd11ef496') in 0.002815 seconds
-  Import took 0.006666 seconds .
+  Time since last request: 39.408088 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus1plus0_IfHas_Stealth 1.asset
+  artifactKey: Guid(2ff7c6dfb6410ac4199116a870ef4c67) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus1plus0_IfHas_Stealth 1.asset using Guid(2ff7c6dfb6410ac4199116a870ef4c67) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '74892341c1e2cef4ef9df0752512ded7') in 0.005147 seconds
+  Import took 0.011637 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 9.773328 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal3_1EU_IfDsty_CreateCard_ChokingWords2.asset
-  artifactKey: Guid(2a7b7ffb6ce86b34bbd222f716ca4c46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal3_1EU_IfDsty_CreateCard_ChokingWords2.asset using Guid(2a7b7ffb6ce86b34bbd222f716ca4c46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a86bf0e38dfaac704a0d6cbfdedd6a4f') in 0.004738 seconds
-  Import took 0.008897 seconds .
+  Time since last request: 6.164280 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus2plus2_IfHas_Stealth.asset
+  artifactKey: Guid(2ff7c6dfb6410ac4199116a870ef4c67) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus2plus2_IfHas_Stealth.asset using Guid(2ff7c6dfb6410ac4199116a870ef4c67) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7f6e62a554e1b0befec551389c8afb16') in 0.003919 seconds
+  Import took 0.009954 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 23.487361 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_3.asset
-  artifactKey: Guid(69dcff34dedea514892b2084682d73c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_3.asset using Guid(69dcff34dedea514892b2084682d73c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f7513d535e69cff2bd54755f3ee60a26') in 0.017629 seconds
-  Import took 0.023387 seconds .
+  Time since last request: 8.703132 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus2plus2_IfHas_Stealth.asset
+  artifactKey: Guid(2ff7c6dfb6410ac4199116a870ef4c67) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus2plus2_IfHas_Stealth.asset using Guid(2ff7c6dfb6410ac4199116a870ef4c67) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd7aa0ef0bc371e8ede63c3a1207355b3') in 0.003514 seconds
+  Import took 0.010163 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.751008 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_3 1.asset
-  artifactKey: Guid(0bc74ad6b4758b84f9365d8928cb7616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_3 1.asset using Guid(0bc74ad6b4758b84f9365d8928cb7616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1a5fc2d1a960e4a8e7fc24f868afbdd1') in 0.003840 seconds
-  Import took 0.007712 seconds .
+  Time since last request: 13.349213 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/StatChange/Give1PU_plus1plus1_IfHas_Stealth_plus2plus2.asset
+  artifactKey: Guid(e924cd726381fbb46aeace3a2e4b9128) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/StatChange/Give1PU_plus1plus1_IfHas_Stealth_plus2plus2.asset using Guid(e924cd726381fbb46aeace3a2e4b9128) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7737663e670207ef84dc2573bf475848') in 0.005029 seconds
+  Import took 0.025459 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 8.438512 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_3_IfDsty_CreateCard_ChokingWords2.asset
-  artifactKey: Guid(0bc74ad6b4758b84f9365d8928cb7616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_3_IfDsty_CreateCard_ChokingWords2.asset using Guid(0bc74ad6b4758b84f9365d8928cb7616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '26f235a4c0da0227565a37fc7220e837') in 0.003132 seconds
-  Import took 0.007800 seconds .
+  Time since last request: 26.905186 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus2plus2_IfHas_Stealth 1.asset
+  artifactKey: Guid(26d89527ff00bf94faa93e7e948f5eee) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus2plus2_IfHas_Stealth 1.asset using Guid(26d89527ff00bf94faa93e7e948f5eee) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e8bf6e34346abe23e6d5995136dbc852') in 0.004196 seconds
+  Import took 0.008631 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 15.554737 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/CreateCard/Unique Cards/CreateCard_CreepingMachinations_II 1.asset
-  artifactKey: Guid(542ce44e2ddead74299cb638140eae95) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/CreateCard/Unique Cards/CreateCard_CreepingMachinations_II 1.asset using Guid(542ce44e2ddead74299cb638140eae95) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cfdbe6c6304f2f61e69160c7060c72df') in 0.010243 seconds
-  Import took 0.016178 seconds .
+  Time since last request: 8.487479 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus1plus1_IfNotHas_Stealth.asset
+  artifactKey: Guid(26d89527ff00bf94faa93e7e948f5eee) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus1plus1_IfNotHas_Stealth.asset using Guid(26d89527ff00bf94faa93e7e948f5eee) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4873ad3caecb35516d688288277f6d18') in 0.003702 seconds
+  Import took 0.009244 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 7.460112 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/CreateCard/Unique Cards/CreateCard_ChokingWords_2.asset
-  artifactKey: Guid(542ce44e2ddead74299cb638140eae95) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/CreateCard/Unique Cards/CreateCard_ChokingWords_2.asset using Guid(542ce44e2ddead74299cb638140eae95) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '955aec6b9715394342d983f2f84f4c04') in 0.010712 seconds
-  Import took 0.015300 seconds .
+  Time since last request: 14.176094 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/StatChange/Give1PU_plus1plus1_IfHas_Stealth_plus2plus2.asset
+  artifactKey: Guid(e924cd726381fbb46aeace3a2e4b9128) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/StatChange/Give1PU_plus1plus1_IfHas_Stealth_plus2plus2.asset using Guid(e924cd726381fbb46aeace3a2e4b9128) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '80bbf95f0995d378e6655f68aca7bc9e') in 0.004845 seconds
+  Import took 0.011625 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 9.636567 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/CreateCard/Unique Cards/Choking Words
-  artifactKey: Guid(36a80c1e11101b545b3584475219e74a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/CreateCard/Unique Cards/Choking Words using Guid(36a80c1e11101b545b3584475219e74a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ce501d5240314d6b2e54ed189fdc01b8') in 0.001890 seconds
-  Import took 0.006601 seconds .
+  Time since last request: 24.611657 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus1plus1_IfNotHas_Stealth.asset
+  artifactKey: Guid(26d89527ff00bf94faa93e7e948f5eee) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/StatChange/Positive StatChange/Give_plus1plus1_IfNotHas_Stealth.asset using Guid(26d89527ff00bf94faa93e7e948f5eee) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd8949ffa9b987938f48c6f2e5d1d2917') in 0.004709 seconds
+  Import took 0.009849 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 19.494730 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/CreateCard/Unique Cards/Choking Words/CreateCard_ChokingWords_2.asset
-  artifactKey: Guid(542ce44e2ddead74299cb638140eae95) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/CreateCard/Unique Cards/Choking Words/CreateCard_ChokingWords_2.asset using Guid(542ce44e2ddead74299cb638140eae95) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '374f4ea62c330fc5b24a5f5d4fe69165') in 0.010582 seconds
-  Import took 0.015361 seconds .
+  Time since last request: 34.615131 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/StatChange/Give1PU_plus1plus1_IfHas_Stealth_plus2plus2.asset
+  artifactKey: Guid(e924cd726381fbb46aeace3a2e4b9128) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/StatChange/Give1PU_plus1plus1_IfHas_Stealth_plus2plus2.asset using Guid(e924cd726381fbb46aeace3a2e4b9128) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '96ef150aee5e05bdffaf7614fc3bc040') in 0.005560 seconds
+  Import took 0.010780 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 32.304011 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/CreateCard/Unique/Choking Words
-  artifactKey: Guid(8216eee1a04494548b38e5c4149c6a9f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/CreateCard/Unique/Choking Words using Guid(8216eee1a04494548b38e5c4149c6a9f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '853ab187235c3d2a4586426032bdf3be') in 0.001897 seconds
-  Import took 0.006312 seconds .
+  Time since last request: 378.242066 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/No Targets/ChangeNextCost/ChangeNextCost_Action_minus1_Unlimited.asset
+  artifactKey: Guid(fcd013a0db38b464c8e4bdd8082db5b2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/No Targets/ChangeNextCost/ChangeNextCost_Action_minus1_Unlimited.asset using Guid(fcd013a0db38b464c8e4bdd8082db5b2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3d4fda49a9fe1f19f429da1206b8c9ab') in 0.006195 seconds
+  Import took 0.010920 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 2.984039 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/CreateCard/Unique/CreateCard_CreepingMachinations_II 1.asset
-  artifactKey: Guid(d11b516790ffc6342a2f050c4819a425) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/CreateCard/Unique/CreateCard_CreepingMachinations_II 1.asset using Guid(d11b516790ffc6342a2f050c4819a425) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c6ac05042bad7b556ea30173b47951a2') in 0.009847 seconds
-  Import took 0.014592 seconds .
+  Time since last request: 6.588979 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/ChangeCost/ChangeNextCost_Action_minus1_Unlimited.asset
+  artifactKey: Guid(bc4a062176d4b9240a1d09352fa727c3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/ChangeCost/ChangeNextCost_Action_minus1_Unlimited.asset using Guid(bc4a062176d4b9240a1d09352fa727c3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '87da1518b2c2ac462d4f08e0e0b93675') in 0.003421 seconds
+  Import took 0.007651 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 9.163413 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/CreateCard/Unique/Choking Words/CreateCard_ChokingWords_2.asset
-  artifactKey: Guid(d11b516790ffc6342a2f050c4819a425) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/CreateCard/Unique/Choking Words/CreateCard_ChokingWords_2.asset using Guid(d11b516790ffc6342a2f050c4819a425) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8bfe56536a7edb41bc983b76143547a5') in 0.009830 seconds
-  Import took 0.014656 seconds .
+  Time since last request: 2.771383 seconds.
+  path: Assets/Scripts/Effects/Effect Objects/Effects/ChangeCost/ChangeNextCost_Action_minus1_Unlimited.asset
+  artifactKey: Guid(bc4a062176d4b9240a1d09352fa727c3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/Effects/ChangeCost/ChangeNextCost_Action_minus1_Unlimited.asset using Guid(bc4a062176d4b9240a1d09352fa727c3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2f773557d79c22b8c5e9649e4b8bac73') in 0.002375 seconds
+  Import took 0.008103 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 26.888122 seconds.
-  path: Assets/Resources/Cards_Actions/Choking Words.asset
-  artifactKey: Guid(4baab85d8373c504b88f4ff950b05f2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Actions/Choking Words.asset using Guid(4baab85d8373c504b88f4ff950b05f2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '58eca5117d51b756b7b77e7772a73c9b') in 0.009768 seconds
-  Import took 0.014715 seconds .
+  Time since last request: 4.966225 seconds.
+  path: Assets/Resources/Cards_Actions/Master Casting.asset
+  artifactKey: Guid(4f5a3b76ed000c64d800c51bc897e59f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards_Actions/Master Casting.asset using Guid(4f5a3b76ed000c64d800c51bc897e59f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '117a9b7ae04ca9e41fde62b842713f7f') in 0.010132 seconds
+  Import took 0.018050 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 3.045693 seconds.
-  path: Assets/Resources/Cards_Actions/Choking Words.asset
-  artifactKey: Guid(4baab85d8373c504b88f4ff950b05f2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Actions/Choking Words.asset using Guid(4baab85d8373c504b88f4ff950b05f2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '870ce83a89a5ecc2a6c0481a359fe854') in 0.009690 seconds
-  Import took 0.013704 seconds .
+  Time since last request: 6.626244 seconds.
+  path: Assets/Resources/Cards_Actions/Master Casting.asset
+  artifactKey: Guid(4f5a3b76ed000c64d800c51bc897e59f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards_Actions/Master Casting.asset using Guid(4f5a3b76ed000c64d800c51bc897e59f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '66380d60437233d47be493c4b8f311c1') in 0.009566 seconds
+  Import took 0.015403 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 20.702265 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal3_1EU_IfDsty_CreateCard_ChokingWords2.asset
-  artifactKey: Guid(2a7b7ffb6ce86b34bbd222f716ca4c46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal3_1EU_IfDsty_CreateCard_ChokingWords2.asset using Guid(2a7b7ffb6ce86b34bbd222f716ca4c46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1bce15c46a5fdac7445e2725229f7d46') in 0.003499 seconds
-  Import took 0.007081 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 2.387100 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal3_1EU_IfDsty_CreateCard_ChokingWords_2.asset
-  artifactKey: Guid(2a7b7ffb6ce86b34bbd222f716ca4c46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal3_1EU_IfDsty_CreateCard_ChokingWords_2.asset using Guid(2a7b7ffb6ce86b34bbd222f716ca4c46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '15b97867f66c5be4c54840d2a65cb168') in 0.002974 seconds
-  Import took 0.007042 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 9.854793 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_3_IfDsty_CreateCard_ChokingWords2.asset
-  artifactKey: Guid(0bc74ad6b4758b84f9365d8928cb7616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_3_IfDsty_CreateCard_ChokingWords2.asset using Guid(0bc74ad6b4758b84f9365d8928cb7616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cfd99c253ad6f378e38a8f79e86e2463') in 0.010532 seconds
-  Import took 0.014316 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 9.909030 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/CreateCard/Unique Cards/Choking Words/CreateCard_ChokingWords_2.asset
-  artifactKey: Guid(542ce44e2ddead74299cb638140eae95) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/CreateCard/Unique Cards/Choking Words/CreateCard_ChokingWords_2.asset using Guid(542ce44e2ddead74299cb638140eae95) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '03f63166c14ced462a6d6d7e643f6993') in 0.010573 seconds
-  Import took 0.014378 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.001098 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/CreateCard/Unique Cards/Choking Words/CreateCard_ChokingWords_2.asset
-  artifactKey: Guid(542ce44e2ddead74299cb638140eae95) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/CreateCard/Unique Cards/Choking Words/CreateCard_ChokingWords_2.asset using Guid(542ce44e2ddead74299cb638140eae95) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '03f63166c14ced462a6d6d7e643f6993') in 0.008702 seconds
-  Import took 0.013982 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 9.585367 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/CreateCard/Unique/Choking Words/CreateCard_ChokingWords_2.asset
-  artifactKey: Guid(d11b516790ffc6342a2f050c4819a425) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/CreateCard/Unique/Choking Words/CreateCard_ChokingWords_2.asset using Guid(d11b516790ffc6342a2f050c4819a425) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9a6ac9c0271e8ecc19ec2ea023700607') in 0.008033 seconds
-  Import took 0.012360 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 18.811159 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_3_IfDsty_CreateCard_ChokingWords2 1.asset
-  artifactKey: Guid(4281af7947a42644685679ddaf37b668) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_3_IfDsty_CreateCard_ChokingWords2 1.asset using Guid(4281af7947a42644685679ddaf37b668) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'edc8c7041829c56c2685d24a8772073c') in 0.010331 seconds
-  Import took 0.015218 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 3.048818 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_3_IfDsty_CreateCard_ChokingWords3.asset
-  artifactKey: Guid(4281af7947a42644685679ddaf37b668) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_3_IfDsty_CreateCard_ChokingWords3.asset using Guid(4281af7947a42644685679ddaf37b668) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '31366bb1d79ffc694b7bda318f6f5a3c') in 0.009340 seconds
-  Import took 0.015285 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 3.744455 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_2_IfDsty_CreateCard_ChokingWords3.asset
-  artifactKey: Guid(4281af7947a42644685679ddaf37b668) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_2_IfDsty_CreateCard_ChokingWords3.asset using Guid(4281af7947a42644685679ddaf37b668) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fb136e5c522dcfeb811b793f75e2d663') in 0.010366 seconds
-  Import took 0.014325 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 6.332091 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/CreateCard/Unique Cards/Choking Words/CreateCard_ChokingWords_2.asset
-  artifactKey: Guid(542ce44e2ddead74299cb638140eae95) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/CreateCard/Unique Cards/Choking Words/CreateCard_ChokingWords_2.asset using Guid(542ce44e2ddead74299cb638140eae95) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0315109c3ec4f6a0581f55d84f06ca19') in 0.010823 seconds
-  Import took 0.015716 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.001413 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/CreateCard/Unique Cards/Choking Words/CreateCard_ChokingWords_2.asset
-  artifactKey: Guid(542ce44e2ddead74299cb638140eae95) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/CreateCard/Unique Cards/Choking Words/CreateCard_ChokingWords_2.asset using Guid(542ce44e2ddead74299cb638140eae95) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0315109c3ec4f6a0581f55d84f06ca19') in 0.008936 seconds
-  Import took 0.013734 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.653594 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/CreateCard/Unique Cards/Choking Words/CreateCard_ChokingWords_2 1.asset
-  artifactKey: Guid(15ecea09b5ff11243b1b5be395fc2c32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/CreateCard/Unique Cards/Choking Words/CreateCard_ChokingWords_2 1.asset using Guid(15ecea09b5ff11243b1b5be395fc2c32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dd5a4b4171aab14c64a3a188ece3cd7e') in 0.008989 seconds
-  Import took 0.014136 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 2.300485 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/CreateCard/Unique Cards/Choking Words/CreateCard_ChokingWords_3.asset
-  artifactKey: Guid(15ecea09b5ff11243b1b5be395fc2c32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/CreateCard/Unique Cards/Choking Words/CreateCard_ChokingWords_3.asset using Guid(15ecea09b5ff11243b1b5be395fc2c32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '12db3e4385862abc7fcb32da33dc4e7f') in 0.011328 seconds
-  Import took 0.016026 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 2.958725 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/CreateCard/Unique/Choking Words/CreateCard_ChokingWords_2 1.asset
-  artifactKey: Guid(e9a076ace4840e641a54a1cff97948c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/CreateCard/Unique/Choking Words/CreateCard_ChokingWords_2 1.asset using Guid(e9a076ace4840e641a54a1cff97948c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6c35c089729a0f40e7d4b6e67393ff87') in 0.009387 seconds
-  Import took 0.014916 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 2.377689 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/CreateCard/Unique/Choking Words/CreateCard_ChokingWords_3.asset
-  artifactKey: Guid(e9a076ace4840e641a54a1cff97948c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/CreateCard/Unique/Choking Words/CreateCard_ChokingWords_3.asset using Guid(e9a076ace4840e641a54a1cff97948c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '271787fe4b963c82e9cc2b8fdcd56af4') in 0.008110 seconds
-  Import took 0.013669 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 3.209144 seconds.
-  path: Assets/Resources/Cards_Created/Unique Cards/Choking Words/Choking Words 2.asset
-  artifactKey: Guid(f5e78f8885d47c04499769952871b955) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Created/Unique Cards/Choking Words/Choking Words 2.asset using Guid(f5e78f8885d47c04499769952871b955) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3e207f44f5b3ad5e79ffc3f662285c02') in 0.007929 seconds
-  Import took 0.012835 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.732752 seconds.
-  path: Assets/Resources/Cards_Created/Unique Cards/Choking Words/Choking Words 3.asset
-  artifactKey: Guid(b7147c3291edf02458308dce6c819ebd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Created/Unique Cards/Choking Words/Choking Words 3.asset using Guid(b7147c3291edf02458308dce6c819ebd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fae6ad5932dbc89622d2e7a5e3f4375b') in 0.008490 seconds
-  Import took 0.014401 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 17.052549 seconds.
-  path: Assets/Resources/Cards_Created/Unique Cards/Choking Words/Choking Words 3.asset
-  artifactKey: Guid(b7147c3291edf02458308dce6c819ebd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Created/Unique Cards/Choking Words/Choking Words 3.asset using Guid(b7147c3291edf02458308dce6c819ebd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2b67a0dcfc6754885dfad74d2cbad5dc') in 0.008684 seconds
-  Import took 0.013968 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 18.565043 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal3_1EU_IfDsty_CreateCard_ChokingWords_2.asset
-  artifactKey: Guid(2a7b7ffb6ce86b34bbd222f716ca4c46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal3_1EU_IfDsty_CreateCard_ChokingWords_2.asset using Guid(2a7b7ffb6ce86b34bbd222f716ca4c46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '67a19f156ca67560c952f306f7896584') in 0.009661 seconds
-  Import took 0.014094 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 8.097072 seconds.
-  path: Assets/Resources/Cards_Actions/Choking Words.asset
-  artifactKey: Guid(4baab85d8373c504b88f4ff950b05f2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Actions/Choking Words.asset using Guid(4baab85d8373c504b88f4ff950b05f2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e7091ce14e7a54eb9c10f218706c733e') in 0.009922 seconds
-  Import took 0.015774 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 9.359631 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal3_1EU_IfDsty_CreateCard_ChokingWords_2 1.asset
-  artifactKey: Guid(666f56137a423294eb77ab052f8da347) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal3_1EU_IfDsty_CreateCard_ChokingWords_2 1.asset using Guid(666f56137a423294eb77ab052f8da347) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9cebc269c0704a3782e6f485cce0d854') in 0.011253 seconds
-  Import took 0.015762 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 2.905343 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal3_1EU_IfDsty_CreateCard_ChokingWords_3.asset
-  artifactKey: Guid(666f56137a423294eb77ab052f8da347) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal3_1EU_IfDsty_CreateCard_ChokingWords_3.asset using Guid(666f56137a423294eb77ab052f8da347) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '64834e91b512ee0b5d42244b394def93') in 0.010324 seconds
-  Import took 0.017080 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 10.388012 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_3_IfDsty_CreateCard_ChokingWords2.asset
-  artifactKey: Guid(0bc74ad6b4758b84f9365d8928cb7616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_3_IfDsty_CreateCard_ChokingWords2.asset using Guid(0bc74ad6b4758b84f9365d8928cb7616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'acd0148012817f6bffe48f2450c42a26') in 0.009156 seconds
-  Import took 0.015122 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.731128 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_3_IfDsty_CreateCard_ChokingWords2 1.asset
-  artifactKey: Guid(65c04b9f4f1e29a4f87d5fefef7c1a1e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_3_IfDsty_CreateCard_ChokingWords2 1.asset using Guid(65c04b9f4f1e29a4f87d5fefef7c1a1e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3d4b767a39e49ddc8e7498c0b91d2ad0') in 0.011342 seconds
-  Import took 0.015201 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 7.379161 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_2_IfDsty_CreateCard_ChokingWords_3.asset
-  artifactKey: Guid(65c04b9f4f1e29a4f87d5fefef7c1a1e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_2_IfDsty_CreateCard_ChokingWords_3.asset using Guid(65c04b9f4f1e29a4f87d5fefef7c1a1e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ceccd815ef5beea15644aa014c5df3b8') in 0.011071 seconds
-  Import took 0.016584 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.914148 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_2_IfDsty_CreateCard_ChokingWords3.asset
-  artifactKey: Guid(4281af7947a42644685679ddaf37b668) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_2_IfDsty_CreateCard_ChokingWords3.asset using Guid(4281af7947a42644685679ddaf37b668) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '99d47f23286361c132b33861e5d052ca') in 0.009763 seconds
-  Import took 0.014069 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 19.054424 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_2_IfDsty_CreateCard_ChokingWords_3.asset
-  artifactKey: Guid(4281af7947a42644685679ddaf37b668) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_2_IfDsty_CreateCard_ChokingWords_3.asset using Guid(4281af7947a42644685679ddaf37b668) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '39d694d1b80a4118e6e8b1cb0f45861b') in 0.010260 seconds
-  Import took 0.014809 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 9.452430 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/CreateCard/Unique Cards/Choking Words/CreateCard_ChokingWords_3.asset
-  artifactKey: Guid(15ecea09b5ff11243b1b5be395fc2c32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/CreateCard/Unique Cards/Choking Words/CreateCard_ChokingWords_3.asset using Guid(15ecea09b5ff11243b1b5be395fc2c32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '753f18fa6be6a8878240202dbae20622') in 0.009104 seconds
-  Import took 0.013916 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 4.317174 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/CreateCard/Unique/Choking Words/CreateCard_ChokingWords_3.asset
-  artifactKey: Guid(e9a076ace4840e641a54a1cff97948c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/CreateCard/Unique/Choking Words/CreateCard_ChokingWords_3.asset using Guid(e9a076ace4840e641a54a1cff97948c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ad23315848f0f007cbbf4d689a3639e6') in 0.010576 seconds
-  Import took 0.014886 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 15.814253 seconds.
-  path: Assets/Resources/Cards_Created/Unique Cards/Choking Words/Choking Words 3.asset
-  artifactKey: Guid(b7147c3291edf02458308dce6c819ebd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Created/Unique Cards/Choking Words/Choking Words 3.asset using Guid(b7147c3291edf02458308dce6c819ebd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5d7dea494af42ffae92839286a9fcfea') in 0.008278 seconds
-  Import took 0.013686 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 17.637104 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_3_IfDsty_CreateCard_ChokingWords_2.asset
-  artifactKey: Guid(0bc74ad6b4758b84f9365d8928cb7616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_3_IfDsty_CreateCard_ChokingWords_2.asset using Guid(0bc74ad6b4758b84f9365d8928cb7616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '972079e8d3884c1385aeba59cbef57c6') in 0.011311 seconds
-  Import took 0.015741 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 62.055224 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal3_1EU_IfDsty_CreateCard_ChokingWords_3.asset
-  artifactKey: Guid(666f56137a423294eb77ab052f8da347) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal3_1EU_IfDsty_CreateCard_ChokingWords_3.asset using Guid(666f56137a423294eb77ab052f8da347) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '754babb76fc5aa7aa91f08e897060af9') in 0.009225 seconds
-  Import took 0.015330 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 2.601647 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal2_1EU_IfDsty_CreateCard_ChokingWords_3.asset
-  artifactKey: Guid(666f56137a423294eb77ab052f8da347) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal2_1EU_IfDsty_CreateCard_ChokingWords_3.asset using Guid(666f56137a423294eb77ab052f8da347) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a28e7e096cd338fbf40f953b7a6e5fa2') in 0.010444 seconds
-  Import took 0.014248 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 29.542095 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_2_IfDsty_CreateCard_ChokingWords_3.asset
-  artifactKey: Guid(4281af7947a42644685679ddaf37b668) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_2_IfDsty_CreateCard_ChokingWords_3.asset using Guid(4281af7947a42644685679ddaf37b668) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3b56b55180186d6c102a5d18a80ce0e3') in 0.009147 seconds
-  Import took 0.014531 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 4.983634 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/CreateCard/Unique Cards/Choking Words/CreateCard_ChokingWords_3.asset
-  artifactKey: Guid(15ecea09b5ff11243b1b5be395fc2c32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Hand/CreateCard/Unique Cards/Choking Words/CreateCard_ChokingWords_3.asset using Guid(15ecea09b5ff11243b1b5be395fc2c32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7c9e542fe18e0afbbc9629f68bf4028e') in 0.009080 seconds
-  Import took 0.012886 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 2.771206 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/CreateCard/Unique/Choking Words/CreateCard_ChokingWords_3.asset
-  artifactKey: Guid(e9a076ace4840e641a54a1cff97948c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/CreateCard/Unique/Choking Words/CreateCard_ChokingWords_3.asset using Guid(e9a076ace4840e641a54a1cff97948c8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f4929f9cad9dcc0910cd5304fd09b1ed') in 0.008489 seconds
-  Import took 0.013570 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 43.870295 seconds.
-  path: Assets/Resources/Cards_Actions/Choking Words.asset
-  artifactKey: Guid(4baab85d8373c504b88f4ff950b05f2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Actions/Choking Words.asset using Guid(4baab85d8373c504b88f4ff950b05f2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4ff15f2382baa2966a36757dec7c7257') in 0.010838 seconds
-  Import took 0.015750 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 19.284192 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_3_IfDsty_CreateCard_ChokingWords_2.asset
-  artifactKey: Guid(0bc74ad6b4758b84f9365d8928cb7616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/Effects/Damage/Deal_3_IfDsty_CreateCard_ChokingWords_2.asset using Guid(0bc74ad6b4758b84f9365d8928cb7616) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '75303e5ef5616297a772a6109a3d9d54') in 0.010506 seconds
-  Import took 0.015588 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 10.376768 seconds.
-  path: Assets/Resources/Cards_Created/Unique Cards/Choking Words/Choking Words 2.asset
-  artifactKey: Guid(f5e78f8885d47c04499769952871b955) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Created/Unique Cards/Choking Words/Choking Words 2.asset using Guid(f5e78f8885d47c04499769952871b955) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '16694cc8382897a6f1d3ded08c923b7d') in 0.010780 seconds
-  Import took 0.016400 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.001830 seconds.
-  path: Assets/Resources/Cards_Created/Unique Cards/Choking Words/Choking Words 2.asset
-  artifactKey: Guid(f5e78f8885d47c04499769952871b955) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Created/Unique Cards/Choking Words/Choking Words 2.asset using Guid(f5e78f8885d47c04499769952871b955) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '16694cc8382897a6f1d3ded08c923b7d') in 0.009438 seconds
-  Import took 0.014995 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 17.464857 seconds.
-  path: Assets/Resources/Cards_Created/Unique Cards/Choking Words/Choking Words 2.asset
-  artifactKey: Guid(f5e78f8885d47c04499769952871b955) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Created/Unique Cards/Choking Words/Choking Words 2.asset using Guid(f5e78f8885d47c04499769952871b955) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd8aa7525a88355411b51f2a8576a93ee') in 0.009408 seconds
-  Import took 0.013754 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 7.807343 seconds.
-  path: Assets/Resources/Cards_Created/Unique Cards/Choking Words/Choking Words 3.asset
-  artifactKey: Guid(b7147c3291edf02458308dce6c819ebd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Created/Unique Cards/Choking Words/Choking Words 3.asset using Guid(b7147c3291edf02458308dce6c819ebd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5c344bfde65e1e6428439dd6d98b6f65') in 0.010948 seconds
-  Import took 0.015063 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.001224 seconds.
-  path: Assets/Resources/Cards_Created/Unique Cards/Choking Words/Choking Words 3.asset
-  artifactKey: Guid(b7147c3291edf02458308dce6c819ebd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Created/Unique Cards/Choking Words/Choking Words 3.asset using Guid(b7147c3291edf02458308dce6c819ebd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5c344bfde65e1e6428439dd6d98b6f65') in 0.008983 seconds
-  Import took 0.015226 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 15.653922 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal2_1EU_IfDsty_CreateCard_ChokingWords_3.asset
-  artifactKey: Guid(666f56137a423294eb77ab052f8da347) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal2_1EU_IfDsty_CreateCard_ChokingWords_3.asset using Guid(666f56137a423294eb77ab052f8da347) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c13ab8eaebe2c7125c37ae86166dd55f') in 0.011143 seconds
-  Import took 0.014990 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 51.601681 seconds.
-  path: Assets/Resources/Cards_Created/Unique Cards/Choking Words/Choking Words 2.asset
-  artifactKey: Guid(f5e78f8885d47c04499769952871b955) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Created/Unique Cards/Choking Words/Choking Words 2.asset using Guid(f5e78f8885d47c04499769952871b955) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e58b25023353355e1c489bfc81d91f1a') in 0.011503 seconds
-  Import took 0.016048 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 9.876042 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal2_1EU_IfDsty_CreateCard_ChokingWords_3.asset
-  artifactKey: Guid(666f56137a423294eb77ab052f8da347) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal2_1EU_IfDsty_CreateCard_ChokingWords_3.asset using Guid(666f56137a423294eb77ab052f8da347) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9e4963d43f90a2ce1f3693cc5605f185') in 0.010773 seconds
-  Import took 0.014389 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 4.436227 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal2_1EU_IfDsty_CreateCard_ChokingWords_3.asset
-  artifactKey: Guid(666f56137a423294eb77ab052f8da347) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal2_1EU_IfDsty_CreateCard_ChokingWords_3.asset using Guid(666f56137a423294eb77ab052f8da347) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '694b1850b8c0787d291ca91d91369ef4') in 0.010085 seconds
-  Import took 0.014376 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 17.899768 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal3_1EU_IfDsty_CreateCard_ChokingWords_2.asset
-  artifactKey: Guid(2a7b7ffb6ce86b34bbd222f716ca4c46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal3_1EU_IfDsty_CreateCard_ChokingWords_2.asset using Guid(2a7b7ffb6ce86b34bbd222f716ca4c46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '945272946ea48be5392c07ea491786e6') in 0.010342 seconds
-  Import took 0.015703 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.001615 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal3_1EU_IfDsty_CreateCard_ChokingWords_2.asset
-  artifactKey: Guid(2a7b7ffb6ce86b34bbd222f716ca4c46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Enemy Units/Deal3_1EU_IfDsty_CreateCard_ChokingWords_2.asset using Guid(2a7b7ffb6ce86b34bbd222f716ca4c46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '945272946ea48be5392c07ea491786e6') in 0.012958 seconds
-  Import took 0.018275 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 63.176586 seconds.
+  Time since last request: 21.593826 seconds.
   path: Assets/Scenes/TitleScene.unity
   artifactKey: Guid(63f34e354ce4f5a4c9cab5ca9e05533c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scenes/TitleScene.unity using Guid(63f34e354ce4f5a4c9cab5ca9e05533c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2eb906aa033fc6bf8fff01106f973865') in 0.002714 seconds
-  Import took 0.007592 seconds .
+Start importing Assets/Scenes/TitleScene.unity using Guid(63f34e354ce4f5a4c9cab5ca9e05533c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '635315b3586c84a4a945bb7c40f5440a') in 0.003235 seconds
+  Import took 0.014013 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000829 seconds.
+  path: Assets/Scenes/TitleScene.unity
+  artifactKey: Guid(63f34e354ce4f5a4c9cab5ca9e05533c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/TitleScene.unity using Guid(63f34e354ce4f5a4c9cab5ca9e05533c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '635315b3586c84a4a945bb7c40f5440a') in 0.002307 seconds
+  Import took 0.007655 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.004117 seconds.
+Registered in 0.003268 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
 Refreshing native plugins compatible for Editor in 1.17 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.874 seconds
+- Completed reload, in  0.822 seconds
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.28 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 1.15 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2096 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 102.6 MB.
 System memory in use after: 102.7 MB.
 
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2576.
-Total: 2.313000 ms (FindLiveObjects: 0.341100 ms CreateObjectMapping: 0.117800 ms MarkObjects: 1.838500 ms  DeleteObjects: 0.014600 ms)
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2577.
+Total: 1.762200 ms (FindLiveObjects: 0.237100 ms CreateObjectMapping: 0.120300 ms MarkObjects: 1.389400 ms  DeleteObjects: 0.013900 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003432 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.68 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.856 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.80 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.6 MB.
+System memory in use after: 102.8 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2580.
+Total: 2.467900 ms (FindLiveObjects: 0.218300 ms CreateObjectMapping: 0.103300 ms MarkObjects: 2.126800 ms  DeleteObjects: 0.017700 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 811.127780 seconds.
+  path: Assets/Scripts/Cards/Card Displays/Card Displays/UnitCardDisplay.cs
+  artifactKey: Guid(431d01cce3b7eae46899bf342344ca3a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Cards/Card Displays/Card Displays/UnitCardDisplay.cs using Guid(431d01cce3b7eae46899bf342344ca3a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fa5928ee9a41f0c7eea89125c7775243') in 0.012488 seconds
+  Import took 0.017976 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 17.592599 seconds.
+  path: Assets/Scenes/CombatScene.unity
+  artifactKey: Guid(0e29b94a6479dc34a849aa71b7992813) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/CombatScene.unity using Guid(0e29b94a6479dc34a849aa71b7992813) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b7a8125ea78c0330d5393b4b115fd7c6') in 0.009115 seconds
+  Import took 0.018017 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002541 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 3.19 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.843 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.19 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.7 MB.
+System memory in use after: 102.8 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2583.
+Total: 2.880800 ms (FindLiveObjects: 0.357700 ms CreateObjectMapping: 0.179800 ms MarkObjects: 2.325000 ms  DeleteObjects: 0.016600 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002745 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.79 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.813 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.14 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.7 MB.
+System memory in use after: 102.8 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2586.
+Total: 1.833400 ms (FindLiveObjects: 0.254900 ms CreateObjectMapping: 0.103100 ms MarkObjects: 1.454600 ms  DeleteObjects: 0.019300 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 340.476038 seconds.
+  path: Assets/Prefabs/Heroes/HeroStructure_Enemy.prefab
+  artifactKey: Guid(75a3d2d9baedbe24286530ecf9389d21) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Heroes/HeroStructure_Enemy.prefab using Guid(75a3d2d9baedbe24286530ecf9389d21) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c01aff922883d6f99d256dfeb88736a9') in 0.162505 seconds
+  Import took 0.170226 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002833 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.18 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.824 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.20 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.8 MB.
+System memory in use after: 102.9 MB.
+
+Unloading 17 unused Assets to reduce memory usage. Loaded Objects now: 2589.
+Total: 2.123300 ms (FindLiveObjects: 0.406100 ms CreateObjectMapping: 0.083100 ms MarkObjects: 1.592900 ms  DeleteObjects: 0.040100 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003991 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.14 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.840 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 2.48 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.8 MB.
+System memory in use after: 102.9 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2592.
+Total: 3.348800 ms (FindLiveObjects: 0.359900 ms CreateObjectMapping: 0.130000 ms MarkObjects: 2.834200 ms  DeleteObjects: 0.023100 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003159 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.13 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.818 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.28 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.8 MB.
+System memory in use after: 102.9 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2595.
+Total: 1.954100 ms (FindLiveObjects: 0.239600 ms CreateObjectMapping: 0.066600 ms MarkObjects: 1.634000 ms  DeleteObjects: 0.013100 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003150 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.37 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.819 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.30 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.8 MB.
+System memory in use after: 102.9 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2598.
+Total: 2.105700 ms (FindLiveObjects: 0.463100 ms CreateObjectMapping: 0.165500 ms MarkObjects: 1.461000 ms  DeleteObjects: 0.014800 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003231 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.32 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.825 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.57 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.8 MB.
+System memory in use after: 102.9 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2601.
+Total: 2.001400 ms (FindLiveObjects: 0.346500 ms CreateObjectMapping: 0.087200 ms MarkObjects: 1.550800 ms  DeleteObjects: 0.015700 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002825 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.66 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.820 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.36 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.8 MB.
+System memory in use after: 102.9 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2604.
+Total: 1.689100 ms (FindLiveObjects: 0.213900 ms CreateObjectMapping: 0.081600 ms MarkObjects: 1.379100 ms  DeleteObjects: 0.013300 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 1761.411809 seconds.
+  path: Assets/Prefabs/Heroes/HeroStructure.prefab
+  artifactKey: Guid(322b87facb59a90408aa6114cc7ab1ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Heroes/HeroStructure.prefab using Guid(322b87facb59a90408aa6114cc7ab1ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f7baa63c809fff10aa6ea2beb71e6895') in 0.143550 seconds
+  Import took 0.150050 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003498 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.15 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.837 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.15 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.8 MB.
+System memory in use after: 102.9 MB.
+
+Unloading 17 unused Assets to reduce memory usage. Loaded Objects now: 2607.
+Total: 1.815200 ms (FindLiveObjects: 0.252000 ms CreateObjectMapping: 0.098900 ms MarkObjects: 1.437800 ms  DeleteObjects: 0.024900 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 594.189176 seconds.
+  path: Assets/Scripts/Heroes/Hero Classes/Hero Components/PowerZoom.cs
+  artifactKey: Guid(0101bbb305aef514593f9d57f0724ffd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Heroes/Hero Classes/Hero Components/PowerZoom.cs using Guid(0101bbb305aef514593f9d57f0724ffd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fca307724a613635008dff20f5124680') in 0.007824 seconds
+  Import took 0.015750 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 37.565198 seconds.
+  path: Assets/Prefabs/Heroes/HeroStructure.prefab
+  artifactKey: Guid(322b87facb59a90408aa6114cc7ab1ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Heroes/HeroStructure.prefab using Guid(322b87facb59a90408aa6114cc7ab1ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3a3a735a7d4946e8298d4905faad8e61') in 0.131998 seconds
+  Import took 0.153492 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 156.378431 seconds.
+  path: Assets/Prefabs/Heroes/HeroStructure_Enemy.prefab
+  artifactKey: Guid(75a3d2d9baedbe24286530ecf9389d21) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Heroes/HeroStructure_Enemy.prefab using Guid(75a3d2d9baedbe24286530ecf9389d21) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '98e0c5a49777116297adb934b202f4e7') in 0.077338 seconds
+  Import took 0.085831 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003745 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.24 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.822 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.20 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.8 MB.
+System memory in use after: 103.0 MB.
+
+Unloading 17 unused Assets to reduce memory usage. Loaded Objects now: 2610.
+Total: 2.395500 ms (FindLiveObjects: 0.240400 ms CreateObjectMapping: 0.112300 ms MarkObjects: 2.010900 ms  DeleteObjects: 0.030200 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 96.334739 seconds.
+  path: Assets/Prefabs/Heroes/HeroStructure_Enemy.prefab
+  artifactKey: Guid(75a3d2d9baedbe24286530ecf9389d21) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Heroes/HeroStructure_Enemy.prefab using Guid(75a3d2d9baedbe24286530ecf9389d21) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ecf5bde0525c7bbe56d7dbaf7dd96d05') in 0.142327 seconds
+  Import took 0.150539 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003101 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.23 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.844 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.28 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.9 MB.
+System memory in use after: 103.0 MB.
+
+Unloading 17 unused Assets to reduce memory usage. Loaded Objects now: 2613.
+Total: 3.089100 ms (FindLiveObjects: 0.202200 ms CreateObjectMapping: 0.073600 ms MarkObjects: 2.723700 ms  DeleteObjects: 0.086900 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 140.305353 seconds.
+  path: Assets/Prefabs/Heroes/HeroStructure_Enemy.prefab
+  artifactKey: Guid(75a3d2d9baedbe24286530ecf9389d21) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Heroes/HeroStructure_Enemy.prefab using Guid(75a3d2d9baedbe24286530ecf9389d21) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a61ba6a1994f39ff9e8ba281a247d398') in 0.141570 seconds
+  Import took 0.150065 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 63.515650 seconds.
+  path: Assets/Prefabs/Heroes/HeroStructure_Enemy.prefab
+  artifactKey: Guid(75a3d2d9baedbe24286530ecf9389d21) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Heroes/HeroStructure_Enemy.prefab using Guid(75a3d2d9baedbe24286530ecf9389d21) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '11edd3d737c4fa2e1a1471cc58fff3e2') in 0.072615 seconds
+  Import took 0.081366 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 58.027991 seconds.
+  path: Assets/Prefabs/Heroes/HeroStructure.prefab
+  artifactKey: Guid(322b87facb59a90408aa6114cc7ab1ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Heroes/HeroStructure.prefab using Guid(322b87facb59a90408aa6114cc7ab1ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0eb89a3aa2e7784ef57d94e66c058d52') in 0.066278 seconds
+  Import took 0.074337 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 114.289325 seconds.
+  path: Assets/Prefabs/Heroes/HeroStructure.prefab
+  artifactKey: Guid(322b87facb59a90408aa6114cc7ab1ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Heroes/HeroStructure.prefab using Guid(322b87facb59a90408aa6114cc7ab1ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4c1e5d2bc10af947b31162bbe739b555') in 0.070273 seconds
+  Import took 0.075194 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 43.818307 seconds.
+  path: Assets/Scenes/CombatScene.unity
+  artifactKey: Guid(0e29b94a6479dc34a849aa71b7992813) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/CombatScene.unity using Guid(0e29b94a6479dc34a849aa71b7992813) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '61340f57649a4d348749c27d03f5e0b9') in 0.002317 seconds
+  Import took 0.007447 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 44.068579 seconds.
+  path: Assets/Prefabs/Heroes/HeroStructure_Enemy.prefab
+  artifactKey: Guid(75a3d2d9baedbe24286530ecf9389d21) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Heroes/HeroStructure_Enemy.prefab using Guid(75a3d2d9baedbe24286530ecf9389d21) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2fd64de8db24568a033bd32595c6fde1') in 0.074611 seconds
+  Import took 0.080232 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002864 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.16 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.825 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.21 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.9 MB.
+System memory in use after: 103.0 MB.
+
+Unloading 17 unused Assets to reduce memory usage. Loaded Objects now: 2616.
+Total: 2.042300 ms (FindLiveObjects: 0.315000 ms CreateObjectMapping: 0.137300 ms MarkObjects: 1.567600 ms  DeleteObjects: 0.021100 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 256.790035 seconds.
+  path: Assets/Prefabs/Heroes/HeroStructure_Enemy.prefab
+  artifactKey: Guid(75a3d2d9baedbe24286530ecf9389d21) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Heroes/HeroStructure_Enemy.prefab using Guid(75a3d2d9baedbe24286530ecf9389d21) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '10b0b0fd3a0ffc08cbfd05f380f3d1fb') in 0.140003 seconds
+  Import took 0.149897 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.004063 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.83 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.823 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.92 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2097 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 102.9 MB.
+System memory in use after: 103.0 MB.
+
+Unloading 17 unused Assets to reduce memory usage. Loaded Objects now: 2619.
+Total: 1.655100 ms (FindLiveObjects: 0.198400 ms CreateObjectMapping: 0.076700 ms MarkObjects: 1.351000 ms  DeleteObjects: 0.028100 ms)
 
 AssetImportWorkerClient::OnTransportError - code=2 error=End of file

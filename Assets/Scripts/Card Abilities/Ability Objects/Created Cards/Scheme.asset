@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Scheme
   m_EditorClassIdentifier: 
   AbilityName: Scheme
-  AbilityDescription: Each time you play 3 Schemes, create a <color=\"green\">Masterful
-    Plan</color> in hand  ({SCHEMES}/3).
+  AbilityDescription: Each time you play 3 Schemes, create a <color="green"><b>Masterful
+    Plan</b></color> in hand  ({SCHEMES}/3).
   AbilitySprite: {fileID: 21300000, guid: 3f1cfee68a5df014eb9925f6635db214, type: 3}
+  OverrideColor: 1
+  AbilityColor: {r: 1, g: 1, b: 1, a: 1}
   LinkedAbilites: []
   AbilityStacks: 0
   GainAbilitySound:

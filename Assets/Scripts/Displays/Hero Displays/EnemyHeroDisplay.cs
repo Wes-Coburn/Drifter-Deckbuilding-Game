@@ -9,7 +9,6 @@ public class EnemyHeroDisplay : HeroDisplay
 
     public EnemyHero EnemyHero { get => HeroScript as EnemyHero; }
     public GameObject HeroPower { get => heroPower; }
-    public GameObject PowerImage { get => powerImage; }
 
     public override void DisplayHero()
     {

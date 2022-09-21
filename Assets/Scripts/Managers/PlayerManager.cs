@@ -29,7 +29,7 @@ public class PlayerManager : MonoBehaviour
     private int playerHealth;
     private int damageTaken_Turn;
     private int energyPerTurn;
-    private int energyLeft;
+    private int currentEnergy;
     private bool heroPowerUsed;
     private int heroUltimateProgress;
 
@@ -66,17 +66,9 @@ public class PlayerManager : MonoBehaviour
         set
         {
             heroPowerUsed = value;
-            HeroDisplay.PowerUsedIcon.SetActive(value);
-        }
-    }
-    public int HeroUltimateProgress_Direct
-    {
-        set
-        {
-            heroUltimateProgress = value;
-            string progressText = heroUltimateProgress + "/" +
-                GameManager.HERO_ULTMATE_GOAL + " Powers Used";
-            HeroDisplay.UltimateProgressText = progressText;
+            GameObject powerReadyIcon =
+                coMan.PlayerHero.GetComponent<PlayerHeroDisplay>().PowerReadyIcon;
+            powerReadyIcon.SetActive(!heroPowerUsed);
         }
     }
     public int HeroUltimateProgress
@@ -84,29 +76,26 @@ public class PlayerManager : MonoBehaviour
         get => heroUltimateProgress;
         set
         {
-            int previousProgress = heroUltimateProgress;
             heroUltimateProgress = value;
             int heroUltimateGoal = GameManager.HERO_ULTMATE_GOAL;
-            if (heroUltimateProgress <= heroUltimateGoal)
+            PlayerHeroDisplay phd = coMan.PlayerHero.GetComponent<PlayerHeroDisplay>();
+            phd.UltimateProgressValue = heroUltimateProgress;
+            GameObject ultimateReadyIcon = phd.UltimateReadyIcon;
+            GameObject ultimateButton = phd.UltimateButton;
+
+            if (heroUltimateProgress == heroUltimateGoal)
             {
-                bool ultimateReady = false;
-                string progressText;
-                if (heroUltimateProgress == heroUltimateGoal)
-                {
-                    ultimateReady = true;
-                    progressText = "ULTIMATE READY!";
-                }
-                else progressText = heroUltimateProgress + "/" +
-                        heroUltimateGoal + " Powers Used";
-                
-                HeroDisplay.UltimateProgressText = progressText;
-                PlayerHeroDisplay phd = coMan.PlayerHero.GetComponent<PlayerHeroDisplay>();
-                GameObject progressBar = phd.UltimateProgressBar;
-                GameObject progressFill = phd.UltimateProgressFill;
-                AnimationManager.Instance.SetProgressBar(AnimationManager.ProgressBarType.Ultimate,
-                    previousProgress, heroUltimateProgress, ultimateReady, progressBar, progressFill);
+                auMan.StartStopSound("SFX_HeroUltimateReady");
+                ultimateReadyIcon.SetActive(true);
+                AnimationManager.Instance.AbilityTriggerState(ultimateButton); // TESTING
             }
-            else heroUltimateProgress = heroUltimateGoal;
+            else
+            {
+                ultimateReadyIcon.SetActive(false);
+
+                if (heroUltimateProgress > heroUltimateGoal)
+                    heroUltimateProgress = heroUltimateGoal;
+            }
         }
     }
     public int PlayerHealth
@@ -139,8 +128,7 @@ public class PlayerManager : MonoBehaviour
             energyPerTurn = value;
             if (energyPerTurn > MaxEnergyPerTurn)
                 energyPerTurn = MaxEnergyPerTurn;
-            coMan.PlayerHero.GetComponent<HeroDisplay>().HeroEnergy =
-                energyLeft + "/" + EnergyPerTurn;
+            coMan.PlayerHero.GetComponent<HeroDisplay>().SetHeroEnergy(CurrentEnergy, EnergyPerTurn);
         }
     }
     public int MaxEnergyPerTurn => GameManager.MAXIMUM_ENERGY_PER_TURN;
@@ -153,15 +141,14 @@ public class PlayerManager : MonoBehaviour
             return GameManager.MAXIMUM_ENERGY + bonusEnergy;
         }
     }
-    public int EnergyLeft
+    public int CurrentEnergy
     {
-        get => energyLeft;
+        get => currentEnergy;
         set
         {
-            energyLeft = value;
-            if (energyLeft > MaxEnergy) energyLeft = MaxEnergy;
-            coMan.PlayerHero.GetComponent<HeroDisplay>().HeroEnergy = 
-                energyLeft + "/" + EnergyPerTurn;
+            currentEnergy = value;
+            if (currentEnergy > MaxEnergy) currentEnergy = MaxEnergy;
+            coMan.PlayerHero.GetComponent<HeroDisplay>().SetHeroEnergy(CurrentEnergy, EnergyPerTurn);
         }
     }
 
@@ -234,7 +221,7 @@ public class PlayerManager : MonoBehaviour
             uMan.CreateFleetingInfoPopup("Hero power already used this turn!");
             ErrorSound();
         }
-        else if (EnergyLeft < PlayerHero.HeroPower.PowerCost)
+        else if (CurrentEnergy < PlayerHero.HeroPower.PowerCost)
         {
             if (isPreCheck) return false;
             uMan.CreateFleetingInfoPopup("Not enough energy!");
@@ -255,7 +242,7 @@ public class PlayerManager : MonoBehaviour
             {
                 if (isPreCheck) return true;
                 efMan.StartEffectGroupList(groupList, heroPower);
-                EnergyLeft -= PlayerHero.HeroPower.PowerCost;
+                CurrentEnergy -= PlayerHero.HeroPower.PowerCost;
                 HeroPowerUsed = true;
                 PlayerPowerSounds();
                 ParticleBurst(heroPower);
@@ -278,7 +265,7 @@ public class PlayerManager : MonoBehaviour
             uMan.CreateFleetingInfoPopup("Ultimate not ready!");
             ErrorSound();
         }
-        else if (EnergyLeft < GetUltimateCost(out _))
+        else if (CurrentEnergy < GetUltimateCost(out _))
         {
             if (isPreCheck) return false;
             uMan.CreateFleetingInfoPopup("Not enough energy!");
@@ -294,8 +281,7 @@ public class PlayerManager : MonoBehaviour
         {
             if (isPreCheck) return true;
             efMan.StartEffectGroupList(groupList, heroUltimate);
-            EnergyLeft -= GetUltimateCost(out _);
-            HeroDisplay.UltimateUsedIcon.SetActive(true);
+            CurrentEnergy -= GetUltimateCost(out _);
             PlayerPowerSounds(true);
             ParticleBurst(heroUltimate);
         }

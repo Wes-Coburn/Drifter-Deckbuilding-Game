@@ -428,6 +428,8 @@ GameObject:
   - component: {fileID: 7847311376239260065}
   - component: {fileID: 7358628913103609154}
   - component: {fileID: 394023111563193788}
+  - component: {fileID: 4388862110045288818}
+  - component: {fileID: 6836226703825031376}
   m_Layer: 0
   m_Name: BuyItemPopup
   m_TagString: Untagged
@@ -524,6 +526,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popupText: {fileID: 7847311376019487741}
+--- !u!225 &4388862110045288818
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7847311376239260079}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!95 &6836226703825031376
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7847311376239260079}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 12d403e92b867f74795c5a12a0403ae2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7847311376602496590
 GameObject:
   m_ObjectHideFlags: 0

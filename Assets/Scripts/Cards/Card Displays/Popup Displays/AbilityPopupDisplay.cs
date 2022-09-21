@@ -10,23 +10,6 @@ public class AbilityPopupDisplay : MonoBehaviour
     private CardAbility abilityScript;
     private CardManager caMan;
 
-    public CardAbility AbilityScript
-    {
-        get => abilityScript;
-        set
-        {
-            abilityScript = value;
-            DisplayAbilityPopup();
-        }
-    }
-    public CardAbility ZoomAbilityScript
-    {
-        set
-        {
-            abilityScript = value;
-            DisplayAbilityPopup(true);
-        }
-    }
     public Sprite AbilitySprite
     {
         set => abilitySprite.GetComponent<Image>().sprite = value;
@@ -46,26 +29,28 @@ public class AbilityPopupDisplay : MonoBehaviour
      * ****** DISPLAY_ABILITY_POPUP
      * *****
      *****/
-    private void DisplayAbilityPopup(bool isAbilityZoom = false)
+    public void DisplayAbilityPopup(CardAbility cardAbility, bool isAbilityZoom, bool isPlayerSource)
     {
+        abilityScript = cardAbility; // TESTING
+
         string name;
         string description;
         
-        if (AbilityScript is StaticAbility)
+        if (abilityScript is StaticAbility)
         {
-            AbilitySprite = AbilityScript.AbilitySprite;
+            AbilitySprite = abilityScript.AbilitySprite;
             if (!isAbilityZoom)
             {
-                name = AbilityScript.AbilityName;
-                description = AbilityScript.AbilityDescription;
+                name = abilityScript.AbilityName;
+                description = abilityScript.AbilityDescription;
             }
             else
             {
                 name = "";
-                description = AbilityScript.AbilityDescription;
+                description = abilityScript.AbilityDescription;
             }
         }
-        else if (AbilityScript is TriggeredAbility ta)
+        else if (abilityScript is TriggeredAbility ta)
         {
             AbilityTrigger trigger = ta.AbilityTrigger;
             AbilitySprite = trigger.AbilitySprite;
@@ -105,14 +90,15 @@ public class AbilityPopupDisplay : MonoBehaviour
         }
         else
         {
-            if (AbilityScript == null) Debug.LogError("SCRIPT IS NULL!");
+            if (abilityScript == null) Debug.LogError("SCRIPT IS NULL!");
             else Debug.LogError("SCRIPT TYPE NOT FOUND!");
             return;
         }
         if (!string.IsNullOrEmpty(name)) name += ": ";
 
         string filteredDescription = caMan.FilterKeywords(name + description);
-        filteredDescription = caMan.FilterCreatedCardProgress(filteredDescription); // TESTING
+        filteredDescription = caMan.FilterCreatedCardProgress(filteredDescription, isPlayerSource); // TESTING
         AbilityDescription = CardManager.Instance.FilterKeywords(filteredDescription);
+        abilitySprite.GetComponent<Image>().color = caMan.GetAbilityColor(abilityScript); // TESTING
     }
 }

@@ -550,11 +550,13 @@ public class AnimationManager : MonoBehaviour
         GameObject combatLog = uMan.CombatLog;
 
         HeroDisplay pHD = coMan.PlayerHero.GetComponent<HeroDisplay>();
+        GameObject pBase = pHD.HeroBase;
         GameObject pFrame = pHD.HeroFrame;
         GameObject pStats = pHD.HeroStats;
         GameObject pName = pHD.HeroNameObject;
 
         HeroDisplay eHD = coMan.EnemyHero.GetComponent<HeroDisplay>();
+        GameObject eBase = eHD.HeroBase;
         GameObject eFrame = eHD.HeroFrame;
         GameObject eStats = eHD.HeroStats;
         GameObject eName = eHD.HeroNameObject;
@@ -562,11 +564,13 @@ public class AnimationManager : MonoBehaviour
         Vector2 turButStart = turBut.transform.position;
         Vector2 combatLogStart = combatLog.transform.localPosition;
 
+        Vector2 pBaseStart = pBase.transform.localPosition;
         Vector2 pFrameStart = pFrame.transform.position;
         Vector2 pStatsStart = pStats.transform.localPosition;
         Vector2 pNameStart = pName.transform.localPosition;
         Vector2 pNameEnd = new Vector2(pNameStart.x + startBuffer, pNameStart.y);
 
+        Vector2 eBaseStart = eBase.transform.localPosition;
         Vector2 eFrameStart = eFrame.transform.position;
         Vector2 eStatsStart = eStats.transform.localPosition;
         Vector2 eNameStart = eName.transform.localPosition;
@@ -576,18 +580,22 @@ public class AnimationManager : MonoBehaviour
         turBut.SetActive(true);
         combatLog.SetActive(true);
 
+        pBase.SetActive(true);
         pStats.SetActive(true);
         pName.SetActive(true);
 
+        eBase.SetActive(true);
         eStats.SetActive(true);
         eName.SetActive(true);
 
         turBut.transform.localPosition = new Vector2(turButStart.x + startBuffer, turButStart.y);
         combatLog.transform.localPosition = new Vector2(combatLogStart.x - startBuffer, combatLogStart.y);
 
+        pBase.transform.localPosition = new Vector2(pBaseStart.x, pBaseStart.y - startBuffer);
         pStats.transform.localPosition = new Vector2(pStatsStart.x, pStatsStart.y - startBuffer);
         pName.transform.localPosition = pNameEnd;
 
+        eBase.transform.localPosition = new Vector2(eBaseStart.x, eBaseStart.y + startBuffer);
         eStats.transform.localPosition = new Vector2(eStatsStart.x, eStatsStart.y + startBuffer);
         eName.transform.localPosition = eNameEnd;
 
@@ -658,6 +666,18 @@ public class AnimationManager : MonoBehaviour
         if (uMan.ItemBar.transform.childCount > 0)
             auMan.StartStopSound("SFX_Trigger");
 
+        yield return new WaitForSeconds(0.5f);
+
+        foreach (Transform repTran in uMan.ReputationBar.transform)
+        {
+            repTran.gameObject.SetActive(true);
+            SkybarIconAnimation(repTran.gameObject);
+        }
+
+        auMan.StartStopSound("SFX_Trigger");
+        yield return new WaitForSeconds(0.5f);
+
+
         auMan.StartStopSound("SFX_PortraitClick");
         do
         {
@@ -690,8 +710,14 @@ public class AnimationManager : MonoBehaviour
             distance = Vector2.Distance(pStats.transform.localPosition, pStatsStart);
             turBut.transform.position =
                 Vector2.MoveTowards(turBut.transform.position, turButStart, 20);
+
+            pBase.transform.localPosition =
+                Vector2.MoveTowards(pBase.transform.localPosition, pBaseStart, 20);
             pStats.transform.localPosition =
                 Vector2.MoveTowards(pStats.transform.localPosition, pStatsStart, 20);
+
+            eBase.transform.localPosition =
+                Vector2.MoveTowards(eBase.transform.localPosition, eBaseStart, 20);
             eStats.transform.localPosition =
                 Vector2.MoveTowards(eStats.transform.localPosition, eStatsStart, 20);
             combatLog.transform.localPosition =
@@ -776,7 +802,6 @@ public class AnimationManager : MonoBehaviour
      *****/
     public enum ProgressBarType
     {
-        Ultimate,
         Recruit,
         Item
     }
@@ -827,13 +852,6 @@ public class AnimationManager : MonoBehaviour
         {
             switch (progressType)
             {
-                case ProgressBarType.Ultimate:
-                    PlayerHeroDisplay phd = coMan.PlayerHero.GetComponent<PlayerHeroDisplay>();
-                    phd.UltimateUsedIcon.SetActive(false);
-                    GameObject heroUltimate = phd.HeroUltimate;
-                    TriggerHeroPower(heroUltimate);
-                    auMan.StartStopSound("SFX_HeroUltimateReady");
-                    break;
                 case ProgressBarType.Recruit:
                     Debug.Log("RECRUIT REWARD!");
                     break;

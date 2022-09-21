@@ -66,7 +66,7 @@ public abstract class CardDisplay : MonoBehaviour
                 !string.IsNullOrEmpty(CardScript.CardSubType)) spacer = " - ";
             return CardScript.CardType + spacer + CardScript.CardSubType;
         }
-        set => cardTypeLine.GetComponent<TextMeshProUGUI>().SetText(CardManager.Instance.FilterCardTypes(value));
+        set => cardTypeLine.GetComponent<TextMeshProUGUI>().SetText(value);
     }
     public int CurrentEnergyCost
     {

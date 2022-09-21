@@ -9,6 +9,7 @@ public class LocationPopupDisplay : MonoBehaviour
     [SerializeField] private GameObject locationHours;
     [SerializeField] private GameObject objectivesDescription;
     [SerializeField] private GameObject travelButtons;
+    [SerializeField] private GameObject closePopupButton;
 
     private GameManager gMan;
     private UIManager uMan;
@@ -23,7 +24,7 @@ public class LocationPopupDisplay : MonoBehaviour
             location = value;
             LocationName = location.LocationFullName;
             LocationDescription = location.LocationDescription;
-            ObjectivesDescription = caMan.FilterCardTypes(location.CurrentObjective);
+            ObjectivesDescription = caMan.FilterUnitTypes(location.CurrentObjective);
             WorldMapPosition = new Vector2(0, 0); // FOR TESTING ONLY?
 
             string hours = "Hours Closed: ";
@@ -86,6 +87,7 @@ public class LocationPopupDisplay : MonoBehaviour
     }
 
     public GameObject TravelButtons { get => travelButtons; }
+    public GameObject ClosePopupButton { get => closePopupButton; }
     
     private void Awake()
     {
@@ -121,6 +123,10 @@ public class LocationPopupDisplay : MonoBehaviour
         else SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene, true);
     }
 
-    public void CancelButton_OnClick() =>
+    public void CancelButton_OnClick()
+    {
         uMan.DestroyTravelPopup();
+        uMan.DestroyLocationPopup();
+        Destroy(gameObject);
+    }
 }

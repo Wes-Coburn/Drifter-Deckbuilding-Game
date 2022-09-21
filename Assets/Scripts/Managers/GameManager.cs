@@ -111,6 +111,7 @@ public class GameManager : MonoBehaviour
     public const int PLAYER_START_UNITS = 3;
     public const int MAXIMUM_ENERGY_PER_TURN = 10;
     public const int MAXIMUM_ENERGY = 10;
+    public const int MAXIMUM_ITEMS = 5;
     public const int HERO_ULTMATE_GOAL = 3;
     public const int PLAYER_START_AETHER = 0;
     
@@ -136,8 +137,8 @@ public class GameManager : MonoBehaviour
     public const int CLONE_UNIT_COST = 30;
     public const int CLONE_RARE_UNIT_COST = 50;
     // Items
-    public const int BUY_ITEM_COST = 15;
-    public const int BUY_RARE_ITEM_COST = 25;
+    public const int BUY_ITEM_COST = 20;
+    public const int BUY_RARE_ITEM_COST = 35;
     public const int SHOP_LOYALTY_GOAL = 3;
     // Reputation
     public const int REPUTATION_TIER_1 = 10;
@@ -145,16 +146,16 @@ public class GameManager : MonoBehaviour
     public const int REPUTATION_TIER_3 = 30;
 
     // Combat Reward
-    public const int AETHER_COMBAT_REWARD_1 = 20;
-    public const int AETHER_COMBAT_REWARD_2 = 30;
-    public const int AETHER_COMBAT_REWARD_3 = 40;
+    public const int AETHER_COMBAT_REWARD_1 = 15;
+    public const int AETHER_COMBAT_REWARD_2 = 20;
+    public const int AETHER_COMBAT_REWARD_3 = 25;
 
-    public const int AETHER_COMBAT_REWARD_BOSS_1 = 40;
-    public const int AETHER_COMBAT_REWARD_BOSS_2 = 50;
-    public const int AETHER_COMBAT_REWARD_BOSS_3 = 60;
+    public const int AETHER_COMBAT_REWARD_BOSS_1 = 35;
+    public const int AETHER_COMBAT_REWARD_BOSS_2 = 40;
+    public const int AETHER_COMBAT_REWARD_BOSS_3 = 45;
 
     // Augments
-    public const int AETHER_MAGNET_REWARD = 15;
+    public const int AETHER_MAGNET_REWARD = 20;
 
     /******
      * *****
@@ -490,25 +491,9 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < shopItems.Length; i++)
             shopItems[i] = ShopItems[i].ItemName;
 
-        string[] recruitMages = new string[caMan.PlayerRecruitMages.Count];
-        for (int i = 0; i < recruitMages.Length; i++)
-            recruitMages[i] = caMan.PlayerRecruitMages[i].CardName;
-
-        string[] recruitMutants = new string[caMan.PlayerRecruitMutants.Count];
-        for (int i = 0; i < recruitMutants.Length; i++)
-            recruitMutants[i] = caMan.PlayerRecruitMutants[i].CardName;
-
-        string[] recruitRogues = new string[caMan.PlayerRecruitRogues.Count];
-        for (int i = 0; i < recruitRogues.Length; i++)
-            recruitRogues[i] = caMan.PlayerRecruitRogues[i].CardName;
-
-        string[] recruitTechs = new string[caMan.PlayerRecruitTechs.Count];
-        for (int i = 0; i < recruitTechs.Length; i++)
-            recruitTechs[i] = caMan.PlayerRecruitTechs[i].CardName;
-
-        string[] recruitWarriors = new string[caMan.PlayerRecruitWarriors.Count];
-        for (int i = 0; i < recruitWarriors.Length; i++)
-            recruitWarriors[i] = caMan.PlayerRecruitWarriors[i].CardName;
+        string[] recruitUnits = new string[caMan.PlayerRecruitUnits.Count];
+        for (int i = 0; i < recruitUnits.Length; i++)
+            recruitUnits[i] = caMan.PlayerRecruitUnits[i].CardName;
 
         string narrativeName = "";
         if (CurrentNarrative != null) narrativeName = CurrentNarrative.NarrativeName;
@@ -516,8 +501,7 @@ public class GameManager : MonoBehaviour
         GameData data = new GameData(CurrentHour, narrativeName, pMan.PlayerHero.HeroName,
             deckList, augments, items, pMan.AetherCells,
             npcsAndClips, locationsNPCsObjectives, VisitedLocations.ToArray(),
-            shopItems, recruitMages, recruitMutants, recruitRogues, recruitTechs, recruitWarriors,
-            RecruitLoyalty, ShopLoyalty,
+            shopItems, recruitUnits, RecruitLoyalty, ShopLoyalty,
             Reputation_Mages, Reputation_Mutants, Reputation_Rogues, Reputation_Techs, Reputation_Warriors);
         SaveLoad.SaveGame(data);
     }
@@ -672,27 +656,10 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < data.ShopItems.Length; i++)
             ShopItems.Add(GetItem(data.ShopItems[i]));
 
-        // RECRUITS
-        // MAGES
-        caMan.PlayerRecruitMages.Clear();
-        for (int i = 0; i < data.RecruitMages.Length; i++)
-            caMan.PlayerRecruitMages.Add(GetCard(data.RecruitMages[i]) as UnitCard);
-        // MUTANTS
-        caMan.PlayerRecruitMutants.Clear();
-        for (int i = 0; i < data.RecruitMutants.Length; i++)
-            caMan.PlayerRecruitMutants.Add(GetCard(data.RecruitMutants[i]) as UnitCard);
-        // ROGUES
-        caMan.PlayerRecruitRogues.Clear();
-        for (int i = 0; i < data.RecruitRogues.Length; i++)
-            caMan.PlayerRecruitRogues.Add(GetCard(data.RecruitRogues[i]) as UnitCard);
-        // TECHS
-        caMan.PlayerRecruitTechs.Clear();
-        for (int i = 0; i < data.RecruitTechs.Length; i++)
-            caMan.PlayerRecruitTechs.Add(GetCard(data.RecruitTechs[i]) as UnitCard);
-        // WARRIORS
-        caMan.PlayerRecruitWarriors.Clear();
-        for (int i = 0; i < data.RecruitWarriors.Length; i++)
-            caMan.PlayerRecruitWarriors.Add(GetCard(data.RecruitWarriors[i]) as UnitCard);
+        // RECRUIT UNITS
+        caMan.PlayerRecruitUnits.Clear();
+        for (int i = 0; i < data.RecruitUnits.Length; i++)
+            caMan.PlayerRecruitUnits.Add(GetCard(data.RecruitUnits[i]) as UnitCard);
 
         // LOYALTY
         RecruitLoyalty = data.RecruitLoyalty;
@@ -979,13 +946,19 @@ public class GameManager : MonoBehaviour
             if (reputationTier > 2 && resolveOrder == bonuses.Tier3_ResolveOrder)
                 ScheduleEffects(bonuses.ReputationType, bonuses.Tier3_Effects);
 
-            void ScheduleEffects(ReputationType repType, List<EffectGroup> effects) =>
-                evMan.NewDelayedAction(() => ResolveEffects(repType, effects), delay);
+            void ScheduleEffects(ReputationType repType, List<EffectGroup> effects)
+            {
+                bool showTrigger;
+                if (resolveOrder == 1) showTrigger = false;
+                else showTrigger = true;
+
+                evMan.NewDelayedAction(() => ResolveEffects(repType, effects, showTrigger), delay);
+            }
         }
 
-        void ResolveEffects(ReputationType repType, List<EffectGroup> repEffects)
+        void ResolveEffects(ReputationType repType, List<EffectGroup> repEffects, bool showTrigger)
         {
-            uMan.SetReputation(repType, 0, true);
+            if (showTrigger) uMan.SetReputation(repType, 0, true);
 
             if (repEffects != null && repEffects.Count > 0)
                 efMan.StartEffectGroupList(repEffects, coMan.PlayerHero);
@@ -1055,12 +1028,14 @@ public class GameManager : MonoBehaviour
         if (CurrentHour == 4) hasRested = true;
         else hasRested = false;
 
-        FindObjectOfType<HomeBaseSceneDisplay>().ClaimRewardButton.SetActive(hasRested); // TESTING
+        FindObjectOfType<HomeBaseSceneDisplay>().ClaimRewardButton.SetActive(hasRested);
 
         if (hasRested)
         {
-            uMan.CreateFleetingInfoPopup("You have rested!", true);
+            uMan.CreateFleetingInfoPopup("You have rested!\nShops have been refreshed!", true);
             NextHour(true);
+            ShopItems = GetShopItems(); // TESTING
+            caMan.LoadNewRecruits(); // TESTING
         }
     }
 
@@ -1114,10 +1089,10 @@ public class GameManager : MonoBehaviour
         PlayerHeroDisplay pHD = coMan.PlayerHero.GetComponent<PlayerHeroDisplay>();
         EnemyHeroDisplay eHD = coMan.EnemyHero.GetComponent<EnemyHeroDisplay>();
         uMan.EndTurnButton.SetActive(false);
+        pHD.HeroBase.SetActive(false);
         pHD.HeroStats.SetActive(false);
         pHD.HeroNameObject.SetActive(false);
-        pHD.PowerUsedIcon.SetActive(false);
-        pHD.UltimateUsedIcon.SetActive(true);
+        eHD.HeroBase.SetActive(false);
         eHD.HeroStats.SetActive(false);
         eHD.HeroNameObject.SetActive(false);
         uMan.CombatLog.SetActive(false);
@@ -1131,6 +1106,17 @@ public class GameManager : MonoBehaviour
         efMan.GiveNextEffects_Enemy.Clear();
         foreach (Effect e in efMan.ChangeNextCostEffects_Enemy) Destroy(e);
         efMan.ChangeNextCostEffects_Enemy.Clear();
+
+        // CREATED CARDS
+        coMan.ExploitsPlayed_Player = 0;
+        coMan.InventionsPlayed_Player = 0;
+        coMan.SchemesPlayed_Player = 0;
+        coMan.ExtractionsPlayed_Player = 0;
+
+        coMan.ExploitsPlayed_Enemy = 0;
+        coMan.InventionsPlayed_Enemy = 0;
+        coMan.SchemesPlayed_Enemy = 0;
+        coMan.ExtractionsPlayed_Enemy = 0;
 
         // ENEMY MANAGER
         enMan.StartCombat();
@@ -1152,14 +1138,14 @@ public class GameManager : MonoBehaviour
         int energyPerTurn = START_ENERGY_PER_TURN;
         if (enMan.EnemyHero.IsBoss) energyPerTurn += BOSS_BONUS_ENERGY;
         enMan.EnergyPerTurn = energyPerTurn;
-        enMan.EnergyLeft = 0;
+        enMan.CurrentEnergy = 0;
         enMan.DamageTaken_Turn = 0;
 
         // PLAYER MANAGER
         pMan.PlayerHealth = pMan.MaxPlayerHealth;
         pMan.EnergyPerTurn = START_ENERGY_PER_TURN;
-        pMan.EnergyLeft = 0;
-        pMan.HeroUltimateProgress_Direct = 0;
+        pMan.CurrentEnergy = 0;
+        pMan.HeroUltimateProgress = 0;
         pMan.DamageTaken_Turn = 0;
 
         // UPDATE DECKS
@@ -1258,8 +1244,6 @@ public class GameManager : MonoBehaviour
             auMan.StartStopSound(null, enMan.EnemyHero.HeroLose);
             FunctionTimer.Create(() =>
             auMan.StartStopSound(null, pMan.PlayerHero.HeroWin), 2f);
-            caMan.ShuffleRecruits();
-            ShopItems = GetShopItems();
         }
         else
         {
@@ -1272,6 +1256,17 @@ public class GameManager : MonoBehaviour
         uMan.PlayerIsTargetting = false;
         efMan.EffectsResolving = false;
         pMan.IsMyTurn = false;
+
+        // Created Cards Played
+        coMan.ExploitsPlayed_Player = 0;
+        coMan.ExploitsPlayed_Enemy = 0;
+        coMan.InventionsPlayed_Player = 0;
+        coMan.InventionsPlayed_Enemy = 0;
+        coMan.SchemesPlayed_Player = 0;
+        coMan.SchemesPlayed_Enemy = 0;
+        coMan.ExtractionsPlayed_Player = 0;
+        coMan.ExtractionsPlayed_Enemy = 0;
+
         FunctionTimer.Create(() => uMan.CreateCombatEndPopup(playerWins), 2f);
 
         //efMan.GiveNextEffects.Clear();
@@ -1295,9 +1290,6 @@ public class GameManager : MonoBehaviour
         }
 
         coMan.ActionsPlayed_ThisTurn = 0;
-        coMan.ExploitsPlayed_ThisTurn = 0;
-        coMan.InventionsPlayed_ThisTurn = 0;
-        coMan.SchemesPlayed_ThisTurn = 0;
 
         evMan.NewDelayedAction(() => TurnPopup(), 0);
 
@@ -1320,7 +1312,7 @@ public class GameManager : MonoBehaviour
 
             void SynapticStabilizerEffect()
             {
-                pMan.EnergyLeft++;
+                pMan.CurrentEnergy++;
                 anMan.ModifyHeroEnergyState(1, coMan.PlayerHero);
                 anMan.TriggerAugment(synapticStabilizer);
                 coMan.SelectPlayableCards();
@@ -1332,11 +1324,11 @@ public class GameManager : MonoBehaviour
                 enMan.IsMyTurn = false;
                 pMan.HeroPowerUsed = false;
 
-                int startEnergy = pMan.EnergyLeft;
+                int startEnergy = pMan.CurrentEnergy;
                 if (pMan.EnergyPerTurn < pMan.MaxEnergyPerTurn) pMan.EnergyPerTurn++;
-                pMan.EnergyLeft = pMan.EnergyPerTurn;
+                pMan.CurrentEnergy = pMan.EnergyPerTurn;
 
-                int energyChange = pMan.EnergyLeft - startEnergy;
+                int energyChange = pMan.CurrentEnergy - startEnergy;
                 anMan.ModifyHeroEnergyState(energyChange, coMan.PlayerHero);
 
                 // TUTORIAL!
@@ -1398,7 +1390,7 @@ public class GameManager : MonoBehaviour
                 switch (pMan.EnergyPerTurn)
                 {
                     case 1:
-                        if (pMan.EnergyLeft > 0) return;
+                        if (pMan.CurrentEnergy > 0) return;
                         else uMan.DestroyInfoPopup(UIManager.InfoPopupType.Tutorial);
                         break;
                     case 2:

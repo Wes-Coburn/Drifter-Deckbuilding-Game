@@ -28,9 +28,17 @@ public class CombatManager : MonoBehaviour
     private readonly string ENEMY = GameManager.ENEMY;
 
     private int actionsPlayed_ThisTurn;
-    private int exploitsPlayed_ThisTurn;
-    private int inventionsPlayed_ThisTurn;
-    private int schemesPlayed_ThisTurn;
+
+    private int extractionsPlayed_Player;
+    private int extractionsPlayed_Enemy;
+
+    private int exploitsPlayed_Player;
+    private int inventionsPlayed_Player;
+    private int schemesPlayed_Player;
+
+    private int exploitsPlayed_Enemy;
+    private int inventionsPlayed_Enemy;
+    private int schemesPlayed_Enemy;
 
     private int lastCardIndex;
     private int lastContainerIndex;
@@ -75,75 +83,168 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    public int ExploitsPlayed_ThisTurn
+    public int ExploitsPlayed_Player
     {
-        get => exploitsPlayed_ThisTurn;
+        get => exploitsPlayed_Player;
         set
         {
-            exploitsPlayed_ThisTurn = value;
+            exploitsPlayed_Player = value;
             if (value == 3)
             {
-                exploitsPlayed_ThisTurn = 0;
-
-                string hero;
-                if (pMan.IsMyTurn) hero = GameManager.PLAYER;
-                else hero = GameManager.ENEMY;
+                exploitsPlayed_Player = 0;
 
                 evMan.NewDelayedAction(() => DrawUltimate(), 0, true);
                 void DrawUltimate()
                 {
                     Card card = caMan.NewCardInstance(caMan.Exploit_Ultimate);
-                    DrawCard(hero, card);
+                    DrawCard(GameManager.PLAYER, card);
                 }
             }
             else if (value > 3) Debug.LogError("VALUE > 3!");
         }
     }
 
-    public int InventionsPlayed_ThisTurn
+    public int InventionsPlayed_Player
     {
-        get => inventionsPlayed_ThisTurn;
+        get => inventionsPlayed_Player;
         set
         {
-            inventionsPlayed_ThisTurn = value;
+            inventionsPlayed_Player = value;
             if (value == 3)
             {
-                inventionsPlayed_ThisTurn = 0;
-
-                string hero;
-                if (pMan.IsMyTurn) hero = GameManager.PLAYER;
-                else hero = GameManager.ENEMY;
+                inventionsPlayed_Player = 0;
 
                 evMan.NewDelayedAction(() => DrawUltimate(), 0, true);
                 void DrawUltimate()
                 {
                     Card card = caMan.NewCardInstance(caMan.Invention_Ultimate);
-                    DrawCard(hero, card);
+                    DrawCard(GameManager.PLAYER, card);
                 }
             }
             else if (value > 3) Debug.LogError("VALUE > 3!");
         }
     }
 
-    public int SchemesPlayed_ThisTurn
+    public int SchemesPlayed_Player
     {
-        get => schemesPlayed_ThisTurn;
+        get => schemesPlayed_Player;
         set
         {
-            schemesPlayed_ThisTurn = value;
+            schemesPlayed_Player = value;
             if (value == 3)
             {
-                schemesPlayed_ThisTurn = 0;
-
-                string hero;
-                if (pMan.IsMyTurn) hero = GameManager.PLAYER;
-                else hero = GameManager.ENEMY;
+                schemesPlayed_Player = 0;
 
                 evMan.NewDelayedAction(() => DrawUltimate(), 0, true);
                 void DrawUltimate()
                 {
                     Card card = caMan.NewCardInstance(caMan.Scheme_Ultimate);
-                    DrawCard(hero, card);
+                    DrawCard(GameManager.PLAYER, card);
+                }
+            }
+            else if (value > 3) Debug.LogError("VALUE > 3!");
+        }
+    }
+
+    public int ExtractionsPlayed_Player
+    {
+        get => extractionsPlayed_Player;
+        set
+        {
+            extractionsPlayed_Player = value;
+            if (value == 3)
+            {
+                extractionsPlayed_Player = 0;
+
+                evMan.NewDelayedAction(() => DrawUltimate(), 0, true);
+                void DrawUltimate()
+                {
+                    Card card = caMan.NewCardInstance(caMan.Extraction_Ultimate);
+                    DrawCard(GameManager.PLAYER, card);
+                }
+            }
+            else if (value > 3) Debug.LogError("VALUE > 3!");
+        }
+    }
+
+    public int ExploitsPlayed_Enemy
+    {
+        get => exploitsPlayed_Enemy;
+        set
+        {
+            exploitsPlayed_Enemy = value;
+            if (value == 3)
+            {
+                exploitsPlayed_Enemy = 0;
+
+                evMan.NewDelayedAction(() => DrawUltimate(), 0, true);
+                void DrawUltimate()
+                {
+                    Card card = caMan.NewCardInstance(caMan.Exploit_Ultimate);
+                    DrawCard(GameManager.ENEMY, card);
+                }
+            }
+            else if (value > 3) Debug.LogError("VALUE > 3!");
+        }
+    }
+
+    public int InventionsPlayed_Enemy
+    {
+        get => inventionsPlayed_Enemy;
+        set
+        {
+            inventionsPlayed_Enemy = value;
+            if (value == 3)
+            {
+                inventionsPlayed_Enemy = 0;
+
+                evMan.NewDelayedAction(() => DrawUltimate(), 0, true);
+                void DrawUltimate()
+                {
+                    Card card = caMan.NewCardInstance(caMan.Invention_Ultimate);
+                    DrawCard(GameManager.ENEMY, card);
+                }
+            }
+            else if (value > 3) Debug.LogError("VALUE > 3!");
+        }
+    }
+
+    public int SchemesPlayed_Enemy
+    {
+        get => schemesPlayed_Enemy;
+        set
+        {
+            schemesPlayed_Enemy = value;
+            if (value == 3)
+            {
+                schemesPlayed_Enemy = 0;
+
+                evMan.NewDelayedAction(() => DrawUltimate(), 0, true);
+                void DrawUltimate()
+                {
+                    Card card = caMan.NewCardInstance(caMan.Scheme_Ultimate);
+                    DrawCard(GameManager.ENEMY, card);
+                }
+            }
+            else if (value > 3) Debug.LogError("VALUE > 3!");
+        }
+    }
+
+    public int ExtractionsPlayed_Enemy
+    {
+        get => extractionsPlayed_Enemy;
+        set
+        {
+            extractionsPlayed_Enemy = value;
+            if (value == 3)
+            {
+                extractionsPlayed_Enemy = 0;
+
+                evMan.NewDelayedAction(() => DrawUltimate(), 0, true);
+                void DrawUltimate()
+                {
+                    Card card = caMan.NewCardInstance(caMan.Extraction_Ultimate);
+                    DrawCard(GameManager.ENEMY, card);
                 }
             }
             else if (value > 3) Debug.LogError("VALUE > 3!");
@@ -376,7 +477,7 @@ public class CombatManager : MonoBehaviour
             cardTag = PLAYER_CARD;
             cardZone = PLAYER_HAND;
 
-            if (drawnCard == null) position.Set(-850, -350);
+            if (drawnCard == null) position.Set(-845, -405);
             else position.Set(0, -350);
         }
         else if (hero == ENEMY)
@@ -392,7 +493,7 @@ public class CombatManager : MonoBehaviour
             cardTag = ENEMY_CARD;
             cardZone = ENEMY_HAND;
             
-            if (drawnCard == null) position.Set(685, 370);
+            if (drawnCard == null) position.Set(845, 320);
             else position.Set(0, 300);
         }
         else
@@ -574,11 +675,13 @@ public class CombatManager : MonoBehaviour
     public void ChangeCardZone(GameObject card, string newZoneName, bool returnToIndex = false, bool changeControl = false)
     {
         CardDisplay cd = card.GetComponent<CardDisplay>();
+        DragDrop dd = card.GetComponent<DragDrop>();
         CardContainer container = cd.CardContainer.GetComponent<CardContainer>();
         System.Action action;
 
         GameObject newZone = null;
         bool isPlayed = true;
+        //bool wasPlayed = dd.IsPlayed; // For cards returned to hand (Currently Unused)
 
         uMan.SelectTarget(card, UIManager.SelectionType.Disabled); // Unnecessary?
 
@@ -621,7 +724,7 @@ public class CombatManager : MonoBehaviour
 
         if (!returnToIndex)
         {
-            lastCardIndex = card.GetComponent<DragDrop>().LastIndex;
+            lastCardIndex = dd.LastIndex;
             lastContainerIndex = cd.CardContainer.transform.GetSiblingIndex();
 
             if (newZoneName == ENEMY_HAND) card.transform.SetAsFirstSibling();
@@ -630,18 +733,17 @@ public class CombatManager : MonoBehaviour
 
         cd.CardContainer.GetComponent<CardContainer>().MoveContainer(newZone);
 
-        if (changeControl) card.GetComponent<DragDrop>().IsPlayed = true;
+        if (changeControl) dd.IsPlayed = true;
         else if (returnToIndex)
         {
             card.transform.SetSiblingIndex(lastCardIndex);
             cd.CardContainer.transform.SetSiblingIndex(lastContainerIndex);
-            card.GetComponent<DragDrop>().IsPlayed = isPlayed;
+            dd.IsPlayed = isPlayed;
         }
-        else if (!isPlayed) // Drawn Card
+        else if (!isPlayed) // => PlayerHand OR EnemyHand
         {
-            cd.ResetCard(); // Currently unnecessary (for cards returned to hand)
-            if (newZoneName == PLAYER_HAND || newZoneName == ENEMY_HAND)
-                efMan.ApplyChangeNextCostEffects(card);
+            //if (wasPlayed) cd.ResetCard(); // For cards RETURNED to hand (Currently Unused)
+            efMan.ApplyChangeNextCostEffects(card);
         }
 
         if (cd is UnitCardDisplay ucd)
@@ -650,6 +752,14 @@ public class CombatManager : MonoBehaviour
             if (isPlayed && !changeControl &&
                 !CardManager.GetAbility(card, CardManager.ABILITY_BLITZ)) isExhausted = true;
             ucd.IsExhausted = isExhausted;
+
+            container.OnAttachAction += () => FunctionTimer.Create(() => SetStats(card), 0.1f); // TESTING
+
+            void SetStats(GameObject unitCard)
+            {
+                if (unitCard == null) return;
+                anMan.UnitStatChangeState(card, 0, 0, false, true);
+            }
         }
 
     }
@@ -712,8 +822,8 @@ public class CombatManager : MonoBehaviour
         }
 
         int energyLeft;
-        if (isPlayerCard) energyLeft = pMan.EnergyLeft;
-        else energyLeft = enMan.EnergyLeft;
+        if (isPlayerCard) energyLeft = pMan.CurrentEnergy;
+        else energyLeft = enMan.CurrentEnergy;
 
         if (energyLeft < cardDisplay.CurrentEnergyCost)
         {
@@ -745,9 +855,9 @@ public class CombatManager : MonoBehaviour
         {
             PlayerHandCards.Remove(card);
 
-            int energyLeft = pMan.EnergyLeft;
-            pMan.EnergyLeft -= cd.CurrentEnergyCost;
-            int energyChange = pMan.EnergyLeft - energyLeft;
+            int energyLeft = pMan.CurrentEnergy;
+            pMan.CurrentEnergy -= cd.CurrentEnergyCost;
+            int energyChange = pMan.CurrentEnergy - energyLeft;
 
             if (energyChange != 0)
                 anMan.ModifyHeroEnergyState(energyChange, PlayerHero, false);
@@ -803,9 +913,9 @@ public class CombatManager : MonoBehaviour
             card.GetComponent<DragDrop>().IsPlayed = true;
             EnemyHandCards.Remove(card);
 
-            int energyLeft = enMan.EnergyLeft;
-            enMan.EnergyLeft -= cd.CurrentEnergyCost;
-            int energyChange = enMan.EnergyLeft - energyLeft;
+            int energyLeft = enMan.CurrentEnergy;
+            enMan.CurrentEnergy -= cd.CurrentEnergyCost;
+            int energyChange = enMan.CurrentEnergy - energyLeft;
             anMan.ModifyHeroEnergyState(energyChange, EnemyHero, false);
         }
         else
@@ -890,7 +1000,11 @@ public class CombatManager : MonoBehaviour
 
         previousZone.Remove(card);
         if (cd.CardScript.BanishAfterPlay) HideCard(card); // TESTING
-        else newZone.Add(HideCard(card));
+        else
+        {
+            cd.ResetCard(); // TESTING
+            newZone.Add(HideCard(card));
+        }
 
         if (!isAction) auMan.StartStopSound("SFX_DiscardCard");
     }
@@ -1387,7 +1501,7 @@ public class CombatManager : MonoBehaviour
     public GameObject GetStrongestUnit(List<GameObject> unitList, bool targetsEnemy)
     {
         if (unitList.Count < 1) return null;
-        int highestPower = 0;
+        int highestPower = -1;
         List<GameObject> highestPowerUnits = new List<GameObject>();
 
         foreach (GameObject unit in unitList)
@@ -1408,11 +1522,32 @@ public class CombatManager : MonoBehaviour
             }
             else if (power == highestPower) highestPowerUnits.Add(unit);
         }
+
         if (highestPowerUnits.Count < 1) return null;
+
         if (highestPowerUnits.Count > 1)
         {
-            int randomIndex = Random.Range(0, highestPowerUnits.Count);
-            return highestPowerUnits[randomIndex];
+            List<GameObject> highestHealthUnits = new List<GameObject>();
+            int highestHealth = 0;
+
+            foreach (GameObject unit in highestPowerUnits)
+            {
+                int health = GetUnitDisplay(unit).CurrentHealth;
+                if (health > highestHealth)
+                {
+                    highestHealth = health;
+                    highestHealthUnits.Clear();
+                    highestHealthUnits.Add(unit);
+                }
+                else if (health == highestHealth) highestHealthUnits.Add(unit);
+            }
+
+            if (highestHealthUnits.Count > 1)
+            {
+                int randomIndex = Random.Range(0, highestHealthUnits.Count);
+                return highestHealthUnits[randomIndex];
+            }
+            else return highestHealthUnits[0];
         }
         else return highestPowerUnits[0];
     }
@@ -1446,11 +1581,32 @@ public class CombatManager : MonoBehaviour
             }
             else if (power == lowestPower) lowestPowerUnits.Add(unit);
         }
+
         if (lowestPowerUnits.Count < 1) return null;
+
         if (lowestPowerUnits.Count > 1)
         {
-            int randomIndex = Random.Range(0, lowestPowerUnits.Count);
-            return lowestPowerUnits[randomIndex];
+            List<GameObject> lowestHealthUnits = new List<GameObject>();
+            int lowestHealth = 999;
+
+            foreach (GameObject unit in lowestPowerUnits)
+            {
+                int health = GetUnitDisplay(unit).CurrentHealth;
+                if (health < lowestHealth)
+                {
+                    lowestHealth = health;
+                    lowestHealthUnits.Clear();
+                    lowestHealthUnits.Add(unit);
+                }
+                else if (health == lowestHealth) lowestHealthUnits.Add(unit);
+            }
+
+            if (lowestHealthUnits.Count > 1)
+            {
+                int randomIndex = Random.Range(0, lowestHealthUnits.Count);
+                return lowestHealthUnits[randomIndex];
+            }
+            else return lowestHealthUnits[0];
         }
         else return lowestPowerUnits[0];
     }
@@ -1536,19 +1692,21 @@ public class CombatManager : MonoBehaviour
             card.GetComponent<CardZoom>().DestroyZoomPopups();
             AudioManager.Instance.StartStopSound(null, unitCard.UnitDeathSound); // TESTING
 
-            if (cardTag == PLAYER_CARD)
-            {
-                if (unitCard.BanishAfterPlay) HideCard(card);
-                else PlayerDiscardCards.Add(HideCard(card));
-            }
-            else if (cardTag == ENEMY_CARD)
-            {
-                if (unitCard.BanishAfterPlay) HideCard(card);
-                else EnemyDiscardCards.Add(HideCard(card));
-            }
+            if (cardTag == PLAYER_CARD) DiscardCard(PlayerDiscardCards);
+            else if (cardTag == ENEMY_CARD) DiscardCard(EnemyDiscardCards);
             else Debug.LogError("INVALID TAG!");
 
             if (pMan.IsMyTurn) SelectPlayableCards();
+
+            void DiscardCard(List<Card> cardZone)
+            {
+                if (unitCard.BanishAfterPlay) HideCard(card);
+                else
+                {
+                    card.GetComponent<CardDisplay>().ResetCard(); // TESTING
+                    cardZone.Add(HideCard(card));
+                }
+            }
         }
     }
 }

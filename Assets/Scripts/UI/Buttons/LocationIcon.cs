@@ -58,17 +58,21 @@ public class LocationIcon : MonoBehaviour
 
     public void OnClick()
     {
-        if (Location.IsHomeBase) Travel();
+        if (Location.IsHomeBase) TravelPopup();
         else
         {
-            if (gMan.CurrentHour == 4) // TESTING
-                uMan.CreateFleetingInfoPopup("You must rest at your ship!", true);
-            else if (!gMan.LocationOpen(Location)) // TESTING
-                uMan.CreateFleetingInfoPopup("Location closed! Come back later.", true);
-            else Travel();
+            if (gMan.CurrentHour == 4) TravelError("You must rest at your ship!");
+            else if (!gMan.LocationOpen(Location)) TravelError("Location closed! Come back later.");
+            else TravelPopup();
+            
+            void TravelError(string text)
+            {
+                uMan.CreateFleetingInfoPopup(text, true);
+                uMan.DestroyTravelPopup();
+            }
         }
 
-        void Travel() => uMan.CreateTravelPopup(Location);
+        void TravelPopup() => uMan.CreateTravelPopup(Location);
     }
 
     public void OnPointerEnter() => 

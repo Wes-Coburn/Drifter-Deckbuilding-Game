@@ -55,8 +55,8 @@ public class ItemDescriptionDisplay : MonoBehaviour, IPointerClickHandler, IPoin
     public void OnPointerClick(PointerEventData pointerEventData)
     {
         if (anMan.ProgressBarRoutine != null) return; // TESTING
-        if (pMan.HeroItems.Count >= 5)
-            uMan.CreateFleetingInfoPopup("You can't have more than 5 items!", true);
+        if (pMan.HeroItems.Count >= GameManager.MAXIMUM_ITEMS)
+            uMan.CreateFleetingInfoPopup("You can't have more than " + GameManager.MAXIMUM_ITEMS + " items!", true);
         else if (pMan.AetherCells < gMan.GetItemCost(loadedItem, out _))
             uMan.InsufficientAetherPopup();
         else uMan.CreateBuyItemPopup(loadedItem);

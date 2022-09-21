@@ -355,6 +355,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
 
         List<CardAbility> abilityList;
         List<CardAbility> singleList = new List<CardAbility>();
+        bool isPlayerSource = EffectManager.Instance.IsPlayerSource(gameObject); // TESTING
 
         if (cardDisplay is UnitCardDisplay ucd)
         {
@@ -431,7 +432,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         {
             GameObject abilityPopup = 
                 Instantiate(abilityPopupPrefab, AbilityPopupBox.transform);
-            abilityPopup.GetComponent<AbilityPopupDisplay>().AbilityScript = ca;
+            abilityPopup.GetComponent<AbilityPopupDisplay>().DisplayAbilityPopup(ca, false, isPlayerSource); // TESTING
         }
     }
 

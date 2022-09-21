@@ -9,11 +9,9 @@ public class AbilityIconDisplay : MonoBehaviour
 
     [SerializeField] private GameObject abilitySprite;
     [SerializeField] private GameObject abilityName;
-    [SerializeField] private GameObject abilitySpriteObject;
     [SerializeField] private GameObject abilityMultiplier;
     
     public GameObject AbilitySprite { get => abilitySprite; }
-    public GameObject AbilitySpriteObject { get => abilitySpriteObject; }
 
     public int AbilityMultiplier
     {

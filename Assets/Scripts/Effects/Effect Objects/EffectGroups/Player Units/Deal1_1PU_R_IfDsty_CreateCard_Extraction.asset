@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Targets: {fileID: 11400000, guid: 3536ddc3f75919646b8fab53d9f33c8a, type: 2}
   ResolveIndependent: 0
-  EffectsDescription: Deal 1 to an ally. If this destroys it, create an Extraction
-    in hand.
+  EffectsDescription: Deal 1 to an ally to create an Extraction in hand. If this
+    destroys it, create another.
   Effects:
   - {fileID: 11400000, guid: 9a0a52a907bd95446a9333b3a4b4178b, type: 2}

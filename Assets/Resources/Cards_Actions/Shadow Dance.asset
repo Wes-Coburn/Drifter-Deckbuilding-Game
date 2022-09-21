@@ -28,9 +28,11 @@ MonoBehaviour:
     source: {fileID: 0}
   overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
   zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
-  effectDescription: Give ALL allies Stealth and Ward until your next turn.
+  effectDescription: Give ALL allies Stealth and Ward until your next turn. Create
+    <b><color="green">Shadow Dance II</b></color> in hand.
   effectGroupList:
   - {fileID: 11400000, guid: 44634e049a97197409077ac7ee6fb9f6, type: 2}
+  - {fileID: 11400000, guid: c83de183fb57fcf4ea3a23fbc411518f, type: 2}
   linkedAbilities:
   - {fileID: 11400000, guid: edfe3b459c9ebb14eb21ba3bb2f309a0, type: 2}
   - {fileID: 11400000, guid: c67d8d67ab4a0294293b6847c50fd28a, type: 2}

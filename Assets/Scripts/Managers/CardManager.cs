@@ -31,10 +31,11 @@ public class CardManager : MonoBehaviour
     [SerializeField] private UnitCard[] playerStartUnits;
     [Header("TUTORIAL PLAYER UNITS")]
     [SerializeField] private UnitCard[] tutorialPlayerUnits;
-    [Header("CREATED CARD ULTIMATES")]
+    [Header("ULTIMATE CREATED CARDS")]
     [SerializeField] private ActionCard exploit_Ultimate;
     [SerializeField] private ActionCard invention_Ultimate;
     [SerializeField] private ActionCard scheme_Ultimate;
+    [SerializeField] private ActionCard extraction_Ultimate;
 
     // Positive Keywords
     public const string ABILITY_ARMORED = "Armored";
@@ -109,10 +110,13 @@ public class CardManager : MonoBehaviour
     // Card Types
     private static string[] CardTypes = new string[]
     {
+        EXPLOIT + "s",
         EXPLOIT,
+        INVENTION + "s",
         INVENTION,
+        SCHEME + "s",
         SCHEME,
-
+        EXTRACTION + "s",
         EXTRACTION
     };
 
@@ -158,46 +162,9 @@ public class CardManager : MonoBehaviour
     public ActionCard Exploit_Ultimate { get => exploit_Ultimate; }
     public ActionCard Invention_Ultimate { get => invention_Ultimate; }
     public ActionCard Scheme_Ultimate { get => scheme_Ultimate; }
-
-    public List<UnitCard> PlayerRecruitMages { get; private set; }
-    public List<UnitCard> PlayerRecruitMutants { get; private set; }
-    public List<UnitCard> PlayerRecruitRogues { get; private set; }
-    public List<UnitCard> PlayerRecruitTechs { get; private set; }
-    public List<UnitCard> PlayerRecruitWarriors { get; private set; }
-    public List<UnitCard> PlayerRecruitUnits
-    {
-        get
-        {
-            List<UnitCard> returnList = new List<UnitCard>();
-            List<List<UnitCard>> recruitLists = new List<List<UnitCard>>
-            {
-                PlayerRecruitMages,
-                PlayerRecruitMutants,
-                PlayerRecruitRogues,
-                PlayerRecruitTechs,
-                PlayerRecruitWarriors,
-            };
-
-            while (returnList.Count < 8)
-            {
-                foreach (List<UnitCard> list in recruitLists)
-                {
-                    foreach (UnitCard uc in list)
-                    {
-                        if (uc == null) continue;
-                        int index = pMan.PlayerDeckList.FindIndex(x => x.CardName == uc.CardName);
-                        if (index == -1 && !returnList.Contains(uc))
-                        {
-                            returnList.Add(uc);
-                            if (returnList.Count > 7) return returnList;
-                            break;
-                        }
-                    }
-                }
-            }
-            return returnList;
-        }
-    }
+    public ActionCard Extraction_Ultimate { get => extraction_Ultimate; }
+    
+    public List<UnitCard> PlayerRecruitUnits { get; private set; }
 
     private void Start()
     {
@@ -208,11 +175,7 @@ public class CardManager : MonoBehaviour
         evMan = EventManager.Instance;
         coMan = CombatManager.Instance;
 
-        PlayerRecruitMages = new List<UnitCard>();
-        PlayerRecruitMutants = new List<UnitCard>();
-        PlayerRecruitRogues = new List<UnitCard>();
-        PlayerRecruitTechs = new List<UnitCard>();
-        PlayerRecruitWarriors = new List<UnitCard>();
+        PlayerRecruitUnits = new List<UnitCard>();
     }
 
     public Card NewCardInstance(Card card, bool isExactCopy = false)
@@ -226,11 +189,32 @@ public class CardManager : MonoBehaviour
         return cardScript;
     }
 
-    public string FilterCreatedCardProgress(string text)
+    public string FilterCreatedCardProgress(string text, bool isPlayerSource)
     {
-        text = text.Replace("{EXPLOITS}", coMan.ExploitsPlayed_ThisTurn + "");
-        text = text.Replace("{INVENTIONS}", coMan.InventionsPlayed_ThisTurn + "");
-        text = text.Replace("{SCHEMES}", coMan.SchemesPlayed_ThisTurn + "");
+        int exploitsPlayed;
+        int inventionsPlayed;
+        int schemesPlayed;
+        int extractionsPlayed;
+
+        if (isPlayerSource)
+        {
+            exploitsPlayed = coMan.ExploitsPlayed_Player;
+            inventionsPlayed = coMan.InventionsPlayed_Player;
+            schemesPlayed = coMan.SchemesPlayed_Player;
+            extractionsPlayed = coMan.ExtractionsPlayed_Player;
+        }
+        else
+        {
+            exploitsPlayed = coMan.ExploitsPlayed_Enemy;
+            inventionsPlayed = coMan.InventionsPlayed_Enemy;
+            schemesPlayed = coMan.SchemesPlayed_Enemy;
+            extractionsPlayed= coMan.ExtractionsPlayed_Enemy;
+        }
+
+        text = text.Replace("{EXPLOITS}", exploitsPlayed + "");
+        text = text.Replace("{INVENTIONS}", inventionsPlayed + "");
+        text = text.Replace("{SCHEMES}", schemesPlayed + "");
+        text = text.Replace("{EXTRACTIONS}", extractionsPlayed + "");
         return text;
     }
 
@@ -241,66 +225,118 @@ public class CardManager : MonoBehaviour
         foreach (string s in CardTypes)
             text = text.Replace(s, "<b><color=\"green\">" + s + "</b></color>");
 
-        text = FilterCardTypes(text); // TESTING
+        text = FilterUnitTypes(text);
         return text;
     }
 
-    public string FilterCardTypes(string text)
+    public string FilterUnitTypes(string text)
     {
-        string orange = "orange";
-        text = ReplaceText(MAGE + "s", orange);
-        text = ReplaceText(MAGE, orange);
+        string[] unitTypes =
+        {
+            MAGE + "s",
+            MAGE,
+            MUTANT + "s",
+            MUTANT,
+            ROGUE + "s",
+            ROGUE,
+            TECH + "s",
+            TECH,
+            WARRIOR + "s",
+            WARRIOR
+        };
 
-        string green = "green";
-        text = ReplaceText(MUTANT + "s", green);
-        text = ReplaceText(MUTANT, green);
+        foreach (string s in unitTypes) text = ReplaceText(s);
 
-        string purple = "purple";
-        text = ReplaceText(ROGUE + "s", purple);
-        text = ReplaceText(ROGUE, purple);
-
-        string blue = "blue";
-        text = ReplaceText(TECH + "s", blue);
-        text = ReplaceText(TECH, blue);
-
-        string red = "red";
-        text = ReplaceText(WARRIOR + "s", red);
-        text = ReplaceText(WARRIOR, red);
         return text;
 
-        string ReplaceText(string target, string color)
+        string ReplaceText(string target)
         {
-            text = text.Replace(target, "<color=\"" + color + "\">" + target + "</color>");
+            text = text.Replace(target, "<color=\"green\">" + target + "</color>");
             return text;
         }
+    }
+
+    public Color GetAbilityColor(CardAbility cardAbility)
+    {
+        if (cardAbility.OverrideColor) return cardAbility.AbilityColor;
+
+        if (cardAbility is TriggeredAbility ||
+            cardAbility is ModifierAbility) return Color.yellow;
+
+        foreach (string posAbi in PositiveAbilities)
+        {
+            if (cardAbility.AbilityName == posAbi) return Color.green;
+        }
+
+        foreach (string negAbi in NegativeAbilities)
+        {
+            if (cardAbility.AbilityName == negAbi) return Color.red;
+        }
+
+        return Color.yellow;
     }
 
     public void LoadNewRecruits()
     {
         UnitCard[] allRecruits = Resources.LoadAll<UnitCard>("Cards_Units");
+
+        List<UnitCard> recruitMages = new List<UnitCard>();
+        List<UnitCard> recruitMutants = new List<UnitCard>();
+        List<UnitCard> recruitRogues = new List<UnitCard>();
+        List<UnitCard> recruitTechs = new List<UnitCard>();
+        List<UnitCard> recruitWarriors = new List<UnitCard>();
+
         foreach (UnitCard unitCard in allRecruits)
         {
             switch (unitCard.CardType)
             {
                 case MAGE:
-                    PlayerRecruitMages.Add(unitCard);
+                    recruitMages.Add(unitCard);
                     break;
                 case MUTANT:
-                    PlayerRecruitMutants.Add(unitCard);
+                    recruitMutants.Add(unitCard);
                     break;
                 case ROGUE:
-                    PlayerRecruitRogues.Add(unitCard);
+                    recruitRogues.Add(unitCard);
                     break;
                 case TECH:
-                    PlayerRecruitTechs.Add(unitCard);
+                    recruitTechs.Add(unitCard);
                     break;
                 case WARRIOR:
-                    PlayerRecruitWarriors.Add(unitCard);
+                    recruitWarriors.Add(unitCard);
                     break;
                 default:
                     Debug.LogError("CARD TYPE NOT FOUND FOR <" + unitCard.CardName + ">");
                     return;
             }
+        }
+
+        List<List<UnitCard>> recruitLists = new List<List<UnitCard>>
+        {
+            recruitMages,
+            recruitMutants,
+            recruitRogues,
+            recruitTechs,
+            recruitWarriors
+        };
+
+        while (PlayerRecruitUnits.Count < 8)
+        {
+            foreach (List<UnitCard> list in recruitLists)
+            {
+                foreach (UnitCard uc in list)
+                {
+                    if (uc == null) continue;
+                    int index = pMan.PlayerDeckList.FindIndex(x => x.CardName == uc.CardName);
+                    if (index == -1 && !PlayerRecruitUnits.Contains(uc))
+                    {
+                        PlayerRecruitUnits.Add(uc);
+                        if (PlayerRecruitUnits.Count > 7) goto FinishRecruits;
+                        break;
+                    }
+                }
+            }
+        FinishRecruits:;
         }
     }
 
@@ -312,7 +348,7 @@ public class CardManager : MonoBehaviour
     public Card[] ChooseCards(ChooseCard chooseCard)
     {
         Card[] allChooseCards;
-        string chooseCardType = "";
+        string chooseCardType;
 
         switch (chooseCard)
         {
@@ -390,19 +426,7 @@ public class CardManager : MonoBehaviour
         }
     }
 
-    public void ShuffleRecruits()
-    {
-        List<List<UnitCard>> recruitLists = new List<List<UnitCard>>
-        {
-            PlayerRecruitMages,
-            PlayerRecruitRogues,
-            PlayerRecruitTechs,
-            PlayerRecruitWarriors,
-        };
-
-        foreach (List<UnitCard> list in recruitLists)
-            list.Shuffle();
-    }
+    public void ShuffleRecruits() => PlayerRecruitUnits.Shuffle();
 
     /******
      * *****

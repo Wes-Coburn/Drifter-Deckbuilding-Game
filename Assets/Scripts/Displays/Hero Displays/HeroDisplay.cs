@@ -15,15 +15,18 @@ public abstract class HeroDisplay : MonoBehaviour
             DisplayHero();
         }
     }
-    
+
+    [SerializeField] private GameObject heroBase;
     [SerializeField] private GameObject heroFrame;
     [SerializeField] private GameObject heroStats;
     [SerializeField] private GameObject heroPortrait;
     [SerializeField] private GameObject heroName;
     [SerializeField] private GameObject heroHealth;
-    [SerializeField] private GameObject heroHealthFrame;
+    [SerializeField] private GameObject heroHealthSlider;
     [SerializeField] private GameObject heroEnergy;
+    [SerializeField] private GameObject[] energyBars = new GameObject[10];
 
+    public GameObject HeroBase { get => heroBase; }
     public GameObject HeroFrame { get => heroFrame; }
     public GameObject HeroStats { get => heroStats; }
     public GameObject HeroNameObject { get => heroName; }
@@ -61,6 +64,7 @@ public abstract class HeroDisplay : MonoBehaviour
             int health = value;
             if (health < 0) health = 0;
             heroHealth.GetComponent<TextMeshProUGUI>().SetText(health.ToString());
+            heroHealthSlider.GetComponent<Slider>().value = health;
         }
     }
 
@@ -68,16 +72,28 @@ public abstract class HeroDisplay : MonoBehaviour
     {
         set
         {
-            Color color;
-            if (value) color = Color.red;
-            else color = Color.white;
-            heroHealthFrame.GetComponent<Image>().color = color;
+            Debug.LogError("NOT IMPLEMENTED!");
         }
     }
 
-    public string HeroEnergy
+    private string HeroEnergy
     {
-        set => heroEnergy.GetComponent<TextMeshProUGUI>().SetText(value);
+        set
+        {
+            heroEnergy.GetComponent<TextMeshProUGUI>().SetText(value);
+        }
+    }
+
+    public void SetHeroEnergy(int currentEnergy, int energyPerTurn)
+    {
+        HeroEnergy = currentEnergy + "/" + energyPerTurn;
+
+        bool setBar = true;
+        for (int i = 0; i < energyBars.Length; i++)
+        {
+            if (setBar && i >= currentEnergy) setBar = false;
+            energyBars[i].SetActive(setBar);
+        }
     }
 
     public virtual void DisplayHero()

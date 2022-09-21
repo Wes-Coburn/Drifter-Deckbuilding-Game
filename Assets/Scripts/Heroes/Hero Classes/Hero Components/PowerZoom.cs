@@ -1,6 +1,7 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class PowerZoom : MonoBehaviour
+public class PowerZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private GameObject powerPopupPrefab;
     [SerializeField] private GameObject abilityPopupBoxPrefab;
@@ -45,7 +46,7 @@ public class PowerZoom : MonoBehaviour
         }
     }
 
-    public void OnPointerEnter()
+    public void OnPointerEnter(PointerEventData pointerEventData)
     {
         if (CardZoom.ZoomCardIsCentered || DragDrop.DraggingCard) return;
         DestroyPowerPopup();
@@ -53,7 +54,7 @@ public class PowerZoom : MonoBehaviour
         else FunctionTimer.Create(() =>
         ShowLinkedAbilities(LoadedPower, CardZoom.ZOOM_SCALE_VALUE), 0.5f, POWER_POPUP_TIMER);
     }
-    public void OnPointerExit()
+    public void OnPointerExit(PointerEventData pointerEventData)
     {
         DestroyPowerPopup();
         DestroyAbilityPopup();
@@ -61,7 +62,7 @@ public class PowerZoom : MonoBehaviour
 
     private void CreatePowerPopup()
     {
-        if (this == null) return; // TESTING
+        //if (this == null) return; // TESTING
 
         Transform tran;
         float newX;
@@ -111,7 +112,7 @@ public class PowerZoom : MonoBehaviour
 
     private void ShowLinkedAbilities(HeroPower hp, float scaleValue)
     {
-        if (this == null) return; // TESTING
+        //if (this == null) return; // TESTING
 
         if (hp == null)
         {
@@ -147,6 +148,6 @@ public class PowerZoom : MonoBehaviour
     {
         GameObject abilityPopup = Instantiate(abilityPopupPrefab, parent);
         abilityPopup.transform.localScale = new Vector2(scaleValue, scaleValue);
-        abilityPopup.GetComponent<AbilityPopupDisplay>().AbilityScript = ca;
+        abilityPopup.GetComponent<AbilityPopupDisplay>().DisplayAbilityPopup(ca, false, !isEnemyPower); // TESTING
     }
 }

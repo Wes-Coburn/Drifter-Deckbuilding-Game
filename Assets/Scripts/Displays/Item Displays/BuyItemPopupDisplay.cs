@@ -51,5 +51,5 @@ public class BuyItemPopupDisplay : MonoBehaviour
     }
 
     public void CancelButton_OnClick() =>
-        uMan.DestroyBuyItemPopup();
+        uMan.DestroyInteractablePopup(gameObject);
 }

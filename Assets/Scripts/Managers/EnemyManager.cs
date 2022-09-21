@@ -24,7 +24,7 @@ public class EnemyManager : MonoBehaviour
     private int enemyHealth;
     private int damageTaken_Turn;
     private int energyPerTurn;
-    private int energyLeft;
+    private int currentEnergy;
     public bool IsMyTurn { get; set; }
     public List<Card> EnemyDeckList { get; private set; }
     public List<Card> CurrentEnemyDeck { get; private set; }
@@ -96,25 +96,23 @@ public class EnemyManager : MonoBehaviour
             energyPerTurn = value;
             if (energyPerTurn > MaxEnergyPerTurn)
                 energyPerTurn = MaxEnergyPerTurn;
-            coMan.EnemyHero.GetComponent<HeroDisplay>().HeroEnergy =
-                energyLeft + "/" + EnergyPerTurn;
+            coMan.EnemyHero.GetComponent<HeroDisplay>().SetHeroEnergy(CurrentEnergy, EnergyPerTurn);
         }
     }
     public int MaxEnergyPerTurn => GameManager.MAXIMUM_ENERGY_PER_TURN;
     private int MaxEnergy => GameManager.MAXIMUM_ENERGY;
-    public int EnergyLeft
+    public int CurrentEnergy
     {
-        get => energyLeft;
+        get => currentEnergy;
         set
         {
-            energyLeft = value;
-            if (energyLeft > MaxEnergy) energyLeft = MaxEnergy;
-            coMan.EnemyHero.GetComponent<HeroDisplay>().HeroEnergy =
-                energyLeft + "/" + EnergyPerTurn;
+            currentEnergy = value;
+            if (currentEnergy > MaxEnergy) currentEnergy = MaxEnergy;
+            coMan.EnemyHero.GetComponent<HeroDisplay>().SetHeroEnergy(CurrentEnergy, EnergyPerTurn);
 
-            if (energyLeft < 0)
+            if (currentEnergy < 0)
             {
-                Debug.LogError("NEGATIVE ENERGY LEFT <" + energyLeft + ">");
+                Debug.LogError("NEGATIVE ENERGY LEFT <" + currentEnergy + ">");
             }
         }
     }
@@ -170,10 +168,10 @@ public class EnemyManager : MonoBehaviour
 
         void ReplenishEnergy()
         {
-            int startEnergy = EnergyLeft;
+            int startEnergy = CurrentEnergy;
             if (energyPerTurn < MaxEnergyPerTurn) energyPerTurn++;
-            EnergyLeft = EnergyPerTurn;
-            int energyChange = EnergyLeft - startEnergy;
+            CurrentEnergy = EnergyPerTurn;
+            int energyChange = CurrentEnergy - startEnergy;
             anMan.ModifyHeroEnergyState(energyChange, coMan.EnemyHero);
         }
         void TurnDraw()
@@ -233,7 +231,7 @@ public class EnemyManager : MonoBehaviour
             {
                 CardDisplay cd = card.GetComponent<CardDisplay>();
                 int cost = cd.CurrentEnergyCost;
-                if ((totalCost + cost) > EnergyLeft || !coMan.IsPlayable(card, true)) return;
+                if ((totalCost + cost) > CurrentEnergy || !coMan.IsPlayable(card, true)) return;
                 priorityCards.Add(card);
                 totalCost += cost;
                 cardsToPlay++;

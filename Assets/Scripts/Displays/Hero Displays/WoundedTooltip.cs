@@ -15,7 +15,7 @@ public class WoundedTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     {
         DestroyWoundedTooltip();
         woundedTooltip = Instantiate(abilityPopupPrefab, UIManager.Instance.CurrentCanvas.transform);
-        woundedTooltip.GetComponent<AbilityPopupDisplay>().AbilityScript = woundedAbility;
+        woundedTooltip.GetComponent<AbilityPopupDisplay>().DisplayAbilityPopup(woundedAbility, false, true); // PLAYER SOURCE DOES NOT MATTER
         woundedTooltip.transform.localPosition = tooltipPosition;
         woundedTooltip.transform.localScale = new Vector2(3, 3);
     }

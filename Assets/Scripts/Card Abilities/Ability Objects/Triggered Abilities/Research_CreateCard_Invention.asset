@@ -15,7 +15,8 @@ MonoBehaviour:
   AbilityName: 'Research: Create an Invention in hand.'
   AbilityDescription: Create an Invention in hand.
   AbilitySprite: {fileID: 0}
-  LinkedAbilites: []
+  LinkedAbilites:
+  - {fileID: 11400000, guid: 52fd6462b05c05f4986869f2157d5ae7, type: 2}
   AbilityTrigger: {fileID: 11400000, guid: 01172d320cca3e84b9b071705ddb3163, type: 2}
   EffectGroupList:
   - {fileID: 11400000, guid: 2c8f9c3872da2094abe600475a0c21fc, type: 2}

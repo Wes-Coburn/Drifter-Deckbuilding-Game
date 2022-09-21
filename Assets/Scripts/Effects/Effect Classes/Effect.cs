@@ -36,6 +36,11 @@ public abstract class Effect : ScriptableObject
     [Tooltip("If enabled, the PreCheck will be done independently")]
     public bool CheckConditionsIndependent;
 
+    [Header("IF HAS ITEMS CONDITION"), Tooltip("If enabled, the effect will not resolve unless the player hero has MORE ITEMS (or LESS if also enabled)")]
+    public bool IfHasItemsCondition;
+    public bool IsLessItemsCondition;
+    [Range(0, GameManager.MAXIMUM_ITEMS)] public int IfHasItemsValue;
+
     [Header("IF WOUNDED CONDITIONS"), Tooltip("If enabled, any IfWounded conditions selected will be reversed")]
     public bool IfNotWoundedCondition;
     [Space, Tooltip("If enabled, the effect will not resolve unless ANY hero is Wounded")]
@@ -114,6 +119,10 @@ public abstract class Effect : ScriptableObject
 
         PreCheckConditions = effect.PreCheckConditions;
         CheckConditionsIndependent = effect.CheckConditionsIndependent;
+
+        IfHasItemsCondition = effect.IfHasItemsCondition;
+        IsLessItemsCondition = effect.IsLessItemsCondition;
+        IfHasItemsValue = effect.IfHasItemsValue;
 
         IfAnyWoundedCondition = effect.IfAnyWoundedCondition;
         IfPlayerWoundedCondition = effect.IfPlayerWoundedCondition;

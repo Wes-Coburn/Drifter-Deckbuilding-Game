@@ -26,6 +26,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject skyBar;
     [SerializeField] private GameObject augmentBar;
     [SerializeField] private GameObject itemBar;
+    [SerializeField] private GameObject reputationBar;
     [SerializeField] private GameObject aetherCount;
     [SerializeField] private GameObject aetherIcon;
     [Header("REPUTATION")]
@@ -128,6 +129,7 @@ public class UIManager : MonoBehaviour
     public GameObject EndTurnButton { get => endTurnButton; }
     public GameObject AugmentBar { get => augmentBar; }
     public GameObject ItemBar { get => itemBar; }
+    public GameObject ReputationBar { get => reputationBar; }
     public Color HighlightedColor { get => highlightedColor; }
     public GameObject CombatLog { get => combatLog.gameObject; }
 
@@ -499,15 +501,15 @@ public class UIManager : MonoBehaviour
                 {
                     case SceneLoader.Scene.HeroSelectScene:
                         position.Set(0, 0);
-                        scale.Set(1f, 1f);
+                        scale.Set(1.3f, 1.3f);
                         break;
                     case SceneLoader.Scene.DialogueScene:
-                        position.Set(0, 0);
-                        scale.Set(1f, 1f);
+                        position.Set(0, -100);
+                        scale.Set(2f, 2f);
                         break;
                     case SceneLoader.Scene.CombatScene:
-                        position.Set(0, 0);
-                        scale.Set(1f, 1f);
+                        position.Set(0, -60);
+                        scale.Set(2f, 2f);
                         break;
                 }
                 break;
@@ -971,6 +973,7 @@ public class UIManager : MonoBehaviour
             locationPopup.transform.position = new Vector2(500, 0);
             locationPopup = null;
         }
+        else lpd.ClosePopupButton.SetActive(false);
     }
     public void DestroyLocationPopup()
     {
@@ -988,7 +991,8 @@ public class UIManager : MonoBehaviour
         travelPopup = Instantiate(locationPopupPrefab, CurrentCanvas.transform);
         LocationPopupDisplay lpd = travelPopup.GetComponent<LocationPopupDisplay>();
         lpd.Location = location;
-        lpd.TravelButtons.SetActive(true);
+        //lpd.TravelButtons.SetActive(true);
+        //lpd.ClosePopupButton.SetActive(true);
     }
     public void DestroyTravelPopup()
     {
@@ -1046,6 +1050,8 @@ public class UIManager : MonoBehaviour
                 augTran.gameObject.SetActive(!hideChildren);
             foreach (Transform itemTran in itemBar.transform)
                 itemTran.gameObject.SetActive(!hideChildren);
+            foreach (Transform repTran in reputationBar.transform)
+                repTran.gameObject.SetActive(!hideChildren);
 
             SetAllReputation();
         }
@@ -1139,7 +1145,7 @@ public class UIManager : MonoBehaviour
         {
             GameObject abilityPopup =
                     Instantiate(abilityPopupPrefab, itemAbilityPopup.transform);
-            abilityPopup.GetComponent<AbilityPopupDisplay>().AbilityScript = ca;
+            abilityPopup.GetComponent<AbilityPopupDisplay>().DisplayAbilityPopup(ca, false, true); // TESTING
         }
     }
     public void DestroyItemAbilityPopup()
@@ -1191,13 +1197,12 @@ public class UIManager : MonoBehaviour
         }
 
         repIcon.GetComponentInChildren<TextMeshProUGUI>().SetText(repScore.ToString());
-        if (repScore >= GameManager.REPUTATION_TIER_1)
-        {
-            Button button = repIcon.GetComponent<Button>();
-            var colors = button.colors;
-            colors.normalColor = Color.green;
-            button.colors = colors;
-        }
+
+        Button button = repIcon.GetComponent<Button>();
+        var colors = button.colors;
+        if (repScore >= GameManager.REPUTATION_TIER_1) colors.normalColor = Color.green;
+        else colors.normalColor = Color.black;
+        button.colors = colors;
 
         if (valueChange != 0)
         {

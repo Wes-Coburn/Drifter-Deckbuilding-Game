@@ -15,6 +15,7 @@ public class UnitCardDisplay : CardDisplay
     [SerializeField] private GameObject zoomAbilityIconPrefab;
 
     private AudioManager auMan;
+    private CardManager caMan;
     private List<CardAbility> displayedAbilities;
     
     public UnitCard UnitCard { get => CardScript as UnitCard; }
@@ -86,6 +87,7 @@ public class UnitCardDisplay : CardDisplay
     {
         base.Awake();
         auMan = AudioManager.Instance;
+        caMan = CardManager.Instance;
         AbilityIcons = new List<GameObject>();
         displayedAbilities = new List<CardAbility>();
     }
@@ -94,34 +96,6 @@ public class UnitCardDisplay : CardDisplay
     {
         UnitCard.CurrentPower += value;
         DisplayPower(CurrentPower);
-    }
-
-    public Color GetAbilityIconColor(CardAbility cardAbility)
-    {
-        Color iconColor = Color.white;
-
-        foreach (string posAbi in CardManager.PositiveAbilities)
-        {
-            if (cardAbility.AbilityName == posAbi)
-            {
-                iconColor = Color.green;
-                break;
-            }
-        }
-
-        if (iconColor == Color.white)
-        {
-            foreach (string negAbi in CardManager.NegativeAbilities)
-            {
-                if (cardAbility.AbilityName == negAbi)
-                {
-                    iconColor = Color.red;
-                    break;
-                }
-            }
-        }
-
-        return iconColor;
     }
 
     protected override void DisplayCard()
@@ -152,15 +126,15 @@ public class UnitCardDisplay : CardDisplay
             }
             else
             {
-                DisplayPower(uc.CurrentPower);
+                DisplayPower(ucd.CurrentPower);
                 TextMeshProUGUI powerTxt = powerScoreDisplay.GetComponent<TextMeshProUGUI>();
-                if (uc.CurrentPower < uc.StartPower) powerTxt.color = Color.red;
-                else if (uc.CurrentPower > uc.StartPower) powerTxt.color = Color.green;
+                if (ucd.CurrentPower < uc.StartPower) powerTxt.color = Color.red;
+                else if (ucd.CurrentPower > uc.StartPower) powerTxt.color = Color.green;
 
-                DisplayHealth(uc.CurrentHealth);
+                DisplayHealth(ucd.CurrentHealth);
                 TextMeshProUGUI healthTxt = healthScoreDisplay.GetComponent<TextMeshProUGUI>();
-                if (uc.CurrentHealth < uc.MaxHealth) healthTxt.color = Color.red;
-                else if (uc.CurrentHealth > uc.StartHealth) healthTxt.color = Color.green;
+                if (ucd.CurrentHealth < ucd.MaxHealth) healthTxt.color = Color.red;
+                else if (ucd.CurrentHealth > uc.StartHealth) healthTxt.color = Color.green;
 
                 abilityList = ucd.CurrentAbilities;
             }
@@ -208,7 +182,7 @@ public class UnitCardDisplay : CardDisplay
                         currentAbilitiesDisplay.transform, 1);
 
                     AbilityIconDisplay aid = abilityIcon.GetComponent<AbilityIconDisplay>();
-                    aid.AbilitySprite.GetComponent<Image>().color = GetAbilityIconColor(ca);
+                    aid.AbilitySprite.GetComponent<Image>().color = caMan.GetAbilityColor(ca);
 
                     shownAbilities.Add(ca);
                     shownObjects.Add(abilityIcon);
@@ -251,7 +225,7 @@ public class UnitCardDisplay : CardDisplay
                 currentAbilitiesDisplay.transform, 1);
 
             AbilityIconDisplay aid = abilityIcon.GetComponent<AbilityIconDisplay>();
-            aid.AbilitySprite.GetComponent<Image>().color = GetAbilityIconColor(ca);
+            aid.AbilitySprite.GetComponent<Image>().color = caMan.GetAbilityColor(ca);
         }
     }
 
@@ -349,7 +323,7 @@ public class UnitCardDisplay : CardDisplay
             AbilityIconDisplay aid = abilityIcon.GetComponent<AbilityIconDisplay>();
             aid.AbilityScript = cardAbility;
             abilityIcon.transform.SetParent(currentAbilitiesDisplay.transform, false);
-            aid.AbilitySprite.GetComponent<Image>().color = GetAbilityIconColor(cardAbility);
+            aid.AbilitySprite.GetComponent<Image>().color = caMan.GetAbilityColor(cardAbility);
             return abilityIcon;
         }
     }
@@ -468,7 +442,8 @@ public class UnitCardDisplay : CardDisplay
         void TriggerState(GameObject icon, Sound triggerSFX)
         {
             AnimationManager.Instance.AbilityTriggerState(icon);
-            if (triggerSFX != null) auMan.StartStopSound(null, triggerSFX);
+            if (triggerSFX != null && triggerSFX.clip != null)
+                auMan.StartStopSound(null, triggerSFX);
             else auMan.StartStopSound("SFX_Trigger");
         }
     }
