@@ -51,8 +51,7 @@ public class EffectManager : MonoBehaviour
     [Header("Ray Colors"), SerializeField] private Color damageRayColor;
     [SerializeField] private Color healRayColor;
     [Header("Regeneration Effect"), SerializeField] private Effect regenerationEffect;
-    [Header("Poison Effect"), SerializeField] private Effect poisonEffect;
-    [SerializeField] private CardAbility poisonAbility;
+    [Header("Poison Ability"), SerializeField] private CardAbility poisonAbility;
 
     public int ActiveEffects
     {
@@ -112,7 +111,6 @@ public class EffectManager : MonoBehaviour
     public List<GiveNextUnitEffect> GiveNextEffects_Enemy { get => giveNextEffects_Enemy; }
     public List<ChangeCostEffect> ChangeNextCostEffects_Enemy { get => changeNextCostEffects_Enemy; }
     public Color DamageRayColor { get => damageRayColor; }
-    public Effect PoisonEffect { get => poisonEffect; }
     public Effect RegenerationEffect { get => regenerationEffect; }
     public CardAbility PoisonAbility { get => poisonAbility; }
 
@@ -738,7 +736,7 @@ public class EffectManager : MonoBehaviour
         EffectTargets targets, int additionalTargets, out bool requiredEffect, bool isPreCheck)
     {
         requiredEffect = effect.IsRequired;
-        if (targets.PlayerDeck) return true; // TESTING
+        if (targets.PlayerDeck) return true;
         if (effect is ReplenishEffect || effect is GiveNextUnitEffect) return true;
         if (effect is ChangeCostEffect cce && cce.ChangeNextCost) return true;
         bool isPlayerSource = IsPlayerSource(effectSource);
@@ -747,6 +745,23 @@ public class EffectManager : MonoBehaviour
         {
             Debug.LogError("EFFECTS WITH NO TARGETS CANNOT PRECHECK CONDITIONS!");
             return false;
+        }
+
+        if (effect.IsDerivedValue) // TESTING
+        {
+            switch(effect.DerivedValue)
+            {
+                case Effect.DerivedValueType.Allies_Count:
+                    if (isPlayerSource)
+                    {
+                        if (coMan.PlayerZoneCards.Count < 1) return false;
+                    }
+                    else
+                    {
+                        if (coMan.EnemyZoneCards.Count < 1) return false;
+                    }
+                    break;
+            }
         }
 
         if (!targets.NoTargets) // TESTING
@@ -1202,7 +1217,8 @@ public class EffectManager : MonoBehaviour
                         additionalEffectGroups.Add(eg);
         }
         // IF_HAS_GREATER_POWER_EFFECTS
-        if (effect.IfHasGreaterPowerEffects.Count > 0)
+        if (effect.IfHasGreaterPowerEffects != null &&
+            effect.IfHasGreaterPowerEffects.Count > 0)
         {
             foreach (GameObject t in validTargets)
                 if (coMan.GetUnitDisplay(t).CurrentPower > effect.IfHasGreaterPowerValue)
@@ -1210,7 +1226,8 @@ public class EffectManager : MonoBehaviour
                         additionalEffectGroups.Add(eg);
         }
         // IF_HAS_LOWER_POWER_EFFECTS
-        if (effect.IfHasLowerPowerEffects.Count > 0)
+        if (effect.IfHasLowerPowerEffects != null &&
+            effect.IfHasLowerPowerEffects.Count > 0)
         {
             foreach (GameObject t in validTargets)
                 if (coMan.GetUnitDisplay(t).CurrentPower < effect.IfHasLowerPowerValue)
@@ -1295,8 +1312,9 @@ public class EffectManager : MonoBehaviour
 
                 if (targetDestroyed)
                 {
-                    foreach (EffectGroup efg in dmgE.IfDestroyedEffects)
-                        additionalEffectGroups.Add(efg);
+                    if (dmgE.IfDestroyedEffects != null) 
+                        foreach (EffectGroup efg in dmgE.IfDestroyedEffects)
+                            additionalEffectGroups.Add(efg);
 
                     if (sourceIsUnit && targetIsUnit)
                     {
@@ -1800,7 +1818,7 @@ public class EffectManager : MonoBehaviour
 
             if (effect.IsDerivedValue)
             {
-                newEffectSource.TryGetComponent(out UnitCardDisplay ucd); // TESTING
+                newEffectSource.TryGetComponent(out UnitCardDisplay ucd);
 
                 int newValue;
                 switch (effect.DerivedValue)
@@ -1811,8 +1829,12 @@ public class EffectManager : MonoBehaviour
                     case Effect.DerivedValueType.Source_Health:
                         newValue = ucd.CurrentHealth;
                         break;
-                    case Effect.DerivedValueType.Target_Keywords: // TESTING
+                    case Effect.DerivedValueType.Target_Keywords:
                         newValue = caMan.GetPositiveKeywords(target);
+                        break;
+                    case Effect.DerivedValueType.Allies_Count: // TESTING
+                        if (IsPlayerSource(newEffectSource)) newValue = coMan.PlayerZoneCards.Count;
+                        else newValue = coMan.EnemyZoneCards.Count;
                         break;
                     default:
                         Debug.LogError("INVALID TYPE!");

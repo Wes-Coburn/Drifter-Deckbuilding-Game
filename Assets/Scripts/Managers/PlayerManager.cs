@@ -33,7 +33,6 @@ public class PlayerManager : MonoBehaviour
     private bool heroPowerUsed;
     private int heroUltimateProgress;
 
-    private PlayerHeroDisplay HeroDisplay { get => coMan.PlayerHero.GetComponent<PlayerHeroDisplay>(); }
     public PlayerHero PlayerHero { get; set; }
     public List<HeroAugment> HeroAugments { get => heroAugments; }
     public List<HeroItem> HeroItems { get => heroItems; }
@@ -76,8 +75,10 @@ public class PlayerManager : MonoBehaviour
         get => heroUltimateProgress;
         set
         {
-            heroUltimateProgress = value;
             int heroUltimateGoal = GameManager.HERO_ULTMATE_GOAL;
+            if (value > heroUltimateGoal) heroUltimateProgress = heroUltimateGoal;
+            else heroUltimateProgress = value;
+
             PlayerHeroDisplay phd = coMan.PlayerHero.GetComponent<PlayerHeroDisplay>();
             phd.UltimateProgressValue = heroUltimateProgress;
             GameObject ultimateReadyIcon = phd.UltimateReadyIcon;
@@ -86,16 +87,10 @@ public class PlayerManager : MonoBehaviour
             if (heroUltimateProgress == heroUltimateGoal)
             {
                 auMan.StartStopSound("SFX_HeroUltimateReady");
+                AnimationManager.Instance.AbilityTriggerState(ultimateButton);
                 ultimateReadyIcon.SetActive(true);
-                AnimationManager.Instance.AbilityTriggerState(ultimateButton); // TESTING
             }
-            else
-            {
-                ultimateReadyIcon.SetActive(false);
-
-                if (heroUltimateProgress > heroUltimateGoal)
-                    heroUltimateProgress = heroUltimateGoal;
-            }
+            else ultimateReadyIcon.SetActive(false);
         }
     }
     public int PlayerHealth
@@ -116,7 +111,11 @@ public class PlayerManager : MonoBehaviour
             damageTaken_Turn = value;
             bool isWounded;
             if (damageTaken_Turn >= GameManager.WOUNDED_VALUE) isWounded = true;
-            else isWounded = false;
+            else
+            {
+                isWounded = false;
+                uMan.DestroyTooltipPopup();
+            }
             coMan.PlayerHero.GetComponent<HeroDisplay>().IsWounded = isWounded;
         }
     }
@@ -128,7 +127,7 @@ public class PlayerManager : MonoBehaviour
             energyPerTurn = value;
             if (energyPerTurn > MaxEnergyPerTurn)
                 energyPerTurn = MaxEnergyPerTurn;
-            coMan.PlayerHero.GetComponent<HeroDisplay>().SetHeroEnergy(CurrentEnergy, EnergyPerTurn);
+            coMan.PlayerHero.GetComponent<HeroDisplay>().SetHeroEnergy(CurrentEnergy, energyPerTurn);
         }
     }
     public int MaxEnergyPerTurn => GameManager.MAXIMUM_ENERGY_PER_TURN;
@@ -148,7 +147,7 @@ public class PlayerManager : MonoBehaviour
         {
             currentEnergy = value;
             if (currentEnergy > MaxEnergy) currentEnergy = MaxEnergy;
-            coMan.PlayerHero.GetComponent<HeroDisplay>().SetHeroEnergy(CurrentEnergy, EnergyPerTurn);
+            coMan.PlayerHero.GetComponent<HeroDisplay>().SetHeroEnergy(CurrentEnergy, energyPerTurn);
         }
     }
 
@@ -181,6 +180,7 @@ public class PlayerManager : MonoBehaviour
         heroItems.Add(item);
         uMan.CreateItemIcon(item, isNewItem);
         if (isNewItem) auMan.StartStopSound("SFX_BuyItem");
+        uMan.UpdateItemsCount();
     }
 
     private bool GetItem(string itemName)

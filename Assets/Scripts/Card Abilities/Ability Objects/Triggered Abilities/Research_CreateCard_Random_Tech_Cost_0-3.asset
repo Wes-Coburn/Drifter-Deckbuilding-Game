@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44c307312f791a64788051778519ac70, type: 3}
-  m_Name: Research_GiveSelf_plus1plus0_Draw1_IfResolves_Discard1
+  m_Name: Research_CreateCard_Random_Tech_Cost_0-3
   m_EditorClassIdentifier: 
-  AbilityName: 'Research: Gain +1|+0. Draw 1, then discard 1.'
-  AbilityDescription: Gain +1|+0. Draw 1, then discard 1.
+  AbilityName: 'Research: Create a random Tech that costs 3 or less in hand.'
+  AbilityDescription: Create a random Tech that costs 3 or less in hand.
   AbilitySprite: {fileID: 0}
+  OverrideColor: 0
+  AbilityColor: {r: 0, g: 0, b: 0, a: 0}
   LinkedAbilites: []
   AbilityTrigger: {fileID: 11400000, guid: 01172d320cca3e84b9b071705ddb3163, type: 2}
   EffectGroupList:
-  - {fileID: 11400000, guid: af2fb13f00060804f84ae4af6a1432f0, type: 2}
-  - {fileID: 11400000, guid: 426230fcd17d94a4eb28675cc78e1c1d, type: 2}
+  - {fileID: 11400000, guid: c43691cb5bfbf71458fab5a1133bffef, type: 2}

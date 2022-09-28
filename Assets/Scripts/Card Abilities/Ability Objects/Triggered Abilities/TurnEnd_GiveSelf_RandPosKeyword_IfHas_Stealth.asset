@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44c307312f791a64788051778519ac70, type: 3}
-  m_Name: TurnEnd_Draw1_IfResolves_Discard1
+  m_Name: TurnEnd_GiveSelf_RandPosKeyword_IfHas_Stealth
   m_EditorClassIdentifier: 
-  AbilityName: 'Turn End: Draw 1, then discard 1.'
-  AbilityDescription: Draw 1, then discard 1.
+  AbilityName: 'Turn End: If this unit has Stealth, gain a random positive keyword.'
+  AbilityDescription: If this unit has Stealth, gain a random positive keyword.
   AbilitySprite: {fileID: 0}
+  OverrideColor: 0
+  AbilityColor: {r: 0, g: 0, b: 0, a: 0}
   LinkedAbilites: []
   AbilityTrigger: {fileID: 11400000, guid: f9f029cd91a81544eb06ce77a5f40ab8, type: 2}
   EffectGroupList:
-  - {fileID: 11400000, guid: 426230fcd17d94a4eb28675cc78e1c1d, type: 2}
+  - {fileID: 11400000, guid: 54c0f15d38e1e3944b6139a25ee5c251, type: 2}

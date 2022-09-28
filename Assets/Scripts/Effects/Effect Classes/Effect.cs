@@ -21,7 +21,8 @@ public abstract class Effect : ScriptableObject
     {
         Source_Power,
         Source_Health,
-        Target_Keywords
+        Target_Keywords,
+        Allies_Count
     }
 
     [Header("COUNTDOWN"), Tooltip("The number of turns the effect lasts, 0 if permanent"), Range(0, 5)]
@@ -146,36 +147,43 @@ public abstract class Effect : ScriptableObject
 
         IfHasAbility = effect.IfHasAbility;
         IfHasAbilityEffects = new List<EffectGroup>();
-        foreach (EffectGroup eg in effect.IfHasAbilityEffects)
-            IfHasAbilityEffects.Add(eg);
+        if (effect.IfHasAbilityEffects != null)
+            foreach (EffectGroup eg in effect.IfHasAbilityEffects)
+                IfHasAbilityEffects.Add(eg);
 
         IfHasTrigger = effect.IfHasTrigger;
         IfHasTriggerEffects = new List<EffectGroup>();
-        foreach (EffectGroup eg in effect.IfHasTriggerEffects)
-            IfHasTriggerEffects.Add(eg);
+        if (effect.IfHasTriggerEffects != null)
+            foreach (EffectGroup eg in effect.IfHasTriggerEffects)
+                IfHasTriggerEffects.Add(eg);
 
         IfHasGreaterPowerValue = effect.IfHasGreaterPowerValue;
         IfHasGreaterPowerEffects = new List<EffectGroup>();
-        foreach (EffectGroup eg in effect.IfHasGreaterPowerEffects)
-            IfHasGreaterPowerEffects.Add(eg);
+        if (effect.IfHasGreaterPowerEffects != null)
+            foreach (EffectGroup eg in effect.IfHasGreaterPowerEffects)
+                IfHasGreaterPowerEffects.Add(eg);
 
         IfHasLowerPowerValue = effect.IfHasLowerPowerValue;
         IfHasLowerPowerEffects = new List<EffectGroup>();
-        foreach (EffectGroup eg in effect.IfHasLowerPowerEffects)
-            IfHasLowerPowerEffects.Add(eg);
+        if (effect.IfHasLowerPowerEffects != null)
+            foreach (EffectGroup eg in effect.IfHasLowerPowerEffects)
+                IfHasLowerPowerEffects.Add(eg);
 
         IfResolvesEffects = new List<Effect>();
-        foreach (Effect e in effect.IfResolvesEffects)
-            IfResolvesEffects.Add(e);
+        if (effect.IfResolvesEffects != null)
+            foreach (Effect e in effect.IfResolvesEffects)
+                IfResolvesEffects.Add(e);
 
         ResolveSimultaneous = effect.ResolveSimultaneous;
 
         IfResolvesGroups = new List<EffectGroup>();
-        foreach (EffectGroup eg in effect.IfResolvesGroups)
-            IfResolvesGroups.Add(eg);
+        if (effect.IfResolvesGroups != null)
+            foreach (EffectGroup eg in effect.IfResolvesGroups)
+                IfResolvesGroups.Add(eg);
 
         ForEachEffects = new List<EffectGroup>();
-        foreach (EffectGroup eg in effect.ForEachEffects)
-            ForEachEffects.Add(eg);
+        if (effect.ForEachEffects != null)
+            foreach (EffectGroup eg in effect.ForEachEffects)
+                ForEachEffects.Add(eg);
     }
 }

@@ -477,7 +477,7 @@ public class CombatManager : MonoBehaviour
             cardTag = PLAYER_CARD;
             cardZone = PLAYER_HAND;
 
-            if (drawnCard == null) position.Set(-845, -405);
+            if (drawnCard == null) position.Set(-780, -427);
             else position.Set(0, -350);
         }
         else if (hero == ENEMY)
@@ -493,8 +493,8 @@ public class CombatManager : MonoBehaviour
             cardTag = ENEMY_CARD;
             cardZone = ENEMY_HAND;
             
-            if (drawnCard == null) position.Set(845, 320);
-            else position.Set(0, 300);
+            if (drawnCard == null) position.Set(780, 427);
+            else position.Set(0, 350);
         }
         else
         {
@@ -728,7 +728,7 @@ public class CombatManager : MonoBehaviour
             lastContainerIndex = cd.CardContainer.transform.GetSiblingIndex();
 
             if (newZoneName == ENEMY_HAND) card.transform.SetAsFirstSibling();
-            else card.transform.SetAsLastSibling();
+            else if (newZoneName == PLAYER_HAND) card.transform.SetAsLastSibling(); // TESTING
         }
 
         cd.CardContainer.GetComponent<CardContainer>().MoveContainer(newZone);
@@ -945,12 +945,12 @@ public class CombatManager : MonoBehaviour
                 caMan.TriggerTrapAbilities(card); // Resolves 3rd
                 efMan.TriggerModifiers_PlayUnit(card); // Resolves 2nd
                 caMan.TriggerUnitAbility(card, CardManager.TRIGGER_PLAY); // Resolves 1st
-
-                FunctionTimer.Create(() => SetFirstSibling(card), 1);
             }
 
             PlayCardSound();
             ParticleBurst();
+
+            card.transform.SetAsFirstSibling(); // TESTING
         }
         void PlayAction()
         {
@@ -963,11 +963,6 @@ public class CombatManager : MonoBehaviour
             Sound playSound = cd.CardScript.CardPlaySound;
             if (playSound.clip == null) Debug.LogWarning("MISSING PLAY SOUND: " + cd.CardName);
             else auMan.StartStopSound(null, playSound);
-        }
-        void SetFirstSibling(GameObject card)
-        {
-            if (card == null) return;
-            card.transform.SetAsFirstSibling();
         }
 
         void ParticleBurst() =>

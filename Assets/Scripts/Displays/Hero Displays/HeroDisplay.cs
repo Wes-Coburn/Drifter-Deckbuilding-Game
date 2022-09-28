@@ -22,6 +22,7 @@ public abstract class HeroDisplay : MonoBehaviour
     [SerializeField] private GameObject heroPortrait;
     [SerializeField] private GameObject heroName;
     [SerializeField] private GameObject heroHealth;
+    [SerializeField] private GameObject woundedIcon;
     [SerializeField] private GameObject heroHealthSlider;
     [SerializeField] private GameObject heroEnergy;
     [SerializeField] private GameObject[] energyBars = new GameObject[10];
@@ -72,27 +73,34 @@ public abstract class HeroDisplay : MonoBehaviour
     {
         set
         {
-            Debug.LogError("NOT IMPLEMENTED!");
+            woundedIcon.SetActive(value);
         }
     }
 
-    private string HeroEnergy
+    private int HeroEnergy
     {
         set
         {
-            heroEnergy.GetComponent<TextMeshProUGUI>().SetText(value);
+            heroEnergy.GetComponent<TextMeshProUGUI>().SetText(value.ToString());
         }
     }
 
-    public void SetHeroEnergy(int currentEnergy, int energyPerTurn)
+    public void SetHeroEnergy(int currentEnergy, int maxEnergy)
     {
-        HeroEnergy = currentEnergy + "/" + energyPerTurn;
-
-        bool setBar = true;
+        HeroEnergy = currentEnergy;
+        
         for (int i = 0; i < energyBars.Length; i++)
         {
-            if (setBar && i >= currentEnergy) setBar = false;
-            energyBars[i].SetActive(setBar);
+            GameObject energyBar = energyBars[i];
+            if (i < maxEnergy || i < currentEnergy)
+            {
+                Color color;
+                energyBar.SetActive(true);
+                if (i < currentEnergy) color = Color.white;
+                else color = Color.black;
+                energyBar.GetComponent<Image>().color = color;
+            }
+            else energyBar.SetActive(false);
         }
     }
 

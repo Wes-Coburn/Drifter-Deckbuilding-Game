@@ -25,10 +25,15 @@ public class UIManager : MonoBehaviour
     [Header("SKYBAR")]
     [SerializeField] private GameObject skyBar;
     [SerializeField] private GameObject augmentBar;
+    [SerializeField] private GameObject augmentsDropdown;
     [SerializeField] private GameObject itemBar;
+    [SerializeField] private GameObject itemsDropdown;
+    [SerializeField] private GameObject itemsCount;
     [SerializeField] private GameObject reputationBar;
+    [SerializeField] private GameObject reputationsDropdown;
     [SerializeField] private GameObject aetherCount;
     [SerializeField] private GameObject aetherIcon;
+
     [Header("REPUTATION")]
     [SerializeField] private GameObject reputation_Mages;
     [SerializeField] private GameObject reputation_Mutants;
@@ -86,6 +91,7 @@ public class UIManager : MonoBehaviour
     private GameManager gMan;
 
     private GameObject screenDimmer;
+    private GameObject tooltipPopup;
     private GameObject infoPopup;
     private GameObject infoPopup_Secondary;
     private GameObject infoPopup_Tutorial;
@@ -121,15 +127,19 @@ public class UIManager : MonoBehaviour
     private GameObject playerZoneOutline;
     private CombatLog combatLog;
 
-    public GameObject TooltipPopupPrefab { get => tooltipPopupPrefab; }
+    public const string TOOLTIP_TIMER = "TooltipTimer";
+
     public GameObject NewCardPopup { get => newCardPopup; }
     public GameObject ChooseCardPopup { get => chooseCardPopup; }
     public GameObject CardPagePopup { get => cardPagePopup; }
     public GameObject ConfirmUseItemPopup { get; set; }
     public GameObject EndTurnButton { get => endTurnButton; }
     public GameObject AugmentBar { get => augmentBar; }
+    public GameObject AugmentsDropdown { get => augmentsDropdown; }
     public GameObject ItemBar { get => itemBar; }
+    public GameObject ItemsDropdown { get => itemsDropdown; }
     public GameObject ReputationBar { get => reputationBar; }
+    public GameObject ReputationsDropdown { get => reputationsDropdown; }
     public Color HighlightedColor { get => highlightedColor; }
     public GameObject CombatLog { get => combatLog.gameObject; }
 
@@ -369,6 +379,7 @@ public class UIManager : MonoBehaviour
             if (selectionType is SelectionType.Disabled)
             {
                 cs.CardOutline.SetActive(false);
+                RemoveBuffer(); // TESTING
                 return;
             }
             else cs.CardOutline.SetActive(true);
@@ -384,11 +395,10 @@ public class UIManager : MonoBehaviour
                         <CardContainer>().BufferDistance = new Vector2(0, -50);
                 }
             }
-            else
-            {
-                target.GetComponent<CardDisplay>().CardContainer.GetComponent
-                    <CardContainer>().BufferDistance = new Vector2(0, 0);
-            }
+            else RemoveBuffer();
+
+            void RemoveBuffer() => target.GetComponent<CardDisplay>().CardContainer.GetComponent
+                <CardContainer>().BufferDistance = new Vector2(0, 0);
         }
         else if (target.TryGetComponent(out HeroSelect hs))
         {
@@ -447,7 +457,7 @@ public class UIManager : MonoBehaviour
         }
 
         if (SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene))
-            HideSkybar(false); // TESTING
+            HideSkybar(false);
 
         SetScreenDimmer(false);
         CardZoom.ZoomCardIsCentered = false;
@@ -489,9 +499,9 @@ public class UIManager : MonoBehaviour
                         position.Set(-150, -75);
                         scale.Set(2.5f, 2.5f);
                         break;
-                    case SceneLoader.Scene.CombatScene:
-                        position.Set(-120, -120);
-                        scale.Set(3, 3);
+                    case SceneLoader.Scene.CombatScene: // done
+                        position.Set(-90, -20);
+                        scale.Set(1.2f, 1.2f);
                         break;
                 }
                 break;
@@ -507,9 +517,9 @@ public class UIManager : MonoBehaviour
                         position.Set(0, -100);
                         scale.Set(2f, 2f);
                         break;
-                    case SceneLoader.Scene.CombatScene:
-                        position.Set(0, -60);
-                        scale.Set(2f, 2f);
+                    case SceneLoader.Scene.CombatScene: // done
+                        position.Set(5, -20);
+                        scale.Set(1f, 1f);
                         break;
                 }
                 break;
@@ -525,9 +535,9 @@ public class UIManager : MonoBehaviour
                         position.Set(-90, -325);
                         scale.Set(3, 3);
                         break;
-                    case SceneLoader.Scene.CombatScene:
-                        position.Set(-60, -190);
-                        scale.Set(2.5f, 2.5f);
+                    case SceneLoader.Scene.CombatScene: // done
+                        position.Set(-30, -90);
+                        scale.Set(1.2f, 1.2f);
                         break;
                 }
                 break;
@@ -543,9 +553,9 @@ public class UIManager : MonoBehaviour
                         position.Set(0, -45);
                         scale.Set(2f, 2f);
                         break;
-                    case SceneLoader.Scene.CombatScene:
-                        position.Set(15, -25);
-                        scale.Set(2, 2);
+                    case SceneLoader.Scene.CombatScene: // done
+                        position.Set(0, -35);
+                        scale.Set(1.2f, 1.2f);
                         break;
                 }
                 break;
@@ -562,8 +572,8 @@ public class UIManager : MonoBehaviour
                         scale.Set(2, 2);
                         break;
                     case SceneLoader.Scene.CombatScene:
-                        position.Set(-100, -110);
-                        scale.Set(2, 2);
+                        position.Set(-15, -45);
+                        scale.Set(0.9f, 0.9f);
                         break;
                 }
                 break;
@@ -591,6 +601,23 @@ public class UIManager : MonoBehaviour
     // Destroy Interactable Popup
     public void DestroyInteractablePopup(GameObject popup) =>
         anMan.ChangeAnimationState(popup, "Exit");
+    // Tooltip Popup
+    public void CreateTooltipPopup(Vector2 position, string text)
+    {
+        tooltipPopup = Instantiate(tooltipPopupPrefab, CurrentWorldSpace.transform);
+        tooltipPopup.transform.localPosition = position;
+        tooltipPopup.GetComponentInChildren<TextMeshPro>().SetText(text);
+    }
+    public void DestroyTooltipPopup()
+    {
+        FunctionTimer.StopTimer(TOOLTIP_TIMER);
+
+        if (tooltipPopup != null)
+        {
+            Destroy(tooltipPopup);
+            tooltipPopup = null;
+        }
+    }
 
     // Explicit Language Popup
     public void CreateExplicitLanguagePopup()
@@ -1027,6 +1054,44 @@ public class UIManager : MonoBehaviour
      * ****** SKYBAR
      * *****
      *****/
+    public void UpdateItemsCount()
+    {
+        itemsCount.GetComponent<TextMeshProUGUI>().SetText(pMan.HeroItems.Count.ToString());
+    }
+    public void AugmentsButton_OnClick(bool forceOpen)
+    {
+        FunctionTimer.StopTimer(AnimationManager.CLOSE_SKYBAR_TIMER);
+        bool setActive;
+        if (forceOpen) setActive = true;
+        else setActive = !augmentsDropdown.activeSelf;
+
+        augmentsDropdown.SetActive(setActive);
+        itemsDropdown.SetActive(false);
+        reputationsDropdown.SetActive(false);
+    }
+    public void ItemsButton_OnClick(bool forceOpen)
+    {
+        FunctionTimer.StopTimer(AnimationManager.CLOSE_SKYBAR_TIMER);
+        bool setActive;
+        if (forceOpen) setActive = true;
+        else setActive = !itemsDropdown.activeSelf;
+
+        itemsDropdown.SetActive(setActive);
+        augmentsDropdown.SetActive(false);
+        reputationsDropdown.SetActive(false);
+    }
+    public void ReputationsButton_OnClick(bool forceOpen)
+    {
+        FunctionTimer.StopTimer(AnimationManager.CLOSE_SKYBAR_TIMER);
+        bool setActive;
+        if (forceOpen) setActive = true;
+        else setActive = !reputationsDropdown.activeSelf;
+
+        reputationsDropdown.SetActive(setActive);
+        augmentsDropdown.SetActive(false);
+        itemsDropdown.SetActive(false);
+    }
+
     public void HideSkybar(bool isHidden)
     {
         if (skyBar.activeInHierarchy == isHidden)
@@ -1035,7 +1100,7 @@ public class UIManager : MonoBehaviour
     public void SetSkybar(bool enabled, bool hideChildren = false)
     {
         if (skyBar.activeInHierarchy != enabled)
-            skyBar.SetActive(enabled); // TESTING
+            skyBar.SetActive(enabled);
 
         if (enabled)
         {
@@ -1053,6 +1118,7 @@ public class UIManager : MonoBehaviour
             foreach (Transform repTran in reputationBar.transform)
                 repTran.gameObject.SetActive(!hideChildren);
 
+            UpdateItemsCount();
             SetAllReputation();
         }
     }
@@ -1098,8 +1164,8 @@ public class UIManager : MonoBehaviour
     {
         DestroyAugmentIconPopup();
         augmentIconPopup = Instantiate(augmentIconPopupPrefab, CurrentCanvas.transform);
-        float xPos = sourceIcon.transform.localPosition.x;
-        augmentIconPopup.transform.localPosition = new Vector2(xPos - 450, 320);
+        Vector2 sourcePos = sourceIcon.transform.localPosition;
+        augmentIconPopup.transform.localPosition = new Vector2(sourcePos.x - 275, sourcePos.y + 250);
         augmentIconPopup.GetComponent<AugmentIconPopupDisplay>().HeroAugment = augment;
     }
     public void DestroyAugmentIconPopup()
@@ -1114,8 +1180,8 @@ public class UIManager : MonoBehaviour
     {
         DestroyItemIconPopup();
         itemIconPopup = Instantiate(itemIconPopupPrefab, CurrentZoomCanvas.transform);
-        float xPos = sourceIcon.transform.localPosition.x;
-        itemIconPopup.transform.localPosition = new Vector2(xPos, 320);
+        Vector2 sourcePos = sourceIcon.transform.localPosition;
+        itemIconPopup.transform.localPosition = new Vector2(sourcePos.x - 125, sourcePos.y + 250);
         ItemIconPopupDisplay iipd = itemIconPopup.GetComponent<ItemIconPopupDisplay>();
         iipd.LoadedItem = item;
         iipd.SourceIcon = sourceIcon;
@@ -1136,8 +1202,7 @@ public class UIManager : MonoBehaviour
     public void CreateItemAbilityPopup(HeroItem item)
     {
         DestroyItemAbilityPopup();
-        itemAbilityPopup =
-                Instantiate(abilityPopupBoxPrefab, CurrentZoomCanvas.transform);
+        itemAbilityPopup = Instantiate(abilityPopupBoxPrefab, CurrentZoomCanvas.transform);
         foreach (CardAbility linkedCa in item.LinkedAbilities)
             CreateAbilityPopup(linkedCa);
 
@@ -1145,7 +1210,7 @@ public class UIManager : MonoBehaviour
         {
             GameObject abilityPopup =
                     Instantiate(abilityPopupPrefab, itemAbilityPopup.transform);
-            abilityPopup.GetComponent<AbilityPopupDisplay>().DisplayAbilityPopup(ca, false, true); // TESTING
+            abilityPopup.GetComponent<AbilityPopupDisplay>().DisplayAbilityPopup(ca, false, true);
         }
     }
     public void DestroyItemAbilityPopup()
@@ -1201,7 +1266,7 @@ public class UIManager : MonoBehaviour
         Button button = repIcon.GetComponent<Button>();
         var colors = button.colors;
         if (repScore >= GameManager.REPUTATION_TIER_1) colors.normalColor = Color.green;
-        else colors.normalColor = Color.black;
+        else colors.normalColor = Color.white;
         button.colors = colors;
 
         if (valueChange != 0)
@@ -1235,11 +1300,12 @@ public class UIManager : MonoBehaviour
             SetReputation(type);
     }
 
-    public void CreateReputationPopup(GameManager.ReputationType repType)
+    public void CreateReputationPopup(GameManager.ReputationType repType, GameObject sourceIcon)
     {
         DestroyReputationPopup();
         reputationPopup = Instantiate(reputationPopupPrefab, UICanvas.transform);
-        reputationPopup.transform.localPosition = new Vector2(550, 215);
+        Vector2 sourcePos = sourceIcon.transform.localPosition;
+        reputationPopup.transform.localPosition = new Vector2(sourcePos.x - 300, sourcePos.y + 100);
         reputationPopup.GetComponent<ReputationPopupDisplay>().DisplayReputationPopup
             (gMan.GetReputation(repType), gMan.GetReputationTier(repType), gMan.GetReputationBonuses(repType));
     }

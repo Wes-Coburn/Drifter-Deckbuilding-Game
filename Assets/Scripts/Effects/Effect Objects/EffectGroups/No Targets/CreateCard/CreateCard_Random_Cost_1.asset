@@ -10,11 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a22d7123f6ee007468cbdc6e9b6fe2b0, type: 3}
-  m_Name: Give2EU_Stun_IfPowLess_1_Deal3
+  m_Name: CreateCard_Random_Cost_1
   m_EditorClassIdentifier: 
-  Targets: {fileID: 11400000, guid: cc9b0c336c15e5940b4b56d5eb5288ea, type: 2}
+  Targets: {fileID: 11400000, guid: 3e1c9f170bf298c48932898bdbe89d8b, type: 2}
   ResolveIndependent: 0
+  EffectsDescription: Create a random 1-cost card in hand.
   Effects:
-  - {fileID: 11400000, guid: cfe11ea77fdba8a4189be6c3faef0e0a, type: 2}
-  - {fileID: 11400000, guid: 70131d4c2fe67674e831f93f9d89c431, type: 2}
-  EffectsDescription: Stun two enemies, or deal 3 to them if their power is 0.
+  - {fileID: 11400000, guid: cf51a0823cc1abb49bf9258135b79a3f, type: 2}

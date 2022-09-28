@@ -311,16 +311,18 @@ public class GameManager : MonoBehaviour
         switch (tipNumber)
         {
             case 1:
-                tip = "Redraw any number of cards from your starting hand. Click each card you want to redraw, then click the confirm button."; // "Redraw" or "Replace"
+                tip = "Redraw any number of cards from your starting hand. Click each card you want to redraw, " +
+                    "then click the <color=\"yellow\"><b>Confirm Button</b></color>.";
                 break;
             case 2:
-                tip = "Play a card by dragging it out of your hand. Cards you can play are highlighted in <color=\"green\">green<color=\"yellow\">.";
+                tip = "Play a card by dragging it out of your hand. Cards you can play are highlighted in <color=\"green\"><b>green</b></color>.";
                 break;
             case 3:
-                tip = "End your turn by clicking the <b>end turn button</b> (or pressing the <b>space bar</b>).";
+                tip = "End your turn by clicking the <color=\"yellow\"><b>End Turn Button</b></color> " +
+                    "(or pressing the <color=\"yellow\"><b>Space Bar</b></color>).";
                 break;
             case 4:
-                tip = "Click your hero power to use it (the first icon on the left of your hero).";
+                tip = "Click your hero power to use it (below your hero's portrait).";
                 break;
             case 5:
                 tip = "Attack an enemy unit by dragging an ally to them.";
@@ -1096,6 +1098,10 @@ public class GameManager : MonoBehaviour
         eHD.HeroStats.SetActive(false);
         eHD.HeroNameObject.SetActive(false);
         uMan.CombatLog.SetActive(false);
+
+        uMan.AugmentsDropdown.SetActive(false);
+        uMan.ItemsDropdown.SetActive(false);
+        uMan.ReputationsDropdown.SetActive(false);
 
         // EFFECT MANAGER
         foreach (Effect e in efMan.GiveNextEffects_Player) Destroy(e);

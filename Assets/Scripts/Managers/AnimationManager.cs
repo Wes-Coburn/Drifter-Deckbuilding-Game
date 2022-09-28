@@ -42,6 +42,8 @@ public class AnimationManager : MonoBehaviour
     private Coroutine TextCountRoutine { get; set; }
     private Coroutine ShiftHandRoutine { get; set; }
 
+    public static string CLOSE_SKYBAR_TIMER = "CloseSkybarTimer";
+
     private void Start()
     {
         uMan = UIManager.Instance;
@@ -115,7 +117,8 @@ public class AnimationManager : MonoBehaviour
             newParent = uMan.UICanvas.transform;
             valueChanger.transform.localScale = new Vector2(2, 2);
         }
-        else newParent = parent.parent.parent.parent;
+        //else newParent = parent.parent.parent.parent;
+        else newParent = uMan.CurrentCanvas.transform; // TESTING
         valueChanger.transform.SetParent(newParent);
         valueChanger.transform.SetAsLastSibling();
 
@@ -345,7 +348,27 @@ public class AnimationManager : MonoBehaviour
     }
 
     // Icon Animation
-    public void SkybarIconAnimation(GameObject icon) => ChangeAnimationState(icon, "Trigger");
+    public void SkybarIconAnimation(GameObject icon)
+    {
+        FunctionTimer.StopTimer(CLOSE_SKYBAR_TIMER);
+        GameObject skybar = icon.transform.parent.parent.gameObject;
+
+        if (skybar == uMan.AugmentsDropdown) uMan.AugmentsButton_OnClick(true);
+        else if (skybar == uMan.ItemsDropdown) uMan.ItemsButton_OnClick(true);
+        else if (skybar == uMan.ReputationsDropdown) uMan.ReputationsButton_OnClick(true);
+        else
+        {
+            Debug.LogError("INVALID ICON!");
+            return;
+        }
+
+        ChangeAnimationState(icon, "Trigger");
+
+        FunctionTimer.Create(() =>
+        CloseSkybar(skybar), 1, CLOSE_SKYBAR_TIMER);
+
+        static void CloseSkybar(GameObject bar) => bar.SetActive(false);
+    }
 
     public void TriggerAugment(string augmentName)
     {
@@ -647,6 +670,17 @@ public class AnimationManager : MonoBehaviour
             uMan.CreateVersusPopup(true);
         }
 
+        // Reputations
+        foreach (Transform repTran in uMan.ReputationBar.transform)
+        {
+            repTran.gameObject.SetActive(true);
+            SkybarIconAnimation(repTran.gameObject);
+        }
+
+        auMan.StartStopSound("SFX_Trigger");
+        yield return new WaitForSeconds(0.5f);
+
+        // Augments
         foreach (Transform augTran in uMan.AugmentBar.transform)
         {
             augTran.gameObject.SetActive(true);
@@ -657,6 +691,7 @@ public class AnimationManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
+        // Items
         foreach (Transform itemTran in uMan.ItemBar.transform)
         {
             itemTran.gameObject.SetActive(true);
@@ -667,16 +702,6 @@ public class AnimationManager : MonoBehaviour
             auMan.StartStopSound("SFX_Trigger");
 
         yield return new WaitForSeconds(0.5f);
-
-        foreach (Transform repTran in uMan.ReputationBar.transform)
-        {
-            repTran.gameObject.SetActive(true);
-            SkybarIconAnimation(repTran.gameObject);
-        }
-
-        auMan.StartStopSound("SFX_Trigger");
-        yield return new WaitForSeconds(0.5f);
-
 
         auMan.StartStopSound("SFX_PortraitClick");
         do

@@ -151,7 +151,7 @@ public class HomeBaseSceneDisplay : MonoBehaviour
 
     public void ClaimRewardButton_OnClick()
     {
-        claimRewardButton.GetComponent<TooltipPopupDisplay>().DestroyToolTip();
+        uMan.DestroyTooltipPopup();
         claimRewardButton.SetActive(false);
         uMan.CreateChooseRewardPopup();
     }

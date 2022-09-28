@@ -72,11 +72,22 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     {
         if (DragDrop.DraggingCard != null || ZoomCardIsCentered || uMan.PlayerIsTargetting) return;
 
+        GameObject parent = null;
+        GameObject container = GetComponent<CardDisplay>().CardContainer;
+        if (container != null) parent = container.transform.parent.gameObject;
+        else
+        {
+            Debug.LogError("CONTAINER IS NULL!");
+            return;
+        }
+        if (parent == enemyHand) return; // TESTING
+
         if (pointerEventData.button != PointerEventData.InputButton.Right)
         {
             RightClickTooltip();
             return;
         }
+
         uMan.DestroyZoomObjects();
         ZoomCardIsCentered = true;
         uMan.SetScreenDimmer(true);
@@ -200,12 +211,12 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
                 // New Card Popup
                 else if (uMan.NewCardPopup != null)
                     FunctionTimer.Create(() =>
-                    CreateAbilityPopups(new Vector2(500, 0),
+                    CreateAbilityPopups(new Vector2(0, 0),
                     POPUP_SCALE_VALUE, false), 0.5f, ABILITY_POPUP_TIMER);
                 // Choose Card Popup
                 else if (uMan.ChooseCardPopup != null)
                     FunctionTimer.Create(() =>
-                    CreateAbilityPopups(new Vector2(0, -300),
+                    CreateAbilityPopups(new Vector2(0, 0),
                     POPUP_SCALE_VALUE, false), 0.5f, ABILITY_POPUP_TIMER);
             }
         }

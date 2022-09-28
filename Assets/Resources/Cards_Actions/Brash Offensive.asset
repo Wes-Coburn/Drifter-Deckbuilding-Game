@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardArt: {fileID: 21300000, guid: 9de47c3ff1aaca7478e67392480cecc6, type: 3}
   cardBorder: {fileID: 21300000, guid: da4d9c0ce8b0a5744aac584cd2e675b1, type: 3}
-  energyCost: 3
+  energyCost: 2
   cardName: Brash Offensive
   cardType: Action
   cardSubType: 
@@ -28,9 +28,8 @@ MonoBehaviour:
     source: {fileID: 0}
   overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
   zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
-  effectDescription: Refresh an ally and deal 1 to ALL enemies.
+  effectDescription: Deal 2 to an enemy and give an ally +2|+0 this turn.
   effectGroupList:
-  - {fileID: 11400000, guid: e865f57b5d1861144a6ab6e3bd8d93af, type: 2}
-  - {fileID: 11400000, guid: 1c3be4bb504b5d84787480a59e8a6ef4, type: 2}
-  linkedAbilities:
-  - {fileID: 11400000, guid: dd1e5adc210ef4f4387a7fa5ee2988e8, type: 2}
+  - {fileID: 11400000, guid: 965ca257c8532f047b6b0b8db080cda2, type: 2}
+  - {fileID: 11400000, guid: e34874ec62d79b54a9b743910edf317e, type: 2}
+  linkedAbilities: []

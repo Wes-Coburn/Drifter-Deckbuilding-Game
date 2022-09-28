@@ -2,10 +2,11 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(ScrollRect))]
 public class CombatLog : MonoBehaviour
 {
-    [SerializeField] private GameObject combatLog;
     [SerializeField] private GameObject logText;
+    [SerializeField] private GameObject logInfo;
 
     private ScrollRect scrollRect;
     private TextMeshProUGUI logTMPro;
@@ -20,16 +21,18 @@ public class CombatLog : MonoBehaviour
 
     private void Awake()
     {
-        scrollRect = combatLog.GetComponent<ScrollRect>();
+        scrollRect = GetComponent<ScrollRect>();
         contentRect = scrollRect.content.GetComponent<RectTransform>();
 
         logTMPro = logText.GetComponent<TextMeshProUGUI>();
         logRect = logText.GetComponent<RectTransform>();
 
         allEntries = "";
-        SetCombatLogText();
+        UpdateCombatLog();
+        logInfo.SetActive(false);
     }
-    private void SetCombatLogText()
+    public void ScheduleLogUpdate() => EventManager.Instance.NewDelayedAction(() => UpdateCombatLog(), 0, true);
+    private void UpdateCombatLog()
     {
         logTMPro.SetText(allEntries);
         int lines = logTMPro.textInfo.lineCount;
@@ -42,7 +45,7 @@ public class CombatLog : MonoBehaviour
     {
         entry += "\n";
         allEntries += entry;
-        SetCombatLogText();
+        UpdateCombatLog();
     }
     public void NewLogEntry_PlayCard(GameObject card)
     {

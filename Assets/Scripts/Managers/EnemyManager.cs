@@ -96,7 +96,7 @@ public class EnemyManager : MonoBehaviour
             energyPerTurn = value;
             if (energyPerTurn > MaxEnergyPerTurn)
                 energyPerTurn = MaxEnergyPerTurn;
-            coMan.EnemyHero.GetComponent<HeroDisplay>().SetHeroEnergy(CurrentEnergy, EnergyPerTurn);
+            coMan.EnemyHero.GetComponent<HeroDisplay>().SetHeroEnergy(CurrentEnergy, energyPerTurn);
         }
     }
     public int MaxEnergyPerTurn => GameManager.MAXIMUM_ENERGY_PER_TURN;
@@ -108,7 +108,7 @@ public class EnemyManager : MonoBehaviour
         {
             currentEnergy = value;
             if (currentEnergy > MaxEnergy) currentEnergy = MaxEnergy;
-            coMan.EnemyHero.GetComponent<HeroDisplay>().SetHeroEnergy(CurrentEnergy, EnergyPerTurn);
+            coMan.EnemyHero.GetComponent<HeroDisplay>().SetHeroEnergy(CurrentEnergy, energyPerTurn);
 
             if (currentEnergy < 0)
             {

@@ -9,17 +9,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 797abdbea5ef996498aaf19e6bb2517a, type: 3}
-  m_Name: Deal_3_IfPowLess_1
+  m_Script: {fileID: 11500000, guid: 010c114205487034fa4c5ae46c0aa067, type: 3}
+  m_Name: CreateCard_Random_Cost_1
   m_EditorClassIdentifier: 
   IsRequired: 0
-  Value: 3
+  IgnoreLegality: 0
+  Value: 0
   IsNegative: 0
+  IsDerivedValue: 0
+  DerivedValue: 0
   Countdown: 0
-  ShootRay: 1
-  RayColor: {r: 1, g: 0, b: 0, a: 1}
+  ShootRay: 0
+  RayColor: {r: 0, g: 0, b: 0, a: 0}
   PreCheckConditions: 0
   CheckConditionsIndependent: 0
+  IfHasItemsCondition: 0
+  IsLessItemsCondition: 0
+  IfHasItemsValue: 0
   IfNotWoundedCondition: 0
   IfAnyWoundedCondition: 0
   IfPlayerWoundedCondition: 0
@@ -28,9 +34,9 @@ MonoBehaviour:
   IfRefreshedCondition: 0
   IfDamagedCondition: 0
   IfNotDamagedCondition: 0
-  IfHasPowerCondition: 1
-  IsLessPowerCondition: 1
-  IfHasPowerValue: 1
+  IfHasPowerCondition: 0
+  IsLessPowerCondition: 0
+  IfHasPowerValue: 0
   IfHasAbilityCondition: {fileID: 0}
   IfNotHasAbilityCondition: 0
   IfHasTriggerCondition: {fileID: 0}
@@ -45,5 +51,18 @@ MonoBehaviour:
   IfHasLowerPowerEffects: []
   IfResolvesEffects: []
   ResolveSimultaneous: 0
+  IfResolvesGroups: []
   ForEachEffects: []
-  IfDestroyedEffects: []
+  randomCard: 1
+  createdCard: {fileID: 0}
+  createdCardType: 
+  additionalEffects: []
+  restrictCost: 1
+  minCost: 1
+  maxCost: 1
+  restrictType: 0
+  includeUnits: 0
+  includeActions: 0
+  restrictSubtype: 0
+  cardSubtype: 
+  excludeSelf: 1

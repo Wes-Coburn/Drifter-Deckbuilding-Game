@@ -221,9 +221,9 @@ public class CardManager : MonoBehaviour
     public string FilterKeywords(string text)
     {
         foreach (string s in AbilityKeywords)
-            text = text.Replace(s, "<b><color=\"yellow\">" + s + "</b></color>");
+            text = text.Replace(s, "<color=\"yellow\"><b>" + s + "</b></color>");
         foreach (string s in CardTypes)
-            text = text.Replace(s, "<b><color=\"green\">" + s + "</b></color>");
+            text = text.Replace(s, "<color=\"green\"><b>" + s + "</b></color>");
 
         text = FilterUnitTypes(text);
         return text;
@@ -251,7 +251,7 @@ public class CardManager : MonoBehaviour
 
         string ReplaceText(string target)
         {
-            text = text.Replace(target, "<color=\"green\">" + target + "</color>");
+            text = text.Replace(target, "<color=\"green\"><b>" + target + "</b></color>");
             return text;
         }
     }
@@ -690,13 +690,13 @@ public class CardManager : MonoBehaviour
 
             if (triggerName == TRIGGER_TURN_START)
             {
-                int poisonCount = 0;
+                int poisonValue = 0;
                 foreach (CardAbility ca in ucd.CurrentAbilities)
-                    if (ca.AbilityName == ABILITY_POISONED) poisonCount++;
+                    if (ca.AbilityName == ABILITY_POISONED) poisonValue++;
 
-                for (int i = 0; i < poisonCount; i++)
-                    evMan.NewDelayedAction(() =>
-                    SchedulePoisonEffect(unit), 0, true);
+                if (poisonValue > 0) evMan.NewDelayedAction(() =>
+                SchedulePoisonEffect(unit, poisonValue), 0, true);
+
             }
 
             if (triggerName == TRIGGER_TURN_END)
@@ -733,13 +733,14 @@ public class CardManager : MonoBehaviour
                     evMan.NewDelayedAction(() => RegenerationEffect(unit), 0.5f, true);
             }
         }
-        void SchedulePoisonEffect(GameObject unit)
+        void SchedulePoisonEffect(GameObject unit, int poisonValue)
         {
             if (unit != null)
             {
                 UnitCardDisplay ucd = unit.GetComponent<UnitCardDisplay>();
                 if (ucd.CurrentHealth > 0)
-                    evMan.NewDelayedAction(() => PoisonEffect(unit), 0.5f, true);
+                    evMan.NewDelayedAction(() =>
+                    PoisonEffect(unit, poisonValue), 0.5f, true);
             }
         }
         void RegenerationEffect(GameObject unit)
@@ -749,12 +750,15 @@ public class CardManager : MonoBehaviour
             efMan.ResolveEffect(new List<GameObject> { unit },
                 efMan.RegenerationEffect, false, 0, out _, false);
         }
-        void PoisonEffect(GameObject unit)
+        void PoisonEffect(GameObject unit, int poisonValue)
         {
+            DamageEffect damageEffect = ScriptableObject.CreateInstance<DamageEffect>();
+            damageEffect.Value = poisonValue;
+
             UnitCardDisplay ucd = unit.GetComponent<UnitCardDisplay>();
             ucd.AbilityTriggerState(ABILITY_POISONED);
             efMan.ResolveEffect(new List<GameObject> { unit },
-                efMan.PoisonEffect, false, 0, out _, false);
+                damageEffect, false, 0, out _, false);
         }
     }
     /******

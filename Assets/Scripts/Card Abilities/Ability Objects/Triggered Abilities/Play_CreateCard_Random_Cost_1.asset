@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44c307312f791a64788051778519ac70, type: 3}
-  m_Name: Research_GiveSelf_plus1plus0_Replenish2
+  m_Name: Play_CreateCard_Random_Cost_1
   m_EditorClassIdentifier: 
-  AbilityName: 'Research: Gain +1|+0. Replenish 2 energy.'
-  AbilityDescription: Gain +1|+0. Replenish 2 energy.
+  AbilityName: 'Play: Create a random 1-cost card in hand.'
+  AbilityDescription: Create a random 1-cost card in hand.
   AbilitySprite: {fileID: 0}
+  OverrideColor: 0
+  AbilityColor: {r: 0, g: 0, b: 0, a: 0}
   LinkedAbilites: []
-  AbilityTrigger: {fileID: 11400000, guid: 01172d320cca3e84b9b071705ddb3163, type: 2}
+  AbilityTrigger: {fileID: 11400000, guid: c74c9ac6a33f86347a6ac56840c5c7cc, type: 2}
   EffectGroupList:
-  - {fileID: 11400000, guid: af2fb13f00060804f84ae4af6a1432f0, type: 2}
-  - {fileID: 11400000, guid: 1296c25eb7806194d8e06e6ca52b67fa, type: 2}
+  - {fileID: 11400000, guid: a2b87592e9239e74a89a99e437815d80, type: 2}

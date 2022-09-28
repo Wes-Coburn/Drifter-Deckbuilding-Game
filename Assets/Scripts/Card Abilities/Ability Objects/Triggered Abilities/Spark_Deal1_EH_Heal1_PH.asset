@@ -10,12 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44c307312f791a64788051778519ac70, type: 3}
-  m_Name: Spark_Deal1_1EH
+  m_Name: Spark_Deal1_EH_Heal1_PH
   m_EditorClassIdentifier: 
-  AbilityName: 'Spark: Deal 1 to the enemy hero.'
-  AbilityDescription: Deal 1 to the enemy hero.
+  AbilityName: 'Spark: Deal 1 to the enemy hero and heal your hero 1.'
+  AbilityDescription: Deal 1 to the enemy hero and heal your hero 1.
   AbilitySprite: {fileID: 0}
+  OverrideColor: 0
+  AbilityColor: {r: 0, g: 0, b: 0, a: 0}
   LinkedAbilites: []
   AbilityTrigger: {fileID: 11400000, guid: 6a4ae90bdc7ada64e8953b624852a67f, type: 2}
   EffectGroupList:
   - {fileID: 11400000, guid: 894403a43df25f847af0d87bbb1d4900, type: 2}
+  - {fileID: 11400000, guid: 8dddb9efd6ef74c4db2f5d9e922b45c9, type: 2}

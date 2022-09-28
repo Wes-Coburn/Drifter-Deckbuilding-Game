@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5217999959209188416}
   - component: {fileID: 5329944867766404357}
-  - component: {fileID: 4432880307613655561}
+  - component: {fileID: 1564857683350874947}
   - component: {fileID: 7680700372928423665}
   m_Layer: 5
   m_Name: EnemyHero
@@ -53,7 +53,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &4432880307613655561
+--- !u!114 &1564857683350874947
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -84,6 +84,7 @@ MonoBehaviour:
   heroPortrait: {fileID: 3076864390610685606}
   heroName: {fileID: 3589186375930138753}
   heroHealth: {fileID: 8625548030396495091}
+  woundedIcon: {fileID: 6840206739305501752}
   heroHealthSlider: {fileID: 7944403925860781424}
   heroEnergy: {fileID: 9080194202585608894}
   energyBars:
@@ -243,13 +244,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3432292604656329216, guid: 75a3d2d9baedbe24286530ecf9389d21,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3432292604656329216, guid: 75a3d2d9baedbe24286530ecf9389d21,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3432292604656329216, guid: 75a3d2d9baedbe24286530ecf9389d21,
+        type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 2000
+      value: 2360
       objectReference: {fileID: 0}
     - target: {fileID: 3432292604656329216, guid: 75a3d2d9baedbe24286530ecf9389d21,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 50
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3439026663790987318, guid: 75a3d2d9baedbe24286530ecf9389d21,
         type: 3}
@@ -345,6 +356,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6096969866865447740, guid: 75a3d2d9baedbe24286530ecf9389d21,
+        type: 3}
+      propertyPath: tooltipText
+      value: The enemy's <color="yellow">Deck</color>. When they run out of cards,
+        they'll shuffle their discard pile back here.
       objectReference: {fileID: 0}
     - target: {fileID: 6493347896926649905, guid: 75a3d2d9baedbe24286530ecf9389d21,
         type: 3}
@@ -672,6 +689,12 @@ GameObject:
 --- !u!1 &1410934429775548213 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3229479121740677518, guid: 75a3d2d9baedbe24286530ecf9389d21,
+    type: 3}
+  m_PrefabInstance: {fileID: 4559278096880438971}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6840206739305501752 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7037020155440700035, guid: 75a3d2d9baedbe24286530ecf9389d21,
     type: 3}
   m_PrefabInstance: {fileID: 4559278096880438971}
   m_PrefabAsset: {fileID: 0}

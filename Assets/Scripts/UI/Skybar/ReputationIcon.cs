@@ -9,8 +9,10 @@ public class ReputationIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     private void Start() => uMan = UIManager.Instance;
 
     public void OnPointerEnter(PointerEventData pointerEventData) =>
-        uMan.CreateReputationPopup(reputationType);
+        uMan.CreateReputationPopup(reputationType, gameObject);
 
     public void OnPointerExit(PointerEventData pointerEventData) =>
         uMan.DestroyReputationPopup();
+
+    private void OnDisable() => UIManager.Instance.DestroyReputationPopup(); // TESTING
 }
