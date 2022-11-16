@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 120ae26cc4846f34db63edca720772b3, type: 3}
+  m_Name: Spitting Kreeger
+  m_EditorClassIdentifier: 
+  cardArt: {fileID: 21300000, guid: b462eaaafd2fc9144b27ca2ec4f59caa, type: 3}
+  cardBorder: {fileID: 21300000, guid: 743e735f744cf494c9f9081b4ba9303f, type: 3}
+  energyCost: 1
+  cardName: Spitting Kreeger
+  cardType: Mutant
+  cardSubType: 
+  cardRarity: 0
+  cardDescription: Spitting Kreeger is...
+  cardPlaySound:
+    name: 
+    clip: {fileID: 8300000, guid: c0b4bf2720a6d2c4786d21afca38976a, type: 3}
+    volume: 1
+    pitch: 1
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
+  zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
+  power: 1
+  health: 2
+  startingAbilities:
+  - {fileID: 11400000, guid: cbec5463fef5cc343ae26eacf799b62d, type: 2}
+  - {fileID: 11400000, guid: 7d01c3a3578902f4a99d53a0807a21b6, type: 2}
+  unitDeathSound:
+    name: 
+    clip: {fileID: 8300000, guid: 553eaa1a3c1d56c46a4762ad24d700ec, type: 3}
+    volume: 1
+    pitch: 1
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}

@@ -16,7 +16,7 @@ MonoBehaviour:
   AbilityDescription: A hero is Wounded if they have taken 5+ damage this turn.
   AbilitySprite: {fileID: 21300000, guid: 3d1733e5ed1772946bf319d57d526094, type: 3}
   OverrideColor: 1
-  AbilityColor: {r: 1, g: 1, b: 1, a: 1}
+  AbilityColor: {r: 1, g: 0, b: 0, a: 1}
   LinkedAbilites: []
   AbilityStacks: 0
   GainAbilitySound:
@@ -24,10 +24,12 @@ MonoBehaviour:
     clip: {fileID: 0}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   LoseAbilitySound:
     name: 
     clip: {fileID: 0}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}

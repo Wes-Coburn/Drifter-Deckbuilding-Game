@@ -389,7 +389,7 @@ public class DialogueManager : MonoBehaviour
         // Shop
         if (dResponse.Response_IsShopStart)
         {
-            uMan.CreateItemPagePopup();
+            uMan.CreateItemPagePopup(false);
             return;
         }
         // Cloning

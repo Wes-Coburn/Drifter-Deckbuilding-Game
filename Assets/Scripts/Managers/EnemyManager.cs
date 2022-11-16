@@ -81,11 +81,21 @@ public class EnemyManager : MonoBehaviour
         get => damageTaken_Turn;
         set
         {
+            bool wasWounded;
+            if (damageTaken_Turn >= GameManager.WOUNDED_VALUE) wasWounded = true;
+            else wasWounded = false;
+
             damageTaken_Turn = value;
             bool isWounded;
             if (damageTaken_Turn >= GameManager.WOUNDED_VALUE) isWounded = true;
             else isWounded = false;
             coMan.EnemyHero.GetComponent<HeroDisplay>().IsWounded = isWounded;
+
+            if (!wasWounded && isWounded)
+            {
+                EffectManager.Instance.TriggerModifiers_SpecialTrigger
+                    (ModifierAbility.TriggerType.EnemyHeroWounded, coMan.PlayerZoneCards);
+            }
         }
     }
     public int EnergyPerTurn
@@ -157,15 +167,29 @@ public class EnemyManager : MonoBehaviour
 
         evMan.NewDelayedAction(() => TurnDraw(), 1);
 
-        evMan.NewDelayedAction(() => CreatePlayCardSchedule(), 0); // Play Schedule 1
-        evMan.NewDelayedAction(() => CreateAttackSchedule(), 0); // Attack Schedule 1
+        evMan.NewDelayedAction(() => CreateActionSchedule(), 0); // TESTING
+        
+        void CreateActionSchedule()
+        {
+            if (HasActionsRemaining())
+            {
+                evMan.NewDelayedAction(() => CreatePlayCardSchedule(), 0);
+                evMan.NewDelayedAction(() => CreateAttackSchedule(), 0);
+                evMan.NewDelayedAction(() => CreateActionSchedule(), 0);
+            }
+            else evMan.NewDelayedAction(() =>
+            GameManager.Instance.EndCombatTurn(GameManager.ENEMY), 1);
+        }
+        bool HasActionsRemaining()
+        {
+            foreach (GameObject card in coMan.EnemyHandCards)
+                if (coMan.IsPlayable(card, true)) return true;
 
-        evMan.NewDelayedAction(() => CreatePlayCardSchedule(), 0); // Play Schedule 2
-        evMan.NewDelayedAction(() => CreateAttackSchedule(), 0); // Attack Schedule 2
+            foreach (GameObject unit in coMan.EnemyZoneCards)
+                if (coMan.CanAttack(unit, null, true, true)) return true;
 
-        evMan.NewDelayedAction(() =>
-        GameManager.Instance.EndCombatTurn(GameManager.ENEMY), 1);
-
+            return false;
+        }
         void ReplenishEnergy()
         {
             int startEnergy = CurrentEnergy;
@@ -274,10 +298,8 @@ public class EnemyManager : MonoBehaviour
             if (CanAttack(ally)) SchedulePreAttack(ally);
         }
         
-        void SchedulePreAttack(GameObject attacker)
-        {
+        void SchedulePreAttack(GameObject attacker) =>
             evMan.NewDelayedAction(() => ScheduleAttack(attacker), 0, true);
-        }
 
         void ScheduleAttack(GameObject attacker)
         {
@@ -337,34 +359,61 @@ public class EnemyManager : MonoBehaviour
 
     private GameObject FindDefender(GameObject attacker)
     {
+        bool playerHasDefender = false;
         int playerHealth = PlayerManager.Instance.PlayerHealth;
         List<GameObject> legalDefenders = new List<GameObject>();
         UnitCardDisplay attackerDisplay = attacker.GetComponent<UnitCardDisplay>();
 
+        foreach (GameObject unit in coMan.PlayerZoneCards)
+        {
+            UnitCardDisplay ucd = coMan.GetUnitDisplay(unit);
+            if (ucd.CurrentHealth < 1) continue;
+
+            if (CardManager.GetAbility(unit, CardManager.ABILITY_DEFENDER) &&
+                !CardManager.GetAbility(unit, CardManager.ABILITY_STEALTH))
+            {
+                playerHasDefender = true;
+                break;
+            }
+        }
+
         foreach (GameObject playerUnit in coMan.PlayerZoneCards)
-            if (coMan.GetUnitDisplay(playerUnit).CurrentHealth > 0 &&
-                !CardManager.GetAbility(playerUnit, CardManager.ABILITY_STEALTH))
-                legalDefenders.Add(playerUnit);
+        {
+            UnitCardDisplay ucd = coMan.GetUnitDisplay(playerUnit);
+            if (ucd.CurrentHealth < 1) continue;
+
+            if (playerHasDefender && !CardManager.GetAbility(playerUnit,
+                CardManager.ABILITY_DEFENDER)) continue;
+
+            if (CardManager.GetAbility(playerUnit,
+                CardManager.ABILITY_STEALTH)) continue;
+
+            legalDefenders.Add(playerUnit);
+
+        }
 
         // If player hero is <LETHALLY THREATENED>
-        if (TotalEnemyPower() >= playerHealth) return coMan.PlayerHero;
+        if (!playerHasDefender && TotalEnemyPower() >= playerHealth) return coMan.PlayerHero;
 
         // If enemy hero is <UNTHREATENED>
         if (EnemyHealth > (MaxEnemyHealth * 0.65f) && TotalPlayerPower() < (EnemyHealth * 0.35f))
         {
             // Attack an enemy unless there are no good attacks
-            return GetBestDefender(true);
+            return GetBestDefender(!playerHasDefender); // Return good attacks only if player does not have defender
         }
         // If enemy hero is <MILDLY THREATENED>
-        else if (EnemyHealth > (MaxEnemyHealth * 0.5f) && TotalPlayerPower() < (EnemyHealth * 0.65f))
+        else if (EnemyHealth > (MaxEnemyHealth * 0.5f) && TotalPlayerPower() < (EnemyHealth * 0.5f))
         {
             /*
              * If player hero is <SEVERELY THREATENED> or the attacker has Infiltrate,
              * attack the player hero. Otherwise, attack a player unit.
              */
-            if (TotalEnemyPower() >= playerHealth * 0.75f ||
-                CardManager.GetTrigger(attacker, CardManager.TRIGGER_INFILTRATE))
-                return coMan.PlayerHero;
+            if (!playerHasDefender)
+            {
+                if (TotalEnemyPower() >= playerHealth * 0.75f ||
+                    CardManager.GetTrigger(attacker, CardManager.TRIGGER_INFILTRATE))
+                    return coMan.PlayerHero;
+            }
         }
 
         return GetBestDefender(false);
@@ -373,7 +422,6 @@ public class EnemyManager : MonoBehaviour
         {
             GameObject defender = null;
             int highestPriority = -99;
-
             int attackerPower = attackerDisplay.CurrentPower;
 
             foreach (GameObject legalDefender in legalDefenders)
@@ -405,7 +453,11 @@ public class EnemyManager : MonoBehaviour
                 else
                 {
                     int modHealth = defenderHealth;
-                    if (defender_Armored) modHealth++;
+                    if (defender_Armored)
+                    {
+                        if (attackerPower < 2) continue; // Attacker will not deal damage
+                        modHealth++;
+                    }
                     if (attackerPower >= modHealth) priority += 6; // Defender will be destroyed
                     else if (goodAttacksOnly) continue;
                 }

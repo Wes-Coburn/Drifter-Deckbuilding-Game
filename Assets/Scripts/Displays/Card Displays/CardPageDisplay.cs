@@ -28,6 +28,7 @@ public class CardPageDisplay : MonoBehaviour
     private PlayerManager pMan;
     private UIManager uMan;
     private AnimationManager anMan;
+    private GameManager gMan;
 
     private Scrollbar scrollbar;
 
@@ -47,6 +48,8 @@ public class CardPageDisplay : MonoBehaviour
         pMan = PlayerManager.Instance;
         uMan = UIManager.Instance;
         anMan = AnimationManager.Instance;
+        gMan = GameManager.Instance;
+
         if (isScrollPage)
         {
             scrollbar = GetComponentInChildren<Scrollbar>();
@@ -89,7 +92,7 @@ public class CardPageDisplay : MonoBehaviour
                 break;
             case CardPageType.RecruitUnit:
                 setProgressBar = true;
-                progress = GameManager.Instance.RecruitLoyalty;
+                progress = gMan.RecruitLoyalty;
                 titleText = "Recruit a Unit";
                 foreach (Card c in CardManager.Instance.PlayerRecruitUnits)
                     cardGroupList.Add(c);
@@ -112,7 +115,7 @@ public class CardPageDisplay : MonoBehaviour
             else isReady = false;
 
             progressBar.SetActive(setProgressBar);
-            if (setProgressBar) SetProgressBar(0, progress, isReady, true); // TESTING
+            if (setProgressBar) SetProgressBar(0, progress, isReady, true);
         }
 
         pageTitle.GetComponent<TextMeshProUGUI>().SetText(titleText);
@@ -120,7 +123,6 @@ public class CardPageDisplay : MonoBehaviour
         if (cardGroupList.Count > 0)
         {
             noCardsTooltip.SetActive(false);
-
             cardGroupList.Sort((s1, s2) => s1.StartEnergyCost - s2.StartEnergyCost);
 
             List<List<Card>> sortList = new List<List<Card>>
@@ -248,7 +250,7 @@ public class CardPageDisplay : MonoBehaviour
     {
         if (anMan.ProgressBarRoutine != null) return;
         
-        if (pMan.AetherCells < GameManager.Instance.GetRecruitCost(unitCard, out _))
+        if (pMan.AetherCells < gMan.GetRecruitCost(unitCard, out _))
             uMan.InsufficientAetherPopup();
         else uMan.CreateRecruitUnitPopup(unitCard);
     }
@@ -261,7 +263,7 @@ public class CardPageDisplay : MonoBehaviour
         {
             string warning = "Your deck can't have less than " +
                 GameManager.MINIMUM_MAIN_DECK_SIZE + " cards!";
-            uMan.CreateFleetingInfoPopup(warning, true);
+            uMan.CreateFleetingInfoPopup(warning);
             return;
         }
 
@@ -271,9 +273,16 @@ public class CardPageDisplay : MonoBehaviour
     public void CloneUnitButton_OnClick(UnitCard unitCard)
     {
         if (anMan.ProgressBarRoutine != null) return;
-        if (pMan.AetherCells < GameManager.CLONE_UNIT_COST)
+        if (pMan.AetherCells < gMan.GetCloneCost(unitCard))
             uMan.InsufficientAetherPopup();
         else uMan.CreateCloneUnitPopup(unitCard);
+    }
+
+    public void RemoveItemButton_OnClick(HeroItem heroItem)
+    {
+        if (anMan.ProgressBarRoutine != null) return;
+
+        uMan.CreateRemoveItemPopup(heroItem);
     }
 
     public void CloseCardPageButton_OnClick()
@@ -281,7 +290,7 @@ public class CardPageDisplay : MonoBehaviour
         if (SceneLoader.IsActiveScene(SceneLoader.Scene.DialogueScene))
             DialogueManager.Instance.DisplayDialoguePopup();
 
-        uMan.DestroyInteractablePopup(gameObject);
         uMan.DestroyCardPagePopup(true);
+        uMan.DestroyInteractablePopup(gameObject);
     }
 }

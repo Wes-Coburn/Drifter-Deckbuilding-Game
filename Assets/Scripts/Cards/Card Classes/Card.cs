@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Card : ScriptableObject
@@ -8,10 +9,15 @@ public abstract class Card : ScriptableObject
     [SerializeField] private string cardName;
     [SerializeField] private string cardType;
     [SerializeField] private string cardSubType;
-    [SerializeField] private bool isRare;
+    public enum Rarity
+    {
+        Common,
+        Rare,
+        Legend
+    }
+    [SerializeField] private Rarity cardRarity;
     [TextArea] [SerializeField] private string cardDescription;
     [SerializeField] private Sound cardPlaySound;
-
     [SerializeField] private AnimatorOverrideController overController;
     [SerializeField] private AnimatorOverrideController zoomOverController;
 
@@ -22,12 +28,14 @@ public abstract class Card : ScriptableObject
     public string CardName { get => cardName; }
     public string CardType { get => cardType; }
     public string CardSubType { get => cardSubType; }
-    public bool IsRare { get => isRare; }
+    public Rarity CardRarity { get => cardRarity; }
     public string CardDescription { get => cardDescription; }
     public Sound CardPlaySound { get => cardPlaySound; }
 
     public AnimatorOverrideController OverController { get => overController; }
     public AnimatorOverrideController ZoomOverController { get => zoomOverController; }
+
+    public List<Effect> CurrentEffects { get; set; }
 
     public bool BanishAfterPlay { get; set; }
 
@@ -40,14 +48,15 @@ public abstract class Card : ScriptableObject
         cardName = card.CardName;
         cardType = card.CardType;
         cardSubType = card.CardSubType;
-        isRare = card.IsRare;
+        cardRarity = card.CardRarity;
         cardDescription = card.CardDescription;
         overController = card.OverController;
         zoomOverController = card.ZoomOverController;
         cardPlaySound = card.CardPlaySound;
+
+        CurrentEffects = new List<Effect>(); // TESTING
     }
 
-    // TESTING
     public virtual void CopyCard(Card card)
     {
         cardArt = card.CardArt;
@@ -57,10 +66,14 @@ public abstract class Card : ScriptableObject
         cardName = card.CardName;
         cardType = card.CardType;
         cardSubType = card.CardSubType;
-        isRare = card.IsRare;
+        cardRarity = card.CardRarity;
         cardDescription = card.CardDescription;
         overController = card.OverController;
         zoomOverController = card.ZoomOverController;
         cardPlaySound = card.CardPlaySound;
+
+        CurrentEffects = new List<Effect>(); // TESTING
+        foreach (Effect e in card.CurrentEffects)
+            CurrentEffects.Add(e);
     }
 }

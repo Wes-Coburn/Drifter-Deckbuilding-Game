@@ -37,7 +37,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 910, y: 515}
+  m_AnchoredPosition: {x: 910, y: 512}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &986900924
@@ -152,6 +152,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: a580b904278a5fd4fba9563d4096bd3d, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
 --- !u!114 &7680993469718281654
 MonoBehaviour:
@@ -2118,6 +2119,8 @@ MonoBehaviour:
   itemPagePopupPrefab: {fileID: 6981254644569695306, guid: f8b6b7aa2f66d674392cbd92e3370caa,
     type: 3}
   buyItemPopupPrefab: {fileID: 7847311376239260079, guid: 94ffd09ea3c62b6419a07652c4f35f93,
+    type: 3}
+  removeItemPopupPrefab: {fileID: 6138206491920893483, guid: 26fa2c2f03593a54192b8257b289163c,
     type: 3}
   itemIconPrefab: {fileID: 8816291806828510727, guid: f5afa16582ee5b34f89fc1a3be228032,
     type: 3}

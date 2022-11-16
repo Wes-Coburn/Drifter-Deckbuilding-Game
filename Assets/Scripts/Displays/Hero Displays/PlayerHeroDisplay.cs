@@ -27,8 +27,11 @@ public class PlayerHeroDisplay : HeroDisplay
     {
         set
         {
-            ultimateProgressValue.GetComponent<TextMeshProUGUI>().SetText
-                (value + "/" + GameManager.HERO_ULTMATE_GOAL);
+            int goal = GameManager.HERO_ULTMATE_GOAL;
+            if (value > goal) value = goal;
+
+            //ultimateProgressValue.GetComponent<TextMeshProUGUI>().SetText
+                //(value + "/" + GameManager.HERO_ULTMATE_GOAL);
 
             bool setBar = true;
             for (int i = 0; i < ultimateProgressBars.Length; i++)

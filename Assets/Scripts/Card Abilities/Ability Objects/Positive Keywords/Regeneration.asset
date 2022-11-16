@@ -15,6 +15,8 @@ MonoBehaviour:
   AbilityName: Regeneration
   AbilityDescription: Fully heal this unit at Turn End.
   AbilitySprite: {fileID: 21300000, guid: 3972b329298622b499cd364f2bc0f8de, type: 3}
+  OverrideColor: 1
+  AbilityColor: {r: 0, g: 0.18852282, b: 1, a: 1}
   LinkedAbilites:
   - {fileID: 11400000, guid: f9f029cd91a81544eb06ce77a5f40ab8, type: 2}
   AbilityStacks: 0
@@ -23,10 +25,12 @@ MonoBehaviour:
     clip: {fileID: 0}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   LoseAbilitySound:
     name: 
     clip: {fileID: 0}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}

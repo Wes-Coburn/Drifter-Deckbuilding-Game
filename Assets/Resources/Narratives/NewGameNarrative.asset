@@ -19,8 +19,8 @@ MonoBehaviour:
   - "You seek out the nearest speakeasy, \u201CThe Rathole,\u201D a place where dangerous
     people go to make money and kill each other."
   - "The bartender hands you a card with a cold stare. \u201CBe there,\u201D he says."
-  - "With no other leads and nothing to lose, you make your way toward the address
-    on the card\u2026"
+  - "You make your way to the address on the card, but first, time to rest at your
+    ship\u2026"
   narrativeBackground: {fileID: 21300000, guid: fac330c4625c7e24fa3af4f9041c2d72,
     type: 3}
   narrativeStartSound:
@@ -28,10 +28,13 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 92d8f093b74963d47a826ef974a682d4, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   narrativeSoundscape:
     name: 
     clip: {fileID: 8300000, guid: 431152c862a46469ea09f6afba146be5, type: 3}
     volume: 0.8
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
+  isGameEnd: 0

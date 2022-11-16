@@ -19,6 +19,7 @@ public class ItemDescriptionDisplay : MonoBehaviour, IPointerClickHandler, IPoin
     private GameManager gMan;
     private HeroItem loadedItem;
 
+    public bool IsItemRemoval { get; set; }
     public HeroItem LoadedItem
     {
         set
@@ -29,10 +30,12 @@ public class ItemDescriptionDisplay : MonoBehaviour, IPointerClickHandler, IPoin
             itemDescription.GetComponent<TextMeshProUGUI>().SetText
                 (CardManager.Instance.FilterKeywords(loadedItem.ItemDescription));
 
+            string text = gMan.GetItemCost(loadedItem, out bool isDiscounted, IsItemRemoval).ToString();
             TextMeshProUGUI txtGui = itemCost.GetComponent<TextMeshProUGUI>();
-            txtGui.SetText(gMan.GetItemCost(loadedItem, out bool isDiscounted).ToString());
+            if (IsItemRemoval) text = "+" + text; // TESTING
+            txtGui.SetText(text);
 
-            if (isDiscounted)
+            if (!IsItemRemoval && isDiscounted)
             {
                 Button button = GetComponent<Button>();
                 var colors = button.colors;
@@ -54,10 +57,17 @@ public class ItemDescriptionDisplay : MonoBehaviour, IPointerClickHandler, IPoin
 
     public void OnPointerClick(PointerEventData pointerEventData)
     {
-        if (anMan.ProgressBarRoutine != null) return; // TESTING
-        if (pMan.HeroItems.Count >= GameManager.MAXIMUM_ITEMS)
-            uMan.CreateFleetingInfoPopup("You can't have more than " + GameManager.MAXIMUM_ITEMS + " items!", true);
-        else if (pMan.AetherCells < gMan.GetItemCost(loadedItem, out _))
+        if (anMan.ProgressBarRoutine != null) return;
+
+        if (IsItemRemoval) // TESTING
+        {
+            uMan.CreateRemoveItemPopup(loadedItem);
+            return;
+        }
+
+        if (pMan.HeroItems.Count >= pMan.GetMaxItems())
+            uMan.CreateFleetingInfoPopup("You can't have more than " + pMan.GetMaxItems() + " items!");
+        else if (pMan.AetherCells < gMan.GetItemCost(loadedItem, out _, false))
             uMan.InsufficientAetherPopup();
         else uMan.CreateBuyItemPopup(loadedItem);
     }

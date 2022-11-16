@@ -74,7 +74,7 @@ public class TutorialActionPopupDisplay : MonoBehaviour
                 break;
 
             case 4:
-                text = "Damage dealt to your hero reduces their <color=\"yellow\"><b>Health</b></color>. If your hero's health drops to 0, you lose.";
+                text = "Damage dealt to your hero reduces their <color=\"yellow\"><b>Health</b></color>. If your hero's health reaches 0, you lose.";
                 position.Set(470, 0);
                 break;
 
@@ -122,7 +122,6 @@ public class TutorialActionPopupDisplay : MonoBehaviour
             default:
                 Debug.LogError("INVALID TIP NUMBER!");
                 return;
-
         }
 
         tipCounter.SetActive(tipCounter_Active);

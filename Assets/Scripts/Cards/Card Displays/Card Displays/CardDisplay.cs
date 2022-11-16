@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
@@ -21,7 +20,9 @@ public abstract class CardDisplay : MonoBehaviour
     [SerializeField] private GameObject cardArt;
     [SerializeField] private GameObject cardBorder;
     [SerializeField] private GameObject cardTypeLine;
+    [SerializeField] private GameObject commonIcon;
     [SerializeField] private GameObject rareIcon;
+    [SerializeField] private GameObject legendIcon;
     [SerializeField] private GameObject energyCost;
 
     private GameObject cardContainer;
@@ -94,9 +95,9 @@ public abstract class CardDisplay : MonoBehaviour
         else txtGui.color = Color.white;
     }
 
-    public List<Effect> CurrentEffects { get; set; }
+    //public List<Effect> CurrentEffects { get; set; }
 
-    protected virtual void Awake() => CurrentEffects = new List<Effect>();
+    //protected virtual void Awake() => CurrentEffects = new List<Effect>();
 
     /******
      * *****
@@ -122,8 +123,10 @@ public abstract class CardDisplay : MonoBehaviour
         string spacer = "";
         if (!string.IsNullOrEmpty(CardScript.CardSubType)) spacer = " - ";
         CardTypeLine = CardScript.CardType + spacer + CardScript.CardSubType;
-        rareIcon.SetActive(CardScript.IsRare);
-        DisplayEnergyCost(CardScript.CurrentEnergyCost); // TESTING
+
+        SetRarity(cardScript); // TESTING
+
+        DisplayEnergyCost(CardScript.CurrentEnergyCost);
         animator = gameObject.GetComponent<Animator>();
         animator.runtimeAnimatorController = CardScript.OverController;
     }
@@ -166,7 +169,31 @@ public abstract class CardDisplay : MonoBehaviour
             animator.runtimeAnimatorController = CardScript.ZoomOverController;
             AnimationManager.Instance.ZoomedState(gameObject);
         }
-        rareIcon.SetActive(CardScript.IsRare);
+        SetRarity(cardScript); // TESTING
+    }
+
+    private void SetRarity(Card card)
+    {
+        bool isCommon = false;
+        bool isRare = false;
+        bool isLegend = false;
+
+        switch (card.CardRarity)
+        {
+            case Card.Rarity.Common:
+                isCommon = true;
+                break;
+            case Card.Rarity.Rare:
+                isRare = true;
+                break;
+            case Card.Rarity.Legend:
+                isLegend = true;
+                break;
+        }
+
+        commonIcon.SetActive(isCommon);
+        rareIcon.SetActive(isRare);
+        legendIcon.SetActive(isLegend);
     }
 
     /******
@@ -174,8 +201,7 @@ public abstract class CardDisplay : MonoBehaviour
      * ****** DISPLAY_CARD_PAGE_CARD
      * *****
      *****/
-    public virtual void DisplayCardPageCard(Card card) =>
-        rareIcon.SetActive(card.IsRare);
+    public virtual void DisplayCardPageCard(Card card) => SetRarity(card); // TESTING
 
     /******
      * *****
@@ -196,7 +222,8 @@ public abstract class CardDisplay : MonoBehaviour
     {
         GetComponent<CardSelect>().CardOutline.SetActive(false);
         CurrentEnergyCost = CardScript.StartEnergyCost;
-        CurrentEffects.Clear();
+        //CurrentEffects.Clear();
+        CardScript.CurrentEffects.Clear(); // TESTING
     }
 
     /******

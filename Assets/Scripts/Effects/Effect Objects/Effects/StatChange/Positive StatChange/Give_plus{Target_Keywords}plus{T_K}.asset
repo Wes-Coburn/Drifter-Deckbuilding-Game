@@ -23,6 +23,9 @@ MonoBehaviour:
   RayColor: {r: 1, g: 1, b: 0, a: 1}
   PreCheckConditions: 0
   CheckConditionsIndependent: 0
+  IfHasItemsCondition: 0
+  IsLessItemsCondition: 0
+  IfHasItemsValue: 0
   IfNotWoundedCondition: 0
   IfAnyWoundedCondition: 0
   IfPlayerWoundedCondition: 0
@@ -54,9 +57,9 @@ MonoBehaviour:
   DoublePower: 0
   SetPowerZero: 0
   PowerIsDerived: 1
-  DerivedPowerType: 2
+  DerivedPowerType: 5
   HealthChange: 0
   DoubleHealth: 0
   HealthIsDerived: 1
-  DerivedHealthType: 2
+  DerivedHealthType: 5
   ResetStats: 0

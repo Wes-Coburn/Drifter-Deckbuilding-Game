@@ -16,11 +16,16 @@ MonoBehaviour:
   IgnoreLegality: 0
   Value: 1
   IsNegative: 0
+  IsDerivedValue: 0
+  DerivedValue: 0
   Countdown: 0
   ShootRay: 1
   RayColor: {r: 1, g: 1, b: 0, a: 1}
   PreCheckConditions: 0
   CheckConditionsIndependent: 0
+  IfHasItemsCondition: 0
+  IsLessItemsCondition: 0
+  IfHasItemsValue: 0
   IfNotWoundedCondition: 0
   IfAnyWoundedCondition: 0
   IfPlayerWoundedCondition: 0
@@ -51,6 +56,10 @@ MonoBehaviour:
   PowerChange: 1
   DoublePower: 0
   SetPowerZero: 0
+  PowerIsDerived: 0
+  DerivedPowerType: 0
   HealthChange: 0
   DoubleHealth: 0
+  HealthIsDerived: 0
+  DerivedHealthType: 0
   ResetStats: 0

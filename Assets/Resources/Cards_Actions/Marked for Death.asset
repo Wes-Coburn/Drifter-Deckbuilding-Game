@@ -14,23 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardArt: {fileID: 21300000, guid: 355a6951bcd290b4280c4525211d49e0, type: 3}
   cardBorder: {fileID: 21300000, guid: da4d9c0ce8b0a5744aac584cd2e675b1, type: 3}
-  energyCost: 2
+  energyCost: 5
   cardName: Marked for Death
   cardType: Action
   cardSubType: 
-  isRare: 0
+  cardRarity: 1
   cardDescription: Marked for Death is...
   cardPlaySound:
     name: 
     clip: {fileID: 0}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
   zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
-  effectDescription: "Mark two enemies, or deal 5 to them if they\u2019re already
-    Marked."
+  effectDescription: Destroy ALL Marked enemies, then Mark ALL enemies.
   effectGroupList:
   - {fileID: 11400000, guid: 75bb6e394dd92f24985b101afa54bca4, type: 2}
+  - {fileID: 11400000, guid: af0dc46b92439e34898d0fcb50c91940, type: 2}
   linkedAbilities:
   - {fileID: 11400000, guid: 67b65f6bf1f93db43afb76d61b1435b2, type: 2}

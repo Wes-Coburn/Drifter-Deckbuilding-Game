@@ -37,8 +37,7 @@ public class NewAugmentPopupDisplay : MonoBehaviour
             return;
         }
 
-        if (availableAugments.Count > 3)
-            selectedAugment = 3; // Start with Synaptic Stabilizer
+        if (availableAugments.Count > 4) selectedAugment = 4; // Start with Synaptic Stabilizer
         else selectedAugment = 0;
 
         DisplaySelectedAugment();
@@ -70,6 +69,8 @@ public class NewAugmentPopupDisplay : MonoBehaviour
         pMan.AddAugment(LoadedAugment, true);
         UIManager.Instance.DestroyNewAugmentPopup();
         DialogueManager.Instance.DisplayDialoguePopup();
+
+        AnimationManager.Instance.CreateParticleSystem(gameObject, ParticleSystemHandler.ParticlesType.ButtonPress); // TESTING
     }
 }
 

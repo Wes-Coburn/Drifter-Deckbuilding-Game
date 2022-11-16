@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
+    #region FIELDS
     [Header("LOCATION BACKGROUNDS")]
     [SerializeField] private Sprite locationBG_City;
     [SerializeField] private Sprite locationBG_Wasteland;
@@ -47,10 +48,83 @@ public class GameManager : MonoBehaviour
 
     private Narrative settingNarrative;
     private Narrative newGameNarrative;
-    private Location homeBaseLocation;
-    private Location firstLocation;
 
     private int currentTip;
+
+    // Player Preferences
+    public const string MUSIC_VOLUME = "MusicVolume";
+    public const string SFX_VOLUME = "SFXVolume";
+    public const string HIDE_EXPLICIT_LANGUAGE = "HideExplicitLanguage";
+
+    // Universal
+    public const int WOUNDED_VALUE = 5;
+    public const int START_HAND_SIZE = 4;
+    public const int MAX_HAND_SIZE = 10;
+    public const int MAX_UNITS_PLAYED = 6;
+    public const int START_ENERGY_PER_TURN = 0;
+
+    // Player
+    public const string PLAYER = "Player";
+    public const int MINIMUM_MAIN_DECK_SIZE = 15;
+    public const int PLAYER_STARTING_HEALTH = 30;
+    //public const int PLAYER_STARTING_HEALTH = 1; // FOR TESTING ONLY
+    public const int PLAYER_START_UNITS = 3;
+    public const int MAXIMUM_ENERGY_PER_TURN = 10;
+    public const int MAXIMUM_ENERGY = 10;
+    public const int MAXIMUM_ITEMS = 3;
+    public const int HERO_ULTMATE_GOAL = 3;
+    public const int PLAYER_START_AETHER = 15; // TESTING
+
+    // Enemy
+    public const string ENEMY = "Enemy";
+    public const int ENEMY_STARTING_HEALTH = 30;
+    //public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
+    // Tutorial Enemy
+    public const int TUTORIAL_STARTING_HEALTH = 10;
+    // Boss Enemy
+    public const int BOSS_BONUS_ENERGY = 2;
+
+    // Aether Rewards
+    public const int IGNORE_CARD_AETHER = 10;
+    // Sell Cards
+    public const int SELL_COMMON_CARD_VALUE = 10;
+    public const int SELL_RARE_CARD_VALUE = 15;
+    public const int SELL_LEGEND_CARD_VALUE = 20;
+    // Recruits
+    public const int RECRUIT_COMMON_UNIT_COST = 30;
+    public const int RECRUIT_RARE_UNIT_COST = 45;
+    public const int RECRUIT_LEGEND_UNIT_COST = 60;
+    public const int RECRUIT_LOYALTY_GOAL = 3;
+    // Cloning
+    public const int CLONE_COMMON_UNIT_COST = 35;
+    public const int CLONE_RARE_UNIT_COST = 50;
+    public const int CLONE_LEGEND_UNIT_COST = 65;
+    // Items
+    public const int BUY_ITEM_COST = 35;
+    public const int BUY_RARE_ITEM_COST = 55;
+    public const int SHOP_LOYALTY_GOAL = 3;
+    // Sell Items
+    public const int SELL_ITEM_VALUE = 15;
+    public const int SELL_RARE_ITEM_VALUE = 20;
+    // Reputation
+    public const int REPUTATION_TIER_1 = 10;
+    public const int REPUTATION_TIER_2 = 20;
+    public const int REPUTATION_TIER_3 = 30;
+
+    // Combat Reward
+    public const int AETHER_COMBAT_REWARD_1 = 15;
+    public const int AETHER_COMBAT_REWARD_2 = 20;
+    public const int AETHER_COMBAT_REWARD_3 = 25;
+
+    public const int AETHER_COMBAT_REWARD_BOSS_1 = 35;
+    public const int AETHER_COMBAT_REWARD_BOSS_2 = 45;
+    public const int AETHER_COMBAT_REWARD_BOSS_3 = 55;
+
+    // Augments
+    public const int AETHER_MAGNET_REWARD = 20;
+    #endregion
+
+    #region PROPERTIES
     public string CurrentTip
     {
         get
@@ -89,74 +163,9 @@ public class GameManager : MonoBehaviour
     public int Reputation_Rogues { get; set; }
     public int Reputation_Techs { get; set; }
     public int Reputation_Warriors { get; set; }
+    #endregion
 
-    /* GAME_MANAGER_DATA */
-    // Player Preferences
-    public const string MUSIC_VOLUME = "MusicVolume";
-    public const string SFX_VOLUME = "SFXVolume";
-    public const string HIDE_EXPLICIT_LANGUAGE = "HideExplicitLanguage";
-
-    // Universal
-    public const int WOUNDED_VALUE = 5;
-    public const int START_HAND_SIZE = 4;
-    public const int MAX_HAND_SIZE = 10;
-    public const int MAX_UNITS_PLAYED = 6;
-    public const int START_ENERGY_PER_TURN = 0;
-
-    // Player
-    public const string PLAYER = "Player";
-    public const int MINIMUM_MAIN_DECK_SIZE = 15;
-    public const int PLAYER_STARTING_HEALTH = 30;
-    //public const int PLAYER_STARTING_HEALTH = 1; // FOR TESTING ONLY
-    public const int PLAYER_START_UNITS = 3;
-    public const int MAXIMUM_ENERGY_PER_TURN = 10;
-    public const int MAXIMUM_ENERGY = 10;
-    public const int MAXIMUM_ITEMS = 5;
-    public const int HERO_ULTMATE_GOAL = 3;
-    public const int PLAYER_START_AETHER = 0;
-    
-    // Enemy
-    public const string ENEMY = "Enemy";
-    public const int ENEMY_STARTING_HEALTH = 30;
-    //public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
-    // Tutorial Enemy
-    public const int TUTORIAL_STARTING_HEALTH = 10;
-    // Boss Enemy
-    public const int BOSS_BONUS_ENERGY = 2;
-
-    // Aether Rewards
-    public const int IGNORE_CARD_AETHER = 10;
-    // Sell Cards
-    public const int SELL_CARD_VALUE = 10;
-    public const int SELL_RARE_CARD_VALUE = 20;
-    // Recruits
-    public const int RECRUIT_UNIT_COST = 30;
-    public const int RECRUIT_RARE_UNIT_COST = 50;
-    public const int RECRUIT_LOYALTY_GOAL = 3;
-    // Cloning
-    public const int CLONE_UNIT_COST = 30;
-    public const int CLONE_RARE_UNIT_COST = 50;
-    // Items
-    public const int BUY_ITEM_COST = 20;
-    public const int BUY_RARE_ITEM_COST = 35;
-    public const int SHOP_LOYALTY_GOAL = 3;
-    // Reputation
-    public const int REPUTATION_TIER_1 = 10;
-    public const int REPUTATION_TIER_2 = 20;
-    public const int REPUTATION_TIER_3 = 30;
-
-    // Combat Reward
-    public const int AETHER_COMBAT_REWARD_1 = 15;
-    public const int AETHER_COMBAT_REWARD_2 = 20;
-    public const int AETHER_COMBAT_REWARD_3 = 25;
-
-    public const int AETHER_COMBAT_REWARD_BOSS_1 = 35;
-    public const int AETHER_COMBAT_REWARD_BOSS_2 = 40;
-    public const int AETHER_COMBAT_REWARD_BOSS_3 = 45;
-
-    // Augments
-    public const int AETHER_MAGNET_REWARD = 20;
-
+    #region METHODS
     /******
      * *****
      * ****** START
@@ -184,40 +193,6 @@ public class GameManager : MonoBehaviour
         LoadPlayerPreferences();
         Debug.Log("Application Version: " + Application.version);
         SceneLoader.LoadScene(SceneLoader.Scene.TitleScene, false, false);
-    }
-
-    /******
-     * *****
-     * ****** LOAD_NARRATIVE
-     * *****
-     *****/
-    private Narrative LoadNarrative(string narrativeName)
-    {
-        Narrative[] allNarratives = Resources.LoadAll<Narrative>("Narratives");
-        foreach(Narrative narrative in allNarratives)
-        {
-            if (narrative.NarrativeName == narrativeName)
-                return narrative;
-        }
-        Debug.LogError("NARRATIVE " + narrativeName + " NOT FOUND!");
-        return null;
-    }
-
-    /******
-     * *****
-     * ****** LOAD_LOCATION
-     * *****
-     *****/
-    private Location LoadLocation(string locationName)
-    {
-        Location[] allLocations = Resources.LoadAll<Location>("Locations");
-        foreach (Location location in allLocations)
-        {
-            if (location.LocationFullName == locationName)
-                return location;
-        }
-        Debug.LogError("NARRATIVE " + locationName + " NOT FOUND!");
-        return null;
     }
 
     /******
@@ -351,20 +326,44 @@ public class GameManager : MonoBehaviour
 
     private void NewGame_Load()
     {
+        Narrative[] allNarratives = Resources.LoadAll<Narrative>("Narratives");
+        Narrative LoadNarrative(string narrative)
+        {
+            foreach (Narrative n in allNarratives)
+            {
+                if (n.NarrativeName == narrative)
+                    return n;
+            }
+            Debug.LogError("NARRATIVE + " + narrative + " NOT FOUND!");
+            return null;
+        }
+
         settingNarrative = LoadNarrative("Welcome to the Drift");
         newGameNarrative = LoadNarrative("Part 1: Stuck in Sylus");
-        homeBaseLocation = LoadLocation("Your Ship");
-        firstLocation = LoadLocation("Sekherd and 7th");
-
-        // Hour
-        CurrentHour = 4; // TESTING
-        IsNewHour = true;
 
         // Location
-        CurrentLocation = GetActiveLocation(firstLocation);
+        //CurrentLocation = GetActiveLocation(LoadLocation("Sekherd and 7th"));
         CurrentNarrative = settingNarrative;
-        GetActiveLocation(homeBaseLocation);
 
+        Location[] allLocations = Resources.LoadAll<Location>("Locations");
+        Location LoadLocation(string location)
+        {
+            foreach (Location l in allLocations)
+            {
+                if (l.LocationFullName == location)
+                    return l;
+            }
+            Debug.LogError("NARRATIVE " + location + " NOT FOUND!");
+            return null;
+        }
+        GetActiveLocation(LoadLocation("Your Ship"));
+        GetActiveLocation(LoadLocation("Sekherd and 7th"));
+        GetActiveLocation(LoadLocation("The Rathole Bar and Lounge"));
+        GetActiveLocation(LoadLocation("The Trash Heaps"));
+        GetActiveLocation(LoadLocation("The Oasis"));
+
+        CurrentHour = 4;
+        IsNewHour = true;
         IsTutorial = false;
         caMan.LoadNewRecruits();
         ShopItems = GetShopItems();
@@ -460,6 +459,12 @@ public class GameManager : MonoBehaviour
      * ****** SAVE_GAME
      * *****
      *****/
+    public bool CheckSave()
+    {
+        GameData data = SaveLoad.LoadGame();
+        if (data == null) return false;
+        else return true;
+    }
     public void SaveGame() // PUBLIC FOR BETA ONLY
     {
         string[] deckList = new string[pMan.PlayerDeckList.Count];
@@ -478,13 +483,17 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < npcsAndClips.Length/2; i++)
         {
             npcsAndClips[i, 0] = ActiveNPCHeroes[i].HeroName;
-            npcsAndClips[i, 1] = ActiveNPCHeroes[i].NextDialogueClip.ToString();
+
+            DialogueClip clip = ActiveNPCHeroes[i].NextDialogueClip;
+            string clipName = clip.ToString();
+            clipName = clipName.Replace(" (" + clip.GetType().Name + ")", "");
+            npcsAndClips[i, 1] = clipName;
         }
 
         string[,] locationsNPCsObjectives = new string[ActiveLocations.Count, 3];
         for (int i = 0; i < locationsNPCsObjectives.Length/3; i++)
         {
-            locationsNPCsObjectives[i, 0] = ActiveLocations[i].LocationFullName;
+            locationsNPCsObjectives[i, 0] = ActiveLocations[i].LocationName;
             locationsNPCsObjectives[i, 1] = ActiveLocations[i].CurrentNPC.HeroName;
             locationsNPCsObjectives[i, 2] = ActiveLocations[i].CurrentObjective;
         }
@@ -498,7 +507,11 @@ public class GameManager : MonoBehaviour
             recruitUnits[i] = caMan.PlayerRecruitUnits[i].CardName;
 
         string narrativeName = "";
-        if (CurrentNarrative != null) narrativeName = CurrentNarrative.NarrativeName;
+        if (CurrentNarrative != null)
+        {
+            narrativeName = CurrentNarrative.ToString();
+            narrativeName = narrativeName.Replace(" (Narrative)", "");
+        }
 
         GameData data = new GameData(CurrentHour, narrativeName, pMan.PlayerHero.HeroName,
             deckList, augments, items, pMan.AetherCells,
@@ -506,18 +519,6 @@ public class GameManager : MonoBehaviour
             shopItems, recruitUnits, RecruitLoyalty, ShopLoyalty,
             Reputation_Mages, Reputation_Mutants, Reputation_Rogues, Reputation_Techs, Reputation_Warriors);
         SaveLoad.SaveGame(data);
-    }
-
-    /******
-     * *****
-     * ****** CHECK_SAVE
-     * *****
-     *****/
-    public bool CheckSave()
-    {
-        GameData data = SaveLoad.LoadGame();
-        if (data == null) return false;
-        else return true;
     }
 
     /******
@@ -530,105 +531,54 @@ public class GameManager : MonoBehaviour
         GameData data = SaveLoad.LoadGame();
         if (data == null) return false;
 
-        /** LOAD RESOURCES **/
-        // NARRATIVES
-        //Narrative[] narratives = Resources.LoadAll<Narrative>("Narratives");
-        Narrative[] narratives = Resources.LoadAll<Narrative>("");
-        List<Narrative> allNarratives = new List<Narrative>();
-        for (int i = 0; i < narratives.Length; i++)
-            allNarratives.Add(narratives[i]);
-
-        // HEROES
-        //Hero[] heroes = Resources.LoadAll<Hero>("Heroes");
-        Hero[] heroes = Resources.LoadAll<Hero>("");
-        List<Hero> allHeroes = new List<Hero>();
-        for (int i = 0; i < heroes.Length; i++)
-            allHeroes.Add(heroes[i]);
-
-        // CARDS
-        List<Card> allcards = new List<Card>();
-        Card[] cards = Resources.LoadAll<Card>("");
-        for (int i = 0; i < cards.Length; i++)
-            allcards.Add(cards[i]);
-
-        /*
-        List<Card> allcards = new List<Card>();
-        Card[] cards = Resources.LoadAll<Card>("Cards");
-        Card[] combatRewards = Resources.LoadAll<Card>("Combat Rewards");
-        Card[] recruitUnits = Resources.LoadAll<Card>("Recruit Units");
-        Card[] executionCards = Resources.LoadAll<Card>("Execution Cards");
-        for (int i = 0; i < cards.Length; i++)
-            allcards.Add(cards[i]);
-        for (int i = 0; i < combatRewards.Length; i++)
-            allcards.Add(combatRewards[i]);
-        for (int i = 0; i < recruitUnits.Length; i++)
-            allcards.Add(recruitUnits[i]);
-        for (int i = 0; i < executionCards.Length; i++)
-            allcards.Add(executionCards[i]);
-        */
-
-        // LOCATIONS
-        Location[] locations = Resources.LoadAll<Location>("");
-        List<Location> allLocations = new List<Location>();
-        for (int i = 0; i < locations.Length; i++)
-            allLocations.Add(locations[i]);
-
-        /*
-        Location[] locations = Resources.LoadAll<Location>("Locations");
-        Location[] randomEncounters = Resources.LoadAll<Location>("Random Encounters");
-        List<Location> allLocations = new List<Location>();
-        for (int i = 0; i < locations.Length; i++)
-            allLocations.Add(locations[i]);
-        for (int i = 0; i < randomEncounters.Length; i++)
-            allLocations.Add(randomEncounters[i]);
-        */
-
-        // DIALOGUE
-        //DialogueClip[] clips = Resources.LoadAll<DialogueClip>("Dialogue");
-        DialogueClip[] clips = Resources.LoadAll<DialogueClip>("");
-        List<DialogueClip> allClips = new List<DialogueClip>();
-        for (int i = 0; i < clips.Length; i++)
-            allClips.Add(clips[i]);
-
-        // AGUMENTS
-        //HeroAugment[] augments = Resources.LoadAll<HeroAugment>("Hero Augments");
-        HeroAugment[] augments = Resources.LoadAll<HeroAugment>("");
-        List<HeroAugment> allAugments = new List<HeroAugment>();
-        for (int i = 0; i < augments.Length; i++)
-            allAugments.Add(augments[i]);
-
-        // ITEMS
-        //HeroItem[] items = Resources.LoadAll<HeroItem>("Items");
-        HeroItem[] items = Resources.LoadAll<HeroItem>("");
-        List<HeroItem> allItems = new List<HeroItem>();
-        for (int i = 0; i < items.Length; i++)
-            allItems.Add(items[i]);
-
         // CURRENT HOUR
         CurrentHour = data.CurrentHour;
 
         // CURRENT NARRATIVE
         if (data.CurrentNarrative != "")
-            CurrentNarrative = GetNarrative(data.CurrentNarrative);
+        {
+            CurrentNarrative = Resources.Load<Narrative>("Narratives/" + data.CurrentNarrative);
+            if (CurrentNarrative == null) Debug.LogError("NARRATIVE " + data.CurrentNarrative + " NOT FOUND!");
+        }
         else CurrentNarrative = null;
 
         // PLAYER HERO
-        pMan.PlayerHero = GetHero(data.PlayerHero) as PlayerHero;
+        PlayerHero pHero;
+        pHero = Resources.Load<PlayerHero>("Heroes/Player Heroes/" + data.PlayerHero);
+        if (pHero == null) Debug.LogError("HERO " + data.PlayerHero + " NOT FOUND!");
+        else pMan.PlayerHero = pHero;
 
         // DECK LIST
         pMan.PlayerDeckList.Clear();
         for (int i = 0; i < data.PlayerDeck.Length; i++)
-            caMan.AddCard(GetCard(data.PlayerDeck[i]), PLAYER);
+        {
+            Card card;
+            card = Resources.Load<Card>("Cards_Starting/" + data.PlayerDeck[i]);
+            if (card == null) card = Resources.Load<Card>("Cards_Units/" + data.PlayerDeck[i]);
+            if (card == null) card = Resources.Load<Card>("Cards_Actions/" + data.PlayerDeck[i]);
+            if (card == null) Debug.LogError("CARD " + data.PlayerDeck[i] + " NOT FOUND!");
+            else caMan.AddCard(card, PLAYER);
+        }
 
         // AUGMENTS
         pMan.HeroAugments.Clear();
         for (int i = 0; i < data.PlayerAugments.Length; i++)
-            pMan.HeroAugments.Add(GetAugment(data.PlayerAugments[i]));
+        {
+            HeroAugment augment;
+            augment = Resources.Load<HeroAugment>("Hero Augments/" + data.PlayerAugments[i]);
+            if (augment == null) Debug.LogError("AUGMENT " + data.PlayerAugments[i] + " NOT FOUND!");
+            else pMan.HeroAugments.Add(augment);
+        }
 
         // ITEMS
         pMan.HeroItems.Clear();
         for (int i = 0; i < data.PlayerItems.Length; i++)
-            pMan.HeroItems.Add(GetItem(data.PlayerItems[i]));
+        {
+            HeroItem item;
+            item = Resources.Load<HeroItem>("Hero Items/" + data.PlayerItems[i]);
+            if (item == null) Debug.LogError("ITEM " + data.PlayerItems[i] + " NOT FOUND!");
+            else pMan.HeroItems.Add(item);
+        }
 
         // AETHER CELLS
         pMan.AetherCells = data.AetherCells;
@@ -637,17 +587,36 @@ public class GameManager : MonoBehaviour
         ActiveNPCHeroes.Clear();
         for (int i = 0; i < data.NPCSAndClips.Length/2; i++)
         {
-            NPCHero npc = GetActiveNPC(GetHero(data.NPCSAndClips[i, 0]) as NPCHero);
-            npc.NextDialogueClip = GetClip(data.NPCSAndClips[i, 1]);
+            NPCHero npc;
+            npc = Resources.Load<NPCHero>("Heroes/NPC Heroes/" + data.NPCSAndClips[i, 0]);
+            if (npc == null) Debug.LogError("NPC " + data.NPCSAndClips[i, 0] + " NOT FOUND!");
+            else
+            {
+                npc = GetActiveNPC(npc);
+                DialogueClip clip;
+                clip = Resources.Load<DialogueClip>("Dialogue/" + npc.HeroName + "/" + data.NPCSAndClips[i, 1]);
+                if (clip == null) Debug.LogError("CLIP " + data.NPCSAndClips[i, 1] + " FOR " + npc.HeroName + " NOT FOUND!");
+                else npc.NextDialogueClip = clip;
+            }
         }
 
         // LOCATIONS
         ActiveLocations.Clear();
         for (int i = 0; i < data.LocationsNPCsObjectives.Length/3; i++)
         {
-            Location loc = GetActiveLocation(GetLocation(data.LocationsNPCsObjectives[i, 0]));
-            loc.CurrentNPC = GetActiveNPC(GetHero(data.LocationsNPCsObjectives[i, 1]) as NPCHero);
-            loc.CurrentObjective = data.LocationsNPCsObjectives[i, 2];
+            Location loc;
+            string name = data.LocationsNPCsObjectives[i, 0];
+            loc = Resources.Load<Location>("Random Encounters/" + name);
+            if (loc == null) loc = Resources.Load<Location>("Locations/" + name);
+            if (loc == null) Debug.LogError("LOCATION " + name + " NOT FOUND!");
+            else
+            {
+                loc = GetActiveLocation(loc);
+
+                // null checks
+                loc.CurrentNPC = GetActiveNPC(Resources.Load<NPCHero>("Heroes/NPC Heroes/" + data.LocationsNPCsObjectives[i, 1]));
+                loc.CurrentObjective = data.LocationsNPCsObjectives[i, 2];
+            }
         }
         VisitedLocations.Clear();
         foreach (string location in data.VisitedLocations)
@@ -656,12 +625,12 @@ public class GameManager : MonoBehaviour
         // SHOP ITEMS
         ShopItems.Clear();
         for (int i = 0; i < data.ShopItems.Length; i++)
-            ShopItems.Add(GetItem(data.ShopItems[i]));
+            ShopItems.Add(Resources.Load<HeroItem>("Hero Items/" + data.ShopItems[i]));
 
         // RECRUIT UNITS
         caMan.PlayerRecruitUnits.Clear();
         for (int i = 0; i < data.RecruitUnits.Length; i++)
-            caMan.PlayerRecruitUnits.Add(GetCard(data.RecruitUnits[i]) as UnitCard);
+            caMan.PlayerRecruitUnits.Add(Resources.Load<UnitCard>("Cards_Units/" + data.RecruitUnits[i]));
 
         // LOYALTY
         RecruitLoyalty = data.RecruitLoyalty;
@@ -674,55 +643,6 @@ public class GameManager : MonoBehaviour
         Reputation_Techs = data.Reputation_Techs;
         Reputation_Warriors = data.Reputation_Warriors;
 
-        Narrative GetNarrative(string narrativeName)
-        {
-            int index = allNarratives.FindIndex(x => x.NarrativeName == narrativeName);
-            if (index != -1) return allNarratives[index];
-            else Debug.LogError("NARRATIVE NOT FOUND!");
-            throw new System.NullReferenceException();
-        }
-        Hero GetHero(string heroName)
-        {
-            int index = allHeroes.FindIndex(x => x.HeroName == heroName);
-            if (index != -1) return allHeroes[index];
-            else Debug.LogError("HERO NOT FOUND!");
-            throw new System.NullReferenceException();
-        }
-        Card GetCard(string cardName)
-        {
-            int index = allcards.FindIndex(x => x.CardName == cardName);
-            if (index != -1) return allcards[index];
-            else Debug.LogError("CARD NOT FOUND!");
-            throw new System.NullReferenceException();
-        }
-        Location GetLocation(string locationName)
-        {
-            int index = allLocations.FindIndex(x => x.LocationFullName == locationName);
-            if (index != -1) return allLocations[index];
-            else Debug.LogError("LOCATION NOT FOUND!");
-            throw new System.NullReferenceException();
-        }
-        DialogueClip GetClip(string clipName)
-        {
-            int index = allClips.FindIndex(x => x.ToString() == clipName);
-            if (index != -1) return allClips[index];
-            else Debug.LogError("CLIP NOT FOUND!");
-            throw new System.NullReferenceException();
-        }
-        HeroAugment GetAugment(string augmentName)
-        {
-            int index = allAugments.FindIndex(x => x.AugmentName == augmentName);
-            if (index != -1) return allAugments[index];
-            else Debug.LogError("AUGMENT NOT FOUND!");
-            throw new System.NullReferenceException();
-        }
-        HeroItem GetItem(string itemName)
-        {
-            int index = allItems.FindIndex(x => x.ItemName == itemName);
-            if (index != -1) return allItems[index];
-            else Debug.LogError("ITEM NOT FOUND!");
-            throw new System.NullReferenceException();
-        }
         return true;
     }
 
@@ -997,8 +917,13 @@ public class GameManager : MonoBehaviour
      *****/
     public bool LocationOpen(Location location)
     {
-        if (VisitedLocations.FindIndex(x => location.LocationName == x) == -1)
-            return true; // If the location has NOT been visited, it's NEVER closed
+        if (location.IsHomeBase) return true; // If the location is homebase, return true ALWAYS
+        if (CurrentHour == 4) return false; // If the current hour is 4, return false ALWAYS
+
+        if (location.IsPriorityLocation &&
+            VisitedLocations.FindIndex(x => location.LocationName == x) == -1)
+            return true; // If a priority location has NOT been visited, it's NEVER closed
+
         switch (CurrentHour)
         {
             case 1:
@@ -1034,10 +959,10 @@ public class GameManager : MonoBehaviour
 
         if (hasRested)
         {
-            uMan.CreateFleetingInfoPopup("You have rested!\nShops have been refreshed!", true);
+            uMan.CreateFleetingInfoPopup("You have rested!\nShops refreshed!");
             NextHour(true);
-            ShopItems = GetShopItems(); // TESTING
-            caMan.LoadNewRecruits(); // TESTING
+            ShopItems = GetShopItems();
+            caMan.LoadNewRecruits();
         }
     }
 
@@ -1062,7 +987,7 @@ public class GameManager : MonoBehaviour
     {
         auMan.StartStopSound("Soundtrack_Narrative1",
             null, AudioManager.SoundType.Soundtrack);
-        auMan.StartStopSound(null, CurrentNarrative.NarrativeStartSound); // TESTING
+        auMan.StartStopSound(null, CurrentNarrative.NarrativeStartSound);
         auMan.StartStopSound(null,
             CurrentNarrative.NarrativeSoundscape, AudioManager.SoundType.Soundscape);
         NarrativeSceneDisplay nsd = FindObjectOfType<NarrativeSceneDisplay>();
@@ -1098,10 +1023,6 @@ public class GameManager : MonoBehaviour
         eHD.HeroStats.SetActive(false);
         eHD.HeroNameObject.SetActive(false);
         uMan.CombatLog.SetActive(false);
-
-        uMan.AugmentsDropdown.SetActive(false);
-        uMan.ItemsDropdown.SetActive(false);
-        uMan.ReputationsDropdown.SetActive(false);
 
         // EFFECT MANAGER
         foreach (Effect e in efMan.GiveNextEffects_Player) Destroy(e);
@@ -1153,6 +1074,8 @@ public class GameManager : MonoBehaviour
         pMan.CurrentEnergy = 0;
         pMan.HeroUltimateProgress = 0;
         pMan.DamageTaken_Turn = 0;
+        foreach (HeroItem item in pMan.HeroItems) // TESTING
+            item.IsUsed = false;
 
         // UPDATE DECKS
         caMan.UpdateDeck(PLAYER);
@@ -1173,7 +1096,7 @@ public class GameManager : MonoBehaviour
         else soundtrack = "Soundtrack_Combat1";
         auMan.StartStopSound(soundtrack, null, AudioManager.SoundType.Soundtrack);
         auMan.StopCurrentSoundscape();
-        auMan.StartStopSound("SFX_StartCombat1");
+        FunctionTimer.Create(() => auMan.StartStopSound("SFX_StartCombat1"), 0.15f); // TESTING
 
         void CombatStart()
         {
@@ -1229,7 +1152,7 @@ public class GameManager : MonoBehaviour
                 {
                     UnitCard newCard = caMan.NewCardInstance(card) as UnitCard;
                     evMan.NewDelayedAction(() =>
-                    efMan.PlayCreatedUnit(newCard, false, coMan.EnemyHero), 0.5f); // TESTING
+                    efMan.PlayCreatedUnit(newCard, false, coMan.EnemyHero), 0.5f);
                 }
             }
         }
@@ -1263,6 +1186,9 @@ public class GameManager : MonoBehaviour
         efMan.EffectsResolving = false;
         pMan.IsMyTurn = false;
 
+        foreach (HeroItem item in pMan.HeroItems) // TESTING
+            item.IsUsed = false;
+
         // Created Cards Played
         coMan.ExploitsPlayed_Player = 0;
         coMan.ExploitsPlayed_Enemy = 0;
@@ -1294,8 +1220,6 @@ public class GameManager : MonoBehaviour
             Debug.LogError("PLAYER NOT FOUND!");
             return;
         }
-
-        coMan.ActionsPlayed_ThisTurn = 0;
 
         evMan.NewDelayedAction(() => TurnPopup(), 0);
 
@@ -1383,7 +1307,8 @@ public class GameManager : MonoBehaviour
         caMan.TriggerPlayedUnits(CardManager.TRIGGER_TURN_END, player), 0);
 
         evMan.NewDelayedAction(() => RefreshAllUnits(), 0.5f);
-        evMan.NewDelayedAction(() => RemoveEffects(), 0.5f);
+        evMan.NewDelayedAction(() => RemoveEffects(), 0);
+        evMan.NewDelayedAction(() => ResetTriggerCounts(), 0); // TESTING
 
         if (player == ENEMY)
         {
@@ -1425,6 +1350,29 @@ public class GameManager : MonoBehaviour
 
             pMan.DamageTaken_Turn = 0;
             enMan.DamageTaken_Turn = 0;
+        }
+        void ResetTriggerCounts()
+        {
+            foreach (GameObject unit in coMan.PlayerZoneCards) ResetTrigger(unit);
+            foreach (GameObject unit in coMan.EnemyZoneCards) ResetTrigger(unit);
+
+            void ResetTrigger(GameObject unit)
+            {
+                UnitCardDisplay ucd = unit.GetComponent<UnitCardDisplay>();
+                foreach (CardAbility ca in ucd.CurrentAbilities)
+                {
+                    if (ca is TriggeredAbility tra)
+                    {
+                        tra.TriggerCount = 0;
+                        ucd.EnableTriggerIcon(tra.AbilityTrigger, true);
+                    }
+                    else if (ca is ModifierAbility ma)
+                    {
+                        ma.TriggerCount = 0;
+                        ucd.EnableTriggerIcon(null, true);
+                    }
+                }
+            }
         }
     }
 
@@ -1515,29 +1463,31 @@ public class GameManager : MonoBehaviour
      *****/
     public List<HeroItem> GetShopItems()
     {
-        HeroItem[] allItems = Resources.LoadAll<HeroItem>("Items");
-        allItems.Shuffle();
+        HeroItem[] allItems = Resources.LoadAll<HeroItem>("Hero Items");
 
-        List<HeroItem> shopItems = new List<HeroItem>();
-        GetItems(false);
-        if (shopItems.Count < 8)
+        // Rare Item Functionality
+        // <Common> : <Rare> ::: <3> : <1>
+        List<HeroItem> rarefiedItems = new List<HeroItem>();
+        foreach (HeroItem item in allItems)
         {
-            shopItems.Clear();
-            GetItems(true);
-        }
-        return shopItems;
-
-        void GetItems(bool allowDuplicates)
-        {
-            foreach (HeroItem item in allItems)
+            rarefiedItems.Add(item);
+            if (!item.IsRareItem)
             {
-                if (allowDuplicates ||
-                    (pMan.HeroItems.FindIndex(x => x.ItemName == item.ItemName) == -1))
-                    shopItems.Add(item);
-                
-                if (shopItems.Count == 8) return;
+                rarefiedItems.Add(item);
+                rarefiedItems.Add(item);
             }
         }
+        rarefiedItems.Shuffle();
+
+        List<HeroItem> shopItems = new List<HeroItem>();
+        foreach (HeroItem item in rarefiedItems)
+        {
+            if ((pMan.HeroItems.FindIndex(x => x.ItemName == item.ItemName) == -1) &&
+                (shopItems.FindIndex(x => x.ItemName == item.ItemName) == -1)) shopItems.Add(item);
+
+            if (shopItems.Count == 8) return shopItems;
+        }
+        return shopItems;
     }
 
     /******
@@ -1545,17 +1495,27 @@ public class GameManager : MonoBehaviour
      * ****** GET_ITEM_COST
      * *****
      *****/
-    public int GetItemCost(HeroItem item, out bool isDiscounted)
+    public int GetItemCost(HeroItem item, out bool isDiscounted, bool isItemRemoval)
     {
         int itemCost;
-        if (item.IsRareItem) itemCost = BUY_RARE_ITEM_COST;
-        else itemCost = BUY_ITEM_COST;
+        if (isItemRemoval)
+        {
+            if (item.IsRareItem) itemCost = SELL_RARE_ITEM_VALUE;
+            else itemCost = SELL_ITEM_VALUE;
+        }
+        else
+        {
+            if (item.IsRareItem) itemCost = BUY_RARE_ITEM_COST;
+            else itemCost = BUY_ITEM_COST;
+        }
+        
         if (ShopLoyalty == SHOP_LOYALTY_GOAL)
         {
             isDiscounted = true;
             itemCost -= BUY_ITEM_COST;
         }
         else isDiscounted = false;
+
         return itemCost;
     }
 
@@ -1574,12 +1534,27 @@ public class GameManager : MonoBehaviour
         }
 
         int recruitCost;
-        if (unitCard.IsRare) recruitCost = RECRUIT_RARE_UNIT_COST;
-        else recruitCost = RECRUIT_UNIT_COST;
+        switch (unitCard.CardRarity)
+        {
+            case Card.Rarity.Common:
+                recruitCost = RECRUIT_COMMON_UNIT_COST;
+                break;
+            case Card.Rarity.Rare:
+                recruitCost = RECRUIT_RARE_UNIT_COST;
+                break;
+            case Card.Rarity.Legend:
+                recruitCost = RECRUIT_LEGEND_UNIT_COST;
+                break;
+            default:
+                Debug.LogError("INVALID RARITY!");
+                isDiscounted = false;
+                return 0;
+        }
+
         if (RecruitLoyalty == RECRUIT_LOYALTY_GOAL)
         {
             isDiscounted = true;
-            recruitCost -= RECRUIT_UNIT_COST;
+            recruitCost -= RECRUIT_COMMON_UNIT_COST;
         }
         else isDiscounted = false;
         return recruitCost;
@@ -1593,8 +1568,48 @@ public class GameManager : MonoBehaviour
     public int GetCloneCost(UnitCard unitCard)
     {
         int cloneCost;
-        if (unitCard.IsRare) cloneCost = CLONE_RARE_UNIT_COST;
-        else cloneCost = CLONE_UNIT_COST;
+        switch (unitCard.CardRarity)
+        {
+            case Card.Rarity.Common:
+                cloneCost = CLONE_COMMON_UNIT_COST;
+                break;
+            case Card.Rarity.Rare:
+                cloneCost = CLONE_RARE_UNIT_COST;
+                break;
+            case Card.Rarity.Legend:
+                cloneCost = CLONE_LEGEND_UNIT_COST;
+                break;
+            default:
+                Debug.LogError("INVALID RARITY!");
+                return 0;
+        }
         return cloneCost;
     }
+
+    /******
+     * *****
+     * ****** GET_SELL_COST
+     * *****
+     *****/
+    public int GetSellCost(Card card)
+    {
+        int sellCost;
+        switch (card.CardRarity)
+        {
+            case Card.Rarity.Common:
+                sellCost = SELL_COMMON_CARD_VALUE;
+                break;
+            case Card.Rarity.Rare:
+                sellCost = SELL_RARE_CARD_VALUE;
+                break;
+            case Card.Rarity.Legend:
+                sellCost = SELL_LEGEND_CARD_VALUE;
+                break;
+            default:
+                Debug.LogError("INVALID RARITY!");
+                return 0;
+        }
+        return sellCost;
+    }
+    #endregion
 }

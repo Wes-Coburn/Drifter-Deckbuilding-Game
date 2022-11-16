@@ -76,7 +76,7 @@ public class NewCardPopupDisplay : MonoBehaviour
         newCardChest.SetActive(false);
         foreach (GameObject button in addCardButtons) button.SetActive(true);
         ignoreCardButton.SetActive(true);
-        anMan.CreateParticleSystem(null, ParticleSystemHandler.ParticlesType.ButtonPress, 1);
+        anMan.CreateParticleSystem(null, ParticleSystemHandler.ParticlesType.ButtonPress);
     }
 
     public void DisplayNewCard()

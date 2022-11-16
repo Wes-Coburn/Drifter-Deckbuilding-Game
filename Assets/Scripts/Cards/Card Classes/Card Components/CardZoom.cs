@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CardZoom : MonoBehaviour, IPointerClickHandler
+public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private GameObject unitZoomCardPrefab;
     [SerializeField] private GameObject actionZoomCardPrefab;
@@ -20,6 +20,8 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
 
     private UIManager uMan;
     private CombatManager coMan;
+    private EffectManager efMan;
+
     private CardDisplay cardDisplay;
     private List<GameObject> zoomPopups;
 
@@ -35,8 +37,8 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     public const string ZOOM_CARD_TIMER = "ZoomCardTimer";
     public const string ABILITY_POPUP_TIMER = "AbilityPopupTimer";
 
-    private static bool clickTooltipBool = false;
-    private const string CLICK_TOOLTIP_TIMER = "ClickTooltipTimer";
+    //private static bool clickTooltipBool = false;
+    //private const string CLICK_TOOLTIP_TIMER = "ClickTooltipTimer";
 
     public GameObject UnitZoomCardPrefab { get => unitZoomCardPrefab; }
     public GameObject ActionZoomCardPrefab { get => actionZoomCardPrefab; }
@@ -53,6 +55,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
     {
         coMan = CombatManager.Instance;
         uMan = UIManager.Instance;
+        efMan = EffectManager.Instance;
         playerHand = coMan.PlayerHand;
         playerZone = coMan.PlayerZone;
         playerActionZone = coMan.PlayerActionZone;
@@ -70,21 +73,26 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
      *****/
     public void OnPointerClick(PointerEventData pointerEventData)
     {
-        if (DragDrop.DraggingCard != null || ZoomCardIsCentered || uMan.PlayerIsTargetting) return;
+        if (DragDrop.DraggingCard != null || ZoomCardIsCentered) return;
+
+        if (uMan.PlayerIsTargetting)
+        {
+            if (!efMan.CurrentEffectGroup.Targets.PlayerHand) return;
+
+            /*
+            if (efMan.CurrentEffect is DrawEffect de && de.IsDiscardEffect) { }
+            else return;
+            */
+        }
 
         GameObject parent = null;
         GameObject container = GetComponent<CardDisplay>().CardContainer;
         if (container != null) parent = container.transform.parent.gameObject;
-        else
-        {
-            Debug.LogError("CONTAINER IS NULL!");
-            return;
-        }
-        if (parent == enemyHand) return; // TESTING
+        if (enemyHand != null && parent == enemyHand) return;
 
         if (pointerEventData.button != PointerEventData.InputButton.Right)
         {
-            RightClickTooltip();
+            //RightClickTooltip();
             return;
         }
 
@@ -95,6 +103,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
         CreateAbilityPopups(new Vector2(590, 0), POPUP_SCALE_VALUE, false);
         CreateZoomCard(new Vector2(0, 50), CENTER_SCALE_VALUE);
 
+        /*
         void RightClickTooltip()
         {
             if (clickTooltipBool)
@@ -106,6 +115,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
                 clickTooltipBool = false, 2, CLICK_TOOLTIP_TIMER);
             }
         }
+        */
     }
 
     /******
@@ -113,19 +123,26 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
      * ****** ON_POINTER_ENTER
      * *****
      *****/
-    public void OnPointerEnter()
+    public void OnPointerEnter(PointerEventData pointerEventData)
     {
         if (DragDrop.DraggingCard != null || ZoomCardIsCentered) return;
+
+        if (uMan.PlayerIsTargetting)
+        {
+            if (!efMan.CurrentEffectGroup.Targets.PlayerHand) return;
+
+            /*
+            if (efMan.CurrentEffect is DrawEffect de && de.IsDiscardEffect) { }
+            else return;
+            */
+        }
 
         GameObject parent = null;
         GameObject container = GetComponent<CardDisplay>().CardContainer;
         if (container != null) parent = container.transform.parent.gameObject;
+        else return;
 
-        if (uMan.PlayerIsTargetting && parent != playerActionZone)
-        {
-            if (EffectManager.Instance.CurrentEffect is DrawEffect de && de.IsDiscardEffect) { }
-            else return;
-        }
+        if (parent == enemyHand || parent == playerActionZone || parent == enemyActionZone) return;
 
         float cardYPos;
         float popupXPos;
@@ -141,84 +158,35 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
             if (this == null) return;
 
             RectTransform rect;
-            if (parent != null)
-            {
-                if (parent == playerHand)
-                {
-                    Vector2 bufferDistance = container.GetComponent<CardContainer>().BufferDistance;
-                    float bufferY = -bufferDistance.y;
 
-                    rect = playerHand.GetComponent<RectTransform>();
-                    cardYPos = rect.position.y + ZOOM_BUFFER + 20 + bufferY;
-                }
-                else if (parent == playerZone)
-                {
-                    rect = playerZone.GetComponent<RectTransform>();
-                    cardYPos = rect.position.y + ZOOM_BUFFER - 20;
-                }
-                else if (parent == playerActionZone)
-                {
-                    rect = playerActionZone.GetComponent<RectTransform>();
-                    cardYPos = rect.position.y + ZOOM_BUFFER;
-                    return;
-                }
-                else if (parent == enemyHand)
-                {
-                    /*
-                    rect = enemyHand.GetComponent<RectTransform>();
-                    cardYPos = rect.position.y - ZOOM_BUFFER - 50;
-                    */
-                    return;
-                }
-                else if (parent == enemyZone)
-                {
-                    rect = enemyZone.GetComponent<RectTransform>();
-                    cardYPos = (int)rect.position.y - ZOOM_BUFFER;
-                }
-                else if (parent == enemyActionZone)
-                {
-                    rect = enemyActionZone.GetComponent<RectTransform>();
-                    cardYPos = rect.position.y + ZOOM_BUFFER;
-                    
-                    /*
-                    Debug.Log("ZOOM DISABLED FOR <ENEMY ACTION ZONE>!");
-                    return;
-                    */
-                }
-                else
-                {
-                    Debug.LogError("INVALID PARENT!");
-                    return;
-                }
-                Vector3 vec3 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                if (vec3.x > 0) popupXPos = vec3.x - 400;
-                else popupXPos = vec3.x + 400;
-                CreateZoomCard(new Vector2(vec3.x, cardYPos), ZOOM_SCALE_VALUE);
-                FunctionTimer.Create(() => ShowAbilityPopup(), 0.75f, ABILITY_POPUP_TIMER);
+            if (parent == playerHand)
+            {
+                Vector2 bufferDistance = container.GetComponent<CardContainer>().BufferDistance;
+                float bufferY = -bufferDistance.y;
+
+                rect = playerHand.GetComponent<RectTransform>();
+                cardYPos = rect.position.y + ZOOM_BUFFER + 20 + bufferY;
+            }
+            else if (parent == playerZone)
+            {
+                rect = playerZone.GetComponent<RectTransform>();
+                cardYPos = rect.position.y + ZOOM_BUFFER - 20;
+            }
+            else if (parent == enemyZone)
+            {
+                rect = enemyZone.GetComponent<RectTransform>();
+                cardYPos = (int)rect.position.y - ZOOM_BUFFER;
             }
             else
             {
-                // Hero Select Scene
-                if (SceneLoader.IsActiveScene(SceneLoader.Scene.HeroSelectScene))
-                    FunctionTimer.Create(() =>
-                    CreateAbilityPopups(new Vector2(0, 150),
-                    ZOOM_SCALE_VALUE, false), 0.5f, ABILITY_POPUP_TIMER);
-                // Card Page Popup
-                else if (uMan.CardPagePopup != null)
-                    FunctionTimer.Create(() =>
-                    CreateAbilityPopups(new Vector2(0, -300),
-                    MED_POPUP_SCALE_VALUE, false), 0.5f, ABILITY_POPUP_TIMER);
-                // New Card Popup
-                else if (uMan.NewCardPopup != null)
-                    FunctionTimer.Create(() =>
-                    CreateAbilityPopups(new Vector2(0, 0),
-                    POPUP_SCALE_VALUE, false), 0.5f, ABILITY_POPUP_TIMER);
-                // Choose Card Popup
-                else if (uMan.ChooseCardPopup != null)
-                    FunctionTimer.Create(() =>
-                    CreateAbilityPopups(new Vector2(0, 0),
-                    POPUP_SCALE_VALUE, false), 0.5f, ABILITY_POPUP_TIMER);
+                Debug.LogError("INVALID PARENT!");
+                return;
             }
+            Vector3 vec3 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if (vec3.x > 0) popupXPos = vec3.x - 400;
+            else popupXPos = vec3.x + 400;
+            CreateZoomCard(new Vector2(vec3.x, cardYPos), ZOOM_SCALE_VALUE);
+            FunctionTimer.Create(() => ShowAbilityPopup(), 0.75f, ABILITY_POPUP_TIMER);
         }
     }
 
@@ -227,7 +195,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler
      * ****** ON_POINTER_EXIT
      * *****
      *****/
-    public void OnPointerExit()
+    public void OnPointerExit(PointerEventData pointerEventData)
     {
         if (DragDrop.DraggingCard != null || ZoomCardIsCentered) return;
         uMan.DestroyZoomObjects();

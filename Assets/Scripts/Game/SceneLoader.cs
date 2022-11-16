@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,6 +6,8 @@ public static class SceneLoader
 {
     private static Action onSceneLoaderCallback;
     private static Action onSceneUpdateCallback;
+    public static bool SceneIsLoading = false;
+    public static Action LoadAction;
 
     public enum Scene
     {
@@ -21,8 +22,6 @@ public static class SceneLoader
         CreditsScene
     }
 
-    public static bool SceneIsLoading = false;
-    public static Action LoadAction;
     public static bool IsActiveScene(Scene scene)
     {
         if (SceneManager.GetActiveScene().name == scene.ToString()) return true;
@@ -48,7 +47,7 @@ public static class SceneLoader
         onSceneLoaderCallback = () =>
         {
             uMan.SetSkybar(false);
-            uMan.SetSceneFader(false); // TESTING
+            uMan.SetSceneFader(false);
             auMan.StartStopSound("SFX_SceneLoading", null,
                 AudioManager.SoundType.SFX, false, true);
 
@@ -56,7 +55,7 @@ public static class SceneLoader
             switch (scene)
             {
                 case Scene.TitleScene:
-                    chapterText = "MAIN MENU";
+                    chapterText = "Main Menu";
                     break;
                 case Scene.HeroSelectScene:
                     chapterText = "Choose Your Drifter";
@@ -66,22 +65,22 @@ public static class SceneLoader
                     else chapterText = gMan.CurrentNarrative.NarrativeName;
                     break;
                 case Scene.WorldMapScene:
-                    chapterText = "WORLD MAP";
+                    chapterText = "World Map";
                     break;
                 case Scene.HomeBaseScene:
-                    chapterText = "YOUR SHIP";
+                    chapterText = "Your Ship";
                     break;
                 case Scene.DialogueScene:
                     chapterText = gMan.CurrentLocation.LocationFullName;
                     break;
                 case Scene.CombatScene:
-                    chapterText = "COMBAT";
+                    chapterText = "Combat";
                     break;
                 case Scene.CreditsScene:
-                    chapterText = "CREDITS";
+                    chapterText = "Credits";
                     break;
                 default:
-                    chapterText = "DRIFTER";
+                    chapterText = "Drifter";
                     Debug.LogError("SCENE TYPE NOT FOUND!");
                     break;
             }
@@ -154,16 +153,16 @@ public static class SceneLoader
             uMan.SetSkybar(showSkybar, hideChildren);
         };
 
-        // Corotoutines
-        gMan.StopAllCoroutines(); // TESTING
-        anMan.StopAllCoroutines(); // TESTING
-        dMan.StopAllCoroutines(); // TESTING
-        uMan.StopAllCoroutines(); // TESTING
+        // Stop Corotoutines
+        gMan.StopAllCoroutines();
+        anMan.StopAllCoroutines();
+        dMan.StopAllCoroutines();
+        uMan.StopAllCoroutines();
 
         // Reset Managers
-        dMan.Reset_DialogueManager(); // TESTING
-        evMan.Reset_EventManager(); // TESTING
-        efMan.Reset_EffectManager(); // TESTING
+        dMan.Reset_DialogueManager();
+        evMan.Reset_EventManager();
+        efMan.Reset_EffectManager();
 
         if (fadeTransition)
         {

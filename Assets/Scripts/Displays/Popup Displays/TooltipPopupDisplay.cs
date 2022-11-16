@@ -1,5 +1,4 @@
 using UnityEngine;
-using TMPro;
 using UnityEngine.EventSystems;
 
 public class TooltipPopupDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler

@@ -5,13 +5,18 @@ using TMPro;
 
 public class UnitCardDisplay : CardDisplay
 {
-    [SerializeField] private GameObject unitStats;
-    [SerializeField] private GameObject currentAbilitiesDisplay;
+    [Header("Stats"), SerializeField] private GameObject unitStats;
     [SerializeField] private GameObject powerScoreDisplay;
     [SerializeField] private GameObject healthScoreDisplay;
-    [SerializeField] private GameObject exhaustedIcon;
+    [SerializeField] private GameObject currentAbilitiesDisplay;
+    [Header("Visual Effects"), SerializeField] private GameObject exhaustedIcon;
+    [SerializeField] private GameObject cardDimmer;
     [SerializeField] private GameObject destroyedIcon;
-    [SerializeField] private GameObject abilityIconPrefab;
+    [Header("Ability VFX"), SerializeField] private GameObject vfx_Defender;
+    [SerializeField] private GameObject vfx_Forcefield;
+    [SerializeField] private GameObject vfx_Stealth;
+    [SerializeField] private GameObject vfx_Ward;
+    [Header("Prefabs"), SerializeField] private GameObject abilityIconPrefab;
     [SerializeField] private GameObject zoomAbilityIconPrefab;
 
     private AudioManager auMan;
@@ -80,12 +85,13 @@ public class UnitCardDisplay : CardDisplay
         {
             UnitCard.IsExhausted = value;
             exhaustedIcon.SetActive(value);
+            cardDimmer.SetActive(value);
         }
     }
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
+        //base.Awake();
         auMan = AudioManager.Instance;
         caMan = CardManager.Instance;
         AbilityIcons = new List<GameObject>();
@@ -103,6 +109,12 @@ public class UnitCardDisplay : CardDisplay
         base.DisplayCard();
         DisplayPower(CurrentPower);
         DisplayHealth(CurrentHealth);
+
+        vfx_Defender.SetActive(false);
+        vfx_Forcefield.SetActive(false);
+        vfx_Stealth.SetActive(false);
+        vfx_Ward.SetActive(false);
+
         foreach (CardAbility cardAbility in UnitCard.CurrentAbilities)
             AddCurrentAbility(cardAbility, true);
     }
@@ -205,12 +217,10 @@ public class UnitCardDisplay : CardDisplay
         CurrentPower = UnitCard.StartPower;
         MaxHealth = UnitCard.StartHealth;
         CurrentHealth = MaxHealth;
-        
+
+        currentAbilitiesDisplay.transform.localPosition = new Vector2(0, -15);
         GridLayoutGroup glg = currentAbilitiesDisplay.GetComponent<GridLayoutGroup>();
-        Vector2 cellSize = glg.cellSize;
-        cellSize.y = 12;
-        glg.cellSize = cellSize;
-        glg.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+        glg.startAxis = GridLayoutGroup.Axis.Vertical;
         glg.constraintCount = 1;
 
         foreach (CardAbility ca in UnitCard.StartingAbilities)
@@ -235,6 +245,41 @@ public class UnitCardDisplay : CardDisplay
         DisplayCardPageCard(card);        
     }
 
+    public void EnableTriggerIcon(AbilityTrigger abilityTrigger, bool isEnabled)
+    {
+        int index = 0;
+        foreach (CardAbility ca in displayedAbilities)
+        {
+            if (abilityTrigger != null && ca is TriggeredAbility tra &&
+                tra.AbilityTrigger.AbilityName == abilityTrigger.AbilityName) { }
+            else if (abilityTrigger == null && ca is ModifierAbility) { }
+            else
+            {
+                index++;
+                continue;
+            }
+
+            Color color;
+            if (isEnabled) color = caMan.GetAbilityColor(ca);
+            else color = Color.gray;
+
+            GameObject icon = AbilityIcons[index];
+            AbilityIconDisplay aid = icon.GetComponent<AbilityIconDisplay>();
+            aid.AbilitySprite.GetComponent<Image>().color = color;
+            index++;
+        }
+    }
+
+    private GameObject CreateAbilityIcon(CardAbility cardAbility)
+    {
+        GameObject abilityIcon = Instantiate(abilityIconPrefab, new Vector2(0, 0), Quaternion.identity);
+        AbilityIconDisplay aid = abilityIcon.GetComponent<AbilityIconDisplay>();
+        aid.AbilityScript = cardAbility;
+        abilityIcon.transform.SetParent(currentAbilitiesDisplay.transform, false);
+        aid.AbilitySprite.GetComponent<Image>().color = caMan.GetAbilityColor(cardAbility);
+        return abilityIcon;
+    }
+
     /******
      * *****
      * ****** ADD_CURRENT_ABILITY
@@ -242,15 +287,30 @@ public class UnitCardDisplay : CardDisplay
      *****/
     public bool AddCurrentAbility(CardAbility ca, bool iconOnly = false)
     {
-        // NEW CARD ABILITY INSTANCE
-        /*
+        // TESTING TESTING TESTING
         CardAbility newCardAbility = ScriptableObject.CreateInstance(ca.GetType().Name) as CardAbility;
         newCardAbility.LoadCardAbility(ca);
         ca = newCardAbility;
-        */
 
         if (ca is StaticAbility sa)
         {
+            switch (sa.AbilityName) 
+            {
+                case CardManager.ABILITY_DEFENDER:
+                    if (!CardManager.GetAbility(gameObject, CardManager.ABILITY_STEALTH))
+                        vfx_Defender.SetActive(true);
+                    break;
+                case CardManager.ABILITY_FORCEFIELD:
+                    vfx_Forcefield.SetActive(true);
+                    break;
+                case CardManager.ABILITY_STEALTH:
+                    vfx_Stealth.SetActive(true);
+                    break;
+                case CardManager.ABILITY_WARD:
+                    vfx_Ward.SetActive(true);
+                    break;
+            }
+
             if (iconOnly)
             {
                 int abilityIndex = displayedAbilities.FindIndex(x => x.AbilityName == ca.AbilityName);
@@ -270,13 +330,21 @@ public class UnitCardDisplay : CardDisplay
             if (ta.AbilityTrigger.AbilityName != CardManager.TRIGGER_PLAY)
             {
                 bool iconFound = false;
+                int index = 0;
                 foreach (CardAbility ca2 in displayedAbilities)
                 {
                     if (ca2 is TriggeredAbility ta2)
                     {
                         if (ta2.AbilityTrigger.AbilityName == ta.AbilityTrigger.AbilityName)
+                        {
                             iconFound = true;
+
+                            // When adding another ability with the same trigger, reset the ability icon in case it's disabled (gray)
+                            AbilityIconDisplay aid = AbilityIcons[index].GetComponent<AbilityIconDisplay>();
+                            aid.AbilitySprite.GetComponent<Image>().color = caMan.GetAbilityColor(ca2);
+                        }
                     }
+                    index++;
                 }
                 if (!iconFound) ShowAbility(ta);
             }
@@ -316,16 +384,6 @@ public class UnitCardDisplay : CardDisplay
             AbilityIcons.Add(CreateAbilityIcon(ca));
             displayedAbilities.Add(ca);
         }
-
-        GameObject CreateAbilityIcon(CardAbility cardAbility)
-        {
-            GameObject abilityIcon = Instantiate(abilityIconPrefab, new Vector2(0, 0), Quaternion.identity);
-            AbilityIconDisplay aid = abilityIcon.GetComponent<AbilityIconDisplay>();
-            aid.AbilityScript = cardAbility;
-            abilityIcon.transform.SetParent(currentAbilitiesDisplay.transform, false);
-            aid.AbilitySprite.GetComponent<Image>().color = caMan.GetAbilityColor(cardAbility);
-            return abilityIcon;
-        }
     }
 
     /******
@@ -344,6 +402,24 @@ public class UnitCardDisplay : CardDisplay
             return;
         }
         else Debug.Log("ABILITY <" + abilityName + "> REMOVED!");
+
+        switch (abilityName) // TESTING
+        {
+            case CardManager.ABILITY_DEFENDER:
+                vfx_Defender.SetActive(false);
+                break;
+            case CardManager.ABILITY_FORCEFIELD:
+                vfx_Forcefield.SetActive(false);
+                break;
+            case CardManager.ABILITY_STEALTH:
+                vfx_Stealth.SetActive(false);
+                if (CardManager.GetAbility(gameObject, CardManager.ABILITY_DEFENDER))
+                    vfx_Defender.SetActive(true);
+                break;
+            case CardManager.ABILITY_WARD:
+                vfx_Ward.SetActive(false);
+                break;
+        }
 
         CardAbility ca = CurrentAbilities[abilityIndex];
         CurrentAbilities.RemoveAt(abilityIndex);
@@ -461,7 +537,12 @@ public class UnitCardDisplay : CardDisplay
         displayedAbilities.Clear();
         CurrentAbilities.Clear();
         foreach (CardAbility ca in UnitCard.StartingAbilities)
-            CurrentAbilities.Add(ca);
+        {
+            // TESTING TESTING TESTING
+            CardAbility newCa = ScriptableObject.CreateInstance(ca.GetType().Name) as CardAbility;
+            newCa.LoadCardAbility(ca);
+            CurrentAbilities.Add(newCa);
+        }
         foreach (CardAbility ca in CurrentAbilities)
             AddCurrentAbility(ca, true);
         DisplayCard();
@@ -471,6 +552,30 @@ public class UnitCardDisplay : CardDisplay
     {
         base.DisableVisuals();
         exhaustedIcon.SetActive(false);
+        cardDimmer.SetActive(false);
         destroyedIcon.SetActive(false);
+
+        DisableVFX();
+    }
+
+    public void DisableVFX()
+    {
+        vfx_Defender.SetActive(false);
+        vfx_Forcefield.SetActive(false);
+        vfx_Stealth.SetActive(false);
+        vfx_Ward.SetActive(false);
+    }
+
+    public void EnableVFX()
+    {
+        if (CardManager.GetAbility(gameObject, CardManager.ABILITY_FORCEFIELD))
+            vfx_Forcefield.SetActive(true);
+        if (CardManager.GetAbility(gameObject, CardManager.ABILITY_WARD))
+            vfx_Ward.SetActive(true);
+
+        if (CardManager.GetAbility(gameObject, CardManager.ABILITY_STEALTH))
+            vfx_Stealth.SetActive(true);
+        else if (CardManager.GetAbility(gameObject, CardManager.ABILITY_DEFENDER))
+            vfx_Defender.SetActive(true);
     }
 }

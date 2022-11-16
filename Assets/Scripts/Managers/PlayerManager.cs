@@ -75,22 +75,22 @@ public class PlayerManager : MonoBehaviour
         get => heroUltimateProgress;
         set
         {
+            heroUltimateProgress = value;
             int heroUltimateGoal = GameManager.HERO_ULTMATE_GOAL;
-            if (value > heroUltimateGoal) heroUltimateProgress = heroUltimateGoal;
-            else heroUltimateProgress = value;
 
             PlayerHeroDisplay phd = coMan.PlayerHero.GetComponent<PlayerHeroDisplay>();
             phd.UltimateProgressValue = heroUltimateProgress;
             GameObject ultimateReadyIcon = phd.UltimateReadyIcon;
             GameObject ultimateButton = phd.UltimateButton;
 
+            if (heroUltimateProgress >= heroUltimateGoal) ultimateReadyIcon.SetActive(true);
+            else ultimateReadyIcon.SetActive(false);
+
             if (heroUltimateProgress == heroUltimateGoal)
             {
                 auMan.StartStopSound("SFX_HeroUltimateReady");
                 AnimationManager.Instance.AbilityTriggerState(ultimateButton);
-                ultimateReadyIcon.SetActive(true);
             }
-            else ultimateReadyIcon.SetActive(false);
         }
     }
     public int PlayerHealth
@@ -108,6 +108,10 @@ public class PlayerManager : MonoBehaviour
         get => damageTaken_Turn;
         set
         {
+            bool wasWounded;
+            if (damageTaken_Turn >= GameManager.WOUNDED_VALUE) wasWounded = true;
+            else wasWounded = false;
+
             damageTaken_Turn = value;
             bool isWounded;
             if (damageTaken_Turn >= GameManager.WOUNDED_VALUE) isWounded = true;
@@ -117,6 +121,12 @@ public class PlayerManager : MonoBehaviour
                 uMan.DestroyTooltipPopup();
             }
             coMan.PlayerHero.GetComponent<HeroDisplay>().IsWounded = isWounded;
+
+            if (!wasWounded && isWounded)
+            {
+                EffectManager.Instance.TriggerModifiers_SpecialTrigger
+                    (ModifierAbility.TriggerType.EnemyHeroWounded, coMan.EnemyZoneCards);
+            }
         }
     }
     public int EnergyPerTurn
@@ -131,22 +141,14 @@ public class PlayerManager : MonoBehaviour
         }
     }
     public int MaxEnergyPerTurn => GameManager.MAXIMUM_ENERGY_PER_TURN;
-    private int MaxEnergy
-    {
-        get
-        {
-            int bonusEnergy = 0;
-            if (GetAugment("Inertial Catalyzer")) bonusEnergy = 5;
-            return GameManager.MAXIMUM_ENERGY + bonusEnergy;
-        }
-    }
     public int CurrentEnergy
     {
         get => currentEnergy;
         set
         {
             currentEnergy = value;
-            if (currentEnergy > MaxEnergy) currentEnergy = MaxEnergy;
+            int maxEnergy = GameManager.MAXIMUM_ENERGY;
+            if (currentEnergy > maxEnergy) currentEnergy = maxEnergy;
             coMan.PlayerHero.GetComponent<HeroDisplay>().SetHeroEnergy(CurrentEnergy, energyPerTurn);
         }
     }
@@ -167,7 +169,7 @@ public class PlayerManager : MonoBehaviour
 
         PlayerHero = null; // Unnecessary?
         AetherCells = 0;
-        IsMyTurn = true;
+        IsMyTurn = false; // Needs to be false to disable DragDrop outside of combat
     }
 
     public void AddItem(HeroItem item, bool isNewItem = false)
@@ -287,6 +289,13 @@ public class PlayerManager : MonoBehaviour
         }
 
         return true;
+    }
+
+    public int GetMaxItems()
+    {
+        int bonusItems = 0;
+        if (GetAugment("Kinetic Reinforcer")) bonusItems = 2;
+        return GameManager.MAXIMUM_ITEMS + bonusItems;
     }
 
     public int GetUltimateCost(out Color ultimateColor)

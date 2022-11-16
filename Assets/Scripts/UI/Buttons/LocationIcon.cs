@@ -9,7 +9,8 @@ public class LocationIcon : MonoBehaviour
     
     [SerializeField] private GameObject unvisitedIcon;
     [SerializeField] private GameObject priorityIcon;
-    [SerializeField] private GameObject nonPriorityLocation;
+    [SerializeField] private GameObject nonPriorityIcon;
+    [SerializeField] private GameObject closedIcon;
 
     [SerializeField] private Sprite homeBaseSprite;
     [SerializeField] private Sprite augmenterSprite;
@@ -35,14 +36,20 @@ public class LocationIcon : MonoBehaviour
             if (!location.IsAugmenter && GameManager.Instance.VisitedLocations.FindIndex
                 (x => x == location.LocationName) != -1) visited = true;
 
-            unvisitedIcon.SetActive(!visited);
-            priorityIcon.SetActive(location.IsPriorityLocation);
-            nonPriorityLocation.SetActive(!location.IsPriorityLocation);
+            bool open = gMan.LocationOpen(location);
+            closedIcon.SetActive(!open);
+
+            if (open)
+            {
+                unvisitedIcon.SetActive(!visited);
+                priorityIcon.SetActive(location.IsPriorityLocation);
+                nonPriorityIcon.SetActive(!location.IsPriorityLocation);
+            }
+            else unvisitedIcon.SetActive(false);
 
             Sprite image = null;
             if (location.IsHomeBase) image = homeBaseSprite;
             else if (location.IsAugmenter) image = augmenterSprite;
-            else if (!visited) return;
             else if (location.IsShop) image = shopSprite;
             else if (location.IsRecruitment) image = recruitmentSprite;
             else if (location.IsCloning) image = cloningSprite;
@@ -50,7 +57,7 @@ public class LocationIcon : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void Awake()
     {
         uMan = UIManager.Instance;
         gMan = GameManager.Instance;
@@ -67,7 +74,7 @@ public class LocationIcon : MonoBehaviour
             
             void TravelError(string text)
             {
-                uMan.CreateFleetingInfoPopup(text, true);
+                uMan.CreateFleetingInfoPopup(text);
                 uMan.DestroyTravelPopup();
             }
         }
@@ -75,9 +82,7 @@ public class LocationIcon : MonoBehaviour
         void TravelPopup() => uMan.CreateTravelPopup(Location);
     }
 
-    public void OnPointerEnter() => 
-        uMan.CreateLocationPopup(Location);
+    public void OnPointerEnter() => uMan.CreateLocationPopup(Location);
 
-    public void OnPointerExit() => 
-        uMan.DestroyLocationPopup();
+    public void OnPointerExit() => uMan.DestroyLocationPopup();
 }

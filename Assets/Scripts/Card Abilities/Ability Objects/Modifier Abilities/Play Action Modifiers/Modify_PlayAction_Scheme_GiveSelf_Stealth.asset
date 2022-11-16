@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a2e33d6bad64fd4db799baf98d68e29, type: 3}
+  m_Name: Modify_PlayAction_Scheme_GiveSelf_Stealth
+  m_EditorClassIdentifier: 
+  AbilityName: When you play a Scheme, gain Stealth.
+  AbilityDescription: When you play a Scheme, gain Stealth.
+  AbilitySprite: {fileID: 21300000, guid: 3dbed1460f9abd541b750bc2394ab51f, type: 3}
+  OverrideColor: 0
+  AbilityColor: {r: 0, g: 0, b: 0, a: 0}
+  LinkedAbilites:
+  - {fileID: 11400000, guid: f92d2e0741d1f6d44987a4283e12b434, type: 2}
+  EffectGroupList:
+  - {fileID: 11400000, guid: 1e5c75b1e9af02e478f00bb0e8ec01ce, type: 2}
+  AbilityTrigger: {fileID: 0}
+  ModifyPlayUnit: 0
+  PlayUnitEffects: []
+  ModifyPlayAction: 1
+  PlayActionType: Scheme

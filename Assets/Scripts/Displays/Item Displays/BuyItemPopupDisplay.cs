@@ -30,9 +30,9 @@ public class BuyItemPopupDisplay : MonoBehaviour
         {
             int aether = pMan.AetherCells;
             heroItem = value;
-            string text = "BUY <u>" + heroItem.ItemName + "</u>" +
-                " for " + gMan.GetItemCost(heroItem, out _) +
-                " aether? (You have " + aether + " aether)";
+            string text = "Buy <b><u>" + heroItem.ItemName + "</u></b>" +
+                " for <color=\"yellow\"><b>" + gMan.GetItemCost(heroItem, out _, false) +
+                "</b></color> aether? (You have " + aether + " aether)";
             PopupText = text;
         }
     }
@@ -40,14 +40,16 @@ public class BuyItemPopupDisplay : MonoBehaviour
     public void ConfirmButton_OnClick()
     {
         pMan.AddItem(heroItem, true);
-        pMan.AetherCells -= gMan.GetItemCost(heroItem, out _);
+        pMan.AetherCells -= gMan.GetItemCost(heroItem, out _, false);
         gMan.ShopItems.Remove(heroItem);
         bool isReady = false;
         int previousProgress = gMan.ShopLoyalty;
         if (++gMan.ShopLoyalty == GameManager.SHOP_LOYALTY_GOAL) isReady = true;
         else if (gMan.ShopLoyalty > GameManager.SHOP_LOYALTY_GOAL) gMan.ShopLoyalty = 0;
-        uMan.CreateItemPagePopup();
+        uMan.CreateItemPagePopup(false);
         FindObjectOfType<ItemPageDisplay>().SetProgressBar(previousProgress, gMan.ShopLoyalty, isReady);
+
+        AnimationManager.Instance.CreateParticleSystem(gameObject, ParticleSystemHandler.ParticlesType.ButtonPress); // TESTING
     }
 
     public void CancelButton_OnClick() =>

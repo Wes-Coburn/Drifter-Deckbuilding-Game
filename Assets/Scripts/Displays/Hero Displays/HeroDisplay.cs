@@ -97,7 +97,7 @@ public abstract class HeroDisplay : MonoBehaviour
                 Color color;
                 energyBar.SetActive(true);
                 if (i < currentEnergy) color = Color.white;
-                else color = Color.black;
+                else color = Color.gray;
                 energyBar.GetComponent<Image>().color = color;
             }
             else energyBar.SetActive(false);

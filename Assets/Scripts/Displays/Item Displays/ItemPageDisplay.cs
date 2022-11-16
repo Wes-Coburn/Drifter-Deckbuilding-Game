@@ -5,6 +5,7 @@ using TMPro;
 
 public class ItemPageDisplay : MonoBehaviour
 {
+    [SerializeField] private GameObject pageTitle;
     [SerializeField] private GameObject items;
     [SerializeField] private GameObject itemDescriptionPrefab;
     [SerializeField] private GameObject noItemsTooltip;
@@ -14,9 +15,6 @@ public class ItemPageDisplay : MonoBehaviour
     [SerializeField] private GameObject progressFill;
     [SerializeField] private GameObject progressBarText;
 
-    public List<HeroItem> CurrentItems { get; set; }
-
-    private void Awake() => DisplayItems();
     public void SetProgressBar(int currentProgress, int newProgress, bool isReady, bool isFirstDisplay = false)
     {
         string progressText;
@@ -27,9 +25,31 @@ public class ItemPageDisplay : MonoBehaviour
         AnimationManager.Instance.SetProgressBar(AnimationManager.ProgressBarType.Item,
             currentProgress, newProgress, isReady, progressBar, progressFill);
     }
-    private void DisplayItems()
+    public void DisplayItems(bool isItemRemoveal, bool playSound)
     {
-        List<HeroItem> currentItems = GameManager.Instance.ShopItems;
+        if (playSound) AudioManager.Instance.StartStopSound("SFX_CreatePopup1");
+
+        List<HeroItem> currentItems;
+        if (isItemRemoveal) currentItems = PlayerManager.Instance.HeroItems;
+        else currentItems = GameManager.Instance.ShopItems;
+
+        string title;
+        if (isItemRemoveal)
+        {
+            title = "Sell An Item";
+            progressBar.SetActive(false); // TESTING
+        }
+        else
+        {
+            title = "Buy An Item";
+            bool isReady;
+            int progress = GameManager.Instance.ShopLoyalty;
+            if (progress == GameManager.SHOP_LOYALTY_GOAL) isReady = true;
+            else isReady = false;
+            SetProgressBar(0, progress, isReady, true);
+        }
+        pageTitle.GetComponent<TextMeshProUGUI>().SetText(title);
+
         if (currentItems.Count < 1)
         {
             noItemsTooltip.SetActive(true);
@@ -49,17 +69,13 @@ public class ItemPageDisplay : MonoBehaviour
         foreach (HeroItem item in currentItems)
         {
             GameObject description = Instantiate(itemDescriptionPrefab, items.transform);
-            description.GetComponentInChildren<ItemDescriptionDisplay>().LoadedItem = item;
+
+            ItemDescriptionDisplay idd = description.GetComponentInChildren<ItemDescriptionDisplay>();
+            idd.IsItemRemoval = isItemRemoveal; // TESTING
+            idd.LoadedItem = item;
         }
 
         scrollRect.verticalNormalizedPosition = 1;
-
-        bool isReady;
-        int progress = GameManager.Instance.ShopLoyalty;
-        if (progress == GameManager.SHOP_LOYALTY_GOAL) isReady = true;
-        else isReady = false;
-
-        SetProgressBar(0, progress, isReady, true); // TESTING
     }
 
     public void CloseItemPageButton_OnClick()
@@ -67,6 +83,7 @@ public class ItemPageDisplay : MonoBehaviour
         if (SceneLoader.IsActiveScene(SceneLoader.Scene.DialogueScene))
             DialogueManager.Instance.DisplayDialoguePopup();
         UIManager.Instance.DestroyItemPagePopup();
+        UIManager.Instance.DestroyRemoveItemPopup();
     }
 }
 

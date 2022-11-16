@@ -391,11 +391,13 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: a450edaa20ccbbc419f0442ba67250f2, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_HeroEmote1_Kili
     clip: {fileID: 8300000, guid: 47b8a628eace4394997d8698f14d2ada, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
 --- !u!1 &412779252885105136
 GameObject:
@@ -671,7 +673,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: This augment is...
+  m_text: Description Missing!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8ac98f3542adc8144b4d28d7ef82a760, type: 2}
   m_sharedMaterial: {fileID: -2534128944703564100, guid: 8ac98f3542adc8144b4d28d7ef82a760,
@@ -699,12 +701,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 50
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 50
   m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512

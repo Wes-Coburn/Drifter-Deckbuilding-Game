@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a22d7123f6ee007468cbdc6e9b6fe2b0, type: 3}
+  m_Name: GiveStrongPU_Defender_IfHas_Defender_Give_plus1plus1
+  m_EditorClassIdentifier: 
+  Targets: {fileID: 11400000, guid: 1ca22ebb02719dc44934332f6fe97f27, type: 2}
+  ResolveIndependent: 0
+  EffectsDescription: Give the strongest ally Defender, or +1|+1 if it already has
+    it.
+  Effects:
+  - {fileID: 11400000, guid: 1abbb420a54bbb8418a99f37d14fbace, type: 2}
+  - {fileID: 11400000, guid: cb303d0e0c5b24940b7a4a834ab4761b, type: 2}

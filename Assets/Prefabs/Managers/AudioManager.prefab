@@ -43,239 +43,295 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09d953a9c24572b45bf18f638d997eb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  masterMixer: {fileID: 24100000, guid: f8f9b9d470dcb154ba04608895b52b7f, type: 2}
+  sfxMixer: {fileID: 7735509425516205170, guid: f8f9b9d470dcb154ba04608895b52b7f,
+    type: 2}
   sounds:
   - name: Soundtrack_TitleScene
     clip: {fileID: 8300000, guid: fa4d89460fab0424fa8b75b8da409e4c, type: 3}
     volume: 0.3
     pitch: 1
+    mixerGroup: {fileID: 4623850425016874603, guid: f8f9b9d470dcb154ba04608895b52b7f,
+      type: 2}
     source: {fileID: 0}
   - name: Soundscape_TitleScene
     clip: {fileID: 8300000, guid: 0f1d768f2fcb240b2a89ff736a5dae07, type: 3}
     volume: 0.6
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: Soundtrack_Narrative1
     clip: {fileID: 8300000, guid: 7944695d7f4bd4c4299547b66fcd4698, type: 3}
     volume: 0.3
     pitch: 1
+    mixerGroup: {fileID: 4623850425016874603, guid: f8f9b9d470dcb154ba04608895b52b7f,
+      type: 2}
     source: {fileID: 0}
   - name: Soundtrack_Dialogue1
     clip: {fileID: 8300000, guid: 15fee4f51d0061941a8130562fd81781, type: 3}
     volume: 0.3
     pitch: 1
+    mixerGroup: {fileID: 4623850425016874603, guid: f8f9b9d470dcb154ba04608895b52b7f,
+      type: 2}
     source: {fileID: 0}
   - name: Soundtrack_Combat1
     clip: {fileID: 8300000, guid: 27125866967536445bc7ff154891f139, type: 3}
     volume: 0.1
     pitch: 1
+    mixerGroup: {fileID: 4623850425016874603, guid: f8f9b9d470dcb154ba04608895b52b7f,
+      type: 2}
     source: {fileID: 0}
   - name: Soundtrack_CombatBoss1
     clip: {fileID: 8300000, guid: 43adf7fc3e8922c49af63d8d33209682, type: 3}
     volume: 0.1
     pitch: 1
+    mixerGroup: {fileID: 4623850425016874603, guid: f8f9b9d470dcb154ba04608895b52b7f,
+      type: 2}
     source: {fileID: 0}
   - name: Soundtrack_WorldMapScene
     clip: {fileID: 8300000, guid: 7944695d7f4bd4c4299547b66fcd4698, type: 3}
     volume: 0.3
     pitch: 1
+    mixerGroup: {fileID: 4623850425016874603, guid: f8f9b9d470dcb154ba04608895b52b7f,
+      type: 2}
     source: {fileID: 0}
   - name: Soundscape_WorldMapScene
     clip: {fileID: 8300000, guid: 1ea10b607cf4340959b64322d4732a45, type: 3}
     volume: 0.8
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_SceneLoading
     clip: {fileID: 8300000, guid: ebfd51506c55f7b468b819710dda6f07, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_EnterWorldMap
     clip: {fileID: 8300000, guid: 5dc555af72633604aaaf207e51c92fad, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_EnterHomeBase
     clip: {fileID: 8300000, guid: 2e0d7458548c34e4ea6cf1460998c9b3, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_StartCombat1
     clip: {fileID: 8300000, guid: 3b0c8067fd742cc44bd0564345f2a13e, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_PortraitClick
     clip: {fileID: 8300000, guid: d68eb6099dff26f4bb38218916a8fdd8, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_ShiftHand
     clip: {fileID: 8300000, guid: 0cbbd85543f781f419605eafe137b3eb, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_NextTurn
     clip: {fileID: 8300000, guid: e0bda9b02bfd3e7409f30a45426dd040, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_Click1
     clip: {fileID: 8300000, guid: a580b904278a5fd4fba9563d4096bd3d, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_SpecialClick1
     clip: {fileID: 8300000, guid: a450edaa20ccbbc419f0442ba67250f2, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_CreatePopup1
     clip: {fileID: 8300000, guid: 8b66e811a4c48284fa4bc86314c3da00, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_Typing
     clip: {fileID: 8300000, guid: 542f8e9a47e056e449f3c558e12d66df, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_Counting
     clip: {fileID: 8300000, guid: 7c0c40196e514ff47b06789937cd2db7, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_DrawCard
     clip: {fileID: 8300000, guid: 73ad563366170384ca1ddd81edcea392, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_CreateCard
     clip: {fileID: 8300000, guid: d5effa3eb92fdf5468991121cf2ddea3, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_PlayCard
     clip: {fileID: 8300000, guid: a97a3710fcce72e41bb435320d255cab, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_DiscardCard
     clip: {fileID: 8300000, guid: 425e77eed9938844faa0970efea52ca7, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_ShuffleDeck
     clip: {fileID: 8300000, guid: 316afc38249f0624dac9b73494c8e9e0, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_AcceptTarget
     clip: {fileID: 8300000, guid: 0f84285cd46d77d458257286c42ca2f5, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_Error
     clip: {fileID: 8300000, guid: 6bbdd5c643a7567498f65892e1d44c09, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_Trigger
     clip: {fileID: 8300000, guid: 290b55963dc85ff44b0ad06ad93be27f, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_DragCard
     clip: {fileID: 8300000, guid: ef86b7071ef6ce5439d5b9d86986afc6, type: 3}
     volume: 0.5
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_EnergyRefill
     clip: {fileID: 8300000, guid: b00ceba2d7ae95d4b934b6100f38e63a, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_ProgressBar
     clip: {fileID: 8300000, guid: 6c22cb6752abba741acaf28cb6141745, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_HeroUltimateReady
     clip: {fileID: 8300000, guid: c96a7ff0487116044997983e6086394e, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_Refresh
     clip: {fileID: 8300000, guid: a0ae7ad2e2d6b8b48b24f4dcc8758496, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_StatPlus
     clip: {fileID: 8300000, guid: 728fd049608b1d440b03ccb9d85b7af4, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_StatMinus
     clip: {fileID: 8300000, guid: 48071fe1f7a4872469cda89a144c93c5, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_RevealCard
     clip: {fileID: 8300000, guid: e299b8f54fac4964c99d1e100b59ff34, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_AddCard
     clip: {fileID: 8300000, guid: 6bc0c080d10503d4386623244c7d2695, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_AcquireAugment
     clip: {fileID: 8300000, guid: a98c4d5abf60e7a45aaffebe122cae77, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_BuyItem
     clip: {fileID: 8300000, guid: 95aa03293af4f824ba9852df70346673, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_AttackMelee
     clip: {fileID: 8300000, guid: f3a5a0460a6d13c44972529f260df7ed, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_AttackMelee_Heavy
     clip: {fileID: 8300000, guid: 8a946886de2cb0246b97d833312ca999, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_AttackRanged
     clip: {fileID: 8300000, guid: 45f3a6795562d55489a34f69e862183e, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_AttackRanged_Heavy
     clip: {fileID: 8300000, guid: 50a78bb499d888a42a412345077507d1, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_DamageRay_Start
     clip: {fileID: 8300000, guid: 629c0ec6d1a5d9e40a1d380417e1462b, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_DamageRay_End
     clip: {fileID: 8300000, guid: 9bf2b5747fcedf948b6ba6de3b8b8626, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_TimeLapse
     clip: {fileID: 8300000, guid: 35b7322d2b5efdd49888aa07a2d16ccc, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: SFX_Reputation
     clip: {fileID: 8300000, guid: 6ef65d49fd77e664b86f60e623ef4e77, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}

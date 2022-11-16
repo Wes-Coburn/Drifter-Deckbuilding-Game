@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 20, y: 100}
+  m_AnchoredPosition: {x: 20, y: 175}
   m_SizeDelta: {x: 350, y: 450}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8223701727033456111
@@ -71,8 +71,8 @@ MonoBehaviour:
     Your feedback is greatly
     appreciated!'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8ac98f3542adc8144b4d28d7ef82a760, type: 2}
-  m_sharedMaterial: {fileID: -2534128944703564100, guid: 8ac98f3542adc8144b4d28d7ef82a760,
+  m_fontAsset: {fileID: 11400000, guid: e538ba65f9ab69747a0b9d64b5033d2a, type: 2}
+  m_sharedMaterial: {fileID: 3279066539608328692, guid: e538ba65f9ab69747a0b9d64b5033d2a,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -152,7 +152,6 @@ GameObject:
   - component: {fileID: 9194419796104243568}
   - component: {fileID: 1955773970495326530}
   - component: {fileID: 351908454300164736}
-  - component: {fileID: 8282073426973796641}
   m_Layer: 0
   m_Name: BETAWelcomePopup
   m_TagString: Untagged
@@ -172,8 +171,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 557952737011714325}
-  - {fileID: 351908453057722773}
   - {fileID: 4401776464127155037}
+  - {fileID: 351908453057722773}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -210,7 +209,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 764dc59410dd95340a5e734a33bb307d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d9a7e12ce2fa8ae4dab175c83689f502, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -250,26 +249,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 0d63a1a01fb6d814280ea4b402a64098, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
---- !u!95 &8282073426973796641
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8282073426973796654}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f5ff50c7cb6ccb440963418b84d78f8d, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &5462433903019038521
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -277,6 +258,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 765383000157305363}
     m_Modifications:
+    - target: {fileID: 5705018863325576614, guid: 8ac108bdeffdb49429dffe78cf17950b,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705018863325576614, guid: 8ac108bdeffdb49429dffe78cf17950b,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 5705018864097980076, guid: 8ac108bdeffdb49429dffe78cf17950b,
         type: 3}
       propertyPath: m_Pivot.x
@@ -290,7 +281,7 @@ PrefabInstance:
     - target: {fileID: 5705018864097980076, guid: 8ac108bdeffdb49429dffe78cf17950b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5705018864097980076, guid: 8ac108bdeffdb49429dffe78cf17950b,
         type: 3}
@@ -320,7 +311,7 @@ PrefabInstance:
     - target: {fileID: 5705018864097980076, guid: 8ac108bdeffdb49429dffe78cf17950b,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 5705018864097980076, guid: 8ac108bdeffdb49429dffe78cf17950b,
         type: 3}
@@ -365,7 +356,7 @@ PrefabInstance:
     - target: {fileID: 5705018864097980076, guid: 8ac108bdeffdb49429dffe78cf17950b,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -225
+      value: -350
       objectReference: {fileID: 0}
     - target: {fileID: 5705018864097980076, guid: 8ac108bdeffdb49429dffe78cf17950b,
         type: 3}
@@ -387,6 +378,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: WebsiteButton
       objectReference: {fileID: 0}
+    - target: {fileID: 5705018864097980078, guid: 8ac108bdeffdb49429dffe78cf17950b,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3627d01c347826f48b65e3e083d3b673,
+        type: 3}
     - target: {fileID: 5705018864097980079, guid: 8ac108bdeffdb49429dffe78cf17950b,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -477,6 +474,32 @@ PrefabInstance:
       propertyPath: m_Name
       value: DiscordButton
       objectReference: {fileID: 0}
+    - target: {fileID: 1575316748300991843, guid: 6a8541ac090fcf04aa40f7d4833a8d84,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3627d01c347826f48b65e3e083d3b673,
+        type: 3}
+    - target: {fileID: 6349797774917379578, guid: 6a8541ac090fcf04aa40f7d4833a8d84,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 6349797774917379578, guid: 6a8541ac090fcf04aa40f7d4833a8d84,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 6497791950174470062, guid: 6a8541ac090fcf04aa40f7d4833a8d84,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 275
+      objectReference: {fileID: 0}
+    - target: {fileID: 6497791950174470062, guid: 6a8541ac090fcf04aa40f7d4833a8d84,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 130
+      objectReference: {fileID: 0}
     - target: {fileID: 7625284753870435104, guid: 6a8541ac090fcf04aa40f7d4833a8d84,
         type: 3}
       propertyPath: m_Pivot.x
@@ -490,7 +513,7 @@ PrefabInstance:
     - target: {fileID: 7625284753870435104, guid: 6a8541ac090fcf04aa40f7d4833a8d84,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7625284753870435104, guid: 6a8541ac090fcf04aa40f7d4833a8d84,
         type: 3}
@@ -515,12 +538,12 @@ PrefabInstance:
     - target: {fileID: 7625284753870435104, guid: 6a8541ac090fcf04aa40f7d4833a8d84,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 350
+      value: 315
       objectReference: {fileID: 0}
     - target: {fileID: 7625284753870435104, guid: 6a8541ac090fcf04aa40f7d4833a8d84,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 170
       objectReference: {fileID: 0}
     - target: {fileID: 7625284753870435104, guid: 6a8541ac090fcf04aa40f7d4833a8d84,
         type: 3}
@@ -565,7 +588,7 @@ PrefabInstance:
     - target: {fileID: 7625284753870435104, guid: 6a8541ac090fcf04aa40f7d4833a8d84,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -350
+      value: -175
       objectReference: {fileID: 0}
     - target: {fileID: 7625284753870435104, guid: 6a8541ac090fcf04aa40f7d4833a8d84,
         type: 3}

@@ -32,15 +32,15 @@ public class LocationPopupDisplay : MonoBehaviour
             if (location.IsClosed_Hour1) closedHours.Add("Morning");
             if (location.IsClosed_Hour2) closedHours.Add("Day");
             if (location.IsClosed_Hour3) closedHours.Add("Evening");
-            for (int i = 0; i < closedHours.Count; i++)
-            {
-                if (i != 0) hours += ", ";
-                hours += "<color=\"red\">" + closedHours[i] + "</color>";
-            }
+
             if (closedHours.Count < 1) hours += " None.";
-            else if (gMan.VisitedLocations.FindIndex(x => x == location.LocationName) == -1)
+            else
             {
-                hours = "<s>" + hours + "</s>";
+                for (int i = 0; i < closedHours.Count; i++)
+                {
+                    if (i != 0) hours += ", ";
+                    hours += "<color=\"red\">" + closedHours[i] + "</color>";
+                }
             }
             LocationHours = hours;
         }
@@ -103,9 +103,11 @@ public class LocationPopupDisplay : MonoBehaviour
         {
             gMan.VisitedLocations.Add(location.LocationName);
 
-            if (!location.IsHomeBase && !location.IsAugmenter)
-                gMan.NextHour(!location.IsRandomEncounter);
+            if (location.IsHomeBase || location.IsAugmenter ||
+                location.IsRecruitment || location.IsShop || location.IsCloning) { }
+            else gMan.NextHour(!location.IsRandomEncounter);
         }
+
         if (location.IsHomeBase)
         {
             SceneLoader.LoadScene(SceneLoader.Scene.HomeBaseScene);
@@ -113,9 +115,8 @@ public class LocationPopupDisplay : MonoBehaviour
         }
 
         gMan.CurrentLocation = gMan.GetActiveLocation(location);
-        if (location.IsRecruitment) gMan.CurrentLocation.CurrentObjective = "Recruit a Unit.";
-        else if (location.IsShop) gMan.CurrentLocation.CurrentObjective = "Buy an Item.";
-        else if (location.IsCloning) gMan.CurrentLocation.CurrentObjective = "Clone a Unit.";
+
+        if (location.IsRecruitment || location.IsShop || location.IsCloning) { }
         else gMan.ActiveLocations.Remove(gMan.CurrentLocation);
         dMan.EngagedHero = gMan.GetActiveNPC(gMan.CurrentLocation.CurrentNPC);
 

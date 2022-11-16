@@ -15,6 +15,8 @@ MonoBehaviour:
   AbilityName: Armored
   AbilityDescription: Takes 1 less damage from all sources.
   AbilitySprite: {fileID: 21300000, guid: 405a618ce273fbd469e991ab873e96d5, type: 3}
+  OverrideColor: 1
+  AbilityColor: {r: 0, g: 0.18852282, b: 1, a: 1}
   LinkedAbilites: []
   AbilityStacks: 0
   GainAbilitySound:
@@ -22,10 +24,12 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: b7416ebc1d06ed44f9091048895ae047, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   LoseAbilitySound:
     name: 
     clip: {fileID: 8300000, guid: fe5fefe3d24b2914a967e6c2dbda8975, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}

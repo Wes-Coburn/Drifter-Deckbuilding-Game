@@ -32,7 +32,7 @@ public class HeroSelect : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
             DragDrop.Enemy = gameObject;
             UIManager.SelectionType type;
 
-            if (coMan.CanAttack(DragDrop.DraggingCard, gameObject, true))
+            if (coMan.CanAttack(DragDrop.DraggingCard, gameObject))
                 type = UIManager.SelectionType.Selected;
             else type = UIManager.SelectionType.Rejected;
 
@@ -48,7 +48,7 @@ public class HeroSelect : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
             DragDrop.Enemy = null;
             UIManager.SelectionType type;
 
-            if (coMan.CanAttack(DragDrop.DraggingCard, gameObject, true))
+            if (coMan.CanAttack(DragDrop.DraggingCard, gameObject))
                 type = UIManager.SelectionType.Highlighted;
             else type = UIManager.SelectionType.Disabled;
 

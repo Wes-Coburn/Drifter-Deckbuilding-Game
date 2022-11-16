@@ -82,6 +82,8 @@ public class DragDrop : MonoBehaviour
 
     private void ResetPosition()
     {
+        transform.SetParent(coMan.CardZone.transform); // TESTING
+
         transform.localPosition = container.transform.position;
         transform.SetSiblingIndex(lastIndex);
         IsPlayed = false;
@@ -90,6 +92,8 @@ public class DragDrop : MonoBehaviour
 
     public void StartDrag()
     {
+        //if (!SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene)) return; // TESTING
+
         uMan.DestroyZoomObjects();
         if (!pMan.IsMyTurn) return;
         if (CompareTag(CombatManager.ENEMY_CARD)) return;
@@ -102,9 +106,6 @@ public class DragDrop : MonoBehaviour
         FunctionTimer.StopTimer(CardZoom.ABILITY_POPUP_TIMER);
         DraggingCard = gameObject;
 
-        lastIndex = transform.GetSiblingIndex();
-        transform.SetAsLastSibling();
-
         if (!IsPlayed)
         {
             IsDragging = true;
@@ -112,10 +113,14 @@ public class DragDrop : MonoBehaviour
             uMan.SetPlayerZoneOutline(true, false);
             particleHandler = anMan.CreateParticleSystem(gameObject,
                 ParticleSystemHandler.ParticlesType.Drag);
+
+            lastIndex = transform.GetSiblingIndex(); // TESTING
+            //transform.SetAsLastSibling();
+            transform.SetParent(uMan.CurrentZoomCanvas.transform); // TESTING
         }
         else
         {
-            if (!coMan.CanAttack(gameObject, null, true))
+            if (!coMan.CanAttack(gameObject, null))
             {
                 DraggingCard = null;
                 return;
@@ -127,10 +132,13 @@ public class DragDrop : MonoBehaviour
             dragArrow.GetComponent<DragArrow>().SourceCard = gameObject;
 
             foreach (GameObject enemyUnit in coMan.EnemyZoneCards)
-                if (coMan.CanAttack(gameObject, enemyUnit, true))
+                if (coMan.CanAttack(gameObject, enemyUnit))
                     uMan.SelectTarget(enemyUnit, UIManager.SelectionType.Highlighted);
 
-            if (coMan.CanAttack(gameObject, coMan.EnemyHero, true)) 
+            foreach (GameObject playerUnit in coMan.PlayerZoneCards)
+                uMan.SelectTarget(playerUnit, UIManager.SelectionType.Disabled);
+
+            if (coMan.CanAttack(gameObject, coMan.EnemyHero)) 
                 uMan.SelectTarget(coMan.EnemyHero, UIManager.SelectionType.Highlighted);
 
             particleHandler = anMan.CreateParticleSystem(gameObject,
@@ -175,6 +183,7 @@ public class DragDrop : MonoBehaviour
 
                 IsPlayed = true;
                 coMan.PlayCard(gameObject);
+                transform.SetParent(coMan.CardZone.transform); // TESTING
             }
             else ResetPosition();
             return;
@@ -195,8 +204,12 @@ public class DragDrop : MonoBehaviour
             Enemy = null;
         }
 
+        
         foreach (GameObject enemyUnit in coMan.EnemyZoneCards)
             uMan.SelectTarget(enemyUnit, UIManager.SelectionType.Disabled);
+
         uMan.SelectTarget(coMan.EnemyHero, UIManager.SelectionType.Disabled);
+        coMan.SelectPlayableCards(true);
+        coMan.SelectPlayableCards();
     }
 }

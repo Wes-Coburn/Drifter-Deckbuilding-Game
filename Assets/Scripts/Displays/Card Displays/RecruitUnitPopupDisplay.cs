@@ -34,9 +34,9 @@ public class RecruitUnitPopupDisplay : MonoBehaviour
         {
             int aether = pMan.AetherCells;
             unitCard = value;
-            string text = "RECRUIT <u>" + unitCard.CardName + "</u>" +
-                " for " + gMan.GetRecruitCost(unitCard, out _) +
-                " aether? (You have " + aether + " aether)";
+            string text = "Recruit <b><u>" + unitCard.CardName + "</u></b>" +
+                " for <color=\"yellow\"><b>" + gMan.GetRecruitCost(unitCard, out _) +
+                "</b></color> aether? (You have " + aether + " aether)";
             PopupText = text;
         }
     }
@@ -55,6 +55,8 @@ public class RecruitUnitPopupDisplay : MonoBehaviour
         else if (gMan.RecruitLoyalty > GameManager.RECRUIT_LOYALTY_GOAL) gMan.RecruitLoyalty = 0;
         uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.RecruitUnit, false);
         FindObjectOfType<CardPageDisplay>().SetProgressBar(previousProgress, gMan.RecruitLoyalty, isReady);
+
+        AnimationManager.Instance.CreateParticleSystem(gameObject, ParticleSystemHandler.ParticlesType.ButtonPress); // TESTING
     }
 
     public void CancelButton_OnClick() =>

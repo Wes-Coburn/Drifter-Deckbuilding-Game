@@ -17,6 +17,7 @@ public class AnimationManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
+    #region FIELDS
     private UIManager uMan;
     private CombatManager coMan;
     private DialogueManager dMan;
@@ -37,13 +38,18 @@ public class AnimationManager : MonoBehaviour
     [SerializeField] private Color dragColor;
     [SerializeField] private Color playColor;
     [SerializeField] private Color newCardColor;
-    
+    #endregion
+
+    #region PROPERTIES
     public Coroutine ProgressBarRoutine { get; private set; }
     private Coroutine TextCountRoutine { get; set; }
     private Coroutine ShiftHandRoutine { get; set; }
 
     public static string CLOSE_SKYBAR_TIMER = "CloseSkybarTimer";
+    #endregion
 
+    #region METHODS
+    #region UTILITY
     private void Start()
     {
         uMan = UIManager.Instance;
@@ -101,13 +107,15 @@ public class AnimationManager : MonoBehaviour
             }
         Debug.LogError("ANIMATOR NOT FOUND!");
     }
+    #endregion
 
+    #region SYSTEMS
     /******
      * *****
      * ****** VALUE_CHANGE
      * *****
      *****/
-    public void ValueChanger(Transform parent, int value, float yBuffer = 0)
+    public void ValueChanger(Transform parent, int value, float yBuffer = 0, bool setToCanvas = true)
     {
         GameObject valueChanger = Instantiate(valueChangerPrefab, parent);
         valueChanger.transform.localPosition = new Vector2(0, yBuffer);
@@ -117,8 +125,9 @@ public class AnimationManager : MonoBehaviour
             newParent = uMan.UICanvas.transform;
             valueChanger.transform.localScale = new Vector2(2, 2);
         }
-        //else newParent = parent.parent.parent.parent;
-        else newParent = uMan.CurrentCanvas.transform; // TESTING
+        else if (setToCanvas) newParent = uMan.CurrentCanvas.transform; // TESTING
+        else newParent = parent.parent.parent.parent; // TESTING
+
         valueChanger.transform.SetParent(newParent);
         valueChanger.transform.SetAsLastSibling();
 
@@ -144,7 +153,7 @@ public class AnimationManager : MonoBehaviour
         ParticleSystemHandler.ParticlesType particlesType, float stopDelay = 0)
     {
         GameObject prefab;
-        Color startColor;
+        Color startColor = Color.white;
         ParticleSystem.MinMaxCurve startSize = 5;
         ParticleSystem.MinMaxCurve startLifetime;
         bool usePointerPosition = false;
@@ -163,6 +172,7 @@ public class AnimationManager : MonoBehaviour
                 startColor = buttonPressColor;
                 startSize = 10;
                 startLifetime = 5;
+                stopDelay = 1; // TESTING
                 usePointerPosition = true;
                 followPosition = false;
                 break;
@@ -178,9 +188,9 @@ public class AnimationManager : MonoBehaviour
                 break;
             case ParticleSystemHandler.ParticlesType.Explosion:
                 prefab = particleSystem_BurstPrefab;
-                startColor = damageColor;
-                startSize = 20;
-                startLifetime = 20;
+                startSize = 50;
+                startLifetime = 5;
+                //followPosition = false;
                 break;
             case ParticleSystemHandler.ParticlesType.MouseDrag:
                 prefab = particleSystemPrefab;
@@ -196,8 +206,8 @@ public class AnimationManager : MonoBehaviour
                 break;
             case ParticleSystemHandler.ParticlesType.Play:
                 prefab = particleSystem_BurstPrefab;
-                startColor = playColor;
-                startLifetime = 1;
+                startSize = 5;
+                startLifetime = 0.3f;
                 break;
             default:
                 Debug.LogError("INVALIDE PARTICLES TYPE!");
@@ -210,6 +220,133 @@ public class AnimationManager : MonoBehaviour
         return psh;
     }
 
+    /******
+     * *****
+     * ****** COUNTING_TEXT
+     * *****
+     *****/
+    public void CountingText(TextMeshProUGUI text, int start, int end, float delay = 0.05f)
+    {
+        if (start == end)
+        {
+            Debug.LogError("START == END!");
+            return;
+        }
+
+        if (TextCountRoutine != null) // TESTING
+        {
+            StopCoroutine(TextCountRoutine);
+            text.color = previousTextCountColor;
+        }
+
+        TextCountRoutine = StartCoroutine(CountingTextNumerator(text, start, end, delay));
+    }
+    private IEnumerator CountingTextNumerator(TextMeshProUGUI text, int start, int end, float delay)
+    {
+        previousTextCountColor = text.color;
+        text.color = uMan.HighlightedColor;
+        int count = start;
+        if (count < end)
+        {
+            while (count < end)
+            {
+                yield return new WaitForSeconds(delay);
+                text.SetText(++count + "");
+                auMan.StartStopSound("SFX_Counting");
+            }
+        }
+        else
+        {
+            while (count > end)
+            {
+                yield return new WaitForSeconds(delay);
+                text.SetText(--count + "");
+                auMan.StartStopSound("SFX_Counting");
+            }
+        }
+
+        yield return new WaitForSeconds(delay);
+        text.color = previousTextCountColor;
+
+        yield return new WaitForSeconds(delay);
+        text.color = uMan.HighlightedColor;
+
+        yield return new WaitForSeconds(delay);
+        text.color = previousTextCountColor;
+
+        TextCountRoutine = null;
+    }
+
+    /******
+     * *****
+     * ****** SET_PROGRESS_BAR
+     * *****
+     *****/
+    public enum ProgressBarType
+    {
+        Recruit,
+        Item
+    }
+    public void SetProgressBar(ProgressBarType progressType, int currentProgress, int newProgress, bool isReady,
+        GameObject progressBar, GameObject progressFill, int controlValue = 1)
+    {
+        if (ProgressBarRoutine != null)
+        {
+            progressFill.GetComponent<Image>().color = previousBarColor;
+            StopCoroutine(ProgressBarRoutine);
+        }
+        ProgressBarRoutine = StartCoroutine(ProgressBarNumerator(progressType, currentProgress, newProgress,
+            isReady, progressBar, progressFill, controlValue));
+    }
+
+    private IEnumerator ProgressBarNumerator(ProgressBarType progressType, int currentProgress, int newProgress,
+        bool isReady, GameObject progressBar, GameObject progressFill, int controlValue)
+    {
+        Slider slider = progressBar.GetComponent<Slider>();
+        slider.value = currentProgress + controlValue; // TESTING
+        Image image = progressFill.GetComponent<Image>();
+        previousBarColor = image.color;
+        image.color = uMan.HighlightedColor;
+        auMan.StartStopSound("SFX_ProgressBar", null, AudioManager.SoundType.SFX, false, true);
+
+        int targetValue = newProgress + controlValue;
+        if (slider.value < targetValue)
+        {
+            while (slider.value < targetValue)
+            {
+                slider.value += 0.02f;
+                yield return new WaitForFixedUpdate();
+            }
+        }
+        else
+        {
+            while (slider.value > targetValue)
+            {
+                slider.value -= 0.05f;
+                yield return new WaitForFixedUpdate();
+            }
+        }
+
+        image.color = previousBarColor;
+        auMan.StartStopSound("SFX_ProgressBar", null, AudioManager.SoundType.SFX, true);
+
+        if (isReady)
+        {
+            switch (progressType)
+            {
+                case ProgressBarType.Recruit:
+                    Debug.Log("RECRUIT REWARD!");
+                    break;
+                case ProgressBarType.Item:
+                    Debug.Log("SHOP REWARD!");
+                    break;
+            }
+        }
+        ProgressBarRoutine = null;
+    }
+    #endregion
+
+    #region HEROES
     /******
      * *****
      * ****** HERO_STATE_ANIMATIONS
@@ -228,7 +365,11 @@ public class AnimationManager : MonoBehaviour
         GameObject energyScore = hero.GetComponent<HeroDisplay>().HeroEnergyObject;
         ValueChanger(energyScore.transform, energyChange);
     }
+    public void TriggerHeroPower(GameObject heroPower) => ChangeAnimationState(heroPower, "Trigger");
 
+    #endregion
+
+    #region CARDS
     /******
      * *****
      * ****** CARD_STATE_ANIMATIONS
@@ -259,13 +400,13 @@ public class AnimationManager : MonoBehaviour
     private void ModifyAllUnitStatsState(GameObject card) => ChangeAnimationState(card, "Modify_All");
     public void DestroyUnitCardState(GameObject unitCard) => ChangeAnimationState(unitCard, "Destroyed");
 
-    public void UnitTakeDamageState(GameObject unitCard, int damageValue)
+    public void UnitTakeDamageState(GameObject unitCard, int damageValue, bool isMeleeAttacker)
     {
         ChangeAnimationState(unitCard.GetComponent<UnitCardDisplay>().UnitStats, "Take_Damage");
         UnitCardDisplay ucd = unitCard.GetComponent<UnitCardDisplay>();
         GameObject stats = ucd.UnitStats;
         GameObject healthScore = ucd.HealthScore;
-        ValueChanger(healthScore.transform, -damageValue);
+        ValueChanger(healthScore.transform, -damageValue, 0, isMeleeAttacker); // TESTING
         SetAnimatorBool(stats, "IsDamaged", coMan.IsDamaged(unitCard));
     }
 
@@ -346,7 +487,9 @@ public class AnimationManager : MonoBehaviour
         //ChangeAnimationState(triggerIcon.GetComponent<AbilityIconDisplay>().AbilitySpriteObject, "Trigger");
         ChangeAnimationState(triggerIcon, "Trigger");
     }
+    #endregion
 
+    #region SKYBAR
     // Icon Animation
     public void SkybarIconAnimation(GameObject icon)
     {
@@ -358,15 +501,15 @@ public class AnimationManager : MonoBehaviour
         else if (skybar == uMan.ReputationsDropdown) uMan.ReputationsButton_OnClick(true);
         else
         {
-            Debug.LogError("INVALID ICON!");
+            Trigger(); // TESTING
             return;
         }
 
-        ChangeAnimationState(icon, "Trigger");
-
+        Trigger();
         FunctionTimer.Create(() =>
         CloseSkybar(skybar), 1, CLOSE_SKYBAR_TIMER);
 
+        void Trigger() => ChangeAnimationState(icon, "Trigger");
         static void CloseSkybar(GameObject bar) => bar.SetActive(false);
     }
 
@@ -383,99 +526,9 @@ public class AnimationManager : MonoBehaviour
             }
         }
     }
+    #endregion
 
-    /******
-     * *****
-     * ****** COUNTING_TEXT
-     * *****
-     *****/
-    public void CountingText(TextMeshProUGUI text, int start, int end, float delay = 0.05f)
-    {
-        if (start == end)
-        {
-            Debug.LogError("START == END!");
-            return;
-        }
-
-        if (TextCountRoutine != null) // TESTING
-        {
-            StopCoroutine(TextCountRoutine);
-            text.color = previousTextCountColor;
-        }
-
-        TextCountRoutine = StartCoroutine(CountingTextNumerator(text, start, end, delay));
-    }
-    private IEnumerator CountingTextNumerator(TextMeshProUGUI text, int start, int end, float delay)
-    {
-        previousTextCountColor = text.color;
-        text.color = uMan.HighlightedColor;
-        int count = start;
-        if (count < end)
-        {
-            while (count < end)
-            {
-                yield return new WaitForSeconds(delay);
-                text.SetText(++count + "");
-                auMan.StartStopSound("SFX_Counting");
-            }
-        }
-        else
-        {
-            while (count > end)
-            {
-                yield return new WaitForSeconds(delay);
-                text.SetText(--count + "");
-                auMan.StartStopSound("SFX_Counting");
-            }
-        }
-
-        yield return new WaitForSeconds(delay);
-        text.color = previousTextCountColor;
-
-        yield return new WaitForSeconds(delay);
-        text.color = uMan.HighlightedColor;
-
-        yield return new WaitForSeconds(delay);
-        text.color = previousTextCountColor;
-
-        TextCountRoutine = null;
-    }
-
-    /******
-     * *****
-     * ****** SHIFT_PLAYER_HAND
-     * *****
-     *****/
-    public void ShiftPlayerHand(bool isUpShift)
-    {
-        if (ShiftHandRoutine != null)
-        {
-            StopCoroutine(ShiftHandRoutine);
-            ShiftHandRoutine = null;
-        }
-
-        ShiftHandRoutine = StartCoroutine(ShiftHandNumerator(isUpShift));
-    }
-    private IEnumerator ShiftHandNumerator(bool isUpShift)
-    {
-        auMan.StartStopSound("SFX_ShiftHand");
-        float distance;
-        float yTarget;
-        GameObject hand = coMan.PlayerHand;
-        if (isUpShift) yTarget = -350;
-        else yTarget = coMan.PlayerHandStart.y;
-        Vector2 target = new Vector2(0, yTarget);
-
-        do
-        {
-            distance = Vector2.Distance(hand.transform.position, target);
-            hand.transform.position = Vector2.MoveTowards(hand.transform.position, target, 30);
-            yield return new WaitForFixedUpdate();
-        }
-        while (distance > 0);
-        uMan.DestroyZoomObjects();
-    }
-
+    #region DIALOGUE
     /******
      * *****
      * ****** DIALOGUE_INTRO
@@ -554,7 +607,9 @@ public class AnimationManager : MonoBehaviour
         if (!isExitOnly) dMan.DisplayDialoguePopup();
         dMan.AllowResponse = true;
     }
+    #endregion
 
+    #region COMBAT
     /******
      * *****
      * ****** COMBAT_INTRO
@@ -799,7 +854,7 @@ public class AnimationManager : MonoBehaviour
         while (distance > bufferDistance);
 
         coMan.PlayAttackSound(attacker);
-        coMan.Strike(attacker, defender, true);
+        coMan.Strike(attacker, defender, true, true);
         yield return new WaitForSeconds(0.1f);
 
         // RETREAT
@@ -815,78 +870,44 @@ public class AnimationManager : MonoBehaviour
 
         particleHandler.StopParticles();
         container.GetComponent<CardContainer>().IsDetached = false;
-        if (attacker.CompareTag(CombatManager.ENEMY_CARD)) // TESTING
-            attacker.transform.SetAsFirstSibling();
+        attacker.transform.SetAsFirstSibling();
         EventManager.Instance.PauseDelayedActions(false);
     }
 
     /******
      * *****
-     * ****** SET_PROGRESS_BAR
+     * ****** SHIFT_PLAYER_HAND
      * *****
      *****/
-    public enum ProgressBarType
+    public void ShiftPlayerHand(bool isUpShift)
     {
-        Recruit,
-        Item
+        if (ShiftHandRoutine != null)
+        {
+            StopCoroutine(ShiftHandRoutine);
+            ShiftHandRoutine = null;
+        }
+
+        ShiftHandRoutine = StartCoroutine(ShiftHandNumerator(isUpShift));
     }
-    public void SetProgressBar(ProgressBarType progressType, int currentProgress, int newProgress, bool isReady,
-        GameObject progressBar, GameObject progressFill, int controlValue = 1)
+    private IEnumerator ShiftHandNumerator(bool isUpShift)
     {
-        if (ProgressBarRoutine != null)
+        auMan.StartStopSound("SFX_ShiftHand");
+        float distance;
+        float yTarget;
+        GameObject hand = coMan.PlayerHand;
+        if (isUpShift) yTarget = -350;
+        else yTarget = coMan.PlayerHandStart.y;
+        Vector2 target = new Vector2(0, yTarget);
+
+        do
         {
-            progressFill.GetComponent<Image>().color = previousBarColor;
-            StopCoroutine(ProgressBarRoutine);
+            distance = Vector2.Distance(hand.transform.position, target);
+            hand.transform.position = Vector2.MoveTowards(hand.transform.position, target, 30);
+            yield return new WaitForFixedUpdate();
         }
-        ProgressBarRoutine = StartCoroutine(ProgressBarNumerator(progressType, currentProgress, newProgress,
-            isReady, progressBar, progressFill, controlValue));
+        while (distance > 0);
+        uMan.DestroyZoomObjects();
     }
-
-    private IEnumerator ProgressBarNumerator(ProgressBarType progressType, int currentProgress, int newProgress,
-        bool isReady, GameObject progressBar, GameObject progressFill, int controlValue)
-    {
-        Slider slider = progressBar.GetComponent<Slider>();
-        slider.value = currentProgress + controlValue; // TESTING
-        Image image = progressFill.GetComponent<Image>();
-        previousBarColor = image.color;
-        image.color = uMan.HighlightedColor;
-        auMan.StartStopSound("SFX_ProgressBar", null, AudioManager.SoundType.SFX, false, true);
-
-        int targetValue = newProgress + controlValue;
-        if (slider.value < targetValue)
-        {
-            while (slider.value < targetValue)
-            {
-                slider.value += 0.02f;
-                yield return new WaitForFixedUpdate();
-            }
-        }
-        else
-        {
-            while (slider.value > targetValue)
-            {
-                slider.value -= 0.05f;
-                yield return new WaitForFixedUpdate();
-            }
-        }
-        
-        image.color = previousBarColor;
-        auMan.StartStopSound("SFX_ProgressBar", null, AudioManager.SoundType.SFX, true);
-
-        if (isReady)
-        {
-            switch (progressType)
-            {
-                case ProgressBarType.Recruit:
-                    Debug.Log("RECRUIT REWARD!");
-                    break;
-                case ProgressBarType.Item:
-                    Debug.Log("SHOP REWARD!");
-                    break;
-            }
-        }
-        ProgressBarRoutine = null;
-    }
-
-    public void TriggerHeroPower(GameObject heroPower) => ChangeAnimationState(heroPower, "Trigger");
+    #endregion
+    #endregion
 }

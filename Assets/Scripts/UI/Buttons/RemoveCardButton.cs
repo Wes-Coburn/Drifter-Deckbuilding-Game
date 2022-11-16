@@ -19,10 +19,7 @@ public class RemoveCardButton : MonoBehaviour
         set
         {
             card = value;
-            int cost;
-            if (card.IsRare) cost = GameManager.SELL_RARE_CARD_VALUE;
-            else cost = GameManager.SELL_CARD_VALUE;
-            RemovalCost = cost;
+            RemovalCost = GameManager.Instance.GetSellCost(card); // TESTING
         }
     }
     public void OnClick() =>

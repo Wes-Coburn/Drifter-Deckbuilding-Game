@@ -15,6 +15,8 @@ MonoBehaviour:
   AbilityName: Stealth
   AbilityDescription: Can't be attacked until it attacks.
   AbilitySprite: {fileID: 21300000, guid: 81822a4ef6b9d754e8f68fa3c090acbe, type: 3}
+  OverrideColor: 1
+  AbilityColor: {r: 1, g: 0, b: 0.9770155, a: 1}
   LinkedAbilites: []
   AbilityStacks: 0
   GainAbilitySound:
@@ -22,10 +24,12 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 21c4e849bc60f61469992c8e8d7f9ec9, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   LoseAbilitySound:
     name: 
     clip: {fileID: 8300000, guid: 663b5afc8764e534aaa86122dcc67d05, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}

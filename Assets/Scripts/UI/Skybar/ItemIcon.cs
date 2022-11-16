@@ -5,9 +5,11 @@ using UnityEngine.UI;
 public class ItemIcon : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private GameObject iconImage;
+    [SerializeField] private GameObject itemUsedIcon;
 
     private UIManager uMan;
     private HeroItem loadedItem;
+
     //private const string ITEM_POPUP_TIMER = "ItemPopupTimer";
     private const string ITEM_ABILITY_POPUP_TIMER = "ItemAbilityPopupTimer";
     public HeroItem LoadedItem
@@ -18,6 +20,16 @@ public class ItemIcon : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
             loadedItem = value;
             iconImage.GetComponent<Image>().sprite = 
                 loadedItem.ItemImage;
+            IsUsed = loadedItem.IsUsed; // TESTING
+        }
+    }
+
+    public bool IsUsed
+    {
+        set
+        {
+            loadedItem.IsUsed = value;
+            itemUsedIcon.SetActive(loadedItem.IsUsed);
         }
     }
 
@@ -25,8 +37,16 @@ public class ItemIcon : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
     public void OnPointerClick(PointerEventData pointerEventData)
     {
-        if (EffectManager.Instance.EffectsResolving || EventManager.Instance.ActionsDelayed) return; // TESTING
-        if (!SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene)) return; // TESTING
+        if (EffectManager.Instance.EffectsResolving || EventManager.Instance.ActionsDelayed) return;
+        if (!SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene)) return;
+
+        if (loadedItem.IsUsed) // TESTING
+        {
+            uMan.CreateFleetingInfoPopup("Item already used this combat!");
+            AudioManager.Instance.StartStopSound("SFX_Error");
+            return;
+        }
+
         uMan.CreateItemIconPopup(loadedItem, gameObject, true);
         FunctionTimer.StopTimer(ITEM_ABILITY_POPUP_TIMER);
         uMan.DestroyItemAbilityPopup();

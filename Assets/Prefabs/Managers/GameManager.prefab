@@ -52,11 +52,9 @@ MonoBehaviour:
   - You gain 1 energy at the start of your turn, increased by 1 each turn to a maximum
     of 10.
   - Units with Deathblow do something after they destroy another unit.
-  - Visit <b>Your Ship</b> to sell cards and claim rewards!
-  - Units with Spark do something after you play your first <b>Action</b> card each
-    turn.
-  - Look before you attack! Units with Retaliate do something after their hero is
-    attacked.
+  - Visit <b>Your Ship</b> to sell cards and items for aether!
+  - Units with Spark do something after the first time you play an <b>Action</b>
+    card each turn.
   - Units with Research do something after you use your hero power or ultimate.
   - Look out for <b>The Augmenter</b> to permanently upgrade your hero!
   - Units with Infiltrate do something after they attack the enemy hero.
@@ -65,6 +63,9 @@ MonoBehaviour:
   - Units with Ranged aren't struck back when they attack.
   - Units with Armored take 1 less damage from all sources.
   - A hero is Wounded if they have taken 5+ damage this turn.
+  - You can use your items once each combat. Use them wisely!
+  - Right click on cards for more information.
+  - Units with Defender must be attacked (if possible).
   reputation_Mages: {fileID: 11400000, guid: eb3b373fe9394ca4cb6ee52db1027c17, type: 2}
   reputation_Mutants: {fileID: 11400000, guid: 5d97d4a9ed164724fb092edb8a07b440, type: 2}
   reputation_Rogues: {fileID: 11400000, guid: 3f85162fed2fdca409e38a3b4c0ea760, type: 2}

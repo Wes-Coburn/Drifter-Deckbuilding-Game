@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b5d380596c186946b6326aed147aa08, type: 3}
+  m_Name: Voidsnare Trap
+  m_EditorClassIdentifier: 
+  itemName: Voidsnare Trap
+  itemDescription: Set two Traps.
+  itemImage: {fileID: 21300000, guid: bd7d8ac5bd9994446b365dd9a60527ed, type: 3}
+  isRareItem: 0
+  effectGroupList:
+  - {fileID: 11400000, guid: 3e30647b43605bc4e98d9a2055b974a5, type: 2}
+  - {fileID: 11400000, guid: 3e30647b43605bc4e98d9a2055b974a5, type: 2}
+  linkedAbilities:
+  - {fileID: 11400000, guid: 7c725ce5f65acbd48a58670f0a914288, type: 2}

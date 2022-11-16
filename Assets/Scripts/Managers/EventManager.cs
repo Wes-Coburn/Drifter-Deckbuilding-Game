@@ -29,7 +29,7 @@ public class EventManager : MonoBehaviour
     {
         get
         {
-            if (delayedActions.Count > 0 || isPaused) return true;
+            if (delayedActions.Count > 0 || delayedActions_priority.Count > 0 || isPaused) return true;
             else return false;
         }
     }

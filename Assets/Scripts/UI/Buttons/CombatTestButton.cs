@@ -39,6 +39,7 @@ public class CombatTestButton : MonoBehaviour
     {
         if (SceneLoader.SceneIsLoading) return;
         //UIManager.Instance.ShakeCamera(EZCameraShake.CameraShakePresets.Bump); // TESTING
+        AnimationManager.Instance.CreateParticleSystem(gameObject, ParticleSystemHandler.ParticlesType.ButtonPress); // TESTING
         gMan.IsCombatTest = true;
         SceneLoader.LoadAction += () => LoadCombatTest();
         SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);

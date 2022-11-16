@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
@@ -14,50 +15,38 @@ public class AudioManager : MonoBehaviour
         }
         else Destroy(gameObject);
 
-        // ADD SOUND SOURCES
         foreach (Sound sound in sounds) AddSoundSource(sound);
-        musicVolume = 1;
-        sfxVolume = 1;
+        MusicVolume = 0;
+        SFXVolume = 0;
     }
 
+    [Header("Audio Mixer"), SerializeField] private AudioMixer masterMixer;
+    [SerializeField] private AudioMixerGroup sfxMixer;
     [SerializeField] private Sound[] sounds;
-
-    private float musicVolume;
-    private float sfxVolume;
     private static readonly List<Sound> activeSounds = new List<Sound>();
+    private const string VOLUME_MUSIC = "Volume_Music";
+    private const string VOLUME_SFX = "Volume_SFX";
 
     public Sound CurrentSoundscape { get; set; }
     public Sound CurrentSoundtrack { get; set; }
 
     public float MusicVolume
     {
-        get => musicVolume;
-        set
+        get
         {
-            musicVolume = value;
-            if (musicVolume < 0) musicVolume = 0;
-            else if (musicVolume > 1) musicVolume = 1;
-            if (CurrentSoundscape != null)
-                CurrentSoundscape.source.volume = musicVolume;
-            if (CurrentSoundtrack != null)
-                CurrentSoundtrack.source.volume = musicVolume;
+            masterMixer.GetFloat(VOLUME_MUSIC, out float volume);
+            return volume;
         }
+        set => masterMixer.SetFloat(VOLUME_MUSIC, value);
     }
     public float SFXVolume
     {
-        get => sfxVolume;
-        set
+        get
         {
-            sfxVolume = value;
-            if (sfxVolume < 0) sfxVolume = 0;
-            else if (sfxVolume > 1) sfxVolume = 1;
-            foreach (Sound s in activeSounds)
-            {
-                if (CurrentSoundscape != null && s.clip == CurrentSoundscape.clip) continue;
-                if (CurrentSoundtrack != null && s.clip == CurrentSoundtrack.clip) continue;
-                s.source.volume = sfxVolume;
-            }
+            masterMixer.GetFloat(VOLUME_SFX, out float volume);
+            return volume;
         }
+        set => masterMixer.SetFloat(VOLUME_SFX, value);
     }
 
     public enum SoundType
@@ -71,12 +60,20 @@ public class AudioManager : MonoBehaviour
     {
         Sound newSound = new Sound
         {
-            source = gameObject.AddComponent<AudioSource>(),
             name = sound.name,
+            mixerGroup = sound.mixerGroup,
+            source = gameObject.AddComponent<AudioSource>(),
         };
         newSound.source.clip = sound.clip;
         newSound.source.volume = sound.volume;
         newSound.source.pitch = sound.pitch;
+
+        AudioMixerGroup mixer = newSound.mixerGroup;
+        AudioMixerGroup newMixer;
+        if (mixer != null) newMixer = mixer;
+        else newMixer = sfxMixer;
+        newSound.source.outputAudioMixerGroup = newMixer;
+
         activeSounds.Add(newSound);
         return newSound;
     }
@@ -102,7 +99,6 @@ public class AudioManager : MonoBehaviour
         SoundType soundType = SoundType.SFX, bool isEndSound = false, bool isLooped = false)
     {
         int soundIndex;
-        float volume;
 
         Sound currentSound = null;
         if (sound == null)
@@ -130,40 +126,27 @@ public class AudioManager : MonoBehaviour
         }
         switch (soundType)
         {
-            case SoundType.SFX:
-                volume = SFXVolume; // TESTING
-                break;
             case SoundType.Soundscape:
                 if (CurrentSoundscape != null)
                 {
                     if (CurrentSoundscape.source.clip == currentSound.source.clip) return;
                     CurrentSoundscape.source.Stop();
                 }
-                volume = SFXVolume; // TESTING
                 CurrentSoundscape = currentSound;
                 CurrentSoundscape.source.loop = true;
                 break;
             case SoundType.Soundtrack:
-                //Debug.LogWarning("SOUNDTRACKS SILENCED!");
-                //return; // FOR RECORDING ONLY
-//#pragma warning disable CS0162 // Unreachable code detected
                 if (CurrentSoundtrack != null)
-//#pragma warning restore CS0162 // Unreachable code detected
                 {
                     if (CurrentSoundtrack.source.clip == currentSound.source.clip) return;
                     CurrentSoundtrack.source.Stop();
                 }
-                volume = MusicVolume; // TESTING
                 CurrentSoundtrack = currentSound;
                 CurrentSoundtrack.source.loop = true;
                 break;
-            default:
-                Debug.LogError("INVALID SOUND TYPE!");
-                return;
         }
 
         if (isLooped) currentSound.source.loop = true;
-        currentSound.source.volume = volume;
         currentSound.source.Play();
     }
 }

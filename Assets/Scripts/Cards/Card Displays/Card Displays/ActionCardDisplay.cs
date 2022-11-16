@@ -7,9 +7,9 @@ public class ActionCardDisplay : CardDisplay
     [SerializeField] private GameObject cardDescription;
     public ActionCard ActionCard { get => CardScript as ActionCard; }
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
+        //base.Awake();
         caMan = CardManager.Instance;
     }
     

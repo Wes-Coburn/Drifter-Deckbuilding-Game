@@ -13,7 +13,7 @@ namespace EZCameraShake
         static Dictionary<string, CameraShaker> instanceList = new Dictionary<string, CameraShaker>();
 
         /// <summary>
-        /// The default position influcence of all shakes created by this shaker.
+        /// The default position influence of all shakes created by this shaker.
         /// </summary>
         public Vector3 DefaultPosInfluence = new Vector3(0.15f, 0.15f, 0.15f);
         /// <summary>

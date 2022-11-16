@@ -19,9 +19,19 @@ public abstract class Effect : ScriptableObject
     public DerivedValueType DerivedValue;
     public enum DerivedValueType
     {
+        // Saved Value
+        Saved_Value,
+
+        // Source
         Source_Power,
         Source_Health,
+
+        // Target
+        Target_Power,
+        Target_Health,
         Target_Keywords,
+
+        // Other
         Allies_Count
     }
 

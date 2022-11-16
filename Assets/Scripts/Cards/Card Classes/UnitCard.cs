@@ -36,7 +36,13 @@ public class UnitCard : Card
         startingAbilities = uc.StartingAbilities;
         CurrentAbilities = new List<CardAbility>();
         foreach (CardAbility abi in startingAbilities)
-            CurrentAbilities.Add(abi);
+        {
+            // TESTING TESTING TESTING
+            CardAbility newAbi = CreateInstance(abi.GetType().Name) as CardAbility;
+            newAbi.LoadCardAbility(abi);
+
+            CurrentAbilities.Add(newAbi);
+        }
 
         unitDeathSound = uc.UnitDeathSound;
     }
@@ -63,7 +69,12 @@ public class UnitCard : Card
                         if (e is ChangeControlEffect)
                             goto NextAbility;
             }
+
+            // TESTING TESTING TESTING
+            CardAbility newAbi = CreateInstance(abi.GetType().Name) as CardAbility;
+            newAbi.LoadCardAbility(abi);
             CurrentAbilities.Add(abi);
+
             NextAbility:;
         }
 

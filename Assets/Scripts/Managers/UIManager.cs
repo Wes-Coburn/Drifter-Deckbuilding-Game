@@ -22,6 +22,7 @@ public class UIManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
+    #region FIELDS
     [Header("SKYBAR")]
     [SerializeField] private GameObject skyBar;
     [SerializeField] private GameObject augmentBar;
@@ -72,6 +73,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject augmentIconPopupPrefab;
     [SerializeField] private GameObject itemPagePopupPrefab;
     [SerializeField] private GameObject buyItemPopupPrefab;
+    [SerializeField] private GameObject removeItemPopupPrefab;
     [SerializeField] private GameObject itemIconPrefab;
     [SerializeField] private GameObject itemIconPopupPrefab;
     [SerializeField] private GameObject abilityPopupPrefab;
@@ -112,6 +114,7 @@ public class UIManager : MonoBehaviour
     private GameObject newAugmentPopup;
     private GameObject itemPagePopup;
     private GameObject buyItemPopup;
+    private GameObject removeItemPopup;
     private GameObject locationPopup;
     private GameObject travelPopup;
     private GameObject narrativePopup;
@@ -128,7 +131,9 @@ public class UIManager : MonoBehaviour
     private CombatLog combatLog;
 
     public const string TOOLTIP_TIMER = "TooltipTimer";
+    #endregion
 
+    #region PROPERTIES
     public GameObject NewCardPopup { get => newCardPopup; }
     public GameObject ChooseCardPopup { get => chooseCardPopup; }
     public GameObject CardPagePopup { get => cardPagePopup; }
@@ -153,7 +158,9 @@ public class UIManager : MonoBehaviour
     public GameObject CurrentZoomCanvas { get; private set; }
     // UI CANVAS
     public GameObject UICanvas { get; set; }
+    #endregion
 
+    #region METHODS
     public void Start()
     {
         pMan = PlayerManager.Instance;
@@ -208,10 +215,11 @@ public class UIManager : MonoBehaviour
     {
         get
         {
-            CameraShakeInstance c = new CameraShakeInstance(2.5f, 4, 0.1f, 0.75f)
+            // TESTING Magnitude (normally 2.5f) FadeOutTime (normally 0.75)
+            CameraShakeInstance c = new CameraShakeInstance(1f, 4, 0.1f, 0.5f)
             {
                 PositionInfluence = Vector3.one * 0.15f,
-                RotationInfluence = Vector3.one * 0.5f // TESTING
+                RotationInfluence = Vector3.one
             };
             return c;
         }
@@ -705,22 +713,22 @@ public class UIManager : MonoBehaviour
                 infoPopup_Secondary.transform.localPosition = vec2;
                 break;
             case InfoPopupType.Tutorial:
-                infoPopup_Tutorial = Instantiate(infoPopupPrefab, CurrentZoomCanvas.transform); // TESTING
+                infoPopup_Tutorial = Instantiate(infoPopupPrefab, CurrentZoomCanvas.transform);
                 infoPopup_Tutorial.GetComponent<InfoPopupDisplay>().DisplayInfoPopup(message);
                 Destroy(infoPopup_Tutorial.GetComponent<Animator>());
                 infoPopup_Tutorial.transform.localPosition = vec2;
                 break;
         }
     }
-    public void CreateFleetingInfoPopup(string message, bool isCentered = false)
+    public void CreateFleetingInfoPopup(string message)
     {
-        CreateInfoPopup(message, InfoPopupType.Secondary, isCentered);
+        CreateInfoPopup(message, InfoPopupType.Secondary, true);
         anMan.ChangeAnimationState(infoPopup_Secondary, "Enter_Exit");
     }
     public void InsufficientAetherPopup()
     {
         CreateFleetingInfoPopup("Not enough aether! (You have " + 
-            pMan.AetherCells + " aether)", true);
+            pMan.AetherCells + " aether)");
     }
     public void DismissInfoPopup()
     {
@@ -758,7 +766,7 @@ public class UIManager : MonoBehaviour
     public void CreateTurnPopup(bool isPlayerTurn)
     {
         DestroyTurnPopup();
-        turnPopup = Instantiate(turnPopupPrefab, CurrentCanvas.transform);
+        turnPopup = Instantiate(turnPopupPrefab, CurrentZoomCanvas.transform);
         turnPopup.GetComponent<TurnPopupDisplay>().DisplayTurnPopup(isPlayerTurn);
     }
     public void DestroyTurnPopup()
@@ -773,14 +781,14 @@ public class UIManager : MonoBehaviour
     public void CreateVersusPopup(bool isBossBattle = false)
     {
         DestroyTurnPopup();
-        turnPopup = Instantiate(versusPopupPrefab, CurrentCanvas.transform);
+        turnPopup = Instantiate(versusPopupPrefab, CurrentZoomCanvas.transform);
         turnPopup.GetComponent<VersusPopupDisplay>().IsBossBattle = isBossBattle;
         anMan.CreateParticleSystem(turnPopup, ParticleSystemHandler.ParticlesType.Explosion, 1);
     }
     public void CreateCombatEndPopup(bool playerWins)
     {
         DestroyCombatEndPopup();
-        combatEndPopup = Instantiate(combatEndPopupPrefab, CurrentCanvas.transform);
+        combatEndPopup = Instantiate(combatEndPopupPrefab, CurrentZoomCanvas.transform);
         CombatEndPopupDisplay cepd = combatEndPopup.GetComponent<CombatEndPopupDisplay>();
         GameObject particleParent;
         if (playerWins) particleParent = cepd.VictoryText;
@@ -814,7 +822,7 @@ public class UIManager : MonoBehaviour
             ncpd = chooseCardPopup.GetComponent<NewCardPopupDisplay>();
         }
         
-        ncpd.PopupTitle = title; // TESTING
+        ncpd.PopupTitle = title;
         if (chooseCards == null) ncpd.NewCard = newCard;
         else ncpd.ChooseCards = chooseCards;
     }
@@ -834,7 +842,7 @@ public class UIManager : MonoBehaviour
     // Choose Reward Popup
     public void CreateChooseRewardPopup()
     {
-        chooseRewardPopup = Instantiate(chooseRewardPopupPrefab, CurrentCanvas.transform); // TESTING
+        chooseRewardPopup = Instantiate(chooseRewardPopupPrefab, CurrentCanvas.transform);
     }
     public void DestroyChooseRewardPopup()
     {
@@ -863,7 +871,8 @@ public class UIManager : MonoBehaviour
         }
     }
     // Card Page Popups
-    public void CreateCardPagePopup(CardPageDisplay.CardPageType cardPageType, bool playSound = true, bool isScrollPopup = true)
+    public void CreateCardPagePopup(CardPageDisplay.CardPageType cardPageType,
+        bool playSound = true, bool isScrollPopup = true)
     {
         float scrollValue = 1;
         if (cardPagePopup != null && isScrollPopup)
@@ -894,6 +903,7 @@ public class UIManager : MonoBehaviour
         DestroyRemoveCardPopup();
         DestroyRecruitUnitPopup();
         DestroyCloneUnitPopup();
+        DestroyTooltipPopup();
     }
     // Recruit Unit Popup
     public void CreateRecruitUnitPopup(UnitCard unitCard)
@@ -955,10 +965,11 @@ public class UIManager : MonoBehaviour
         }
     }
     // Item Page Popup
-    public void CreateItemPagePopup()
+    public void CreateItemPagePopup(bool isItemRemoval, bool playSound = true)
     {
         DestroyItemPagePopup();
         itemPagePopup = Instantiate(itemPagePopupPrefab, CurrentCanvas.transform);
+        itemPagePopup.GetComponent<ItemPageDisplay>().DisplayItems(isItemRemoval, playSound);
     }
     public void DestroyItemPagePopup()
     {
@@ -969,6 +980,8 @@ public class UIManager : MonoBehaviour
             itemPagePopup = null;
         }
         DestroyBuyItemPopup();
+
+        DestroyTooltipPopup(); // TESTING
     }
     // Buy Item Popup
     public void CreateBuyItemPopup(HeroItem heroItem)
@@ -983,6 +996,21 @@ public class UIManager : MonoBehaviour
         {
             Destroy(buyItemPopup);
             buyItemPopup = null;
+        }
+    }
+    // Remove Item Popup
+    public void CreateRemoveItemPopup(HeroItem heroItem)
+    {
+        DestroyRemoveItemPopup();
+        removeItemPopup = Instantiate(removeItemPopupPrefab, CurrentCanvas.transform);
+        removeItemPopup.GetComponent<RemoveItemPopupDisplay>().HeroItem = heroItem;
+    }
+    public void DestroyRemoveItemPopup()
+    {
+        if (removeItemPopup != null)
+        {
+            Destroy(removeItemPopup);
+            removeItemPopup = null;
         }
     }
     // Location Popup
@@ -1094,19 +1122,17 @@ public class UIManager : MonoBehaviour
 
     public void HideSkybar(bool isHidden)
     {
-        if (skyBar.activeInHierarchy == isHidden)
-            skyBar.SetActive(!isHidden);
+        if (skyBar.activeInHierarchy == isHidden) skyBar.SetActive(!isHidden);
     }
     public void SetSkybar(bool enabled, bool hideChildren = false)
     {
-        if (skyBar.activeInHierarchy != enabled)
-            skyBar.SetActive(enabled);
+        if (skyBar.activeInHierarchy != enabled) skyBar.SetActive(enabled);
 
         if (enabled)
         {
             ClearAugmentBar();
             ClearItemBar();
-            SetAetherCount(pMan.AetherCells, pMan.AetherCells);
+
             foreach (HeroAugment ha in pMan.HeroAugments) 
                 CreateAugmentIcon(ha);
             foreach (HeroItem hi in pMan.HeroItems)
@@ -1118,9 +1144,15 @@ public class UIManager : MonoBehaviour
             foreach (Transform repTran in reputationBar.transform)
                 repTran.gameObject.SetActive(!hideChildren);
 
+            SetAetherCount(pMan.AetherCells, pMan.AetherCells);
             UpdateItemsCount();
             SetAllReputation();
         }
+        
+        // TESTING TESTING TESTING
+        augmentsDropdown.SetActive(false);
+        itemsDropdown.SetActive(false);
+        reputationsDropdown.SetActive(false);
     }
     public void SetAetherCount(int newCount, int previousCount)
     {
@@ -1319,6 +1351,6 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void CreateGameEndPopup() =>
-        Instantiate(gameEndPopupPrefab, CurrentCanvas.transform);
+    public void CreateGameEndPopup() => Instantiate(gameEndPopupPrefab, CurrentCanvas.transform);
+    #endregion
 }

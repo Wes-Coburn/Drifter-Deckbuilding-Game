@@ -17,4 +17,5 @@ public class HeroItem : ScriptableObject
     public bool IsRareItem { get => isRareItem; }
     public List<EffectGroup> EffectGroupList { get => effectGroupList; }
     public List<CardAbility> LinkedAbilities { get => linkedAbilities; }
+    public bool IsUsed { get; set; }
 }

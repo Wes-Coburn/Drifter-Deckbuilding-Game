@@ -149,6 +149,8 @@ public class HomeBaseSceneDisplay : MonoBehaviour
     public void RemoveCardButton_OnClick(bool playSound = true) =>
         uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.RemoveCard, playSound);
 
+    public void RemoveItemButton_OnClick() => uMan.CreateItemPagePopup(true);
+
     public void ClaimRewardButton_OnClick()
     {
         uMan.DestroyTooltipPopup();
