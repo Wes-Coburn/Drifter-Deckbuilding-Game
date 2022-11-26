@@ -17,19 +17,21 @@ MonoBehaviour:
   locationFullName: The Outskirts
   locationDescription: The land of the exiled and forgotten.
   firstObjective: Make your way to The Factories.
-  worldMapPosition: {x: -620, y: -50}
+  worldMapPosition: {x: -660, y: -50}
   firstNPC: {fileID: 11400000, guid: ea2befe964ef52546a31cdd8f8d5d373, type: 2}
   locationSoundscape:
     name: 
     clip: {fileID: 0}
     volume: 0.8
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   locationBackground: 1
   isCombatOnly: 1
   isHomeBase: 0
   isAugmenter: 0
   isRecruitment: 0
+  isActionShop: 0
   isShop: 0
   isCloning: 0
   isRandomEncounter: 0

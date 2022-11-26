@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
@@ -95,10 +96,6 @@ public abstract class CardDisplay : MonoBehaviour
         else txtGui.color = Color.white;
     }
 
-    //public List<Effect> CurrentEffects { get; set; }
-
-    //protected virtual void Awake() => CurrentEffects = new List<Effect>();
-
     /******
      * *****
      * ****** CHANGE_CURRENT_ENERGY_COST
@@ -124,9 +121,8 @@ public abstract class CardDisplay : MonoBehaviour
         if (!string.IsNullOrEmpty(CardScript.CardSubType)) spacer = " - ";
         CardTypeLine = CardScript.CardType + spacer + CardScript.CardSubType;
 
-        SetRarity(cardScript); // TESTING
-
-        DisplayEnergyCost(CardScript.CurrentEnergyCost);
+        SetRarity(cardScript);
+        DisplayEnergyCost(CurrentEnergyCost);
         animator = gameObject.GetComponent<Animator>();
         animator.runtimeAnimatorController = CardScript.OverController;
     }
@@ -169,7 +165,7 @@ public abstract class CardDisplay : MonoBehaviour
             animator.runtimeAnimatorController = CardScript.ZoomOverController;
             AnimationManager.Instance.ZoomedState(gameObject);
         }
-        SetRarity(cardScript); // TESTING
+        SetRarity(cardScript);
     }
 
     private void SetRarity(Card card)
@@ -201,7 +197,7 @@ public abstract class CardDisplay : MonoBehaviour
      * ****** DISPLAY_CARD_PAGE_CARD
      * *****
      *****/
-    public virtual void DisplayCardPageCard(Card card) => SetRarity(card); // TESTING
+    public virtual void DisplayCardPageCard(Card card) => SetRarity(card);
 
     /******
      * *****
@@ -222,8 +218,26 @@ public abstract class CardDisplay : MonoBehaviour
     {
         GetComponent<CardSelect>().CardOutline.SetActive(false);
         CurrentEnergyCost = CardScript.StartEnergyCost;
-        //CurrentEffects.Clear();
-        CardScript.CurrentEffects.Clear(); // TESTING
+    }
+
+    public void ResetEffects()
+    {
+        List<Effect> toDestroy = new List<Effect>();
+        foreach (Effect e in CardScript.CurrentEffects)
+        {
+            if (e.IsPermanent || e is ChangeCostEffect chgCst && chgCst.ChangeNextCost) { }
+            else toDestroy.Add(e);
+        }
+
+        foreach (Effect e in toDestroy) Destroy(e);
+        CardScript.CurrentEffects.Clear();
+
+        List<Effect> permanents = new List<Effect>();
+        foreach (Effect e in cardScript.PermanentEffects)
+            permanents.Add(e);
+
+        foreach (Effect e in permanents)
+            EffectManager.Instance.AddEffect(gameObject, e, false, true, false);
     }
 
     /******

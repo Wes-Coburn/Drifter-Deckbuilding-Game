@@ -21,6 +21,7 @@ public class Location : ScriptableObject
     [SerializeField] private bool isHomeBase;
     [SerializeField] private bool isAugmenter;
     [SerializeField] private bool isRecruitment;
+    [SerializeField] private bool isActionShop;
     [SerializeField] private bool isShop;
     [SerializeField] private bool isCloning;
     [SerializeField] private bool isRandomEncounter;
@@ -50,6 +51,7 @@ public class Location : ScriptableObject
     public bool IsHomeBase { get => isHomeBase; }
     public bool IsAugmenter { get => isAugmenter; }
     public bool IsRecruitment { get => isRecruitment; }
+    public bool IsActionShop { get => isActionShop; }
     public bool IsShop { get => isShop; }
     public bool IsCloning { get => isCloning; }
     public bool IsRandomEncounter { get => isRandomEncounter; }
@@ -74,6 +76,7 @@ public class Location : ScriptableObject
         isHomeBase = location.IsHomeBase;
         isAugmenter = location.IsAugmenter;
         isRecruitment = location.IsRecruitment;
+        isActionShop = location.IsActionShop;
         isShop = location.IsShop;
         isCloning = location.IsCloning;
         isRandomEncounter = location.IsRandomEncounter;

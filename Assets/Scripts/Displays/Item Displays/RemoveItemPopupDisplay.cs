@@ -32,7 +32,7 @@ public class RemoveItemPopupDisplay : MonoBehaviour
             if (heroItem.IsRareItem) cost = GameManager.SELL_RARE_ITEM_VALUE;
             else cost = GameManager.SELL_ITEM_VALUE;
 
-            string text = "Sell <b><u>" + heroItem.ItemName + "</u></b>" +
+            string text = "Sell <color=\"green\"><b>" + heroItem.ItemName + "</b></color>" +
                 " for <color=\"yellow\"><b>" + cost + "</b></color> aether?";
             PopupText = text;
         }

@@ -18,23 +18,25 @@ MonoBehaviour:
   cardName: Amorphous Duplicator
   cardType: Mutant
   cardSubType: 
-  isRare: 0
+  cardRarity: 0
   cardDescription: Amorphous Duplicator is...
   cardPlaySound:
     name: 
     clip: {fileID: 8300000, guid: f3e77abaa8f025b40b66e4e4420373cf, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
   zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
   power: 2
   health: 2
   startingAbilities:
-  - {fileID: 11400000, guid: 41ee2068a8b67934a879b324d1120519, type: 2}
+  - {fileID: 11400000, guid: e8a1c723e7f4a2d4da371d213a3878d5, type: 2}
   unitDeathSound:
     name: 
     clip: {fileID: 8300000, guid: 168978c18747d9f428c7b1ac327d7ed3, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}

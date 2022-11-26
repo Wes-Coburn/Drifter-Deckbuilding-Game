@@ -430,7 +430,7 @@ public class EnemyManager : MonoBehaviour
                 int priority = 0;
                 int defenderPower = ucd.CurrentPower;
                 int defenderHealth = ucd.CurrentHealth;
-                priority += defenderPower + (defenderPower / 3) - defenderHealth / 2;
+                priority += defenderPower + (defenderPower / 3) - (defenderHealth / 2);
 
                 bool defender_Armored =
                     CardManager.GetAbility(legalDefender, CardManager.ABILITY_ARMORED);
@@ -462,11 +462,12 @@ public class EnemyManager : MonoBehaviour
                     else if (goodAttacksOnly) continue;
                 }
 
-                if (!CardManager.GetAbility(attacker, CardManager.ABILITY_RANGED))
+                if (!CardManager.GetAbility(attacker, CardManager.ABILITY_RANGED) &&
+                    !CardManager.GetAbility(attacker, CardManager.ABILITY_FORCEFIELD))
                 {
                     int modHealth = attackerDisplay.CurrentHealth;
                     if (CardManager.GetAbility(attacker, CardManager.ABILITY_ARMORED)) modHealth++;
-                    if (modHealth > defenderPower) priority += 4; // Attacker will survive
+                    if (modHealth > defenderPower) priority += 3; // Attacker will survive
                 }
 
                 if (priority > highestPriority)

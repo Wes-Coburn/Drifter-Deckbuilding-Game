@@ -383,10 +383,16 @@ public class DialogueManager : MonoBehaviour
         // Recruitment
         if (dResponse.Response_IsRecruitmentStart)
         {
-            uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.RecruitUnit);
+            uMan.CreateCardPage(CardPageDisplay.CardPageType.RecruitUnit);
             return;
         }
-        // Shop
+        // Action Shop
+        if (dResponse.Response_IsActionShopStart)
+        {
+            uMan.CreateCardPage(CardPageDisplay.CardPageType.AcquireAction);
+            return;
+        }
+        // Item Shop
         if (dResponse.Response_IsShopStart)
         {
             uMan.CreateItemPagePopup(false);
@@ -395,7 +401,7 @@ public class DialogueManager : MonoBehaviour
         // Cloning
         if (dResponse.Response_IsCloningStart)
         {
-            uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.CloneUnit);
+            uMan.CreateCardPage(CardPageDisplay.CardPageType.CloneUnit);
             return;
         }
         // New Augment

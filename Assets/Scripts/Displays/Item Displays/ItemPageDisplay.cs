@@ -22,8 +22,7 @@ public class ItemPageDisplay : MonoBehaviour
         else progressText = newProgress + "/" + GameManager.SHOP_LOYALTY_GOAL + " Items Purchased";
         progressBarText.GetComponent<TextMeshProUGUI>().SetText(progressText);
         if (isFirstDisplay && newProgress < 1) return;
-        AnimationManager.Instance.SetProgressBar(AnimationManager.ProgressBarType.Item,
-            currentProgress, newProgress, isReady, progressBar, progressFill);
+        AnimationManager.Instance.SetProgressBar(currentProgress, newProgress, progressBar, progressFill);
     }
     public void DisplayItems(bool isItemRemoveal, bool playSound)
     {

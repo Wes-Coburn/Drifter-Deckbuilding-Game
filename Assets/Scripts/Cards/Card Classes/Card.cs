@@ -35,7 +35,8 @@ public abstract class Card : ScriptableObject
     public AnimatorOverrideController OverController { get => overController; }
     public AnimatorOverrideController ZoomOverController { get => zoomOverController; }
 
-    public List<Effect> CurrentEffects { get; set; }
+    public List<Effect> CurrentEffects { get; private set; }
+    public List<Effect> PermanentEffects { get; private set; }
 
     public bool BanishAfterPlay { get; set; }
 
@@ -54,7 +55,8 @@ public abstract class Card : ScriptableObject
         zoomOverController = card.ZoomOverController;
         cardPlaySound = card.CardPlaySound;
 
-        CurrentEffects = new List<Effect>(); // TESTING
+        CurrentEffects = new List<Effect>();
+        PermanentEffects = new List<Effect>();
     }
 
     public virtual void CopyCard(Card card)
@@ -72,8 +74,12 @@ public abstract class Card : ScriptableObject
         zoomOverController = card.ZoomOverController;
         cardPlaySound = card.CardPlaySound;
 
-        CurrentEffects = new List<Effect>(); // TESTING
-        foreach (Effect e in card.CurrentEffects)
+        CurrentEffects = new List<Effect>();
+        foreach (Effect e in card.CurrentEffects) // Already instantiated
             CurrentEffects.Add(e);
+
+        PermanentEffects = new List<Effect>();
+        foreach (Effect e in card.PermanentEffects) // Necessary for cards returned to hand
+            PermanentEffects.Add(e);
     }
 }

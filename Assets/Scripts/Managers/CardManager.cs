@@ -172,6 +172,7 @@ public class CardManager : MonoBehaviour
     public ActionCard Extraction_Ultimate { get => extraction_Ultimate; }
     
     public List<UnitCard> PlayerRecruitUnits { get; private set; }
+    public List<ActionCard> ActionShopCards { get; private set; }
     #endregion
 
     #region METHODS
@@ -185,6 +186,7 @@ public class CardManager : MonoBehaviour
         coMan = CombatManager.Instance;
 
         PlayerRecruitUnits = new List<UnitCard>();
+        ActionShopCards = new List<ActionCard>();
     }
 
     public Card NewCardInstance(Card card, bool isExactCopy = false)
@@ -285,9 +287,51 @@ public class CardManager : MonoBehaviour
         return Color.yellow;
     }
 
+    public void LoadNewActions()
+    {
+        ActionCard[] allActions = Resources.LoadAll<ActionCard>("Cards_Actions");
+        allActions.Shuffle(); // TESTING
+        List<ActionCard> actionList = new List<ActionCard>();
+
+        foreach (ActionCard action in allActions)
+        {
+            // Rare Card Functionality
+            switch (action.CardRarity)
+            {
+                case Card.Rarity.Common:
+                    AddCard();
+                    AddCard();
+                    AddCard();
+                    goto case Card.Rarity.Rare;
+                case Card.Rarity.Rare:
+                    AddCard();
+                    AddCard();
+                    goto case Card.Rarity.Legend;
+                case Card.Rarity.Legend:
+                    AddCard();
+                    break;
+            }
+            void AddCard() => actionList.Add(action);
+        }
+
+        while (ActionShopCards.Count < 8)
+        {
+            foreach (ActionCard ac in actionList)
+            {
+                if (ac == null) continue;
+                int index = pMan.PlayerDeckList.FindIndex(x => x.CardName == ac.CardName);
+                if (index == -1 && !ActionShopCards.Contains(ac))
+                {
+                    ActionShopCards.Add(ac);
+                    if (ActionShopCards.Count > 7) break;
+                }
+            }
+        }
+    }
     public void LoadNewRecruits()
     {
         UnitCard[] allRecruits = Resources.LoadAll<UnitCard>("Cards_Units");
+        allRecruits.Shuffle(); // TESTING
 
         List<UnitCard> recruitMages = new List<UnitCard>();
         List<UnitCard> recruitMutants = new List<UnitCard>();
@@ -650,7 +694,7 @@ public class CardManager : MonoBehaviour
             if (ca is TriggeredAbility tra)
                 if (tra.AbilityTrigger.AbilityName == triggerName)
                 {
-                    if (tra.TriggerLimit != 0 && tra.TriggerCount >= tra.TriggerLimit) continue; // TESTING
+                    if (tra.TriggerLimit != 0 && tra.TriggerCount >= tra.TriggerLimit) continue;
                     return true;
                 }
         return false;
@@ -674,6 +718,7 @@ public class CardManager : MonoBehaviour
         }
 
         bool effectFound = false;
+        int totalAbilities = 0;
         List<TriggeredAbility> resolveFirstAbilities = new List<TriggeredAbility>();
         List<TriggeredAbility> resolveSecondAbilities = new List<TriggeredAbility>();
         List<TriggeredAbility> resolveLastAbilities = new List<TriggeredAbility>();
@@ -682,7 +727,7 @@ public class CardManager : MonoBehaviour
             if (ca is TriggeredAbility tra)
                 if (tra.AbilityTrigger.AbilityName == triggerName)
                 {
-                    if (tra.TriggerLimit != 0 && tra.TriggerCount >= tra.TriggerLimit) continue; // TESTING
+                    if (tra.TriggerLimit != 0 && tra.TriggerCount >= tra.TriggerLimit) continue;
                     tra.TriggerCount++;
 
                     Debug.Log("TRIGGER! <" + triggerName + ">");
@@ -696,10 +741,13 @@ public class CardManager : MonoBehaviour
                     else if (IsResolveSecondAbility(tra)) targetList = resolveSecondAbilities;
                     else targetList = resolveFirstAbilities;
 
-                    for (int i = 0; i < totalTriggers; i++) targetList.Add(tra);
+                    for (int i = 0; i < totalTriggers; i++)
+                    {
+                        targetList.Add(tra);
+                        totalAbilities++;
+                    }
                 }
 
-        // TESTING TESTING TESTING
         List<string> enabledTriggers = new List<string>();
         List<string> visibleTriggers = new List<string>();
 
@@ -721,31 +769,21 @@ public class CardManager : MonoBehaviour
 
         float delay = 0.25f;
         int currentAbility = 0;
-        int totalAbilities = resolveLastAbilities.Count + resolveFirstAbilities.Count;
-
-        foreach (TriggeredAbility traLast in resolveLastAbilities)
-        {
-            if (++currentAbility == totalAbilities) delay = 0;
-
-            evMan.NewDelayedAction(() =>
-            TriggerAbility(traLast), delay, true);
-        }
-        foreach (TriggeredAbility traSecond in resolveSecondAbilities)
-        {
-            if (++currentAbility == totalAbilities) delay = 0;
-
-            evMan.NewDelayedAction(() =>
-            TriggerAbility(traSecond), delay, true);
-        }
-        foreach (TriggeredAbility traFirst in resolveFirstAbilities)
-        {
-            if (++currentAbility == totalAbilities) delay = 0;
-
-            evMan.NewDelayedAction(() =>
-            TriggerAbility(traFirst), delay, true);
-        }
+        ResolveAbilities(resolveLastAbilities);
+        ResolveAbilities(resolveSecondAbilities);
+        ResolveAbilities(resolveFirstAbilities);
         return effectFound;
 
+        void ResolveAbilities(List<TriggeredAbility> abilities)
+        {
+            if (++currentAbility == totalAbilities) delay = 0;
+
+            foreach (TriggeredAbility tra in abilities)
+            {
+                evMan.NewDelayedAction(() =>
+                TriggerAbility(tra), delay, true);
+            }
+        }
         bool IsResolveSecondAbility(TriggeredAbility tra)
         {
             foreach (EffectGroup eg in tra.EffectGroupList)
@@ -884,7 +922,7 @@ public class CardManager : MonoBehaviour
 
         foreach (GameObject trap in unitZoneCards)
         {
-            if (efMan.UnitsToDestroy.Contains(trap)) continue; // TESTING
+            if (efMan.UnitsToDestroy.Contains(trap)) continue;
 
             UnitCardDisplay ucd = trap.GetComponent<UnitCardDisplay>();
             foreach (CardAbility ca in ucd.CurrentAbilities)
@@ -909,7 +947,7 @@ public class CardManager : MonoBehaviour
                     auMan.StartStopSound(null, ucd.UnitCard.CardPlaySound);
 
                     efMan.UnitsToDestroy.Add(trap);
-                    evMan.NewDelayedAction(() => efMan.ClearDestroyedUnits(), 0, true); // TESTING
+                    evMan.NewDelayedAction(() => efMan.ClearDestroyedUnits(), 0, true);
 
                     foreach (Effect selfEffect in trapAbility.SelfEffects)
                         evMan.NewDelayedAction(() =>

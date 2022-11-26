@@ -18,18 +18,19 @@ MonoBehaviour:
   cardName: Reckless Bloodbringer
   cardType: Warrior
   cardSubType: 
-  isRare: 0
+  cardRarity: 0
   cardDescription: Reckless Bloodbringer is...
   cardPlaySound:
     name: 
     clip: {fileID: 8300000, guid: faa3e0ccca459a74d9bad61dac921db5, type: 3}
     volume: 0.8
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
   zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
-  power: 2
-  health: 1
+  power: 1
+  health: 2
   startingAbilities:
   - {fileID: 11400000, guid: 3e5874c35dad2f34d96f6d4b9d15a4dd, type: 2}
   - {fileID: 11400000, guid: 27eaad253b50e84449c084859ad5c55f, type: 2}
@@ -38,4 +39,5 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 8b0b752b783620e4bbdfe59a3c98a013, type: 3}
     volume: 0.8
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}

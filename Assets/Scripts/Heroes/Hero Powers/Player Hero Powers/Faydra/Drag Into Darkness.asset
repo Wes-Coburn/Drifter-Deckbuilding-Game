@@ -20,15 +20,17 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 77635470bfbeb824fbe57f2341ebee61, type: 3}
     volume: 0.8
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: 
     clip: {fileID: 8300000, guid: d176cfb07985e9c46bf36c418c6764b1, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
-  PowerDescription: Stun ALL enemies and deal 3 to them.
+  PowerDescription: Stun ALL enemies and deal 2 to them.
   EffectGroupList:
   - {fileID: 11400000, guid: a28041dc89a504b4b99882c1657727aa, type: 2}
-  - {fileID: 11400000, guid: 69f802b8164d50c4b902968dbe404954, type: 2}
+  - {fileID: 11400000, guid: a07c0f15db9b6b54fb674a9f3e867d6b, type: 2}
   LinkedAbilities:
   - {fileID: 11400000, guid: 37a54b5ce20d48941893b9f48eee681f, type: 2}

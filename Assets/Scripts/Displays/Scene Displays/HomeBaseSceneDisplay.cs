@@ -147,7 +147,7 @@ public class HomeBaseSceneDisplay : MonoBehaviour
         heroBackstory.SetActive(!heroBackstory.activeSelf);
     
     public void RemoveCardButton_OnClick(bool playSound = true) =>
-        uMan.CreateCardPagePopup(CardPageDisplay.CardPageType.RemoveCard, playSound);
+        uMan.CreateCardPage(CardPageDisplay.CardPageType.RemoveCard, playSound);
 
     public void RemoveItemButton_OnClick() => uMan.CreateItemPagePopup(true);
 

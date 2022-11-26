@@ -61,11 +61,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject chooseCardPopupPrefab;
     [SerializeField] private GameObject chooseRewardPopupPrefab;
     [SerializeField] private GameObject aetherCellPopupPrefab;
+    [SerializeField] private GameObject cardPagePrefab;
+    [SerializeField] private GameObject cardScrollPagePrefab;
     [SerializeField] private GameObject cardPagePopupPrefab;
-    [SerializeField] private GameObject cardScrollPopupPrefab;
-    [SerializeField] private GameObject recruitUnitPopupPrefab;
-    [SerializeField] private GameObject removeCardPopupPrefab;
-    [SerializeField] private GameObject cloneUnitPopupPrefab;
     [SerializeField] private GameObject newAugmentPopupPrefab;
     [SerializeField] private GameObject locationPopupPrefab;
     [SerializeField] private GameObject narrativePopupPrefab;
@@ -107,10 +105,8 @@ public class UIManager : MonoBehaviour
     private GameObject chooseCardPopup;
     private GameObject chooseRewardPopup;
     private GameObject aetherCellPopup;
+    private GameObject cardPage;
     private GameObject cardPagePopup;
-    private GameObject recruitUnitPopup;
-    private GameObject removeCardPopup;
-    private GameObject cloneUnitPopup;
     private GameObject newAugmentPopup;
     private GameObject itemPagePopup;
     private GameObject buyItemPopup;
@@ -148,15 +144,10 @@ public class UIManager : MonoBehaviour
     public Color HighlightedColor { get => highlightedColor; }
     public GameObject CombatLog { get => combatLog.gameObject; }
 
-    // PLAYER_IS_TARGETTING
     public bool PlayerIsTargetting { get; set; }
-    // WORLDSPACE
     public GameObject CurrentWorldSpace { get; private set; }
-    // CANVAS
     public GameObject CurrentCanvas { get; private set; }
-    // ZOOM CANVAS
     public GameObject CurrentZoomCanvas { get; private set; }
-    // UI CANVAS
     public GameObject UICanvas { get; set; }
     #endregion
 
@@ -345,7 +336,6 @@ public class UIManager : MonoBehaviour
         }
 
         disabledColor.a = 0.3f;
-
         var btnClr = etb.colors;
         btnClr.normalColor = normalColor;
         btnClr.highlightedColor = highlightedColor;
@@ -387,7 +377,7 @@ public class UIManager : MonoBehaviour
             if (selectionType is SelectionType.Disabled)
             {
                 cs.CardOutline.SetActive(false);
-                RemoveBuffer(); // TESTING
+                RemoveBuffer();
                 return;
             }
             else cs.CardOutline.SetActive(true);
@@ -410,7 +400,7 @@ public class UIManager : MonoBehaviour
         }
         else if (target.TryGetComponent(out HeroSelect hs))
         {
-            if (selectionType is SelectionType.Disabled) // TESTING
+            if (selectionType is SelectionType.Disabled)
             {
                 hs.HeroOutline.SetActive(false);
                 return;
@@ -507,7 +497,7 @@ public class UIManager : MonoBehaviour
                         position.Set(-150, -75);
                         scale.Set(2.5f, 2.5f);
                         break;
-                    case SceneLoader.Scene.CombatScene: // done
+                    case SceneLoader.Scene.CombatScene:
                         position.Set(-90, -20);
                         scale.Set(1.2f, 1.2f);
                         break;
@@ -525,7 +515,7 @@ public class UIManager : MonoBehaviour
                         position.Set(0, -100);
                         scale.Set(2f, 2f);
                         break;
-                    case SceneLoader.Scene.CombatScene: // done
+                    case SceneLoader.Scene.CombatScene:
                         position.Set(5, -20);
                         scale.Set(1f, 1f);
                         break;
@@ -543,7 +533,7 @@ public class UIManager : MonoBehaviour
                         position.Set(-90, -325);
                         scale.Set(3, 3);
                         break;
-                    case SceneLoader.Scene.CombatScene: // done
+                    case SceneLoader.Scene.CombatScene:
                         position.Set(-30, -90);
                         scale.Set(1.2f, 1.2f);
                         break;
@@ -561,7 +551,7 @@ public class UIManager : MonoBehaviour
                         position.Set(0, -45);
                         scale.Set(2f, 2f);
                         break;
-                    case SceneLoader.Scene.CombatScene: // done
+                    case SceneLoader.Scene.CombatScene:
                         position.Set(0, -35);
                         scale.Set(1.2f, 1.2f);
                         break;
@@ -596,10 +586,8 @@ public class UIManager : MonoBehaviour
      * ****** COMBAT_LOG_ENTRY
      * *****
      *****/
-    public void CombatLogEntry(string entry) =>
-        combatLog.NewLogEntry(entry);
-    public void CombatLog_PlayCard(GameObject card) =>
-        combatLog.NewLogEntry_PlayCard(card);
+    public void CombatLogEntry(string entry) => combatLog.NewLogEntry(entry);
+    public void CombatLog_PlayCard(GameObject card) => combatLog.NewLogEntry_PlayCard(card);
 
     /******
      * *****
@@ -607,8 +595,7 @@ public class UIManager : MonoBehaviour
      * *****
      *****/
     // Destroy Interactable Popup
-    public void DestroyInteractablePopup(GameObject popup) =>
-        anMan.ChangeAnimationState(popup, "Exit");
+    public void DestroyInteractablePopup(GameObject popup) => anMan.ChangeAnimationState(popup, "Exit");
     // Tooltip Popup
     public void CreateTooltipPopup(Vector2 position, string text)
     {
@@ -631,8 +618,7 @@ public class UIManager : MonoBehaviour
     public void CreateExplicitLanguagePopup()
     {
         if (explicitLanguagePopup != null) return;
-        explicitLanguagePopup = Instantiate(explicitLanguagePopupPrefab,
-            CurrentCanvas.transform);
+        explicitLanguagePopup = Instantiate(explicitLanguagePopupPrefab, CurrentCanvas.transform);
     }
     public void DestroyExplicitLanguagePopup()
     {
@@ -646,8 +632,7 @@ public class UIManager : MonoBehaviour
     public void CreateTutorialPopup()
     {
         if (tutorialPopup != null) return;
-        tutorialPopup = Instantiate(tutorialPopupPrefab,
-            CurrentCanvas.transform);
+        tutorialPopup = Instantiate(tutorialPopupPrefab, CurrentZoomCanvas.transform); // TESTING on ZOOM
     }
     public void DestroyTutorialPopup()
     {
@@ -661,8 +646,7 @@ public class UIManager : MonoBehaviour
     public void CreateTutorialActionPopup()
     {
         if (tutorialActionPopup != null) return;
-        tutorialActionPopup = Instantiate(tutorialActionPopupPrefab,
-            CurrentCanvas.transform);
+        tutorialActionPopup = Instantiate(tutorialActionPopupPrefab, CurrentZoomCanvas.transform); // TESTING on ZOOM
     }
     public void DestroyTutorialActionPopup()
     {
@@ -703,7 +687,7 @@ public class UIManager : MonoBehaviour
         switch (infoPopupType)
         {
             case InfoPopupType.Default:
-                infoPopup = Instantiate(infoPopupPrefab, CurrentCanvas.transform);
+                infoPopup = Instantiate(infoPopupPrefab, CurrentZoomCanvas.transform); // TESTING on ZOOM
                 infoPopup.GetComponent<InfoPopupDisplay>().DisplayInfoPopup(message);
                 infoPopup.transform.localPosition = vec2;
                 break;
@@ -813,12 +797,12 @@ public class UIManager : MonoBehaviour
         NewCardPopupDisplay ncpd;
         if (chooseCards == null)
         {
-            newCardPopup = Instantiate(newCardPopupPrefab, CurrentCanvas.transform);
+            newCardPopup = Instantiate(newCardPopupPrefab, CurrentZoomCanvas.transform); // TESTING on ZOOM
             ncpd = newCardPopup.GetComponent<NewCardPopupDisplay>();
         }
         else
         {
-            chooseCardPopup = Instantiate(chooseCardPopupPrefab, CurrentCanvas.transform);
+            chooseCardPopup = Instantiate(chooseCardPopupPrefab, CurrentZoomCanvas.transform); // TESTING on ZOOM
             ncpd = chooseCardPopup.GetComponent<NewCardPopupDisplay>();
         }
         
@@ -842,7 +826,9 @@ public class UIManager : MonoBehaviour
     // Choose Reward Popup
     public void CreateChooseRewardPopup()
     {
-        chooseRewardPopup = Instantiate(chooseRewardPopupPrefab, CurrentCanvas.transform);
+        DestroyZoomObjects(); // TESTING, for combat end
+
+        chooseRewardPopup = Instantiate(chooseRewardPopupPrefab, CurrentZoomCanvas.transform); // TESTING on ZOOM
     }
     public void DestroyChooseRewardPopup()
     {
@@ -856,7 +842,7 @@ public class UIManager : MonoBehaviour
     public void CreateAetherCellPopup(int quanity)
     {
         DestroyAetherCellPopup();
-        aetherCellPopup = Instantiate(aetherCellPopupPrefab, CurrentCanvas.transform);
+        aetherCellPopup = Instantiate(aetherCellPopupPrefab, CurrentZoomCanvas.transform); // TESTING on ZOOM
         AetherCellPopupDisplay acpd =
             aetherCellPopup.GetComponent<AetherCellPopupDisplay>();
         acpd.AetherQuantity = quanity;
@@ -870,84 +856,52 @@ public class UIManager : MonoBehaviour
             aetherCellPopup = null;
         }
     }
-    // Card Page Popups
-    public void CreateCardPagePopup(CardPageDisplay.CardPageType cardPageType,
+    // Card Page
+    public void CreateCardPage(CardPageDisplay.CardPageType cardPageType,
         bool playSound = true, bool isScrollPopup = true)
     {
         float scrollValue = 1;
-        if (cardPagePopup != null && isScrollPopup)
+        if (cardPage != null && isScrollPopup)
         {
-            if (cardPagePopup.GetComponent<CardPageDisplay>().IsScrollPage)
+            if (cardPage.GetComponent<CardPageDisplay>().IsScrollPage)
             {
-                ScrollRect sRect = cardPagePopup.GetComponentInChildren<ScrollRect>();
+                ScrollRect sRect = cardPage.GetComponentInChildren<ScrollRect>();
                 scrollValue = sRect.verticalNormalizedPosition;
             }
         }
 
-        DestroyCardPagePopup();
+        DestroyCardPage();
         GameObject prefab;
-        if (isScrollPopup) prefab = cardScrollPopupPrefab;
-        else prefab = cardPagePopupPrefab;
+        if (isScrollPopup) prefab = cardScrollPagePrefab;
+        else prefab = cardPagePrefab;
 
-        cardPagePopup = Instantiate(prefab, CurrentCanvas.transform);
-        cardPagePopup.GetComponent<CardPageDisplay>().DisplayCardPage(cardPageType, playSound, scrollValue);
+        cardPage = Instantiate(prefab, CurrentCanvas.transform);
+        cardPage.GetComponent<CardPageDisplay>().DisplayCardPage(cardPageType, playSound, scrollValue);
     }
-    public void DestroyCardPagePopup(bool childPopupsOnly = false)
+    public void DestroyCardPage(bool childPopupsOnly = false)
     {
         anMan.ProgressBarRoutine_Stop();
-        if (!childPopupsOnly && cardPagePopup != null)
+        if (!childPopupsOnly && cardPage != null)
+        {
+            Destroy(cardPage);
+            cardPage = null;
+        }
+        DestroyCardPagePopup();
+        DestroyTooltipPopup();
+    }
+    // Card Page Popup
+    public void CreateCardPagePopup(Card card, int cardCost, CardPageDisplay.CardPageType cardPageType)
+    {
+        DestroyCardPagePopup();
+        cardPagePopup = Instantiate(cardPagePopupPrefab, CurrentCanvas.transform);
+        cardPagePopup.GetComponent<CardPagePopupDisplay>().SetCard(card, cardCost, cardPageType);
+    }
+    public void DestroyCardPagePopup()
+    {
+        if (cardPagePopup != null)
         {
             Destroy(cardPagePopup);
             cardPagePopup = null;
-        }
-        DestroyRemoveCardPopup();
-        DestroyRecruitUnitPopup();
-        DestroyCloneUnitPopup();
-        DestroyTooltipPopup();
-    }
-    // Recruit Unit Popup
-    public void CreateRecruitUnitPopup(UnitCard unitCard)
-    {
-        DestroyRecruitUnitPopup();
-        recruitUnitPopup = Instantiate(recruitUnitPopupPrefab, CurrentCanvas.transform);
-        recruitUnitPopup.GetComponent<RecruitUnitPopupDisplay>().UnitCard = unitCard;
-    }
-    public void DestroyRecruitUnitPopup()
-    {
-        if (recruitUnitPopup != null)
-        {
-            Destroy(recruitUnitPopup);
-            recruitUnitPopup = null;
-        }
-    }
-    // Remove Card Popup
-    public void CreateRemoveCardPopup(Card card)
-    {
-        DestroyRemoveCardPopup();
-        removeCardPopup = Instantiate(removeCardPopupPrefab, CurrentCanvas.transform);
-        removeCardPopup.GetComponent<RemoveCardPopupDisplay>().Card = card;
-    }
-    public void DestroyRemoveCardPopup()
-    {
-        if (removeCardPopup != null)
-        {
-            Destroy(removeCardPopup);
-            removeCardPopup = null;
-        }
-    }
-    // Clone Unit Popup
-    public void CreateCloneUnitPopup(UnitCard unitCard)
-    {
-        DestroyCloneUnitPopup();
-        cloneUnitPopup = Instantiate(cloneUnitPopupPrefab, CurrentCanvas.transform);
-        cloneUnitPopup.GetComponent<CloneUnitPopupDisplay>().UnitCard = unitCard;
-    }
-    public void DestroyCloneUnitPopup()
-    {
-        if (cloneUnitPopup != null)
-        {
-            Destroy(cloneUnitPopup);
-            cloneUnitPopup = null;
         }
     }
     // New Augment Popup
@@ -980,8 +934,7 @@ public class UIManager : MonoBehaviour
             itemPagePopup = null;
         }
         DestroyBuyItemPopup();
-
-        DestroyTooltipPopup(); // TESTING
+        DestroyTooltipPopup();
     }
     // Buy Item Popup
     public void CreateBuyItemPopup(HeroItem heroItem)

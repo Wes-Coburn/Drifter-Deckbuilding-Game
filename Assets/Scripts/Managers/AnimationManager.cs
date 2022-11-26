@@ -36,7 +36,6 @@ public class AnimationManager : MonoBehaviour
     [SerializeField] private Color buttonPressColor;
     [SerializeField] private Color damageColor;
     [SerializeField] private Color dragColor;
-    [SerializeField] private Color playColor;
     [SerializeField] private Color newCardColor;
     #endregion
 
@@ -282,12 +281,7 @@ public class AnimationManager : MonoBehaviour
      * ****** SET_PROGRESS_BAR
      * *****
      *****/
-    public enum ProgressBarType
-    {
-        Recruit,
-        Item
-    }
-    public void SetProgressBar(ProgressBarType progressType, int currentProgress, int newProgress, bool isReady,
+    public void SetProgressBar(int currentProgress, int newProgress,
         GameObject progressBar, GameObject progressFill, int controlValue = 1)
     {
         if (ProgressBarRoutine != null)
@@ -295,15 +289,15 @@ public class AnimationManager : MonoBehaviour
             progressFill.GetComponent<Image>().color = previousBarColor;
             StopCoroutine(ProgressBarRoutine);
         }
-        ProgressBarRoutine = StartCoroutine(ProgressBarNumerator(progressType, currentProgress, newProgress,
-            isReady, progressBar, progressFill, controlValue));
+        ProgressBarRoutine = StartCoroutine(ProgressBarNumerator(currentProgress, newProgress,
+            progressBar, progressFill, controlValue));
     }
 
-    private IEnumerator ProgressBarNumerator(ProgressBarType progressType, int currentProgress, int newProgress,
-        bool isReady, GameObject progressBar, GameObject progressFill, int controlValue)
+    private IEnumerator ProgressBarNumerator(int currentProgress, int newProgress,
+        GameObject progressBar, GameObject progressFill, int controlValue)
     {
         Slider slider = progressBar.GetComponent<Slider>();
-        slider.value = currentProgress + controlValue; // TESTING
+        slider.value = currentProgress + controlValue;
         Image image = progressFill.GetComponent<Image>();
         previousBarColor = image.color;
         image.color = uMan.HighlightedColor;
@@ -329,19 +323,6 @@ public class AnimationManager : MonoBehaviour
 
         image.color = previousBarColor;
         auMan.StartStopSound("SFX_ProgressBar", null, AudioManager.SoundType.SFX, true);
-
-        if (isReady)
-        {
-            switch (progressType)
-            {
-                case ProgressBarType.Recruit:
-                    Debug.Log("RECRUIT REWARD!");
-                    break;
-                case ProgressBarType.Item:
-                    Debug.Log("SHOP REWARD!");
-                    break;
-            }
-        }
         ProgressBarRoutine = null;
     }
     #endregion

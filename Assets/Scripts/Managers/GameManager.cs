@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
 
     // Player
     public const string PLAYER = "Player";
-    public const int MINIMUM_MAIN_DECK_SIZE = 15;
+    public const int MINIMUM_DECK_SIZE = 15;
     public const int PLAYER_STARTING_HEALTH = 30;
     //public const int PLAYER_STARTING_HEALTH = 1; // FOR TESTING ONLY
     public const int PLAYER_START_UNITS = 3;
@@ -95,6 +95,11 @@ public class GameManager : MonoBehaviour
     public const int RECRUIT_RARE_UNIT_COST = 45;
     public const int RECRUIT_LEGEND_UNIT_COST = 60;
     public const int RECRUIT_LOYALTY_GOAL = 3;
+    // Actions
+    public const int BUY_COMMON_ACTION_COST = 30;
+    public const int BUY_RARE_ACTION_COST = 45;
+    public const int BUY_LEGEND_ACTION_COST = 60;
+    public const int ACTION_LOYALTY_GOAL = 3;
     // Cloning
     public const int CLONE_COMMON_UNIT_COST = 35;
     public const int CLONE_RARE_UNIT_COST = 50;
@@ -112,13 +117,13 @@ public class GameManager : MonoBehaviour
     public const int REPUTATION_TIER_3 = 30;
 
     // Combat Reward
-    public const int AETHER_COMBAT_REWARD_1 = 15;
-    public const int AETHER_COMBAT_REWARD_2 = 20;
-    public const int AETHER_COMBAT_REWARD_3 = 25;
+    public const int AETHER_COMBAT_REWARD_1 = 20;
+    public const int AETHER_COMBAT_REWARD_2 = 25;
+    public const int AETHER_COMBAT_REWARD_3 = 30;
 
-    public const int AETHER_COMBAT_REWARD_BOSS_1 = 35;
+    public const int AETHER_COMBAT_REWARD_BOSS_1 = 30;
     public const int AETHER_COMBAT_REWARD_BOSS_2 = 45;
-    public const int AETHER_COMBAT_REWARD_BOSS_3 = 55;
+    public const int AETHER_COMBAT_REWARD_BOSS_3 = 60;
 
     // Augments
     public const int AETHER_MAGNET_REWARD = 20;
@@ -154,8 +159,9 @@ public class GameManager : MonoBehaviour
     public List<Location> ActiveLocations { get; private set; }
     public List<string> VisitedLocations { get; private set; }
     public List<HeroItem> ShopItems { get; private set; }
-    public int ShopLoyalty { get; set; }
     public int RecruitLoyalty { get; set; }
+    public int ActionShopLoyalty { get; set; }
+    public int ShopLoyalty { get; set; }
 
     // REPUTATION
     public int Reputation_Mages { get; set; }
@@ -359,6 +365,7 @@ public class GameManager : MonoBehaviour
         GetActiveLocation(LoadLocation("Your Ship"));
         GetActiveLocation(LoadLocation("Sekherd and 7th"));
         GetActiveLocation(LoadLocation("The Rathole Bar and Lounge"));
+        GetActiveLocation(LoadLocation("The Emporium"));
         GetActiveLocation(LoadLocation("The Trash Heaps"));
         GetActiveLocation(LoadLocation("The Oasis"));
 
@@ -366,9 +373,11 @@ public class GameManager : MonoBehaviour
         IsNewHour = true;
         IsTutorial = false;
         caMan.LoadNewRecruits();
+        caMan.LoadNewActions();
         ShopItems = GetShopItems();
-        ShopLoyalty = 3; // First item free
         RecruitLoyalty = 3; // First recruit free
+        ActionShopLoyalty = 3; // First action free
+        ShopLoyalty = 3; // First item free
         pMan.AetherCells = PLAYER_START_AETHER;
         pMan.PlayerDeckList.Clear();
 
@@ -506,6 +515,10 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < recruitUnits.Length; i++)
             recruitUnits[i] = caMan.PlayerRecruitUnits[i].CardName;
 
+        string[] shopActions = new string[caMan.ActionShopCards.Count];
+        for (int i = 0; i < shopActions.Length; i++)
+            shopActions[i] = caMan.ActionShopCards[i].CardName;
+
         string narrativeName = "";
         if (CurrentNarrative != null)
         {
@@ -516,7 +529,8 @@ public class GameManager : MonoBehaviour
         GameData data = new GameData(CurrentHour, narrativeName, pMan.PlayerHero.HeroName,
             deckList, augments, items, pMan.AetherCells,
             npcsAndClips, locationsNPCsObjectives, VisitedLocations.ToArray(),
-            shopItems, recruitUnits, RecruitLoyalty, ShopLoyalty,
+            shopItems, recruitUnits, shopActions,
+            RecruitLoyalty, ActionShopLoyalty, ShopLoyalty,
             Reputation_Mages, Reputation_Mutants, Reputation_Rogues, Reputation_Techs, Reputation_Warriors);
         SaveLoad.SaveGame(data);
     }
@@ -632,8 +646,14 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < data.RecruitUnits.Length; i++)
             caMan.PlayerRecruitUnits.Add(Resources.Load<UnitCard>("Cards_Units/" + data.RecruitUnits[i]));
 
+        // SHOP ACTIONS
+        caMan.ActionShopCards.Clear();
+        for (int i = 0; i < data.ShopActions.Length; i++)
+            caMan.ActionShopCards.Add(Resources.Load<ActionCard>("Cards_Actions/" + data.ShopActions[i]));
+
         // LOYALTY
         RecruitLoyalty = data.RecruitLoyalty;
+        ActionShopLoyalty = data.ActionShopLoyalty;
         ShopLoyalty = data.ShopLoyalty;
 
         // REPUTATION
@@ -963,6 +983,19 @@ public class GameManager : MonoBehaviour
             NextHour(true);
             ShopItems = GetShopItems();
             caMan.LoadNewRecruits();
+            caMan.LoadNewActions();
+
+            List<Location> refreshedShops = new List<Location>();
+            foreach (Location loc in ActiveLocations)
+            {
+                if (VisitedLocations.FindIndex(x => x == loc.LocationName) == -1) continue;
+
+                if (loc.IsShop || loc.IsRecruitment || loc.IsActionShop)
+                    refreshedShops.Add(loc);
+            }
+
+            foreach (Location loc in refreshedShops)
+                VisitedLocations.Remove(loc.LocationName);
         }
     }
 
@@ -1152,7 +1185,7 @@ public class GameManager : MonoBehaviour
                 {
                     UnitCard newCard = caMan.NewCardInstance(card) as UnitCard;
                     evMan.NewDelayedAction(() =>
-                    efMan.PlayCreatedUnit(newCard, false, coMan.EnemyHero), 0.5f);
+                    efMan.PlayCreatedUnit(newCard, false, new List<Effect>(), coMan.EnemyHero), 0.5f);
                 }
             }
         }
@@ -1308,7 +1341,7 @@ public class GameManager : MonoBehaviour
 
         evMan.NewDelayedAction(() => RefreshAllUnits(), 0.5f);
         evMan.NewDelayedAction(() => RemoveEffects(), 0);
-        evMan.NewDelayedAction(() => ResetTriggerCounts(), 0); // TESTING
+        evMan.NewDelayedAction(() => ResetTriggerCounts(), 0);
 
         if (player == ENEMY)
         {
@@ -1552,6 +1585,47 @@ public class GameManager : MonoBehaviour
         }
 
         if (RecruitLoyalty == RECRUIT_LOYALTY_GOAL)
+        {
+            isDiscounted = true;
+            recruitCost -= RECRUIT_COMMON_UNIT_COST;
+        }
+        else isDiscounted = false;
+        return recruitCost;
+    }
+
+    /******
+     * *****
+     * ****** GET_ACTION_COST
+     * *****
+     *****/
+    public int GetActionCost(ActionCard actionCard, out bool isDiscounted)
+    {
+        if (actionCard == null)
+        {
+            Debug.LogError("UNIT CARD IS NULL!");
+            isDiscounted = false;
+            return 0;
+        }
+
+        int recruitCost;
+        switch (actionCard.CardRarity)
+        {
+            case Card.Rarity.Common:
+                recruitCost = BUY_COMMON_ACTION_COST;
+                break;
+            case Card.Rarity.Rare:
+                recruitCost = BUY_RARE_ACTION_COST;
+                break;
+            case Card.Rarity.Legend:
+                recruitCost = BUY_LEGEND_ACTION_COST;
+                break;
+            default:
+                Debug.LogError("INVALID RARITY!");
+                isDiscounted = false;
+                return 0;
+        }
+
+        if (ActionShopLoyalty == ACTION_LOYALTY_GOAL)
         {
             isDiscounted = true;
             recruitCost -= RECRUIT_COMMON_UNIT_COST;

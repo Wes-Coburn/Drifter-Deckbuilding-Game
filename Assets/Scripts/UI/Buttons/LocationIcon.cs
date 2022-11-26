@@ -16,6 +16,7 @@ public class LocationIcon : MonoBehaviour
     [SerializeField] private Sprite augmenterSprite;
     [SerializeField] private Sprite shopSprite;
     [SerializeField] private Sprite recruitmentSprite;
+    [SerializeField] private Sprite actionShopSprite;
     [SerializeField] private Sprite cloningSprite;
 
     private UIManager uMan;
@@ -52,6 +53,7 @@ public class LocationIcon : MonoBehaviour
             else if (location.IsAugmenter) image = augmenterSprite;
             else if (location.IsShop) image = shopSprite;
             else if (location.IsRecruitment) image = recruitmentSprite;
+            else if (location.IsActionShop) image = actionShopSprite;
             else if (location.IsCloning) image = cloningSprite;
             if (image != null) locationImage.GetComponent<Image>().sprite = image;
         }

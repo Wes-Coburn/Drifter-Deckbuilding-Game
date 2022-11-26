@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b47e9eb1cc6fb34cbca4d90c15dd059, type: 3}
   m_Name: The Lab
   m_EditorClassIdentifier: 
-  isPriorityLocation: 1
+  isPriorityLocation: 0
   locationName: The Lab
   locationFullName: The Augmenter's Lab
   locationDescription: A dark laboratory in an abandoned warehouse.
@@ -24,12 +24,14 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 0d28a3effb524409ca5e50160bb39321, type: 3}
     volume: 0.8
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   locationBackground: 0
   isCombatOnly: 0
   isHomeBase: 0
   isAugmenter: 1
   isRecruitment: 0
+  isActionShop: 0
   isShop: 0
   isCloning: 0
   isRandomEncounter: 0

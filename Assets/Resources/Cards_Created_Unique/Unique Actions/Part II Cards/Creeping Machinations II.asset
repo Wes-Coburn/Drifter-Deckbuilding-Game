@@ -18,13 +18,14 @@ MonoBehaviour:
   cardName: Creeping Machinations II
   cardType: Action
   cardSubType: 
-  isRare: 0
+  cardRarity: 0
   cardDescription: ...
   cardPlaySound:
     name: 
     clip: {fileID: 0}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
   zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
@@ -32,4 +33,5 @@ MonoBehaviour:
   effectGroupList:
   - {fileID: 11400000, guid: 2c8f9c3872da2094abe600475a0c21fc, type: 2}
   - {fileID: 11400000, guid: 2c8f9c3872da2094abe600475a0c21fc, type: 2}
-  linkedAbilities: []
+  linkedAbilities:
+  - {fileID: 11400000, guid: 52fd6462b05c05f4986869f2157d5ae7, type: 2}

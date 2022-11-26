@@ -10,9 +10,7 @@ public class CardPageDisplay : MonoBehaviour
 
     [Header("PREFABS")]
     [SerializeField] private GameObject cardPageCardContainerPrefab;
-    [SerializeField] private GameObject recruitUnitButtonPrefab;
-    [SerializeField] private GameObject removeCardButtonPrefab;
-    [SerializeField] private GameObject cloneUnitButtonPrefab;
+    [SerializeField] private GameObject cardShopButtonPrefab;
 
     [Header("REFERENCES")]
     [SerializeField] private GameObject cardGroup;
@@ -39,10 +37,12 @@ public class CardPageDisplay : MonoBehaviour
     {
         RemoveCard,
         RecruitUnit,
+        AcquireAction,
         CloneUnit,
     }
 
     public bool IsScrollPage { get => isScrollPage; }
+
     private void Awake()
     {
         pMan = PlayerManager.Instance;
@@ -56,6 +56,7 @@ public class CardPageDisplay : MonoBehaviour
             if (scrollbar == null) Debug.LogError("SCROLLBAR IS NULL!");
         }
     }
+
     private void Update()
     {
         if (!isScrollPage) return;
@@ -64,17 +65,35 @@ public class CardPageDisplay : MonoBehaviour
         else if (newValue < 0) newValue = 0;
         scrollbar.value = newValue;
     }
+
     public void SetProgressBar(int currentProgress, int newProgress, bool isReady, bool isFirstDisplay = false)
     {
+        int goal;
+        string endText;
+        switch (cardPageType)
+        {
+            case CardPageType.RecruitUnit:
+                goal = GameManager.RECRUIT_LOYALTY_GOAL;
+                endText = "Units Recruited";
+                break;
+            case CardPageType.AcquireAction:
+                goal = GameManager.ACTION_LOYALTY_GOAL;
+                endText = "Actions Acquired";
+                break;
+            default:
+                Debug.LogError("INVALID TYPE!");
+                return;
+        }
+
         string progressText;
         if (isReady) progressText = "DISCOUNT APPLIED!";
-        else progressText = newProgress + "/" + GameManager.RECRUIT_LOYALTY_GOAL + " Units Recruited";
+        else progressText = newProgress + "/" + goal + " " + endText;
         progressBarText.GetComponent<TextMeshProUGUI>().SetText(progressText);
 
-        if (isFirstDisplay && newProgress < 1) return;
-        AnimationManager.Instance.SetProgressBar(AnimationManager.ProgressBarType.Recruit,
-            currentProgress, newProgress, isReady, progressBar, progressFill);
+        if (!(isFirstDisplay && newProgress < 1))
+            AnimationManager.Instance.SetProgressBar(currentProgress, newProgress, progressBar, progressFill);
     }
+
     public void DisplayCardPage(CardPageType cardPageType, bool playSound, float scrollValue)
     {
         this.cardPageType = cardPageType;
@@ -82,6 +101,8 @@ public class CardPageDisplay : MonoBehaviour
         string titleText;
         bool setProgressBar = false;
         int progress = 0;
+
+        CardManager caMan = CardManager.Instance;
 
         switch (cardPageType)
         {
@@ -94,7 +115,14 @@ public class CardPageDisplay : MonoBehaviour
                 setProgressBar = true;
                 progress = gMan.RecruitLoyalty;
                 titleText = "Recruit a Unit";
-                foreach (Card c in CardManager.Instance.PlayerRecruitUnits)
+                foreach (Card c in caMan.PlayerRecruitUnits)
+                    cardGroupList.Add(c);
+                break;
+            case CardPageType.AcquireAction:
+                setProgressBar = true;
+                progress = gMan.ActionShopLoyalty;
+                titleText = "Acquire an Action";
+                foreach (Card c in caMan.ActionShopCards)
                     cardGroupList.Add(c);
                 break;
             case CardPageType.CloneUnit:
@@ -210,87 +238,16 @@ public class CardPageDisplay : MonoBehaviour
 
     private GameObject CreateCardPageButton(Card card, GameObject parent)
     {
-        GameObject buttonPrefab;
-        switch (cardPageType)
-        {
-            case CardPageType.RemoveCard:
-                buttonPrefab = removeCardButtonPrefab;
-                break;
-            case CardPageType.RecruitUnit:
-                buttonPrefab = recruitUnitButtonPrefab;
-                break;
-            case CardPageType.CloneUnit:
-                buttonPrefab = cloneUnitButtonPrefab;
-                break;
-            default:
-                Debug.LogError("INVALID TYPE!");
-                return null;
-        }
-
-        GameObject button = Instantiate(buttonPrefab, parent.transform);
-        switch (cardPageType)
-        {
-            case CardPageType.RemoveCard:
-                button.GetComponent<RemoveCardButton>().Card = card;
-                break;
-            case CardPageType.RecruitUnit:
-                button.GetComponent<RecruitUnitButton>().UnitCard = card as UnitCard;
-                break;
-            case CardPageType.CloneUnit:
-                button.GetComponent<CloneUnitButton>().UnitCard = card as UnitCard;
-                break;
-            default:
-                Debug.LogError("INVALID TYPE!");
-                return null;
-        }
+        GameObject button = Instantiate(cardShopButtonPrefab, parent.transform);
+        button.GetComponent<CardShopButton>().SetCard(card, cardPageType);
         return button;
     }
-
-    public void RecruitUnitButton_OnClick(UnitCard unitCard)
-    {
-        if (anMan.ProgressBarRoutine != null) return;
-        
-        if (pMan.AetherCells < gMan.GetRecruitCost(unitCard, out _))
-            uMan.InsufficientAetherPopup();
-        else uMan.CreateRecruitUnitPopup(unitCard);
-    }
-
-    public void RemoveCardButton_OnClick(Card card)
-    {
-        if (anMan.ProgressBarRoutine != null) return;
-
-        if (pMan.PlayerDeckList.Count <= GameManager.MINIMUM_MAIN_DECK_SIZE)
-        {
-            string warning = "Your deck can't have less than " +
-                GameManager.MINIMUM_MAIN_DECK_SIZE + " cards!";
-            uMan.CreateFleetingInfoPopup(warning);
-            return;
-        }
-
-        uMan.CreateRemoveCardPopup(card);
-    }
-
-    public void CloneUnitButton_OnClick(UnitCard unitCard)
-    {
-        if (anMan.ProgressBarRoutine != null) return;
-        if (pMan.AetherCells < gMan.GetCloneCost(unitCard))
-            uMan.InsufficientAetherPopup();
-        else uMan.CreateCloneUnitPopup(unitCard);
-    }
-
-    public void RemoveItemButton_OnClick(HeroItem heroItem)
-    {
-        if (anMan.ProgressBarRoutine != null) return;
-
-        uMan.CreateRemoveItemPopup(heroItem);
-    }
-
     public void CloseCardPageButton_OnClick()
     {
         if (SceneLoader.IsActiveScene(SceneLoader.Scene.DialogueScene))
             DialogueManager.Instance.DisplayDialoguePopup();
 
-        uMan.DestroyCardPagePopup(true);
+        uMan.DestroyCardPage(true);
         uMan.DestroyInteractablePopup(gameObject);
     }
 }

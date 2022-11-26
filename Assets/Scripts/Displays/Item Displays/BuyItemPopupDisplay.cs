@@ -28,11 +28,10 @@ public class BuyItemPopupDisplay : MonoBehaviour
     {
         set
         {
-            int aether = pMan.AetherCells;
             heroItem = value;
-            string text = "Buy <b><u>" + heroItem.ItemName + "</u></b>" +
+            string text = "Buy <color=\"yellow\"><b>" + heroItem.ItemName + "</b></color>" +
                 " for <color=\"yellow\"><b>" + gMan.GetItemCost(heroItem, out _, false) +
-                "</b></color> aether? (You have " + aether + " aether)";
+                "</b></color> aether?";
             PopupText = text;
         }
     }

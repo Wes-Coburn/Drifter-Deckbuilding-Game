@@ -15,6 +15,8 @@ MonoBehaviour:
   AbilityName: Ranged
   AbilityDescription: Defending units don't strike back.
   AbilitySprite: {fileID: 21300000, guid: 4d40d11bdc8f9844cb5d8a4ed1ca4048, type: 3}
+  OverrideColor: 1
+  AbilityColor: {r: 1, g: 0, b: 0.9770155, a: 1}
   LinkedAbilites: []
   AbilityStacks: 0
   GainAbilitySound:
@@ -22,10 +24,12 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 8704a0cb4dc429d4bb2eef855b66cf21, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   LoseAbilitySound:
     name: 
     clip: {fileID: 8300000, guid: 7a81f00720e917d4eae178631870ac50, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}

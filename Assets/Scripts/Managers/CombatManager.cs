@@ -981,7 +981,7 @@ public class CombatManager : MonoBehaviour
             if (wasPlayed) // For ReturnCard effects (Play => Hand)
             {
                 cd.ResetCard();
-                dd.IsPlayed = false; // TESTING
+                dd.IsPlayed = false;
             }
             efMan.ApplyChangeNextCostEffects(card);
         }
@@ -994,10 +994,10 @@ public class CombatManager : MonoBehaviour
             {
                 if (!changeControl && !CardManager.GetAbility(card,
                     CardManager.ABILITY_BLITZ)) isExhausted = true;
-                ucd.EnableVFX(); // TESTING
+                ucd.EnableVFX();
 
             }
-            else ucd.DisableVFX(); // TESTING
+            else ucd.DisableVFX();
             ucd.IsExhausted = isExhausted;
 
             container.OnAttachAction += () => FunctionTimer.Create(() => SetStats(card), 0.1f);
@@ -1182,7 +1182,7 @@ public class CombatManager : MonoBehaviour
         if (cd.CardScript.BanishAfterPlay) HideCard(card);
         else
         {
-            cd.ResetCard(); // TESTING
+            cd.ResetCard();
             newZone.Add(HideCard(card));
         }
 
@@ -1272,7 +1272,7 @@ public class CombatManager : MonoBehaviour
             if (EnemyZoneCards.Count >= GameManager.MAX_UNITS_PLAYED)
             {
                 Debug.LogWarning("TOO MANY ENEMY UNITS!");
-                DestroyUnit(card); // TESTING
+                DestroyUnit(card);
                 return;
             }
 
@@ -1286,7 +1286,7 @@ public class CombatManager : MonoBehaviour
             if (PlayerZoneCards.Count >= GameManager.MAX_UNITS_PLAYED)
             {
                 Debug.LogWarning("TOO MANY PLAYER UNITS!");
-                DestroyUnit(card); // TESTING
+                DestroyUnit(card);
                 return;
             }
 
@@ -1321,7 +1321,7 @@ public class CombatManager : MonoBehaviour
      *****/
     public void Attack(GameObject attacker, GameObject defender)
     {
-        evMan.PauseDelayedActions(true); // TESTING
+        evMan.PauseDelayedActions(true);
 
         string logEntry = "";
         if (attacker.CompareTag(PLAYER_CARD))
@@ -1369,7 +1369,7 @@ public class CombatManager : MonoBehaviour
         void RangedAttackRay()
         {
             Strike(attacker, defender, true, false);
-            evMan.PauseDelayedActions(false); // TESTING
+            evMan.PauseDelayedActions(false);
         }
     }
 
@@ -1407,12 +1407,12 @@ public class CombatManager : MonoBehaviour
         if (isCombat)
         {
             DealDamage(striker, defender, 
-                out bool strikerDealtDamage, out bool defenderDestroyed, isMelee); // TESTING
+                out bool strikerDealtDamage, out bool defenderDestroyed, isMelee);
 
             if (IsUnitCard(defender))
             {
                 if (!CardManager.GetAbility(striker, CardManager.ABILITY_RANGED))
-                    DealDamage(defender, striker, out _, out strikerDestroyed, false); // TESTING
+                    DealDamage(defender, striker, out _, out strikerDestroyed, false);
                 else
                 {
                     //defenderDealtDamage = false;
@@ -1473,7 +1473,7 @@ public class CombatManager : MonoBehaviour
             UnitCardDisplay ucd = GetUnitDisplay(striker);
             int power = ucd.CurrentPower;
 
-            TakeDamage(defender, power, out dealtDamage, out defenderDestroyed, isMeleeAttacker); // TESTING
+            TakeDamage(defender, power, out dealtDamage, out defenderDestroyed, isMeleeAttacker);
 
             // Poisonous
             if (IsUnitCard(defender))
@@ -1525,7 +1525,7 @@ public class CombatManager : MonoBehaviour
         // Damage to heroes
         if (target == PlayerHero)
         {
-            pMan.DamageTaken_Turn += damageValue; // TESTING
+            pMan.DamageTaken_Turn += damageValue;
             pMan.PlayerHealth = newTargetValue;
 
             anMan.ModifyHeroHealthState(target, -damageValue);
@@ -1563,7 +1563,7 @@ public class CombatManager : MonoBehaviour
                 int damageTaken = targetValue - newHealth;
 
                 GetUnitDisplay(target).CurrentHealth = newTargetValue;
-                anMan.UnitTakeDamageState(target, damageTaken, isMeleeAttacker); // TESTING
+                anMan.UnitTakeDamageState(target, damageTaken, isMeleeAttacker);
                 wasDamaged = true;
             }
         }

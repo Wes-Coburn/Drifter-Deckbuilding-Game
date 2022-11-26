@@ -46,9 +46,13 @@ public class ActionCardDisplay : CardDisplay
     public override void DisplayChooseCard(Card card)
     {
         base.DisplayChooseCard(card);
-        DisplayCardPageCard(card); // TESTING
+        DisplayCardPageCard(card);
     }
 
-    public override void ResetCard() => base.ResetCard();
+    public override void ResetCard()
+    {
+        base.ResetCard();
+        ResetEffects();
+    }
     public override void DisableVisuals() => base.DisableVisuals();
 }

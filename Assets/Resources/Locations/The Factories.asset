@@ -17,18 +17,21 @@ MonoBehaviour:
   locationFullName: The Old Factories
   locationDescription: The heart of Iron-Clan territory.
   firstObjective: Look for information on the Iron-Clan.
-  worldMapPosition: {x: -750, y: 0}
+  worldMapPosition: {x: -800, y: -20}
   firstNPC: {fileID: 11400000, guid: 751ef78eb33c88c4dbd65809bbe44be8, type: 2}
   locationSoundscape:
     name: 
     clip: {fileID: 8300000, guid: 049d5db95a1e560429e24ff801c13659, type: 3}
     volume: 0.8
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
+  locationBackground: 0
   isCombatOnly: 1
   isHomeBase: 0
   isAugmenter: 0
   isRecruitment: 0
+  isActionShop: 0
   isShop: 0
   isCloning: 0
   isRandomEncounter: 0

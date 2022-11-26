@@ -13,7 +13,9 @@ public class GameData
     public string[] VisitedLocations;
     public string[] ShopItems;
     public string[] RecruitUnits;
+    public string[] ShopActions;
     public int RecruitLoyalty;
+    public int ActionShopLoyalty;
     public int ShopLoyalty;
 
     public int Reputation_Mages;
@@ -26,8 +28,9 @@ public class GameData
 
     public GameData (int currentHour, string currentNarrative, string playerHero, string[] deckList,
         string[] augments, string[] items, int aetherCells,
-        string[,] npcsAndClips, string[,] locationsNPCsObjectives, string[] visitedLocations, string[] shopItems,
-        string[] recruitUnits, int recruitLoyalty, int shopLoyalty,
+        string[,] npcsAndClips, string[,] locationsNPCsObjectives, string[] visitedLocations,
+        string[] shopItems, string[] recruitUnits, string[] shopActions,
+        int recruitLoyalty, int actionShopLoyalty, int shopLoyalty,
         int reputationMages, int reputationMutants, int reputationRogues, int reputationTechs, int reputationWarriors)
     {
         CurrentHour = currentHour;
@@ -40,9 +43,13 @@ public class GameData
         NPCSAndClips = (string[,])npcsAndClips.Clone();
         LocationsNPCsObjectives = (string[,])locationsNPCsObjectives.Clone();
         VisitedLocations = (string[])visitedLocations.Clone();
+
         ShopItems = (string[])shopItems.Clone();
         RecruitUnits = (string[])recruitUnits.Clone();
+        ShopActions = (string[])shopActions.Clone();
+
         RecruitLoyalty = recruitLoyalty;
+        ActionShopLoyalty = actionShopLoyalty;
         ShopLoyalty = shopLoyalty;
 
         Reputation_Mages = reputationMages;

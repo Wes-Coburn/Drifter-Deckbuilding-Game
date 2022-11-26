@@ -14,21 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardArt: {fileID: 21300000, guid: 29ce3636642052942a896a6e496b9ff3, type: 3}
   cardBorder: {fileID: 21300000, guid: da4d9c0ce8b0a5744aac584cd2e675b1, type: 3}
-  energyCost: 5
+  energyCost: 4
   cardName: Chemical Combustion
   cardType: Action
   cardSubType: 
-  isRare: 0
+  cardRarity: 0
   cardDescription: "What\u2019s green, sticky, and explosive? Let\u2019s find out!"
   cardPlaySound:
     name: 
     clip: {fileID: 0}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
   zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
-  effectDescription: Deal 5 to anything. If this destroys it, create three 1|1 Mutants
+  effectDescription: Deal 4 to anything. If this destroys it, play three 1|1 Mutants
     with Poisonous.
   effectGroupList:
   - {fileID: 11400000, guid: aee26684d190eb84baf3faf1adce7d2d, type: 2}

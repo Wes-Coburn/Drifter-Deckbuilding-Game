@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
 
 public class UnitCardDisplay : CardDisplay
 {
@@ -91,7 +92,6 @@ public class UnitCardDisplay : CardDisplay
 
     protected void Awake()
     {
-        //base.Awake();
         auMan = AudioManager.Instance;
         caMan = CardManager.Instance;
         AbilityIcons = new List<GameObject>();
@@ -115,7 +115,7 @@ public class UnitCardDisplay : CardDisplay
         vfx_Stealth.SetActive(false);
         vfx_Ward.SetActive(false);
 
-        foreach (CardAbility cardAbility in UnitCard.CurrentAbilities)
+        foreach (CardAbility cardAbility in UnitCard.CurrentAbilities) // Reverse without modifying the list .AsEnumerable().Reverse()
             AddCurrentAbility(cardAbility, true);
     }
 
@@ -124,7 +124,7 @@ public class UnitCardDisplay : CardDisplay
         base.DisplayZoomCard(parentCard, card);
 
         UnitCard uc;
-        if (card == null)
+        if (card == null) // For zoom cards based on a child card
         {
             UnitCardDisplay ucd = parentCard.GetComponent<UnitCardDisplay>();
             uc = ucd.UnitCard;
@@ -153,7 +153,7 @@ public class UnitCardDisplay : CardDisplay
 
             ShowAbilities(abilityList);
         }
-        else
+        else // For zoom cards NOT based on a child card, for formatting only
         {
             uc = card as UnitCard;
             DisplayPower(uc.StartPower);
@@ -178,7 +178,7 @@ public class UnitCardDisplay : CardDisplay
             List<GameObject> shownObjects = new List<GameObject>();
             List<int> shownAbilityCounts = new List<int>();
 
-            foreach (CardAbility ca in abilityList)
+            foreach (CardAbility ca in abilityList) // Reverse without modifying the list .AsEnumerable().Reverse()
             {
                 if (ca == null)
                 {
@@ -223,7 +223,7 @@ public class UnitCardDisplay : CardDisplay
         glg.startAxis = GridLayoutGroup.Axis.Vertical;
         glg.constraintCount = 1;
 
-        foreach (CardAbility ca in UnitCard.StartingAbilities)
+        foreach (CardAbility ca in UnitCard.StartingAbilities.AsEnumerable().Reverse()) // Reverse without modifying the list
         {
             if (ca == null)
             {
@@ -285,9 +285,8 @@ public class UnitCardDisplay : CardDisplay
      * ****** ADD_CURRENT_ABILITY
      * *****
      *****/
-    public bool AddCurrentAbility(CardAbility ca, bool iconOnly = false)
+    public bool AddCurrentAbility(CardAbility ca, bool iconOnly = false, bool showEffect = true)
     {
-        // TESTING TESTING TESTING
         CardAbility newCardAbility = ScriptableObject.CreateInstance(ca.GetType().Name) as CardAbility;
         newCardAbility.LoadCardAbility(ca);
         ca = newCardAbility;
@@ -370,17 +369,16 @@ public class UnitCardDisplay : CardDisplay
                 Debug.LogError("INVALID ABILITY TYPE!");
                 return false;
             }
-            AbilityTriggerState(abilityName);
+            if (showEffect) AbilityTriggerState(abilityName);
         }
 
-        if (ca is StaticAbility sa2) AudioManager.Instance.StartStopSound(null, sa2.GainAbilitySound);
+        if (showEffect && ca is StaticAbility sa2) AudioManager.Instance.StartStopSound(null, sa2.GainAbilitySound);
         if (ca.AbilityName == CardManager.ABILITY_BLITZ) IsExhausted = false;
         return true;
 
         void ShowAbility(CardAbility ca)
         {
             if (ca.AbilityName == CardManager.ABILITY_BLITZ) return;
-
             AbilityIcons.Add(CreateAbilityIcon(ca));
             displayedAbilities.Add(ca);
         }
@@ -545,6 +543,8 @@ public class UnitCardDisplay : CardDisplay
         }
         foreach (CardAbility ca in CurrentAbilities)
             AddCurrentAbility(ca, true);
+
+        ResetEffects(); // TESTING
         DisplayCard();
     }
 

@@ -15,9 +15,9 @@ public class UnitCard : Card
     public int StartPower { get => power; }
     public int StartHealth { get => health; }
     public List<CardAbility> StartingAbilities { get => startingAbilities; }
-    public List<CardAbility> CurrentAbilities { get; set; }
     public Sound UnitDeathSound { get => unitDeathSound; }
 
+    public List<CardAbility> CurrentAbilities { get; set; }
     public int CurrentPower { get; set; }
     public int CurrentHealth { get; set; }
     public int MaxHealth { get; set; }
@@ -32,19 +32,16 @@ public class UnitCard : Card
         health = uc.StartHealth;
         CurrentHealth = health;
         MaxHealth = health;
+        unitDeathSound = uc.UnitDeathSound;
 
         startingAbilities = uc.StartingAbilities;
         CurrentAbilities = new List<CardAbility>();
         foreach (CardAbility abi in startingAbilities)
         {
-            // TESTING TESTING TESTING
             CardAbility newAbi = CreateInstance(abi.GetType().Name) as CardAbility;
             newAbi.LoadCardAbility(abi);
-
             CurrentAbilities.Add(newAbi);
         }
-
-        unitDeathSound = uc.UnitDeathSound;
     }
 
     public override void CopyCard(Card card)
@@ -56,6 +53,7 @@ public class UnitCard : Card
         health = uc.StartHealth;
         CurrentHealth = uc.CurrentHealth;
         MaxHealth = uc.MaxHealth;
+        unitDeathSound = uc.UnitDeathSound;
 
         startingAbilities = uc.startingAbilities;
         CurrentAbilities = new List<CardAbility>();
@@ -70,14 +68,11 @@ public class UnitCard : Card
                             goto NextAbility;
             }
 
-            // TESTING TESTING TESTING
             CardAbility newAbi = CreateInstance(abi.GetType().Name) as CardAbility;
             newAbi.LoadCardAbility(abi);
             CurrentAbilities.Add(abi);
 
             NextAbility:;
         }
-
-        unitDeathSound = uc.UnitDeathSound;
     }
 }

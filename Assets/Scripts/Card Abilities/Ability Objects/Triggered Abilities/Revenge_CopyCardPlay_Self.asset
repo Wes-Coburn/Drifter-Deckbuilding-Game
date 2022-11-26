@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44c307312f791a64788051778519ac70, type: 3}
   m_Name: Revenge_CopyCardPlay_Self
   m_EditorClassIdentifier: 
-  AbilityName: 'Revenge: Create a copy of this unit.'
-  AbilityDescription: Create a copy of this unit.
+  AbilityName: 'Revenge: Play a copy of this unit.'
+  AbilityDescription: Play a copy of this unit.
   AbilitySprite: {fileID: 0}
+  OverrideColor: 0
+  AbilityColor: {r: 0, g: 0, b: 0, a: 0}
   LinkedAbilites: []
   AbilityTrigger: {fileID: 11400000, guid: 55d83941db05710428faf12e595b4a38, type: 2}
+  TriggerLimit: 0
   EffectGroupList:
   - {fileID: 11400000, guid: 4d4e9dc154904b748b40a22f319b064f, type: 2}

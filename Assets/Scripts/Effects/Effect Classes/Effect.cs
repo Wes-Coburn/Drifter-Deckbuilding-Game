@@ -38,6 +38,9 @@ public abstract class Effect : ScriptableObject
     [Header("COUNTDOWN"), Tooltip("The number of turns the effect lasts, 0 if permanent"), Range(0, 5)]
     public int Countdown;
 
+    [Header("IS PERMANENT")]
+    public bool IsPermanent;
+
     [Header("SHOOT RAY")]
     public bool ShootRay;
     public Color RayColor;
@@ -46,11 +49,6 @@ public abstract class Effect : ScriptableObject
     public bool PreCheckConditions;
     [Tooltip("If enabled, the PreCheck will be done independently")]
     public bool CheckConditionsIndependent;
-
-    [Header("IF HAS ITEMS CONDITION"), Tooltip("If enabled, the effect will not resolve unless the player hero has MORE ITEMS (or LESS if also enabled)")]
-    public bool IfHasItemsCondition;
-    public bool IsLessItemsCondition;
-    [Range(0, GameManager.MAXIMUM_ITEMS)] public int IfHasItemsValue;
 
     [Header("IF WOUNDED CONDITIONS"), Tooltip("If enabled, any IfWounded conditions selected will be reversed")]
     public bool IfNotWoundedCondition;
@@ -61,16 +59,16 @@ public abstract class Effect : ScriptableObject
     [Tooltip("If enabled, the effect will not resolve unless the ENEMY hero's health is Wounded")]
     public bool IfEnemyWoundedCondition;
 
-    [Header("IF EXHAUSTED CONDITION"), Tooltip("If enabled, the effect will not resolve unless the target IS EXHAUSTED")]
+    [Header("IF EXHAUSTED CONDITIONS"), Tooltip("If enabled, the effect will not resolve unless the target IS EXHAUSTED")]
     public bool IfExhaustedCondition;
 
-    [Header("IF REFRESHED CONDITION"), Tooltip("If enabled, the effect will not resolve unless the target IS NOT EXHAUSTED")]
+    [Tooltip("If enabled, the effect will not resolve unless the target IS NOT EXHAUSTED")]
     public bool IfRefreshedCondition;
 
-    [Header("IF DAMAGED CONDITION"), Tooltip("If enabled, the effect will not resolve unless the target IS DAMAGED")]
+    [Header("IF DAMAGED CONDITIONS"), Tooltip("If enabled, the effect will not resolve unless the target IS DAMAGED")]
     public bool IfDamagedCondition;
 
-    [Header("IF NOT DAMAGED CONDITION"), Tooltip("If enabled, the effect will not resolve unless the target IS NOT DAMAGED")]
+    [Tooltip("If enabled, the effect will not resolve unless the target IS NOT DAMAGED")]
     public bool IfNotDamagedCondition;
 
     [Header("IF HAS POWER CONDITION"), Tooltip("If enabled, the effect will not resolve unless the target has GREATER POWER (or LESSER if also enabled)")]
@@ -88,6 +86,11 @@ public abstract class Effect : ScriptableObject
     [Tooltip("If enabled, the effect will not resolve unless the target DOES NOT have the TRIGGER")]
     public bool IfNotHasTriggerCondition;
 
+    [Header("IF HAS KEYWORDS CONDITION"), Tooltip("If enalbed, the effect will not resolve unless the target has a GREATER number of positive keywords (or LESSER if also enabled)")]
+    public bool IfHasKeywordsCondition;
+    public bool IsLessKeywordsCondition;
+    [Range(0, 5)] public int IfHasKeywordsValue;
+
     [Header("IF HAS ABILITY EFFECTS"), Tooltip("If the target has this ability, resolve these effects")]
     public CardAbility IfHasAbility;
     public List<EffectGroup> IfHasAbilityEffects;
@@ -97,9 +100,9 @@ public abstract class Effect : ScriptableObject
     public List<EffectGroup> IfHasTriggerEffects;
 
     [Header("IF HAS POWER EFFECTS"), Tooltip("If the target has greater (or lesser) power, resolve these effects)")]
-    public int IfHasGreaterPowerValue;
+    [Range(0, 10)] public int IfHasGreaterPowerValue;
     public List<EffectGroup> IfHasGreaterPowerEffects;
-    public int IfHasLowerPowerValue;
+    [Range(0, 10)] public int IfHasLowerPowerValue;
     public List<EffectGroup> IfHasLowerPowerEffects;
 
     [Header("IF RESOLVES EFFECTS"), Tooltip("If the effect resolves, resolve additional effects on the target")]
@@ -125,15 +128,13 @@ public abstract class Effect : ScriptableObject
 
         Countdown = effect.Countdown;
 
+        IsPermanent = effect.IsPermanent;
+
         ShootRay = effect.ShootRay;
         RayColor = effect.RayColor;
 
         PreCheckConditions = effect.PreCheckConditions;
         CheckConditionsIndependent = effect.CheckConditionsIndependent;
-
-        IfHasItemsCondition = effect.IfHasItemsCondition;
-        IsLessItemsCondition = effect.IsLessItemsCondition;
-        IfHasItemsValue = effect.IfHasItemsValue;
 
         IfAnyWoundedCondition = effect.IfAnyWoundedCondition;
         IfPlayerWoundedCondition = effect.IfPlayerWoundedCondition;
@@ -154,6 +155,10 @@ public abstract class Effect : ScriptableObject
 
         IfHasTriggerCondition = effect.IfHasTriggerCondition;
         IfNotHasTriggerCondition = effect.IfNotHasTriggerCondition;
+
+        IfHasKeywordsCondition = effect.IfHasKeywordsCondition;
+        IsLessKeywordsCondition = effect.IsLessKeywordsCondition;
+        IfHasKeywordsValue = effect.IfHasKeywordsValue;
 
         IfHasAbility = effect.IfHasAbility;
         IfHasAbilityEffects = new List<EffectGroup>();
