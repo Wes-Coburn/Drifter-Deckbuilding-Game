@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 [CreateAssetMenu(fileName = "New Unit Card", menuName = "Cards/Unit")]
 public class UnitCard : Card
@@ -38,6 +39,12 @@ public class UnitCard : Card
         CurrentAbilities = new List<CardAbility>();
         foreach (CardAbility abi in startingAbilities)
         {
+            if (abi == null)
+            {
+                Debug.LogError("EMPTY ABILITY!");
+                continue;
+            }
+
             CardAbility newAbi = CreateInstance(abi.GetType().Name) as CardAbility;
             newAbi.LoadCardAbility(abi);
             CurrentAbilities.Add(newAbi);
@@ -59,6 +66,12 @@ public class UnitCard : Card
         CurrentAbilities = new List<CardAbility>();
         foreach (CardAbility abi in uc.CurrentAbilities)
         {
+            if (abi == null)
+            {
+                Debug.LogError("EMPTY ABILITY!");
+                continue;
+            }
+
             // Don't copy ChangeControl abilities
             if (abi is TriggeredAbility tra)
             {

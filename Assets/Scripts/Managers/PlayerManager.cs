@@ -199,6 +199,7 @@ public class PlayerManager : MonoBehaviour
             Debug.LogError("AUGMENT ALREADY EXISTS!");
             return;
         }
+
         heroAugments.Add(augment);
         uMan.CreateAugmentIcon(augment, isNewAugment);
         if (isNewAugment) auMan.StartStopSound("SFX_AcquireAugment");
@@ -291,10 +292,15 @@ public class PlayerManager : MonoBehaviour
         return true;
     }
 
-    public int GetMaxItems()
+    public int GetMaxItems(out bool hasBonus)
     {
         int bonusItems = 0;
-        if (GetAugment("Kinetic Reinforcer")) bonusItems = 2;
+        hasBonus = false;
+        if (GetAugment("Kinetic Reinforcer"))
+        {
+            hasBonus = true;
+            bonusItems = 3;
+        }
         return GameManager.MAXIMUM_ITEMS + bonusItems;
     }
 

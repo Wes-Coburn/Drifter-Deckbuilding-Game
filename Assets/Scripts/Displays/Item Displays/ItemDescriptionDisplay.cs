@@ -32,7 +32,7 @@ public class ItemDescriptionDisplay : MonoBehaviour, IPointerClickHandler, IPoin
 
             string text = gMan.GetItemCost(loadedItem, out bool isDiscounted, IsItemRemoval).ToString();
             TextMeshProUGUI txtGui = itemCost.GetComponent<TextMeshProUGUI>();
-            if (IsItemRemoval) text = "+" + text; // TESTING
+            if (IsItemRemoval) text = "+" + text;
             txtGui.SetText(text);
 
             if (!IsItemRemoval && isDiscounted)
@@ -59,14 +59,19 @@ public class ItemDescriptionDisplay : MonoBehaviour, IPointerClickHandler, IPoin
     {
         if (anMan.ProgressBarRoutine != null) return;
 
-        if (IsItemRemoval) // TESTING
+        if (IsItemRemoval)
         {
             uMan.CreateRemoveItemPopup(loadedItem);
             return;
         }
 
-        if (pMan.HeroItems.Count >= pMan.GetMaxItems())
-            uMan.CreateFleetingInfoPopup("You can't have more than " + pMan.GetMaxItems() + " items!");
+        int maxItems = pMan.GetMaxItems(out bool hasBonus);
+        if (pMan.HeroItems.Count >= maxItems)
+        {
+            string text = "You can't have more than " + maxItems + " items!";
+            if (!hasBonus) text += "\n(Visit <b>The Augmenter</b>)";
+            uMan.CreateFleetingInfoPopup(text);
+        }
         else if (pMan.AetherCells < gMan.GetItemCost(loadedItem, out _, false))
             uMan.InsufficientAetherPopup();
         else uMan.CreateBuyItemPopup(loadedItem);

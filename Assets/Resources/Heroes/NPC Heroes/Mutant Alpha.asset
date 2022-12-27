@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bb145cc0311afb449113575373eae4d, type: 3}
   m_Name: Mutant Alpha
   m_EditorClassIdentifier: 
-  developerNotes: 
   heroName: Mutant Alpha
   heroShortName: 
   heroPortrait: {fileID: 21300000, guid: 1a1e30c1307f68345a76a603b1f667dc, type: 3}
@@ -22,14 +21,16 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: d23cbfb5c84b2924bb053bd2b219cc1e, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   heroLose:
     name: 
     clip: {fileID: 8300000, guid: d37d9e8ea473ad740afd4ead7afa1b2d, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
-  firstDialogueClip: {fileID: 11400000, guid: 60e0e6ab481d85c47af51f1cabe8b516, type: 2}
+  firstDialogueClip: {fileID: 11400000, guid: 98b3132f7e3b4c34684cfd1bd3fdbe23, type: 2}
   isBoss: 0
   reinforcements:
   - {fileID: 11400000, guid: 4c650c0c824e9974a9a5df512d163550, type: 2}

@@ -32,7 +32,11 @@ public abstract class Effect : ScriptableObject
         Target_Keywords,
 
         // Other
-        Allies_Count
+        Allies_Count,
+
+        // Saved Target
+        SavedTarget_Power,
+        SavedTarget_Health
     }
 
     [Header("COUNTDOWN"), Tooltip("The number of turns the effect lasts, 0 if permanent"), Range(0, 5)]

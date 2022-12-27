@@ -29,15 +29,9 @@ MonoBehaviour:
     source: {fileID: 0}
   overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
   zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
-  effectDescription: "Draw 1. The enemy hero plays five 0|1 <color=\"green\"><b>Parasites</b></color>
-    with Ward and \u201CTurn End: Destroy this unit.\""
+  effectDescription: "Give ALL allies \u201CInfiltrate: Draw 1 and deal 1 to the
+    lowest health enemy\u201D this turn.\u201D"
   effectGroupList:
-  - {fileID: 11400000, guid: 023c2a13540808347adc8dfb99742db9, type: 2}
-  - {fileID: 11400000, guid: 97a3dbeb9ed58154a97b1205f624dcca, type: 2}
-  - {fileID: 11400000, guid: 97a3dbeb9ed58154a97b1205f624dcca, type: 2}
-  - {fileID: 11400000, guid: 97a3dbeb9ed58154a97b1205f624dcca, type: 2}
-  - {fileID: 11400000, guid: 97a3dbeb9ed58154a97b1205f624dcca, type: 2}
-  - {fileID: 11400000, guid: 97a3dbeb9ed58154a97b1205f624dcca, type: 2}
+  - {fileID: 11400000, guid: bcbf59a9fa294bf48b79e32880b2c23f, type: 2}
   linkedAbilities:
-  - {fileID: 11400000, guid: c67d8d67ab4a0294293b6847c50fd28a, type: 2}
-  - {fileID: 11400000, guid: f9f029cd91a81544eb06ce77a5f40ab8, type: 2}
+  - {fileID: 11400000, guid: 87f3e6666404c694cb625a5bd096cd05, type: 2}

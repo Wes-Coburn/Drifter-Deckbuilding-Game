@@ -25,21 +25,21 @@ public class LocationPopupDisplay : MonoBehaviour
             LocationName = location.LocationFullName;
             LocationDescription = location.LocationDescription;
             ObjectivesDescription = caMan.FilterUnitTypes(location.CurrentObjective);
-            WorldMapPosition = new Vector2(0, 0); // FOR TESTING ONLY?
+            WorldMapPosition = new Vector2(0, 0); // CHANGE?
 
-            string hours = "Hours Closed: ";
-            List<string> closedHours = new List<string>();
-            if (location.IsClosed_Hour1) closedHours.Add("Morning");
-            if (location.IsClosed_Hour2) closedHours.Add("Day");
-            if (location.IsClosed_Hour3) closedHours.Add("Evening");
+            string hours = "Hours Open: ";
+            List<string> openHours = new List<string>();
+            if (!location.IsClosed_Hour1) openHours.Add("Morning");
+            if (!location.IsClosed_Hour2) openHours.Add("Day");
+            if (!location.IsClosed_Hour3) openHours.Add("Evening");
 
-            if (closedHours.Count < 1) hours += " None.";
+            if (openHours.Count == 3) hours += " <color=\"green\">ALL</color>";
             else
             {
-                for (int i = 0; i < closedHours.Count; i++)
+                for (int i = 0; i < openHours.Count; i++)
                 {
                     if (i != 0) hours += ", ";
-                    hours += "<color=\"red\">" + closedHours[i] + "</color>";
+                    hours += "<color=\"green\">" + openHours[i] + "</color>";
                 }
             }
             LocationHours = hours;

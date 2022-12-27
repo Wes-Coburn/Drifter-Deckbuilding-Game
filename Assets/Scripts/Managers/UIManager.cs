@@ -632,7 +632,7 @@ public class UIManager : MonoBehaviour
     public void CreateTutorialPopup()
     {
         if (tutorialPopup != null) return;
-        tutorialPopup = Instantiate(tutorialPopupPrefab, CurrentZoomCanvas.transform); // TESTING on ZOOM
+        tutorialPopup = Instantiate(tutorialPopupPrefab, CurrentCanvas.transform);
     }
     public void DestroyTutorialPopup()
     {
@@ -713,6 +713,8 @@ public class UIManager : MonoBehaviour
     {
         CreateFleetingInfoPopup("Not enough aether! (You have " + 
             pMan.AetherCells + " aether)");
+
+        AudioManager.Instance.StartStopSound("SFX_Error");
     }
     public void DismissInfoPopup()
     {

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Runtime.InteropServices;
 
 public class NewCardPopupDisplay : MonoBehaviour
 {
@@ -9,20 +10,25 @@ public class NewCardPopupDisplay : MonoBehaviour
     [SerializeField] private GameObject newCardChest;
     [SerializeField] private GameObject[] addCardButtons;
     [SerializeField] private GameObject ignoreCardButton;
+    [SerializeField] private GameObject redrawCardsButton;
     
     private CombatManager coMan;
     private PlayerManager pMan;
     private DialogueManager dMan;
     private UIManager uMan;
     private AnimationManager anMan;
-    private CardManager caMan;
     private GameManager gMan;
 
+    private int redrawCost;
     private Card newCard;
     private Card[] chooseCards;
 
     public string PopupTitle
     {
+        get
+        {
+            return popupTitle.GetComponent<TextMeshProUGUI>().text;
+        }
         set
         {
             popupTitle.GetComponent<TextMeshProUGUI>().text = value;
@@ -30,7 +36,6 @@ public class NewCardPopupDisplay : MonoBehaviour
     }
     public Card NewCard
     {
-        get => newCard;
         set
         {
             newCard = value;
@@ -54,11 +59,17 @@ public class NewCardPopupDisplay : MonoBehaviour
         dMan = DialogueManager.Instance;
         uMan = UIManager.Instance;
         anMan = AnimationManager.Instance;
-        caMan = CardManager.Instance;
         gMan = GameManager.Instance;
 
         ignoreCardButton.GetComponentInChildren<TextMeshProUGUI>().SetText
             ("Take " + GameManager.IGNORE_CARD_AETHER + " Aether");
+
+        if (pMan.GetAugment("Quadraphonic Deliberator")) redrawCost = 1;
+        else redrawCost = GameManager.REDRAW_CARDS_AETHER;
+
+        redrawCardsButton.GetComponentInChildren<TextMeshProUGUI>().SetText
+            ("Redraw (" + redrawCost + " Aether)");
+
         GetComponent<SoundPlayer>().PlaySound(0);
     }
 
@@ -67,6 +78,7 @@ public class NewCardPopupDisplay : MonoBehaviour
         newCardChest.SetActive(true);
         foreach (GameObject button in addCardButtons) button.SetActive(false);
         ignoreCardButton.SetActive(false);
+        redrawCardsButton.SetActive(false);
         anMan.CreateParticleSystem(newCardChest, ParticleSystemHandler.ParticlesType.NewCard, 5);
     }
 
@@ -83,7 +95,7 @@ public class NewCardPopupDisplay : MonoBehaviour
     {
         SwitchToCards();
         // Card Popup
-        GameObject newCard = coMan.ShowCard(NewCard, new Vector2(), CombatManager.DisplayType.NewCard);
+        GameObject newCard = coMan.ShowCard(this.newCard, new Vector2(), CombatManager.DisplayType.NewCard);
         if (newCard == null)
         {
             Debug.LogError("CARD IS NULL!");
@@ -109,6 +121,8 @@ public class NewCardPopupDisplay : MonoBehaviour
     public void DisplayChooseCards()
     {
         SwitchToCards();
+        redrawCardsButton.SetActive(true);
+
         foreach (Card card in chooseCards)
         {
             // Card Popup
@@ -134,7 +148,7 @@ public class NewCardPopupDisplay : MonoBehaviour
         DisableButtons();
 
         Card newCard;
-        if (cardSelection == 0) newCard = NewCard;
+        if (cardSelection == 0) newCard = this.newCard;
         else newCard = chooseCards[cardSelection - 1];
         CardManager.Instance.AddCard(newCard, GameManager.PLAYER, true);
 
@@ -195,6 +209,25 @@ public class NewCardPopupDisplay : MonoBehaviour
             }
         }
         else Debug.LogError("NEXT CLIP IS NOT COMBAT_REWARD_CLIP!");
+    }
+
+    public void RedrawCards_OnClick()
+    {
+        GetComponent<SoundPlayer>().PlaySound(3);
+
+        if (pMan.AetherCells < redrawCost)
+        {
+            uMan.InsufficientAetherPopup();
+            return;
+        }
+
+        pMan.AetherCells -= redrawCost;
+        CardManager.ChooseCard chooseCardType;
+        if (chooseCards[0] is UnitCard) chooseCardType = CardManager.ChooseCard.Unit;
+        else chooseCardType = CardManager.ChooseCard.Action;
+
+        uMan.CreateNewCardPopup(null, PopupTitle,
+            CardManager.Instance.ChooseCards(chooseCardType));
     }
 
     private void RewardBonusAugment()

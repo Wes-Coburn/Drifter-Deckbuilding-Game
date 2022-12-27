@@ -62,23 +62,18 @@ public class PowerZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     private void CreatePowerPopup()
     {
-        //if (this == null) return; // TESTING
-
-        Transform tran;
         float newX;
         float newY;
 
         if (!isEnemyPower)
         {
-            tran = coMan.PlayerHero.transform;
             newX = 300;
-            newY = -200;
+            newY = -360;
         }
         else
         {
-            tran = coMan.EnemyHero.transform;
             newX = -250;
-            newY = 150;
+            newY = 320;
         }
         
         Vector3 spawnPoint = new Vector2(newX, newY);
@@ -148,6 +143,6 @@ public class PowerZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     {
         GameObject abilityPopup = Instantiate(abilityPopupPrefab, parent);
         abilityPopup.transform.localScale = new Vector2(scaleValue, scaleValue);
-        abilityPopup.GetComponent<AbilityPopupDisplay>().DisplayAbilityPopup(ca, false, !isEnemyPower); // TESTING
+        abilityPopup.GetComponent<AbilityPopupDisplay>().DisplayAbilityPopup(ca, false, !isEnemyPower);
     }
 }

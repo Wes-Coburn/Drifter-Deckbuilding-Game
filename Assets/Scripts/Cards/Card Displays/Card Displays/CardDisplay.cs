@@ -123,7 +123,7 @@ public abstract class CardDisplay : MonoBehaviour
 
         SetRarity(cardScript);
         DisplayEnergyCost(CurrentEnergyCost);
-        animator = gameObject.GetComponent<Animator>();
+        animator = GetComponent<Animator>();
         animator.runtimeAnimatorController = CardScript.OverController;
     }
 
@@ -220,6 +220,11 @@ public abstract class CardDisplay : MonoBehaviour
         CurrentEnergyCost = CardScript.StartEnergyCost;
     }
 
+    /******
+     * *****
+     * ****** RESET_EFFECTS
+     * *****
+     *****/
     public void ResetEffects()
     {
         List<Effect> toDestroy = new List<Effect>();

@@ -25,10 +25,16 @@ public class NewAugmentPopupDisplay : MonoBehaviour
         allAugments = Resources.LoadAll<HeroAugment>("Hero Augments");
         availableAugments = new List<HeroAugment>();
 
+        int startIndex = -1;
+        int index = 0;
+
         foreach (HeroAugment aug in allAugments)
         {
-            if (!pMan.GetAugment(aug.AugmentName))
-                availableAugments.Add(aug);
+            if (pMan.GetAugment(aug.AugmentName)) continue;
+
+            availableAugments.Add(aug);
+            if (aug.AugmentName == "Synaptic Stabilizer") startIndex = index;
+            index++;
         }
 
         if (availableAugments.Count < 1)
@@ -37,7 +43,7 @@ public class NewAugmentPopupDisplay : MonoBehaviour
             return;
         }
 
-        if (availableAugments.Count > 3) selectedAugment = 3; // Start with Synaptic Stabilizer
+        if (startIndex != -1) selectedAugment = startIndex;
         else selectedAugment = 0;
 
         DisplaySelectedAugment();

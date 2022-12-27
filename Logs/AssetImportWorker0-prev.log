@@ -1,6 +1,6 @@
 Using pre-set license
 Built from '2020.3/staging' branch; Version is '2020.3.5f1 (8095aa901b9b) revision 8426922'; Using compiler version '192528614'; Build Type 'Release'
-OS: 'Windows 10 Home; OS build 22621.819; Version 2009; 64bit' Language: 'en' Physical Memory: 16204 MB
+OS: 'Windows 10 Home; OS build 22621.963; Version 2009; 64bit' Language: 'en' Physical Memory: 16204 MB
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
 
  COMMAND LINE ARGUMENTS:
@@ -15,11 +15,11 @@ C:/Users/wgCob/Programming/Unity/Drifter (Unity 2D)
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-61497
+51000
 Successfully changed project path to: C:/Users/wgCob/Programming/Unity/Drifter (Unity 2D)
 C:/Users/wgCob/Programming/Unity/Drifter (Unity 2D)
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 93.11 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 94.74 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.5f1 (8095aa901b9b)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/Resources/UnitySubsystems
@@ -35,518 +35,43 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56936
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56396
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.3.5f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.001925 seconds.
+Registered in 0.001524 seconds.
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 96.70 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 91.78 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.951 seconds
+- Completed reload, in  0.925 seconds
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.002174 seconds.
+Registered in 0.002570 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 96.72 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 96.67 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.804 seconds
+- Completed reload, in  0.810 seconds
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.03 seconds
-Refreshing native plugins compatible for Editor in 1.25 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2124 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 104.8 MB.
-System memory in use after: 104.9 MB.
-
-Unloading 25 unused Assets to reduce memory usage. Loaded Objects now: 2572.
-Total: 2.082500 ms (FindLiveObjects: 0.371800 ms CreateObjectMapping: 0.196100 ms MarkObjects: 1.492400 ms  DeleteObjects: 0.021100 ms)
-
-========================================================================
-Received Import Request.
-  path: Assets/Sprites/Locations/ActionShop_Iconn.png
-  artifactKey: Guid(bb2b04469eb44e54891cbfaf0e69b836) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Locations/ActionShop_Iconn.png using Guid(bb2b04469eb44e54891cbfaf0e69b836) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2d50aafaa1c67fd979c3f7a74d0be8e4') in 0.074512 seconds
-  Import took 0.078181 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 1.781762 seconds.
-  path: Assets/Sprites/Locations/Reputation_Icon.png
-  artifactKey: Guid(fe9b3e901dd9bdb4e9abe6e3a8dde3ef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Locations/Reputation_Icon.png using Guid(fe9b3e901dd9bdb4e9abe6e3a8dde3ef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '51cc9f58fee496657f813a9290eff5d3') in 0.009960 seconds
-  Import took 0.013654 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 3.962385 seconds.
-  path: Assets/Sprites/Locations/ActionShop_Icon.png
-  artifactKey: Guid(bb2b04469eb44e54891cbfaf0e69b836) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Locations/ActionShop_Icon.png using Guid(bb2b04469eb44e54891cbfaf0e69b836) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4f8ad10f8ac1101f30172f3233a03356') in 0.008721 seconds
-  Import took 0.012783 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.001325 seconds.
-  path: Assets/Sprites/Locations/ActionShop_Icon.png
-  artifactKey: Guid(bb2b04469eb44e54891cbfaf0e69b836) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Locations/ActionShop_Icon.png using Guid(bb2b04469eb44e54891cbfaf0e69b836) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4f8ad10f8ac1101f30172f3233a03356') in 0.010405 seconds
-  Import took 0.014268 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 41.028347 seconds.
-  path: Assets/Prefabs/Managers/UIManager.prefab
-  artifactKey: Guid(f349a13ec4969bc43bd2f853c21c912d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/Managers/UIManager.prefab using Guid(f349a13ec4969bc43bd2f853c21c912d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '512d4ec1df7c03e6aab1f1b1159f5763') in 0.387693 seconds
-  Import took 0.393913 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.388247 seconds.
-  path: Assets/Scripts/Managers/UIManager.cs
-  artifactKey: Guid(43b794f3ee6b57e4aa018d104ea57f40) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Managers/UIManager.cs using Guid(43b794f3ee6b57e4aa018d104ea57f40) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '972a295035f7217d62c4d3d9be5abd49') in 0.004449 seconds
-  Import took 0.008293 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000915 seconds.
-  path: Assets/Scripts/Managers/UIManager.cs
-  artifactKey: Guid(43b794f3ee6b57e4aa018d104ea57f40) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Managers/UIManager.cs using Guid(43b794f3ee6b57e4aa018d104ea57f40) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '972a295035f7217d62c4d3d9be5abd49') in 0.001637 seconds
-  Import took 0.004918 seconds .
-
-========================================================================
-Received Prepare
-Refreshing native plugins compatible for Editor in 5.40 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 13 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 67.4 MB.
-System memory in use after: 67.5 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2581.
-Total: 2.536900 ms (FindLiveObjects: 0.280900 ms CreateObjectMapping: 0.094600 ms MarkObjects: 2.110700 ms  DeleteObjects: 0.049300 ms)
-
-========================================================================
-Received Import Request.
-  Time since last request: 928.047064 seconds.
-  path: Assets/Prefabs/UI/Popups/Items/BuyItemPopup.prefab
-  artifactKey: Guid(94ffd09ea3c62b6419a07652c4f35f93) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/UI/Popups/Items/BuyItemPopup.prefab using Guid(94ffd09ea3c62b6419a07652c4f35f93) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ac3220a02fb8b61ec6a04fd1f2e5c9f8') in 0.023745 seconds
-  Import took 0.030024 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 4.784273 seconds.
-  path: Assets/Prefabs/UI/Popups/Items/BuyItemPopup.prefab
-  artifactKey: Guid(94ffd09ea3c62b6419a07652c4f35f93) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/UI/Popups/Items/BuyItemPopup.prefab using Guid(94ffd09ea3c62b6419a07652c4f35f93) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4851cf0b1f2d8af9ba74d8ca1a5fb661') in 0.021781 seconds
-  Import took 0.028689 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 14.530723 seconds.
-  path: Assets/Prefabs/UI/Popups/Items/BuyItemPopup.prefab
-  artifactKey: Guid(94ffd09ea3c62b6419a07652c4f35f93) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/UI/Popups/Items/BuyItemPopup.prefab using Guid(94ffd09ea3c62b6419a07652c4f35f93) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8c1cc57ab369575bb0f5fbfe7f432f6f') in 0.019549 seconds
-  Import took 0.025974 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 2.171354 seconds.
-  path: Assets/Prefabs/UI/Popups/Items/BuyItemPopup.prefab
-  artifactKey: Guid(94ffd09ea3c62b6419a07652c4f35f93) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/UI/Popups/Items/BuyItemPopup.prefab using Guid(94ffd09ea3c62b6419a07652c4f35f93) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '72171bbe698fb0bff337cb709056ad91') in 0.018625 seconds
-  Import took 0.025201 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 9.557258 seconds.
-  path: Assets/Prefabs/UI/Popups/Cards/Card Page/Popups/RecruitUnitPopup.prefab
-  artifactKey: Guid(a2f111c7e3cfdc843b540ab7296f7830) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/UI/Popups/Cards/Card Page/Popups/RecruitUnitPopup.prefab using Guid(a2f111c7e3cfdc843b540ab7296f7830) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b8548e1571c357fb7cb1c0534723ae84') in 0.019921 seconds
-  Import took 0.026624 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 9.887920 seconds.
-  path: Assets/Prefabs/UI/Popups/Cards/Card Page/Popups/RecruitUnitPopup.prefab
-  artifactKey: Guid(a2f111c7e3cfdc843b540ab7296f7830) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/UI/Popups/Cards/Card Page/Popups/RecruitUnitPopup.prefab using Guid(a2f111c7e3cfdc843b540ab7296f7830) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5e4dd1d7fe798f303550ef7f0cb3c124') in 0.020786 seconds
-  Import took 0.026944 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 12.046290 seconds.
-  path: Assets/Prefabs/UI/Popups/Cards/Card Page/Popups/RecruitUnitPopup.prefab
-  artifactKey: Guid(a2f111c7e3cfdc843b540ab7296f7830) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/UI/Popups/Cards/Card Page/Popups/RecruitUnitPopup.prefab using Guid(a2f111c7e3cfdc843b540ab7296f7830) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '216c1493f543c05712943846bb936595') in 0.017903 seconds
-  Import took 0.023449 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.995923 seconds.
-  path: Assets/Prefabs/UI/Popups/Cards/Card Page/Popups/RecruitUnitPopup.prefab
-  artifactKey: Guid(a2f111c7e3cfdc843b540ab7296f7830) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/UI/Popups/Cards/Card Page/Popups/RecruitUnitPopup.prefab using Guid(a2f111c7e3cfdc843b540ab7296f7830) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '570581da5c5f9f65a9a972d9592a0608') in 0.017936 seconds
-  Import took 0.023363 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 8.697100 seconds.
-  path: Assets/Prefabs/UI/Popups/Cards/Card Page/Popups/RemoveCardPopup.prefab
-  artifactKey: Guid(cb6735db646737b44aabf42c94c4e86c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/UI/Popups/Cards/Card Page/Popups/RemoveCardPopup.prefab using Guid(cb6735db646737b44aabf42c94c4e86c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4a550b550a6dee5c6d1c242baf8efd21') in 0.017997 seconds
-  Import took 0.022482 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 5.099387 seconds.
-  path: Assets/Prefabs/UI/Popups/Cards/Card Page/Popups/RemoveCardPopup.prefab
-  artifactKey: Guid(cb6735db646737b44aabf42c94c4e86c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/UI/Popups/Cards/Card Page/Popups/RemoveCardPopup.prefab using Guid(cb6735db646737b44aabf42c94c4e86c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9f1890cfe73f9070d5535fe5449ba924') in 0.022799 seconds
-  Import took 0.028136 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 3.585148 seconds.
-  path: Assets/Prefabs/UI/Popups/Cards/Card Page/Popups/RemoveCardPopup.prefab
-  artifactKey: Guid(cb6735db646737b44aabf42c94c4e86c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/UI/Popups/Cards/Card Page/Popups/RemoveCardPopup.prefab using Guid(cb6735db646737b44aabf42c94c4e86c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c76ec6bc0deda603ff33ff7bf635e518') in 0.017270 seconds
-  Import took 0.021738 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 1.008499 seconds.
-  path: Assets/Prefabs/UI/Popups/Cards/Card Page/Popups/RemoveCardPopup.prefab
-  artifactKey: Guid(cb6735db646737b44aabf42c94c4e86c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/UI/Popups/Cards/Card Page/Popups/RemoveCardPopup.prefab using Guid(cb6735db646737b44aabf42c94c4e86c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0261fba741bbb9194495e7d05b66897c') in 0.016546 seconds
-  Import took 0.021837 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 60.690932 seconds.
-  path: Assets/Prefabs/UI/Popups/Cards/Card Page/Popups/CloneUnitPopup.prefab
-  artifactKey: Guid(a664a3ac00aa94f47a2c569c9fc3a60a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/UI/Popups/Cards/Card Page/Popups/CloneUnitPopup.prefab using Guid(a664a3ac00aa94f47a2c569c9fc3a60a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1979f773e86ac18859aed89750df82de') in 0.019563 seconds
-  Import took 0.024094 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 9.571477 seconds.
-  path: Assets/Prefabs/UI/Popups/Cards/Card Page/Popups/CloneUnitPopup.prefab
-  artifactKey: Guid(a664a3ac00aa94f47a2c569c9fc3a60a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/UI/Popups/Cards/Card Page/Popups/CloneUnitPopup.prefab using Guid(a664a3ac00aa94f47a2c569c9fc3a60a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '474f835e583ae6c3de227a29f1545069') in 0.018606 seconds
-  Import took 0.023794 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 12.333979 seconds.
-  path: Assets/Prefabs/UI/Popups/Cards/Card Page/CardPagePopup.prefab
-  artifactKey: Guid(de6833a0fcf8ab64886a913ec18dfdea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/UI/Popups/Cards/Card Page/CardPagePopup.prefab using Guid(de6833a0fcf8ab64886a913ec18dfdea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1cd4803d8f64a356ae0565a784e199cb') in 0.017517 seconds
-  Import took 0.021993 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.978190 seconds.
-  path: Assets/Prefabs/UI/Popups/Cards/Card Page/CardPagePopup.prefab
-  artifactKey: Guid(de6833a0fcf8ab64886a913ec18dfdea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/UI/Popups/Cards/Card Page/CardPagePopup.prefab using Guid(de6833a0fcf8ab64886a913ec18dfdea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1238292529cb3e80503c1fd4614ee2aa') in 0.017287 seconds
-  Import took 0.021932 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 11.382910 seconds.
-  path: Assets/Prefabs/UI/Popups/Cards/Card Page/CardPagePopup.prefab
-  artifactKey: Guid(de6833a0fcf8ab64886a913ec18dfdea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/UI/Popups/Cards/Card Page/CardPagePopup.prefab using Guid(de6833a0fcf8ab64886a913ec18dfdea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1392432fe1d8ca382b3433fb470b9e54') in 0.017385 seconds
-  Import took 0.022690 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 3.784914 seconds.
-  path: Assets/Prefabs/UI/Popups/Cards/Card Page/CardPagePopup.prefab
-  artifactKey: Guid(de6833a0fcf8ab64886a913ec18dfdea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/UI/Popups/Cards/Card Page/CardPagePopup.prefab using Guid(de6833a0fcf8ab64886a913ec18dfdea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5f57f0462c91ca10884a9de6289a41d2') in 0.018830 seconds
-  Import took 0.023877 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 2.197244 seconds.
-  path: Assets/Prefabs/UI/Popups/Cards/Card Page/CardPagePopup.prefab
-  artifactKey: Guid(de6833a0fcf8ab64886a913ec18dfdea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/UI/Popups/Cards/Card Page/CardPagePopup.prefab using Guid(de6833a0fcf8ab64886a913ec18dfdea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7b6c9d393ad217fb430e6dbcfec2ec1c') in 0.016275 seconds
-  Import took 0.021431 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 6.442891 seconds.
-  path: Assets/Prefabs/UI/Popups/Cards/Card Page/CardPagePopup.prefab
-  artifactKey: Guid(de6833a0fcf8ab64886a913ec18dfdea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/UI/Popups/Cards/Card Page/CardPagePopup.prefab using Guid(de6833a0fcf8ab64886a913ec18dfdea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '788ade1fc155fc8b11c5c5897dbbd034') in 0.018186 seconds
-  Import took 0.023394 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 11.889579 seconds.
-  path: Assets/Prefabs/UI/Popups/Cards/Card Page/CardPagePopup.prefab
-  artifactKey: Guid(de6833a0fcf8ab64886a913ec18dfdea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/UI/Popups/Cards/Card Page/CardPagePopup.prefab using Guid(de6833a0fcf8ab64886a913ec18dfdea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7f4ba2cd6037f94c56b94f140fe788a5') in 0.016736 seconds
-  Import took 0.021155 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 9.472681 seconds.
-  path: Assets/Prefabs/UI/Popups/Cards/Card Page/CardPagePopup.prefab
-  artifactKey: Guid(de6833a0fcf8ab64886a913ec18dfdea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Prefabs/UI/Popups/Cards/Card Page/CardPagePopup.prefab using Guid(de6833a0fcf8ab64886a913ec18dfdea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9c73691cca4dc8aecce2f05297c56c96') in 0.016800 seconds
-  Import took 0.021602 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 136.616320 seconds.
-  path: Assets/Scripts/Heroes/Hero Powers/Player Hero Powers/Yergov/Mutagenic Replication.asset
-  artifactKey: Guid(359999cc86267744b803918f301a43ff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Heroes/Hero Powers/Player Hero Powers/Yergov/Mutagenic Replication.asset using Guid(359999cc86267744b803918f301a43ff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3371edf85d5ddf1002afeb0966cef0f6') in 0.013839 seconds
-  Import took 0.018252 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.002672 seconds.
-  path: Assets/Scripts/Heroes/Hero Powers/Player Hero Powers/Yergov/Mutagenic Replication.asset
-  artifactKey: Guid(359999cc86267744b803918f301a43ff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Heroes/Hero Powers/Player Hero Powers/Yergov/Mutagenic Replication.asset using Guid(359999cc86267744b803918f301a43ff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3371edf85d5ddf1002afeb0966cef0f6') in 0.004607 seconds
-  Import took 0.008332 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 8.667466 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/GiveAbility/Give1PU_RandPosKeyword_Permanent.asset
-  artifactKey: Guid(c180806508a57c0428774b80ecea9941) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/GiveAbility/Give1PU_RandPosKeyword_Permanent.asset using Guid(c180806508a57c0428774b80ecea9941) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '06b1aa1bebe66d0ce56740acc1af7857') in 0.003122 seconds
-  Import took 0.007294 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.023826 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/GiveAbility/GiveALLPU_Defender_2turns.asset
-  artifactKey: Guid(db64a2548f383a34f8df9869003f4635) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/GiveAbility/GiveALLPU_Defender_2turns.asset using Guid(db64a2548f383a34f8df9869003f4635) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dd20c30e531c7cf51f7432bf6e4db1ac') in 0.003945 seconds
-  Import took 0.008299 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000200 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/GiveAbility/GiveALLPU_Revenge_Draw1.asset
-  artifactKey: Guid(e23a605ccb4424b4e84f8240c0bc3ebe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/GiveAbility/GiveALLPU_Revenge_Draw1.asset using Guid(e23a605ccb4424b4e84f8240c0bc3ebe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9ad71c43ee56f5521ed062957ac01ac2') in 0.004847 seconds
-  Import took 0.008869 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.025387 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/GiveAbility/GiveSelf_plus1plus0_RandPosKeyword_Permanent.asset
-  artifactKey: Guid(dca623f1aeb854b4b9a38cf2e729151c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Player Units/GiveAbility/GiveSelf_plus1plus0_RandPosKeyword_Permanent.asset using Guid(dca623f1aeb854b4b9a38cf2e729151c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8dcec06d2ebcaa9da30cddd2e3101996') in 0.004556 seconds
-  Import took 0.008575 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 87.494594 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/No Targets/PlayCard/Generic Units/PlayCard_Mage.asset
-  artifactKey: Guid(c1ae27be9f1fc26489c0772de79a7261) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/No Targets/PlayCard/Generic Units/PlayCard_Mage.asset using Guid(c1ae27be9f1fc26489c0772de79a7261) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4394a807381f085f5f8d05daba15f914') in 0.011664 seconds
-  Import took 0.015565 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 3.505838 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/No Targets/PlayCard/Generic Units/PlayCard_Mutant.asset
-  artifactKey: Guid(ac69f99cbdacda4439ebb8b699ecfef8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/No Targets/PlayCard/Generic Units/PlayCard_Mutant.asset using Guid(ac69f99cbdacda4439ebb8b699ecfef8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1dbc009ef7f892d497a6db4c892c7f2b') in 0.013129 seconds
-  Import took 0.017421 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 2.823012 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/No Targets/PlayCard/Generic Units/PlayCard_Rogue.asset
-  artifactKey: Guid(aaa8b7b14a9b9414f869d5871306a47d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/No Targets/PlayCard/Generic Units/PlayCard_Rogue.asset using Guid(aaa8b7b14a9b9414f869d5871306a47d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c1ed0bae07feeef9f7ade70a301fa2ab') in 0.008782 seconds
-  Import took 0.012783 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 2.998344 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/No Targets/PlayCard/Generic Units/PlayCard_Tech.asset
-  artifactKey: Guid(a55801d159a3d9a4b958e695d62f5ae5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/No Targets/PlayCard/Generic Units/PlayCard_Tech.asset using Guid(a55801d159a3d9a4b958e695d62f5ae5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '74d5c76ca7ace26a5013654ab7042d57') in 0.009365 seconds
-  Import took 0.013949 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 3.238886 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/No Targets/PlayCard/Generic Units/PlayCard_Warrior.asset
-  artifactKey: Guid(6b430c9a829dfb74698726371afb2b8a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/No Targets/PlayCard/Generic Units/PlayCard_Warrior.asset using Guid(6b430c9a829dfb74698726371afb2b8a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4efa621caaa04a7a792e83d03a2618df') in 0.010894 seconds
-  Import took 0.015957 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 2.404269 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/No Targets/PlayCard/Generic Units/PlayCard_Warrior.asset
-  artifactKey: Guid(6b430c9a829dfb74698726371afb2b8a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/No Targets/PlayCard/Generic Units/PlayCard_Warrior.asset using Guid(6b430c9a829dfb74698726371afb2b8a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b49ade0787694ab1bce9256d1c2b4c1c') in 0.008604 seconds
-  Import took 0.013226 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 25.852813 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Anything/Deal4_1Any_IfDsty_PlayCard_Mutant_3.asset
-  artifactKey: Guid(aee26684d190eb84baf3faf1adce7d2d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Anything/Deal4_1Any_IfDsty_PlayCard_Mutant_3.asset using Guid(aee26684d190eb84baf3faf1adce7d2d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e4d9d813a35bb8d1b67612361075cd39') in 0.011827 seconds
-  Import took 0.016426 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 8.306908 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/No Targets/PlayCard/Generic Units/PlayCard_Mutant.asset
-  artifactKey: Guid(ac69f99cbdacda4439ebb8b699ecfef8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/No Targets/PlayCard/Generic Units/PlayCard_Mutant.asset using Guid(ac69f99cbdacda4439ebb8b699ecfef8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6b52e7a27f944659c425478f0a3a6e57') in 0.009808 seconds
-  Import took 0.017220 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 25.731302 seconds.
-  path: Assets/Resources/Cards_Actions/Coven Call.asset
-  artifactKey: Guid(96372199dc5e1e44481c5eb334427747) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Actions/Coven Call.asset using Guid(96372199dc5e1e44481c5eb334427747) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '116ab0d85567489f7af83b1694cafba9') in 0.011684 seconds
-  Import took 0.015695 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 22.957834 seconds.
-  path: Assets/Resources/Cards_Actions/Insidious Infiltration.asset
-  artifactKey: Guid(21142869c8ea4d34aac86558789ad34e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Cards_Actions/Insidious Infiltration.asset using Guid(21142869c8ea4d34aac86558789ad34e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '86a366b4ee501afd4ff0141befd3566a') in 0.011164 seconds
-  Import took 0.015671 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 70.291259 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/No Targets/PlayCard/PlayCardEnemy_Parasite.asset
-  artifactKey: Guid(97a3dbeb9ed58154a97b1205f624dcca) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/No Targets/PlayCard/PlayCardEnemy_Parasite.asset using Guid(97a3dbeb9ed58154a97b1205f624dcca) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '933d272536f6deee2ec306aa2dabfd7e') in 0.011312 seconds
-  Import took 0.016115 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 2.714772 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/No Targets/PlayCard/PlayCard_Trap.asset
-  artifactKey: Guid(3e30647b43605bc4e98d9a2055b974a5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/No Targets/PlayCard/PlayCard_Trap.asset using Guid(3e30647b43605bc4e98d9a2055b974a5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1c8f827edde152d41fd74a512d6c0c7a') in 0.006307 seconds
-  Import took 0.011036 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000631 seconds.
-  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/No Targets/PlayCard/PlayCard_Trap.asset
-  artifactKey: Guid(3e30647b43605bc4e98d9a2055b974a5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/No Targets/PlayCard/PlayCard_Trap.asset using Guid(3e30647b43605bc4e98d9a2055b974a5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1c8f827edde152d41fd74a512d6c0c7a') in 0.002556 seconds
-  Import took 0.006252 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 40.920174 seconds.
-  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Revenge_CopyCardPlay_Self.asset
-  artifactKey: Guid(b4252e47a8c23c44682750a28e6d89b6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Revenge_CopyCardPlay_Self.asset using Guid(b4252e47a8c23c44682750a28e6d89b6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f02f24be4f06337ee1a5934a6ed92ef8') in 0.006802 seconds
-  Import took 0.011731 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 108.938181 seconds.
-  path: Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Ability Triggers/Play.asset
-  artifactKey: Guid(c74c9ac6a33f86347a6ac56840c5c7cc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Card Abilities/Ability Objects/Triggered Abilities/Ability Triggers/Play.asset using Guid(c74c9ac6a33f86347a6ac56840c5c7cc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9142713e5f6c4dcc2c8b8c7a1b5b371f') in 0.003284 seconds
-  Import took 0.007345 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 5176.396337 seconds.
-  path: Assets/Scripts/Displays/Card Displays/CardPagePopupDisplay.cs
-  artifactKey: Guid(5d957427f1be12a46ae9d2a65599e701) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Displays/Card Displays/CardPagePopupDisplay.cs using Guid(5d957427f1be12a46ae9d2a65599e701) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '942e59a64b8581781c7a8afc55e9d64c') in 0.002240 seconds
-  Import took 0.010276 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.001435 seconds.
-  path: Assets/Scripts/Displays/Card Displays/CardPagePopupDisplay.cs
-  artifactKey: Guid(5d957427f1be12a46ae9d2a65599e701) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Displays/Card Displays/CardPagePopupDisplay.cs using Guid(5d957427f1be12a46ae9d2a65599e701) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '942e59a64b8581781c7a8afc55e9d64c') in 0.002297 seconds
-  Import took 0.006338 seconds .
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002335 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.06 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.689 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 1.35 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2095 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.8 MB.
-System memory in use after: 105.9 MB.
-
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2584.
-Total: 1.773600 ms (FindLiveObjects: 0.185500 ms CreateObjectMapping: 0.076600 ms MarkObjects: 1.497500 ms  DeleteObjects: 0.013300 ms)
-
-========================================================================
-Received Import Request.
-  Time since last request: 74.463245 seconds.
-  path: Assets/Scripts/Displays/Card Displays/CardPagePopupDisplay.cs
-  artifactKey: Guid(5d957427f1be12a46ae9d2a65599e701) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Displays/Card Displays/CardPagePopupDisplay.cs using Guid(5d957427f1be12a46ae9d2a65599e701) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '46ba6012e96be08078cb91c81473f25b') in 0.003735 seconds
-  Import took 0.011693 seconds .
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.002189 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 1.48 ms, found 4 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.699 seconds
-Platform modules already initialized, skipping
 Refreshing native plugins compatible for Editor in 1.11 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 2095 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 105.8 MB.
-System memory in use after: 105.9 MB.
+Unloading 2126 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 104.9 MB.
+System memory in use after: 105.0 MB.
 
-Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2587.
-Total: 1.720900 ms (FindLiveObjects: 0.218900 ms CreateObjectMapping: 0.126300 ms MarkObjects: 1.357700 ms  DeleteObjects: 0.017100 ms)
+Unloading 25 unused Assets to reduce memory usage. Loaded Objects now: 2574.
+Total: 6.779700 ms (FindLiveObjects: 0.520700 ms CreateObjectMapping: 0.319700 ms MarkObjects: 5.856900 ms  DeleteObjects: 0.079300 ms)
 
 ========================================================================
 Received Import Request.
-  Time since last request: 96.543573 seconds.
-  path: Assets/Scripts/Displays/Item Displays/BuyItemPopupDisplay.cs
-  artifactKey: Guid(361a4ccb0cb06a048ac32ccf43825fa2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Displays/Item Displays/BuyItemPopupDisplay.cs using Guid(361a4ccb0cb06a048ac32ccf43825fa2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9856d3855372c590b756346c3583b78b') in 0.003807 seconds
-  Import took 0.010170 seconds .
+  path: Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/StatChange/GiveSelf_plus{SavedValue}plus0_2turns.asset
+  artifactKey: Guid(aab10d23042fc3b40bc2bbaa59ce549b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Effects/Effect Objects/EffectGroups/Self/StatChange/GiveSelf_plus{SavedValue}plus0_2turns.asset using Guid(aab10d23042fc3b40bc2bbaa59ce549b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '20116b0629078265bad2ddbfbe34a14a') in 0.030151 seconds
+  Import took 0.033703 seconds .
 
 AssetImportWorkerClient::OnTransportError - code=2 error=End of file

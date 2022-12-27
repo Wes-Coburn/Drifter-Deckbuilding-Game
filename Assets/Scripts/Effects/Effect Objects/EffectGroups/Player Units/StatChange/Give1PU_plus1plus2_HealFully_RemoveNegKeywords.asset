@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a22d7123f6ee007468cbdc6e9b6fe2b0, type: 3}
+  m_Name: Give1PU_plus1plus2_HealFully_RemoveNegKeywords
+  m_EditorClassIdentifier: 
+  Targets: {fileID: 11400000, guid: 3536ddc3f75919646b8fab53d9f33c8a, type: 2}
+  ResolveIndependent: 0
+  EffectsDescription: Give an ally +1|+2, then fully heal it and remove its negative
+    keywords.
+  Effects:
+  - {fileID: 11400000, guid: 2020870446673f14a8dd178c0f853a66, type: 2}
+  - {fileID: 11400000, guid: 5119f91679cc488448528cd38a4cb039, type: 2}
+  - {fileID: 11400000, guid: 48687af00a7725e47842a72ecc98e01d, type: 2}

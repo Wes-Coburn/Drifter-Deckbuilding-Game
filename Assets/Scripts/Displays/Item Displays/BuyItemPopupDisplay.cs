@@ -29,8 +29,8 @@ public class BuyItemPopupDisplay : MonoBehaviour
         set
         {
             heroItem = value;
-            string text = "Buy <color=\"yellow\"><b>" + heroItem.ItemName + "</b></color>" +
-                " for <color=\"yellow\"><b>" + gMan.GetItemCost(heroItem, out _, false) +
+            string text = "Buy <b><u>" + heroItem.ItemName + "</u></b>" +
+                " for <color=\"red\"><b>" + gMan.GetItemCost(heroItem, out _, false) +
                 "</b></color> aether?";
             PopupText = text;
         }

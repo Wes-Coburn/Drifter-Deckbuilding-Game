@@ -18,19 +18,21 @@ MonoBehaviour:
   cardName: Power Transfer
   cardType: Action
   cardSubType: 
-  isRare: 0
+  cardRarity: 0
   cardDescription: Power Transfer is...
   cardPlaySound:
     name: 
     clip: {fileID: 0}
     volume: 0
     pitch: 0
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
   zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
-  effectDescription: 'Clone an ally. Give it Blitz and "Turn End: Destroy this unit."'
+  effectDescription: Destroy an ally to give its stats and positive keywords to another
+    ally.
   effectGroupList:
-  - {fileID: 11400000, guid: f5144a8addd3d15498cc3b9ecfe500a7, type: 2}
-  linkedAbilities:
-  - {fileID: 11400000, guid: 3e5874c35dad2f34d96f6d4b9d15a4dd, type: 2}
-  - {fileID: 11400000, guid: f9f029cd91a81544eb06ce77a5f40ab8, type: 2}
+  - {fileID: 11400000, guid: 988120586757e4e40bec8ebc1ea010a6, type: 2}
+  - {fileID: 11400000, guid: efe8dc38cbd254f43a6855d37e90f976, type: 2}
+  - {fileID: 11400000, guid: 13c8dfa795bfa0d439796e1d2e89e09c, type: 2}
+  linkedAbilities: []

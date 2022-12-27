@@ -92,8 +92,6 @@ public class DragDrop : MonoBehaviour
 
     public void StartDrag()
     {
-        //if (!SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene)) return; // TESTING
-
         uMan.DestroyZoomObjects();
         if (!pMan.IsMyTurn) return;
         if (CompareTag(CombatManager.ENEMY_CARD)) return;
@@ -105,6 +103,7 @@ public class DragDrop : MonoBehaviour
         FunctionTimer.StopTimer(CardZoom.ZOOM_CARD_TIMER);
         FunctionTimer.StopTimer(CardZoom.ABILITY_POPUP_TIMER);
         DraggingCard = gameObject;
+        //Enemy = null; // Unnecessary
 
         if (!IsPlayed)
         {
@@ -114,9 +113,8 @@ public class DragDrop : MonoBehaviour
             particleHandler = anMan.CreateParticleSystem(gameObject,
                 ParticleSystemHandler.ParticlesType.Drag);
 
-            lastIndex = transform.GetSiblingIndex(); // TESTING
-            //transform.SetAsLastSibling();
-            transform.SetParent(uMan.CurrentZoomCanvas.transform); // TESTING
+            lastIndex = transform.GetSiblingIndex();
+            transform.SetParent(uMan.CurrentZoomCanvas.transform);
         }
         else
         {
@@ -188,6 +186,7 @@ public class DragDrop : MonoBehaviour
             else ResetPosition();
             return;
         }
+
         // From Play
         ArrowIsDragging = false;
         Destroy(dragArrow);

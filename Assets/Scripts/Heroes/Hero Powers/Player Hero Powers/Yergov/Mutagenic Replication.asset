@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Mutagenic Replication
   m_EditorClassIdentifier: 
   PowerName: Mutagenic Replication
-  PowerCost: 4
+  PowerCost: 3
   PowerSprite: {fileID: 21300000, guid: ebf66bd1660f8b2479ddc68820feeb17, type: 3}
   PowerSounds:
   - name: 
@@ -28,8 +28,10 @@ MonoBehaviour:
     pitch: 1
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
-  PowerDescription: "Give ALL allies \u201CRevenge: Play a copy of this unit.\u201D"
+  PowerDescription: "Clone an ally. Give it Blitz and \u201CTurn End: Destroy this
+    unit.\u201D"
   EffectGroupList:
-  - {fileID: 11400000, guid: 8f65a0775ce80af46a6d8999c0d61546, type: 2}
+  - {fileID: 11400000, guid: f5144a8addd3d15498cc3b9ecfe500a7, type: 2}
   LinkedAbilities:
-  - {fileID: 11400000, guid: 55d83941db05710428faf12e595b4a38, type: 2}
+  - {fileID: 11400000, guid: 3e5874c35dad2f34d96f6d4b9d15a4dd, type: 2}
+  - {fileID: 11400000, guid: f9f029cd91a81544eb06ce77a5f40ab8, type: 2}

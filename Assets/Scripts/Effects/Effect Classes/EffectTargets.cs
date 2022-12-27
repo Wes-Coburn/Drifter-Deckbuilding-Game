@@ -37,6 +37,9 @@ public class EffectTargets : ScriptableObject
     public bool EnemyHero;
     public bool EnemyUnit;
 
+    [Header("SAVED TARGET")]
+    public bool SavedTarget;
+
     public bool CompareTargets(EffectTargets targets)
     {
         //if (TargetNumber != targets.TargetNumber) return false;
@@ -53,6 +56,7 @@ public class EffectTargets : ScriptableObject
         if (PlayerDeck != targets.PlayerDeck) return false;
         if (EnemyHero != targets.EnemyHero) return false;
         if (EnemyUnit != targets.EnemyUnit) return false;
+        if (SavedTarget != targets.SavedTarget) return false;
         return true;
     }
 }

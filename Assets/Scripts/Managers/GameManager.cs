@@ -71,9 +71,9 @@ public class GameManager : MonoBehaviour
     public const int PLAYER_START_UNITS = 3;
     public const int MAXIMUM_ENERGY_PER_TURN = 10;
     public const int MAXIMUM_ENERGY = 10;
-    public const int MAXIMUM_ITEMS = 3;
+    public const int MAXIMUM_ITEMS = 2;
     public const int HERO_ULTMATE_GOAL = 3;
-    public const int PLAYER_START_AETHER = 15; // TESTING
+    public const int PLAYER_START_AETHER = 30;
 
     // Enemy
     public const string ENEMY = "Enemy";
@@ -86,27 +86,28 @@ public class GameManager : MonoBehaviour
 
     // Aether Rewards
     public const int IGNORE_CARD_AETHER = 10;
+    public const int REDRAW_CARDS_AETHER = 5;
     // Sell Cards
     public const int SELL_COMMON_CARD_VALUE = 10;
     public const int SELL_RARE_CARD_VALUE = 15;
     public const int SELL_LEGEND_CARD_VALUE = 20;
     // Recruits
     public const int RECRUIT_COMMON_UNIT_COST = 30;
-    public const int RECRUIT_RARE_UNIT_COST = 45;
-    public const int RECRUIT_LEGEND_UNIT_COST = 60;
+    public const int RECRUIT_RARE_UNIT_COST = 40;
+    public const int RECRUIT_LEGEND_UNIT_COST = 50;
     public const int RECRUIT_LOYALTY_GOAL = 3;
     // Actions
     public const int BUY_COMMON_ACTION_COST = 30;
-    public const int BUY_RARE_ACTION_COST = 45;
-    public const int BUY_LEGEND_ACTION_COST = 60;
+    public const int BUY_RARE_ACTION_COST = 40;
+    public const int BUY_LEGEND_ACTION_COST = 50;
     public const int ACTION_LOYALTY_GOAL = 3;
     // Cloning
     public const int CLONE_COMMON_UNIT_COST = 35;
-    public const int CLONE_RARE_UNIT_COST = 50;
-    public const int CLONE_LEGEND_UNIT_COST = 65;
+    public const int CLONE_RARE_UNIT_COST = 45;
+    public const int CLONE_LEGEND_UNIT_COST = 55;
     // Items
     public const int BUY_ITEM_COST = 35;
-    public const int BUY_RARE_ITEM_COST = 55;
+    public const int BUY_RARE_ITEM_COST = 50;
     public const int SHOP_LOYALTY_GOAL = 3;
     // Sell Items
     public const int SELL_ITEM_VALUE = 15;
@@ -117,13 +118,13 @@ public class GameManager : MonoBehaviour
     public const int REPUTATION_TIER_3 = 30;
 
     // Combat Reward
-    public const int AETHER_COMBAT_REWARD_1 = 20;
-    public const int AETHER_COMBAT_REWARD_2 = 25;
-    public const int AETHER_COMBAT_REWARD_3 = 30;
+    public const int AETHER_COMBAT_REWARD_1 = 30;
+    public const int AETHER_COMBAT_REWARD_2 = 35;
+    public const int AETHER_COMBAT_REWARD_3 = 40;
 
-    public const int AETHER_COMBAT_REWARD_BOSS_1 = 30;
-    public const int AETHER_COMBAT_REWARD_BOSS_2 = 45;
-    public const int AETHER_COMBAT_REWARD_BOSS_3 = 60;
+    public const int AETHER_COMBAT_REWARD_BOSS_1 = 60;
+    public const int AETHER_COMBAT_REWARD_BOSS_2 = 70;
+    public const int AETHER_COMBAT_REWARD_BOSS_3 = 80;
 
     // Augments
     public const int AETHER_MAGNET_REWARD = 20;
@@ -293,7 +294,7 @@ public class GameManager : MonoBehaviour
         {
             case 1:
                 tip = "Redraw any number of cards from your starting hand. Click each card you want to redraw, " +
-                    "then click the <color=\"yellow\"><b>Confirm Button</b></color>.";
+                    "then click the <color=\"yellow\"><b>Confirm Button</b></color> (or press the <color=\"yellow\"><b>Space Bar</b></color>).";
                 break;
             case 2:
                 tip = "Play a card by dragging it out of your hand. Cards you can play are highlighted in <color=\"green\"><b>green</b></color>.";
@@ -428,9 +429,15 @@ public class GameManager : MonoBehaviour
         efMan.GiveNextEffects_Player.Clear();
         foreach (Effect e in efMan.ChangeNextCostEffects_Player) Destroy(e);
         efMan.ChangeNextCostEffects_Player.Clear();
+        foreach (ModifyNextEffect m in efMan.ModifyNextEffects_Player) Destroy(m);
+        efMan.ModifyNextEffects_Player.Clear();
+
         foreach (Effect e in efMan.GiveNextEffects_Enemy) Destroy(e);
         efMan.GiveNextEffects_Enemy.Clear();
         foreach (Effect e in efMan.ChangeNextCostEffects_Enemy) Destroy(e);
+        foreach (ModifyNextEffect m in efMan.ModifyNextEffects_Enemy) Destroy(m);
+        efMan.ModifyNextEffects_Enemy.Clear();
+
         efMan.ChangeNextCostEffects_Enemy.Clear();
         // UI Manager
         uMan.ClearAugmentBar();
@@ -1380,6 +1387,7 @@ public class GameManager : MonoBehaviour
             efMan.RemoveTemporaryEffects(ENEMY);
             efMan.RemoveGiveNextEffects(player);
             efMan.RemoveChangeNextCostEffects(player);
+            efMan.RemoveModifyNextEffects(player);
 
             pMan.DamageTaken_Turn = 0;
             enMan.DamageTaken_Turn = 0;
@@ -1439,7 +1447,7 @@ public class GameManager : MonoBehaviour
         if (activeNPC != -1) return ActiveNPCHeroes[activeNPC];
         else
         {
-            Debug.Log("NEW NPC CREATED! <" + npc.HeroName + ">");
+            //Debug.Log("NEW NPC CREATED! <" + npc.HeroName + ">");
             NPCHero newNPC;
             if (npc is EnemyHero) newNPC = ScriptableObject.CreateInstance<EnemyHero>();
             else newNPC = ScriptableObject.CreateInstance<NPCHero>();
@@ -1470,9 +1478,9 @@ public class GameManager : MonoBehaviour
         if (activeLocation != -1)
         {
             Location loc = ActiveLocations[activeLocation];
-            Debug.Log("LOCATION FOUND! <" + loc.LocationFullName + ">");
+            //Debug.Log("LOCATION FOUND! <" + loc.LocationFullName + ">");
             if (newNPC != null) loc.CurrentNPC = GetActiveNPC(newNPC);
-            Debug.Log("ACTIVE LOCATIONS: <" + ActiveLocations.Count + ">");
+            //Debug.Log("ACTIVE LOCATIONS: <" + ActiveLocations.Count + ">");
             return loc;
         }
         else
@@ -1480,11 +1488,11 @@ public class GameManager : MonoBehaviour
             Location newLoc = ScriptableObject.CreateInstance<Location>();
             newLoc.LoadLocation(location);
             newLoc.CurrentObjective = newLoc.FirstObjective;
-            Debug.Log("NEW LOCATION CREATED! <" + newLoc.LocationFullName + ">");
+            //Debug.Log("NEW LOCATION CREATED! <" + newLoc.LocationFullName + ">");
             if (newNPC != null) newLoc.CurrentNPC = GetActiveNPC(newNPC);
             else newLoc.CurrentNPC = GetActiveNPC(location.FirstNPC);
             ActiveLocations.Add(newLoc);
-            Debug.Log("ACTIVE LOCATIONS: <" + ActiveLocations.Count + ">");
+            //Debug.Log("ACTIVE LOCATIONS: <" + ActiveLocations.Count + ">");
             return newLoc;
         }
     }

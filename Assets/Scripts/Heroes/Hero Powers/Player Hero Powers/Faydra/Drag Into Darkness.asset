@@ -28,9 +28,8 @@ MonoBehaviour:
     pitch: 1
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
-  PowerDescription: Stun ALL enemies and deal 2 to them.
+  PowerDescription: Stun ALL enemies, or deal 2 to them if their power is 0.
   EffectGroupList:
-  - {fileID: 11400000, guid: a28041dc89a504b4b99882c1657727aa, type: 2}
-  - {fileID: 11400000, guid: a07c0f15db9b6b54fb674a9f3e867d6b, type: 2}
+  - {fileID: 11400000, guid: 84ae30181d05ba64bb4f2fa338a2f7da, type: 2}
   LinkedAbilities:
   - {fileID: 11400000, guid: 37a54b5ce20d48941893b9f48eee681f, type: 2}

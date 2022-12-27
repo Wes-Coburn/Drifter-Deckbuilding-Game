@@ -396,12 +396,12 @@ public class UnitCardDisplay : CardDisplay
 
         if (abilityIndex == -1)
         {
-            Debug.LogWarning("ABILITY NOT FOUND!");
+            Debug.LogWarning("ABILITY <" + abilityName + "> NOT FOUND!");
             return;
         }
         else Debug.Log("ABILITY <" + abilityName + "> REMOVED!");
 
-        switch (abilityName) // TESTING
+        switch (abilityName)
         {
             case CardManager.ABILITY_DEFENDER:
                 vfx_Defender.SetActive(false);
@@ -411,8 +411,8 @@ public class UnitCardDisplay : CardDisplay
                 break;
             case CardManager.ABILITY_STEALTH:
                 vfx_Stealth.SetActive(false);
-                if (CardManager.GetAbility(gameObject, CardManager.ABILITY_DEFENDER))
-                    vfx_Defender.SetActive(true);
+                if (CardManager.GetAbility(gameObject,
+                    CardManager.ABILITY_DEFENDER)) vfx_Defender.SetActive(true);
                 break;
             case CardManager.ABILITY_WARD:
                 vfx_Ward.SetActive(false);
@@ -439,8 +439,9 @@ public class UnitCardDisplay : CardDisplay
         }
         else if (ca is TriggeredAbility ta)
         {
-            if (ta.AbilityTrigger.AbilityName == CardManager.TRIGGER_PLAY) return;
-            if (CardManager.GetTrigger(gameObject, ta.AbilityTrigger.AbilityName)) return;
+            string triggerName = ta.AbilityTrigger.AbilityName;
+            if (triggerName == CardManager.TRIGGER_PLAY) return;
+            if (CardManager.GetTrigger(gameObject, triggerName)) return;
         }
         else if (ca is ModifierAbility ma)
         {
@@ -466,8 +467,13 @@ public class UnitCardDisplay : CardDisplay
         AbilityIcons.RemoveAt(displayIndex);
         displayedAbilities.RemoveAt(displayIndex);
 
-        if (delay) FunctionTimer.Create(() => Destroy(icon), 1);
+        if (delay) FunctionTimer.Create(() => DestroyIcon(icon), 1);
         else Destroy(icon);
+
+        static void DestroyIcon(GameObject icon)
+        {
+            if (icon != null) Destroy(icon);
+        }
     }
 
     /******
@@ -529,14 +535,12 @@ public class UnitCardDisplay : CardDisplay
         CurrentHealth = UnitCard.StartHealth;
         MaxHealth = UnitCard.StartHealth;
 
-        foreach (GameObject go in AbilityIcons)
-            Destroy(go);
+        foreach (GameObject go in AbilityIcons) Destroy(go);
         AbilityIcons.Clear();
         displayedAbilities.Clear();
         CurrentAbilities.Clear();
         foreach (CardAbility ca in UnitCard.StartingAbilities)
         {
-            // TESTING TESTING TESTING
             CardAbility newCa = ScriptableObject.CreateInstance(ca.GetType().Name) as CardAbility;
             newCa.LoadCardAbility(ca);
             CurrentAbilities.Add(newCa);
@@ -544,7 +548,7 @@ public class UnitCardDisplay : CardDisplay
         foreach (CardAbility ca in CurrentAbilities)
             AddCurrentAbility(ca, true);
 
-        ResetEffects(); // TESTING
+        ResetEffects();
         DisplayCard();
     }
 

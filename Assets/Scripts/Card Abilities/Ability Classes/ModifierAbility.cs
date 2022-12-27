@@ -10,8 +10,12 @@ public class ModifierAbility : CardAbility
         Tooltip("Limit the number of times this ability triggers each turn, 0 for unlimited")]
     public int TriggerLimit;
 
+    [Header("Remove After Trigger"), Tooltip("Remove this ability after it triggers")]
+    public bool RemoveAfterTrigger;
+
     [Header("Ability Trigger Modifier")]
     public AbilityTrigger AbilityTrigger;
+    public bool AllAbilityTriggers;
 
     [Header("Play Unit Modifiers")]
     public bool ModifyPlayUnit;
@@ -29,14 +33,23 @@ public class ModifierAbility : CardAbility
         EnemyHeroWounded,
 
         // Enemies
+        EnemyDestroyed,
         MarkedEnemyDestroyed,
         PoisonedEnemyDestroyed,
 
         // Allies
         AllyDestroyed,
-        DamagedAllyHealed
+        AllyRefreshed,
+        DamagedAllyHealed,
+        AllyGainsAbility,
+
+        // Traps
+        AllyTrapDestroyed
+        //PlayCard_1Cost
     }
     public TriggerType SpecialTriggerType;
+    public List<Effect> SpecialTriggerEffects;
+    public CardAbility AllyAbility;
 
     public int TriggerCount { get; set; }
 
@@ -50,8 +63,10 @@ public class ModifierAbility : CardAbility
             EffectGroupList.Add(eg);
 
         TriggerLimit = modifierAbility.TriggerLimit;
+        RemoveAfterTrigger = modifierAbility.RemoveAfterTrigger;
 
         AbilityTrigger = modifierAbility.AbilityTrigger;
+        AllAbilityTriggers = modifierAbility.AllAbilityTriggers;
 
         ModifyPlayUnit = modifierAbility.ModifyPlayUnit;
         PlayUnitEffects = new List<Effect>();
@@ -63,6 +78,11 @@ public class ModifierAbility : CardAbility
 
         ModifySpecialTrigger = modifierAbility.ModifySpecialTrigger;
         SpecialTriggerType = modifierAbility.SpecialTriggerType;
+        SpecialTriggerEffects = new List<Effect>();
+        foreach (Effect e in modifierAbility.SpecialTriggerEffects)
+            SpecialTriggerEffects.Add(e);
+
+        AllyAbility = modifierAbility.AllyAbility;
 
         TriggerCount = 0;
     }

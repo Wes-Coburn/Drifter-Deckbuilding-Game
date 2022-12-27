@@ -624,6 +624,9 @@ public class CombatManager : MonoBehaviour
      *****/
     public bool CanAttack(GameObject attacker, GameObject defender, bool preCheck = true, bool ignoreDefender = false)
     {
+        bool defenderIsUnit = false;
+        if (defender != null) defenderIsUnit = IsUnitCard(defender);
+
         if (defender != null)
         {
             if (attacker.CompareTag(defender.tag)) return false;
@@ -641,7 +644,7 @@ public class CombatManager : MonoBehaviour
         // TUTORIAL!
         if (!preCheck && gMan.IsTutorial && pMan.EnergyPerTurn == 2)
         {
-            if (!IsUnitCard(defender)) return false;
+            if (!defenderIsUnit) return false;
         }
 
         UnitCardDisplay atkUcd = GetUnitDisplay(attacker);
@@ -681,7 +684,7 @@ public class CombatManager : MonoBehaviour
             }
         }
 
-        if (!preCheck && !CardManager.GetAbility(defender, CardManager.ABILITY_DEFENDER)) // TESTING
+        if (!preCheck && !(defenderIsUnit && CardManager.GetAbility(defender, CardManager.ABILITY_DEFENDER))) // TESTING
         {
             List<GameObject> enemyZone;
             if (attacker.CompareTag(PLAYER_CARD)) enemyZone = EnemyZoneCards;
@@ -1499,11 +1502,7 @@ public class CombatManager : MonoBehaviour
         wasDamaged = false;
         wasDestroyed = false;
 
-        if (damageValue < 1)
-        {
-            Debug.Log("CANNOT DEAL 0 DAMAGE!");
-            return;
-        }
+        if (damageValue < 1) return;
 
         uMan.ShakeCamera(UIManager.Bump_Light);
         //anMan.CreateParticleSystem(target, ParticleSystemHandler.ParticlesType.Damage, 1); // TESTING
@@ -1710,6 +1709,10 @@ public class CombatManager : MonoBehaviour
             // Ally Destroyed
             efMan.TriggerModifiers_SpecialTrigger
                 (ModifierAbility.TriggerType.AllyDestroyed, playerCardZone);
+
+            // Enemy Destroyed
+            efMan.TriggerModifiers_SpecialTrigger
+                (ModifierAbility.TriggerType.EnemyDestroyed, enemyCardZone);
 
             // Marked Enemy Destroyed
             if (CardManager.GetAbility(card, CardManager.ABILITY_MARKED))

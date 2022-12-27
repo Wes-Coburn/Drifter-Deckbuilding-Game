@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 024a223818b76d04b90b880bd4d0c3a0, type: 3}
+  m_Name: Blitz Rider
+  m_EditorClassIdentifier: 
+  PowerName: Blitz Rider
+  PowerCost: 3
+  PowerSprite: {fileID: 21300000, guid: aeb06ac50de778a488f9c2e88f1a336f, type: 3}
+  PowerSounds:
+  - name: 
+    clip: {fileID: 8300000, guid: 3e033a1819f492347a81c1009347a773, type: 3}
+    volume: 0.8
+    pitch: 1
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: 9bd4ce23e89ebb54daddf4b76ac54553, type: 3}
+    volume: 1
+    pitch: 1
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  PowerDescription: Give an ally +1|+1 and Refresh it.
+  EffectGroupList:
+  - {fileID: 11400000, guid: fdb2fac1473df274eba1b3e02ea50f21, type: 2}
+  LinkedAbilities:
+  - {fileID: 11400000, guid: dd1e5adc210ef4f4387a7fa5ee2988e8, type: 2}
+  - {fileID: 11400000, guid: da9edd80a7b529542b04b632f79005de, type: 2}

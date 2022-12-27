@@ -61,8 +61,8 @@ public class CardPagePopupDisplay : MonoBehaviour
                 return;
         }
 
-        text += " <color=\"green\"><b>" + card.CardName + "</b></color>" +
-            " for <color=\"yellow\"><b>" + cardCost + "</b></color> aether?";
+        text += " <b><u>" + card.CardName + "</u></b>" +
+            " for <color=\"red\"><b>" + cardCost + "</b></color> aether?";
         PopupText = text;
     }
 

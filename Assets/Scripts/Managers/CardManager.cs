@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CardManager : MonoBehaviour
@@ -290,7 +291,7 @@ public class CardManager : MonoBehaviour
     public void LoadNewActions()
     {
         ActionCard[] allActions = Resources.LoadAll<ActionCard>("Cards_Actions");
-        allActions.Shuffle(); // TESTING
+        allActions.Shuffle();
         List<ActionCard> actionList = new List<ActionCard>();
 
         foreach (ActionCard action in allActions)
@@ -331,7 +332,7 @@ public class CardManager : MonoBehaviour
     public void LoadNewRecruits()
     {
         UnitCard[] allRecruits = Resources.LoadAll<UnitCard>("Cards_Units");
-        allRecruits.Shuffle(); // TESTING
+        allRecruits.Shuffle();
 
         List<UnitCard> recruitMages = new List<UnitCard>();
         List<UnitCard> recruitMutants = new List<UnitCard>();
@@ -483,22 +484,19 @@ public class CardManager : MonoBehaviour
         {
             foreach (Card card in cardPool)
             {
-                bool isDuplicate = false;
-                foreach (Card c in chooseCards)
-                    if (c == card) isDuplicate = true;
-                if (isDuplicate) continue;
+                if (chooseCards.Contains(card)) continue;
 
-                int copies = 0;
+                int otherCopies = 0;
                 if (limitDuplicates)
                 {
                     foreach (Card playerCard in pMan.PlayerDeckList)
                     {
                         if (playerCard.CardName == card.CardName)
-                            copies++;
+                            otherCopies++;
                     }
                 }
 
-                if (!limitDuplicates || copies < 1)
+                if (!limitDuplicates || otherCopies < 1)
                 {
                     chooseCards[index++] = card;
                     if (index == 3) break;
@@ -542,8 +540,7 @@ public class CardManager : MonoBehaviour
 
     private void UnitReputationChange(Card card, bool isRemoval)
     {
-        if (card is UnitCard) { } // TESTING
-        else return;
+        if (!(card is UnitCard)) return;
 
         int change;
         if (isRemoval) change = -1;
@@ -581,9 +578,7 @@ public class CardManager : MonoBehaviour
      *****/
     public void ShuffleDeck(string hero, bool playSound = true)
     {
-        Debug.Log("SHUFFLE <" + hero + "> DECK!");
-        if (hero == GameManager.PLAYER)
-            pMan.CurrentPlayerDeck.Shuffle();
+        if (hero == GameManager.PLAYER) pMan.CurrentPlayerDeck.Shuffle();
         else if (hero == GameManager.ENEMY)
         {
             enMan.CurrentEnemyDeck.Shuffle();
@@ -595,8 +590,7 @@ public class CardManager : MonoBehaviour
             return;
         }
 
-        if (playSound)
-            auMan.StartStopSound("SFX_ShuffleDeck");
+        if (playSound) auMan.StartStopSound("SFX_ShuffleDeck");
     }
 
     /******
@@ -629,24 +623,9 @@ public class CardManager : MonoBehaviour
 
     /******
      * *****
-     * ****** GET_ABILITY
+     * ****** GET_SPECIAL_TRIGGER
      * *****
      *****/
-    public static bool GetSpecialTrigger(GameObject unitCard, ModifierAbility.TriggerType specialTrigger)
-    {
-        if (unitCard == null)
-        {
-            Debug.LogError("CARD IS NULL!");
-            return false;
-        }
-
-        if (!unitCard.TryGetComponent(out UnitCardDisplay ucd)) return false;
-
-        foreach (CardAbility ca in ucd.CurrentAbilities)
-            if (ca is ModifierAbility ma && ma.SpecialTriggerType == specialTrigger) return true;
-
-        return false;
-    }
     public static bool GetAbility(GameObject unitCard, string ability)
     {
         if (unitCard == null)
@@ -654,16 +633,24 @@ public class CardManager : MonoBehaviour
             Debug.LogError("CARD IS NULL!");
             return false;
         }
-
-        if (!unitCard.TryGetComponent(out UnitCardDisplay ucd)) return false;
+        if (!unitCard.TryGetComponent(out UnitCardDisplay ucd))
+        {
+            Debug.LogError("TARGET IS NOT UNIT!");
+            return false;
+        }
 
         int abilityIndex = ucd.CurrentAbilities.FindIndex(x => x.AbilityName == ability);
         if (abilityIndex == -1) return false;
         else return true;
     }
-    public int GetPositiveKeywords(GameObject target)
+    public int GetPositiveKeywords(GameObject unitCard)
     {
-        if (!target.TryGetComponent(out UnitCardDisplay _))
+        if (unitCard == null)
+        {
+            Debug.LogError("CARD IS NULL!");
+            return 0;
+        }
+        if (!unitCard.TryGetComponent(out UnitCardDisplay _))
         {
             Debug.LogError("TARGET IS NOT UNIT!");
             return 0;
@@ -672,7 +659,7 @@ public class CardManager : MonoBehaviour
         int positiveKeywords = 0;
         foreach (string positiveKeyword in PositiveAbilities)
         {
-            if (GetAbility(target, positiveKeyword)) positiveKeywords++;
+            if (GetAbility(unitCard, positiveKeyword)) positiveKeywords++;
         }
 
         return positiveKeywords;
@@ -682,15 +669,20 @@ public class CardManager : MonoBehaviour
      * ****** GET_TRIGGER
      * *****
      *****/
-    public static bool GetTrigger(GameObject card, string triggerName)
+    public static bool GetTrigger(GameObject unitCard, string triggerName)
     {
-        if (card == null)
+        if (unitCard == null)
         {
             Debug.LogError("CARD IS NULL!");
             return false;
         }
+        if (!unitCard.TryGetComponent(out UnitCardDisplay ucd))
+        {
+            Debug.LogError("TARGET IS NOT UNIT!");
+            return false;
+        }
 
-        foreach (CardAbility ca in card.GetComponent<UnitCardDisplay>().CurrentAbilities)
+        foreach (CardAbility ca in ucd.CurrentAbilities)
             if (ca is TriggeredAbility tra)
                 if (tra.AbilityTrigger.AbilityName == triggerName)
                 {
@@ -723,7 +715,7 @@ public class CardManager : MonoBehaviour
         List<TriggeredAbility> resolveSecondAbilities = new List<TriggeredAbility>();
         List<TriggeredAbility> resolveLastAbilities = new List<TriggeredAbility>();
         
-        foreach (CardAbility ca in ucd.CurrentAbilities)
+        foreach (CardAbility ca in ucd.CurrentAbilities.AsEnumerable().Reverse()) // Resolve abilities in top-down order
             if (ca is TriggeredAbility tra)
                 if (tra.AbilityTrigger.AbilityName == triggerName)
                 {
@@ -790,7 +782,8 @@ public class CardManager : MonoBehaviour
             {
                 foreach (Effect e in eg.Effects)
                 {
-                    if (e is DestroyEffect && eg.Targets.TargetsSelf) return true;
+                    if (eg.Targets.TargetsSelf &&
+                        (e is DamageEffect || e is DestroyEffect)) return true;
                 }
             }
             return false;
@@ -801,7 +794,8 @@ public class CardManager : MonoBehaviour
             {
                 foreach (Effect e in eg.Effects)
                 {
-                    if (e is ChangeControlEffect) return true;
+                    if (eg.Targets.TargetsSelf &&
+                        e is ChangeControlEffect) return true;
                 }
             }
             return false;
@@ -913,14 +907,14 @@ public class CardManager : MonoBehaviour
         if (trappedUnit == null ||
             GetAbility(trappedUnit, ABILITY_WARD)) return;
 
-        List<GameObject> unitZoneCards;
+        List<GameObject> enemyZoneCards;
         List<GameObject> resolveFirstTraps = new List<GameObject>();
 
         if (trappedUnit.CompareTag(CombatManager.PLAYER_CARD))
-            unitZoneCards = coMan.EnemyZoneCards;
-        else unitZoneCards = coMan.PlayerZoneCards;
+            enemyZoneCards = coMan.EnemyZoneCards;
+        else enemyZoneCards = coMan.PlayerZoneCards;
 
-        foreach (GameObject trap in unitZoneCards)
+        foreach (GameObject trap in enemyZoneCards)
         {
             if (efMan.UnitsToDestroy.Contains(trap)) continue;
 
@@ -945,8 +939,9 @@ public class CardManager : MonoBehaviour
                 {
                     ucd.AbilityTriggerState(TRIGGER_TRAP);
                     auMan.StartStopSound(null, ucd.UnitCard.CardPlaySound);
-
                     efMan.UnitsToDestroy.Add(trap);
+                    efMan.TriggerModifiers_SpecialTrigger(ModifierAbility.TriggerType.AllyTrapDestroyed, enemyZoneCards);
+
                     evMan.NewDelayedAction(() => efMan.ClearDestroyedUnits(), 0, true);
 
                     foreach (Effect selfEffect in trapAbility.SelfEffects)
