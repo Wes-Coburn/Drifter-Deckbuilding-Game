@@ -388,7 +388,7 @@ public class AnimationManager : MonoBehaviour
         GameObject stats = ucd.UnitStats;
         GameObject healthScore = ucd.HealthScore;
         ValueChanger(healthScore.transform, -damageValue, 0, isMeleeAttacker); // TESTING
-        SetAnimatorBool(stats, "IsDamaged", coMan.IsDamaged(unitCard));
+        SetAnimatorBool(stats, "IsDamaged", CombatManager.IsDamaged(unitCard));
     }
 
     public void ShowStatChange(GameObject unitCard, StatChangeEffect sce, bool isRemoval)
@@ -416,10 +416,10 @@ public class AnimationManager : MonoBehaviour
 
         UnitCardDisplay ucd = unitCard.GetComponent<UnitCardDisplay>();
         GameObject stats = ucd.UnitStats;
-        SetAnimatorBool(stats, "IsDamaged", coMan.IsDamaged(unitCard));
-        SetAnimatorBool(stats, "PowerIsDebuffed", coMan.PowerIsDebuffed(unitCard));
-        SetAnimatorBool(stats, "PowerIsBuffed", coMan.PowerIsBuffed(unitCard));
-        SetAnimatorBool(stats, "HealthIsBuffed", coMan.HealthIsBuffed(unitCard));
+        SetAnimatorBool(stats, "IsDamaged", CombatManager.IsDamaged(unitCard));
+        SetAnimatorBool(stats, "PowerIsDebuffed", CombatManager.PowerIsDebuffed(unitCard));
+        SetAnimatorBool(stats, "PowerIsBuffed", CombatManager.PowerIsBuffed(unitCard));
+        SetAnimatorBool(stats, "HealthIsBuffed", CombatManager.HealthIsBuffed(unitCard));
 
         if (setStatsOnly) return;
 

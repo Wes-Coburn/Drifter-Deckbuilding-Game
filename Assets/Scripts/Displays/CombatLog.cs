@@ -53,7 +53,7 @@ public class CombatLog : MonoBehaviour
         if (card.CompareTag(CombatManager.PLAYER_CARD)) logEntry += "You played <b><color=\"green\">";
         else logEntry += "Enemy played <b><color=\"red\">";
         logEntry += card.GetComponent<CardDisplay>().CardName + "</b></color> ";
-        if (CombatManager.Instance.IsUnitCard(card)) logEntry += "(Unit).";
+        if (CombatManager.IsUnitCard(card)) logEntry += "(Unit).";
         else logEntry += "(Action).";
         NewLogEntry(logEntry);
     }

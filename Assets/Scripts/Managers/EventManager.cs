@@ -34,8 +34,6 @@ public class EventManager : MonoBehaviour
         }
     }
 
-    public bool ActionsPaused => isPaused;
-
     public class DelayedAction
     {
         public Action Action;
@@ -80,6 +78,31 @@ public class EventManager : MonoBehaviour
         if (currentActionRoutine == null && !isPaused) NextDelayedAction();
     }
 
+    public void PauseDelayedActions(bool isPaused)
+    {
+        if (this.isPaused == isPaused) return;
+
+        bool isResuming = false;
+        if (this.isPaused && !isPaused &&
+            currentActionRoutine == null) isResuming = true;
+        this.isPaused = isPaused;
+
+        if (isResuming) NextDelayedAction();
+        UIManager.Instance.UpdateEndTurnButton(!isPaused);
+    }
+
+    public void ClearDelayedActions()
+    {
+        if (currentActionRoutine != null)
+        {
+            StopCoroutine(currentActionRoutine);
+            currentActionRoutine = null;
+        }
+
+        delayedActions.Clear();
+        delayedActions_priority.Clear();
+    }
+
     private void NextDelayedAction()
     {
         if (isPaused) return;
@@ -96,31 +119,7 @@ public class EventManager : MonoBehaviour
         else ClearDelayedActions();
     }
 
-    public void PauseDelayedActions(bool isPaused)
-    {
-        if (this.isPaused == isPaused) return;
-        bool isResuming = false;
-        if (this.isPaused && !isPaused &&
-            currentActionRoutine == null) isResuming = true;
-        this.isPaused = isPaused;
-        if (isResuming) NextDelayedAction();
-
-        UIManager.Instance.UpdateEndTurnButton(!isPaused);
-    }
-
-    public void ClearDelayedActions()
-    {
-        if (currentActionRoutine != null)
-        {
-            StopCoroutine(currentActionRoutine);
-            currentActionRoutine = null;
-        }
-
-        delayedActions.Clear();
-        delayedActions_priority.Clear();
-    }
-
-    IEnumerator ActionNumerator()
+    private IEnumerator ActionNumerator()
     {
         DelayedAction da;
         if (delayedActions_priority.Count > 0)

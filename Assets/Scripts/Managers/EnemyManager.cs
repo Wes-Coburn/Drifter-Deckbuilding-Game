@@ -217,7 +217,7 @@ public class EnemyManager : MonoBehaviour
 
         foreach (GameObject card in priorityCards)
         {
-            if (coMan.IsUnitCard(card)) SchedulePlayCard(card);
+            if (CombatManager.IsUnitCard(card)) SchedulePlayCard(card);
             else actionCards.Add(card);
         }
         foreach (GameObject card in actionCards) SchedulePlayCard(card);
@@ -294,7 +294,7 @@ public class EnemyManager : MonoBehaviour
     {
         foreach (GameObject ally in coMan.EnemyZoneCards)
         {
-            UnitCardDisplay ucd = coMan.GetUnitDisplay(ally);
+            UnitCardDisplay ucd = CombatManager.GetUnitDisplay(ally);
             if (CanAttack(ally)) SchedulePreAttack(ally);
         }
         
@@ -330,7 +330,7 @@ public class EnemyManager : MonoBehaviour
                 return false;
             }
 
-            UnitCardDisplay ucd = coMan.GetUnitDisplay(unit);
+            UnitCardDisplay ucd = CombatManager.GetUnitDisplay(unit);
             if (ucd.IsExhausted) return false;
             if (ucd.CurrentPower < 1 || ucd.CurrentHealth < 1) return false;
 
@@ -343,7 +343,7 @@ public class EnemyManager : MonoBehaviour
         int totalPower = 0;
         foreach (GameObject unit in coMan.EnemyZoneCards)
         {
-            UnitCardDisplay ucd = coMan.GetUnitDisplay(unit);
+            UnitCardDisplay ucd = CombatManager.GetUnitDisplay(unit);
             if (!ucd.IsExhausted) totalPower += ucd.CurrentPower;
         }
         return totalPower;
@@ -353,7 +353,7 @@ public class EnemyManager : MonoBehaviour
     {
         int totalPower = 0;
         foreach (GameObject unit in coMan.PlayerZoneCards)
-            totalPower += coMan.GetUnitDisplay(unit).CurrentPower;
+            totalPower += CombatManager.GetUnitDisplay(unit).CurrentPower;
         return totalPower;
     }
 
@@ -366,7 +366,7 @@ public class EnemyManager : MonoBehaviour
 
         foreach (GameObject unit in coMan.PlayerZoneCards)
         {
-            UnitCardDisplay ucd = coMan.GetUnitDisplay(unit);
+            UnitCardDisplay ucd = CombatManager.GetUnitDisplay(unit);
             if (ucd.CurrentHealth < 1) continue;
 
             if (CardManager.GetAbility(unit, CardManager.ABILITY_DEFENDER) &&
@@ -379,7 +379,7 @@ public class EnemyManager : MonoBehaviour
 
         foreach (GameObject playerUnit in coMan.PlayerZoneCards)
         {
-            UnitCardDisplay ucd = coMan.GetUnitDisplay(playerUnit);
+            UnitCardDisplay ucd = CombatManager.GetUnitDisplay(playerUnit);
             if (ucd.CurrentHealth < 1) continue;
 
             if (playerHasDefender && !CardManager.GetAbility(playerUnit,
@@ -426,7 +426,7 @@ public class EnemyManager : MonoBehaviour
 
             foreach (GameObject legalDefender in legalDefenders)
             {
-                UnitCardDisplay ucd = coMan.GetUnitDisplay(legalDefender);
+                UnitCardDisplay ucd = CombatManager.GetUnitDisplay(legalDefender);
                 int priority = 0;
                 int defenderPower = ucd.CurrentPower;
                 int defenderHealth = ucd.CurrentHealth;

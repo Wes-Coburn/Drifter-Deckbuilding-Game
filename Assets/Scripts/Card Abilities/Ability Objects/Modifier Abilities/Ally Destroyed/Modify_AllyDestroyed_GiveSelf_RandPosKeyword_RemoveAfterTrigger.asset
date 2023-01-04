@@ -10,18 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a2e33d6bad64fd4db799baf98d68e29, type: 3}
-  m_Name: Modify_AllyDestroyed_Heal2_Self
+  m_Name: Modify_AllyDestroyed_GiveSelf_RandPosKeyword_RemoveAfterTrigger
   m_EditorClassIdentifier: 
-  AbilityName: When an ally is destroyed, heal this unit 2.
-  AbilityDescription: When an ally is destroyed, heal this unit 2.
+  AbilityName: The first time an ally is destroyed, gain a random positive keyword.
+  AbilityDescription: The first time an ally is destroyed, gain a random positive
+    keyword.
   AbilitySprite: {fileID: 21300000, guid: 3dbed1460f9abd541b750bc2394ab51f, type: 3}
   OverrideColor: 0
   AbilityColor: {r: 0, g: 0, b: 0, a: 0}
   LinkedAbilites: []
   EffectGroupList:
-  - {fileID: 11400000, guid: 30196e7043645eb4e818dd7ec3cba769, type: 2}
+  - {fileID: 11400000, guid: 0fbc29cff9b9fda4f91caa48d6faf815, type: 2}
   TriggerLimit: 0
-  RemoveAfterTrigger: 0
+  RemoveAfterTrigger: 1
   AbilityTrigger: {fileID: 0}
   AllAbilityTriggers: 0
   ModifyPlayUnit: 0
@@ -30,3 +31,5 @@ MonoBehaviour:
   PlayActionType: 
   ModifySpecialTrigger: 1
   SpecialTriggerType: 4
+  SpecialTriggerEffects: []
+  AllyAbility: {fileID: 0}

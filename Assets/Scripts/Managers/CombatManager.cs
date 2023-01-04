@@ -323,7 +323,7 @@ public class CombatManager : MonoBehaviour
         uMan.SelectTarget(EnemyHero, UIManager.SelectionType.Disabled);
     }
 
-    public UnitCardDisplay GetUnitDisplay(GameObject card)
+    public static UnitCardDisplay GetUnitDisplay(GameObject card)
     {
         if (card == null)
         {
@@ -333,7 +333,7 @@ public class CombatManager : MonoBehaviour
         return card.GetComponent<CardDisplay>() as UnitCardDisplay;
     }
 
-    public bool IsUnitCard(GameObject target)
+    public static bool IsUnitCard(GameObject target)
     {
         if (target == null)
         {
@@ -343,7 +343,7 @@ public class CombatManager : MonoBehaviour
         return target.TryGetComponent<UnitCardDisplay>(out _);
     }
 
-    public bool IsActionCard(GameObject target)
+    public static bool IsActionCard(GameObject target)
     {
         if (target == null)
         {
@@ -357,7 +357,7 @@ public class CombatManager : MonoBehaviour
      * ****** IS_DAMAGED/IS_BUFFED
      * *****
      *****/
-    public bool IsDamaged(GameObject unitCard)
+    public static bool IsDamaged(GameObject unitCard)
     {
         if (!unitCard.TryGetComponent(out UnitCardDisplay ucd))
         {
@@ -369,21 +369,21 @@ public class CombatManager : MonoBehaviour
         if (ucd.CurrentHealth < ucd.MaxHealth) isDamaged = true;
         return isDamaged;
     }
-    public bool PowerIsDebuffed(GameObject unitCard)
+    public static bool PowerIsDebuffed(GameObject unitCard)
     {
         UnitCardDisplay ucd = unitCard.GetComponent<UnitCardDisplay>();
         bool powerIsDebuffed = false;
         if (ucd.CurrentPower < ucd.UnitCard.StartPower) powerIsDebuffed = true;
         return powerIsDebuffed;
     }
-    public bool PowerIsBuffed(GameObject unitCard)
+    public static bool PowerIsBuffed(GameObject unitCard)
     {
         UnitCardDisplay ucd = unitCard.GetComponent<UnitCardDisplay>();
         bool powerIsBuffed = false;
         if (ucd.CurrentPower > ucd.UnitCard.StartPower) powerIsBuffed = true;
         return powerIsBuffed;
     }
-    public bool HealthIsBuffed(GameObject unitCard)
+    public static bool HealthIsBuffed(GameObject unitCard)
     {
         UnitCardDisplay ucd = unitCard.GetComponent<UnitCardDisplay>();
         bool healthIsBuffed = false;
@@ -399,7 +399,7 @@ public class CombatManager : MonoBehaviour
     public GameObject GetLowestHealthUnit(List<GameObject> unitList, bool targetsEnemy)
     {
         if (unitList.Count < 1) return null;
-        int lowestHealth = 999;
+        int lowestHealth = int.MaxValue;
         List<GameObject> lowestHealthUnits = new List<GameObject>();
 
         foreach (GameObject unit in unitList)
@@ -1595,6 +1595,7 @@ public class CombatManager : MonoBehaviour
         int targetValue;
         int maxValue;
         int newTargetValue;
+
         if (target == PlayerHero)
         {
             targetValue = pMan.PlayerHealth;
