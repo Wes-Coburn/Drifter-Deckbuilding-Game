@@ -18,6 +18,7 @@ public class Location : ScriptableObject
 
     [Header("LOCATION TYPE")]
     [SerializeField] private bool isCombatOnly;
+    [SerializeField] private bool isRecurring;
     [SerializeField] private bool isHomeBase;
     [SerializeField] private bool isAugmenter;
     [SerializeField] private bool isRecruitment;
@@ -48,6 +49,7 @@ public class Location : ScriptableObject
     public Sound LocationSoundscape { get => locationSoundscape; }
     public Background LocationBackground { get => locationBackground; }
     public bool IsCombatOnly { get => isCombatOnly; }
+    public bool IsRecurring { get => isRecurring; }
     public bool IsHomeBase { get => isHomeBase; }
     public bool IsAugmenter { get => isAugmenter; }
     public bool IsRecruitment { get => isRecruitment; }
@@ -73,6 +75,7 @@ public class Location : ScriptableObject
         locationSoundscape = location.LocationSoundscape;
         locationBackground = location.LocationBackground;
         isCombatOnly = location.IsCombatOnly;
+        isRecurring = location.IsRecurring;
         isHomeBase = location.IsHomeBase;
         isAugmenter = location.IsAugmenter;
         isRecruitment = location.IsRecruitment;

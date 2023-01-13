@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bb145cc0311afb449113575373eae4d, type: 3}
   m_Name: Elusive Razorfist
   m_EditorClassIdentifier: 
-  developerNotes: 
   heroName: Elusive Razorfist
   heroShortName: Elusive Razorfist
   heroPortrait: {fileID: 21300000, guid: 2f85009d77ad0c5429356083dcd83d3a, type: 3}
@@ -22,15 +21,18 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 92e0598afdc88f242a86173c86421fd8, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   heroLose:
     name: 
     clip: {fileID: 8300000, guid: 3604249379b3b96498ab565c5cb42487, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
+  heroPower: {fileID: 0}
   firstDialogueClip: {fileID: 11400000, guid: 288c1a6839952fa4faa08d5b2ce4f4a2, type: 2}
+  enemyLevel: 1
   isBoss: 0
   reinforcements:
   - {fileID: 11400000, guid: 97288ae2bc914354cad70330a9223ec4, type: 2}
-  enemyHeroPower: {fileID: 0}

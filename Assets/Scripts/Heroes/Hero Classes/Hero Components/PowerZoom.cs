@@ -86,13 +86,13 @@ public class PowerZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         if (!isEnemyPower)
         {
             PlayerHeroDisplay phd = GetComponentInParent<PlayerHeroDisplay>();
-            if (isUltimate) hp = phd.PlayerHero.HeroUltimate;
-            else hp = phd.PlayerHero.HeroPower;
+            if (isUltimate) hp = (phd.HeroScript as PlayerHero).HeroUltimate;
+            else hp = phd.HeroScript.HeroPower;
         }
         else
         {
             EnemyHeroDisplay ehd = GetComponentInParent<EnemyHeroDisplay>();
-            hp = ehd.EnemyHero.EnemyHeroPower;
+            hp = ehd.HeroScript.HeroPower;
         }
         
 

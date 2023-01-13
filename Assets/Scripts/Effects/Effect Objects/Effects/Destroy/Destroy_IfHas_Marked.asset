@@ -13,11 +13,25 @@ MonoBehaviour:
   m_Name: Destroy_IfHas_Marked
   m_EditorClassIdentifier: 
   IsRequired: 0
+  IgnoreLegality: 0
   Value: 0
   IsNegative: 0
+  IsDerivedValue: 0
+  DerivedValue: 0
   Countdown: 0
+  IsPermanent: 0
   ShootRay: 0
   RayColor: {r: 0, g: 0, b: 0, a: 0}
+  PreCheckConditions: 0
+  CheckConditionsIndependent: 0
+  EffectConditionType: 11
+  EffectCondition_Value: 0
+  IfHasAbility_Value: {fileID: 11400000, guid: 67b65f6bf1f93db43afb76d61b1435b2, type: 2}
+  IfHasTrigger_Value: {fileID: 0}
+  IfNotWoundedCondition: 0
+  IfAnyWoundedCondition: 0
+  IfPlayerWoundedCondition: 0
+  IfEnemyWoundedCondition: 0
   IfExhaustedCondition: 0
   IfRefreshedCondition: 0
   IfDamagedCondition: 0
@@ -30,6 +44,9 @@ MonoBehaviour:
   IfNotHasAbilityCondition: 0
   IfHasTriggerCondition: {fileID: 0}
   IfNotHasTriggerCondition: 0
+  IfHasKeywordsCondition: 0
+  IsLessKeywordsCondition: 0
+  IfHasKeywordsValue: 0
   IfHasAbility: {fileID: 0}
   IfHasAbilityEffects: []
   IfHasTrigger: {fileID: 0}
@@ -39,4 +56,6 @@ MonoBehaviour:
   IfHasLowerPowerValue: 0
   IfHasLowerPowerEffects: []
   IfResolvesEffects: []
+  ResolveSimultaneous: 0
+  IfResolvesGroups: []
   ForEachEffects: []

@@ -25,28 +25,11 @@ public class CombatManager : MonoBehaviour
     private AnimationManager anMan;
     private PlayerManager pMan;
     private EnemyManager enMan;
-    private readonly string PLAYER = GameManager.PLAYER;
-    private readonly string ENEMY = GameManager.ENEMY;
 
-    private int extractionsPlayed_Player;
-    private int extractionsPlayed_Enemy;
-
-    private int exploitsPlayed_Player;
-    private int inventionsPlayed_Player;
-    private int schemesPlayed_Player;
-
-    private int exploitsPlayed_Enemy;
-    private int inventionsPlayed_Enemy;
-    private int schemesPlayed_Enemy;
-
-    private int lastCardIndex;
-    private int lastContainerIndex;
-
-    // ALL CARDS
+    // Shared Zones
     public const string CARD_ZONE = "CardZone";
 
-    // PLAYER
-    public const string PLAYER_CARD = "PlayerCard";
+    // Player Zones
     public const string PLAYER_HERO = "PlayerHero";
     public const string PLAYER_HAND = "PlayerHand";
     public const string PLAYER_ZONE = "PlayerZone";
@@ -55,8 +38,7 @@ public class CombatManager : MonoBehaviour
     public const string HERO_POWER = "HeroPower";
     public const string HERO_ULTIMATE = "HeroUltimate";
 
-    // ENEMY
-    public const string ENEMY_CARD = "EnemyCard";
+    // Enemy Zones
     public const string ENEMY_HERO = "EnemyHero";
     public const string ENEMY_HAND = "EnemyHand";
     public const string ENEMY_ZONE = "EnemyZone";
@@ -66,208 +48,15 @@ public class CombatManager : MonoBehaviour
     #endregion
 
     #region PROPERTIES
-
-    public int ExploitsPlayed_Player
-    {
-        get => exploitsPlayed_Player;
-        set
-        {
-            exploitsPlayed_Player = value;
-            if (value == 3)
-            {
-                exploitsPlayed_Player = 0;
-
-                evMan.NewDelayedAction(() => DrawUltimate(), 0, true);
-                void DrawUltimate()
-                {
-                    Card card = caMan.NewCardInstance(caMan.Exploit_Ultimate);
-                    DrawCard(GameManager.PLAYER, card);
-                }
-            }
-            else if (value > 3) Debug.LogError("VALUE > 3!");
-        }
-    }
-
-    public int InventionsPlayed_Player
-    {
-        get => inventionsPlayed_Player;
-        set
-        {
-            inventionsPlayed_Player = value;
-            if (value == 3)
-            {
-                inventionsPlayed_Player = 0;
-
-                evMan.NewDelayedAction(() => DrawUltimate(), 0, true);
-                void DrawUltimate()
-                {
-                    Card card = caMan.NewCardInstance(caMan.Invention_Ultimate);
-                    DrawCard(GameManager.PLAYER, card);
-                }
-            }
-            else if (value > 3) Debug.LogError("VALUE > 3!");
-        }
-    }
-
-    public int SchemesPlayed_Player
-    {
-        get => schemesPlayed_Player;
-        set
-        {
-            schemesPlayed_Player = value;
-            if (value == 3)
-            {
-                schemesPlayed_Player = 0;
-
-                evMan.NewDelayedAction(() => DrawUltimate(), 0, true);
-                void DrawUltimate()
-                {
-                    Card card = caMan.NewCardInstance(caMan.Scheme_Ultimate);
-                    DrawCard(GameManager.PLAYER, card);
-                }
-            }
-            else if (value > 3) Debug.LogError("VALUE > 3!");
-        }
-    }
-
-    public int ExtractionsPlayed_Player
-    {
-        get => extractionsPlayed_Player;
-        set
-        {
-            extractionsPlayed_Player = value;
-            if (value == 3)
-            {
-                extractionsPlayed_Player = 0;
-
-                evMan.NewDelayedAction(() => DrawUltimate(), 0, true);
-                void DrawUltimate()
-                {
-                    Card card = caMan.NewCardInstance(caMan.Extraction_Ultimate);
-                    DrawCard(GameManager.PLAYER, card);
-                }
-            }
-            else if (value > 3) Debug.LogError("VALUE > 3!");
-        }
-    }
-
-    public int ExploitsPlayed_Enemy
-    {
-        get => exploitsPlayed_Enemy;
-        set
-        {
-            exploitsPlayed_Enemy = value;
-            if (value == 3)
-            {
-                exploitsPlayed_Enemy = 0;
-
-                evMan.NewDelayedAction(() => DrawUltimate(), 0, true);
-                void DrawUltimate()
-                {
-                    Card card = caMan.NewCardInstance(caMan.Exploit_Ultimate);
-                    DrawCard(GameManager.ENEMY, card);
-                }
-            }
-            else if (value > 3) Debug.LogError("VALUE > 3!");
-        }
-    }
-
-    public int InventionsPlayed_Enemy
-    {
-        get => inventionsPlayed_Enemy;
-        set
-        {
-            inventionsPlayed_Enemy = value;
-            if (value == 3)
-            {
-                inventionsPlayed_Enemy = 0;
-
-                evMan.NewDelayedAction(() => DrawUltimate(), 0, true);
-                void DrawUltimate()
-                {
-                    Card card = caMan.NewCardInstance(caMan.Invention_Ultimate);
-                    DrawCard(GameManager.ENEMY, card);
-                }
-            }
-            else if (value > 3) Debug.LogError("VALUE > 3!");
-        }
-    }
-
-    public int SchemesPlayed_Enemy
-    {
-        get => schemesPlayed_Enemy;
-        set
-        {
-            schemesPlayed_Enemy = value;
-            if (value == 3)
-            {
-                schemesPlayed_Enemy = 0;
-
-                evMan.NewDelayedAction(() => DrawUltimate(), 0, true);
-                void DrawUltimate()
-                {
-                    Card card = caMan.NewCardInstance(caMan.Scheme_Ultimate);
-                    DrawCard(GameManager.ENEMY, card);
-                }
-            }
-            else if (value > 3) Debug.LogError("VALUE > 3!");
-        }
-    }
-
-    public int ExtractionsPlayed_Enemy
-    {
-        get => extractionsPlayed_Enemy;
-        set
-        {
-            extractionsPlayed_Enemy = value;
-            if (value == 3)
-            {
-                extractionsPlayed_Enemy = 0;
-
-                evMan.NewDelayedAction(() => DrawUltimate(), 0, true);
-                void DrawUltimate()
-                {
-                    Card card = caMan.NewCardInstance(caMan.Extraction_Ultimate);
-                    DrawCard(GameManager.ENEMY, card);
-                }
-            }
-            else if (value > 3) Debug.LogError("VALUE > 3!");
-        }
-    }
-
-    /* CARD LISTS */
-
-    // PLAYER
-    public List<GameObject> PlayerHandCards { get; private set; }
-    public List<GameObject> PlayerZoneCards { get; private set; }
-    public List<GameObject> PlayerActionZoneCards { get; private set; }
-    public List<Card> PlayerDiscardCards { get; private set; }
-
-    // ENEMY
-    public List<GameObject> EnemyHandCards { get; private set; }
-    public List<GameObject> EnemyZoneCards { get; private set; }
-    public List<GameObject> EnemyActionZoneCards { get; private set; }
-    public List<Card> EnemyDiscardCards { get; private set; }
-    
     /* GAME ZONES */
-
-    // ALL CARDS
     public GameObject CardZone { get; private set; }
 
-    // PLAYER
-    public GameObject PlayerHero { get; private set; }
-    public GameObject PlayerHand { get; private set; }
-    public Vector2 PlayerHandStart { get; private set; }
-    public GameObject PlayerZone { get; private set; }
-    public GameObject PlayerActionZone { get; private set; }
-    public GameObject PlayerDiscard { get; private set; }
-
-    // ENEMY
-    public GameObject EnemyHero { get; private set; }
-    public GameObject EnemyHand { get; private set; }
-    public GameObject EnemyZone { get; private set; }
-    public GameObject EnemyActionZone { get; private set; }
-    public GameObject EnemyDiscard { get; private set; }
+    private static string DIFFICULTY_LEVEL = "DifficultyLevel";
+    public int DifficultyLevel
+    {
+        get => PlayerPrefs.GetInt(DIFFICULTY_LEVEL, 1);
+        set => PlayerPrefs.SetInt(DIFFICULTY_LEVEL, value);
+    }
     #endregion
 
     #region METHODS
@@ -296,43 +85,61 @@ public class CombatManager : MonoBehaviour
         // ALL CARDS
         CardZone = GameObject.Find(CARD_ZONE);
         // PLAYER
-        PlayerHand = GameObject.Find(PLAYER_HAND);
-        PlayerHandStart = PlayerHand.transform.position;
-        PlayerZone = GameObject.Find(PLAYER_ZONE);
-        PlayerActionZone = GameObject.Find(PLAYER_ACTION_ZONE);
-        PlayerDiscard = GameObject.Find(PLAYER_DISCARD);
-        PlayerHero = GameObject.Find(PLAYER_HERO);
+        pMan.HandZone = GameObject.Find(PLAYER_HAND);
+        pMan.PlayZone = GameObject.Find(PLAYER_ZONE);
+        pMan.ActionZone = GameObject.Find(PLAYER_ACTION_ZONE);
+        pMan.DiscardZone = GameObject.Find(PLAYER_DISCARD);
+        pMan.HeroObject = GameObject.Find(PLAYER_HERO);
         // ENEMY
-        EnemyHand = GameObject.Find(ENEMY_HAND);
-        EnemyZone = GameObject.Find(ENEMY_ZONE);
-        EnemyActionZone = GameObject.Find(ENEMY_ACTION_ZONE);
-        EnemyDiscard = GameObject.Find(ENEMY_DISCARD);
-        EnemyHero = GameObject.Find(ENEMY_HERO);
-        // ZONE LISTS
-        // PLAYER
-        PlayerHandCards = new List<GameObject>();
-        PlayerZoneCards = new List<GameObject>();
-        PlayerActionZoneCards = new List<GameObject>();
-        PlayerDiscardCards = new List<Card>();
-        // ENEMY
-        EnemyHandCards = new List<GameObject>();
-        EnemyZoneCards = new List<GameObject>();
-        EnemyActionZoneCards = new List<GameObject>();
-        EnemyDiscardCards = new List<Card>();
-        uMan.SelectTarget(PlayerHero, UIManager.SelectionType.Disabled);
-        uMan.SelectTarget(EnemyHero, UIManager.SelectionType.Disabled);
+        enMan.HandZone = GameObject.Find(ENEMY_HAND);
+        enMan.PlayZone = GameObject.Find(ENEMY_ZONE);
+        enMan.ActionZone = GameObject.Find(ENEMY_ACTION_ZONE);
+        enMan.DiscardZone = GameObject.Find(ENEMY_DISCARD);
+        enMan.HeroObject = GameObject.Find(ENEMY_HERO);
+
+        uMan.SelectTarget(pMan.HeroObject, UIManager.SelectionType.Disabled);
+        uMan.SelectTarget(pMan.HeroObject, UIManager.SelectionType.Disabled);
     }
 
-    public static UnitCardDisplay GetUnitDisplay(GameObject card)
+    public static HeroManager GetSourceHero(GameObject sourceObject, bool getEnemy = false)
     {
-        if (card == null)
+        if (sourceObject == null)
         {
-            Debug.LogWarning("CARD IS NULL!");
+            Debug.LogError("SOURCE IS NULL!");
             return null;
         }
-        return card.GetComponent<CardDisplay>() as UnitCardDisplay;
-    }
 
+        if (sourceObject.CompareTag(CardManager.ENEMY_CARD) ||
+            sourceObject.CompareTag(ENEMY_HERO) ||
+            sourceObject.CompareTag(ENEMY_HERO_POWER))
+        {
+            if (!getEnemy) return EnemyManager.Instance;
+            else return PlayerManager.Instance;
+        }
+
+        if (sourceObject.CompareTag(CardManager.PLAYER_CARD) ||
+            sourceObject.CompareTag(PLAYER_HERO) ||
+            sourceObject.CompareTag(HERO_POWER) ||
+            sourceObject.CompareTag(HERO_ULTIMATE) ||
+            sourceObject.CompareTag("HeroItem"))
+        {
+            if (!getEnemy) return PlayerManager.Instance;
+            else return EnemyManager.Instance;
+        }
+
+        Debug.LogError("INVALID TAG!");
+        return null;
+    }
+    public static UnitCardDisplay GetUnitDisplay(GameObject card)
+    {
+        if (!IsUnitCard(card))
+        {
+            Debug.LogError("OBJECT IS NOT UNIT CARD!");
+            return null;
+        }
+
+        return card.GetComponent<UnitCardDisplay>();
+    }
     public static bool IsUnitCard(GameObject target)
     {
         if (target == null)
@@ -342,7 +149,6 @@ public class CombatManager : MonoBehaviour
         }
         return target.TryGetComponent<UnitCardDisplay>(out _);
     }
-
     public static bool IsActionCard(GameObject target)
     {
         if (target == null)
@@ -352,11 +158,6 @@ public class CombatManager : MonoBehaviour
         }
         return target.TryGetComponent<ActionCardDisplay>(out _);
     }
-    /******
-     * *****
-     * ****** IS_DAMAGED/IS_BUFFED
-     * *****
-     *****/
     public static bool IsDamaged(GameObject unitCard)
     {
         if (!unitCard.TryGetComponent(out UnitCardDisplay ucd))
@@ -364,31 +165,22 @@ public class CombatManager : MonoBehaviour
             Debug.LogError("TARGET IS NOT UNIT CARD!");
             return false;
         }
-
-        bool isDamaged = false;
-        if (ucd.CurrentHealth < ucd.MaxHealth) isDamaged = true;
-        return isDamaged;
+        return ucd.CurrentHealth < ucd.MaxHealth;
     }
     public static bool PowerIsDebuffed(GameObject unitCard)
     {
         UnitCardDisplay ucd = unitCard.GetComponent<UnitCardDisplay>();
-        bool powerIsDebuffed = false;
-        if (ucd.CurrentPower < ucd.UnitCard.StartPower) powerIsDebuffed = true;
-        return powerIsDebuffed;
+        return ucd.CurrentPower < ucd.UnitCard.StartPower;
     }
     public static bool PowerIsBuffed(GameObject unitCard)
     {
         UnitCardDisplay ucd = unitCard.GetComponent<UnitCardDisplay>();
-        bool powerIsBuffed = false;
-        if (ucd.CurrentPower > ucd.UnitCard.StartPower) powerIsBuffed = true;
-        return powerIsBuffed;
+        return ucd.CurrentPower > ucd.UnitCard.StartPower;
     }
     public static bool HealthIsBuffed(GameObject unitCard)
     {
         UnitCardDisplay ucd = unitCard.GetComponent<UnitCardDisplay>();
-        bool healthIsBuffed = false;
-        if (ucd.CurrentHealth > ucd.UnitCard.StartHealth) healthIsBuffed = true;
-        return healthIsBuffed;
+        return ucd.CurrentHealth > ucd.UnitCard.StartHealth;
     }
 
     /******
@@ -547,78 +339,6 @@ public class CombatManager : MonoBehaviour
     }
     /******
      * *****
-     * ****** IS_PLAYABLE
-     * *****
-     *****/
-    public bool IsPlayable(GameObject card, bool isPrecheck = false)
-    {
-        if (card == null)
-        {
-            Debug.LogError("CARD IS NULL!");
-            return false;
-        }
-
-        bool isPlayerCard;
-        if (card.CompareTag(PLAYER_CARD)) isPlayerCard = true;
-        else if (card.CompareTag(ENEMY_CARD)) isPlayerCard = false;
-        else
-        {
-            Debug.LogError("INVALID CARD TAG!");
-            return false;
-        }
-
-        CardDisplay cardDisplay = card.GetComponent<CardDisplay>();
-        if (cardDisplay is UnitCardDisplay)
-        {
-            List<GameObject> zoneCards;
-            string errorMessage;
-            if (isPlayerCard)
-            {
-                zoneCards = PlayerZoneCards;
-                errorMessage = "You can't play more units!";
-            }
-            else
-            {
-                zoneCards = EnemyZoneCards;
-                errorMessage = "Enemy can't play more units!";
-
-            }
-            if (zoneCards.Count >= GameManager.MAX_UNITS_PLAYED)
-            {
-                if (isPrecheck) return false;
-                uMan.CreateFleetingInfoPopup(errorMessage);
-                ErrorSound();
-                return false;
-            }
-        }
-        else if (cardDisplay is ActionCardDisplay acd)
-        {
-            if (!efMan.CheckLegalTargets(acd.ActionCard.EffectGroupList, card, true))
-            {
-                if (isPrecheck) return false;
-                uMan.CreateFleetingInfoPopup("You can't play that right now!");
-                ErrorSound();
-                return false;
-            }
-        }
-
-        int energyLeft;
-        if (isPlayerCard) energyLeft = pMan.CurrentEnergy;
-        else energyLeft = enMan.CurrentEnergy;
-
-        if (energyLeft < cardDisplay.CurrentEnergyCost)
-        {
-            if (isPrecheck) return false;
-            uMan.CreateFleetingInfoPopup("Not enough energy!");
-            ErrorSound();
-            return false;
-        }
-
-        return true;
-        void ErrorSound() => auMan.StartStopSound("SFX_Error");
-    }
-    /******
-     * *****
      * ****** CAN_ATTACK
      * *****
      *****/
@@ -630,7 +350,7 @@ public class CombatManager : MonoBehaviour
         if (defender != null)
         {
             if (attacker.CompareTag(defender.tag)) return false;
-            if (attacker.CompareTag(PLAYER_CARD) && defender == PlayerHero) return false;
+            if (attacker.CompareTag(CardManager.PLAYER_CARD) && defender == pMan.HeroObject) return false;
         }
         else
         {
@@ -671,7 +391,7 @@ public class CombatManager : MonoBehaviour
 
         if (defender.TryGetComponent(out UnitCardDisplay defUcd))
         {
-            if (EnemyHandCards.Contains(defender)) return false; // Unnecessary, already checked in CardSelect
+            if (enMan.HandZoneCards.Contains(defender)) return false; // Unnecessary, already checked in CardSelect
             if (defUcd.CurrentHealth < 1 || efMan.UnitsToDestroy.Contains(defender)) return false; // Destroyed units that haven't left play yet
             if (CardManager.GetAbility(defender, CardManager.ABILITY_STEALTH))
             {
@@ -684,11 +404,11 @@ public class CombatManager : MonoBehaviour
             }
         }
 
-        if (!preCheck && !(defenderIsUnit && CardManager.GetAbility(defender, CardManager.ABILITY_DEFENDER))) // TESTING
+        if (!(defenderIsUnit && CardManager.GetAbility(defender, CardManager.ABILITY_DEFENDER))) // TESTING
         {
             List<GameObject> enemyZone;
-            if (attacker.CompareTag(PLAYER_CARD)) enemyZone = EnemyZoneCards;
-            else if (attacker.CompareTag(ENEMY_CARD)) enemyZone = PlayerZoneCards;
+            if (attacker.CompareTag(CardManager.PLAYER_CARD)) enemyZone = enMan.PlayZoneCards;
+            else if (attacker.CompareTag(CardManager.ENEMY_CARD)) enemyZone = pMan.PlayZoneCards;
             else
             {
                 Debug.LogError("INVALID ZONE!");
@@ -701,8 +421,11 @@ public class CombatManager : MonoBehaviour
                 if (CardManager.GetAbility(unit, CardManager.ABILITY_DEFENDER) &&
                     !CardManager.GetAbility(unit, CardManager.ABILITY_STEALTH))
                 {
-                    uMan.CreateFleetingInfoPopup("Enemies with Defender must be attacked!");
-                    SFX_Error();
+                    if (!preCheck)
+                    {
+                        uMan.CreateFleetingInfoPopup("Enemies with Defender must be attacked!");
+                        SFX_Error();
+                    }
                     return false;
                 }
             }
@@ -714,605 +437,23 @@ public class CombatManager : MonoBehaviour
     }
     #endregion
 
-    #region CARD HANDLING
-    public enum DisplayType
-    {
-        Default,
-        HeroSelect,
-        NewCard,
-        ChooseCard,
-        Cardpage
-    }
-
+    #region BASIC COMBAT
     /******
      * *****
-     * ****** SHOW_CARD
+     * ****** REFRESH_ALL_UNITS
      * *****
      *****/
-    public GameObject ShowCard(Card card, Vector2 position,
-        DisplayType type = DisplayType.Default, bool banishAfterPlay = false)
+    public void RefreshAllUnits()
     {
-        if (card == null)
+        List<List<GameObject>> cardZoneList = new List<List<GameObject>>
         {
-            Debug.LogError("CARD IS NULL!");
-            return null;
-        }
-
-        card.BanishAfterPlay = banishAfterPlay;
-        GameObject prefab = null;
-        if (card is UnitCard)
-        {
-            prefab = caMan.UnitCardPrefab;
-            if (type is DisplayType.NewCard)
-                prefab = prefab.GetComponent<CardZoom>().UnitZoomCardPrefab;
-        }
-        else if (card is ActionCard)
-        {
-            prefab = caMan.ActionCardPrefab;
-            if (type is DisplayType.NewCard)
-                prefab = prefab.GetComponent<CardZoom>().ActionZoomCardPrefab;
-        }
-
-        GameObject parent = CardZone;
-        if (parent == null) parent = uMan.CurrentCanvas;
-
-        if (parent == null)
-        {
-            Debug.LogError("PARENT IS NULL!");
-            return null;
-        }
-
-        prefab = Instantiate(prefab, parent.transform);
-        prefab.transform.position = position;
-        CardDisplay cd = prefab.GetComponent<CardDisplay>();
-
-        if (type is DisplayType.Default)
-        {
-            cd.CardScript = card;
-            cd.CardContainer = Instantiate(caMan.CardContainerPrefab, uMan.CurrentCanvas.transform);
-            cd.CardContainer.transform.position = position;
-            CardContainer cc = cd.CardContainer.GetComponent<CardContainer>();
-            cc.Child = prefab;
-        }
-        else
-        {
-            Card newCard = caMan.NewCardInstance(card);
-            if (type is DisplayType.HeroSelect) cd.CardScript = newCard;
-            else if (type is DisplayType.NewCard) cd.DisplayZoomCard(null, newCard);
-            else if (type is DisplayType.ChooseCard) cd.DisplayChooseCard(newCard);
-            else if (type is DisplayType.Cardpage) cd.DisplayCardPageCard(newCard);
-        }
-        return prefab;
-    }
-
-    /******
-     * *****
-     * ****** HIDE_CARD
-     * *****
-     *****/
-    private Card HideCard(GameObject card)
-    {
-        card.GetComponent<CardZoom>().DestroyZoomPopups();
-        Card cardScript = card.GetComponent<CardDisplay>().CardScript;
-        Destroy(card.GetComponent<CardDisplay>().CardContainer);
-        if (card != null) Destroy(card);
-        return cardScript;
-    }
-
-    /******
-     * *****
-     * ****** DRAW_CARD
-     * *****
-     *****/
-    public GameObject DrawCard(string hero,
-        Card drawnCard = null, List<Effect> additionalEffects = null)
-    {
-        List<Card> deck;
-        List<GameObject> hand;
-        string cardTag;
-        string cardZone;
-        Vector2 position = new Vector2();
-
-        if (hero == PLAYER)
-        {
-            deck = pMan.CurrentPlayerDeck;
-            hand = PlayerHandCards;
-            if (hand.Count >= GameManager.MAX_HAND_SIZE)
-            {
-                uMan.CreateFleetingInfoPopup("Your hand is full!");
-                Debug.LogWarning("PLAYER HAND IS FULL!");
-                return null;
-            }
-            cardTag = PLAYER_CARD;
-            cardZone = PLAYER_HAND;
-
-            if (drawnCard == null) position.Set(-780, -427);
-            else position.Set(0, -350);
-        }
-        else if (hero == ENEMY)
-        {
-            deck = enMan.CurrentEnemyDeck;
-            hand = EnemyHandCards;
-            if (hand.Count >= GameManager.MAX_HAND_SIZE)
-            {
-                uMan.CreateFleetingInfoPopup("Enemy hand is full!");
-                Debug.LogWarning("ENEMY HAND IS FULL!");
-                return null;
-            }
-            cardTag = ENEMY_CARD;
-            cardZone = ENEMY_HAND;
-            
-            if (drawnCard == null) position.Set(780, 427);
-            else position.Set(0, 350);
-        }
-        else
-        {
-            Debug.LogError("PLAYER <" + hero + "> NOT FOUND!");
-            return null;
-        }
-
-        // Shuffle discard into deck
-        if (drawnCard == null && deck.Count < 1)
-        {
-            List<Card> discard;
-            if (hero == PLAYER) discard = PlayerDiscardCards;
-            else if (hero == ENEMY) discard = EnemyDiscardCards;
-            else
-            {
-                Debug.LogError("PLAYER <" + hero + "> NOT FOUND!");
-                return null;
-            }
-            if (discard.Count < 1)
-            {
-                Debug.LogError("DISCARD IS EMPTY!");
-                return null;
-            }
-            foreach (Card c in discard) deck.Add(c);
-            discard.Clear();
-            caMan.ShuffleDeck(hero);
-        }
-
-        GameObject card;
-        if (drawnCard == null)
-        {
-            auMan.StartStopSound("SFX_DrawCard");
-            card = ShowCard(deck[0], position);
-        }
-        else
-        {
-            auMan.StartStopSound("SFX_CreateCard");
-            card = ShowCard(drawnCard, position, DisplayType.Default, true);
-        }
-
-        if (card == null)
-        {
-            Debug.LogError("CARD IS NULL!");
-            return null;
-        }
-
-        if (drawnCard == null) deck.RemoveAt(0);
-        card.tag = cardTag;
-        ChangeCardZone(card, cardZone);
-        anMan.CreateParticleSystem(card, ParticleSystemHandler.ParticlesType.Drag, 1);
-
-        if (hero == PLAYER) PlayerHandCards.Add(card);
-        else EnemyHandCards.Add(card);
-
-        if (additionalEffects != null)
-        {
-            foreach (Effect addEffect in additionalEffects)
-                efMan.ResolveEffect(new List<GameObject> { card }, addEffect, false, 0, out _, false);
-        }
-
-        return card;
-    }
-    /******
-     * *****
-     * ****** CHANGE_CARD_ZONE
-     * *****
-     *****/
-    public void ChangeCardZone(GameObject card, string newZoneName, bool returnToIndex = false, bool changeControl = false)
-    {
-        CardDisplay cd = card.GetComponent<CardDisplay>();
-        DragDrop dd = card.GetComponent<DragDrop>();
-        CardContainer container = cd.CardContainer.GetComponent<CardContainer>();
-        System.Action action;
-
-        GameObject newZone = null;
-        bool isPlayed = true;
-        bool wasPlayed = dd.IsPlayed; // For cards returned to hand
-
-        uMan.SelectTarget(card, UIManager.SelectionType.Disabled); // Unnecessary?
-
-        switch (newZoneName)
-        {
-            // PLAYER ZONES
-            case PLAYER_HAND:
-                newZone = PlayerHand;
-                action = () => anMan.RevealedHandState(card);
-                isPlayed = false;
-                break;
-            case PLAYER_ZONE:
-                newZone = PlayerZone;
-                action = () => anMan.PlayedUnitState(card);
-                break;
-            case PLAYER_ACTION_ZONE:
-                newZone = PlayerActionZone;
-                action = () => anMan.PlayedActionState(card);
-                break;
-            // ENEMY ZONES
-            case ENEMY_HAND:
-                newZone = EnemyHand;
-                action = () => anMan.HiddenHandState(card);
-                isPlayed = false;
-                break;
-            case ENEMY_ZONE:
-                newZone = EnemyZone;
-                action = () => anMan.PlayedUnitState(card);
-                break;
-            case ENEMY_ACTION_ZONE:
-                newZone = EnemyActionZone;
-                action = () => anMan.PlayedActionState(card);
-                break;
-            default:
-                Debug.LogError("INVALID ZONE!");
-                return;
-        }
-
-        container.OnAttachAction += () => action();
-
-        if (!returnToIndex)
-        {
-            lastCardIndex = dd.LastIndex;
-            lastContainerIndex = cd.CardContainer.transform.GetSiblingIndex();
-
-            if (newZoneName == ENEMY_HAND) card.transform.SetAsFirstSibling();
-            else if (newZoneName == PLAYER_HAND) card.transform.SetAsLastSibling();
-        }
-
-        cd.CardContainer.GetComponent<CardContainer>().MoveContainer(newZone);
-
-        if (changeControl) dd.IsPlayed = true;
-        else if (returnToIndex)
-        {
-            card.transform.SetSiblingIndex(lastCardIndex);
-            cd.CardContainer.transform.SetSiblingIndex(lastContainerIndex);
-            dd.IsPlayed = isPlayed;
-        }
-        else if (!isPlayed) // => PlayerHand OR EnemyHand
-        {
-            if (wasPlayed) // For ReturnCard effects (Play => Hand)
-            {
-                cd.ResetCard();
-                dd.IsPlayed = false;
-            }
-            efMan.ApplyChangeNextCostEffects(card);
-        }
-
-        if (cd is UnitCardDisplay ucd)
-        {
-            bool isExhausted = false;
-
-            if (isPlayed)
-            {
-                if (!changeControl && !CardManager.GetAbility(card,
-                    CardManager.ABILITY_BLITZ)) isExhausted = true;
-                ucd.EnableVFX();
-
-            }
-            else ucd.DisableVFX();
-            ucd.IsExhausted = isExhausted;
-
-            container.OnAttachAction += () => FunctionTimer.Create(() => SetStats(card), 0.1f);
-
-            void SetStats(GameObject unitCard)
-            {
-                if (unitCard == null) return;
-                anMan.UnitStatChangeState(card, 0, 0, false, true);
-            }
-        }
-
-    }
-    /******
-     * *****
-     * ****** PLAY_CARD [HAND >>> PLAY]
-     * *****
-     *****/
-    public void PlayCard(GameObject card)
-    {
-        CardDisplay cd = card.GetComponent<CardDisplay>();
-        CardContainer container = cd.CardContainer.GetComponent<CardContainer>();
-
-        evMan.PauseDelayedActions(true);
-        container.OnAttachAction += () => evMan.PauseDelayedActions(false);
-
-        // PLAYER
-        if (card.CompareTag(PLAYER_CARD))
-        {
-            PlayerHandCards.Remove(card);
-
-            int energyLeft = pMan.CurrentEnergy;
-            pMan.CurrentEnergy -= cd.CurrentEnergyCost;
-            int energyChange = pMan.CurrentEnergy - energyLeft;
-
-            if (energyChange != 0)
-                anMan.ModifyHeroEnergyState(energyChange, PlayerHero, false);
-
-            evMan.NewDelayedAction(() => SelectPlayableCards(), 0, true);
-
-            if (cd is UnitCardDisplay)
-            {
-                PlayerZoneCards.Add(card);
-                ChangeCardZone(card, PLAYER_ZONE);
-                evMan.NewDelayedAction(() => PlayUnit(), 0, true);
-            }
-            else if (cd is ActionCardDisplay)
-            {
-                PlayerActionZoneCards.Add(card);
-                ChangeCardZone(card, PLAYER_ACTION_ZONE);
-                evMan.NewDelayedAction(() => PlayAction(), 0, true);
-            }
-            else
-            {
-                Debug.LogError("INVALID TYPE!");
-                return;
-            }
-        }
-
-        // ENEMY
-        else if (card.CompareTag(ENEMY_CARD))
-        {
-            if (cd is UnitCardDisplay)
-            {
-                if (EnemyZoneCards.Count >= GameManager.MAX_UNITS_PLAYED)
-                {
-                    Debug.LogWarning("TOO MANY ENEMIES!");
-                    return;
-                }
-
-                EnemyZoneCards.Add(card);
-                ChangeCardZone(card, ENEMY_ZONE);
-                evMan.NewDelayedAction(() => PlayUnit(), 0, true);
-            }
-            else if (cd is ActionCardDisplay)
-            {
-                EnemyActionZoneCards.Add(card);
-                ChangeCardZone(card, ENEMY_ACTION_ZONE);
-                evMan.NewDelayedAction(() => PlayAction(), 1, true);
-            }
-            else
-            {
-                Debug.LogError("INVALID TYPE!");
-                return;
-            }
-
-            card.GetComponent<DragDrop>().IsPlayed = true;
-            EnemyHandCards.Remove(card);
-
-            int energyLeft = enMan.CurrentEnergy;
-            enMan.CurrentEnergy -= cd.CurrentEnergyCost;
-            int energyChange = enMan.CurrentEnergy - energyLeft;
-            anMan.ModifyHeroEnergyState(energyChange, EnemyHero, false);
-        }
-        else
-        {
-            Debug.LogError("INVALID TAG!");
-            return;
-        }
-
-        void PlayUnit()
-        {
-            if (card == null)
-            {
-                Debug.LogError("CARD IS NULL!");
-                return;
-            }
-
-            if (card.CompareTag(PLAYER_CARD))
-            {
-                if (!caMan.TriggerUnitAbility(card, CardManager.TRIGGER_PLAY))
-                {
-                    uMan.CombatLog_PlayCard(card);
-                    efMan.ResolveChangeNextCostEffects(card); // Resolves IMMEDIATELY
-
-                    caMan.TriggerTrapAbilities(card); // Resolves 3rd
-                    efMan.TriggerModifiers_PlayCard(card); // Resolves 2nd
-                    efMan.TriggerGiveNextEffects(card); // Resolves 1st
-                }
-            }
-            else
-            {
-                uMan.CombatLog_PlayCard(card);
-
-                caMan.TriggerTrapAbilities(card); // Resolves 3rd
-                efMan.TriggerModifiers_PlayCard(card); // Resolves 2nd
-                caMan.TriggerUnitAbility(card, CardManager.TRIGGER_PLAY); // Resolves 1st
-            }
-
-            card.transform.SetAsFirstSibling();
-
-            PlayCardSound();
-            ParticleBurst();
-        }
-        void PlayAction()
-        {
-            if (card == null)
-            {
-                Debug.LogError("CARD IS NULL!");
-                return;
-            }
-
-            auMan.StartStopSound("SFX_PlayCard");
-            ResolveActionCard(card); // Resolves IMMEDIATELY
-            ParticleBurst();
-        }
-        void PlayCardSound()
-        {
-            Sound playSound = cd.CardScript.CardPlaySound;
-            if (playSound.clip == null) Debug.LogWarning("MISSING PLAY SOUND: " + cd.CardName);
-            else auMan.StartStopSound(null, playSound);
-        }
-
-        void ParticleBurst() =>
-            anMan.CreateParticleSystem(card, ParticleSystemHandler.ParticlesType.Play, 1);
-    }
-
-    /******
-     * *****
-     * ****** DISCARD_CARD [HAND/ACTION_ZONE >>> DISCARD]
-     * *****
-     *****/
-    public void DiscardCard(GameObject card, bool isAction = false)
-    {
-        CardDisplay cd = card.GetComponent<CardDisplay>();
-        List<GameObject> previousZone;
-        List<Card> newZone;
-
-        if (card.CompareTag(PLAYER_CARD))
-        {
-            if (isAction) previousZone = PlayerActionZoneCards;
-            else previousZone = PlayerHandCards;
-            newZone = PlayerDiscardCards;
-        }
-        else
-        {
-            if (isAction) previousZone = EnemyActionZoneCards;
-            else previousZone = EnemyHandCards;
-            newZone = EnemyDiscardCards;
-        }
-
-        previousZone.Remove(card);
-        if (cd.CardScript.BanishAfterPlay) HideCard(card);
-        else
-        {
-            cd.ResetCard();
-            newZone.Add(HideCard(card));
-        }
-
-        if (!isAction) auMan.StartStopSound("SFX_DiscardCard");
-    }
-
-    /******
-     * *****
-     * ****** RESOLVE_ACTION_CARD
-     * *****
-     *****/
-    private void ResolveActionCard(GameObject card)
-    {
-        List<EffectGroup> groupList =
-            card.GetComponent<ActionCardDisplay>().ActionCard.EffectGroupList;
-
-        efMan.StartEffectGroupList(groupList, card);
-    }
-
-    /******
-     * *****
-     * ****** SELECT_PLAYABLE_CARDS
-     * *****
-     *****/
-    public void SelectPlayableCards(bool setAllFalse = false)
-    {
-        evMan.NewDelayedAction(() => SelectCards(), 0, true);
-
-        void SelectCards()
-        {
-            int playableCards = 0;
-
-            bool isPlayerTurn;
-            if (setAllFalse) isPlayerTurn = false;
-            else isPlayerTurn = pMan.IsMyTurn;
-
-            foreach (GameObject card in PlayerHandCards)
-            {
-                if (card == null)
-                {
-                    Debug.LogError("CARD IS NULL!");
-                    continue;
-                }
-
-                if (isPlayerTurn && IsPlayable(card, true))
-                {
-                    playableCards++;
-                    uMan.SelectTarget(card, UIManager.SelectionType.Playable);
-                }
-                else uMan.SelectTarget(card, UIManager.SelectionType.Disabled);
-            }
-
-            bool playerHasActions;
-            if (playableCards < 1) playerHasActions = false;
-            else playerHasActions = true;
-
-            foreach (GameObject ally in PlayerZoneCards)
-            {
-                if (isPlayerTurn && CanAttack(ally, null, true, true))
-                {
-                    uMan.SelectTarget(ally, UIManager.SelectionType.Playable);
-                    playerHasActions = true;
-                }
-                else uMan.SelectTarget(ally, UIManager.SelectionType.Disabled);
-            }
-
-            if (!playerHasActions)
-            {
-                if (pMan.UseHeroPower(false, true) ||
-                    pMan.UseHeroPower(true, true)) playerHasActions = true;
-            }
-
-            if (setAllFalse) playerHasActions = false;
-            uMan.SetReadyEndTurnButton(!playerHasActions);
-        }
-    }
-
-    /******
-     * *****
-     * ****** CHANGE_UNIT_CONTROL
-     * *****
-     *****/
-    public void ChangeUnitControl(GameObject card)
-    {
-        if (card.CompareTag(PLAYER_CARD))
-        {
-            if (EnemyZoneCards.Count >= GameManager.MAX_UNITS_PLAYED)
-            {
-                Debug.LogWarning("TOO MANY ENEMY UNITS!");
-                DestroyUnit(card);
-                return;
-            }
-
-            PlayerZoneCards.Remove(card);
-            card.tag = ENEMY_CARD;
-            ChangeCardZone(card, ENEMY_ZONE, false, true);
-            EnemyZoneCards.Add(card);
-        }
-        else if (card.CompareTag(ENEMY_CARD))
-        {
-            if (PlayerZoneCards.Count >= GameManager.MAX_UNITS_PLAYED)
-            {
-                Debug.LogWarning("TOO MANY PLAYER UNITS!");
-                DestroyUnit(card);
-                return;
-            }
-
-            EnemyZoneCards.Remove(card);
-            card.tag = PLAYER_CARD;
-            ChangeCardZone(card, PLAYER_ZONE, false, true);
-            PlayerZoneCards.Add(card);
-        }
-        else Debug.LogError("INVALID CARD TAG!");
-    }
-
-    /******
-     * *****
-     * ****** REFRESH_UNITS
-     * *****
-     *****/
-    public void RefreshUnits(string hero)
-    {
-        List<GameObject> cardZoneList = null;
-        if (hero == PLAYER) cardZoneList = PlayerZoneCards;
-        else if (hero == ENEMY) cardZoneList = EnemyZoneCards;
-        foreach (GameObject card in cardZoneList)
-            GetUnitDisplay(card).IsExhausted = false;
+            pMan.PlayZoneCards,
+            enMan.PlayZoneCards,
+        };
+
+        foreach (List<GameObject> cards in cardZoneList)
+            foreach (GameObject card in cards)
+                GetUnitDisplay(card).IsExhausted = false;
     }
     #endregion
 
@@ -1327,7 +468,7 @@ public class CombatManager : MonoBehaviour
         evMan.PauseDelayedActions(true);
 
         string logEntry = "";
-        if (attacker.CompareTag(PLAYER_CARD))
+        if (attacker.CompareTag(CardManager.PLAYER_CARD))
         {
             logEntry += "<b><color=\"green\">";
 
@@ -1343,13 +484,13 @@ public class CombatManager : MonoBehaviour
         logEntry += "attacked ";
         if (IsUnitCard(defender))
         {
-            if (defender.CompareTag(PLAYER_CARD)) logEntry += "<b><color=\"green\">";
+            if (defender.CompareTag(CardManager.PLAYER_CARD)) logEntry += "<b><color=\"green\">";
             else logEntry += "<b><color=\"red\">";
             logEntry += GetUnitDisplay(defender).CardName + "</b></color>.";
         }
         else
         {
-            if (attacker.CompareTag(PLAYER_CARD)) logEntry += "the enemy hero.";
+            if (attacker.CompareTag(CardManager.PLAYER_CARD)) logEntry += "the enemy hero.";
             else logEntry += "your hero.";
         }
         uMan.CombatLogEntry(logEntry);
@@ -1362,38 +503,18 @@ public class CombatManager : MonoBehaviour
             anMan.UnitAttack(attacker, defender, IsUnitCard(defender));
         else
         {
-            PlayAttackSound(attacker);
+            auMan.PlayAttackSound(attacker);
             efMan.CreateEffectRay(attacker.transform.position, defender,
                 () => RangedAttackRay(), efMan.DamageRayColor, EffectRay.EffectRayType.RangedAttack);
         }
 
-        if (pMan.IsMyTurn) evMan.NewDelayedAction(() => SelectPlayableCards(), 0);
+        if (pMan.IsMyTurn) evMan.NewDelayedAction(() => caMan.SelectPlayableCards(), 0);
 
         void RangedAttackRay()
         {
             Strike(attacker, defender, true, false);
             evMan.PauseDelayedActions(false);
         }
-    }
-
-    public void PlayAttackSound(GameObject unitCard)
-    {
-        bool isMeleeAttack = true;
-        if (CardManager.GetAbility(unitCard, CardManager.ABILITY_RANGED))
-            isMeleeAttack = false;
-
-        string attackSound;
-        if (GetUnitDisplay(unitCard).CurrentPower < 5)
-        {
-            if (isMeleeAttack) attackSound = "SFX_AttackMelee";
-            else attackSound = "SFX_AttackRanged";
-        }
-        else
-        {
-            if (isMeleeAttack) attackSound = "SFX_AttackMelee_Heavy";
-            else attackSound = "SFX_AttackRanged_Heavy";
-        }
-        auMan.StartStopSound(attackSound);
     }
 
     /******
@@ -1438,8 +559,8 @@ public class CombatManager : MonoBehaviour
             else if (!defenderDestroyed && strikerDealtDamage)
             {
                 string player;
-                if (striker.CompareTag(PLAYER_CARD)) player = ENEMY;
-                else player = PLAYER;
+                if (striker.CompareTag(CardManager.PLAYER_CARD)) player = GameManager.ENEMY;
+                else player = GameManager.PLAYER;
                 caMan.TriggerPlayedUnits(CardManager.TRIGGER_RETALIATE, player);
 
                 // Trigger Infiltrate BEFORE Retaliate, can cause Retaliate sources to be destroyed before triggering.
@@ -1504,14 +625,14 @@ public class CombatManager : MonoBehaviour
 
         if (damageValue < 1) return;
 
-        uMan.ShakeCamera(UIManager.Bump_Light);
+        anMan.ShakeCamera(AnimationManager.Bump_Light);
         //anMan.CreateParticleSystem(target, ParticleSystemHandler.ParticlesType.Damage, 1); // TESTING
 
         int targetValue;
         int newTargetValue;
         if (IsUnitCard(target)) targetValue = GetUnitDisplay(target).CurrentHealth;
-        else if (target == PlayerHero) targetValue = pMan.PlayerHealth;
-        else if (target == EnemyHero) targetValue = enMan.EnemyHealth;
+        else if (target == pMan.HeroObject) targetValue = pMan.CurrentHealth;
+        else if (target == enMan.HeroObject) targetValue = enMan.CurrentHealth;
         else
         {
             Debug.LogError("INVALID TARGET!");
@@ -1522,18 +643,18 @@ public class CombatManager : MonoBehaviour
         newTargetValue = targetValue - damageValue;
 
         // Damage to heroes
-        if (target == PlayerHero)
+        if (target == pMan.HeroObject)
         {
-            pMan.DamageTaken_Turn += damageValue;
-            pMan.PlayerHealth = newTargetValue;
+            pMan.DamageTakenTurn += damageValue;
+            pMan.CurrentHealth = newTargetValue;
 
             anMan.ModifyHeroHealthState(target, -damageValue);
             wasDamaged = true;
         }
-        else if (target == EnemyHero)
+        else if (target == enMan.HeroObject)
         {
-            enMan.DamageTaken_Turn += damageValue;
-            enMan.EnemyHealth = newTargetValue;
+            enMan.DamageTakenTurn += damageValue;
+            enMan.CurrentHealth = newTargetValue;
 
             anMan.ModifyHeroHealthState(target, -damageValue);
             wasDamaged = true;
@@ -1574,10 +695,10 @@ public class CombatManager : MonoBehaviour
             if (IsUnitCard(target)) DestroyUnit(target);
             else
             {
-                uMan.ShakeCamera(EZCameraShake.CameraShakePresets.Earthquake);
+                anMan.ShakeCamera(EZCameraShake.CameraShakePresets.Earthquake);
                 anMan.SetAnimatorBool(target, "IsDestroyed", true);
                 bool playerWins;
-                if (target == PlayerHero) playerWins = false;
+                if (target == pMan.HeroObject) playerWins = false;
                 else playerWins = true;
                 gMan.EndCombat(playerWins);
             }
@@ -1596,15 +717,15 @@ public class CombatManager : MonoBehaviour
         int maxValue;
         int newTargetValue;
 
-        if (target == PlayerHero)
+        if (target == pMan.HeroObject)
         {
-            targetValue = pMan.PlayerHealth;
-            maxValue = pMan.MaxPlayerHealth;
+            targetValue = pMan.CurrentHealth;
+            maxValue = pMan.MaxHealth;
         }
-        else if (target == EnemyHero)
+        else if (target == enMan.HeroObject)
         {
-            targetValue = enMan.EnemyHealth;
-            maxValue = enMan.MaxEnemyHealth;
+            targetValue = enMan.CurrentHealth;
+            maxValue = enMan.MaxHealth;
         }
         else
         {
@@ -1637,8 +758,8 @@ public class CombatManager : MonoBehaviour
         }
         else
         {
-            if (target == PlayerHero) pMan.PlayerHealth = newTargetValue;
-            else if (target == EnemyHero) enMan.EnemyHealth = newTargetValue;
+            if (target == pMan.HeroObject) pMan.CurrentHealth = newTargetValue;
+            else if (target == enMan.HeroObject) enMan.CurrentHealth = newTargetValue;
             anMan.ModifyHeroHealthState(target, healthChange);
         }
     }
@@ -1656,28 +777,14 @@ public class CombatManager : MonoBehaviour
             return;
         }
 
-        string cardTag = card.tag;
-        List<GameObject> playerCardZone;
-        List<GameObject> enemyCardZone;
-
-        if (cardTag == PLAYER_CARD)
-        {
-            playerCardZone = PlayerZoneCards;
-            enemyCardZone = EnemyZoneCards;
-        }
-        else
-        {
-            playerCardZone = EnemyZoneCards;
-            enemyCardZone = PlayerZoneCards;
-        }
+        HeroManager sourceHMan = GetSourceHero(card);
+        HeroManager enemyHMan = GetSourceHero(card, true);
 
         if (!efMan.UnitsToDestroy.Contains(card)) efMan.UnitsToDestroy.Add(card);
         DestroyFX();
 
         // Remove from lists immediately for PlayCard effects triggered from Revenge
-        if (cardTag == PLAYER_CARD) PlayerZoneCards.Remove(card);
-        else if (cardTag == ENEMY_CARD) EnemyZoneCards.Remove(card);
-        else Debug.LogError("INVALID TAG!");
+        sourceHMan.PlayZoneCards.Remove(card);
 
         evMan.NewDelayedAction(() => Destroy(), 0.75f, true);
         evMan.NewDelayedAction(() => DestroyTriggers(), 0, true);
@@ -1700,6 +807,12 @@ public class CombatManager : MonoBehaviour
                 return;
             }
 
+            if (sourceHMan == null || enemyHMan == null)
+            {
+                Debug.LogError("MANAGERS ARE NULL!");
+                return;
+            }
+
             // Revenge
             caMan.TriggerUnitAbility(card, CardManager.TRIGGER_REVENGE);
 
@@ -1709,30 +822,29 @@ public class CombatManager : MonoBehaviour
 
             // Ally Destroyed
             efMan.TriggerModifiers_SpecialTrigger
-                (ModifierAbility.TriggerType.AllyDestroyed, playerCardZone);
+                (ModifierAbility.TriggerType.AllyDestroyed, sourceHMan.PlayZoneCards);
 
             // Enemy Destroyed
             efMan.TriggerModifiers_SpecialTrigger
-                (ModifierAbility.TriggerType.EnemyDestroyed, enemyCardZone);
+                (ModifierAbility.TriggerType.EnemyDestroyed, enemyHMan.PlayZoneCards);
 
             // Marked Enemy Destroyed
             if (CardManager.GetAbility(card, CardManager.ABILITY_MARKED))
             {
                 efMan.TriggerModifiers_SpecialTrigger
-                    (ModifierAbility.TriggerType.MarkedEnemyDestroyed, enemyCardZone);
+                    (ModifierAbility.TriggerType.MarkedEnemyDestroyed, enemyHMan.PlayZoneCards);
             }
             // Poisoned Enemy Destroyed
             if (CardManager.GetAbility(card, CardManager.ABILITY_POISONED))
             {
                 efMan.TriggerModifiers_SpecialTrigger
-                    (ModifierAbility.TriggerType.PoisonedEnemyDestroyed, enemyCardZone);
+                    (ModifierAbility.TriggerType.PoisonedEnemyDestroyed, enemyHMan.PlayZoneCards);
             }
 
             void MarkedTrigger()
             {
                 GetUnitDisplay(card).AbilityTriggerState(CardManager.ABILITY_MARKED);
-                if (card.CompareTag(ENEMY_CARD)) DrawCard(PLAYER);
-                else DrawCard(ENEMY);
+                caMan.DrawCard(GetSourceHero(card, true));
             }
         }
         void Destroy()
@@ -1743,25 +855,29 @@ public class CombatManager : MonoBehaviour
                 return;
             }
 
+            if (sourceHMan == null || enemyHMan == null)
+            {
+                Debug.LogError("MANAGERS ARE NULL!");
+                return;
+            }
+
             efMan.UnitsToDestroy.Remove(card);
 
             UnitCard unitCard = card.GetComponent<CardDisplay>().CardScript as UnitCard;
             card.GetComponent<CardZoom>().DestroyZoomPopups();
             AudioManager.Instance.StartStopSound(null, unitCard.UnitDeathSound);
 
-            if (cardTag == PLAYER_CARD) DiscardCard(PlayerDiscardCards);
-            else if (cardTag == ENEMY_CARD) DiscardCard(EnemyDiscardCards);
-            else Debug.LogError("INVALID TAG!");
+            DiscardCard(sourceHMan.DiscardZoneCards);
 
-            if (pMan.IsMyTurn) SelectPlayableCards();
+            if (pMan.IsMyTurn) caMan.SelectPlayableCards();
 
             void DiscardCard(List<Card> cardZone)
             {
-                if (unitCard.BanishAfterPlay) HideCard(card);
+                if (unitCard.BanishAfterPlay) caMan.HideCard(card);
                 else
                 {
                     card.GetComponent<CardDisplay>().ResetCard();
-                    cardZone.Add(HideCard(card));
+                    cardZone.Add(caMan.HideCard(card));
                 }
             }
         }

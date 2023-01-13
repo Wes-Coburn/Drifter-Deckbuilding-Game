@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bb145cc0311afb449113575373eae4d, type: 3}
   m_Name: Shadowblade Specialist
   m_EditorClassIdentifier: 
-  developerNotes: 
   heroName: Shadowblade Specialist
   heroShortName: 
   heroPortrait: {fileID: 21300000, guid: d3a40188f01b88444a3718972c683968, type: 3}
@@ -22,15 +21,18 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 6cc3328c82959e347aac9d0bda60d991, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   heroLose:
     name: 
     clip: {fileID: 8300000, guid: 35650fdf80484ad459953d94c7551edf, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
+  heroPower: {fileID: 11400000, guid: 3ff30ee599ee00441a704829a3f17064, type: 2}
   firstDialogueClip: {fileID: 11400000, guid: d8d5a17cde4826f4e9b38ed06b4f07b3, type: 2}
+  enemyLevel: 2
   isBoss: 0
   reinforcements:
   - {fileID: 11400000, guid: 941daae3739ca014895bd0dbb08412e7, type: 2}
-  enemyHeroPower: {fileID: 11400000, guid: 3ff30ee599ee00441a704829a3f17064, type: 2}

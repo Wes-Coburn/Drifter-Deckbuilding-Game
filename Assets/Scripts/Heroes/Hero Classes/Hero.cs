@@ -13,6 +13,8 @@ public abstract class Hero : ScriptableObject
     [Header("HERO SOUNDS")]
     [SerializeField] private Sound heroWin;
     [SerializeField] private Sound heroLose;
+    [Header("HERO POWER")]
+    [SerializeField] private HeroPower heroPower;
 
     public string HeroName { get => heroName; }
     public string HeroShortName { get => heroShortName; }
@@ -20,6 +22,7 @@ public abstract class Hero : ScriptableObject
     public string HeroDescription { get => heroDescription; }
     public Sound HeroWin { get => heroWin; }
     public Sound HeroLose { get => heroLose; }
+    public HeroPower HeroPower { get => heroPower; }
 
     public virtual void LoadHero(Hero hero)
     {
@@ -29,5 +32,6 @@ public abstract class Hero : ScriptableObject
         heroDescription = hero.HeroDescription;
         heroWin = hero.HeroWin;
         heroLose = hero.HeroLose;
+        heroPower = hero.HeroPower;
     }
 }

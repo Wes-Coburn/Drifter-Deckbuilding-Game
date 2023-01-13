@@ -19,19 +19,12 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     private const float  SMALL_POPUP_SCALE_VALUE     =  2;
 
     private UIManager uMan;
-    private CombatManager coMan;
     private EffectManager efMan;
+    private PlayerManager pMan;
+    private EnemyManager enMan;
 
     private CardDisplay cardDisplay;
     private List<GameObject> zoomPopups;
-
-    /* ZONES */
-    private GameObject playerHand;
-    private GameObject playerZone;
-    private GameObject playerActionZone;
-    private GameObject enemyHand;
-    private GameObject enemyZone;
-    private GameObject enemyActionZone;
 
     public static bool ZoomCardIsCentered = false;
     public const string ZOOM_CARD_TIMER = "ZoomCardTimer";
@@ -50,15 +43,10 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
      *****/
     private void Awake()
     {
-        coMan = CombatManager.Instance;
         uMan = UIManager.Instance;
         efMan = EffectManager.Instance;
-        playerHand = coMan.PlayerHand;
-        playerZone = coMan.PlayerZone;
-        playerActionZone = coMan.PlayerActionZone;
-        enemyHand = coMan.EnemyHand;
-        enemyZone = coMan.EnemyZone;
-        enemyActionZone = coMan.EnemyActionZone;
+        pMan = PlayerManager.Instance;
+        enMan = EnemyManager.Instance;
         cardDisplay = GetComponent<CardDisplay>();
         zoomPopups = new List<GameObject>();
     }
@@ -77,7 +65,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         GameObject parent = null;
         GameObject container = GetComponent<CardDisplay>().CardContainer;
         if (container != null) parent = container.transform.parent.gameObject;
-        if (enemyHand != null && parent == enemyHand) return;
+        if (enMan.HandZone != null && parent == enMan.HandZone) return;
 
         if (pointerEventData.button != PointerEventData.InputButton.Right) return;
 
@@ -105,12 +93,12 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         if (container != null) parent = container.transform.parent.gameObject;
         else return;
 
-        if (parent == enemyHand || parent == playerActionZone || parent == enemyActionZone) return;
+        if (parent == enMan.HandZone || parent == pMan.ActionZone || parent == enMan.ActionZone) return;
 
         float cardYPos;
         float popupXPos;
 
-        if (parent == playerHand || parent == enemyHand) ShowZoomCard(parent);
+        if (parent == pMan.HandZone || parent == enMan.HandZone) ShowZoomCard(parent);
         else FunctionTimer.Create(() => ShowZoomCard(parent), 0.5f, ZOOM_CARD_TIMER);
 
         void ShowAbilityPopup() =>
@@ -122,22 +110,22 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
             RectTransform rect;
 
-            if (parent == playerHand)
+            if (parent == pMan.HandZone)
             {
                 Vector2 bufferDistance = container.GetComponent<CardContainer>().BufferDistance;
                 float bufferY = -bufferDistance.y;
 
-                rect = playerHand.GetComponent<RectTransform>();
+                rect = pMan.HandZone.GetComponent<RectTransform>();
                 cardYPos = rect.position.y + ZOOM_BUFFER + 20 + bufferY;
             }
-            else if (parent == playerZone)
+            else if (parent == pMan.PlayZone)
             {
-                rect = playerZone.GetComponent<RectTransform>();
+                rect = pMan.PlayZone.GetComponent<RectTransform>();
                 cardYPos = rect.position.y + ZOOM_BUFFER - 20;
             }
-            else if (parent == enemyZone)
+            else if (parent == enMan.PlayZone)
             {
-                rect = enemyZone.GetComponent<RectTransform>();
+                rect = enMan.PlayZone.GetComponent<RectTransform>();
                 cardYPos = (int)rect.position.y - ZOOM_BUFFER;
             }
             else

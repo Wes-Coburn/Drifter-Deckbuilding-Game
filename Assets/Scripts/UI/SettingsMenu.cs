@@ -17,6 +17,7 @@ public class SettingsMenu : MonoBehaviour
     {
         auMan = AudioManager.Instance;
         gMan = GameManager.Instance;
+        
         SetMusicSlider();
         SetSFXSlider();
         SetExplicitLanguageToggle();
@@ -28,22 +29,30 @@ public class SettingsMenu : MonoBehaviour
         explicitLanguageToggle.GetComponent<Toggle>().SetIsOnWithoutNotify(!gMan.HideExplicitLanguage);
     public void ExplicitLanguage_OnToggle(bool showLanguage)
     {
-        if (gMan == null) return;
+        if (gMan == null)
+        {
+            Debug.LogWarning("GAME_MANAGER IS NULL!");
+            return;
+        }
         gMan.HideExplicitLanguage = !showLanguage;
     }
     public void MusicVolume_OnSlide(float volume)
     {
-        if (auMan == null) return;
+        if (auMan == null)
+        {
+            Debug.LogWarning("AUDIO_MANAGER IS NULL!");
+            return;
+        }
         auMan.MusicVolume = volume;
     }
     public void MusicVolume_OnPlus()
     {
-        auMan.MusicVolume += 0.2f;
+        auMan.MusicVolume++;
         SetMusicSlider();
     }
     public void MusicVolume_OnMinus()
     {
-        auMan.MusicVolume -= 0.2f;
+        auMan.MusicVolume--;
         SetMusicSlider();
     }
     public void SFXVolume_OnSlide(float volume)
@@ -53,21 +62,19 @@ public class SettingsMenu : MonoBehaviour
     }
     public void SFXVolume_OnPlus()
     {
-        auMan.SFXVolume += 0.2f;
+        auMan.SFXVolume++;
         SetSFXSlider();
     }
     public void SFXVolume_OnMinus()
     {
-        auMan.SFXVolume -= 0.2f;
+        auMan.SFXVolume--;
         SetSFXSlider();
     }
     public void GameInfoButton_OnClick()
     {
         gameInfoPopup.SetActive(!gameInfoPopup.activeSelf);
-        string text;
         TextMeshProUGUI tmpro = gameInfoButton.GetComponentInChildren<TextMeshProUGUI>();
-        if (gameInfoPopup.activeSelf) text = "Back";
-        else text = "How to Play";
+        string text = gameInfoPopup.activeSelf ? "Back" : "How to Play";
         tmpro.SetText(text);
     }
 }

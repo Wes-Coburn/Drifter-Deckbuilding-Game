@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bb145cc0311afb449113575373eae4d, type: 3}
   m_Name: Shadowblade Assassin
   m_EditorClassIdentifier: 
-  developerNotes: 
   heroName: Shadowblade Assassin
   heroShortName: 
   heroPortrait: {fileID: 21300000, guid: 8ca03a7233688ac4e96a191e578fa217, type: 3}
@@ -22,15 +21,18 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 34303c6435f63aa41aea3683cb55834f, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   heroLose:
     name: 
     clip: {fileID: 8300000, guid: eaabe27fa4bdaad42aa70374d3c6f53e, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
+  heroPower: {fileID: 11400000, guid: 8cff031c517d0fb44aed3f18d883de0f, type: 2}
   firstDialogueClip: {fileID: 11400000, guid: 80551616f21d4ed4d8d1ac2fd6d01fee, type: 2}
+  enemyLevel: 1
   isBoss: 0
   reinforcements:
   - {fileID: 11400000, guid: b8283255c55954f4e96dac47c83e72a9, type: 2}
-  enemyHeroPower: {fileID: 11400000, guid: 8cff031c517d0fb44aed3f18d883de0f, type: 2}

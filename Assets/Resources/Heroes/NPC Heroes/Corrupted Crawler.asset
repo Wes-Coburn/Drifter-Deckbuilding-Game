@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bb145cc0311afb449113575373eae4d, type: 3}
   m_Name: Corrupted Crawler
   m_EditorClassIdentifier: 
-  developerNotes: 
   heroName: Corrupted Crawler
   heroShortName: Corrupted Crawler
   heroPortrait: {fileID: 21300000, guid: 31d3517f0abf7704ba66d33cf4d73909, type: 3}
@@ -22,15 +21,18 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: d6cf828ae537ead4db8ff7548f4afb4a, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   heroLose:
     name: 
     clip: {fileID: 8300000, guid: eaeb7bb1218053e45a28d8cb34ef7233, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
+  heroPower: {fileID: 0}
   firstDialogueClip: {fileID: 11400000, guid: 8b5af784ca503474ead86ee385a1244d, type: 2}
+  enemyLevel: 1
   isBoss: 0
   reinforcements:
   - {fileID: 11400000, guid: 93ab0313109345040b43b0c750e4b6b1, type: 2}
-  enemyHeroPower: {fileID: 0}

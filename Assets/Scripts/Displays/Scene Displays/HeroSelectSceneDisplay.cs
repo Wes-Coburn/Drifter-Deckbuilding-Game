@@ -48,7 +48,7 @@ public class HeroSelectSceneDisplay : MonoBehaviour
     {
         PlayerHero newPH = ScriptableObject.CreateInstance<PlayerHero>();
         newPH.LoadHero(LoadedHero);
-        pMan.PlayerHero = newPH;
+        pMan.HeroScript = newPH;
 
         foreach (UnitCard uc in caMan.PlayerStartUnits)
             for (int i = 0; i < GameManager.PLAYER_START_UNITS; i++)

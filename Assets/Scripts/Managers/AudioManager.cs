@@ -149,4 +149,24 @@ public class AudioManager : MonoBehaviour
         if (isLooped) currentSound.source.loop = true;
         currentSound.source.Play();
     }
+
+    public void PlayAttackSound(GameObject unitCard)
+    {
+        bool isMeleeAttack = true;
+        if (CardManager.GetAbility(unitCard, CardManager.ABILITY_RANGED))
+            isMeleeAttack = false;
+
+        string attackSound;
+        if (CombatManager.GetUnitDisplay(unitCard).CurrentPower < 5)
+        {
+            if (isMeleeAttack) attackSound = "SFX_AttackMelee";
+            else attackSound = "SFX_AttackRanged";
+        }
+        else
+        {
+            if (isMeleeAttack) attackSound = "SFX_AttackMelee_Heavy";
+            else attackSound = "SFX_AttackRanged_Heavy";
+        }
+        StartStopSound(attackSound);
+    }
 }

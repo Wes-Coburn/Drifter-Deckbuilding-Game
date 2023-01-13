@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bb145cc0311afb449113575373eae4d, type: 3}
   m_Name: The_Gauntlet
   m_EditorClassIdentifier: 
-  developerNotes: 
   heroName: The Gauntlet
   heroShortName: 
   heroPortrait: {fileID: 21300000, guid: db2b8b53419cf4f428338cd6f8824751, type: 3}
@@ -22,15 +21,17 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 9bf07fa948c13d447a4ff489c3b2f750, type: 3}
     volume: 0.8
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   heroLose:
     name: 
     clip: {fileID: 8300000, guid: 4f72ee8069f851b47a6488ac1d58fcce, type: 3}
     volume: 0.8
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
+  heroPower: {fileID: 0}
   firstDialogueClip: {fileID: 0}
-  isBoss: 1
+  enemyLevel: 3
   reinforcements:
   - {fileID: 11400000, guid: 8e6409e3e36a16046aed69aa88be8a5c, type: 2}
-  enemyHeroPower: {fileID: 11400000, guid: f21c282af8260dc4ea853eec316278f5, type: 2}

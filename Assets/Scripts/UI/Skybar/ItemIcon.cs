@@ -40,7 +40,7 @@ public class ItemIcon : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         if (EffectManager.Instance.EffectsResolving || EventManager.Instance.ActionsDelayed) return;
         if (!SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene)) return;
 
-        if (loadedItem.IsUsed) // TESTING
+        if (loadedItem.IsUsed)
         {
             uMan.CreateFleetingInfoPopup("Item already used this combat!");
             AudioManager.Instance.StartStopSound("SFX_Error");

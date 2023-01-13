@@ -13,13 +13,21 @@ MonoBehaviour:
   m_Name: Give_Marked_IfNotHas_Marked_IfResolves_Deal2
   m_EditorClassIdentifier: 
   IsRequired: 0
+  IgnoreLegality: 0
   Value: 1
   IsNegative: 0
+  IsDerivedValue: 0
+  DerivedValue: 0
   Countdown: 0
+  IsPermanent: 0
   ShootRay: 1
   RayColor: {r: 0, g: 0, b: 0, a: 1}
   PreCheckConditions: 0
   CheckConditionsIndependent: 0
+  EffectConditionType: 12
+  EffectCondition_Value: 0
+  IfHasAbility_Value: {fileID: 11400000, guid: 67b65f6bf1f93db43afb76d61b1435b2, type: 2}
+  IfHasTrigger_Value: {fileID: 0}
   IfNotWoundedCondition: 0
   IfAnyWoundedCondition: 0
   IfPlayerWoundedCondition: 0
@@ -36,6 +44,9 @@ MonoBehaviour:
   IfNotHasAbilityCondition: 1
   IfHasTriggerCondition: {fileID: 0}
   IfNotHasTriggerCondition: 0
+  IfHasKeywordsCondition: 0
+  IsLessKeywordsCondition: 0
+  IfHasKeywordsValue: 0
   IfHasAbility: {fileID: 0}
   IfHasAbilityEffects: []
   IfHasTrigger: {fileID: 0}
@@ -47,5 +58,7 @@ MonoBehaviour:
   IfResolvesEffects:
   - {fileID: 11400000, guid: d06333854e856574aa3cfa3234cf57a9, type: 2}
   ResolveSimultaneous: 0
+  IfResolvesGroups: []
   ForEachEffects: []
   CardAbility: {fileID: 11400000, guid: 67b65f6bf1f93db43afb76d61b1435b2, type: 2}
+  Type: 0

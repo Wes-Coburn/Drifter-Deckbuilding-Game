@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Primal Evolution
   m_EditorClassIdentifier: 
   PowerName: Primal Evolution
-  PowerCost: 3
+  PowerCost: 2
   PowerSprite: {fileID: 21300000, guid: cecbdca201720bb41881efc34e137251, type: 3}
   PowerSounds:
   - name: 
@@ -28,7 +28,8 @@ MonoBehaviour:
     pitch: 1
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
-  PowerDescription: Give an ally +1|+1 this turn for each of its positive keywords.
+  PowerDescription: Give an ally +1|+1 and fully heal it. If it has 2+ positive keywords,
+    draw 1.
   EffectGroupList:
-  - {fileID: 11400000, guid: 8446001de00539b41b5c6faf14d31a33, type: 2}
+  - {fileID: 11400000, guid: 9c463bf16135c6647ba714b472a61dac, type: 2}
   LinkedAbilities: []

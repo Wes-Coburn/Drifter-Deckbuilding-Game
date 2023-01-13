@@ -66,7 +66,7 @@ public class CombatTestButton : MonoBehaviour
         }
 
         DialogueManager.Instance.EngagedHero = eh;
-        pMan.PlayerHero = ph;
+        pMan.HeroScript = ph;
 
         // Test Augments
         foreach (HeroAugment aug in testAugments)

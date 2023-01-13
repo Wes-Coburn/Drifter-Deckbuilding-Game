@@ -24,17 +24,16 @@ public abstract class Card : ScriptableObject
     public Sprite CardArt { get => cardArt; }
     public Sprite CardBorder { get => cardBorder; }
     public int StartEnergyCost { get => energyCost; }
-    public int CurrentEnergyCost { get; set; }
     public string CardName { get => cardName; }
     public string CardType { get => cardType; }
     public string CardSubType { get => cardSubType; }
     public Rarity CardRarity { get => cardRarity; }
     public string CardDescription { get => cardDescription; }
     public Sound CardPlaySound { get => cardPlaySound; }
-
     public AnimatorOverrideController OverController { get => overController; }
     public AnimatorOverrideController ZoomOverController { get => zoomOverController; }
 
+    public int CurrentEnergyCost { get; set; }
     public List<Effect> CurrentEffects { get; private set; }
     public List<Effect> PermanentEffects { get; private set; }
 
@@ -75,11 +74,19 @@ public abstract class Card : ScriptableObject
         cardPlaySound = card.CardPlaySound;
 
         CurrentEffects = new List<Effect>();
-        foreach (Effect e in card.CurrentEffects) // Already instantiated
-            CurrentEffects.Add(e);
+        foreach (Effect e in card.CurrentEffects) // TESTING, new instances
+        {
+            Effect newEffect = CreateInstance(e.GetType().Name) as Effect;
+            newEffect.LoadEffect(e);
+            CurrentEffects.Add(newEffect);
+        }
 
         PermanentEffects = new List<Effect>();
-        foreach (Effect e in card.PermanentEffects) // Necessary for cards returned to hand
-            PermanentEffects.Add(e);
+        foreach (Effect e in card.PermanentEffects) // TESTING, new instances // Needed for cards returned to hand
+        {
+            Effect newEffect = CreateInstance(e.GetType().Name) as Effect;
+            newEffect.LoadEffect(e);
+            PermanentEffects.Add(newEffect);
+        }
     }
 }

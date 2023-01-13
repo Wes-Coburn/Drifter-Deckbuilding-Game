@@ -52,8 +52,8 @@ public class DialogueManager : MonoBehaviour
 
     public void DisplayCurrentHeroes()
     {
-        dialogueDisplay.PlayerHeroImage = pMan.PlayerHero.HeroPortrait;
-        dialogueDisplay.PlayerHeroName = pMan.PlayerHero.HeroName;
+        dialogueDisplay.PlayerHeroImage = pMan.HeroScript.HeroPortrait;
+        dialogueDisplay.PlayerHeroName = pMan.HeroScript.HeroName;
         dialogueDisplay.NPCHeroImage = EngagedHero.HeroPortrait;
         dialogueDisplay.NPCHeroName = EngagedHero.HeroName;
     }
@@ -209,9 +209,9 @@ public class DialogueManager : MonoBehaviour
     
     public string FilterText(string text)
     {
-        if (pMan.PlayerHero != null)
+        if (pMan.HeroScript != null)
         {
-            string shortName = pMan.PlayerHero.HeroShortName;
+            string shortName = pMan.HeroScript.HeroShortName;
             if (!string.IsNullOrEmpty(shortName))
                 text = text.Replace("<HERO NAME>", shortName);
         }
@@ -356,7 +356,7 @@ public class DialogueManager : MonoBehaviour
         if (dResponse.NPC_NextClip != null)
         {
             EngagedHero.NextDialogueClip = dResponse.NPC_NextClip;
-            Debug.LogWarning("NEXT CLIP: " + dResponse.NPC_NextClip.ToString());
+            Debug.Log("NEXT CLIP: " + dResponse.NPC_NextClip.ToString());
         }
 
         // Travel Location

@@ -7,8 +7,11 @@ public class ReputationPopupDisplay : MonoBehaviour
     [SerializeField] private GameObject reputationTitle;
     [SerializeField] private GameObject reputationScore;
     [SerializeField] private Slider bonusTrack;
+    [SerializeField] private GameObject tier1_Title;
     [SerializeField] private GameObject tier1_Bonus;
+    [SerializeField] private GameObject tier2_Title;
     [SerializeField] private GameObject tier2_Bonus;
+    [SerializeField] private GameObject tier3_Title;
     [SerializeField] private GameObject tier3_Bonus;
 
     private CardManager caMan;
@@ -84,7 +87,16 @@ public class ReputationPopupDisplay : MonoBehaviour
         return "<color=\"" + color + "\">" + text + "</color>";
     }
 
-    private void Awake() => caMan = CardManager.Instance;
+    private void Awake()
+    {
+        caMan = CardManager.Instance;
+        string tier1Bonus = GameManager.REPUTATION_TIER_1 + " - " + (GameManager.REPUTATION_TIER_2 - 1);
+        string tier2Bonus = GameManager.REPUTATION_TIER_2 + " - " + (GameManager.REPUTATION_TIER_3 - 1);
+        string tier3Bonus = GameManager.REPUTATION_TIER_3 + "+";
+        tier1_Title.GetComponent<TextMeshProUGUI>().SetText("Tier 1 Bonus(" + tier1Bonus + ")");
+        tier2_Title.GetComponent<TextMeshProUGUI>().SetText("Tier 2 Bonus(" + tier2Bonus + ")");
+        tier3_Title.GetComponent<TextMeshProUGUI>().SetText("Tier 3 Bonus(" + tier3Bonus + ")");
+    }
 
     public void DisplayReputationPopup(int reputation, int bonusTier, ReputationBonuses bonuses)
     {

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsRequired: 0
   IgnoreLegality: 0
-  Value: 3
+  Value: 2
   IsNegative: 0
   IsDerivedValue: 0
   DerivedValue: 0
@@ -24,6 +24,10 @@ MonoBehaviour:
   RayColor: {r: 1, g: 0, b: 0, a: 1}
   PreCheckConditions: 0
   CheckConditionsIndependent: 0
+  EffectConditionType: 7
+  EffectCondition_Value: 0
+  IfHasAbility_Value: {fileID: 0}
+  IfHasTrigger_Value: {fileID: 0}
   IfNotWoundedCondition: 0
   IfAnyWoundedCondition: 0
   IfPlayerWoundedCondition: 0
@@ -55,3 +59,4 @@ MonoBehaviour:
   IfResolvesGroups: []
   ForEachEffects: []
   IfDestroyedEffects: []
+  BanishIfDestroyed: 0

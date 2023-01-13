@@ -24,6 +24,10 @@ MonoBehaviour:
   RayColor: {r: 1, g: 0, b: 0, a: 1}
   PreCheckConditions: 0
   CheckConditionsIndependent: 0
+  EffectConditionType: 8
+  EffectCondition_Value: 0
+  IfHasAbility_Value: {fileID: 0}
+  IfHasTrigger_Value: {fileID: 0}
   IfNotWoundedCondition: 0
   IfAnyWoundedCondition: 0
   IfPlayerWoundedCondition: 0
@@ -55,3 +59,4 @@ MonoBehaviour:
   IfResolvesGroups: []
   ForEachEffects: []
   IfDestroyedEffects: []
+  BanishIfDestroyed: 0

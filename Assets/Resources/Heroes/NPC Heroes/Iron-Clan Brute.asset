@@ -21,15 +21,18 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 47aab397e148da84b8300d608f7e7647, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   heroLose:
     name: 
     clip: {fileID: 8300000, guid: 2901a6e676ea515468a1d495a89db3e2, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
+  heroPower: {fileID: 11400000, guid: f21c282af8260dc4ea853eec316278f5, type: 2}
   firstDialogueClip: {fileID: 11400000, guid: dc75460adbcc90743b8d3603143ac2e8, type: 2}
+  enemyLevel: 1
   isBoss: 0
   reinforcements:
   - {fileID: 11400000, guid: 7778ac47af8bfaa42a9d4fbe109db911, type: 2}
-  enemyHeroPower: {fileID: 11400000, guid: f21c282af8260dc4ea853eec316278f5, type: 2}

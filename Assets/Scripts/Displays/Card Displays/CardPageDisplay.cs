@@ -108,7 +108,7 @@ public class CardPageDisplay : MonoBehaviour
         {
             case CardPageType.RemoveCard:
                 titleText = "Sell a Card";
-                foreach (Card c in pMan.PlayerDeckList)
+                foreach (Card c in pMan.DeckList)
                     cardGroupList.Add(c);
                 break;
             case CardPageType.RecruitUnit:
@@ -127,7 +127,7 @@ public class CardPageDisplay : MonoBehaviour
                 break;
             case CardPageType.CloneUnit:
                 titleText = "Clone a Unit";
-                foreach (Card c in pMan.PlayerDeckList)
+                foreach (Card c in pMan.DeckList)
                     if (c is UnitCard)
                         cardGroupList.Add(c);
                 break;
@@ -204,7 +204,7 @@ public class CardPageDisplay : MonoBehaviour
             GameObject container = Instantiate(cardPageCardContainerPrefab, cardGroup.transform);
             CardPageCardContainerDisplay cpccd = container.GetComponent<CardPageCardContainerDisplay>();
             GameObject cardPageCard =
-                CombatManager.Instance.ShowCard(card, new Vector2(), CombatManager.DisplayType.Cardpage);
+                CardManager.Instance.ShowCard(card, new Vector2(), CardManager.DisplayType.Cardpage);
             CardDisplay cd = cardPageCard.GetComponent<CardDisplay>();
             cd.DisableVisuals();
             cardPageCard.transform.localScale = new Vector2(4, 4);
@@ -224,8 +224,8 @@ public class CardPageDisplay : MonoBehaviour
         }
         foreach (Card card in cardGroupList)
         {
-            GameObject cardObj = CombatManager.Instance.ShowCard
-                (card, new Vector2(), CombatManager.DisplayType.Cardpage);
+            GameObject cardObj = CardManager.Instance.ShowCard
+                (card, new Vector2(), CardManager.DisplayType.Cardpage);
             cardObj.transform.SetParent(cardGroup.transform);
 
             CardDisplay cd = cardObj.GetComponent<CardDisplay>();

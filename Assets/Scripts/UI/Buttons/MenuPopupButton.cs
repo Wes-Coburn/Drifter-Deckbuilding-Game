@@ -14,8 +14,5 @@ public class MenuPopupButton : MonoBehaviour, IPointerClickHandler
         UserClick();
     }
 
-    private void UserClick()
-    {
-        UIManager.Instance.CreateMenuPopup();
-    }
+    private void UserClick() => UIManager.Instance.CreateMenuPopup();
 }

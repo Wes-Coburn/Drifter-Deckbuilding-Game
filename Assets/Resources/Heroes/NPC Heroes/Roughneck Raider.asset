@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bb145cc0311afb449113575373eae4d, type: 3}
   m_Name: Roughneck Raider
   m_EditorClassIdentifier: 
-  developerNotes: 
   heroName: Roughneck Raider
   heroShortName: Roughneck Raider
   heroPortrait: {fileID: 21300000, guid: 750ad5714b0edb64b97f9a30416487fc, type: 3}
@@ -22,15 +21,18 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: d2c55c44576748d45b1a6e33fccef02a, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   heroLose:
     name: 
     clip: {fileID: 8300000, guid: 09bc803a4a88f74468bd891c97365807, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
+  heroPower: {fileID: 0}
   firstDialogueClip: {fileID: 11400000, guid: cba30dbc8c28d4e409ab9029c6a0e206, type: 2}
+  enemyLevel: 1
   isBoss: 0
   reinforcements:
   - {fileID: 11400000, guid: 586bd2aa44ff40f4cabd0091ba47a651, type: 2}
-  enemyHeroPower: {fileID: 0}

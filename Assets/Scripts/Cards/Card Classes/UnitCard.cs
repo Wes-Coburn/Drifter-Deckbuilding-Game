@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Analytics;
 
 [CreateAssetMenu(fileName = "New Unit Card", menuName = "Cards/Unit")]
 public class UnitCard : Card
@@ -18,11 +17,11 @@ public class UnitCard : Card
     public List<CardAbility> StartingAbilities { get => startingAbilities; }
     public Sound UnitDeathSound { get => unitDeathSound; }
 
-    public List<CardAbility> CurrentAbilities { get; set; }
     public int CurrentPower { get; set; }
     public int CurrentHealth { get; set; }
     public int MaxHealth { get; set; }
     public bool IsExhausted { get; set; }
+    public List<CardAbility> CurrentAbilities { get; set; }
 
     public override void LoadCard(Card card)
     {

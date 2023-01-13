@@ -6,12 +6,16 @@ public class LocationIcon : MonoBehaviour
 {
     [SerializeField] private GameObject locationName;
     [SerializeField] private GameObject locationImage;
-    
-    [SerializeField] private GameObject unvisitedIcon;
-    [SerializeField] private GameObject priorityIcon;
-    [SerializeField] private GameObject nonPriorityIcon;
-    [SerializeField] private GameObject closedIcon;
 
+    [Header("BADGES"), SerializeField] private GameObject badges;
+    [SerializeField] private GameObject unvisitedBadge;
+    [SerializeField] private GameObject priorityBadge;
+    [SerializeField] private GameObject nonPriorityBadge;
+    [SerializeField] private GameObject closedBadge;
+
+    [Header("ICONS")]
+    [SerializeField] private Sprite priorityIcon;
+    [SerializeField] private Sprite nonPriorityIcon;
     [SerializeField] private Sprite homeBaseSprite;
     [SerializeField] private Sprite augmenterSprite;
     [SerializeField] private Sprite shopSprite;
@@ -38,23 +42,34 @@ public class LocationIcon : MonoBehaviour
                 (x => x == location.LocationName) != -1) visited = true;
 
             bool open = gMan.LocationOpen(location);
-            closedIcon.SetActive(!open);
+            closedBadge.SetActive(!open);
 
             if (open)
             {
-                unvisitedIcon.SetActive(!visited);
-                priorityIcon.SetActive(location.IsPriorityLocation);
-                nonPriorityIcon.SetActive(!location.IsPriorityLocation);
+                unvisitedBadge.SetActive(!visited);
+                priorityBadge.SetActive(location.IsPriorityLocation);
+                nonPriorityBadge.SetActive(!location.IsPriorityLocation);
             }
-            else unvisitedIcon.SetActive(false);
+            else unvisitedBadge.SetActive(false);
 
             Sprite image = null;
+            
+            // Recurring Locations
             if (location.IsHomeBase) image = homeBaseSprite;
             else if (location.IsAugmenter) image = augmenterSprite;
             else if (location.IsShop) image = shopSprite;
             else if (location.IsRecruitment) image = recruitmentSprite;
             else if (location.IsActionShop) image = actionShopSprite;
             else if (location.IsCloning) image = cloningSprite;
+
+            // Default Locations
+            else if (location.IsPriorityLocation) image = priorityIcon;
+            else
+            {
+                image = nonPriorityIcon;
+                badges.transform.localPosition = new Vector2(17, 19);
+            }
+
             if (image != null) locationImage.GetComponent<Image>().sprite = image;
         }
     }

@@ -15,7 +15,11 @@ MonoBehaviour:
   AbilityName: 'Research: Gain +1|+0 and heal this unit 1.'
   AbilityDescription: Gain +1|+0 and heal this unit 1.
   AbilitySprite: {fileID: 0}
+  OverrideColor: 0
+  AbilityColor: {r: 0, g: 0, b: 0, a: 0}
   LinkedAbilites: []
   AbilityTrigger: {fileID: 11400000, guid: 01172d320cca3e84b9b071705ddb3163, type: 2}
+  TriggerLimit: 0
   EffectGroupList:
-  - {fileID: 11400000, guid: 36f10c6289e6e954da415255634935df, type: 2}
+  - {fileID: 11400000, guid: af2fb13f00060804f84ae4af6a1432f0, type: 2}
+  - {fileID: 11400000, guid: 94b56426e1d1e9347b61deb73f86cc6f, type: 2}

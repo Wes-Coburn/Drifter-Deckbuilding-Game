@@ -13,7 +13,7 @@ public class TooltipPopupDisplay : MonoBehaviour, IPointerEnterHandler, IPointer
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
-        if (isZoomCardTooltip && !CardZoom.ZoomCardIsCentered) return; // TESTING
+        if (isZoomCardTooltip && !CardZoom.ZoomCardIsCentered) return;
         if (DragDrop.DraggingCard != null || DragDrop.ArrowIsDragging) return;
         FunctionTimer.Create(() =>
         uMan.CreateTooltipPopup(tooltipPosition, tooltipText), 0.5f, UIManager.TOOLTIP_TIMER);

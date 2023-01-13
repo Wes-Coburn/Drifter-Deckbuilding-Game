@@ -26,6 +26,8 @@ public abstract class HeroDisplay : MonoBehaviour
     [SerializeField] private GameObject heroHealthSlider;
     [SerializeField] private GameObject heroEnergy;
     [SerializeField] private GameObject[] energyBars = new GameObject[10];
+    [SerializeField] private GameObject heroPower;
+    [SerializeField] private GameObject powerImage;
 
     public GameObject HeroBase { get => heroBase; }
     public GameObject HeroFrame { get => heroFrame; }
@@ -33,6 +35,7 @@ public abstract class HeroDisplay : MonoBehaviour
     public GameObject HeroNameObject { get => heroName; }
     public GameObject HeroHealthObject { get => heroHealth; }
     public GameObject HeroEnergyObject { get => heroEnergy; }
+    public GameObject HeroPower { get => heroPower; }
 
     public Sprite HeroPortrait
     {
@@ -108,5 +111,8 @@ public abstract class HeroDisplay : MonoBehaviour
     {
         HeroPortrait = heroScript.HeroPortrait;
         HeroName = heroScript.HeroName;
+
+        if (HeroScript.HeroPower == null) heroPower.SetActive(false);
+        else powerImage.GetComponent<Image>().sprite = HeroScript.HeroPower.PowerSprite;
     }
 }

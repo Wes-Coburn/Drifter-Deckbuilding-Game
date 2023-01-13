@@ -8,6 +8,7 @@ public class CardSelect : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     private CombatManager coMan;
     private UIManager uMan;
     private EffectManager efMan;
+    private EnemyManager enMan;
 
     public GameObject CardOutline { get => cardOutline; }
 
@@ -16,6 +17,8 @@ public class CardSelect : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         coMan = CombatManager.Instance;
         uMan = UIManager.Instance;
         efMan = EffectManager.Instance;
+        enMan = EnemyManager.Instance;
+        
     }
 
     public void OnPointerClick(PointerEventData pointerEventData)
@@ -31,7 +34,7 @@ public class CardSelect : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         if (uMan.PlayerIsTargetting) efMan.HighlightEffectTarget(gameObject, true);
         else if (DragDrop.ArrowIsDragging)
         {
-            if (coMan.EnemyHandCards.Contains(gameObject)) return;
+            if (enMan.HandZoneCards.Contains(gameObject)) return;
 
             DragDrop.Enemy = gameObject;
             UIManager.SelectionType type;
@@ -51,7 +54,7 @@ public class CardSelect : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         if (uMan.PlayerIsTargetting) efMan.HighlightEffectTarget(gameObject, false);
         else if (DragDrop.ArrowIsDragging)
         {
-            if (coMan.EnemyHandCards.Contains(gameObject)) return;
+            if (enMan.HandZoneCards.Contains(gameObject)) return;
 
             DragDrop.Enemy = null;
             UIManager.SelectionType type;

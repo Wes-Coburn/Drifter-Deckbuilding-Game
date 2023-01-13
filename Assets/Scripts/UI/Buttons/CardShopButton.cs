@@ -73,12 +73,12 @@ public class CardShopButton : MonoBehaviour
         switch (cardPageType)
         {
             case CardPageDisplay.CardPageType.RemoveCard:
-                if (pMan.PlayerDeckList.Count == GameManager.MINIMUM_DECK_SIZE)
+                if (pMan.DeckList.Count == GameManager.MINIMUM_DECK_SIZE)
                 {
                     uMan.CreateFleetingInfoPopup("Your deck can't have less than " + GameManager.MINIMUM_DECK_SIZE + " cards!");
                     return;
                 }
-                else if (pMan.PlayerDeckList.Count < GameManager.MINIMUM_DECK_SIZE)
+                else if (pMan.DeckList.Count < GameManager.MINIMUM_DECK_SIZE)
                 {
                     Debug.LogError("DECK LIST < MINIMUM!");
                     return;

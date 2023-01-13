@@ -21,7 +21,6 @@ public class ActionCard : Card
         linkedAbilities = ac.LinkedAbilities;
     }
 
-    // TESTING
     public override void CopyCard(Card card)
     {
         base.CopyCard(card);

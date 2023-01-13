@@ -3,24 +3,29 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Enemy Hero", menuName = "Heroes/NPC/Enemy Hero/Enemy Hero")]
 public class EnemyHero : NPCHero
-{   
-    [Header("IS BOSS")]
-    [SerializeField] private bool isBoss;
-    [Header("ENEMY REINFORCEMNTS")]
-    [SerializeField] private List<Reinforcements> reinforcements;
-    [Header("ENEMY HERO POWER")]
-    [SerializeField] private EnemyHeroPower enemyHeroPower;
+{
+    [Header("ENEMY LEVEL"), SerializeField]
+    private GameManager.DifficultyLevel enemyLevel;
+    [Header("ENEMY REINFORCEMNTS"), SerializeField]
+    private List<Reinforcements> reinforcements;
 
-    public bool IsBoss { get => isBoss; }
+    public GameManager.DifficultyLevel EnemyLevel { get => enemyLevel; }
     public List<Reinforcements> Reinforcements { get => reinforcements; }
-    public EnemyHeroPower EnemyHeroPower { get => enemyHeroPower; }
 
+    public bool IsBoss
+    {
+        get
+        {
+            int levelToInt = (int)enemyLevel;
+            if (levelToInt > 1 && levelToInt % 2 != 0) return true;
+            else return false;
+        }
+    }
     public override void LoadHero(Hero hero)
     {
         base.LoadHero(hero);
         EnemyHero eh = hero as EnemyHero;
-        isBoss = eh.IsBoss;
+        enemyLevel = eh.EnemyLevel;
         reinforcements = eh.Reinforcements;
-        enemyHeroPower = eh.EnemyHeroPower;
     }
 }

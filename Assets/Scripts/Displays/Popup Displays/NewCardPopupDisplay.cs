@@ -11,8 +11,8 @@ public class NewCardPopupDisplay : MonoBehaviour
     [SerializeField] private GameObject[] addCardButtons;
     [SerializeField] private GameObject ignoreCardButton;
     [SerializeField] private GameObject redrawCardsButton;
-    
-    private CombatManager coMan;
+
+    private CardManager caMan;
     private PlayerManager pMan;
     private DialogueManager dMan;
     private UIManager uMan;
@@ -54,7 +54,7 @@ public class NewCardPopupDisplay : MonoBehaviour
 
     private void Awake()
     {
-        coMan = CombatManager.Instance;
+        caMan = CardManager.Instance;
         pMan = PlayerManager.Instance;
         dMan = DialogueManager.Instance;
         uMan = UIManager.Instance;
@@ -95,7 +95,7 @@ public class NewCardPopupDisplay : MonoBehaviour
     {
         SwitchToCards();
         // Card Popup
-        GameObject newCard = coMan.ShowCard(this.newCard, new Vector2(), CombatManager.DisplayType.NewCard);
+        GameObject newCard = caMan.ShowCard(this.newCard, new Vector2(), CardManager.DisplayType.NewCard);
         if (newCard == null)
         {
             Debug.LogError("CARD IS NULL!");
@@ -126,8 +126,8 @@ public class NewCardPopupDisplay : MonoBehaviour
         foreach (Card card in chooseCards)
         {
             // Card Popup
-            GameObject newCard = coMan.ShowCard(card, new Vector2(),
-                CombatManager.DisplayType.ChooseCard); // TESTING
+            GameObject newCard = CardManager.Instance.ShowCard(card, new Vector2(),
+                CardManager.DisplayType.ChooseCard); // TESTING
             CardDisplay cd = newCard.GetComponent<CardDisplay>();
             newCard.transform.SetParent(newCardZone.transform, false);
             cd.DisableVisuals();
@@ -167,7 +167,7 @@ public class NewCardPopupDisplay : MonoBehaviour
         }
         else if (nextClip is CombatRewardClip crc)
         {
-            int aetherReward = gMan.GetAetherReward(crc.Difficulty);
+            int aetherReward = gMan.GetAetherReward((dMan.EngagedHero as EnemyHero).EnemyLevel);
             if (aetherReward > 0) uMan.CreateAetherCellPopup(aetherReward);
             else
             {
@@ -200,7 +200,7 @@ public class NewCardPopupDisplay : MonoBehaviour
         }
         else if (dMan.EngagedHero.NextDialogueClip is CombatRewardClip crc)
         {
-            int aetherReward = gMan.GetAetherReward(crc.Difficulty);
+            int aetherReward = gMan.GetAetherReward((dMan.EngagedHero as EnemyHero).EnemyLevel);
             if (aetherReward > 0) uMan.CreateAetherCellPopup(aetherReward);
             else
             {

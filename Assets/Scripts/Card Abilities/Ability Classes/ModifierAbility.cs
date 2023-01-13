@@ -44,10 +44,13 @@ public class ModifierAbility : CardAbility
         AllyGainsAbility,
 
         // Traps
-        AllyTrapDestroyed
-        //PlayCard_1Cost
+        AllyTrapDestroyed,
+
+        // Play Card
+        PlayCardWithCost,
     }
     public TriggerType SpecialTriggerType;
+    public int SpecialTriggerValue;
     public List<Effect> SpecialTriggerEffects;
     public CardAbility AllyAbility;
 
@@ -78,6 +81,7 @@ public class ModifierAbility : CardAbility
 
         ModifySpecialTrigger = modifierAbility.ModifySpecialTrigger;
         SpecialTriggerType = modifierAbility.SpecialTriggerType;
+        SpecialTriggerValue = modifierAbility.SpecialTriggerValue;
         SpecialTriggerEffects = new List<Effect>();
         foreach (Effect e in modifierAbility.SpecialTriggerEffects)
             SpecialTriggerEffects.Add(e);

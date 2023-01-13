@@ -16,11 +16,18 @@ MonoBehaviour:
   IgnoreLegality: 0
   Value: 2
   IsNegative: 0
+  IsDerivedValue: 0
+  DerivedValue: 0
   Countdown: 0
+  IsPermanent: 0
   ShootRay: 1
   RayColor: {r: 1, g: 0, b: 0, a: 1}
   PreCheckConditions: 0
   CheckConditionsIndependent: 0
+  EffectConditionType: 2
+  EffectCondition_Value: 0
+  IfHasAbility_Value: {fileID: 0}
+  IfHasTrigger_Value: {fileID: 0}
   IfNotWoundedCondition: 1
   IfAnyWoundedCondition: 0
   IfPlayerWoundedCondition: 1
@@ -36,6 +43,9 @@ MonoBehaviour:
   IfNotHasAbilityCondition: 0
   IfHasTriggerCondition: {fileID: 0}
   IfNotHasTriggerCondition: 0
+  IfHasKeywordsCondition: 0
+  IsLessKeywordsCondition: 0
+  IfHasKeywordsValue: 0
   IfHasAbility: {fileID: 0}
   IfHasAbilityEffects: []
   IfHasTrigger: {fileID: 0}
@@ -49,3 +59,4 @@ MonoBehaviour:
   IfResolvesGroups: []
   ForEachEffects: []
   IfDestroyedEffects: []
+  BanishIfDestroyed: 0

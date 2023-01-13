@@ -24,6 +24,10 @@ MonoBehaviour:
   RayColor: {r: 1, g: 1, b: 0, a: 1}
   PreCheckConditions: 1
   CheckConditionsIndependent: 0
+  EffectConditionType: 10
+  EffectCondition_Value: 4
+  IfHasAbility_Value: {fileID: 0}
+  IfHasTrigger_Value: {fileID: 0}
   IfNotWoundedCondition: 0
   IfAnyWoundedCondition: 0
   IfPlayerWoundedCondition: 0
@@ -55,4 +59,4 @@ MonoBehaviour:
   IfResolvesGroups: []
   ForEachEffects: []
   CardAbility: {fileID: 11400000, guid: a765fc1f5144bae4886ee157e1a45aa4, type: 2}
-  RandomPositiveKeyword: 0
+  Type: 0

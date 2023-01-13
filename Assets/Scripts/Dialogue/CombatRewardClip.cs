@@ -4,8 +4,6 @@ using UnityEngine;
 public class CombatRewardClip : DialogueClip
 {
     [SerializeField] private DialogueClip nextDialogueClip;
-    [Header("DIFFICULTY LEVEL")]
-    [SerializeField] private GameManager.DifficultyLevel difficulty;
     [Header("NEW LOCATIONS")]
     [SerializeField] private NewLocation[] newLocations;
     [Header("NEW NARRATIVE")]
@@ -18,7 +16,6 @@ public class CombatRewardClip : DialogueClip
     [SerializeField][Range(-5, 5)] private int reputation_Warriors;
 
     public DialogueClip NextDialogueClip { get => nextDialogueClip; }
-    public GameManager.DifficultyLevel Difficulty { get => difficulty; }
     public NewLocation[] NewLocations { get => newLocations; }
     public Narrative NewNarrative { get => newNarrative; }
     public int Reputation_Mages { get => reputation_Mages; }
@@ -32,7 +29,6 @@ public class CombatRewardClip : DialogueClip
         base.LoadDialogueClip(dc);
         CombatRewardClip crc = dc as CombatRewardClip;
         nextDialogueClip = crc.NextDialogueClip;
-        difficulty = crc.Difficulty;
         newLocations = (NewLocation[])crc.NewLocations.Clone();
         newNarrative = crc.NewNarrative;
         reputation_Mages = crc.Reputation_Mages;

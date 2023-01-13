@@ -196,28 +196,6 @@ public class UIManager : MonoBehaviour
 
     /******
      * *****
-     * ****** SHAKE_CAMERA
-     * *****
-     *****/
-    public void ShakeCamera(CameraShakeInstance shake) =>
-        CameraShaker.Instance.Shake(shake);
-
-    public static CameraShakeInstance Bump_Light
-    {
-        get
-        {
-            // TESTING Magnitude (normally 2.5f) FadeOutTime (normally 0.75)
-            CameraShakeInstance c = new CameraShakeInstance(1f, 4, 0.1f, 0.5f)
-            {
-                PositionInfluence = Vector3.one * 0.15f,
-                RotationInfluence = Vector3.one
-            };
-            return c;
-        }
-    }
-
-    /******
-     * *****
      * ****** PLAYER_ZONE_OUTLINE
      * *****
      *****/
@@ -448,17 +426,17 @@ public class UIManager : MonoBehaviour
      *****/
     public void DestroyZoomObjects()
     {
-        static void DestroyObject(GameObject go)
-        {
-            Destroy(go);
-            go = null;
-        }
-
+        // Skybar
         if (SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene))
             HideSkybar(false);
 
+        // Screen Dimmer
         SetScreenDimmer(false);
+
+        // CardZoom
         CardZoom.ZoomCardIsCentered = false;
+
+            // Function Timers
         FunctionTimer.StopTimer(CardZoom.ZOOM_CARD_TIMER);
         FunctionTimer.StopTimer(CardZoom.ABILITY_POPUP_TIMER);
 
@@ -469,8 +447,8 @@ public class UIManager : MonoBehaviour
             CardZoom.AbilityPopupBox,
             AbilityZoom.AbilityPopup
         };
-        foreach (GameObject go in objectsToDestroy)
-            if (go != null) DestroyObject(go);
+
+        foreach (GameObject go in objectsToDestroy) Destroy(go);
     }
 
     /******
@@ -599,6 +577,8 @@ public class UIManager : MonoBehaviour
     // Tooltip Popup
     public void CreateTooltipPopup(Vector2 position, string text)
     {
+        DestroyTooltipPopup();
+
         tooltipPopup = Instantiate(tooltipPopupPrefab, CurrentWorldSpace.transform);
         tooltipPopup.transform.localPosition = position;
         tooltipPopup.GetComponentInChildren<TextMeshPro>().SetText(text);
@@ -711,15 +691,12 @@ public class UIManager : MonoBehaviour
     }
     public void InsufficientAetherPopup()
     {
-        CreateFleetingInfoPopup("Not enough aether! (You have " + 
-            pMan.AetherCells + " aether)");
-
+        CreateFleetingInfoPopup($"Not enough aether! (You have {pMan.AetherCells} aether)");
         AudioManager.Instance.StartStopSound("SFX_Error");
     }
     public void DismissInfoPopup()
     {
-        if (infoPopup != null)
-            anMan.ChangeAnimationState(infoPopup, "Exit");
+        if (infoPopup != null) anMan.ChangeAnimationState(infoPopup, "Exit");
     }
     public void DestroyInfoPopup(InfoPopupType infoPopupType)
     {
@@ -845,10 +822,8 @@ public class UIManager : MonoBehaviour
     {
         DestroyAetherCellPopup();
         aetherCellPopup = Instantiate(aetherCellPopupPrefab, CurrentZoomCanvas.transform); // TESTING on ZOOM
-        AetherCellPopupDisplay acpd =
-            aetherCellPopup.GetComponent<AetherCellPopupDisplay>();
+        AetherCellPopupDisplay acpd = aetherCellPopup.GetComponent<AetherCellPopupDisplay>();
         acpd.AetherQuantity = quanity;
-        acpd.TotalAether = pMan.AetherCells + quanity;
     }
     public void DestroyAetherCellPopup()
     {
@@ -976,6 +951,7 @@ public class UIManager : MonoBehaviour
         LocationPopupDisplay lpd = locationPopup.GetComponent<LocationPopupDisplay>();
         lpd.Location = location;
         lpd.TravelButtons.SetActive(false);
+        lpd.DifficultyLevel.SetActive(false);
 
         if (isFleeting)
         {
@@ -1001,8 +977,8 @@ public class UIManager : MonoBehaviour
         travelPopup = Instantiate(locationPopupPrefab, CurrentCanvas.transform);
         LocationPopupDisplay lpd = travelPopup.GetComponent<LocationPopupDisplay>();
         lpd.Location = location;
-        //lpd.TravelButtons.SetActive(true);
-        //lpd.ClosePopupButton.SetActive(true);
+
+        if (location.IsRecurring) lpd.DifficultyLevel.SetActive(false);
     }
     public void DestroyTravelPopup()
     {
@@ -1039,7 +1015,11 @@ public class UIManager : MonoBehaviour
      *****/
     public void UpdateItemsCount()
     {
-        itemsCount.GetComponent<TextMeshProUGUI>().SetText(pMan.HeroItems.Count.ToString());
+        int unusedItems = 0;
+        foreach (HeroItem item in pMan.HeroItems)
+            if (!item.IsUsed) unusedItems++;
+
+        itemsCount.GetComponent<TextMeshProUGUI>().SetText(unusedItems.ToString());
     }
     public void AugmentsButton_OnClick(bool forceOpen)
     {
@@ -1099,27 +1079,29 @@ public class UIManager : MonoBehaviour
             foreach (Transform repTran in reputationBar.transform)
                 repTran.gameObject.SetActive(!hideChildren);
 
-            SetAetherCount(pMan.AetherCells, pMan.AetherCells);
+            SetAetherCount(0);
             UpdateItemsCount();
             SetAllReputation();
         }
         
-        // TESTING TESTING TESTING
         augmentsDropdown.SetActive(false);
         itemsDropdown.SetActive(false);
         reputationsDropdown.SetActive(false);
     }
-    public void SetAetherCount(int newCount, int previousCount)
+    public void SetAetherCount(int valueChange)
     {
         if (!skyBar.activeSelf) return;
 
         TextMeshProUGUI tmpro = aetherCount.GetComponentInChildren<TextMeshProUGUI>();
-        if (newCount != previousCount)
+        tmpro.SetText(pMan.AetherCells - valueChange + "");
+
+        if (valueChange != 0)
         {
+            new AnimationManager.CountingTextObject(tmpro, valueChange, Color.red);
+
             anMan.SkybarIconAnimation(aetherIcon);
-            anMan.CountingText(tmpro, previousCount, newCount);
+            anMan.CountingText();
         }
-        else tmpro.SetText(newCount.ToString());
     }
     public void CreateAugmentIcon(HeroAugment augment, bool isNewAugment = false)
     {

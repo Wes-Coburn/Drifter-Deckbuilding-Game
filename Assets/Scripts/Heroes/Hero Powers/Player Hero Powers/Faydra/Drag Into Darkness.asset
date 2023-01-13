@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Drag Into Darkness
   m_EditorClassIdentifier: 
   PowerName: Drag Into Darkness
-  PowerCost: 4
+  PowerCost: 3
   PowerSprite: {fileID: 21300000, guid: ab0399bfe84193c4b8d80801295be20a, type: 3}
   PowerSounds:
   - name: 
@@ -28,8 +28,8 @@ MonoBehaviour:
     pitch: 1
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
-  PowerDescription: Stun ALL enemies, or deal 2 to them if their power is 0.
+  PowerDescription: Stun an enemy and deal 3 to it.
   EffectGroupList:
-  - {fileID: 11400000, guid: 84ae30181d05ba64bb4f2fa338a2f7da, type: 2}
+  - {fileID: 11400000, guid: 6dd1b3e2e0c0ac0499820c6b8d356bf0, type: 2}
   LinkedAbilities:
   - {fileID: 11400000, guid: 37a54b5ce20d48941893b9f48eee681f, type: 2}

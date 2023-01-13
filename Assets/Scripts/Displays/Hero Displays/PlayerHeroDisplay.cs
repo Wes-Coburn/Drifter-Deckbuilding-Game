@@ -4,8 +4,6 @@ using TMPro;
 
 public class PlayerHeroDisplay : HeroDisplay
 {
-    [SerializeField] private GameObject heroPower;
-    [SerializeField] private GameObject powerImage;
     [SerializeField] private GameObject powerCost;
     [SerializeField] private GameObject powerReadyIcon;
 
@@ -17,8 +15,6 @@ public class PlayerHeroDisplay : HeroDisplay
     [SerializeField] private GameObject ultimateProgressValue;
     [SerializeField] private GameObject[] ultimateProgressBars = new GameObject[GameManager.HERO_ULTMATE_GOAL];
 
-    public PlayerHero PlayerHero { get => HeroScript as PlayerHero; }
-    public GameObject HeroPower { get => heroPower; }
     public GameObject PowerReadyIcon { get => powerReadyIcon; }
     public GameObject HeroUltimate { get => heroUltimate; }
     public GameObject UltimateReadyIcon { get => ultimateReadyIcon; }
@@ -45,9 +41,8 @@ public class PlayerHeroDisplay : HeroDisplay
     public override void DisplayHero()
     {
         base.DisplayHero();
-        powerImage.GetComponent<Image>().sprite = PlayerHero.HeroPower.PowerSprite;
-        powerCost.GetComponent<TextMeshProUGUI>().SetText(PlayerHero.HeroPower.PowerCost.ToString());
-        ultimateImage.GetComponent<Image>().sprite = PlayerHero.HeroUltimate.PowerSprite;
+        powerCost.GetComponent<TextMeshProUGUI>().SetText(HeroScript.HeroPower.PowerCost.ToString());
+        ultimateImage.GetComponent<Image>().sprite = (HeroScript as PlayerHero).HeroUltimate.PowerSprite;
 
         int cost = PlayerManager.Instance.GetUltimateCost(out Color ultimateColor);
         TextMeshProUGUI ultimateGui = ultimateCost.GetComponent<TextMeshProUGUI>();

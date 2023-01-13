@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6317728704095633796}
   - component: {fileID: 2694138203492983190}
   m_Layer: 0
-  m_Name: ClosedIcon
+  m_Name: ClosedBadge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,8 +29,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 7001515754728082526}
-  m_RootOrder: 3
+  m_Father: {fileID: 3436998070766152502}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 6079417529833073689}
   - component: {fileID: 3508506889824769367}
   m_Layer: 0
-  m_Name: NonPriorityIcon
+  m_Name: NonPriorityBadge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -150,6 +150,38 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &3402324975006944892
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3436998070766152502}
+  m_Layer: 0
+  m_Name: Badges
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3436998070766152502
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3402324975006944892}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 8134828429284914786}
+  - {fileID: 2937190092215829172}
+  m_Father: {fileID: 7001515754728082526}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4111351075825122274
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,7 +194,7 @@ GameObject:
   - component: {fileID: 661274590212802333}
   - component: {fileID: 2147840989083469448}
   m_Layer: 0
-  m_Name: PriorityIcon
+  m_Name: PriorityBadge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -395,8 +427,7 @@ RectTransform:
   m_Children:
   - {fileID: 7001515754912877379}
   - {fileID: 7001515754498787711}
-  - {fileID: 8134828429284914786}
-  - {fileID: 2937190092215829172}
+  - {fileID: 3436998070766152502}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -540,10 +571,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   locationName: {fileID: 7001515754498787704}
   locationImage: {fileID: 7001515754912877404}
-  unvisitedIcon: {fileID: 7995616616900306230}
-  priorityIcon: {fileID: 4111351075825122274}
-  nonPriorityIcon: {fileID: 2605348724505958655}
-  closedIcon: {fileID: 1152231195261745022}
+  badges: {fileID: 3402324975006944892}
+  unvisitedBadge: {fileID: 7995616616900306230}
+  priorityBadge: {fileID: 4111351075825122274}
+  nonPriorityBadge: {fileID: 2605348724505958655}
+  closedBadge: {fileID: 1152231195261745022}
+  priorityIcon: {fileID: 21300000, guid: 241fab2f3a062da4a906622b5b254e41, type: 3}
+  nonPriorityIcon: {fileID: 21300000, guid: b59831b484934de4288f143109503811, type: 3}
   homeBaseSprite: {fileID: 21300000, guid: 8a84f4cbaaa6be444bab2cca8e2f5289, type: 3}
   augmenterSprite: {fileID: 21300000, guid: c8d49ecca8a473f4991482a9a350375c, type: 3}
   shopSprite: {fileID: 21300000, guid: 52dd273d386433046a6178f17c931757, type: 3}
@@ -601,7 +635,7 @@ GameObject:
   - component: {fileID: 7001515754912877377}
   - component: {fileID: 7001515754912877378}
   m_Layer: 0
-  m_Name: Icon
+  m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -675,7 +709,7 @@ GameObject:
   - component: {fileID: 8134828429284914786}
   - component: {fileID: 5913999996494793615}
   m_Layer: 0
-  m_Name: UnvisitedIcon
+  m_Name: UnvisitedBadge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -688,14 +722,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7995616616900306230}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7704646142058121797}
   - {fileID: 4968396301346241036}
-  m_Father: {fileID: 7001515754728082526}
-  m_RootOrder: 2
+  m_Father: {fileID: 3436998070766152502}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

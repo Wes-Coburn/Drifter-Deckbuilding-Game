@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bb145cc0311afb449113575373eae4d, type: 3}
   m_Name: Mega-Corp Operative
   m_EditorClassIdentifier: 
-  developerNotes: 
   heroName: Mega-Corp Operative
   heroShortName: 
   heroPortrait: {fileID: 21300000, guid: b8a08e46854836c4ebf1992f6ffbcdcd, type: 3}
@@ -22,15 +21,17 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: c25aaffd910a9e049b1f26948cd63ab7, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   heroLose:
     name: 
     clip: {fileID: 8300000, guid: 98adf90e3ce48114fbddba28f9b798ae, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
+  heroPower: {fileID: 11400000, guid: 1debcb6ad81e3c840bcfe4c17e87e531, type: 2}
   firstDialogueClip: {fileID: 11400000, guid: 738459296d9e9af4cada56bc30c6aa07, type: 2}
-  isBoss: 1
+  enemyLevel: 3
   reinforcements:
   - {fileID: 11400000, guid: 8f4252c17cfcafd44a75600f0869a1ca, type: 2}
-  enemyHeroPower: {fileID: 11400000, guid: 1debcb6ad81e3c840bcfe4c17e87e531, type: 2}

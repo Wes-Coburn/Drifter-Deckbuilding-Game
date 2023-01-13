@@ -54,46 +54,39 @@ public abstract class Effect : ScriptableObject
     [Tooltip("If enabled, the PreCheck will be done independently")]
     public bool CheckConditionsIndependent;
 
-    [Header("IF WOUNDED CONDITIONS"), Tooltip("If enabled, any IfWounded conditions selected will be reversed")]
-    public bool IfNotWoundedCondition;
-    [Space, Tooltip("If enabled, the effect will not resolve unless ANY hero is Wounded")]
-    public bool IfAnyWoundedCondition;
-    [Tooltip("If enabled, the effect will not resolve unless the PLAYER hero's health is Wounded")]
-    public bool IfPlayerWoundedCondition;
-    [Tooltip("If enabled, the effect will not resolve unless the ENEMY hero's health is Wounded")]
-    public bool IfEnemyWoundedCondition;
+    public enum ConditionType
+    {
+        NONE,
 
-    [Header("IF EXHAUSTED CONDITIONS"), Tooltip("If enabled, the effect will not resolve unless the target IS EXHAUSTED")]
-    public bool IfExhaustedCondition;
+        PlayerWounded,
+        PlayerWounded_Not,
+        EnemyWounded,
+        EnemyWounded_Not,
+        
+        Exhausted,
+        Exhausted_Not,
 
-    [Tooltip("If enabled, the effect will not resolve unless the target IS NOT EXHAUSTED")]
-    public bool IfRefreshedCondition;
+        Damaged,
+        Damaged_Not,
 
-    [Header("IF DAMAGED CONDITIONS"), Tooltip("If enabled, the effect will not resolve unless the target IS DAMAGED")]
-    public bool IfDamagedCondition;
+        HasGreaterPower,
+        HasLessPower,
 
-    [Tooltip("If enabled, the effect will not resolve unless the target IS NOT DAMAGED")]
-    public bool IfNotDamagedCondition;
+        HasAbility,
+        HasAbility_Not,
 
-    [Header("IF HAS POWER CONDITION"), Tooltip("If enabled, the effect will not resolve unless the target has GREATER POWER (or LESSER if also enabled)")]
-    public bool IfHasPowerCondition;
-    public bool IsLessPowerCondition;
-    [Range(0, 10)] public int IfHasPowerValue;
+        HasTrigger,
+        HasTrigger_Not,
 
-    [Header("IF HAS ABILITY CONDITION"), Tooltip("If not null, the effect will not resolve unless the target HAS this ABILITY")]
-    public CardAbility IfHasAbilityCondition;
-    [Tooltip("If enabled, the effect will not resolve unless the target DOES NOT have the ABILITY")]
-    public bool IfNotHasAbilityCondition;
+        HasMoreKeywords,
+        HasLessKeywords,
+    }
 
-    [Header("IF HAS TRIGGER CONDITION"), Tooltip("If not null, the effect will not resolve unless the target HAS this TRIGGER")]
-    public AbilityTrigger IfHasTriggerCondition;
-    [Tooltip("If enabled, the effect will not resolve unless the target DOES NOT have the TRIGGER")]
-    public bool IfNotHasTriggerCondition;
-
-    [Header("IF HAS KEYWORDS CONDITION"), Tooltip("If enalbed, the effect will not resolve unless the target has a GREATER number of positive keywords (or LESSER if also enabled)")]
-    public bool IfHasKeywordsCondition;
-    public bool IsLessKeywordsCondition;
-    [Range(0, 5)] public int IfHasKeywordsValue;
+    [Header("EFFECT CONDITIONS")]
+    public ConditionType EffectConditionType;
+    [Range(0, 10)] public int EffectCondition_Value;
+    public CardAbility IfHasAbility_Value;
+    public AbilityTrigger IfHasTrigger_Value;
 
     [Header("IF HAS ABILITY EFFECTS"), Tooltip("If the target has this ability, resolve these effects")]
     public CardAbility IfHasAbility;
@@ -139,30 +132,10 @@ public abstract class Effect : ScriptableObject
 
         PreCheckConditions = effect.PreCheckConditions;
         CheckConditionsIndependent = effect.CheckConditionsIndependent;
-
-        IfAnyWoundedCondition = effect.IfAnyWoundedCondition;
-        IfPlayerWoundedCondition = effect.IfPlayerWoundedCondition;
-        IfEnemyWoundedCondition = effect.IfEnemyWoundedCondition;
-
-        IfExhaustedCondition = effect.IfExhaustedCondition;
-        IfRefreshedCondition = effect.IfRefreshedCondition;
-
-        IfDamagedCondition = effect.IfDamagedCondition;
-        IfNotDamagedCondition = effect.IfNotDamagedCondition;
-
-        IfHasPowerCondition = effect.IfHasPowerCondition;
-        IsLessPowerCondition = effect.IsLessPowerCondition;
-        IfHasPowerValue = effect.IfHasPowerValue;
-
-        IfHasAbilityCondition = effect.IfHasAbilityCondition;
-        IfNotHasAbilityCondition = effect.IfNotHasAbilityCondition;
-
-        IfHasTriggerCondition = effect.IfHasTriggerCondition;
-        IfNotHasTriggerCondition = effect.IfNotHasTriggerCondition;
-
-        IfHasKeywordsCondition = effect.IfHasKeywordsCondition;
-        IsLessKeywordsCondition = effect.IsLessKeywordsCondition;
-        IfHasKeywordsValue = effect.IfHasKeywordsValue;
+        
+        EffectConditionType = effect.EffectConditionType;
+        IfHasAbility_Value = effect.IfHasAbility_Value;
+        IfHasTrigger_Value = effect.IfHasTrigger_Value;
 
         IfHasAbility = effect.IfHasAbility;
         IfHasAbilityEffects = new List<EffectGroup>();

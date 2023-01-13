@@ -2,6 +2,11 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using UnityEditor;
+using System;
+using EZCameraShake;
 
 public class AnimationManager : MonoBehaviour
 {
@@ -19,12 +24,13 @@ public class AnimationManager : MonoBehaviour
 
     #region FIELDS
     private UIManager uMan;
-    private CombatManager coMan;
     private DialogueManager dMan;
     private AudioManager auMan;
+    private CombatManager coMan;
+    private PlayerManager pMan;
+    private EnemyManager enMan;
 
     private Color previousBarColor;
-    private Color previousTextCountColor;
 
     [SerializeField] private GameObject valueChangerPrefab;
 
@@ -52,9 +58,11 @@ public class AnimationManager : MonoBehaviour
     private void Start()
     {
         uMan = UIManager.Instance;
-        coMan = CombatManager.Instance;
         dMan = DialogueManager.Instance;
         auMan = AudioManager.Instance;
+        coMan = CombatManager.Instance;
+        pMan = PlayerManager.Instance;
+        enMan = EnemyManager.Instance;
     }
 
     public void ProgressBarRoutine_Stop()
@@ -111,6 +119,26 @@ public class AnimationManager : MonoBehaviour
     #region SYSTEMS
     /******
      * *****
+     * ****** SHAKE_CAMERA
+     * *****
+     *****/
+    public void ShakeCamera(CameraShakeInstance shake) =>
+        CameraShaker.Instance.Shake(shake);
+
+    public static CameraShakeInstance Bump_Light
+    {
+        get
+        {
+            // TESTING Magnitude (normally 2.5f) Roughness (normally 4) FadeOutTime (normally 0.75)
+            return new CameraShakeInstance(0.75f, 3, 0.1f, 0.5f)
+            {
+                PositionInfluence = Vector3.one * 0.15f,
+                RotationInfluence = Vector3.one,
+            };
+        }
+    }
+    /******
+     * *****
      * ****** VALUE_CHANGE
      * *****
      *****/
@@ -118,14 +146,15 @@ public class AnimationManager : MonoBehaviour
     {
         GameObject valueChanger = Instantiate(valueChangerPrefab, parent);
         valueChanger.transform.localPosition = new Vector2(0, yBuffer);
+
         Transform newParent;
         if (yBuffer != 0)
         {
             newParent = uMan.UICanvas.transform;
             valueChanger.transform.localScale = new Vector2(2, 2);
         }
-        else if (setToCanvas) newParent = uMan.CurrentCanvas.transform; // TESTING
-        else newParent = parent.parent.parent.parent; // TESTING
+        else if (setToCanvas) newParent = uMan.CurrentCanvas.transform;
+        else newParent = parent.parent.parent.parent;
 
         valueChanger.transform.SetParent(newParent);
         valueChanger.transform.SetAsLastSibling();
@@ -224,56 +253,118 @@ public class AnimationManager : MonoBehaviour
      * ****** COUNTING_TEXT
      * *****
      *****/
-    public void CountingText(TextMeshProUGUI text, int start, int end, float delay = 0.05f)
+    public class CountingTextObject
     {
-        if (start == end)
+        public CountingTextObject(TextMeshProUGUI text, int valueChange, Color newColor, TextMeshProUGUI altText = null, bool insertObject = false)
         {
-            Debug.LogError("START == END!");
-            return;
+            StartValue = int.Parse(text.text);
+            currentValue = StartValue;
+            Text = text;
+            EndValue = StartValue + valueChange;
+            this.newColor = newColor;
+            defaultColor = Text.color;
+            AltText = altText;
+
+            if (insertObject) CountingTexts.Insert(0, this);
+            else CountingTexts.Add(this);
         }
 
-        if (TextCountRoutine != null) // TESTING
+        private int currentValue;
+        private Color newColor;
+        private Color defaultColor;
+        public TextMeshProUGUI Text { get; private set; }
+        public int StartValue { get; private set; }
+        public int EndValue { get; private set; }
+        public TextMeshProUGUI AltText { get; private set; }
+
+        public static List<CountingTextObject> CountingTexts = new List<CountingTextObject>();
+        public static void ClearCountingTexts()
         {
-            StopCoroutine(TextCountRoutine);
-            text.color = previousTextCountColor;
+            if (Instance.TextCountRoutine != null)
+            {
+                Instance.StopCoroutine(Instance.TextCountRoutine);
+                Instance.TextCountRoutine = null;
+            }
+
+            foreach (CountingTextObject cto in CountingTexts)
+                cto.DefaultColor();
+
+            CountingTexts.Clear();
         }
 
-        TextCountRoutine = StartCoroutine(CountingTextNumerator(text, start, end, delay));
+        public bool IncrementValue()
+        {
+            if (currentValue < EndValue) Text.SetText(++currentValue + "");
+            else Text.SetText(--currentValue + "");
+
+            if (currentValue == EndValue) return true;
+            return false;
+        }
+        public void NewColor()
+        {
+            Text.color = newColor;
+            if (AltText != null) AltText.color = newColor;
+        }
+        public void DefaultColor()
+        {
+            Text.color = defaultColor;
+            if (AltText != null) AltText.color = defaultColor;
+        }
     }
-    private IEnumerator CountingTextNumerator(TextMeshProUGUI text, int start, int end, float delay)
+    public void CountingText()
     {
-        previousTextCountColor = text.color;
-        text.color = uMan.HighlightedColor;
-        int count = start;
-        if (count < end)
+        if (TextCountRoutine != null) // Should already be stopped
         {
-            while (count < end)
-            {
-                yield return new WaitForSeconds(delay);
-                text.SetText(++count + "");
-                auMan.StartStopSound("SFX_Counting");
-            }
-        }
-        else
-        {
-            while (count > end)
-            {
-                yield return new WaitForSeconds(delay);
-                text.SetText(--count + "");
-                auMan.StartStopSound("SFX_Counting");
-            }
+            Debug.LogError("COROUTINE IS NOT NULL");
+            StopCoroutine(TextCountRoutine);
+            TextCountRoutine = null;
         }
 
-        yield return new WaitForSeconds(delay);
-        text.color = previousTextCountColor;
+        TextCountRoutine = StartCoroutine(CountingTextNumerator());
+    }
+    private void DefaultTextColor()
+    {
+        foreach (CountingTextObject cto in CountingTextObject.CountingTexts)
+            cto.DefaultColor();
+    }
+    private IEnumerator CountingTextNumerator()
+    {
+        float delay = 0.05f;
+        float interval = 0.3f;
 
-        yield return new WaitForSeconds(delay);
-        text.color = uMan.HighlightedColor;
+        NewTextColor();
 
-        yield return new WaitForSeconds(delay);
-        text.color = previousTextCountColor;
+        while (true)
+        {
+            yield return new WaitForSeconds(delay);
+            auMan.StartStopSound("SFX_Counting");
 
-        TextCountRoutine = null;
+            bool completed = true;
+            foreach (CountingTextObject cto in CountingTextObject.CountingTexts)
+            {
+                if (!cto.IncrementValue()) completed = false;
+            }
+
+            if (completed) break;
+        }
+
+        DefaultTextColor();
+        yield return new WaitForSeconds(interval);
+        NewTextColor();
+        yield return new WaitForSeconds(interval);
+        DefaultTextColor();
+        yield return new WaitForSeconds(interval);
+        NewTextColor();
+        yield return new WaitForSeconds(interval);
+        DefaultTextColor();
+
+        CountingTextObject.ClearCountingTexts();
+
+        static void NewTextColor()
+        {
+            foreach (CountingTextObject cto in CountingTextObject.CountingTexts)
+                cto.NewColor();
+        }
     }
 
     /******
@@ -608,13 +699,13 @@ public class AnimationManager : MonoBehaviour
         GameObject turBut = uMan.EndTurnButton;
         GameObject combatLog = uMan.CombatLog;
 
-        HeroDisplay pHD = coMan.PlayerHero.GetComponent<HeroDisplay>();
+        HeroDisplay pHD = pMan.HeroObject.GetComponent<HeroDisplay>();
         GameObject pBase = pHD.HeroBase;
         GameObject pFrame = pHD.HeroFrame;
         GameObject pStats = pHD.HeroStats;
         GameObject pName = pHD.HeroNameObject;
 
-        HeroDisplay eHD = coMan.EnemyHero.GetComponent<HeroDisplay>();
+        HeroDisplay eHD = enMan.HeroObject.GetComponent<HeroDisplay>();
         GameObject eBase = eHD.HeroBase;
         GameObject eFrame = eHD.HeroFrame;
         GameObject eStats = eHD.HeroStats;
@@ -658,10 +749,10 @@ public class AnimationManager : MonoBehaviour
         eStats.transform.localPosition = new Vector2(eStatsStart.x, eStatsStart.y + startBuffer);
         eName.transform.localPosition = eNameEnd;
 
-        uMan.SelectTarget(coMan.PlayerHero, UIManager.SelectionType.Highlighted);
+        uMan.SelectTarget(pMan.HeroObject, UIManager.SelectionType.Highlighted);
         PlayerManager.Instance.PlayerPowerSounds();
-        CreateParticleSystem(coMan.PlayerHero, ParticleSystemHandler.ParticlesType.Drag, 2);
-        CreateParticleSystem(coMan.EnemyHero, ParticleSystemHandler.ParticlesType.Drag, 2);
+        CreateParticleSystem(pMan.HeroObject, ParticleSystemHandler.ParticlesType.Drag, 2);
+        CreateParticleSystem(enMan.HeroObject, ParticleSystemHandler.ParticlesType.Drag, 2);
 
         do
         {
@@ -687,17 +778,17 @@ public class AnimationManager : MonoBehaviour
         while (distance > 700);
 
         uMan.CreateVersusPopup();
-        uMan.ShakeCamera(UIManager.Bump_Light);
+        ShakeCamera(Bump_Light);
         
         yield return new WaitForSeconds(0.5f);
-        uMan.SelectTarget(coMan.PlayerHero, UIManager.SelectionType.Disabled);
+        uMan.SelectTarget(pMan.HeroObject, UIManager.SelectionType.Disabled);
         
         yield return new WaitForSeconds(0.5f);
-        uMan.SelectTarget(coMan.EnemyHero, UIManager.SelectionType.Highlighted);
-        Sound enemyWinSound = EnemyManager.Instance.EnemyHero.HeroWin;
+        uMan.SelectTarget(enMan.HeroObject, UIManager.SelectionType.Highlighted);
+        Sound enemyWinSound = EnemyManager.Instance.HeroScript.HeroWin;
         auMan.StartStopSound(null, enemyWinSound);
         FunctionTimer.Create(() =>
-        uMan.SelectTarget(coMan.EnemyHero, UIManager.SelectionType.Disabled), 2);
+        uMan.SelectTarget(enMan.HeroObject, UIManager.SelectionType.Disabled), 2);
 
         EnemyHero eh = dMan.EngagedHero as EnemyHero;
         if (eh.IsBoss)
@@ -834,7 +925,7 @@ public class AnimationManager : MonoBehaviour
         }
         while (distance > bufferDistance);
 
-        coMan.PlayAttackSound(attacker);
+        auMan.PlayAttackSound(attacker);
         coMan.Strike(attacker, defender, true, true);
         yield return new WaitForSeconds(0.1f);
 
@@ -875,9 +966,9 @@ public class AnimationManager : MonoBehaviour
         auMan.StartStopSound("SFX_ShiftHand");
         float distance;
         float yTarget;
-        GameObject hand = coMan.PlayerHand;
+        GameObject hand = pMan.HandZone;
         if (isUpShift) yTarget = -350;
-        else yTarget = coMan.PlayerHandStart.y;
+        else yTarget = pMan.HandStart.y;
         Vector2 target = new Vector2(0, yTarget);
 
         do

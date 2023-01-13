@@ -18,13 +18,14 @@ MonoBehaviour:
   cardName: Darkriver Cutthroat
   cardType: Rogue
   cardSubType: 
-  isRare: 0
+  cardRarity: 0
   cardDescription: Darkriver Cutthroat is...
   cardPlaySound:
     name: 
     clip: {fileID: 8300000, guid: 530b9410ff796a3458b3fefa3c43fe11, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
   zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
@@ -32,10 +33,11 @@ MonoBehaviour:
   health: 4
   startingAbilities:
   - {fileID: 11400000, guid: edfe3b459c9ebb14eb21ba3bb2f309a0, type: 2}
-  - {fileID: 11400000, guid: c70292e15e4145b439be99062bc221d5, type: 2}
+  - {fileID: 11400000, guid: 179b324697ee1784e97a4b1115da8e40, type: 2}
   unitDeathSound:
     name: 
     clip: {fileID: 8300000, guid: 30ee00acbf198fd4783b8fef21833d75, type: 3}
     volume: 0.8
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}

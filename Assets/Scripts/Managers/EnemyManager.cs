@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyManager : MonoBehaviour
+public class EnemyManager : HeroManager
 {
     /* SINGELTON_PATTERN */
     public static EnemyManager Instance { get; private set; }
@@ -15,42 +15,75 @@ public class EnemyManager : MonoBehaviour
         else Destroy(gameObject);
     }
     
-    private CombatManager coMan;
     private EventManager evMan;
     private AnimationManager anMan;
     private CardManager caMan;
+    private PlayerManager pMan;
 
-    private EnemyHero enemyHero;
-    private int enemyHealth;
-    private int damageTaken_Turn;
-    private int energyPerTurn;
-    private int currentEnergy;
-    public bool IsMyTurn { get; set; }
-    public List<Card> EnemyDeckList { get; private set; }
-    public List<Card> CurrentEnemyDeck { get; private set; }
-    public int ReinforcementGroup { get; set; }
-
-    public EnemyHero EnemyHero
+    public override bool IsMyTurn { get; set; }
+    public override int TurnNumber
     {
-        get => enemyHero;
+        get => turnNumber;
         set
         {
-            enemyHero = value;
-            if (EnemyDeckList == null || CurrentEnemyDeck == null) return;
-            EnemyDeckList.Clear();
+            turnNumber = value;
 
-            if (value == null)
+            int surgeDelay = GameManager.Instance.GetSurgeDelay(coMan.DifficultyLevel);
+            if (TurnNumber > 0 && TurnNumber % surgeDelay == 0)
             {
-                CurrentEnemyDeck.Clear();
+                int surgeCount = TurnNumber / surgeDelay;
+                if (surgeCount < 1)
+                {
+                    Debug.LogError("SURGE COUNT < 1!");
+                    return;
+                }
+
+                for (int i = 0; i < surgeCount; i++)
+                    evMan.NewDelayedAction(() => Surge(), 0.5f, true);
+
+                evMan.NewDelayedAction(() => SurgePopup(), 0.5f, true);
+
+                void SurgePopup()
+                {
+                    UIManager.Instance.CreateFleetingInfoPopup($"ENEMY SURGE!\n[{surgeCount}x]");
+                    anMan.CreateParticleSystem(null, ParticleSystemHandler.ParticlesType.Explosion, 2);
+                }
+                void Surge()
+                {
+                    GameObject surgeCard = caMan.DrawCard(this);
+                    if (surgeCard != null)
+                    {
+                        surgeCard.GetComponent<CardDisplay>().ChangeCurrentEnergyCost(-surgeCount);
+                    }
+                }
+            }
+        }
+    }
+    public int ReinforcementGroup { get; set; }
+    public EnemyHero EnemyHero { get => heroScript as EnemyHero; }
+    public override Hero HeroScript
+    {
+        get => heroScript;
+        set
+        {
+            heroScript = value;
+
+            if (DeckList == null || CurrentDeck == null) return;
+            DeckList.Clear();
+
+            if (heroScript == null)
+            {
+                CurrentDeck.Clear();
                 return;
             }
-            if (EnemyHero.Reinforcements[ReinforcementGroup] == null)
+
+            if ((heroScript as EnemyHero).Reinforcements[ReinforcementGroup] == null)
             {
                 Debug.LogError("REINFORCEMENTS NOT FOUND!");
                 return;
             }
 
-            Reinforcements reinforcements = enemyHero.Reinforcements[ReinforcementGroup];
+            Reinforcements reinforcements = (heroScript as EnemyHero).Reinforcements[ReinforcementGroup];
             List<UnitCard> refoUnits = reinforcements.ReinforcementUnits;
             List<ActionCard> refoActions = reinforcements.ReinforcementActions;
 
@@ -58,16 +91,8 @@ public class EnemyManager : MonoBehaviour
             foreach (ActionCard action in refoActions) caMan.AddCard(action, GameManager.ENEMY);
         }
     }
-    public int EnemyHealth
-    {
-        get => enemyHealth;
-        set
-        {
-            enemyHealth = value;
-            coMan.EnemyHero.GetComponent<HeroDisplay>().HeroHealth = enemyHealth;
-        }
-    }
-    public int MaxEnemyHealth
+
+    public override int MaxHealth
     {
         get
         {
@@ -76,69 +101,21 @@ public class EnemyManager : MonoBehaviour
             return GameManager.ENEMY_STARTING_HEALTH;
         }
     }
-    public int DamageTaken_Turn
-    {
-        get => damageTaken_Turn;
-        set
-        {
-            bool wasWounded;
-            if (damageTaken_Turn >= GameManager.WOUNDED_VALUE) wasWounded = true;
-            else wasWounded = false;
 
-            damageTaken_Turn = value;
-            bool isWounded;
-            if (damageTaken_Turn >= GameManager.WOUNDED_VALUE) isWounded = true;
-            else isWounded = false;
-            coMan.EnemyHero.GetComponent<HeroDisplay>().IsWounded = isWounded;
-
-            if (!wasWounded && isWounded)
-            {
-                EffectManager.Instance.TriggerModifiers_SpecialTrigger
-                    (ModifierAbility.TriggerType.EnemyHeroWounded, coMan.PlayerZoneCards);
-            }
-        }
-    }
-    public int EnergyPerTurn
+    protected override void Start()
     {
-        get => energyPerTurn;
-        set
-        {
-            energyPerTurn = value;
-            if (energyPerTurn > MaxEnergyPerTurn)
-                energyPerTurn = MaxEnergyPerTurn;
-            coMan.EnemyHero.GetComponent<HeroDisplay>().SetHeroEnergy(CurrentEnergy, energyPerTurn);
-        }
-    }
-    public int MaxEnergyPerTurn => GameManager.MAXIMUM_ENERGY_PER_TURN;
-    private int MaxEnergy => GameManager.MAXIMUM_ENERGY;
-    public int CurrentEnergy
-    {
-        get => currentEnergy;
-        set
-        {
-            currentEnergy = value;
-            if (currentEnergy > MaxEnergy) currentEnergy = MaxEnergy;
-            coMan.EnemyHero.GetComponent<HeroDisplay>().SetHeroEnergy(CurrentEnergy, energyPerTurn);
-
-            if (currentEnergy < 0)
-            {
-                Debug.LogError("NEGATIVE ENERGY LEFT <" + currentEnergy + ">");
-            }
-        }
-    }
-
-    private void Start()
-    {
-        coMan = CombatManager.Instance;
+        base.Start();
         evMan = EventManager.Instance;
         anMan = AnimationManager.Instance;
         caMan = CardManager.Instance;
+        pMan = PlayerManager.Instance;
     }
 
-    public void StartCombat()
+    public override void ResetForCombat()
     {
-        EnemyDeckList = new List<Card>();
-        CurrentEnemyDeck = new List<Card>();
+        base.ResetForCombat();
+        DeckList.Clear();
+        CurrentDeck.Clear();
         ReinforcementGroup = 0; // FOR TESTING ONLY?
     }
 
@@ -146,20 +123,22 @@ public class EnemyManager : MonoBehaviour
     {
         List<GameObject> cardsToReplace = new List<GameObject>();
 
-        foreach (GameObject card in coMan.EnemyHandCards)
+        foreach (GameObject card in HandZoneCards)
         {
             CardDisplay cd = card.GetComponent<CardDisplay>();
             if (cd.CurrentEnergyCost > 2) cardsToReplace.Add(card);
         }
 
-        foreach (GameObject card in cardsToReplace) coMan.DiscardCard(card);
+        foreach (GameObject card in cardsToReplace) caMan.DiscardCard(card);
         for (int i = 0; i < cardsToReplace.Count; i++)
             evMan.NewDelayedAction(() =>
-            coMan.DrawCard(GameManager.ENEMY), 0.5f, true);
+            caMan.DrawCard(this), 0.5f, true);
     }
 
     public void StartEnemyTurn()
     {
+        TurnNumber++; // TESTING
+
         evMan.NewDelayedAction(() => ReplenishEnergy(), 0);
 
         evMan.NewDelayedAction(() =>
@@ -167,7 +146,7 @@ public class EnemyManager : MonoBehaviour
 
         evMan.NewDelayedAction(() => TurnDraw(), 1);
 
-        evMan.NewDelayedAction(() => CreateActionSchedule(), 0); // TESTING
+        evMan.NewDelayedAction(() => CreateActionSchedule(), 0);
         
         void CreateActionSchedule()
         {
@@ -182,31 +161,32 @@ public class EnemyManager : MonoBehaviour
         }
         bool HasActionsRemaining()
         {
-            foreach (GameObject card in coMan.EnemyHandCards)
-                if (coMan.IsPlayable(card, true)) return true;
+            foreach (GameObject card in HandZoneCards)
+                if (caMan.IsPlayable(card, true)) return true;
 
-            foreach (GameObject unit in coMan.EnemyZoneCards)
-                if (coMan.CanAttack(unit, null, true, true)) return true;
+            foreach (GameObject unit in PlayZoneCards)
+                if (coMan.CanAttack(unit, null, true, true) &&
+                    FindDefender(unit) != null) return true;
 
             return false;
         }
         void ReplenishEnergy()
         {
             int startEnergy = CurrentEnergy;
-            if (energyPerTurn < MaxEnergyPerTurn) energyPerTurn++;
+            if (EnergyPerTurn < MaxEnergyPerTurn) EnergyPerTurn++;
             CurrentEnergy = EnergyPerTurn;
             int energyChange = CurrentEnergy - startEnergy;
-            anMan.ModifyHeroEnergyState(energyChange, coMan.EnemyHero);
+            anMan.ModifyHeroEnergyState(energyChange, HeroObject);
         }
         void TurnDraw()
         {
-            if (coMan.EnemyHandCards.Count >= GameManager.MAX_HAND_SIZE)
+            if (HandZoneCards.Count >= GameManager.MAX_HAND_SIZE)
             {
                 UIManager.Instance.CreateFleetingInfoPopup("Enemy hand is full!");
                 Debug.Log("ENEMY HAND IS FULL!");
                 return;
             }
-            coMan.DrawCard(GameManager.ENEMY);
+            caMan.DrawCard(this);
         }
     }
 
@@ -230,7 +210,7 @@ public class EnemyManager : MonoBehaviour
             List<GameObject> priorityCards = new List<GameObject>();
 
             List<GameObject> highestCostCards = new List<GameObject>();
-            foreach (GameObject card in coMan.EnemyHandCards)
+            foreach (GameObject card in HandZoneCards)
                 highestCostCards.Add(card);
 
             highestCostCards.Sort((c1, c2) =>
@@ -255,7 +235,7 @@ public class EnemyManager : MonoBehaviour
             {
                 CardDisplay cd = card.GetComponent<CardDisplay>();
                 int cost = cd.CurrentEnergyCost;
-                if ((totalCost + cost) > CurrentEnergy || !coMan.IsPlayable(card, true)) return;
+                if ((totalCost + cost) > CurrentEnergy || !caMan.IsPlayable(card, true)) return;
                 priorityCards.Add(card);
                 totalCost += cost;
                 cardsToPlay++;
@@ -282,20 +262,20 @@ public class EnemyManager : MonoBehaviour
 
         void PlayCard(GameObject card)
         {
-            if (coMan.IsPlayable(card, true))
+            if (caMan.IsPlayable(card, true))
             {
                 CardDisplay cd = card.GetComponent<CardDisplay>();
-                coMan.PlayCard(card);
+                caMan.PlayCard(card);
             }
         }
     }
 
     private void CreateAttackSchedule()
     {
-        foreach (GameObject ally in coMan.EnemyZoneCards)
+        foreach (GameObject ally in PlayZoneCards)
         {
             UnitCardDisplay ucd = CombatManager.GetUnitDisplay(ally);
-            if (CanAttack(ally)) SchedulePreAttack(ally);
+            if (CanAttack(ally) && FindDefender(ally) != null) SchedulePreAttack(ally);
         }
         
         void SchedulePreAttack(GameObject attacker) =>
@@ -303,8 +283,15 @@ public class EnemyManager : MonoBehaviour
 
         void ScheduleAttack(GameObject attacker)
         {
-            if (CanAttack(attacker)) evMan.NewDelayedAction(() =>
-            ResolveAttack(attacker), 0.5f, true);
+            if (CanAttack(attacker))
+            {
+                if (FindDefender(attacker) != null)
+                {
+                    evMan.NewDelayedAction(() =>
+                    ResolveAttack(attacker), 0.5f, true);
+                }
+                else Debug.LogError("NO VALID DEFENDERS!");
+            }
         }
 
         void ResolveAttack(GameObject attacker)
@@ -312,7 +299,8 @@ public class EnemyManager : MonoBehaviour
             if (CanAttack(attacker))
             {
                 GameObject defender = FindDefender(attacker);
-                coMan.Attack(attacker, defender);
+                if (defender != null) coMan.Attack(attacker, defender);
+                else Debug.LogError("NO VALID DEFENDERS!");
             }
         }
 
@@ -324,7 +312,7 @@ public class EnemyManager : MonoBehaviour
                 return false;
             }
 
-            if (!coMan.EnemyZoneCards.Contains(unit))
+            if (!PlayZoneCards.Contains(unit))
             {
                 Debug.Log("ENEMY ATTACKER HAS MOVED!");
                 return false;
@@ -341,7 +329,7 @@ public class EnemyManager : MonoBehaviour
     private int TotalEnemyPower()
     {
         int totalPower = 0;
-        foreach (GameObject unit in coMan.EnemyZoneCards)
+        foreach (GameObject unit in PlayZoneCards)
         {
             UnitCardDisplay ucd = CombatManager.GetUnitDisplay(unit);
             if (!ucd.IsExhausted) totalPower += ucd.CurrentPower;
@@ -352,7 +340,7 @@ public class EnemyManager : MonoBehaviour
     private int TotalPlayerPower()
     {
         int totalPower = 0;
-        foreach (GameObject unit in coMan.PlayerZoneCards)
+        foreach (GameObject unit in pMan.PlayZoneCards)
             totalPower += CombatManager.GetUnitDisplay(unit).CurrentPower;
         return totalPower;
     }
@@ -360,11 +348,11 @@ public class EnemyManager : MonoBehaviour
     private GameObject FindDefender(GameObject attacker)
     {
         bool playerHasDefender = false;
-        int playerHealth = PlayerManager.Instance.PlayerHealth;
+        int playerHealth = PlayerManager.Instance.CurrentHealth;
         List<GameObject> legalDefenders = new List<GameObject>();
         UnitCardDisplay attackerDisplay = attacker.GetComponent<UnitCardDisplay>();
 
-        foreach (GameObject unit in coMan.PlayerZoneCards)
+        foreach (GameObject unit in pMan.PlayZoneCards)
         {
             UnitCardDisplay ucd = CombatManager.GetUnitDisplay(unit);
             if (ucd.CurrentHealth < 1) continue;
@@ -377,7 +365,7 @@ public class EnemyManager : MonoBehaviour
             }
         }
 
-        foreach (GameObject playerUnit in coMan.PlayerZoneCards)
+        foreach (GameObject playerUnit in pMan.PlayZoneCards)
         {
             UnitCardDisplay ucd = CombatManager.GetUnitDisplay(playerUnit);
             if (ucd.CurrentHealth < 1) continue;
@@ -393,16 +381,16 @@ public class EnemyManager : MonoBehaviour
         }
 
         // If player hero is <LETHALLY THREATENED>
-        if (!playerHasDefender && TotalEnemyPower() >= playerHealth) return coMan.PlayerHero;
+        if (!playerHasDefender && TotalEnemyPower() >= playerHealth) return pMan.HeroObject;
 
         // If enemy hero is <UNTHREATENED>
-        if (EnemyHealth > (MaxEnemyHealth * 0.65f) && TotalPlayerPower() < (EnemyHealth * 0.35f))
+        if (CurrentHealth > (MaxHealth * 0.65f) && TotalPlayerPower() < (CurrentHealth * 0.35f))
         {
             // Attack an enemy unless there are no good attacks
             return GetBestDefender(!playerHasDefender); // Return good attacks only if player does not have defender
         }
         // If enemy hero is <MILDLY THREATENED>
-        else if (EnemyHealth > (MaxEnemyHealth * 0.5f) && TotalPlayerPower() < (EnemyHealth * 0.5f))
+        else if (CurrentHealth > (MaxHealth * 0.5f) && TotalPlayerPower() < (CurrentHealth * 0.5f))
         {
             /*
              * If player hero is <SEVERELY THREATENED> or the attacker has Infiltrate,
@@ -412,7 +400,7 @@ public class EnemyManager : MonoBehaviour
             {
                 if (TotalEnemyPower() >= playerHealth * 0.75f ||
                     CardManager.GetTrigger(attacker, CardManager.TRIGGER_INFILTRATE))
-                    return coMan.PlayerHero;
+                    return pMan.HeroObject;
             }
         }
 
@@ -476,19 +464,19 @@ public class EnemyManager : MonoBehaviour
                     defender = legalDefender;
                 }
             }
-            if (defender == null) return coMan.PlayerHero;
+            if (defender == null && !playerHasDefender) return pMan.HeroObject;
             return defender;
         }
     }
-
+    
     public void UseHeroPower()
     {
-        List<EffectGroup> groupList = EnemyHero.EnemyHeroPower.EffectGroupList;
-        GameObject heroPower = coMan.EnemyHero.GetComponent<EnemyHeroDisplay>().HeroPower;
+        List<EffectGroup> groupList = HeroScript.HeroPower.EffectGroupList;
+        GameObject heroPower = HeroObject.GetComponent<EnemyHeroDisplay>().HeroPower;
         EffectManager.Instance.StartEffectGroupList(groupList, heroPower);
 
         Sound[] soundList;
-        soundList = EnemyHero.EnemyHeroPower.PowerSounds;
+        soundList = HeroScript.HeroPower.PowerSounds;
         foreach (Sound s in soundList) AudioManager.Instance.StartStopSound(null, s);
         AnimationManager.Instance.TriggerHeroPower(heroPower);
     }

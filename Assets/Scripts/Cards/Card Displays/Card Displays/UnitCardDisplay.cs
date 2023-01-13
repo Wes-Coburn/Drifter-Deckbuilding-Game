@@ -459,7 +459,9 @@ public class UnitCardDisplay : CardDisplay
 
         if (displayIndex == -1)
         {
-            Debug.LogError("ABILITY ICON NOT FOUND!");
+            if (abilityName != CardManager.ABILITY_BLITZ)
+                Debug.LogError("ABILITY ICON FOR <" + abilityName + "> NOT FOUND!");
+
             return;
         }
 

@@ -82,10 +82,10 @@ public class GameManager : MonoBehaviour
     // Tutorial Enemy
     public const int TUTORIAL_STARTING_HEALTH = 10;
     // Boss Enemy
-    public const int BOSS_BONUS_ENERGY = 2;
+    public const int BOSS_BONUS_ENERGY = 0; // Unnecessary if 0
 
     // Aether Rewards
-    public const int IGNORE_CARD_AETHER = 10;
+    public const int IGNORE_CARD_AETHER = 15;
     public const int REDRAW_CARDS_AETHER = 5;
     // Sell Cards
     public const int SELL_COMMON_CARD_VALUE = 10;
@@ -114,8 +114,8 @@ public class GameManager : MonoBehaviour
     public const int SELL_RARE_ITEM_VALUE = 20;
     // Reputation
     public const int REPUTATION_TIER_1 = 10;
-    public const int REPUTATION_TIER_2 = 20;
-    public const int REPUTATION_TIER_3 = 30;
+    public const int REPUTATION_TIER_2 = 15;
+    public const int REPUTATION_TIER_3 = 20;
 
     // Combat Reward
     public const int AETHER_COMBAT_REWARD_1 = 30;
@@ -125,6 +125,8 @@ public class GameManager : MonoBehaviour
     public const int AETHER_COMBAT_REWARD_BOSS_1 = 60;
     public const int AETHER_COMBAT_REWARD_BOSS_2 = 70;
     public const int AETHER_COMBAT_REWARD_BOSS_3 = 80;
+
+    public const int ADDITIONAL_AETHER_REWARD = 10;
 
     // Augments
     public const int AETHER_MAGNET_REWARD = 20;
@@ -191,6 +193,7 @@ public class GameManager : MonoBehaviour
         auMan = AudioManager.Instance;
         dMan = DialogueManager.Instance;
         anMan = AnimationManager.Instance;
+
         currentTip = Random.Range(0, loadingTips.Length);
         ActiveNPCHeroes = new List<NPCHero>();
         ActiveLocations = new List<Location>();
@@ -273,7 +276,7 @@ public class GameManager : MonoBehaviour
 
         foreach (Hero hero in heroes)
         {
-            if (hero.HeroName == playerHeroName) pMan.PlayerHero = hero as PlayerHero;
+            if (hero.HeroName == playerHeroName) pMan.HeroScript = hero as PlayerHero;
             else if (hero.HeroName == enemyHeroName)
             {
                 enemyHero.LoadHero(hero);
@@ -337,21 +340,18 @@ public class GameManager : MonoBehaviour
         Narrative LoadNarrative(string narrative)
         {
             foreach (Narrative n in allNarratives)
-            {
-                if (n.NarrativeName == narrative)
-                    return n;
-            }
-            Debug.LogError("NARRATIVE + " + narrative + " NOT FOUND!");
+                if (n.NarrativeName == narrative) return n;
+            
+            Debug.LogError($"NARRATIVE {narrative} NOT FOUND!");
             return null;
         }
 
+        // Narratives
         settingNarrative = LoadNarrative("Welcome to the Drift");
         newGameNarrative = LoadNarrative("Part 1: Stuck in Sylus");
-
-        // Location
-        //CurrentLocation = GetActiveLocation(LoadLocation("Sekherd and 7th"));
         CurrentNarrative = settingNarrative;
 
+        // Locations
         Location[] allLocations = Resources.LoadAll<Location>("Locations");
         Location LoadLocation(string location)
         {
@@ -360,7 +360,7 @@ public class GameManager : MonoBehaviour
                 if (l.LocationFullName == location)
                     return l;
             }
-            Debug.LogError("NARRATIVE " + location + " NOT FOUND!");
+            Debug.LogError($"NARRATIVE {location} NOT FOUND!");
             return null;
         }
         GetActiveLocation(LoadLocation("Your Ship"));
@@ -380,7 +380,7 @@ public class GameManager : MonoBehaviour
         ActionShopLoyalty = 3; // First action free
         ShopLoyalty = 3; // First item free
         pMan.AetherCells = PLAYER_START_AETHER;
-        pMan.PlayerDeckList.Clear();
+        pMan.DeckList.Clear();
 
         // REPUTATION
         int startRep = PLAYER_START_UNITS;
@@ -411,34 +411,20 @@ public class GameManager : MonoBehaviour
         }
         ActiveLocations.Clear();
         VisitedLocations.Clear();
+
         // Player Manager
         // Don't destroy pMan objects, they are assets not instances
-        pMan.PlayerHero = null;
-        pMan.PlayerDeckList.Clear();
-        pMan.CurrentPlayerDeck.Clear();
+        pMan.HeroScript = null;
+        pMan.DeckList.Clear();
+        pMan.CurrentDeck.Clear();
         //pMan.AetherCells = 0;
         pMan.HeroAugments.Clear();
         pMan.HeroItems.Clear();
         // Enemy Manager
-        Destroy(enMan.EnemyHero);
-        enMan.EnemyHero = null;
+        Destroy(enMan.HeroScript);
+        enMan.HeroScript = null;
         // Dialogue Manager
         dMan.EndDialogue();
-        // Effect Manager
-        foreach (Effect e in efMan.GiveNextEffects_Player) Destroy(e);
-        efMan.GiveNextEffects_Player.Clear();
-        foreach (Effect e in efMan.ChangeNextCostEffects_Player) Destroy(e);
-        efMan.ChangeNextCostEffects_Player.Clear();
-        foreach (ModifyNextEffect m in efMan.ModifyNextEffects_Player) Destroy(m);
-        efMan.ModifyNextEffects_Player.Clear();
-
-        foreach (Effect e in efMan.GiveNextEffects_Enemy) Destroy(e);
-        efMan.GiveNextEffects_Enemy.Clear();
-        foreach (Effect e in efMan.ChangeNextCostEffects_Enemy) Destroy(e);
-        foreach (ModifyNextEffect m in efMan.ModifyNextEffects_Enemy) Destroy(m);
-        efMan.ModifyNextEffects_Enemy.Clear();
-
-        efMan.ChangeNextCostEffects_Enemy.Clear();
         // UI Manager
         uMan.ClearAugmentBar();
         uMan.ClearItemBar();
@@ -464,10 +450,7 @@ public class GameManager : MonoBehaviour
     {
         auMan.MusicVolume = PlayerPrefs.GetFloat(MUSIC_VOLUME, 1);
         auMan.SFXVolume = PlayerPrefs.GetFloat(SFX_VOLUME, 1);
-
-        bool hideExplicit = false;
-        if (PlayerPrefs.GetInt(HIDE_EXPLICIT_LANGUAGE, 1) == 1) hideExplicit = true;
-        HideExplicitLanguage = hideExplicit;
+        HideExplicitLanguage = PlayerPrefs.GetInt(HIDE_EXPLICIT_LANGUAGE, 1) == 1;
     }
 
     /******
@@ -475,17 +458,12 @@ public class GameManager : MonoBehaviour
      * ****** SAVE_GAME
      * *****
      *****/
-    public bool CheckSave()
-    {
-        GameData data = SaveLoad.LoadGame();
-        if (data == null) return false;
-        else return true;
-    }
+    public bool CheckSave() => SaveLoad.LoadGame() != null;
     public void SaveGame() // PUBLIC FOR BETA ONLY
     {
-        string[] deckList = new string[pMan.PlayerDeckList.Count];
+        string[] deckList = new string[pMan.DeckList.Count];
         for (int i = 0; i < deckList.Length; i++)
-            deckList[i] = pMan.PlayerDeckList[i].CardName;
+            deckList[i] = pMan.DeckList[i].CardName;
 
         string[] augments = new string[pMan.HeroAugments.Count];
         for (int i = 0; i < augments.Length; i++)
@@ -502,7 +480,7 @@ public class GameManager : MonoBehaviour
 
             DialogueClip clip = ActiveNPCHeroes[i].NextDialogueClip;
             string clipName = clip.ToString();
-            clipName = clipName.Replace(" (" + clip.GetType().Name + ")", "");
+            clipName = clipName.Replace($" ({clip.GetType().Name})", "");
             npcsAndClips[i, 1] = clipName;
         }
 
@@ -533,12 +511,13 @@ public class GameManager : MonoBehaviour
             narrativeName = narrativeName.Replace(" (Narrative)", "");
         }
 
-        GameData data = new GameData(CurrentHour, narrativeName, pMan.PlayerHero.HeroName,
+        GameData data = new GameData(CurrentHour, narrativeName, pMan.HeroScript.HeroName,
             deckList, augments, items, pMan.AetherCells,
             npcsAndClips, locationsNPCsObjectives, VisitedLocations.ToArray(),
             shopItems, recruitUnits, shopActions,
             RecruitLoyalty, ActionShopLoyalty, ShopLoyalty,
             Reputation_Mages, Reputation_Mutants, Reputation_Rogues, Reputation_Techs, Reputation_Warriors);
+        
         SaveLoad.SaveGame(data);
     }
 
@@ -558,26 +537,26 @@ public class GameManager : MonoBehaviour
         // CURRENT NARRATIVE
         if (data.CurrentNarrative != "")
         {
-            CurrentNarrative = Resources.Load<Narrative>("Narratives/" + data.CurrentNarrative);
-            if (CurrentNarrative == null) Debug.LogError("NARRATIVE " + data.CurrentNarrative + " NOT FOUND!");
+            CurrentNarrative = Resources.Load<Narrative>($"Narratives/{data.CurrentNarrative}");
+            if (CurrentNarrative == null) Debug.LogError($"NARRATIVE {data.CurrentNarrative} NOT FOUND!");
         }
         else CurrentNarrative = null;
 
         // PLAYER HERO
         PlayerHero pHero;
-        pHero = Resources.Load<PlayerHero>("Heroes/Player Heroes/" + data.PlayerHero);
-        if (pHero == null) Debug.LogError("HERO " + data.PlayerHero + " NOT FOUND!");
-        else pMan.PlayerHero = pHero;
+        pHero = Resources.Load<PlayerHero>($"Heroes/Player Heroes/{data.PlayerHero}");
+        if (pHero == null) Debug.LogError($"HERO {data.PlayerHero} NOT FOUND!");
+        else pMan.HeroScript = pHero;
 
         // DECK LIST
-        pMan.PlayerDeckList.Clear();
+        pMan.DeckList.Clear();
         for (int i = 0; i < data.PlayerDeck.Length; i++)
         {
             Card card;
-            card = Resources.Load<Card>("Cards_Starting/" + data.PlayerDeck[i]);
-            if (card == null) card = Resources.Load<Card>("Cards_Units/" + data.PlayerDeck[i]);
-            if (card == null) card = Resources.Load<Card>("Cards_Actions/" + data.PlayerDeck[i]);
-            if (card == null) Debug.LogError("CARD " + data.PlayerDeck[i] + " NOT FOUND!");
+            card = Resources.Load<Card>($"Cards_Starting/{data.PlayerDeck[i]}");
+            if (card == null) card = Resources.Load<Card>($"Cards_Units/{data.PlayerDeck[i]}");
+            if (card == null) card = Resources.Load<Card>($"Cards_Actions/{data.PlayerDeck[i]}");
+            if (card == null) Debug.LogError($"CARD {data.PlayerDeck[i]} NOT FOUND!");
             else caMan.AddCard(card, PLAYER);
         }
 
@@ -586,8 +565,8 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < data.PlayerAugments.Length; i++)
         {
             HeroAugment augment;
-            augment = Resources.Load<HeroAugment>("Hero Augments/" + data.PlayerAugments[i]);
-            if (augment == null) Debug.LogError("AUGMENT " + data.PlayerAugments[i] + " NOT FOUND!");
+            augment = Resources.Load<HeroAugment>($"Hero Augments/{data.PlayerAugments[i]}");
+            if (augment == null) Debug.LogError($"AUGMENT {data.PlayerAugments[i]} NOT FOUND!");
             else pMan.HeroAugments.Add(augment);
         }
 
@@ -596,8 +575,8 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < data.PlayerItems.Length; i++)
         {
             HeroItem item;
-            item = Resources.Load<HeroItem>("Hero Items/" + data.PlayerItems[i]);
-            if (item == null) Debug.LogError("ITEM " + data.PlayerItems[i] + " NOT FOUND!");
+            item = Resources.Load<HeroItem>($"Hero Items/{data.PlayerItems[i]}");
+            if (item == null) Debug.LogError($"ITEM {data.PlayerItems[i]} NOT FOUND!");
             else pMan.HeroItems.Add(item);
         }
 
@@ -609,14 +588,14 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < data.NPCSAndClips.Length/2; i++)
         {
             NPCHero npc;
-            npc = Resources.Load<NPCHero>("Heroes/NPC Heroes/" + data.NPCSAndClips[i, 0]);
-            if (npc == null) Debug.LogError("NPC " + data.NPCSAndClips[i, 0] + " NOT FOUND!");
+            npc = Resources.Load<NPCHero>($"Heroes/NPC Heroes/{data.NPCSAndClips[i, 0]}");
+            if (npc == null) Debug.LogError($"NPC {data.NPCSAndClips[i, 0]} NOT FOUND!");
             else
             {
                 npc = GetActiveNPC(npc);
                 DialogueClip clip;
-                clip = Resources.Load<DialogueClip>("Dialogue/" + npc.HeroName + "/" + data.NPCSAndClips[i, 1]);
-                if (clip == null) Debug.LogError("CLIP " + data.NPCSAndClips[i, 1] + " FOR " + npc.HeroName + " NOT FOUND!");
+                clip = Resources.Load<DialogueClip>($"Dialogue/{npc.HeroName}/{data.NPCSAndClips[i, 1]}");
+                if (clip == null) Debug.LogError($"CLIP {data.NPCSAndClips[i, 1]} FOR {npc.HeroName} NOT FOUND!");
                 else npc.NextDialogueClip = clip;
             }
         }
@@ -627,15 +606,15 @@ public class GameManager : MonoBehaviour
         {
             Location loc;
             string name = data.LocationsNPCsObjectives[i, 0];
-            loc = Resources.Load<Location>("Random Encounters/" + name);
-            if (loc == null) loc = Resources.Load<Location>("Locations/" + name);
-            if (loc == null) Debug.LogError("LOCATION " + name + " NOT FOUND!");
+            loc = Resources.Load<Location>($"Random Encounters/{name}");
+            if (loc == null) loc = Resources.Load<Location>($"Locations/{name}");
+            if (loc == null) Debug.LogError($"LOCATION {name} NOT FOUND!");
             else
             {
                 loc = GetActiveLocation(loc);
 
                 // null checks
-                loc.CurrentNPC = GetActiveNPC(Resources.Load<NPCHero>("Heroes/NPC Heroes/" + data.LocationsNPCsObjectives[i, 1]));
+                loc.CurrentNPC = GetActiveNPC(Resources.Load<NPCHero>($"Heroes/NPC Heroes/{data.LocationsNPCsObjectives[i, 1]}"));
                 loc.CurrentObjective = data.LocationsNPCsObjectives[i, 2];
             }
         }
@@ -710,10 +689,8 @@ public class GameManager : MonoBehaviour
 
         foreach (Location loc in ActiveLocations)
         {
-            GameObject location = Instantiate(locationIconPrefab,
-                uMan.CurrentCanvas.transform);
-            LocationIcon icon = location.GetComponent<LocationIcon>();
-            icon.Location = loc;
+            GameObject location = Instantiate(locationIconPrefab, uMan.CurrentCanvas.transform);
+            location.GetComponent<LocationIcon>().Location = loc;
         }
 
         SaveGame();
@@ -730,34 +707,41 @@ public class GameManager : MonoBehaviour
 
     public enum DifficultyLevel
     {
-        Standard_1,
-        Standard_2,
-        Standard_3,
-
-        Boss_1,
-        Boss_2,
-        Boss_3
+        Standard_1 = 1,
+        Standard_2 = 2,
+        Boss_1     = 3,
+        Standard_3 = 4,
+        Boss_2     = 5,
     }
+    //public int GetSurgeDelay(int difficulty) => 7 - (2 * (difficulty - 1));
+    public int GetSurgeDelay(int difficulty) => 6 - difficulty;
     public int GetAetherReward(DifficultyLevel difficultyLevel)
     {
+        int reward;
         switch (difficultyLevel)
         {
             case DifficultyLevel.Standard_1:
-                return AETHER_COMBAT_REWARD_1;
+                reward = AETHER_COMBAT_REWARD_1;
+                break;
             case DifficultyLevel.Standard_2:
-                return AETHER_COMBAT_REWARD_2;
+                reward = AETHER_COMBAT_REWARD_2;
+                break;
             case DifficultyLevel.Standard_3:
-                return AETHER_COMBAT_REWARD_3;
+                reward = AETHER_COMBAT_REWARD_3;
+                break;
+
             case DifficultyLevel.Boss_1:
-                return AETHER_COMBAT_REWARD_BOSS_1;
+                reward = AETHER_COMBAT_REWARD_BOSS_1;
+                break;
             case DifficultyLevel.Boss_2:
-                return AETHER_COMBAT_REWARD_BOSS_2;
-            case DifficultyLevel.Boss_3:
-                return AETHER_COMBAT_REWARD_BOSS_3;
+                reward = AETHER_COMBAT_REWARD_BOSS_2;
+                break;
+            default:
+                Debug.LogError("INVALID DIFFICULTY!");
+                return 0;
         }
 
-        Debug.LogError("INVALID DIFFICULTY!");
-        return 0;
+        return reward + ADDITIONAL_AETHER_REWARD * (coMan.DifficultyLevel - 1);
     }
 
     /******
@@ -910,7 +894,7 @@ public class GameManager : MonoBehaviour
             if (showTrigger) uMan.SetReputation(repType, 0, true);
 
             if (repEffects != null && repEffects.Count > 0)
-                efMan.StartEffectGroupList(repEffects, coMan.PlayerHero);
+                efMan.StartEffectGroupList(repEffects, pMan.HeroObject);
         }
     }
 
@@ -927,7 +911,8 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        IsNewHour = true; // TESTING
+        // NEW HOUR
+        IsNewHour = true;
         // NEW DAY
         if (CurrentHour == 4) CurrentHour = 1;
         // NEXT HOUR
@@ -963,7 +948,7 @@ public class GameManager : MonoBehaviour
                 if (location.IsClosed_Hour3) return false;
                 return true;
             default:
-                Debug.LogError("INVALID HOUR! <" + CurrentHour + ">");
+                Debug.LogError($"INVALID HOUR! <{CurrentHour}>");
                 return false;
         }
     }
@@ -1025,13 +1010,13 @@ public class GameManager : MonoBehaviour
      *****/
     public void StartNarrative()
     {
-        auMan.StartStopSound("Soundtrack_Narrative1",
-            null, AudioManager.SoundType.Soundtrack);
+        auMan.StartStopSound("Soundtrack_Narrative1", null,
+            AudioManager.SoundType.Soundtrack);
         auMan.StartStopSound(null, CurrentNarrative.NarrativeStartSound);
-        auMan.StartStopSound(null,
-            CurrentNarrative.NarrativeSoundscape, AudioManager.SoundType.Soundscape);
-        NarrativeSceneDisplay nsd = FindObjectOfType<NarrativeSceneDisplay>();
-        nsd.CurrentNarrative = CurrentNarrative;
+        auMan.StartStopSound(null, CurrentNarrative.NarrativeSoundscape,
+            AudioManager.SoundType.Soundscape);
+
+        FindObjectOfType<NarrativeSceneDisplay>().CurrentNarrative = CurrentNarrative;
     }
     public void EndNarrative()
     {
@@ -1053,40 +1038,24 @@ public class GameManager : MonoBehaviour
         uMan.StartCombatScene();
         coMan.StartCombatScene();
 
-        PlayerHeroDisplay pHD = coMan.PlayerHero.GetComponent<PlayerHeroDisplay>();
-        EnemyHeroDisplay eHD = coMan.EnemyHero.GetComponent<EnemyHeroDisplay>();
-        uMan.EndTurnButton.SetActive(false);
+        pMan.ResetForCombat();
+        enMan.ResetForCombat();
+
+        PlayerHeroDisplay pHD = pMan.HeroObject.GetComponent<PlayerHeroDisplay>();
+        EnemyHeroDisplay eHD = enMan.HeroObject.GetComponent<EnemyHeroDisplay>();
+
         pHD.HeroBase.SetActive(false);
         pHD.HeroStats.SetActive(false);
         pHD.HeroNameObject.SetActive(false);
+
         eHD.HeroBase.SetActive(false);
         eHD.HeroStats.SetActive(false);
         eHD.HeroNameObject.SetActive(false);
+
+        uMan.EndTurnButton.SetActive(false);
         uMan.CombatLog.SetActive(false);
 
-        // EFFECT MANAGER
-        foreach (Effect e in efMan.GiveNextEffects_Player) Destroy(e);
-        efMan.GiveNextEffects_Player.Clear();
-        foreach (Effect e in efMan.ChangeNextCostEffects_Player) Destroy(e);
-        efMan.ChangeNextCostEffects_Player.Clear();
-        foreach (Effect e in efMan.GiveNextEffects_Enemy) Destroy(e);
-        efMan.GiveNextEffects_Enemy.Clear();
-        foreach (Effect e in efMan.ChangeNextCostEffects_Enemy) Destroy(e);
-        efMan.ChangeNextCostEffects_Enemy.Clear();
-
-        // CREATED CARDS
-        coMan.ExploitsPlayed_Player = 0;
-        coMan.InventionsPlayed_Player = 0;
-        coMan.SchemesPlayed_Player = 0;
-        coMan.ExtractionsPlayed_Player = 0;
-
-        coMan.ExploitsPlayed_Enemy = 0;
-        coMan.InventionsPlayed_Enemy = 0;
-        coMan.SchemesPlayed_Enemy = 0;
-        coMan.ExtractionsPlayed_Enemy = 0;
-
         // ENEMY MANAGER
-        enMan.StartCombat();
         EnemyHero enemyHero = dMan.EngagedHero as EnemyHero;
         if (enemyHero == null)
         {
@@ -1095,35 +1064,40 @@ public class GameManager : MonoBehaviour
         }
 
         // ENEMY HERO
-        enMan.EnemyHero = enemyHero;
+        enMan.HeroScript = enemyHero;
 
         int enemyHealth;
         if (IsTutorial) enemyHealth = TUTORIAL_STARTING_HEALTH;
         else enemyHealth = ENEMY_STARTING_HEALTH;
-        enMan.EnemyHealth = enemyHealth;
+        enMan.CurrentHealth = enemyHealth;
 
         int energyPerTurn = START_ENERGY_PER_TURN;
-        if (enMan.EnemyHero.IsBoss) energyPerTurn += BOSS_BONUS_ENERGY;
+        if ((enMan.HeroScript as EnemyHero).IsBoss)
+            energyPerTurn += BOSS_BONUS_ENERGY + coMan.DifficultyLevel - 1;
         enMan.EnergyPerTurn = energyPerTurn;
         enMan.CurrentEnergy = 0;
-        enMan.DamageTaken_Turn = 0;
+        enMan.DamageTakenTurn = 0;
+
+        enMan.TurnNumber = 0;
 
         // PLAYER MANAGER
-        pMan.PlayerHealth = pMan.MaxPlayerHealth;
+        pMan.CurrentHealth = pMan.MaxHealth;
         pMan.EnergyPerTurn = START_ENERGY_PER_TURN;
         pMan.CurrentEnergy = 0;
         pMan.HeroUltimateProgress = 0;
-        pMan.DamageTaken_Turn = 0;
+        pMan.DamageTakenTurn = 0;
         foreach (HeroItem item in pMan.HeroItems) // TESTING
             item.IsUsed = false;
+
+        pMan.TurnNumber = 0;
 
         // UPDATE DECKS
         caMan.UpdateDeck(PLAYER);
         caMan.UpdateDeck(ENEMY);
 
         // DISPLAY HEROES
-        coMan.PlayerHero.GetComponent<HeroDisplay>().HeroScript = pMan.PlayerHero;
-        coMan.EnemyHero.GetComponent<HeroDisplay>().HeroScript = enMan.EnemyHero;
+        pMan.HeroObject.GetComponent<HeroDisplay>().HeroScript = pMan.HeroScript;
+        enMan.HeroObject.GetComponent<HeroDisplay>().HeroScript = enMan.HeroScript;
 
         // SCHEDULE ACTIONS
         evMan.NewDelayedAction(() => anMan.CombatIntro(), 1);
@@ -1132,19 +1106,18 @@ public class GameManager : MonoBehaviour
 
         // AUDIO
         string soundtrack;
-        if (enMan.EnemyHero.IsBoss) soundtrack = "Soundtrack_CombatBoss1";
+        if ((enMan.HeroScript as EnemyHero).IsBoss) soundtrack = "Soundtrack_CombatBoss1";
         else soundtrack = "Soundtrack_Combat1";
         auMan.StartStopSound(soundtrack, null, AudioManager.SoundType.Soundtrack);
         auMan.StopCurrentSoundscape();
-        FunctionTimer.Create(() => auMan.StartStopSound("SFX_StartCombat1"), 0.15f); // TESTING
+        FunctionTimer.Create(() => auMan.StartStopSound("SFX_StartCombat1"), 0.15f);
 
         void CombatStart()
         {
-            uMan.CombatLogEntry("<b><color=\"green\">" + pMan.PlayerHero.HeroShortName +
-                "</color> VS <color=\"red\">" + enMan.EnemyHero.HeroName + "</b></color>");
+            uMan.CombatLogEntry($"<b><color=\"green\">{pMan.HeroScript.HeroShortName}</color> VS <color=\"red\">{enMan.HeroScript.HeroName}</b></color>");
 
-            caMan.ShuffleDeck(PLAYER, false);
-            caMan.ShuffleDeck(ENEMY, false);
+            caMan.ShuffleDeck(pMan, false);
+            caMan.ShuffleDeck(enMan, false);
 
             for (int i = 0; i < START_HAND_SIZE; i++)
                 evMan.NewDelayedAction(() => AllDraw(), 0.5f);
@@ -1172,7 +1145,7 @@ public class GameManager : MonoBehaviour
                     anMan.TriggerAugment(cognitiveMagnifier);
 
                     efMan.StartEffectGroupList(new List<EffectGroup>
-                    { cognitiveMagnifierEffect }, coMan.PlayerHero);
+                    { cognitiveMagnifierEffect }, pMan.HeroObject);
                 }
             }
 
@@ -1180,25 +1153,25 @@ public class GameManager : MonoBehaviour
 
             void AllDraw()
             {
-                coMan.DrawCard(PLAYER);
-                coMan.DrawCard(ENEMY);
+                caMan.DrawCard(pMan);
+                caMan.DrawCard(enMan);
             }
 
             void PlayStartingUnits()
             {
                 List<UnitCard> startingUnits =
-                    enMan.EnemyHero.Reinforcements[enMan.ReinforcementGroup].StartingUnits;
+                    (enMan.HeroScript as EnemyHero).Reinforcements[enMan.ReinforcementGroup].StartingUnits;
                 foreach (UnitCard card in startingUnits)
                 {
                     UnitCard newCard = caMan.NewCardInstance(card) as UnitCard;
                     evMan.NewDelayedAction(() =>
-                    efMan.PlayCreatedUnit(newCard, false, new List<Effect>(), coMan.EnemyHero), 0.5f);
+                    efMan.PlayCreatedUnit(newCard, false, new List<Effect>(), enMan.HeroObject), 0.5f);
                 }
             }
         }
 
         void Mulligan_Player() =>
-            efMan.StartEffectGroupList(new List<EffectGroup> { mulliganEffect }, gameObject);
+            efMan.StartEffectGroupList(new List<EffectGroup> { mulliganEffect }, pMan.HeroObject);
     }
 
     /******
@@ -1210,15 +1183,15 @@ public class GameManager : MonoBehaviour
     {
         if (playerWins)
         {
-            auMan.StartStopSound(null, enMan.EnemyHero.HeroLose);
+            auMan.StartStopSound(null, enMan.HeroScript.HeroLose);
             FunctionTimer.Create(() =>
-            auMan.StartStopSound(null, pMan.PlayerHero.HeroWin), 2f);
+            auMan.StartStopSound(null, pMan.HeroScript.HeroWin), 2f);
         }
         else
         {
-            auMan.StartStopSound(null, pMan.PlayerHero.HeroLose);
+            auMan.StartStopSound(null, pMan.HeroScript.HeroLose);
             FunctionTimer.Create(() =>
-            auMan.StartStopSound(null, enMan.EnemyHero.HeroWin), 2f);
+            auMan.StartStopSound(null, enMan.HeroScript.HeroWin), 2f);
         }
 
         evMan.ClearDelayedActions();
@@ -1226,23 +1199,13 @@ public class GameManager : MonoBehaviour
         efMan.EffectsResolving = false;
         pMan.IsMyTurn = false;
 
-        foreach (HeroItem item in pMan.HeroItems) // TESTING
-            item.IsUsed = false;
+        foreach (HeroItem item in pMan.HeroItems) item.IsUsed = false;
 
         // Created Cards Played
-        coMan.ExploitsPlayed_Player = 0;
-        coMan.ExploitsPlayed_Enemy = 0;
-        coMan.InventionsPlayed_Player = 0;
-        coMan.InventionsPlayed_Enemy = 0;
-        coMan.SchemesPlayed_Player = 0;
-        coMan.SchemesPlayed_Enemy = 0;
-        coMan.ExtractionsPlayed_Player = 0;
-        coMan.ExtractionsPlayed_Enemy = 0;
+        pMan.ResetForCombat();
+        enMan.ResetForCombat();
 
         FunctionTimer.Create(() => uMan.CreateCombatEndPopup(playerWins), 2f);
-
-        //efMan.GiveNextEffects.Clear();
-        //efMan.ChangeNextCostEffects.Clear();
     }
 
     /******
@@ -1283,9 +1246,9 @@ public class GameManager : MonoBehaviour
             void SynapticStabilizerEffect()
             {
                 pMan.CurrentEnergy++;
-                anMan.ModifyHeroEnergyState(1, coMan.PlayerHero);
+                anMan.ModifyHeroEnergyState(1, pMan.HeroObject);
                 anMan.TriggerAugment(synapticStabilizer);
-                coMan.SelectPlayableCards();
+                caMan.SelectPlayableCards();
             }
 
             void PlayerTurnStart()
@@ -1299,7 +1262,9 @@ public class GameManager : MonoBehaviour
                 pMan.CurrentEnergy = pMan.EnergyPerTurn;
 
                 int energyChange = pMan.CurrentEnergy - startEnergy;
-                anMan.ModifyHeroEnergyState(energyChange, coMan.PlayerHero);
+                anMan.ModifyHeroEnergyState(energyChange, pMan.HeroObject);
+
+                pMan.TurnNumber++;
 
                 // TUTORIAL!
                 if (IsTutorial)
@@ -1315,8 +1280,8 @@ public class GameManager : MonoBehaviour
 
             void TurnDraw()
             {
-                coMan.DrawCard(PLAYER);
-                coMan.SelectPlayableCards();
+                caMan.DrawCard(pMan);
+                caMan.SelectPlayableCards();
             }
         }
 
@@ -1346,7 +1311,7 @@ public class GameManager : MonoBehaviour
         evMan.NewDelayedAction(() =>
         caMan.TriggerPlayedUnits(CardManager.TRIGGER_TURN_END, player), 0);
 
-        evMan.NewDelayedAction(() => RefreshAllUnits(), 0.5f);
+        evMan.NewDelayedAction(() => coMan.RefreshAllUnits(), 0.5f);
         evMan.NewDelayedAction(() => RemoveEffects(), 0);
         evMan.NewDelayedAction(() => ResetTriggerCounts(), 0);
 
@@ -1365,37 +1330,31 @@ public class GameManager : MonoBehaviour
                         else uMan.DestroyInfoPopup(UIManager.InfoPopupType.Tutorial);
                         break;
                     case 2:
-                        if (!pMan.HeroPowerUsed || coMan.EnemyZoneCards.Count > 0) return;
+                        if (!pMan.HeroPowerUsed || enMan.PlayZoneCards.Count > 0) return;
                         else uMan.DestroyInfoPopup(UIManager.InfoPopupType.Tutorial);
                         break;
                 }
             }
 
             pMan.IsMyTurn = false;
-            coMan.SelectPlayableCards(true);
+            caMan.SelectPlayableCards(true);
             evMan.NewDelayedAction(() => StartCombatTurn(ENEMY), 0.5f);
         }
 
-        void RefreshAllUnits()
-        {
-            coMan.RefreshUnits(PLAYER);
-            coMan.RefreshUnits(ENEMY);
-        }
         void RemoveEffects()
         {
-            efMan.RemoveTemporaryEffects(PLAYER);
-            efMan.RemoveTemporaryEffects(ENEMY);
+            efMan.RemoveTemporaryEffects();
             efMan.RemoveGiveNextEffects(player);
             efMan.RemoveChangeNextCostEffects(player);
             efMan.RemoveModifyNextEffects(player);
 
-            pMan.DamageTaken_Turn = 0;
-            enMan.DamageTaken_Turn = 0;
+            pMan.DamageTakenTurn = 0;
+            enMan.DamageTakenTurn = 0;
         }
         void ResetTriggerCounts()
         {
-            foreach (GameObject unit in coMan.PlayerZoneCards) ResetTrigger(unit);
-            foreach (GameObject unit in coMan.EnemyZoneCards) ResetTrigger(unit);
+            foreach (GameObject unit in pMan.PlayZoneCards) ResetTrigger(unit);
+            foreach (GameObject unit in enMan.PlayZoneCards) ResetTrigger(unit);
 
             void ResetTrigger(GameObject unit)
             {
@@ -1447,7 +1406,6 @@ public class GameManager : MonoBehaviour
         if (activeNPC != -1) return ActiveNPCHeroes[activeNPC];
         else
         {
-            //Debug.Log("NEW NPC CREATED! <" + npc.HeroName + ">");
             NPCHero newNPC;
             if (npc is EnemyHero) newNPC = ScriptableObject.CreateInstance<EnemyHero>();
             else newNPC = ScriptableObject.CreateInstance<NPCHero>();
@@ -1478,9 +1436,7 @@ public class GameManager : MonoBehaviour
         if (activeLocation != -1)
         {
             Location loc = ActiveLocations[activeLocation];
-            //Debug.Log("LOCATION FOUND! <" + loc.LocationFullName + ">");
             if (newNPC != null) loc.CurrentNPC = GetActiveNPC(newNPC);
-            //Debug.Log("ACTIVE LOCATIONS: <" + ActiveLocations.Count + ">");
             return loc;
         }
         else
@@ -1488,11 +1444,9 @@ public class GameManager : MonoBehaviour
             Location newLoc = ScriptableObject.CreateInstance<Location>();
             newLoc.LoadLocation(location);
             newLoc.CurrentObjective = newLoc.FirstObjective;
-            //Debug.Log("NEW LOCATION CREATED! <" + newLoc.LocationFullName + ">");
             if (newNPC != null) newLoc.CurrentNPC = GetActiveNPC(newNPC);
             else newLoc.CurrentNPC = GetActiveNPC(location.FirstNPC);
             ActiveLocations.Add(newLoc);
-            //Debug.Log("ACTIVE LOCATIONS: <" + ActiveLocations.Count + ">");
             return newLoc;
         }
     }

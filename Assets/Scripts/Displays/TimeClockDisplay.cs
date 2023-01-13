@@ -33,6 +33,7 @@ public class TimeClockDisplay : MonoBehaviour
         handRect = clockHand.GetComponent<RectTransform>();
         hand = clockHand.GetComponent<Image>();
         dimmer = screenDimmer.GetComponent<Image>();
+
         hours = new List<GameObject>()
         {
             hour1Text, hour2Text, hour3Text, hour4Text
