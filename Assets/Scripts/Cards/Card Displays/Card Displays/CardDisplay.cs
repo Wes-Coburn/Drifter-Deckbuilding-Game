@@ -72,16 +72,22 @@ public abstract class CardDisplay : MonoBehaviour
     }
     public int CurrentEnergyCost
     {
-        get
-        {
-            int cost = CardScript.CurrentEnergyCost;
-            if (cost < 0) return 0;
-            else return cost;
-        }
+        get => CardScript.CurrentEnergyCost < 0 ? 0 : CardScript.CurrentEnergyCost;
         private set
         {
-            CardScript.CurrentEnergyCost = value;
-            DisplayEnergyCost(value);
+            int newCost = value;
+
+            switch (CardScript.CostConditionType)
+            {
+                case Effect.ConditionType.NONE:
+                    break;
+                default:
+                    Debug.LogError("INVALID CONDITION TYPE!");
+                    return;
+            }
+
+            CardScript.CurrentEnergyCost = newCost;
+            DisplayEnergyCost(CurrentEnergyCost);
         }
     }
 

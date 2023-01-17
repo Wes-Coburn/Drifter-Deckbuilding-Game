@@ -293,6 +293,7 @@ public class GameManager : MonoBehaviour
     {
         string tip;
         bool isCentered = true;
+        bool showContinue = false;
         switch (tipNumber)
         {
             case 1:
@@ -314,13 +315,14 @@ public class GameManager : MonoBehaviour
                 isCentered = false;
                 break;
             case 6:
-                tip = "<b>Attack the enemy hero to win!</b>\nRead more game rules in settings (top right).\n<b>End your turn to continue.</b>";
+                tip = "<b>Attack the enemy hero to win!</b>\nRead more game rules in settings (top right).</b>";
+                showContinue = true;
                 break;
             default:
                 Debug.LogError("INVALID TIP NUMBER!");
                 return;
         }
-        uMan.CreateInfoPopup(tip, UIManager.InfoPopupType.Tutorial, isCentered);
+        uMan.CreateInfoPopup(tip, UIManager.InfoPopupType.Tutorial, isCentered, showContinue);
     }
 
     /******
@@ -1340,6 +1342,7 @@ public class GameManager : MonoBehaviour
             caMan.SelectPlayableCards(true);
             evMan.NewDelayedAction(() => StartCombatTurn(ENEMY), 0.5f);
         }
+        else Debug.LogError("INVALID PLAYER!");
 
         void RemoveEffects()
         {

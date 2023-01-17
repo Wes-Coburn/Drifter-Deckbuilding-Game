@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using EZCameraShake;
 
 public class UIManager : MonoBehaviour
 {
@@ -656,31 +655,39 @@ public class UIManager : MonoBehaviour
     {
         Default,
         Secondary,
-        Tutorial
+        Tutorial,
     }
-    public void CreateInfoPopup(string message, InfoPopupType infoPopupType, bool isCentered = false)
+    public void CreateInfoPopup(string message, InfoPopupType infoPopupType, bool isCentered = false, bool showContinue = false)
     {
         DestroyInfoPopup(infoPopupType);
         Vector2 vec2 = new Vector2();
         if (!isCentered) vec2.Set(750, 0);
 
+
+        InfoPopupDisplay ipd;
         switch (infoPopupType)
         {
             case InfoPopupType.Default:
                 infoPopup = Instantiate(infoPopupPrefab, CurrentZoomCanvas.transform); // TESTING on ZOOM
-                infoPopup.GetComponent<InfoPopupDisplay>().DisplayInfoPopup(message);
+                ipd = infoPopup.GetComponent<InfoPopupDisplay>();
+                ipd.DisplayInfoPopup(message);
                 infoPopup.transform.localPosition = vec2;
+                ipd.ClosePopupButton.SetActive(showContinue);
                 break;
             case InfoPopupType.Secondary:
                 infoPopup_Secondary = Instantiate(infoPopup_SecondaryPrefab, UICanvas.transform);
-                infoPopup_Secondary.GetComponent<InfoPopupDisplay>().DisplayInfoPopup(message);
+                ipd = infoPopup_Secondary.GetComponent<InfoPopupDisplay>();
+                ipd.DisplayInfoPopup(message);
                 infoPopup_Secondary.transform.localPosition = vec2;
+                ipd.ClosePopupButton.SetActive(showContinue);
                 break;
             case InfoPopupType.Tutorial:
                 infoPopup_Tutorial = Instantiate(infoPopupPrefab, CurrentZoomCanvas.transform);
-                infoPopup_Tutorial.GetComponent<InfoPopupDisplay>().DisplayInfoPopup(message);
+                ipd = infoPopup_Tutorial.GetComponent<InfoPopupDisplay>();
+                ipd.DisplayInfoPopup(message);
                 Destroy(infoPopup_Tutorial.GetComponent<Animator>());
                 infoPopup_Tutorial.transform.localPosition = vec2;
+                ipd.ClosePopupButton.SetActive(showContinue);
                 break;
         }
     }

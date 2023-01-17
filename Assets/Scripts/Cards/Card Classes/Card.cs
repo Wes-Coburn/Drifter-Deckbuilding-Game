@@ -6,6 +6,8 @@ public abstract class Card : ScriptableObject
     [SerializeField] private Sprite cardArt;
     [SerializeField] private Sprite cardBorder;
     [SerializeField, Range(0, GameManager.MAXIMUM_ENERGY)] private int energyCost;
+    [SerializeField] private Effect.ConditionType costConditionType;
+    [SerializeField] private int costConditionValue;
     [SerializeField] private string cardName;
     [SerializeField] private string cardType;
     [SerializeField] private string cardSubType;
@@ -24,12 +26,15 @@ public abstract class Card : ScriptableObject
     public Sprite CardArt { get => cardArt; }
     public Sprite CardBorder { get => cardBorder; }
     public int StartEnergyCost { get => energyCost; }
+    public Effect.ConditionType CostConditionType { get => costConditionType; }
+    public int CostConditionValue { get => costConditionValue; }
     public string CardName { get => cardName; }
     public string CardType { get => cardType; }
     public string CardSubType { get => cardSubType; }
     public Rarity CardRarity { get => cardRarity; }
     public string CardDescription { get => cardDescription; }
     public Sound CardPlaySound { get => cardPlaySound; }
+
     public AnimatorOverrideController OverController { get => overController; }
     public AnimatorOverrideController ZoomOverController { get => zoomOverController; }
 
@@ -44,6 +49,8 @@ public abstract class Card : ScriptableObject
         cardArt = card.CardArt;
         cardBorder = card.CardBorder;
         energyCost = card.StartEnergyCost;
+        costConditionType = card.CostConditionType;
+        costConditionValue = card.CostConditionValue;
         CurrentEnergyCost = energyCost;
         cardName = card.CardName;
         cardType = card.CardType;
@@ -63,6 +70,8 @@ public abstract class Card : ScriptableObject
         cardArt = card.CardArt;
         cardBorder = card.CardBorder;
         energyCost = card.StartEnergyCost;
+        costConditionType = card.CostConditionType;
+        costConditionValue = card.CostConditionValue;
         CurrentEnergyCost = card.CurrentEnergyCost;
         cardName = card.CardName;
         cardType = card.CardType;

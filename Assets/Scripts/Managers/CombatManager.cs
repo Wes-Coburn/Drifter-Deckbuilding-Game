@@ -167,21 +167,23 @@ public class CombatManager : MonoBehaviour
         }
         return ucd.CurrentHealth < ucd.MaxHealth;
     }
-    public static bool PowerIsDebuffed(GameObject unitCard)
-    {
-        UnitCardDisplay ucd = unitCard.GetComponent<UnitCardDisplay>();
-        return ucd.CurrentPower < ucd.UnitCard.StartPower;
-    }
+    /*
     public static bool PowerIsBuffed(GameObject unitCard)
     {
         UnitCardDisplay ucd = unitCard.GetComponent<UnitCardDisplay>();
         return ucd.CurrentPower > ucd.UnitCard.StartPower;
+    }
+    public static bool PowerIsDebuffed(GameObject unitCard)
+    {
+        UnitCardDisplay ucd = unitCard.GetComponent<UnitCardDisplay>();
+        return ucd.CurrentPower < ucd.UnitCard.StartPower;
     }
     public static bool HealthIsBuffed(GameObject unitCard)
     {
         UnitCardDisplay ucd = unitCard.GetComponent<UnitCardDisplay>();
         return ucd.CurrentHealth > ucd.UnitCard.StartHealth;
     }
+    */
 
     /******
      * *****

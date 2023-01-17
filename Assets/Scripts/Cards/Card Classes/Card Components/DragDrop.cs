@@ -178,8 +178,12 @@ public class DragDrop : MonoBehaviour
                             gMan.Tutorial_Tooltip(3);
                             break;
                         case 2:
-                            ResetPosition();
-                            return;
+                            if (!pMan.HeroPowerUsed)
+                            {
+                                ResetPosition();
+                                return;
+                            }
+                            break;
                     }
                 }
 

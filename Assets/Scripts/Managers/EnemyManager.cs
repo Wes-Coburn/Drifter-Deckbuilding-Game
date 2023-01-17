@@ -28,6 +28,8 @@ public class EnemyManager : HeroManager
         {
             turnNumber = value;
 
+            if (GameManager.Instance.IsTutorial) return;
+
             int surgeDelay = GameManager.Instance.GetSurgeDelay(coMan.DifficultyLevel);
             if (TurnNumber > 0 && TurnNumber % surgeDelay == 0)
             {

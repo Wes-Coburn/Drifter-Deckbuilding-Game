@@ -492,8 +492,7 @@ public class CardManager : MonoBehaviour
 
             if (isPlayed)
             {
-                if (!changeControl && !CardManager.GetAbility(card,
-                    CardManager.ABILITY_BLITZ)) isExhausted = true;
+                if (!changeControl && !GetAbility(card, ABILITY_BLITZ)) isExhausted = true;
                 ucd.EnableVFX();
 
             }
@@ -865,10 +864,10 @@ public class CardManager : MonoBehaviour
         if (isPlayerSource) hMan = pMan;
         else hMan = enMan;
 
-        text = text.Replace("{EXPLOITS}", hMan.ExploitsPlayed + "");
-        text = text.Replace("{INVENTIONS}", hMan.InventionsPlayed + "");
-        text = text.Replace("{SCHEMES}", hMan.SchemesPlayed + "");
-        text = text.Replace("{EXTRACTIONS}", hMan.ExtractionsPlayed + "");
+        text = text.Replace("{EXPLOITS}", $"{hMan.ExploitsPlayed}");
+        text = text.Replace("{INVENTIONS}", $"{hMan.InventionsPlayed}");
+        text = text.Replace("{SCHEMES}", $"{hMan.SchemesPlayed}");
+        text = text.Replace("{EXTRACTIONS}", $"{hMan.ExtractionsPlayed}");
         return text;
     }
 

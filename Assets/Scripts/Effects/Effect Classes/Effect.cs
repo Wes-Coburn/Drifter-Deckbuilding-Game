@@ -53,7 +53,6 @@ public abstract class Effect : ScriptableObject
     public bool PreCheckConditions;
     [Tooltip("If enabled, the PreCheck will be done independently")]
     public bool CheckConditionsIndependent;
-
     public enum ConditionType
     {
         NONE,

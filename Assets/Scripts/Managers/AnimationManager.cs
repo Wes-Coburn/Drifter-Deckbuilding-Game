@@ -3,9 +3,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using UnityEditor;
-using System;
 using EZCameraShake;
 
 public class AnimationManager : MonoBehaviour
@@ -508,9 +505,9 @@ public class AnimationManager : MonoBehaviour
         UnitCardDisplay ucd = unitCard.GetComponent<UnitCardDisplay>();
         GameObject stats = ucd.UnitStats;
         SetAnimatorBool(stats, "IsDamaged", CombatManager.IsDamaged(unitCard));
-        SetAnimatorBool(stats, "PowerIsDebuffed", CombatManager.PowerIsDebuffed(unitCard));
-        SetAnimatorBool(stats, "PowerIsBuffed", CombatManager.PowerIsBuffed(unitCard));
-        SetAnimatorBool(stats, "HealthIsBuffed", CombatManager.HealthIsBuffed(unitCard));
+        SetAnimatorBool(stats, "PowerIsDebuffed", ucd.CurrentPower < ucd.UnitCard.StartPower);
+        SetAnimatorBool(stats, "PowerIsBuffed", ucd.CurrentPower > ucd.UnitCard.StartPower);
+        SetAnimatorBool(stats, "HealthIsBuffed", ucd.CurrentHealth > ucd.UnitCard.StartHealth);
 
         if (setStatsOnly) return;
 
@@ -555,8 +552,7 @@ public class AnimationManager : MonoBehaviour
             return;
         }
 
-        triggerIcon.transform.SetAsLastSibling(); // TESTING
-        //ChangeAnimationState(triggerIcon.GetComponent<AbilityIconDisplay>().AbilitySpriteObject, "Trigger");
+        triggerIcon.transform.SetAsLastSibling();
         ChangeAnimationState(triggerIcon, "Trigger");
     }
     #endregion
@@ -690,11 +686,12 @@ public class AnimationManager : MonoBehaviour
     public void CombatIntro() => StartCoroutine(CombatIntroNumerator());
     private IEnumerator CombatIntroNumerator()
     {
+        const float scaleSpeed = 0.1f;
+        const float fZoomScale = 1.5f;
+        const int startBuffer = 600;
+
         float distance;
-        float scaleSpeed = 0.1f;
         float fScale = 1;
-        float fZoomScale = 1.5f;
-        int startBuffer = 600;
 
         GameObject turBut = uMan.EndTurnButton;
         GameObject combatLog = uMan.CombatLog;
@@ -749,8 +746,8 @@ public class AnimationManager : MonoBehaviour
         eStats.transform.localPosition = new Vector2(eStatsStart.x, eStatsStart.y + startBuffer);
         eName.transform.localPosition = eNameEnd;
 
+        pMan.PlayerPowerSounds();
         uMan.SelectTarget(pMan.HeroObject, UIManager.SelectionType.Highlighted);
-        PlayerManager.Instance.PlayerPowerSounds();
         CreateParticleSystem(pMan.HeroObject, ParticleSystemHandler.ParticlesType.Drag, 2);
         CreateParticleSystem(enMan.HeroObject, ParticleSystemHandler.ParticlesType.Drag, 2);
 
@@ -785,8 +782,7 @@ public class AnimationManager : MonoBehaviour
         
         yield return new WaitForSeconds(0.5f);
         uMan.SelectTarget(enMan.HeroObject, UIManager.SelectionType.Highlighted);
-        Sound enemyWinSound = EnemyManager.Instance.HeroScript.HeroWin;
-        auMan.StartStopSound(null, enemyWinSound);
+        auMan.StartStopSound(null, enMan.HeroScript.HeroWin);
         FunctionTimer.Create(() =>
         uMan.SelectTarget(enMan.HeroObject, UIManager.SelectionType.Disabled), 2);
 
@@ -886,21 +882,13 @@ public class AnimationManager : MonoBehaviour
      *****/
     public void UnitAttack(GameObject attacker, GameObject defender, bool defenderIsUnit) => 
         StartCoroutine(AttackNumerator(attacker, defender, defenderIsUnit));
-    
-    private readonly float minSpeed = 100;
-    private readonly float maxSpeed = 200;
-
-    private float GetCurrentSpeed(float distance)
-    {
-        float speed = maxSpeed - (distance * 0.5f);
-        if (speed < minSpeed) speed = minSpeed;
-        else if (speed > maxSpeed) speed = maxSpeed;
-        return speed;
-    }
 
     private IEnumerator AttackNumerator(GameObject attacker,
         GameObject defender, bool defenderIsUnit = true)
     {
+        const float minSpeed = 100;
+        const float maxSpeed = 200;
+
         float distance;
         float bufferDistance;
 
@@ -944,6 +932,14 @@ public class AnimationManager : MonoBehaviour
         container.GetComponent<CardContainer>().IsDetached = false;
         attacker.transform.SetAsFirstSibling();
         EventManager.Instance.PauseDelayedActions(false);
+
+        static float GetCurrentSpeed(float distance)
+        {
+            float speed = maxSpeed - (distance * 0.5f);
+            if (speed < minSpeed) speed = minSpeed;
+            else if (speed > maxSpeed) speed = maxSpeed;
+            return speed;
+        }
     }
 
     /******
