@@ -1,11 +1,13 @@
 <h1 align="center">
-  Drifter Deckbuilding Game
+  💎Drifter Deckbuilding Game💎
 </h1>
 
 <h2 align="center">
-  A deckbuilding adventure game created with Unity.
+  A deckbuilding adventure game in corporate dystopia.
+  <br>
+  Created with <a href="https://www.unity.com">Unity</a>.
   <br><br>
-  <a href="https://drifterthegame.com/" target="_blank">Play Drifter Now!</a>
+  <a href="https://drifterthegame.com/" target="_blank">💠Play Drifter Now!💠</a>
 </h2>
 
 <h5 align="center">
@@ -19,7 +21,7 @@
 </h5>
 
 <h2 align="center">
-  Noteable Files
+  🚩Noteable Files🚩
 </h2>
 
 <h3 align="center">
