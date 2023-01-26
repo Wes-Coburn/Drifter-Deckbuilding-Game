@@ -17,3 +17,31 @@
   <br><br>
   <img src="https://i.imgur.com/YwqUa7z.jpg" alt="Drifter Deckbuilding Game" width="250" height="200">
 </h5>
+
+<h2 align="center">
+  Noteable Files
+</h2>
+
+<h3 align="center">
+  Managers
+</h3>
+
+<p align="center">
+  <a href="Assets/Scripts/Managers/GameManager.cs" target="_blank">GameManager</a>
+  <--->
+  <a href="Assets/Scripts/Managers/CombatManager.cs" target="_blank">CombatManager</a>
+  <--->
+  <a href="Assets/Scripts/Managers/EffectManager.cs" target="_blank">EffectManager</a>
+</p>
+    
+<h3 align="center">
+  Components
+</h3>
+
+<p align="center">
+  <a href="Assets/Scripts/Displays/Card Displays/CardPageDisplay.cs" target="_blank">CardPageDisplay</a>
+  <--->
+  <a href="Assets/Scripts/Cards/Card Displays/Card Displays/UnitCardDisplay.cs" target="_blank">UnitCardDisplay</a>
+  <--->
+  <a href="Assets/Scripts/Displays/Card Displays/CardPageDisplay.cs" target="_blank">CardPageDisplay</a>
+</p>
