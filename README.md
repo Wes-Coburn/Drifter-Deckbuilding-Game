@@ -15,5 +15,5 @@
   <br><br>
   Alden Muller (Soundtrack) => <a href="https://soundcloud.com/little_fields" target="_blank">SoundCloud</a>
   <br><br>
-  <img src="https://i.imgur.com/YwqUa7z.jpg" alt="Drifter Deckbuilding Game" width="500" height="500">
+  <img src="https://i.imgur.com/YwqUa7z.jpg" alt="Drifter Deckbuilding Game" width="250" height="200">
 </h5>
