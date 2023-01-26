@@ -29,6 +29,8 @@
 <p align="center">
   <a href="Assets/Scripts/Managers/GameManager.cs" target="_blank">GameManager</a>
   <--->
+  <a href="Assets/Scripts/Managers/CardManager.cs" target="_blank">CardManager</a>
+  <--->
   <a href="Assets/Scripts/Managers/CombatManager.cs" target="_blank">CombatManager</a>
   <--->
   <a href="Assets/Scripts/Managers/EffectManager.cs" target="_blank">EffectManager</a>
