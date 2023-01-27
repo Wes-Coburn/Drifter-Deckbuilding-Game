@@ -27,23 +27,43 @@
 <h3 align="center">
   Managers
 </h3>
-
-<p align="center">
+  
+<p align="center">  
+  🔴
   <a href="Assets/Scripts/Managers/CardManager.cs" target="_blank">CardManager</a>
-  <--->
+  🔴
   <a href="Assets/Scripts/Managers/CombatManager.cs" target="_blank">CombatManager</a>
-  <--->
+  🔴
   <a href="Assets/Scripts/Managers/EffectManager.cs" target="_blank">EffectManager</a>
+  🔴
 </p>
+
+> Manager classes are attached to gameObjects in *ManagerScene* and follow the **singleton** pattern below:
+```
+  public static CombatManager Instance { get; private set; }
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else Destroy(gameObject);
+    }
+  ```
     
 <h3 align="center">
   Components
 </h3>
 
+> These display classes are attached to prefabs, which are usually loaded from a manager class.
+
 <p align="center">
+  🔴
   <a href="Assets/Scripts/Displays/Card Displays/CardPageDisplay.cs" target="_blank">CardPageDisplay</a>
-  <--->
+  🔴
   <a href="Assets/Scripts/Cards/Card Displays/Card Displays/UnitCardDisplay.cs" target="_blank">UnitCardDisplay</a>
-  <--->
+  🔴
   <a href="Assets/Scripts/Displays/Card Displays/CardPageDisplay.cs" target="_blank">CardPageDisplay</a>
+  🔴
 </p>
