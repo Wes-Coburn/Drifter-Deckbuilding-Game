@@ -38,8 +38,10 @@
   🔴
 </p>
 
-> Manager classes are attached to gameObjects in *ManagerScene* and follow the **singleton** pattern below:
+> Manager classes are attached to gameObjects in *ManagerScene* and follow the **singleton** pattern:
 ```
+  // Singleton Pattern
+  
   public static CombatManager Instance { get; private set; }
     private void Awake()
     {
