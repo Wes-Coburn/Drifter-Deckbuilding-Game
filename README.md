@@ -58,7 +58,7 @@
   Components
 </h3>
 
-> Display/component classes are attached to prefabs, which are loaded from a manager class.
+> Display/component classes are attached to prefabs and loaded from a manager class.
 
 <p align="center">
   🔴
