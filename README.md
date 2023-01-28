@@ -30,11 +30,11 @@
   
 <p align="center">  
   🔴
-  <a href="Assets/Scripts/Managers/CardManager.cs" target="_blank">CardManager</a>
+  <a href="Assets/Scripts/Managers/CardManager.cs">CardManager</a>
   🔴
-  <a href="Assets/Scripts/Managers/CombatManager.cs" target="_blank">CombatManager</a>
+  <a href="Assets/Scripts/Managers/CombatManager.cs">CombatManager</a>
   🔴
-  <a href="Assets/Scripts/Managers/EffectManager.cs" target="_blank">EffectManager</a>
+  <a href="Assets/Scripts/Managers/EffectManager.cs">EffectManager</a>
   🔴
 </p>
 
@@ -58,14 +58,16 @@
   Components
 </h3>
 
-> Display classes are attached to prefabs, which are loaded from a manager class.
+> Display/component classes are attached to prefabs, which are loaded from a manager class.
 
 <p align="center">
   🔴
-  <a href="Assets/Scripts/Displays/Card Displays/CardPageDisplay.cs" target="_blank">CardPageDisplay</a>
+  <a href="Assets/Scripts/Displays/Card Displays/CardPageDisplay.cs">CardPageDisplay</a>
   🔴
-  <a href="Assets/Scripts/Cards/Card Displays/Card Displays/UnitCardDisplay.cs" target="_blank">UnitCardDisplay</a>
+  <a href="Assets/Scripts/Cards/Card Displays/Card Displays/UnitCardDisplay.cs">UnitCardDisplay</a>
   🔴
-  <a href="Assets/Scripts/Displays/Card Displays/CardPageDisplay.cs" target="_blank">CardPageDisplay</a>
+  <a href="Assets/Scripts/Cards/Card Classes/Card Components/CardZoom.cs">CardZoom</a>
+  🔴
+  <a href="Assets/Scripts/Cards/Card Classes/Card Components/DragDrop.cs">DragDrop</a>
   🔴
 </p>
