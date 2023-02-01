@@ -39,7 +39,7 @@
 </p>
 
 > Manager classes are attached to gameObjects in *ManagerScene* and follow the **singleton** pattern:
-```
+```c#
   // Singleton Pattern
   
   public static CombatManager Instance { get; private set; }
