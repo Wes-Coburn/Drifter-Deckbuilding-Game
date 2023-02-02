@@ -255,4 +255,34 @@ public abstract class HeroManager : MonoBehaviour
         foreach (Effect e in ModifyNextEffects) Destroy(e);
         ModifyNextEffects.Clear();
     }
+
+    public static HeroManager GetSourceHero(GameObject sourceObject, bool getEnemy = false)
+    {
+        if (sourceObject == null)
+        {
+            Debug.LogError("SOURCE IS NULL!");
+            return null;
+        }
+
+        if (sourceObject.CompareTag(CardManager.ENEMY_CARD) ||
+            sourceObject.CompareTag(CombatManager.ENEMY_HERO) ||
+            sourceObject.CompareTag(CombatManager.ENEMY_HERO_POWER))
+        {
+            if (!getEnemy) return EnemyManager.Instance;
+            else return PlayerManager.Instance;
+        }
+
+        if (sourceObject.CompareTag(CardManager.PLAYER_CARD) ||
+            sourceObject.CompareTag(CombatManager.PLAYER_HERO) ||
+            sourceObject.CompareTag(CombatManager.HERO_POWER) ||
+            sourceObject.CompareTag(CombatManager.HERO_ULTIMATE) ||
+            sourceObject.CompareTag("HeroItem"))
+        {
+            if (!getEnemy) return PlayerManager.Instance;
+            else return EnemyManager.Instance;
+        }
+
+        Debug.LogError("INVALID TAG!");
+        return null;
+    }
 }

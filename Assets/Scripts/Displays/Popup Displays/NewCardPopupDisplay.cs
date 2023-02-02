@@ -113,9 +113,7 @@ public class NewCardPopupDisplay : MonoBehaviour
         // Card Popup
         newCard.transform.SetAsLastSibling();
         // Prevent DestroyZoomObjects() on ZoomAbilityIcon
-        CardZoom.CurrentZoomCard = null;
-        CardZoom.DescriptionPopup = null;
-        CardZoom.AbilityPopupBox = null;
+        CardZoom.NullifyProperties();
     }
 
     public void DisplayChooseCards()
@@ -127,7 +125,7 @@ public class NewCardPopupDisplay : MonoBehaviour
         {
             // Card Popup
             GameObject newCard = CardManager.Instance.ShowCard(card, new Vector2(),
-                CardManager.DisplayType.ChooseCard); // TESTING
+                CardManager.DisplayType.ChooseCard);
             CardDisplay cd = newCard.GetComponent<CardDisplay>();
             newCard.transform.SetParent(newCardZone.transform, false);
             cd.DisableVisuals();
@@ -147,9 +145,7 @@ public class NewCardPopupDisplay : MonoBehaviour
         uMan.DestroyInteractablePopup(gameObject);
         DisableButtons();
 
-        Card newCard;
-        if (cardSelection == 0) newCard = this.newCard;
-        else newCard = chooseCards[cardSelection - 1];
+        Card newCard = cardSelection == 0 ? this.newCard : chooseCards[cardSelection - 1];
         CardManager.Instance.AddCard(newCard, GameManager.PLAYER, true);
 
         if (SceneLoader.IsActiveScene(SceneLoader.Scene.HomeBaseScene))
@@ -244,6 +240,6 @@ public class NewCardPopupDisplay : MonoBehaviour
     {
         foreach (GameObject button in addCardButtons)
             button.GetComponent<Button>().interactable = false;
-        ignoreCardButton.GetComponent<Button>().interactable |= false;
+        ignoreCardButton.GetComponent<Button>().interactable = false;
     }
 }

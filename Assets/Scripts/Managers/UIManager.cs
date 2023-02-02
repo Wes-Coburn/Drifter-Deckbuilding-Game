@@ -670,24 +670,21 @@ public class UIManager : MonoBehaviour
             case InfoPopupType.Default:
                 infoPopup = Instantiate(infoPopupPrefab, CurrentZoomCanvas.transform); // TESTING on ZOOM
                 ipd = infoPopup.GetComponent<InfoPopupDisplay>();
-                ipd.DisplayInfoPopup(message);
+                ipd.DisplayInfoPopup(message, showContinue);
                 infoPopup.transform.localPosition = vec2;
-                ipd.ClosePopupButton.SetActive(showContinue);
                 break;
             case InfoPopupType.Secondary:
                 infoPopup_Secondary = Instantiate(infoPopup_SecondaryPrefab, UICanvas.transform);
                 ipd = infoPopup_Secondary.GetComponent<InfoPopupDisplay>();
-                ipd.DisplayInfoPopup(message);
+                ipd.DisplayInfoPopup(message, showContinue);
                 infoPopup_Secondary.transform.localPosition = vec2;
-                ipd.ClosePopupButton.SetActive(showContinue);
                 break;
             case InfoPopupType.Tutorial:
                 infoPopup_Tutorial = Instantiate(infoPopupPrefab, CurrentZoomCanvas.transform);
                 ipd = infoPopup_Tutorial.GetComponent<InfoPopupDisplay>();
-                ipd.DisplayInfoPopup(message);
+                ipd.DisplayInfoPopup(message, showContinue);
                 Destroy(infoPopup_Tutorial.GetComponent<Animator>());
                 infoPopup_Tutorial.transform.localPosition = vec2;
-                ipd.ClosePopupButton.SetActive(showContinue);
                 break;
         }
     }

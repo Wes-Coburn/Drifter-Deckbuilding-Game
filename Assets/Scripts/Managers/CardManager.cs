@@ -212,9 +212,7 @@ public class CardManager : MonoBehaviour
      *****/
     public Card NewCardInstance(Card card, bool isExactCopy = false)
     {
-        Card cardScript = null;
-        if (card is UnitCard) cardScript = ScriptableObject.CreateInstance<UnitCard>();
-        else if (card is ActionCard) cardScript = ScriptableObject.CreateInstance<ActionCard>();
+        Card cardScript = ScriptableObject.CreateInstance(card.GetType()) as Card;
 
         if (isExactCopy) cardScript.CopyCard(card);
         else cardScript.LoadCard(card);
@@ -244,21 +242,21 @@ public class CardManager : MonoBehaviour
 
         card.BanishAfterPlay = banishAfterPlay;
         GameObject prefab = null;
+
         if (card is UnitCard)
         {
             prefab = UnitCardPrefab;
-            if (type is DisplayType.NewCard)
+            if (type is DisplayType.NewCard) // Unused "New Card" functionality
                 prefab = prefab.GetComponent<CardZoom>().UnitZoomCardPrefab;
         }
         else if (card is ActionCard)
         {
             prefab = ActionCardPrefab;
-            if (type is DisplayType.NewCard)
+            if (type is DisplayType.NewCard) // Unused "New Card" functionality
                 prefab = prefab.GetComponent<CardZoom>().ActionZoomCardPrefab;
         }
 
-        GameObject parent = coMan.CardZone;
-        if (parent == null) parent = uMan.CurrentCanvas;
+        GameObject parent = coMan.CardZone ?? uMan.CurrentCanvas;
 
         if (parent == null)
         {
@@ -320,7 +318,7 @@ public class CardManager : MonoBehaviour
             if (hand.Count >= GameManager.MAX_HAND_SIZE)
             {
                 uMan.CreateFleetingInfoPopup("Your hand is full!");
-                Debug.LogWarning("PLAYER HAND IS FULL!");
+                Debug.Log("PLAYER HAND IS FULL!");
                 return null;
             }
             cardTag = PLAYER_CARD;
@@ -334,7 +332,7 @@ public class CardManager : MonoBehaviour
             if (hand.Count >= GameManager.MAX_HAND_SIZE)
             {
                 uMan.CreateFleetingInfoPopup("Enemy hand is full!");
-                Debug.LogWarning("ENEMY HAND IS FULL!");
+                Debug.Log("ENEMY HAND IS FULL!");
                 return null;
             }
             cardTag = ENEMY_CARD;
@@ -345,7 +343,7 @@ public class CardManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("PLAYER <" + hero + "> NOT FOUND!");
+            Debug.LogError($"PLAYER <{hero}> NOT FOUND!");
             return null;
         }
 
@@ -357,7 +355,7 @@ public class CardManager : MonoBehaviour
             else if (hero == enMan) discard = enMan.DiscardZoneCards;
             else
             {
-                Debug.LogError("PLAYER <" + hero + "> NOT FOUND!");
+                Debug.LogError($"PLAYER <{hero}> NOT FOUND!");
                 return null;
             }
             if (discard.Count < 1)
@@ -527,7 +525,7 @@ public class CardManager : MonoBehaviour
         else if (card.CompareTag(ENEMY_CARD)) isPlayerCard = false;
         else
         {
-            Debug.LogError("INVALID CARD TAG!");
+            Debug.LogError($"CARD TAG <{card.tag}> IS INVALID!");
             return false;
         }
 
@@ -549,9 +547,11 @@ public class CardManager : MonoBehaviour
             }
             if (zoneCards.Count >= GameManager.MAX_UNITS_PLAYED)
             {
-                if (isPrecheck) return false;
-                uMan.CreateFleetingInfoPopup(errorMessage);
-                ErrorSound();
+                if (!isPrecheck)
+                {
+                    uMan.CreateFleetingInfoPopup(errorMessage);
+                    ErrorSound();
+                }
                 return false;
             }
         }
@@ -559,9 +559,11 @@ public class CardManager : MonoBehaviour
         {
             if (!efMan.CheckLegalTargets(acd.ActionCard.EffectGroupList, card, true))
             {
-                if (isPrecheck) return false;
-                uMan.CreateFleetingInfoPopup("You can't play that right now!");
-                ErrorSound();
+                if (!isPrecheck)
+                {
+                    uMan.CreateFleetingInfoPopup("You can't play that right now!");
+                    ErrorSound();
+                }
                 return false;
             }
         }
@@ -574,9 +576,11 @@ public class CardManager : MonoBehaviour
 
             if (energyLeft < cardDisplay.CurrentEnergyCost)
             {
-                if (isPrecheck) return false;
-                uMan.CreateFleetingInfoPopup("Not enough energy!");
-                ErrorSound();
+                if (!isPrecheck)
+                {
+                    uMan.CreateFleetingInfoPopup("Not enough energy!");
+                    ErrorSound();
+                }
                 return false;
             }
         }
@@ -732,10 +736,9 @@ public class CardManager : MonoBehaviour
         CardDisplay cd = card.GetComponent<CardDisplay>();
         List<GameObject> previousZone;
         List<Card> newZone;
-        HeroManager hMan = CombatManager.GetSourceHero(card);
+        HeroManager hMan = HeroManager.GetSourceHero(card);
 
-        if (isAction) previousZone = hMan.ActionZoneCards;
-        else previousZone = hMan.HandZoneCards;
+        previousZone = isAction ? hMan.ActionZoneCards : hMan.HandZoneCards;
         newZone = hMan.DiscardZoneCards;
 
         previousZone.Remove(card);
@@ -873,10 +876,10 @@ public class CardManager : MonoBehaviour
 
     public string FilterKeywords(string text)
     {
-        foreach (string s in AbilityKeywords)
-            text = text.Replace(s, "<color=\"yellow\"><b>" + s + "</b></color>");
-        foreach (string s in CardTypes)
-            text = text.Replace(s, "<color=\"green\"><b>" + s + "</b></color>");
+        foreach (string str in AbilityKeywords)
+            text = text.Replace(str, $"<color=\"yellow\"><b>{str}</b></color>");
+        foreach (string str in CardTypes)
+            text = text.Replace(str, $"<color=\"green\"><b>{str}</b></color>");
 
         text = FilterUnitTypes(text);
         return text;
@@ -1556,7 +1559,7 @@ public class CardManager : MonoBehaviour
         if (trappedUnit == null || GetAbility(trappedUnit, ABILITY_WARD)) return;
 
         List<GameObject> enemyZoneCards =
-            CombatManager.GetSourceHero(trappedUnit, true).PlayZoneCards;
+            HeroManager.GetSourceHero(trappedUnit, true).PlayZoneCards;
         List<GameObject> resolveFirstTraps = new List<GameObject>();
 
         foreach (GameObject trap in enemyZoneCards) // Trigger order doesn't matter, is handled manually

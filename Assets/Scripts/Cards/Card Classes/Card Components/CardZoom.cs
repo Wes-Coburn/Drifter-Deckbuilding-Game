@@ -15,7 +15,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     public const float   ZOOM_SCALE_VALUE            =  4;
     private const float  CENTER_SCALE_VALUE          =  6;
     private const float  POPUP_SCALE_VALUE           =  3;
-    private const float  MED_POPUP_SCALE_VALUE       =  2.5f;
+    //private const float  MED_POPUP_SCALE_VALUE       =  2.5f;
     private const float  SMALL_POPUP_SCALE_VALUE     =  2;
 
     private UIManager uMan;
@@ -30,17 +30,13 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     public const string ZOOM_CARD_TIMER = "ZoomCardTimer";
     public const string ABILITY_POPUP_TIMER = "AbilityPopupTimer";
 
+    public static GameObject CurrentZoomCard { get; private set; }
+    public static GameObject DescriptionPopup { get; private set; }
+    public static GameObject AbilityPopupBox { get; private set; }
+
     public GameObject UnitZoomCardPrefab { get => unitZoomCardPrefab; }
     public GameObject ActionZoomCardPrefab { get => actionZoomCardPrefab; }
-    public static GameObject CurrentZoomCard { get; set; }
-    public static GameObject DescriptionPopup { get; set; }
-    public static GameObject AbilityPopupBox { get; set; }
-    
-    /******
-     * *****
-     * ****** AWAKE
-     * *****
-     *****/
+
     private void Awake()
     {
         uMan = UIManager.Instance;
@@ -51,11 +47,13 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         zoomPopups = new List<GameObject>();
     }
 
-    /******
-     * *****
-     * ****** ON_CLICK
-     * *****
-     *****/
+    public static void NullifyProperties()
+    {
+        CurrentZoomCard = null;
+        DescriptionPopup = null;
+        AbilityPopupBox = null;
+    }
+
     public void OnPointerClick(PointerEventData pointerEventData)
     {
         if (DragDrop.DraggingCard != null || ZoomCardIsCentered) return;
@@ -77,11 +75,6 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         CreateZoomCard(new Vector2(0, 50), CENTER_SCALE_VALUE);
     }
 
-    /******
-     * *****
-     * ****** ON_POINTER_ENTER
-     * *****
-     *****/
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
         if (DragDrop.DraggingCard != null || ZoomCardIsCentered) return;
@@ -141,11 +134,6 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         }
     }
 
-    /******
-     * *****
-     * ****** ON_POINTER_EXIT
-     * *****
-     *****/
     public void OnPointerExit(PointerEventData pointerEventData)
     {
         if (DragDrop.DraggingCard != null || ZoomCardIsCentered) return;
@@ -285,7 +273,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
         List<CardAbility> abilityList;
         List<CardAbility> singleList = new List<CardAbility>();
-        bool isPlayerSource = EffectManager.Instance.IsPlayerSource(gameObject);
+        bool isPlayerSource = HeroManager.GetSourceHero(gameObject) == pMan;
 
         if (cardDisplay is UnitCardDisplay ucd)
         {

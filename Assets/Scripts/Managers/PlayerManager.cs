@@ -183,7 +183,7 @@ public class PlayerManager : HeroManager
             GameObject heroPower = HeroObject.GetComponent<PlayerHeroDisplay>().HeroPower;
             List<EffectGroup> groupList = HeroScript.HeroPower.EffectGroupList;
 
-            if (!efMan.CheckLegalTargets(HeroScript.HeroPower.EffectGroupList, heroPower, true))
+            if (!efMan.CheckLegalTargets(groupList, heroPower, true))
             {
                 if (isPreCheck) return false;
                 uMan.CreateFleetingInfoPopup("You can't do that right now!");

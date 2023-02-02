@@ -101,50 +101,27 @@ public class CombatManager : MonoBehaviour
         uMan.SelectTarget(pMan.HeroObject, UIManager.SelectionType.Disabled);
     }
 
-    public static HeroManager GetSourceHero(GameObject sourceObject, bool getEnemy = false)
-    {
-        if (sourceObject == null)
-        {
-            Debug.LogError("SOURCE IS NULL!");
-            return null;
-        }
-
-        if (sourceObject.CompareTag(CardManager.ENEMY_CARD) ||
-            sourceObject.CompareTag(ENEMY_HERO) ||
-            sourceObject.CompareTag(ENEMY_HERO_POWER))
-        {
-            if (!getEnemy) return EnemyManager.Instance;
-            else return PlayerManager.Instance;
-        }
-
-        if (sourceObject.CompareTag(CardManager.PLAYER_CARD) ||
-            sourceObject.CompareTag(PLAYER_HERO) ||
-            sourceObject.CompareTag(HERO_POWER) ||
-            sourceObject.CompareTag(HERO_ULTIMATE) ||
-            sourceObject.CompareTag("HeroItem"))
-        {
-            if (!getEnemy) return PlayerManager.Instance;
-            else return EnemyManager.Instance;
-        }
-
-        Debug.LogError("INVALID TAG!");
-        return null;
-    }
     public static UnitCardDisplay GetUnitDisplay(GameObject card)
     {
-        if (!IsUnitCard(card))
+        if (card == null)
         {
-            Debug.LogError("OBJECT IS NOT UNIT CARD!");
+            Debug.LogWarning("CARD IS NULL!");
             return null;
         }
 
-        return card.GetComponent<UnitCardDisplay>();
+        if (!card.TryGetComponent(out UnitCardDisplay ucd))
+        {
+            Debug.LogError("TARGET IS NOT UNIT CARD!");
+            return null;
+        }
+
+        return ucd;
     }
     public static bool IsUnitCard(GameObject target)
     {
         if (target == null)
         {
-            Debug.LogWarning("CARD IS NULL!");
+            Debug.LogWarning("TARGET IS NULL!");
             return false;
         }
         return target.TryGetComponent<UnitCardDisplay>(out _);
@@ -230,7 +207,7 @@ public class CombatManager : MonoBehaviour
     public GameObject GetStrongestUnit(List<GameObject> unitList, bool targetsEnemy)
     {
         if (unitList.Count < 1) return null;
-        int highestPower = -1;
+        int highestPower = int.MinValue;
         List<GameObject> highestPowerUnits = new List<GameObject>();
 
         foreach (GameObject unit in unitList)
@@ -779,8 +756,8 @@ public class CombatManager : MonoBehaviour
             return;
         }
 
-        HeroManager sourceHMan = GetSourceHero(card);
-        HeroManager enemyHMan = GetSourceHero(card, true);
+        HeroManager sourceHMan = HeroManager.GetSourceHero(card);
+        HeroManager enemyHMan = HeroManager.GetSourceHero(card, true);
 
         if (!efMan.UnitsToDestroy.Contains(card)) efMan.UnitsToDestroy.Add(card);
         DestroyFX();
@@ -846,7 +823,7 @@ public class CombatManager : MonoBehaviour
             void MarkedTrigger()
             {
                 GetUnitDisplay(card).AbilityTriggerState(CardManager.ABILITY_MARKED);
-                caMan.DrawCard(GetSourceHero(card, true));
+                caMan.DrawCard(HeroManager.GetSourceHero(card, true));
             }
         }
         void Destroy()

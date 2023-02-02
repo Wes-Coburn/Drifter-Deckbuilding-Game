@@ -1598,7 +1598,7 @@ public class GameManager : MonoBehaviour
         else isDiscounted = false;
         return recruitCost;
     }
-
+    
     /******
      * *****
      * ****** GET_CLONE_COST

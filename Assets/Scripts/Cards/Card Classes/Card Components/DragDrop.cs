@@ -13,13 +13,12 @@ public class DragDrop : MonoBehaviour
 
     private CardContainer container;
     private GameObject dragArrow;
+    private ParticleSystemHandler particleHandler;
     private bool isOverDropZone;
     private bool isDragging;
-    private int lastIndex;
-    private ParticleSystemHandler particleHandler;
 
     private const string SFX_DRAG_CARD = "SFX_DragCard";
-
+    
     private bool IsDragging
     {
         get => isDragging;
@@ -30,12 +29,12 @@ public class DragDrop : MonoBehaviour
         }
     }
 
-    public int LastIndex { get => lastIndex; }
+    public int LastIndex { get; private set; }
     public bool IsPlayed { get; set; }
 
     public static GameObject DraggingCard;
-    public static bool ArrowIsDragging;
     public static GameObject Enemy;
+    public static bool ArrowIsDragging;
 
     void Start()
     {
@@ -86,10 +85,10 @@ public class DragDrop : MonoBehaviour
 
     private void ResetPosition()
     {
-        transform.SetParent(CombatManager.Instance.CardZone.transform); // TESTING
+        transform.SetParent(CombatManager.Instance.CardZone.transform);
 
         transform.localPosition = container.transform.position;
-        transform.SetSiblingIndex(lastIndex);
+        transform.SetSiblingIndex(LastIndex);
         IsPlayed = false;
         AnimationManager.Instance.RevealedHandState(gameObject);
     }
@@ -97,28 +96,24 @@ public class DragDrop : MonoBehaviour
     public void StartDrag()
     {
         uMan.DestroyZoomObjects();
-        if (!pMan.IsMyTurn) return;
-        if (CompareTag(CardManager.ENEMY_CARD)) return;
-        if (DraggingCard != null || ArrowIsDragging) return;
-
-        if (EffectManager.Instance.EffectsResolving ||
+        if (!pMan.IsMyTurn || CompareTag(CardManager.ENEMY_CARD) || DraggingCard != null || 
+            ArrowIsDragging || EffectManager.Instance.EffectsResolving || 
             EventManager.Instance.ActionsDelayed) return;
 
         FunctionTimer.StopTimer(CardZoom.ZOOM_CARD_TIMER);
         FunctionTimer.StopTimer(CardZoom.ABILITY_POPUP_TIMER);
         DraggingCard = gameObject;
-        //Enemy = null; // Unnecessary
 
         if (!IsPlayed)
         {
             IsDragging = true;
-            AnimationManager.Instance.RevealedDragState(gameObject);
+            LastIndex = transform.GetSiblingIndex();
+            transform.SetParent(uMan.CurrentZoomCanvas.transform);
+            
             uMan.SetPlayerZoneOutline(true, false);
+            AnimationManager.Instance.RevealedDragState(gameObject);
             particleHandler = anMan.CreateParticleSystem(gameObject,
                 ParticleSystemHandler.ParticlesType.Drag);
-
-            lastIndex = transform.GetSiblingIndex();
-            transform.SetParent(uMan.CurrentZoomCanvas.transform);
         }
         else
         {
@@ -146,15 +141,15 @@ public class DragDrop : MonoBehaviour
             particleHandler = anMan.CreateParticleSystem(gameObject,
                 ParticleSystemHandler.ParticlesType.MouseDrag);
         }
-        auMan.StartStopSound(SFX_DRAG_CARD, null,
-            AudioManager.SoundType.SFX, false, true);
+        auMan.StartStopSound(SFX_DRAG_CARD, null, AudioManager.SoundType.SFX, false, true);
     }
 
     public void EndDrag()
     {
         if (!IsDragging && !ArrowIsDragging) return;
-        auMan.StartStopSound(SFX_DRAG_CARD, null, AudioManager.SoundType.SFX, true);
+
         DraggingCard = null;
+        auMan.StartStopSound(SFX_DRAG_CARD, null, AudioManager.SoundType.SFX, true);
 
         if (particleHandler != null)
         {
@@ -167,6 +162,7 @@ public class DragDrop : MonoBehaviour
         {
             IsDragging = false;
             uMan.SetPlayerZoneOutline(false, false);
+
             if (isOverDropZone && caMan.IsPlayable(gameObject))
             {
                 // TUTORIAL!
@@ -189,7 +185,7 @@ public class DragDrop : MonoBehaviour
 
                 IsPlayed = true;
                 caMan.PlayCard(gameObject);
-                transform.SetParent(coMan.CardZone.transform); // TESTING
+                transform.SetParent(coMan.CardZone.transform);
             }
             else ResetPosition();
             return;
@@ -199,6 +195,7 @@ public class DragDrop : MonoBehaviour
         ArrowIsDragging = false;
         Destroy(dragArrow);
         dragArrow = null;
+
         if (Enemy != null)
         {
             if (coMan.CanAttack(gameObject, Enemy, false))

@@ -68,8 +68,9 @@ public class TutorialActionPopupDisplay : MonoBehaviour
 
             case 3:
                 text = "Your hero has a <color=\"yellow\"><b>Health</b></color> value, " +
-                    "an <color=\"yellow\"><b>Energy</b></color> value, and a <color=\"yellow\"><b>Hero Power</b></color>. " +
-                    "Hover over each component for an explanation.";
+                    "an <color=\"yellow\"><b>Energy</b></color> value, a <color=\"yellow\"><b>Power</b></color>, " +
+                    "and an <color=\"yellow\"><b>Ultimate</b></color>. " +
+                    "\nHover over each component for an explanation.";
                 position.Set(470, 0);
                 break;
 
