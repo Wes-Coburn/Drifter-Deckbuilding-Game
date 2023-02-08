@@ -49,18 +49,18 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     {
         if (DragDrop.DraggingCard != null || ZoomCardIsCentered) return;
 
-        if (ManagerHandler.U_MAN.PlayerIsTargetting && !ManagerHandler.EF_MAN.CurrentEffectGroup.Targets.PlayerHand) return;
+        if (Managers.U_MAN.PlayerIsTargetting && !Managers.EF_MAN.CurrentEffectGroup.Targets.PlayerHand) return;
 
         GameObject parent = null;
         GameObject container = GetComponent<CardDisplay>().CardContainer;
         if (container != null) parent = container.transform.parent.gameObject;
-        if (ManagerHandler.EN_MAN.HandZone != null && parent == ManagerHandler.EN_MAN.HandZone) return;
+        if (Managers.EN_MAN.HandZone != null && parent == Managers.EN_MAN.HandZone) return;
 
         if (pointerEventData.button != PointerEventData.InputButton.Right) return;
 
-        ManagerHandler.U_MAN.DestroyZoomObjects();
+        Managers.U_MAN.DestroyZoomObjects();
         ZoomCardIsCentered = true;
-        ManagerHandler.U_MAN.SetScreenDimmer(true);
+        Managers.U_MAN.SetScreenDimmer(true);
         CreateDescriptionPopup(new Vector2(-590, 0), POPUP_SCALE_VALUE);
         CreateAbilityPopups(new Vector2(590, 0), POPUP_SCALE_VALUE, false);
         CreateZoomCard(new Vector2(0, 50), CENTER_SCALE_VALUE);
@@ -70,19 +70,19 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     {
         if (DragDrop.DraggingCard != null || ZoomCardIsCentered) return;
 
-        if (ManagerHandler.U_MAN.PlayerIsTargetting && !ManagerHandler.EF_MAN.CurrentEffectGroup.Targets.PlayerHand) return;
+        if (Managers.U_MAN.PlayerIsTargetting && !Managers.EF_MAN.CurrentEffectGroup.Targets.PlayerHand) return;
 
         GameObject parent = null;
         GameObject container = GetComponent<CardDisplay>().CardContainer;
         if (container != null) parent = container.transform.parent.gameObject;
         else return;
 
-        if (parent == ManagerHandler.EN_MAN.HandZone || parent == ManagerHandler.P_MAN.ActionZone || parent == ManagerHandler.EN_MAN.ActionZone) return;
+        if (parent == Managers.EN_MAN.HandZone || parent == Managers.P_MAN.ActionZone || parent == Managers.EN_MAN.ActionZone) return;
 
         float cardYPos;
         float popupXPos;
 
-        if (parent == ManagerHandler.P_MAN.HandZone || parent == ManagerHandler.EN_MAN.HandZone) ShowZoomCard(parent);
+        if (parent == Managers.P_MAN.HandZone || parent == Managers.EN_MAN.HandZone) ShowZoomCard(parent);
         else FunctionTimer.Create(() => ShowZoomCard(parent), 0.5f, ZOOM_CARD_TIMER);
 
         void ShowAbilityPopup() =>
@@ -94,22 +94,22 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
             RectTransform rect;
 
-            if (parent == ManagerHandler.P_MAN.HandZone)
+            if (parent == Managers.P_MAN.HandZone)
             {
                 Vector2 bufferDistance = container.GetComponent<CardContainer>().BufferDistance;
                 float bufferY = -bufferDistance.y;
 
-                rect = ManagerHandler.P_MAN.HandZone.GetComponent<RectTransform>();
+                rect = Managers.P_MAN.HandZone.GetComponent<RectTransform>();
                 cardYPos = rect.position.y + ZOOM_BUFFER + 20 + bufferY;
             }
-            else if (parent == ManagerHandler.P_MAN.PlayZone)
+            else if (parent == Managers.P_MAN.PlayZone)
             {
-                rect = ManagerHandler.P_MAN.PlayZone.GetComponent<RectTransform>();
+                rect = Managers.P_MAN.PlayZone.GetComponent<RectTransform>();
                 cardYPos = rect.position.y + ZOOM_BUFFER - 20;
             }
-            else if (parent == ManagerHandler.EN_MAN.PlayZone)
+            else if (parent == Managers.EN_MAN.PlayZone)
             {
-                rect = ManagerHandler.EN_MAN.PlayZone.GetComponent<RectTransform>();
+                rect = Managers.EN_MAN.PlayZone.GetComponent<RectTransform>();
                 cardYPos = (int)rect.position.y - ZOOM_BUFFER;
             }
             else
@@ -128,7 +128,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     public void OnPointerExit(PointerEventData pointerEventData)
     {
         if (DragDrop.DraggingCard != null || ZoomCardIsCentered) return;
-        ManagerHandler.U_MAN.DestroyZoomObjects();
+        Managers.U_MAN.DestroyZoomObjects();
     }
 
     /******
@@ -138,7 +138,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
      *****/
     private GameObject CreateZoomObject(GameObject prefab, Vector2 vec2, float scaleValue)
     {
-        GameObject zoomObject = Instantiate(prefab, ManagerHandler.U_MAN.CurrentZoomCanvas.transform);
+        GameObject zoomObject = Instantiate(prefab, Managers.U_MAN.CurrentZoomCanvas.transform);
         zoomObject.transform.localPosition = vec2;
         zoomObject.transform.localScale = new Vector2(scaleValue, scaleValue);
         zoomPopups.Add(zoomObject);
@@ -199,7 +199,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
      *****/
     public GameObject CreateZoomAbilityIcon(CardAbility ca, Transform parent, float scaleValue)
     {
-        if (ManagerHandler.U_MAN == null)
+        if (Managers.U_MAN == null)
         {
             Debug.LogWarning("UIMANAGER IS NULL!");
             cardDisplay = GetComponent<CardDisplay>();
@@ -228,7 +228,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
      *****/
     public void CreateDescriptionPopup(Vector2 vec2, float scaleValue)
     {
-        if (ManagerHandler.U_MAN == null)
+        if (Managers.U_MAN == null)
         {
             Debug.LogWarning("UIMANAGER IS NULL!");
             cardDisplay = GetComponent<CardDisplay>();
@@ -253,7 +253,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     {
         if (this == null) return;
 
-        if (ManagerHandler.U_MAN == null)
+        if (Managers.U_MAN == null)
         {
             Debug.LogWarning("UIMANAGER IS NULL!");
             cardDisplay = GetComponent<CardDisplay>();
@@ -261,7 +261,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
         List<CardAbility> abilityList;
         List<CardAbility> singleList = new List<CardAbility>();
-        bool isPlayerSource = HeroManager.GetSourceHero(gameObject) == ManagerHandler.P_MAN;
+        bool isPlayerSource = HeroManager.GetSourceHero(gameObject) == Managers.P_MAN;
 
         if (cardDisplay is UnitCardDisplay ucd)
         {
@@ -300,7 +300,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
         DestroyAbilityPopups();
         if (singleList.Count > 4) vec2.y = 0;
-        if (singleList.Count > 9) ManagerHandler.U_MAN.HideSkybar(true);
+        if (singleList.Count > 9) Managers.U_MAN.HideSkybar(true);
 
         AbilityPopupBox = CreateZoomObject(abilityPopupBoxPrefab, vec2, scaleValue);
         foreach (CardAbility single in singleList)

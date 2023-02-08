@@ -1,24 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!95 &4500481568299287815
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4546361355768248616}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3fa18c23ec26c6b4ba893bc02feddb5c, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &4211288832171763358
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -105,7 +86,7 @@ PrefabInstance:
         type: 3}
       propertyPath: tooltipText
       value: The enemy hero's <b><color="yellow">Energy</b></color>. They start with
-        1 <b>Energy</b>, increased by 1 each turn, to a maximum of 10.
+        1 <b>Energy</b>, increased by 1 each turn (max 10).
       objectReference: {fileID: 0}
     - target: {fileID: 469514604581007209, guid: 322b87facb59a90408aa6114cc7ab1ae,
         type: 3}
@@ -427,7 +408,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 0341a9ee5310f2d46b7305e9e2c14082,
+      objectReference: {fileID: 21300000, guid: c7b6f6ea344b072419c9a4d5da79f717,
         type: 3}
     - target: {fileID: 4643965315028662923, guid: 322b87facb59a90408aa6114cc7ab1ae,
         type: 3}
@@ -633,7 +614,7 @@ PrefabInstance:
     - target: {fileID: 5848567789408163058, guid: 322b87facb59a90408aa6114cc7ab1ae,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -330
+      value: -300
       objectReference: {fileID: 0}
     - target: {fileID: 5879633538270621601, guid: 322b87facb59a90408aa6114cc7ab1ae,
         type: 3}
@@ -810,6 +791,11 @@ PrefabInstance:
       propertyPath: isEnemyPower
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8438356813272301120, guid: 322b87facb59a90408aa6114cc7ab1ae,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8574298748460431952, guid: 322b87facb59a90408aa6114cc7ab1ae,
         type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.size
@@ -886,6 +872,26 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4211288832171763358}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &4500481568299287815
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4546361355768248616}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3fa18c23ec26c6b4ba893bc02feddb5c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &7195100862600003372 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6461437300425087410, guid: 322b87facb59a90408aa6114cc7ab1ae,

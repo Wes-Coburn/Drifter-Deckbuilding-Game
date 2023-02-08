@@ -49,19 +49,19 @@ public class DragDrop : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (IsDragging && !IsPlayed)
-            if (collision.gameObject == ManagerHandler.P_MAN.PlayZone)
+            if (collision.gameObject == Managers.P_MAN.PlayZone)
             {
                 isOverDropZone = true;
-                ManagerHandler.U_MAN.SetPlayerZoneOutline(true, true);
+                Managers.U_MAN.SetPlayerZoneOutline(true, true);
             }
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (IsDragging && !IsPlayed)
-            if (collision.gameObject == ManagerHandler.P_MAN.PlayZone)
+            if (collision.gameObject == Managers.P_MAN.PlayZone)
             {
                 isOverDropZone = false;
-                ManagerHandler.U_MAN.SetPlayerZoneOutline(true, false);
+                Managers.U_MAN.SetPlayerZoneOutline(true, false);
             }
     }
 
@@ -77,8 +77,8 @@ public class DragDrop : MonoBehaviour
 
     public void StartDrag()
     {
-        ManagerHandler.U_MAN.DestroyZoomObjects();
-        if (!ManagerHandler.P_MAN.IsMyTurn || CompareTag(ManagerHandler.EN_MAN.CARD_TAG) || DraggingCard != null ||
+        Managers.U_MAN.DestroyZoomObjects();
+        if (!Managers.P_MAN.IsMyTurn || CompareTag(Managers.EN_MAN.CARD_TAG) || DraggingCard != null ||
             ArrowIsDragging || EffectManager.Instance.EffectsResolving ||
             EventManager.Instance.ActionsDelayed) return;
 
@@ -90,16 +90,16 @@ public class DragDrop : MonoBehaviour
         {
             IsDragging = true;
             LastIndex = transform.GetSiblingIndex();
-            transform.SetParent(ManagerHandler.U_MAN.CurrentZoomCanvas.transform);
+            transform.SetParent(Managers.U_MAN.CurrentZoomCanvas.transform);
 
-            ManagerHandler.U_MAN.SetPlayerZoneOutline(true, false);
+            Managers.U_MAN.SetPlayerZoneOutline(true, false);
             AnimationManager.Instance.RevealedDragState(gameObject);
-            particleHandler = ManagerHandler.AN_MAN.CreateParticleSystem(gameObject,
+            particleHandler = Managers.AN_MAN.CreateParticleSystem(gameObject,
                 ParticleSystemHandler.ParticlesType.Drag);
         }
         else
         {
-            if (!ManagerHandler.CO_MAN.CanAttack(gameObject, null))
+            if (!Managers.CO_MAN.CanAttack(gameObject, null))
             {
                 DraggingCard = null;
                 return;
@@ -107,23 +107,23 @@ public class DragDrop : MonoBehaviour
 
             ArrowIsDragging = true;
             if (dragArrow != null) Destroy(dragArrow);
-            dragArrow = Instantiate(ManagerHandler.CA_MAN.DragArrowPrefab, ManagerHandler.U_MAN.CurrentCanvas.transform);
+            dragArrow = Instantiate(Managers.CA_MAN.DragArrowPrefab, Managers.U_MAN.CurrentCanvas.transform);
             dragArrow.GetComponent<DragArrow>().SourceCard = gameObject;
 
-            foreach (GameObject enemyUnit in ManagerHandler.EN_MAN.PlayZoneCards)
-                if (ManagerHandler.CO_MAN.CanAttack(gameObject, enemyUnit))
-                    ManagerHandler.U_MAN.SelectTarget(enemyUnit, UIManager.SelectionType.Highlighted);
+            foreach (GameObject enemyUnit in Managers.EN_MAN.PlayZoneCards)
+                if (Managers.CO_MAN.CanAttack(gameObject, enemyUnit))
+                    Managers.U_MAN.SelectTarget(enemyUnit, UIManager.SelectionType.Highlighted);
 
-            foreach (GameObject playerUnit in ManagerHandler.P_MAN.PlayZoneCards)
-                ManagerHandler.U_MAN.SelectTarget(playerUnit, UIManager.SelectionType.Disabled);
+            foreach (GameObject playerUnit in Managers.P_MAN.PlayZoneCards)
+                Managers.U_MAN.SelectTarget(playerUnit, UIManager.SelectionType.Disabled);
 
-            if (ManagerHandler.CO_MAN.CanAttack(gameObject, ManagerHandler.EN_MAN.HeroObject))
-                ManagerHandler.U_MAN.SelectTarget(ManagerHandler.EN_MAN.HeroObject, UIManager.SelectionType.Highlighted);
+            if (Managers.CO_MAN.CanAttack(gameObject, Managers.EN_MAN.HeroObject))
+                Managers.U_MAN.SelectTarget(Managers.EN_MAN.HeroObject, UIManager.SelectionType.Highlighted);
 
-            particleHandler = ManagerHandler.AN_MAN.CreateParticleSystem(gameObject,
+            particleHandler = Managers.AN_MAN.CreateParticleSystem(gameObject,
                 ParticleSystemHandler.ParticlesType.MouseDrag);
         }
-        ManagerHandler.AU_MAN.StartStopSound(SFX_DRAG_CARD, null, AudioManager.SoundType.SFX, false, true);
+        Managers.AU_MAN.StartStopSound(SFX_DRAG_CARD, null, AudioManager.SoundType.SFX, false, true);
     }
 
     public void EndDrag()
@@ -131,7 +131,7 @@ public class DragDrop : MonoBehaviour
         if (!IsDragging && !ArrowIsDragging) return;
 
         DraggingCard = null;
-        ManagerHandler.AU_MAN.StartStopSound(SFX_DRAG_CARD, null, AudioManager.SoundType.SFX, true);
+        Managers.AU_MAN.StartStopSound(SFX_DRAG_CARD, null, AudioManager.SoundType.SFX, true);
 
         if (particleHandler != null)
         {
@@ -143,20 +143,20 @@ public class DragDrop : MonoBehaviour
         if (!IsPlayed)
         {
             IsDragging = false;
-            ManagerHandler.U_MAN.SetPlayerZoneOutline(false, false);
+            Managers.U_MAN.SetPlayerZoneOutline(false, false);
 
-            if (isOverDropZone && ManagerHandler.CA_MAN.IsPlayable(gameObject))
+            if (isOverDropZone && Managers.CA_MAN.IsPlayable(gameObject))
             {
                 // TUTORIAL!
-                if (ManagerHandler.G_MAN.IsTutorial)
+                if (Managers.G_MAN.IsTutorial)
                 {
-                    switch (ManagerHandler.P_MAN.EnergyPerTurn)
+                    switch (Managers.P_MAN.EnergyPerTurn)
                     {
                         case 1:
-                            ManagerHandler.G_MAN.Tutorial_Tooltip(3);
+                            Managers.G_MAN.Tutorial_Tooltip(3);
                             break;
                         case 2:
-                            if (!ManagerHandler.P_MAN.HeroPowerUsed)
+                            if (!Managers.P_MAN.HeroPowerUsed)
                             {
                                 ResetPosition();
                                 return;
@@ -166,8 +166,8 @@ public class DragDrop : MonoBehaviour
                 }
 
                 IsPlayed = true;
-                ManagerHandler.CA_MAN.PlayCard(gameObject);
-                transform.SetParent(ManagerHandler.CO_MAN.CardZone.transform);
+                Managers.CA_MAN.PlayCard(gameObject);
+                transform.SetParent(Managers.CO_MAN.CardZone.transform);
             }
             else ResetPosition();
             return;
@@ -180,22 +180,22 @@ public class DragDrop : MonoBehaviour
 
         if (Enemy != null)
         {
-            if (ManagerHandler.CO_MAN.CanAttack(gameObject, Enemy, false))
+            if (Managers.CO_MAN.CanAttack(gameObject, Enemy, false))
             {
                 GameObject enemy = Enemy;
                 EventManager.Instance.NewDelayedAction(() =>
-                ManagerHandler.CO_MAN.Attack(gameObject, enemy), 0.25f);
+                Managers.CO_MAN.Attack(gameObject, enemy), 0.25f);
             }
-            ManagerHandler.U_MAN.SelectTarget(Enemy, UIManager.SelectionType.Disabled);
+            Managers.U_MAN.SelectTarget(Enemy, UIManager.SelectionType.Disabled);
             Enemy = null;
         }
 
 
-        foreach (GameObject enemyUnit in ManagerHandler.EN_MAN.PlayZoneCards)
-            ManagerHandler.U_MAN.SelectTarget(enemyUnit, UIManager.SelectionType.Disabled);
+        foreach (GameObject enemyUnit in Managers.EN_MAN.PlayZoneCards)
+            Managers.U_MAN.SelectTarget(enemyUnit, UIManager.SelectionType.Disabled);
 
-        ManagerHandler.U_MAN.SelectTarget(ManagerHandler.EN_MAN.HeroObject, UIManager.SelectionType.Disabled);
-        ManagerHandler.CA_MAN.SelectPlayableCards(true);
-        ManagerHandler.CA_MAN.SelectPlayableCards();
+        Managers.U_MAN.SelectTarget(Managers.EN_MAN.HeroObject, UIManager.SelectionType.Disabled);
+        Managers.CA_MAN.SelectPlayableCards(true);
+        Managers.CA_MAN.SelectPlayableCards();
     }
 }

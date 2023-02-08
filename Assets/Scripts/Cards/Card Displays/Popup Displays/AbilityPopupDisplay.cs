@@ -89,9 +89,9 @@ public class AbilityPopupDisplay : MonoBehaviour
         }
         if (!string.IsNullOrEmpty(name)) name += ": ";
 
-        string filteredDescription = ManagerHandler.CA_MAN.FilterKeywords(name + description);
-        filteredDescription = ManagerHandler.CA_MAN.FilterCreatedCardProgress(filteredDescription, isPlayerSource); // TESTING
-        AbilityDescription = ManagerHandler.CA_MAN.FilterKeywords(filteredDescription);
-        abilitySprite.GetComponent<Image>().color = ManagerHandler.CA_MAN.GetAbilityColor(abilityScript); // TESTING
+        string filteredDescription = Managers.CA_MAN.FilterKeywords(name + description);
+        filteredDescription = Managers.CA_MAN.FilterCreatedCardProgress(filteredDescription, isPlayerSource); // TESTING
+        AbilityDescription = Managers.CA_MAN.FilterKeywords(filteredDescription);
+        abilitySprite.GetComponent<Image>().color = Managers.CA_MAN.GetAbilityColor(abilityScript); // TESTING
     }
 }

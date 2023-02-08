@@ -35,7 +35,7 @@ public class NarrativeSceneDisplay : MonoBehaviour
         clipCounterText.SetText(currentClip + 1 + "/" +
             narrative.NarrativeText.Length);
         background.GetComponent<Image>().sprite = CurrentNarrative.NarrativeBackground;
-        ManagerHandler.D_MAN.TimedText(narrative.NarrativeText[currentClip],
+        Managers.D_MAN.TimedText(narrative.NarrativeText[currentClip],
             narrativeText.GetComponent<TextMeshProUGUI>());
     }
 
@@ -44,9 +44,9 @@ public class NarrativeSceneDisplay : MonoBehaviour
         if (SceneLoader.SceneIsLoading) return;
         GetComponent<SoundPlayer>().PlaySound(0);
 
-        if (ManagerHandler.D_MAN.CurrentTextRoutine != null)
+        if (Managers.D_MAN.CurrentTextRoutine != null)
         {
-            ManagerHandler.D_MAN.StopTimedText(true);
+            Managers.D_MAN.StopTimedText(true);
             return;
         }
         int lastClip = narrative.NarrativeText.Length - 1;

@@ -50,7 +50,7 @@ public class CombatManager : MonoBehaviour
         // ALL CARDS
         CardZone = GameObject.Find(CARD_ZONE);
 
-        foreach (HeroManager hMan in new List<HeroManager>() { ManagerHandler.P_MAN, ManagerHandler.EN_MAN })
+        foreach (HeroManager hMan in new List<HeroManager>() { Managers.P_MAN, Managers.EN_MAN })
         {
             hMan.HandZone = GameObject.Find(hMan.HAND_ZONE_TAG);
             hMan.PlayZone = GameObject.Find(hMan.PLAY_ZONE_TAG);
@@ -59,8 +59,8 @@ public class CombatManager : MonoBehaviour
             hMan.HeroObject = GameObject.Find(hMan.HERO_TAG);
         }
 
-        ManagerHandler.U_MAN.SelectTarget(ManagerHandler.P_MAN.HeroObject, UIManager.SelectionType.Disabled);
-        ManagerHandler.U_MAN.SelectTarget(ManagerHandler.P_MAN.HeroObject, UIManager.SelectionType.Disabled);
+        Managers.U_MAN.SelectTarget(Managers.P_MAN.HeroObject, UIManager.SelectionType.Disabled);
+        Managers.U_MAN.SelectTarget(Managers.P_MAN.HeroObject, UIManager.SelectionType.Disabled);
     }
 
     public static UnitCardDisplay GetUnitDisplay(GameObject card)
@@ -142,7 +142,7 @@ public class CombatManager : MonoBehaviour
             if (targetsEnemy && CardManager.GetAbility(unit, CardManager.ABILITY_WARD)) continue;
 
             int health = GetUnitDisplay(unit).CurrentHealth;
-            if (health < 1 || ManagerHandler.EF_MAN.UnitsToDestroy.Contains(unit)) continue;
+            if (health < 1 || Managers.EF_MAN.UnitsToDestroy.Contains(unit)) continue;
 
             if (health < lowestHealth)
             {
@@ -179,7 +179,7 @@ public class CombatManager : MonoBehaviour
             if (targetsEnemy && CardManager.GetAbility(unit, CardManager.ABILITY_WARD)) continue;
 
             int health = GetUnitDisplay(unit).CurrentHealth;
-            if (health < 1 || ManagerHandler.EF_MAN.UnitsToDestroy.Contains(unit)) continue;
+            if (health < 1 || Managers.EF_MAN.UnitsToDestroy.Contains(unit)) continue;
 
             int power = GetUnitDisplay(unit).CurrentPower;
             if (power > highestPower)
@@ -238,7 +238,7 @@ public class CombatManager : MonoBehaviour
             if (targetsEnemy && CardManager.GetAbility(unit, CardManager.ABILITY_WARD)) continue;
 
             int health = GetUnitDisplay(unit).CurrentHealth;
-            if (health < 1 || ManagerHandler.EF_MAN.UnitsToDestroy.Contains(unit)) continue;
+            if (health < 1 || Managers.EF_MAN.UnitsToDestroy.Contains(unit)) continue;
 
             int power = GetUnitDisplay(unit).CurrentPower;
             if (power < lowestPower)
@@ -303,7 +303,7 @@ public class CombatManager : MonoBehaviour
         }
 
         // TUTORIAL!
-        if (!preCheck && ManagerHandler.G_MAN.IsTutorial && ManagerHandler.P_MAN.EnergyPerTurn == 2)
+        if (!preCheck && Managers.G_MAN.IsTutorial && Managers.P_MAN.EnergyPerTurn == 2)
         {
             if (!defenderIsUnit) return false;
         }
@@ -313,7 +313,7 @@ public class CombatManager : MonoBehaviour
         {
             if (preCheck && !ignoreDefender)
             {
-                ManagerHandler.U_MAN.CreateFleetingInfoPopup("Exhausted units can't attack!");
+                Managers.U_MAN.CreateFleetingInfoPopup("Exhausted units can't attack!");
                 SFX_Error();
             }
             return false;
@@ -322,7 +322,7 @@ public class CombatManager : MonoBehaviour
         {
             if (preCheck && !ignoreDefender)
             {
-                ManagerHandler.U_MAN.CreateFleetingInfoPopup("Units with 0 power can't attack!");
+                Managers.U_MAN.CreateFleetingInfoPopup("Units with 0 power can't attack!");
                 SFX_Error();
             }
             return false;
@@ -332,13 +332,13 @@ public class CombatManager : MonoBehaviour
 
         if (defender.TryGetComponent(out UnitCardDisplay defUcd))
         {
-            if (ManagerHandler.EN_MAN.HandZoneCards.Contains(defender)) return false; // Unnecessary, already checked in CardSelect
-            if (defUcd.CurrentHealth < 1 || ManagerHandler.EF_MAN.UnitsToDestroy.Contains(defender)) return false; // Destroyed units that haven't left play yet
+            if (Managers.EN_MAN.HandZoneCards.Contains(defender)) return false; // Unnecessary, already checked in CardSelect
+            if (defUcd.CurrentHealth < 1 || Managers.EF_MAN.UnitsToDestroy.Contains(defender)) return false; // Destroyed units that haven't left play yet
             if (CardManager.GetAbility(defender, CardManager.ABILITY_STEALTH))
             {
                 if (!preCheck)
                 {
-                    ManagerHandler.U_MAN.CreateFleetingInfoPopup("Units with Stealth can't be attacked!");
+                    Managers.U_MAN.CreateFleetingInfoPopup("Units with Stealth can't be attacked!");
                     SFX_Error();
                 }
                 return false;
@@ -358,7 +358,7 @@ public class CombatManager : MonoBehaviour
                 {
                     if (!preCheck)
                     {
-                        ManagerHandler.U_MAN.CreateFleetingInfoPopup("Enemies with Defender must be attacked!");
+                        Managers.U_MAN.CreateFleetingInfoPopup("Enemies with Defender must be attacked!");
                         SFX_Error();
                     }
                     return false;
@@ -368,7 +368,7 @@ public class CombatManager : MonoBehaviour
 
         return true;
 
-        static void SFX_Error() => ManagerHandler.AU_MAN.StartStopSound("SFX_Error");
+        static void SFX_Error() => Managers.AU_MAN.StartStopSound("SFX_Error");
     }
     #endregion
 
@@ -382,8 +382,8 @@ public class CombatManager : MonoBehaviour
     {
         List<List<GameObject>> cardZoneList = new()
         {
-            ManagerHandler.P_MAN.PlayZoneCards,
-            ManagerHandler.EN_MAN.PlayZoneCards,
+            Managers.P_MAN.PlayZoneCards,
+            Managers.EN_MAN.PlayZoneCards,
         };
 
         foreach (List<GameObject> cards in cardZoneList)
@@ -400,18 +400,18 @@ public class CombatManager : MonoBehaviour
      *****/
     public void Attack(GameObject attacker, GameObject defender)
     {
-        ManagerHandler.EV_MAN.PauseDelayedActions(true);
+        Managers.EV_MAN.PauseDelayedActions(true);
 
         HeroManager hMan_Attacker = HeroManager.GetSourceHero(attacker, out HeroManager hMan_Defender);
         string logEntry = "";
 
-        if (hMan_Attacker == ManagerHandler.P_MAN)
+        if (hMan_Attacker == Managers.P_MAN)
         {
             logEntry += "<b><color=\"green\">";
 
-            if (ManagerHandler.G_MAN.IsTutorial && ManagerHandler.P_MAN.EnergyPerTurn == 2) // TUTORIAL!
+            if (Managers.G_MAN.IsTutorial && Managers.P_MAN.EnergyPerTurn == 2) // TUTORIAL!
             {
-                if (ManagerHandler.P_MAN.HeroPowerUsed) ManagerHandler.G_MAN.Tutorial_Tooltip(6);
+                if (Managers.P_MAN.HeroPowerUsed) Managers.G_MAN.Tutorial_Tooltip(6);
                 else return;
             }
         }
@@ -421,36 +421,36 @@ public class CombatManager : MonoBehaviour
         logEntry += "attacked ";
         if (IsUnitCard(defender))
         {
-            if (hMan_Defender == ManagerHandler.P_MAN) logEntry += "<b><color=\"green\">";
+            if (hMan_Defender == Managers.P_MAN) logEntry += "<b><color=\"green\">";
             else logEntry += "<b><color=\"red\">";
             logEntry += GetUnitDisplay(defender).CardName + "</b></color>.";
         }
         else
         {
-            if (hMan_Attacker == ManagerHandler.P_MAN) logEntry += "the enemy hero.";
+            if (hMan_Attacker == Managers.P_MAN) logEntry += "the enemy hero.";
             else logEntry += "your hero.";
         }
-        ManagerHandler.U_MAN.CombatLogEntry(logEntry);
+        Managers.U_MAN.CombatLogEntry(logEntry);
 
         GetUnitDisplay(attacker).IsExhausted = true;
         if (CardManager.GetAbility(attacker, CardManager.ABILITY_STEALTH))
             GetUnitDisplay(attacker).RemoveCurrentAbility(CardManager.ABILITY_STEALTH);
 
         if (!CardManager.GetAbility(attacker, CardManager.ABILITY_RANGED))
-            ManagerHandler.AN_MAN.UnitAttack(attacker, defender, IsUnitCard(defender));
+            Managers.AN_MAN.UnitAttack(attacker, defender, IsUnitCard(defender));
         else
         {
-            ManagerHandler.AU_MAN.PlayAttackSound(attacker);
-            ManagerHandler.EF_MAN.CreateEffectRay(attacker.transform.position, defender,
-                () => RangedAttackRay(), ManagerHandler.EF_MAN.DamageRayColor, EffectRay.EffectRayType.RangedAttack);
+            Managers.AU_MAN.PlayAttackSound(attacker);
+            Managers.EF_MAN.CreateEffectRay(attacker.transform.position, defender,
+                () => RangedAttackRay(), Managers.EF_MAN.DamageRayColor, EffectRay.EffectRayType.RangedAttack);
         }
 
-        if (ManagerHandler.P_MAN.IsMyTurn) ManagerHandler.EV_MAN.NewDelayedAction(() => ManagerHandler.CA_MAN.SelectPlayableCards(), 0);
+        if (Managers.P_MAN.IsMyTurn) Managers.EV_MAN.NewDelayedAction(() => Managers.CA_MAN.SelectPlayableCards(), 0);
 
         void RangedAttackRay()
         {
             Strike(attacker, defender, true, false);
-            ManagerHandler.EV_MAN.PauseDelayedActions(false);
+            Managers.EV_MAN.PauseDelayedActions(false);
         }
     }
 
@@ -484,27 +484,27 @@ public class CombatManager : MonoBehaviour
                     (striker, CardManager.TRIGGER_DEATHBLOW))
                 {
                     if (defenderDestroyed)
-                        ManagerHandler.CA_MAN.TriggerUnitAbility(striker, CardManager.TRIGGER_DEATHBLOW);
+                        Managers.CA_MAN.TriggerUnitAbility(striker, CardManager.TRIGGER_DEATHBLOW);
                 }
                 if (!defenderDestroyed && CardManager.GetTrigger
                     (defender, CardManager.TRIGGER_DEATHBLOW))
                 {
                     if (strikerDestroyed)
-                        ManagerHandler.CA_MAN.TriggerUnitAbility(defender, CardManager.TRIGGER_DEATHBLOW);
+                        Managers.CA_MAN.TriggerUnitAbility(defender, CardManager.TRIGGER_DEATHBLOW);
                 }
             }
             else if (!defenderDestroyed && strikerDealtDamage)
             {
                 HeroManager.GetSourceHero(striker, out HeroManager hMan_Enemy);
-                ManagerHandler.CA_MAN.TriggerPlayedUnits(CardManager.TRIGGER_RETALIATE, hMan_Enemy);
+                Managers.CA_MAN.TriggerPlayedUnits(CardManager.TRIGGER_RETALIATE, hMan_Enemy);
 
                 // Trigger Infiltrate BEFORE Retaliate, can cause Retaliate sources to be destroyed before triggering.
                 if (CardManager.GetTrigger(striker, CardManager.TRIGGER_INFILTRATE))
-                    ManagerHandler.CA_MAN.TriggerUnitAbility(striker, CardManager.TRIGGER_INFILTRATE);
+                    Managers.CA_MAN.TriggerUnitAbility(striker, CardManager.TRIGGER_INFILTRATE);
             }
 
             if (!(!IsUnitCard(defender) && defenderDestroyed))
-                ManagerHandler.EV_MAN.NewDelayedAction(() => ManagerHandler.U_MAN.UpdateEndTurnButton(), 0);
+                Managers.EV_MAN.NewDelayedAction(() => Managers.U_MAN.UpdateEndTurnButton(), 0);
         }
         // STRIKE EFFECTS // no current use
         /*
@@ -541,7 +541,7 @@ public class CombatManager : MonoBehaviour
                 if (dealtDamage && !defenderDestroyed)
                 {
                     if (CardManager.GetAbility(striker, CardManager.ABILITY_POISONOUS))
-                        defUcd.AddCurrentAbility(ManagerHandler.EF_MAN.PoisonAbility);
+                        defUcd.AddCurrentAbility(Managers.EF_MAN.PoisonAbility);
                 }
             }
         }
@@ -560,14 +560,14 @@ public class CombatManager : MonoBehaviour
 
         if (damageValue < 1) return;
 
-        ManagerHandler.AN_MAN.ShakeCamera(AnimationManager.Bump_Light);
+        Managers.AN_MAN.ShakeCamera(AnimationManager.Bump_Light);
         //ManagerHandler.AN_MAN.CreateParticleSystem(target, ParticleSystemHandler.ParticlesType.Damage, 1); // TESTING
 
         int targetValue;
         int newTargetValue;
         if (IsUnitCard(target)) targetValue = GetUnitDisplay(target).CurrentHealth;
-        else if (target == ManagerHandler.P_MAN.HeroObject) targetValue = ManagerHandler.P_MAN.CurrentHealth;
-        else if (target == ManagerHandler.EN_MAN.HeroObject) targetValue = ManagerHandler.EN_MAN.CurrentHealth;
+        else if (target == Managers.P_MAN.HeroObject) targetValue = Managers.P_MAN.CurrentHealth;
+        else if (target == Managers.EN_MAN.HeroObject) targetValue = Managers.EN_MAN.CurrentHealth;
         else
         {
             Debug.LogError("INVALID TARGET!");
@@ -578,20 +578,20 @@ public class CombatManager : MonoBehaviour
         newTargetValue = targetValue - damageValue;
 
         // Damage to heroes
-        if (target == ManagerHandler.P_MAN.HeroObject)
+        if (target == Managers.P_MAN.HeroObject)
         {
-            ManagerHandler.P_MAN.DamageTakenTurn += damageValue;
-            ManagerHandler.P_MAN.CurrentHealth = newTargetValue;
+            Managers.P_MAN.DamageTaken_ThisTurn += damageValue;
+            Managers.P_MAN.CurrentHealth = newTargetValue;
 
-            ManagerHandler.AN_MAN.ModifyHeroHealthState(target, -damageValue);
+            Managers.AN_MAN.ModifyHeroHealthState(target, -damageValue);
             wasDamaged = true;
         }
-        else if (target == ManagerHandler.EN_MAN.HeroObject)
+        else if (target == Managers.EN_MAN.HeroObject)
         {
-            ManagerHandler.EN_MAN.DamageTakenTurn += damageValue;
-            ManagerHandler.EN_MAN.CurrentHealth = newTargetValue;
+            Managers.EN_MAN.DamageTaken_ThisTurn += damageValue;
+            Managers.EN_MAN.CurrentHealth = newTargetValue;
 
-            ManagerHandler.AN_MAN.ModifyHeroHealthState(target, -damageValue);
+            Managers.AN_MAN.ModifyHeroHealthState(target, -damageValue);
             wasDamaged = true;
         }
         // Damage to Units
@@ -618,7 +618,7 @@ public class CombatManager : MonoBehaviour
                 int damageTaken = targetValue - newHealth;
 
                 GetUnitDisplay(target).CurrentHealth = newTargetValue;
-                ManagerHandler.AN_MAN.UnitTakeDamageState(target, damageTaken, isMeleeAttacker);
+                Managers.AN_MAN.UnitTakeDamageState(target, damageTaken, isMeleeAttacker);
                 wasDamaged = true;
             }
         }
@@ -630,12 +630,12 @@ public class CombatManager : MonoBehaviour
             if (IsUnitCard(target)) DestroyUnit(target);
             else
             {
-                ManagerHandler.AN_MAN.ShakeCamera(EZCameraShake.CameraShakePresets.Earthquake);
-                ManagerHandler.AN_MAN.SetAnimatorBool(target, "IsDestroyed", true);
+                Managers.AN_MAN.ShakeCamera(EZCameraShake.CameraShakePresets.Earthquake);
+                Managers.AN_MAN.SetAnimatorBool(target, "IsDestroyed", true);
                 bool playerWins;
-                if (target == ManagerHandler.P_MAN.HeroObject) playerWins = false;
+                if (target == Managers.P_MAN.HeroObject) playerWins = false;
                 else playerWins = true;
-                ManagerHandler.G_MAN.EndCombat(playerWins);
+                Managers.G_MAN.EndCombat(playerWins);
             }
         }
     }
@@ -652,15 +652,15 @@ public class CombatManager : MonoBehaviour
         int maxValue;
         int newTargetValue;
 
-        if (target == ManagerHandler.P_MAN.HeroObject)
+        if (target == Managers.P_MAN.HeroObject)
         {
-            targetValue = ManagerHandler.P_MAN.CurrentHealth;
-            maxValue = ManagerHandler.P_MAN.MaxHealth;
+            targetValue = Managers.P_MAN.CurrentHealth;
+            maxValue = Managers.P_MAN.MaxHealth;
         }
-        else if (target == ManagerHandler.EN_MAN.HeroObject)
+        else if (target == Managers.EN_MAN.HeroObject)
         {
-            targetValue = ManagerHandler.EN_MAN.CurrentHealth;
-            maxValue = ManagerHandler.EN_MAN.MaxHealth;
+            targetValue = Managers.EN_MAN.CurrentHealth;
+            maxValue = Managers.EN_MAN.MaxHealth;
         }
         else
         {
@@ -683,19 +683,19 @@ public class CombatManager : MonoBehaviour
             }
         }
 
-        ManagerHandler.AU_MAN.StartStopSound("SFX_StatPlus");
+        Managers.AU_MAN.StartStopSound("SFX_StatPlus");
         int healthChange = newTargetValue - targetValue;
 
         if (IsUnitCard(target))
         {
             GetUnitDisplay(target).CurrentHealth = newTargetValue;
-            ManagerHandler.AN_MAN.UnitStatChangeState(target, 0, healthChange, true);
+            Managers.AN_MAN.UnitStatChangeState(target, 0, healthChange, true);
         }
         else
         {
-            if (target == ManagerHandler.P_MAN.HeroObject) ManagerHandler.P_MAN.CurrentHealth = newTargetValue;
-            else if (target == ManagerHandler.EN_MAN.HeroObject) ManagerHandler.EN_MAN.CurrentHealth = newTargetValue;
-            ManagerHandler.AN_MAN.ModifyHeroHealthState(target, healthChange);
+            if (target == Managers.P_MAN.HeroObject) Managers.P_MAN.CurrentHealth = newTargetValue;
+            else if (target == Managers.EN_MAN.HeroObject) Managers.EN_MAN.CurrentHealth = newTargetValue;
+            Managers.AN_MAN.ModifyHeroHealthState(target, healthChange);
         }
     }
 
@@ -714,14 +714,15 @@ public class CombatManager : MonoBehaviour
 
         HeroManager hMan_Source = HeroManager.GetSourceHero(card, out HeroManager hMan_Enemy);
 
-        if (!ManagerHandler.EF_MAN.UnitsToDestroy.Contains(card)) ManagerHandler.EF_MAN.UnitsToDestroy.Add(card);
+        if (!Managers.EF_MAN.UnitsToDestroy.Contains(card)) Managers.EF_MAN.UnitsToDestroy.Add(card);
         DestroyFX();
 
         // Remove from lists immediately for PlayCard effects triggered from Revenge
         hMan_Source.PlayZoneCards.Remove(card);
+        hMan_Source.AlliesDestroyed_ThisTurn++; // TESTING
 
-        ManagerHandler.EV_MAN.NewDelayedAction(() => Destroy(), 0.75f, true);
-        ManagerHandler.EV_MAN.NewDelayedAction(() => DestroyTriggers(), 0, true);
+        Managers.EV_MAN.NewDelayedAction(() => Destroy(), 0.75f, true);
+        Managers.EV_MAN.NewDelayedAction(() => DestroyTriggers(), 0, true);
 
         void DestroyFX()
         {
@@ -731,7 +732,7 @@ public class CombatManager : MonoBehaviour
                 return;
             }
             Sound deathSound = GetUnitDisplay(card).UnitCard.UnitDeathSound;
-            ManagerHandler.AN_MAN.DestroyUnitCardState(card);
+            Managers.AN_MAN.DestroyUnitCardState(card);
         }
         void DestroyTriggers()
         {
@@ -748,30 +749,30 @@ public class CombatManager : MonoBehaviour
             }
 
             // Revenge
-            ManagerHandler.CA_MAN.TriggerUnitAbility(card, CardManager.TRIGGER_REVENGE);
+            Managers.CA_MAN.TriggerUnitAbility(card, CardManager.TRIGGER_REVENGE);
 
             // Marked
             if (CardManager.GetAbility(card, CardManager.ABILITY_MARKED))
-                ManagerHandler.EV_MAN.NewDelayedAction(() => MarkedTrigger(), 0.5f, true);
+                Managers.EV_MAN.NewDelayedAction(() => MarkedTrigger(), 0.5f, true);
 
             // Ally Destroyed
-            ManagerHandler.EF_MAN.TriggerModifiers_SpecialTrigger
+            Managers.EF_MAN.TriggerModifiers_SpecialTrigger
                 (ModifierAbility.TriggerType.AllyDestroyed, hMan_Source.PlayZoneCards);
 
             // Enemy Destroyed
-            ManagerHandler.EF_MAN.TriggerModifiers_SpecialTrigger
+            Managers.EF_MAN.TriggerModifiers_SpecialTrigger
                 (ModifierAbility.TriggerType.EnemyDestroyed, hMan_Enemy.PlayZoneCards);
 
             // Marked Enemy Destroyed
             if (CardManager.GetAbility(card, CardManager.ABILITY_MARKED))
             {
-                ManagerHandler.EF_MAN.TriggerModifiers_SpecialTrigger
+                Managers.EF_MAN.TriggerModifiers_SpecialTrigger
                     (ModifierAbility.TriggerType.MarkedEnemyDestroyed, hMan_Enemy.PlayZoneCards);
             }
             // Poisoned Enemy Destroyed
             if (CardManager.GetAbility(card, CardManager.ABILITY_POISONED))
             {
-                ManagerHandler.EF_MAN.TriggerModifiers_SpecialTrigger
+                Managers.EF_MAN.TriggerModifiers_SpecialTrigger
                     (ModifierAbility.TriggerType.PoisonedEnemyDestroyed, hMan_Enemy.PlayZoneCards);
             }
 
@@ -779,7 +780,7 @@ public class CombatManager : MonoBehaviour
             {
                 GetUnitDisplay(card).AbilityTriggerState(CardManager.ABILITY_MARKED);
                 HeroManager.GetSourceHero(card, out HeroManager hMan_Enemy);
-                ManagerHandler.CA_MAN.DrawCard(hMan_Enemy);
+                Managers.CA_MAN.DrawCard(hMan_Enemy);
             }
         }
         void Destroy()
@@ -796,7 +797,7 @@ public class CombatManager : MonoBehaviour
                 return;
             }
 
-            ManagerHandler.EF_MAN.UnitsToDestroy.Remove(card);
+            Managers.EF_MAN.UnitsToDestroy.Remove(card);
 
             UnitCard unitCard = card.GetComponent<CardDisplay>().CardScript as UnitCard;
             card.GetComponent<CardZoom>().DestroyZoomPopups();
@@ -804,15 +805,15 @@ public class CombatManager : MonoBehaviour
 
             DiscardCard(hMan_Source.DiscardZoneCards);
 
-            if (ManagerHandler.P_MAN.IsMyTurn) ManagerHandler.CA_MAN.SelectPlayableCards();
+            if (Managers.P_MAN.IsMyTurn) Managers.CA_MAN.SelectPlayableCards();
 
             void DiscardCard(List<Card> cardZone)
             {
-                if (unitCard.BanishAfterPlay) ManagerHandler.CA_MAN.HideCard(card);
+                if (unitCard.BanishAfterPlay) Managers.CA_MAN.HideCard(card);
                 else
                 {
                     card.GetComponent<CardDisplay>().ResetCard();
-                    cardZone.Add(ManagerHandler.CA_MAN.HideCard(card));
+                    cardZone.Add(Managers.CA_MAN.HideCard(card));
                 }
             }
         }

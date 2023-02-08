@@ -101,5 +101,5 @@ public class AbilityIconDisplay : MonoBehaviour
     private void SetAbilityIcon(Sprite sprite) =>
         abilitySprite.GetComponent<Image>().sprite = sprite;
     private void SetAbilityName(string abilityDescription) =>
-        abilityName.GetComponent<TextMeshProUGUI>().SetText(ManagerHandler.CA_MAN.FilterKeywords(abilityDescription));
+        abilityName.GetComponent<TextMeshProUGUI>().SetText(Managers.CA_MAN.FilterKeywords(abilityDescription));
 }

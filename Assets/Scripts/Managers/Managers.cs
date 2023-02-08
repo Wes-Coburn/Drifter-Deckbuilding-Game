@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public static class ManagerHandler
+public static class Managers
 {
     public static AnimationManager AN_MAN => GetManager(AnimationManager.Instance) as AnimationManager;
     public static AudioManager AU_MAN => GetManager(AudioManager.Instance) as AudioManager;

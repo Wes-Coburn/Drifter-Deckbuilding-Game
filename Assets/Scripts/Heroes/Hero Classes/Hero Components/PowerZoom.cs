@@ -69,7 +69,7 @@ public class PowerZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
         Vector3 spawnPoint = new Vector2(newX, newY);
         float scaleValue = 2.5f;
-        powerPopup = Instantiate(powerPopupPrefab, ManagerHandler.U_MAN.CurrentWorldSpace.transform);
+        powerPopup = Instantiate(powerPopupPrefab, Managers.U_MAN.CurrentWorldSpace.transform);
         powerPopup.transform.localPosition = spawnPoint;
         powerPopup.transform.localScale = new Vector2(scaleValue, scaleValue);
 
@@ -106,7 +106,7 @@ public class PowerZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             return;
         }
 
-        abilityPopupBox = Instantiate(abilityPopupBoxPrefab, ManagerHandler.U_MAN.CurrentZoomCanvas.transform);
+        abilityPopupBox = Instantiate(abilityPopupBoxPrefab, Managers.U_MAN.CurrentZoomCanvas.transform);
         Vector2 position = new Vector2();
 
         if (!abilityPopupOnly) // Combat Scene

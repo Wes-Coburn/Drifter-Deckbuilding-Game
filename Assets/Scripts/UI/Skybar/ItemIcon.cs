@@ -39,43 +39,43 @@ public class ItemIcon : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
         if (loadedItem.IsUsed)
         {
-            ManagerHandler.U_MAN.CreateFleetingInfoPopup("Item already used this combat!");
+            Managers.U_MAN.CreateFleetingInfoPopup("Item already used this combat!");
             AudioManager.Instance.StartStopSound("SFX_Error");
             return;
         }
 
-        ManagerHandler.U_MAN.CreateItemIconPopup(loadedItem, gameObject, true);
+        Managers.U_MAN.CreateItemIconPopup(loadedItem, gameObject, true);
         FunctionTimer.StopTimer(ITEM_ABILITY_POPUP_TIMER);
-        ManagerHandler.U_MAN.DestroyItemAbilityPopup();
+        Managers.U_MAN.DestroyItemAbilityPopup();
     }
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
-        if (ManagerHandler.U_MAN.ConfirmUseItemPopup != null) return;
+        if (Managers.U_MAN.ConfirmUseItemPopup != null) return;
 
-        ManagerHandler.U_MAN.CreateItemIconPopup(loadedItem, gameObject);
+        Managers.U_MAN.CreateItemIconPopup(loadedItem, gameObject);
         FunctionTimer.Create(() =>
         AbilityPopupTimer(), 0.5f, ITEM_ABILITY_POPUP_TIMER);
 
         void AbilityPopupTimer()
         {
             if (this == null) return;
-            ManagerHandler.U_MAN.CreateItemAbilityPopup(loadedItem);
+            Managers.U_MAN.CreateItemAbilityPopup(loadedItem);
         }
     }
 
     public void OnPointerExit(PointerEventData pointerEventData)
     {
-        if (ManagerHandler.U_MAN.ConfirmUseItemPopup != null) return;
+        if (Managers.U_MAN.ConfirmUseItemPopup != null) return;
         FunctionTimer.StopTimer(ITEM_ABILITY_POPUP_TIMER);
-        ManagerHandler.U_MAN.DestroyItemIconPopup();
-        ManagerHandler.U_MAN.DestroyItemAbilityPopup();
+        Managers.U_MAN.DestroyItemIconPopup();
+        Managers.U_MAN.DestroyItemAbilityPopup();
     }
 
     private void OnDisable() // TESTING
     {
         FunctionTimer.StopTimer(ITEM_ABILITY_POPUP_TIMER);
-        ManagerHandler.U_MAN.DestroyItemIconPopup();
-        ManagerHandler.U_MAN.DestroyItemAbilityPopup();
+        Managers.U_MAN.DestroyItemIconPopup();
+        Managers.U_MAN.DestroyItemAbilityPopup();
     }
 }

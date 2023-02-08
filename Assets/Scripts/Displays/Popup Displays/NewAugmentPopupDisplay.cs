@@ -28,7 +28,7 @@ public class NewAugmentPopupDisplay : MonoBehaviour
 
         foreach (HeroAugment aug in allAugments)
         {
-            if (ManagerHandler.P_MAN.GetAugment(aug.AugmentName)) continue;
+            if (Managers.P_MAN.GetAugment(aug.AugmentName)) continue;
 
             availableAugments.Add(aug);
             if (aug.AugmentName == "Synaptic Stabilizer") startIndex = index;
@@ -70,7 +70,7 @@ public class NewAugmentPopupDisplay : MonoBehaviour
 
     public void ConfirmButton_OnClick()
     {
-        ManagerHandler.P_MAN.AddAugment(LoadedAugment, true);
+        Managers.P_MAN.AddAugment(LoadedAugment, true);
         UIManager.Instance.DestroyNewAugmentPopup();
         DialogueManager.Instance.DisplayDialoguePopup();
 

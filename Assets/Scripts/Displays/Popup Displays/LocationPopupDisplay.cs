@@ -23,7 +23,7 @@ public class LocationPopupDisplay : MonoBehaviour
             location = value;
             LocationName = location.LocationFullName;
             LocationDescription = location.LocationDescription;
-            ObjectivesDescription = ManagerHandler.CA_MAN.FilterUnitTypes(location.CurrentObjective);
+            ObjectivesDescription = Managers.CA_MAN.FilterUnitTypes(location.CurrentObjective);
             WorldMapPosition = new Vector2(0, 0); // CHANGE?
 
             if (!location.IsRecurring)
@@ -109,7 +109,7 @@ public class LocationPopupDisplay : MonoBehaviour
         else if (difficulty > 1) newColor = Color.yellow;
         else newColor = Color.green;
 
-        int surgeValue = ManagerHandler.G_MAN.GetSurgeDelay(difficulty);
+        int surgeValue = Managers.G_MAN.GetSurgeDelay(difficulty);
         int energyValue = GameManager.BOSS_BONUS_ENERGY + difficulty - 1;
         int aetherValue = GameManager.ADDITIONAL_AETHER_REWARD * (difficulty - 1);
 
@@ -133,11 +133,11 @@ public class LocationPopupDisplay : MonoBehaviour
 
     public void TravelButton_OnClick()
     {
-        if (ManagerHandler.G_MAN.VisitedLocations.FindIndex(x => x == location.LocationName) == -1)
+        if (Managers.G_MAN.VisitedLocations.FindIndex(x => x == location.LocationName) == -1)
         {
-            ManagerHandler.G_MAN.VisitedLocations.Add(location.LocationName);
+            Managers.G_MAN.VisitedLocations.Add(location.LocationName);
 
-            if (!location.IsRecurring) ManagerHandler.G_MAN.NextHour(!location.IsRandomEncounter);
+            if (!location.IsRecurring) Managers.G_MAN.NextHour(!location.IsRandomEncounter);
         }
 
         if (location.IsHomeBase)
@@ -146,11 +146,11 @@ public class LocationPopupDisplay : MonoBehaviour
             return;
         }
 
-        ManagerHandler.G_MAN.CurrentLocation = ManagerHandler.G_MAN.GetActiveLocation(location);
+        Managers.G_MAN.CurrentLocation = Managers.G_MAN.GetActiveLocation(location);
 
         if (location.IsRecruitment || location.IsActionShop || location.IsShop || location.IsCloning) { }
-        else ManagerHandler.G_MAN.ActiveLocations.Remove(ManagerHandler.G_MAN.CurrentLocation);
-        ManagerHandler.D_MAN.EngagedHero = ManagerHandler.G_MAN.GetActiveNPC(ManagerHandler.G_MAN.CurrentLocation.CurrentNPC);
+        else Managers.G_MAN.ActiveLocations.Remove(Managers.G_MAN.CurrentLocation);
+        Managers.D_MAN.EngagedHero = Managers.G_MAN.GetActiveNPC(Managers.G_MAN.CurrentLocation.CurrentNPC);
 
         if (location.IsCombatOnly) SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);
         else SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene, true);
@@ -158,7 +158,7 @@ public class LocationPopupDisplay : MonoBehaviour
 
     public void CancelButton_OnClick()
     {
-        ManagerHandler.U_MAN.DestroyTravelPopup();
-        ManagerHandler.U_MAN.DestroyLocationPopup();
+        Managers.U_MAN.DestroyTravelPopup();
+        Managers.U_MAN.DestroyLocationPopup();
     }
 }

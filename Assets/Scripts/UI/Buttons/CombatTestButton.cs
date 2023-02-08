@@ -59,48 +59,48 @@ public class CombatTestButton : MonoBehaviour
             return;
         }
 
-        ManagerHandler.G_MAN.IsCombatTest = true; // TESTING
-        ManagerHandler.D_MAN.EngagedHero = eh;
-        ManagerHandler.P_MAN.HeroScript = ph;
+        Managers.G_MAN.IsCombatTest = true;
+        Managers.D_MAN.EngagedHero = eh;
+        Managers.P_MAN.HeroScript = ph;
 
         // Test Augments
         foreach (HeroAugment aug in testAugments)
-            ManagerHandler.P_MAN.AddAugment(aug);
+            Managers.P_MAN.AddAugment(aug);
 
         // Test Items
         HeroItem[] items = new HeroItem[testItems.Length];
         testItems.CopyTo(items, 0);
         items.Shuffle();
-        for (int i = 0; i < 5; i++) ManagerHandler.P_MAN.AddItem(items[i]);
+        for (int i = 0; i < 5; i++) Managers.P_MAN.AddItem(items[i]);
 
         // Test Cards
         if (enableTestCards_1)
         {
             foreach (Card c in testCards_1)
-                ManagerHandler.CA_MAN.AddCard(c, GameManager.PLAYER);
+                Managers.CA_MAN.AddCard(c, GameManager.PLAYER);
         }
         if (enableTestCards_2)
         {
             foreach (Card c in testCards_2)
-                ManagerHandler.CA_MAN.AddCard(c, GameManager.PLAYER);
+                Managers.CA_MAN.AddCard(c, GameManager.PLAYER);
         }
         if (enableTestCards_3)
         {
             foreach (Card c in testCards_3)
-                ManagerHandler.CA_MAN.AddCard(c, GameManager.PLAYER);
+                Managers.CA_MAN.AddCard(c, GameManager.PLAYER);
         }
         if (enableTestCards_4)
         {
             foreach (Card c in testCards_4)
-                ManagerHandler.CA_MAN.AddCard(c, GameManager.PLAYER);
+                Managers.CA_MAN.AddCard(c, GameManager.PLAYER);
         }
 
         // Start Units
         if (addStartUnits)
         {
-            foreach (UnitCard uc in ManagerHandler.CA_MAN.PlayerStartUnits)
+            foreach (UnitCard uc in Managers.CA_MAN.PlayerStartUnits)
                 for (int i = 0; i < GameManager.PLAYER_START_UNITS; i++)
-                    ManagerHandler.CA_MAN.AddCard(uc, GameManager.PLAYER);
+                    Managers.CA_MAN.AddCard(uc, GameManager.PLAYER);
         }
 
         // Reputation
@@ -124,10 +124,10 @@ public class CombatTestButton : MonoBehaviour
                 return;
         }
 
-        ManagerHandler.G_MAN.Reputation_Mages = reputation;
-        ManagerHandler.G_MAN.Reputation_Mutants = reputation;
-        ManagerHandler.G_MAN.Reputation_Rogues = reputation;
-        ManagerHandler.G_MAN.Reputation_Techs = reputation;
-        ManagerHandler.G_MAN.Reputation_Warriors = reputation;
+        Managers.G_MAN.Reputation_Mages = reputation;
+        Managers.G_MAN.Reputation_Mutants = reputation;
+        Managers.G_MAN.Reputation_Rogues = reputation;
+        Managers.G_MAN.Reputation_Techs = reputation;
+        Managers.G_MAN.Reputation_Warriors = reputation;
     }
 }

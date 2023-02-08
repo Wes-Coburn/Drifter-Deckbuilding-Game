@@ -135,10 +135,10 @@ public class AnimationManager : MonoBehaviour
         Transform newParent;
         if (yBuffer != 0)
         {
-            newParent = ManagerHandler.U_MAN.UICanvas.transform;
+            newParent = Managers.U_MAN.UICanvas.transform;
             valueChanger.transform.localScale = new Vector2(2, 2);
         }
-        else if (setToCanvas) newParent = ManagerHandler.U_MAN.CurrentCanvas.transform;
+        else if (setToCanvas) newParent = Managers.U_MAN.CurrentCanvas.transform;
         else newParent = parent.parent.parent.parent;
 
         valueChanger.transform.SetParent(newParent);
@@ -227,7 +227,7 @@ public class AnimationManager : MonoBehaviour
                 return null;
         }
 
-        GameObject particleSystem = Instantiate(prefab, ManagerHandler.U_MAN.CurrentWorldSpace.transform);
+        GameObject particleSystem = Instantiate(prefab, Managers.U_MAN.CurrentWorldSpace.transform);
         ParticleSystemHandler psh = particleSystem.GetComponent<ParticleSystemHandler>();
         psh.StartParticles(parent, startColor, startSize, startLifetime, stopDelay, usePointerPosition, followPosition);
         return psh;
@@ -322,7 +322,7 @@ public class AnimationManager : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(delay);
-            ManagerHandler.AU_MAN.StartStopSound("SFX_Counting");
+            Managers.AU_MAN.StartStopSound("SFX_Counting");
 
             bool completed = true;
             foreach (CountingTextObject cto in CountingTextObject.CountingTexts)
@@ -376,8 +376,8 @@ public class AnimationManager : MonoBehaviour
         slider.value = currentProgress + controlValue;
         Image image = progressFill.GetComponent<Image>();
         previousBarColor = image.color;
-        image.color = ManagerHandler.U_MAN.HighlightedColor;
-        ManagerHandler.AU_MAN.StartStopSound("SFX_ProgressBar", null, AudioManager.SoundType.SFX, false, true);
+        image.color = Managers.U_MAN.HighlightedColor;
+        Managers.AU_MAN.StartStopSound("SFX_ProgressBar", null, AudioManager.SoundType.SFX, false, true);
 
         int targetValue = newProgress + controlValue;
         if (slider.value < targetValue)
@@ -398,7 +398,7 @@ public class AnimationManager : MonoBehaviour
         }
 
         image.color = previousBarColor;
-        ManagerHandler.AU_MAN.StartStopSound("SFX_ProgressBar", null, AudioManager.SoundType.SFX, true);
+        Managers.AU_MAN.StartStopSound("SFX_ProgressBar", null, AudioManager.SoundType.SFX, true);
         ProgressBarRoutine = null;
     }
     #endregion
@@ -417,7 +417,7 @@ public class AnimationManager : MonoBehaviour
     }
     public void ModifyHeroEnergyState(int energyChange, GameObject hero, bool playSound = true)
     {
-        if (playSound) ManagerHandler.AU_MAN.StartStopSound("SFX_EnergyRefill");
+        if (playSound) Managers.AU_MAN.StartStopSound("SFX_EnergyRefill");
         ChangeAnimationState(hero, "Modify_Energy");
         GameObject energyScore = hero.GetComponent<HeroDisplay>().HeroEnergyObject;
         ValueChanger(energyScore.transform, energyChange);
@@ -481,8 +481,8 @@ public class AnimationManager : MonoBehaviour
             healthChange = -healthChange;
         }
 
-        if (!isNegativeChange) ManagerHandler.AU_MAN.StartStopSound("SFX_StatPlus");
-        else ManagerHandler.AU_MAN.StartStopSound("SFX_StatMinus");
+        if (!isNegativeChange) Managers.AU_MAN.StartStopSound("SFX_StatPlus");
+        else Managers.AU_MAN.StartStopSound("SFX_StatMinus");
         UnitStatChangeState(unitCard, powerChange, healthChange);
     }
 
@@ -552,9 +552,9 @@ public class AnimationManager : MonoBehaviour
         FunctionTimer.StopTimer(CLOSE_SKYBAR_TIMER);
         GameObject skybar = icon.transform.parent.parent.gameObject;
 
-        if (skybar == ManagerHandler.U_MAN.AugmentsDropdown) ManagerHandler.U_MAN.AugmentsButton_OnClick(true);
-        else if (skybar == ManagerHandler.U_MAN.ItemsDropdown) ManagerHandler.U_MAN.ItemsButton_OnClick(true);
-        else if (skybar == ManagerHandler.U_MAN.ReputationsDropdown) ManagerHandler.U_MAN.ReputationsButton_OnClick(true);
+        if (skybar == Managers.U_MAN.AugmentsDropdown) Managers.U_MAN.AugmentsButton_OnClick(true);
+        else if (skybar == Managers.U_MAN.ItemsDropdown) Managers.U_MAN.ItemsButton_OnClick(true);
+        else if (skybar == Managers.U_MAN.ReputationsDropdown) Managers.U_MAN.ReputationsButton_OnClick(true);
         else
         {
             Trigger(); // TESTING
@@ -571,13 +571,13 @@ public class AnimationManager : MonoBehaviour
 
     public void TriggerAugment(string augmentName)
     {
-        foreach (Transform icon in ManagerHandler.U_MAN.AugmentBar.transform)
+        foreach (Transform icon in Managers.U_MAN.AugmentBar.transform)
         {
             AugmentIcon augmentIcon = icon.GetComponent<AugmentIcon>();
             if (augmentIcon.LoadedAugment.AugmentName == augmentName)
             {
                 SkybarIconAnimation(icon.gameObject);
-                ManagerHandler.AU_MAN.StartStopSound("SFX_Trigger");
+                Managers.AU_MAN.StartStopSound("SFX_Trigger");
                 return;
             }
         }
@@ -594,16 +594,16 @@ public class AnimationManager : MonoBehaviour
         StartCoroutine(DialogueIntroNumerator());
     private IEnumerator DialogueIntroNumerator()
     {
-        ManagerHandler.AU_MAN.StartStopSound("SFX_PortraitClick");
+        Managers.AU_MAN.StartStopSound("SFX_PortraitClick");
 
         float distance;
-        DialogueSceneDisplay dsp = ManagerHandler.D_MAN.DialogueDisplay;
+        DialogueSceneDisplay dsp = Managers.D_MAN.DialogueDisplay;
         GameObject playerPortrait = dsp.PlayerHeroPortrait;
         GameObject npcPortrait = dsp.NPCHeroPortrait;
         Vector2 pPortStart = playerPortrait.transform.localPosition;
         Vector2 nPortStart = npcPortrait.transform.localPosition;
         playerPortrait.SetActive(true);
-        DialoguePrompt prompt = ManagerHandler.D_MAN.EngagedHero.NextDialogueClip as DialoguePrompt;
+        DialoguePrompt prompt = Managers.D_MAN.EngagedHero.NextDialogueClip as DialoguePrompt;
         npcPortrait.SetActive(!prompt.HideNPC);
         playerPortrait.transform.localPosition = new Vector2(600, pPortStart.y);
         npcPortrait.transform.localPosition = new Vector2(-600, nPortStart.y);
@@ -631,9 +631,9 @@ public class AnimationManager : MonoBehaviour
     public void NewEngagedHero(bool isExitOnly) => StartCoroutine(NewEngagedHeroNumerator(isExitOnly));
     private IEnumerator NewEngagedHeroNumerator(bool isExitOnly)
     {
-        ManagerHandler.AU_MAN.StartStopSound("SFX_PortraitClick");
+        Managers.AU_MAN.StartStopSound("SFX_PortraitClick");
         float distance;
-        GameObject npcPortrait = ManagerHandler.D_MAN.DialogueDisplay.NPCHeroPortrait;
+        GameObject npcPortrait = Managers.D_MAN.DialogueDisplay.NPCHeroPortrait;
         Vector2 nPortStart = npcPortrait.transform.localPosition;
         Vector2 nPortEnd = new(-600, nPortStart.y);
 
@@ -648,7 +648,7 @@ public class AnimationManager : MonoBehaviour
 
         npcPortrait.SetActive(!isExitOnly);
 
-        ManagerHandler.D_MAN.DisplayCurrentHeroes();
+        Managers.D_MAN.DisplayCurrentHeroes();
         yield return new WaitForSeconds(0.5f);
 
         do
@@ -660,8 +660,8 @@ public class AnimationManager : MonoBehaviour
         }
         while (distance > 0);
 
-        if (!isExitOnly) ManagerHandler.D_MAN.DisplayDialoguePopup();
-        ManagerHandler.D_MAN.AllowResponse = true;
+        if (!isExitOnly) Managers.D_MAN.DisplayDialoguePopup();
+        Managers.D_MAN.AllowResponse = true;
     }
     #endregion
 
@@ -681,16 +681,16 @@ public class AnimationManager : MonoBehaviour
         float distance;
         float fScale = 1;
 
-        GameObject turBut = ManagerHandler.U_MAN.EndTurnButton;
-        GameObject combatLog = ManagerHandler.U_MAN.CombatLog;
+        GameObject turBut = Managers.U_MAN.EndTurnButton;
+        GameObject combatLog = Managers.U_MAN.CombatLog;
 
-        HeroDisplay pHD = ManagerHandler.P_MAN.HeroObject.GetComponent<HeroDisplay>();
+        HeroDisplay pHD = Managers.P_MAN.HeroObject.GetComponent<HeroDisplay>();
         GameObject pBase = pHD.HeroBase;
         GameObject pFrame = pHD.HeroFrame;
         GameObject pStats = pHD.HeroStats;
         GameObject pName = pHD.HeroNameObject;
 
-        HeroDisplay eHD = ManagerHandler.EN_MAN.HeroObject.GetComponent<HeroDisplay>();
+        HeroDisplay eHD = Managers.EN_MAN.HeroObject.GetComponent<HeroDisplay>();
         GameObject eBase = eHD.HeroBase;
         GameObject eFrame = eHD.HeroFrame;
         GameObject eStats = eHD.HeroStats;
@@ -734,10 +734,10 @@ public class AnimationManager : MonoBehaviour
         eStats.transform.localPosition = new Vector2(eStatsStart.x, eStatsStart.y + startBuffer);
         eName.transform.localPosition = eNameEnd;
 
-        ManagerHandler.P_MAN.PlayerPowerSounds();
-        ManagerHandler.U_MAN.SelectTarget(ManagerHandler.P_MAN.HeroObject, UIManager.SelectionType.Highlighted);
-        CreateParticleSystem(ManagerHandler.P_MAN.HeroObject, ParticleSystemHandler.ParticlesType.Drag, 2);
-        CreateParticleSystem(ManagerHandler.EN_MAN.HeroObject, ParticleSystemHandler.ParticlesType.Drag, 2);
+        Managers.P_MAN.PlayerPowerSounds();
+        Managers.U_MAN.SelectTarget(Managers.P_MAN.HeroObject, UIManager.SelectionType.Highlighted);
+        CreateParticleSystem(Managers.P_MAN.HeroObject, ParticleSystemHandler.ParticlesType.Drag, 2);
+        CreateParticleSystem(Managers.EN_MAN.HeroObject, ParticleSystemHandler.ParticlesType.Drag, 2);
 
         do
         {
@@ -762,59 +762,59 @@ public class AnimationManager : MonoBehaviour
         }
         while (distance > 700);
 
-        ManagerHandler.U_MAN.CreateVersusPopup();
+        Managers.U_MAN.CreateVersusPopup();
         ShakeCamera(Bump_Light);
 
         yield return new WaitForSeconds(0.5f);
-        ManagerHandler.U_MAN.SelectTarget(ManagerHandler.P_MAN.HeroObject, UIManager.SelectionType.Disabled);
+        Managers.U_MAN.SelectTarget(Managers.P_MAN.HeroObject, UIManager.SelectionType.Disabled);
 
         yield return new WaitForSeconds(0.5f);
-        ManagerHandler.U_MAN.SelectTarget(ManagerHandler.EN_MAN.HeroObject, UIManager.SelectionType.Highlighted);
-        ManagerHandler.AU_MAN.StartStopSound(null, ManagerHandler.EN_MAN.HeroScript.HeroWin);
+        Managers.U_MAN.SelectTarget(Managers.EN_MAN.HeroObject, UIManager.SelectionType.Highlighted);
+        Managers.AU_MAN.StartStopSound(null, Managers.EN_MAN.HeroScript.HeroWin);
         FunctionTimer.Create(() =>
-        ManagerHandler.U_MAN.SelectTarget(ManagerHandler.EN_MAN.HeroObject, UIManager.SelectionType.Disabled), 2);
+        Managers.U_MAN.SelectTarget(Managers.EN_MAN.HeroObject, UIManager.SelectionType.Disabled), 2);
 
-        EnemyHero eh = ManagerHandler.D_MAN.EngagedHero as EnemyHero;
+        EnemyHero eh = Managers.D_MAN.EngagedHero as EnemyHero;
         if (eh.IsBoss)
         {
             yield return new WaitForSeconds(2);
-            ManagerHandler.U_MAN.CreateVersusPopup(true);
+            Managers.U_MAN.CreateVersusPopup(true);
         }
 
         // Reputations
-        foreach (Transform repTran in ManagerHandler.U_MAN.ReputationBar.transform)
+        foreach (Transform repTran in Managers.U_MAN.ReputationBar.transform)
         {
             repTran.gameObject.SetActive(true);
             SkybarIconAnimation(repTran.gameObject);
         }
 
-        ManagerHandler.AU_MAN.StartStopSound("SFX_Trigger");
+        Managers.AU_MAN.StartStopSound("SFX_Trigger");
         yield return new WaitForSeconds(0.5f);
 
         // Augments
-        foreach (Transform augTran in ManagerHandler.U_MAN.AugmentBar.transform)
+        foreach (Transform augTran in Managers.U_MAN.AugmentBar.transform)
         {
             augTran.gameObject.SetActive(true);
             SkybarIconAnimation(augTran.gameObject);
         }
-        if (ManagerHandler.U_MAN.AugmentBar.transform.childCount > 0)
-            ManagerHandler.AU_MAN.StartStopSound("SFX_Trigger");
+        if (Managers.U_MAN.AugmentBar.transform.childCount > 0)
+            Managers.AU_MAN.StartStopSound("SFX_Trigger");
 
         yield return new WaitForSeconds(0.5f);
 
         // Items
-        foreach (Transform itemTran in ManagerHandler.U_MAN.ItemBar.transform)
+        foreach (Transform itemTran in Managers.U_MAN.ItemBar.transform)
         {
             itemTran.gameObject.SetActive(true);
             SkybarIconAnimation(itemTran.gameObject);
         }
 
-        if (ManagerHandler.U_MAN.ItemBar.transform.childCount > 0)
-            ManagerHandler.AU_MAN.StartStopSound("SFX_Trigger");
+        if (Managers.U_MAN.ItemBar.transform.childCount > 0)
+            Managers.AU_MAN.StartStopSound("SFX_Trigger");
 
         yield return new WaitForSeconds(0.5f);
 
-        ManagerHandler.AU_MAN.StartStopSound("SFX_PortraitClick");
+        Managers.AU_MAN.StartStopSound("SFX_PortraitClick");
         do
         {
             distance = Vector2.Distance(pFrame.transform.position, pFrameStart);
@@ -901,8 +901,8 @@ public class AnimationManager : MonoBehaviour
         }
         while (distance > bufferDistance);
 
-        ManagerHandler.AU_MAN.PlayAttackSound(attacker);
-        ManagerHandler.CO_MAN.Strike(attacker, defender, true, true);
+        Managers.AU_MAN.PlayAttackSound(attacker);
+        Managers.CO_MAN.Strike(attacker, defender, true, true);
         yield return new WaitForSeconds(0.1f);
 
         // RETREAT
@@ -947,12 +947,12 @@ public class AnimationManager : MonoBehaviour
     }
     private IEnumerator ShiftHandNumerator(bool isUpShift)
     {
-        ManagerHandler.AU_MAN.StartStopSound("SFX_ShiftHand");
+        Managers.AU_MAN.StartStopSound("SFX_ShiftHand");
         float distance;
         float yTarget;
-        GameObject hand = ManagerHandler.P_MAN.HandZone;
+        GameObject hand = Managers.P_MAN.HandZone;
         if (isUpShift) yTarget = -350;
-        else yTarget = ManagerHandler.P_MAN.HandStart.y;
+        else yTarget = Managers.P_MAN.HandStart.y;
         Vector2 target = new(0, yTarget);
 
         do
@@ -962,7 +962,7 @@ public class AnimationManager : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         while (distance > 0);
-        ManagerHandler.U_MAN.DestroyZoomObjects();
+        Managers.U_MAN.DestroyZoomObjects();
     }
     #endregion
     #endregion

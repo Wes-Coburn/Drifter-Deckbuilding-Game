@@ -9,7 +9,7 @@ public class ActionCardDisplay : CardDisplay
     protected override void DisplayCard()
     {
         base.DisplayCard();
-        cardDescription.GetComponent<TextMeshProUGUI>().SetText(ManagerHandler.CA_MAN.FilterKeywords(ActionCard.EffectDescription));
+        cardDescription.GetComponent<TextMeshProUGUI>().SetText(Managers.CA_MAN.FilterKeywords(ActionCard.EffectDescription));
     }
 
     public override void DisplayZoomCard(GameObject parentCard, Card card = null)
@@ -27,7 +27,7 @@ public class ActionCardDisplay : CardDisplay
             ActionCard ac = card as ActionCard;
             description = ac.EffectDescription;
         }
-        tmPro.SetText(ManagerHandler.CA_MAN.FilterKeywords(description));
+        tmPro.SetText(Managers.CA_MAN.FilterKeywords(description));
     }
 
     public override void DisplayCardPageCard(Card card)

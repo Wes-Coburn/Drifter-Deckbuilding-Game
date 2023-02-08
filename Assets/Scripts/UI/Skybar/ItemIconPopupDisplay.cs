@@ -18,14 +18,14 @@ public class ItemIconPopupDisplay : MonoBehaviour
         {
             loadedItem = value;
             string description = "<b><u>" + value.ItemName + "</u></b>\n" +
-                ManagerHandler.CA_MAN.FilterKeywords(value.ItemDescription);
+                Managers.CA_MAN.FilterKeywords(value.ItemDescription);
             itemText.GetComponent<TextMeshProUGUI>().SetText(description);
         }
     }
 
     public void UseItem_OnClick()
     {
-        if (!ManagerHandler.P_MAN.IsMyTurn || EffectManager.Instance.EffectsResolving ||
+        if (!Managers.P_MAN.IsMyTurn || EffectManager.Instance.EffectsResolving ||
             EventManager.Instance.ActionsDelayed) return;
 
         if (SourceIcon == null)
@@ -34,14 +34,14 @@ public class ItemIconPopupDisplay : MonoBehaviour
             return;
         }
 
-        if (!ManagerHandler.EF_MAN.CheckLegalTargets(loadedItem.EffectGroupList, SourceIcon, true))
+        if (!Managers.EF_MAN.CheckLegalTargets(loadedItem.EffectGroupList, SourceIcon, true))
         {
-            ManagerHandler.U_MAN.CreateFleetingInfoPopup("You can't use that right now!");
+            Managers.U_MAN.CreateFleetingInfoPopup("You can't use that right now!");
             AudioManager.Instance.StartStopSound("SFX_Error");
         }
-        else ManagerHandler.EF_MAN.StartEffectGroupList(loadedItem.EffectGroupList, SourceIcon);
+        else Managers.EF_MAN.StartEffectGroupList(loadedItem.EffectGroupList, SourceIcon);
         ClosePopup_OnClick();
     }
 
-    public void ClosePopup_OnClick() => ManagerHandler.U_MAN.DestroyItemIconPopup();
+    public void ClosePopup_OnClick() => Managers.U_MAN.DestroyItemIconPopup();
 }

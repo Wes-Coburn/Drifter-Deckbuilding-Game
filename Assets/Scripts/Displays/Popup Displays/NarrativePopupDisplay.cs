@@ -53,15 +53,15 @@ public class NarrativePopupDisplay : MonoBehaviour
         previousButton.SetActive(showPrevious);
         clipCounterText.SetText(currentClip + 1 + "/" + clipCount);
 
-        ManagerHandler.D_MAN.TimedText(loadedNarrative.NarrativeText[currentClip],
+        Managers.D_MAN.TimedText(loadedNarrative.NarrativeText[currentClip],
             narrativeText.GetComponent<TextMeshProUGUI>());
     }
 
     public void NextButton_OnClick()
     {
-        if (ManagerHandler.D_MAN.CurrentTextRoutine != null)
+        if (Managers.D_MAN.CurrentTextRoutine != null)
         {
-            ManagerHandler.D_MAN.StopTimedText(true);
+            Managers.D_MAN.StopTimedText(true);
             return;
         }
         int lastClip = loadedNarrative.NarrativeText.Length - 1;
@@ -83,5 +83,5 @@ public class NarrativePopupDisplay : MonoBehaviour
     }
 
     public void ContinueButton_OnClick() =>
-        ManagerHandler.U_MAN.DestroyNarrativePopup();
+        Managers.U_MAN.DestroyNarrativePopup();
 }

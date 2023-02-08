@@ -7,7 +7,8 @@ public abstract class Card : ScriptableObject
     [SerializeField] private Sprite cardBorder;
     [SerializeField, Range(0, GameManager.MAXIMUM_ENERGY)] private int energyCost;
     [SerializeField] private Effect.ConditionType costConditionType;
-    [SerializeField] private int costConditionValue;
+    [SerializeField, Range(0, 10), Tooltip("The value checked by the condition, if any")] private int costConditionValue;
+    [SerializeField, Range(-5, 0), Tooltip("The modifier applied to the cost")] private int costConditionModifier;
     [SerializeField] private string cardName;
     [SerializeField] private string cardType;
     [SerializeField] private string cardSubType;
@@ -28,6 +29,7 @@ public abstract class Card : ScriptableObject
     public int StartEnergyCost { get => energyCost; }
     public Effect.ConditionType CostConditionType { get => costConditionType; }
     public int CostConditionValue { get => costConditionValue; }
+    public int CostConditionModifier { get => costConditionModifier; }
     public string CardName { get => cardName; }
     public string CardType { get => cardType; }
     public string CardSubType { get => cardSubType; }
@@ -51,6 +53,7 @@ public abstract class Card : ScriptableObject
         energyCost = card.StartEnergyCost;
         costConditionType = card.CostConditionType;
         costConditionValue = card.CostConditionValue;
+        costConditionModifier = card.CostConditionModifier;
         CurrentEnergyCost = energyCost;
         cardName = card.CardName;
         cardType = card.CardType;
@@ -72,6 +75,7 @@ public abstract class Card : ScriptableObject
         energyCost = card.StartEnergyCost;
         costConditionType = card.CostConditionType;
         costConditionValue = card.CostConditionValue;
+        costConditionModifier = card.CostConditionModifier;
         CurrentEnergyCost = card.CurrentEnergyCost;
         cardName = card.CardName;
         cardType = card.CardType;

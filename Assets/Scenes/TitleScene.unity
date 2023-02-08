@@ -215,6 +215,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1911231783}
   - {fileID: 8505909307688467907}
@@ -233,7 +234,7 @@ RectTransform:
   m_Pivot: {x: 0, y: 0}
 --- !u!95 &172547844
 Animator:
-  serializedVersion: 3
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -246,10 +247,11 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!225 &172547845
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -370,6 +372,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1911231783}
   m_RootOrder: 0
@@ -624,37 +627,37 @@ PrefabInstance:
         type: 3}
       propertyPath: testCards_1.Array.data[11]
       value: 
-      objectReference: {fileID: 11400000, guid: 205306890a63c7748b59b16e90773c20,
+      objectReference: {fileID: 11400000, guid: 1f7ee14bc2e76094694e0483af68c3b7,
         type: 2}
     - target: {fileID: 2090827629113552328, guid: b7e7a3c9104188740b4200aef125ae9c,
         type: 3}
       propertyPath: testCards_1.Array.data[12]
       value: 
-      objectReference: {fileID: 11400000, guid: 1f7ee14bc2e76094694e0483af68c3b7,
+      objectReference: {fileID: 11400000, guid: aad035373b2251640b0ed2ca6c111ae8,
         type: 2}
     - target: {fileID: 2090827629113552328, guid: b7e7a3c9104188740b4200aef125ae9c,
         type: 3}
       propertyPath: testCards_1.Array.data[13]
       value: 
-      objectReference: {fileID: 11400000, guid: 1f7ee14bc2e76094694e0483af68c3b7,
+      objectReference: {fileID: 11400000, guid: 9078d93c4334d6749b6688a94d925f37,
         type: 2}
     - target: {fileID: 2090827629113552328, guid: b7e7a3c9104188740b4200aef125ae9c,
         type: 3}
       propertyPath: testCards_1.Array.data[14]
       value: 
-      objectReference: {fileID: 11400000, guid: aad035373b2251640b0ed2ca6c111ae8,
+      objectReference: {fileID: 11400000, guid: 9078d93c4334d6749b6688a94d925f37,
         type: 2}
     - target: {fileID: 2090827629113552328, guid: b7e7a3c9104188740b4200aef125ae9c,
         type: 3}
       propertyPath: testCards_1.Array.data[15]
       value: 
-      objectReference: {fileID: 11400000, guid: aad035373b2251640b0ed2ca6c111ae8,
+      objectReference: {fileID: 11400000, guid: 9078d93c4334d6749b6688a94d925f37,
         type: 2}
     - target: {fileID: 2090827629113552328, guid: b7e7a3c9104188740b4200aef125ae9c,
         type: 3}
       propertyPath: testCards_1.Array.data[16]
       value: 
-      objectReference: {fileID: 11400000, guid: aad035373b2251640b0ed2ca6c111ae8,
+      objectReference: {fileID: 11400000, guid: 9078d93c4334d6749b6688a94d925f37,
         type: 2}
     - target: {fileID: 7934613449062274704, guid: b7e7a3c9104188740b4200aef125ae9c,
         type: 3}
@@ -804,6 +807,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1258176088}
   m_RootOrder: 1
@@ -863,6 +867,7 @@ ParticleSystemRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -893,6 +898,7 @@ ParticleSystemRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_RenderMode: 0
+  m_MeshDistribution: 0
   m_SortMode: 0
   m_MinParticleSize: 0
   m_MaxParticleSize: 0.5
@@ -916,6 +922,10 @@ ParticleSystemRenderer:
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
+  m_MeshWeighting: 1
+  m_MeshWeighting1: 1
+  m_MeshWeighting2: 1
+  m_MeshWeighting3: 1
   m_MaskInteraction: 0
 --- !u!198 &763024037
 ParticleSystem:
@@ -924,19 +934,19 @@ ParticleSystem:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 763024031}
-  serializedVersion: 7
+  serializedVersion: 8
   lengthInSec: 5
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
+  emitterVelocityMode: 0
   looping: 1
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
-  useRigidbodyForVelocity: 1
   startDelay:
     serializedVersion: 2
     minMaxState: 0
@@ -1486,6 +1496,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     maxNumParticles: 1000
+    customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -5649,6 +5660,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -5743,6 +5755,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1369415390}
   - {fileID: 763024032}
@@ -5783,6 +5796,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1258176088}
   m_RootOrder: 0
@@ -5832,7 +5846,7 @@ CanvasRenderer:
   m_CullTransparentMesh: 1
 --- !u!95 &1369415393
 Animator:
-  serializedVersion: 3
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5845,10 +5859,11 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1001 &1570648390
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6015,6 +6030,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 172547843}
   m_RootOrder: 2
@@ -6151,6 +6167,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 320196823}
   m_Father: {fileID: 172547843}
@@ -6383,7 +6400,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &2345662359646654805
 Animator:
-  serializedVersion: 3
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -6396,13 +6413,14 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!95 &6234802737614223793
 Animator:
-  serializedVersion: 3
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -6415,10 +6433,11 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1001 &8282073425739722201
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6566,6 +6585,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8505909307688467907}
   m_RootOrder: 0
@@ -6703,6 +6723,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8505909306112833587}
   m_Father: {fileID: 172547843}

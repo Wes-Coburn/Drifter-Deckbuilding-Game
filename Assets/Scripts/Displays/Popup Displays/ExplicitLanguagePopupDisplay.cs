@@ -4,12 +4,12 @@ public class ExplicitLanguagePopupDisplay : MonoBehaviour
 {
     private void SetPrefs(bool hideExplicitLanguage)
     {
-        ManagerHandler.G_MAN.HideExplicitLanguage = hideExplicitLanguage;
-        ManagerHandler.G_MAN.SavePlayerPreferences();
-        ManagerHandler.U_MAN.CreateTutorialPopup();
+        Managers.G_MAN.HideExplicitLanguage = hideExplicitLanguage;
+        Managers.G_MAN.SavePlayerPreferences();
+        Managers.U_MAN.CreateTutorialPopup();
     }
     private void DestroySelf() =>
-        ManagerHandler.U_MAN.DestroyInteractablePopup(gameObject);
+        Managers.U_MAN.DestroyInteractablePopup(gameObject);
 
     public void CloseButton_OnClick() => DestroySelf();
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,6 +29,7 @@ public abstract class CardDisplay : MonoBehaviour
 
     private GameObject cardContainer;
     private Animator animator;
+    private int costConditionValue;
 
     public GameObject CardContainer
     {
@@ -72,25 +74,17 @@ public abstract class CardDisplay : MonoBehaviour
     }
     public int CurrentEnergyCost
     {
-        get => CardScript.CurrentEnergyCost < 0 ? 0 : CardScript.CurrentEnergyCost;
+        get
+        {
+            int cost = CardScript.CurrentEnergyCost + costConditionValue;
+            return cost < 0 ? 0 : cost;
+        }
         private set
         {
-            int newCost = value;
-
-            switch (CardScript.CostConditionType)
-            {
-                case Effect.ConditionType.NONE:
-                    break;
-                default:
-                    Debug.LogError("INVALID CONDITION TYPE!");
-                    return;
-            }
-
-            CardScript.CurrentEnergyCost = newCost;
+            CardScript.CurrentEnergyCost = value;
             DisplayEnergyCost(CurrentEnergyCost);
         }
     }
-
     private void DisplayEnergyCost(int cost)
     {
         TextMeshProUGUI txtGui = energyCost.GetComponentInChildren<TextMeshProUGUI>();
@@ -111,6 +105,36 @@ public abstract class CardDisplay : MonoBehaviour
     {
         CardScript.CurrentEnergyCost += value;
         DisplayEnergyCost(CurrentEnergyCost);
+    }
+
+    /******
+     * *****
+     * ****** GET/UPDATE_CURRENT_ENERGY_COST
+     * *****
+     *****/
+    public void UpdateCurrentEnergyCost()
+    {
+        costConditionValue = GetCostConditionValue();
+        DisplayEnergyCost(CurrentEnergyCost);
+    }
+    private int GetCostConditionValue()
+    {
+        HeroManager hMan_Source = HeroManager.GetSourceHero(gameObject, out HeroManager hMan_Enemy);
+        switch (CardScript.CostConditionType)
+        {
+            case Effect.ConditionType.NONE:
+                return 0;
+            case Effect.ConditionType.EnemyWounded:
+                if (!hMan_Enemy.IsWounded()) return 0;
+                break;
+            case Effect.ConditionType.EnemiesDestroyed_ThisTurn:
+                if (hMan_Enemy.AlliesDestroyed_ThisTurn < CardScript.CostConditionValue) return 0;
+                break;
+            default:
+                Debug.LogError("INVALID CONDITION TYPE!");
+                return 0;
+        }
+        return CardScript.CostConditionModifier;
     }
 
     /******

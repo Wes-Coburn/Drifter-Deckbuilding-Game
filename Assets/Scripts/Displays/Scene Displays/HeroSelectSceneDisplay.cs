@@ -38,11 +38,11 @@ public class HeroSelectSceneDisplay : MonoBehaviour
     {
         PlayerHero newPH = ScriptableObject.CreateInstance<PlayerHero>();
         newPH.LoadHero(LoadedHero);
-        ManagerHandler.P_MAN.HeroScript = newPH;
+        Managers.P_MAN.HeroScript = newPH;
 
-        foreach (UnitCard uc in ManagerHandler.CA_MAN.PlayerStartUnits)
+        foreach (UnitCard uc in Managers.CA_MAN.PlayerStartUnits)
             for (int i = 0; i < GameManager.PLAYER_START_UNITS; i++)
-                ManagerHandler.CA_MAN.AddCard(uc, GameManager.PLAYER);
+                Managers.CA_MAN.AddCard(uc, GameManager.PLAYER);
     }
 
     public void ConfirmButton_OnClick()
@@ -89,7 +89,7 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         heroBackstory.GetComponentInChildren<TextMeshProUGUI>().SetText(LoadedHero.HeroBackstory);
         heroName.GetComponent<TextMeshProUGUI>().SetText(LoadedHero.HeroName);
         heroPortrait.GetComponent<Image>().sprite = LoadedHero.HeroPortrait;
-        ManagerHandler.U_MAN.GetPortraitPosition(LoadedHero.HeroName,
+        Managers.U_MAN.GetPortraitPosition(LoadedHero.HeroName,
             out Vector2 position, out Vector2 scale, SceneLoader.Scene.HeroSelectScene);
         heroPortrait.transform.localPosition = position;
         heroPortrait.transform.localScale = scale;
@@ -100,13 +100,13 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         heroPowerCost.GetComponent<TextMeshProUGUI>().SetText(LoadedHero.HeroPower.PowerCost.ToString());
         heroPowerImage.GetComponent<Image>().sprite = LoadedHero.HeroPower.PowerSprite;
         heroPowerDescription.GetComponent<TextMeshProUGUI>().SetText
-            ($"<b><u>{LoadedHero.HeroPower.PowerName}:</b></u> {ManagerHandler.CA_MAN.FilterKeywords(LoadedHero.HeroPower.PowerDescription)}");
+            ($"<b><u>{LoadedHero.HeroPower.PowerName}:</b></u> {Managers.CA_MAN.FilterKeywords(LoadedHero.HeroPower.PowerDescription)}");
 
         // ULTIMATE
         heroUltimate.GetComponent<PowerZoom>().LoadedPower = LoadedHero.HeroUltimate;
         heroUltimateCost.GetComponent<TextMeshProUGUI>().SetText(LoadedHero.HeroUltimate.PowerCost.ToString());
         heroUltimateImage.GetComponent<Image>().sprite = LoadedHero.HeroUltimate.PowerSprite;
         heroUltimateDescription.GetComponent<TextMeshProUGUI>().SetText
-            ($"<b><u>{LoadedHero.HeroUltimate.PowerName} (Ultimate):</b></u> {ManagerHandler.CA_MAN.FilterKeywords(LoadedHero.HeroUltimate.PowerDescription)}");
+            ($"<b><u>{LoadedHero.HeroUltimate.PowerName} (Ultimate):</b></u> {Managers.CA_MAN.FilterKeywords(LoadedHero.HeroUltimate.PowerDescription)}");
     }
 }

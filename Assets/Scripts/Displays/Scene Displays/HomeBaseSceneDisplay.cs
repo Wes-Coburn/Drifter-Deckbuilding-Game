@@ -51,7 +51,7 @@ public class HomeBaseSceneDisplay : MonoBehaviour
         set
         {
             heroImage.GetComponent<Image>().sprite = value;
-            ManagerHandler.U_MAN.GetPortraitPosition(ManagerHandler.P_MAN.HeroScript.HeroName, out Vector2 position,
+            Managers.U_MAN.GetPortraitPosition(Managers.P_MAN.HeroScript.HeroName, out Vector2 position,
                 out Vector2 scale, SceneLoader.Scene.HeroSelectScene);
             heroImage.transform.localPosition = position;
             heroImage.transform.localScale = scale;
@@ -118,7 +118,7 @@ public class HomeBaseSceneDisplay : MonoBehaviour
 
     private void Start()
     {
-        PlayerHero ph = ManagerHandler.P_MAN.HeroScript as PlayerHero;
+        PlayerHero ph = Managers.P_MAN.HeroScript as PlayerHero;
         HeroName = ph.HeroName;
         HeroDescription = ph.HeroDescription;
         HeroBackstory = ph.HeroBackstory;
@@ -142,22 +142,22 @@ public class HomeBaseSceneDisplay : MonoBehaviour
         heroBackstory.SetActive(!heroBackstory.activeSelf);
 
     public void RemoveCardButton_OnClick(bool playSound = true) =>
-        ManagerHandler.U_MAN.CreateCardPage(CardPageDisplay.CardPageType.RemoveCard, playSound);
+        Managers.U_MAN.CreateCardPage(CardPageDisplay.CardPageType.RemoveCard, playSound);
 
-    public void RemoveItemButton_OnClick() => ManagerHandler.U_MAN.CreateItemPagePopup(true);
+    public void RemoveItemButton_OnClick() => Managers.U_MAN.CreateItemPagePopup(true);
 
     public void ClaimRewardButton_OnClick()
     {
-        ManagerHandler.U_MAN.DestroyTooltipPopup();
+        Managers.U_MAN.DestroyTooltipPopup();
         claimRewardButton.SetActive(false);
-        ManagerHandler.U_MAN.CreateChooseRewardPopup();
+        Managers.U_MAN.CreateChooseRewardPopup();
     }
 
     public void BackButton_OnClick()
     {
         if (claimRewardButton.activeSelf)
         {
-            ManagerHandler.U_MAN.CreateFleetingInfoPopup("Claim Your Reward!");
+            Managers.U_MAN.CreateFleetingInfoPopup("Claim Your Reward!");
             return;
         }
 

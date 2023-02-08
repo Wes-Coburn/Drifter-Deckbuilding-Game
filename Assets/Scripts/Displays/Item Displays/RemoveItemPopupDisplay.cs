@@ -32,15 +32,15 @@ public class RemoveItemPopupDisplay : MonoBehaviour
 
     public void ConfirmButton_OnClick()
     {
-        ManagerHandler.P_MAN.HeroItems.Remove(heroItem);
+        Managers.P_MAN.HeroItems.Remove(heroItem);
         int cost;
         if (heroItem.IsRareItem) cost = GameManager.SELL_RARE_ITEM_VALUE;
         else cost = GameManager.SELL_ITEM_VALUE;
-        ManagerHandler.P_MAN.AetherCells += cost;
+        Managers.P_MAN.AetherCells += cost;
 
-        ManagerHandler.U_MAN.CreateItemPagePopup(true, false);
+        Managers.U_MAN.CreateItemPagePopup(true, false);
     }
 
     public void CancelButton_OnClick() =>
-        ManagerHandler.U_MAN.DestroyInteractablePopup(gameObject);
+        Managers.U_MAN.DestroyInteractablePopup(gameObject);
 }

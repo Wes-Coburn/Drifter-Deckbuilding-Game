@@ -71,20 +71,20 @@ public class TimeClockDisplay : MonoBehaviour
         Color previousColor = hand.color;
         hand.color = activeHourColor;
 
-        ManagerHandler.AU_MAN.StartStopSound("SFX_SceneLoading", null, AudioManager.SoundType.SFX, false, true);
+        Managers.AU_MAN.StartStopSound("SFX_SceneLoading", null, AudioManager.SoundType.SFX, false, true);
         for (int i = 0; i < 90; i++)
         {
             handRect.Rotate(0, 0, -1);
-            if (i % 5 == 0) ManagerHandler.AU_MAN.StartStopSound("SFX_TimeLapse", null);
+            if (i % 5 == 0) Managers.AU_MAN.StartStopSound("SFX_TimeLapse", null);
             yield return new WaitForSeconds(0.03f);
         }
 
-        ManagerHandler.AU_MAN.StartStopSound("SFX_SceneLoading", null, AudioManager.SoundType.SFX, true);
+        Managers.AU_MAN.StartStopSound("SFX_SceneLoading", null, AudioManager.SoundType.SFX, true);
         psh.StopParticles();
 
         hand.color = previousColor;
         SetActiveHour(newHour);
-        ManagerHandler.AU_MAN.StartStopSound("SFX_TimeLapse", null);
+        Managers.AU_MAN.StartStopSound("SFX_TimeLapse", null);
         yield return new WaitForSeconds(0.3f);
 
         hand.color = activeHourColor;
@@ -93,7 +93,7 @@ public class TimeClockDisplay : MonoBehaviour
 
         hand.color = previousColor;
         SetActiveHour(newHour);
-        ManagerHandler.AU_MAN.StartStopSound("SFX_TimeLapse", null);
+        Managers.AU_MAN.StartStopSound("SFX_TimeLapse", null);
         yield return new WaitForSeconds(0.3f);
 
         hand.color = activeHourColor;
@@ -102,7 +102,7 @@ public class TimeClockDisplay : MonoBehaviour
 
         hand.color = previousColor;
         SetActiveHour(newHour);
-        ManagerHandler.AU_MAN.StartStopSound("SFX_TimeLapse", null);
+        Managers.AU_MAN.StartStopSound("SFX_TimeLapse", null);
 
         GetClockValues(newHour); // TESTING
         if (newHour == 1)

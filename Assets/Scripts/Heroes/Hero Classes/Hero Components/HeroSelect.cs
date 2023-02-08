@@ -10,38 +10,38 @@ public class HeroSelect : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     public void OnPointerClick(PointerEventData pointerEventData)
     {
         if (pointerEventData.button != PointerEventData.InputButton.Left) return;
-        if (UIManager.Instance.PlayerIsTargetting) ManagerHandler.EF_MAN.SelectEffectTarget(gameObject);
+        if (UIManager.Instance.PlayerIsTargetting) Managers.EF_MAN.SelectEffectTarget(gameObject);
     }
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
-        if (ManagerHandler.U_MAN.PlayerIsTargetting) ManagerHandler.EF_MAN.HighlightEffectTarget(gameObject, true);
+        if (Managers.U_MAN.PlayerIsTargetting) Managers.EF_MAN.HighlightEffectTarget(gameObject, true);
         else if (DragDrop.ArrowIsDragging)
         {
             DragDrop.Enemy = gameObject;
             UIManager.SelectionType type;
 
-            if (ManagerHandler.CO_MAN.CanAttack(DragDrop.DraggingCard, gameObject))
+            if (Managers.CO_MAN.CanAttack(DragDrop.DraggingCard, gameObject))
                 type = UIManager.SelectionType.Selected;
             else type = UIManager.SelectionType.Rejected;
 
-            ManagerHandler.U_MAN.SelectTarget(gameObject, type);
+            Managers.U_MAN.SelectTarget(gameObject, type);
         }
     }
 
     public void OnPointerExit(PointerEventData pointerEventData)
     {
-        if (ManagerHandler.U_MAN.PlayerIsTargetting) ManagerHandler.EF_MAN.HighlightEffectTarget(gameObject, false);
+        if (Managers.U_MAN.PlayerIsTargetting) Managers.EF_MAN.HighlightEffectTarget(gameObject, false);
         else if (DragDrop.ArrowIsDragging)
         {
             DragDrop.Enemy = null;
             UIManager.SelectionType type;
 
-            if (ManagerHandler.CO_MAN.CanAttack(DragDrop.DraggingCard, gameObject))
+            if (Managers.CO_MAN.CanAttack(DragDrop.DraggingCard, gameObject))
                 type = UIManager.SelectionType.Highlighted;
             else type = UIManager.SelectionType.Disabled;
 
-            ManagerHandler.U_MAN.SelectTarget(gameObject, type);
+            Managers.U_MAN.SelectTarget(gameObject, type);
         }
     }
 }

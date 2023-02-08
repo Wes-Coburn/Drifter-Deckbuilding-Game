@@ -12,8 +12,8 @@ public class TooltipPopupDisplay : MonoBehaviour, IPointerEnterHandler, IPointer
         if (isZoomCardTooltip && !CardZoom.ZoomCardIsCentered) return;
         if (DragDrop.DraggingCard != null || DragDrop.ArrowIsDragging) return;
         FunctionTimer.Create(() =>
-        ManagerHandler.U_MAN.CreateTooltipPopup(tooltipPosition, tooltipText), 0.5f, UIManager.TOOLTIP_TIMER);
+        Managers.U_MAN.CreateTooltipPopup(tooltipPosition, tooltipText), 0.5f, UIManager.TOOLTIP_TIMER);
     }
 
-    public void OnPointerExit(PointerEventData pointerEventData) => ManagerHandler.U_MAN.DestroyTooltipPopup();
+    public void OnPointerExit(PointerEventData pointerEventData) => Managers.U_MAN.DestroyTooltipPopup();
 }

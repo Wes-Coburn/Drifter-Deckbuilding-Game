@@ -78,7 +78,7 @@ public class CardPagePopupDisplay : MonoBehaviour
                 return;
         }
 
-        ManagerHandler.U_MAN.CreateCardPage(cardPageType, false);
+        Managers.U_MAN.CreateCardPage(cardPageType, false);
         AnimationManager.Instance.CreateParticleSystem(gameObject, ParticleSystemHandler.ParticlesType.ButtonPress);
 
         if (setProgressBar) FindObjectOfType<CardPageDisplay>().SetProgressBar
@@ -87,45 +87,45 @@ public class CardPagePopupDisplay : MonoBehaviour
 
     private void RemoveCard()
     {
-        ManagerHandler.P_MAN.AetherCells += cardCost;
-        ManagerHandler.CA_MAN.RemovePlayerCard(card);
+        Managers.P_MAN.AetherCells += cardCost;
+        Managers.CA_MAN.RemovePlayerCard(card);
     }
 
     private void RecruitUnit()
     {
-        int recruitIndex = ManagerHandler.CA_MAN.PlayerRecruitUnits.FindIndex(x => x.CardName == card.CardName);
-        if (recruitIndex != -1) ManagerHandler.CA_MAN.PlayerRecruitUnits.RemoveAt(recruitIndex);
+        int recruitIndex = Managers.CA_MAN.PlayerRecruitUnits.FindIndex(x => x.CardName == card.CardName);
+        if (recruitIndex != -1) Managers.CA_MAN.PlayerRecruitUnits.RemoveAt(recruitIndex);
         else Debug.LogError("RECRUIT UNIT NOT FOUND!");
 
-        ManagerHandler.P_MAN.AetherCells -= cardCost;
-        previousProgress = ManagerHandler.G_MAN.RecruitLoyalty;
-        if (++ManagerHandler.G_MAN.RecruitLoyalty == GameManager.RECRUIT_LOYALTY_GOAL) rewardIsReady = true;
-        else if (ManagerHandler.G_MAN.RecruitLoyalty > GameManager.RECRUIT_LOYALTY_GOAL) ManagerHandler.G_MAN.RecruitLoyalty = 0;
-        currentProgress = ManagerHandler.G_MAN.RecruitLoyalty;
+        Managers.P_MAN.AetherCells -= cardCost;
+        previousProgress = Managers.G_MAN.RecruitLoyalty;
+        if (++Managers.G_MAN.RecruitLoyalty == GameManager.RECRUIT_LOYALTY_GOAL) rewardIsReady = true;
+        else if (Managers.G_MAN.RecruitLoyalty > GameManager.RECRUIT_LOYALTY_GOAL) Managers.G_MAN.RecruitLoyalty = 0;
+        currentProgress = Managers.G_MAN.RecruitLoyalty;
 
-        ManagerHandler.CA_MAN.AddCard(card, GameManager.PLAYER, true);
+        Managers.CA_MAN.AddCard(card, GameManager.PLAYER, true);
     }
 
     private void AcquireAction()
     {
-        int actionIndex = ManagerHandler.CA_MAN.ActionShopCards.FindIndex(x => x.CardName == card.CardName);
-        if (actionIndex != -1) ManagerHandler.CA_MAN.ActionShopCards.RemoveAt(actionIndex);
+        int actionIndex = Managers.CA_MAN.ActionShopCards.FindIndex(x => x.CardName == card.CardName);
+        if (actionIndex != -1) Managers.CA_MAN.ActionShopCards.RemoveAt(actionIndex);
         else Debug.LogError("ACQUIRED ACTION NOT FOUND!");
 
-        ManagerHandler.P_MAN.AetherCells -= cardCost;
-        previousProgress = ManagerHandler.G_MAN.ActionShopLoyalty;
-        if (++ManagerHandler.G_MAN.ActionShopLoyalty == GameManager.ACTION_LOYALTY_GOAL) rewardIsReady = true;
-        else if (ManagerHandler.G_MAN.ActionShopLoyalty > GameManager.ACTION_LOYALTY_GOAL) ManagerHandler.G_MAN.ActionShopLoyalty = 0;
-        currentProgress = ManagerHandler.G_MAN.ActionShopLoyalty;
+        Managers.P_MAN.AetherCells -= cardCost;
+        previousProgress = Managers.G_MAN.ActionShopLoyalty;
+        if (++Managers.G_MAN.ActionShopLoyalty == GameManager.ACTION_LOYALTY_GOAL) rewardIsReady = true;
+        else if (Managers.G_MAN.ActionShopLoyalty > GameManager.ACTION_LOYALTY_GOAL) Managers.G_MAN.ActionShopLoyalty = 0;
+        currentProgress = Managers.G_MAN.ActionShopLoyalty;
 
-        ManagerHandler.CA_MAN.AddCard(card, GameManager.PLAYER, true);
+        Managers.CA_MAN.AddCard(card, GameManager.PLAYER, true);
     }
 
     private void CloneUnit()
     {
-        ManagerHandler.P_MAN.AetherCells -= cardCost;
-        ManagerHandler.CA_MAN.AddCard(card, GameManager.PLAYER, true);
+        Managers.P_MAN.AetherCells -= cardCost;
+        Managers.CA_MAN.AddCard(card, GameManager.PLAYER, true);
     }
 
-    public void CancelButton_OnClick() => ManagerHandler.U_MAN.DestroyInteractablePopup(gameObject);
+    public void CancelButton_OnClick() => Managers.U_MAN.DestroyInteractablePopup(gameObject);
 }

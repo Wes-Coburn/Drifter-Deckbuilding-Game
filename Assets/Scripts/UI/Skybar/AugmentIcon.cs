@@ -19,10 +19,10 @@ public class AugmentIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
 
     public void OnPointerEnter(PointerEventData pointerEventData) =>
-        ManagerHandler.U_MAN.CreateAugmentIconPopup(LoadedAugment, gameObject);
+        Managers.U_MAN.CreateAugmentIconPopup(LoadedAugment, gameObject);
 
     public void OnPointerExit(PointerEventData pointerEventData) =>
-        ManagerHandler.U_MAN.DestroyAugmentIconPopup();
+        Managers.U_MAN.DestroyAugmentIconPopup();
 
     private void OnDisable() => UIManager.Instance.DestroyAugmentIconPopup(); // TESTING
 }

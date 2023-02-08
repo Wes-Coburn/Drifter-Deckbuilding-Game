@@ -36,9 +36,9 @@ public static class SceneLoader
 
         onSceneLoaderCallback = () =>
         {
-            ManagerHandler.U_MAN.SetSkybar(false);
-            ManagerHandler.U_MAN.SetSceneFader(false);
-            ManagerHandler.AU_MAN.StartStopSound("SFX_SceneLoading", null,
+            Managers.U_MAN.SetSkybar(false);
+            Managers.U_MAN.SetSceneFader(false);
+            Managers.AU_MAN.StartStopSound("SFX_SceneLoading", null,
                 AudioManager.SoundType.SFX, false, true);
 
             string chapterText;
@@ -51,8 +51,8 @@ public static class SceneLoader
                     chapterText = "Choose Your Drifter";
                     break;
                 case Scene.NarrativeScene:
-                    if (ManagerHandler.G_MAN.CurrentNarrative == null) chapterText = "Welcome to the Drift";
-                    else chapterText = ManagerHandler.G_MAN.CurrentNarrative.NarrativeName;
+                    if (Managers.G_MAN.CurrentNarrative == null) chapterText = "Welcome to the Drift";
+                    else chapterText = Managers.G_MAN.CurrentNarrative.NarrativeName;
                     break;
                 case Scene.WorldMapScene:
                     chapterText = "World Map";
@@ -61,7 +61,7 @@ public static class SceneLoader
                     chapterText = "Your Ship";
                     break;
                 case Scene.DialogueScene:
-                    chapterText = ManagerHandler.G_MAN.CurrentLocation.LocationFullName;
+                    chapterText = Managers.G_MAN.CurrentLocation.LocationFullName;
                     break;
                 case Scene.CombatScene:
                     chapterText = "Combat";
@@ -77,7 +77,7 @@ public static class SceneLoader
 
             LoadingSceneDisplay lsd = UnityEngine.Object.FindObjectOfType<LoadingSceneDisplay>();
             lsd.ChapterText = chapterText;
-            lsd.TipText = ManagerHandler.G_MAN.CurrentTip;
+            lsd.TipText = Managers.G_MAN.CurrentTip;
 
             if (LoadAction != null) FunctionTimer.Create(() => InvokeLoadAction(), 2);
             else LoadScene_Finish();
@@ -90,17 +90,17 @@ public static class SceneLoader
             }
             void LoadScene_Finish()
             {
-                FunctionTimer.Create(() => ManagerHandler.U_MAN.SetSceneFader(true), 4);
+                FunctionTimer.Create(() => Managers.U_MAN.SetSceneFader(true), 4);
                 FunctionTimer.Create(() => SceneManager.LoadScene(scene.ToString()), 6);
-                FunctionTimer.Create(() => ManagerHandler.U_MAN.SetSceneFader(false), 6);
+                FunctionTimer.Create(() => Managers.U_MAN.SetSceneFader(false), 6);
             }
         };
 
         onSceneUpdateCallback = () =>
         {
-            ManagerHandler.U_MAN.Start();
-            ManagerHandler.AU_MAN.CleanAudioSources();
-            ManagerHandler.AU_MAN.StartStopSound("SFX_SceneLoading", null, AudioManager.SoundType.SFX, true);
+            Managers.U_MAN.Start();
+            Managers.AU_MAN.CleanAudioSources();
+            Managers.AU_MAN.StartStopSound("SFX_SceneLoading", null, AudioManager.SoundType.SFX, true);
             SceneIsLoading = false;
             bool showSkybar = true;
             bool hideChildren = false;
@@ -109,54 +109,54 @@ public static class SceneLoader
             {
                 case Scene.TitleScene:
                     showSkybar = false;
-                    ManagerHandler.G_MAN.StartTitleScene();
+                    Managers.G_MAN.StartTitleScene();
                     break;
                 case Scene.HeroSelectScene:
                     showSkybar = false;
-                    ManagerHandler.G_MAN.StartHeroSelectScene();
+                    Managers.G_MAN.StartHeroSelectScene();
                     break;
                 case Scene.NarrativeScene:
                     showSkybar = false;
-                    ManagerHandler.G_MAN.StartNarrative();
+                    Managers.G_MAN.StartNarrative();
                     break;
                 case Scene.WorldMapScene:
-                    ManagerHandler.G_MAN.EnterWorldMap();
+                    Managers.G_MAN.EnterWorldMap();
                     break;
                 case Scene.HomeBaseScene:
-                    ManagerHandler.G_MAN.EnterHomeBase();
+                    Managers.G_MAN.EnterHomeBase();
                     break;
                 case Scene.DialogueScene:
-                    ManagerHandler.G_MAN.StartDialogue();
+                    Managers.G_MAN.StartDialogue();
                     break;
                 case Scene.CombatScene:
-                    ManagerHandler.G_MAN.StartCombat();
+                    Managers.G_MAN.StartCombat();
                     hideChildren = true;
                     break;
                 case Scene.CreditsScene:
                     showSkybar = false;
-                    ManagerHandler.G_MAN.StartCredits();
+                    Managers.G_MAN.StartCredits();
                     break;
                 default:
                     Debug.LogError("SCENE NOT FOUND!");
                     break;
             }
-            ManagerHandler.U_MAN.SetSkybar(showSkybar, hideChildren);
+            Managers.U_MAN.SetSkybar(showSkybar, hideChildren);
         };
 
         // Stop Corotoutines
-        ManagerHandler.G_MAN.StopAllCoroutines();
-        ManagerHandler.AN_MAN.StopAllCoroutines();
-        ManagerHandler.D_MAN.StopAllCoroutines();
-        ManagerHandler.U_MAN.StopAllCoroutines();
+        Managers.G_MAN.StopAllCoroutines();
+        Managers.AN_MAN.StopAllCoroutines();
+        Managers.D_MAN.StopAllCoroutines();
+        Managers.U_MAN.StopAllCoroutines();
 
         // Reset Managers
-        ManagerHandler.D_MAN.Reset_DialogueManager();
-        ManagerHandler.EV_MAN.Reset_EventManager();
-        ManagerHandler.EF_MAN.Reset_EffectManager();
+        Managers.D_MAN.Reset_DialogueManager();
+        Managers.EV_MAN.Reset_EventManager();
+        Managers.EF_MAN.Reset_EffectManager();
 
         if (fadeTransition)
         {
-            FunctionTimer.Create(() => ManagerHandler.U_MAN.SetSceneFader(true), 0f);
+            FunctionTimer.Create(() => Managers.U_MAN.SetSceneFader(true), 0f);
             FunctionTimer.Create(() => SceneManager.LoadScene(Scene.LoadingScene.ToString()), 1.5f);
         }
         else SceneManager.LoadScene(Scene.LoadingScene.ToString());

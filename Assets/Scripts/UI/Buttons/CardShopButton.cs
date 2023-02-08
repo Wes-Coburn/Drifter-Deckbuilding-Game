@@ -32,16 +32,16 @@ public class CardShopButton : MonoBehaviour
         switch (cardPageType)
         {
             case CardPageDisplay.CardPageType.RemoveCard:
-                CardCost = ManagerHandler.G_MAN.GetSellCost(card);
+                CardCost = Managers.G_MAN.GetSellCost(card);
                 break;
             case CardPageDisplay.CardPageType.RecruitUnit:
-                CardCost = ManagerHandler.G_MAN.GetRecruitCost(card as UnitCard, out isDiscounted);
+                CardCost = Managers.G_MAN.GetRecruitCost(card as UnitCard, out isDiscounted);
                 break;
             case CardPageDisplay.CardPageType.AcquireAction:
-                CardCost = ManagerHandler.G_MAN.GetActionCost(card as ActionCard, out isDiscounted);
+                CardCost = Managers.G_MAN.GetActionCost(card as ActionCard, out isDiscounted);
                 break;
             case CardPageDisplay.CardPageType.CloneUnit:
-                CardCost = ManagerHandler.G_MAN.GetCloneCost(card as UnitCard);
+                CardCost = Managers.G_MAN.GetCloneCost(card as UnitCard);
                 break;
         }
 
@@ -56,31 +56,31 @@ public class CardShopButton : MonoBehaviour
 
     public void OnClick()
     {
-        if (ManagerHandler.AN_MAN.ProgressBarRoutine != null) return;
+        if (Managers.AN_MAN.ProgressBarRoutine != null) return;
 
         switch (cardPageType)
         {
             case CardPageDisplay.CardPageType.RemoveCard:
-                if (ManagerHandler.P_MAN.DeckList.Count == GameManager.MINIMUM_DECK_SIZE)
+                if (Managers.P_MAN.DeckList.Count == GameManager.MINIMUM_DECK_SIZE)
                 {
-                    ManagerHandler.U_MAN.CreateFleetingInfoPopup("Your deck can't have less than " + GameManager.MINIMUM_DECK_SIZE + " cards!");
+                    Managers.U_MAN.CreateFleetingInfoPopup("Your deck can't have less than " + GameManager.MINIMUM_DECK_SIZE + " cards!");
                     return;
                 }
-                else if (ManagerHandler.P_MAN.DeckList.Count < GameManager.MINIMUM_DECK_SIZE)
+                else if (Managers.P_MAN.DeckList.Count < GameManager.MINIMUM_DECK_SIZE)
                 {
                     Debug.LogError("DECK LIST < MINIMUM!");
                     return;
                 }
                 break;
             default:
-                if (ManagerHandler.P_MAN.AetherCells < cardCost)
+                if (Managers.P_MAN.AetherCells < cardCost)
                 {
-                    ManagerHandler.U_MAN.InsufficientAetherPopup();
+                    Managers.U_MAN.InsufficientAetherPopup();
                     return;
                 }
                 break;
         }
 
-        ManagerHandler.U_MAN.CreateCardPagePopup(card, cardCost, cardPageType);
+        Managers.U_MAN.CreateCardPagePopup(card, cardCost, cardPageType);
     }
 }

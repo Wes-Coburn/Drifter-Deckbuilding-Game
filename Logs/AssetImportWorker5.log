@@ -1,0 +1,329 @@
+Using pre-set license
+Built from '2021.3/release' branch; Version is '2021.3.17f1 (3e8111cac19d) revision 4096273'; Using compiler version '192829333'; Build Type 'Release'
+OS: 'Windows 11  (10.0.22621) 64bit Core' Language: 'en' Physical Memory: 16204 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 1
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\2021.3.17f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker5
+-projectPath
+C:/Users/wgCob/Programming/Unity/Drifter (Unity 2D)
+-logFile
+Logs/AssetImportWorker5.log
+-srvPort
+62044
+Successfully changed project path to: C:/Users/wgCob/Programming/Unity/Drifter (Unity 2D)
+C:/Users/wgCob/Programming/Unity/Drifter (Unity 2D)
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gfx=262144"
+Player connection [27476] Host "[IP] 192.168.0.22 [Port] 0 [Flags] 2 [Guid] 1082011045 [EditorId] 1082011045 [Version] 1048832 [Id] WindowsEditor(7,WHG-Machine) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+
+Player connection [27476] Host "[IP] 192.168.0.22 [Port] 0 [Flags] 2 [Guid] 1082011045 [EditorId] 1082011045 [Version] 1048832 [Id] WindowsEditor(7,WHG-Machine) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+
+Refreshing native plugins compatible for Editor in 101.80 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2021.3.17f1 (3e8111cac19d)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2021.3.17f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/wgCob/Programming/Unity/Drifter (Unity 2D)/Assets
+GfxDevice: creating device client; threaded=0; jobified=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce RTX 2060 (ID=0x1f15)
+    Vendor:   NVIDIA
+    VRAM:     5980 MB
+    Driver:   31.0.15.1659
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2021.3.17f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2021.3.17f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2021.3.17f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56008
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.3.17f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.005278 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 101.26 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.654 seconds
+Domain Reload Profiling:
+	ReloadAssembly (654ms)
+		BeginReloadAssembly (73ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (0ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (1ms)
+		EndReloadAssembly (473ms)
+			LoadAssemblies (71ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (107ms)
+			ReleaseScriptCaches (0ms)
+			RebuildScriptCaches (27ms)
+			SetupLoadedEditorAssemblies (290ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (7ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (101ms)
+				BeforeProcessingInitializeOnLoad (1ms)
+				ProcessInitializeOnLoadAttributes (131ms)
+				ProcessInitializeOnLoadMethodAttributes (49ms)
+				AfterProcessingInitializeOnLoad (0ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (0ms)
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.006714 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 94.30 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.961 seconds
+Domain Reload Profiling:
+	ReloadAssembly (961ms)
+		BeginReloadAssembly (96ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (5ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (17ms)
+		EndReloadAssembly (760ms)
+			LoadAssemblies (74ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (189ms)
+			ReleaseScriptCaches (0ms)
+			RebuildScriptCaches (48ms)
+			SetupLoadedEditorAssemblies (407ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (4ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (95ms)
+				BeforeProcessingInitializeOnLoad (63ms)
+				ProcessInitializeOnLoadAttributes (200ms)
+				ProcessInitializeOnLoadMethodAttributes (39ms)
+				AfterProcessingInitializeOnLoad (7ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (8ms)
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.04 seconds
+Refreshing native plugins compatible for Editor in 1.22 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2781 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 35 unused Assets / (30.2 KB). Loaded Objects now: 3247.
+Memory consumption went from 128.4 MB to 128.4 MB.
+Total: 2.913600 ms (FindLiveObjects: 0.216800 ms CreateObjectMapping: 0.204100 ms MarkObjects: 2.448300 ms  DeleteObjects: 0.043800 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 132867.737567 seconds.
+  path: Assets/Resources/Cards_Units/Aethercraft Reinforcer.asset
+  artifactKey: Guid(45ba6b3f7fd42e54d8c2288091517fd4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards_Units/Aethercraft Reinforcer.asset using Guid(45ba6b3f7fd42e54d8c2288091517fd4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b40d8f78ce94cd984f7229196507a670') in 0.062764 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000020 seconds.
+  path: Assets/Resources/Cards_Actions/Coven Call.asset
+  artifactKey: Guid(96372199dc5e1e44481c5eb334427747) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards_Actions/Coven Call.asset using Guid(96372199dc5e1e44481c5eb334427747) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '029ff911cfa0b7d41a21052b91ae94e0') in 0.018732 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000024 seconds.
+  path: Assets/Resources/Cards_Actions/Chain of Violence.asset
+  artifactKey: Guid(5787f1b59dcbacf4d851cb203f083af3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards_Actions/Chain of Violence.asset using Guid(5787f1b59dcbacf4d851cb203f083af3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6ada70588fa39e11dd9cc9ae99596ca7') in 0.011083 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000018 seconds.
+  path: Assets/Resources/Cards_Units/Deadly Bladesinger.asset
+  artifactKey: Guid(ca655001f2022584196b4aa8e868c64b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards_Units/Deadly Bladesinger.asset using Guid(ca655001f2022584196b4aa8e868c64b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4c1c7dcd05435eed65f938c1cca1b0b4') in 0.013586 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000023 seconds.
+  path: Assets/Resources/Cards_Created_Unique/Unique Actions/Part II Cards/Creeping Machinations II.asset
+  artifactKey: Guid(a68cd8dd2a6f906409e7c9a42e81c06d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards_Created_Unique/Unique Actions/Part II Cards/Creeping Machinations II.asset using Guid(a68cd8dd2a6f906409e7c9a42e81c06d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8f23cad40393ab7b5651ad1c11bca48f') in 0.009533 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000017 seconds.
+  path: Assets/Resources/Cards_Units/Cunning Electromancer.asset
+  artifactKey: Guid(d7af9baf735606341bf80d7411167621) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards_Units/Cunning Electromancer.asset using Guid(d7af9baf735606341bf80d7411167621) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6469509e9f993d58c7917294d7951c8c') in 0.015069 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000018 seconds.
+  path: Assets/Resources/Cards_Actions/Choking Words.asset
+  artifactKey: Guid(4baab85d8373c504b88f4ff950b05f2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards_Actions/Choking Words.asset using Guid(4baab85d8373c504b88f4ff950b05f2c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a274ad828f5741926f7636268a4c2643') in 0.012002 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000015 seconds.
+  path: Assets/Resources/Cards_Created/Schemes/Defense Measure.asset
+  artifactKey: Guid(e46addf1d804f574786f08056c9c51d1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards_Created/Schemes/Defense Measure.asset using Guid(e46addf1d804f574786f08056c9c51d1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e7733bd631f1128ceee819886a2d68a9') in 0.012441 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000024 seconds.
+  path: Assets/Resources/Cards_Actions/Caustic Mutagen.asset
+  artifactKey: Guid(25d8873cf94ee7c479e6d89a8508ed07) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards_Actions/Caustic Mutagen.asset using Guid(25d8873cf94ee7c479e6d89a8508ed07) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4c9bbc4c1d6ca15ec4c0a80a35c65b93') in 0.013132 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000029 seconds.
+  path: Assets/Resources/Cards_Actions/Careful Preparation.asset
+  artifactKey: Guid(35c3e7d8d50d71e47aa0155b5ef0ab1b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards_Actions/Careful Preparation.asset using Guid(35c3e7d8d50d71e47aa0155b5ef0ab1b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ec4356367ca0b4dfa531ab86f8329e4b') in 0.010463 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000015 seconds.
+  path: Assets/Resources/Cards_Actions/Duplicitous Display.asset
+  artifactKey: Guid(9af1a630d73740d4896277a5fd2f3d32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards_Actions/Duplicitous Display.asset using Guid(9af1a630d73740d4896277a5fd2f3d32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00ed1e0375240bd626edcd2002864ecc') in 0.010712 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000018 seconds.
+  path: Assets/Resources/Cards_Units/Bloodsworn Vindicator.asset
+  artifactKey: Guid(a757d88c82070d748b4b1434737c7f26) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards_Units/Bloodsworn Vindicator.asset using Guid(a757d88c82070d748b4b1434737c7f26) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0c8e7b227ed64dfdd6b03942925ebf2f') in 0.016143 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000018 seconds.
+  path: Assets/Resources/Cards_Created/Traps/Ensnaring Trap.asset
+  artifactKey: Guid(64bc9862643a29b488bf982376453b08) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards_Created/Traps/Ensnaring Trap.asset using Guid(64bc9862643a29b488bf982376453b08) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cdde4b220f9bf3586a8e75542b67efdc') in 0.015614 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000016 seconds.
+  path: Assets/Resources/Cards_Actions/Coordinated Hit.asset
+  artifactKey: Guid(3ca1427935a65334b9320945fc5efcda) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards_Actions/Coordinated Hit.asset using Guid(3ca1427935a65334b9320945fc5efcda) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c929f80af1193735e223ac05f987d406') in 0.012103 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000018 seconds.
+  path: Assets/Resources/Cards_Actions/Back-Alley Bargaining.asset
+  artifactKey: Guid(2c2426100f4068b4a9381c4bd842fd2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards_Actions/Back-Alley Bargaining.asset using Guid(2c2426100f4068b4a9381c4bd842fd2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0ee658a25d9002a11f3a4a914c22b8b3') in 0.011968 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000015 seconds.
+  path: Assets/Resources/Cards_Actions/Death Notice.asset
+  artifactKey: Guid(1f7ee14bc2e76094694e0483af68c3b7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards_Actions/Death Notice.asset using Guid(1f7ee14bc2e76094694e0483af68c3b7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b6ea6e1165814bc884b4d5e7c7241e2c') in 0.009762 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000018 seconds.
+  path: Assets/Resources/Cards_Units/Biogen Scientist.asset
+  artifactKey: Guid(23f3260e0996ee646b71647ff5ab8adc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards_Units/Biogen Scientist.asset using Guid(23f3260e0996ee646b71647ff5ab8adc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd7a80f04ebf5c4591e88530ea9ae0db9') in 0.012950 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000018 seconds.
+  path: Assets/Resources/Cards_Units/Crafty Pilferer.asset
+  artifactKey: Guid(6409aa41678062e40a2a823e18a6e3ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Cards_Units/Crafty Pilferer.asset using Guid(6409aa41678062e40a2a823e18a6e3ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '15ed5bdf21b455f17e9e5f32a1c2b25c') in 0.015635 seconds 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.011980 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 2.20 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.309 seconds
+Domain Reload Profiling:
+	ReloadAssembly (1310ms)
+		BeginReloadAssembly (158ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (8ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (40ms)
+		EndReloadAssembly (1006ms)
+			LoadAssemblies (118ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (292ms)
+			ReleaseScriptCaches (2ms)
+			RebuildScriptCaches (79ms)
+			SetupLoadedEditorAssemblies (449ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (18ms)
+				SetLoadedEditorAssemblies (1ms)
+				RefreshPlugins (2ms)
+				BeforeProcessingInitializeOnLoad (90ms)
+				ProcessInitializeOnLoadAttributes (271ms)
+				ProcessInitializeOnLoadMethodAttributes (57ms)
+				AfterProcessingInitializeOnLoad (9ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (16ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 7.45 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2750 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 23 unused Assets / (31.8 KB). Loaded Objects now: 3251.
+Memory consumption went from 124.6 MB to 124.6 MB.
+Total: 4.746300 ms (FindLiveObjects: 0.284200 ms CreateObjectMapping: 0.141800 ms MarkObjects: 4.264400 ms  DeleteObjects: 0.053500 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+AssetImportWorker is now disconnected from the server
+Process exiting
+Exiting without the bug reporter. Application will terminate with return code 0

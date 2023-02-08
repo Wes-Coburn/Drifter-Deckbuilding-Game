@@ -10,7 +10,7 @@ public class LoadingSceneDisplay : MonoBehaviour
     {
         set
         {
-            tipText.GetComponent<TextMeshProUGUI>().SetText(ManagerHandler.CA_MAN.FilterKeywords(value));
+            tipText.GetComponent<TextMeshProUGUI>().SetText(Managers.CA_MAN.FilterKeywords(value));
         }
     }
     public string ChapterText

@@ -50,8 +50,8 @@ public class EnemyManager : HeroManager
             List<UnitCard> refoUnits = reinforcements.ReinforcementUnits;
             List<ActionCard> refoActions = reinforcements.ReinforcementActions;
 
-            foreach (UnitCard unit in refoUnits) ManagerHandler.CA_MAN.AddCard(unit, GameManager.ENEMY);
-            foreach (ActionCard action in refoActions) ManagerHandler.CA_MAN.AddCard(action, GameManager.ENEMY);
+            foreach (UnitCard unit in refoUnits) Managers.CA_MAN.AddCard(unit, GameManager.ENEMY);
+            foreach (ActionCard action in refoActions) Managers.CA_MAN.AddCard(action, GameManager.ENEMY);
         }
     }
 
@@ -65,7 +65,7 @@ public class EnemyManager : HeroManager
 
             if (GameManager.Instance.IsTutorial) return;
 
-            int surgeDelay = GameManager.Instance.GetSurgeDelay(ManagerHandler.CO_MAN.DifficultyLevel);
+            int surgeDelay = GameManager.Instance.GetSurgeDelay(Managers.CO_MAN.DifficultyLevel);
             if (TurnNumber > 0 && TurnNumber % surgeDelay == 0)
             {
                 int surgeCount = TurnNumber / surgeDelay;
@@ -76,18 +76,18 @@ public class EnemyManager : HeroManager
                 }
 
                 for (int i = 0; i < surgeCount; i++)
-                    ManagerHandler.EV_MAN.NewDelayedAction(() => Surge(), 0.5f, true);
+                    Managers.EV_MAN.NewDelayedAction(() => Surge(), 0.5f, true);
 
-                ManagerHandler.EV_MAN.NewDelayedAction(() => SurgePopup(), 0.5f, true);
+                Managers.EV_MAN.NewDelayedAction(() => SurgePopup(), 0.5f, true);
 
                 void SurgePopup()
                 {
                     UIManager.Instance.CreateFleetingInfoPopup($"ENEMY SURGE!\n[{surgeCount}x]");
-                    ManagerHandler.AN_MAN.CreateParticleSystem(null, ParticleSystemHandler.ParticlesType.Explosion, 2);
+                    Managers.AN_MAN.CreateParticleSystem(null, ParticleSystemHandler.ParticlesType.Explosion, 2);
                 }
                 void Surge()
                 {
-                    GameObject surgeCard = ManagerHandler.CA_MAN.DrawCard(this);
+                    GameObject surgeCard = Managers.CA_MAN.DrawCard(this);
                     if (surgeCard != null)
                     {
                         surgeCard.GetComponent<CardDisplay>().ChangeCurrentEnergyCost(-surgeCount);
@@ -127,43 +127,43 @@ public class EnemyManager : HeroManager
             if (cd.CurrentEnergyCost > 2) cardsToReplace.Add(card);
         }
 
-        foreach (GameObject card in cardsToReplace) ManagerHandler.CA_MAN.DiscardCard(card);
+        foreach (GameObject card in cardsToReplace) Managers.CA_MAN.DiscardCard(card);
         for (int i = 0; i < cardsToReplace.Count; i++)
-            ManagerHandler.EV_MAN.NewDelayedAction(() =>
-            ManagerHandler.CA_MAN.DrawCard(this), 0.5f, true);
+            Managers.EV_MAN.NewDelayedAction(() =>
+            Managers.CA_MAN.DrawCard(this), 0.5f, true);
     }
 
     public void StartEnemyTurn()
     {
         TurnNumber++;
 
-        ManagerHandler.EV_MAN.NewDelayedAction(() => ReplenishEnergy(), 0);
+        Managers.EV_MAN.NewDelayedAction(() => ReplenishEnergy(), 0);
 
-        ManagerHandler.EV_MAN.NewDelayedAction(() =>
-        ManagerHandler.CA_MAN.TriggerPlayedUnits(CardManager.TRIGGER_TURN_START, this), 0);
+        Managers.EV_MAN.NewDelayedAction(() =>
+        Managers.CA_MAN.TriggerPlayedUnits(CardManager.TRIGGER_TURN_START, this), 0);
 
-        ManagerHandler.EV_MAN.NewDelayedAction(() => TurnDraw(), 1);
+        Managers.EV_MAN.NewDelayedAction(() => TurnDraw(), 1);
 
-        ManagerHandler.EV_MAN.NewDelayedAction(() => CreateActionSchedule(), 0);
+        Managers.EV_MAN.NewDelayedAction(() => CreateActionSchedule(), 0);
 
         void CreateActionSchedule()
         {
             if (HasActionsRemaining())
             {
-                ManagerHandler.EV_MAN.NewDelayedAction(() => CreatePlayCardSchedule(), 0);
-                ManagerHandler.EV_MAN.NewDelayedAction(() => CreateAttackSchedule(), 0);
-                ManagerHandler.EV_MAN.NewDelayedAction(() => CreateActionSchedule(), 0);
+                Managers.EV_MAN.NewDelayedAction(() => CreatePlayCardSchedule(), 0);
+                Managers.EV_MAN.NewDelayedAction(() => CreateAttackSchedule(), 0);
+                Managers.EV_MAN.NewDelayedAction(() => CreateActionSchedule(), 0);
             }
-            else ManagerHandler.EV_MAN.NewDelayedAction(() =>
+            else Managers.EV_MAN.NewDelayedAction(() =>
             GameManager.Instance.EndCombatTurn(this), 1);
         }
         bool HasActionsRemaining()
         {
             foreach (GameObject card in HandZoneCards)
-                if (ManagerHandler.CA_MAN.IsPlayable(card, true)) return true;
+                if (Managers.CA_MAN.IsPlayable(card, true)) return true;
 
             foreach (GameObject unit in PlayZoneCards)
-                if (ManagerHandler.CO_MAN.CanAttack(unit, null, true, true) &&
+                if (Managers.CO_MAN.CanAttack(unit, null, true, true) &&
                     FindDefender(unit) != null) return true;
 
             return false;
@@ -174,7 +174,7 @@ public class EnemyManager : HeroManager
             if (EnergyPerTurn < MaxEnergyPerTurn) EnergyPerTurn++;
             CurrentEnergy = EnergyPerTurn;
             int energyChange = CurrentEnergy - startEnergy;
-            ManagerHandler.AN_MAN.ModifyHeroEnergyState(energyChange, HeroObject);
+            Managers.AN_MAN.ModifyHeroEnergyState(energyChange, HeroObject);
         }
         void TurnDraw()
         {
@@ -184,7 +184,7 @@ public class EnemyManager : HeroManager
                 Debug.Log("ENEMY HAND IS FULL!");
                 return;
             }
-            ManagerHandler.CA_MAN.DrawCard(this);
+            Managers.CA_MAN.DrawCard(this);
         }
     }
 
@@ -233,7 +233,7 @@ public class EnemyManager : HeroManager
             {
                 CardDisplay cd = card.GetComponent<CardDisplay>();
                 int cost = cd.CurrentEnergyCost;
-                if ((totalCost + cost) > CurrentEnergy || !ManagerHandler.CA_MAN.IsPlayable(card, true)) return;
+                if ((totalCost + cost) > CurrentEnergy || !Managers.CA_MAN.IsPlayable(card, true)) return;
                 priorityCards.Add(card);
                 totalCost += cost;
                 cardsToPlay++;
@@ -255,15 +255,15 @@ public class EnemyManager : HeroManager
         void SchedulePlayCard(GameObject card, float delay = 1)
         {
             CardDisplay cd = card.GetComponent<CardDisplay>();
-            ManagerHandler.EV_MAN.NewDelayedAction(() => PlayCard(card), delay, true);
+            Managers.EV_MAN.NewDelayedAction(() => PlayCard(card), delay, true);
         }
 
         void PlayCard(GameObject card)
         {
-            if (ManagerHandler.CA_MAN.IsPlayable(card, true))
+            if (Managers.CA_MAN.IsPlayable(card, true))
             {
                 CardDisplay cd = card.GetComponent<CardDisplay>();
-                ManagerHandler.CA_MAN.PlayCard(card);
+                Managers.CA_MAN.PlayCard(card);
             }
         }
     }
@@ -277,7 +277,7 @@ public class EnemyManager : HeroManager
         }
 
         void SchedulePreAttack(GameObject attacker) =>
-            ManagerHandler.EV_MAN.NewDelayedAction(() => ScheduleAttack(attacker), 0, true);
+            Managers.EV_MAN.NewDelayedAction(() => ScheduleAttack(attacker), 0, true);
 
         void ScheduleAttack(GameObject attacker)
         {
@@ -285,7 +285,7 @@ public class EnemyManager : HeroManager
             {
                 if (FindDefender(attacker) != null)
                 {
-                    ManagerHandler.EV_MAN.NewDelayedAction(() =>
+                    Managers.EV_MAN.NewDelayedAction(() =>
                     ResolveAttack(attacker), 0.5f, true);
                 }
                 else Debug.LogError("NO VALID DEFENDERS!");
@@ -297,7 +297,7 @@ public class EnemyManager : HeroManager
             if (CanAttack(attacker))
             {
                 GameObject defender = FindDefender(attacker);
-                if (defender != null) ManagerHandler.CO_MAN.Attack(attacker, defender);
+                if (defender != null) Managers.CO_MAN.Attack(attacker, defender);
                 else Debug.LogError("NO VALID DEFENDERS!");
             }
         }
@@ -338,7 +338,7 @@ public class EnemyManager : HeroManager
     private int TotalPlayerPower()
     {
         int totalPower = 0;
-        foreach (GameObject unit in ManagerHandler.P_MAN.PlayZoneCards)
+        foreach (GameObject unit in Managers.P_MAN.PlayZoneCards)
             totalPower += CombatManager.GetUnitDisplay(unit).CurrentPower;
         return totalPower;
     }
@@ -350,7 +350,7 @@ public class EnemyManager : HeroManager
         List<GameObject> legalDefenders = new List<GameObject>();
         UnitCardDisplay attackerDisplay = attacker.GetComponent<UnitCardDisplay>();
 
-        foreach (GameObject unit in ManagerHandler.P_MAN.PlayZoneCards)
+        foreach (GameObject unit in Managers.P_MAN.PlayZoneCards)
         {
             UnitCardDisplay ucd = CombatManager.GetUnitDisplay(unit);
             if (ucd.CurrentHealth < 1) continue;
@@ -363,7 +363,7 @@ public class EnemyManager : HeroManager
             }
         }
 
-        foreach (GameObject playerUnit in ManagerHandler.P_MAN.PlayZoneCards)
+        foreach (GameObject playerUnit in Managers.P_MAN.PlayZoneCards)
         {
             UnitCardDisplay ucd = CombatManager.GetUnitDisplay(playerUnit);
             if (ucd.CurrentHealth < 1) continue;
@@ -379,7 +379,7 @@ public class EnemyManager : HeroManager
         }
 
         // If player hero is <LETHALLY THREATENED>
-        if (!playerHasDefender && TotalEnemyPower() >= playerHealth) return ManagerHandler.P_MAN.HeroObject;
+        if (!playerHasDefender && TotalEnemyPower() >= playerHealth) return Managers.P_MAN.HeroObject;
 
         // If enemy hero is <UNTHREATENED>
         if (CurrentHealth > (MaxHealth * 0.65f) && TotalPlayerPower() < (CurrentHealth * 0.35f))
@@ -398,7 +398,7 @@ public class EnemyManager : HeroManager
             {
                 if (TotalEnemyPower() >= playerHealth * 0.75f ||
                     CardManager.GetTrigger(attacker, CardManager.TRIGGER_INFILTRATE))
-                    return ManagerHandler.P_MAN.HeroObject;
+                    return Managers.P_MAN.HeroObject;
             }
         }
 
@@ -462,7 +462,7 @@ public class EnemyManager : HeroManager
                     defender = legalDefender;
                 }
             }
-            if (defender == null && !playerHasDefender) return ManagerHandler.P_MAN.HeroObject;
+            if (defender == null && !playerHasDefender) return Managers.P_MAN.HeroObject;
             return defender;
         }
     }

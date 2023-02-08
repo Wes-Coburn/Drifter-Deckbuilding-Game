@@ -24,9 +24,9 @@ public class ItemDescriptionDisplay : MonoBehaviour, IPointerClickHandler, IPoin
             itemImage.GetComponent<Image>().sprite = loadedItem.ItemImage;
             itemName.GetComponent<TextMeshProUGUI>().SetText(loadedItem.ItemName);
             itemDescription.GetComponent<TextMeshProUGUI>().SetText
-                (ManagerHandler.CA_MAN.FilterKeywords(loadedItem.ItemDescription));
+                (Managers.CA_MAN.FilterKeywords(loadedItem.ItemDescription));
 
-            string text = ManagerHandler.G_MAN.GetItemCost(loadedItem, out bool isDiscounted, IsItemRemoval).ToString();
+            string text = Managers.G_MAN.GetItemCost(loadedItem, out bool isDiscounted, IsItemRemoval).ToString();
             TextMeshProUGUI txtGui = itemCost.GetComponent<TextMeshProUGUI>();
             if (IsItemRemoval) text = "+" + text;
             txtGui.SetText(text);
@@ -45,35 +45,35 @@ public class ItemDescriptionDisplay : MonoBehaviour, IPointerClickHandler, IPoin
 
     public void OnPointerClick(PointerEventData pointerEventData)
     {
-        if (ManagerHandler.AN_MAN.ProgressBarRoutine != null) return;
+        if (Managers.AN_MAN.ProgressBarRoutine != null) return;
 
         if (IsItemRemoval)
         {
-            ManagerHandler.U_MAN.CreateRemoveItemPopup(loadedItem);
+            Managers.U_MAN.CreateRemoveItemPopup(loadedItem);
             return;
         }
 
-        int maxItems = ManagerHandler.P_MAN.GetMaxItems(out bool hasBonus);
-        if (ManagerHandler.P_MAN.HeroItems.Count >= maxItems)
+        int maxItems = Managers.P_MAN.GetMaxItems(out bool hasBonus);
+        if (Managers.P_MAN.HeroItems.Count >= maxItems)
         {
             string text = "You can't have more than " + maxItems + " items!";
             if (!hasBonus) text += "\n(Visit <b>The Augmenter</b>)";
-            ManagerHandler.U_MAN.CreateFleetingInfoPopup(text);
+            Managers.U_MAN.CreateFleetingInfoPopup(text);
         }
-        else if (ManagerHandler.P_MAN.AetherCells < ManagerHandler.G_MAN.GetItemCost(loadedItem, out _, false))
-            ManagerHandler.U_MAN.InsufficientAetherPopup();
-        else ManagerHandler.U_MAN.CreateBuyItemPopup(loadedItem);
+        else if (Managers.P_MAN.AetherCells < Managers.G_MAN.GetItemCost(loadedItem, out _, false))
+            Managers.U_MAN.InsufficientAetherPopup();
+        else Managers.U_MAN.CreateBuyItemPopup(loadedItem);
     }
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
         FunctionTimer.Create(() =>
-        ManagerHandler.U_MAN.CreateItemAbilityPopup(loadedItem), 0.5f, ITEM_ABILITY_POPUP_TIMER);
+        Managers.U_MAN.CreateItemAbilityPopup(loadedItem), 0.5f, ITEM_ABILITY_POPUP_TIMER);
     }
 
     public void OnPointerExit(PointerEventData pointerEventData)
     {
         FunctionTimer.StopTimer(ITEM_ABILITY_POPUP_TIMER);
-        ManagerHandler.U_MAN.DestroyItemAbilityPopup();
+        Managers.U_MAN.DestroyItemAbilityPopup();
     }
 }

@@ -20,7 +20,7 @@ public class BuyItemPopupDisplay : MonoBehaviour
         {
             heroItem = value;
             string text = "Buy <b><u>" + heroItem.ItemName + "</u></b>" +
-                " for <color=\"red\"><b>" + ManagerHandler.G_MAN.GetItemCost(heroItem, out _, false) +
+                " for <color=\"red\"><b>" + Managers.G_MAN.GetItemCost(heroItem, out _, false) +
                 "</b></color> aether?";
             PopupText = text;
         }
@@ -28,19 +28,19 @@ public class BuyItemPopupDisplay : MonoBehaviour
 
     public void ConfirmButton_OnClick()
     {
-        ManagerHandler.P_MAN.AddItem(heroItem, true);
-        ManagerHandler.P_MAN.AetherCells -= ManagerHandler.G_MAN.GetItemCost(heroItem, out _, false);
-        ManagerHandler.G_MAN.ShopItems.Remove(heroItem);
+        Managers.P_MAN.AddItem(heroItem, true);
+        Managers.P_MAN.AetherCells -= Managers.G_MAN.GetItemCost(heroItem, out _, false);
+        Managers.G_MAN.ShopItems.Remove(heroItem);
         bool isReady = false;
-        int previousProgress = ManagerHandler.G_MAN.ShopLoyalty;
-        if (++ManagerHandler.G_MAN.ShopLoyalty == GameManager.SHOP_LOYALTY_GOAL) isReady = true;
-        else if (ManagerHandler.G_MAN.ShopLoyalty > GameManager.SHOP_LOYALTY_GOAL) ManagerHandler.G_MAN.ShopLoyalty = 0;
-        ManagerHandler.U_MAN.CreateItemPagePopup(false);
-        FindObjectOfType<ItemPageDisplay>().SetProgressBar(previousProgress, ManagerHandler.G_MAN.ShopLoyalty, isReady);
+        int previousProgress = Managers.G_MAN.ShopLoyalty;
+        if (++Managers.G_MAN.ShopLoyalty == GameManager.SHOP_LOYALTY_GOAL) isReady = true;
+        else if (Managers.G_MAN.ShopLoyalty > GameManager.SHOP_LOYALTY_GOAL) Managers.G_MAN.ShopLoyalty = 0;
+        Managers.U_MAN.CreateItemPagePopup(false);
+        FindObjectOfType<ItemPageDisplay>().SetProgressBar(previousProgress, Managers.G_MAN.ShopLoyalty, isReady);
 
         AnimationManager.Instance.CreateParticleSystem(gameObject, ParticleSystemHandler.ParticlesType.ButtonPress); // TESTING
     }
 
     public void CancelButton_OnClick() =>
-        ManagerHandler.U_MAN.DestroyInteractablePopup(gameObject);
+        Managers.U_MAN.DestroyInteractablePopup(gameObject);
 }

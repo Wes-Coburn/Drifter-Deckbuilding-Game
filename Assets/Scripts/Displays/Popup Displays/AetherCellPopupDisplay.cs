@@ -29,7 +29,7 @@ public class AetherCellPopupDisplay : MonoBehaviour
         totalAether.GetComponent<TextMeshProUGUI>().SetText(PlayerManager.Instance.AetherCells + "");
 
         GetComponent<SoundPlayer>().PlaySound(0);
-        ManagerHandler.AN_MAN.CreateParticleSystem(newAetherChest, ParticleSystemHandler.ParticlesType.NewCard, 5);
+        Managers.AN_MAN.CreateParticleSystem(newAetherChest, ParticleSystemHandler.ParticlesType.NewCard, 5);
     }
 
     public void NewAetherChest_OnClick()
@@ -40,7 +40,7 @@ public class AetherCellPopupDisplay : MonoBehaviour
         GetComponent<SoundPlayer>().PlaySound(1);
 
         PlayerManager.Instance.AetherCells += AetherQuantity;
-        ManagerHandler.AN_MAN.CreateParticleSystem(null, ParticleSystemHandler.ParticlesType.ButtonPress, 1);
+        Managers.AN_MAN.CreateParticleSystem(null, ParticleSystemHandler.ParticlesType.ButtonPress, 1);
     }
 
     public void ContinueButton_OnClick()
@@ -49,10 +49,10 @@ public class AetherCellPopupDisplay : MonoBehaviour
 
         if (SceneLoader.IsActiveScene(SceneLoader.Scene.HomeBaseScene)) return;
 
-        if (!SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene)) ManagerHandler.D_MAN.DisplayDialoguePopup();
-        else if (ManagerHandler.D_MAN.EngagedHero.NextDialogueClip is CombatRewardClip crc)
+        if (!SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene)) Managers.D_MAN.DisplayDialoguePopup();
+        else if (Managers.D_MAN.EngagedHero.NextDialogueClip is CombatRewardClip crc)
         {
-            ManagerHandler.D_MAN.EngagedHero.NextDialogueClip = crc.NextDialogueClip;
+            Managers.D_MAN.EngagedHero.NextDialogueClip = crc.NextDialogueClip;
             SceneLoader.LoadScene(SceneLoader.Scene.WorldMapScene);
         }
         else Debug.LogError("NEXT CLIP IS NOT COMBAT_REWARD_CLIP!");

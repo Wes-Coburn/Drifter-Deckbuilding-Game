@@ -8,7 +8,7 @@ public abstract class HeroManager : MonoBehaviour
     protected bool isMyTurn;
     protected int turnNumber;
     private int currentHealth;
-    private int damageTakenTurn;
+    private int damageTaken_ThisTurn;
     private int energyPerTurn;
     private int currentEnergy;
 
@@ -64,8 +64,11 @@ public abstract class HeroManager : MonoBehaviour
     public List<ChangeCostEffect> ChangeNextCostEffects { get; private set; }
     public List<ModifyNextEffect> ModifyNextEffects { get; private set; }
 
+    // Counters
+    public int AlliesDestroyed_ThisTurn { get; set; }
+
     // Health
-    public bool IsWounded() { return damageTakenTurn >= GameManager.WOUNDED_VALUE; }
+    public bool IsWounded() { return damageTaken_ThisTurn >= GameManager.WOUNDED_VALUE; }
     public int CurrentHealth
     {
         get => currentHealth;
@@ -76,34 +79,28 @@ public abstract class HeroManager : MonoBehaviour
         }
     }
     public abstract int MaxHealth { get; }
-    public int DamageTakenTurn
+    public int DamageTaken_ThisTurn
     {
-        get => damageTakenTurn;
+        get => damageTaken_ThisTurn;
         set
         {
-            bool wasWounded;
-            if (damageTakenTurn >= GameManager.WOUNDED_VALUE) wasWounded = true;
-            else wasWounded = false;
-
-            damageTakenTurn = value;
-            bool isWounded;
-            if (damageTakenTurn >= GameManager.WOUNDED_VALUE) isWounded = true;
-            else isWounded = false;
+            bool wasWounded = damageTaken_ThisTurn >= GameManager.WOUNDED_VALUE;
+            damageTaken_ThisTurn = value;
+            bool isWounded = damageTaken_ThisTurn >= GameManager.WOUNDED_VALUE;
             HeroObject.GetComponent<HeroDisplay>().IsWounded = isWounded;
 
             if (!wasWounded && isWounded)
             {
-                List<GameObject> enemyZoneList;
-                if (heroScript is PlayerHero) enemyZoneList = EnemyManager.Instance.PlayZoneCards;
-                else if (heroScript is EnemyHero) enemyZoneList = PlayerManager.Instance.PlayZoneCards;
-                else
+                if (heroScript == null)
                 {
-                    if (heroScript == null) Debug.LogError("HERO SCRIPT IS NULL!");
-                    else Debug.LogError("INVALID HERO TYPE!");
+                    Debug.LogError("HERO SCRIPT IS NULL!");
                     return;
                 }
 
-                EffectManager.Instance.TriggerModifiers_SpecialTrigger
+                List<GameObject> enemyZoneList = heroScript is PlayerHero ? 
+                    Managers.EN_MAN.PlayZoneCards : Managers.P_MAN.PlayZoneCards;
+                
+                Managers.EF_MAN.TriggerModifiers_SpecialTrigger
                     (ModifierAbility.TriggerType.EnemyHeroWounded, enemyZoneList);
             }
         }
@@ -115,8 +112,7 @@ public abstract class HeroManager : MonoBehaviour
         get => energyPerTurn;
         set
         {
-            energyPerTurn = value;
-            if (energyPerTurn > MaxEnergyPerTurn) energyPerTurn = MaxEnergyPerTurn;
+            energyPerTurn = value > MaxEnergyPerTurn ? MaxEnergyPerTurn : value;
             HeroObject.GetComponent<HeroDisplay>().SetHeroEnergy(CurrentEnergy, energyPerTurn);
         }
     }
@@ -127,8 +123,7 @@ public abstract class HeroManager : MonoBehaviour
         get => currentEnergy;
         set
         {
-            currentEnergy = value;
-            if (currentEnergy > MaxEnergy) currentEnergy = MaxEnergy;
+            currentEnergy = value > MaxEnergy ? MaxEnergy : value;
             HeroObject.GetComponent<HeroDisplay>().SetHeroEnergy(CurrentEnergy, energyPerTurn);
 
             if (currentEnergy < 0)
@@ -148,12 +143,12 @@ public abstract class HeroManager : MonoBehaviour
             if (value == 3)
             {
                 exploitsPlayed = 0;
+                Managers.EV_MAN.NewDelayedAction(() => DrawUltimate(), 0, true);
 
-                ManagerHandler.EV_MAN.NewDelayedAction(() => DrawUltimate(), 0, true);
                 void DrawUltimate()
                 {
-                    Card card = ManagerHandler.CA_MAN.NewCardInstance(ManagerHandler.CA_MAN.Exploit_Ultimate);
-                    ManagerHandler.CA_MAN.DrawCard(this, card);
+                    Card card = Managers.CA_MAN.NewCardInstance(Managers.CA_MAN.Exploit_Ultimate);
+                    Managers.CA_MAN.DrawCard(this, card);
                 }
             }
             else if (value > 3) Debug.LogError("VALUE > 3!");
@@ -169,12 +164,12 @@ public abstract class HeroManager : MonoBehaviour
             if (value == 3)
             {
                 inventionsPlayed = 0;
-
-                ManagerHandler.EV_MAN.NewDelayedAction(() => DrawUltimate(), 0, true);
+                Managers.EV_MAN.NewDelayedAction(() => DrawUltimate(), 0, true);
+                
                 void DrawUltimate()
                 {
-                    Card card = ManagerHandler.CA_MAN.NewCardInstance(ManagerHandler.CA_MAN.Invention_Ultimate);
-                    ManagerHandler.CA_MAN.DrawCard(this, card);
+                    Card card = Managers.CA_MAN.NewCardInstance(Managers.CA_MAN.Invention_Ultimate);
+                    Managers.CA_MAN.DrawCard(this, card);
                 }
             }
             else if (value > 3) Debug.LogError("VALUE > 3!");
@@ -190,12 +185,12 @@ public abstract class HeroManager : MonoBehaviour
             if (value == 3)
             {
                 schemesPlayed = 0;
-
-                ManagerHandler.EV_MAN.NewDelayedAction(() => DrawUltimate(), 0, true);
+                Managers.EV_MAN.NewDelayedAction(() => DrawUltimate(), 0, true);
+                
                 void DrawUltimate()
                 {
-                    Card card = ManagerHandler.CA_MAN.NewCardInstance(ManagerHandler.CA_MAN.Scheme_Ultimate);
-                    ManagerHandler.CA_MAN.DrawCard(this, card);
+                    Card card = Managers.CA_MAN.NewCardInstance(Managers.CA_MAN.Scheme_Ultimate);
+                    Managers.CA_MAN.DrawCard(this, card);
                 }
             }
             else if (value > 3) Debug.LogError("VALUE > 3!");
@@ -211,12 +206,12 @@ public abstract class HeroManager : MonoBehaviour
             if (value == 3)
             {
                 extractionsPlayed = 0;
-
-                ManagerHandler.EV_MAN.NewDelayedAction(() => DrawUltimate(), 0, true);
+                Managers.EV_MAN.NewDelayedAction(() => DrawUltimate(), 0, true);
+                
                 void DrawUltimate()
                 {
-                    Card card = ManagerHandler.CA_MAN.NewCardInstance(ManagerHandler.CA_MAN.Extraction_Ultimate);
-                    ManagerHandler.CA_MAN.DrawCard(this, card);
+                    Card card = Managers.CA_MAN.NewCardInstance(Managers.CA_MAN.Extraction_Ultimate);
+                    Managers.CA_MAN.DrawCard(this, card);
                 }
             }
             else if (value > 3) Debug.LogError("VALUE > 3!");
@@ -268,7 +263,7 @@ public abstract class HeroManager : MonoBehaviour
 
         if (sourceObject.TryGetComponent(out ItemIcon _)) return PlayerManager.Instance;
 
-        foreach (HeroManager hMan in new List<HeroManager>() { PlayerManager.Instance, EnemyManager.Instance })
+        foreach (HeroManager hMan in new HeroManager[] { PlayerManager.Instance, EnemyManager.Instance })
         {
             if (compare(hMan.HERO_TAG) || compare(hMan.CARD_TAG) ||
                 compare(hMan.HERO_POWER_TAG) || compare(hMan.HERO_ULTIMATE_TAG))

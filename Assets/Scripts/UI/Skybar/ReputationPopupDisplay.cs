@@ -50,7 +50,7 @@ public class ReputationPopupDisplay : MonoBehaviour
             bool isActive = false;
             if (bonusTier > 0) isActive = true;
             txtGui.SetText(ColorText(txtGui.text, isActive));
-            tier1_Bonus.GetComponent<TextMeshProUGUI>().SetText(ManagerHandler.CA_MAN.FilterKeywords(value));
+            tier1_Bonus.GetComponent<TextMeshProUGUI>().SetText(Managers.CA_MAN.FilterKeywords(value));
         }
     }
 
@@ -62,7 +62,7 @@ public class ReputationPopupDisplay : MonoBehaviour
             bool isActive = false;
             if (bonusTier > 1) isActive = true;
             txtGui.SetText(ColorText(txtGui.text, isActive));
-            tier2_Bonus.GetComponent<TextMeshProUGUI>().SetText(ManagerHandler.CA_MAN.FilterKeywords(value));
+            tier2_Bonus.GetComponent<TextMeshProUGUI>().SetText(Managers.CA_MAN.FilterKeywords(value));
         }
     }
 
@@ -74,7 +74,7 @@ public class ReputationPopupDisplay : MonoBehaviour
             bool isActive = false;
             if (bonusTier > 2) isActive = true;
             txtGui.SetText(ColorText(txtGui.text, isActive));
-            tier3_Bonus.GetComponent<TextMeshProUGUI>().SetText(ManagerHandler.CA_MAN.FilterKeywords(value));
+            tier3_Bonus.GetComponent<TextMeshProUGUI>().SetText(Managers.CA_MAN.FilterKeywords(value));
         }
     }
 

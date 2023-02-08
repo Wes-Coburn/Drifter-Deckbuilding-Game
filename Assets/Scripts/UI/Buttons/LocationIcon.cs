@@ -38,7 +38,7 @@ public class LocationIcon : MonoBehaviour
             if (!location.IsAugmenter && GameManager.Instance.VisitedLocations.FindIndex
                 (x => x == location.LocationName) != -1) visited = true;
 
-            bool open = ManagerHandler.G_MAN.LocationOpen(location);
+            bool open = Managers.G_MAN.LocationOpen(location);
             closedBadge.SetActive(!open);
 
             if (open)
@@ -76,21 +76,21 @@ public class LocationIcon : MonoBehaviour
         if (Location.IsHomeBase) TravelPopup();
         else
         {
-            if (ManagerHandler.G_MAN.CurrentHour == 4) TravelError("You must rest at your ship!");
-            else if (!ManagerHandler.G_MAN.LocationOpen(Location)) TravelError("Location closed! Come back later.");
+            if (Managers.G_MAN.CurrentHour == 4) TravelError("You must rest at your ship!");
+            else if (!Managers.G_MAN.LocationOpen(Location)) TravelError("Location closed! Come back later.");
             else TravelPopup();
 
             void TravelError(string text)
             {
-                ManagerHandler.U_MAN.CreateFleetingInfoPopup(text);
-                ManagerHandler.U_MAN.DestroyTravelPopup();
+                Managers.U_MAN.CreateFleetingInfoPopup(text);
+                Managers.U_MAN.DestroyTravelPopup();
             }
         }
 
-        void TravelPopup() => ManagerHandler.U_MAN.CreateTravelPopup(Location);
+        void TravelPopup() => Managers.U_MAN.CreateTravelPopup(Location);
     }
 
-    public void OnPointerEnter() => ManagerHandler.U_MAN.CreateLocationPopup(Location);
+    public void OnPointerEnter() => Managers.U_MAN.CreateLocationPopup(Location);
 
-    public void OnPointerExit() => ManagerHandler.U_MAN.DestroyLocationPopup();
+    public void OnPointerExit() => Managers.U_MAN.DestroyLocationPopup();
 }

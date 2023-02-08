@@ -95,26 +95,26 @@ public class CardPageDisplay : MonoBehaviour
         {
             case CardPageType.RemoveCard:
                 titleText = "Sell a Card";
-                foreach (Card c in ManagerHandler.P_MAN.DeckList)
+                foreach (Card c in Managers.P_MAN.DeckList)
                     cardGroupList.Add(c);
                 break;
             case CardPageType.RecruitUnit:
                 setProgressBar = true;
-                progress = ManagerHandler.G_MAN.RecruitLoyalty;
+                progress = Managers.G_MAN.RecruitLoyalty;
                 titleText = "Recruit a Unit";
-                foreach (Card c in ManagerHandler.CA_MAN.PlayerRecruitUnits)
+                foreach (Card c in Managers.CA_MAN.PlayerRecruitUnits)
                     cardGroupList.Add(c);
                 break;
             case CardPageType.AcquireAction:
                 setProgressBar = true;
-                progress = ManagerHandler.G_MAN.ActionShopLoyalty;
+                progress = Managers.G_MAN.ActionShopLoyalty;
                 titleText = "Acquire an Action";
-                foreach (Card c in ManagerHandler.CA_MAN.ActionShopCards)
+                foreach (Card c in Managers.CA_MAN.ActionShopCards)
                     cardGroupList.Add(c);
                 break;
             case CardPageType.CloneUnit:
                 titleText = "Clone a Unit";
-                foreach (Card c in ManagerHandler.P_MAN.DeckList)
+                foreach (Card c in Managers.P_MAN.DeckList)
                     if (c is UnitCard)
                         cardGroupList.Add(c);
                 break;
@@ -206,7 +206,7 @@ public class CardPageDisplay : MonoBehaviour
             GameObject container = Instantiate(cardPageCardContainerPrefab, cardGroup.transform);
             var cpccd = container.GetComponent<CardPageCardContainerDisplay>();
             GameObject cardPageCard =
-                ManagerHandler.CA_MAN.ShowCard(card, new Vector2(), CardManager.DisplayType.Cardpage);
+                Managers.CA_MAN.ShowCard(card, new Vector2(), CardManager.DisplayType.Cardpage);
             CardDisplay cd = cardPageCard.GetComponent<CardDisplay>();
             cd.DisableVisuals();
             cardPageCard.transform.localScale = new Vector2(4, 4);
@@ -226,7 +226,7 @@ public class CardPageDisplay : MonoBehaviour
         }
         foreach (Card card in cardGroupList)
         {
-            GameObject cardObj = ManagerHandler.CA_MAN.ShowCard
+            GameObject cardObj = Managers.CA_MAN.ShowCard
                 (card, new Vector2(), CardManager.DisplayType.Cardpage);
             cardObj.transform.SetParent(cardGroup.transform);
 
@@ -249,7 +249,7 @@ public class CardPageDisplay : MonoBehaviour
         if (SceneLoader.IsActiveScene(SceneLoader.Scene.DialogueScene))
             DialogueManager.Instance.DisplayDialoguePopup();
 
-        ManagerHandler.U_MAN.DestroyCardPage(true);
-        ManagerHandler.U_MAN.DestroyInteractablePopup(gameObject);
+        Managers.U_MAN.DestroyCardPage(true);
+        Managers.U_MAN.DestroyInteractablePopup(gameObject);
     }
 }

@@ -89,7 +89,7 @@ public class DialogueSceneDisplay : MonoBehaviour
 
     public void SkipTypedText()
     {
-        if (!ManagerHandler.D_MAN.AllowResponse) return;
-        ManagerHandler.D_MAN.StopTimedText(true);
+        if (!Managers.D_MAN.AllowResponse) return;
+        Managers.D_MAN.StopTimedText(true);
     }
 }

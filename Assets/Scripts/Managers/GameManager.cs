@@ -246,7 +246,7 @@ public class GameManager : MonoBehaviour
 
     private void Tutorial_Load()
     {
-        ManagerHandler.P_MAN.AetherCells = 0;
+        Managers.P_MAN.AetherCells = 0;
         string playerHeroName = "Kili, Neon Rider";
         string enemyHeroName = "Tiny Mutant";
         Hero[] heroes = Resources.LoadAll<Hero>("Tutorial");
@@ -254,17 +254,17 @@ public class GameManager : MonoBehaviour
 
         foreach (Hero hero in heroes)
         {
-            if (hero.HeroName == playerHeroName) ManagerHandler.P_MAN.HeroScript = hero as PlayerHero;
+            if (hero.HeroName == playerHeroName) Managers.P_MAN.HeroScript = hero as PlayerHero;
             else if (hero.HeroName == enemyHeroName)
             {
                 enemyHero.LoadHero(hero);
-                ManagerHandler.D_MAN.EngagedHero = enemyHero;
+                Managers.D_MAN.EngagedHero = enemyHero;
             }
         }
 
-        foreach (UnitCard unit in ManagerHandler.CA_MAN.TutorialPlayerUnits)
+        foreach (UnitCard unit in Managers.CA_MAN.TutorialPlayerUnits)
             for (int i = 0; i < 5; i++)
-                ManagerHandler.CA_MAN.AddCard(unit, PLAYER);
+                Managers.CA_MAN.AddCard(unit, PLAYER);
     }
 
     public void Tutorial_Tooltip(int tipNumber)
@@ -300,7 +300,7 @@ public class GameManager : MonoBehaviour
                 Debug.LogError("INVALID TIP NUMBER!");
                 return;
         }
-        ManagerHandler.U_MAN.CreateInfoPopup(tip, UIManager.InfoPopupType.Tutorial, isCentered, showContinue);
+        Managers.U_MAN.CreateInfoPopup(tip, UIManager.InfoPopupType.Tutorial, isCentered, showContinue);
     }
 
     /******
@@ -353,14 +353,14 @@ public class GameManager : MonoBehaviour
         CurrentHour = 4;
         IsNewHour = true;
         IsTutorial = false;
-        ManagerHandler.CA_MAN.LoadNewRecruits();
-        ManagerHandler.CA_MAN.LoadNewActions();
+        Managers.CA_MAN.LoadNewRecruits();
+        Managers.CA_MAN.LoadNewActions();
         ShopItems = GetShopItems();
         RecruitLoyalty = 3; // First recruit free
         ActionShopLoyalty = 3; // First action free
         ShopLoyalty = 3; // First item free
-        ManagerHandler.P_MAN.AetherCells = PLAYER_START_AETHER;
-        ManagerHandler.P_MAN.DeckList.Clear();
+        Managers.P_MAN.AetherCells = PLAYER_START_AETHER;
+        Managers.P_MAN.DeckList.Clear();
 
         // REPUTATION
         int startRep = PLAYER_START_UNITS;
@@ -394,20 +394,20 @@ public class GameManager : MonoBehaviour
 
         // Player Manager
         // Don't destroy ManagerHandler.P_MAN objects, they are assets not instances
-        ManagerHandler.P_MAN.HeroScript = null;
-        ManagerHandler.P_MAN.DeckList.Clear();
-        ManagerHandler.P_MAN.CurrentDeck.Clear();
+        Managers.P_MAN.HeroScript = null;
+        Managers.P_MAN.DeckList.Clear();
+        Managers.P_MAN.CurrentDeck.Clear();
         //ManagerHandler.P_MAN.AetherCells = 0;
-        ManagerHandler.P_MAN.HeroAugments.Clear();
-        ManagerHandler.P_MAN.HeroItems.Clear();
+        Managers.P_MAN.HeroAugments.Clear();
+        Managers.P_MAN.HeroItems.Clear();
         // Enemy Manager
-        Destroy(ManagerHandler.EN_MAN.HeroScript);
-        ManagerHandler.EN_MAN.HeroScript = null;
+        Destroy(Managers.EN_MAN.HeroScript);
+        Managers.EN_MAN.HeroScript = null;
         // Dialogue Manager
-        ManagerHandler.D_MAN.EndDialogue();
+        Managers.D_MAN.EndDialogue();
         // UI Manager
-        ManagerHandler.U_MAN.ClearAugmentBar();
-        ManagerHandler.U_MAN.ClearItemBar();
+        Managers.U_MAN.ClearAugmentBar();
+        Managers.U_MAN.ClearItemBar();
         // Scene Loader
         SceneLoader.LoadScene(SceneLoader.Scene.TitleScene);
     }
@@ -419,8 +419,8 @@ public class GameManager : MonoBehaviour
      *****/
     public void SavePlayerPreferences()
     {
-        PlayerPrefs.SetFloat(MUSIC_VOLUME, ManagerHandler.AU_MAN.MusicVolume);
-        PlayerPrefs.SetFloat(SFX_VOLUME, ManagerHandler.AU_MAN.SFXVolume);
+        PlayerPrefs.SetFloat(MUSIC_VOLUME, Managers.AU_MAN.MusicVolume);
+        PlayerPrefs.SetFloat(SFX_VOLUME, Managers.AU_MAN.SFXVolume);
 
         int hideExplicit = 0;
         if (HideExplicitLanguage) hideExplicit = 1;
@@ -428,8 +428,8 @@ public class GameManager : MonoBehaviour
     }
     public void LoadPlayerPreferences()
     {
-        ManagerHandler.AU_MAN.MusicVolume = PlayerPrefs.GetFloat(MUSIC_VOLUME, 1);
-        ManagerHandler.AU_MAN.SFXVolume = PlayerPrefs.GetFloat(SFX_VOLUME, 1);
+        Managers.AU_MAN.MusicVolume = PlayerPrefs.GetFloat(MUSIC_VOLUME, 1);
+        Managers.AU_MAN.SFXVolume = PlayerPrefs.GetFloat(SFX_VOLUME, 1);
         HideExplicitLanguage = PlayerPrefs.GetInt(HIDE_EXPLICIT_LANGUAGE, 1) == 1;
     }
 
@@ -441,17 +441,17 @@ public class GameManager : MonoBehaviour
     public bool CheckSave() => SaveLoad.LoadGame() != null;
     public void SaveGame() // PUBLIC FOR BETA ONLY
     {
-        string[] deckList = new string[ManagerHandler.P_MAN.DeckList.Count];
+        string[] deckList = new string[Managers.P_MAN.DeckList.Count];
         for (int i = 0; i < deckList.Length; i++)
-            deckList[i] = ManagerHandler.P_MAN.DeckList[i].CardName;
+            deckList[i] = Managers.P_MAN.DeckList[i].CardName;
 
-        string[] augments = new string[ManagerHandler.P_MAN.HeroAugments.Count];
+        string[] augments = new string[Managers.P_MAN.HeroAugments.Count];
         for (int i = 0; i < augments.Length; i++)
-            augments[i] = ManagerHandler.P_MAN.HeroAugments[i].AugmentName;
+            augments[i] = Managers.P_MAN.HeroAugments[i].AugmentName;
 
-        string[] items = new string[ManagerHandler.P_MAN.HeroItems.Count];
+        string[] items = new string[Managers.P_MAN.HeroItems.Count];
         for (int i = 0; i < items.Length; i++)
-            items[i] = ManagerHandler.P_MAN.HeroItems[i].ItemName;
+            items[i] = Managers.P_MAN.HeroItems[i].ItemName;
 
         string[,] npcsAndClips = new string[ActiveNPCHeroes.Count, 2];
         for (int i = 0; i < npcsAndClips.Length / 2; i++)
@@ -476,13 +476,13 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < shopItems.Length; i++)
             shopItems[i] = ShopItems[i].ItemName;
 
-        string[] recruitUnits = new string[ManagerHandler.CA_MAN.PlayerRecruitUnits.Count];
+        string[] recruitUnits = new string[Managers.CA_MAN.PlayerRecruitUnits.Count];
         for (int i = 0; i < recruitUnits.Length; i++)
-            recruitUnits[i] = ManagerHandler.CA_MAN.PlayerRecruitUnits[i].CardName;
+            recruitUnits[i] = Managers.CA_MAN.PlayerRecruitUnits[i].CardName;
 
-        string[] shopActions = new string[ManagerHandler.CA_MAN.ActionShopCards.Count];
+        string[] shopActions = new string[Managers.CA_MAN.ActionShopCards.Count];
         for (int i = 0; i < shopActions.Length; i++)
-            shopActions[i] = ManagerHandler.CA_MAN.ActionShopCards[i].CardName;
+            shopActions[i] = Managers.CA_MAN.ActionShopCards[i].CardName;
 
         string narrativeName = "";
         if (CurrentNarrative != null)
@@ -491,8 +491,8 @@ public class GameManager : MonoBehaviour
             narrativeName = narrativeName.Replace(" (Narrative)", "");
         }
 
-        GameData data = new(CurrentHour, narrativeName, ManagerHandler.P_MAN.HeroScript.HeroName,
-            deckList, augments, items, ManagerHandler.P_MAN.AetherCells,
+        GameData data = new(CurrentHour, narrativeName, Managers.P_MAN.HeroScript.HeroName,
+            deckList, augments, items, Managers.P_MAN.AetherCells,
             npcsAndClips, locationsNPCsObjectives, VisitedLocations.ToArray(),
             shopItems, recruitUnits, shopActions,
             RecruitLoyalty, ActionShopLoyalty, ShopLoyalty,
@@ -526,10 +526,10 @@ public class GameManager : MonoBehaviour
         PlayerHero pHero;
         pHero = Resources.Load<PlayerHero>($"Heroes/Player Heroes/{data.PlayerHero}");
         if (pHero == null) Debug.LogError($"HERO {data.PlayerHero} NOT FOUND!");
-        else ManagerHandler.P_MAN.HeroScript = pHero;
+        else Managers.P_MAN.HeroScript = pHero;
 
         // DECK LIST
-        ManagerHandler.P_MAN.DeckList.Clear();
+        Managers.P_MAN.DeckList.Clear();
         for (int i = 0; i < data.PlayerDeck.Length; i++)
         {
             Card card;
@@ -537,31 +537,31 @@ public class GameManager : MonoBehaviour
             if (card == null) card = Resources.Load<Card>($"Cards_Units/{data.PlayerDeck[i]}");
             if (card == null) card = Resources.Load<Card>($"Cards_Actions/{data.PlayerDeck[i]}");
             if (card == null) Debug.LogError($"CARD {data.PlayerDeck[i]} NOT FOUND!");
-            else ManagerHandler.CA_MAN.AddCard(card, PLAYER);
+            else Managers.CA_MAN.AddCard(card, PLAYER);
         }
 
         // AUGMENTS
-        ManagerHandler.P_MAN.HeroAugments.Clear();
+        Managers.P_MAN.HeroAugments.Clear();
         for (int i = 0; i < data.PlayerAugments.Length; i++)
         {
             HeroAugment augment;
             augment = Resources.Load<HeroAugment>($"Hero Augments/{data.PlayerAugments[i]}");
             if (augment == null) Debug.LogError($"AUGMENT {data.PlayerAugments[i]} NOT FOUND!");
-            else ManagerHandler.P_MAN.HeroAugments.Add(augment);
+            else Managers.P_MAN.HeroAugments.Add(augment);
         }
 
         // ITEMS
-        ManagerHandler.P_MAN.HeroItems.Clear();
+        Managers.P_MAN.HeroItems.Clear();
         for (int i = 0; i < data.PlayerItems.Length; i++)
         {
             HeroItem item;
             item = Resources.Load<HeroItem>($"Hero Items/{data.PlayerItems[i]}");
             if (item == null) Debug.LogError($"ITEM {data.PlayerItems[i]} NOT FOUND!");
-            else ManagerHandler.P_MAN.HeroItems.Add(item);
+            else Managers.P_MAN.HeroItems.Add(item);
         }
 
         // AETHER CELLS
-        ManagerHandler.P_MAN.AetherCells = data.AetherCells;
+        Managers.P_MAN.AetherCells = data.AetherCells;
 
         // NPCS
         ActiveNPCHeroes.Clear();
@@ -608,14 +608,14 @@ public class GameManager : MonoBehaviour
             ShopItems.Add(Resources.Load<HeroItem>("Hero Items/" + data.ShopItems[i]));
 
         // RECRUIT UNITS
-        ManagerHandler.CA_MAN.PlayerRecruitUnits.Clear();
+        Managers.CA_MAN.PlayerRecruitUnits.Clear();
         for (int i = 0; i < data.RecruitUnits.Length; i++)
-            ManagerHandler.CA_MAN.PlayerRecruitUnits.Add(Resources.Load<UnitCard>("Cards_Units/" + data.RecruitUnits[i]));
+            Managers.CA_MAN.PlayerRecruitUnits.Add(Resources.Load<UnitCard>("Cards_Units/" + data.RecruitUnits[i]));
 
         // SHOP ACTIONS
-        ManagerHandler.CA_MAN.ActionShopCards.Clear();
+        Managers.CA_MAN.ActionShopCards.Clear();
         for (int i = 0; i < data.ShopActions.Length; i++)
-            ManagerHandler.CA_MAN.ActionShopCards.Add(Resources.Load<ActionCard>("Cards_Actions/" + data.ShopActions[i]));
+            Managers.CA_MAN.ActionShopCards.Add(Resources.Load<ActionCard>("Cards_Actions/" + data.ShopActions[i]));
 
         // LOYALTY
         RecruitLoyalty = data.RecruitLoyalty;
@@ -639,8 +639,8 @@ public class GameManager : MonoBehaviour
      *****/
     public void StartTitleScene()
     {
-        ManagerHandler.AU_MAN.StartStopSound("Soundtrack_TitleScene", null, AudioManager.SoundType.Soundtrack);
-        ManagerHandler.AU_MAN.StartStopSound("Soundscape_TitleScene", null, AudioManager.SoundType.Soundscape);
+        Managers.AU_MAN.StartStopSound("Soundtrack_TitleScene", null, AudioManager.SoundType.Soundtrack);
+        Managers.AU_MAN.StartStopSound("Soundscape_TitleScene", null, AudioManager.SoundType.Soundscape);
         GameObject.Find("VersionNumber").GetComponent<TextMeshProUGUI>().SetText(Application.version);
 
         IsCombatTest = false;
@@ -653,7 +653,7 @@ public class GameManager : MonoBehaviour
      *****/
     public void StartHeroSelectScene()
     {
-        ManagerHandler.AU_MAN.StopCurrentSoundscape();
+        Managers.AU_MAN.StopCurrentSoundscape();
         FindObjectOfType<HeroSelectSceneDisplay>().DisplaySelectedHero();
     }
 
@@ -664,20 +664,20 @@ public class GameManager : MonoBehaviour
      *****/
     public void EnterWorldMap()
     {
-        ManagerHandler.AU_MAN.StartStopSound("Soundtrack_WorldMapScene", null, AudioManager.SoundType.Soundtrack);
-        ManagerHandler.AU_MAN.StartStopSound("SFX_EnterWorldMap");
+        Managers.AU_MAN.StartStopSound("Soundtrack_WorldMapScene", null, AudioManager.SoundType.Soundtrack);
+        Managers.AU_MAN.StartStopSound("SFX_EnterWorldMap");
 
         foreach (Location loc in ActiveLocations)
         {
-            GameObject location = Instantiate(locationIconPrefab, ManagerHandler.U_MAN.CurrentCanvas.transform);
+            GameObject location = Instantiate(locationIconPrefab, Managers.U_MAN.CurrentCanvas.transform);
             location.GetComponent<LocationIcon>().Location = loc;
         }
 
         SaveGame();
         if (CurrentNarrative != null)
         {
-            if (CurrentNarrative.IsGameEnd) ManagerHandler.U_MAN.CreateGameEndPopup();
-            else ManagerHandler.U_MAN.CreateNarrativePopup(CurrentNarrative);
+            if (CurrentNarrative.IsGameEnd) Managers.U_MAN.CreateGameEndPopup();
+            else Managers.U_MAN.CreateNarrativePopup(CurrentNarrative);
             CurrentNarrative = null;
         }
 
@@ -721,7 +721,7 @@ public class GameManager : MonoBehaviour
                 return 0;
         }
 
-        return reward + ADDITIONAL_AETHER_REWARD * (ManagerHandler.CO_MAN.DifficultyLevel - 1);
+        return reward + ADDITIONAL_AETHER_REWARD * (Managers.CO_MAN.DifficultyLevel - 1);
     }
 
     /******
@@ -764,7 +764,7 @@ public class GameManager : MonoBehaviour
                 Reputation_Warriors += repChange;
                 break;
         }
-        ManagerHandler.EV_MAN.NewDelayedAction(() => ManagerHandler.U_MAN.SetReputation(repType, repChange), 0.5f);
+        Managers.EV_MAN.NewDelayedAction(() => Managers.U_MAN.SetReputation(repType, repChange), 0.5f);
     }
 
     public int GetReputation(ReputationType repType)
@@ -865,16 +865,16 @@ public class GameManager : MonoBehaviour
                 if (resolveOrder == 1) showTrigger = false;
                 else showTrigger = true;
 
-                ManagerHandler.EV_MAN.NewDelayedAction(() => ResolveEffects(repType, effects, showTrigger), delay);
+                Managers.EV_MAN.NewDelayedAction(() => ResolveEffects(repType, effects, showTrigger), delay);
             }
         }
 
         void ResolveEffects(ReputationType repType, List<EffectGroup> repEffects, bool showTrigger)
         {
-            if (showTrigger) ManagerHandler.U_MAN.SetReputation(repType, 0, true);
+            if (showTrigger) Managers.U_MAN.SetReputation(repType, 0, true);
 
             if (repEffects != null && repEffects.Count > 0)
-                ManagerHandler.EF_MAN.StartEffectGroupList(repEffects, ManagerHandler.P_MAN.HeroObject);
+                Managers.EF_MAN.StartEffectGroupList(repEffects, Managers.P_MAN.HeroObject);
         }
     }
 
@@ -940,8 +940,8 @@ public class GameManager : MonoBehaviour
      *****/
     public void EnterHomeBase()
     {
-        ManagerHandler.AU_MAN.StopCurrentSoundscape();
-        ManagerHandler.AU_MAN.StartStopSound("SFX_EnterHomeBase");
+        Managers.AU_MAN.StopCurrentSoundscape();
+        Managers.AU_MAN.StartStopSound("SFX_EnterHomeBase");
 
         bool hasRested;
         if (CurrentHour == 4) hasRested = true;
@@ -951,11 +951,11 @@ public class GameManager : MonoBehaviour
 
         if (hasRested)
         {
-            ManagerHandler.U_MAN.CreateFleetingInfoPopup("You have rested!\nShops refreshed!");
+            Managers.U_MAN.CreateFleetingInfoPopup("You have rested!\nShops refreshed!");
             NextHour(true);
             ShopItems = GetShopItems();
-            ManagerHandler.CA_MAN.LoadNewRecruits();
-            ManagerHandler.CA_MAN.LoadNewActions();
+            Managers.CA_MAN.LoadNewRecruits();
+            Managers.CA_MAN.LoadNewActions();
 
             List<Location> refreshedShops = new List<Location>();
             foreach (Location loc in ActiveLocations)
@@ -978,9 +978,9 @@ public class GameManager : MonoBehaviour
      *****/
     public void StartDialogue()
     {
-        ManagerHandler.AU_MAN.StartStopSound(null,
+        Managers.AU_MAN.StartStopSound(null,
             CurrentLocation.LocationSoundscape, AudioManager.SoundType.Soundscape);
-        ManagerHandler.D_MAN.StartDialogue();
+        Managers.D_MAN.StartDialogue();
     }
 
     /******
@@ -990,10 +990,10 @@ public class GameManager : MonoBehaviour
      *****/
     public void StartNarrative()
     {
-        ManagerHandler.AU_MAN.StartStopSound("Soundtrack_Narrative1", null,
+        Managers.AU_MAN.StartStopSound("Soundtrack_Narrative1", null,
             AudioManager.SoundType.Soundtrack);
-        ManagerHandler.AU_MAN.StartStopSound(null, CurrentNarrative.NarrativeStartSound);
-        ManagerHandler.AU_MAN.StartStopSound(null, CurrentNarrative.NarrativeSoundscape,
+        Managers.AU_MAN.StartStopSound(null, CurrentNarrative.NarrativeStartSound);
+        Managers.AU_MAN.StartStopSound(null, CurrentNarrative.NarrativeSoundscape,
             AudioManager.SoundType.Soundscape);
 
         FindObjectOfType<NarrativeSceneDisplay>().CurrentNarrative = CurrentNarrative;
@@ -1015,14 +1015,14 @@ public class GameManager : MonoBehaviour
      *****/
     public void StartCombat()
     {
-        ManagerHandler.U_MAN.StartCombatScene();
-        ManagerHandler.CO_MAN.StartCombatScene();
+        Managers.U_MAN.StartCombatScene();
+        Managers.CO_MAN.StartCombatScene();
 
-        ManagerHandler.P_MAN.ResetForCombat();
-        ManagerHandler.EN_MAN.ResetForCombat();
+        Managers.P_MAN.ResetForCombat();
+        Managers.EN_MAN.ResetForCombat();
 
-        PlayerHeroDisplay pHD = ManagerHandler.P_MAN.HeroObject.GetComponent<PlayerHeroDisplay>();
-        EnemyHeroDisplay eHD = ManagerHandler.EN_MAN.HeroObject.GetComponent<EnemyHeroDisplay>();
+        PlayerHeroDisplay pHD = Managers.P_MAN.HeroObject.GetComponent<PlayerHeroDisplay>();
+        EnemyHeroDisplay eHD = Managers.EN_MAN.HeroObject.GetComponent<EnemyHeroDisplay>();
 
         pHD.HeroBase.SetActive(false);
         pHD.HeroStats.SetActive(false);
@@ -1032,11 +1032,11 @@ public class GameManager : MonoBehaviour
         eHD.HeroStats.SetActive(false);
         eHD.HeroNameObject.SetActive(false);
 
-        ManagerHandler.U_MAN.EndTurnButton.SetActive(false);
-        ManagerHandler.U_MAN.CombatLog.SetActive(false);
+        Managers.U_MAN.EndTurnButton.SetActive(false);
+        Managers.U_MAN.CombatLog.SetActive(false);
 
         // ENEMY MANAGER
-        EnemyHero enemyHero = ManagerHandler.D_MAN.EngagedHero as EnemyHero;
+        EnemyHero enemyHero = Managers.D_MAN.EngagedHero as EnemyHero;
         if (enemyHero == null)
         {
             Debug.LogError("ENEMY HERO IS NULL!");
@@ -1044,110 +1044,112 @@ public class GameManager : MonoBehaviour
         }
 
         // ENEMY HERO
-        ManagerHandler.EN_MAN.HeroScript = enemyHero;
-        ManagerHandler.EN_MAN.CurrentHealth = IsTutorial ? TUTORIAL_STARTING_HEALTH : ENEMY_STARTING_HEALTH;
+        Managers.EN_MAN.HeroScript = enemyHero;
+        Managers.EN_MAN.CurrentHealth = IsTutorial ? TUTORIAL_STARTING_HEALTH : ENEMY_STARTING_HEALTH;
 
         int energyPerTurn = START_ENERGY_PER_TURN;
-        if ((ManagerHandler.EN_MAN.HeroScript as EnemyHero).IsBoss)
-            energyPerTurn += BOSS_BONUS_ENERGY + ManagerHandler.CO_MAN.DifficultyLevel - 1;
-        ManagerHandler.EN_MAN.EnergyPerTurn = energyPerTurn;
-        ManagerHandler.EN_MAN.CurrentEnergy = 0;
-        ManagerHandler.EN_MAN.DamageTakenTurn = 0;
+        if ((Managers.EN_MAN.HeroScript as EnemyHero).IsBoss)
+            energyPerTurn += BOSS_BONUS_ENERGY + Managers.CO_MAN.DifficultyLevel - 1;
+        Managers.EN_MAN.EnergyPerTurn = energyPerTurn;
+        Managers.EN_MAN.CurrentEnergy = 0;
+        Managers.EN_MAN.DamageTaken_ThisTurn = 0;
+        Managers.EN_MAN.AlliesDestroyed_ThisTurn = 0;
 
-        ManagerHandler.EN_MAN.TurnNumber = 0;
+        Managers.EN_MAN.TurnNumber = 0;
 
         // PLAYER MANAGER
-        ManagerHandler.P_MAN.CurrentHealth = ManagerHandler.P_MAN.MaxHealth;
-        ManagerHandler.P_MAN.EnergyPerTurn = START_ENERGY_PER_TURN;
-        ManagerHandler.P_MAN.CurrentEnergy = 0;
-        ManagerHandler.P_MAN.HeroUltimateProgress = 0;
-        ManagerHandler.P_MAN.DamageTakenTurn = 0;
-        foreach (HeroItem item in ManagerHandler.P_MAN.HeroItems) // TESTING
+        Managers.P_MAN.CurrentHealth = Managers.P_MAN.MaxHealth;
+        Managers.P_MAN.EnergyPerTurn = START_ENERGY_PER_TURN;
+        Managers.P_MAN.CurrentEnergy = 0;
+        Managers.P_MAN.HeroUltimateProgress = 0;
+        Managers.P_MAN.DamageTaken_ThisTurn = 0;
+        Managers.P_MAN.AlliesDestroyed_ThisTurn = 0;
+        foreach (HeroItem item in Managers.P_MAN.HeroItems) // TESTING
             item.IsUsed = false;
 
-        ManagerHandler.P_MAN.TurnNumber = 0;
+        Managers.P_MAN.TurnNumber = 0;
 
         // UPDATE DECKS
-        ManagerHandler.CA_MAN.UpdateDeck(PLAYER);
-        ManagerHandler.CA_MAN.UpdateDeck(ENEMY);
+        Managers.CA_MAN.UpdateDeck(PLAYER);
+        Managers.CA_MAN.UpdateDeck(ENEMY);
 
         // DISPLAY HEROES
-        ManagerHandler.P_MAN.HeroObject.GetComponent<HeroDisplay>().HeroScript = ManagerHandler.P_MAN.HeroScript;
-        ManagerHandler.EN_MAN.HeroObject.GetComponent<HeroDisplay>().HeroScript = ManagerHandler.EN_MAN.HeroScript;
+        Managers.P_MAN.HeroObject.GetComponent<HeroDisplay>().HeroScript = Managers.P_MAN.HeroScript;
+        Managers.EN_MAN.HeroObject.GetComponent<HeroDisplay>().HeroScript = Managers.EN_MAN.HeroScript;
 
         // SCHEDULE ACTIONS
-        ManagerHandler.EV_MAN.NewDelayedAction(() => ManagerHandler.AN_MAN.CombatIntro(), 1);
-        ManagerHandler.EV_MAN.NewDelayedAction(() => CombatStart(), 1);
-        ManagerHandler.EV_MAN.NewDelayedAction(() => StartCombatTurn(ManagerHandler.P_MAN, true), 2);
+        Managers.EV_MAN.NewDelayedAction(() => Managers.AN_MAN.CombatIntro(), 1);
+        Managers.EV_MAN.NewDelayedAction(() => CombatStart(), 1);
+        Managers.EV_MAN.NewDelayedAction(() => StartCombatTurn(Managers.P_MAN, true), 2);
 
         // AUDIO
         string soundtrack;
-        if ((ManagerHandler.EN_MAN.HeroScript as EnemyHero).IsBoss) soundtrack = "Soundtrack_CombatBoss1";
+        if ((Managers.EN_MAN.HeroScript as EnemyHero).IsBoss) soundtrack = "Soundtrack_CombatBoss1";
         else soundtrack = "Soundtrack_Combat1";
-        ManagerHandler.AU_MAN.StartStopSound(soundtrack, null, AudioManager.SoundType.Soundtrack);
-        ManagerHandler.AU_MAN.StopCurrentSoundscape();
-        FunctionTimer.Create(() => ManagerHandler.AU_MAN.StartStopSound("SFX_StartCombat1"), 0.15f);
+        Managers.AU_MAN.StartStopSound(soundtrack, null, AudioManager.SoundType.Soundtrack);
+        Managers.AU_MAN.StopCurrentSoundscape();
+        FunctionTimer.Create(() => Managers.AU_MAN.StartStopSound("SFX_StartCombat1"), 0.15f);
 
         void CombatStart()
         {
-            ManagerHandler.U_MAN.CombatLogEntry($"<b><color=\"green\">{ManagerHandler.P_MAN.HeroScript.HeroShortName}</color> VS <color=\"red\">{ManagerHandler.EN_MAN.HeroScript.HeroName}</b></color>");
+            Managers.U_MAN.CombatLogEntry($"<b><color=\"green\">{Managers.P_MAN.HeroScript.HeroShortName}</color> VS <color=\"red\">{Managers.EN_MAN.HeroScript.HeroName}</b></color>");
 
-            ManagerHandler.CA_MAN.ShuffleDeck(ManagerHandler.P_MAN, false);
-            ManagerHandler.CA_MAN.ShuffleDeck(ManagerHandler.EN_MAN, false);
+            Managers.CA_MAN.ShuffleDeck(Managers.P_MAN, false);
+            Managers.CA_MAN.ShuffleDeck(Managers.EN_MAN, false);
 
             for (int i = 0; i < START_HAND_SIZE; i++)
-                ManagerHandler.EV_MAN.NewDelayedAction(() => AllDraw(), 0.5f);
+                Managers.EV_MAN.NewDelayedAction(() => AllDraw(), 0.5f);
 
             if (IsTutorial) // TUTORIAL!
             {
-                ManagerHandler.EV_MAN.NewDelayedAction(() => ManagerHandler.U_MAN.CreateTutorialActionPopup(), 0);
-                ManagerHandler.EV_MAN.NewDelayedAction(() => ManagerHandler.EV_MAN.PauseDelayedActions(true), 0);
-                ManagerHandler.EV_MAN.NewDelayedAction(() => Tutorial_Tooltip(1), 0);
+                Managers.EV_MAN.NewDelayedAction(() => Managers.U_MAN.CreateTutorialActionPopup(), 0);
+                Managers.EV_MAN.NewDelayedAction(() => Managers.EV_MAN.PauseDelayedActions(true), 0);
+                Managers.EV_MAN.NewDelayedAction(() => Tutorial_Tooltip(1), 0);
             }
             ResolveReputationEffects(1); // REPUTATION EFFECTS [RESOLVE ORDER = 1]
             PlayStartingUnits();
-            ManagerHandler.EV_MAN.NewDelayedAction(() => Mulligan_Player(), 0.5f);
-            ManagerHandler.EV_MAN.NewDelayedAction(() => ManagerHandler.EN_MAN.Mulligan(), 0.5f);
+            Managers.EV_MAN.NewDelayedAction(() => Mulligan_Player(), 0.5f);
+            Managers.EV_MAN.NewDelayedAction(() => Managers.EN_MAN.Mulligan(), 0.5f);
             ResolveReputationEffects(2); // REPUTATION EFFECTS [RESOLVE ORDER = 2]
             ResolveReputationEffects(3); // REPUTATION EFFECTS [RESOLVE ORDER = 3]
 
             string cognitiveMagnifier = "Cognitive Magnifier";
-            if (ManagerHandler.P_MAN.GetAugment(cognitiveMagnifier))
+            if (Managers.P_MAN.GetAugment(cognitiveMagnifier))
             {
-                ManagerHandler.EV_MAN.NewDelayedAction(() => CognitiveMagnifierEffect(), 0.25f);
+                Managers.EV_MAN.NewDelayedAction(() => CognitiveMagnifierEffect(), 0.25f);
 
                 void CognitiveMagnifierEffect()
                 {
-                    ManagerHandler.AN_MAN.TriggerAugment(cognitiveMagnifier);
+                    Managers.AN_MAN.TriggerAugment(cognitiveMagnifier);
 
-                    ManagerHandler.EF_MAN.StartEffectGroupList(new List<EffectGroup>
-                    { cognitiveMagnifierEffect }, ManagerHandler.P_MAN.HeroObject);
+                    Managers.EF_MAN.StartEffectGroupList(new List<EffectGroup>
+                    { cognitiveMagnifierEffect }, Managers.P_MAN.HeroObject);
                 }
             }
 
-            if (IsTutorial) ManagerHandler.EV_MAN.NewDelayedAction(() => Tutorial_Tooltip(2), 0); // TUTORIAL!
+            if (IsTutorial) Managers.EV_MAN.NewDelayedAction(() => Tutorial_Tooltip(2), 0); // TUTORIAL!
 
             void AllDraw()
             {
-                ManagerHandler.CA_MAN.DrawCard(ManagerHandler.P_MAN);
-                ManagerHandler.CA_MAN.DrawCard(ManagerHandler.EN_MAN);
+                Managers.CA_MAN.DrawCard(Managers.P_MAN);
+                Managers.CA_MAN.DrawCard(Managers.EN_MAN);
             }
 
             void PlayStartingUnits()
             {
                 List<UnitCard> startingUnits =
-                    (ManagerHandler.EN_MAN.HeroScript as EnemyHero).Reinforcements[ManagerHandler.EN_MAN.ReinforcementGroup].StartingUnits;
+                    (Managers.EN_MAN.HeroScript as EnemyHero).Reinforcements[Managers.EN_MAN.ReinforcementGroup].StartingUnits;
                 foreach (UnitCard card in startingUnits)
                 {
-                    UnitCard newCard = ManagerHandler.CA_MAN.NewCardInstance(card) as UnitCard;
-                    ManagerHandler.EV_MAN.NewDelayedAction(() =>
-                    ManagerHandler.EF_MAN.PlayCreatedUnit(newCard, false, new List<Effect>(), ManagerHandler.EN_MAN.HeroObject), 0.5f);
+                    UnitCard newCard = Managers.CA_MAN.NewCardInstance(card) as UnitCard;
+                    Managers.EV_MAN.NewDelayedAction(() =>
+                    Managers.EF_MAN.PlayCreatedUnit(newCard, false, new List<Effect>(), Managers.EN_MAN.HeroObject), 0.5f);
                 }
             }
         }
 
         void Mulligan_Player() =>
-            ManagerHandler.EF_MAN.StartEffectGroupList(new List<EffectGroup> { mulliganEffect }, ManagerHandler.P_MAN.HeroObject);
+            Managers.EF_MAN.StartEffectGroupList(new List<EffectGroup> { mulliganEffect }, Managers.P_MAN.HeroObject);
     }
 
     /******
@@ -1159,29 +1161,29 @@ public class GameManager : MonoBehaviour
     {
         if (playerWins)
         {
-            ManagerHandler.AU_MAN.StartStopSound(null, ManagerHandler.EN_MAN.HeroScript.HeroLose);
+            Managers.AU_MAN.StartStopSound(null, Managers.EN_MAN.HeroScript.HeroLose);
             FunctionTimer.Create(() =>
-            ManagerHandler.AU_MAN.StartStopSound(null, ManagerHandler.P_MAN.HeroScript.HeroWin), 2f);
+            Managers.AU_MAN.StartStopSound(null, Managers.P_MAN.HeroScript.HeroWin), 2f);
         }
         else
         {
-            ManagerHandler.AU_MAN.StartStopSound(null, ManagerHandler.P_MAN.HeroScript.HeroLose);
+            Managers.AU_MAN.StartStopSound(null, Managers.P_MAN.HeroScript.HeroLose);
             FunctionTimer.Create(() =>
-            ManagerHandler.AU_MAN.StartStopSound(null, ManagerHandler.EN_MAN.HeroScript.HeroWin), 2f);
+            Managers.AU_MAN.StartStopSound(null, Managers.EN_MAN.HeroScript.HeroWin), 2f);
         }
 
-        ManagerHandler.EV_MAN.ClearDelayedActions();
-        ManagerHandler.U_MAN.PlayerIsTargetting = false;
-        ManagerHandler.EF_MAN.EffectsResolving = false;
-        ManagerHandler.P_MAN.IsMyTurn = false;
+        Managers.EV_MAN.ClearDelayedActions();
+        Managers.U_MAN.PlayerIsTargetting = false;
+        Managers.EF_MAN.EffectsResolving = false;
+        Managers.P_MAN.IsMyTurn = false;
 
-        foreach (HeroItem item in ManagerHandler.P_MAN.HeroItems) item.IsUsed = false;
+        foreach (HeroItem item in Managers.P_MAN.HeroItems) item.IsUsed = false;
 
         // Created Cards Played
-        ManagerHandler.P_MAN.ResetForCombat();
-        ManagerHandler.EN_MAN.ResetForCombat();
+        Managers.P_MAN.ResetForCombat();
+        Managers.EN_MAN.ResetForCombat();
 
-        FunctionTimer.Create(() => ManagerHandler.U_MAN.CreateCombatEndPopup(playerWins), 2f);
+        FunctionTimer.Create(() => Managers.U_MAN.CreateCombatEndPopup(playerWins), 2f);
     }
 
     /******
@@ -1191,53 +1193,53 @@ public class GameManager : MonoBehaviour
      *****/
     private void StartCombatTurn(HeroManager hero, bool isFirstTurn = false)
     {
-        bool isPlayerTurn = hero == ManagerHandler.P_MAN;
+        bool isPlayerTurn = hero == Managers.P_MAN;
         string logText = "\n";
         if (isPlayerTurn) logText += "[Your Turn]";
         else logText += "[Enemy Turn]";
 
-        ManagerHandler.EV_MAN.NewDelayedAction(() => TurnPopup(), 0);
-        ManagerHandler.EV_MAN.NewDelayedAction(() => ManagerHandler.U_MAN.CombatLogEntry(logText), 0);
+        Managers.EV_MAN.NewDelayedAction(() => TurnPopup(), 0);
+        Managers.EV_MAN.NewDelayedAction(() => Managers.U_MAN.CombatLogEntry(logText), 0);
 
         if (isPlayerTurn)
         {
-            ManagerHandler.EV_MAN.NewDelayedAction(() => PlayerTurnStart(), 2);
-            ManagerHandler.EV_MAN.NewDelayedAction(() => TurnDraw(), 0.5f);
+            Managers.EV_MAN.NewDelayedAction(() => PlayerTurnStart(), 2);
+            Managers.EV_MAN.NewDelayedAction(() => TurnDraw(), 0.5f);
 
             string synapticStabilizer = "Synaptic Stabilizer";
 
-            if (isFirstTurn && ManagerHandler.P_MAN.GetAugment(synapticStabilizer))
+            if (isFirstTurn && Managers.P_MAN.GetAugment(synapticStabilizer))
             {
-                ManagerHandler.EV_MAN.NewDelayedAction(() => SynapticStabilizerEffect(), 0.5f);
+                Managers.EV_MAN.NewDelayedAction(() => SynapticStabilizerEffect(), 0.5f);
             }
 
             void SynapticStabilizerEffect()
             {
-                ManagerHandler.P_MAN.CurrentEnergy++;
-                ManagerHandler.AN_MAN.ModifyHeroEnergyState(1, ManagerHandler.P_MAN.HeroObject);
-                ManagerHandler.AN_MAN.TriggerAugment(synapticStabilizer);
-                ManagerHandler.CA_MAN.SelectPlayableCards();
+                Managers.P_MAN.CurrentEnergy++;
+                Managers.AN_MAN.ModifyHeroEnergyState(1, Managers.P_MAN.HeroObject);
+                Managers.AN_MAN.TriggerAugment(synapticStabilizer);
+                Managers.CA_MAN.SelectPlayableCards();
             }
 
             void PlayerTurnStart()
             {
-                ManagerHandler.P_MAN.IsMyTurn = true;
-                ManagerHandler.EN_MAN.IsMyTurn = false;
-                ManagerHandler.P_MAN.HeroPowerUsed = false;
+                Managers.P_MAN.IsMyTurn = true;
+                Managers.EN_MAN.IsMyTurn = false;
+                Managers.P_MAN.HeroPowerUsed = false;
 
-                int startEnergy = ManagerHandler.P_MAN.CurrentEnergy;
-                if (ManagerHandler.P_MAN.EnergyPerTurn < ManagerHandler.P_MAN.MaxEnergyPerTurn) ManagerHandler.P_MAN.EnergyPerTurn++;
-                ManagerHandler.P_MAN.CurrentEnergy = ManagerHandler.P_MAN.EnergyPerTurn;
+                int startEnergy = Managers.P_MAN.CurrentEnergy;
+                if (Managers.P_MAN.EnergyPerTurn < Managers.P_MAN.MaxEnergyPerTurn) Managers.P_MAN.EnergyPerTurn++;
+                Managers.P_MAN.CurrentEnergy = Managers.P_MAN.EnergyPerTurn;
 
-                int energyChange = ManagerHandler.P_MAN.CurrentEnergy - startEnergy;
-                ManagerHandler.AN_MAN.ModifyHeroEnergyState(energyChange, ManagerHandler.P_MAN.HeroObject);
+                int energyChange = Managers.P_MAN.CurrentEnergy - startEnergy;
+                Managers.AN_MAN.ModifyHeroEnergyState(energyChange, Managers.P_MAN.HeroObject);
 
-                ManagerHandler.P_MAN.TurnNumber++;
+                Managers.P_MAN.TurnNumber++;
 
                 // TUTORIAL!
                 if (IsTutorial)
                 {
-                    switch (ManagerHandler.P_MAN.EnergyPerTurn)
+                    switch (Managers.P_MAN.EnergyPerTurn)
                     {
                         case 2:
                             Tutorial_Tooltip(4);
@@ -1248,24 +1250,24 @@ public class GameManager : MonoBehaviour
 
             void TurnDraw()
             {
-                ManagerHandler.CA_MAN.DrawCard(ManagerHandler.P_MAN);
-                ManagerHandler.CA_MAN.SelectPlayableCards();
+                Managers.CA_MAN.DrawCard(Managers.P_MAN);
+                Managers.CA_MAN.SelectPlayableCards();
             }
         }
 
-        if (isPlayerTurn) ManagerHandler.EV_MAN.NewDelayedAction(() =>
-        ManagerHandler.CA_MAN.TriggerPlayedUnits(CardManager.TRIGGER_TURN_START, hero), 0);
+        if (isPlayerTurn) Managers.EV_MAN.NewDelayedAction(() =>
+        Managers.CA_MAN.TriggerPlayedUnits(CardManager.TRIGGER_TURN_START, hero), 0);
         else
         {
-            ManagerHandler.P_MAN.IsMyTurn = false;
-            ManagerHandler.EN_MAN.IsMyTurn = true;
-            ManagerHandler.EV_MAN.NewDelayedAction(() => ManagerHandler.EN_MAN.StartEnemyTurn(), 1);
+            Managers.P_MAN.IsMyTurn = false;
+            Managers.EN_MAN.IsMyTurn = true;
+            Managers.EV_MAN.NewDelayedAction(() => Managers.EN_MAN.StartEnemyTurn(), 1);
         }
 
         void TurnPopup()
         {
-            ManagerHandler.AU_MAN.StartStopSound("SFX_NextTurn");
-            ManagerHandler.U_MAN.CreateTurnPopup(isPlayerTurn);
+            Managers.AU_MAN.StartStopSound("SFX_NextTurn");
+            Managers.U_MAN.CreateTurnPopup(isPlayerTurn);
         }
     }
 
@@ -1276,54 +1278,58 @@ public class GameManager : MonoBehaviour
      *****/
     public void EndCombatTurn(HeroManager hero)
     {
-        ManagerHandler.EV_MAN.NewDelayedAction(() =>
-        ManagerHandler.CA_MAN.TriggerPlayedUnits(CardManager.TRIGGER_TURN_END, hero), 0);
+        Managers.EV_MAN.NewDelayedAction(() =>
+        Managers.CA_MAN.TriggerPlayedUnits(CardManager.TRIGGER_TURN_END, hero), 0);
 
-        ManagerHandler.EV_MAN.NewDelayedAction(() => ManagerHandler.CO_MAN.RefreshAllUnits(), 0.5f);
-        ManagerHandler.EV_MAN.NewDelayedAction(() => RemoveEffects(), 0);
-        ManagerHandler.EV_MAN.NewDelayedAction(() => ResetTriggerCounts(), 0);
+        Managers.EV_MAN.NewDelayedAction(() => Managers.CO_MAN.RefreshAllUnits(), 0.5f);
+        Managers.EV_MAN.NewDelayedAction(() => RemoveEffects(), 0);
+        Managers.EV_MAN.NewDelayedAction(() => ResetTriggerCounts(), 0);
+        Managers.EV_MAN.NewDelayedAction(() => Managers.CA_MAN.SelectPlayableCards(), 0); // TESTING
 
-        if (hero == ManagerHandler.EN_MAN)
+        if (hero == Managers.EN_MAN)
         {
-            ManagerHandler.EV_MAN.NewDelayedAction(() => StartCombatTurn(ManagerHandler.P_MAN), 0.5f);
+            Managers.EV_MAN.NewDelayedAction(() => StartCombatTurn(Managers.P_MAN), 0.5f);
         }
-        else if (hero == ManagerHandler.P_MAN)
+        else if (hero == Managers.P_MAN)
         {
             if (IsTutorial) // TUTORIAL!
             {
-                switch (ManagerHandler.P_MAN.EnergyPerTurn)
+                switch (Managers.P_MAN.EnergyPerTurn)
                 {
                     case 1:
-                        if (ManagerHandler.P_MAN.CurrentEnergy > 0) return;
-                        else ManagerHandler.U_MAN.DestroyInfoPopup(UIManager.InfoPopupType.Tutorial);
+                        if (Managers.P_MAN.CurrentEnergy > 0) return;
+                        else Managers.U_MAN.DestroyInfoPopup(UIManager.InfoPopupType.Tutorial);
                         break;
                     case 2:
-                        if (!ManagerHandler.P_MAN.HeroPowerUsed || ManagerHandler.EN_MAN.PlayZoneCards.Count > 0) return;
-                        else ManagerHandler.U_MAN.DestroyInfoPopup(UIManager.InfoPopupType.Tutorial);
+                        if (!Managers.P_MAN.HeroPowerUsed || Managers.EN_MAN.PlayZoneCards.Count > 0) return;
+                        else Managers.U_MAN.DestroyInfoPopup(UIManager.InfoPopupType.Tutorial);
                         break;
                 }
             }
 
-            ManagerHandler.P_MAN.IsMyTurn = false;
-            ManagerHandler.CA_MAN.SelectPlayableCards(true);
-            ManagerHandler.EV_MAN.NewDelayedAction(() => StartCombatTurn(ManagerHandler.EN_MAN), 0.5f);
+            Managers.P_MAN.IsMyTurn = false;
+            Managers.CA_MAN.SelectPlayableCards(true);
+            Managers.EV_MAN.NewDelayedAction(() => StartCombatTurn(Managers.EN_MAN), 0.5f);
         }
         else Debug.LogError("INVALID PLAYER!");
 
         void RemoveEffects()
         {
-            ManagerHandler.EF_MAN.RemoveTemporaryEffects();
-            ManagerHandler.EF_MAN.RemoveGiveNextEffects(hero);
-            ManagerHandler.EF_MAN.RemoveChangeNextCostEffects(hero);
-            ManagerHandler.EF_MAN.RemoveModifyNextEffects(hero);
+            Managers.EF_MAN.RemoveTemporaryEffects();
+            Managers.EF_MAN.RemoveGiveNextEffects(hero);
+            Managers.EF_MAN.RemoveChangeNextCostEffects(hero);
+            Managers.EF_MAN.RemoveModifyNextEffects(hero);
 
-            ManagerHandler.P_MAN.DamageTakenTurn = 0;
-            ManagerHandler.EN_MAN.DamageTakenTurn = 0;
+            Managers.P_MAN.DamageTaken_ThisTurn = 0;
+            Managers.P_MAN.AlliesDestroyed_ThisTurn= 0;
+
+            Managers.EN_MAN.DamageTaken_ThisTurn = 0;
+            Managers.EN_MAN.AlliesDestroyed_ThisTurn = 0;
         }
         void ResetTriggerCounts()
         {
-            foreach (GameObject unit in ManagerHandler.P_MAN.PlayZoneCards) ResetTrigger(unit);
-            foreach (GameObject unit in ManagerHandler.EN_MAN.PlayZoneCards) ResetTrigger(unit);
+            foreach (GameObject unit in Managers.P_MAN.PlayZoneCards) ResetTrigger(unit);
+            foreach (GameObject unit in Managers.EN_MAN.PlayZoneCards) ResetTrigger(unit);
 
             void ResetTrigger(GameObject unit)
             {
@@ -1352,9 +1358,9 @@ public class GameManager : MonoBehaviour
      *****/
     public void StartCredits()
     {
-        ManagerHandler.AU_MAN.StartStopSound("Soundtrack_Combat1",
+        Managers.AU_MAN.StartStopSound("Soundtrack_Combat1",
             null, AudioManager.SoundType.Soundtrack);
-        ManagerHandler.AU_MAN.StopCurrentSoundscape();
+        Managers.AU_MAN.StopCurrentSoundscape();
     }
 
     /******
@@ -1446,7 +1452,7 @@ public class GameManager : MonoBehaviour
         List<HeroItem> shopItems = new List<HeroItem>();
         foreach (HeroItem item in rarefiedItems)
         {
-            if ((ManagerHandler.P_MAN.HeroItems.FindIndex(x => x.ItemName == item.ItemName) == -1) &&
+            if ((Managers.P_MAN.HeroItems.FindIndex(x => x.ItemName == item.ItemName) == -1) &&
                 (shopItems.FindIndex(x => x.ItemName == item.ItemName) == -1)) shopItems.Add(item);
 
             if (shopItems.Count == 8) return shopItems;

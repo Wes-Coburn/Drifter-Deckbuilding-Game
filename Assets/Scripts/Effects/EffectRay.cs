@@ -119,7 +119,7 @@ public class EffectRay : MonoBehaviour
         }
 
         rayEffect();
-        if (effectRayType is EffectRayType.EffectGroup) ManagerHandler.EF_MAN.ActiveEffects--;
+        if (effectRayType is EffectRayType.EffectGroup) Managers.EF_MAN.ActiveEffects--;
         else if (ActiveRays < 1) UIManager.Instance.UpdateEndTurnButton(true);
 
         GetComponent<SpriteRenderer>().enabled = false;

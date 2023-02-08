@@ -79,6 +79,8 @@ public abstract class Effect : ScriptableObject
 
         HasMoreKeywords,
         HasLessKeywords,
+
+        EnemiesDestroyed_ThisTurn,
     }
 
     [Header("EFFECT CONDITIONS")]
