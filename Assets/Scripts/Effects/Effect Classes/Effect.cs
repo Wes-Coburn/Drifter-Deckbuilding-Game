@@ -80,6 +80,7 @@ public abstract class Effect : ScriptableObject
         HasMoreKeywords,
         HasLessKeywords,
 
+        AlliesDestroyed_ThisTurn,
         EnemiesDestroyed_ThisTurn,
     }
 

@@ -270,7 +270,7 @@ public class UIManager : MonoBehaviour
         if (endTurnButton == null) return;
 
         bool isMyTurn = Managers.P_MAN.IsMyTurn;
-        EndTurnButtonDisplay etbd = endTurnButton.GetComponent<EndTurnButtonDisplay>();
+        var etbd = endTurnButton.GetComponent<EndTurnButtonDisplay>();
         etbd.EndTurnSide.SetActive(isMyTurn);
         etbd.OpponentTurnSide.SetActive(!isMyTurn);
 
@@ -282,7 +282,7 @@ public class UIManager : MonoBehaviour
     {
         if (endTurnButton == null) return;
 
-        EndTurnButtonDisplay etbd = endTurnButton.GetComponent<EndTurnButtonDisplay>();
+        var etbd = endTurnButton.GetComponent<EndTurnButtonDisplay>();
         Button etb = etbd.EndTurnSide.GetComponent<Button>();
 
         Color normalColor;
@@ -354,7 +354,7 @@ public class UIManager : MonoBehaviour
 
             if (selectionType is SelectionType.Selected && PlayerIsTargetting)
             {
-                if (EffectManager.Instance.CurrentEffect is DrawEffect de && de.IsDiscardEffect)
+                if (Managers.EF_MAN.CurrentEffect is DrawEffect de && de.IsDiscardEffect)
                 {
                     target.GetComponent<CardDisplay>().CardContainer.GetComponent
                         <CardContainer>().BufferDistance = new Vector2(0, -50);
@@ -429,7 +429,7 @@ public class UIManager : MonoBehaviour
         FunctionTimer.StopTimer(CardZoom.ZOOM_CARD_TIMER);
         FunctionTimer.StopTimer(CardZoom.ABILITY_POPUP_TIMER);
 
-        List<GameObject> objectsToDestroy = new List<GameObject>
+        List<GameObject> objectsToDestroy = new()
         {
             CardZoom.CurrentZoomCard,
             CardZoom.DescriptionPopup,
@@ -615,7 +615,7 @@ public class UIManager : MonoBehaviour
     public void CreateTutorialActionPopup()
     {
         if (tutorialActionPopup != null) return;
-        tutorialActionPopup = Instantiate(tutorialActionPopupPrefab, CurrentZoomCanvas.transform); // TESTING on ZOOM
+        tutorialActionPopup = Instantiate(tutorialActionPopupPrefab, CurrentZoomCanvas.transform);
     }
     public void DestroyTutorialActionPopup()
     {
@@ -650,9 +650,8 @@ public class UIManager : MonoBehaviour
     public void CreateInfoPopup(string message, InfoPopupType infoPopupType, bool isCentered = false, bool showContinue = false)
     {
         DestroyInfoPopup(infoPopupType);
-        Vector2 vec2 = new Vector2();
+        Vector2 vec2 = new();
         if (!isCentered) vec2.Set(750, 0);
-
 
         InfoPopupDisplay ipd;
         switch (infoPopupType)
@@ -686,7 +685,7 @@ public class UIManager : MonoBehaviour
     public void InsufficientAetherPopup()
     {
         CreateFleetingInfoPopup($"Not enough aether! (You have {Managers.P_MAN.AetherCells} aether)");
-        AudioManager.Instance.StartStopSound("SFX_Error");
+        Managers.AU_MAN.StartStopSound("SFX_Error");
     }
     public void DismissInfoPopup()
     {
@@ -746,7 +745,7 @@ public class UIManager : MonoBehaviour
     {
         DestroyCombatEndPopup();
         combatEndPopup = Instantiate(combatEndPopupPrefab, CurrentZoomCanvas.transform);
-        CombatEndPopupDisplay cepd = combatEndPopup.GetComponent<CombatEndPopupDisplay>();
+        var cepd = combatEndPopup.GetComponent<CombatEndPopupDisplay>();
         GameObject particleParent;
         if (playerWins) particleParent = cepd.VictoryText;
         else particleParent = cepd.DefeatText;
@@ -770,12 +769,12 @@ public class UIManager : MonoBehaviour
         NewCardPopupDisplay ncpd;
         if (chooseCards == null)
         {
-            newCardPopup = Instantiate(newCardPopupPrefab, CurrentZoomCanvas.transform); // TESTING on ZOOM
+            newCardPopup = Instantiate(newCardPopupPrefab, CurrentZoomCanvas.transform);
             ncpd = newCardPopup.GetComponent<NewCardPopupDisplay>();
         }
         else
         {
-            chooseCardPopup = Instantiate(chooseCardPopupPrefab, CurrentZoomCanvas.transform); // TESTING on ZOOM
+            chooseCardPopup = Instantiate(chooseCardPopupPrefab, CurrentZoomCanvas.transform);
             ncpd = chooseCardPopup.GetComponent<NewCardPopupDisplay>();
         }
 
@@ -800,8 +799,7 @@ public class UIManager : MonoBehaviour
     public void CreateChooseRewardPopup()
     {
         DestroyZoomObjects(); // TESTING, for combat end
-
-        chooseRewardPopup = Instantiate(chooseRewardPopupPrefab, CurrentZoomCanvas.transform); // TESTING on ZOOM
+        chooseRewardPopup = Instantiate(chooseRewardPopupPrefab, CurrentZoomCanvas.transform);
     }
     public void DestroyChooseRewardPopup()
     {
@@ -815,8 +813,8 @@ public class UIManager : MonoBehaviour
     public void CreateAetherCellPopup(int quanity)
     {
         DestroyAetherCellPopup();
-        aetherCellPopup = Instantiate(aetherCellPopupPrefab, CurrentZoomCanvas.transform); // TESTING on ZOOM
-        AetherCellPopupDisplay acpd = aetherCellPopup.GetComponent<AetherCellPopupDisplay>();
+        aetherCellPopup = Instantiate(aetherCellPopupPrefab, CurrentZoomCanvas.transform);
+        var acpd = aetherCellPopup.GetComponent<AetherCellPopupDisplay>();
         acpd.AetherQuantity = quanity;
     }
     public void DestroyAetherCellPopup()
@@ -842,17 +840,14 @@ public class UIManager : MonoBehaviour
         }
 
         DestroyCardPage();
-        GameObject prefab;
-        if (isScrollPopup) prefab = cardScrollPagePrefab;
-        else prefab = cardPagePrefab;
-
+        GameObject prefab = isScrollPopup ? cardScrollPagePrefab : cardPagePrefab;
         cardPage = Instantiate(prefab, CurrentCanvas.transform);
         cardPage.GetComponent<CardPageDisplay>().DisplayCardPage(cardPageType, playSound, scrollValue);
     }
-    public void DestroyCardPage(bool childPopupsOnly = false)
+    public void DestroyCardPage(bool childrenOnly = false)
     {
         Managers.AN_MAN.ProgressBarRoutine_Stop();
-        if (!childPopupsOnly && cardPage != null)
+        if (!childrenOnly && cardPage != null)
         {
             Destroy(cardPage);
             cardPage = null;
@@ -896,15 +891,16 @@ public class UIManager : MonoBehaviour
         itemPagePopup = Instantiate(itemPagePopupPrefab, CurrentCanvas.transform);
         itemPagePopup.GetComponent<ItemPageDisplay>().DisplayItems(isItemRemoval, playSound);
     }
-    public void DestroyItemPagePopup()
+    public void DestroyItemPagePopup(bool childrenOnly = false)
     {
         Managers.AN_MAN.ProgressBarRoutine_Stop();
-        if (itemPagePopup != null)
+        if (!childrenOnly && itemPagePopup != null)
         {
             Destroy(itemPagePopup);
             itemPagePopup = null;
         }
         DestroyBuyItemPopup();
+        DestroyRemoveItemPopup();
         DestroyTooltipPopup();
     }
     // Buy Item Popup

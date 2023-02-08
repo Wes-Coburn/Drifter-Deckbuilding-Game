@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a22d7123f6ee007468cbdc6e9b6fe2b0, type: 3}
-  m_Name: Give1PU_plus4plus4_TurnEnd_Destroy_Self
+  m_Name: Give1PU_plus3plus3_1turn
   m_EditorClassIdentifier: 
   Targets: {fileID: 11400000, guid: 3536ddc3f75919646b8fab53d9f33c8a, type: 2}
+  ResolveIndependent: 0
+  EffectsDescription: Give an ally +4|+4 this turn.
   Effects:
   - {fileID: 11400000, guid: d9e6fde2cb49bbc4da3ff7492d71f357, type: 2}
-  - {fileID: 11400000, guid: c00748346e3d469408e7e90ba0dc75ab, type: 2}
-  EffectsDescription: 'Give an ally +4|+4 and "Turn End: Destroy this unit."'

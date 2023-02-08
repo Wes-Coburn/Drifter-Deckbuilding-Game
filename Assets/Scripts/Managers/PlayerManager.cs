@@ -42,7 +42,6 @@ public class PlayerManager : HeroManager
         set
         {
             isMyTurn = value;
-
             if (UIManager.Instance != null) Managers.U_MAN.UpdateEndTurnButton();
         }
     }
@@ -59,7 +58,7 @@ public class PlayerManager : HeroManager
             int valueChange = aetherCells - previousCount;
 
             AnimationManager.CountingTextObject.ClearCountingTexts();
-            AetherCellPopupDisplay acpd = FindObjectOfType<AetherCellPopupDisplay>();
+            var acpd = FindObjectOfType<AetherCellPopupDisplay>();
             if (acpd != null)
             {
                 new AnimationManager.CountingTextObject(acpd.TotalAetherObject.GetComponent<TextMeshProUGUI>(),
@@ -90,7 +89,7 @@ public class PlayerManager : HeroManager
             heroUltimateProgress = value;
             int heroUltimateGoal = GameManager.HERO_ULTMATE_GOAL;
 
-            PlayerHeroDisplay phd = HeroObject.GetComponent<PlayerHeroDisplay>();
+            var phd = HeroObject.GetComponent<PlayerHeroDisplay>();
             phd.UltimateProgressValue = heroUltimateProgress;
             GameObject ultimateReadyIcon = phd.UltimateReadyIcon;
             GameObject ultimateButton = phd.UltimateButton;
@@ -110,10 +109,8 @@ public class PlayerManager : HeroManager
     protected override void Start()
     {
         base.Start();
-
         heroAugments = new List<HeroAugment>();
         heroItems = new List<HeroItem>();
-
         HeroScript = null; // Unnecessary?
         AetherCells = 0;
         IsMyTurn = false; // Needs to be false to disable DragDrop outside of combat
@@ -126,6 +123,7 @@ public class PlayerManager : HeroManager
             Debug.LogError("ITEM ALREADY EXISTS!");
             return;
         }
+
         heroItems.Add(item);
         Managers.U_MAN.CreateItemIcon(item, isNewItem);
         if (isNewItem) Managers.AU_MAN.StartStopSound("SFX_BuyItem");
@@ -135,8 +133,7 @@ public class PlayerManager : HeroManager
     private bool GetItem(string itemName)
     {
         int itemIndex = heroItems.FindIndex(x => x.ItemName == itemName);
-        if (itemIndex == -1) return false;
-        else return true;
+        return itemIndex != -1;
     }
 
     public void AddAugment(HeroAugment augment, bool isNewAugment = false)
@@ -155,8 +152,7 @@ public class PlayerManager : HeroManager
     public bool GetAugment(string augmentName)
     {
         int augmentIndex = heroAugments.FindIndex(x => x.AugmentName == augmentName);
-        if (augmentIndex == -1) return false;
-        else return true;
+        return augmentIndex != -1;
     }
 
     public bool UseHeroPower(bool isUltimate, bool isPreCheck = false)
@@ -180,7 +176,7 @@ public class PlayerManager : HeroManager
         else
         {
             GameObject heroPower = HeroObject.GetComponent<PlayerHeroDisplay>().HeroPower;
-            List<EffectGroup> groupList = HeroScript.HeroPower.EffectGroupList;
+            var groupList = HeroScript.HeroPower.EffectGroupList;
 
             if (!Managers.EF_MAN.CheckLegalTargets(groupList, heroPower, true))
             {
@@ -207,7 +203,7 @@ public class PlayerManager : HeroManager
         static void ErrorSound() => Managers.AU_MAN.StartStopSound("SFX_Error");
 
         GameObject heroUltimate = HeroObject.GetComponent<PlayerHeroDisplay>().HeroUltimate;
-        List<EffectGroup> groupList = (HeroScript as PlayerHero).HeroUltimate.EffectGroupList;
+        var groupList = (HeroScript as PlayerHero).HeroUltimate.EffectGroupList;
 
         if (HeroUltimateProgress < GameManager.HERO_ULTMATE_GOAL)
         {
@@ -243,6 +239,7 @@ public class PlayerManager : HeroManager
     {
         int bonusItems = 0;
         hasBonus = false;
+
         if (GetAugment("Kinetic Reinforcer"))
         {
             hasBonus = true;
@@ -254,6 +251,7 @@ public class PlayerManager : HeroManager
     public int GetUltimateCost(out Color ultimateColor)
     {
         int cost = (HeroScript as PlayerHero).HeroUltimate.PowerCost;
+
         if (Managers.G_MAN.GetReputationTier(GameManager.ReputationType.Techs) > 2)
         {
             if (cost > 0)

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -87,7 +86,7 @@ public abstract class CardDisplay : MonoBehaviour
     }
     private void DisplayEnergyCost(int cost)
     {
-        TextMeshProUGUI txtGui = energyCost.GetComponentInChildren<TextMeshProUGUI>();
+        var txtGui = energyCost.GetComponentInChildren<TextMeshProUGUI>();
         txtGui.SetText(cost.ToString());
 
         int startCost = CardScript.StartEnergyCost;
@@ -126,6 +125,9 @@ public abstract class CardDisplay : MonoBehaviour
                 return 0;
             case Effect.ConditionType.EnemyWounded:
                 if (!hMan_Enemy.IsWounded()) return 0;
+                break;
+            case Effect.ConditionType.AlliesDestroyed_ThisTurn:
+                if (hMan_Source.AlliesDestroyed_ThisTurn < CardScript.CostConditionValue) return 0;
                 break;
             case Effect.ConditionType.EnemiesDestroyed_ThisTurn:
                 if (hMan_Enemy.AlliesDestroyed_ThisTurn < CardScript.CostConditionValue) return 0;
@@ -257,7 +259,7 @@ public abstract class CardDisplay : MonoBehaviour
      *****/
     public void ResetEffects()
     {
-        List<Effect> toDestroy = new List<Effect>();
+        List<Effect> toDestroy = new();
         foreach (Effect e in CardScript.CurrentEffects)
         {
             if (e.IsPermanent || e is ChangeCostEffect chgCst && chgCst.ChangeNextCost) { }
@@ -267,7 +269,7 @@ public abstract class CardDisplay : MonoBehaviour
         foreach (Effect e in toDestroy) Destroy(e);
         CardScript.CurrentEffects.Clear();
 
-        List<Effect> permanents = new List<Effect>();
+        List<Effect> permanents = new();
         foreach (Effect e in cardScript.PermanentEffects)
             permanents.Add(e);
 

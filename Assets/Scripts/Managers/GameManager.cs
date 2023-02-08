@@ -1284,7 +1284,7 @@ public class GameManager : MonoBehaviour
         Managers.EV_MAN.NewDelayedAction(() => Managers.CO_MAN.RefreshAllUnits(), 0.5f);
         Managers.EV_MAN.NewDelayedAction(() => RemoveEffects(), 0);
         Managers.EV_MAN.NewDelayedAction(() => ResetTriggerCounts(), 0);
-        Managers.EV_MAN.NewDelayedAction(() => Managers.CA_MAN.SelectPlayableCards(), 0); // TESTING
+        Managers.EV_MAN.NewDelayedAction(() => Managers.CA_MAN.SelectPlayableCards(), 0); // To reset conditional card costs (i.e. based on units destroyed this turn)
 
         if (hero == Managers.EN_MAN)
         {
@@ -1437,7 +1437,7 @@ public class GameManager : MonoBehaviour
 
         // Rare Item Functionality
         // <Common> : <Rare> ::: <3> : <1>
-        List<HeroItem> rarefiedItems = new List<HeroItem>();
+        List<HeroItem> rarefiedItems = new();
         foreach (HeroItem item in allItems)
         {
             rarefiedItems.Add(item);
@@ -1449,7 +1449,7 @@ public class GameManager : MonoBehaviour
         }
         rarefiedItems.Shuffle();
 
-        List<HeroItem> shopItems = new List<HeroItem>();
+        List<HeroItem> shopItems = new();
         foreach (HeroItem item in rarefiedItems)
         {
             if ((Managers.P_MAN.HeroItems.FindIndex(x => x.ItemName == item.ItemName) == -1) &&

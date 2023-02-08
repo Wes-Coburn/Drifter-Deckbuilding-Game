@@ -80,7 +80,7 @@ public class CardPageDisplay : MonoBehaviour
         progressBarText.GetComponent<TextMeshProUGUI>().SetText(progressText);
 
         if (!(isFirstDisplay && newProgress < 1))
-            AnimationManager.Instance.SetProgressBar(currentProgress, newProgress, progressBar, progressFill);
+            Managers.AN_MAN.SetProgressBar(currentProgress, newProgress, progressBar, progressFill);
     }
 
     public void DisplayCardPage(CardPageType cardPageType, bool playSound, float scrollValue)
@@ -115,8 +115,7 @@ public class CardPageDisplay : MonoBehaviour
             case CardPageType.CloneUnit:
                 titleText = "Clone a Unit";
                 foreach (Card c in Managers.P_MAN.DeckList)
-                    if (c is UnitCard)
-                        cardGroupList.Add(c);
+                    if (c is UnitCard) cardGroupList.Add(c);
                 break;
             default:
                 Debug.LogError("INVALID TYPE!");
@@ -189,7 +188,7 @@ public class CardPageDisplay : MonoBehaviour
         else noCardsTooltip.SetActive(true);
         if (isScrollPage) LoadScrollPage(scrollValue);
         else LoadCardPage();
-        if (playSound) AudioManager.Instance.StartStopSound("SFX_CreatePopup1");
+        if (playSound) Managers.AU_MAN.StartStopSound("SFX_CreatePopup1");
     }
 
     private void LoadScrollPage(float scrollValue)
@@ -213,8 +212,6 @@ public class CardPageDisplay : MonoBehaviour
             cardPageCard.transform.SetParent(cpccd.CardPageCard.transform, false);
             CreateCardPageButton(card, cpccd.CardCostButton);
         }
-
-
     }
 
     private void LoadCardPage()
@@ -244,10 +241,11 @@ public class CardPageDisplay : MonoBehaviour
         button.GetComponent<CardShopButton>().SetCard(card, cardPageType);
         return button;
     }
+
     public void CloseCardPageButton_OnClick()
     {
         if (SceneLoader.IsActiveScene(SceneLoader.Scene.DialogueScene))
-            DialogueManager.Instance.DisplayDialoguePopup();
+            Managers.D_MAN.DisplayDialoguePopup();
 
         Managers.U_MAN.DestroyCardPage(true);
         Managers.U_MAN.DestroyInteractablePopup(gameObject);

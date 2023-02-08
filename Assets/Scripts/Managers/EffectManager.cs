@@ -1275,6 +1275,9 @@ public class EffectManager : MonoBehaviour
             case Effect.ConditionType.HasLessKeywords:
                 ValidateCondition((GameObject unit) => GetUnitKeywords(unit) < effect.EffectCondition_Value);
                 break;
+            case Effect.ConditionType.AlliesDestroyed_ThisTurn:
+                if (hMan_Source.AlliesDestroyed_ThisTurn < effect.EffectCondition_Value) InvalidateAllTargets();
+                break;
             case Effect.ConditionType.EnemiesDestroyed_ThisTurn:
                 if (hMan_Enemy.AlliesDestroyed_ThisTurn < effect.EffectCondition_Value) InvalidateAllTargets();
                 break;

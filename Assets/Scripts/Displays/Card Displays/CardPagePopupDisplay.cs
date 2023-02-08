@@ -79,7 +79,7 @@ public class CardPagePopupDisplay : MonoBehaviour
         }
 
         Managers.U_MAN.CreateCardPage(cardPageType, false);
-        AnimationManager.Instance.CreateParticleSystem(gameObject, ParticleSystemHandler.ParticlesType.ButtonPress);
+        Managers.AN_MAN.CreateParticleSystem(gameObject, ParticleSystemHandler.ParticlesType.ButtonPress);
 
         if (setProgressBar) FindObjectOfType<CardPageDisplay>().SetProgressBar
                 (previousProgress, currentProgress, rewardIsReady);

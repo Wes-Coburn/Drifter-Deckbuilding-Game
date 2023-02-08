@@ -17,34 +17,28 @@ public class ItemPageDisplay : MonoBehaviour
 
     public void SetProgressBar(int currentProgress, int newProgress, bool isReady, bool isFirstDisplay = false)
     {
-        string progressText;
-        if (isReady) progressText = "DISCOUNT APPLIED!";
-        else progressText = newProgress + "/" + GameManager.SHOP_LOYALTY_GOAL + " Items Purchased";
+        string progressText = isReady ? "DISCOUNT APPLIED!" : $"{newProgress}/{GameManager.SHOP_LOYALTY_GOAL} Items Purchased";
         progressBarText.GetComponent<TextMeshProUGUI>().SetText(progressText);
         if (isFirstDisplay && newProgress < 1) return;
-        AnimationManager.Instance.SetProgressBar(currentProgress, newProgress, progressBar, progressFill);
+        Managers.AN_MAN.SetProgressBar(currentProgress, newProgress, progressBar, progressFill);
     }
     public void DisplayItems(bool isItemRemoveal, bool playSound)
     {
-        if (playSound) AudioManager.Instance.StartStopSound("SFX_CreatePopup1");
+        if (playSound) Managers.AU_MAN.StartStopSound("SFX_CreatePopup1");
 
-        List<HeroItem> currentItems;
-        if (isItemRemoveal) currentItems = PlayerManager.Instance.HeroItems;
-        else currentItems = GameManager.Instance.ShopItems;
-
+        List<HeroItem> currentItems = isItemRemoveal ? Managers.P_MAN.HeroItems : Managers.G_MAN.ShopItems;
         string title;
+
         if (isItemRemoveal)
         {
             title = "Sell An Item";
-            progressBar.SetActive(false); // TESTING
+            progressBar.SetActive(false);
         }
         else
         {
             title = "Buy An Item";
-            bool isReady;
-            int progress = GameManager.Instance.ShopLoyalty;
-            if (progress == GameManager.SHOP_LOYALTY_GOAL) isReady = true;
-            else isReady = false;
+            int progress = Managers.G_MAN.ShopLoyalty;
+            bool isReady = progress == GameManager.SHOP_LOYALTY_GOAL;
             SetProgressBar(0, progress, isReady, true);
         }
         pageTitle.GetComponent<TextMeshProUGUI>().SetText(title);
@@ -69,8 +63,8 @@ public class ItemPageDisplay : MonoBehaviour
         {
             GameObject description = Instantiate(itemDescriptionPrefab, items.transform);
 
-            ItemDescriptionDisplay idd = description.GetComponentInChildren<ItemDescriptionDisplay>();
-            idd.IsItemRemoval = isItemRemoveal; // TESTING
+            var idd = description.GetComponentInChildren<ItemDescriptionDisplay>();
+            idd.IsItemRemoval = isItemRemoveal;
             idd.LoadedItem = item;
         }
 
@@ -80,9 +74,10 @@ public class ItemPageDisplay : MonoBehaviour
     public void CloseItemPageButton_OnClick()
     {
         if (SceneLoader.IsActiveScene(SceneLoader.Scene.DialogueScene))
-            DialogueManager.Instance.DisplayDialoguePopup();
-        UIManager.Instance.DestroyItemPagePopup();
-        UIManager.Instance.DestroyRemoveItemPopup();
+            Managers.D_MAN.DisplayDialoguePopup();
+
+        Managers.U_MAN.DestroyItemPagePopup(true);
+        Managers.U_MAN.DestroyInteractablePopup(gameObject);
     }
 }
 

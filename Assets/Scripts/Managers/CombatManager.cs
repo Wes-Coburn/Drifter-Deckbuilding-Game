@@ -529,7 +529,7 @@ public class CombatManager : MonoBehaviour
         void DealDamage(GameObject striker, GameObject defender,
             out bool dealtDamage, out bool defenderDestroyed, bool isMeleeAttacker)
         {
-            UnitCardDisplay ucd = GetUnitDisplay(striker);
+            var ucd = GetUnitDisplay(striker);
             int power = ucd.CurrentPower;
 
             TakeDamage(defender, power, out dealtDamage, out defenderDestroyed, isMeleeAttacker);
@@ -537,7 +537,7 @@ public class CombatManager : MonoBehaviour
             // Poisonous
             if (IsUnitCard(defender))
             {
-                UnitCardDisplay defUcd = GetUnitDisplay(defender);
+                var defUcd = GetUnitDisplay(defender);
                 if (dealtDamage && !defenderDestroyed)
                 {
                     if (CardManager.GetAbility(striker, CardManager.ABILITY_POISONOUS))
