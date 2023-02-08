@@ -1,12 +1,10 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class RemoveItemPopupDisplay : MonoBehaviour
 {
     [SerializeField] private GameObject popupText;
 
-    private UIManager uMan;
-    private PlayerManager pMan;
     private HeroItem heroItem;
 
     private string PopupText
@@ -15,12 +13,6 @@ public class RemoveItemPopupDisplay : MonoBehaviour
         {
             popupText.GetComponent<TextMeshProUGUI>().SetText(value);
         }
-    }
-
-    private void Awake()
-    {
-        uMan = UIManager.Instance;
-        pMan = PlayerManager.Instance;
     }
 
     public HeroItem HeroItem
@@ -40,15 +32,15 @@ public class RemoveItemPopupDisplay : MonoBehaviour
 
     public void ConfirmButton_OnClick()
     {
-        pMan.HeroItems.Remove(heroItem);
+        ManagerHandler.P_MAN.HeroItems.Remove(heroItem);
         int cost;
         if (heroItem.IsRareItem) cost = GameManager.SELL_RARE_ITEM_VALUE;
         else cost = GameManager.SELL_ITEM_VALUE;
-        pMan.AetherCells += cost;
+        ManagerHandler.P_MAN.AetherCells += cost;
 
-        uMan.CreateItemPagePopup(true, false);
+        ManagerHandler.U_MAN.CreateItemPagePopup(true, false);
     }
 
     public void CancelButton_OnClick() =>
-        uMan.DestroyInteractablePopup(gameObject);
+        ManagerHandler.U_MAN.DestroyInteractablePopup(gameObject);
 }

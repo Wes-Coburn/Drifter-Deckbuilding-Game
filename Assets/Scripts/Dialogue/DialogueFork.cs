@@ -6,13 +6,13 @@ public class DialogueFork : DialogueClip
     [SerializeField] private bool isRespectCondition;
     [Space]
     [SerializeField] private DialogueClip clip_1;
-    [SerializeField] [Range(-10, 10)] private int clip_1_Condition_Value;
+    [SerializeField][Range(-10, 10)] private int clip_1_Condition_Value;
     [Space]
     [SerializeField] private DialogueClip clip_2;
-    [SerializeField] [Range(-10, 10)] private int clip_2_Condition_Value;
+    [SerializeField][Range(-10, 10)] private int clip_2_Condition_Value;
     [Space]
     [SerializeField] private DialogueClip clip_3;
-    [SerializeField] [Range(-10, 10)] private int clip_3_Condition_Value;
+    [SerializeField][Range(-10, 10)] private int clip_3_Condition_Value;
 
     public bool IsRespectCondition { get => isRespectCondition; }
     public DialogueClip Clip_1 { get => clip_1; }

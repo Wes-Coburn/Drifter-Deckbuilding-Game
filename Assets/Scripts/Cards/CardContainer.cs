@@ -41,7 +41,7 @@ public class CardContainer : MonoBehaviour
         }
 
         distance = Vector2.Distance(Child.transform.position, bufferedPosition);
-        float speed = distance/5;
+        float speed = distance / 5;
         if (speed < minSpeed) speed = minSpeed;
         else if (speed > maxSpeed) speed = maxSpeed;
         if (distance > 0)

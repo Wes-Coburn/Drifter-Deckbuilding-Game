@@ -1,12 +1,9 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class BuyItemPopupDisplay : MonoBehaviour
 {
     [SerializeField] private GameObject popupText;
-    private PlayerManager pMan;
-    private UIManager uMan;
-    private GameManager gMan;
     private HeroItem heroItem;
 
     private string PopupText
@@ -17,40 +14,33 @@ public class BuyItemPopupDisplay : MonoBehaviour
         }
     }
 
-    private void Awake()
-    {
-        pMan = PlayerManager.Instance;
-        uMan = UIManager.Instance;
-        gMan = GameManager.Instance;
-    }
-
     public HeroItem HeroItem
     {
         set
         {
             heroItem = value;
             string text = "Buy <b><u>" + heroItem.ItemName + "</u></b>" +
-                " for <color=\"red\"><b>" + gMan.GetItemCost(heroItem, out _, false) +
+                " for <color=\"red\"><b>" + ManagerHandler.G_MAN.GetItemCost(heroItem, out _, false) +
                 "</b></color> aether?";
             PopupText = text;
         }
     }
-    
+
     public void ConfirmButton_OnClick()
     {
-        pMan.AddItem(heroItem, true);
-        pMan.AetherCells -= gMan.GetItemCost(heroItem, out _, false);
-        gMan.ShopItems.Remove(heroItem);
+        ManagerHandler.P_MAN.AddItem(heroItem, true);
+        ManagerHandler.P_MAN.AetherCells -= ManagerHandler.G_MAN.GetItemCost(heroItem, out _, false);
+        ManagerHandler.G_MAN.ShopItems.Remove(heroItem);
         bool isReady = false;
-        int previousProgress = gMan.ShopLoyalty;
-        if (++gMan.ShopLoyalty == GameManager.SHOP_LOYALTY_GOAL) isReady = true;
-        else if (gMan.ShopLoyalty > GameManager.SHOP_LOYALTY_GOAL) gMan.ShopLoyalty = 0;
-        uMan.CreateItemPagePopup(false);
-        FindObjectOfType<ItemPageDisplay>().SetProgressBar(previousProgress, gMan.ShopLoyalty, isReady);
+        int previousProgress = ManagerHandler.G_MAN.ShopLoyalty;
+        if (++ManagerHandler.G_MAN.ShopLoyalty == GameManager.SHOP_LOYALTY_GOAL) isReady = true;
+        else if (ManagerHandler.G_MAN.ShopLoyalty > GameManager.SHOP_LOYALTY_GOAL) ManagerHandler.G_MAN.ShopLoyalty = 0;
+        ManagerHandler.U_MAN.CreateItemPagePopup(false);
+        FindObjectOfType<ItemPageDisplay>().SetProgressBar(previousProgress, ManagerHandler.G_MAN.ShopLoyalty, isReady);
 
         AnimationManager.Instance.CreateParticleSystem(gameObject, ParticleSystemHandler.ParticlesType.ButtonPress); // TESTING
     }
 
     public void CancelButton_OnClick() =>
-        uMan.DestroyInteractablePopup(gameObject);
+        ManagerHandler.U_MAN.DestroyInteractablePopup(gameObject);
 }

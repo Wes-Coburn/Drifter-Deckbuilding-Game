@@ -7,17 +7,17 @@ public class ReputationBonuses : ScriptableObject
     [SerializeField] private GameManager.ReputationType reputationType;
     [SerializeField] private Color reputationColor;
     [Space]
-    [SerializeField] [TextArea] private string tier1_Bonus;
+    [SerializeField][TextArea] private string tier1_Bonus;
     [SerializeField] private List<EffectGroup> tier1_Effects;
-    [SerializeField] [Range(1, 3)] private int tier1_ResolveOrder;
+    [SerializeField][Range(1, 3)] private int tier1_ResolveOrder;
     [Space]
-    [SerializeField] [TextArea] private string tier2_Bonus;
+    [SerializeField][TextArea] private string tier2_Bonus;
     [SerializeField] private List<EffectGroup> tier2_Effects;
-    [SerializeField] [Range(1, 3)] private int tier2_ResolveOrder;
+    [SerializeField][Range(1, 3)] private int tier2_ResolveOrder;
     [Space]
-    [SerializeField] [TextArea] private string tier3_Bonus;
+    [SerializeField][TextArea] private string tier3_Bonus;
     [SerializeField] private List<EffectGroup> tier3_Effects;
-    [SerializeField] [Range(1, 3)] private int tier3_ResolveOrder;
+    [SerializeField][Range(1, 3)] private int tier3_ResolveOrder;
 
     public GameManager.ReputationType ReputationType { get => reputationType; }
     public Color ReputationColor { get => reputationColor; }

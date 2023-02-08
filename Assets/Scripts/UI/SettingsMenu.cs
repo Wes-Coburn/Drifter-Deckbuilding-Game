@@ -1,6 +1,6 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class SettingsMenu : MonoBehaviour
 {
@@ -10,64 +10,58 @@ public class SettingsMenu : MonoBehaviour
     [SerializeField] private GameObject gameInfoPopup;
     [SerializeField] private GameObject gameInfoButton;
 
-    private AudioManager auMan;
-    private GameManager gMan;
-
     private void Start()
     {
-        auMan = AudioManager.Instance;
-        gMan = GameManager.Instance;
-        
         SetMusicSlider();
         SetSFXSlider();
         SetExplicitLanguageToggle();
         gameInfoPopup.SetActive(false);
     }
-    private void SetSFXSlider() => sfxSlider.GetComponent<Slider>().SetValueWithoutNotify(auMan.SFXVolume);
-    private void SetMusicSlider() => musicSlider.GetComponent<Slider>().SetValueWithoutNotify(auMan.MusicVolume);
+    private void SetSFXSlider() => sfxSlider.GetComponent<Slider>().SetValueWithoutNotify(ManagerHandler.AU_MAN.SFXVolume);
+    private void SetMusicSlider() => musicSlider.GetComponent<Slider>().SetValueWithoutNotify(ManagerHandler.AU_MAN.MusicVolume);
     private void SetExplicitLanguageToggle() =>
-        explicitLanguageToggle.GetComponent<Toggle>().SetIsOnWithoutNotify(!gMan.HideExplicitLanguage);
+        explicitLanguageToggle.GetComponent<Toggle>().SetIsOnWithoutNotify(!ManagerHandler.G_MAN.HideExplicitLanguage);
     public void ExplicitLanguage_OnToggle(bool showLanguage)
     {
-        if (gMan == null)
+        if (ManagerHandler.G_MAN == null)
         {
             Debug.LogWarning("GAME_MANAGER IS NULL!");
             return;
         }
-        gMan.HideExplicitLanguage = !showLanguage;
+        ManagerHandler.G_MAN.HideExplicitLanguage = !showLanguage;
     }
     public void MusicVolume_OnSlide(float volume)
     {
-        if (auMan == null)
+        if (ManagerHandler.AU_MAN == null)
         {
             Debug.LogWarning("AUDIO_MANAGER IS NULL!");
             return;
         }
-        auMan.MusicVolume = volume;
+        ManagerHandler.AU_MAN.MusicVolume = volume;
     }
     public void MusicVolume_OnPlus()
     {
-        auMan.MusicVolume++;
+        ManagerHandler.AU_MAN.MusicVolume++;
         SetMusicSlider();
     }
     public void MusicVolume_OnMinus()
     {
-        auMan.MusicVolume--;
+        ManagerHandler.AU_MAN.MusicVolume--;
         SetMusicSlider();
     }
     public void SFXVolume_OnSlide(float volume)
     {
-        if (auMan == null) return;
-        auMan.SFXVolume = volume;
+        if (ManagerHandler.AU_MAN == null) return;
+        ManagerHandler.AU_MAN.SFXVolume = volume;
     }
     public void SFXVolume_OnPlus()
     {
-        auMan.SFXVolume++;
+        ManagerHandler.AU_MAN.SFXVolume++;
         SetSFXSlider();
     }
     public void SFXVolume_OnMinus()
     {
-        auMan.SFXVolume--;
+        ManagerHandler.AU_MAN.SFXVolume--;
         SetSFXSlider();
     }
     public void GameInfoButton_OnClick()

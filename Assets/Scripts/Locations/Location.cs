@@ -28,9 +28,9 @@ public class Location : ScriptableObject
     [SerializeField] private bool isRandomEncounter;
 
     [Header("CLOSED HOURS")]
-    [SerializeField] [Tooltip("Morning (Hour 1)")] private bool isClosed_Hour1;
-    [SerializeField] [Tooltip("Day (Hour 2)")] private bool isClosed_Hour2;
-    [SerializeField] [Tooltip("Evening (Hour 3)")] private bool isClosed_Hour3;
+    [SerializeField][Tooltip("Morning (Hour 1)")] private bool isClosed_Hour1;
+    [SerializeField][Tooltip("Day (Hour 2)")] private bool isClosed_Hour2;
+    [SerializeField][Tooltip("Evening (Hour 3)")] private bool isClosed_Hour3;
 
     public enum Background
     {
@@ -62,7 +62,7 @@ public class Location : ScriptableObject
     public bool IsClosed_Hour3 { get => isClosed_Hour3; }
 
     public NPCHero CurrentNPC { get; set; }
-    
+
     public void LoadLocation(Location location)
     {
         isPriorityLocation = location.IsPriorityLocation;

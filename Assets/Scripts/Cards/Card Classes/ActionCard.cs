@@ -4,10 +4,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Action Card", menuName = "Cards/Action/Action")]
 public class ActionCard : Card
 {
-    [TextArea] [SerializeField] private string effectDescription;
+    [TextArea][SerializeField] private string effectDescription;
     [SerializeField] private List<EffectGroup> effectGroupList;
     [SerializeField] private List<CardAbility> linkedAbilities;
-    
+
     public string EffectDescription { get => effectDescription; }
     public List<EffectGroup> EffectGroupList { get => effectGroupList; }
     public List<CardAbility> LinkedAbilities { get => linkedAbilities; }

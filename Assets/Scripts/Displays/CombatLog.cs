@@ -1,5 +1,5 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(ScrollRect))]
@@ -50,7 +50,7 @@ public class CombatLog : MonoBehaviour
     public void NewLogEntry_PlayCard(GameObject card)
     {
         string logEntry = "";
-        if (card.CompareTag(CardManager.PLAYER_CARD)) logEntry += "You played <b><color=\"green\">";
+        if (HeroManager.GetSourceHero(card) == PlayerManager.Instance) logEntry += "You played <b><color=\"green\">";
         else logEntry += "Enemy played <b><color=\"red\">";
         logEntry += card.GetComponent<CardDisplay>().CardName + "</b></color> ";
         if (CombatManager.IsUnitCard(card)) logEntry += "(Unit).";

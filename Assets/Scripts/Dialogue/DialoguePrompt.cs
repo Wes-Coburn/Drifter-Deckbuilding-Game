@@ -17,15 +17,15 @@ public class DialoguePrompt : DialogueClip
     [SerializeField] private bool hideNPC;
     [Header("DIALOGUE REWARDS")]
     [SerializeField] private Card newCard;
-    [SerializeField] [Range(0, 5)] private int aetherCells;
+    [SerializeField][Range(0, 5)] private int aetherCells;
     [Header("NEW LOCATIONS")]
     [SerializeField] private NewLocation[] newLocations;
     [Header("REPUTATION")]
-    [SerializeField] [Range(-3, 3)] private int reputation_Mages;
-    [SerializeField] [Range(-3, 3)] private int reputation_Mutants;
-    [SerializeField] [Range(-3, 3)] private int reputation_Rogues;
-    [SerializeField] [Range(-3, 3)] private int reputation_Techs;
-    [SerializeField] [Range(-3, 3)] private int reputation_Warriors;
+    [SerializeField][Range(-3, 3)] private int reputation_Mages;
+    [SerializeField][Range(-3, 3)] private int reputation_Mutants;
+    [SerializeField][Range(-3, 3)] private int reputation_Rogues;
+    [SerializeField][Range(-3, 3)] private int reputation_Techs;
+    [SerializeField][Range(-3, 3)] private int reputation_Warriors;
 
     public string DialoguePromptText { get => dialoguePromptText; }
     public DialogueResponse DialogueResponse1 { get => dialogueResponse1; }

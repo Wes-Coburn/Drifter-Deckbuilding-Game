@@ -5,7 +5,7 @@ using UnityEngine;
 public class HeroItem : ScriptableObject
 {
     [SerializeField] private string itemName;
-    [SerializeField] [TextArea] private string itemDescription;
+    [SerializeField][TextArea] private string itemDescription;
     [SerializeField] private Sprite itemImage;
     [SerializeField] private bool isRareItem;
     [SerializeField] private List<EffectGroup> effectGroupList;

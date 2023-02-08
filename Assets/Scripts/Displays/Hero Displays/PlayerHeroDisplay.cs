@@ -1,6 +1,6 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class PlayerHeroDisplay : HeroDisplay
 {
@@ -27,7 +27,7 @@ public class PlayerHeroDisplay : HeroDisplay
             if (value > goal) value = goal;
 
             //ultimateProgressValue.GetComponent<TextMeshProUGUI>().SetText
-                //(value + "/" + GameManager.HERO_ULTMATE_GOAL);
+            //(value + "/" + GameManager.HERO_ULTMATE_GOAL);
 
             bool setBar = true;
             for (int i = 0; i < ultimateProgressBars.Length; i++)

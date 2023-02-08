@@ -1,6 +1,6 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class LocationIcon : MonoBehaviour
 {
@@ -23,9 +23,6 @@ public class LocationIcon : MonoBehaviour
     [SerializeField] private Sprite actionShopSprite;
     [SerializeField] private Sprite cloningSprite;
 
-    private UIManager uMan;
-    private GameManager gMan;
-
     private Location location;
 
     public Location Location
@@ -36,12 +33,12 @@ public class LocationIcon : MonoBehaviour
             location = value;
             locationName.GetComponent<TextMeshProUGUI>().SetText(location.LocationName);
             transform.position = location.WorldMapPosition;
-            
+
             bool visited = false;
             if (!location.IsAugmenter && GameManager.Instance.VisitedLocations.FindIndex
                 (x => x == location.LocationName) != -1) visited = true;
 
-            bool open = gMan.LocationOpen(location);
+            bool open = ManagerHandler.G_MAN.LocationOpen(location);
             closedBadge.SetActive(!open);
 
             if (open)
@@ -53,7 +50,7 @@ public class LocationIcon : MonoBehaviour
             else unvisitedBadge.SetActive(false);
 
             Sprite image = null;
-            
+
             // Recurring Locations
             if (location.IsHomeBase) image = homeBaseSprite;
             else if (location.IsAugmenter) image = augmenterSprite;
@@ -74,32 +71,26 @@ public class LocationIcon : MonoBehaviour
         }
     }
 
-    private void Awake()
-    {
-        uMan = UIManager.Instance;
-        gMan = GameManager.Instance;
-    }
-
     public void OnClick()
     {
         if (Location.IsHomeBase) TravelPopup();
         else
         {
-            if (gMan.CurrentHour == 4) TravelError("You must rest at your ship!");
-            else if (!gMan.LocationOpen(Location)) TravelError("Location closed! Come back later.");
+            if (ManagerHandler.G_MAN.CurrentHour == 4) TravelError("You must rest at your ship!");
+            else if (!ManagerHandler.G_MAN.LocationOpen(Location)) TravelError("Location closed! Come back later.");
             else TravelPopup();
-            
+
             void TravelError(string text)
             {
-                uMan.CreateFleetingInfoPopup(text);
-                uMan.DestroyTravelPopup();
+                ManagerHandler.U_MAN.CreateFleetingInfoPopup(text);
+                ManagerHandler.U_MAN.DestroyTravelPopup();
             }
         }
 
-        void TravelPopup() => uMan.CreateTravelPopup(Location);
+        void TravelPopup() => ManagerHandler.U_MAN.CreateTravelPopup(Location);
     }
 
-    public void OnPointerEnter() => uMan.CreateLocationPopup(Location);
+    public void OnPointerEnter() => ManagerHandler.U_MAN.CreateLocationPopup(Location);
 
-    public void OnPointerExit() => uMan.DestroyLocationPopup();
+    public void OnPointerExit() => ManagerHandler.U_MAN.DestroyLocationPopup();
 }

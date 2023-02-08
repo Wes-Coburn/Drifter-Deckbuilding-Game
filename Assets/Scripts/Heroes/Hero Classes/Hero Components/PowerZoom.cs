@@ -11,21 +11,12 @@ public class PowerZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     [SerializeField] private bool isUltimate;
     [SerializeField] private bool isEnemyPower;
 
-    private UIManager uMan;
-    private CombatManager coMan;
-
     private GameObject powerPopup;
     private GameObject abilityPopupBox;
     public const string POWER_POPUP_TIMER = "PowerPopupTimer";
     public const string ABILITY_POPUP_TIMER = "AbilityBoxTimer";
 
     public HeroPower LoadedPower { get; set; }
-
-    private void Awake()
-    {
-        uMan = UIManager.Instance;
-        coMan = CombatManager.Instance;
-    }
 
     public void DestroyPowerPopup()
     {
@@ -75,10 +66,10 @@ public class PowerZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             newX = -250;
             newY = 320;
         }
-        
+
         Vector3 spawnPoint = new Vector2(newX, newY);
         float scaleValue = 2.5f;
-        powerPopup = Instantiate(powerPopupPrefab, uMan.CurrentWorldSpace.transform);
+        powerPopup = Instantiate(powerPopupPrefab, ManagerHandler.U_MAN.CurrentWorldSpace.transform);
         powerPopup.transform.localPosition = spawnPoint;
         powerPopup.transform.localScale = new Vector2(scaleValue, scaleValue);
 
@@ -94,7 +85,7 @@ public class PowerZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             EnemyHeroDisplay ehd = GetComponentInParent<EnemyHeroDisplay>();
             hp = ehd.HeroScript.HeroPower;
         }
-        
+
 
         if (hp == null)
         {
@@ -115,7 +106,7 @@ public class PowerZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             return;
         }
 
-        abilityPopupBox = Instantiate(abilityPopupBoxPrefab, uMan.CurrentZoomCanvas.transform);
+        abilityPopupBox = Instantiate(abilityPopupBoxPrefab, ManagerHandler.U_MAN.CurrentZoomCanvas.transform);
         Vector2 position = new Vector2();
 
         if (!abilityPopupOnly) // Combat Scene
@@ -135,7 +126,7 @@ public class PowerZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         }
         abilityPopupBox.transform.localPosition = position;
         abilityPopupBox.transform.localScale = new Vector2(scaleValue, scaleValue);
-        foreach (CardAbility ca in hp.LinkedAbilities) 
+        foreach (CardAbility ca in hp.LinkedAbilities)
             CreateAbilityPopup(ca, abilityPopupBox.transform, 1);
     }
 

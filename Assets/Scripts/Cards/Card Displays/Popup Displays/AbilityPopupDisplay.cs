@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class AbilityPopupDisplay : MonoBehaviour
 {
@@ -8,8 +8,6 @@ public class AbilityPopupDisplay : MonoBehaviour
     [SerializeField] private GameObject abilityDescription;
 
     private CardAbility abilityScript;
-    private CardManager caMan;
-
     public Sprite AbilitySprite
     {
         set => abilitySprite.GetComponent<Image>().sprite = value;
@@ -17,11 +15,6 @@ public class AbilityPopupDisplay : MonoBehaviour
     public string AbilityDescription
     {
         set => abilityDescription.GetComponent<TextMeshProUGUI>().SetText(value);
-    }
-
-    private void Awake()
-    {
-        caMan = CardManager.Instance;
     }
 
     /******
@@ -35,7 +28,7 @@ public class AbilityPopupDisplay : MonoBehaviour
 
         string name;
         string description;
-        
+
         if (abilityScript is StaticAbility)
         {
             AbilitySprite = abilityScript.AbilitySprite;
@@ -54,7 +47,7 @@ public class AbilityPopupDisplay : MonoBehaviour
         {
             AbilityTrigger trigger = ta.AbilityTrigger;
             AbilitySprite = trigger.AbilitySprite;
-            
+
             if (!isAbilityZoom)
             {
                 name = trigger.AbilityName;
@@ -96,9 +89,9 @@ public class AbilityPopupDisplay : MonoBehaviour
         }
         if (!string.IsNullOrEmpty(name)) name += ": ";
 
-        string filteredDescription = caMan.FilterKeywords(name + description);
-        filteredDescription = caMan.FilterCreatedCardProgress(filteredDescription, isPlayerSource); // TESTING
-        AbilityDescription = CardManager.Instance.FilterKeywords(filteredDescription);
-        abilitySprite.GetComponent<Image>().color = caMan.GetAbilityColor(abilityScript); // TESTING
+        string filteredDescription = ManagerHandler.CA_MAN.FilterKeywords(name + description);
+        filteredDescription = ManagerHandler.CA_MAN.FilterCreatedCardProgress(filteredDescription, isPlayerSource); // TESTING
+        AbilityDescription = ManagerHandler.CA_MAN.FilterKeywords(filteredDescription);
+        abilitySprite.GetComponent<Image>().color = ManagerHandler.CA_MAN.GetAbilityColor(abilityScript); // TESTING
     }
 }

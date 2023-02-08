@@ -61,7 +61,7 @@ public abstract class Effect : ScriptableObject
         PlayerWounded_Not,
         EnemyWounded,
         EnemyWounded_Not,
-        
+
         Exhausted,
         Exhausted_Not,
 
@@ -131,7 +131,7 @@ public abstract class Effect : ScriptableObject
 
         PreCheckConditions = effect.PreCheckConditions;
         CheckConditionsIndependent = effect.CheckConditionsIndependent;
-        
+
         EffectConditionType = effect.EffectConditionType;
         IfHasAbility_Value = effect.IfHasAbility_Value;
         IfHasTrigger_Value = effect.IfHasTrigger_Value;

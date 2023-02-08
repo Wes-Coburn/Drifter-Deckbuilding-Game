@@ -1,15 +1,11 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class CardShopButton : MonoBehaviour
 {
     [SerializeField] private GameObject cardCostText;
 
-    private GameManager gMan;
-    private PlayerManager pMan;
-    private UIManager uMan;
-    private AnimationManager anMan;
     private CardPageDisplay.CardPageType cardPageType;
 
     private Card card;
@@ -27,33 +23,25 @@ public class CardShopButton : MonoBehaviour
         }
     }
 
-    private void Awake()
-    {
-        gMan = GameManager.Instance;
-        pMan = PlayerManager.Instance;
-        uMan = UIManager.Instance;
-        anMan = AnimationManager.Instance;
-    }
-
     public void SetCard(Card card, CardPageDisplay.CardPageType cardPageType)
     {
         this.card = card;
         this.cardPageType = cardPageType;
         isDiscounted = false;
-        
+
         switch (cardPageType)
         {
             case CardPageDisplay.CardPageType.RemoveCard:
-                CardCost = gMan.GetSellCost(card);
+                CardCost = ManagerHandler.G_MAN.GetSellCost(card);
                 break;
             case CardPageDisplay.CardPageType.RecruitUnit:
-                CardCost = gMan.GetRecruitCost(card as UnitCard, out isDiscounted);
+                CardCost = ManagerHandler.G_MAN.GetRecruitCost(card as UnitCard, out isDiscounted);
                 break;
             case CardPageDisplay.CardPageType.AcquireAction:
-                CardCost = gMan.GetActionCost(card as ActionCard, out isDiscounted);
+                CardCost = ManagerHandler.G_MAN.GetActionCost(card as ActionCard, out isDiscounted);
                 break;
             case CardPageDisplay.CardPageType.CloneUnit:
-                CardCost = gMan.GetCloneCost(card as UnitCard);
+                CardCost = ManagerHandler.G_MAN.GetCloneCost(card as UnitCard);
                 break;
         }
 
@@ -68,31 +56,31 @@ public class CardShopButton : MonoBehaviour
 
     public void OnClick()
     {
-        if (anMan.ProgressBarRoutine != null) return;
+        if (ManagerHandler.AN_MAN.ProgressBarRoutine != null) return;
 
         switch (cardPageType)
         {
             case CardPageDisplay.CardPageType.RemoveCard:
-                if (pMan.DeckList.Count == GameManager.MINIMUM_DECK_SIZE)
+                if (ManagerHandler.P_MAN.DeckList.Count == GameManager.MINIMUM_DECK_SIZE)
                 {
-                    uMan.CreateFleetingInfoPopup("Your deck can't have less than " + GameManager.MINIMUM_DECK_SIZE + " cards!");
+                    ManagerHandler.U_MAN.CreateFleetingInfoPopup("Your deck can't have less than " + GameManager.MINIMUM_DECK_SIZE + " cards!");
                     return;
                 }
-                else if (pMan.DeckList.Count < GameManager.MINIMUM_DECK_SIZE)
+                else if (ManagerHandler.P_MAN.DeckList.Count < GameManager.MINIMUM_DECK_SIZE)
                 {
                     Debug.LogError("DECK LIST < MINIMUM!");
                     return;
                 }
                 break;
             default:
-                if (pMan.AetherCells < cardCost)
+                if (ManagerHandler.P_MAN.AetherCells < cardCost)
                 {
-                    uMan.InsufficientAetherPopup();
+                    ManagerHandler.U_MAN.InsufficientAetherPopup();
                     return;
                 }
                 break;
         }
 
-        uMan.CreateCardPagePopup(card, cardCost, cardPageType);
+        ManagerHandler.U_MAN.CreateCardPagePopup(card, cardCost, cardPageType);
     }
 }

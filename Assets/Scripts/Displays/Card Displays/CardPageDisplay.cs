@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class CardPageDisplay : MonoBehaviour
 {
@@ -23,11 +24,6 @@ public class CardPageDisplay : MonoBehaviour
     [SerializeField] private GameObject progressFill;
     [SerializeField] private GameObject progressBarText;
 
-    private PlayerManager pMan;
-    private UIManager uMan;
-    private AnimationManager anMan;
-    private GameManager gMan;
-
     private Scrollbar scrollbar;
 
     private List<Card> cardGroupList;
@@ -45,11 +41,6 @@ public class CardPageDisplay : MonoBehaviour
 
     private void Awake()
     {
-        pMan = PlayerManager.Instance;
-        uMan = UIManager.Instance;
-        anMan = AnimationManager.Instance;
-        gMan = GameManager.Instance;
-
         if (isScrollPage)
         {
             scrollbar = GetComponentInChildren<Scrollbar>();
@@ -85,9 +76,7 @@ public class CardPageDisplay : MonoBehaviour
                 return;
         }
 
-        string progressText;
-        if (isReady) progressText = "DISCOUNT APPLIED!";
-        else progressText = newProgress + "/" + goal + " " + endText;
+        string progressText = isReady ? "DISCOUNT APPLIED!" : newProgress + "/" + goal + " " + endText;
         progressBarText.GetComponent<TextMeshProUGUI>().SetText(progressText);
 
         if (!(isFirstDisplay && newProgress < 1))
@@ -102,32 +91,30 @@ public class CardPageDisplay : MonoBehaviour
         bool setProgressBar = false;
         int progress = 0;
 
-        CardManager caMan = CardManager.Instance;
-
         switch (cardPageType)
         {
             case CardPageType.RemoveCard:
                 titleText = "Sell a Card";
-                foreach (Card c in pMan.DeckList)
+                foreach (Card c in ManagerHandler.P_MAN.DeckList)
                     cardGroupList.Add(c);
                 break;
             case CardPageType.RecruitUnit:
                 setProgressBar = true;
-                progress = gMan.RecruitLoyalty;
+                progress = ManagerHandler.G_MAN.RecruitLoyalty;
                 titleText = "Recruit a Unit";
-                foreach (Card c in caMan.PlayerRecruitUnits)
+                foreach (Card c in ManagerHandler.CA_MAN.PlayerRecruitUnits)
                     cardGroupList.Add(c);
                 break;
             case CardPageType.AcquireAction:
                 setProgressBar = true;
-                progress = gMan.ActionShopLoyalty;
+                progress = ManagerHandler.G_MAN.ActionShopLoyalty;
                 titleText = "Acquire an Action";
-                foreach (Card c in caMan.ActionShopCards)
+                foreach (Card c in ManagerHandler.CA_MAN.ActionShopCards)
                     cardGroupList.Add(c);
                 break;
             case CardPageType.CloneUnit:
                 titleText = "Clone a Unit";
-                foreach (Card c in pMan.DeckList)
+                foreach (Card c in ManagerHandler.P_MAN.DeckList)
                     if (c is UnitCard)
                         cardGroupList.Add(c);
                 break;
@@ -138,10 +125,7 @@ public class CardPageDisplay : MonoBehaviour
 
         if (progressBar != null)
         {
-            bool isReady;
-            if (progress == GameManager.SHOP_LOYALTY_GOAL) isReady = true;
-            else isReady = false;
-
+            bool isReady = progress == GameManager.SHOP_LOYALTY_GOAL;
             progressBar.SetActive(setProgressBar);
             if (setProgressBar) SetProgressBar(0, progress, isReady, true);
         }
@@ -151,12 +135,29 @@ public class CardPageDisplay : MonoBehaviour
         if (cardGroupList.Count > 0)
         {
             noCardsTooltip.SetActive(false);
+
+            // ChatGPT Refactor
+            cardGroupList = cardGroupList.OrderBy(c => c.StartEnergyCost)
+                              .ThenBy(c => c.CardName)
+                              .ToList();
+
+            /*
+            // FIRST REFACTOR
+            cardGroupList.Sort((s1, s2) => s1.StartEnergyCost - s2.StartEnergyCost);
+            var groups = cardGroupList.GroupBy(c => c.StartEnergyCost);
+            var sortedGroups = groups.OrderBy(g => g.Key);
+
+            cardGroupList.Clear();
+            foreach (var group in sortedGroups)
+            {
+                var sortedCards = group.OrderBy(c => c.CardName);
+                cardGroupList.AddRange(sortedCards);
+            }
+
+            // ORIGINAL
             cardGroupList.Sort((s1, s2) => s1.StartEnergyCost - s2.StartEnergyCost);
 
-            List<List<Card>> sortList = new List<List<Card>>
-            {
-                new List<Card>()
-            };
+            List<List<Card>> sortList = new() { new List<Card>() };
 
             int currentList = 0;
             int currentCost = 0;
@@ -183,6 +184,7 @@ public class CardPageDisplay : MonoBehaviour
             cardGroupList.Clear();
             foreach (List<Card> cardList in sortList)
                 foreach (Card c in cardList) cardGroupList.Add(c);
+            */
         }
         else noCardsTooltip.SetActive(true);
         if (isScrollPage) LoadScrollPage(scrollValue);
@@ -202,9 +204,9 @@ public class CardPageDisplay : MonoBehaviour
         foreach (Card card in cardGroupList)
         {
             GameObject container = Instantiate(cardPageCardContainerPrefab, cardGroup.transform);
-            CardPageCardContainerDisplay cpccd = container.GetComponent<CardPageCardContainerDisplay>();
+            var cpccd = container.GetComponent<CardPageCardContainerDisplay>();
             GameObject cardPageCard =
-                CardManager.Instance.ShowCard(card, new Vector2(), CardManager.DisplayType.Cardpage);
+                ManagerHandler.CA_MAN.ShowCard(card, new Vector2(), CardManager.DisplayType.Cardpage);
             CardDisplay cd = cardPageCard.GetComponent<CardDisplay>();
             cd.DisableVisuals();
             cardPageCard.transform.localScale = new Vector2(4, 4);
@@ -224,7 +226,7 @@ public class CardPageDisplay : MonoBehaviour
         }
         foreach (Card card in cardGroupList)
         {
-            GameObject cardObj = CardManager.Instance.ShowCard
+            GameObject cardObj = ManagerHandler.CA_MAN.ShowCard
                 (card, new Vector2(), CardManager.DisplayType.Cardpage);
             cardObj.transform.SetParent(cardGroup.transform);
 
@@ -247,7 +249,7 @@ public class CardPageDisplay : MonoBehaviour
         if (SceneLoader.IsActiveScene(SceneLoader.Scene.DialogueScene))
             DialogueManager.Instance.DisplayDialoguePopup();
 
-        uMan.DestroyCardPage(true);
-        uMan.DestroyInteractablePopup(gameObject);
+        ManagerHandler.U_MAN.DestroyCardPage(true);
+        ManagerHandler.U_MAN.DestroyInteractablePopup(gameObject);
     }
 }

@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using TMPro;
+﻿using TMPro;
+using UnityEngine;
 
 public class ChangeLayer : MonoBehaviour // UNUSED CLASS
 {
@@ -19,10 +19,10 @@ public class ChangeLayer : MonoBehaviour // UNUSED CLASS
             UpdateRenderLayer(transform);
         }
     }
-    
+
     public void CardsLayer()
     {
-        if (GetComponent<CardDisplay>() is UnitCardDisplay) 
+        if (GetComponent<CardDisplay>() is UnitCardDisplay)
             RenderLayer = CARDS_LAYER;
         else RenderLayer = ACTIONS_LAYER;
     }
@@ -38,17 +38,17 @@ public class ChangeLayer : MonoBehaviour // UNUSED CLASS
         }
     }
     private void SyncLayer(Transform tran)
-    {   
-        if (tran.TryGetComponent(out SpriteRenderer render)) 
+    {
+        if (tran.TryGetComponent(out SpriteRenderer render))
             render.sortingLayerName = renderLayer;
         else if (tran.TryGetComponent(out SpriteMask sMask))
         {
             sMask.frontSortingLayerID = SortingLayer.NameToID(renderLayer);
             sMask.backSortingLayerID = SortingLayer.NameToID(renderLayer);
         }
-        else if (tran.TryGetComponent(out TextMeshPro txtPro)) 
+        else if (tran.TryGetComponent(out TextMeshPro txtPro))
             txtPro.sortingLayerID = SortingLayer.NameToID(renderLayer);
-        else if (tran.TryGetComponent(out MeshRenderer mesh)) 
+        else if (tran.TryGetComponent(out MeshRenderer mesh))
             mesh.sortingLayerName = renderLayer;
     }
 }

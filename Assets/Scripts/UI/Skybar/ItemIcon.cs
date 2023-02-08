@@ -7,7 +7,6 @@ public class ItemIcon : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     [SerializeField] private GameObject iconImage;
     [SerializeField] private GameObject itemUsedIcon;
 
-    private UIManager uMan;
     private HeroItem loadedItem;
 
     //private const string ITEM_POPUP_TIMER = "ItemPopupTimer";
@@ -18,7 +17,7 @@ public class ItemIcon : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         set
         {
             loadedItem = value;
-            iconImage.GetComponent<Image>().sprite = 
+            iconImage.GetComponent<Image>().sprite =
                 loadedItem.ItemImage;
             IsUsed = loadedItem.IsUsed; // TESTING
         }
@@ -33,8 +32,6 @@ public class ItemIcon : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         }
     }
 
-    private void Start() => uMan = UIManager.Instance;
-
     public void OnPointerClick(PointerEventData pointerEventData)
     {
         if (EffectManager.Instance.EffectsResolving || EventManager.Instance.ActionsDelayed) return;
@@ -42,44 +39,43 @@ public class ItemIcon : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
         if (loadedItem.IsUsed)
         {
-            uMan.CreateFleetingInfoPopup("Item already used this combat!");
+            ManagerHandler.U_MAN.CreateFleetingInfoPopup("Item already used this combat!");
             AudioManager.Instance.StartStopSound("SFX_Error");
             return;
         }
 
-        uMan.CreateItemIconPopup(loadedItem, gameObject, true);
+        ManagerHandler.U_MAN.CreateItemIconPopup(loadedItem, gameObject, true);
         FunctionTimer.StopTimer(ITEM_ABILITY_POPUP_TIMER);
-        uMan.DestroyItemAbilityPopup();
+        ManagerHandler.U_MAN.DestroyItemAbilityPopup();
     }
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
-        if (uMan.ConfirmUseItemPopup != null) return;
+        if (ManagerHandler.U_MAN.ConfirmUseItemPopup != null) return;
 
-        uMan.CreateItemIconPopup(loadedItem, gameObject);
+        ManagerHandler.U_MAN.CreateItemIconPopup(loadedItem, gameObject);
         FunctionTimer.Create(() =>
         AbilityPopupTimer(), 0.5f, ITEM_ABILITY_POPUP_TIMER);
 
         void AbilityPopupTimer()
         {
             if (this == null) return;
-            uMan.CreateItemAbilityPopup(loadedItem);
+            ManagerHandler.U_MAN.CreateItemAbilityPopup(loadedItem);
         }
     }
 
     public void OnPointerExit(PointerEventData pointerEventData)
     {
-        if (uMan.ConfirmUseItemPopup != null) return;
+        if (ManagerHandler.U_MAN.ConfirmUseItemPopup != null) return;
         FunctionTimer.StopTimer(ITEM_ABILITY_POPUP_TIMER);
-        uMan.DestroyItemIconPopup();
-        uMan.DestroyItemAbilityPopup();
+        ManagerHandler.U_MAN.DestroyItemIconPopup();
+        ManagerHandler.U_MAN.DestroyItemAbilityPopup();
     }
 
     private void OnDisable() // TESTING
     {
-        UIManager uMan = UIManager.Instance;
         FunctionTimer.StopTimer(ITEM_ABILITY_POPUP_TIMER);
-        uMan.DestroyItemIconPopup();
-        uMan.DestroyItemAbilityPopup();
+        ManagerHandler.U_MAN.DestroyItemIconPopup();
+        ManagerHandler.U_MAN.DestroyItemAbilityPopup();
     }
 }

@@ -1,6 +1,6 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public abstract class HeroDisplay : MonoBehaviour
 {
@@ -42,7 +42,7 @@ public abstract class HeroDisplay : MonoBehaviour
         set
         {
             heroPortrait.GetComponent<Image>().sprite = value;
-            
+
             if (this is PlayerHeroDisplay)
             {
                 UIManager.Instance.GetPortraitPosition
@@ -91,7 +91,7 @@ public abstract class HeroDisplay : MonoBehaviour
     public void SetHeroEnergy(int currentEnergy, int maxEnergy)
     {
         HeroEnergy = currentEnergy;
-        
+
         for (int i = 0; i < energyBars.Length; i++)
         {
             GameObject energyBar = energyBars[i];

@@ -1,7 +1,6 @@
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class HeroSelectSceneDisplay : MonoBehaviour
 {
@@ -20,11 +19,6 @@ public class HeroSelectSceneDisplay : MonoBehaviour
     [SerializeField] private GameObject heroUltimateDescription;
     [SerializeField] private GameObject heroUltimateCost;
 
-    private PlayerManager pMan;
-    private CombatManager coMan;
-    private UIManager uMan;
-    private CardManager caMan;
-
     private PlayerHero[] playerHeroes;
     private int currentHero;
 
@@ -35,10 +29,6 @@ public class HeroSelectSceneDisplay : MonoBehaviour
 
     private void Start()
     {
-        pMan = PlayerManager.Instance;
-        coMan = CombatManager.Instance;
-        uMan = UIManager.Instance;
-        caMan = CardManager.Instance;
         playerHeroes = Resources.LoadAll<PlayerHero>("Heroes");
         heroBackstory.SetActive(false);
         currentHero = 2; // Start with Kili
@@ -48,11 +38,11 @@ public class HeroSelectSceneDisplay : MonoBehaviour
     {
         PlayerHero newPH = ScriptableObject.CreateInstance<PlayerHero>();
         newPH.LoadHero(LoadedHero);
-        pMan.HeroScript = newPH;
+        ManagerHandler.P_MAN.HeroScript = newPH;
 
-        foreach (UnitCard uc in caMan.PlayerStartUnits)
+        foreach (UnitCard uc in ManagerHandler.CA_MAN.PlayerStartUnits)
             for (int i = 0; i < GameManager.PLAYER_START_UNITS; i++)
-                caMan.AddCard(uc, GameManager.PLAYER);
+                ManagerHandler.CA_MAN.AddCard(uc, GameManager.PLAYER);
     }
 
     public void ConfirmButton_OnClick()
@@ -62,15 +52,26 @@ public class HeroSelectSceneDisplay : MonoBehaviour
     }
 
     public void BackButton_OnClick() =>
+
+        /* Unmerged change from project 'Assembly-CSharp.Player'
+        Before:
+                GameManager.Instance.EndGame();
+
+            public void SelectHero_RightArrow_OnClick()
+        After:
+                GameManager.Instance.EndGame();
+
+            public void SelectHero_RightArrow_OnClick()
+        */
         GameManager.Instance.EndGame();
-    
+
     public void SelectHero_RightArrow_OnClick()
     {
         if (++currentHero > playerHeroes.Length - 1)
             currentHero = 0;
         DisplaySelectedHero();
     }
-    
+
     public void SelectHero_LeftArrow_OnClick()
     {
         if (--currentHero < 0)
@@ -88,7 +89,7 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         heroBackstory.GetComponentInChildren<TextMeshProUGUI>().SetText(LoadedHero.HeroBackstory);
         heroName.GetComponent<TextMeshProUGUI>().SetText(LoadedHero.HeroName);
         heroPortrait.GetComponent<Image>().sprite = LoadedHero.HeroPortrait;
-        uMan.GetPortraitPosition(LoadedHero.HeroName,
+        ManagerHandler.U_MAN.GetPortraitPosition(LoadedHero.HeroName,
             out Vector2 position, out Vector2 scale, SceneLoader.Scene.HeroSelectScene);
         heroPortrait.transform.localPosition = position;
         heroPortrait.transform.localScale = scale;
@@ -99,15 +100,13 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         heroPowerCost.GetComponent<TextMeshProUGUI>().SetText(LoadedHero.HeroPower.PowerCost.ToString());
         heroPowerImage.GetComponent<Image>().sprite = LoadedHero.HeroPower.PowerSprite;
         heroPowerDescription.GetComponent<TextMeshProUGUI>().SetText
-            ("<b><u>" + LoadedHero.HeroPower.PowerName +
-            ":</b></u> " + caMan.FilterKeywords(LoadedHero.HeroPower.PowerDescription));
-        
+            ($"<b><u>{LoadedHero.HeroPower.PowerName}:</b></u> {ManagerHandler.CA_MAN.FilterKeywords(LoadedHero.HeroPower.PowerDescription)}");
+
         // ULTIMATE
         heroUltimate.GetComponent<PowerZoom>().LoadedPower = LoadedHero.HeroUltimate;
         heroUltimateCost.GetComponent<TextMeshProUGUI>().SetText(LoadedHero.HeroUltimate.PowerCost.ToString());
         heroUltimateImage.GetComponent<Image>().sprite = LoadedHero.HeroUltimate.PowerSprite;
         heroUltimateDescription.GetComponent<TextMeshProUGUI>().SetText
-            ("<b><u>" + LoadedHero.HeroUltimate.PowerName +
-            " (Ultimate):</b></u> " + caMan.FilterKeywords(LoadedHero.HeroUltimate.PowerDescription));
+            ($"<b><u>{LoadedHero.HeroUltimate.PowerName} (Ultimate):</b></u> {ManagerHandler.CA_MAN.FilterKeywords(LoadedHero.HeroUltimate.PowerDescription)}");
     }
 }

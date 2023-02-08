@@ -16,18 +16,21 @@ public class PlayerManager : HeroManager
         else Destroy(gameObject);
     }
 
-    private EffectManager efMan;
-    private UIManager uMan;
-    private AudioManager auMan;
-    private GameManager gMan;
-    private AnimationManager anMan;
-
     private int aetherCells;
     private List<HeroAugment> heroAugments;
     private List<HeroItem> heroItems;
 
     private bool heroPowerUsed;
     private int heroUltimateProgress;
+
+    public override string HERO_TAG => "PlayerHero";
+    public override string CARD_TAG => "PlayerCard";
+    public override string HAND_ZONE_TAG => "PlayerHand";
+    public override string PLAY_ZONE_TAG => "PlayerZone";
+    public override string ACTION_ZONE_TAG => "PlayerActionZone";
+    public override string DISCARD_ZONE_TAG => "PlayerDiscard";
+    public override string HERO_POWER_TAG => "HeroPower";
+    public override string HERO_ULTIMATE_TAG => "HeroUltimate";
 
     public override Hero HeroScript { get => heroScript; set { heroScript = value; } }
     public List<HeroAugment> HeroAugments { get => heroAugments; }
@@ -39,7 +42,8 @@ public class PlayerManager : HeroManager
         set
         {
             isMyTurn = value;
-            uMan.UpdateEndTurnButton();
+
+            if (ManagerHandler.U_MAN != null) ManagerHandler.U_MAN.UpdateEndTurnButton();
         }
     }
 
@@ -65,7 +69,7 @@ public class PlayerManager : HeroManager
                     valueChange, Color.red, acpd.AetherQuantity_Additional);
             }
 
-            uMan.SetAetherCount(valueChange);
+            if (ManagerHandler.U_MAN != null) ManagerHandler.U_MAN.SetAetherCount(valueChange);
         }
     }
     public bool HeroPowerUsed
@@ -96,7 +100,7 @@ public class PlayerManager : HeroManager
 
             if (heroUltimateProgress == heroUltimateGoal)
             {
-                auMan.StartStopSound("SFX_HeroUltimateReady");
+                ManagerHandler.AU_MAN.StartStopSound("SFX_HeroUltimateReady");
                 AnimationManager.Instance.AbilityTriggerState(ultimateButton);
             }
         }
@@ -106,11 +110,6 @@ public class PlayerManager : HeroManager
     protected override void Start()
     {
         base.Start();
-        efMan = EffectManager.Instance;
-        uMan = UIManager.Instance;
-        auMan = AudioManager.Instance;
-        gMan = GameManager.Instance;
-        anMan = AnimationManager.Instance;
 
         heroAugments = new List<HeroAugment>();
         heroItems = new List<HeroItem>();
@@ -128,9 +127,9 @@ public class PlayerManager : HeroManager
             return;
         }
         heroItems.Add(item);
-        uMan.CreateItemIcon(item, isNewItem);
-        if (isNewItem) auMan.StartStopSound("SFX_BuyItem");
-        uMan.UpdateItemsCount();
+        ManagerHandler.U_MAN.CreateItemIcon(item, isNewItem);
+        if (isNewItem) ManagerHandler.AU_MAN.StartStopSound("SFX_BuyItem");
+        ManagerHandler.U_MAN.UpdateItemsCount();
     }
 
     private bool GetItem(string itemName)
@@ -149,8 +148,8 @@ public class PlayerManager : HeroManager
         }
 
         heroAugments.Add(augment);
-        uMan.CreateAugmentIcon(augment, isNewAugment);
-        if (isNewAugment) auMan.StartStopSound("SFX_AcquireAugment");
+        ManagerHandler.U_MAN.CreateAugmentIcon(augment, isNewAugment);
+        if (isNewAugment) ManagerHandler.AU_MAN.StartStopSound("SFX_AcquireAugment");
     }
 
     public bool GetAugment(string augmentName)
@@ -162,20 +161,20 @@ public class PlayerManager : HeroManager
 
     public bool UseHeroPower(bool isUltimate, bool isPreCheck = false)
     {
-        void ErrorSound() => auMan.StartStopSound("SFX_Error");
+        static void ErrorSound() => ManagerHandler.AU_MAN.StartStopSound("SFX_Error");
 
         if (isUltimate) return UseHeroUltimate(isPreCheck);
 
         if (HeroPowerUsed)
         {
             if (isPreCheck) return false;
-            uMan.CreateFleetingInfoPopup("Hero power already used this turn!");
+            ManagerHandler.U_MAN.CreateFleetingInfoPopup("Hero power already used this turn!");
             ErrorSound();
         }
         else if (CurrentEnergy < HeroScript.HeroPower.PowerCost)
         {
             if (isPreCheck) return false;
-            uMan.CreateFleetingInfoPopup("Not enough energy!");
+            ManagerHandler.U_MAN.CreateFleetingInfoPopup("Not enough energy!");
             ErrorSound();
         }
         else
@@ -183,16 +182,16 @@ public class PlayerManager : HeroManager
             GameObject heroPower = HeroObject.GetComponent<PlayerHeroDisplay>().HeroPower;
             List<EffectGroup> groupList = HeroScript.HeroPower.EffectGroupList;
 
-            if (!efMan.CheckLegalTargets(groupList, heroPower, true))
+            if (!ManagerHandler.EF_MAN.CheckLegalTargets(groupList, heroPower, true))
             {
                 if (isPreCheck) return false;
-                uMan.CreateFleetingInfoPopup("You can't do that right now!");
+                ManagerHandler.U_MAN.CreateFleetingInfoPopup("You can't do that right now!");
                 ErrorSound();
             }
             else
             {
                 if (isPreCheck) return true;
-                efMan.StartEffectGroupList(groupList, heroPower);
+                ManagerHandler.EF_MAN.StartEffectGroupList(groupList, heroPower);
                 CurrentEnergy -= HeroScript.HeroPower.PowerCost;
                 HeroPowerUsed = true;
                 PlayerPowerSounds();
@@ -205,7 +204,7 @@ public class PlayerManager : HeroManager
 
     private bool UseHeroUltimate(bool isPreCheck)
     {
-        void ErrorSound() => auMan.StartStopSound("SFX_Error");
+        static void ErrorSound() => ManagerHandler.AU_MAN.StartStopSound("SFX_Error");
 
         GameObject heroUltimate = HeroObject.GetComponent<PlayerHeroDisplay>().HeroUltimate;
         List<EffectGroup> groupList = (HeroScript as PlayerHero).HeroUltimate.EffectGroupList;
@@ -213,25 +212,25 @@ public class PlayerManager : HeroManager
         if (HeroUltimateProgress < GameManager.HERO_ULTMATE_GOAL)
         {
             if (isPreCheck) return false;
-            uMan.CreateFleetingInfoPopup("Ultimate not ready!");
+            ManagerHandler.U_MAN.CreateFleetingInfoPopup("Ultimate not ready!");
             ErrorSound();
         }
         else if (CurrentEnergy < GetUltimateCost(out _))
         {
             if (isPreCheck) return false;
-            uMan.CreateFleetingInfoPopup("Not enough energy!");
+            ManagerHandler.U_MAN.CreateFleetingInfoPopup("Not enough energy!");
             ErrorSound();
         }
-        else if (!efMan.CheckLegalTargets((HeroScript as PlayerHero).HeroUltimate.EffectGroupList, heroUltimate, true))
+        else if (!ManagerHandler.EF_MAN.CheckLegalTargets((HeroScript as PlayerHero).HeroUltimate.EffectGroupList, heroUltimate, true))
         {
             if (isPreCheck) return false;
-            uMan.CreateFleetingInfoPopup("You can't do that right now!");
+            ManagerHandler.U_MAN.CreateFleetingInfoPopup("You can't do that right now!");
             ErrorSound();
         }
         else
         {
             if (isPreCheck) return true;
-            efMan.StartEffectGroupList(groupList, heroUltimate);
+            ManagerHandler.EF_MAN.StartEffectGroupList(groupList, heroUltimate);
             CurrentEnergy -= GetUltimateCost(out _);
             PlayerPowerSounds(true);
             ParticleBurst(heroUltimate);
@@ -255,7 +254,7 @@ public class PlayerManager : HeroManager
     public int GetUltimateCost(out Color ultimateColor)
     {
         int cost = (HeroScript as PlayerHero).HeroUltimate.PowerCost;
-        if (gMan.GetReputationTier(GameManager.ReputationType.Techs) > 2)
+        if (ManagerHandler.G_MAN.GetReputationTier(GameManager.ReputationType.Techs) > 2)
         {
             if (cost > 0)
             {
@@ -268,11 +267,8 @@ public class PlayerManager : HeroManager
         return cost;
     }
 
-    private void ParticleBurst(GameObject parent)
-    {
-        AnimationManager.Instance.CreateParticleSystem
-            (parent, ParticleSystemHandler.ParticlesType.ButtonPress, 1);
-    }
+    private void ParticleBurst(GameObject parent) =>
+        AnimationManager.Instance.CreateParticleSystem(parent, ParticleSystemHandler.ParticlesType.ButtonPress, 1);
 
     public void PlayerPowerSounds(bool isUltimate = false)
     {

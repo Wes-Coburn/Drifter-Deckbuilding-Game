@@ -3,7 +3,7 @@ using UnityEngine;
 [System.Serializable]
 public class DialogueResponse
 {
-    [TextArea] [SerializeField] private string responseText;
+    [TextArea][SerializeField] private string responseText;
     [SerializeField] private DialogueClip response_NextClip;
     [SerializeField] private DialogueClip npc_NextClip;
     [SerializeField] private bool response_IsCombatStart;

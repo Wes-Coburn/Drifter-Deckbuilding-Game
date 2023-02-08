@@ -1,6 +1,6 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
 
 public class ContinueGameButton : MonoBehaviour
 {

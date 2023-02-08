@@ -1,7 +1,7 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using TMPro;
 
 public class ItemDescriptionDisplay : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
@@ -13,10 +13,6 @@ public class ItemDescriptionDisplay : MonoBehaviour, IPointerClickHandler, IPoin
 
     private const string ITEM_ABILITY_POPUP_TIMER = "ItemAbilityPopupTimer";
 
-    private PlayerManager pMan;
-    private UIManager uMan;
-    private AnimationManager anMan;
-    private GameManager gMan;
     private HeroItem loadedItem;
 
     public bool IsItemRemoval { get; set; }
@@ -28,9 +24,9 @@ public class ItemDescriptionDisplay : MonoBehaviour, IPointerClickHandler, IPoin
             itemImage.GetComponent<Image>().sprite = loadedItem.ItemImage;
             itemName.GetComponent<TextMeshProUGUI>().SetText(loadedItem.ItemName);
             itemDescription.GetComponent<TextMeshProUGUI>().SetText
-                (CardManager.Instance.FilterKeywords(loadedItem.ItemDescription));
+                (ManagerHandler.CA_MAN.FilterKeywords(loadedItem.ItemDescription));
 
-            string text = gMan.GetItemCost(loadedItem, out bool isDiscounted, IsItemRemoval).ToString();
+            string text = ManagerHandler.G_MAN.GetItemCost(loadedItem, out bool isDiscounted, IsItemRemoval).ToString();
             TextMeshProUGUI txtGui = itemCost.GetComponent<TextMeshProUGUI>();
             if (IsItemRemoval) text = "+" + text;
             txtGui.SetText(text);
@@ -46,46 +42,38 @@ public class ItemDescriptionDisplay : MonoBehaviour, IPointerClickHandler, IPoin
             rareIcon.SetActive(loadedItem.IsRareItem);
         }
     }
-    
-    private void Awake()
-    {
-        pMan = PlayerManager.Instance;
-        uMan = UIManager.Instance;
-        gMan = GameManager.Instance;
-        anMan = AnimationManager.Instance;
-    }
 
     public void OnPointerClick(PointerEventData pointerEventData)
     {
-        if (anMan.ProgressBarRoutine != null) return;
+        if (ManagerHandler.AN_MAN.ProgressBarRoutine != null) return;
 
         if (IsItemRemoval)
         {
-            uMan.CreateRemoveItemPopup(loadedItem);
+            ManagerHandler.U_MAN.CreateRemoveItemPopup(loadedItem);
             return;
         }
 
-        int maxItems = pMan.GetMaxItems(out bool hasBonus);
-        if (pMan.HeroItems.Count >= maxItems)
+        int maxItems = ManagerHandler.P_MAN.GetMaxItems(out bool hasBonus);
+        if (ManagerHandler.P_MAN.HeroItems.Count >= maxItems)
         {
             string text = "You can't have more than " + maxItems + " items!";
             if (!hasBonus) text += "\n(Visit <b>The Augmenter</b>)";
-            uMan.CreateFleetingInfoPopup(text);
+            ManagerHandler.U_MAN.CreateFleetingInfoPopup(text);
         }
-        else if (pMan.AetherCells < gMan.GetItemCost(loadedItem, out _, false))
-            uMan.InsufficientAetherPopup();
-        else uMan.CreateBuyItemPopup(loadedItem);
+        else if (ManagerHandler.P_MAN.AetherCells < ManagerHandler.G_MAN.GetItemCost(loadedItem, out _, false))
+            ManagerHandler.U_MAN.InsufficientAetherPopup();
+        else ManagerHandler.U_MAN.CreateBuyItemPopup(loadedItem);
     }
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
         FunctionTimer.Create(() =>
-        uMan.CreateItemAbilityPopup(loadedItem), 0.5f, ITEM_ABILITY_POPUP_TIMER);
+        ManagerHandler.U_MAN.CreateItemAbilityPopup(loadedItem), 0.5f, ITEM_ABILITY_POPUP_TIMER);
     }
 
     public void OnPointerExit(PointerEventData pointerEventData)
     {
         FunctionTimer.StopTimer(ITEM_ABILITY_POPUP_TIMER);
-        uMan.DestroyItemAbilityPopup();
+        ManagerHandler.U_MAN.DestroyItemAbilityPopup();
     }
 }

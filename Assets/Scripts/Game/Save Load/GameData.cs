@@ -26,7 +26,7 @@ public class GameData
 
     public bool Achievement_BETA_Finish;
 
-    public GameData (int currentHour, string currentNarrative, string playerHero, string[] deckList,
+    public GameData(int currentHour, string currentNarrative, string playerHero, string[] deckList,
         string[] augments, string[] items, int aetherCells,
         string[,] npcsAndClips, string[,] locationsNPCsObjectives, string[] visitedLocations,
         string[] shopItems, string[] recruitUnits, string[] shopActions,

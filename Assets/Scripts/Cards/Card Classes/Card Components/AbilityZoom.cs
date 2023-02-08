@@ -11,7 +11,7 @@ public class AbilityZoom : MonoBehaviour
     private void Start() => isHovering = false;
 
     private void Update()
-    {        
+    {
         if (isHovering)
         {
             if (AbilityPopup == null)
