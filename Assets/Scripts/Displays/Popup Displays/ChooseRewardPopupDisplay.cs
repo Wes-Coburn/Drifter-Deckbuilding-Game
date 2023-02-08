@@ -2,27 +2,19 @@ using UnityEngine;
 
 public class ChooseRewardPopupDisplay : MonoBehaviour
 {
-    private UIManager uMan;
-    private CardManager caMan;
-
-    private void Awake()
-    {
-        uMan = UIManager.Instance;
-        caMan = CardManager.Instance;
-    }
     public void ActionRewardButton_OnClick()
     {
-        uMan.CreateNewCardPopup(null, "New Action!",
-            caMan.ChooseCards(CardManager.ChooseCard.Action));
+        ManagerHandler.U_MAN.CreateNewCardPopup(null, "New Action!",
+            ManagerHandler.CA_MAN.ChooseCards(CardManager.ChooseCard.Action));
 
-        uMan.DestroyInteractablePopup(gameObject);
+        ManagerHandler.U_MAN.DestroyInteractablePopup(gameObject);
     }
 
     public void UnitRewardButton_OnClick()
     {
-        uMan.CreateNewCardPopup(null, "New Unit!",
-            caMan.ChooseCards(CardManager.ChooseCard.Unit));
+        ManagerHandler.U_MAN.CreateNewCardPopup(null, "New Unit!",
+            ManagerHandler.CA_MAN.ChooseCards(CardManager.ChooseCard.Unit));
 
-        uMan.DestroyInteractablePopup(gameObject);
+        ManagerHandler.U_MAN.DestroyInteractablePopup(gameObject);
     }
 }

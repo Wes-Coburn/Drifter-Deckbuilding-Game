@@ -12,7 +12,7 @@ public class CreateCardEffect : Effect
     [SerializeField] private List<Effect> additionalEffects;
 
     [Header("CREATED CARD PARAMETERS"), SerializeField] private bool restrictCost;
-    [SerializeField, Range(0,10)] private int minCost;
+    [SerializeField, Range(0, 10)] private int minCost;
     [SerializeField, Range(0, 10)] private int maxCost;
 
     [SerializeField, Space] private bool restrictType;

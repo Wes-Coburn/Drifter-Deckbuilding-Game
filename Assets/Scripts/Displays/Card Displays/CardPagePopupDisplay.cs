@@ -1,14 +1,10 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class CardPagePopupDisplay : MonoBehaviour
 {
     [SerializeField] private GameObject popupText;
 
-    private UIManager uMan;
-    private PlayerManager pMan;
-    private GameManager gMan;
-    private CardManager caMan;
     private CardPageDisplay.CardPageType cardPageType;
 
     private Card card;
@@ -26,14 +22,6 @@ public class CardPagePopupDisplay : MonoBehaviour
         }
     }
 
-    private void Awake()
-    {
-        uMan = UIManager.Instance;
-        pMan = PlayerManager.Instance;
-        gMan = GameManager.Instance;
-        caMan = CardManager.Instance;
-    }
-
     public void SetCard(Card card, int cardCost, CardPageDisplay.CardPageType cardPageType)
     {
         this.card = card;
@@ -41,7 +29,7 @@ public class CardPagePopupDisplay : MonoBehaviour
         this.cardPageType = cardPageType;
         rewardIsReady = false;
         string text = "";
-        
+
         switch (cardPageType)
         {
             case CardPageDisplay.CardPageType.RemoveCard:
@@ -90,7 +78,7 @@ public class CardPagePopupDisplay : MonoBehaviour
                 return;
         }
 
-        uMan.CreateCardPage(cardPageType, false);
+        ManagerHandler.U_MAN.CreateCardPage(cardPageType, false);
         AnimationManager.Instance.CreateParticleSystem(gameObject, ParticleSystemHandler.ParticlesType.ButtonPress);
 
         if (setProgressBar) FindObjectOfType<CardPageDisplay>().SetProgressBar
@@ -99,45 +87,45 @@ public class CardPagePopupDisplay : MonoBehaviour
 
     private void RemoveCard()
     {
-        pMan.AetherCells += cardCost;
-        caMan.RemovePlayerCard(card);
+        ManagerHandler.P_MAN.AetherCells += cardCost;
+        ManagerHandler.CA_MAN.RemovePlayerCard(card);
     }
 
     private void RecruitUnit()
     {
-        int recruitIndex = caMan.PlayerRecruitUnits.FindIndex(x => x.CardName == card.CardName);
-        if (recruitIndex != -1) caMan.PlayerRecruitUnits.RemoveAt(recruitIndex);
+        int recruitIndex = ManagerHandler.CA_MAN.PlayerRecruitUnits.FindIndex(x => x.CardName == card.CardName);
+        if (recruitIndex != -1) ManagerHandler.CA_MAN.PlayerRecruitUnits.RemoveAt(recruitIndex);
         else Debug.LogError("RECRUIT UNIT NOT FOUND!");
 
-        pMan.AetherCells -= cardCost;
-        previousProgress = gMan.RecruitLoyalty;
-        if (++gMan.RecruitLoyalty == GameManager.RECRUIT_LOYALTY_GOAL) rewardIsReady = true;
-        else if (gMan.RecruitLoyalty > GameManager.RECRUIT_LOYALTY_GOAL) gMan.RecruitLoyalty = 0;
-        currentProgress = gMan.RecruitLoyalty;
+        ManagerHandler.P_MAN.AetherCells -= cardCost;
+        previousProgress = ManagerHandler.G_MAN.RecruitLoyalty;
+        if (++ManagerHandler.G_MAN.RecruitLoyalty == GameManager.RECRUIT_LOYALTY_GOAL) rewardIsReady = true;
+        else if (ManagerHandler.G_MAN.RecruitLoyalty > GameManager.RECRUIT_LOYALTY_GOAL) ManagerHandler.G_MAN.RecruitLoyalty = 0;
+        currentProgress = ManagerHandler.G_MAN.RecruitLoyalty;
 
-        caMan.AddCard(card, GameManager.PLAYER, true);
+        ManagerHandler.CA_MAN.AddCard(card, GameManager.PLAYER, true);
     }
 
     private void AcquireAction()
     {
-        int actionIndex = caMan.ActionShopCards.FindIndex(x => x.CardName == card.CardName);
-        if (actionIndex != -1) caMan.ActionShopCards.RemoveAt(actionIndex);
+        int actionIndex = ManagerHandler.CA_MAN.ActionShopCards.FindIndex(x => x.CardName == card.CardName);
+        if (actionIndex != -1) ManagerHandler.CA_MAN.ActionShopCards.RemoveAt(actionIndex);
         else Debug.LogError("ACQUIRED ACTION NOT FOUND!");
 
-        pMan.AetherCells -= cardCost;
-        previousProgress = gMan.ActionShopLoyalty;
-        if (++gMan.ActionShopLoyalty == GameManager.ACTION_LOYALTY_GOAL) rewardIsReady = true;
-        else if (gMan.ActionShopLoyalty > GameManager.ACTION_LOYALTY_GOAL) gMan.ActionShopLoyalty = 0;
-        currentProgress = gMan.ActionShopLoyalty;
+        ManagerHandler.P_MAN.AetherCells -= cardCost;
+        previousProgress = ManagerHandler.G_MAN.ActionShopLoyalty;
+        if (++ManagerHandler.G_MAN.ActionShopLoyalty == GameManager.ACTION_LOYALTY_GOAL) rewardIsReady = true;
+        else if (ManagerHandler.G_MAN.ActionShopLoyalty > GameManager.ACTION_LOYALTY_GOAL) ManagerHandler.G_MAN.ActionShopLoyalty = 0;
+        currentProgress = ManagerHandler.G_MAN.ActionShopLoyalty;
 
-        caMan.AddCard(card, GameManager.PLAYER, true);
+        ManagerHandler.CA_MAN.AddCard(card, GameManager.PLAYER, true);
     }
 
     private void CloneUnit()
     {
-        pMan.AetherCells -= cardCost;
-        caMan.AddCard(card, GameManager.PLAYER, true);
+        ManagerHandler.P_MAN.AetherCells -= cardCost;
+        ManagerHandler.CA_MAN.AddCard(card, GameManager.PLAYER, true);
     }
 
-    public void CancelButton_OnClick() => uMan.DestroyInteractablePopup(gameObject);
+    public void CancelButton_OnClick() => ManagerHandler.U_MAN.DestroyInteractablePopup(gameObject);
 }

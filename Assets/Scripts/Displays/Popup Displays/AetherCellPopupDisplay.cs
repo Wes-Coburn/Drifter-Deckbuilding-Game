@@ -1,11 +1,8 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class AetherCellPopupDisplay : MonoBehaviour
 {
-    private DialogueManager dMan;
-    private AnimationManager anMan;
-
     [SerializeField] private GameObject aetherQuantity;
     [SerializeField] private GameObject aetherQuantity_Additional;
     [SerializeField] private GameObject totalAether;
@@ -23,9 +20,6 @@ public class AetherCellPopupDisplay : MonoBehaviour
 
     private void Awake()
     {
-        dMan = DialogueManager.Instance;
-        anMan = AnimationManager.Instance;
-
         newAetherChest.SetActive(true);
         continueButton.SetActive(false);
         foreach (GameObject go in hiddenZones)
@@ -35,7 +29,7 @@ public class AetherCellPopupDisplay : MonoBehaviour
         totalAether.GetComponent<TextMeshProUGUI>().SetText(PlayerManager.Instance.AetherCells + "");
 
         GetComponent<SoundPlayer>().PlaySound(0);
-        anMan.CreateParticleSystem(newAetherChest, ParticleSystemHandler.ParticlesType.NewCard, 5);
+        ManagerHandler.AN_MAN.CreateParticleSystem(newAetherChest, ParticleSystemHandler.ParticlesType.NewCard, 5);
     }
 
     public void NewAetherChest_OnClick()
@@ -46,7 +40,7 @@ public class AetherCellPopupDisplay : MonoBehaviour
         GetComponent<SoundPlayer>().PlaySound(1);
 
         PlayerManager.Instance.AetherCells += AetherQuantity;
-        anMan.CreateParticleSystem(null, ParticleSystemHandler.ParticlesType.ButtonPress, 1);
+        ManagerHandler.AN_MAN.CreateParticleSystem(null, ParticleSystemHandler.ParticlesType.ButtonPress, 1);
     }
 
     public void ContinueButton_OnClick()
@@ -54,11 +48,11 @@ public class AetherCellPopupDisplay : MonoBehaviour
         UIManager.Instance.DestroyInteractablePopup(gameObject);
 
         if (SceneLoader.IsActiveScene(SceneLoader.Scene.HomeBaseScene)) return;
-        
-        if (!SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene)) dMan.DisplayDialoguePopup();
-        else if (dMan.EngagedHero.NextDialogueClip is CombatRewardClip crc)
+
+        if (!SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene)) ManagerHandler.D_MAN.DisplayDialoguePopup();
+        else if (ManagerHandler.D_MAN.EngagedHero.NextDialogueClip is CombatRewardClip crc)
         {
-            dMan.EngagedHero.NextDialogueClip = crc.NextDialogueClip;
+            ManagerHandler.D_MAN.EngagedHero.NextDialogueClip = crc.NextDialogueClip;
             SceneLoader.LoadScene(SceneLoader.Scene.WorldMapScene);
         }
         else Debug.LogError("NEXT CLIP IS NOT COMBAT_REWARD_CLIP!");

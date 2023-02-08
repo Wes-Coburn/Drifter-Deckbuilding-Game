@@ -18,13 +18,10 @@ public class EffectRay : MonoBehaviour
     private Action rayEffect;
     private EffectRayType effectRayType;
 
-    private EffectManager efMan;
-
     public static int ActiveRays { get; set; }
 
     private void Awake()
     {
-        efMan = EffectManager.Instance;
         isMoving = false;
         isDestroyed = false;
         sprite = GetComponent<SpriteRenderer>();
@@ -51,7 +48,7 @@ public class EffectRay : MonoBehaviour
         distance = Vector2.Distance(transform.position, target.transform.position);
 
         //speed = distance/20;
-        speed = 15000/distance;
+        speed = 15000 / distance;
         if (speed < minSpeed) speed = minSpeed;
         else if (speed > maxSpeed) speed = maxSpeed;
 
@@ -122,7 +119,7 @@ public class EffectRay : MonoBehaviour
         }
 
         rayEffect();
-        if (effectRayType is EffectRayType.EffectGroup) efMan.ActiveEffects--;
+        if (effectRayType is EffectRayType.EffectGroup) ManagerHandler.EF_MAN.ActiveEffects--;
         else if (ActiveRays < 1) UIManager.Instance.UpdateEndTurnButton(true);
 
         GetComponent<SpriteRenderer>().enabled = false;

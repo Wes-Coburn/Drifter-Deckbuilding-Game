@@ -1,6 +1,6 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class ReputationPopupDisplay : MonoBehaviour
 {
@@ -14,7 +14,6 @@ public class ReputationPopupDisplay : MonoBehaviour
     [SerializeField] private GameObject tier3_Title;
     [SerializeField] private GameObject tier3_Bonus;
 
-    private CardManager caMan;
     private int bonusTier;
 
     private int BonusTier
@@ -51,7 +50,7 @@ public class ReputationPopupDisplay : MonoBehaviour
             bool isActive = false;
             if (bonusTier > 0) isActive = true;
             txtGui.SetText(ColorText(txtGui.text, isActive));
-            tier1_Bonus.GetComponent<TextMeshProUGUI>().SetText(caMan.FilterKeywords(value));
+            tier1_Bonus.GetComponent<TextMeshProUGUI>().SetText(ManagerHandler.CA_MAN.FilterKeywords(value));
         }
     }
 
@@ -63,7 +62,7 @@ public class ReputationPopupDisplay : MonoBehaviour
             bool isActive = false;
             if (bonusTier > 1) isActive = true;
             txtGui.SetText(ColorText(txtGui.text, isActive));
-            tier2_Bonus.GetComponent<TextMeshProUGUI>().SetText(caMan.FilterKeywords(value));
+            tier2_Bonus.GetComponent<TextMeshProUGUI>().SetText(ManagerHandler.CA_MAN.FilterKeywords(value));
         }
     }
 
@@ -75,7 +74,7 @@ public class ReputationPopupDisplay : MonoBehaviour
             bool isActive = false;
             if (bonusTier > 2) isActive = true;
             txtGui.SetText(ColorText(txtGui.text, isActive));
-            tier3_Bonus.GetComponent<TextMeshProUGUI>().SetText(caMan.FilterKeywords(value));
+            tier3_Bonus.GetComponent<TextMeshProUGUI>().SetText(ManagerHandler.CA_MAN.FilterKeywords(value));
         }
     }
 
@@ -89,7 +88,6 @@ public class ReputationPopupDisplay : MonoBehaviour
 
     private void Awake()
     {
-        caMan = CardManager.Instance;
         string tier1Bonus = GameManager.REPUTATION_TIER_1 + " - " + (GameManager.REPUTATION_TIER_2 - 1);
         string tier2Bonus = GameManager.REPUTATION_TIER_2 + " - " + (GameManager.REPUTATION_TIER_3 - 1);
         string tier3Bonus = GameManager.REPUTATION_TIER_3 + "+";

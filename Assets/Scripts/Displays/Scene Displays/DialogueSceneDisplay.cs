@@ -1,6 +1,6 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class DialogueSceneDisplay : MonoBehaviour
 {
@@ -26,7 +26,7 @@ public class DialogueSceneDisplay : MonoBehaviour
         {
             playerHeroImage.GetComponent<Image>().sprite = value;
             UIManager.Instance.GetPortraitPosition
-                (PlayerManager.Instance.HeroScript.HeroName, 
+                (PlayerManager.Instance.HeroScript.HeroName,
                 out Vector2 position, out Vector2 scale, SceneLoader.Scene.DialogueScene);
             playerHeroImage.transform.localPosition = position;
             playerHeroImage.transform.localScale = scale;
@@ -89,8 +89,7 @@ public class DialogueSceneDisplay : MonoBehaviour
 
     public void SkipTypedText()
     {
-        DialogueManager dMan = DialogueManager.Instance;
-        if (!dMan.AllowResponse) return;
-        dMan.StopTimedText(true);
+        if (!ManagerHandler.D_MAN.AllowResponse) return;
+        ManagerHandler.D_MAN.StopTimedText(true);
     }
 }

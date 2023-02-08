@@ -6,7 +6,7 @@ public class PlayerHero : Hero
     [Header("HERO ULTIMATE")]
     [SerializeField] private HeroPower heroUltimate;
     [Header("HERO BACKSTORY")]
-    [SerializeField] [TextArea] private string heroBackstory;
+    [SerializeField][TextArea] private string heroBackstory;
 
     public HeroPower HeroUltimate { get => heroUltimate; }
     public string HeroBackstory { get => heroBackstory; }

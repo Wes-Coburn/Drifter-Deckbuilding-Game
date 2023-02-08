@@ -1,7 +1,19 @@
+
+/* Unmerged change from project 'Assembly-CSharp.Player'
+Before:
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Runtime.InteropServices;
+After:
+using System.Runtime.InteropServices;
+using TMPro;
+using UnityEngine;
+using UnityEngine.InteropServices;
+*/
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class NewCardPopupDisplay : MonoBehaviour
 {
@@ -11,13 +23,6 @@ public class NewCardPopupDisplay : MonoBehaviour
     [SerializeField] private GameObject[] addCardButtons;
     [SerializeField] private GameObject ignoreCardButton;
     [SerializeField] private GameObject redrawCardsButton;
-
-    private CardManager caMan;
-    private PlayerManager pMan;
-    private DialogueManager dMan;
-    private UIManager uMan;
-    private AnimationManager anMan;
-    private GameManager gMan;
 
     private int redrawCost;
     private Card newCard;
@@ -54,17 +59,10 @@ public class NewCardPopupDisplay : MonoBehaviour
 
     private void Awake()
     {
-        caMan = CardManager.Instance;
-        pMan = PlayerManager.Instance;
-        dMan = DialogueManager.Instance;
-        uMan = UIManager.Instance;
-        anMan = AnimationManager.Instance;
-        gMan = GameManager.Instance;
-
         ignoreCardButton.GetComponentInChildren<TextMeshProUGUI>().SetText
             ("Take " + GameManager.IGNORE_CARD_AETHER + " Aether");
 
-        if (pMan.GetAugment("Quadraphonic Deliberator")) redrawCost = 1;
+        if (ManagerHandler.P_MAN.GetAugment("Quadraphonic Deliberator")) redrawCost = 1;
         else redrawCost = GameManager.REDRAW_CARDS_AETHER;
 
         redrawCardsButton.GetComponentInChildren<TextMeshProUGUI>().SetText
@@ -79,7 +77,7 @@ public class NewCardPopupDisplay : MonoBehaviour
         foreach (GameObject button in addCardButtons) button.SetActive(false);
         ignoreCardButton.SetActive(false);
         redrawCardsButton.SetActive(false);
-        anMan.CreateParticleSystem(newCardChest, ParticleSystemHandler.ParticlesType.NewCard, 5);
+        ManagerHandler.AN_MAN.CreateParticleSystem(newCardChest, ParticleSystemHandler.ParticlesType.NewCard, 5);
     }
 
     private void SwitchToCards()
@@ -88,14 +86,14 @@ public class NewCardPopupDisplay : MonoBehaviour
         newCardChest.SetActive(false);
         foreach (GameObject button in addCardButtons) button.SetActive(true);
         ignoreCardButton.SetActive(true);
-        anMan.CreateParticleSystem(null, ParticleSystemHandler.ParticlesType.ButtonPress);
+        ManagerHandler.AN_MAN.CreateParticleSystem(null, ParticleSystemHandler.ParticlesType.ButtonPress);
     }
 
     public void DisplayNewCard()
     {
         SwitchToCards();
         // Card Popup
-        GameObject newCard = caMan.ShowCard(this.newCard, new Vector2(), CardManager.DisplayType.NewCard);
+        GameObject newCard = ManagerHandler.CA_MAN.ShowCard(this.newCard, new Vector2(), CardManager.DisplayType.NewCard);
         if (newCard == null)
         {
             Debug.LogError("CARD IS NULL!");
@@ -124,7 +122,7 @@ public class NewCardPopupDisplay : MonoBehaviour
         foreach (Card card in chooseCards)
         {
             // Card Popup
-            GameObject newCard = CardManager.Instance.ShowCard(card, new Vector2(),
+            GameObject newCard = ManagerHandler.CA_MAN.ShowCard(card, new Vector2(),
                 CardManager.DisplayType.ChooseCard);
             CardDisplay cd = newCard.GetComponent<CardDisplay>();
             newCard.transform.SetParent(newCardZone.transform, false);
@@ -142,11 +140,11 @@ public class NewCardPopupDisplay : MonoBehaviour
     public void AddCard_OnClick(int cardSelection)
     {
         GetComponent<SoundPlayer>().PlaySound(2);
-        uMan.DestroyInteractablePopup(gameObject);
+        ManagerHandler.U_MAN.DestroyInteractablePopup(gameObject);
         DisableButtons();
 
         Card newCard = cardSelection == 0 ? this.newCard : chooseCards[cardSelection - 1];
-        CardManager.Instance.AddCard(newCard, GameManager.PLAYER, true);
+        ManagerHandler.CA_MAN.AddCard(newCard, GameManager.PLAYER, true);
 
         if (SceneLoader.IsActiveScene(SceneLoader.Scene.HomeBaseScene))
         {
@@ -154,20 +152,20 @@ public class NewCardPopupDisplay : MonoBehaviour
             return;
         }
 
-        DialogueClip nextClip = dMan.EngagedHero.NextDialogueClip;
+        DialogueClip nextClip = ManagerHandler.D_MAN.EngagedHero.NextDialogueClip;
         if (!SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene))
         {
             DialoguePrompt dp = nextClip as DialoguePrompt;
-            if (dp.AetherCells > 0) uMan.CreateAetherCellPopup(dp.AetherCells);
-            else dMan.DisplayDialoguePopup();
+            if (dp.AetherCells > 0) ManagerHandler.U_MAN.CreateAetherCellPopup(dp.AetherCells);
+            else ManagerHandler.D_MAN.DisplayDialoguePopup();
         }
         else if (nextClip is CombatRewardClip crc)
         {
-            int aetherReward = gMan.GetAetherReward((dMan.EngagedHero as EnemyHero).EnemyLevel);
-            if (aetherReward > 0) uMan.CreateAetherCellPopup(aetherReward);
+            int aetherReward = ManagerHandler.G_MAN.GetAetherReward((ManagerHandler.D_MAN.EngagedHero as EnemyHero).EnemyLevel);
+            if (aetherReward > 0) ManagerHandler.U_MAN.CreateAetherCellPopup(aetherReward);
             else
             {
-                dMan.EngagedHero.NextDialogueClip = crc.NextDialogueClip;
+                ManagerHandler.D_MAN.EngagedHero.NextDialogueClip = crc.NextDialogueClip;
                 SceneLoader.LoadScene(SceneLoader.Scene.WorldMapScene);
             }
         }
@@ -177,8 +175,8 @@ public class NewCardPopupDisplay : MonoBehaviour
     public void IgnoreCard_OnClick()
     {
         GetComponent<SoundPlayer>().PlaySound(3);
-        pMan.AetherCells += GameManager.IGNORE_CARD_AETHER;
-        uMan.DestroyInteractablePopup(gameObject);
+        ManagerHandler.P_MAN.AetherCells += GameManager.IGNORE_CARD_AETHER;
+        ManagerHandler.U_MAN.DestroyInteractablePopup(gameObject);
         DisableButtons();
 
         if (SceneLoader.IsActiveScene(SceneLoader.Scene.HomeBaseScene))
@@ -187,20 +185,20 @@ public class NewCardPopupDisplay : MonoBehaviour
             return;
         }
 
-        DialogueClip nextClip = dMan.EngagedHero.NextDialogueClip;
+        DialogueClip nextClip = ManagerHandler.D_MAN.EngagedHero.NextDialogueClip;
         if (!SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene))
         {
             DialoguePrompt dp = nextClip as DialoguePrompt;
-            if (dp.AetherCells > 0) uMan.CreateAetherCellPopup(dp.AetherCells);
-            else dMan.DisplayDialoguePopup();
+            if (dp.AetherCells > 0) ManagerHandler.U_MAN.CreateAetherCellPopup(dp.AetherCells);
+            else ManagerHandler.D_MAN.DisplayDialoguePopup();
         }
-        else if (dMan.EngagedHero.NextDialogueClip is CombatRewardClip crc)
+        else if (ManagerHandler.D_MAN.EngagedHero.NextDialogueClip is CombatRewardClip crc)
         {
-            int aetherReward = gMan.GetAetherReward((dMan.EngagedHero as EnemyHero).EnemyLevel);
-            if (aetherReward > 0) uMan.CreateAetherCellPopup(aetherReward);
+            int aetherReward = ManagerHandler.G_MAN.GetAetherReward((ManagerHandler.D_MAN.EngagedHero as EnemyHero).EnemyLevel);
+            if (aetherReward > 0) ManagerHandler.U_MAN.CreateAetherCellPopup(aetherReward);
             else
             {
-                dMan.EngagedHero.NextDialogueClip = crc.NextDialogueClip;
+                ManagerHandler.D_MAN.EngagedHero.NextDialogueClip = crc.NextDialogueClip;
                 SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene);
             }
         }
@@ -211,28 +209,28 @@ public class NewCardPopupDisplay : MonoBehaviour
     {
         GetComponent<SoundPlayer>().PlaySound(3);
 
-        if (pMan.AetherCells < redrawCost)
+        if (ManagerHandler.P_MAN.AetherCells < redrawCost)
         {
-            uMan.InsufficientAetherPopup();
+            ManagerHandler.U_MAN.InsufficientAetherPopup();
             return;
         }
 
-        pMan.AetherCells -= redrawCost;
+        ManagerHandler.P_MAN.AetherCells -= redrawCost;
         CardManager.ChooseCard chooseCardType;
         if (chooseCards[0] is UnitCard) chooseCardType = CardManager.ChooseCard.Unit;
         else chooseCardType = CardManager.ChooseCard.Action;
 
-        uMan.CreateNewCardPopup(null, PopupTitle,
-            CardManager.Instance.ChooseCards(chooseCardType));
+        ManagerHandler.U_MAN.CreateNewCardPopup(null, PopupTitle,
+            ManagerHandler.CA_MAN.ChooseCards(chooseCardType));
     }
 
     private void RewardBonusAugment()
     {
         string aetherMagnet = "Aether Magnet";
-        if (pMan.GetAugment(aetherMagnet))
+        if (ManagerHandler.P_MAN.GetAugment(aetherMagnet))
         {
-            anMan.TriggerAugment(aetherMagnet);
-            uMan.CreateAetherCellPopup(GameManager.AETHER_MAGNET_REWARD);
+            ManagerHandler.AN_MAN.TriggerAugment(aetherMagnet);
+            ManagerHandler.U_MAN.CreateAetherCellPopup(GameManager.AETHER_MAGNET_REWARD);
         }
     }
 

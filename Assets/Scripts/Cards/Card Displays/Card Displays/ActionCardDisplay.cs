@@ -1,22 +1,15 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class ActionCardDisplay : CardDisplay
 {
-    private CardManager caMan;
     [SerializeField] private GameObject cardDescription;
     public ActionCard ActionCard { get => CardScript as ActionCard; }
 
-    protected void Awake()
-    {
-        //base.Awake();
-        caMan = CardManager.Instance;
-    }
-    
     protected override void DisplayCard()
     {
         base.DisplayCard();
-        cardDescription.GetComponent<TextMeshProUGUI>().SetText(caMan.FilterKeywords(ActionCard.EffectDescription));
+        cardDescription.GetComponent<TextMeshProUGUI>().SetText(ManagerHandler.CA_MAN.FilterKeywords(ActionCard.EffectDescription));
     }
 
     public override void DisplayZoomCard(GameObject parentCard, Card card = null)
@@ -34,7 +27,7 @@ public class ActionCardDisplay : CardDisplay
             ActionCard ac = card as ActionCard;
             description = ac.EffectDescription;
         }
-        tmPro.SetText(caMan.FilterKeywords(description));
+        tmPro.SetText(ManagerHandler.CA_MAN.FilterKeywords(description));
     }
 
     public override void DisplayCardPageCard(Card card)

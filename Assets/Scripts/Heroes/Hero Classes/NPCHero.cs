@@ -9,7 +9,7 @@ public class NPCHero : Hero
     public DialogueClip FirstDialogueClip { get => firstDialogueClip; }
     public DialogueClip NextDialogueClip { get; set; }
     public int RespectScore { get; set; }
-    
+
     public override void LoadHero(Hero hero)
     {
         base.LoadHero(hero);

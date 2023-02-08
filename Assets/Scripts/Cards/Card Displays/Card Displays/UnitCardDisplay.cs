@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using System.Linq;
 
 public class UnitCardDisplay : CardDisplay
 {
@@ -20,10 +20,8 @@ public class UnitCardDisplay : CardDisplay
     [Header("Prefabs"), SerializeField] private GameObject abilityIconPrefab;
     [SerializeField] private GameObject zoomAbilityIconPrefab;
 
-    private AudioManager auMan;
-    private CardManager caMan;
     private List<CardAbility> displayedAbilities;
-    
+
     public UnitCard UnitCard { get => CardScript as UnitCard; }
     public GameObject UnitStats { get => unitStats; }
     public GameObject PowerScore { get => powerScoreDisplay; }
@@ -92,8 +90,6 @@ public class UnitCardDisplay : CardDisplay
 
     protected void Awake()
     {
-        auMan = AudioManager.Instance;
-        caMan = CardManager.Instance;
         AbilityIcons = new List<GameObject>();
         displayedAbilities = new List<CardAbility>();
     }
@@ -194,7 +190,7 @@ public class UnitCardDisplay : CardDisplay
                         currentAbilitiesDisplay.transform, 1);
 
                     AbilityIconDisplay aid = abilityIcon.GetComponent<AbilityIconDisplay>();
-                    aid.AbilitySprite.GetComponent<Image>().color = caMan.GetAbilityColor(ca);
+                    aid.AbilitySprite.GetComponent<Image>().color = ManagerHandler.CA_MAN.GetAbilityColor(ca);
 
                     shownAbilities.Add(ca);
                     shownObjects.Add(abilityIcon);
@@ -235,14 +231,14 @@ public class UnitCardDisplay : CardDisplay
                 currentAbilitiesDisplay.transform, 1);
 
             AbilityIconDisplay aid = abilityIcon.GetComponent<AbilityIconDisplay>();
-            aid.AbilitySprite.GetComponent<Image>().color = caMan.GetAbilityColor(ca);
+            aid.AbilitySprite.GetComponent<Image>().color = ManagerHandler.CA_MAN.GetAbilityColor(ca);
         }
     }
 
     public override void DisplayChooseCard(Card card)
     {
         base.DisplayChooseCard(card);
-        DisplayCardPageCard(card);        
+        DisplayCardPageCard(card);
     }
 
     public void EnableTriggerIcon(AbilityTrigger abilityTrigger, bool isEnabled)
@@ -260,7 +256,7 @@ public class UnitCardDisplay : CardDisplay
             }
 
             Color color;
-            if (isEnabled) color = caMan.GetAbilityColor(ca);
+            if (isEnabled) color = ManagerHandler.CA_MAN.GetAbilityColor(ca);
             else color = Color.gray;
 
             GameObject icon = AbilityIcons[index];
@@ -276,7 +272,7 @@ public class UnitCardDisplay : CardDisplay
         AbilityIconDisplay aid = abilityIcon.GetComponent<AbilityIconDisplay>();
         aid.AbilityScript = cardAbility;
         abilityIcon.transform.SetParent(currentAbilitiesDisplay.transform, false);
-        aid.AbilitySprite.GetComponent<Image>().color = caMan.GetAbilityColor(cardAbility);
+        aid.AbilitySprite.GetComponent<Image>().color = ManagerHandler.CA_MAN.GetAbilityColor(cardAbility);
         return abilityIcon;
     }
 
@@ -293,7 +289,7 @@ public class UnitCardDisplay : CardDisplay
 
         if (ca is StaticAbility sa)
         {
-            switch (sa.AbilityName) 
+            switch (sa.AbilityName)
             {
                 case CardManager.ABILITY_DEFENDER:
                     if (!CardManager.GetAbility(gameObject, CardManager.ABILITY_STEALTH))
@@ -340,7 +336,7 @@ public class UnitCardDisplay : CardDisplay
 
                             // When adding another ability with the same trigger, reset the ability icon in case it's disabled (gray)
                             AbilityIconDisplay aid = AbilityIcons[index].GetComponent<AbilityIconDisplay>();
-                            aid.AbilitySprite.GetComponent<Image>().color = caMan.GetAbilityColor(ca2);
+                            aid.AbilitySprite.GetComponent<Image>().color = ManagerHandler.CA_MAN.GetAbilityColor(ca2);
                         }
                     }
                     index++;
@@ -525,8 +521,8 @@ public class UnitCardDisplay : CardDisplay
         {
             AnimationManager.Instance.AbilityTriggerState(icon);
             if (triggerSFX != null && triggerSFX.clip != null)
-                auMan.StartStopSound(null, triggerSFX);
-            else auMan.StartStopSound("SFX_Trigger");
+                ManagerHandler.AU_MAN.StartStopSound(null, triggerSFX);
+            else ManagerHandler.AU_MAN.StartStopSound("SFX_Trigger");
         }
     }
 

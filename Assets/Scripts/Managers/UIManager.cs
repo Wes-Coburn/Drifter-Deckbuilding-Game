@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class UIManager : MonoBehaviour
 {
@@ -84,11 +84,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Color rejectedColor;
     [SerializeField] private Color playableColor;
 
-    private PlayerManager pMan;
-    private DialogueManager dMan;
-    private AnimationManager anMan;
-    private GameManager gMan;
-
     private GameObject screenDimmer;
     private GameObject tooltipPopup;
     private GameObject infoPopup;
@@ -153,11 +148,6 @@ public class UIManager : MonoBehaviour
     #region METHODS
     public void Start()
     {
-        pMan = PlayerManager.Instance;
-        dMan = DialogueManager.Instance;
-        anMan = AnimationManager.Instance;
-        gMan = GameManager.Instance;
-
         PlayerIsTargetting = false;
         CurrentWorldSpace = GameObject.Find("WorldSpace");
         CurrentCanvas = GameObject.Find("Canvas");
@@ -187,7 +177,7 @@ public class UIManager : MonoBehaviour
         endTurnButton = GameObject.Find("EndTurnButton");
         playerZoneOutline = GameObject.Find("PlayerZoneOutline");
         combatLog = FindObjectOfType<CombatLog>();
-        
+
         SetCancelEffectButton(false);
         SetConfirmEffectButton(false);
         SetPlayerZoneOutline(false, false);
@@ -279,7 +269,7 @@ public class UIManager : MonoBehaviour
     {
         if (endTurnButton == null) return;
 
-        bool isMyTurn = pMan.IsMyTurn;
+        bool isMyTurn = ManagerHandler.P_MAN.IsMyTurn;
         EndTurnButtonDisplay etbd = endTurnButton.GetComponent<EndTurnButtonDisplay>();
         etbd.EndTurnSide.SetActive(isMyTurn);
         etbd.OpponentTurnSide.SetActive(!isMyTurn);
@@ -435,7 +425,7 @@ public class UIManager : MonoBehaviour
         // CardZoom
         CardZoom.ZoomCardIsCentered = false;
 
-            // Function Timers
+        // Function Timers
         FunctionTimer.StopTimer(CardZoom.ZOOM_CARD_TIMER);
         FunctionTimer.StopTimer(CardZoom.ABILITY_POPUP_TIMER);
 
@@ -572,7 +562,7 @@ public class UIManager : MonoBehaviour
      * *****
      *****/
     // Destroy Interactable Popup
-    public void DestroyInteractablePopup(GameObject popup) => anMan.ChangeAnimationState(popup, "Exit");
+    public void DestroyInteractablePopup(GameObject popup) => ManagerHandler.AN_MAN.ChangeAnimationState(popup, "Exit");
     // Tooltip Popup
     public void CreateTooltipPopup(Vector2 position, string text)
     {
@@ -691,16 +681,16 @@ public class UIManager : MonoBehaviour
     public void CreateFleetingInfoPopup(string message)
     {
         CreateInfoPopup(message, InfoPopupType.Secondary, true);
-        anMan.ChangeAnimationState(infoPopup_Secondary, "Enter_Exit");
+        ManagerHandler.AN_MAN.ChangeAnimationState(infoPopup_Secondary, "Enter_Exit");
     }
     public void InsufficientAetherPopup()
     {
-        CreateFleetingInfoPopup($"Not enough aether! (You have {pMan.AetherCells} aether)");
+        CreateFleetingInfoPopup($"Not enough aether! (You have {ManagerHandler.P_MAN.AetherCells} aether)");
         AudioManager.Instance.StartStopSound("SFX_Error");
     }
     public void DismissInfoPopup()
     {
-        if (infoPopup != null) anMan.ChangeAnimationState(infoPopup, "Exit");
+        if (infoPopup != null) ManagerHandler.AN_MAN.ChangeAnimationState(infoPopup, "Exit");
     }
     public void DestroyInfoPopup(InfoPopupType infoPopupType)
     {
@@ -750,7 +740,7 @@ public class UIManager : MonoBehaviour
         DestroyTurnPopup();
         turnPopup = Instantiate(versusPopupPrefab, CurrentZoomCanvas.transform);
         turnPopup.GetComponent<VersusPopupDisplay>().IsBossBattle = isBossBattle;
-        anMan.CreateParticleSystem(turnPopup, ParticleSystemHandler.ParticlesType.Explosion, 1);
+        ManagerHandler.AN_MAN.CreateParticleSystem(turnPopup, ParticleSystemHandler.ParticlesType.Explosion, 1);
     }
     public void CreateCombatEndPopup(bool playerWins)
     {
@@ -760,8 +750,8 @@ public class UIManager : MonoBehaviour
         GameObject particleParent;
         if (playerWins) particleParent = cepd.VictoryText;
         else particleParent = cepd.DefeatText;
-        anMan.CreateParticleSystem(particleParent, ParticleSystemHandler.ParticlesType.Drag);
-        anMan.CreateParticleSystem(particleParent, ParticleSystemHandler.ParticlesType.NewCard);
+        ManagerHandler.AN_MAN.CreateParticleSystem(particleParent, ParticleSystemHandler.ParticlesType.Drag);
+        ManagerHandler.AN_MAN.CreateParticleSystem(particleParent, ParticleSystemHandler.ParticlesType.NewCard);
         cepd.VictoryText.SetActive(playerWins);
         cepd.DefeatText.SetActive(!playerWins);
     }
@@ -788,7 +778,7 @@ public class UIManager : MonoBehaviour
             chooseCardPopup = Instantiate(chooseCardPopupPrefab, CurrentZoomCanvas.transform); // TESTING on ZOOM
             ncpd = chooseCardPopup.GetComponent<NewCardPopupDisplay>();
         }
-        
+
         ncpd.PopupTitle = title;
         if (chooseCards == null) ncpd.NewCard = newCard;
         else ncpd.ChooseCards = chooseCards;
@@ -861,7 +851,7 @@ public class UIManager : MonoBehaviour
     }
     public void DestroyCardPage(bool childPopupsOnly = false)
     {
-        anMan.ProgressBarRoutine_Stop();
+        ManagerHandler.AN_MAN.ProgressBarRoutine_Stop();
         if (!childPopupsOnly && cardPage != null)
         {
             Destroy(cardPage);
@@ -908,7 +898,7 @@ public class UIManager : MonoBehaviour
     }
     public void DestroyItemPagePopup()
     {
-        anMan.ProgressBarRoutine_Stop();
+        ManagerHandler.AN_MAN.ProgressBarRoutine_Stop();
         if (itemPagePopup != null)
         {
             Destroy(itemPagePopup);
@@ -959,7 +949,7 @@ public class UIManager : MonoBehaviour
 
         if (isFleeting)
         {
-            anMan.ChangeAnimationState(locationPopup, "Enter_Exit");
+            ManagerHandler.AN_MAN.ChangeAnimationState(locationPopup, "Enter_Exit");
             locationPopup.transform.position = new Vector2(500, 0);
             locationPopup = null;
         }
@@ -1002,8 +992,8 @@ public class UIManager : MonoBehaviour
     }
     public void DestroyNarrativePopup()
     {
-        if (dMan.CurrentTextRoutine != null)
-            dMan.StopTimedText();
+        if (ManagerHandler.D_MAN.CurrentTextRoutine != null)
+            ManagerHandler.D_MAN.StopTimedText();
 
         if (narrativePopup != null)
         {
@@ -1020,7 +1010,7 @@ public class UIManager : MonoBehaviour
     public void UpdateItemsCount()
     {
         int unusedItems = 0;
-        foreach (HeroItem item in pMan.HeroItems)
+        foreach (HeroItem item in ManagerHandler.P_MAN.HeroItems)
             if (!item.IsUsed) unusedItems++;
 
         itemsCount.GetComponent<TextMeshProUGUI>().SetText(unusedItems.ToString());
@@ -1072,9 +1062,9 @@ public class UIManager : MonoBehaviour
             ClearAugmentBar();
             ClearItemBar();
 
-            foreach (HeroAugment ha in pMan.HeroAugments) 
+            foreach (HeroAugment ha in ManagerHandler.P_MAN.HeroAugments)
                 CreateAugmentIcon(ha);
-            foreach (HeroItem hi in pMan.HeroItems)
+            foreach (HeroItem hi in ManagerHandler.P_MAN.HeroItems)
                 CreateItemIcon(hi);
             foreach (Transform augTran in augmentBar.transform)
                 augTran.gameObject.SetActive(!hideChildren);
@@ -1087,7 +1077,7 @@ public class UIManager : MonoBehaviour
             UpdateItemsCount();
             SetAllReputation();
         }
-        
+
         augmentsDropdown.SetActive(false);
         itemsDropdown.SetActive(false);
         reputationsDropdown.SetActive(false);
@@ -1097,14 +1087,14 @@ public class UIManager : MonoBehaviour
         if (!skyBar.activeSelf) return;
 
         TextMeshProUGUI tmpro = aetherCount.GetComponentInChildren<TextMeshProUGUI>();
-        tmpro.SetText(pMan.AetherCells - valueChange + "");
+        tmpro.SetText(ManagerHandler.P_MAN.AetherCells - valueChange + "");
 
         if (valueChange != 0)
         {
             new AnimationManager.CountingTextObject(tmpro, valueChange, Color.red);
 
-            anMan.SkybarIconAnimation(aetherIcon);
-            anMan.CountingText();
+            ManagerHandler.AN_MAN.SkybarIconAnimation(aetherIcon);
+            ManagerHandler.AN_MAN.CountingText();
         }
     }
     public void CreateAugmentIcon(HeroAugment augment, bool isNewAugment = false)
@@ -1112,19 +1102,19 @@ public class UIManager : MonoBehaviour
         if (!skyBar.activeSelf) return;
         GameObject augmentIcon = Instantiate(augmentIconPrefab, augmentBar.transform);
         augmentIcon.GetComponent<AugmentIcon>().LoadedAugment = augment;
-        if (isNewAugment) anMan.SkybarIconAnimation(augmentIcon);
+        if (isNewAugment) ManagerHandler.AN_MAN.SkybarIconAnimation(augmentIcon);
     }
     public void CreateItemIcon(HeroItem item, bool isNewItem = false)
     {
         if (!skyBar.activeSelf) return;
         GameObject itemIcon = Instantiate(itemIconPrefab, itemBar.transform);
         itemIcon.GetComponent<ItemIcon>().LoadedItem = item;
-        if (isNewItem) anMan.SkybarIconAnimation(itemIcon);
+        if (isNewItem) ManagerHandler.AN_MAN.SkybarIconAnimation(itemIcon);
     }
     public void ClearAugmentBar()
     {
         if (!skyBar.activeSelf) return;
-        foreach (Transform tran in augmentBar.transform) 
+        foreach (Transform tran in augmentBar.transform)
             Destroy(tran.gameObject);
     }
     public void ClearItemBar()
@@ -1205,23 +1195,23 @@ public class UIManager : MonoBehaviour
         {
             case GameManager.ReputationType.Mages:
                 repIcon = reputation_Mages;
-                repScore = gMan.Reputation_Mages;
+                repScore = ManagerHandler.G_MAN.Reputation_Mages;
                 break;
             case GameManager.ReputationType.Mutants:
                 repIcon = reputation_Mutants;
-                repScore = gMan.Reputation_Mutants;
+                repScore = ManagerHandler.G_MAN.Reputation_Mutants;
                 break;
             case GameManager.ReputationType.Rogues:
                 repIcon = reputation_Rogues;
-                repScore = gMan.Reputation_Rogues;
+                repScore = ManagerHandler.G_MAN.Reputation_Rogues;
                 break;
             case GameManager.ReputationType.Techs:
                 repIcon = reputation_Techs;
-                repScore = gMan.Reputation_Techs;
+                repScore = ManagerHandler.G_MAN.Reputation_Techs;
                 break;
             case GameManager.ReputationType.Warriors:
                 repIcon = reputation_Warriors;
-                repScore = gMan.Reputation_Warriors;
+                repScore = ManagerHandler.G_MAN.Reputation_Warriors;
                 break;
             default:
                 Debug.LogError("INVALID REPUTATION TYPE!");
@@ -1245,7 +1235,7 @@ public class UIManager : MonoBehaviour
         if (valueChange != 0)
         {
             ReputationTrigger();
-            anMan.ValueChanger(repIcon.transform, valueChange, -100);
+            ManagerHandler.AN_MAN.ValueChanger(repIcon.transform, valueChange, -100);
         }
 
         void ReputationTrigger()
@@ -1254,7 +1244,7 @@ public class UIManager : MonoBehaviour
             if (triggerOnly) sound = "SFX_Trigger";
             else sound = "SFX_Reputation";
             AudioManager.Instance.StartStopSound(sound);
-            anMan.SkybarIconAnimation(repIcon);
+            ManagerHandler.AN_MAN.SkybarIconAnimation(repIcon);
         }
     }
 
@@ -1280,7 +1270,8 @@ public class UIManager : MonoBehaviour
         Vector2 sourcePos = sourceIcon.transform.localPosition;
         reputationPopup.transform.localPosition = new Vector2(sourcePos.x - 300, sourcePos.y + 100);
         reputationPopup.GetComponent<ReputationPopupDisplay>().DisplayReputationPopup
-            (gMan.GetReputation(repType), gMan.GetReputationTier(repType), gMan.GetReputationBonuses(repType));
+            (ManagerHandler.G_MAN.GetReputation(repType), ManagerHandler.G_MAN.GetReputationTier(repType),
+            ManagerHandler.G_MAN.GetReputationBonuses(repType));
     }
 
     public void DestroyReputationPopup()

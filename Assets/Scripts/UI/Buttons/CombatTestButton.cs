@@ -3,7 +3,7 @@ using UnityEngine;
 public class CombatTestButton : MonoBehaviour
 {
     [SerializeField] private bool addStartUnits;
-    [SerializeField] [Range(0, 3)] private int reputationTier;
+    [SerializeField][Range(0, 3)] private int reputationTier;
     [SerializeField] private PlayerHero developerTestHero;
     [SerializeField] private EnemyHero enemyTestHero;
     [Header("GAUNTLET")]
@@ -19,8 +19,6 @@ public class CombatTestButton : MonoBehaviour
     [SerializeField] private bool enableTestCards_4;
     [SerializeField] private Card[] testCards_4;
 
-    private GameManager gMan;
-    private PlayerManager pMan;
 
     private void Start()
     {
@@ -30,9 +28,6 @@ public class CombatTestButton : MonoBehaviour
             gameObject.SetActive(false);
             return;
         }
-
-        gMan = GameManager.Instance;
-        pMan = PlayerManager.Instance;
     }
 
     public void OnClick()
@@ -40,7 +35,6 @@ public class CombatTestButton : MonoBehaviour
         if (SceneLoader.SceneIsLoading) return;
         //UIManager.Instance.ShakeCamera(EZCameraShake.CameraShakePresets.Bump); // TESTING
         AnimationManager.Instance.CreateParticleSystem(gameObject, ParticleSystemHandler.ParticlesType.ButtonPress); // TESTING
-        gMan.IsCombatTest = true;
         SceneLoader.LoadAction += () => LoadCombatTest();
         SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);
     }
@@ -66,47 +60,46 @@ public class CombatTestButton : MonoBehaviour
         }
 
         DialogueManager.Instance.EngagedHero = eh;
-        pMan.HeroScript = ph;
+        ManagerHandler.P_MAN.HeroScript = ph;
 
         // Test Augments
         foreach (HeroAugment aug in testAugments)
-            pMan.AddAugment(aug);
+            ManagerHandler.P_MAN.AddAugment(aug);
 
         // Test Items
         HeroItem[] items = new HeroItem[testItems.Length];
         testItems.CopyTo(items, 0);
         items.Shuffle();
-        for (int i = 0; i < 5; i++) pMan.AddItem(items[i]);
+        for (int i = 0; i < 5; i++) ManagerHandler.P_MAN.AddItem(items[i]);
 
         // Test Cards
         if (enableTestCards_1)
         {
             foreach (Card c in testCards_1)
-                CardManager.Instance.AddCard(c, GameManager.PLAYER);
+                ManagerHandler.CA_MAN.AddCard(c, GameManager.PLAYER);
         }
         if (enableTestCards_2)
         {
             foreach (Card c in testCards_2)
-                CardManager.Instance.AddCard(c, GameManager.PLAYER);
+                ManagerHandler.CA_MAN.AddCard(c, GameManager.PLAYER);
         }
         if (enableTestCards_3)
         {
             foreach (Card c in testCards_3)
-                CardManager.Instance.AddCard(c, GameManager.PLAYER);
+                ManagerHandler.CA_MAN.AddCard(c, GameManager.PLAYER);
         }
         if (enableTestCards_4)
         {
             foreach (Card c in testCards_4)
-                CardManager.Instance.AddCard(c, GameManager.PLAYER);
+                ManagerHandler.CA_MAN.AddCard(c, GameManager.PLAYER);
         }
 
         // Start Units
-        CardManager caMan = CardManager.Instance;
         if (addStartUnits)
         {
-            foreach (UnitCard uc in caMan.PlayerStartUnits)
+            foreach (UnitCard uc in ManagerHandler.CA_MAN.PlayerStartUnits)
                 for (int i = 0; i < GameManager.PLAYER_START_UNITS; i++)
-                    caMan.AddCard(uc, GameManager.PLAYER);
+                    ManagerHandler.CA_MAN.AddCard(uc, GameManager.PLAYER);
         }
 
         // Reputation
@@ -130,10 +123,10 @@ public class CombatTestButton : MonoBehaviour
                 return;
         }
 
-        gMan.Reputation_Mages = reputation;
-        gMan.Reputation_Mutants = reputation;
-        gMan.Reputation_Rogues = reputation;
-        gMan.Reputation_Techs = reputation;
-        gMan.Reputation_Warriors = reputation;
+        ManagerHandler.G_MAN.Reputation_Mages = reputation;
+        ManagerHandler.G_MAN.Reputation_Mutants = reputation;
+        ManagerHandler.G_MAN.Reputation_Rogues = reputation;
+        ManagerHandler.G_MAN.Reputation_Techs = reputation;
+        ManagerHandler.G_MAN.Reputation_Warriors = reputation;
     }
 }

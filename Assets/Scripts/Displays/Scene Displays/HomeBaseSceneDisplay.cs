@@ -1,6 +1,6 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class HomeBaseSceneDisplay : MonoBehaviour
 {
@@ -24,9 +24,6 @@ public class HomeBaseSceneDisplay : MonoBehaviour
 
     [Header("CLAIM REWARD BUTTON")]
     [SerializeField] private GameObject claimRewardButton;
-
-    private PlayerManager pMan;
-    private UIManager uMan;
 
     private string HeroName
     {
@@ -54,7 +51,7 @@ public class HomeBaseSceneDisplay : MonoBehaviour
         set
         {
             heroImage.GetComponent<Image>().sprite = value;
-            uMan.GetPortraitPosition(pMan.HeroScript.HeroName, out Vector2 position,
+            ManagerHandler.U_MAN.GetPortraitPosition(ManagerHandler.P_MAN.HeroScript.HeroName, out Vector2 position,
                 out Vector2 scale, SceneLoader.Scene.HeroSelectScene);
             heroImage.transform.localPosition = position;
             heroImage.transform.localScale = scale;
@@ -121,9 +118,7 @@ public class HomeBaseSceneDisplay : MonoBehaviour
 
     private void Start()
     {
-        pMan = PlayerManager.Instance;
-        uMan = UIManager.Instance;
-        PlayerHero ph = pMan.HeroScript as PlayerHero;
+        PlayerHero ph = ManagerHandler.P_MAN.HeroScript as PlayerHero;
         HeroName = ph.HeroName;
         HeroDescription = ph.HeroDescription;
         HeroBackstory = ph.HeroBackstory;
@@ -145,27 +140,27 @@ public class HomeBaseSceneDisplay : MonoBehaviour
 
     public void ShowInfoButton_OnClick() =>
         heroBackstory.SetActive(!heroBackstory.activeSelf);
-    
-    public void RemoveCardButton_OnClick(bool playSound = true) =>
-        uMan.CreateCardPage(CardPageDisplay.CardPageType.RemoveCard, playSound);
 
-    public void RemoveItemButton_OnClick() => uMan.CreateItemPagePopup(true);
+    public void RemoveCardButton_OnClick(bool playSound = true) =>
+        ManagerHandler.U_MAN.CreateCardPage(CardPageDisplay.CardPageType.RemoveCard, playSound);
+
+    public void RemoveItemButton_OnClick() => ManagerHandler.U_MAN.CreateItemPagePopup(true);
 
     public void ClaimRewardButton_OnClick()
     {
-        uMan.DestroyTooltipPopup();
+        ManagerHandler.U_MAN.DestroyTooltipPopup();
         claimRewardButton.SetActive(false);
-        uMan.CreateChooseRewardPopup();
+        ManagerHandler.U_MAN.CreateChooseRewardPopup();
     }
 
     public void BackButton_OnClick()
     {
         if (claimRewardButton.activeSelf)
         {
-            uMan.CreateFleetingInfoPopup("Claim Your Reward!");
+            ManagerHandler.U_MAN.CreateFleetingInfoPopup("Claim Your Reward!");
             return;
         }
-        
+
         SceneLoader.LoadScene(SceneLoader.Scene.WorldMapScene);
     }
 }

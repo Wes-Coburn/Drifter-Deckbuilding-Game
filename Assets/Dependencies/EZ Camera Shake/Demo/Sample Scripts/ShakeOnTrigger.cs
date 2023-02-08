@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using EZCameraShake;
+﻿using EZCameraShake;
+using UnityEngine;
 
 /*
  * This script begins shaking the camera when the player enters the trigger, and stops shaking when the player leaves.
@@ -36,8 +36,8 @@ public class ShakeOnTrigger : MonoBehaviour
         if (c.CompareTag("Player"))
         {
             //Fade out the shake over 3 seconds.
-            _shakeInstance.StartFadeOut(3f);        
+            _shakeInstance.StartFadeOut(3f);
         }
-            
+
     }
 }

@@ -37,7 +37,7 @@ public class ParticleSystemHandler : MonoBehaviour
             Vector2 parentPos = parent.transform.position;
             transform.position = new Vector3(parentPos.x, parentPos.y, 10);
         }
-            
+
     }
 
     public void StartParticles(GameObject parent, Color startColor,

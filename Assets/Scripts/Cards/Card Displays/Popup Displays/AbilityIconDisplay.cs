@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class AbilityIconDisplay : MonoBehaviour
 {
@@ -10,7 +10,7 @@ public class AbilityIconDisplay : MonoBehaviour
     [SerializeField] private GameObject abilitySprite;
     [SerializeField] private GameObject abilityName;
     [SerializeField] private GameObject abilityMultiplier;
-    
+
     public GameObject AbilitySprite { get => abilitySprite; }
 
     public int AbilityMultiplier
@@ -49,7 +49,7 @@ public class AbilityIconDisplay : MonoBehaviour
     private void DisplayAbilityIcon()
     {
         Sprite sprite;
-        if (AbilityScript is StaticAbility) 
+        if (AbilityScript is StaticAbility)
             sprite = AbilityScript.AbilitySprite;
         else if (AbilityScript is TriggeredAbility ta)
         {
@@ -98,8 +98,8 @@ public class AbilityIconDisplay : MonoBehaviour
      * ****** SETTERS
      * *****
      *****/
-    private void SetAbilityIcon(Sprite sprite) => 
+    private void SetAbilityIcon(Sprite sprite) =>
         abilitySprite.GetComponent<Image>().sprite = sprite;
-    private void SetAbilityName(string abilityDescription) => 
-        abilityName.GetComponent<TextMeshProUGUI>().SetText(CardManager.Instance.FilterKeywords(abilityDescription));
+    private void SetAbilityName(string abilityDescription) =>
+        abilityName.GetComponent<TextMeshProUGUI>().SetText(ManagerHandler.CA_MAN.FilterKeywords(abilityDescription));
 }

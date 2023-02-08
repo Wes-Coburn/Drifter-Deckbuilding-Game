@@ -5,45 +5,32 @@ public class CardSelect : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 {
     [SerializeField] private GameObject cardOutline;
 
-    private CombatManager coMan;
-    private UIManager uMan;
-    private EffectManager efMan;
-    private EnemyManager enMan;
-
     public GameObject CardOutline { get => cardOutline; }
 
-    private void Start()
-    {
-        coMan = CombatManager.Instance;
-        uMan = UIManager.Instance;
-        efMan = EffectManager.Instance;
-        enMan = EnemyManager.Instance;
-        
-    }
 
     public void OnPointerClick(PointerEventData pointerEventData)
     {
         if (pointerEventData.button != PointerEventData.InputButton.Left) return;
-        if (uMan.PlayerIsTargetting) efMan.SelectEffectTarget(gameObject);
+        if (ManagerHandler.U_MAN.PlayerIsTargetting) ManagerHandler.EF_MAN.SelectEffectTarget(gameObject);
     }
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
         if (DragDrop.DraggingCard == gameObject) return;
 
-        if (uMan.PlayerIsTargetting) efMan.HighlightEffectTarget(gameObject, true);
+        if (ManagerHandler.U_MAN.PlayerIsTargetting) ManagerHandler.EF_MAN.HighlightEffectTarget(gameObject, true);
         else if (DragDrop.ArrowIsDragging)
         {
-            if (enMan.HandZoneCards.Contains(gameObject)) return;
+            if (ManagerHandler.EN_MAN.HandZoneCards.Contains(gameObject)) return;
 
             DragDrop.Enemy = gameObject;
             UIManager.SelectionType type;
 
-            if (coMan.CanAttack(DragDrop.DraggingCard, gameObject))
+            if (ManagerHandler.CO_MAN.CanAttack(DragDrop.DraggingCard, gameObject))
                 type = UIManager.SelectionType.Selected;
             else type = UIManager.SelectionType.Rejected;
 
-            uMan.SelectTarget(gameObject, type);
+            ManagerHandler.U_MAN.SelectTarget(gameObject, type);
         }
     }
 
@@ -51,19 +38,19 @@ public class CardSelect : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     {
         if (DragDrop.DraggingCard == gameObject) return;
 
-        if (uMan.PlayerIsTargetting) efMan.HighlightEffectTarget(gameObject, false);
+        if (ManagerHandler.U_MAN.PlayerIsTargetting) ManagerHandler.EF_MAN.HighlightEffectTarget(gameObject, false);
         else if (DragDrop.ArrowIsDragging)
         {
-            if (enMan.HandZoneCards.Contains(gameObject)) return;
+            if (ManagerHandler.EN_MAN.HandZoneCards.Contains(gameObject)) return;
 
             DragDrop.Enemy = null;
             UIManager.SelectionType type;
 
-            if (coMan.CanAttack(DragDrop.DraggingCard, gameObject))
+            if (ManagerHandler.CO_MAN.CanAttack(DragDrop.DraggingCard, gameObject))
                 type = UIManager.SelectionType.Highlighted;
             else type = UIManager.SelectionType.Disabled;
 
-            uMan.SelectTarget(gameObject, type);
+            ManagerHandler.U_MAN.SelectTarget(gameObject, type);
         }
     }
 }

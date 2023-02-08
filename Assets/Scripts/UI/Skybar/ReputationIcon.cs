@@ -5,14 +5,11 @@ public class ReputationIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 {
     [SerializeField] private GameManager.ReputationType reputationType;
 
-    private UIManager uMan;
-    private void Start() => uMan = UIManager.Instance;
-
     public void OnPointerEnter(PointerEventData pointerEventData) =>
-        uMan.CreateReputationPopup(reputationType, gameObject);
+        ManagerHandler.U_MAN.CreateReputationPopup(reputationType, gameObject);
 
     public void OnPointerExit(PointerEventData pointerEventData) =>
-        uMan.DestroyReputationPopup();
+        ManagerHandler.U_MAN.DestroyReputationPopup();
 
     private void OnDisable() => UIManager.Instance.DestroyReputationPopup(); // TESTING
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 public class Narrative : ScriptableObject
 {
     [SerializeField] private string narrativeName;
-    [TextArea] [SerializeField] private string[] narrativeText;
+    [TextArea][SerializeField] private string[] narrativeText;
     [SerializeField] private Sprite narrativeBackground;
     [SerializeField] private Sound narrativeStartSound;
     [SerializeField] private Sound narrativeSoundscape;

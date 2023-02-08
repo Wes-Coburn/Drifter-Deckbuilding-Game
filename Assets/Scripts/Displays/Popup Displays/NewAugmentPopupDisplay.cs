@@ -1,11 +1,10 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class NewAugmentPopupDisplay : MonoBehaviour
 {
-    private PlayerManager pMan;
     private HeroAugment[] allAugments;
     private List<HeroAugment> availableAugments;
     private int selectedAugment;
@@ -14,14 +13,13 @@ public class NewAugmentPopupDisplay : MonoBehaviour
     {
         get => availableAugments[selectedAugment];
     }
-    
+
     [SerializeField] private GameObject augmentName;
     [SerializeField] private GameObject augmentImage;
     [SerializeField] private GameObject augmentDescription;
 
     private void Start()
     {
-        pMan = PlayerManager.Instance;
         allAugments = Resources.LoadAll<HeroAugment>("Hero Augments");
         availableAugments = new List<HeroAugment>();
 
@@ -30,7 +28,7 @@ public class NewAugmentPopupDisplay : MonoBehaviour
 
         foreach (HeroAugment aug in allAugments)
         {
-            if (pMan.GetAugment(aug.AugmentName)) continue;
+            if (ManagerHandler.P_MAN.GetAugment(aug.AugmentName)) continue;
 
             availableAugments.Add(aug);
             if (aug.AugmentName == "Synaptic Stabilizer") startIndex = index;
@@ -72,7 +70,7 @@ public class NewAugmentPopupDisplay : MonoBehaviour
 
     public void ConfirmButton_OnClick()
     {
-        pMan.AddAugment(LoadedAugment, true);
+        ManagerHandler.P_MAN.AddAugment(LoadedAugment, true);
         UIManager.Instance.DestroyNewAugmentPopup();
         DialogueManager.Instance.DisplayDialoguePopup();
 

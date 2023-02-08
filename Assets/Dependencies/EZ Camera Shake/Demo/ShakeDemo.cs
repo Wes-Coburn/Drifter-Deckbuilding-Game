@@ -1,8 +1,8 @@
-﻿using UnityEngine;
+﻿using EZCameraShake;
+using UnityEngine;
 using UnityEngine.SceneManagement;
-using EZCameraShake;
 
-public class ShakeDemo : MonoBehaviour 
+public class ShakeDemo : MonoBehaviour
 {
     Vector3 posInf = new Vector3(0.25f, 0.25f, 0.25f);
     Vector3 rotInf = new Vector3(1, 1, 1);
@@ -15,14 +15,14 @@ public class ShakeDemo : MonoBehaviour
 
     delegate float Slider(float val, string prefix, float min, float max, int pad);
 
-	void OnGUI()
+    void OnGUI()
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
-        Slider s = delegate(float val, string prefix, float min, float max, int pad)
+        Slider s = delegate (float val, string prefix, float min, float max, int pad)
         {
             GUILayout.BeginHorizontal();
             GUILayout.Label(prefix, GUILayout.MaxWidth(pad));
@@ -69,7 +69,7 @@ public class ShakeDemo : MonoBehaviour
                 shake.DeleteOnInactive = true;
                 shake.StartFadeOut(fadeOut);
                 shake = null;
-                
+
             }
 
             if (shake != null)
@@ -139,5 +139,5 @@ public class ShakeDemo : MonoBehaviour
             }
         }
         GUILayout.EndArea();
-	}
+    }
 }

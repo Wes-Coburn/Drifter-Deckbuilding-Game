@@ -6,7 +6,6 @@ public class AugmentIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 {
     [SerializeField] private GameObject iconImage;
 
-    private UIManager uMan;
     private HeroAugment loadedAugment;
     public HeroAugment LoadedAugment
     {
@@ -14,18 +13,16 @@ public class AugmentIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         set
         {
             loadedAugment = value;
-            iconImage.GetComponent<Image>().sprite = 
+            iconImage.GetComponent<Image>().sprite =
                 loadedAugment.AugmentImage;
         }
     }
 
-    private void Start() => uMan = UIManager.Instance;
-
     public void OnPointerEnter(PointerEventData pointerEventData) =>
-        uMan.CreateAugmentIconPopup(LoadedAugment, gameObject);
+        ManagerHandler.U_MAN.CreateAugmentIconPopup(LoadedAugment, gameObject);
 
     public void OnPointerExit(PointerEventData pointerEventData) =>
-        uMan.DestroyAugmentIconPopup();
+        ManagerHandler.U_MAN.DestroyAugmentIconPopup();
 
     private void OnDisable() => UIManager.Instance.DestroyAugmentIconPopup(); // TESTING
 }

@@ -95,7 +95,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void StartStopSound(string sName, Sound sound = null, 
+    public void StartStopSound(string sName, Sound sound = null,
         SoundType soundType = SoundType.SFX, bool isEndSound = false, bool isLooped = false)
     {
         int soundIndex;

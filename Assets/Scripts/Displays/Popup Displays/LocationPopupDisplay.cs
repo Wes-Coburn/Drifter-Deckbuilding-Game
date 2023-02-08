@@ -15,11 +15,6 @@ public class LocationPopupDisplay : MonoBehaviour
     [SerializeField] private GameObject difficultyText;
     [SerializeField] private GameObject closePopupButton;
 
-    private GameManager gMan;
-    private UIManager uMan;
-    private DialogueManager dMan;
-    private CardManager caMan;
-
     private Location location;
     public Location Location
     {
@@ -28,7 +23,7 @@ public class LocationPopupDisplay : MonoBehaviour
             location = value;
             LocationName = location.LocationFullName;
             LocationDescription = location.LocationDescription;
-            ObjectivesDescription = caMan.FilterUnitTypes(location.CurrentObjective);
+            ObjectivesDescription = ManagerHandler.CA_MAN.FilterUnitTypes(location.CurrentObjective);
             WorldMapPosition = new Vector2(0, 0); // CHANGE?
 
             if (!location.IsRecurring)
@@ -99,14 +94,9 @@ public class LocationPopupDisplay : MonoBehaviour
     public GameObject TravelButtons { get => travelButtons; }
     public GameObject DifficultyLevel { get => difficultyLevel; }
     public GameObject ClosePopupButton { get => closePopupButton; }
-    
+
     private void Awake()
     {
-        gMan = GameManager.Instance;
-        uMan = UIManager.Instance;
-        dMan = DialogueManager.Instance;
-        caMan = CardManager.Instance;
-
         int level = CombatManager.Instance.DifficultyLevel;
         difficultyLevel.GetComponentInChildren<Slider>().SetValueWithoutNotify(level);
         SetDifficultyLevel(level);
@@ -119,7 +109,7 @@ public class LocationPopupDisplay : MonoBehaviour
         else if (difficulty > 1) newColor = Color.yellow;
         else newColor = Color.green;
 
-        int surgeValue = gMan.GetSurgeDelay(difficulty);
+        int surgeValue = ManagerHandler.G_MAN.GetSurgeDelay(difficulty);
         int energyValue = GameManager.BOSS_BONUS_ENERGY + difficulty - 1;
         int aetherValue = GameManager.ADDITIONAL_AETHER_REWARD * (difficulty - 1);
 
@@ -143,11 +133,11 @@ public class LocationPopupDisplay : MonoBehaviour
 
     public void TravelButton_OnClick()
     {
-        if (gMan.VisitedLocations.FindIndex(x => x == location.LocationName) == -1)
+        if (ManagerHandler.G_MAN.VisitedLocations.FindIndex(x => x == location.LocationName) == -1)
         {
-            gMan.VisitedLocations.Add(location.LocationName);
+            ManagerHandler.G_MAN.VisitedLocations.Add(location.LocationName);
 
-            if (!location.IsRecurring) gMan.NextHour(!location.IsRandomEncounter);
+            if (!location.IsRecurring) ManagerHandler.G_MAN.NextHour(!location.IsRandomEncounter);
         }
 
         if (location.IsHomeBase)
@@ -156,11 +146,11 @@ public class LocationPopupDisplay : MonoBehaviour
             return;
         }
 
-        gMan.CurrentLocation = gMan.GetActiveLocation(location);
+        ManagerHandler.G_MAN.CurrentLocation = ManagerHandler.G_MAN.GetActiveLocation(location);
 
-        if (location.IsRecruitment || location.IsActionShop|| location.IsShop || location.IsCloning) { }
-        else gMan.ActiveLocations.Remove(gMan.CurrentLocation);
-        dMan.EngagedHero = gMan.GetActiveNPC(gMan.CurrentLocation.CurrentNPC);
+        if (location.IsRecruitment || location.IsActionShop || location.IsShop || location.IsCloning) { }
+        else ManagerHandler.G_MAN.ActiveLocations.Remove(ManagerHandler.G_MAN.CurrentLocation);
+        ManagerHandler.D_MAN.EngagedHero = ManagerHandler.G_MAN.GetActiveNPC(ManagerHandler.G_MAN.CurrentLocation.CurrentNPC);
 
         if (location.IsCombatOnly) SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);
         else SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene, true);
@@ -168,7 +158,7 @@ public class LocationPopupDisplay : MonoBehaviour
 
     public void CancelButton_OnClick()
     {
-        uMan.DestroyTravelPopup();
-        uMan.DestroyLocationPopup();
+        ManagerHandler.U_MAN.DestroyTravelPopup();
+        ManagerHandler.U_MAN.DestroyLocationPopup();
     }
 }

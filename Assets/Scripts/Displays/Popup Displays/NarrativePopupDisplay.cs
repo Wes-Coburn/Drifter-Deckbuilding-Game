@@ -1,5 +1,5 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class NarrativePopupDisplay : MonoBehaviour
 {
@@ -10,8 +10,6 @@ public class NarrativePopupDisplay : MonoBehaviour
     [SerializeField] private GameObject nextButton;
     [SerializeField] private GameObject previousButton;
 
-    private UIManager uMan;
-    private DialogueManager dMan;
     private Narrative loadedNarrative;
     private int currentClip;
     private TextMeshProUGUI clipCounterText;
@@ -30,8 +28,6 @@ public class NarrativePopupDisplay : MonoBehaviour
 
     private void Awake()
     {
-        uMan = UIManager.Instance;
-        dMan = DialogueManager.Instance;
         clipCounterText = clipCounter.GetComponent<TextMeshProUGUI>();
         continueButton.SetActive(false);
     }
@@ -57,15 +53,15 @@ public class NarrativePopupDisplay : MonoBehaviour
         previousButton.SetActive(showPrevious);
         clipCounterText.SetText(currentClip + 1 + "/" + clipCount);
 
-        dMan.TimedText(loadedNarrative.NarrativeText[currentClip],
+        ManagerHandler.D_MAN.TimedText(loadedNarrative.NarrativeText[currentClip],
             narrativeText.GetComponent<TextMeshProUGUI>());
     }
 
     public void NextButton_OnClick()
     {
-        if (dMan.CurrentTextRoutine != null)
+        if (ManagerHandler.D_MAN.CurrentTextRoutine != null)
         {
-            dMan.StopTimedText(true);
+            ManagerHandler.D_MAN.StopTimedText(true);
             return;
         }
         int lastClip = loadedNarrative.NarrativeText.Length - 1;
@@ -87,5 +83,5 @@ public class NarrativePopupDisplay : MonoBehaviour
     }
 
     public void ContinueButton_OnClick() =>
-        uMan.DestroyNarrativePopup();
+        ManagerHandler.U_MAN.DestroyNarrativePopup();
 }

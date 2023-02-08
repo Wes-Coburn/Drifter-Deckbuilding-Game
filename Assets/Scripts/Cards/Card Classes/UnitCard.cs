@@ -5,13 +5,13 @@ using UnityEngine;
 public class UnitCard : Card
 {
     [Header("POWER")]
-    [SerializeField] [Range(0, 10)] private int power;
+    [SerializeField][Range(0, 10)] private int power;
     [Header("HEALTH")]
-    [SerializeField] [Range(1, 10)] private int health;
+    [SerializeField][Range(1, 10)] private int health;
     [Header("ABILITIES")]
     [SerializeField] private List<CardAbility> startingAbilities;
     [SerializeField] private Sound unitDeathSound;
-    
+
     public int StartPower { get => power; }
     public int StartHealth { get => health; }
     public List<CardAbility> StartingAbilities { get => startingAbilities; }
@@ -84,7 +84,7 @@ public class UnitCard : Card
             newAbi.LoadCardAbility(abi);
             CurrentAbilities.Add(abi);
 
-            NextAbility:;
+        NextAbility:;
         }
     }
 }

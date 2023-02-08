@@ -1,5 +1,5 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class LoadingSceneDisplay : MonoBehaviour
 {
@@ -10,7 +10,7 @@ public class LoadingSceneDisplay : MonoBehaviour
     {
         set
         {
-            tipText.GetComponent<TextMeshProUGUI>().SetText(CardManager.Instance.FilterKeywords(value));
+            tipText.GetComponent<TextMeshProUGUI>().SetText(ManagerHandler.CA_MAN.FilterKeywords(value));
         }
     }
     public string ChapterText

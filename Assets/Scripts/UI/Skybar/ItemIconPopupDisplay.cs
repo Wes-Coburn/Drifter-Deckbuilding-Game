@@ -1,26 +1,16 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class ItemIconPopupDisplay : MonoBehaviour
 {
     [SerializeField] private GameObject itemText;
     [SerializeField] private GameObject buttons;
 
-    private EffectManager efMan;
-    private PlayerManager pMan;
-    private UIManager uMan;
     private HeroItem loadedItem;
     public GameObject Buttons { get => buttons; }
     public GameObject SourceIcon { get; set; }
 
     private void Awake() => buttons.SetActive(false);
-
-    private void Start()
-    {
-        efMan = EffectManager.Instance;
-        pMan = PlayerManager.Instance;
-        uMan = UIManager.Instance;
-    }
 
     public HeroItem LoadedItem
     {
@@ -28,14 +18,14 @@ public class ItemIconPopupDisplay : MonoBehaviour
         {
             loadedItem = value;
             string description = "<b><u>" + value.ItemName + "</u></b>\n" +
-                CardManager.Instance.FilterKeywords(value.ItemDescription);
+                ManagerHandler.CA_MAN.FilterKeywords(value.ItemDescription);
             itemText.GetComponent<TextMeshProUGUI>().SetText(description);
         }
     }
 
     public void UseItem_OnClick()
     {
-        if (!pMan.IsMyTurn || EffectManager.Instance.EffectsResolving ||
+        if (!ManagerHandler.P_MAN.IsMyTurn || EffectManager.Instance.EffectsResolving ||
             EventManager.Instance.ActionsDelayed) return;
 
         if (SourceIcon == null)
@@ -44,14 +34,14 @@ public class ItemIconPopupDisplay : MonoBehaviour
             return;
         }
 
-        if (!efMan.CheckLegalTargets(loadedItem.EffectGroupList, SourceIcon, true))
+        if (!ManagerHandler.EF_MAN.CheckLegalTargets(loadedItem.EffectGroupList, SourceIcon, true))
         {
-            uMan.CreateFleetingInfoPopup("You can't use that right now!");
+            ManagerHandler.U_MAN.CreateFleetingInfoPopup("You can't use that right now!");
             AudioManager.Instance.StartStopSound("SFX_Error");
         }
-        else efMan.StartEffectGroupList(loadedItem.EffectGroupList, SourceIcon);
+        else ManagerHandler.EF_MAN.StartEffectGroupList(loadedItem.EffectGroupList, SourceIcon);
         ClosePopup_OnClick();
     }
 
-    public void ClosePopup_OnClick() => uMan.DestroyItemIconPopup();
+    public void ClosePopup_OnClick() => ManagerHandler.U_MAN.DestroyItemIconPopup();
 }

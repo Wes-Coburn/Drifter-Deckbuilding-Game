@@ -1,6 +1,6 @@
 using System.Collections;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -16,11 +16,6 @@ public class DialogueManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    private GameManager gMan;
-    private PlayerManager pMan;
-    private UIManager uMan;
-    private AudioManager auMan;
-
     private DialogueClip currentDialogueClip;
     private DialogueSceneDisplay dialogueDisplay;
     private string currentTypedText;
@@ -35,10 +30,6 @@ public class DialogueManager : MonoBehaviour
 
     private void Start()
     {
-        gMan = GameManager.Instance;
-        pMan = PlayerManager.Instance;
-        uMan = UIManager.Instance;
-        auMan = AudioManager.Instance;
         newEngagedHero = false;
         AllowResponse = true;
     }
@@ -52,8 +43,8 @@ public class DialogueManager : MonoBehaviour
 
     public void DisplayCurrentHeroes()
     {
-        dialogueDisplay.PlayerHeroImage = pMan.HeroScript.HeroPortrait;
-        dialogueDisplay.PlayerHeroName = pMan.HeroScript.HeroName;
+        dialogueDisplay.PlayerHeroImage = ManagerHandler.P_MAN.HeroScript.HeroPortrait;
+        dialogueDisplay.PlayerHeroName = ManagerHandler.P_MAN.HeroScript.HeroName;
         dialogueDisplay.NPCHeroImage = EngagedHero.HeroPortrait;
         dialogueDisplay.NPCHeroName = EngagedHero.HeroName;
     }
@@ -62,27 +53,27 @@ public class DialogueManager : MonoBehaviour
     {
         if (prompt.Reputation_Mages != 0)
         {
-            gMan.ChangeReputation
+            ManagerHandler.G_MAN.ChangeReputation
                 (GameManager.ReputationType.Mages, prompt.Reputation_Mages);
         }
         if (prompt.Reputation_Mutants != 0)
         {
-            gMan.ChangeReputation
+            ManagerHandler.G_MAN.ChangeReputation
                 (GameManager.ReputationType.Mutants, prompt.Reputation_Mutants);
         }
         if (prompt.Reputation_Rogues != 0)
         {
-            gMan.ChangeReputation
+            ManagerHandler.G_MAN.ChangeReputation
                 (GameManager.ReputationType.Rogues, prompt.Reputation_Rogues);
         }
         if (prompt.Reputation_Techs != 0)
         {
-            gMan.ChangeReputation
+            ManagerHandler.G_MAN.ChangeReputation
                 (GameManager.ReputationType.Techs, prompt.Reputation_Techs);
         }
         if (prompt.Reputation_Warriors != 0)
         {
-            gMan.ChangeReputation
+            ManagerHandler.G_MAN.ChangeReputation
                 (GameManager.ReputationType.Warriors, prompt.Reputation_Warriors);
         }
     }
@@ -91,36 +82,36 @@ public class DialogueManager : MonoBehaviour
     {
         if (crc.Reputation_Mages != 0)
         {
-            gMan.ChangeReputation
+            ManagerHandler.G_MAN.ChangeReputation
                 (GameManager.ReputationType.Mages, crc.Reputation_Mages);
         }
         if (crc.Reputation_Mutants != 0)
         {
-            gMan.ChangeReputation
+            ManagerHandler.G_MAN.ChangeReputation
                 (GameManager.ReputationType.Mutants, crc.Reputation_Mutants);
         }
         if (crc.Reputation_Rogues != 0)
         {
-            gMan.ChangeReputation
+            ManagerHandler.G_MAN.ChangeReputation
                 (GameManager.ReputationType.Rogues, crc.Reputation_Rogues);
         }
         if (crc.Reputation_Techs != 0)
         {
-            gMan.ChangeReputation
+            ManagerHandler.G_MAN.ChangeReputation
                 (GameManager.ReputationType.Techs, crc.Reputation_Techs);
         }
         if (crc.Reputation_Warriors != 0)
         {
-            gMan.ChangeReputation
+            ManagerHandler.G_MAN.ChangeReputation
                 (GameManager.ReputationType.Warriors, crc.Reputation_Warriors);
         }
     }
 
     public void StartDialogue()
     {
-        auMan.StartStopSound("Soundtrack_Dialogue1",
+        ManagerHandler.AU_MAN.StartStopSound("Soundtrack_Dialogue1",
             null, AudioManager.SoundType.Soundtrack);
-        auMan.StopCurrentSoundscape();
+        ManagerHandler.AU_MAN.StopCurrentSoundscape();
 
         currentDialogueClip = EngagedHero.NextDialogueClip;
         if (currentDialogueClip == null)
@@ -132,17 +123,17 @@ public class DialogueManager : MonoBehaviour
         dialogueDisplay = FindObjectOfType<DialogueSceneDisplay>();
         dialogueDisplay.PlayerHeroPortrait.SetActive(false);
         dialogueDisplay.NPCHeroPortrait.SetActive(false);
-        
+
         DialoguePrompt prompt = currentDialogueClip as DialoguePrompt;
         if (prompt.NewLocations != null)
         {
             float delay = 0;
             foreach (NewLocation newLoc in prompt.NewLocations)
             {
-                gMan.GetActiveLocation(newLoc.Location, newLoc.NewNpc);
+                ManagerHandler.G_MAN.GetActiveLocation(newLoc.Location, newLoc.NewNpc);
                 if (newLoc.Location.IsAugmenter) continue;
-                FunctionTimer.Create(() => uMan.CreateLocationPopup
-                (gMan.GetActiveLocation(newLoc.Location), true), delay);
+                FunctionTimer.Create(() => ManagerHandler.U_MAN.CreateLocationPopup
+                (ManagerHandler.G_MAN.GetActiveLocation(newLoc.Location), true), delay);
                 delay += 5;
             }
         }
@@ -176,15 +167,15 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        TimedText(dpr.DialoguePromptText, 
+        TimedText(dpr.DialoguePromptText,
             dialogueDisplay.NPCHeroSpeechObject.GetComponent<TextMeshProUGUI>());
 
         // Response 1
-        bool r1_Active = true;        
+        bool r1_Active = true;
         if (string.IsNullOrEmpty(dpr.DialogueResponse1.ResponseText))
             r1_Active = false;
         dialogueDisplay.Response_1_Object.SetActive(r1_Active);
-        if (r1_Active) 
+        if (r1_Active)
             dialogueDisplay.Response_1 =
                 FilterText(dpr.DialogueResponse1.ResponseText);
 
@@ -206,12 +197,12 @@ public class DialogueManager : MonoBehaviour
             dialogueDisplay.Response_3 =
                 FilterText(dpr.DialogueResponse3.ResponseText);
     }
-    
+
     public string FilterText(string text)
     {
-        if (pMan.HeroScript != null)
+        if (ManagerHandler.P_MAN.HeroScript != null)
         {
-            string shortName = pMan.HeroScript.HeroShortName;
+            string shortName = ManagerHandler.P_MAN.HeroScript.HeroShortName;
             if (!string.IsNullOrEmpty(shortName))
                 text = text.Replace("<HERO NAME>", shortName);
         }
@@ -244,7 +235,7 @@ public class DialogueManager : MonoBehaviour
         foreach (string s in filterWords)
         {
             string stars = "";
-            for (int i = 0; i < s.Length; i++) 
+            for (int i = 0; i < s.Length; i++)
                 stars += "*";
             text = text.Replace(s, stars);
         }
@@ -256,7 +247,7 @@ public class DialogueManager : MonoBehaviour
         typedTextDelay = 0.05f;
         StopTimedText();
         string filteredText = FilterText(text);
-        CurrentTextRoutine = 
+        CurrentTextRoutine =
             StartCoroutine(TimedTextNumerator(filteredText, tmPro));
     }
     public void StopTimedText(bool finishText = false)
@@ -341,10 +332,10 @@ public class DialogueManager : MonoBehaviour
                 float delay = 0;
                 foreach (NewLocation newLoc in nextPrompt.NewLocations)
                 {
-                    gMan.GetActiveLocation(newLoc.Location, newLoc.NewNpc);
+                    ManagerHandler.G_MAN.GetActiveLocation(newLoc.Location, newLoc.NewNpc);
                     if (newLoc.Location.IsAugmenter) continue;
                     FunctionTimer.Create(() =>
-                    uMan.CreateLocationPopup(gMan.GetActiveLocation(newLoc.Location), true), delay);
+                    ManagerHandler.U_MAN.CreateLocationPopup(ManagerHandler.G_MAN.GetActiveLocation(newLoc.Location), true), delay);
                     delay += 5;
                 }
             }
@@ -363,7 +354,7 @@ public class DialogueManager : MonoBehaviour
         if (dResponse.Response_TravelLocation != null)
         {
             Location location = dResponse.Response_TravelLocation;
-            uMan.CreateTravelPopup(gMan.GetActiveLocation(location));
+            ManagerHandler.U_MAN.CreateTravelPopup(ManagerHandler.G_MAN.GetActiveLocation(location));
             return;
         }
         // Combat Start
@@ -383,37 +374,37 @@ public class DialogueManager : MonoBehaviour
         // Recruitment
         if (dResponse.Response_IsRecruitmentStart)
         {
-            uMan.CreateCardPage(CardPageDisplay.CardPageType.RecruitUnit);
+            ManagerHandler.U_MAN.CreateCardPage(CardPageDisplay.CardPageType.RecruitUnit);
             return;
         }
         // Action Shop
         if (dResponse.Response_IsActionShopStart)
         {
-            uMan.CreateCardPage(CardPageDisplay.CardPageType.AcquireAction);
+            ManagerHandler.U_MAN.CreateCardPage(CardPageDisplay.CardPageType.AcquireAction);
             return;
         }
         // Item Shop
         if (dResponse.Response_IsShopStart)
         {
-            uMan.CreateItemPagePopup(false);
+            ManagerHandler.U_MAN.CreateItemPagePopup(false);
             return;
         }
         // Cloning
         if (dResponse.Response_IsCloningStart)
         {
-            uMan.CreateCardPage(CardPageDisplay.CardPageType.CloneUnit);
+            ManagerHandler.U_MAN.CreateCardPage(CardPageDisplay.CardPageType.CloneUnit);
             return;
         }
         // New Augment
         if (dResponse.Response_IsNewAugmentStart)
         {
-            uMan.CreateNewAugmentPopup();
+            ManagerHandler.U_MAN.CreateNewAugmentPopup();
         }
         // Exit
         if (dResponse.Response_IsExit)
         {
-            uMan.CreateGameEndPopup(); // FOR BETA ONLY
-            gMan.SaveGame(); // FOR BETA ONLY
+            ManagerHandler.U_MAN.CreateGameEndPopup(); // FOR BETA ONLY
+            ManagerHandler.G_MAN.SaveGame(); // FOR BETA ONLY
             return;
         }
 
@@ -422,7 +413,7 @@ public class DialogueManager : MonoBehaviour
             // New Engaged Hero
             if (nextPrompt.NewEngagedHero != null)
             {
-                EngagedHero = gMan.GetActiveNPC(nextPrompt.NewEngagedHero);
+                EngagedHero = ManagerHandler.G_MAN.GetActiveNPC(nextPrompt.NewEngagedHero);
                 newEngagedHero = true;
             }
             else
@@ -440,10 +431,10 @@ public class DialogueManager : MonoBehaviour
             }
             // New Card
             if (nextPrompt.NewCard != null)
-                uMan.CreateNewCardPopup(nextPrompt.NewCard, "New Card!");
+                ManagerHandler.U_MAN.CreateNewCardPopup(nextPrompt.NewCard, "New Card!");
             // Aether Cells
             else if (nextPrompt.AetherCells > 0)
-                uMan.CreateAetherCellPopup(nextPrompt.AetherCells);
+                ManagerHandler.U_MAN.CreateAetherCellPopup(nextPrompt.AetherCells);
         }
 
         currentDialogueClip = nextClip;

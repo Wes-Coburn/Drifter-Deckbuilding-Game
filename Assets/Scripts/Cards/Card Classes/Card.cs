@@ -18,7 +18,7 @@ public abstract class Card : ScriptableObject
         Legend
     }
     [SerializeField] private Rarity cardRarity;
-    [TextArea] [SerializeField] private string cardDescription;
+    [TextArea][SerializeField] private string cardDescription;
     [SerializeField] private Sound cardPlaySound;
     [SerializeField] private AnimatorOverrideController overController;
     [SerializeField] private AnimatorOverrideController zoomOverController;

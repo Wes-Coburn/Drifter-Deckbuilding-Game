@@ -43,7 +43,7 @@ public class FunctionTimer
         }
     }
 
-    public class MonoBehaviourHook: MonoBehaviour
+    public class MonoBehaviourHook : MonoBehaviour
     {
         public Action onUpdate;
         private void Update() => onUpdate?.Invoke();

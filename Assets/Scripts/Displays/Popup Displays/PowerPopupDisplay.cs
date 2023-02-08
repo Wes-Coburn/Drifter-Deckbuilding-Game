@@ -1,5 +1,5 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class PowerPopupDisplay : MonoBehaviour
 {
@@ -26,11 +26,11 @@ public class PowerPopupDisplay : MonoBehaviour
         set => powerDescription.GetComponent<TextMeshPro>().SetText(value);
     }
     [SerializeField] private GameObject powerDescription;
-    
+
     private void DisplayHeroPower()
     {
         PowerSprite = PowerScript.PowerSprite;
         PowerDescription = "<b><u>" + PowerScript.PowerName +
-            ":</b></u> " + CardManager.Instance.FilterKeywords(PowerScript.PowerDescription);
+            ":</b></u> " + ManagerHandler.CA_MAN.FilterKeywords(PowerScript.PowerDescription);
     }
 }
