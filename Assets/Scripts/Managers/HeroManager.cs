@@ -266,6 +266,8 @@ public abstract class HeroManager : MonoBehaviour
             return null;
         }
 
+        if (sourceObject.TryGetComponent(out ItemIcon _)) return PlayerManager.Instance;
+
         foreach (HeroManager hMan in new List<HeroManager>() { PlayerManager.Instance, EnemyManager.Instance })
         {
             if (compare(hMan.HERO_TAG) || compare(hMan.CARD_TAG) ||

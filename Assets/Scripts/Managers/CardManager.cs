@@ -1366,6 +1366,12 @@ public class CardManager : MonoBehaviour
      *****/
     public void TriggerPlayedUnits(string triggerName, HeroManager hero)
     {
+        if (hero == null)
+        {
+            Debug.LogError("HERO IS NULL!");
+            return;
+        }
+
         List<GameObject> cardZone = hero.PlayZoneCards;
 
         foreach (GameObject unit in cardZone.AsEnumerable().Reverse()) // Trigger units in played order

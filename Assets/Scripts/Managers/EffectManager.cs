@@ -765,10 +765,10 @@ public class EffectManager : MonoBehaviour
                         }
 
                         CardDisplay cd = source.GetComponent<CardDisplay>();
+                        HeroManager hMan = HeroManager.GetSourceHero(source);
                         if (cd.CardScript.CardRarity is Card.Rarity.Rare) { } // Don't count Created Card Ultimates
                         else
                         {
-                            HeroManager hMan = HeroManager.GetSourceHero(source);
                             switch (cd.CardScript.CardSubType)
                             {
                                 case CardManager.EXPLOIT:
@@ -788,7 +788,7 @@ public class EffectManager : MonoBehaviour
 
                         ManagerHandler.CA_MAN.DiscardCard(source, true);
                         ManagerHandler.EV_MAN.NewDelayedAction(() =>
-                        ManagerHandler.CA_MAN.TriggerPlayedUnits(CardManager.TRIGGER_SPARK, HeroManager.GetSourceHero(source)), 0, true);
+                        ManagerHandler.CA_MAN.TriggerPlayedUnits(CardManager.TRIGGER_SPARK, hMan), 0, true);
                     }
                 }
                 else if (CombatManager.IsUnitCard(effectSource) && HeroManager.GetSourceHero(effectSource) == ManagerHandler.P_MAN) // Enemies resolve these triggers in ManagerHandler.CA_MAN.PlayCard()

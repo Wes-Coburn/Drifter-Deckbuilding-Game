@@ -1045,11 +1045,7 @@ public class GameManager : MonoBehaviour
 
         // ENEMY HERO
         ManagerHandler.EN_MAN.HeroScript = enemyHero;
-
-        int enemyHealth;
-        if (IsTutorial) enemyHealth = TUTORIAL_STARTING_HEALTH;
-        else enemyHealth = ENEMY_STARTING_HEALTH;
-        ManagerHandler.EN_MAN.CurrentHealth = enemyHealth;
+        ManagerHandler.EN_MAN.CurrentHealth = IsTutorial ? TUTORIAL_STARTING_HEALTH : ENEMY_STARTING_HEALTH;
 
         int energyPerTurn = START_ENERGY_PER_TURN;
         if ((ManagerHandler.EN_MAN.HeroScript as EnemyHero).IsBoss)

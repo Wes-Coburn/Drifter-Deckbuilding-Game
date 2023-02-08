@@ -34,7 +34,7 @@ public class CombatTestButton : MonoBehaviour
     {
         if (SceneLoader.SceneIsLoading) return;
         //UIManager.Instance.ShakeCamera(EZCameraShake.CameraShakePresets.Bump); // TESTING
-        AnimationManager.Instance.CreateParticleSystem(gameObject, ParticleSystemHandler.ParticlesType.ButtonPress); // TESTING
+        AnimationManager.Instance.CreateParticleSystem(gameObject, ParticleSystemHandler.ParticlesType.ButtonPress);
         SceneLoader.LoadAction += () => LoadCombatTest();
         SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);
     }
@@ -59,7 +59,8 @@ public class CombatTestButton : MonoBehaviour
             return;
         }
 
-        DialogueManager.Instance.EngagedHero = eh;
+        ManagerHandler.G_MAN.IsCombatTest = true; // TESTING
+        ManagerHandler.D_MAN.EngagedHero = eh;
         ManagerHandler.P_MAN.HeroScript = ph;
 
         // Test Augments
