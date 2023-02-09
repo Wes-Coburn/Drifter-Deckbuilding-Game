@@ -25,7 +25,7 @@ public class RemoveItemPopupDisplay : MonoBehaviour
             else cost = GameManager.SELL_ITEM_VALUE;
 
             string text = "Sell <b><u>" + heroItem.ItemName + "</u></b>" +
-                " for <color=\"red\"><b>" + cost + "</b></color> aether?";
+                $" for {TextFilter.Clrz_red(cost + "")} aether?";
             PopupText = text;
         }
     }
@@ -37,7 +37,6 @@ public class RemoveItemPopupDisplay : MonoBehaviour
         if (heroItem.IsRareItem) cost = GameManager.SELL_RARE_ITEM_VALUE;
         else cost = GameManager.SELL_ITEM_VALUE;
         Managers.P_MAN.AetherCells += cost;
-
         Managers.U_MAN.CreateItemPagePopup(true, false);
     }
 

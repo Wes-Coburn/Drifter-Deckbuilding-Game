@@ -42,7 +42,7 @@ public class HeroSelectSceneDisplay : MonoBehaviour
 
         foreach (UnitCard uc in Managers.CA_MAN.PlayerStartUnits)
             for (int i = 0; i < GameManager.PLAYER_START_UNITS; i++)
-                Managers.CA_MAN.AddCard(uc, GameManager.PLAYER);
+                Managers.CA_MAN.AddCard(uc, Managers.P_MAN);
     }
 
     public void ConfirmButton_OnClick()

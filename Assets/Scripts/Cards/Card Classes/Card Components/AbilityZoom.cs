@@ -48,7 +48,7 @@ public class AbilityZoom : MonoBehaviour
         AbilityPopup = Instantiate(abilityPopupPrefab, spawnPoint, Quaternion.identity);
         Transform tran = AbilityPopup.transform;
         tran.localScale = new Vector2(2.5f, 2.5f);
-        tran.SetParent(UIManager.Instance.CurrentZoomCanvas.transform);
+        tran.SetParent(Managers.U_MAN.CurrentZoomCanvas.transform);
         CardAbility ca = gameObject.GetComponent<AbilityIconDisplay>().AbilityScript;
         AbilityPopup.GetComponent<AbilityPopupDisplay>().DisplayAbilityPopup(ca, true, true); // SET PLAYER SOURCE
     }

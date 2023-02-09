@@ -58,7 +58,7 @@ public class AudioManager : MonoBehaviour
 
     private Sound AddSoundSource(Sound sound)
     {
-        Sound newSound = new Sound
+        Sound newSound = new()
         {
             name = sound.name,
             mixerGroup = sound.mixerGroup,
@@ -69,9 +69,7 @@ public class AudioManager : MonoBehaviour
         newSound.source.pitch = sound.pitch;
 
         AudioMixerGroup mixer = newSound.mixerGroup;
-        AudioMixerGroup newMixer;
-        if (mixer != null) newMixer = mixer;
-        else newMixer = sfxMixer;
+        AudioMixerGroup newMixer = mixer != null ? mixer : sfxMixer;
         newSound.source.outputAudioMixerGroup = newMixer;
 
         activeSounds.Add(newSound);
@@ -80,7 +78,7 @@ public class AudioManager : MonoBehaviour
 
     public void CleanAudioSources()
     {
-        List<Sound> noSource = new List<Sound>();
+        List<Sound> noSource = new();
         foreach (Sound s in activeSounds) if (s.source == null) noSource.Add(s);
         if (noSource.Count > 0) Debug.Log("CLEANING <" + noSource.Count + "> SOUNDS!");
         foreach (Sound s in noSource) activeSounds.Remove(s);
@@ -99,7 +97,6 @@ public class AudioManager : MonoBehaviour
         SoundType soundType = SoundType.SFX, bool isEndSound = false, bool isLooped = false)
     {
         int soundIndex;
-
         Sound currentSound = null;
         if (sound == null)
         {
@@ -111,13 +108,11 @@ public class AudioManager : MonoBehaviour
                 return;
             }
             else currentSound = activeSounds[soundIndex];
-
         }
         else
         {
             soundIndex = activeSounds.FindIndex(x => x.source.clip == sound.clip);
-            if (soundIndex != -1) currentSound = activeSounds[soundIndex];
-            else currentSound = AddSoundSource(sound);
+            currentSound = soundIndex != -1 ? activeSounds[soundIndex] : AddSoundSource(sound);
         }
         if (isEndSound)
         {
@@ -152,21 +147,12 @@ public class AudioManager : MonoBehaviour
 
     public void PlayAttackSound(GameObject unitCard)
     {
-        bool isMeleeAttack = true;
-        if (CardManager.GetAbility(unitCard, CardManager.ABILITY_RANGED))
-            isMeleeAttack = false;
-
         string attackSound;
+        bool isMeleeAttack = !CardManager.GetAbility(unitCard, CardManager.ABILITY_RANGED);
+
         if (CombatManager.GetUnitDisplay(unitCard).CurrentPower < 5)
-        {
-            if (isMeleeAttack) attackSound = "SFX_AttackMelee";
-            else attackSound = "SFX_AttackRanged";
-        }
-        else
-        {
-            if (isMeleeAttack) attackSound = "SFX_AttackMelee_Heavy";
-            else attackSound = "SFX_AttackRanged_Heavy";
-        }
+            attackSound = isMeleeAttack ? "SFX_AttackMelee" : "SFX_AttackRanged";
+        else attackSound = isMeleeAttack ? "SFX_AttackMelee_Heavy" : "SFX_AttackRanged_Heavy";
         StartStopSound(attackSound);
     }
 }

@@ -2,13 +2,12 @@ using UnityEngine;
 
 public class BETAWelcomePopupDisplay : MonoBehaviour
 {
-    public void DiscordButton_OnClick()
-    {
-        Application.OpenURL("https://discord.com/invite/X49ju9VAEY");
-    }
+    public void DiscordButton_OnClick() => WebButton("https://discord.com/invite/X49ju9VAEY");
+    public void WesbsiteButton_OnClick() => WebButton("https://www.drifterthegame.com");
 
-    public void WesbsiteButton_OnClick()
+    private void WebButton(string url)
     {
-        Application.OpenURL("https://www.drifterthegame.com");
+        Managers.AN_MAN.CreateParticleSystem(gameObject, ParticleSystemHandler.ParticlesType.ButtonPress);
+        Application.OpenURL(url);
     }
 }

@@ -144,7 +144,7 @@ public class NewCardPopupDisplay : MonoBehaviour
         DisableButtons();
 
         Card newCard = cardSelection == 0 ? this.newCard : chooseCards[cardSelection - 1];
-        Managers.CA_MAN.AddCard(newCard, GameManager.PLAYER, true);
+        Managers.CA_MAN.AddCard(newCard, Managers.P_MAN, true);
 
         if (SceneLoader.IsActiveScene(SceneLoader.Scene.HomeBaseScene))
         {

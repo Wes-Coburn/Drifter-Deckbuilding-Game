@@ -68,8 +68,7 @@ public class UnitCardDisplay : CardDisplay
     }
     private void DisplayHealth(int health)
     {
-        TextMeshProUGUI txtPro =
-            healthScoreDisplay.GetComponent<TextMeshProUGUI>();
+        var txtPro = healthScoreDisplay.GetComponent<TextMeshProUGUI>();
         txtPro.SetText(health.ToString());
     }
     public int MaxHealth
@@ -170,9 +169,9 @@ public class UnitCardDisplay : CardDisplay
 
         void ShowAbilities(List<CardAbility> abilityList)
         {
-            List<CardAbility> shownAbilities = new List<CardAbility>();
-            List<GameObject> shownObjects = new List<GameObject>();
-            List<int> shownAbilityCounts = new List<int>();
+            List<CardAbility> shownAbilities = new();
+            List<GameObject> shownObjects = new();
+            List<int> shownAbilityCounts = new();
 
             foreach (CardAbility ca in abilityList) // Reverse without modifying the list .AsEnumerable().Reverse()
             {

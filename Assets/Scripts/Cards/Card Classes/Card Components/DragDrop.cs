@@ -67,20 +67,18 @@ public class DragDrop : MonoBehaviour
 
     private void ResetPosition()
     {
-        transform.SetParent(CombatManager.Instance.CardZone.transform);
-
+        IsPlayed = false;
+        transform.SetParent(Managers.CO_MAN.CardZone.transform);
         transform.localPosition = container.transform.position;
         transform.SetSiblingIndex(LastIndex);
-        IsPlayed = false;
-        AnimationManager.Instance.RevealedHandState(gameObject);
+        Managers.AN_MAN.RevealedHandState(gameObject);
     }
 
     public void StartDrag()
     {
         Managers.U_MAN.DestroyZoomObjects();
-        if (!Managers.P_MAN.IsMyTurn || CompareTag(Managers.EN_MAN.CARD_TAG) || DraggingCard != null ||
-            ArrowIsDragging || EffectManager.Instance.EffectsResolving ||
-            EventManager.Instance.ActionsDelayed) return;
+        if (!Managers.P_MAN.IsMyTurn || Managers.EF_MAN.EffectsResolving || Managers.EV_MAN.ActionsDelayed ||
+            CompareTag(Managers.EN_MAN.CARD_TAG) || DraggingCard != null || ArrowIsDragging) return;
 
         FunctionTimer.StopTimer(CardZoom.ZOOM_CARD_TIMER);
         FunctionTimer.StopTimer(CardZoom.ABILITY_POPUP_TIMER);
@@ -93,7 +91,7 @@ public class DragDrop : MonoBehaviour
             transform.SetParent(Managers.U_MAN.CurrentZoomCanvas.transform);
 
             Managers.U_MAN.SetPlayerZoneOutline(true, false);
-            AnimationManager.Instance.RevealedDragState(gameObject);
+            Managers.AN_MAN.RevealedDragState(gameObject);
             particleHandler = Managers.AN_MAN.CreateParticleSystem(gameObject,
                 ParticleSystemHandler.ParticlesType.Drag);
         }
@@ -156,7 +154,7 @@ public class DragDrop : MonoBehaviour
                             Managers.G_MAN.Tutorial_Tooltip(3);
                             break;
                         case 2:
-                            if (!Managers.P_MAN.HeroPowerUsed)
+                            if (!Managers.P_MAN.HeroPowerUsed || Managers.EN_MAN.PlayZoneCards.Count > 0)
                             {
                                 ResetPosition();
                                 return;
@@ -183,7 +181,7 @@ public class DragDrop : MonoBehaviour
             if (Managers.CO_MAN.CanAttack(gameObject, Enemy, false))
             {
                 GameObject enemy = Enemy;
-                EventManager.Instance.NewDelayedAction(() =>
+                Managers.EV_MAN.NewDelayedAction(() =>
                 Managers.CO_MAN.Attack(gameObject, enemy), 0.25f);
             }
             Managers.U_MAN.SelectTarget(Enemy, UIManager.SelectionType.Disabled);

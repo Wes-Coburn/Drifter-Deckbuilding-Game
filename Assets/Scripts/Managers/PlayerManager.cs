@@ -100,7 +100,7 @@ public class PlayerManager : HeroManager
             if (heroUltimateProgress == heroUltimateGoal)
             {
                 Managers.AU_MAN.StartStopSound("SFX_HeroUltimateReady");
-                AnimationManager.Instance.AbilityTriggerState(ultimateButton);
+                Managers.AN_MAN.AbilityTriggerState(ultimateButton);
             }
         }
     }
@@ -187,11 +187,11 @@ public class PlayerManager : HeroManager
             else
             {
                 if (isPreCheck) return true;
-                Managers.EF_MAN.StartEffectGroupList(groupList, heroPower);
                 CurrentEnergy -= HeroScript.HeroPower.PowerCost;
                 HeroPowerUsed = true;
                 PlayerPowerSounds();
                 ParticleBurst(heroPower);
+                Managers.EF_MAN.StartEffectGroupList(groupList, heroPower);
             }
         }
 
@@ -226,10 +226,10 @@ public class PlayerManager : HeroManager
         else
         {
             if (isPreCheck) return true;
-            Managers.EF_MAN.StartEffectGroupList(groupList, heroUltimate);
             CurrentEnergy -= GetUltimateCost(out _);
             PlayerPowerSounds(true);
             ParticleBurst(heroUltimate);
+            Managers.EF_MAN.StartEffectGroupList(groupList, heroUltimate);
         }
 
         return true;
@@ -266,13 +266,13 @@ public class PlayerManager : HeroManager
     }
 
     private void ParticleBurst(GameObject parent) =>
-        AnimationManager.Instance.CreateParticleSystem(parent, ParticleSystemHandler.ParticlesType.ButtonPress, 1);
+        Managers.AN_MAN.CreateParticleSystem(parent, ParticleSystemHandler.ParticlesType.ButtonPress, 1);
 
     public void PlayerPowerSounds(bool isUltimate = false)
     {
         Sound[] soundList;
         if (isUltimate) soundList = (HeroScript as PlayerHero).HeroUltimate.PowerSounds;
         else soundList = HeroScript.HeroPower.PowerSounds;
-        foreach (Sound s in soundList) AudioManager.Instance.StartStopSound(null, s);
+        foreach (Sound s in soundList) Managers.AU_MAN.StartStopSound(null, s);
     }
 }

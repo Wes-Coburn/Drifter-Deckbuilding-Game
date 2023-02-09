@@ -127,8 +127,7 @@ public class GameManager : MonoBehaviour
         get
         {
             string tip = loadingTips[currentTip++];
-            if (currentTip > loadingTips.Length - 1)
-                currentTip = 0;
+            if (currentTip > loadingTips.Length - 1) currentTip = 0;
             return tip;
         }
     }
@@ -180,7 +179,7 @@ public class GameManager : MonoBehaviour
 
         LoadPlayerPreferences();
         Debug.Log("Application Version: " + Application.version);
-        //SceneLoader.LoadScene(SceneLoader.Scene.TitleScene, false, false); // Remove if loading asynchronous asset bundles
+        //SceneLoader.LoadScene(SceneLoader.Scene.TitleScene, false, false); // Remove if using asset bundles to load managers
     }
 
     /******
@@ -196,7 +195,7 @@ public class GameManager : MonoBehaviour
             return null;
         }
 
-        Location.Background background = CurrentLocation.LocationBackground;
+        var background = CurrentLocation.LocationBackground;
 
         switch (background)
         {
@@ -264,7 +263,7 @@ public class GameManager : MonoBehaviour
 
         foreach (UnitCard unit in Managers.CA_MAN.TutorialPlayerUnits)
             for (int i = 0; i < 5; i++)
-                Managers.CA_MAN.AddCard(unit, PLAYER);
+                Managers.CA_MAN.AddCard(unit, Managers.P_MAN);
     }
 
     public void Tutorial_Tooltip(int tipNumber)
@@ -272,18 +271,19 @@ public class GameManager : MonoBehaviour
         string tip;
         bool isCentered = true;
         bool showContinue = false;
+
         switch (tipNumber)
         {
             case 1:
-                tip = "Redraw any number of cards from your starting hand. Click each card you want to redraw, " +
-                    "then click the <color=\"yellow\"><b>Confirm Button</b></color> (or press the <color=\"yellow\"><b>Space Bar</b></color>).";
+                tip = $"Redraw any number of cards from your starting hand. Click each card you want to redraw, " +
+                    $"then click the {TextFilter.Clrz_ylw("Confirm Button")} (or press the {TextFilter.Clrz_ylw("Space Bar")}).";
                 break;
             case 2:
-                tip = "Play a card by dragging it out of your hand. Cards you can play are highlighted in <color=\"green\"><b>green</b></color>.";
+                tip = $"Play a card by dragging it out of your hand. Cards you can play are highlighted in {TextFilter.Clrz_grn("green")}.";
                 break;
             case 3:
-                tip = "End your turn by clicking the <color=\"yellow\"><b>End Turn Button</b></color> " +
-                    "(or pressing the <color=\"yellow\"><b>Space Bar</b></color>).";
+                tip = $"End your turn by clicking the {TextFilter.Clrz_ylw("End Turn Button")} " +
+                    $"(or pressing the {TextFilter.Clrz_ylw("Space Bar")}).";
                 break;
             case 4:
                 tip = "Click your hero power to use it (below your hero's portrait).";
@@ -300,6 +300,7 @@ public class GameManager : MonoBehaviour
                 Debug.LogError("INVALID TIP NUMBER!");
                 return;
         }
+
         Managers.U_MAN.CreateInfoPopup(tip, UIManager.InfoPopupType.Tutorial, isCentered, showContinue);
     }
 
@@ -421,10 +422,7 @@ public class GameManager : MonoBehaviour
     {
         PlayerPrefs.SetFloat(MUSIC_VOLUME, Managers.AU_MAN.MusicVolume);
         PlayerPrefs.SetFloat(SFX_VOLUME, Managers.AU_MAN.SFXVolume);
-
-        int hideExplicit = 0;
-        if (HideExplicitLanguage) hideExplicit = 1;
-        PlayerPrefs.SetInt(HIDE_EXPLICIT_LANGUAGE, hideExplicit);
+        PlayerPrefs.SetInt(HIDE_EXPLICIT_LANGUAGE, HideExplicitLanguage ? 1 : 0);
     }
     public void LoadPlayerPreferences()
     {
@@ -537,15 +535,14 @@ public class GameManager : MonoBehaviour
             if (card == null) card = Resources.Load<Card>($"Cards_Units/{data.PlayerDeck[i]}");
             if (card == null) card = Resources.Load<Card>($"Cards_Actions/{data.PlayerDeck[i]}");
             if (card == null) Debug.LogError($"CARD {data.PlayerDeck[i]} NOT FOUND!");
-            else Managers.CA_MAN.AddCard(card, PLAYER);
+            else Managers.CA_MAN.AddCard(card, Managers.P_MAN);
         }
 
         // AUGMENTS
         Managers.P_MAN.HeroAugments.Clear();
         for (int i = 0; i < data.PlayerAugments.Length; i++)
         {
-            HeroAugment augment;
-            augment = Resources.Load<HeroAugment>($"Hero Augments/{data.PlayerAugments[i]}");
+            HeroAugment augment = Resources.Load<HeroAugment>($"Hero Augments/{data.PlayerAugments[i]}");
             if (augment == null) Debug.LogError($"AUGMENT {data.PlayerAugments[i]} NOT FOUND!");
             else Managers.P_MAN.HeroAugments.Add(augment);
         }
@@ -554,8 +551,7 @@ public class GameManager : MonoBehaviour
         Managers.P_MAN.HeroItems.Clear();
         for (int i = 0; i < data.PlayerItems.Length; i++)
         {
-            HeroItem item;
-            item = Resources.Load<HeroItem>($"Hero Items/{data.PlayerItems[i]}");
+            HeroItem item = Resources.Load<HeroItem>($"Hero Items/{data.PlayerItems[i]}");
             if (item == null) Debug.LogError($"ITEM {data.PlayerItems[i]} NOT FOUND!");
             else Managers.P_MAN.HeroItems.Add(item);
         }
@@ -567,8 +563,7 @@ public class GameManager : MonoBehaviour
         ActiveNPCHeroes.Clear();
         for (int i = 0; i < data.NPCSAndClips.Length / 2; i++)
         {
-            NPCHero npc;
-            npc = Resources.Load<NPCHero>($"Heroes/NPC Heroes/{data.NPCSAndClips[i, 0]}");
+            NPCHero npc = Resources.Load<NPCHero>($"Heroes/NPC Heroes/{data.NPCSAndClips[i, 0]}");
             if (npc == null) Debug.LogError($"NPC {data.NPCSAndClips[i, 0]} NOT FOUND!");
             else
             {
@@ -584,16 +579,13 @@ public class GameManager : MonoBehaviour
         ActiveLocations.Clear();
         for (int i = 0; i < data.LocationsNPCsObjectives.Length / 3; i++)
         {
-            Location loc;
             string name = data.LocationsNPCsObjectives[i, 0];
-            loc = Resources.Load<Location>($"Random Encounters/{name}");
+            Location loc = Resources.Load<Location>($"Random Encounters/{name}");
             if (loc == null) loc = Resources.Load<Location>($"Locations/{name}");
             if (loc == null) Debug.LogError($"LOCATION {name} NOT FOUND!");
             else
             {
                 loc = GetActiveLocation(loc);
-
-                // null checks
                 loc.CurrentNPC = GetActiveNPC(Resources.Load<NPCHero>($"Heroes/NPC Heroes/{data.LocationsNPCsObjectives[i, 1]}"));
                 loc.CurrentObjective = data.LocationsNPCsObjectives[i, 2];
             }
@@ -642,7 +634,6 @@ public class GameManager : MonoBehaviour
         Managers.AU_MAN.StartStopSound("Soundtrack_TitleScene", null, AudioManager.SoundType.Soundtrack);
         Managers.AU_MAN.StartStopSound("Soundscape_TitleScene", null, AudioManager.SoundType.Soundscape);
         GameObject.Find("VersionNumber").GetComponent<TextMeshProUGUI>().SetText(Application.version);
-
         IsCombatTest = false;
     }
 
@@ -689,17 +680,17 @@ public class GameManager : MonoBehaviour
     {
         Standard_1 = 1,
         Standard_2 = 2,
-        Boss_1 = 3,
+        Boss_1     = 3,
         Standard_3 = 4,
-        Boss_2 = 5,
+        Boss_2     = 5,
     }
-    //public int GetSurgeDelay(int difficulty) => 7 - (2 * (difficulty - 1));
     public int GetSurgeDelay(int difficulty) => 6 - difficulty;
     public int GetAetherReward(DifficultyLevel difficultyLevel)
     {
         int reward;
         switch (difficultyLevel)
         {
+            // Standard Difficulties
             case DifficultyLevel.Standard_1:
                 reward = AETHER_COMBAT_REWARD_1;
                 break;
@@ -709,7 +700,7 @@ public class GameManager : MonoBehaviour
             case DifficultyLevel.Standard_3:
                 reward = AETHER_COMBAT_REWARD_3;
                 break;
-
+            // Boss Difficulties
             case DifficultyLevel.Boss_1:
                 reward = AETHER_COMBAT_REWARD_BOSS_1;
                 break;
@@ -891,15 +882,12 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        // NEW HOUR
+        // New Hour
         IsNewHour = true;
-        // NEW DAY
-        if (CurrentHour == 4) CurrentHour = 1;
-        // NEXT HOUR
-        else CurrentHour++;
-        // RANDOM ENCOUNTER
-        if (addRandomEncounter && CurrentHour != 4)
-            AddRandomEncounter();
+        // Current Hour
+        CurrentHour = CurrentHour == 4 ? 1 : CurrentHour + 1;
+        // Random Encounter
+        if (addRandomEncounter && CurrentHour != 4) AddRandomEncounter();
     }
 
     /******
@@ -943,10 +931,7 @@ public class GameManager : MonoBehaviour
         Managers.AU_MAN.StopCurrentSoundscape();
         Managers.AU_MAN.StartStopSound("SFX_EnterHomeBase");
 
-        bool hasRested;
-        if (CurrentHour == 4) hasRested = true;
-        else hasRested = false;
-
+        bool hasRested = CurrentHour == 4;
         FindObjectOfType<HomeBaseSceneDisplay>().ClaimRewardButton.SetActive(hasRested);
 
         if (hasRested)
@@ -957,7 +942,7 @@ public class GameManager : MonoBehaviour
             Managers.CA_MAN.LoadNewRecruits();
             Managers.CA_MAN.LoadNewActions();
 
-            List<Location> refreshedShops = new List<Location>();
+            List<Location> refreshedShops = new();
             foreach (Location loc in ActiveLocations)
             {
                 if (VisitedLocations.FindIndex(x => x == loc.LocationName) == -1) continue;
@@ -1000,9 +985,9 @@ public class GameManager : MonoBehaviour
     }
     public void EndNarrative()
     {
-        if (CurrentNarrative == settingNarrative) // TESTING
+        if (CurrentNarrative == settingNarrative)
         {
-            CurrentNarrative = newGameNarrative; // TESTING
+            CurrentNarrative = newGameNarrative;
             SceneLoader.LoadScene(SceneLoader.Scene.HeroSelectScene);
         }
         else Debug.LogError("NO CONDITIONS MATCHED!");
@@ -1021,8 +1006,8 @@ public class GameManager : MonoBehaviour
         Managers.P_MAN.ResetForCombat();
         Managers.EN_MAN.ResetForCombat();
 
-        PlayerHeroDisplay pHD = Managers.P_MAN.HeroObject.GetComponent<PlayerHeroDisplay>();
-        EnemyHeroDisplay eHD = Managers.EN_MAN.HeroObject.GetComponent<EnemyHeroDisplay>();
+        var pHD = Managers.P_MAN.HeroObject.GetComponent<PlayerHeroDisplay>();
+        var eHD = Managers.EN_MAN.HeroObject.GetComponent<EnemyHeroDisplay>();
 
         pHD.HeroBase.SetActive(false);
         pHD.HeroStats.SetActive(false);
@@ -1064,7 +1049,7 @@ public class GameManager : MonoBehaviour
         Managers.P_MAN.HeroUltimateProgress = 0;
         Managers.P_MAN.DamageTaken_ThisTurn = 0;
         Managers.P_MAN.AlliesDestroyed_ThisTurn = 0;
-        foreach (HeroItem item in Managers.P_MAN.HeroItems) // TESTING
+        foreach (HeroItem item in Managers.P_MAN.HeroItems)
             item.IsUsed = false;
 
         Managers.P_MAN.TurnNumber = 0;
@@ -1092,7 +1077,8 @@ public class GameManager : MonoBehaviour
 
         void CombatStart()
         {
-            Managers.U_MAN.CombatLogEntry($"<b><color=\"green\">{Managers.P_MAN.HeroScript.HeroShortName}</color> VS <color=\"red\">{Managers.EN_MAN.HeroScript.HeroName}</b></color>");
+            Managers.U_MAN.CombatLogEntry($"<b>{TextFilter.Clrz_grn(Managers.P_MAN.HeroScript.HeroShortName, false)}" +
+                $" VS {TextFilter.Clrz_red(Managers.EN_MAN.HeroScript.HeroName, false)}</b>");
 
             Managers.CA_MAN.ShuffleDeck(Managers.P_MAN, false);
             Managers.CA_MAN.ShuffleDeck(Managers.EN_MAN, false);
@@ -1100,7 +1086,8 @@ public class GameManager : MonoBehaviour
             for (int i = 0; i < START_HAND_SIZE; i++)
                 Managers.EV_MAN.NewDelayedAction(() => AllDraw(), 0.5f);
 
-            if (IsTutorial) // TUTORIAL!
+            // TUTORIAL!
+            if (IsTutorial)
             {
                 Managers.EV_MAN.NewDelayedAction(() => Managers.U_MAN.CreateTutorialActionPopup(), 0);
                 Managers.EV_MAN.NewDelayedAction(() => Managers.EV_MAN.PauseDelayedActions(true), 0);
@@ -1127,7 +1114,8 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            if (IsTutorial) Managers.EV_MAN.NewDelayedAction(() => Tutorial_Tooltip(2), 0); // TUTORIAL!
+            // TUTORIAL!
+            if (IsTutorial) Managers.EV_MAN.NewDelayedAction(() => Tutorial_Tooltip(2), 0);
 
             void AllDraw()
             {
@@ -1194,9 +1182,7 @@ public class GameManager : MonoBehaviour
     private void StartCombatTurn(HeroManager hero, bool isFirstTurn = false)
     {
         bool isPlayerTurn = hero == Managers.P_MAN;
-        string logText = "\n";
-        if (isPlayerTurn) logText += "[Your Turn]";
-        else logText += "[Enemy Turn]";
+        string logText = "\n" + (isPlayerTurn ? "[Your Turn]" : "[Enemy Turn]");
 
         Managers.EV_MAN.NewDelayedAction(() => TurnPopup(), 0);
         Managers.EV_MAN.NewDelayedAction(() => Managers.U_MAN.CombatLogEntry(logText), 0);
@@ -1209,9 +1195,7 @@ public class GameManager : MonoBehaviour
             string synapticStabilizer = "Synaptic Stabilizer";
 
             if (isFirstTurn && Managers.P_MAN.GetAugment(synapticStabilizer))
-            {
                 Managers.EV_MAN.NewDelayedAction(() => SynapticStabilizerEffect(), 0.5f);
-            }
 
             void SynapticStabilizerEffect()
             {
@@ -1237,15 +1221,7 @@ public class GameManager : MonoBehaviour
                 Managers.P_MAN.TurnNumber++;
 
                 // TUTORIAL!
-                if (IsTutorial)
-                {
-                    switch (Managers.P_MAN.EnergyPerTurn)
-                    {
-                        case 2:
-                            Tutorial_Tooltip(4);
-                            break;
-                    }
-                }
+                if (IsTutorial && Managers.P_MAN.EnergyPerTurn == 2) Tutorial_Tooltip(4);
             }
 
             void TurnDraw()
@@ -1287,13 +1263,10 @@ public class GameManager : MonoBehaviour
         Managers.EV_MAN.NewDelayedAction(() => Managers.CA_MAN.SelectPlayableCards(), 0); // To reset conditional card costs (i.e. based on units destroyed this turn)
 
         if (hero == Managers.EN_MAN)
-        {
             Managers.EV_MAN.NewDelayedAction(() => StartCombatTurn(Managers.P_MAN), 0.5f);
-        }
         else if (hero == Managers.P_MAN)
         {
             if (IsTutorial) // TUTORIAL!
-            {
                 switch (Managers.P_MAN.EnergyPerTurn)
                 {
                     case 1:
@@ -1305,7 +1278,6 @@ public class GameManager : MonoBehaviour
                         else Managers.U_MAN.DestroyInfoPopup(UIManager.InfoPopupType.Tutorial);
                         break;
                 }
-            }
 
             Managers.P_MAN.IsMyTurn = false;
             Managers.CA_MAN.SelectPlayableCards(true);
@@ -1376,14 +1348,11 @@ public class GameManager : MonoBehaviour
             return null;
         }
 
-        int activeNPC;
-        activeNPC = ActiveNPCHeroes.FindIndex(x => x.HeroName == npc.HeroName);
+        int activeNPC = ActiveNPCHeroes.FindIndex(x => x.HeroName == npc.HeroName);
         if (activeNPC != -1) return ActiveNPCHeroes[activeNPC];
         else
         {
-            NPCHero newNPC;
-            if (npc is EnemyHero) newNPC = ScriptableObject.CreateInstance<EnemyHero>();
-            else newNPC = ScriptableObject.CreateInstance<NPCHero>();
+            NPCHero newNPC = ScriptableObject.CreateInstance(npc.GetType()) as NPCHero;
             newNPC.LoadHero(npc);
             newNPC.NextDialogueClip = npc.FirstDialogueClip;
             if (newNPC.NextDialogueClip == null) Debug.LogError("NEXT CLIP IS NULL!");
@@ -1404,9 +1373,8 @@ public class GameManager : MonoBehaviour
             Debug.LogError("LOCATION IS NULL!");
             return null;
         }
-        int activeLocation;
-        activeLocation = ActiveLocations.FindIndex
-            (x => x.LocationName == location.LocationName);
+
+        int activeLocation = ActiveLocations.FindIndex(x => x.LocationName == location.LocationName);
 
         if (activeLocation != -1)
         {
@@ -1434,9 +1402,6 @@ public class GameManager : MonoBehaviour
     public List<HeroItem> GetShopItems()
     {
         HeroItem[] allItems = Resources.LoadAll<HeroItem>("Hero Items");
-
-        // Rare Item Functionality
-        // <Common> : <Rare> ::: <3> : <1>
         List<HeroItem> rarefiedItems = new();
         foreach (HeroItem item in allItems)
         {

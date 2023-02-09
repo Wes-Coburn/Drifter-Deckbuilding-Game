@@ -22,24 +22,18 @@ public static class SceneLoader
         CreditsScene
     }
 
-    public static bool IsActiveScene(Scene scene)
-    {
-        if (SceneManager.GetActiveScene().name == scene.ToString()) return true;
-        else return false;
-    }
+    public static bool IsActiveScene(Scene scene) => SceneManager.GetActiveScene().name == scene.ToString();
 
     public static void LoadScene(Scene scene, bool loadSameScene = false, bool fadeTransition = true)
     {
-        if (SceneIsLoading) return;
-        if (!loadSameScene && IsActiveScene(scene)) return;
+        if (SceneIsLoading || (!loadSameScene && IsActiveScene(scene))) return;
         SceneIsLoading = true;
 
         onSceneLoaderCallback = () =>
         {
             Managers.U_MAN.SetSkybar(false);
             Managers.U_MAN.SetSceneFader(false);
-            Managers.AU_MAN.StartStopSound("SFX_SceneLoading", null,
-                AudioManager.SoundType.SFX, false, true);
+            Managers.AU_MAN.StartStopSound("SFX_SceneLoading", null, AudioManager.SoundType.SFX, false, true);
 
             string chapterText;
             switch (scene)
@@ -75,7 +69,7 @@ public static class SceneLoader
                     break;
             }
 
-            LoadingSceneDisplay lsd = UnityEngine.Object.FindObjectOfType<LoadingSceneDisplay>();
+            var lsd = UnityEngine.Object.FindObjectOfType<LoadingSceneDisplay>();
             lsd.ChapterText = chapterText;
             lsd.TipText = Managers.G_MAN.CurrentTip;
 

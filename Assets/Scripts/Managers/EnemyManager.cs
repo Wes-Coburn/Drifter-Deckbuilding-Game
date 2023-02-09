@@ -30,7 +30,6 @@ public class EnemyManager : HeroManager
         set
         {
             heroScript = value;
-
             if (DeckList == null || CurrentDeck == null) return;
             DeckList.Clear();
 
@@ -39,19 +38,18 @@ public class EnemyManager : HeroManager
                 CurrentDeck.Clear();
                 return;
             }
-
             if ((heroScript as EnemyHero).Reinforcements[ReinforcementGroup] == null)
             {
                 Debug.LogError("REINFORCEMENTS NOT FOUND!");
                 return;
             }
 
-            Reinforcements reinforcements = (heroScript as EnemyHero).Reinforcements[ReinforcementGroup];
-            List<UnitCard> refoUnits = reinforcements.ReinforcementUnits;
-            List<ActionCard> refoActions = reinforcements.ReinforcementActions;
+            var reinforcements = (heroScript as EnemyHero).Reinforcements[ReinforcementGroup];
+            var refoUnits = reinforcements.ReinforcementUnits;
+            var refoActions = reinforcements.ReinforcementActions;
 
-            foreach (UnitCard unit in refoUnits) Managers.CA_MAN.AddCard(unit, GameManager.ENEMY);
-            foreach (ActionCard action in refoActions) Managers.CA_MAN.AddCard(action, GameManager.ENEMY);
+            foreach (UnitCard unit in refoUnits) Managers.CA_MAN.AddCard(unit, Managers.EN_MAN);
+            foreach (ActionCard action in refoActions) Managers.CA_MAN.AddCard(action, Managers.EN_MAN);
         }
     }
 
@@ -63,9 +61,9 @@ public class EnemyManager : HeroManager
         {
             turnNumber = value;
 
-            if (GameManager.Instance.IsTutorial) return;
+            if (Managers.G_MAN.IsTutorial) return;
 
-            int surgeDelay = GameManager.Instance.GetSurgeDelay(Managers.CO_MAN.DifficultyLevel);
+            int surgeDelay = Managers.G_MAN.GetSurgeDelay(Managers.CO_MAN.DifficultyLevel);
             if (TurnNumber > 0 && TurnNumber % surgeDelay == 0)
             {
                 int surgeCount = TurnNumber / surgeDelay;
@@ -82,7 +80,7 @@ public class EnemyManager : HeroManager
 
                 void SurgePopup()
                 {
-                    UIManager.Instance.CreateFleetingInfoPopup($"ENEMY SURGE!\n[{surgeCount}x]");
+                    Managers.U_MAN.CreateFleetingInfoPopup($"ENEMY SURGE!\n[{surgeCount}x]");
                     Managers.AN_MAN.CreateParticleSystem(null, ParticleSystemHandler.ParticlesType.Explosion, 2);
                 }
                 void Surge()
@@ -98,16 +96,8 @@ public class EnemyManager : HeroManager
     }
 
     public int ReinforcementGroup { get; set; }
-
-    public override int MaxHealth
-    {
-        get
-        {
-            if (GameManager.Instance.IsTutorial)
-                return GameManager.TUTORIAL_STARTING_HEALTH;
-            return GameManager.ENEMY_STARTING_HEALTH;
-        }
-    }
+    public override int MaxHealth => Managers.G_MAN.IsTutorial ?
+        GameManager.TUTORIAL_STARTING_HEALTH : GameManager.ENEMY_STARTING_HEALTH;
 
     public override void ResetForCombat()
     {
@@ -119,7 +109,7 @@ public class EnemyManager : HeroManager
 
     public void Mulligan()
     {
-        List<GameObject> cardsToReplace = new List<GameObject>();
+        List<GameObject> cardsToReplace = new();
 
         foreach (GameObject card in HandZoneCards)
         {

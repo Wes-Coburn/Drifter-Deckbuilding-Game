@@ -33,18 +33,18 @@ public class LocationPopupDisplay : MonoBehaviour
             }
 
             string hours = "Hours Open: ";
-            List<string> openHours = new List<string>();
+            List<string> openHours = new();
             if (!location.IsClosed_Hour1) openHours.Add("Morning");
             if (!location.IsClosed_Hour2) openHours.Add("Day");
             if (!location.IsClosed_Hour3) openHours.Add("Evening");
 
-            if (openHours.Count == 3) hours += " <color=\"green\">ALL</color>";
+            if (openHours.Count == 3) hours += $" {TextFilter.Clrz_grn("ALL", false)}";
             else
             {
                 for (int i = 0; i < openHours.Count; i++)
                 {
                     if (i != 0) hours += ", ";
-                    hours += $"<color=\"green\">{openHours[i]}</color>";
+                    hours += TextFilter.Clrz_grn(openHours[i], false);
                 }
             }
             LocationHours = hours;
@@ -114,9 +114,9 @@ public class LocationPopupDisplay : MonoBehaviour
         int aetherValue = GameManager.ADDITIONAL_AETHER_REWARD * (difficulty - 1);
 
         string text =
-            $"-> Enemies surge every <color=\"red\"><b>{surgeValue}</b></color> turns." +
-            $"\n-> Enemy bosses start with <color=\"red\"><b>+{energyValue}</b></color> energy." +
-            $"\n\n-> <color=\"green\"><b>+{aetherValue}</b></color> aether";
+            $"-> Enemies surge every {TextFilter.Clrz_red(surgeValue + "")} turns." +
+            $"\n-> Enemy bosses start with {TextFilter.Clrz_red(energyValue + "")} energy." +
+            $"\n\n-> +{TextFilter.Clrz_grn(aetherValue + "")} aether";
 
         difficultyValue.GetComponent<TextMeshProUGUI>().SetText(difficulty + "");
         difficultyValue.GetComponent<TextMeshProUGUI>().color = newColor;

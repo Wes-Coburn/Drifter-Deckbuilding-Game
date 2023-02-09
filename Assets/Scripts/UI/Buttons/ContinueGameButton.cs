@@ -4,19 +4,13 @@ using UnityEngine.UI;
 
 public class ContinueGameButton : MonoBehaviour
 {
-    private GameManager gMan;
-    private void Start()
-    {
-        gMan = GameManager.Instance;
-        bool savedGame = gMan.CheckSave();
-        GetComponent<Button>().interactable = savedGame;
-    }
+    private void Start() => GetComponent<Button>().interactable = Managers.G_MAN.CheckSave();
 
     public void OnClick()
     {
         if (SceneLoader.SceneIsLoading) return;
         //UIManager.Instance.ShakeCamera(EZCameraShake.CameraShakePresets.Bump); // TESTING
-        AnimationManager.Instance.CreateParticleSystem(gameObject, ParticleSystemHandler.ParticlesType.ButtonPress); // TESTING
+        Managers.AN_MAN.CreateParticleSystem(gameObject, ParticleSystemHandler.ParticlesType.ButtonPress);
 
         SceneLoader.LoadAction += LoadGame;
         SceneLoader.LoadScene(SceneLoader.Scene.WorldMapScene);
@@ -27,7 +21,7 @@ public class ContinueGameButton : MonoBehaviour
         try { GameManager.Instance.LoadGame(); }
         catch (NullReferenceException)
         {
-            UIManager.Instance.CreateFleetingInfoPopup
+            Managers.U_MAN.CreateFleetingInfoPopup
                 ("Your save file is incompatible with this version!\nPlease start a new game.");
             return;
         }

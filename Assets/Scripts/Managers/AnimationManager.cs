@@ -54,7 +54,7 @@ public class AnimationManager : MonoBehaviour
     {
         if (ProgressBarRoutine != null)
         {
-            AudioManager.Instance.StartStopSound("SFX_ProgressBar", null, AudioManager.SoundType.SFX, true);
+            Managers.AU_MAN.StartStopSound("SFX_ProgressBar", null, AudioManager.SoundType.SFX, true);
             StopCoroutine(ProgressBarRoutine);
             ProgressBarRoutine = null;
         }
@@ -107,20 +107,16 @@ public class AnimationManager : MonoBehaviour
      * ****** SHAKE_CAMERA
      * *****
      *****/
-    public void ShakeCamera(CameraShakeInstance shake) =>
-        CameraShaker.Instance.Shake(shake);
+    public void ShakeCamera(CameraShakeInstance shake) => CameraShaker.Instance.Shake(shake);
 
     public static CameraShakeInstance Bump_Light
     {
-        get
+        // TESTING Magnitude (normally 2.5f) Roughness (normally 4) FadeOutTime (normally 0.75)
+        get => new(0.75f, 3, 0.1f, 0.5f)
         {
-            // TESTING Magnitude (normally 2.5f) Roughness (normally 4) FadeOutTime (normally 0.75)
-            return new CameraShakeInstance(0.75f, 3, 0.1f, 0.5f)
-            {
-                PositionInfluence = Vector3.one * 0.15f,
-                RotationInfluence = Vector3.one,
-            };
-        }
+            PositionInfluence = Vector3.one * 0.15f,
+            RotationInfluence = Vector3.one,
+        };
     }
     /******
      * *****
@@ -228,7 +224,7 @@ public class AnimationManager : MonoBehaviour
         }
 
         GameObject particleSystem = Instantiate(prefab, Managers.U_MAN.CurrentWorldSpace.transform);
-        ParticleSystemHandler psh = particleSystem.GetComponent<ParticleSystemHandler>();
+        var psh = particleSystem.GetComponent<ParticleSystemHandler>();
         psh.StartParticles(parent, startColor, startSize, startLifetime, stopDelay, usePointerPosition, followPosition);
         return psh;
     }
@@ -271,9 +267,7 @@ public class AnimationManager : MonoBehaviour
                 Instance.TextCountRoutine = null;
             }
 
-            foreach (CountingTextObject cto in CountingTexts)
-                cto.DefaultColor();
-
+            foreach (var cto in CountingTexts) cto.DefaultColor();
             CountingTexts.Clear();
         }
 
@@ -309,7 +303,7 @@ public class AnimationManager : MonoBehaviour
     }
     private void DefaultTextColor()
     {
-        foreach (CountingTextObject cto in CountingTextObject.CountingTexts)
+        foreach (var cto in CountingTextObject.CountingTexts)
             cto.DefaultColor();
     }
     private IEnumerator CountingTextNumerator()
@@ -325,7 +319,7 @@ public class AnimationManager : MonoBehaviour
             Managers.AU_MAN.StartStopSound("SFX_Counting");
 
             bool completed = true;
-            foreach (CountingTextObject cto in CountingTextObject.CountingTexts)
+            foreach (var cto in CountingTextObject.CountingTexts)
             {
                 if (!cto.IncrementValue()) completed = false;
             }
@@ -347,7 +341,7 @@ public class AnimationManager : MonoBehaviour
 
         static void NewTextColor()
         {
-            foreach (CountingTextObject cto in CountingTextObject.CountingTexts)
+            foreach (var cto in CountingTextObject.CountingTexts)
                 cto.NewColor();
         }
     }
@@ -878,10 +872,7 @@ public class AnimationManager : MonoBehaviour
         const float maxSpeed = 200;
 
         float distance;
-        float bufferDistance;
-
-        if (defenderIsUnit) bufferDistance = 150;
-        else bufferDistance = 350;
+        float bufferDistance = defenderIsUnit ? 150 : 350;
         GameObject container = attacker.GetComponent<CardDisplay>().CardContainer;
         container.GetComponent<CardContainer>().IsDetached = true;
         attacker.transform.SetAsLastSibling();
@@ -919,7 +910,7 @@ public class AnimationManager : MonoBehaviour
         particleHandler.StopParticles();
         container.GetComponent<CardContainer>().IsDetached = false;
         attacker.transform.SetAsFirstSibling();
-        EventManager.Instance.PauseDelayedActions(false);
+        Managers.EV_MAN.PauseDelayedActions(false);
 
         static float GetCurrentSpeed(float distance)
         {
@@ -942,18 +933,16 @@ public class AnimationManager : MonoBehaviour
             StopCoroutine(ShiftHandRoutine);
             ShiftHandRoutine = null;
         }
-
         ShiftHandRoutine = StartCoroutine(ShiftHandNumerator(isUpShift));
     }
     private IEnumerator ShiftHandNumerator(bool isUpShift)
     {
-        Managers.AU_MAN.StartStopSound("SFX_ShiftHand");
         float distance;
-        float yTarget;
-        GameObject hand = Managers.P_MAN.HandZone;
-        if (isUpShift) yTarget = -350;
-        else yTarget = Managers.P_MAN.HandStart.y;
+        float yTarget = isUpShift ? -350 : Managers.P_MAN.HandStart.y;
+
         Vector2 target = new(0, yTarget);
+        GameObject hand = Managers.P_MAN.HandZone;
+        Managers.AU_MAN.StartStopSound("SFX_ShiftHand");
 
         do
         {

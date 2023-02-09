@@ -7,7 +7,8 @@ public class MainMenuButton : MonoBehaviour, IPointerClickHandler
     {
         if (pointerEventData.button != PointerEventData.InputButton.Left) return;
         if (SceneLoader.SceneIsLoading) return;
-        GameManager.Instance.EndGame();
-        UIManager.Instance.DestroyMenuPopup();
+
+        Managers.G_MAN.EndGame();
+        Managers.U_MAN.DestroyMenuPopup();
     }
 }

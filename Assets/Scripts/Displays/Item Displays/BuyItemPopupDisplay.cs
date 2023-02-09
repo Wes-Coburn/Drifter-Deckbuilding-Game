@@ -19,9 +19,8 @@ public class BuyItemPopupDisplay : MonoBehaviour
         set
         {
             heroItem = value;
-            string text = "Buy <b><u>" + heroItem.ItemName + "</u></b>" +
-                " for <color=\"red\"><b>" + Managers.G_MAN.GetItemCost(heroItem, out _, false) +
-                "</b></color> aether?";
+            string text = $"Buy <b><u>{heroItem.ItemName}</u></b> for " +
+                $"{TextFilter.Clrz_red(Managers.G_MAN.GetItemCost(heroItem, out _, false) + "")} aether?";
             PopupText = text;
         }
     }
@@ -38,9 +37,8 @@ public class BuyItemPopupDisplay : MonoBehaviour
         Managers.U_MAN.CreateItemPagePopup(false);
         FindObjectOfType<ItemPageDisplay>().SetProgressBar(previousProgress, Managers.G_MAN.ShopLoyalty, isReady);
 
-        AnimationManager.Instance.CreateParticleSystem(gameObject, ParticleSystemHandler.ParticlesType.ButtonPress); // TESTING
+        Managers.AN_MAN.CreateParticleSystem(gameObject, ParticleSystemHandler.ParticlesType.ButtonPress);
     }
 
-    public void CancelButton_OnClick() =>
-        Managers.U_MAN.DestroyInteractablePopup(gameObject);
+    public void CancelButton_OnClick() => Managers.U_MAN.DestroyInteractablePopup(gameObject);
 }

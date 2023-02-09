@@ -77,22 +77,22 @@ public class CombatTestButton : MonoBehaviour
         if (enableTestCards_1)
         {
             foreach (Card c in testCards_1)
-                Managers.CA_MAN.AddCard(c, GameManager.PLAYER);
+                Managers.CA_MAN.AddCard(c, Managers.P_MAN);
         }
         if (enableTestCards_2)
         {
             foreach (Card c in testCards_2)
-                Managers.CA_MAN.AddCard(c, GameManager.PLAYER);
+                Managers.CA_MAN.AddCard(c, Managers.P_MAN);
         }
         if (enableTestCards_3)
         {
             foreach (Card c in testCards_3)
-                Managers.CA_MAN.AddCard(c, GameManager.PLAYER);
+                Managers.CA_MAN.AddCard(c, Managers.P_MAN);
         }
         if (enableTestCards_4)
         {
             foreach (Card c in testCards_4)
-                Managers.CA_MAN.AddCard(c, GameManager.PLAYER);
+                Managers.CA_MAN.AddCard(c, Managers.P_MAN);
         }
 
         // Start Units
@@ -100,7 +100,7 @@ public class CombatTestButton : MonoBehaviour
         {
             foreach (UnitCard uc in Managers.CA_MAN.PlayerStartUnits)
                 for (int i = 0; i < GameManager.PLAYER_START_UNITS; i++)
-                    Managers.CA_MAN.AddCard(uc, GameManager.PLAYER);
+                    Managers.CA_MAN.AddCard(uc, Managers.P_MAN);
         }
 
         // Reputation

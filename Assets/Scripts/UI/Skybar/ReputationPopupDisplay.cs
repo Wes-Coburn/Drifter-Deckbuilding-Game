@@ -80,9 +80,7 @@ public class ReputationPopupDisplay : MonoBehaviour
 
     private string ColorText(string text, bool isActive)
     {
-        string color;
-        if (isActive) color = "green";
-        else color = "red";
+        string color = isActive ? "green" : "red";
         return "<color=\"" + color + "\">" + text + "</color>";
     }
 

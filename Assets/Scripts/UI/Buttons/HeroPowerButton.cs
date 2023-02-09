@@ -8,10 +8,9 @@ public class HeroPowerButton : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData pointerEventData)
     {
         if (pointerEventData.button != PointerEventData.InputButton.Left) return;
-        if (!PlayerManager.Instance.IsMyTurn || EffectManager.Instance.EffectsResolving ||
-            EventManager.Instance.ActionsDelayed) return;
+        if (!Managers.P_MAN.IsMyTurn || Managers.EF_MAN.EffectsResolving || Managers.EV_MAN.ActionsDelayed) return;
 
-        PlayerManager.Instance.UseHeroPower(isUltimate);
+        Managers.P_MAN.UseHeroPower(isUltimate);
         PowerZoom pz = GetComponent<PowerZoom>();
         pz.DestroyPowerPopup();
         pz.DestroyAbilityPopup();

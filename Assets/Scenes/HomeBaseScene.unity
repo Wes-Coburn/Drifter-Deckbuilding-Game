@@ -1527,7 +1527,6 @@ GameObject:
   - component: {fileID: 977518624}
   - component: {fileID: 977518623}
   - component: {fileID: 977518622}
-  - component: {fileID: 977518621}
   m_Layer: 0
   m_Name: SellItemButton
   m_TagString: Untagged
@@ -1556,21 +1555,6 @@ RectTransform:
   m_AnchoredPosition: {x: -500, y: 50}
   m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &977518621
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 977518619}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa007eff4e492ba4bad63f21cbf4c4d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tooltipText: Sell items for aether.
-  tooltipPosition: {x: -150, y: 40}
-  isZoomCardTooltip: 0
 --- !u!95 &977518622
 Animator:
   serializedVersion: 5
@@ -1631,7 +1615,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 977518624}
+  m_TargetGraphic: {fileID: 1399906796}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -2236,7 +2220,6 @@ GameObject:
   - component: {fileID: 1228453751}
   - component: {fileID: 1228453753}
   - component: {fileID: 1228453755}
-  - component: {fileID: 1228453754}
   m_Layer: 0
   m_Name: SellCardButton
   m_TagString: Untagged
@@ -2343,7 +2326,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 1228453751}
+  m_TargetGraphic: {fileID: 291170775}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -2371,21 +2354,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
---- !u!114 &1228453754
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1228453749}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa007eff4e492ba4bad63f21cbf4c4d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tooltipText: Sell cards for aether.
-  tooltipPosition: {x: -380, y: 40}
-  isZoomCardTooltip: 0
 --- !u!95 &1228453755
 Animator:
   serializedVersion: 5
@@ -2419,7 +2387,6 @@ GameObject:
   - component: {fileID: 1333399275}
   - component: {fileID: 1333399274}
   - component: {fileID: 1333399277}
-  - component: {fileID: 1333399273}
   m_Layer: 0
   m_Name: ClaimRewardButton
   m_TagString: Untagged
@@ -2448,21 +2415,6 @@ RectTransform:
   m_AnchoredPosition: {x: 600, y: 50}
   m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1333399273
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1333399271}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa007eff4e492ba4bad63f21cbf4c4d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tooltipText: Claim your reward!
-  tooltipPosition: {x: 220, y: 40}
-  isZoomCardTooltip: 0
 --- !u!114 &1333399274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2503,7 +2455,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 1333399275}
+  m_TargetGraphic: {fileID: 1137522156}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:

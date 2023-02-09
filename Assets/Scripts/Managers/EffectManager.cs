@@ -76,7 +76,7 @@ public class EffectManager : MonoBehaviour
         }
     }
     /*
-     * Quickly grab the currently resolving effect.
+     * Quickly return the Effect currently resolving.
      */
     public Effect CurrentEffect
     {
@@ -94,7 +94,7 @@ public class EffectManager : MonoBehaviour
         }
     }
     /*
-     * Quickly grab the currently resolving effect group.
+     * Quickly return the EffectGroup currently resolving.
      */
     public EffectGroup CurrentEffectGroup
     {
@@ -126,7 +126,6 @@ public class EffectManager : MonoBehaviour
     private void Start()
     {
         effectsResolving = false;
-
         effectGroupList = new();
         legalTargets = new();
         acceptedTargets = new();
@@ -136,30 +135,17 @@ public class EffectManager : MonoBehaviour
     }
 
     public void Reset_EffectManager() => effectsResolving = false;
-    public void ClearDestroyedUnits()
-    {
-        List<GameObject> newList = new();
-        foreach (GameObject unit in UnitsToDestroy)
-            if (unit != null) newList.Add(unit);
-
-        UnitsToDestroy.Clear();
-        foreach (GameObject unit in newList)
-            UnitsToDestroy.Add(unit);
-    }
     private bool IsTargetEffect(EffectGroup group, Effect effect)
     {
-        EffectTargets targets = group.Targets;
+        EffectTargets tgts = group.Targets;
 
-        if (targets.NoTargets || targets.SavedTarget || effect is DelayEffect || effect is SaveValueEffect ||
+        if (tgts.NoTargets || tgts.SavedTarget || effect is DelayEffect || effect is SaveValueEffect ||
             (effect is DrawEffect de && de.IsDiscardEffect && de.DiscardAll)) return false;
 
-        if (targets.TargetsAll || targets.TargetsSelf || targets.PlayerDeck ||
-            targets.TargetsLowestHealth || targets.TargetsStrongest || targets.TargetsWeakest) return false;
+        if (tgts.TargetsAll || tgts.TargetsSelf || tgts.PlayerDeck ||
+            tgts.TargetsLowestHealth || tgts.TargetsStrongest || tgts.TargetsWeakest) return false;
 
-        if (targets.PlayerHero || targets.EnemyHero)
-        {
-            if (!targets.PlayerUnit && !targets.EnemyUnit) return false;
-        }
+        if ((tgts.PlayerHero || tgts.EnemyHero) && (!tgts.PlayerUnit && !tgts.EnemyUnit)) return false;
 
         return true;
     }
@@ -361,7 +347,6 @@ public class EffectManager : MonoBehaviour
         void AddLowHealthUnit(List<GameObject> cardZone, bool targetsEnemy)
         {
             if (targets.Count > 0) return;
-
             GameObject target = Managers.CO_MAN.GetLowestHealthUnit(cardZone, targetsEnemy);
             if (target != null) AddTarget(target);
         }
@@ -369,7 +354,6 @@ public class EffectManager : MonoBehaviour
         void AddWeakestUnit(List<GameObject> cardZone, bool targetsEnemy)
         {
             if (targets.Count > 0) return;
-
             GameObject target = Managers.CO_MAN.GetWeakestUnit(cardZone, targetsEnemy);
             if (target != null) AddTarget(target);
         }
@@ -377,7 +361,6 @@ public class EffectManager : MonoBehaviour
         void AddStrongestUnit(List<GameObject> cardZone, bool targetsEnemy)
         {
             if (targets.Count > 0) return;
-
             GameObject target = Managers.CO_MAN.GetStrongestUnit(cardZone, targetsEnemy);
             if (target != null) AddTarget(target);
         }
@@ -389,9 +372,7 @@ public class EffectManager : MonoBehaviour
                 Debug.LogError("TARGET IS NULL!");
                 return;
             }
-
             if (targets.Contains(target)) return;
-
             if (hMan_Source != HeroManager.GetSourceHero(target))
             {
                 if (target.TryGetComponent(out DragDrop dd) && dd.IsPlayed)
@@ -399,7 +380,6 @@ public class EffectManager : MonoBehaviour
                     if (CardManager.GetAbility(target, CardManager.ABILITY_WARD)) return;
                 }
             }
-
             targets.Add(target);
         }
 
@@ -410,7 +390,6 @@ public class EffectManager : MonoBehaviour
                 Debug.LogError("TARGET IS NULL!");
                 return;
             }
-
             if (targets_Cards.Contains(target)) return;
             targets_Cards.Add(target);
         }
@@ -587,7 +566,6 @@ public class EffectManager : MonoBehaviour
                 foreach (EffectGroup group in CurrentEffect.ForEachEffects)
                     additionalEffectGroups.Add(group);
         }
-
         StartNextEffect();
     }
     public void ConfirmTargetEffect()
@@ -606,7 +584,6 @@ public class EffectManager : MonoBehaviour
                 foreach (EffectGroup group in CurrentEffect.ForEachEffects)
                     additionalEffectGroups.Add(group);
         }
-
         if (CurrentEffect is DrawEffect de)
         {
             if (de.IsDiscardEffect) Managers.AN_MAN.ShiftPlayerHand(false);
@@ -763,7 +740,6 @@ public class EffectManager : MonoBehaviour
                             Debug.LogError("ACTION ALREADY DISCARDED!");
                             return;
                         }
-
                         CardDisplay cd = source.GetComponent<CardDisplay>();
                         HeroManager hMan = HeroManager.GetSourceHero(source);
                         if (cd.CardScript.CardRarity is Card.Rarity.Rare) { } // Don't count Created Card Ultimates
@@ -785,7 +761,6 @@ public class EffectManager : MonoBehaviour
                                     break;
                             }
                         }
-
                         Managers.CA_MAN.DiscardCard(source, true);
                         Managers.EV_MAN.NewDelayedAction(() =>
                         Managers.CA_MAN.TriggerPlayedUnits(CardManager.TRIGGER_SPARK, hMan), 0, true);
@@ -804,31 +779,31 @@ public class EffectManager : MonoBehaviour
                 }
                 else if (effectSource.TryGetComponent(out ItemIcon icon))
                 {
-                    Managers.U_MAN.CombatLogEntry($"You used <b><color=\"yellow\">{icon.LoadedItem.ItemName}</b></color> (Item).");
+                    Managers.U_MAN.CombatLogEntry($"You used {TextFilter.Clrz_ylw(icon.LoadedItem.ItemName)} (Item).");
                     icon.IsUsed = true;
                     Managers.U_MAN.SetSkybar(true);
                 }
                 else if (effectSource.CompareTag(Managers.P_MAN.HERO_POWER_TAG))
                 {
                     string powerName = Managers.P_MAN.HeroScript.HeroPower.PowerName;
-                    Managers.U_MAN.CombatLogEntry($"You used <b><color=\"yellow\">{powerName}</b></color> (Hero Power).");
+                    Managers.U_MAN.CombatLogEntry($"You used {TextFilter.Clrz_ylw(powerName)} (Hero Power).");
                     Managers.CA_MAN.TriggerPlayedUnits(CardManager.TRIGGER_RESEARCH, Managers.P_MAN);
                     Managers.P_MAN.HeroUltimateProgress++;
 
                     // TUTORIAL!
-                    if (GameManager.Instance.IsTutorial && Managers.P_MAN.EnergyPerTurn == 2)
-                        GameManager.Instance.Tutorial_Tooltip(5);
+                    if (Managers.G_MAN.IsTutorial && Managers.P_MAN.EnergyPerTurn == 2)
+                        Managers.G_MAN.Tutorial_Tooltip(5);
                 }
                 else if (effectSource.CompareTag(Managers.EN_MAN.HERO_POWER_TAG))
                 {
                     string powerName = Managers.EN_MAN.HeroScript.HeroPower.PowerName;
-                    Managers.U_MAN.CombatLogEntry($"Enemy used <b><color=\"yellow\">{powerName}</b></color> (Hero Power).");
+                    Managers.U_MAN.CombatLogEntry($"Enemy used {TextFilter.Clrz_ylw(powerName)} (Hero Power).");
                     Managers.CA_MAN.TriggerPlayedUnits(CardManager.TRIGGER_RESEARCH, Managers.EN_MAN);
                 }
                 else if (effectSource.CompareTag(Managers.P_MAN.HERO_ULTIMATE_TAG))
                 {
                     string powerName = (Managers.P_MAN.HeroScript as PlayerHero).HeroUltimate.PowerName;
-                    Managers.U_MAN.CombatLogEntry($"You used <b><color=\"yellow\">{powerName}</b></color> (Hero Ultimate).");
+                    Managers.U_MAN.CombatLogEntry($"You used {TextFilter.Clrz_ylw(powerName)} (Hero Ultimate).");
                     Managers.CA_MAN.TriggerPlayedUnits(CardManager.TRIGGER_RESEARCH, Managers.P_MAN);
                     Managers.P_MAN.HeroUltimateProgress = 0;
                 }
@@ -851,25 +826,21 @@ public class EffectManager : MonoBehaviour
             if (legalTargets != null)
             {
                 foreach (List<GameObject> list in legalTargets)
-                {
                     foreach (GameObject target in list)
                     {
                         if (target == null) continue;
                         Managers.U_MAN.SelectTarget(target, UIManager.SelectionType.Disabled);
                     }
-                }
             }
 
             if (acceptedTargets != null)
             {
                 foreach (List<GameObject> list in acceptedTargets)
-                {
                     foreach (GameObject target in list)
                     {
                         if (target == null) continue;
                         Managers.U_MAN.SelectTarget(target, UIManager.SelectionType.Disabled);
                     }
-                }
             }
         }
 
@@ -966,7 +937,6 @@ public class EffectManager : MonoBehaviour
                     Debug.LogError("GROUP IS NULL!");
                     continue;
                 }
-
                 if (group.Targets.CompareTargets(eg.Targets)) additionalTargets++;
             }
             if (additionalTargets > 0) additionalTargets--;
@@ -1017,10 +987,8 @@ public class EffectManager : MonoBehaviour
 
         if (effect.IsDerivedValue)
         {
-            if (effect.DerivedValue == Effect.DerivedValueType.Allies_Count)
-            {
-                if (hMan_Source.PlayZoneCards.Count < 1) return false;
-            }
+            if (effect.DerivedValue == Effect.DerivedValueType.Allies_Count &&
+                hMan_Source.PlayZoneCards.Count < 1) return false;
         }
 
         if (!targets.NoTargets)
@@ -1083,7 +1051,6 @@ public class EffectManager : MonoBehaviour
                 }
 
                 if (handCount < 1) return false;
-
                 if (targets.VariableNumber || targets.TargetsAll) return true;
 
                 if (handCount < effect.Value)
@@ -1091,7 +1058,6 @@ public class EffectManager : MonoBehaviour
                     Debug.Log("NOT ENOUGH CARDS!");
                     if (requiredEffect) return false;
                 }
-
                 return true;
             }
         }
@@ -1135,13 +1101,9 @@ public class EffectManager : MonoBehaviour
 
         void AddTarget(GameObject target)
         {
-            if (hMan_Source != HeroManager.GetSourceHero(target))
-            {
-                if (target.TryGetComponent(out DragDrop dd) && dd.IsPlayed)
-                {
-                    if (CardManager.GetAbility(target, CardManager.ABILITY_WARD)) return;
-                }
-            }
+            if (hMan_Source != HeroManager.GetSourceHero(target) &&
+                target.TryGetComponent(out DragDrop dd) && dd.IsPlayed &&
+                CardManager.GetAbility(target, CardManager.ABILITY_WARD)) return; // Ignore enemy units in play with Ward
 
             bool includeSelf = false;
             if (targets.TargetsSelf ||
@@ -2552,7 +2514,6 @@ public class EffectManager : MonoBehaviour
                     Debug.LogError("SAVED TARGET IS NULL!");
                     return;
                 }
-
                 if (!savedTarget.TryGetComponent(out UnitCardDisplay savedUcd))
                 {
                     Debug.LogError("SAVED TARGET IS NOT UNIT CARD!");
@@ -2610,8 +2571,7 @@ public class EffectManager : MonoBehaviour
 
                 List<Effect> statChangeEffects = new();
                 foreach (Effect e in ucd.CardScript.CurrentEffects)
-                    if (e is StatChangeEffect)
-                        statChangeEffects.Add(e);
+                    if (e is StatChangeEffect) statChangeEffects.Add(e);
 
                 foreach (Effect e in statChangeEffects)
                     ucd.CardScript.CurrentEffects.Remove(e);
@@ -2658,66 +2618,58 @@ public class EffectManager : MonoBehaviour
      *****/
     public void RemoveTemporaryEffects()
     {
-        List<List<GameObject>> cardZones = new()
+        List<GameObject> playZones = Managers.P_MAN.PlayZoneCards.Concat(Managers.EN_MAN.PlayZoneCards).ToList();
+        foreach (GameObject card in playZones)
         {
-            Managers.P_MAN.PlayZoneCards,
-            Managers.EN_MAN.PlayZoneCards,
-        };
+            UnitCardDisplay ucd = CombatManager.GetUnitDisplay(card);
+            List<Effect> expiredEffects = new();
 
-        foreach (List<GameObject> cards in cardZones)
-        {
-            foreach (GameObject card in cards)
+            foreach (Effect effect in ucd.CardScript.CurrentEffects)
             {
-                UnitCardDisplay ucd = CombatManager.GetUnitDisplay(card);
-                List<Effect> expiredEffects = new();
-
-                foreach (Effect effect in ucd.CardScript.CurrentEffects)
+                if (effect.Countdown == 1) // Check for EXPIRED effects
                 {
-                    if (effect.Countdown == 1) // Check for EXPIRED effects
+                    Debug.Log($"EFFECT REMOVED: <{effect}>");
+                    expiredEffects.Add(effect);
+
+                    Managers.EV_MAN.NewDelayedAction(() => RemoveEffect(card, effect), 0.25f);
+
+                    static void RemoveEffect(GameObject card, Effect effect)
                     {
-                        Debug.Log($"EFFECT REMOVED: <{effect}>");
-                        expiredEffects.Add(effect);
+                        CardDisplay cd = card.GetComponent<CardDisplay>();
+                        UnitCardDisplay ucd = cd as UnitCardDisplay;
 
-                        Managers.EV_MAN.NewDelayedAction(() => RemoveEffect(card, effect), 0.25f);
+                        if (effect is ChangeCostEffect chgCst)
+                            cd.ChangeCurrentEnergyCost(-chgCst.ChangeValue);
 
-                        void RemoveEffect(GameObject card, Effect effect)
+                        else if (effect is GiveAbilityEffect gae)
+                            ucd.RemoveCurrentAbility(gae.CardAbility.AbilityName);
+
+                        else if (effect is StatChangeEffect sce)
                         {
-                            CardDisplay cd = card.GetComponent<CardDisplay>();
-                            UnitCardDisplay ucd = cd as UnitCardDisplay;
-
-                            if (effect is ChangeCostEffect chgCst)
-                                cd.ChangeCurrentEnergyCost(-chgCst.ChangeValue);
-
-                            else if (effect is GiveAbilityEffect gae)
-                                ucd.RemoveCurrentAbility(gae.CardAbility.AbilityName);
-
-                            else if (effect is StatChangeEffect sce)
-                            {
-                                ucd.ChangeCurrentPower(-sce.PowerChange);
-                                ucd.MaxHealth -= sce.HealthChange;
-                                int oldHealth = ucd.CurrentHealth;
-                                if (ucd.CurrentHealth > ucd.MaxHealth) ucd.CurrentHealth = ucd.MaxHealth;
-                                sce.HealthChange = oldHealth - ucd.CurrentHealth;
-                                Managers.AN_MAN.ShowStatChange(card, sce, true);
-                            }
+                            ucd.ChangeCurrentPower(-sce.PowerChange);
+                            ucd.MaxHealth -= sce.HealthChange;
+                            int oldHealth = ucd.CurrentHealth;
+                            if (ucd.CurrentHealth > ucd.MaxHealth) ucd.CurrentHealth = ucd.MaxHealth;
+                            sce.HealthChange = oldHealth - ucd.CurrentHealth;
+                            Managers.AN_MAN.ShowStatChange(card, sce, true);
                         }
                     }
-                    else if (effect.Countdown != 0)
-                    {
-                        effect.Countdown--;
-                        Debug.Log($"COUNTOWN FOR {effect} is <{effect.Countdown}>");
-                    }
                 }
-
-                foreach (Effect effect in expiredEffects)
+                else if (effect.Countdown != 0)
                 {
-                    ucd.CardScript.CurrentEffects.Remove(effect);
-                    Destroy(effect);
+                    effect.Countdown--;
+                    Debug.Log($"COUNTOWN FOR {effect} is <{effect.Countdown}>");
                 }
-
-                ucd = null;
-                expiredEffects = null;
             }
+
+            foreach (Effect effect in expiredEffects)
+            {
+                ucd.CardScript.CurrentEffects.Remove(effect);
+                Destroy(effect);
+            }
+
+            ucd = null;
+            expiredEffects = null;
         }
     }
 
@@ -2729,7 +2681,7 @@ public class EffectManager : MonoBehaviour
     public void TriggerGiveNextEffects(GameObject card)
     {
         HeroManager hMan = HeroManager.GetSourceHero(card);
-        List<GiveNextUnitEffect> giveNextEffects = hMan.GiveNextEffects;
+        var giveNextEffects = hMan.GiveNextEffects;
         List<GiveNextUnitEffect> resolvedGnue = new();
 
         if (giveNextEffects.Count < 1) return;
@@ -2801,13 +2753,11 @@ public class EffectManager : MonoBehaviour
             if (modFound)
             {
                 foreach (CardAbility ca in ucd.DisplayAbilities)
-                {
                     if (ca is ModifierAbility)
                     {
                         ucd.AbilityTriggerState(ca.AbilityName);
                         break;
                     }
-                }
             }
         }
 
@@ -2876,13 +2826,11 @@ public class EffectManager : MonoBehaviour
             if (modFound)
             {
                 foreach (CardAbility ca in ucd.DisplayAbilities)
-                {
                     if (ca is ModifierAbility)
                     {
                         ucd.AbilityTriggerState(ca.AbilityName);
                         break;
                     }
-                }
             }
         }
     }
@@ -2898,7 +2846,6 @@ public class EffectManager : MonoBehaviour
         foreach (GameObject unit in cardZone)
         {
             UnitCardDisplay ucd = CombatManager.GetUnitDisplay(unit);
-
             if (ucd.CurrentHealth < 1 || UnitsToDestroy.Contains(unit)) continue;
 
             bool modFound = false;
@@ -2975,13 +2922,11 @@ public class EffectManager : MonoBehaviour
             if (modFound)
             {
                 foreach (CardAbility ca in ucd.CurrentAbilities)
-                {
                     if (ca is ModifierAbility)
                     {
                         ucd.AbilityTriggerState(ca.AbilityName);
                         break;
                     }
-                }
             }
 
             bool hasEnabledModifiers = false;
@@ -3015,7 +2960,6 @@ public class EffectManager : MonoBehaviour
     public void ResolveChangeNextCostEffects(GameObject card)
     {
         HeroManager hMan = HeroManager.GetSourceHero(card);
-
         if (hMan.ChangeNextCostEffects.Count < 1) return;
 
         List<Effect> currentEffects = card.GetComponent<CardDisplay>().CardScript.CurrentEffects;
@@ -3040,16 +2984,8 @@ public class EffectManager : MonoBehaviour
      *****/
     private void FinishChangeNextCostEffect(HeroManager hero, ChangeCostEffect rEffect)
     {
-        List<GameObject> affectedCards = new();
-        List<List<GameObject>> affectedZones = new()
-        {
-            hero.HandZoneCards,
-            hero.PlayZoneCards
-        };
-
-        foreach (List<GameObject> cards in affectedZones)
-            foreach (GameObject card in cards)
-                affectedCards.Add(card);
+        List<GameObject> affectedCards = hero.HandZoneCards.Concat(hero.PlayZoneCards).ToList();
+        foreach (GameObject card in affectedCards) affectedCards.Add(card);
 
         foreach (GameObject card in affectedCards)
         {
@@ -3095,21 +3031,18 @@ public class EffectManager : MonoBehaviour
     public int TriggerModifyNextEffect_AbilityTrigger(string abilityTrigger, GameObject effectSource)
     {
         HeroManager hMan = HeroManager.GetSourceHero(effectSource);
+        if (hMan.ModifyNextEffects.Count < 1) return 0;
 
         int triggerCount = 0;
         List<ModifyNextEffect> resolveMne = new();
 
-        if (hMan.ModifyNextEffects.Count < 1) return 0;
-
         foreach (ModifyNextEffect mne in hMan.ModifyNextEffects)
         {
-            if ((mne.ModifyNextAbility.ModifySpecialTrigger &&
-                mne.ModifyNextAbility.SpecialTriggerType.ToString() == abilityTrigger) ||
+            var mna = mne.ModifyNextAbility;
 
-                mne.ModifyNextAbility.AllAbilityTriggers ||
-
-                (mne.ModifyNextAbility.AbilityTrigger != null &&
-                mne.ModifyNextAbility.AbilityTrigger.AbilityName == abilityTrigger))
+            if ((mna.ModifySpecialTrigger && mna.SpecialTriggerType.ToString() == abilityTrigger) || // Matches the specified special trigger
+                (mna.AbilityTrigger != null && mna.AbilityTrigger.AbilityName == abilityTrigger) || // Matches the specified ability trigger
+                mna.AllAbilityTriggers)
             {
                 triggerCount++;
                 if (!mne.Unlimited && --mne.Multiplier < 1) resolveMne.Add(mne);
@@ -3164,13 +3097,9 @@ public class EffectManager : MonoBehaviour
 
         if (delay == 0) SetRay();
         else FunctionTimer.Create(() => SetRay(), delay);
-
         if (effectRayType is EffectRay.EffectRayType.EffectGroup) ActiveEffects++;
 
-        void SetRay()
-        {
-            ray.GetComponent<EffectRay>().SetEffectRay(target, rayEffect, rayColor, effectRayType);
-        }
+        void SetRay() => ray.GetComponent<EffectRay>().SetEffectRay(target, rayEffect, rayColor, effectRayType);
     }
     #endregion
     #endregion

@@ -8,7 +8,6 @@ public class AetherCellPopupDisplay : MonoBehaviour
     [SerializeField] private GameObject totalAether;
     [SerializeField] private GameObject totalAether_Additional;
     [SerializeField] private GameObject continueButton;
-
     [SerializeField] private GameObject[] hiddenZones;
     [SerializeField] private GameObject newAetherChest;
 
@@ -22,12 +21,9 @@ public class AetherCellPopupDisplay : MonoBehaviour
     {
         newAetherChest.SetActive(true);
         continueButton.SetActive(false);
-        foreach (GameObject go in hiddenZones)
-            go.SetActive(false);
-
+        foreach (GameObject go in hiddenZones) go.SetActive(false);
         aetherQuantity.GetComponent<TextMeshProUGUI>().SetText(0 + "");
-        totalAether.GetComponent<TextMeshProUGUI>().SetText(PlayerManager.Instance.AetherCells + "");
-
+        totalAether.GetComponent<TextMeshProUGUI>().SetText(Managers.P_MAN.AetherCells + "");
         GetComponent<SoundPlayer>().PlaySound(0);
         Managers.AN_MAN.CreateParticleSystem(newAetherChest, ParticleSystemHandler.ParticlesType.NewCard, 5);
     }
@@ -38,15 +34,13 @@ public class AetherCellPopupDisplay : MonoBehaviour
         continueButton.SetActive(true);
         foreach (GameObject go in hiddenZones) go.SetActive(true);
         GetComponent<SoundPlayer>().PlaySound(1);
-
-        PlayerManager.Instance.AetherCells += AetherQuantity;
+        Managers.P_MAN.AetherCells += AetherQuantity;
         Managers.AN_MAN.CreateParticleSystem(null, ParticleSystemHandler.ParticlesType.ButtonPress, 1);
     }
 
     public void ContinueButton_OnClick()
     {
-        UIManager.Instance.DestroyInteractablePopup(gameObject);
-
+        Managers.U_MAN.DestroyInteractablePopup(gameObject);
         if (SceneLoader.IsActiveScene(SceneLoader.Scene.HomeBaseScene)) return;
 
         if (!SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene)) Managers.D_MAN.DisplayDialoguePopup();

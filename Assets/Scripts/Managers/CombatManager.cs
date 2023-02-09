@@ -106,23 +106,6 @@ public class CombatManager : MonoBehaviour
         }
         return ucd.CurrentHealth < ucd.MaxHealth;
     }
-    /*
-    public static bool PowerIsBuffed(GameObject unitCard)
-    {
-        UnitCardDisplay ucd = unitCard.GetComponent<UnitCardDisplay>();
-        return ucd.CurrentPower > ucd.UnitCard.StartPower;
-    }
-    public static bool PowerIsDebuffed(GameObject unitCard)
-    {
-        UnitCardDisplay ucd = unitCard.GetComponent<UnitCardDisplay>();
-        return ucd.CurrentPower < ucd.UnitCard.StartPower;
-    }
-    public static bool HealthIsBuffed(GameObject unitCard)
-    {
-        UnitCardDisplay ucd = unitCard.GetComponent<UnitCardDisplay>();
-        return ucd.CurrentHealth > ucd.UnitCard.StartHealth;
-    }
-    */
 
     /******
      * *****
@@ -302,11 +285,9 @@ public class CombatManager : MonoBehaviour
             }
         }
 
-        // TUTORIAL!
-        if (!preCheck && Managers.G_MAN.IsTutorial && Managers.P_MAN.EnergyPerTurn == 2)
-        {
-            if (!defenderIsUnit) return false;
-        }
+        // TUTORIAL! <<< WATCH >>>
+        if (Managers.G_MAN.IsTutorial && Managers.P_MAN.EnergyPerTurn == 2 && !preCheck &&
+            (!Managers.P_MAN.HeroPowerUsed || !defenderIsUnit)) return false;
 
         UnitCardDisplay atkUcd = GetUnitDisplay(attacker);
         if (atkUcd.IsExhausted)
@@ -401,7 +382,6 @@ public class CombatManager : MonoBehaviour
     public void Attack(GameObject attacker, GameObject defender)
     {
         Managers.EV_MAN.PauseDelayedActions(true);
-
         HeroManager hMan_Attacker = HeroManager.GetSourceHero(attacker, out HeroManager hMan_Defender);
         string logEntry = "";
 
@@ -430,9 +410,10 @@ public class CombatManager : MonoBehaviour
             if (hMan_Attacker == Managers.P_MAN) logEntry += "the enemy hero.";
             else logEntry += "your hero.";
         }
-        Managers.U_MAN.CombatLogEntry(logEntry);
 
+        Managers.U_MAN.CombatLogEntry(logEntry);
         GetUnitDisplay(attacker).IsExhausted = true;
+
         if (CardManager.GetAbility(attacker, CardManager.ABILITY_STEALTH))
             GetUnitDisplay(attacker).RemoveCurrentAbility(CardManager.ABILITY_STEALTH);
 
@@ -801,7 +782,7 @@ public class CombatManager : MonoBehaviour
 
             UnitCard unitCard = card.GetComponent<CardDisplay>().CardScript as UnitCard;
             card.GetComponent<CardZoom>().DestroyZoomPopups();
-            AudioManager.Instance.StartStopSound(null, unitCard.UnitDeathSound);
+            Managers.AU_MAN.StartStopSound(null, unitCard.UnitDeathSound);
 
             DiscardCard(hMan_Source.DiscardZoneCards);
 

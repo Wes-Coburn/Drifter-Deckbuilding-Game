@@ -777,9 +777,9 @@ public class CardManager : MonoBehaviour
     public string FilterKeywords(string text)
     {
         foreach (string str in AbilityKeywords)
-            text = text.Replace(str, $"<color=\"yellow\"><b>{str}</b></color>");
+            text = text.Replace(str, TextFilter.Clrz_ylw(str));
         foreach (string str in CardTypes)
-            text = text.Replace(str, $"<color=\"green\"><b>{str}</b></color>");
+            text = text.Replace(str, TextFilter.Clrz_grn(str));
 
         text = FilterUnitTypes(text);
         return text;
@@ -801,15 +801,8 @@ public class CardManager : MonoBehaviour
             WARRIOR
         };
 
-        foreach (string s in unitTypes) text = ReplaceText(s);
-
+        foreach (string s in unitTypes) text = text.Replace(s, TextFilter.Clrz_grn(s));
         return text;
-
-        string ReplaceText(string target)
-        {
-            text = text.Replace(target, $"<color=\"green\"><b>{target}</b></color>");
-            return text;
-        }
     }
 
     public Color GetAbilityColor(CardAbility cardAbility)
@@ -1054,17 +1047,9 @@ public class CardManager : MonoBehaviour
      * ****** ADD/REMOVE_CARD
      * *****
      *****/
-    public void AddCard(Card card, string hero, bool newCard = false)
+    public void AddCard(Card card, HeroManager hero, bool newCard = false)
     {
-        List<Card> deck;
         Card cardInstance;
-        if (hero == GameManager.PLAYER) deck = PlayerManager.Instance.DeckList;
-        else if (hero == GameManager.ENEMY) deck = EnemyManager.Instance.DeckList;
-        else
-        {
-            Debug.LogError("INVALID HERO TAG!");
-            return;
-        }
         if (card is UnitCard) cardInstance = ScriptableObject.CreateInstance<UnitCard>();
         else if (card is ActionCard) cardInstance = ScriptableObject.CreateInstance<ActionCard>();
         else
@@ -1073,22 +1058,18 @@ public class CardManager : MonoBehaviour
             return;
         }
         cardInstance.LoadCard(card);
-        deck.Add(cardInstance);
-        if (hero == GameManager.PLAYER && newCard) UnitReputationChange(card, false);
+        hero.DeckList.Add(cardInstance);
+        if (hero == Managers.P_MAN && newCard) UnitReputationChange(card, false);
     }
     public void RemovePlayerCard(Card card)
     {
-        PlayerManager.Instance.DeckList.Remove(card);
+        Managers.P_MAN.DeckList.Remove(card);
         UnitReputationChange(card, true);
     }
 
     private void UnitReputationChange(Card card, bool isRemoval)
     {
-        if (!(card is UnitCard)) return;
-
-        int change;
-        if (isRemoval) change = -1;
-        else change = 1;
+        if (card is not UnitCard) return;
         GameManager.ReputationType repType;
 
         switch (card.CardType)
@@ -1112,7 +1093,7 @@ public class CardManager : MonoBehaviour
                 Debug.LogError("INVALID REPUTATION TYPE!");
                 return;
         }
-        GameManager.Instance.ChangeReputation(repType, change);
+        Managers.G_MAN.ChangeReputation(repType, isRemoval ? -1 : 1);
     }
 
     /******
@@ -1184,8 +1165,7 @@ public class CardManager : MonoBehaviour
         }
 
         int abilityIndex = ucd.CurrentAbilities.FindIndex(x => x.AbilityName == ability);
-        if (abilityIndex == -1) return false;
-        else return true;
+        return abilityIndex != -1;
     }
     public int GetPositiveKeywords(GameObject unitCard)
     {
@@ -1202,9 +1182,7 @@ public class CardManager : MonoBehaviour
 
         int positiveKeywords = 0;
         foreach (string positiveKeyword in PositiveAbilities)
-        {
             if (GetAbility(unitCard, positiveKeyword)) positiveKeywords++;
-        }
 
         return positiveKeywords;
     }
@@ -1255,9 +1233,9 @@ public class CardManager : MonoBehaviour
 
         bool effectFound = false;
         int totalAbilities = 0;
-        List<TriggeredAbility> resolveFirstAbilities = new List<TriggeredAbility>();
-        List<TriggeredAbility> resolveSecondAbilities = new List<TriggeredAbility>();
-        List<TriggeredAbility> resolveLastAbilities = new List<TriggeredAbility>();
+        List<TriggeredAbility> resolveFirstAbilities = new();
+        List<TriggeredAbility> resolveSecondAbilities = new();
+        List<TriggeredAbility> resolveLastAbilities = new();
 
         foreach (CardAbility ca in ucd.CurrentAbilities.AsEnumerable().Reverse()) // Resolve abilities in top-down order
             if (ca is TriggeredAbility tra)
@@ -1284,8 +1262,8 @@ public class CardManager : MonoBehaviour
                     }
                 }
 
-        List<string> enabledTriggers = new List<string>();
-        List<string> visibleTriggers = new List<string>();
+        List<string> enabledTriggers = new();
+        List<string> visibleTriggers = new();
 
         foreach (CardAbility ca in ucd.CurrentAbilities)
             if (ca is TriggeredAbility tra)
@@ -1295,13 +1273,8 @@ public class CardManager : MonoBehaviour
             }
 
         foreach (CardAbility ca in ucd.CurrentAbilities)
-            if (ca is TriggeredAbility tra)
-            {
-                if (enabledTriggers.FindIndex(x => x == tra.AbilityTrigger.AbilityName) == -1)
-                {
-                    ucd.EnableTriggerIcon(tra.AbilityTrigger, false);
-                }
-            }
+            if (ca is TriggeredAbility tra && (enabledTriggers.FindIndex(x => x == tra.AbilityTrigger.AbilityName) == -1))
+                ucd.EnableTriggerIcon(tra.AbilityTrigger, false);
 
         float delay = 0.25f;
         int currentAbility = 0;
@@ -1493,8 +1466,7 @@ public class CardManager : MonoBehaviour
                     Managers.AU_MAN.StartStopSound(null, ucd.UnitCard.CardPlaySound);
                     Managers.EF_MAN.UnitsToDestroy.Add(trap);
                     Managers.EF_MAN.TriggerModifiers_SpecialTrigger(ModifierAbility.TriggerType.AllyTrapDestroyed, enemyZoneCards);
-
-                    Managers.EV_MAN.NewDelayedAction(() => Managers.EF_MAN.ClearDestroyedUnits(), 0, true);
+                    Managers.EV_MAN.NewDelayedAction(() => Managers.EF_MAN.UnitsToDestroy.RemoveAll(unit => unit == null), 0, true); // TESTING
 
                     foreach (Effect selfEffect in trapAbility.SelfEffects)
                         Managers.EV_MAN.NewDelayedAction(() =>

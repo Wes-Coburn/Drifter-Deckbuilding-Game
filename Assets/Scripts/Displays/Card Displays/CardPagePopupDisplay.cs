@@ -49,8 +49,7 @@ public class CardPagePopupDisplay : MonoBehaviour
                 return;
         }
 
-        text += " <b><u>" + card.CardName + "</u></b>" +
-            " for <color=\"red\"><b>" + cardCost + "</b></color> aether?";
+        text += $" <b><u>{card.CardName}</u></b> for {TextFilter.Clrz_red(cardCost + "", false)} aether?";
         PopupText = text;
     }
 
@@ -103,7 +102,7 @@ public class CardPagePopupDisplay : MonoBehaviour
         else if (Managers.G_MAN.RecruitLoyalty > GameManager.RECRUIT_LOYALTY_GOAL) Managers.G_MAN.RecruitLoyalty = 0;
         currentProgress = Managers.G_MAN.RecruitLoyalty;
 
-        Managers.CA_MAN.AddCard(card, GameManager.PLAYER, true);
+        Managers.CA_MAN.AddCard(card, Managers.P_MAN, true);
     }
 
     private void AcquireAction()
@@ -118,13 +117,13 @@ public class CardPagePopupDisplay : MonoBehaviour
         else if (Managers.G_MAN.ActionShopLoyalty > GameManager.ACTION_LOYALTY_GOAL) Managers.G_MAN.ActionShopLoyalty = 0;
         currentProgress = Managers.G_MAN.ActionShopLoyalty;
 
-        Managers.CA_MAN.AddCard(card, GameManager.PLAYER, true);
+        Managers.CA_MAN.AddCard(card, Managers.P_MAN, true);
     }
 
     private void CloneUnit()
     {
         Managers.P_MAN.AetherCells -= cardCost;
-        Managers.CA_MAN.AddCard(card, GameManager.PLAYER, true);
+        Managers.CA_MAN.AddCard(card, Managers.P_MAN, true);
     }
 
     public void CancelButton_OnClick() => Managers.U_MAN.DestroyInteractablePopup(gameObject);
