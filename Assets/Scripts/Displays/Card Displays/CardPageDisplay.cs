@@ -139,51 +139,6 @@ public class CardPageDisplay : MonoBehaviour
             cardGroupList = cardGroupList.OrderBy(c => c.StartEnergyCost)
                               .ThenBy(c => c.CardName)
                               .ToList();
-
-            /*
-            // FIRST REFACTOR
-            cardGroupList.Sort((s1, s2) => s1.StartEnergyCost - s2.StartEnergyCost);
-            var groups = cardGroupList.GroupBy(c => c.StartEnergyCost);
-            var sortedGroups = groups.OrderBy(g => g.Key);
-
-            cardGroupList.Clear();
-            foreach (var group in sortedGroups)
-            {
-                var sortedCards = group.OrderBy(c => c.CardName);
-                cardGroupList.AddRange(sortedCards);
-            }
-
-            // ORIGINAL
-            cardGroupList.Sort((s1, s2) => s1.StartEnergyCost - s2.StartEnergyCost);
-
-            List<List<Card>> sortList = new() { new List<Card>() };
-
-            int currentList = 0;
-            int currentCost = 0;
-
-            foreach (Card c in cardGroupList)
-            {
-                int cardCost = c.StartEnergyCost;
-
-                if (cardCost != currentCost)
-                {
-                    sortList.Add(new List<Card>());
-                    currentList++;
-                    currentCost = cardCost;
-                }
-
-                sortList[currentList].Add(c);
-            }
-
-            foreach (List<Card> cardList in sortList)
-            {
-                cardList.Sort((x, y) => string.Compare(x.CardName, y.CardName));
-            }
-
-            cardGroupList.Clear();
-            foreach (List<Card> cardList in sortList)
-                foreach (Card c in cardList) cardGroupList.Add(c);
-            */
         }
         else noCardsTooltip.SetActive(true);
         if (isScrollPage) LoadScrollPage(scrollValue);
