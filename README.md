@@ -42,16 +42,16 @@
 ```c#
   // Singleton Pattern
   
-  public static CombatManager Instance { get; private set; }
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else Destroy(gameObject);
-    }
+public static GameManager Instance { get; private set; }
+private void Awake()
+{
+  if (Instance == null)
+  {
+    Instance = this;
+    DontDestroyOnLoad(gameObject);
+  }
+  else Destroy(gameObject);
+}
   ```
     
 <h3 align="center">
