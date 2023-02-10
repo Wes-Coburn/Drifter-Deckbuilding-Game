@@ -40,7 +40,7 @@
 
 > Manager classes are attached to gameObjects in *ManagerScene* and follow the **singleton** pattern:
 ```c#
-  // Singleton Pattern
+// Singleton Pattern
   
 public static GameManager Instance { get; private set; }
 private void Awake()
