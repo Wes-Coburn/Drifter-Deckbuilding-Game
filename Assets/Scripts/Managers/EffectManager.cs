@@ -47,7 +47,7 @@ public class EffectManager : MonoBehaviour
 
     #region PROPERTIES
     /*
-     * Primary function: Call FinishEffectGroupList() when the last effect resolves.
+     * Call FinishEffectGroupList() when the last effect resolves.
      * Only used for effects in an EffectGroup.
      */
     public int ActiveEffects
@@ -62,8 +62,7 @@ public class EffectManager : MonoBehaviour
         }
     }
     /*
-     * Primary function: While effects are resolving, 
-     * disable the end turn button and pause all delayed actions.
+     * While effects are resolving, disable the end turn button and pause all delayed actions.
      */
     public bool EffectsResolving
     {
@@ -1563,10 +1562,7 @@ public class EffectManager : MonoBehaviour
         {
             if (validTargets.Count > 0)
             {
-                string sfx;
-                if (shootRay) sfx = "SFX_DamageRay_Start";
-                else sfx = "SFX_DamageRay_End";
-
+                string sfx = shootRay ? "SFX_DamageRay_Start" : "SFX_DamageRay_End";
                 FunctionTimer.Create(() =>
                 Managers.AU_MAN.StartStopSound(sfx), delay);
             }
@@ -1626,10 +1622,7 @@ public class EffectManager : MonoBehaviour
         {
             if (validTargets.Count > 0)
             {
-                string sfx;
-                if (shootRay) sfx = "SFX_DamageRay_Start";
-                else sfx = "SFX_DamageRay_End";
-
+                string sfx = shootRay ? "SFX_DamageRay_Start" : "SFX_DamageRay_End";
                 FunctionTimer.Create(() =>
                 Managers.AU_MAN.StartStopSound(sfx), delay);
             }

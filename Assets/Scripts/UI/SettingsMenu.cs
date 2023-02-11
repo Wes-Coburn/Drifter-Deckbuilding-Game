@@ -17,8 +17,10 @@ public class SettingsMenu : MonoBehaviour
         SetExplicitLanguageToggle();
         gameInfoPopup.SetActive(false);
     }
-    private void SetSFXSlider() => sfxSlider.GetComponent<Slider>().SetValueWithoutNotify(Managers.AU_MAN.SFXVolume);
-    private void SetMusicSlider() => musicSlider.GetComponent<Slider>().SetValueWithoutNotify(Managers.AU_MAN.MusicVolume);
+    private void SetSFXSlider() =>
+        sfxSlider.GetComponent<Slider>().SetValueWithoutNotify(Managers.AU_MAN.SFXVolume);
+    private void SetMusicSlider() =>
+        musicSlider.GetComponent<Slider>().SetValueWithoutNotify(Managers.AU_MAN.MusicVolume);
     private void SetExplicitLanguageToggle() =>
         explicitLanguageToggle.GetComponent<Toggle>().SetIsOnWithoutNotify(!Managers.G_MAN.HideExplicitLanguage);
     public void ExplicitLanguage_OnToggle(bool showLanguage)

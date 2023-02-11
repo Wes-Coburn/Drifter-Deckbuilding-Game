@@ -10,7 +10,6 @@ public class TutorialActionPopupDisplay : MonoBehaviour
     [SerializeField] private GameObject continueButton;
 
     private int currentTip;
-
     private TextMeshProUGUI tipTextMesh;
     private TextMeshProUGUI tipCountMesh;
 
@@ -75,7 +74,8 @@ public class TutorialActionPopupDisplay : MonoBehaviour
                 break;
 
             case 4:
-                text = $"Damage dealt to your hero reduces their {TextFilter.Clrz_ylw("Health")}. If your hero's health reaches 0, you lose.";
+                text = $"Damage dealt to your hero reduces their {TextFilter.Clrz_ylw("Health")}. " +
+                    "If your hero's health reaches 0, you lose.";
                 position.Set(470, 0);
                 break;
 
@@ -87,30 +87,30 @@ public class TutorialActionPopupDisplay : MonoBehaviour
 
             case 6:
                 text = $"You can use your {TextFilter.Clrz_ylw("Hero Power")} once each turn. " +
-                    $"Each time you use your hero power 3+ times, you can use your {TextFilter.Clrz_ylw("Hero Ultimate")} once.";
+                    $"Each time you use your hero power 3+ times, you can use " +
+                    $"your {TextFilter.Clrz_ylw("Hero Ultimate")} once.";
                 position.Set(470, 0);
                 break;
 
             case 7:
-                text = $"You draw cards from your {TextFilter.Clrz_ylw("Deck")}. When it runs out of cards, " +
-                    "you'll shuffle your discard pile back into it.";
+                text = $"You draw cards from your {TextFilter.Clrz_ylw("Deck")}. When it runs " +
+                    $"out of cards, you'll shuffle your discard pile back into it.";
                 position.Set(-500, -150);
                 break;
 
             case 8:
                 text = $"You draw {GameManager.START_HAND_SIZE} cards at the beginning of each combat, and 1 each turn after that.";
-                position.Set(-570, -190);
+                position.Set(-500, -150);
                 break;
 
             case 9:
-                text = "After you draw your first hand, you can replace any number of cards with new ones from your deck. " +
-                    $"This is known as a {TextFilter.Clrz_ylw("Mulligan")}.";
-                position.Set(-570, -190);
+                text = "After you draw your first hand, you can replace any number of cards " +
+                    $"with new ones from your deck. This is known as a {TextFilter.Clrz_ylw("Mulligan")}.";
+                position.Set(-500, -150);
                 break;
 
             case 10: // Last Case
-                text = "Now you know the basics. Time to test your knowledge.";
-
+                text = "Now you know the basics. Let's play.";
                 tipCounter_Active = false;
                 continueButton_Active = true;
                 nextButton_Active = false;

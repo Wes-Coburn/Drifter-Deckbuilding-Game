@@ -37,7 +37,6 @@ public class GameManager : MonoBehaviour
 
     private Narrative settingNarrative;
     private Narrative newGameNarrative;
-
     private int currentTip;
 
     // Player Preferences
@@ -936,11 +935,11 @@ public class GameManager : MonoBehaviour
 
         if (hasRested)
         {
-            Managers.U_MAN.CreateFleetingInfoPopup("You have rested!\nShops refreshed!");
             NextHour(true);
             ShopItems = GetShopItems();
             Managers.CA_MAN.LoadNewRecruits();
             Managers.CA_MAN.LoadNewActions();
+            Managers.U_MAN.CreateFleetingInfoPopup("You have rested!\nShops refreshed!");
 
             List<Location> refreshedShops = new();
             foreach (Location loc in ActiveLocations)
@@ -1049,8 +1048,7 @@ public class GameManager : MonoBehaviour
         Managers.P_MAN.HeroUltimateProgress = 0;
         Managers.P_MAN.DamageTaken_ThisTurn = 0;
         Managers.P_MAN.AlliesDestroyed_ThisTurn = 0;
-        foreach (HeroItem item in Managers.P_MAN.HeroItems)
-            item.IsUsed = false;
+        foreach (HeroItem item in Managers.P_MAN.HeroItems) item.IsUsed = false;
 
         Managers.P_MAN.TurnNumber = 0;
 
@@ -1262,8 +1260,7 @@ public class GameManager : MonoBehaviour
         Managers.EV_MAN.NewDelayedAction(() => ResetTriggerCounts(), 0);
         Managers.EV_MAN.NewDelayedAction(() => Managers.CA_MAN.SelectPlayableCards(), 0); // To reset conditional card costs (i.e. based on units destroyed this turn)
 
-        if (hero == Managers.EN_MAN)
-            Managers.EV_MAN.NewDelayedAction(() => StartCombatTurn(Managers.P_MAN), 0.5f);
+        if (hero == Managers.EN_MAN) Managers.EV_MAN.NewDelayedAction(() => StartCombatTurn(Managers.P_MAN), 0.5f);
         else if (hero == Managers.P_MAN)
         {
             if (IsTutorial) // TUTORIAL!
@@ -1432,17 +1429,8 @@ public class GameManager : MonoBehaviour
      *****/
     public int GetItemCost(HeroItem item, out bool isDiscounted, bool isItemRemoval)
     {
-        int itemCost;
-        if (isItemRemoval)
-        {
-            if (item.IsRareItem) itemCost = SELL_RARE_ITEM_VALUE;
-            else itemCost = SELL_ITEM_VALUE;
-        }
-        else
-        {
-            if (item.IsRareItem) itemCost = BUY_RARE_ITEM_COST;
-            else itemCost = BUY_ITEM_COST;
-        }
+        int itemCost = isItemRemoval ? (item.IsRareItem ? SELL_RARE_ITEM_VALUE : SELL_ITEM_VALUE) : 
+            (item.IsRareItem ? BUY_RARE_ITEM_COST : BUY_ITEM_COST);
 
         if (ShopLoyalty == SHOP_LOYALTY_GOAL)
         {

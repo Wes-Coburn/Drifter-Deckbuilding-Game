@@ -20,10 +20,10 @@ public class AudioManager : MonoBehaviour
         SFXVolume = 0;
     }
 
-    [Header("Audio Mixer"), SerializeField] private AudioMixer masterMixer;
-    [SerializeField] private AudioMixerGroup sfxMixer;
-    [SerializeField] private Sound[] sounds;
-    private static readonly List<Sound> activeSounds = new List<Sound>();
+    [Header("Main Audio Mixer"), SerializeField] private AudioMixer masterMixer;
+    [Header("SFX Mixer Group"), SerializeField] private AudioMixerGroup sfxMixer;
+    [Header("All Sounds"), SerializeField] private Sound[] sounds;
+    private static readonly List<Sound> activeSounds = new();
     private const string VOLUME_MUSIC = "Volume_Music";
     private const string VOLUME_SFX = "Volume_SFX";
 
@@ -68,9 +68,9 @@ public class AudioManager : MonoBehaviour
         newSound.source.volume = sound.volume;
         newSound.source.pitch = sound.pitch;
 
-        AudioMixerGroup mixer = newSound.mixerGroup;
-        AudioMixerGroup newMixer = mixer != null ? mixer : sfxMixer;
-        newSound.source.outputAudioMixerGroup = newMixer;
+        var mixerGroup = newSound.mixerGroup;
+        var newMixerGroup = mixerGroup != null ? mixerGroup : sfxMixer; // SFX sounds are NOT already assigned to a mixer group
+        newSound.source.outputAudioMixerGroup = newMixerGroup;
 
         activeSounds.Add(newSound);
         return newSound;

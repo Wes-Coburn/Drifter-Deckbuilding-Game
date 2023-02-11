@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Collections.Generic;
 
 public class PowerZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -53,19 +54,8 @@ public class PowerZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     private void CreatePowerPopup()
     {
-        float newX;
-        float newY;
-
-        if (!isEnemyPower)
-        {
-            newX = 300;
-            newY = -360;
-        }
-        else
-        {
-            newX = -250;
-            newY = 320;
-        }
+        float newX = isEnemyPower ? -250 : 300;
+        float newY = isEnemyPower ? 320 : -360;
 
         Vector3 spawnPoint = new Vector2(newX, newY);
         float scaleValue = 2.5f;
@@ -76,16 +66,15 @@ public class PowerZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         HeroPower hp;
         if (!isEnemyPower)
         {
-            PlayerHeroDisplay phd = GetComponentInParent<PlayerHeroDisplay>();
+            var phd = GetComponentInParent<PlayerHeroDisplay>();
             if (isUltimate) hp = (phd.HeroScript as PlayerHero).HeroUltimate;
             else hp = phd.HeroScript.HeroPower;
         }
         else
         {
-            EnemyHeroDisplay ehd = GetComponentInParent<EnemyHeroDisplay>();
+            var ehd = GetComponentInParent<EnemyHeroDisplay>();
             hp = ehd.HeroScript.HeroPower;
         }
-
 
         if (hp == null)
         {
@@ -98,8 +87,6 @@ public class PowerZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     private void ShowLinkedAbilities(HeroPower hp, float scaleValue)
     {
-        //if (this == null) return; // TESTING
-
         if (hp == null)
         {
             Debug.LogError("HERO POWER IS NULL!");
@@ -107,27 +94,37 @@ public class PowerZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         }
 
         abilityPopupBox = Instantiate(abilityPopupBoxPrefab, Managers.U_MAN.CurrentZoomCanvas.transform);
-        Vector2 position = new Vector2();
+        Vector2 position = new();
 
         if (!abilityPopupOnly) // Combat Scene
         {
             if (!isEnemyPower) position.Set(-75, -50);
-            else position.Set(0, -50); // TESTING
+            else position.Set(0, -50);
         }
         else
         {
-            /*
-            if (SceneLoader.IsActiveScene(SceneLoader.Scene.HeroSelectScene))
-                position.Set(350, 100);
-             */
-
             if (SceneLoader.IsActiveScene(SceneLoader.Scene.HomeBaseScene))
                 position.Set(350, 0);
         }
         abilityPopupBox.transform.localPosition = position;
         abilityPopupBox.transform.localScale = new Vector2(scaleValue, scaleValue);
+
+        List<CardAbility> linkedAbilities = new();
         foreach (CardAbility ca in hp.LinkedAbilities)
+        {
+            AddLinkedCA(ca);
+            foreach (CardAbility ca2 in ca.LinkedAbilites)
+                AddLinkedCA(ca2);
+        }
+        
+        foreach (CardAbility ca in linkedAbilities)
             CreateAbilityPopup(ca, abilityPopupBox.transform, 1);
+
+        void AddLinkedCA(CardAbility ca)
+        {
+            if (linkedAbilities.FindIndex(x => x.AbilityName == ca.AbilityName) != -1)
+                linkedAbilities.Add(ca);
+        }
     }
 
     private void CreateAbilityPopup(CardAbility ca, Transform parent, float scaleValue)
