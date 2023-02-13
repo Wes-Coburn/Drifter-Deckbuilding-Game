@@ -36,6 +36,7 @@ public abstract class HeroDisplay : MonoBehaviour
     public GameObject HeroHealthObject { get => heroHealth; }
     public GameObject HeroEnergyObject { get => heroEnergy; }
     public GameObject HeroPower { get => heroPower; }
+    public GameObject HeroPowerImage { get => powerImage; }
 
     public Sprite HeroPortrait
     {
@@ -45,7 +46,7 @@ public abstract class HeroDisplay : MonoBehaviour
 
             if (this is PlayerHeroDisplay)
             {
-                UIManager.Instance.GetPortraitPosition
+                Managers.U_MAN.GetPortraitPosition
                     (HeroScript.HeroName, out Vector2 position, out Vector2 scale, SceneLoader.Scene.CombatScene);
                 heroPortrait.transform.localPosition = position;
                 heroPortrait.transform.localScale = scale;

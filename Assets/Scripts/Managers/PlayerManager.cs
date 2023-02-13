@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerManager : HeroManager
 {
@@ -80,7 +81,17 @@ public class PlayerManager : HeroManager
         set
         {
             heroPowerUsed = value;
-            GameObject powerReadyIcon = HeroObject.GetComponent<PlayerHeroDisplay>().PowerReadyIcon;
+            var phd = HeroObject.GetComponent<PlayerHeroDisplay>();
+            GameObject powerImage = phd.HeroPowerImage;
+            var img = powerImage.GetComponent<Image>();
+            img.color = heroPowerUsed ? Color.gray : Color.white;
+            /*
+            var color = img.color;
+            color.a = heroPowerUsed ? 0.6f : 1;
+            img.color = color;
+            */
+
+            GameObject powerReadyIcon = phd.PowerReadyIcon;
             powerReadyIcon.SetActive(!heroPowerUsed);
         }
     }

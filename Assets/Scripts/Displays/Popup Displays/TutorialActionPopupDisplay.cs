@@ -81,7 +81,7 @@ public class TutorialActionPopupDisplay : MonoBehaviour
 
             case 5:
                 text = $"{TextFilter.Clrz_ylw("Energy")} is used to play cards and use hero powers. " +
-                    "You gain 1 energy at the start of your turn, increased by 1 each turn to a maximum of 10.";
+                    "You gain 1 energy at the start of your turn, increased by 1 each turn (max 10).";
                 position.Set(470, 0);
                 break;
 

@@ -53,7 +53,7 @@ public class CombatEndPopupDisplay : MonoBehaviour
         }
         else
         {
-            SceneLoader.LoadAction += () => GameLoader.LoadGame();
+            SceneLoader.LoadAction_Async += GameLoader.LoadGame_Async;
             SceneLoader.LoadScene(SceneLoader.Scene.WorldMapScene, true);
         }
         Managers.U_MAN.DestroyInteractablePopup(gameObject);

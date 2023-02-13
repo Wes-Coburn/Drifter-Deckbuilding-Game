@@ -38,16 +38,44 @@ public class LocationIcon : MonoBehaviour
             if (!location.IsAugmenter && GameManager.Instance.VisitedLocations.FindIndex
                 (x => x == location.LocationName) != -1) visited = true;
 
-            bool open = Managers.G_MAN.LocationOpen(location);
-            closedBadge.SetActive(!open);
+            bool isOpen = Managers.G_MAN.LocationOpen(location);
+            bool isPriority = location.IsPriorityLocation;
+            closedBadge.SetActive(!isOpen);
 
-            if (open)
+            if (isOpen)
             {
                 unvisitedBadge.SetActive(!visited);
-                priorityBadge.SetActive(location.IsPriorityLocation);
-                nonPriorityBadge.SetActive(!location.IsPriorityLocation);
+                priorityBadge.SetActive(isPriority);
+                nonPriorityBadge.SetActive(!isPriority);
             }
             else unvisitedBadge.SetActive(false);
+
+            if ((!isOpen || !isPriority) && !location.IsHomeBase)
+            {
+                foreach (GameObject go in new GameObject[]
+                {
+                    locationImage,
+                    priorityBadge,
+                    nonPriorityBadge,
+                    closedBadge,
+                })
+                {
+                    var rect = go.GetComponent<RectTransform>();
+
+                    // Scale
+                    var scale = rect.localScale;
+                    Vector2 newScale = new(scale.x * 0.6f, scale.y * 0.6f);
+                    go.GetComponent<RectTransform>().localScale = newScale;
+
+                    // Opacity
+                    var img = go.GetComponent<Image>();
+                    var clr = img.color;
+                    clr.a = 0.5f;
+                    img.color = clr;
+                }
+
+                locationName.GetComponent<RectTransform>().localPosition = new Vector2(0, -60);
+            }
 
             Sprite image = null;
 
@@ -60,11 +88,11 @@ public class LocationIcon : MonoBehaviour
             else if (location.IsCloning) image = cloningSprite;
 
             // Default Locations
-            else if (location.IsPriorityLocation) image = priorityIcon;
+            else if (isPriority) image = priorityIcon;
             else
             {
                 image = nonPriorityIcon;
-                badges.transform.localPosition = new Vector2(17, 19);
+                badges.transform.localPosition = new Vector2(10, 12);
             }
 
             if (image != null) locationImage.GetComponent<Image>().sprite = image;

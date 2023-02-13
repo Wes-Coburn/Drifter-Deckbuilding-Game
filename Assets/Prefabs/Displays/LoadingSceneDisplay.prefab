@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -45,8 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tipText: {fileID: 0}
   chapterText: {fileID: 0}
-  tips:
-  - Look before you attack! Units with <b>Retaliate</b> do something after their
-    hero is attacked.
-  - Unused energy is saved across turns! You can store up to 10 energy at one time.
-  - Visit <b>Your Ship</b> to learn new skills, and remove cards from your deck!
+  loadingBar: {fileID: 0}

@@ -235,7 +235,8 @@ public class CardManager : MonoBehaviour
                 prefab = prefab.GetComponent<CardZoom>().ActionZoomCardPrefab;
         }
 
-        GameObject parent = Managers.CO_MAN.CardZone != null ? Managers.CO_MAN.CardZone : Managers.U_MAN.CurrentCanvas;
+        GameObject parent = Managers.CO_MAN.CardZone != null ?
+            Managers.CO_MAN.CardZone : Managers.U_MAN.CurrentCanvas;
 
         if (parent == null)
         {
@@ -305,7 +306,7 @@ public class CardManager : MonoBehaviour
                 return null;
             }
 
-            if (drawnCard == null) position.Set(-780, -427);
+            if (drawnCard == null) position.Set(-850, -410);
             else position.Set(0, -350);
         }
         else if (hero == Managers.EN_MAN)
@@ -317,7 +318,7 @@ public class CardManager : MonoBehaviour
                 return null;
             }
 
-            if (drawnCard == null) position.Set(780, 427);
+            if (drawnCard == null) position.Set(850, 427);
             else position.Set(0, 350);
         }
 
@@ -605,9 +606,10 @@ public class CardManager : MonoBehaviour
                 return;
             }
 
+            bool hasPlayTrigger = TriggerUnitAbility(card, TRIGGER_PLAY);
             if (HeroManager.GetSourceHero(card) == Managers.P_MAN)
             {
-                if (!TriggerUnitAbility(card, TRIGGER_PLAY)) UnitTriggers();
+                if (!hasPlayTrigger) UnitTriggers();
             }
             else UnitTriggers();
 
@@ -829,7 +831,7 @@ public class CardManager : MonoBehaviour
     {
         ActionCard[] allActions = Resources.LoadAll<ActionCard>("Cards_Actions");
         allActions.Shuffle();
-        List<ActionCard> actionList = new List<ActionCard>();
+        List<ActionCard> actionList = new();
 
         foreach (ActionCard action in allActions)
         {

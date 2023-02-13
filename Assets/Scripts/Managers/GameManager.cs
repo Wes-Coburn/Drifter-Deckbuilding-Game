@@ -397,8 +397,8 @@ public class GameManager : MonoBehaviour
         switch (tipNumber)
         {
             case 1:
-                tip = $"Redraw any number of cards from your starting hand. Click each card you want to redraw, " +
-                    $"then click the {TextFilter.Clrz_ylw("Confirm Button")} (or press the {TextFilter.Clrz_ylw("Space Bar")}).";
+                tip = $"Click each card you want to redraw, then click the " +
+                    $"{TextFilter.Clrz_ylw("Confirm Button")} (or press the {TextFilter.Clrz_ylw("Space Bar")}).";
                 break;
             case 2:
                 tip = $"Play a card by dragging it out of your hand. Cards you can play are highlighted in {TextFilter.Clrz_grn("green")}.";

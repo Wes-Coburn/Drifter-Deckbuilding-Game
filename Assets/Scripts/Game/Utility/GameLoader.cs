@@ -18,6 +18,7 @@ public static class GameLoader
         PlayerPrefs.SetFloat(SFX_VOLUME, Managers.AU_MAN.SFXVolume);
         PlayerPrefs.SetInt(HIDE_EXPLICIT_LANGUAGE, Managers.G_MAN.HideExplicitLanguage ? 1 : 0);
     }
+
     public static void LoadPlayerPreferences()
     {
         Managers.AU_MAN.MusicVolume = PlayerPrefs.GetFloat(MUSIC_VOLUME, 1);
@@ -47,14 +48,29 @@ public static class GameLoader
             for (int i = 0; i < 5; i++)
                 Managers.CA_MAN.AddCard(unit, Managers.P_MAN);
     }
+
+    /******
+     * *****
+     * ****** NEW_GAME
+     * *****
+     *****/
+    private static void NewGame_LoadAsync_Progress()
+    {
+        const int loadItems = 8;
+        const float increment = 1f / loadItems;
+        SceneLoader.LoadingProgress += increment;
+    }
     public static IEnumerator NewGame_LoadAsync()
     {
         // Narratives
         string narPath = "Narratives";
         var request_setting = Resources.LoadAsync<Narrative>($"{narPath}/SettingNarrative");
         yield return request_setting;
+        NewGame_LoadAsync_Progress(); // <<< Load Progress
+
         var request_narrative = Resources.LoadAsync<Narrative>($"{narPath}/NewGameNarrative");
         yield return request_narrative;
+        NewGame_LoadAsync_Progress(); // <<< Load Progress
 
         SettingNarrative = request_setting.asset as Narrative;
         NewGameNarrative = request_narrative.asset as Narrative;
@@ -73,6 +89,8 @@ public static class GameLoader
         {
             var request = Resources.LoadAsync<Location>($"Locations/{loc}");
             yield return request;
+            NewGame_LoadAsync_Progress(); // <<< Load Progress (6x)
+
             Location location = request.asset as Location;
             Managers.G_MAN.GetActiveLocation(location);
         }
@@ -176,17 +194,21 @@ public static class GameLoader
      * ****** LOAD_GAME
      * *****
      *****/
-    public static bool LoadGame()
+    private static void LoadGame_Async_Progress()
     {
-        GameData data = SaveLoad.LoadGame();
-        if (data == null) return false;
-        Managers.G_MAN.StartCoroutine(LoadGame_Async());
-        return true;
+        const int loadItems = 10;
+        const float increment = 1f / loadItems;
+        SceneLoader.LoadingProgress += increment;
     }
-
-    private static IEnumerator LoadGame_Async()
+    public static IEnumerator LoadGame_Async()
     {
         GameData data = SaveLoad.LoadGame();
+
+        if (data == null)
+        {
+            Debug.LogError("SAVE DATA IS NULL!");
+            yield return null;
+        }
 
         // CURRENT HOUR
         Managers.G_MAN.CurrentHour = data.CurrentHour;
@@ -196,13 +218,19 @@ public static class GameLoader
         {
             var request_CurNar = Resources.LoadAsync<Narrative>($"Narratives/{data.CurrentNarrative}");
             yield return request_CurNar;
-            Managers.G_MAN.CurrentNarrative = request_CurNar.asset as Narrative;
+            LoadGame_Async_Progress(); // <<< Load Progress
+
+            if (request_CurNar.asset != null) Managers.G_MAN.CurrentNarrative = request_CurNar.asset as Narrative;
+            else Debug.LogError("NARRATIVE NOT FOUND!");
         }
         else Managers.G_MAN.CurrentNarrative = null;
 
         var request_PHero = Resources.LoadAsync<PlayerHero>($"Heroes/Player Heroes/{data.PlayerHero}");
         yield return request_PHero;
-        Managers.P_MAN.HeroScript = request_PHero.asset as PlayerHero;
+        LoadGame_Async_Progress(); // <<< Load Progress
+
+        if (request_PHero.asset != null) Managers.P_MAN.HeroScript = request_PHero.asset as PlayerHero;
+        else Debug.LogError("HERO NOT FOUND!");
 
         // DECK LIST
         Managers.P_MAN.DeckList.Clear();
@@ -210,15 +238,31 @@ public static class GameLoader
         {
             var request_Card = Resources.LoadAsync<Card>($"Cards_Starting/{data.PlayerDeck[i]}");
             yield return request_Card;
-            if (request_Card.asset == null) Resources.LoadAsync<Card>($"Cards_Units/{data.PlayerDeck[i]}");
-            yield return request_Card;
-            if (request_Card.asset == null) Resources.LoadAsync<Card>($"Cards_Actions/{data.PlayerDeck[i]}");
-            yield return request_Card;
 
-            if (request_Card.asset is UnitCard) Managers.CA_MAN.AddCard(request_Card.asset as UnitCard, Managers.P_MAN);
-            else if (request_Card.asset is ActionCard) Managers.CA_MAN.AddCard(request_Card.asset as ActionCard, Managers.P_MAN);
+            if (request_Card.asset == null)
+            {
+                request_Card = Resources.LoadAsync<Card>($"Cards_Units/{data.PlayerDeck[i]}");
+                yield return request_Card;
+            }
+            if (request_Card.asset == null)
+            {
+                request_Card = Resources.LoadAsync<Card>($"Cards_Actions/{data.PlayerDeck[i]}");
+                yield return request_Card;
+            }
+
+            if (request_Card.asset == null)
+            {
+                Debug.LogError("CARD NOT FOUND!");
+                continue;
+            }
+
+            if (request_Card.asset is UnitCard)
+                Managers.CA_MAN.AddCard(request_Card.asset as UnitCard, Managers.P_MAN);
+            else if (request_Card.asset is ActionCard)
+                Managers.CA_MAN.AddCard(request_Card.asset as ActionCard, Managers.P_MAN);
             else Debug.LogError("INVALID CARD TYPE!");
         }
+        LoadGame_Async_Progress(); // <<< Load Progress
 
         // AUGMENTS
         Managers.P_MAN.HeroAugments.Clear();
@@ -226,8 +270,10 @@ public static class GameLoader
         {
             var request_Aug = Resources.LoadAsync<HeroAugment>($"Hero Augments/{data.PlayerAugments[i]}");
             yield return request_Aug;
-            Managers.P_MAN.HeroAugments.Add(request_Aug.asset as HeroAugment);
+            if (request_Aug.asset != null) Managers.P_MAN.HeroAugments.Add(request_Aug.asset as HeroAugment);
+            else Debug.LogError("AUGMENT NOT FOUND!");
         }
+        LoadGame_Async_Progress(); // <<< Load Progress
 
         // ITEMS
         Managers.P_MAN.HeroItems.Clear();
@@ -235,8 +281,10 @@ public static class GameLoader
         {
             var request_Item = Resources.LoadAsync<HeroItem>($"Hero Items/{data.PlayerItems[i]}");
             yield return request_Item;
-            Managers.P_MAN.HeroItems.Add(request_Item.asset as HeroItem);
+            if (request_Item.asset != null) Managers.P_MAN.HeroItems.Add(request_Item.asset as HeroItem);
+            else Debug.LogError("ITEM NOT FOUND!");
         }
+        LoadGame_Async_Progress(); // <<< Load Progress
 
         // AETHER CELLS
         Managers.P_MAN.AetherCells = data.AetherCells;
@@ -247,11 +295,17 @@ public static class GameLoader
         {
             var request_NPC = Resources.LoadAsync<NPCHero>($"Heroes/NPC Heroes/{data.NPCSAndClips[i, 0]}");
             yield return request_NPC;
+            if (request_NPC.asset == null)
+            {
+                Debug.LogError("NPC NOT FOUND!");
+                continue;
+            }
             NPCHero npc = Managers.G_MAN.GetActiveNPC(request_NPC.asset as NPCHero);
             var request_Clip = Resources.LoadAsync<DialogueClip>($"Dialogue/{npc.HeroName}/{data.NPCSAndClips[i, 1]}");
             yield return request_Clip;
             npc.NextDialogueClip = request_Clip.asset as DialogueClip;
         }
+        LoadGame_Async_Progress(); // <<< Load Progress
 
         // LOCATIONS
         Managers.G_MAN.ActiveLocations.Clear();
@@ -262,12 +316,19 @@ public static class GameLoader
             yield return request_Loc;
             if (request_Loc.asset == null) request_Loc = Resources.LoadAsync<Location>($"Locations/{name}");
             yield return request_Loc;
+            if (request_Loc.asset == null)
+            {
+                Debug.LogError("LOCATION NOT FOUND!");
+                continue;
+            }
             Location location = Managers.G_MAN.GetActiveLocation(request_Loc.asset as Location);
             var request_NPC = Resources.LoadAsync<NPCHero>($"Heroes/NPC Heroes/{data.LocationsNPCsObjectives[i, 1]}");
             yield return request_NPC;
             location.CurrentNPC = Managers.G_MAN.GetActiveNPC(request_NPC.asset as NPCHero);
             location.CurrentObjective = data.LocationsNPCsObjectives[i, 2];
         }
+        LoadGame_Async_Progress(); // <<< Load Progress
+
         Managers.G_MAN.VisitedLocations.Clear();
         foreach (string location in data.VisitedLocations)
             Managers.G_MAN.VisitedLocations.Add(location);
@@ -280,6 +341,7 @@ public static class GameLoader
             yield return request_Item;
             Managers.G_MAN.ShopItems.Add(request_Item.asset as HeroItem);
         }
+        LoadGame_Async_Progress(); // <<< Load Progress
 
         // RECRUIT UNITS
         Managers.CA_MAN.PlayerRecruitUnits.Clear();
@@ -288,8 +350,8 @@ public static class GameLoader
             var request_Recruit = Resources.LoadAsync<UnitCard>("Cards_Units/" + data.RecruitUnits[i]);
             yield return request_Recruit;
             Managers.CA_MAN.PlayerRecruitUnits.Add(request_Recruit.asset as UnitCard);
-
         }
+        LoadGame_Async_Progress(); // <<< Load Progress
 
         // SHOP ACTIONS
         Managers.CA_MAN.ActionShopCards.Clear();
@@ -299,6 +361,7 @@ public static class GameLoader
             yield return request_Action;
             Managers.CA_MAN.ActionShopCards.Add(request_Action.asset as ActionCard);
         }
+        LoadGame_Async_Progress(); // <<< Load Progress
 
         // LOYALTY
         Managers.G_MAN.RecruitLoyalty = data.RecruitLoyalty;
@@ -311,5 +374,7 @@ public static class GameLoader
         Managers.G_MAN.Reputation_Rogues = data.Reputation_Rogues;
         Managers.G_MAN.Reputation_Techs = data.Reputation_Techs;
         Managers.G_MAN.Reputation_Warriors = data.Reputation_Warriors;
+
+        SceneLoader.LoadScene_Finish(SceneLoader.Scene.WorldMapScene);
     }
 }

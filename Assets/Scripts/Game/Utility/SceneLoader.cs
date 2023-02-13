@@ -11,6 +11,7 @@ public static class SceneLoader
     public static bool SceneIsLoading = false;
     public static Action LoadAction;
     public static Func<IEnumerator> LoadAction_Async;
+    public static float LoadingProgress;
 
     public enum Scene
     {
@@ -31,11 +32,23 @@ public static class SceneLoader
     {
         if (SceneIsLoading || (!loadSameScene && IsActiveScene(scene))) return;
         SceneIsLoading = true;
+        LoadingProgress = -1;
 
         onSceneLoaderCallback = () =>
         {
             Managers.U_MAN.SetSkybar(false);
             Managers.U_MAN.SetSceneFader(false);
+
+            if (LoadAction == null && LoadAction_Async == null)
+            {
+                if (scene != Scene.TitleScene && scene != Scene.CombatScene)
+                {
+                    LoadScene_Finish(scene, true);
+                    return;
+                }
+            }
+            else LoadingProgress = 0;
+
             Managers.AU_MAN.StartStopSound("SFX_SceneLoading", null, AudioManager.SoundType.SFX, false, true);
 
             string chapterText;
@@ -158,8 +171,14 @@ public static class SceneLoader
         else SceneManager.LoadScene(Scene.LoadingScene.ToString());
     }
 
-    public static void LoadScene_Finish(Scene scene)
+    public static void LoadScene_Finish(Scene scene, bool immediate = false)
     {
+        if (immediate)
+        {
+            SceneManager.LoadScene(scene.ToString());
+            return;
+        }
+
         FunctionTimer.Create(() => Managers.U_MAN.SetSceneFader(true), 4);
         FunctionTimer.Create(() => SceneManager.LoadScene(scene.ToString()), 6);
         FunctionTimer.Create(() => Managers.U_MAN.SetSceneFader(false), 6);
