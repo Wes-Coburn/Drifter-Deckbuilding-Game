@@ -144,8 +144,7 @@ public class EnemyManager : HeroManager
                 Managers.EV_MAN.NewDelayedAction(() => CreateAttackSchedule(), 0);
                 Managers.EV_MAN.NewDelayedAction(() => CreateActionSchedule(), 0);
             }
-            else Managers.EV_MAN.NewDelayedAction(() =>
-            GameManager.Instance.EndCombatTurn(this), 1);
+            else Managers.EV_MAN.NewDelayedAction(() => Managers.CO_MAN.EndCombatTurn(this), 1);
         }
         bool HasActionsRemaining()
         {

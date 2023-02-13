@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class ContinueGameButton : MonoBehaviour
 {
-    private void Start() => GetComponent<Button>().interactable = Managers.G_MAN.CheckSave();
+    private void Start() => GetComponent<Button>().interactable = GameLoader.CheckSave();
 
     public void OnClick()
     {
@@ -18,7 +18,7 @@ public class ContinueGameButton : MonoBehaviour
 
     private void LoadGame()
     {
-        try { GameManager.Instance.LoadGame(); }
+        try { GameLoader.LoadGame(); }
         catch (NullReferenceException)
         {
             Managers.U_MAN.CreateFleetingInfoPopup

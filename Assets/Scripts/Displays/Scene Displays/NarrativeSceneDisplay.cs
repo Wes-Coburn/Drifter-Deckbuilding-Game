@@ -71,6 +71,6 @@ public class NarrativeSceneDisplay : MonoBehaviour
     public void ContinueButton_OnClick()
     {
         if (SceneLoader.SceneIsLoading) return;
-        GameManager.Instance.EndNarrative();
+        GameManager.Instance.EndNarrativeScene();
     }
 }

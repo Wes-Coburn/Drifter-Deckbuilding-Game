@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,8 +7,10 @@ public static class SceneLoader
 {
     private static Action onSceneLoaderCallback;
     private static Action onSceneUpdateCallback;
+
     public static bool SceneIsLoading = false;
     public static Action LoadAction;
+    public static Func<IEnumerator> LoadAction_Async;
 
     public enum Scene
     {
@@ -74,19 +77,18 @@ public static class SceneLoader
             lsd.TipText = Managers.G_MAN.CurrentTip;
 
             if (LoadAction != null) FunctionTimer.Create(() => InvokeLoadAction(), 2);
-            else LoadScene_Finish();
+            else if (LoadAction_Async != null)
+            {
+                Managers.G_MAN.StartCoroutine(LoadAction_Async());
+                LoadAction_Async = null;
+            }
+            else LoadScene_Finish(scene);
 
             void InvokeLoadAction()
             {
-                LoadAction?.Invoke();
+                LoadAction();
                 LoadAction = null;
-                LoadScene_Finish();
-            }
-            void LoadScene_Finish()
-            {
-                FunctionTimer.Create(() => Managers.U_MAN.SetSceneFader(true), 4);
-                FunctionTimer.Create(() => SceneManager.LoadScene(scene.ToString()), 6);
-                FunctionTimer.Create(() => Managers.U_MAN.SetSceneFader(false), 6);
+                LoadScene_Finish(scene);
             }
         };
 
@@ -111,24 +113,24 @@ public static class SceneLoader
                     break;
                 case Scene.NarrativeScene:
                     showSkybar = false;
-                    Managers.G_MAN.StartNarrative();
+                    Managers.G_MAN.StartNarrativeScene();
                     break;
                 case Scene.WorldMapScene:
-                    Managers.G_MAN.EnterWorldMap();
+                    Managers.G_MAN.StartWorldMapScene();
                     break;
                 case Scene.HomeBaseScene:
-                    Managers.G_MAN.EnterHomeBase();
+                    Managers.G_MAN.StartHomeBaseScene();
                     break;
                 case Scene.DialogueScene:
-                    Managers.G_MAN.StartDialogue();
+                    Managers.D_MAN.StartDialogue();
                     break;
                 case Scene.CombatScene:
-                    Managers.G_MAN.StartCombat();
+                    Managers.CO_MAN.StartCombat();
                     hideChildren = true;
                     break;
                 case Scene.CreditsScene:
                     showSkybar = false;
-                    Managers.G_MAN.StartCredits();
+                    Managers.G_MAN.StartCreditsScene();
                     break;
                 default:
                     Debug.LogError("SCENE NOT FOUND!");
@@ -154,6 +156,13 @@ public static class SceneLoader
             FunctionTimer.Create(() => SceneManager.LoadScene(Scene.LoadingScene.ToString()), 1.5f);
         }
         else SceneManager.LoadScene(Scene.LoadingScene.ToString());
+    }
+
+    public static void LoadScene_Finish(Scene scene)
+    {
+        FunctionTimer.Create(() => Managers.U_MAN.SetSceneFader(true), 4);
+        FunctionTimer.Create(() => SceneManager.LoadScene(scene.ToString()), 6);
+        FunctionTimer.Create(() => Managers.U_MAN.SetSceneFader(false), 6);
     }
 
     public static void SceneLoaderCallback()

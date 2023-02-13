@@ -109,9 +109,13 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue()
     {
-        Managers.AU_MAN.StartStopSound("Soundtrack_Dialogue1",
-            null, AudioManager.SoundType.Soundtrack);
         Managers.AU_MAN.StopCurrentSoundscape();
+
+        Managers.AU_MAN.StartStopSound(null,
+            Managers.G_MAN.CurrentLocation.LocationSoundscape, AudioManager.SoundType.Soundscape);
+
+        Managers.AU_MAN.StartStopSound("Soundtrack_Dialogue1", null,
+            AudioManager.SoundType.Soundtrack);
 
         currentDialogueClip = EngagedHero.NextDialogueClip;
         if (currentDialogueClip == null)
@@ -124,7 +128,7 @@ public class DialogueManager : MonoBehaviour
         dialogueDisplay.PlayerHeroPortrait.SetActive(false);
         dialogueDisplay.NPCHeroPortrait.SetActive(false);
 
-        DialoguePrompt prompt = currentDialogueClip as DialoguePrompt;
+        var prompt = currentDialogueClip as DialoguePrompt;
         if (prompt.NewLocations != null)
         {
             float delay = 0;
@@ -141,7 +145,7 @@ public class DialogueManager : MonoBehaviour
 
         DisplayCurrentHeroes();
         DisplayDialoguePopup();
-        AnimationManager.Instance.DialogueIntro();
+        Managers.AN_MAN.DialogueIntro();
 
         AllowResponse = false;
         FunctionTimer.Create(() => ChangeReputations(prompt), 1);
@@ -157,7 +161,7 @@ public class DialogueManager : MonoBehaviour
 
     public void DisplayDialoguePopup()
     {
-        DialoguePrompt dpr = currentDialogueClip as DialoguePrompt;
+        var dpr = currentDialogueClip as DialoguePrompt;
         if (newEngagedHero)
         {
             dialogueDisplay.NPCHeroSpeech = "";
@@ -301,7 +305,7 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        DialoguePrompt prompt = currentDialogueClip as DialoguePrompt;
+        var prompt = currentDialogueClip as DialoguePrompt;
         DialogueResponse dResponse = null;
         switch (response)
         {
@@ -404,7 +408,7 @@ public class DialogueManager : MonoBehaviour
         if (dResponse.Response_IsExit)
         {
             Managers.U_MAN.CreateGameEndPopup(); // FOR BETA ONLY
-            Managers.G_MAN.SaveGame(); // FOR BETA ONLY
+            GameLoader.SaveGame(); // FOR BETA ONLY
             return;
         }
 
@@ -424,36 +428,20 @@ public class DialogueManager : MonoBehaviour
                     {
                         currentDialogueClip = nextClip;
                         AllowResponse = false;
-                        AnimationManager.Instance.NewEngagedHero(true);
+                        Managers.AN_MAN.NewEngagedHero(true);
                         if (nextPrompt.NewCard == null && nextPrompt.AetherCells < 1) return;
                     }
                 }
             }
-            // New Card
-            if (nextPrompt.NewCard != null)
-                Managers.U_MAN.CreateNewCardPopup(nextPrompt.NewCard, "New Card!");
+
             // Aether Cells
-            else if (nextPrompt.AetherCells > 0)
-                Managers.U_MAN.CreateAetherCellPopup(nextPrompt.AetherCells);
+            if (nextPrompt.AetherCells > 0) Managers.P_MAN.AetherCells += nextPrompt.AetherCells;
+            // New Card
+            if (nextPrompt.NewCard != null) Managers.U_MAN.CreateNewCardPopup(nextPrompt.NewCard, "New Card!");
         }
 
         currentDialogueClip = nextClip;
-        if (currentDialogueClip is DialogueFork) currentDialogueClip = DialogueFork();
         if (nextPrompt != null && nextPrompt.NewCard == null &&
-            nextPrompt.AetherCells < 1 && !dResponse.Response_IsNewAugmentStart) DisplayDialoguePopup();
-    }
-
-    private DialogueClip DialogueFork()
-    {
-        DialogueFork df = currentDialogueClip as DialogueFork;
-        DialogueClip nextClip = null;
-        if (df.IsRespectCondition)
-        {
-            int respect = EngagedHero.RespectScore;
-            if (respect <= df.Clip_2_Condition_Value) nextClip = df.Clip_1;
-            else if (respect <= df.Clip_2_Condition_Value) nextClip = df.Clip_2;
-            else nextClip = df.Clip_3;
-        }
-        return nextClip;
+            !dResponse.Response_IsNewAugmentStart) DisplayDialoguePopup();
     }
 }

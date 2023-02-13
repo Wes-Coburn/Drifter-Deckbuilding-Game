@@ -6,7 +6,7 @@ public class CloseMenuButton : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData pointerEventData)
     {
         if (pointerEventData.button != PointerEventData.InputButton.Left) return;
-        UIManager.Instance.DestroyMenuPopup();
-        GameManager.Instance.SavePlayerPreferences();
+        Managers.U_MAN.DestroyMenuPopup();
+        GameLoader.SavePlayerPreferences();
     }
 }

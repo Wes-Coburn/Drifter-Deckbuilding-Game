@@ -21,7 +21,7 @@ public class CombatEndPopupDisplay : MonoBehaviour
         if (Managers.G_MAN.IsTutorial)
         {
             if (victoryText.activeSelf) Managers.G_MAN.NewGame();
-            else Managers.G_MAN.PlayTutorial();
+            else Managers.G_MAN.StartTutorialScene();
             return;
         }
 
@@ -53,10 +53,9 @@ public class CombatEndPopupDisplay : MonoBehaviour
         }
         else
         {
-            SceneLoader.LoadAction += () => Managers.G_MAN.LoadGame();
+            SceneLoader.LoadAction += () => GameLoader.LoadGame();
             SceneLoader.LoadScene(SceneLoader.Scene.WorldMapScene, true);
         }
-
         Managers.U_MAN.DestroyInteractablePopup(gameObject);
     }
 }

@@ -23,26 +23,15 @@ public class GameManager : MonoBehaviour
     [Header("LOCATION ICON")]
     [SerializeField] GameObject locationIconPrefab;
     [Header("LOADING TIPS")]
-    [SerializeField][TextArea] private string[] loadingTips;
+    [SerializeField, TextArea] private string[] loadingTips;
     [Header("REPUTATION BONUSES")]
     [SerializeField] private ReputationBonuses reputation_Mages;
     [SerializeField] private ReputationBonuses reputation_Mutants;
     [SerializeField] private ReputationBonuses reputation_Rogues;
     [SerializeField] private ReputationBonuses reputation_Techs;
     [SerializeField] private ReputationBonuses reputation_Warriors;
-    [Header("MULLIGAN EFFECT")]
-    [SerializeField] private EffectGroup mulliganEffect;
-    [Header("COGNITIVE MAGNIFIER EFFECT")]
-    [SerializeField] private EffectGroup cognitiveMagnifierEffect;
 
-    private Narrative settingNarrative;
-    private Narrative newGameNarrative;
     private int currentTip;
-
-    // Player Preferences
-    public const string MUSIC_VOLUME = "MusicVolume";
-    public const string SFX_VOLUME = "SFXVolume";
-    public const string HIDE_EXPLICIT_LANGUAGE = "HideExplicitLanguage";
 
     // Universal
     public const int WOUNDED_VALUE = 5;
@@ -55,7 +44,6 @@ public class GameManager : MonoBehaviour
     public const string PLAYER = "Player";
     public const int MINIMUM_DECK_SIZE = 15;
     public const int PLAYER_STARTING_HEALTH = 30;
-    //public const int PLAYER_STARTING_HEALTH = 1; // FOR TESTING ONLY
     public const int PLAYER_START_UNITS = 3;
     public const int MAXIMUM_ENERGY_PER_TURN = 10;
     public const int MAXIMUM_ENERGY = 10;
@@ -148,7 +136,7 @@ public class GameManager : MonoBehaviour
     public List<NPCHero> ActiveNPCHeroes { get; private set; }
     public List<Location> ActiveLocations { get; private set; }
     public List<string> VisitedLocations { get; private set; }
-    public List<HeroItem> ShopItems { get; private set; }
+    public List<HeroItem> ShopItems { get; set; }
     public int RecruitLoyalty { get; set; }
     public int ActionShopLoyalty { get; set; }
     public int ShopLoyalty { get; set; }
@@ -162,11 +150,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region METHODS
-    /******
-     * *****
-     * ****** START
-     * *****
-     *****/
+    #region UTILITY
     private void Start()
     {
         //PlayerPrefs.DeleteAll(); // FOR TESTING ONLY
@@ -176,16 +160,9 @@ public class GameManager : MonoBehaviour
         VisitedLocations = new List<string>();
         ShopItems = new List<HeroItem>();
 
-        LoadPlayerPreferences();
+        GameLoader.LoadPlayerPreferences();
         Debug.Log("Application Version: " + Application.version);
-        //SceneLoader.LoadScene(SceneLoader.Scene.TitleScene, false, false); // Remove if using asset bundles to load managers
     }
-
-    /******
-     * *****
-     * ****** GET_LOCATION_BACKGROUND
-     * *****
-     *****/
     public Sprite GetLocationBackground()
     {
         if (CurrentLocation == null)
@@ -207,10 +184,9 @@ public class GameManager : MonoBehaviour
                 return null;
         }
     }
-
     /******
      * *****
-     * ****** GET_RANDOM_ENCOUNTER_LOCATION
+     * ****** ADD_RANDOM_ENCOUNTER
      * *****
      *****/
     public void AddRandomEncounter()
@@ -220,8 +196,7 @@ public class GameManager : MonoBehaviour
 
         foreach (Location location in randomEncounters)
         {
-            if (VisitedLocations.FindIndex
-                (x => x == location.LocationName) == -1)
+            if (VisitedLocations.FindIndex(x => x == location.LocationName) == -1)
             {
                 GetActiveLocation(location);
                 return;
@@ -229,42 +204,190 @@ public class GameManager : MonoBehaviour
         }
         Debug.LogWarning("NO VALID RANDOM ENCOUNTERS!");
     }
-
+    public enum DifficultyLevel
+    {
+        Standard_1 = 1,
+        Standard_2 = 2,
+        Boss_1 = 3,
+        Standard_3 = 4,
+        Boss_2 = 5,
+    }
+    public int GetSurgeDelay(int difficulty) => 6 - difficulty;
     /******
      * *****
-     * ****** PLAY_TUTORIAL
+     * ****** GET_AETHER_REWARD
      * *****
      *****/
-    public void PlayTutorial()
+    public int GetAetherReward(DifficultyLevel difficultyLevel)
     {
-        IsTutorial = true;
-        SceneLoader.LoadAction += Tutorial_Load;
-        SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);
-    }
-
-    private void Tutorial_Load()
-    {
-        Managers.P_MAN.AetherCells = 0;
-        string playerHeroName = "Kili, Neon Rider";
-        string enemyHeroName = "Tiny Mutant";
-        Hero[] heroes = Resources.LoadAll<Hero>("Tutorial");
-        EnemyHero enemyHero = ScriptableObject.CreateInstance<EnemyHero>();
-
-        foreach (Hero hero in heroes)
+        int reward;
+        switch (difficultyLevel)
         {
-            if (hero.HeroName == playerHeroName) Managers.P_MAN.HeroScript = hero as PlayerHero;
-            else if (hero.HeroName == enemyHeroName)
-            {
-                enemyHero.LoadHero(hero);
-                Managers.D_MAN.EngagedHero = enemyHero;
-            }
+            // Standard Difficulties
+            case DifficultyLevel.Standard_1:
+                reward = AETHER_COMBAT_REWARD_1;
+                break;
+            case DifficultyLevel.Standard_2:
+                reward = AETHER_COMBAT_REWARD_2;
+                break;
+            case DifficultyLevel.Standard_3:
+                reward = AETHER_COMBAT_REWARD_3;
+                break;
+            // Boss Difficulties
+            case DifficultyLevel.Boss_1:
+                reward = AETHER_COMBAT_REWARD_BOSS_1;
+                break;
+            case DifficultyLevel.Boss_2:
+                reward = AETHER_COMBAT_REWARD_BOSS_2;
+                break;
+            default:
+                Debug.LogError("INVALID DIFFICULTY!");
+                return 0;
+        }
+        return reward + ADDITIONAL_AETHER_REWARD * (Managers.CO_MAN.DifficultyLevel - 1);
+    }
+    /******
+     * *****
+     * ****** NEXT_HOUR
+     * *****
+     *****/
+    public void NextHour(bool addRandomEncounter)
+    {
+        if (CurrentHour > 4)
+        {
+            Debug.LogError("CURRENT HOUR > 4!");
+            return;
         }
 
-        foreach (UnitCard unit in Managers.CA_MAN.TutorialPlayerUnits)
-            for (int i = 0; i < 5; i++)
-                Managers.CA_MAN.AddCard(unit, Managers.P_MAN);
+        // New Hour
+        IsNewHour = true;
+        // Current Hour
+        CurrentHour = CurrentHour == 4 ? 1 : CurrentHour + 1;
+        // Random Encounter
+        if (addRandomEncounter && CurrentHour != 4) AddRandomEncounter();
     }
+    /******
+     * *****
+     * ****** LOCATION_OPEN
+     * *****
+     *****/
+    public bool LocationOpen(Location location)
+    {
+        if (location.IsHomeBase) return true; // If the location is homebase, return true ALWAYS
+        if (CurrentHour == 4) return false; // If the current hour is 4, return false ALWAYS
 
+        if (location.IsPriorityLocation &&
+            VisitedLocations.FindIndex(x => location.LocationName == x) == -1)
+            return true; // If a priority location has NOT been visited, it's NEVER closed
+
+        switch (CurrentHour)
+        {
+            case 1:
+                if (location.IsClosed_Hour1) return false;
+                return true;
+            case 2:
+                if (location.IsClosed_Hour2) return false;
+                return true;
+            case 3:
+                if (location.IsClosed_Hour3) return false;
+                return true;
+            default:
+                Debug.LogError($"INVALID HOUR! <{CurrentHour}>");
+                return false;
+        }
+    }
+    /******
+     * *****
+     * ****** GET_ACTIVE_NPC
+     * *****
+     *****/
+    public NPCHero GetActiveNPC(NPCHero npc)
+    {
+        if (npc == null)
+        {
+            Debug.LogError("NPC IS NULL!");
+            return null;
+        }
+
+        int activeNPC = ActiveNPCHeroes.FindIndex(x => x.HeroName == npc.HeroName);
+        if (activeNPC != -1) return ActiveNPCHeroes[activeNPC];
+        else
+        {
+            NPCHero newNPC = ScriptableObject.CreateInstance(npc.GetType()) as NPCHero;
+            newNPC.LoadHero(npc);
+            newNPC.NextDialogueClip = npc.FirstDialogueClip;
+            if (newNPC.NextDialogueClip == null) Debug.LogError("NEXT CLIP IS NULL!");
+            ActiveNPCHeroes.Add(newNPC);
+            return newNPC;
+        }
+    }
+    /******
+     * *****
+     * ****** GET_ACTIVE_LOCATION
+     * *****
+     *****/
+    public Location GetActiveLocation(Location location, NPCHero newNPC = null)
+    {
+        if (location == null)
+        {
+            Debug.LogError("LOCATION IS NULL!");
+            return null;
+        }
+
+        int activeLocation = ActiveLocations.FindIndex(x => x.LocationName == location.LocationName);
+
+        if (activeLocation != -1)
+        {
+            Location loc = ActiveLocations[activeLocation];
+            if (newNPC != null) loc.CurrentNPC = GetActiveNPC(newNPC);
+            return loc;
+        }
+        else
+        {
+            Location newLoc = ScriptableObject.CreateInstance<Location>();
+            newLoc.LoadLocation(location);
+            newLoc.CurrentObjective = newLoc.FirstObjective;
+            if (newNPC != null) newLoc.CurrentNPC = GetActiveNPC(newNPC);
+            else newLoc.CurrentNPC = GetActiveNPC(location.FirstNPC);
+            ActiveLocations.Add(newLoc);
+            return newLoc;
+        }
+    }
+    /******
+     * *****
+     * ****** GET_SHOP_ITEMS
+     * *****
+     *****/
+    public List<HeroItem> GetShopItems()
+    {
+        HeroItem[] allItems = Resources.LoadAll<HeroItem>("Hero Items");
+        List<HeroItem> rarefiedItems = new();
+        foreach (HeroItem item in allItems)
+        {
+            rarefiedItems.Add(item);
+            if (!item.IsRareItem)
+            {
+                rarefiedItems.Add(item);
+                rarefiedItems.Add(item);
+            }
+        }
+        rarefiedItems.Shuffle();
+
+        List<HeroItem> shopItems = new();
+        foreach (HeroItem item in rarefiedItems)
+        {
+            if ((Managers.P_MAN.HeroItems.FindIndex(x => x.ItemName == item.ItemName) == -1) &&
+                (shopItems.FindIndex(x => x.ItemName == item.ItemName) == -1)) shopItems.Add(item);
+
+            if (shopItems.Count == 8) return shopItems;
+        }
+        return shopItems;
+    }
+    /******
+     * *****
+     * ****** TUTORIAL_TOOLTIPS
+     * *****
+     *****/
     public void Tutorial_Tooltip(int tipNumber)
     {
         string tip;
@@ -302,332 +425,9 @@ public class GameManager : MonoBehaviour
 
         Managers.U_MAN.CreateInfoPopup(tip, UIManager.InfoPopupType.Tutorial, isCentered, showContinue);
     }
+    #endregion
 
-    /******
-     * *****
-     * ****** NEW_GAME
-     * *****
-     *****/
-    public void NewGame()
-    {
-        SceneLoader.LoadAction += NewGame_Load;
-        SceneLoader.LoadScene(SceneLoader.Scene.NarrativeScene);
-    }
-
-    private void NewGame_Load()
-    {
-        Narrative[] allNarratives = Resources.LoadAll<Narrative>("Narratives");
-        Narrative LoadNarrative(string narrative)
-        {
-            foreach (Narrative n in allNarratives)
-                if (n.NarrativeName == narrative) return n;
-
-            Debug.LogError($"NARRATIVE {narrative} NOT FOUND!");
-            return null;
-        }
-
-        // Narratives
-        settingNarrative = LoadNarrative("Welcome to the Drift");
-        newGameNarrative = LoadNarrative("Part 1: Stuck in Sylus");
-        CurrentNarrative = settingNarrative;
-
-        // Locations
-        Location[] allLocations = Resources.LoadAll<Location>("Locations");
-        Location LoadLocation(string location)
-        {
-            foreach (Location l in allLocations)
-            {
-                if (l.LocationFullName == location)
-                    return l;
-            }
-            Debug.LogError($"NARRATIVE {location} NOT FOUND!");
-            return null;
-        }
-        GetActiveLocation(LoadLocation("Your Ship"));
-        GetActiveLocation(LoadLocation("Sekherd and 7th"));
-        GetActiveLocation(LoadLocation("The Rathole Bar and Lounge"));
-        GetActiveLocation(LoadLocation("The Emporium"));
-        GetActiveLocation(LoadLocation("The Trash Heaps"));
-        GetActiveLocation(LoadLocation("The Oasis"));
-
-        CurrentHour = 4;
-        IsNewHour = true;
-        IsTutorial = false;
-        Managers.CA_MAN.LoadNewRecruits();
-        Managers.CA_MAN.LoadNewActions();
-        ShopItems = GetShopItems();
-        RecruitLoyalty = 3; // First recruit free
-        ActionShopLoyalty = 3; // First action free
-        ShopLoyalty = 3; // First item free
-        Managers.P_MAN.AetherCells = PLAYER_START_AETHER;
-        Managers.P_MAN.DeckList.Clear();
-
-        // REPUTATION
-        int startRep = PLAYER_START_UNITS;
-        Reputation_Mages = startRep;
-        Reputation_Mutants = startRep;
-        Reputation_Rogues = startRep;
-        Reputation_Techs = startRep;
-        Reputation_Warriors = startRep;
-    }
-
-    /******
-     * *****
-     * ****** END_GAME
-     * *****
-     *****/
-    public void EndGame()
-    {
-        // Game Manager
-        foreach (NPCHero npc in ActiveNPCHeroes)
-        {
-            if (npc != null) Destroy(npc);
-        }
-        ActiveNPCHeroes.Clear();
-
-        foreach (Location loc in ActiveLocations)
-        {
-            if (loc != null) Destroy(loc);
-        }
-        ActiveLocations.Clear();
-        VisitedLocations.Clear();
-
-        // Player Manager
-        // Don't destroy ManagerHandler.P_MAN objects, they are assets not instances
-        Managers.P_MAN.HeroScript = null;
-        Managers.P_MAN.DeckList.Clear();
-        Managers.P_MAN.CurrentDeck.Clear();
-        //ManagerHandler.P_MAN.AetherCells = 0;
-        Managers.P_MAN.HeroAugments.Clear();
-        Managers.P_MAN.HeroItems.Clear();
-        // Enemy Manager
-        Destroy(Managers.EN_MAN.HeroScript);
-        Managers.EN_MAN.HeroScript = null;
-        // Dialogue Manager
-        Managers.D_MAN.EndDialogue();
-        // UI Manager
-        Managers.U_MAN.ClearAugmentBar();
-        Managers.U_MAN.ClearItemBar();
-        // Scene Loader
-        SceneLoader.LoadScene(SceneLoader.Scene.TitleScene);
-    }
-
-    /******
-     * *****
-     * ****** SAVE_PLAYER_PREFERENCES
-     * *****
-     *****/
-    public void SavePlayerPreferences()
-    {
-        PlayerPrefs.SetFloat(MUSIC_VOLUME, Managers.AU_MAN.MusicVolume);
-        PlayerPrefs.SetFloat(SFX_VOLUME, Managers.AU_MAN.SFXVolume);
-        PlayerPrefs.SetInt(HIDE_EXPLICIT_LANGUAGE, HideExplicitLanguage ? 1 : 0);
-    }
-    public void LoadPlayerPreferences()
-    {
-        Managers.AU_MAN.MusicVolume = PlayerPrefs.GetFloat(MUSIC_VOLUME, 1);
-        Managers.AU_MAN.SFXVolume = PlayerPrefs.GetFloat(SFX_VOLUME, 1);
-        HideExplicitLanguage = PlayerPrefs.GetInt(HIDE_EXPLICIT_LANGUAGE, 1) == 1;
-    }
-
-    /******
-     * *****
-     * ****** SAVE_GAME
-     * *****
-     *****/
-    public bool CheckSave() => SaveLoad.LoadGame() != null;
-    public void SaveGame() // PUBLIC FOR BETA ONLY
-    {
-        string[] deckList = new string[Managers.P_MAN.DeckList.Count];
-        for (int i = 0; i < deckList.Length; i++)
-            deckList[i] = Managers.P_MAN.DeckList[i].CardName;
-
-        string[] augments = new string[Managers.P_MAN.HeroAugments.Count];
-        for (int i = 0; i < augments.Length; i++)
-            augments[i] = Managers.P_MAN.HeroAugments[i].AugmentName;
-
-        string[] items = new string[Managers.P_MAN.HeroItems.Count];
-        for (int i = 0; i < items.Length; i++)
-            items[i] = Managers.P_MAN.HeroItems[i].ItemName;
-
-        string[,] npcsAndClips = new string[ActiveNPCHeroes.Count, 2];
-        for (int i = 0; i < npcsAndClips.Length / 2; i++)
-        {
-            npcsAndClips[i, 0] = ActiveNPCHeroes[i].HeroName;
-
-            DialogueClip clip = ActiveNPCHeroes[i].NextDialogueClip;
-            string clipName = clip.ToString();
-            clipName = clipName.Replace($" ({clip.GetType().Name})", "");
-            npcsAndClips[i, 1] = clipName;
-        }
-
-        string[,] locationsNPCsObjectives = new string[ActiveLocations.Count, 3];
-        for (int i = 0; i < locationsNPCsObjectives.Length / 3; i++)
-        {
-            locationsNPCsObjectives[i, 0] = ActiveLocations[i].LocationName;
-            locationsNPCsObjectives[i, 1] = ActiveLocations[i].CurrentNPC.HeroName;
-            locationsNPCsObjectives[i, 2] = ActiveLocations[i].CurrentObjective;
-        }
-
-        string[] shopItems = new string[ShopItems.Count];
-        for (int i = 0; i < shopItems.Length; i++)
-            shopItems[i] = ShopItems[i].ItemName;
-
-        string[] recruitUnits = new string[Managers.CA_MAN.PlayerRecruitUnits.Count];
-        for (int i = 0; i < recruitUnits.Length; i++)
-            recruitUnits[i] = Managers.CA_MAN.PlayerRecruitUnits[i].CardName;
-
-        string[] shopActions = new string[Managers.CA_MAN.ActionShopCards.Count];
-        for (int i = 0; i < shopActions.Length; i++)
-            shopActions[i] = Managers.CA_MAN.ActionShopCards[i].CardName;
-
-        string narrativeName = "";
-        if (CurrentNarrative != null)
-        {
-            narrativeName = CurrentNarrative.ToString();
-            narrativeName = narrativeName.Replace(" (Narrative)", "");
-        }
-
-        GameData data = new(CurrentHour, narrativeName, Managers.P_MAN.HeroScript.HeroName,
-            deckList, augments, items, Managers.P_MAN.AetherCells,
-            npcsAndClips, locationsNPCsObjectives, VisitedLocations.ToArray(),
-            shopItems, recruitUnits, shopActions,
-            RecruitLoyalty, ActionShopLoyalty, ShopLoyalty,
-            Reputation_Mages, Reputation_Mutants, Reputation_Rogues, Reputation_Techs, Reputation_Warriors);
-
-        SaveLoad.SaveGame(data);
-    }
-
-    /******
-     * *****
-     * ****** LOAD_GAME
-     * *****
-     *****/
-    public bool LoadGame()
-    {
-        GameData data = SaveLoad.LoadGame();
-        if (data == null) return false;
-
-        // CURRENT HOUR
-        CurrentHour = data.CurrentHour;
-
-        // CURRENT NARRATIVE
-        if (data.CurrentNarrative != "")
-        {
-            CurrentNarrative = Resources.Load<Narrative>($"Narratives/{data.CurrentNarrative}");
-            if (CurrentNarrative == null) Debug.LogError($"NARRATIVE {data.CurrentNarrative} NOT FOUND!");
-        }
-        else CurrentNarrative = null;
-
-        // PLAYER HERO
-        PlayerHero pHero;
-        pHero = Resources.Load<PlayerHero>($"Heroes/Player Heroes/{data.PlayerHero}");
-        if (pHero == null) Debug.LogError($"HERO {data.PlayerHero} NOT FOUND!");
-        else Managers.P_MAN.HeroScript = pHero;
-
-        // DECK LIST
-        Managers.P_MAN.DeckList.Clear();
-        for (int i = 0; i < data.PlayerDeck.Length; i++)
-        {
-            Card card;
-            card = Resources.Load<Card>($"Cards_Starting/{data.PlayerDeck[i]}");
-            if (card == null) card = Resources.Load<Card>($"Cards_Units/{data.PlayerDeck[i]}");
-            if (card == null) card = Resources.Load<Card>($"Cards_Actions/{data.PlayerDeck[i]}");
-            if (card == null) Debug.LogError($"CARD {data.PlayerDeck[i]} NOT FOUND!");
-            else Managers.CA_MAN.AddCard(card, Managers.P_MAN);
-        }
-
-        // AUGMENTS
-        Managers.P_MAN.HeroAugments.Clear();
-        for (int i = 0; i < data.PlayerAugments.Length; i++)
-        {
-            HeroAugment augment = Resources.Load<HeroAugment>($"Hero Augments/{data.PlayerAugments[i]}");
-            if (augment == null) Debug.LogError($"AUGMENT {data.PlayerAugments[i]} NOT FOUND!");
-            else Managers.P_MAN.HeroAugments.Add(augment);
-        }
-
-        // ITEMS
-        Managers.P_MAN.HeroItems.Clear();
-        for (int i = 0; i < data.PlayerItems.Length; i++)
-        {
-            HeroItem item = Resources.Load<HeroItem>($"Hero Items/{data.PlayerItems[i]}");
-            if (item == null) Debug.LogError($"ITEM {data.PlayerItems[i]} NOT FOUND!");
-            else Managers.P_MAN.HeroItems.Add(item);
-        }
-
-        // AETHER CELLS
-        Managers.P_MAN.AetherCells = data.AetherCells;
-
-        // NPCS
-        ActiveNPCHeroes.Clear();
-        for (int i = 0; i < data.NPCSAndClips.Length / 2; i++)
-        {
-            NPCHero npc = Resources.Load<NPCHero>($"Heroes/NPC Heroes/{data.NPCSAndClips[i, 0]}");
-            if (npc == null) Debug.LogError($"NPC {data.NPCSAndClips[i, 0]} NOT FOUND!");
-            else
-            {
-                npc = GetActiveNPC(npc);
-                DialogueClip clip;
-                clip = Resources.Load<DialogueClip>($"Dialogue/{npc.HeroName}/{data.NPCSAndClips[i, 1]}");
-                if (clip == null) Debug.LogError($"CLIP {data.NPCSAndClips[i, 1]} FOR {npc.HeroName} NOT FOUND!");
-                else npc.NextDialogueClip = clip;
-            }
-        }
-
-        // LOCATIONS
-        ActiveLocations.Clear();
-        for (int i = 0; i < data.LocationsNPCsObjectives.Length / 3; i++)
-        {
-            string name = data.LocationsNPCsObjectives[i, 0];
-            Location loc = Resources.Load<Location>($"Random Encounters/{name}");
-            if (loc == null) loc = Resources.Load<Location>($"Locations/{name}");
-            if (loc == null) Debug.LogError($"LOCATION {name} NOT FOUND!");
-            else
-            {
-                loc = GetActiveLocation(loc);
-                loc.CurrentNPC = GetActiveNPC(Resources.Load<NPCHero>($"Heroes/NPC Heroes/{data.LocationsNPCsObjectives[i, 1]}"));
-                loc.CurrentObjective = data.LocationsNPCsObjectives[i, 2];
-            }
-        }
-        VisitedLocations.Clear();
-        foreach (string location in data.VisitedLocations)
-            VisitedLocations.Add(location);
-
-        // SHOP ITEMS
-        ShopItems.Clear();
-        for (int i = 0; i < data.ShopItems.Length; i++)
-            ShopItems.Add(Resources.Load<HeroItem>("Hero Items/" + data.ShopItems[i]));
-
-        // RECRUIT UNITS
-        Managers.CA_MAN.PlayerRecruitUnits.Clear();
-        for (int i = 0; i < data.RecruitUnits.Length; i++)
-            Managers.CA_MAN.PlayerRecruitUnits.Add(Resources.Load<UnitCard>("Cards_Units/" + data.RecruitUnits[i]));
-
-        // SHOP ACTIONS
-        Managers.CA_MAN.ActionShopCards.Clear();
-        for (int i = 0; i < data.ShopActions.Length; i++)
-            Managers.CA_MAN.ActionShopCards.Add(Resources.Load<ActionCard>("Cards_Actions/" + data.ShopActions[i]));
-
-        // LOYALTY
-        RecruitLoyalty = data.RecruitLoyalty;
-        ActionShopLoyalty = data.ActionShopLoyalty;
-        ShopLoyalty = data.ShopLoyalty;
-
-        // REPUTATION
-        Reputation_Mages = data.Reputation_Mages;
-        Reputation_Mutants = data.Reputation_Mutants;
-        Reputation_Rogues = data.Reputation_Rogues;
-        Reputation_Techs = data.Reputation_Techs;
-        Reputation_Warriors = data.Reputation_Warriors;
-
-        return true;
-    }
-
-    /******
-     * *****
-     * ****** START_TITLE_SCENE
-     * *****
-     *****/
+    #region SCENE STARTERS
     public void StartTitleScene()
     {
         Managers.AU_MAN.StartStopSound("Soundtrack_TitleScene", null, AudioManager.SoundType.Soundtrack);
@@ -635,24 +435,18 @@ public class GameManager : MonoBehaviour
         GameObject.Find("VersionNumber").GetComponent<TextMeshProUGUI>().SetText(Application.version);
         IsCombatTest = false;
     }
-
-    /******
-     * *****
-     * ****** START_HERO_SELECT_SCENE
-     * *****
-     *****/
     public void StartHeroSelectScene()
     {
         Managers.AU_MAN.StopCurrentSoundscape();
         FindObjectOfType<HeroSelectSceneDisplay>().DisplaySelectedHero();
     }
-
-    /******
-     * *****
-     * ****** ENTER_WORLD_MAP
-     * *****
-     *****/
-    public void EnterWorldMap()
+    public void StartTutorialScene()
+    {
+        IsTutorial = true;
+        SceneLoader.LoadAction += GameLoader.Tutorial_Load;
+        SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);
+    }
+    public void StartWorldMapScene()
     {
         Managers.AU_MAN.StartStopSound("Soundtrack_WorldMapScene", null, AudioManager.SoundType.Soundtrack);
         Managers.AU_MAN.StartStopSound("SFX_EnterWorldMap");
@@ -663,7 +457,7 @@ public class GameManager : MonoBehaviour
             location.GetComponent<LocationIcon>().Location = loc;
         }
 
-        SaveGame();
+        GameLoader.SaveGame();
         if (CurrentNarrative != null)
         {
             if (CurrentNarrative.IsGameEnd) Managers.U_MAN.CreateGameEndPopup();
@@ -674,49 +468,66 @@ public class GameManager : MonoBehaviour
         FindObjectOfType<TimeClockDisplay>().SetClockValues(CurrentHour, IsNewHour);
         if (IsNewHour) IsNewHour = false;
     }
+    public void StartHomeBaseScene()
+    {
+        Managers.AU_MAN.StopCurrentSoundscape();
+        Managers.AU_MAN.StartStopSound("SFX_EnterHomeBase");
 
-    public enum DifficultyLevel
-    {
-        Standard_1 = 1,
-        Standard_2 = 2,
-        Boss_1     = 3,
-        Standard_3 = 4,
-        Boss_2     = 5,
-    }
-    public int GetSurgeDelay(int difficulty) => 6 - difficulty;
-    public int GetAetherReward(DifficultyLevel difficultyLevel)
-    {
-        int reward;
-        switch (difficultyLevel)
+        bool hasRested = CurrentHour == 4;
+        FindObjectOfType<HomeBaseSceneDisplay>().ClaimRewardButton.SetActive(hasRested);
+
+        if (hasRested)
         {
-            // Standard Difficulties
-            case DifficultyLevel.Standard_1:
-                reward = AETHER_COMBAT_REWARD_1;
-                break;
-            case DifficultyLevel.Standard_2:
-                reward = AETHER_COMBAT_REWARD_2;
-                break;
-            case DifficultyLevel.Standard_3:
-                reward = AETHER_COMBAT_REWARD_3;
-                break;
-            // Boss Difficulties
-            case DifficultyLevel.Boss_1:
-                reward = AETHER_COMBAT_REWARD_BOSS_1;
-                break;
-            case DifficultyLevel.Boss_2:
-                reward = AETHER_COMBAT_REWARD_BOSS_2;
-                break;
-            default:
-                Debug.LogError("INVALID DIFFICULTY!");
-                return 0;
+            NextHour(true);
+            ShopItems = GetShopItems();
+            Managers.CA_MAN.LoadNewRecruits();
+            Managers.CA_MAN.LoadNewActions();
+            Managers.U_MAN.CreateFleetingInfoPopup("You have rested!\nShops refreshed!");
+
+            List<Location> refreshedShops = new();
+            foreach (Location loc in ActiveLocations)
+            {
+                if (VisitedLocations.FindIndex(x => x == loc.LocationName) == -1) continue;
+
+                if (loc.IsShop || loc.IsRecruitment || loc.IsActionShop)
+                    refreshedShops.Add(loc);
+            }
+
+            foreach (Location loc in refreshedShops)
+                VisitedLocations.Remove(loc.LocationName);
         }
-
-        return reward + ADDITIONAL_AETHER_REWARD * (Managers.CO_MAN.DifficultyLevel - 1);
     }
+    public void StartCreditsScene()
+    {
+        Managers.AU_MAN.StartStopSound("Soundtrack_Combat1",
+            null, AudioManager.SoundType.Soundtrack);
+        Managers.AU_MAN.StopCurrentSoundscape();
+    }
+    public void StartNarrativeScene()
+    {
+        Managers.AU_MAN.StartStopSound("Soundtrack_Narrative1", null,
+            AudioManager.SoundType.Soundtrack);
+        Managers.AU_MAN.StartStopSound(null, CurrentNarrative.NarrativeStartSound);
+        Managers.AU_MAN.StartStopSound(null, CurrentNarrative.NarrativeSoundscape,
+            AudioManager.SoundType.Soundscape);
 
+        FindObjectOfType<NarrativeSceneDisplay>().CurrentNarrative = CurrentNarrative;
+    }
+    public void EndNarrativeScene()
+    {
+        if (CurrentNarrative == GameLoader.SettingNarrative)
+        {
+            CurrentNarrative = GameLoader.NewGameNarrative;
+            SceneLoader.LoadScene(SceneLoader.Scene.HeroSelectScene);
+        }
+        else Debug.LogError("NO CONDITIONS MATCHED!");
+    }
+    #endregion
+
+    #region REPUTATION
     /******
      * *****
-     * ****** CHANGE_REPUTATION
+     * ****** REPUTATION
      * *****
      *****/
     public enum ReputationType
@@ -808,7 +619,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void ResolveReputationEffects(int resolveOrder)
+    public void ResolveReputationEffects(int resolveOrder)
     {
         // MAGES
         int mageTier = GetReputationTier(ReputationType.Mages);
@@ -867,569 +678,17 @@ public class GameManager : MonoBehaviour
                 Managers.EF_MAN.StartEffectGroupList(repEffects, Managers.P_MAN.HeroObject);
         }
     }
+    #endregion
 
+    #region COST GETTERS
     /******
      * *****
-     * ****** NEXT_HOUR
-     * *****
-     *****/
-    public void NextHour(bool addRandomEncounter)
-    {
-        if (CurrentHour > 4)
-        {
-            Debug.LogError("CURRENT HOUR > 4!");
-            return;
-        }
-
-        // New Hour
-        IsNewHour = true;
-        // Current Hour
-        CurrentHour = CurrentHour == 4 ? 1 : CurrentHour + 1;
-        // Random Encounter
-        if (addRandomEncounter && CurrentHour != 4) AddRandomEncounter();
-    }
-
-    /******
-     * *****
-     * ****** LOCATION_OPEN
-     * *****
-     *****/
-    public bool LocationOpen(Location location)
-    {
-        if (location.IsHomeBase) return true; // If the location is homebase, return true ALWAYS
-        if (CurrentHour == 4) return false; // If the current hour is 4, return false ALWAYS
-
-        if (location.IsPriorityLocation &&
-            VisitedLocations.FindIndex(x => location.LocationName == x) == -1)
-            return true; // If a priority location has NOT been visited, it's NEVER closed
-
-        switch (CurrentHour)
-        {
-            case 1:
-                if (location.IsClosed_Hour1) return false;
-                return true;
-            case 2:
-                if (location.IsClosed_Hour2) return false;
-                return true;
-            case 3:
-                if (location.IsClosed_Hour3) return false;
-                return true;
-            default:
-                Debug.LogError($"INVALID HOUR! <{CurrentHour}>");
-                return false;
-        }
-    }
-
-    /******
-     * *****
-     * ****** ENTER_HOME_BASE
-     * *****
-     *****/
-    public void EnterHomeBase()
-    {
-        Managers.AU_MAN.StopCurrentSoundscape();
-        Managers.AU_MAN.StartStopSound("SFX_EnterHomeBase");
-
-        bool hasRested = CurrentHour == 4;
-        FindObjectOfType<HomeBaseSceneDisplay>().ClaimRewardButton.SetActive(hasRested);
-
-        if (hasRested)
-        {
-            NextHour(true);
-            ShopItems = GetShopItems();
-            Managers.CA_MAN.LoadNewRecruits();
-            Managers.CA_MAN.LoadNewActions();
-            Managers.U_MAN.CreateFleetingInfoPopup("You have rested!\nShops refreshed!");
-
-            List<Location> refreshedShops = new();
-            foreach (Location loc in ActiveLocations)
-            {
-                if (VisitedLocations.FindIndex(x => x == loc.LocationName) == -1) continue;
-
-                if (loc.IsShop || loc.IsRecruitment || loc.IsActionShop)
-                    refreshedShops.Add(loc);
-            }
-
-            foreach (Location loc in refreshedShops)
-                VisitedLocations.Remove(loc.LocationName);
-        }
-    }
-
-    /******
-     * *****
-     * ****** START_DIALOGUE
-     * *****
-     *****/
-    public void StartDialogue()
-    {
-        Managers.AU_MAN.StartStopSound(null,
-            CurrentLocation.LocationSoundscape, AudioManager.SoundType.Soundscape);
-        Managers.D_MAN.StartDialogue();
-    }
-
-    /******
-     * *****
-     * ****** START/END_NARRATIVE
-     * *****
-     *****/
-    public void StartNarrative()
-    {
-        Managers.AU_MAN.StartStopSound("Soundtrack_Narrative1", null,
-            AudioManager.SoundType.Soundtrack);
-        Managers.AU_MAN.StartStopSound(null, CurrentNarrative.NarrativeStartSound);
-        Managers.AU_MAN.StartStopSound(null, CurrentNarrative.NarrativeSoundscape,
-            AudioManager.SoundType.Soundscape);
-
-        FindObjectOfType<NarrativeSceneDisplay>().CurrentNarrative = CurrentNarrative;
-    }
-    public void EndNarrative()
-    {
-        if (CurrentNarrative == settingNarrative)
-        {
-            CurrentNarrative = newGameNarrative;
-            SceneLoader.LoadScene(SceneLoader.Scene.HeroSelectScene);
-        }
-        else Debug.LogError("NO CONDITIONS MATCHED!");
-    }
-
-    /******
-     * *****
-     * ****** START_COMBAT
-     * *****
-     *****/
-    public void StartCombat()
-    {
-        Managers.U_MAN.StartCombatScene();
-        Managers.CO_MAN.StartCombatScene();
-
-        Managers.P_MAN.ResetForCombat();
-        Managers.EN_MAN.ResetForCombat();
-
-        var pHD = Managers.P_MAN.HeroObject.GetComponent<PlayerHeroDisplay>();
-        var eHD = Managers.EN_MAN.HeroObject.GetComponent<EnemyHeroDisplay>();
-
-        pHD.HeroBase.SetActive(false);
-        pHD.HeroStats.SetActive(false);
-        pHD.HeroNameObject.SetActive(false);
-
-        eHD.HeroBase.SetActive(false);
-        eHD.HeroStats.SetActive(false);
-        eHD.HeroNameObject.SetActive(false);
-
-        Managers.U_MAN.EndTurnButton.SetActive(false);
-        Managers.U_MAN.CombatLog.SetActive(false);
-
-        // ENEMY MANAGER
-        EnemyHero enemyHero = Managers.D_MAN.EngagedHero as EnemyHero;
-        if (enemyHero == null)
-        {
-            Debug.LogError("ENEMY HERO IS NULL!");
-            return;
-        }
-
-        // ENEMY HERO
-        Managers.EN_MAN.HeroScript = enemyHero;
-        Managers.EN_MAN.CurrentHealth = IsTutorial ? TUTORIAL_STARTING_HEALTH : ENEMY_STARTING_HEALTH;
-
-        int energyPerTurn = START_ENERGY_PER_TURN;
-        if ((Managers.EN_MAN.HeroScript as EnemyHero).IsBoss)
-            energyPerTurn += BOSS_BONUS_ENERGY + Managers.CO_MAN.DifficultyLevel - 1;
-        Managers.EN_MAN.EnergyPerTurn = energyPerTurn;
-        Managers.EN_MAN.CurrentEnergy = 0;
-        Managers.EN_MAN.DamageTaken_ThisTurn = 0;
-        Managers.EN_MAN.AlliesDestroyed_ThisTurn = 0;
-
-        Managers.EN_MAN.TurnNumber = 0;
-
-        // PLAYER MANAGER
-        Managers.P_MAN.CurrentHealth = Managers.P_MAN.MaxHealth;
-        Managers.P_MAN.EnergyPerTurn = START_ENERGY_PER_TURN;
-        Managers.P_MAN.CurrentEnergy = 0;
-        Managers.P_MAN.HeroUltimateProgress = 0;
-        Managers.P_MAN.DamageTaken_ThisTurn = 0;
-        Managers.P_MAN.AlliesDestroyed_ThisTurn = 0;
-        foreach (HeroItem item in Managers.P_MAN.HeroItems) item.IsUsed = false;
-
-        Managers.P_MAN.TurnNumber = 0;
-
-        // UPDATE DECKS
-        Managers.CA_MAN.UpdateDeck(PLAYER);
-        Managers.CA_MAN.UpdateDeck(ENEMY);
-
-        // DISPLAY HEROES
-        Managers.P_MAN.HeroObject.GetComponent<HeroDisplay>().HeroScript = Managers.P_MAN.HeroScript;
-        Managers.EN_MAN.HeroObject.GetComponent<HeroDisplay>().HeroScript = Managers.EN_MAN.HeroScript;
-
-        // SCHEDULE ACTIONS
-        Managers.EV_MAN.NewDelayedAction(() => Managers.AN_MAN.CombatIntro(), 1);
-        Managers.EV_MAN.NewDelayedAction(() => CombatStart(), 1);
-        Managers.EV_MAN.NewDelayedAction(() => StartCombatTurn(Managers.P_MAN, true), 2);
-
-        // AUDIO
-        string soundtrack;
-        if ((Managers.EN_MAN.HeroScript as EnemyHero).IsBoss) soundtrack = "Soundtrack_CombatBoss1";
-        else soundtrack = "Soundtrack_Combat1";
-        Managers.AU_MAN.StartStopSound(soundtrack, null, AudioManager.SoundType.Soundtrack);
-        Managers.AU_MAN.StopCurrentSoundscape();
-        FunctionTimer.Create(() => Managers.AU_MAN.StartStopSound("SFX_StartCombat1"), 0.15f);
-
-        void CombatStart()
-        {
-            Managers.U_MAN.CombatLogEntry($"<b>{TextFilter.Clrz_grn(Managers.P_MAN.HeroScript.HeroShortName, false)}" +
-                $" VS {TextFilter.Clrz_red(Managers.EN_MAN.HeroScript.HeroName, false)}</b>");
-
-            Managers.CA_MAN.ShuffleDeck(Managers.P_MAN, false);
-            Managers.CA_MAN.ShuffleDeck(Managers.EN_MAN, false);
-
-            for (int i = 0; i < START_HAND_SIZE; i++)
-                Managers.EV_MAN.NewDelayedAction(() => AllDraw(), 0.5f);
-
-            // TUTORIAL!
-            if (IsTutorial)
-            {
-                Managers.EV_MAN.NewDelayedAction(() => Managers.U_MAN.CreateTutorialActionPopup(), 0);
-                Managers.EV_MAN.NewDelayedAction(() => Managers.EV_MAN.PauseDelayedActions(true), 0);
-                Managers.EV_MAN.NewDelayedAction(() => Tutorial_Tooltip(1), 0);
-            }
-            ResolveReputationEffects(1); // REPUTATION EFFECTS [RESOLVE ORDER = 1]
-            PlayStartingUnits();
-            Managers.EV_MAN.NewDelayedAction(() => Mulligan_Player(), 0.5f);
-            Managers.EV_MAN.NewDelayedAction(() => Managers.EN_MAN.Mulligan(), 0.5f);
-            ResolveReputationEffects(2); // REPUTATION EFFECTS [RESOLVE ORDER = 2]
-            ResolveReputationEffects(3); // REPUTATION EFFECTS [RESOLVE ORDER = 3]
-
-            string cognitiveMagnifier = "Cognitive Magnifier";
-            if (Managers.P_MAN.GetAugment(cognitiveMagnifier))
-            {
-                Managers.EV_MAN.NewDelayedAction(() => CognitiveMagnifierEffect(), 0.25f);
-
-                void CognitiveMagnifierEffect()
-                {
-                    Managers.AN_MAN.TriggerAugment(cognitiveMagnifier);
-
-                    Managers.EF_MAN.StartEffectGroupList(new List<EffectGroup>
-                    { cognitiveMagnifierEffect }, Managers.P_MAN.HeroObject);
-                }
-            }
-
-            // TUTORIAL!
-            if (IsTutorial) Managers.EV_MAN.NewDelayedAction(() => Tutorial_Tooltip(2), 0);
-
-            void AllDraw()
-            {
-                Managers.CA_MAN.DrawCard(Managers.P_MAN);
-                Managers.CA_MAN.DrawCard(Managers.EN_MAN);
-            }
-
-            void PlayStartingUnits()
-            {
-                List<UnitCard> startingUnits =
-                    (Managers.EN_MAN.HeroScript as EnemyHero).Reinforcements[Managers.EN_MAN.ReinforcementGroup].StartingUnits;
-                foreach (UnitCard card in startingUnits)
-                {
-                    UnitCard newCard = Managers.CA_MAN.NewCardInstance(card) as UnitCard;
-                    Managers.EV_MAN.NewDelayedAction(() =>
-                    Managers.EF_MAN.PlayCreatedUnit(newCard, false, new List<Effect>(), Managers.EN_MAN.HeroObject), 0.5f);
-                }
-            }
-        }
-
-        void Mulligan_Player() =>
-            Managers.EF_MAN.StartEffectGroupList(new List<EffectGroup> { mulliganEffect }, Managers.P_MAN.HeroObject);
-    }
-
-    /******
-     * *****
-     * ****** END_COMBAT
-     * *****
-     *****/
-    public void EndCombat(bool playerWins)
-    {
-        if (playerWins)
-        {
-            Managers.AU_MAN.StartStopSound(null, Managers.EN_MAN.HeroScript.HeroLose);
-            FunctionTimer.Create(() =>
-            Managers.AU_MAN.StartStopSound(null, Managers.P_MAN.HeroScript.HeroWin), 2f);
-        }
-        else
-        {
-            Managers.AU_MAN.StartStopSound(null, Managers.P_MAN.HeroScript.HeroLose);
-            FunctionTimer.Create(() =>
-            Managers.AU_MAN.StartStopSound(null, Managers.EN_MAN.HeroScript.HeroWin), 2f);
-        }
-
-        Managers.EV_MAN.ClearDelayedActions();
-        Managers.U_MAN.PlayerIsTargetting = false;
-        Managers.EF_MAN.EffectsResolving = false;
-        Managers.P_MAN.IsMyTurn = false;
-
-        foreach (HeroItem item in Managers.P_MAN.HeroItems) item.IsUsed = false;
-
-        // Created Cards Played
-        Managers.P_MAN.ResetForCombat();
-        Managers.EN_MAN.ResetForCombat();
-
-        FunctionTimer.Create(() => Managers.U_MAN.CreateCombatEndPopup(playerWins), 2f);
-    }
-
-    /******
-     * *****
-     * ****** START_COMBAT_TURN
-     * *****
-     *****/
-    private void StartCombatTurn(HeroManager hero, bool isFirstTurn = false)
-    {
-        bool isPlayerTurn = hero == Managers.P_MAN;
-        string logText = "\n" + (isPlayerTurn ? "[Your Turn]" : "[Enemy Turn]");
-
-        Managers.EV_MAN.NewDelayedAction(() => TurnPopup(), 0);
-        Managers.EV_MAN.NewDelayedAction(() => Managers.U_MAN.CombatLogEntry(logText), 0);
-
-        if (isPlayerTurn)
-        {
-            Managers.EV_MAN.NewDelayedAction(() => PlayerTurnStart(), 2);
-            Managers.EV_MAN.NewDelayedAction(() => TurnDraw(), 0.5f);
-
-            string synapticStabilizer = "Synaptic Stabilizer";
-
-            if (isFirstTurn && Managers.P_MAN.GetAugment(synapticStabilizer))
-                Managers.EV_MAN.NewDelayedAction(() => SynapticStabilizerEffect(), 0.5f);
-
-            void SynapticStabilizerEffect()
-            {
-                Managers.P_MAN.CurrentEnergy++;
-                Managers.AN_MAN.ModifyHeroEnergyState(1, Managers.P_MAN.HeroObject);
-                Managers.AN_MAN.TriggerAugment(synapticStabilizer);
-                Managers.CA_MAN.SelectPlayableCards();
-            }
-
-            void PlayerTurnStart()
-            {
-                Managers.P_MAN.IsMyTurn = true;
-                Managers.EN_MAN.IsMyTurn = false;
-                Managers.P_MAN.HeroPowerUsed = false;
-
-                int startEnergy = Managers.P_MAN.CurrentEnergy;
-                if (Managers.P_MAN.EnergyPerTurn < Managers.P_MAN.MaxEnergyPerTurn) Managers.P_MAN.EnergyPerTurn++;
-                Managers.P_MAN.CurrentEnergy = Managers.P_MAN.EnergyPerTurn;
-
-                int energyChange = Managers.P_MAN.CurrentEnergy - startEnergy;
-                Managers.AN_MAN.ModifyHeroEnergyState(energyChange, Managers.P_MAN.HeroObject);
-
-                Managers.P_MAN.TurnNumber++;
-
-                // TUTORIAL!
-                if (IsTutorial && Managers.P_MAN.EnergyPerTurn == 2) Tutorial_Tooltip(4);
-            }
-
-            void TurnDraw()
-            {
-                Managers.CA_MAN.DrawCard(Managers.P_MAN);
-                Managers.CA_MAN.SelectPlayableCards();
-            }
-        }
-
-        if (isPlayerTurn) Managers.EV_MAN.NewDelayedAction(() =>
-        Managers.CA_MAN.TriggerPlayedUnits(CardManager.TRIGGER_TURN_START, hero), 0);
-        else
-        {
-            Managers.P_MAN.IsMyTurn = false;
-            Managers.EN_MAN.IsMyTurn = true;
-            Managers.EV_MAN.NewDelayedAction(() => Managers.EN_MAN.StartEnemyTurn(), 1);
-        }
-
-        void TurnPopup()
-        {
-            Managers.AU_MAN.StartStopSound("SFX_NextTurn");
-            Managers.U_MAN.CreateTurnPopup(isPlayerTurn);
-        }
-    }
-
-    /******
-     * *****
-     * ****** END_TURN
-     * *****
-     *****/
-    public void EndCombatTurn(HeroManager hero)
-    {
-        Managers.EV_MAN.NewDelayedAction(() =>
-        Managers.CA_MAN.TriggerPlayedUnits(CardManager.TRIGGER_TURN_END, hero), 0);
-
-        Managers.EV_MAN.NewDelayedAction(() => Managers.CO_MAN.RefreshAllUnits(), 0.5f);
-        Managers.EV_MAN.NewDelayedAction(() => RemoveEffects(), 0);
-        Managers.EV_MAN.NewDelayedAction(() => ResetTriggerCounts(), 0);
-        Managers.EV_MAN.NewDelayedAction(() => Managers.CA_MAN.SelectPlayableCards(), 0); // To reset conditional card costs (i.e. based on units destroyed this turn)
-
-        if (hero == Managers.EN_MAN) Managers.EV_MAN.NewDelayedAction(() => StartCombatTurn(Managers.P_MAN), 0.5f);
-        else if (hero == Managers.P_MAN)
-        {
-            if (IsTutorial) // TUTORIAL!
-                switch (Managers.P_MAN.EnergyPerTurn)
-                {
-                    case 1:
-                        if (Managers.P_MAN.CurrentEnergy > 0) return;
-                        else Managers.U_MAN.DestroyInfoPopup(UIManager.InfoPopupType.Tutorial);
-                        break;
-                    case 2:
-                        if (!Managers.P_MAN.HeroPowerUsed || Managers.EN_MAN.PlayZoneCards.Count > 0) return;
-                        else Managers.U_MAN.DestroyInfoPopup(UIManager.InfoPopupType.Tutorial);
-                        break;
-                }
-
-            Managers.P_MAN.IsMyTurn = false;
-            Managers.CA_MAN.SelectPlayableCards(true);
-            Managers.EV_MAN.NewDelayedAction(() => StartCombatTurn(Managers.EN_MAN), 0.5f);
-        }
-        else Debug.LogError("INVALID PLAYER!");
-
-        void RemoveEffects()
-        {
-            Managers.EF_MAN.RemoveTemporaryEffects();
-            Managers.EF_MAN.RemoveGiveNextEffects(hero);
-            Managers.EF_MAN.RemoveChangeNextCostEffects(hero);
-            Managers.EF_MAN.RemoveModifyNextEffects(hero);
-
-            Managers.P_MAN.DamageTaken_ThisTurn = 0;
-            Managers.P_MAN.AlliesDestroyed_ThisTurn= 0;
-
-            Managers.EN_MAN.DamageTaken_ThisTurn = 0;
-            Managers.EN_MAN.AlliesDestroyed_ThisTurn = 0;
-        }
-        void ResetTriggerCounts()
-        {
-            foreach (GameObject unit in Managers.P_MAN.PlayZoneCards) ResetTrigger(unit);
-            foreach (GameObject unit in Managers.EN_MAN.PlayZoneCards) ResetTrigger(unit);
-
-            void ResetTrigger(GameObject unit)
-            {
-                UnitCardDisplay ucd = unit.GetComponent<UnitCardDisplay>();
-                foreach (CardAbility ca in ucd.CurrentAbilities)
-                {
-                    if (ca is TriggeredAbility tra)
-                    {
-                        tra.TriggerCount = 0;
-                        ucd.EnableTriggerIcon(tra.AbilityTrigger, true);
-                    }
-                    else if (ca is ModifierAbility ma)
-                    {
-                        ma.TriggerCount = 0;
-                        ucd.EnableTriggerIcon(null, true);
-                    }
-                }
-            }
-        }
-    }
-
-    /******
-     * *****
-     * ****** START_CREDITS
-     * *****
-     *****/
-    public void StartCredits()
-    {
-        Managers.AU_MAN.StartStopSound("Soundtrack_Combat1",
-            null, AudioManager.SoundType.Soundtrack);
-        Managers.AU_MAN.StopCurrentSoundscape();
-    }
-
-    /******
-     * *****
-     * ****** GET_ACTIVE_NPC
-     * *****
-     *****/
-    public NPCHero GetActiveNPC(NPCHero npc)
-    {
-        if (npc == null)
-        {
-            Debug.LogError("NPC IS NULL!");
-            return null;
-        }
-
-        int activeNPC = ActiveNPCHeroes.FindIndex(x => x.HeroName == npc.HeroName);
-        if (activeNPC != -1) return ActiveNPCHeroes[activeNPC];
-        else
-        {
-            NPCHero newNPC = ScriptableObject.CreateInstance(npc.GetType()) as NPCHero;
-            newNPC.LoadHero(npc);
-            newNPC.NextDialogueClip = npc.FirstDialogueClip;
-            if (newNPC.NextDialogueClip == null) Debug.LogError("NEXT CLIP IS NULL!");
-            ActiveNPCHeroes.Add(newNPC);
-            return newNPC;
-        }
-    }
-
-    /******
-     * *****
-     * ****** GET_ACTIVE_LOCATION
-     * *****
-     *****/
-    public Location GetActiveLocation(Location location, NPCHero newNPC = null)
-    {
-        if (location == null)
-        {
-            Debug.LogError("LOCATION IS NULL!");
-            return null;
-        }
-
-        int activeLocation = ActiveLocations.FindIndex(x => x.LocationName == location.LocationName);
-
-        if (activeLocation != -1)
-        {
-            Location loc = ActiveLocations[activeLocation];
-            if (newNPC != null) loc.CurrentNPC = GetActiveNPC(newNPC);
-            return loc;
-        }
-        else
-        {
-            Location newLoc = ScriptableObject.CreateInstance<Location>();
-            newLoc.LoadLocation(location);
-            newLoc.CurrentObjective = newLoc.FirstObjective;
-            if (newNPC != null) newLoc.CurrentNPC = GetActiveNPC(newNPC);
-            else newLoc.CurrentNPC = GetActiveNPC(location.FirstNPC);
-            ActiveLocations.Add(newLoc);
-            return newLoc;
-        }
-    }
-
-    /******
-     * *****
-     * ****** GET_SHOP_ITEMS
-     * *****
-     *****/
-    public List<HeroItem> GetShopItems()
-    {
-        HeroItem[] allItems = Resources.LoadAll<HeroItem>("Hero Items");
-        List<HeroItem> rarefiedItems = new();
-        foreach (HeroItem item in allItems)
-        {
-            rarefiedItems.Add(item);
-            if (!item.IsRareItem)
-            {
-                rarefiedItems.Add(item);
-                rarefiedItems.Add(item);
-            }
-        }
-        rarefiedItems.Shuffle();
-
-        List<HeroItem> shopItems = new();
-        foreach (HeroItem item in rarefiedItems)
-        {
-            if ((Managers.P_MAN.HeroItems.FindIndex(x => x.ItemName == item.ItemName) == -1) &&
-                (shopItems.FindIndex(x => x.ItemName == item.ItemName) == -1)) shopItems.Add(item);
-
-            if (shopItems.Count == 8) return shopItems;
-        }
-        return shopItems;
-    }
-
-    /******
-     * *****
-     * ****** GET_ITEM_COST
+     * ****** COST_GETTERS
      * *****
      *****/
     public int GetItemCost(HeroItem item, out bool isDiscounted, bool isItemRemoval)
     {
-        int itemCost = isItemRemoval ? (item.IsRareItem ? SELL_RARE_ITEM_VALUE : SELL_ITEM_VALUE) : 
+        int itemCost = isItemRemoval ? (item.IsRareItem ? SELL_RARE_ITEM_VALUE : SELL_ITEM_VALUE) :
             (item.IsRareItem ? BUY_RARE_ITEM_COST : BUY_ITEM_COST);
 
         if (ShopLoyalty == SHOP_LOYALTY_GOAL)
@@ -1441,12 +700,6 @@ public class GameManager : MonoBehaviour
 
         return itemCost;
     }
-
-    /******
-     * *****
-     * ****** GET_RECRUIT_COST
-     * *****
-     *****/
     public int GetRecruitCost(UnitCard unitCard, out bool isDiscounted)
     {
         if (unitCard == null)
@@ -1482,12 +735,6 @@ public class GameManager : MonoBehaviour
         else isDiscounted = false;
         return recruitCost;
     }
-
-    /******
-     * *****
-     * ****** GET_ACTION_COST
-     * *****
-     *****/
     public int GetActionCost(ActionCard actionCard, out bool isDiscounted)
     {
         if (actionCard == null)
@@ -1523,12 +770,6 @@ public class GameManager : MonoBehaviour
         else isDiscounted = false;
         return recruitCost;
     }
-
-    /******
-     * *****
-     * ****** GET_CLONE_COST
-     * *****
-     *****/
     public int GetCloneCost(UnitCard unitCard)
     {
         int cloneCost;
@@ -1549,12 +790,6 @@ public class GameManager : MonoBehaviour
         }
         return cloneCost;
     }
-
-    /******
-     * *****
-     * ****** GET_SELL_COST
-     * *****
-     *****/
     public int GetSellCost(Card card)
     {
         int sellCost;
@@ -1574,6 +809,61 @@ public class GameManager : MonoBehaviour
                 return 0;
         }
         return sellCost;
+    }
+    #endregion
+
+    /******
+     * *****
+     * ****** NEW_GAME
+     * *****
+     *****/
+    public void NewGame()
+    {
+        SceneLoader.LoadAction_Async += GameLoader.NewGame_LoadAsync;
+
+        //SceneLoader.LoadAction += GameLoader.NewGame_Load;
+        SceneLoader.LoadScene(SceneLoader.Scene.NarrativeScene);
+    }
+
+    /******
+     * *****
+     * ****** END_GAME
+     * *****
+     *****/
+    public void EndGame()
+    {
+        // Game Manager
+        foreach (NPCHero npc in ActiveNPCHeroes)
+        {
+            if (npc != null) Destroy(npc);
+        }
+        ActiveNPCHeroes.Clear();
+
+        foreach (Location loc in ActiveLocations)
+        {
+            if (loc != null) Destroy(loc);
+        }
+        ActiveLocations.Clear();
+        VisitedLocations.Clear();
+
+        // Player Manager
+        // Don't destroy ManagerHandler.P_MAN objects, they are assets not instances
+        Managers.P_MAN.HeroScript = null;
+        Managers.P_MAN.DeckList.Clear();
+        Managers.P_MAN.CurrentDeck.Clear();
+        //ManagerHandler.P_MAN.AetherCells = 0;
+        Managers.P_MAN.HeroAugments.Clear();
+        Managers.P_MAN.HeroItems.Clear();
+        // Enemy Manager
+        Destroy(Managers.EN_MAN.HeroScript);
+        Managers.EN_MAN.HeroScript = null;
+        // Dialogue Manager
+        Managers.D_MAN.EndDialogue();
+        // UI Manager
+        Managers.U_MAN.ClearAugmentBar();
+        Managers.U_MAN.ClearItemBar();
+        // Scene Loader
+        SceneLoader.LoadScene(SceneLoader.Scene.TitleScene);
     }
     #endregion
 }

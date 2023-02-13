@@ -136,10 +136,8 @@ public class LocationPopupDisplay : MonoBehaviour
         if (Managers.G_MAN.VisitedLocations.FindIndex(x => x == location.LocationName) == -1)
         {
             Managers.G_MAN.VisitedLocations.Add(location.LocationName);
-
             if (!location.IsRecurring) Managers.G_MAN.NextHour(!location.IsRandomEncounter);
         }
-
         if (location.IsHomeBase)
         {
             SceneLoader.LoadScene(SceneLoader.Scene.HomeBaseScene);
@@ -147,7 +145,6 @@ public class LocationPopupDisplay : MonoBehaviour
         }
 
         Managers.G_MAN.CurrentLocation = Managers.G_MAN.GetActiveLocation(location);
-
         if (location.IsRecruitment || location.IsActionShop || location.IsShop || location.IsCloning) { }
         else Managers.G_MAN.ActiveLocations.Remove(Managers.G_MAN.CurrentLocation);
         Managers.D_MAN.EngagedHero = Managers.G_MAN.GetActiveNPC(Managers.G_MAN.CurrentLocation.CurrentNPC);
@@ -160,5 +157,6 @@ public class LocationPopupDisplay : MonoBehaviour
     {
         Managers.U_MAN.DestroyTravelPopup();
         Managers.U_MAN.DestroyLocationPopup();
+        Destroy(gameObject);
     }
 }

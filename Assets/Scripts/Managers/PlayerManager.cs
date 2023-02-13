@@ -58,6 +58,8 @@ public class PlayerManager : HeroManager
             int valueChange = aetherCells - previousCount;
 
             AnimationManager.CountingTextObject.ClearCountingTexts();
+
+            /*
             var acpd = FindObjectOfType<AetherCellPopupDisplay>();
             if (acpd != null)
             {
@@ -67,6 +69,7 @@ public class PlayerManager : HeroManager
                 new AnimationManager.CountingTextObject(acpd.AetherQuantityObject.GetComponent<TextMeshProUGUI>(),
                     valueChange, Color.red, acpd.AetherQuantity_Additional);
             }
+            */
 
             if (UIManager.Instance != null) Managers.U_MAN.SetAetherCount(valueChange);
         }

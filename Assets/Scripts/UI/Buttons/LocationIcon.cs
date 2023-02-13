@@ -91,6 +91,5 @@ public class LocationIcon : MonoBehaviour
     }
 
     public void OnPointerEnter() => Managers.U_MAN.CreateLocationPopup(Location);
-
     public void OnPointerExit() => Managers.U_MAN.DestroyLocationPopup();
 }

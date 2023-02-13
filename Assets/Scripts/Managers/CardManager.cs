@@ -921,7 +921,7 @@ public class CardManager : MonoBehaviour
             void AddCard() => targetList.Add(unitCard);
         }
 
-        List<List<UnitCard>> recruitLists = new List<List<UnitCard>>
+        List<List<UnitCard>> recruitLists = new()
         {
             recruitMages,
             recruitMutants,

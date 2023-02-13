@@ -20,10 +20,10 @@ public class EndTurnButton : MonoBehaviour, IPointerClickHandler
 
     private void UserClick()
     {
-        if (EventManager.Instance.ActionsDelayed) return;
+        if (Managers.EV_MAN.ActionsDelayed) return;
         if (!button.interactable) return;
 
-        GameManager.Instance.EndCombatTurn(PlayerManager.Instance);
+        Managers.CO_MAN.EndCombatTurn(Managers.P_MAN);
         GetComponentInParent<SoundPlayer>().PlaySound(0);
     }
 

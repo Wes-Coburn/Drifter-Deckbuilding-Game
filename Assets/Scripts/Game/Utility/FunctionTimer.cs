@@ -18,8 +18,8 @@ public class FunctionTimer
     public static FunctionTimer Create(Action action, float timer, string timerName = null)
     {
         InitIfNeeded();
-        GameObject gameObject = new GameObject("FunctionTimer", typeof(MonoBehaviourHook));
-        FunctionTimer functionTimer = new FunctionTimer(action, timer, timerName, gameObject);
+        GameObject gameObject = new("FunctionTimer", typeof(MonoBehaviourHook));
+        FunctionTimer functionTimer = new(action, timer, timerName, gameObject);
         gameObject.GetComponent<MonoBehaviourHook>().onUpdate = functionTimer.Update;
         activeTimerList.Add(functionTimer);
         return functionTimer;

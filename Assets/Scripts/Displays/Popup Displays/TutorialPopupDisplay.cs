@@ -14,7 +14,7 @@ public class TutorialPopupDisplay : MonoBehaviour
     public void PlayButton_OnClick()
     {
         DestroySelf();
-        gMan.PlayTutorial();
+        gMan.StartTutorialScene();
     }
     public void SkipButton_OnClick()
     {

@@ -185,6 +185,14 @@ public class UIManager : MonoBehaviour
 
     /******
      * *****
+     * ****** CANCEL/CONFIRM_EFFECT_BUTTON
+     * *****
+     *****/
+    public void SetCancelEffectButton(bool isEnabled) => cancelEffectButton.SetActive(isEnabled);
+    public void SetConfirmEffectButton(bool isEnabled) => confirmEffectButton.SetActive(isEnabled);
+
+    /******
+     * *****
      * ****** PLAYER_ZONE_OUTLINE
      * *****
      *****/
@@ -193,10 +201,8 @@ public class UIManager : MonoBehaviour
         playerZoneOutline.SetActive(enabled);
         if (enabled)
         {
-            SpriteRenderer sr = playerZoneOutline.GetComponentInChildren<SpriteRenderer>();
-            Color col;
-            if (!selected) col = selectedColor;
-            else col = highlightedColor;
+            var sr = playerZoneOutline.GetComponentInChildren<SpriteRenderer>();
+            Color col = selected ? highlightedColor : selectedColor;
             col.a = 0.3f;
             sr.color = col;
         }
@@ -309,15 +315,7 @@ public class UIManager : MonoBehaviour
         btnClr.disabledColor = disabledColor;
         etb.colors = btnClr;
     }
-    /******
-     * *****
-     * ****** CANCEL/CONFIRM_EFFECT_BUTTON
-     * *****
-     *****/
-    public void SetCancelEffectButton(bool isEnabled) =>
-        cancelEffectButton.SetActive(isEnabled);
-    public void SetConfirmEffectButton(bool isEnabled) =>
-        confirmEffectButton.SetActive(isEnabled);
+
     /******
      * *****
      * ****** SELECT_TARGET
@@ -461,9 +459,12 @@ public class UIManager : MonoBehaviour
                         scale.Set(1.3f, 1.3f);
                         break;
                     case SceneLoader.Scene.DialogueScene:
+                        goto case SceneLoader.Scene.CombatScene;
+                        /*
                         position.Set(-150, -75);
                         scale.Set(2.5f, 2.5f);
                         break;
+                        */
                     case SceneLoader.Scene.CombatScene:
                         position.Set(-90, -20);
                         scale.Set(1.2f, 1.2f);
@@ -479,9 +480,12 @@ public class UIManager : MonoBehaviour
                         scale.Set(1.3f, 1.3f);
                         break;
                     case SceneLoader.Scene.DialogueScene:
+                        goto case SceneLoader.Scene.CombatScene;
+                        /*
                         position.Set(0, -100);
                         scale.Set(2f, 2f);
                         break;
+                        */
                     case SceneLoader.Scene.CombatScene:
                         position.Set(5, -20);
                         scale.Set(1f, 1f);
@@ -497,9 +501,12 @@ public class UIManager : MonoBehaviour
                         scale.Set(1.2f, 1.2f);
                         break;
                     case SceneLoader.Scene.DialogueScene:
+                        goto case SceneLoader.Scene.CombatScene;
+                        /*
                         position.Set(-90, -325);
                         scale.Set(3, 3);
                         break;
+                        */
                     case SceneLoader.Scene.CombatScene:
                         position.Set(-30, -90);
                         scale.Set(1.2f, 1.2f);
@@ -515,9 +522,12 @@ public class UIManager : MonoBehaviour
                         scale.Set(1.4f, 1.4f);
                         break;
                     case SceneLoader.Scene.DialogueScene:
+                        goto case SceneLoader.Scene.CombatScene;
+                        /*
                         position.Set(0, -45);
                         scale.Set(2f, 2f);
                         break;
+                        */
                     case SceneLoader.Scene.CombatScene:
                         position.Set(0, -35);
                         scale.Set(1.2f, 1.2f);
@@ -533,9 +543,12 @@ public class UIManager : MonoBehaviour
                         scale.Set(1.3f, 1.3f);
                         break;
                     case SceneLoader.Scene.DialogueScene:
+                        goto case SceneLoader.Scene.CombatScene;
+                        /*
                         position.Set(-145, -145);
                         scale.Set(2, 2);
                         break;
+                        */
                     case SceneLoader.Scene.CombatScene:
                         position.Set(-15, -45);
                         scale.Set(0.9f, 0.9f);
@@ -567,7 +580,6 @@ public class UIManager : MonoBehaviour
     public void CreateTooltipPopup(Vector2 position, string text)
     {
         DestroyTooltipPopup();
-
         tooltipPopup = Instantiate(tooltipPopupPrefab, CurrentWorldSpace.transform);
         tooltipPopup.transform.localPosition = position;
         tooltipPopup.GetComponentInChildren<TextMeshPro>().SetText(text);
@@ -798,8 +810,38 @@ public class UIManager : MonoBehaviour
     // Choose Reward Popup
     public void CreateChooseRewardPopup()
     {
-        DestroyZoomObjects(); // TESTING, for combat end
+        DestroyZoomObjects(); // For combat end
         chooseRewardPopup = Instantiate(chooseRewardPopupPrefab, CurrentZoomCanvas.transform);
+        var nextClip = Managers.D_MAN.EngagedHero != null ? Managers.D_MAN.EngagedHero.NextDialogueClip : null;
+
+        // Homebase Scene
+        if (SceneLoader.IsActiveScene(SceneLoader.Scene.HomeBaseScene))
+        {
+            string aetherMagnet = "Aether Magnet";
+            if (Managers.P_MAN.GetAugment(aetherMagnet))
+            {
+                Managers.AN_MAN.TriggerAugment(aetherMagnet);
+                Managers.P_MAN.AetherCells += GameManager.AETHER_MAGNET_REWARD;
+            }
+        }
+        /* Dialogue does not have ChooseRewardPopup functionality
+        // Dialogue Scene
+        else if (SceneLoader.IsActiveScene(SceneLoader.Scene.DialogueScene))
+        {
+            var dp = nextClip as DialoguePrompt;
+            if (dp.AetherCells > 0) Managers.P_MAN.AetherCells += dp.AetherCells;
+        }
+        */
+        // Combat Scene
+        else if (SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene))
+        {
+            if (nextClip is CombatRewardClip)
+            {
+                int aetherReward = Managers.G_MAN.GetAetherReward((Managers.D_MAN.EngagedHero as EnemyHero).EnemyLevel);
+                Managers.P_MAN.AetherCells += aetherReward;
+            }
+            else Debug.LogError("NEXT CLIP IS NOT COMBAT REWARD CLIP!");
+        }
     }
     public void DestroyChooseRewardPopup()
     {
@@ -809,6 +851,7 @@ public class UIManager : MonoBehaviour
             chooseRewardPopup = null;
         }
     }
+    /*
     // Aether Cell Popup
     public void CreateAetherCellPopup(int quanity)
     {
@@ -817,6 +860,7 @@ public class UIManager : MonoBehaviour
         var acpd = aetherCellPopup.GetComponent<AetherCellPopupDisplay>();
         acpd.AetherQuantity = quanity;
     }
+    */
     public void DestroyAetherCellPopup()
     {
         if (aetherCellPopup != null)
@@ -834,7 +878,7 @@ public class UIManager : MonoBehaviour
         {
             if (cardPage.GetComponent<CardPageDisplay>().IsScrollPage)
             {
-                ScrollRect sRect = cardPage.GetComponentInChildren<ScrollRect>();
+                var sRect = cardPage.GetComponentInChildren<ScrollRect>();
                 scrollValue = sRect.verticalNormalizedPosition;
             }
         }
@@ -937,8 +981,9 @@ public class UIManager : MonoBehaviour
     public void CreateLocationPopup(Location location, bool isFleeting = false)
     {
         if (travelPopup != null || narrativePopup != null) return;
+        DestroyLocationPopup();
         locationPopup = Instantiate(locationPopupPrefab, CurrentZoomCanvas.transform);
-        LocationPopupDisplay lpd = locationPopup.GetComponent<LocationPopupDisplay>();
+        var lpd = locationPopup.GetComponent<LocationPopupDisplay>();
         lpd.Location = location;
         lpd.TravelButtons.SetActive(false);
         lpd.DifficultyLevel.SetActive(false);
@@ -965,7 +1010,7 @@ public class UIManager : MonoBehaviour
         if (narrativePopup != null) return;
         DestroyTravelPopup();
         travelPopup = Instantiate(locationPopupPrefab, CurrentCanvas.transform);
-        LocationPopupDisplay lpd = travelPopup.GetComponent<LocationPopupDisplay>();
+        var lpd = travelPopup.GetComponent<LocationPopupDisplay>();
         lpd.Location = location;
 
         if (location.IsRecurring) lpd.DifficultyLevel.SetActive(false);
@@ -983,7 +1028,7 @@ public class UIManager : MonoBehaviour
     {
         DestroyNarrativePopup();
         narrativePopup = Instantiate(narrativePopupPrefab, CurrentCanvas.transform);
-        NarrativePopupDisplay npd = narrativePopup.GetComponent<NarrativePopupDisplay>();
+        var npd = narrativePopup.GetComponent<NarrativePopupDisplay>();
         npd.LoadedNarrative = narrative;
     }
     public void DestroyNarrativePopup()
@@ -1082,8 +1127,9 @@ public class UIManager : MonoBehaviour
     {
         if (!skyBar.activeSelf) return;
 
-        TextMeshProUGUI tmpro = aetherCount.GetComponentInChildren<TextMeshProUGUI>();
+        var tmpro = aetherCount.GetComponentInChildren<TextMeshProUGUI>();
         tmpro.SetText(Managers.P_MAN.AetherCells - valueChange + "");
+        tmpro.color = Color.white; // In case the coroutine is stopped while the text is red
 
         if (valueChange != 0)
         {
@@ -1091,6 +1137,7 @@ public class UIManager : MonoBehaviour
 
             Managers.AN_MAN.SkybarIconAnimation(aetherIcon);
             Managers.AN_MAN.CountingText();
+            Managers.AN_MAN.ValueChanger(reputationBar.transform, valueChange, -100); // TESTING
         }
     }
     public void CreateAugmentIcon(HeroAugment augment, bool isNewAugment = false)
@@ -1141,7 +1188,7 @@ public class UIManager : MonoBehaviour
         itemIconPopup = Instantiate(itemIconPopupPrefab, CurrentZoomCanvas.transform);
         Vector2 sourcePos = sourceIcon.transform.localPosition;
         itemIconPopup.transform.localPosition = new Vector2(sourcePos.x - 125, sourcePos.y + 250);
-        ItemIconPopupDisplay iipd = itemIconPopup.GetComponent<ItemIconPopupDisplay>();
+        var iipd = itemIconPopup.GetComponent<ItemIconPopupDisplay>();
         iipd.LoadedItem = item;
         iipd.SourceIcon = sourceIcon;
         iipd.Buttons.SetActive(isUseItemConfirm);

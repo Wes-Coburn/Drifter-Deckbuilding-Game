@@ -1,16 +1,3 @@
-
-/* Unmerged change from project 'Assembly-CSharp.Player'
-Before:
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
-using System.Runtime.InteropServices;
-After:
-using System.Runtime.InteropServices;
-using TMPro;
-using UnityEngine;
-using UnityEngine.InteropServices;
-*/
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -93,7 +80,8 @@ public class NewCardPopupDisplay : MonoBehaviour
     {
         SwitchToCards();
         // Card Popup
-        GameObject newCard = Managers.CA_MAN.ShowCard(this.newCard, new Vector2(), CardManager.DisplayType.NewCard);
+        GameObject newCard = Managers.CA_MAN.ShowCard(this.newCard, 
+            new Vector2(), CardManager.DisplayType.NewCard);
         if (newCard == null)
         {
             Debug.LogError("CARD IS NULL!");
@@ -122,8 +110,8 @@ public class NewCardPopupDisplay : MonoBehaviour
         foreach (Card card in chooseCards)
         {
             // Card Popup
-            GameObject newCard = Managers.CA_MAN.ShowCard(card, new Vector2(),
-                CardManager.DisplayType.ChooseCard);
+            GameObject newCard = Managers.CA_MAN.ShowCard(card, 
+                new Vector2(), CardManager.DisplayType.ChooseCard);
             CardDisplay cd = newCard.GetComponent<CardDisplay>();
             newCard.transform.SetParent(newCardZone.transform, false);
             cd.DisableVisuals();
@@ -140,69 +128,16 @@ public class NewCardPopupDisplay : MonoBehaviour
     public void AddCard_OnClick(int cardSelection)
     {
         GetComponent<SoundPlayer>().PlaySound(2);
-        Managers.U_MAN.DestroyInteractablePopup(gameObject);
-        DisableButtons();
-
         Card newCard = cardSelection == 0 ? this.newCard : chooseCards[cardSelection - 1];
         Managers.CA_MAN.AddCard(newCard, Managers.P_MAN, true);
-
-        if (SceneLoader.IsActiveScene(SceneLoader.Scene.HomeBaseScene))
-        {
-            RewardBonusAugment();
-            return;
-        }
-
-        DialogueClip nextClip = Managers.D_MAN.EngagedHero.NextDialogueClip;
-        if (!SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene))
-        {
-            DialoguePrompt dp = nextClip as DialoguePrompt;
-            if (dp.AetherCells > 0) Managers.U_MAN.CreateAetherCellPopup(dp.AetherCells);
-            else Managers.D_MAN.DisplayDialoguePopup();
-        }
-        else if (nextClip is CombatRewardClip crc)
-        {
-            int aetherReward = Managers.G_MAN.GetAetherReward((Managers.D_MAN.EngagedHero as EnemyHero).EnemyLevel);
-            if (aetherReward > 0) Managers.U_MAN.CreateAetherCellPopup(aetherReward);
-            else
-            {
-                Managers.D_MAN.EngagedHero.NextDialogueClip = crc.NextDialogueClip;
-                SceneLoader.LoadScene(SceneLoader.Scene.WorldMapScene);
-            }
-        }
-        else Debug.LogError("NEXT CLIP IS NOT COMBAT_REWARD_CLIP!");
+        DestroyAndContinue();
     }
 
     public void IgnoreCard_OnClick()
     {
         GetComponent<SoundPlayer>().PlaySound(3);
         Managers.P_MAN.AetherCells += GameManager.IGNORE_CARD_AETHER;
-        Managers.U_MAN.DestroyInteractablePopup(gameObject);
-        DisableButtons();
-
-        if (SceneLoader.IsActiveScene(SceneLoader.Scene.HomeBaseScene))
-        {
-            RewardBonusAugment();
-            return;
-        }
-
-        DialogueClip nextClip = Managers.D_MAN.EngagedHero.NextDialogueClip;
-        if (!SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene))
-        {
-            DialoguePrompt dp = nextClip as DialoguePrompt;
-            if (dp.AetherCells > 0) Managers.U_MAN.CreateAetherCellPopup(dp.AetherCells);
-            else Managers.D_MAN.DisplayDialoguePopup();
-        }
-        else if (Managers.D_MAN.EngagedHero.NextDialogueClip is CombatRewardClip crc)
-        {
-            int aetherReward = Managers.G_MAN.GetAetherReward((Managers.D_MAN.EngagedHero as EnemyHero).EnemyLevel);
-            if (aetherReward > 0) Managers.U_MAN.CreateAetherCellPopup(aetherReward);
-            else
-            {
-                Managers.D_MAN.EngagedHero.NextDialogueClip = crc.NextDialogueClip;
-                SceneLoader.LoadScene(SceneLoader.Scene.DialogueScene);
-            }
-        }
-        else Debug.LogError("NEXT CLIP IS NOT COMBAT_REWARD_CLIP!");
+        DestroyAndContinue();
     }
 
     public void RedrawCards_OnClick()
@@ -216,28 +151,38 @@ public class NewCardPopupDisplay : MonoBehaviour
         }
 
         Managers.P_MAN.AetherCells -= redrawCost;
-        CardManager.ChooseCard chooseCardType;
-        if (chooseCards[0] is UnitCard) chooseCardType = CardManager.ChooseCard.Unit;
-        else chooseCardType = CardManager.ChooseCard.Action;
+        CardManager.ChooseCard chooseCardType = chooseCards[0] is UnitCard ? 
+            CardManager.ChooseCard.Unit : CardManager.ChooseCard.Action;
 
         Managers.U_MAN.CreateNewCardPopup(null, PopupTitle,
             Managers.CA_MAN.ChooseCards(chooseCardType));
     }
 
-    private void RewardBonusAugment()
-    {
-        string aetherMagnet = "Aether Magnet";
-        if (Managers.P_MAN.GetAugment(aetherMagnet))
-        {
-            Managers.AN_MAN.TriggerAugment(aetherMagnet);
-            Managers.U_MAN.CreateAetherCellPopup(GameManager.AETHER_MAGNET_REWARD);
-        }
-    }
-
-    private void DisableButtons()
+    private void DestroyAndContinue()
     {
         foreach (GameObject button in addCardButtons)
             button.GetComponent<Button>().interactable = false;
         ignoreCardButton.GetComponent<Button>().interactable = false;
+
+        Managers.U_MAN.DestroyInteractablePopup(gameObject);
+
+        // Homebase Scene
+        if (SceneLoader.IsActiveScene(SceneLoader.Scene.HomeBaseScene))
+        {
+            // blank
+        }
+        // Dialogue Scene
+        else if (SceneLoader.IsActiveScene(SceneLoader.Scene.DialogueScene)) Managers.D_MAN.DisplayDialoguePopup();
+        // Combat Scene
+        else if (SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene))
+        {
+            if (Managers.D_MAN.EngagedHero.NextDialogueClip is CombatRewardClip crc)
+            {
+                Managers.D_MAN.EngagedHero.NextDialogueClip = crc.NextDialogueClip;
+                SceneLoader.LoadScene(SceneLoader.Scene.WorldMapScene);
+            }
+            else Debug.LogError("NEXT CLIP IS NOT COMBAT_REWARD_CLIP!");
+        }
+        else Debug.LogError("INVALID SCENE!");
     }
 }
