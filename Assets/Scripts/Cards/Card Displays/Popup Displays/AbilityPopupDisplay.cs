@@ -74,10 +74,9 @@ public class AbilityPopupDisplay : MonoBehaviour
                 description = at.AbilityDescription;
             }
         }
-        else if (abilityScript is ModifierAbility ma) // TESTING
+        else if (abilityScript is ModifierAbility ma)
         {
             AbilitySprite = ma.AbilitySprite;
-
             name = "";
             description = ma.AbilityName;
         }
@@ -90,8 +89,8 @@ public class AbilityPopupDisplay : MonoBehaviour
         if (!string.IsNullOrEmpty(name)) name += ": ";
 
         string filteredDescription = Managers.CA_MAN.FilterKeywords(name + description);
-        filteredDescription = Managers.CA_MAN.FilterCreatedCardProgress(filteredDescription, isPlayerSource); // TESTING
+        filteredDescription = Managers.CA_MAN.FilterCreatedCardProgress(filteredDescription, isPlayerSource);
         AbilityDescription = Managers.CA_MAN.FilterKeywords(filteredDescription);
-        abilitySprite.GetComponent<Image>().color = Managers.CA_MAN.GetAbilityColor(abilityScript); // TESTING
+        abilitySprite.GetComponent<Image>().color = Managers.CA_MAN.GetAbilityColor(abilityScript);
     }
 }

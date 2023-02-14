@@ -115,7 +115,7 @@ public static class GameLoader
         Managers.G_MAN.Reputation_Techs = startRep;
         Managers.G_MAN.Reputation_Warriors = startRep;
 
-        SceneLoader.LoadScene_Finish(SceneLoader.Scene.NarrativeScene);
+        SceneLoader.LoadScene_Finish(SceneLoader.Scene.NarrativeScene, false);
     }
 
     /******
@@ -375,6 +375,6 @@ public static class GameLoader
         Managers.G_MAN.Reputation_Techs = data.Reputation_Techs;
         Managers.G_MAN.Reputation_Warriors = data.Reputation_Warriors;
 
-        SceneLoader.LoadScene_Finish(SceneLoader.Scene.WorldMapScene);
+        SceneLoader.LoadScene_Finish(SceneLoader.Scene.WorldMapScene, false);
     }
 }

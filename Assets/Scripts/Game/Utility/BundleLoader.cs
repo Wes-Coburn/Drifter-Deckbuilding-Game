@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.IO;
 using UnityEngine;
@@ -5,15 +6,15 @@ using UnityEngine;
 public class BundleLoader : MonoBehaviour
 {
     private static GameObject initObject;
-    public static void BuildBundle(string bundle, System.Action onComplete)
+    public static void BuildManagers(Action onComplete)
     {
         if (initObject == null) initObject = new("BundleLoader_InitGameObject");
         initObject.AddComponent<BundleLoader>();
-        initObject.GetComponent<BundleLoader>().StartCoroutine(LoadBundle(bundle, onComplete));
+        initObject.GetComponent<BundleLoader>().StartCoroutine(BuildManagers_Numerator(onComplete));
     }
-    private static IEnumerator LoadBundle(string bundle, System.Action onComplete)
+    private static IEnumerator BuildManagers_Numerator(Action onComplete)
     {
-        var bundleLoadRequest = AssetBundle.LoadFromFileAsync(Path.Combine(Application.streamingAssetsPath, bundle));
+        var bundleLoadRequest = AssetBundle.LoadFromFileAsync(Path.Combine(Application.streamingAssetsPath, "managers"));
         yield return bundleLoadRequest;
 
         var myLoadedAssetBundle = bundleLoadRequest.assetBundle;
@@ -33,6 +34,6 @@ public class BundleLoader : MonoBehaviour
         }
 
         myLoadedAssetBundle.Unload(false);
-        onComplete();
+        onComplete?.Invoke();
     }
 }

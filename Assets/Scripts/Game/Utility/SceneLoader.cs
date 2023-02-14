@@ -43,7 +43,7 @@ public static class SceneLoader
             {
                 if (scene != Scene.TitleScene && scene != Scene.CombatScene)
                 {
-                    LoadScene_Finish(scene, true);
+                    LoadScene_Finish(scene, false, true);
                     return;
                 }
             }
@@ -171,7 +171,7 @@ public static class SceneLoader
         else SceneManager.LoadScene(Scene.LoadingScene.ToString());
     }
 
-    public static void LoadScene_Finish(Scene scene, bool immediate = false)
+    public static void LoadScene_Finish(Scene scene, bool delayed = true, bool immediate = false)
     {
         if (immediate)
         {
@@ -179,9 +179,10 @@ public static class SceneLoader
             return;
         }
 
-        FunctionTimer.Create(() => Managers.U_MAN.SetSceneFader(true), 4);
-        FunctionTimer.Create(() => SceneManager.LoadScene(scene.ToString()), 6);
-        FunctionTimer.Create(() => Managers.U_MAN.SetSceneFader(false), 6);
+        float delay = delayed ? 4f : 0f;
+        FunctionTimer.Create(() => Managers.U_MAN.SetSceneFader(true), delay);
+        FunctionTimer.Create(() => SceneManager.LoadScene(scene.ToString()), delay + 2);
+        FunctionTimer.Create(() => Managers.U_MAN.SetSceneFader(false), delay + 2);
     }
 
     public static void SceneLoaderCallback()

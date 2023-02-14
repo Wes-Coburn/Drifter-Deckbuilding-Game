@@ -101,11 +101,8 @@ public class PowerZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             if (!isEnemyPower) position.Set(-75, -50);
             else position.Set(0, -50);
         }
-        else
-        {
-            if (SceneLoader.IsActiveScene(SceneLoader.Scene.HomeBaseScene))
-                position.Set(350, 0);
-        }
+        else if (SceneLoader.IsActiveScene(SceneLoader.Scene.HomeBaseScene)) position.Set(350, 0);
+
         abilityPopupBox.transform.localPosition = position;
         abilityPopupBox.transform.localScale = new Vector2(scaleValue, scaleValue);
 
@@ -122,7 +119,7 @@ public class PowerZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
         void AddLinkedCA(CardAbility ca)
         {
-            if (linkedAbilities.FindIndex(x => x.AbilityName == ca.AbilityName) != -1)
+            if (linkedAbilities.FindIndex(x => x.AbilityName == ca.AbilityName) == -1)
                 linkedAbilities.Add(ca);
         }
     }
