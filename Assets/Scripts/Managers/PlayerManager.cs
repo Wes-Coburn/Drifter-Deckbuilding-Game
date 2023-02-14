@@ -36,7 +36,7 @@ public class PlayerManager : HeroManager
     public override Hero HeroScript { get => heroScript; set { heroScript = value; } }
     public List<HeroAugment> HeroAugments { get => heroAugments; }
     public List<HeroItem> HeroItems { get => heroItems; }
-
+    
     public override bool IsMyTurn
     {
         get => isMyTurn;

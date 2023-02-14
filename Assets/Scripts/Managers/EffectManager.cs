@@ -2648,11 +2648,7 @@ public class EffectManager : MonoBehaviour
                         }
                     }
                 }
-                else if (effect.Countdown != 0)
-                {
-                    effect.Countdown--;
-                    Debug.Log($"COUNTOWN FOR {effect} is <{effect.Countdown}>");
-                }
+                else if (effect.Countdown != 0) effect.Countdown--;
             }
 
             foreach (Effect effect in expiredEffects)

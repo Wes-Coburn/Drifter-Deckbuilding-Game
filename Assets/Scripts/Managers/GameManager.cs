@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
     // Tutorial Enemy
     public const int TUTORIAL_STARTING_HEALTH = 10;
     // Boss Enemy
-    public const int BOSS_BONUS_ENERGY = 0; // Unnecessary if 0
+    private const int ADDITIONAL_ENERGY = 0;
 
     // Aether Rewards
     public const int IGNORE_CARD_AETHER = 15;
@@ -163,47 +163,11 @@ public class GameManager : MonoBehaviour
         GameLoader.LoadPlayerPreferences();
         Debug.Log("Application Version: " + Application.version);
     }
-    public Sprite GetLocationBackground()
-    {
-        if (CurrentLocation == null)
-        {
-            Debug.LogWarning("CURRENT LOCATION IS NULL!");
-            return null;
-        }
-
-        var background = CurrentLocation.LocationBackground;
-
-        switch (background)
-        {
-            case Location.Background.City:
-                return locationBG_City;
-            case Location.Background.Wasteland:
-                return locationBG_Wasteland;
-            default:
-                Debug.LogError("INVALID LOCATION BACKGROUND!");
-                return null;
-        }
-    }
     /******
      * *****
-     * ****** ADD_RANDOM_ENCOUNTER
+     * ****** DIFFICULTY_LEVEL
      * *****
      *****/
-    public void AddRandomEncounter()
-    {
-        Location[] randomEncounters = Resources.LoadAll<Location>("Random Encounters");
-        randomEncounters.Shuffle();
-
-        foreach (Location location in randomEncounters)
-        {
-            if (VisitedLocations.FindIndex(x => x == location.LocationName) == -1)
-            {
-                GetActiveLocation(location);
-                return;
-            }
-        }
-        Debug.LogWarning("NO VALID RANDOM ENCOUNTERS!");
-    }
     public enum DifficultyLevel
     {
         Standard_1 = 1,
@@ -212,12 +176,9 @@ public class GameManager : MonoBehaviour
         Standard_3 = 4,
         Boss_2 = 5,
     }
-    public int GetSurgeDelay(int difficulty) => 6 - difficulty;
-    /******
-     * *****
-     * ****** GET_AETHER_REWARD
-     * *****
-     *****/
+    public int GetSurgeDelay(int difficulty) => 9 - (difficulty * 2);
+    public int GetAdditionalEnergy(int difficulty) => ADDITIONAL_ENERGY + difficulty - 1;
+    public int GetAdditionalRewardAether(int difficulty) => ADDITIONAL_AETHER_REWARD * (difficulty - 1);
     public int GetAetherReward(DifficultyLevel difficultyLevel)
     {
         int reward;
@@ -244,7 +205,43 @@ public class GameManager : MonoBehaviour
                 Debug.LogError("INVALID DIFFICULTY!");
                 return 0;
         }
-        return reward + ADDITIONAL_AETHER_REWARD * (Managers.CO_MAN.DifficultyLevel - 1);
+        return reward + GetAdditionalRewardAether(Managers.CO_MAN.DifficultyLevel);
+    }
+    public Sprite GetLocationBackground()
+    {
+        if (CurrentLocation == null)
+        {
+            Debug.LogWarning("CURRENT LOCATION IS NULL!");
+            return null;
+        }
+
+        var background = CurrentLocation.LocationBackground;
+
+        switch (background)
+        {
+            case Location.Background.City:
+                return locationBG_City;
+            case Location.Background.Wasteland:
+                return locationBG_Wasteland;
+            default:
+                Debug.LogError("INVALID LOCATION BACKGROUND!");
+                return null;
+        }
+    }
+    public void AddRandomEncounter()
+    {
+        Location[] randomEncounters = Resources.LoadAll<Location>("Random Encounters");
+        randomEncounters.Shuffle();
+
+        foreach (Location location in randomEncounters)
+        {
+            if (VisitedLocations.FindIndex(x => x == location.LocationName) == -1)
+            {
+                GetActiveLocation(location);
+                return;
+            }
+        }
+        Debug.LogWarning("NO VALID RANDOM ENCOUNTERS!");
     }
     /******
      * *****
@@ -538,7 +535,7 @@ public class GameManager : MonoBehaviour
         Techs,
         Warriors
     }
-
+    public int GetBonusReputation(int difficulty) => difficulty > 2 ? 1 : 0;
     public void ChangeReputation(ReputationType repType, int repChange)
     {
         if (repChange == 0)
@@ -566,6 +563,22 @@ public class GameManager : MonoBehaviour
                 break;
         }
         Managers.EV_MAN.NewDelayedAction(() => Managers.U_MAN.SetReputation(repType, repChange), 0.5f);
+    }
+
+    public void GiveReputationRewards(CombatRewardClip crc)
+    {
+        int bonusReputation = GetBonusReputation(Managers.CO_MAN.DifficultyLevel);
+
+        if (crc.Reputation_Mages != 0)
+            ChangeReputation(ReputationType.Mages, crc.Reputation_Mages + bonusReputation);
+        if (crc.Reputation_Mutants != 0)
+            ChangeReputation(ReputationType.Mutants, crc.Reputation_Mutants + bonusReputation);
+        if (crc.Reputation_Rogues != 0)
+            ChangeReputation(ReputationType.Rogues, crc.Reputation_Rogues + bonusReputation);
+        if (crc.Reputation_Techs != 0)
+            ChangeReputation(ReputationType.Techs, crc.Reputation_Techs + bonusReputation);
+        if (crc.Reputation_Warriors != 0)
+            ChangeReputation(ReputationType.Warriors, crc.Reputation_Warriors + bonusReputation);
     }
 
     public int GetReputation(ReputationType repType)

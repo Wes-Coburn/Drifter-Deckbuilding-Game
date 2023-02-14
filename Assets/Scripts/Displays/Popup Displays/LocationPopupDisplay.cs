@@ -13,6 +13,7 @@ public class LocationPopupDisplay : MonoBehaviour
     [SerializeField] private GameObject difficultyLevel;
     [SerializeField] private GameObject difficultyValue;
     [SerializeField] private GameObject difficultyText;
+    [SerializeField] private GameObject undoButton;
     [SerializeField] private GameObject closePopupButton;
 
     private Location location;
@@ -25,6 +26,9 @@ public class LocationPopupDisplay : MonoBehaviour
             LocationDescription = location.LocationDescription;
             ObjectivesDescription = Managers.CA_MAN.FilterUnitTypes(location.CurrentObjective);
             WorldMapPosition = new Vector2(0, 0); // CHANGE?
+
+            difficultyLevel.GetComponentInChildren<Slider>().SetValueWithoutNotify(Managers.CO_MAN.DifficultyLevel);
+            SetDifficultyLevel(Managers.CO_MAN.DifficultyLevel);
 
             if (!location.IsRecurring)
             {
@@ -95,12 +99,7 @@ public class LocationPopupDisplay : MonoBehaviour
     public GameObject DifficultyLevel { get => difficultyLevel; }
     public GameObject ClosePopupButton { get => closePopupButton; }
 
-    private void Awake()
-    {
-        int level = CombatManager.Instance.DifficultyLevel;
-        difficultyLevel.GetComponentInChildren<Slider>().SetValueWithoutNotify(level);
-        SetDifficultyLevel(level);
-    }
+    private void Awake() => undoButton.SetActive(false);
 
     private void SetDifficultyLevel(int difficulty)
     {
@@ -110,13 +109,16 @@ public class LocationPopupDisplay : MonoBehaviour
         else newColor = Color.green;
 
         int surgeValue = Managers.G_MAN.GetSurgeDelay(difficulty);
-        int energyValue = GameManager.BOSS_BONUS_ENERGY + difficulty - 1;
-        int aetherValue = GameManager.ADDITIONAL_AETHER_REWARD * (difficulty - 1);
+        int aetherValue = Managers.G_MAN.GetAdditionalRewardAether(difficulty);
+        int energyValue = Managers.G_MAN.GetAdditionalEnergy(difficulty);
+        int reputationValue = Managers.G_MAN.GetBonusReputation(difficulty);
 
         string text =
             $"-> Enemies surge every {TextFilter.Clrz_red(surgeValue + "")} turns." +
-            $"\n-> Enemy bosses start with {TextFilter.Clrz_red(energyValue + "")} energy." +
-            $"\n\n-> +{TextFilter.Clrz_grn(aetherValue + "")} aether";
+            $"\n-> Enemies start with +{TextFilter.Clrz_red(energyValue + "")} energy." +
+            $"\n\n-> +{TextFilter.Clrz_grn(aetherValue + "")} aether.";
+
+        if (location.IsRandomEncounter) text += $"\n-> +{TextFilter.Clrz_grn(reputationValue + "")} reputation."; // Only works if random encounters are the only locations with reputation rewards
 
         difficultyValue.GetComponent<TextMeshProUGUI>().SetText(difficulty + "");
         difficultyValue.GetComponent<TextMeshProUGUI>().color = newColor;
@@ -124,6 +126,7 @@ public class LocationPopupDisplay : MonoBehaviour
             ().handleRect.GetComponent<Image>().color = newColor;
         difficultyText.GetComponent<TextMeshProUGUI>().SetText(text);
     }
+
     public void DifficultySlider_OnSlide(float level)
     {
         int intLevel = (int)level;

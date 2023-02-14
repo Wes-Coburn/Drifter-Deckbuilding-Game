@@ -47,7 +47,7 @@ public class CombatEndPopupDisplay : MonoBehaviour
                 }
                 else Debug.LogWarning("NEW LOCATIONS IS NULL!");
 
-                Managers.D_MAN.ChangeReputations(crc);
+                Managers.G_MAN.GiveReputationRewards(crc);
             }
             else Debug.LogError("NEXT CLIP IS NOT COMBAT REWARD CLIP!");
         }

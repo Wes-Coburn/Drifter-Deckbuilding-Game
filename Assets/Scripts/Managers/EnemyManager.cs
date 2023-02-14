@@ -14,7 +14,7 @@ public class EnemyManager : HeroManager
         }
         else Destroy(gameObject);
     }
-
+    
     public override string HERO_TAG => "EnemyHero";
     public override string CARD_TAG => "EnemyCard";
     public override string HAND_ZONE_TAG => "EnemyHand";
@@ -179,7 +179,7 @@ public class EnemyManager : HeroManager
 
     private void CreatePlayCardSchedule()
     {
-        List<GameObject> actionCards = new List<GameObject>();
+        List<GameObject> actionCards = new();
         List<GameObject> priorityCards = FindPriorityCards();
 
         foreach (GameObject card in priorityCards)
@@ -194,9 +194,9 @@ public class EnemyManager : HeroManager
             int totalCost = 0;
             int cardsToPlay = 0;
 
-            List<GameObject> priorityCards = new List<GameObject>();
+            List<GameObject> priorityCards = new();
 
-            List<GameObject> highestCostCards = new List<GameObject>();
+            List<GameObject> highestCostCards = new();
             foreach (GameObject card in HandZoneCards)
                 highestCostCards.Add(card);
 
@@ -243,17 +243,14 @@ public class EnemyManager : HeroManager
 
         void SchedulePlayCard(GameObject card, float delay = 1)
         {
-            CardDisplay cd = card.GetComponent<CardDisplay>();
-            Managers.EV_MAN.NewDelayedAction(() => PlayCard(card), delay, true);
+            if (Managers.CA_MAN.IsPlayable(card, true))
+                Managers.EV_MAN.NewDelayedAction(() => PlayCard(card), delay, true);
         }
 
         void PlayCard(GameObject card)
         {
             if (Managers.CA_MAN.IsPlayable(card, true))
-            {
-                CardDisplay cd = card.GetComponent<CardDisplay>();
                 Managers.CA_MAN.PlayCard(card);
-            }
         }
     }
 

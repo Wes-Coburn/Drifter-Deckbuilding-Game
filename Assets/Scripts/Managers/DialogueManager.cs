@@ -78,35 +78,6 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    public void ChangeReputations(CombatRewardClip crc)
-    {
-        if (crc.Reputation_Mages != 0)
-        {
-            Managers.G_MAN.ChangeReputation
-                (GameManager.ReputationType.Mages, crc.Reputation_Mages);
-        }
-        if (crc.Reputation_Mutants != 0)
-        {
-            Managers.G_MAN.ChangeReputation
-                (GameManager.ReputationType.Mutants, crc.Reputation_Mutants);
-        }
-        if (crc.Reputation_Rogues != 0)
-        {
-            Managers.G_MAN.ChangeReputation
-                (GameManager.ReputationType.Rogues, crc.Reputation_Rogues);
-        }
-        if (crc.Reputation_Techs != 0)
-        {
-            Managers.G_MAN.ChangeReputation
-                (GameManager.ReputationType.Techs, crc.Reputation_Techs);
-        }
-        if (crc.Reputation_Warriors != 0)
-        {
-            Managers.G_MAN.ChangeReputation
-                (GameManager.ReputationType.Warriors, crc.Reputation_Warriors);
-        }
-    }
-
     public void StartDialogue()
     {
         Managers.AU_MAN.StopCurrentSoundscape();
