@@ -25,7 +25,7 @@ public static class SceneLoader
         CombatScene,
         CreditsScene
     }
-
+    
     public static bool IsActiveScene(Scene scene) => SceneManager.GetActiveScene().name == scene.ToString();
 
     public static void LoadScene(Scene scene, bool loadSameScene = false, bool fadeTransition = true)

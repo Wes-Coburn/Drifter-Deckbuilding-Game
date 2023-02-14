@@ -1149,13 +1149,6 @@ public class EffectManager : MonoBehaviour
             {
                 if (CombatManager.GetUnitDisplay(target).CurrentHealth < 1) return;
                 if (unitsToDestroy.Contains(target)) return;
-
-                if (effect is HealEffect && !CombatManager.IsDamaged(target)) return;
-            }
-            else if (effect is HealEffect)
-            {
-                int startHealth = hMan_Source == Managers.P_MAN ? GameManager.PLAYER_STARTING_HEALTH : GameManager.ENEMY_STARTING_HEALTH;
-                if (hMan_Source.CurrentHealth >= startHealth) return;
             }
 
             List<GameObject> targetList = legalTargets[currentGroup];
@@ -2076,6 +2069,13 @@ public class EffectManager : MonoBehaviour
 
             if (shootRay)
             {
+                if (effect is HealEffect && !CombatManager.IsDamaged(target)) // TESTING TESTING TESTING
+                {
+                    ActiveEffects++;
+                    FunctionTimer.Create(() => ActiveEffects--, delay);
+                    return;
+                }
+
                 Color rayColor = effect.RayColor;
                 if (effect is DamageEffect || effect is DestroyEffect) rayColor = damageRayColor;
                 else if (effect is HealEffect) rayColor = healRayColor;

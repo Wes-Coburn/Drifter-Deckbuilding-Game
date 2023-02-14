@@ -260,7 +260,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         }
 
         List<CardAbility> abilityList;
-        List<CardAbility> singleList = new List<CardAbility>();
+        List<CardAbility> singleList = new();
         bool isPlayerSource = HeroManager.GetSourceHero(gameObject) == Managers.P_MAN;
 
         if (cardDisplay is UnitCardDisplay ucd)

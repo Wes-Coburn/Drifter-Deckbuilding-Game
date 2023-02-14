@@ -4,7 +4,6 @@ using UnityEngine;
 public class HealEffect : Effect
 {
     public bool HealFully;
-
     public override void LoadEffect(Effect effect)
     {
         base.LoadEffect(effect);

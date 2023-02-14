@@ -499,9 +499,9 @@ public class GameManager : MonoBehaviour
     }
     public void StartCreditsScene()
     {
+        Managers.AU_MAN.StopCurrentSoundscape();
         Managers.AU_MAN.StartStopSound("Soundtrack_Combat1",
             null, AudioManager.SoundType.Soundtrack);
-        Managers.AU_MAN.StopCurrentSoundscape();
     }
     public void StartNarrativeScene()
     {

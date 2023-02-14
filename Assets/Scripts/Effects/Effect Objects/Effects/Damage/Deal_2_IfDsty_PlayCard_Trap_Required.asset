@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 797abdbea5ef996498aaf19e6bb2517a, type: 3}
-  m_Name: Deal_2_IfDsty_PlayCard_Trap
+  m_Name: Deal_2_IfDsty_PlayCard_Trap_Required
   m_EditorClassIdentifier: 
-  IsRequired: 0
+  IsRequired: 1
   IgnoreLegality: 0
   Value: 2
   IsNegative: 0
@@ -24,24 +24,10 @@ MonoBehaviour:
   RayColor: {r: 1, g: 0, b: 0, a: 1}
   PreCheckConditions: 0
   CheckConditionsIndependent: 0
-  IfNotWoundedCondition: 0
-  IfAnyWoundedCondition: 0
-  IfPlayerWoundedCondition: 0
-  IfEnemyWoundedCondition: 0
-  IfExhaustedCondition: 0
-  IfRefreshedCondition: 0
-  IfDamagedCondition: 0
-  IfNotDamagedCondition: 0
-  IfHasPowerCondition: 0
-  IsLessPowerCondition: 0
-  IfHasPowerValue: 0
-  IfHasAbilityCondition: {fileID: 0}
-  IfNotHasAbilityCondition: 0
-  IfHasTriggerCondition: {fileID: 0}
-  IfNotHasTriggerCondition: 0
-  IfHasKeywordsCondition: 0
-  IsLessKeywordsCondition: 0
-  IfHasKeywordsValue: 0
+  EffectConditionType: 0
+  EffectCondition_Value: 0
+  IfHasAbility_Value: {fileID: 0}
+  IfHasTrigger_Value: {fileID: 0}
   IfHasAbility: {fileID: 0}
   IfHasAbilityEffects: []
   IfHasTrigger: {fileID: 0}
@@ -56,3 +42,4 @@ MonoBehaviour:
   ForEachEffects: []
   IfDestroyedEffects:
   - {fileID: 11400000, guid: 3e30647b43605bc4e98d9a2055b974a5, type: 2}
+  BanishIfDestroyed: 0

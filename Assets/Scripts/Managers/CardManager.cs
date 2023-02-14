@@ -258,6 +258,7 @@ public class CardManager : MonoBehaviour
         }
         else
         {
+            prefab.tag = Managers.P_MAN.CARD_TAG; // For CardZoom.CreateAbilityPopups()
             Card newCard = NewCardInstance(card);
             if (type is DisplayType.HeroSelect) cd.CardScript = newCard;
             else if (type is DisplayType.NewCard) cd.DisplayZoomCard(null, newCard);

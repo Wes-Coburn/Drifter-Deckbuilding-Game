@@ -72,14 +72,20 @@ public class CombatManager : MonoBehaviour
         }
         return target.TryGetComponent<ActionCardDisplay>(out _);
     }
-    public static bool IsDamaged(GameObject unitCard)
+    public static bool IsDamaged(GameObject target)
     {
-        if (!unitCard.TryGetComponent(out UnitCardDisplay ucd))
+        if (target.TryGetComponent(out UnitCardDisplay ucd))
+            return ucd.CurrentHealth < ucd.MaxHealth;
+
+        if (target.TryGetComponent(out HeroDisplay _))
         {
-            Debug.LogError("TARGET IS NOT UNIT CARD!");
-            return false;
+            HeroManager hMan = HeroManager.GetSourceHero(target);
+            int startHealth = hMan == Managers.P_MAN ? GameManager.PLAYER_STARTING_HEALTH : GameManager.ENEMY_STARTING_HEALTH;
+            return hMan.CurrentHealth < startHealth;
         }
-        return ucd.CurrentHealth < ucd.MaxHealth;
+
+        Debug.LogError("INVALID TARGET!");
+        return false;
     }
     public void RefreshAllUnits()
     {
