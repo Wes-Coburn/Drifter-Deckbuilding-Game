@@ -20,13 +20,15 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: bdcccbf7c396e5240aeb1a4f99459748, type: 3}
     volume: 0.8
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: 
     clip: {fileID: 8300000, guid: 6b5e159827c094241b52d2ffc5aa80c0, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
-  PowerDescription: Stun an enemy, or deal 2 to it if its power is 0.
+  PowerDescription: Stun an enemy, or deal 2 to it if it's Stunned.
   EffectGroupList:
   - {fileID: 11400000, guid: 45706654194f8e24f898b259097c3b38, type: 2}
   LinkedAbilities:

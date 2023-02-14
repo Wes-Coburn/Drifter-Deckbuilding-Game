@@ -88,6 +88,7 @@ public class CardManager : MonoBehaviour
         ABILITY_POISONED,
         "Poison",
         "Silence",
+        "Stunned",
         "Stun",
         "Evade",
         "Exhausted",
