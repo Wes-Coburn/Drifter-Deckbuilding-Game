@@ -1007,7 +1007,7 @@ public class UIManager : MonoBehaviour
     // Travel Popup
     public void CreateTravelPopup(Location location)
     {
-        if (narrativePopup != null) return;
+        if (narrativePopup != null || chooseRewardPopup != null) return;
         DestroyTravelPopup();
         travelPopup = Instantiate(locationPopupPrefab, CurrentCanvas.transform);
         var lpd = travelPopup.GetComponent<LocationPopupDisplay>();

@@ -82,6 +82,20 @@ public class NarrativePopupDisplay : MonoBehaviour
         continueButton.SetActive(false);
     }
 
-    public void ContinueButton_OnClick() =>
+    public void ContinueButton_OnClick()
+    {
         Managers.U_MAN.DestroyNarrativePopup();
+
+        if (loadedNarrative.NarrativeName == "Part 1: Stuck in Sylus") // Unfortunate way to do this
+        {
+            int bonusRewards = GameManager.BONUS_START_REWARDS;
+            if (bonusRewards > 0)
+            {
+                if (bonusRewards > 1)
+                    ChooseRewardPopupDisplay.BonusRewards += bonusRewards - 1;
+
+                Managers.U_MAN.CreateChooseRewardPopup();
+            }
+        }
+    }
 }

@@ -49,7 +49,10 @@ public class GameManager : MonoBehaviour
     public const int MAXIMUM_ENERGY = 10;
     public const int MAXIMUM_ITEMS = 2;
     public const int HERO_ULTMATE_GOAL = 3;
+
+        // Starting bonuses
     public const int PLAYER_START_AETHER = 30;
+    public const int BONUS_START_REWARDS = 3;
 
     // Enemy
     public const string ENEMY = "Enemy";
@@ -454,7 +457,8 @@ public class GameManager : MonoBehaviour
             location.GetComponent<LocationIcon>().Location = loc;
         }
 
-        GameLoader.SaveGame();
+        GameLoader.SaveGame(); // Save before (1) CurrentNarrative == null and (2) ChooseRewardPopup.BonusRewards > 0
+
         if (CurrentNarrative != null)
         {
             if (CurrentNarrative.IsGameEnd) Managers.U_MAN.CreateGameEndPopup();

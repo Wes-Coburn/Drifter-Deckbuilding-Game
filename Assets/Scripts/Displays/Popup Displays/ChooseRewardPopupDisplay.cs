@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class ChooseRewardPopupDisplay : MonoBehaviour
 {
+    public static int BonusRewards = 0;
     public void ActionRewardButton_OnClick()
     {
         Managers.U_MAN.CreateNewCardPopup(null, "New Action!",

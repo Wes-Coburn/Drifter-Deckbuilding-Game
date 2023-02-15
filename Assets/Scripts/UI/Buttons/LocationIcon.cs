@@ -101,6 +101,9 @@ public class LocationIcon : MonoBehaviour
 
     public void OnClick()
     {
+        if (FindObjectOfType<ChooseRewardPopupDisplay>() != null ||
+            FindObjectOfType<NarrativePopupDisplay>() != null) return; // TESTING
+
         if (Location.IsHomeBase) TravelPopup();
         else
         {

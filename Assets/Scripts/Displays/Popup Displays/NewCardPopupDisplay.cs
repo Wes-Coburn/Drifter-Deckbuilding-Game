@@ -166,8 +166,13 @@ public class NewCardPopupDisplay : MonoBehaviour
 
         Managers.U_MAN.DestroyInteractablePopup(gameObject);
 
+        // WorldMap Scene
+        if (SceneLoader.IsActiveScene(SceneLoader.Scene.WorldMapScene))
+        {
+            BonusChooseRewards();
+        }
         // Homebase Scene
-        if (SceneLoader.IsActiveScene(SceneLoader.Scene.HomeBaseScene))
+        else if (SceneLoader.IsActiveScene(SceneLoader.Scene.HomeBaseScene))
         {
             // blank
         }
@@ -184,5 +189,14 @@ public class NewCardPopupDisplay : MonoBehaviour
             else Debug.LogError("NEXT CLIP IS NOT COMBAT_REWARD_CLIP!");
         }
         else Debug.LogError("INVALID SCENE!");
+    }
+
+    private void BonusChooseRewards()
+    {
+        if (ChooseRewardPopupDisplay.BonusRewards > 0)
+        {
+            ChooseRewardPopupDisplay.BonusRewards--;
+            Managers.U_MAN.CreateChooseRewardPopup();
+        }
     }
 }
