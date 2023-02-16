@@ -14,7 +14,12 @@ public class EventManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else Destroy(gameObject);
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         delayedActions = new List<DelayedAction>();
         delayedActions_priority = new List<DelayedAction>();
         isPaused = false;

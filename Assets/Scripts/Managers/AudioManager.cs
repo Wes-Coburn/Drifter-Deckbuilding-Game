@@ -13,7 +13,11 @@ public class AudioManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else Destroy(gameObject);
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
 
         foreach (Sound sound in sounds) AddSoundSource(sound);
         MusicVolume = 0;
