@@ -222,7 +222,7 @@ public class EffectManager : MonoBehaviour
         }
 
         // CHECK LEGAL TARGETS
-        if (!CheckLegalTargets(effectGroupList, effectSource)) AbortEffectGroupList(false);
+        if (!CheckLegalTargets(effectGroupList, effectSource)) CancelEffectGroupList(false);
         else if (!isAdditionalEffect)
         {
             // RESOLVE INDEPENDENT
@@ -604,10 +604,10 @@ public class EffectManager : MonoBehaviour
 
     /******
      * *****
-     * ****** ABORT_EFFECT_GROUP_LIST
+     * ****** CANCEL_EFFECT_GROUP_LIST
      * *****
      *****/
-    public void AbortEffectGroupList(bool isUserAbort)
+    public void CancelEffectGroupList(bool isUserCancel)
     {
         if (effectSource == null)
         {
@@ -619,7 +619,7 @@ public class EffectManager : MonoBehaviour
 
         if (effectSource.TryGetComponent(out ActionCardDisplay acd))
         {
-            if (isUserAbort)
+            if (isUserCancel)
             {
                 Managers.P_MAN.CurrentEnergy += acd.CurrentEnergyCost;
                 Managers.CA_MAN.ChangeCardZone(effectSource, hMan.HandZone, true);
@@ -629,7 +629,7 @@ public class EffectManager : MonoBehaviour
         }
         else if (effectSource.TryGetComponent(out UnitCardDisplay ucd))
         {
-            if (isUserAbort)
+            if (isUserCancel)
             {
                 Managers.P_MAN.CurrentEnergy += ucd.CurrentEnergyCost;
                 Managers.CA_MAN.ChangeCardZone(effectSource, hMan.HandZone, true);
@@ -647,7 +647,7 @@ public class EffectManager : MonoBehaviour
         }
         else if (effectSource.CompareTag(Managers.P_MAN.HERO_POWER_TAG))
         {
-            if (isUserAbort)
+            if (isUserCancel)
             {
                 Managers.P_MAN.HeroPowerUsed = false;
                 Managers.P_MAN.CurrentEnergy += Managers.P_MAN.HeroScript.HeroPower.PowerCost;
@@ -655,7 +655,7 @@ public class EffectManager : MonoBehaviour
         }
         else if (effectSource.CompareTag(Managers.P_MAN.HERO_ULTIMATE_TAG))
         {
-            if (isUserAbort)
+            if (isUserCancel)
             {
                 Managers.P_MAN.CurrentEnergy += Managers.P_MAN.GetUltimateCost(out _);
                 Managers.P_MAN.HeroUltimateProgress = GameManager.HERO_ULTMATE_GOAL;
@@ -669,14 +669,10 @@ public class EffectManager : MonoBehaviour
         {
             // blank
         }
-        else
-        {
-            Debug.LogError("SOURCE TYPE NOT FOUND!");
-            return;
-        }
+        else Debug.LogError("SOURCE TYPE NOT FOUND!");
 
         Managers.U_MAN.PlayerIsTargetting = false;
-        if (isUserAbort)
+        if (isUserCancel)
         {
             Managers.U_MAN.DismissInfoPopup();
             if (CurrentEffectGroup.Targets.PlayerHand)
@@ -690,7 +686,7 @@ public class EffectManager : MonoBehaviour
      * ****** FINISH_EFFECT_GROUP_LIST
      * *****
      *****/
-    public void FinishEffectGroupList(bool wasAborted)
+    public void FinishEffectGroupList(bool wasCancelled)
     {
         if (!effectsResolving) // Combat End Behavior
         {
@@ -700,7 +696,7 @@ public class EffectManager : MonoBehaviour
             return;
         }
 
-        Debug.Log("<<< GROUP LIST FINISHED! [" + (wasAborted ? "ABORTED" : "RESOLVED") + "] >>>");
+        Debug.Log("<<< GROUP LIST FINISHED! [" + (wasCancelled ? "CANCELLED" : "RESOLVED") + "] >>>");
 
         if (effectSource == null) // GiveNextEffects Behavior
         {
@@ -710,7 +706,7 @@ public class EffectManager : MonoBehaviour
             return;
         }
 
-        if (!wasAborted || isAdditionalEffect)
+        if (!wasCancelled || isAdditionalEffect)
         {
             if (additionalEffectGroups.Count > 0)
             {
@@ -1234,6 +1230,12 @@ public class EffectManager : MonoBehaviour
                 break;
             case Effect.ConditionType.EnemiesDestroyed_ThisTurn:
                 if (hMan_Enemy.AlliesDestroyed_ThisTurn < effect.EffectCondition_Value) InvalidateAllTargets();
+                break;
+            case Effect.ConditionType.CostsLess:
+                ValidateCondition((GameObject card) => card.GetComponent<CardDisplay>().CurrentEnergyCost < effect.EffectCondition_Value);
+                break;
+            case Effect.ConditionType.CostsMore:
+                ValidateCondition((GameObject card) => card.GetComponent<CardDisplay>().CurrentEnergyCost > effect.EffectCondition_Value);
                 break;
             default:
                 Debug.LogError("INVALID CONDITION TYPE!");

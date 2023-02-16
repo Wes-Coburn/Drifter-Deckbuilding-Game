@@ -82,6 +82,9 @@ public abstract class Effect : ScriptableObject
 
         AlliesDestroyed_ThisTurn,
         EnemiesDestroyed_ThisTurn,
+
+        CostsLess,
+        CostsMore,
     }
 
     [Header("EFFECT CONDITIONS")]

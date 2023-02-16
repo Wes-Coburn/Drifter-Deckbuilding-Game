@@ -10,7 +10,7 @@ public class ChooseRewardPopupDisplay : MonoBehaviour
     private void Awake()
     {
         var titleTxt = popupTitle.GetComponent<TextMeshProUGUI>();
-        if (BonusRewards > 0) titleTxt.SetText($"<u>Choose Starting Cards!</u>\n--- {BonusRewards} left ---");
+        if (BonusRewards > 0) titleTxt.SetText($"<u>Choose Bonus Cards!</u>\n--- {BonusRewards} left ---");
         else titleTxt.SetText("<u>Choose Your Reward!</u>");
     }
 

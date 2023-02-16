@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a2e33d6bad64fd4db799baf98d68e29, type: 3}
-  m_Name: Modify_EnemyWounded_GiveSelf_plus1plus1_FullyHeal
+  m_Name: Modify_EnemyWounded_GiveSelf_plus1plus1_Heal1
   m_EditorClassIdentifier: 
-  AbilityName: When the enemy hero becomes Wounded, gain +1|+1 and fully heal this
-    unit.
-  AbilityDescription: When the enemy hero becomes Wounded, gain +1|+1 and fully heal
-    this unit.
+  AbilityName: When the enemy hero becomes Wounded, gain +1|+1 and heal this unit
+    1.
+  AbilityDescription: When the enemy hero becomes Wounded, gain +1|+1 and heal this
+    unit 1.
   AbilitySprite: {fileID: 21300000, guid: 3dbed1460f9abd541b750bc2394ab51f, type: 3}
   OverrideColor: 0
   AbilityColor: {r: 0, g: 0, b: 0, a: 0}
@@ -23,7 +23,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e90fc3bafeee0d94ba2ff2fc6f53dbac, type: 2}
   EffectGroupList:
   - {fileID: 11400000, guid: 70917a7bf36dee847a82483894a5d74d, type: 2}
-  - {fileID: 11400000, guid: 919384e49527f1a40a3a2c14effcdaa2, type: 2}
+  - {fileID: 11400000, guid: 94b56426e1d1e9347b61deb73f86cc6f, type: 2}
   TriggerLimit: 1
   RemoveAfterTrigger: 0
   AbilityTrigger: {fileID: 0}
@@ -34,5 +34,6 @@ MonoBehaviour:
   PlayActionType: 
   ModifySpecialTrigger: 1
   SpecialTriggerType: 0
+  SpecialTriggerValue: 0
   SpecialTriggerEffects: []
   AllyAbility: {fileID: 0}

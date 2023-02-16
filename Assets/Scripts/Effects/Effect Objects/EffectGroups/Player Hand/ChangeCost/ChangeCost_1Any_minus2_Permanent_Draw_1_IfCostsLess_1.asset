@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a22d7123f6ee007468cbdc6e9b6fe2b0, type: 3}
-  m_Name: ChangeCost_1Any_minus2_Permanent
+  m_Name: ChangeCost_1Any_minus2_Permanent_Draw_1_IfCostsLess_1
   m_EditorClassIdentifier: 
   Targets: {fileID: 11400000, guid: c592a3bf886948b4c8827edecdb219cc, type: 2}
   ResolveIndependent: 0
   EffectsDescription: Reduce the cost of a card in your hand by 2 for the rest of
-    the game.
+    the game. Then if it costs 0, draw 1.
   Effects:
   - {fileID: 11400000, guid: 6ba5d9db242903e4ab2da52c06514454, type: 2}
+  - {fileID: 11400000, guid: d461b9f61abf7594383a941c6a287b86, type: 2}

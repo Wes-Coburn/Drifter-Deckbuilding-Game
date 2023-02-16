@@ -34,7 +34,7 @@ public class NarrativePopupDisplay : MonoBehaviour
 
     private void DisplayCurrentClip(bool isFirstDisplay = false)
     {
-        if (isFirstDisplay) AudioManager.Instance.StartStopSound
+        if (isFirstDisplay) Managers.AU_MAN.StartStopSound
                 (null, loadedNarrative.NarrativeStartSound);
 
         int clipCount = loadedNarrative.NarrativeText.Length;
@@ -86,7 +86,7 @@ public class NarrativePopupDisplay : MonoBehaviour
     {
         Managers.U_MAN.DestroyNarrativePopup();
 
-        if (loadedNarrative.NarrativeName == "Part 1: Stuck in Sylus") // Unfortunate way to do this
+        if (loadedNarrative.NarrativeName.StartsWith("Part 1")) // Awkward way to do this
         {
             int bonusRewards = GameManager.BONUS_START_REWARDS;
             if (bonusRewards > 0)
