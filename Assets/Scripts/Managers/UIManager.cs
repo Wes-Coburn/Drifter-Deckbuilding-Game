@@ -277,8 +277,8 @@ public class UIManager : MonoBehaviour
 
         bool isMyTurn = Managers.P_MAN.IsMyTurn;
         var etbd = endTurnButton.GetComponent<EndTurnButtonDisplay>();
-        etbd.EndTurnSide.SetActive(isMyTurn);
-        etbd.OpponentTurnSide.SetActive(!isMyTurn);
+        etbd.PlayerTurnSide.SetActive(isMyTurn);
+        etbd.EnemyTurnSide.SetActive(!isMyTurn);
 
         if (!isMyTurn) isInteractable = false;
         Button[] buttons = endTurnButton.GetComponentsInChildren<Button>();
@@ -289,24 +289,11 @@ public class UIManager : MonoBehaviour
         if (endTurnButton == null) return;
 
         var etbd = endTurnButton.GetComponent<EndTurnButtonDisplay>();
-        Button etb = etbd.EndTurnSide.GetComponent<Button>();
+        Button etb = etbd.PlayerTurnSide.GetComponent<Button>();
 
-        Color normalColor;
-        Color highlightedColor;
-        Color disabledColor;
-
-        if (isReady)
-        {
-            normalColor = Color.white;
-            highlightedColor = Color.gray;
-            disabledColor = Color.gray;
-        }
-        else
-        {
-            normalColor = Color.black;
-            highlightedColor = Color.red;
-            disabledColor = Color.black;
-        }
+        Color normalColor = isReady ? Color.green : Color.gray;
+        Color highlightedColor = Color.black;
+        Color disabledColor = Color.gray;
 
         disabledColor.a = 0.3f;
         var btnClr = etb.colors;
@@ -984,9 +971,9 @@ public class UIManager : MonoBehaviour
         DestroyLocationPopup();
         locationPopup = Instantiate(locationPopupPrefab, CurrentZoomCanvas.transform);
         var lpd = locationPopup.GetComponent<LocationPopupDisplay>();
-        lpd.Location = location;
         lpd.TravelButtons.SetActive(false);
         lpd.DifficultyLevel.SetActive(false);
+        lpd.Location = location;
 
         if (isFleeting)
         {
@@ -1009,11 +996,11 @@ public class UIManager : MonoBehaviour
     {
         if (narrativePopup != null || chooseRewardPopup != null) return;
         DestroyTravelPopup();
+        DestroyLocationPopup();
         travelPopup = Instantiate(locationPopupPrefab, CurrentCanvas.transform);
         var lpd = travelPopup.GetComponent<LocationPopupDisplay>();
-        lpd.Location = location;
-
         if (location.IsRecurring) lpd.DifficultyLevel.SetActive(false);
+        lpd.Location = location;
     }
     public void DestroyTravelPopup()
     {
@@ -1137,7 +1124,7 @@ public class UIManager : MonoBehaviour
 
             Managers.AN_MAN.SkybarIconAnimation(aetherIcon);
             Managers.AN_MAN.CountingText();
-            Managers.AN_MAN.ValueChanger(reputationBar.transform, valueChange, -100); // TESTING
+            Managers.AN_MAN.ValueChanger(aetherIcon.transform, valueChange, true, -150, 50);
         }
     }
     public void CreateAugmentIcon(HeroAugment augment, bool isNewAugment = false)
@@ -1278,7 +1265,7 @@ public class UIManager : MonoBehaviour
         if (valueChange != 0)
         {
             ReputationTrigger();
-            Managers.AN_MAN.ValueChanger(repIcon.transform, valueChange, -100);
+            Managers.AN_MAN.ValueChanger(repIcon.transform, valueChange, true, -100);
         }
 
         void ReputationTrigger()

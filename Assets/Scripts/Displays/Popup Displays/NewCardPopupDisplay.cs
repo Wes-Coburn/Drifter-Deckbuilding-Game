@@ -53,7 +53,7 @@ public class NewCardPopupDisplay : MonoBehaviour
         else redrawCost = GameManager.REDRAW_CARDS_AETHER;
 
         redrawCardsButton.GetComponentInChildren<TextMeshProUGUI>().SetText
-            ("Redraw (" + redrawCost + " Aether)");
+            ("Redraw - " + redrawCost + " Aether");
 
         GetComponent<SoundPlayer>().PlaySound(0);
     }
@@ -195,8 +195,8 @@ public class NewCardPopupDisplay : MonoBehaviour
     {
         if (ChooseRewardPopupDisplay.BonusRewards > 0)
         {
-            ChooseRewardPopupDisplay.BonusRewards--;
-            Managers.U_MAN.CreateChooseRewardPopup();
+            if (--ChooseRewardPopupDisplay.BonusRewards > 0)
+                Managers.U_MAN.CreateChooseRewardPopup();
         }
     }
 }

@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class EndTurnButton : MonoBehaviour, IPointerClickHandler
 {
     Button button;
-    public bool IsInteractable { get => button.interactable; }
     private void Awake() => button = GetComponent<Button>();
     private void Update()
     {

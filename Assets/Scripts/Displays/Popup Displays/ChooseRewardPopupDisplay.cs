@@ -1,8 +1,19 @@
+using TMPro;
 using UnityEngine;
 
 public class ChooseRewardPopupDisplay : MonoBehaviour
 {
+    [SerializeField] private GameObject popupTitle;
+
     public static int BonusRewards = 0;
+
+    private void Awake()
+    {
+        var titleTxt = popupTitle.GetComponent<TextMeshProUGUI>();
+        if (BonusRewards > 0) titleTxt.SetText($"<u>Choose Starting Cards!</u>\n--- {BonusRewards} left ---");
+        else titleTxt.SetText("<u>Choose Your Reward!</u>");
+    }
+
     public void ActionRewardButton_OnClick()
     {
         Managers.U_MAN.CreateNewCardPopup(null, "New Action!",

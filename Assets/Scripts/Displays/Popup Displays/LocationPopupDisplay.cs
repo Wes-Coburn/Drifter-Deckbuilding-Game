@@ -25,7 +25,18 @@ public class LocationPopupDisplay : MonoBehaviour
             LocationName = location.LocationFullName;
             LocationDescription = location.LocationDescription;
             ObjectivesDescription = Managers.CA_MAN.FilterUnitTypes(location.CurrentObjective);
-            WorldMapPosition = new Vector2(0, 0); // CHANGE?
+
+            Vector2 mapPos = location.WorldMapPosition;
+            Vector2 popPos = new();
+
+            float buffer = 100;
+            if (mapPos.x > buffer) popPos.x = 350;
+            else if (mapPos.x < -buffer) popPos.x = difficultyLevel.activeInHierarchy ? -100 : -350;
+
+            if (mapPos.y > buffer) popPos.y = 100;
+            else if (mapPos.y < -buffer) popPos.y = -200;
+
+            WorldMapPosition = popPos;
 
             difficultyLevel.GetComponentInChildren<Slider>().SetValueWithoutNotify(Managers.CO_MAN.DifficultyLevel);
             SetDifficultyLevel(Managers.CO_MAN.DifficultyLevel);
@@ -91,7 +102,7 @@ public class LocationPopupDisplay : MonoBehaviour
     {
         set
         {
-            transform.position = value;
+            transform.localPosition = value;
         }
     }
 

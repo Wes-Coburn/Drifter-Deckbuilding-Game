@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
     public const string PLAYER = "Player";
     public const int MINIMUM_DECK_SIZE = 15;
     public const int PLAYER_STARTING_HEALTH = 30;
-    public const int PLAYER_START_UNITS = 3;
+    public const int PLAYER_START_UNITS = 2; // Total = value * 5 (unique units)
     public const int MAXIMUM_ENERGY_PER_TURN = 10;
     public const int MAXIMUM_ENERGY = 10;
     public const int MAXIMUM_ITEMS = 2;
@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
 
         // Starting bonuses
     public const int PLAYER_START_AETHER = 30;
-    public const int BONUS_START_REWARDS = 3;
+    public const int BONUS_START_REWARDS = 4;
 
     // Enemy
     public const string ENEMY = "Enemy";

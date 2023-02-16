@@ -123,10 +123,10 @@ public class AnimationManager : MonoBehaviour
      * ****** VALUE_CHANGE
      * *****
      *****/
-    public void ValueChanger(Transform parent, int value, float yBuffer = 0, bool setToCanvas = true)
+    public void ValueChanger(Transform parent, int value, bool setToCanvas = true, float yBuffer = 0, float xBuffer = 0)
     {
         GameObject valueChanger = Instantiate(valueChangerPrefab, parent);
-        valueChanger.transform.localPosition = new Vector2(0, yBuffer);
+        valueChanger.transform.localPosition = new Vector2(xBuffer, yBuffer);
 
         Transform newParent;
         if (yBuffer != 0)
@@ -457,7 +457,7 @@ public class AnimationManager : MonoBehaviour
         UnitCardDisplay ucd = unitCard.GetComponent<UnitCardDisplay>();
         GameObject stats = ucd.UnitStats;
         GameObject healthScore = ucd.HealthScore;
-        ValueChanger(healthScore.transform, -damageValue, 0, isMeleeAttacker); // TESTING
+        ValueChanger(healthScore.transform, -damageValue, isMeleeAttacker);
         SetAnimatorBool(stats, "IsDamaged", CombatManager.IsDamaged(unitCard));
     }
 

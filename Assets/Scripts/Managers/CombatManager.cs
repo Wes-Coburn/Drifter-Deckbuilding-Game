@@ -399,7 +399,7 @@ public class CombatManager : MonoBehaviour
             GameManager.TUTORIAL_STARTING_HEALTH : GameManager.ENEMY_STARTING_HEALTH;
 
         int energyPerTurn = GameManager.START_ENERGY_PER_TURN +
-            Managers.G_MAN.GetAdditionalEnergy(DifficultyLevel);
+            (Managers.G_MAN.IsTutorial ? 0 : Managers.G_MAN.GetAdditionalEnergy(DifficultyLevel));
         Managers.EN_MAN.EnergyPerTurn = energyPerTurn;
         Managers.EN_MAN.CurrentEnergy = 0;
         Managers.EN_MAN.DamageTaken_ThisTurn = 0;

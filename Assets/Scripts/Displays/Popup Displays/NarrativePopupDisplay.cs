@@ -92,7 +92,7 @@ public class NarrativePopupDisplay : MonoBehaviour
             if (bonusRewards > 0)
             {
                 if (bonusRewards > 1)
-                    ChooseRewardPopupDisplay.BonusRewards += bonusRewards - 1;
+                    ChooseRewardPopupDisplay.BonusRewards += bonusRewards;
 
                 Managers.U_MAN.CreateChooseRewardPopup();
             }
