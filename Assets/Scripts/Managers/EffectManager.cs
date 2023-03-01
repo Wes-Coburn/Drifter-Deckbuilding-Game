@@ -203,6 +203,7 @@ public class EffectManager : MonoBehaviour
         {
             Debug.LogError("EMPTY EFFECT GROUP LIST!");
             EffectsResolving = false;
+            Managers.U_MAN.PlayerIsTargetting = false;
             return;
         }
 
@@ -650,7 +651,7 @@ public class EffectManager : MonoBehaviour
             if (isUserCancel)
             {
                 Managers.P_MAN.HeroPowerUsed = false;
-                Managers.P_MAN.CurrentEnergy += Managers.P_MAN.HeroScript.HeroPower.PowerCost;
+                Managers.P_MAN.CurrentEnergy += Managers.P_MAN.HeroScript.CurrentHeroPower.PowerCost;
             }
         }
         else if (effectSource.CompareTag(Managers.P_MAN.HERO_ULTIMATE_TAG))
@@ -780,7 +781,7 @@ public class EffectManager : MonoBehaviour
                 }
                 else if (effectSource.CompareTag(Managers.P_MAN.HERO_POWER_TAG))
                 {
-                    string powerName = Managers.P_MAN.HeroScript.HeroPower.PowerName;
+                    string powerName = Managers.P_MAN.HeroScript.CurrentHeroPower.PowerName;
                     Managers.U_MAN.CombatLogEntry($"You used {TextFilter.Clrz_ylw(powerName)} (Hero Power).");
                     Managers.CA_MAN.TriggerPlayedUnits(CardManager.TRIGGER_RESEARCH, Managers.P_MAN);
                     Managers.P_MAN.HeroUltimateProgress++;
@@ -791,13 +792,13 @@ public class EffectManager : MonoBehaviour
                 }
                 else if (effectSource.CompareTag(Managers.EN_MAN.HERO_POWER_TAG))
                 {
-                    string powerName = Managers.EN_MAN.HeroScript.HeroPower.PowerName;
+                    string powerName = Managers.EN_MAN.HeroScript.CurrentHeroPower.PowerName;
                     Managers.U_MAN.CombatLogEntry($"Enemy used {TextFilter.Clrz_ylw(powerName)} (Hero Power).");
                     Managers.CA_MAN.TriggerPlayedUnits(CardManager.TRIGGER_RESEARCH, Managers.EN_MAN);
                 }
                 else if (effectSource.CompareTag(Managers.P_MAN.HERO_ULTIMATE_TAG))
                 {
-                    string powerName = (Managers.P_MAN.HeroScript as PlayerHero).HeroUltimate.PowerName;
+                    string powerName = (Managers.P_MAN.HeroScript as PlayerHero).CurrentHeroUltimate.PowerName;
                     Managers.U_MAN.CombatLogEntry($"You used {TextFilter.Clrz_ylw(powerName)} (Hero Ultimate).");
                     Managers.CA_MAN.TriggerPlayedUnits(CardManager.TRIGGER_RESEARCH, Managers.P_MAN);
                     Managers.P_MAN.HeroUltimateProgress = 0;
@@ -1251,7 +1252,10 @@ public class EffectManager : MonoBehaviour
         void ValidateCondition(Func<GameObject, bool> validator, bool reverse = false)
         {
             foreach (GameObject t in allTargets)
-                if (!validator(t) && !reverse) invalidTargets.Add(t);
+            {
+                bool isValid = reverse ? !validator(t) : validator(t);
+                if (!isValid) invalidTargets.Add(t);
+            }
         }
 
         int GetUnitKeywords(GameObject unit)
@@ -1975,10 +1979,8 @@ public class EffectManager : MonoBehaviour
                 if (cpyCrd.IsExactCopy)
                 {
                     List<Effect> newEffects = new();
-                    foreach (Effect e in newCard.CurrentEffects)
-                        newEffects.Add(e);
-                    foreach (Effect e in newEffects)
-                        AddEffect(newCardObj, e, true, false);
+                    foreach (Effect e in newCard.CurrentEffects) newEffects.Add(e);
+                    foreach (Effect e in newEffects) AddEffect(newCardObj, e, true, false);
                 }
             }
         }
@@ -1994,8 +1996,14 @@ public class EffectManager : MonoBehaviour
 
                 HeroManager hMan = HeroManager.GetSourceHero(newEffectSource);
                 hMan.ChangeNextCostEffects.Add(newChgCst);
+
+                /*
                 foreach (GameObject card in hMan.HandZoneCards)
                     AddEffect(card, newChgCst, false);
+                */
+
+                foreach (GameObject card in hMan.HandZoneCards)
+                    card.GetComponent<CardDisplay>().ChangeNextCostValue += newChgCst.ChangeValue;
             }
             else
             {
@@ -2048,11 +2056,12 @@ public class EffectManager : MonoBehaviour
         // ACTIVE EFFECTS
         if (isEffectGroup && !shootRay)
         {
-            if (effect is DrawEffect || effect is DelayEffect ||
-                effect is SaveValueEffect || effect is SaveTargetEffect ||
-                effect is GiveNextUnitEffect || effect is ModifyNextEffect ||
-                (effect is ChangeCostEffect cce && cce.ChangeNextCost)) { }
-            else newDelay += 0.25f;
+            if ((effect is not DrawEffect or DelayEffect or SaveValueEffect or
+                SaveTargetEffect or GiveNextUnitEffect or ModifyNextEffect) &&
+                !(effect is ChangeCostEffect cce && cce.ChangeNextCost))
+            {
+                newDelay += 0.25f;
+            }
 
             FunctionTimer.Create(() => ActiveEffects--, newDelay);
         }
@@ -2065,13 +2074,12 @@ public class EffectManager : MonoBehaviour
             newEffect.LoadEffect(effect);
             effect = newEffect;
 
-            EffectRay.EffectRayType effectRayType;
-            if (isEffectGroup) effectRayType = EffectRay.EffectRayType.EffectGroup;
-            else effectRayType = EffectRay.EffectRayType.Default;
+            var effectRayType = isEffectGroup ?
+                EffectRay.EffectRayType.EffectGroup : EffectRay.EffectRayType.Default;
 
             if (shootRay)
             {
-                if (effect is HealEffect && !CombatManager.IsDamaged(target)) // TESTING TESTING TESTING
+                if (effect is HealEffect && !CombatManager.IsDamaged(target)) 
                 {
                     ActiveEffects++;
                     FunctionTimer.Create(() => ActiveEffects--, delay);
@@ -2357,8 +2365,7 @@ public class EffectManager : MonoBehaviour
      * ****** ADD_EFFECT
      * *****
      *****/
-    public void AddEffect(GameObject card, Effect effect,
-        bool newInstance = true, bool applyEffect = true, bool showEffect = true)
+    public void AddEffect(GameObject card, Effect effect, bool newInstance = true, bool applyEffect = true, bool showEffect = true)
     {
         if (card == null)
         {
@@ -2939,8 +2946,13 @@ public class EffectManager : MonoBehaviour
      *****/
     public void ApplyChangeNextCostEffects(GameObject card)
     {
+        /*
         foreach (ChangeCostEffect chgCst in HeroManager.GetSourceHero(card).ChangeNextCostEffects)
             AddEffect(card, chgCst, false);
+        */
+
+        foreach (ChangeCostEffect chgCst in HeroManager.GetSourceHero(card).ChangeNextCostEffects)
+            card.GetComponent<CardDisplay>().ChangeNextCostValue += chgCst.Value;
     }
 
     /******
@@ -2950,6 +2962,7 @@ public class EffectManager : MonoBehaviour
      *****/
     public void ResolveChangeNextCostEffects(GameObject card)
     {
+        /*
         HeroManager hMan = HeroManager.GetSourceHero(card);
         if (hMan.ChangeNextCostEffects.Count < 1) return;
 
@@ -2966,6 +2979,24 @@ public class EffectManager : MonoBehaviour
 
         foreach (ChangeCostEffect rChgCst in resolvedChgCst)
             FinishChangeNextCostEffect(hMan, rChgCst);
+        */
+
+        HeroManager hMan = HeroManager.GetSourceHero(card);
+        if (hMan.ChangeNextCostEffects.Count < 1) return;
+
+        List<ChangeCostEffect> expiredChgCst = new();
+        foreach (ChangeCostEffect chgCst in hMan.ChangeNextCostEffects)
+        {
+            if (CombatManager.IsUnitCard(card))
+            {
+                if (!chgCst.ChangeUnitCost) continue;
+            }
+            else if (!chgCst.ChangeActionCost) continue;
+
+            if (!chgCst.Unlimited && --chgCst.Multiplier < 1) expiredChgCst.Add(chgCst);
+        }
+        foreach (ChangeCostEffect xChgCst in expiredChgCst)
+            FinishChangeNextCostEffect(hMan, xChgCst);
     }
 
     /******
@@ -2975,6 +3006,7 @@ public class EffectManager : MonoBehaviour
      *****/
     private void FinishChangeNextCostEffect(HeroManager hero, ChangeCostEffect rEffect)
     {
+        /*
         List<GameObject> affectedCards = hero.HandZoneCards.Concat(hero.PlayZoneCards).ToList();
         foreach (GameObject card in affectedCards) affectedCards.Add(card);
 
@@ -2989,6 +3021,16 @@ public class EffectManager : MonoBehaviour
             CardDisplay cd = card.GetComponent<CardDisplay>();
             if (cd.CardScript.CurrentEffects.Remove(rEffect))
                 cd.ChangeCurrentEnergyCost(-rEffect.ChangeValue);
+        }
+
+        bool removed = hero.ChangeNextCostEffects.Remove(rEffect);
+        if (!removed) Debug.LogError("CHANGE COST EFFECT NOT FOUND!");
+        Destroy(rEffect);
+        */
+
+        foreach (GameObject card in hero.HandZoneCards)
+        {
+            card.GetComponent<CardDisplay>().ChangeNextCostValue -= rEffect.ChangeValue;
         }
 
         bool removed = hero.ChangeNextCostEffects.Remove(rEffect);

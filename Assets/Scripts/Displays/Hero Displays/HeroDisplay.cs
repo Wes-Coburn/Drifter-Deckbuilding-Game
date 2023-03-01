@@ -113,7 +113,7 @@ public abstract class HeroDisplay : MonoBehaviour
         HeroPortrait = heroScript.HeroPortrait;
         HeroName = heroScript.HeroName;
 
-        if (HeroScript.HeroPower == null) heroPower.SetActive(false);
-        else powerImage.GetComponent<Image>().sprite = HeroScript.HeroPower.PowerSprite;
+        if (HeroScript.CurrentHeroPower == null) heroPower.SetActive(false);
+        else powerImage.GetComponent<Image>().sprite = HeroScript.CurrentHeroPower.PowerSprite;
     }
 }

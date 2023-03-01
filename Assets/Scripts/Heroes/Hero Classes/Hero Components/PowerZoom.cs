@@ -40,7 +40,7 @@ public class PowerZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
-        if (CardZoom.ZoomCardIsCentered || DragDrop.DraggingCard) return;
+        if (LoadedPower == null || CardZoom.ZoomCardIsCentered || DragDrop.DraggingCard) return;
         DestroyPowerPopup();
         if (!abilityPopupOnly) FunctionTimer.Create(() => CreatePowerPopup(), 0.5f, POWER_POPUP_TIMER);
         else FunctionTimer.Create(() =>
@@ -67,13 +67,13 @@ public class PowerZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         if (!isEnemyPower)
         {
             var phd = GetComponentInParent<PlayerHeroDisplay>();
-            if (isUltimate) hp = (phd.HeroScript as PlayerHero).HeroUltimate;
-            else hp = phd.HeroScript.HeroPower;
+            if (isUltimate) hp = (phd.HeroScript as PlayerHero).CurrentHeroUltimate;
+            else hp = phd.HeroScript.CurrentHeroPower;
         }
         else
         {
             var ehd = GetComponentInParent<EnemyHeroDisplay>();
-            hp = ehd.HeroScript.HeroPower;
+            hp = ehd.HeroScript.CurrentHeroPower;
         }
 
         if (hp == null)

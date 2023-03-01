@@ -39,6 +39,10 @@ public static class SceneLoader
             Managers.U_MAN.SetSkybar(false);
             Managers.U_MAN.SetSceneFader(false);
 
+            var lsd = UnityEngine.Object.FindObjectOfType<LoadingSceneDisplay>();
+            lsd.ChapterText = "Drifter";
+            lsd.TipText = "";
+
             if (LoadAction == null && LoadAction_Async == null)
             {
                 if (scene != Scene.TitleScene && scene != Scene.CombatScene)
@@ -85,7 +89,6 @@ public static class SceneLoader
                     break;
             }
 
-            var lsd = UnityEngine.Object.FindObjectOfType<LoadingSceneDisplay>();
             lsd.ChapterText = chapterText;
             lsd.TipText = Managers.G_MAN.CurrentTip;
 
@@ -109,6 +112,7 @@ public static class SceneLoader
         {
             Managers.U_MAN.Start();
             Managers.AU_MAN.CleanAudioSources();
+            Managers.AU_MAN.StopCurrentSoundscape(); // TESTING
             Managers.AU_MAN.StartStopSound("SFX_SceneLoading", null, AudioManager.SoundType.SFX, true);
             SceneIsLoading = false;
             bool showSkybar = true;
@@ -173,6 +177,8 @@ public static class SceneLoader
 
     public static void LoadScene_Finish(Scene scene, bool delayed = true, bool immediate = false)
     {
+        LoadingProgress = 1;
+
         if (immediate)
         {
             SceneManager.LoadScene(scene.ToString());

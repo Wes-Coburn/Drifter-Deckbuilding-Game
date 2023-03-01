@@ -20,10 +20,13 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: e58e517a5a0433241844a7932307e793, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
-  PowerDescription: 'Turn Start: Deal 1 to the enemy hero.'
+  PowerDescription: 'Turn Start: Give the strongest ally "Deathblow: Deal 1 to the
+    enemy hero."'
   EffectGroupList:
-  - {fileID: 11400000, guid: 894403a43df25f847af0d87bbb1d4900, type: 2}
+  - {fileID: 11400000, guid: 837dd8421b096c548ae9623779dd5380, type: 2}
   LinkedAbilities:
   - {fileID: 11400000, guid: 2ed77ae95233cff4e88bcd8abdc83337, type: 2}
+  - {fileID: 11400000, guid: 776003013f0c498498f1f5b7124874c0, type: 2}
   PowerTrigger: {fileID: 11400000, guid: 2ed77ae95233cff4e88bcd8abdc83337, type: 2}

@@ -125,17 +125,17 @@ public class HomeBaseSceneDisplay : MonoBehaviour
         HeroSprite = ph.HeroPortrait;
         heroBackstory.SetActive(false);
         // POWER
-        HeroPower = ph.HeroPower;
-        HeroPowerCost = ph.HeroPower.PowerCost;
-        HeroPowerDescription = "<b><u>" + ph.HeroPower.PowerName +
-            ":</b></u> " + ph.HeroPower.PowerDescription;
-        HeroPowerSprite = ph.HeroPower.PowerSprite;
+        HeroPower = ph.CurrentHeroPower;
+        HeroPowerCost = ph.CurrentHeroPower.PowerCost;
+        HeroPowerDescription = "<b><u>" + ph.CurrentHeroPower.PowerName +
+            ":</b></u> " + ph.CurrentHeroPower.PowerDescription;
+        HeroPowerSprite = ph.CurrentHeroPower.PowerSprite;
         // ULTIMATE
-        HeroUltimate = ph.HeroUltimate;
-        HeroUltimateCost = ph.HeroUltimate.PowerCost;
-        HeroUltimateDescription = "<b><u>" + ph.HeroUltimate.PowerName +
-            " (Ultimate):</b></u> " + ph.HeroUltimate.PowerDescription;
-        HeroUltimateSprite = ph.HeroUltimate.PowerSprite;
+        HeroUltimate = ph.CurrentHeroUltimate;
+        HeroUltimateCost = ph.CurrentHeroUltimate.PowerCost;
+        HeroUltimateDescription = "<b><u>" + ph.CurrentHeroUltimate.PowerName +
+            " (Ultimate):</b></u> " + ph.CurrentHeroUltimate.PowerDescription;
+        HeroUltimateSprite = ph.CurrentHeroUltimate.PowerSprite;
     }
 
     public void ShowInfoButton_OnClick() =>

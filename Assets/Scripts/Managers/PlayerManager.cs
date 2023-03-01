@@ -181,7 +181,7 @@ public class PlayerManager : HeroManager
             Managers.U_MAN.CreateFleetingInfoPopup("Hero power already used this turn!");
             ErrorSound();
         }
-        else if (CurrentEnergy < HeroScript.HeroPower.PowerCost)
+        else if (CurrentEnergy < HeroScript.CurrentHeroPower.PowerCost)
         {
             if (isPreCheck) return false;
             Managers.U_MAN.CreateFleetingInfoPopup("Not enough energy!");
@@ -190,7 +190,7 @@ public class PlayerManager : HeroManager
         else
         {
             GameObject heroPower = HeroObject.GetComponent<PlayerHeroDisplay>().HeroPower;
-            var groupList = HeroScript.HeroPower.EffectGroupList;
+            var groupList = HeroScript.CurrentHeroPower.EffectGroupList;
 
             if (!Managers.EF_MAN.CheckLegalTargets(groupList, heroPower, true))
             {
@@ -201,7 +201,7 @@ public class PlayerManager : HeroManager
             else
             {
                 if (isPreCheck) return true;
-                CurrentEnergy -= HeroScript.HeroPower.PowerCost;
+                CurrentEnergy -= HeroScript.CurrentHeroPower.PowerCost;
                 HeroPowerUsed = true;
                 PlayerPowerSounds();
                 ParticleBurst(heroPower);
@@ -217,7 +217,7 @@ public class PlayerManager : HeroManager
         static void ErrorSound() => Managers.AU_MAN.StartStopSound("SFX_Error");
 
         GameObject heroUltimate = HeroObject.GetComponent<PlayerHeroDisplay>().HeroUltimate;
-        var groupList = (HeroScript as PlayerHero).HeroUltimate.EffectGroupList;
+        var groupList = (HeroScript as PlayerHero).CurrentHeroUltimate.EffectGroupList;
 
         if (HeroUltimateProgress < GameManager.HERO_ULTMATE_GOAL)
         {
@@ -231,7 +231,7 @@ public class PlayerManager : HeroManager
             Managers.U_MAN.CreateFleetingInfoPopup("Not enough energy!");
             ErrorSound();
         }
-        else if (!Managers.EF_MAN.CheckLegalTargets((HeroScript as PlayerHero).HeroUltimate.EffectGroupList, heroUltimate, true))
+        else if (!Managers.EF_MAN.CheckLegalTargets((HeroScript as PlayerHero).CurrentHeroUltimate.EffectGroupList, heroUltimate, true))
         {
             if (isPreCheck) return false;
             Managers.U_MAN.CreateFleetingInfoPopup("You can't do that right now!");
@@ -264,7 +264,7 @@ public class PlayerManager : HeroManager
 
     public int GetUltimateCost(out Color ultimateColor)
     {
-        int cost = (HeroScript as PlayerHero).HeroUltimate.PowerCost;
+        int cost = (HeroScript as PlayerHero).CurrentHeroUltimate.PowerCost;
 
         if (Managers.G_MAN.GetReputationTier(GameManager.ReputationType.Techs) > 2)
         {
@@ -285,8 +285,8 @@ public class PlayerManager : HeroManager
     public void PlayerPowerSounds(bool isUltimate = false)
     {
         Sound[] soundList;
-        if (isUltimate) soundList = (HeroScript as PlayerHero).HeroUltimate.PowerSounds;
-        else soundList = HeroScript.HeroPower.PowerSounds;
+        if (isUltimate) soundList = (HeroScript as PlayerHero).CurrentHeroUltimate.PowerSounds;
+        else soundList = HeroScript.CurrentHeroPower.PowerSounds;
         foreach (Sound s in soundList) Managers.AU_MAN.StartStopSound(null, s);
     }
 }

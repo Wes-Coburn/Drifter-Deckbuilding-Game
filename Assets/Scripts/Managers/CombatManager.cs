@@ -434,7 +434,7 @@ public class CombatManager : MonoBehaviour
         if ((Managers.EN_MAN.HeroScript as EnemyHero).IsBoss) soundtrack = "Soundtrack_CombatBoss1";
         else soundtrack = "Soundtrack_Combat1";
         Managers.AU_MAN.StartStopSound(soundtrack, null, AudioManager.SoundType.Soundtrack);
-        Managers.AU_MAN.StopCurrentSoundscape();
+        //Managers.AU_MAN.StopCurrentSoundscape();
         FunctionTimer.Create(() => Managers.AU_MAN.StartStopSound("SFX_StartCombat1"), 0.15f);
 
         void CombatStart()

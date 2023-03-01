@@ -13,12 +13,16 @@ MonoBehaviour:
   m_Name: Infiltrate
   m_EditorClassIdentifier: 
   AbilityName: Infiltrate
-  AbilityDescription: after it attacks the enemy hero.
+  AbilityDescription: when it attacks the enemy hero.
   AbilitySprite: {fileID: 21300000, guid: 2c6b901efa8f3ce43aa2cb09de9a46a3, type: 3}
+  OverrideColor: 0
+  AbilityColor: {r: 0, g: 0, b: 0, a: 0}
   LinkedAbilites: []
+  TriggerLimit: 0
   TriggerSound:
     name: 
     clip: {fileID: 8300000, guid: 06b6e1efc34d2ff4e830475d4a502958, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}

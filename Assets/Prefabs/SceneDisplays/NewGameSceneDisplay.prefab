@@ -28,6 +28,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -44,9 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 026ad851d25a41246b8b8ae0a3e22c1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedHero: {fileID: 0}
-  skillCard_1: {fileID: 0}
-  skillCard_2: {fileID: 0}
   heroPortrait: {fileID: 0}
   heroName: {fileID: 0}
   heroDescription: {fileID: 0}
@@ -59,6 +57,10 @@ MonoBehaviour:
   heroUltimateImage: {fileID: 0}
   heroUltimateDescription: {fileID: 0}
   heroUltimateCost: {fileID: 0}
+  lockedHeroIcon: {fileID: 0}
+  lockedPowerIcon: {fileID: 0}
+  lockedUltimateIcon: {fileID: 0}
+  confirmHeroButton: {fileID: 0}
 --- !u!114 &6899003068923499867
 MonoBehaviour:
   m_ObjectHideFlags: 0

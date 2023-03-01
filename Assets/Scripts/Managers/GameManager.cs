@@ -132,6 +132,9 @@ public class GameManager : MonoBehaviour
     public bool IsTutorial { get; set; }
     public bool HideExplicitLanguage { get; set; }
 
+    public List<string> UnlockedHeroes { get; set; }
+    public List<string> UnlockedPowers { get; set; }
+
     public bool IsNewHour { get; set; }
     public int CurrentHour { get; set; }
     public Narrative CurrentNarrative { get; set; }
@@ -162,8 +165,11 @@ public class GameManager : MonoBehaviour
         ActiveLocations = new List<Location>();
         VisitedLocations = new List<string>();
         ShopItems = new List<HeroItem>();
+        UnlockedHeroes = new List<string>();
+        UnlockedPowers = new List<string>();
 
         GameLoader.LoadPlayerPreferences();
+        GameLoader.LoadGame_GameData(); // TESTING
         Debug.Log("Application Version: " + Application.version);
     }
     /******
@@ -437,7 +443,7 @@ public class GameManager : MonoBehaviour
     }
     public void StartHeroSelectScene()
     {
-        Managers.AU_MAN.StopCurrentSoundscape();
+        //Managers.AU_MAN.StopCurrentSoundscape();
         FindObjectOfType<HeroSelectSceneDisplay>().DisplaySelectedHero();
     }
     public void StartTutorialScene()
@@ -471,7 +477,7 @@ public class GameManager : MonoBehaviour
     }
     public void StartHomeBaseScene()
     {
-        Managers.AU_MAN.StopCurrentSoundscape();
+        //Managers.AU_MAN.StopCurrentSoundscape();
         Managers.AU_MAN.StartStopSound("SFX_EnterHomeBase");
 
         bool hasRested = CurrentHour == 4;
@@ -500,7 +506,7 @@ public class GameManager : MonoBehaviour
     }
     public void StartCreditsScene()
     {
-        Managers.AU_MAN.StopCurrentSoundscape();
+        //Managers.AU_MAN.StopCurrentSoundscape();
         Managers.AU_MAN.StartStopSound("Soundtrack_Combat1",
             null, AudioManager.SoundType.Soundtrack);
     }

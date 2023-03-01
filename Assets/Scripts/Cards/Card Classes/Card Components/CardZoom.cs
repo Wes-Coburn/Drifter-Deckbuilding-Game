@@ -239,7 +239,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
             new Vector2(vec2.x, vec2.y), scaleValue);
 
         string filteredText =
-            DialogueManager.Instance.FilterText(cardDisplay.CardScript.CardDescription);
+            Managers.D_MAN.FilterText(cardDisplay.CardScript.CardDescription);
         DescriptionPopup.GetComponent<DescriptionPopupDisplay>
             ().DisplayDescriptionPopup(filteredText);
     }

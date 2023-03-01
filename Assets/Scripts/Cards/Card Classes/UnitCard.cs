@@ -40,7 +40,7 @@ public class UnitCard : Card
         {
             if (abi == null)
             {
-                Debug.LogError("EMPTY ABILITY!");
+                Debug.LogError($"EMPTY ABILITY! <{card.CardName}>");
                 continue;
             }
 

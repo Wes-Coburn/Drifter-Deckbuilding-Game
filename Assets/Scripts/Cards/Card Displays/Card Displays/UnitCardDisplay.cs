@@ -214,7 +214,7 @@ public class UnitCardDisplay : CardDisplay
         CurrentHealth = MaxHealth;
 
         currentAbilitiesDisplay.transform.localPosition = new Vector2(0, -15);
-        GridLayoutGroup glg = currentAbilitiesDisplay.GetComponent<GridLayoutGroup>();
+        var glg = currentAbilitiesDisplay.GetComponent<GridLayoutGroup>();
         glg.startAxis = GridLayoutGroup.Axis.Vertical;
         glg.constraintCount = 1;
 
@@ -222,22 +222,16 @@ public class UnitCardDisplay : CardDisplay
         {
             if (ca == null)
             {
-                Debug.LogError("EMPTY ABILITY!");
+                Debug.LogError($"EMPTY ABILITY! <{card.CardName}>");
                 continue;
             }
 
             GameObject abilityIcon = GetComponent<CardZoom>().CreateZoomAbilityIcon(ca,
                 currentAbilitiesDisplay.transform, 1);
 
-            AbilityIconDisplay aid = abilityIcon.GetComponent<AbilityIconDisplay>();
+            var aid = abilityIcon.GetComponent<AbilityIconDisplay>();
             aid.AbilitySprite.GetComponent<Image>().color = Managers.CA_MAN.GetAbilityColor(ca);
         }
-    }
-
-    public override void DisplayChooseCard(Card card)
-    {
-        base.DisplayChooseCard(card);
-        DisplayCardPageCard(card);
     }
 
     public void EnableTriggerIcon(AbilityTrigger abilityTrigger, bool isEnabled)
@@ -259,7 +253,7 @@ public class UnitCardDisplay : CardDisplay
             else color = Color.gray;
 
             GameObject icon = AbilityIcons[index];
-            AbilityIconDisplay aid = icon.GetComponent<AbilityIconDisplay>();
+            var aid = icon.GetComponent<AbilityIconDisplay>();
             aid.AbilitySprite.GetComponent<Image>().color = color;
             index++;
         }
@@ -268,7 +262,7 @@ public class UnitCardDisplay : CardDisplay
     private GameObject CreateAbilityIcon(CardAbility cardAbility)
     {
         GameObject abilityIcon = Instantiate(abilityIconPrefab, new Vector2(0, 0), Quaternion.identity);
-        AbilityIconDisplay aid = abilityIcon.GetComponent<AbilityIconDisplay>();
+        var aid = abilityIcon.GetComponent<AbilityIconDisplay>();
         aid.AbilityScript = cardAbility;
         abilityIcon.transform.SetParent(currentAbilitiesDisplay.transform, false);
         aid.AbilitySprite.GetComponent<Image>().color = Managers.CA_MAN.GetAbilityColor(cardAbility);
@@ -334,7 +328,7 @@ public class UnitCardDisplay : CardDisplay
                             iconFound = true;
 
                             // When adding another ability with the same trigger, reset the ability icon in case it's disabled (gray)
-                            AbilityIconDisplay aid = AbilityIcons[index].GetComponent<AbilityIconDisplay>();
+                            var aid = AbilityIcons[index].GetComponent<AbilityIconDisplay>();
                             aid.AbilitySprite.GetComponent<Image>().color = Managers.CA_MAN.GetAbilityColor(ca2);
                         }
                     }
@@ -430,7 +424,7 @@ public class UnitCardDisplay : CardDisplay
                     CurrentAbilities.Remove(stackedCa);
             }
 
-            AudioManager.Instance.StartStopSound(null, sa.LoseAbilitySound);
+            Managers.AU_MAN.StartStopSound(null, sa.LoseAbilitySound);
         }
         else if (ca is TriggeredAbility ta)
         {
@@ -465,7 +459,7 @@ public class UnitCardDisplay : CardDisplay
         displayedAbilities.RemoveAt(displayIndex);
 
         if (delay) FunctionTimer.Create(() => DestroyIcon(icon), 1);
-        else Destroy(icon);
+        else DestroyIcon(icon);
 
         static void DestroyIcon(GameObject icon)
         {
@@ -480,13 +474,11 @@ public class UnitCardDisplay : CardDisplay
      *****/
     public void AbilityTriggerState(string abilityName)
     {
-        if (abilityName == CardManager.TRIGGER_PLAY ||
-            abilityName == CardManager.ABILITY_BLITZ) return;
+        if (abilityName == CardManager.TRIGGER_PLAY || abilityName == CardManager.ABILITY_BLITZ) return;
 
         foreach (CardAbility ca in displayedAbilities)
         {
-            int displayIndex =
-                displayedAbilities.FindIndex(x => x.AbilityName == ca.AbilityName);
+            int displayIndex = displayedAbilities.FindIndex(x => x.AbilityName == ca.AbilityName);
 
             if (ca is StaticAbility sa)
             {
@@ -516,9 +508,9 @@ public class UnitCardDisplay : CardDisplay
 
         Debug.LogError("TRIGGER NOT FOUND!");
 
-        void TriggerState(GameObject icon, Sound triggerSFX)
+        static void TriggerState(GameObject icon, Sound triggerSFX)
         {
-            AnimationManager.Instance.AbilityTriggerState(icon);
+            Managers.AN_MAN.AbilityTriggerState(icon);
             if (triggerSFX != null && triggerSFX.clip != null)
                 Managers.AU_MAN.StartStopSound(null, triggerSFX);
             else Managers.AU_MAN.StartStopSound("SFX_Trigger");
@@ -555,7 +547,6 @@ public class UnitCardDisplay : CardDisplay
         exhaustedIcon.SetActive(false);
         cardDimmer.SetActive(false);
         destroyedIcon.SetActive(false);
-
         DisableVFX();
     }
 

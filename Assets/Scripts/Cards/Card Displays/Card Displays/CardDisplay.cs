@@ -71,11 +71,12 @@ public abstract class CardDisplay : MonoBehaviour
         }
         set => cardTypeLine.GetComponent<TextMeshProUGUI>().SetText(value);
     }
+    public int ChangeNextCostValue { get; set; }
     public int CurrentEnergyCost
     {
         get
         {
-            int cost = CardScript.CurrentEnergyCost + costConditionValue;
+            int cost = CardScript.CurrentEnergyCost + ChangeNextCostValue + costConditionValue;
             return cost < 0 ? 0 : cost;
         }
         private set
@@ -84,6 +85,25 @@ public abstract class CardDisplay : MonoBehaviour
             DisplayEnergyCost(CurrentEnergyCost);
         }
     }
+
+    /******
+     * *****
+     * ****** SET_RARITY
+     * *****
+     *****/
+    private void SetRarity(Card card)
+    {
+        var rarity = card.CardRarity;
+        commonIcon.SetActive(rarity is Card.Rarity.Common);
+        rareIcon.SetActive(rarity is Card.Rarity.Rare);
+        legendIcon.SetActive(rarity is Card.Rarity.Legend);
+    }
+
+    /******
+     * *****
+     * ****** DISPLAY_ENERGY_COST
+     * *****
+     *****/
     private void DisplayEnergyCost(int cost)
     {
         var txtGui = energyCost.GetComponentInChildren<TextMeshProUGUI>();
@@ -108,7 +128,7 @@ public abstract class CardDisplay : MonoBehaviour
 
     /******
      * *****
-     * ****** GET/UPDATE_CURRENT_ENERGY_COST
+     * ****** UPDATE_CURRENT_ENERGY_COST
      * *****
      *****/
     public void UpdateCurrentEnergyCost()
@@ -200,46 +220,12 @@ public abstract class CardDisplay : MonoBehaviour
         SetRarity(cardScript);
     }
 
-    private void SetRarity(Card card)
-    {
-        bool isCommon = false;
-        bool isRare = false;
-        bool isLegend = false;
-
-        switch (card.CardRarity)
-        {
-            case Card.Rarity.Common:
-                isCommon = true;
-                break;
-            case Card.Rarity.Rare:
-                isRare = true;
-                break;
-            case Card.Rarity.Legend:
-                isLegend = true;
-                break;
-        }
-
-        commonIcon.SetActive(isCommon);
-        rareIcon.SetActive(isRare);
-        legendIcon.SetActive(isLegend);
-    }
-
     /******
      * *****
      * ****** DISPLAY_CARD_PAGE_CARD
      * *****
      *****/
     public virtual void DisplayCardPageCard(Card card) => SetRarity(card);
-
-    /******
-     * *****
-     * ****** DISPLAY_CHOOSE_CARD
-     * *****
-     *****/
-    public virtual void DisplayChooseCard(Card card)
-    {
-        // blank
-    }
 
     /******
      * *****
@@ -259,14 +245,15 @@ public abstract class CardDisplay : MonoBehaviour
      *****/
     public void ResetEffects()
     {
-        List<Effect> toDestroy = new();
+        List<Effect> effectsToDestroy = new();
         foreach (Effect e in CardScript.CurrentEffects)
         {
-            if (e.IsPermanent || e is ChangeCostEffect chgCst && chgCst.ChangeNextCost) { }
-            else toDestroy.Add(e);
+            if ( ! (e.IsPermanent ||
+                e is ChangeCostEffect chgCst && chgCst.ChangeNextCost))
+                effectsToDestroy.Add(e);
         }
 
-        foreach (Effect e in toDestroy) Destroy(e);
+        foreach (Effect e in effectsToDestroy) Destroy(e);
         CardScript.CurrentEffects.Clear();
 
         List<Effect> permanents = new();
@@ -274,7 +261,7 @@ public abstract class CardDisplay : MonoBehaviour
             permanents.Add(e);
 
         foreach (Effect e in permanents)
-            EffectManager.Instance.AddEffect(gameObject, e, false, true, false);
+            Managers.EF_MAN.AddEffect(gameObject, e, false, true, false);
     }
 
     /******

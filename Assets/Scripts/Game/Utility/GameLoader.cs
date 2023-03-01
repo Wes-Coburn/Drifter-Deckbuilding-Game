@@ -26,19 +26,110 @@ public static class GameLoader
         Managers.G_MAN.HideExplicitLanguage = PlayerPrefs.GetInt(HIDE_EXPLICIT_LANGUAGE, 1) == 1;
     }
 
+    /******
+     * *****
+     * ****** SAVE_GAME
+     * *****
+     *****/
+    public static bool CheckSave() => SaveLoad.LoadGame(SaveLoad.SaveType.PlayerSave) != null;
+    public static void SaveGame_GameData()
+    {
+        var unlockedHeroes = Managers.G_MAN.UnlockedHeroes.ToArray();
+        var unlockedPowers = Managers.G_MAN.UnlockedPowers.ToArray();
+
+        GameData data = new(unlockedHeroes, unlockedPowers);
+        SaveLoad.SaveGame(data, SaveLoad.SaveType.GameSave);
+    }
+    public static void SaveGame() // PUBLIC FOR BETA ONLY
+    {
+        SaveGame_GameData(); // TESTING
+
+        string[] deckList = new string[Managers.P_MAN.DeckList.Count];
+        for (int i = 0; i < deckList.Length; i++)
+            deckList[i] = Managers.P_MAN.DeckList[i].CardName;
+
+        string[] augments = new string[Managers.P_MAN.HeroAugments.Count];
+        for (int i = 0; i < augments.Length; i++)
+            augments[i] = Managers.P_MAN.HeroAugments[i].AugmentName;
+
+        string[] items = new string[Managers.P_MAN.HeroItems.Count];
+        for (int i = 0; i < items.Length; i++)
+            items[i] = Managers.P_MAN.HeroItems[i].ItemName;
+
+        string[,] npcsAndClips = new string[Managers.G_MAN.ActiveNPCHeroes.Count, 2];
+        for (int i = 0; i < npcsAndClips.Length / 2; i++)
+        {
+            npcsAndClips[i, 0] = Managers.G_MAN.ActiveNPCHeroes[i].HeroName;
+
+            DialogueClip clip = Managers.G_MAN.ActiveNPCHeroes[i].NextDialogueClip;
+            string clipName = clip.ToString();
+            clipName = clipName.Replace($" ({clip.GetType().Name})", "");
+            npcsAndClips[i, 1] = clipName;
+        }
+
+        string[,] locationsNPCsObjectives = new string[Managers.G_MAN.ActiveLocations.Count, 3];
+        for (int i = 0; i < locationsNPCsObjectives.Length / 3; i++)
+        {
+            locationsNPCsObjectives[i, 0] = Managers.G_MAN.ActiveLocations[i].LocationName;
+            locationsNPCsObjectives[i, 1] = Managers.G_MAN.ActiveLocations[i].CurrentNPC.HeroName;
+            locationsNPCsObjectives[i, 2] = Managers.G_MAN.ActiveLocations[i].CurrentObjective;
+        }
+
+        string[] shopItems = new string[Managers.G_MAN.ShopItems.Count];
+        for (int i = 0; i < shopItems.Length; i++)
+            shopItems[i] = Managers.G_MAN.ShopItems[i].ItemName;
+
+        string[] recruitUnits = new string[Managers.CA_MAN.PlayerRecruitUnits.Count];
+        for (int i = 0; i < recruitUnits.Length; i++)
+            recruitUnits[i] = Managers.CA_MAN.PlayerRecruitUnits[i].CardName;
+
+        string[] shopActions = new string[Managers.CA_MAN.ActionShopCards.Count];
+        for (int i = 0; i < shopActions.Length; i++)
+            shopActions[i] = Managers.CA_MAN.ActionShopCards[i].CardName;
+
+        string narrativeName = "";
+        if (Managers.G_MAN.CurrentNarrative != null)
+        {
+            narrativeName = Managers.G_MAN.CurrentNarrative.ToString();
+            narrativeName = narrativeName.Replace(" (Narrative)", "");
+        }
+
+        PlayerData data = new(Managers.G_MAN.CurrentHour, narrativeName, Managers.P_MAN.HeroScript.HeroName,
+            deckList, augments, items, Managers.P_MAN.AetherCells,
+            npcsAndClips, locationsNPCsObjectives, Managers.G_MAN.VisitedLocations.ToArray(),
+            shopItems, recruitUnits, shopActions,
+            // Loyalty
+            Managers.G_MAN.RecruitLoyalty, Managers.G_MAN.ActionShopLoyalty, Managers.G_MAN.ShopLoyalty,
+            // Reputation
+            Managers.G_MAN.Reputation_Mages, Managers.G_MAN.Reputation_Mutants, Managers.G_MAN.Reputation_Rogues,
+            Managers.G_MAN.Reputation_Techs, Managers.G_MAN.Reputation_Warriors);
+
+        SaveLoad.SaveGame(data, SaveLoad.SaveType.PlayerSave);
+    }
+
+    /******
+     * *****
+     * ****** TUTORIAL
+     * *****
+     *****/
     public static void Tutorial_Load()
     {
         Managers.P_MAN.AetherCells = 0;
         string playerHeroName = "Kili, Neon Rider";
         string enemyHeroName = "Tiny Mutant";
         Hero[] heroes = Resources.LoadAll<Hero>("Tutorial");
-        EnemyHero enemyHero = ScriptableObject.CreateInstance<EnemyHero>();
 
         foreach (Hero hero in heroes)
         {
-            if (hero.HeroName == playerHeroName) Managers.P_MAN.HeroScript = hero as PlayerHero;
+            if (hero.HeroName == playerHeroName)
+            {
+                var playerHero = ScriptableObject.CreateInstance<PlayerHero>();
+                playerHero.LoadHero(hero);
+                Managers.P_MAN.HeroScript = playerHero;
+            }
             else if (hero.HeroName == enemyHeroName)
             {
+                var enemyHero = ScriptableObject.CreateInstance<EnemyHero>();
                 enemyHero.LoadHero(hero);
                 Managers.D_MAN.EngagedHero = enemyHero;
             }
@@ -47,6 +138,8 @@ public static class GameLoader
         foreach (UnitCard unit in Managers.CA_MAN.TutorialPlayerUnits)
             for (int i = 0; i < 5; i++)
                 Managers.CA_MAN.AddCard(unit, Managers.P_MAN);
+
+        SceneLoader.LoadingProgress = 1;
     }
 
     /******
@@ -120,80 +213,28 @@ public static class GameLoader
 
     /******
      * *****
-     * ****** SAVE_GAME
-     * *****
-     *****/
-    public static bool CheckSave() => SaveLoad.LoadGame() != null;
-    public static void SaveGame() // PUBLIC FOR BETA ONLY
-    {
-        string[] deckList = new string[Managers.P_MAN.DeckList.Count];
-        for (int i = 0; i < deckList.Length; i++)
-            deckList[i] = Managers.P_MAN.DeckList[i].CardName;
-
-        string[] augments = new string[Managers.P_MAN.HeroAugments.Count];
-        for (int i = 0; i < augments.Length; i++)
-            augments[i] = Managers.P_MAN.HeroAugments[i].AugmentName;
-
-        string[] items = new string[Managers.P_MAN.HeroItems.Count];
-        for (int i = 0; i < items.Length; i++)
-            items[i] = Managers.P_MAN.HeroItems[i].ItemName;
-
-        string[,] npcsAndClips = new string[Managers.G_MAN.ActiveNPCHeroes.Count, 2];
-        for (int i = 0; i < npcsAndClips.Length / 2; i++)
-        {
-            npcsAndClips[i, 0] = Managers.G_MAN.ActiveNPCHeroes[i].HeroName;
-
-            DialogueClip clip = Managers.G_MAN.ActiveNPCHeroes[i].NextDialogueClip;
-            string clipName = clip.ToString();
-            clipName = clipName.Replace($" ({clip.GetType().Name})", "");
-            npcsAndClips[i, 1] = clipName;
-        }
-
-        string[,] locationsNPCsObjectives = new string[Managers.G_MAN.ActiveLocations.Count, 3];
-        for (int i = 0; i < locationsNPCsObjectives.Length / 3; i++)
-        {
-            locationsNPCsObjectives[i, 0] = Managers.G_MAN.ActiveLocations[i].LocationName;
-            locationsNPCsObjectives[i, 1] = Managers.G_MAN.ActiveLocations[i].CurrentNPC.HeroName;
-            locationsNPCsObjectives[i, 2] = Managers.G_MAN.ActiveLocations[i].CurrentObjective;
-        }
-
-        string[] shopItems = new string[Managers.G_MAN.ShopItems.Count];
-        for (int i = 0; i < shopItems.Length; i++)
-            shopItems[i] = Managers.G_MAN.ShopItems[i].ItemName;
-
-        string[] recruitUnits = new string[Managers.CA_MAN.PlayerRecruitUnits.Count];
-        for (int i = 0; i < recruitUnits.Length; i++)
-            recruitUnits[i] = Managers.CA_MAN.PlayerRecruitUnits[i].CardName;
-
-        string[] shopActions = new string[Managers.CA_MAN.ActionShopCards.Count];
-        for (int i = 0; i < shopActions.Length; i++)
-            shopActions[i] = Managers.CA_MAN.ActionShopCards[i].CardName;
-
-        string narrativeName = "";
-        if (Managers.G_MAN.CurrentNarrative != null)
-        {
-            narrativeName = Managers.G_MAN.CurrentNarrative.ToString();
-            narrativeName = narrativeName.Replace(" (Narrative)", "");
-        }
-
-        GameData data = new(Managers.G_MAN.CurrentHour, narrativeName, Managers.P_MAN.HeroScript.HeroName,
-            deckList, augments, items, Managers.P_MAN.AetherCells,
-            npcsAndClips, locationsNPCsObjectives, Managers.G_MAN.VisitedLocations.ToArray(),
-            shopItems, recruitUnits, shopActions,
-            // Loyalty
-            Managers.G_MAN.RecruitLoyalty, Managers.G_MAN.ActionShopLoyalty, Managers.G_MAN.ShopLoyalty,
-            // Reputation
-            Managers.G_MAN.Reputation_Mages, Managers.G_MAN.Reputation_Mutants, Managers.G_MAN.Reputation_Rogues, 
-            Managers.G_MAN.Reputation_Techs, Managers.G_MAN.Reputation_Warriors);
-
-        SaveLoad.SaveGame(data);
-    }
-
-    /******
-     * *****
      * ****** LOAD_GAME
      * *****
      *****/
+    public static void LoadGame_GameData()
+    {
+        if (SaveLoad.LoadGame(SaveLoad.SaveType.GameSave) is not GameData data)
+        {
+            string[] startingHeroes = new string[]
+            {
+                "Kili, Neon Rider",
+                "Faydra, Rogue Cyborg",
+                "Yergov, Biochemist",
+            };
+
+            GameData newData = new(startingHeroes, new string[] { });
+            SaveLoad.SaveGame(newData, SaveLoad.SaveType.GameSave);
+            data = SaveLoad.LoadGame(SaveLoad.SaveType.GameSave) as GameData;
+        }
+
+        foreach (string hero in data.UnlockedHeroes) Managers.G_MAN.UnlockedHeroes.Add(hero);
+        foreach (string power in data.UnlockedPowers) Managers.G_MAN.UnlockedPowers.Add(power);
+    }
     private static void LoadGame_Async_Progress()
     {
         const int loadItems = 10;
@@ -202,7 +243,7 @@ public static class GameLoader
     }
     public static IEnumerator LoadGame_Async()
     {
-        GameData data = SaveLoad.LoadGame();
+        var data = SaveLoad.LoadGame(SaveLoad.SaveType.PlayerSave) as PlayerData;
 
         if (data == null)
         {
@@ -229,7 +270,12 @@ public static class GameLoader
         yield return request_PHero;
         LoadGame_Async_Progress(); // <<< Load Progress #2
 
-        if (request_PHero.asset != null) Managers.P_MAN.HeroScript = request_PHero.asset as PlayerHero;
+        if (request_PHero.asset != null)
+        {
+            var playerHero = ScriptableObject.CreateInstance<PlayerHero>();
+            playerHero.LoadHero(request_PHero.asset as PlayerHero);
+            Managers.P_MAN.HeroScript = playerHero;
+        }
         else Debug.LogError("HERO NOT FOUND!");
 
         // DECK LIST

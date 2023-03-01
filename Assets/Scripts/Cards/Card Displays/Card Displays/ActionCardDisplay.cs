@@ -36,12 +36,6 @@ public class ActionCardDisplay : CardDisplay
         CardScript = card;
     }
 
-    public override void DisplayChooseCard(Card card)
-    {
-        base.DisplayChooseCard(card);
-        DisplayCardPageCard(card);
-    }
-
     public override void ResetCard()
     {
         base.ResetCard();

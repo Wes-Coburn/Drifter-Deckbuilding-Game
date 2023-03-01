@@ -80,11 +80,9 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue()
     {
-        Managers.AU_MAN.StopCurrentSoundscape();
-
+        //Managers.AU_MAN.StopCurrentSoundscape();
         Managers.AU_MAN.StartStopSound(null,
             Managers.G_MAN.CurrentLocation.LocationSoundscape, AudioManager.SoundType.Soundscape);
-
         Managers.AU_MAN.StartStopSound("Soundtrack_Dialogue1", null,
             AudioManager.SoundType.Soundtrack);
 

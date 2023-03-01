@@ -263,8 +263,7 @@ public class CardManager : MonoBehaviour
             Card newCard = NewCardInstance(card);
             if (type is DisplayType.HeroSelect) cd.CardScript = newCard;
             else if (type is DisplayType.NewCard) cd.DisplayZoomCard(null, newCard);
-            else if (type is DisplayType.ChooseCard) cd.DisplayChooseCard(newCard);
-            else if (type is DisplayType.Cardpage) cd.DisplayCardPageCard(newCard);
+            else if (type is DisplayType.ChooseCard or DisplayType.Cardpage) cd.DisplayCardPageCard(newCard);
         }
         return prefab;
     }
@@ -1382,7 +1381,7 @@ public class CardManager : MonoBehaviour
 
         if (hero == Managers.EN_MAN)
         {
-            EnemyHeroPower ehp = Managers.EN_MAN.HeroScript.HeroPower as EnemyHeroPower;
+            var ehp = Managers.EN_MAN.HeroScript.CurrentHeroPower as EnemyHeroPower;
             if (ehp != null && ehp.PowerTrigger.AbilityName == triggerName)
                 Managers.EV_MAN.NewDelayedAction(() =>
                 Managers.EN_MAN.UseHeroPower(), 0.5f, true);

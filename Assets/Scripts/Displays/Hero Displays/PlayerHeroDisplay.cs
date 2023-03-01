@@ -41,8 +41,8 @@ public class PlayerHeroDisplay : HeroDisplay
     public override void DisplayHero()
     {
         base.DisplayHero();
-        powerCost.GetComponent<TextMeshProUGUI>().SetText(HeroScript.HeroPower.PowerCost.ToString());
-        ultimateImage.GetComponent<Image>().sprite = (HeroScript as PlayerHero).HeroUltimate.PowerSprite;
+        powerCost.GetComponent<TextMeshProUGUI>().SetText(HeroScript.CurrentHeroPower.PowerCost.ToString());
+        ultimateImage.GetComponent<Image>().sprite = (HeroScript as PlayerHero).CurrentHeroUltimate.PowerSprite;
 
         int cost = Managers.P_MAN.GetUltimateCost(out Color ultimateColor);
         var ultimateGui = ultimateCost.GetComponent<TextMeshProUGUI>();

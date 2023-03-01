@@ -455,12 +455,12 @@ public class EnemyManager : HeroManager
 
     public void UseHeroPower()
     {
-        List<EffectGroup> groupList = HeroScript.HeroPower.EffectGroupList;
+        List<EffectGroup> groupList = HeroScript.CurrentHeroPower.EffectGroupList;
         GameObject heroPower = HeroObject.GetComponent<EnemyHeroDisplay>().HeroPower;
         EffectManager.Instance.StartEffectGroupList(groupList, heroPower);
 
         Sound[] soundList;
-        soundList = HeroScript.HeroPower.PowerSounds;
+        soundList = HeroScript.CurrentHeroPower.PowerSounds;
         foreach (Sound s in soundList) AudioManager.Instance.StartStopSound(null, s);
         AnimationManager.Instance.TriggerHeroPower(heroPower);
     }

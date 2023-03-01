@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Deal1_1EU_Give_Stun_Marked
   m_EditorClassIdentifier: 
   Targets: {fileID: 11400000, guid: 878f131356ce5eb4dade11e2fe3691eb, type: 2}
+  ResolveIndependent: 0
+  EffectsDescription: Stun and Mark an enemy and deal 1 to it.
   Effects:
   - {fileID: 11400000, guid: d69c966727c88d84489e1fe64d7f7a7e, type: 2}
   - {fileID: 11400000, guid: 0c8bb1c8a93df8148b4f916bdc30f3e7, type: 2}
   - {fileID: 11400000, guid: 4d3f33925dcfef44588efad39d21b2f3, type: 2}
-  EffectsDescription: Stun and Mark an enemy, then deal 1 to it.

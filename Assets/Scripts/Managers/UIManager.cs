@@ -263,8 +263,7 @@ public class UIManager : MonoBehaviour
             Destroy(screenDimmer);
             screenDimmer = null;
         }
-        if (screenIsDimmed) screenDimmer =
-                Instantiate(screenDimmerPrefab, CurrentZoomCanvas.transform);
+        if (screenIsDimmed) screenDimmer = Instantiate(screenDimmerPrefab, CurrentZoomCanvas.transform);
     }
     /******
      * *****
