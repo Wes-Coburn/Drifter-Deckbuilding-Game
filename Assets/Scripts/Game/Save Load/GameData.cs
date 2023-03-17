@@ -1,13 +1,20 @@
 [System.Serializable]
 public class GameData : SaveData
 {
-    public string[] UnlockedHeroes;
-    public string[] UnlockedPowers;
-    //public bool Achievement_BETA_Finish;
+    public string[] UnlockedHeroes, UnlockedPowers;
+    //public bool Achievement_BETAFinish;
 
-    public GameData(string[] unlockedHeroes, string[] unlockedPowers)
+    public GameData(string[] unlockedHeroes, string[] unlockedPowers) //, bool achievement_BETA_Finish)
     {
-        UnlockedHeroes = (string[])unlockedHeroes.Clone();
-        UnlockedPowers = (string[])unlockedPowers.Clone();
+        // Unlocks
+        UnlockedHeroes = unlockedHeroes;
+        UnlockedPowers = unlockedPowers;
+
+        // Achievements
+        //Achievement_BETAFinish = achievement_BETA_Finish;
+
+        // Progress
+        // persistent augments
+        // persistent starting cards
     }
 }

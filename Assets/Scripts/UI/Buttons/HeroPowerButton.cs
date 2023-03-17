@@ -11,7 +11,7 @@ public class HeroPowerButton : MonoBehaviour, IPointerClickHandler
         if (!Managers.P_MAN.IsMyTurn || Managers.EF_MAN.EffectsResolving || Managers.EV_MAN.ActionsDelayed) return;
 
         Managers.P_MAN.UseHeroPower(isUltimate);
-        PowerZoom pz = GetComponent<PowerZoom>();
+        var pz = GetComponent<PowerZoom>();
         pz.DestroyPowerPopup();
         pz.DestroyAbilityPopup();
     }

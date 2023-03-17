@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -18,18 +19,14 @@ public class GameManager : MonoBehaviour
 
     #region FIELDS
     [Header("LOCATION BACKGROUNDS")]
-    [SerializeField] private Sprite locationBG_City;
-    [SerializeField] private Sprite locationBG_Wasteland;
+    [SerializeField] private Sprite locationBG_City, locationBG_Wasteland;
     [Header("LOCATION ICON")]
     [SerializeField] GameObject locationIconPrefab;
     [Header("LOADING TIPS")]
     [SerializeField, TextArea] private string[] loadingTips;
     [Header("REPUTATION BONUSES")]
-    [SerializeField] private ReputationBonuses reputation_Mages;
-    [SerializeField] private ReputationBonuses reputation_Mutants;
-    [SerializeField] private ReputationBonuses reputation_Rogues;
-    [SerializeField] private ReputationBonuses reputation_Techs;
-    [SerializeField] private ReputationBonuses reputation_Warriors;
+    [SerializeField] private ReputationBonuses reputation_Mages, reputation_Mutants,
+        reputation_Rogues, reputation_Techs, reputation_Warriors;
 
     private int currentTip;
 
@@ -41,10 +38,9 @@ public class GameManager : MonoBehaviour
     public const int START_ENERGY_PER_TURN = 0;
 
     // Player
-    public const string PLAYER = "Player";
     public const int MINIMUM_DECK_SIZE = 15;
     public const int PLAYER_STARTING_HEALTH = 30;
-    public const int PLAYER_START_UNITS = 2; // Total = value * 5 (unique units)
+    public const int PLAYER_START_UNITS = 2; // Total Units = value * 5 (unique units)
     public const int MAXIMUM_ENERGY_PER_TURN = 10;
     public const int MAXIMUM_ENERGY = 10;
     public const int MAXIMUM_ITEMS = 2;
@@ -55,7 +51,6 @@ public class GameManager : MonoBehaviour
     public const int BONUS_START_REWARDS = 4;
 
     // Enemy
-    public const string ENEMY = "Enemy";
     public const int ENEMY_STARTING_HEALTH = 30;
     //public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
     // Tutorial Enemy
@@ -96,7 +91,7 @@ public class GameManager : MonoBehaviour
     public const int REPUTATION_TIER_2 = 15;
     public const int REPUTATION_TIER_3 = 20;
 
-    // Combat Reward
+    // Combat Rewards
     public const int AETHER_COMBAT_REWARD_1 = 30;
     public const int AETHER_COMBAT_REWARD_2 = 35;
     public const int AETHER_COMBAT_REWARD_3 = 40;
@@ -109,6 +104,13 @@ public class GameManager : MonoBehaviour
 
     // Augments
     public const int AETHER_MAGNET_REWARD = 20;
+
+    public string[] StartingHeroes =
+    {
+        "Kili, Neon Rider",
+        "Faydra, Rogue Cyborg",
+        "Yergov, Biochemist",
+    };
     #endregion
 
     #region PROPERTIES
@@ -160,16 +162,18 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         //PlayerPrefs.DeleteAll(); // FOR TESTING ONLY
+        //SaveLoad.DeleteGameData(); // FOR TESTING ONLY
+
         currentTip = Random.Range(0, loadingTips.Length);
-        ActiveNPCHeroes = new List<NPCHero>();
-        ActiveLocations = new List<Location>();
-        VisitedLocations = new List<string>();
-        ShopItems = new List<HeroItem>();
-        UnlockedHeroes = new List<string>();
-        UnlockedPowers = new List<string>();
+        ActiveNPCHeroes = new();
+        ActiveLocations = new();
+        VisitedLocations = new();
+        ShopItems = new();
+        UnlockedHeroes = new();
+        UnlockedPowers = new();
 
         GameLoader.LoadPlayerPreferences();
-        GameLoader.LoadGame_GameData(); // TESTING
+        GameLoader.LoadGame_GameData();
         Debug.Log("Application Version: " + Application.version);
     }
     /******
@@ -237,9 +241,14 @@ public class GameManager : MonoBehaviour
                 return null;
         }
     }
+    /******
+     * *****
+     * ****** ADD_RANDOM_ENCOUNTER
+     * *****
+     *****/
     public void AddRandomEncounter()
     {
-        Location[] randomEncounters = Resources.LoadAll<Location>("Random Encounters");
+        var randomEncounters = Resources.LoadAll<Location>("Random Encounters");
         randomEncounters.Shuffle();
 
         foreach (Location location in randomEncounters)
@@ -319,7 +328,7 @@ public class GameManager : MonoBehaviour
         if (activeNPC != -1) return ActiveNPCHeroes[activeNPC];
         else
         {
-            NPCHero newNPC = ScriptableObject.CreateInstance(npc.GetType()) as NPCHero;
+            var newNPC = ScriptableObject.CreateInstance(npc.GetType()) as NPCHero;
             newNPC.LoadHero(npc);
             newNPC.NextDialogueClip = npc.FirstDialogueClip;
             if (newNPC.NextDialogueClip == null) Debug.LogError("NEXT CLIP IS NULL!");
@@ -344,13 +353,13 @@ public class GameManager : MonoBehaviour
 
         if (activeLocation != -1)
         {
-            Location loc = ActiveLocations[activeLocation];
+            var loc = ActiveLocations[activeLocation];
             if (newNPC != null) loc.CurrentNPC = GetActiveNPC(newNPC);
             return loc;
         }
         else
         {
-            Location newLoc = ScriptableObject.CreateInstance<Location>();
+            var newLoc = ScriptableObject.CreateInstance<Location>();
             newLoc.LoadLocation(location);
             newLoc.CurrentObjective = newLoc.FirstObjective;
             if (newNPC != null) newLoc.CurrentNPC = GetActiveNPC(newNPC);
@@ -361,14 +370,81 @@ public class GameManager : MonoBehaviour
     }
     /******
      * *****
-     * ****** GET_SHOP_ITEMS
+     * ****** GET_UNLOCKED_HERO/POWER
      * *****
      *****/
-    public List<HeroItem> GetShopItems()
+    public bool UnlockNewHero()
     {
-        HeroItem[] allItems = Resources.LoadAll<HeroItem>("Hero Items");
+        var allPlayerHeroes = Resources.LoadAll<PlayerHero>("Heroes/Player Heroes");
+
+        if (allPlayerHeroes == null)
+        {
+            Debug.LogError("Failed to load PLAYERHERO assets!");
+            return false;
+        }
+
+        foreach (var hero in allPlayerHeroes)
+            if (!UnlockedHeroes.Contains(hero.HeroName))
+            {
+                UnlockedHeroes.Add(hero.HeroName);
+                Managers.U_MAN.CreateNewHeroPopup("New Hero!", hero, hero.HeroPower, hero.HeroUltimate);
+                return true;
+            }
+
+        Debug.LogWarning("No locked heroes found!");
+        return false;
+    }
+    public bool UnlockNewPowers()
+    {
+        var pHero = Managers.P_MAN.HeroScript as PlayerHero;
+        var heroPowers = Resources.LoadAll<HeroPower>($"Hero Powers/{pHero.HeroShortName}");
+
+        HeroPower heroPower = null;
+        HeroPower heroUltimate = null;
+
+        if (heroPowers == null)
+        {
+            Debug.LogError("Failed to load HEROPOWER assets!");
+            return false;
+        }
+
+        foreach (var power in heroPowers)
+        {
+            if (UnlockedPowers.Contains(power.PowerName) ||
+                power.PowerName == pHero.HeroPower.PowerName ||
+                power.PowerName == pHero.HeroUltimate.PowerName) continue;
+
+            if (!power.IsUltimate)
+            {
+                if (heroPower == null) heroPower = power;
+            }
+            else if (heroUltimate == null) heroUltimate = power;
+            
+        }
+
+        if (heroPower == null || heroUltimate == null)
+        {
+            Debug.LogWarning("No locked powers found!");
+            return false;
+        }
+
+        UnlockedPowers.Add(heroPower.PowerName);
+        UnlockedPowers.Add(heroUltimate.PowerName);
+        Managers.U_MAN.CreateNewHeroPopup("New Powers!",
+            Managers.P_MAN.HeroScript as PlayerHero, heroPower, heroUltimate);
+        return true;
+    }
+    /******
+     * *****
+     * ****** LOAD_NEW_ITEMS
+     * *****
+     *****/
+    public void LoadNewItems()
+    {
+        var allItems = Resources.LoadAll<HeroItem>("Hero Items");
         List<HeroItem> rarefiedItems = new();
-        foreach (HeroItem item in allItems)
+
+        foreach (var item in allItems)
         {
             rarefiedItems.Add(item);
             if (!item.IsRareItem)
@@ -379,15 +455,13 @@ public class GameManager : MonoBehaviour
         }
         rarefiedItems.Shuffle();
 
-        List<HeroItem> shopItems = new();
-        foreach (HeroItem item in rarefiedItems)
+        foreach (var item in rarefiedItems)
         {
             if ((Managers.P_MAN.HeroItems.FindIndex(x => x.ItemName == item.ItemName) == -1) &&
-                (shopItems.FindIndex(x => x.ItemName == item.ItemName) == -1)) shopItems.Add(item);
+                (ShopItems.FindIndex(x => x.ItemName == item.ItemName) == -1)) ShopItems.Add(item);
 
-            if (shopItems.Count == 8) return shopItems;
+            if (ShopItems.Count > 7) break;
         }
-        return shopItems;
     }
     /******
      * *****
@@ -444,7 +518,7 @@ public class GameManager : MonoBehaviour
     public void StartHeroSelectScene()
     {
         //Managers.AU_MAN.StopCurrentSoundscape();
-        FindObjectOfType<HeroSelectSceneDisplay>().DisplaySelectedHero();
+        FindObjectOfType<HeroSelectSceneDisplay>().DisplaySelectedHero(); // Move to HeroSelectSceneDisplay.Start() ? Timing issue ?
     }
     public void StartTutorialScene()
     {
@@ -457,9 +531,9 @@ public class GameManager : MonoBehaviour
         Managers.AU_MAN.StartStopSound("Soundtrack_WorldMapScene", null, AudioManager.SoundType.Soundtrack);
         Managers.AU_MAN.StartStopSound("SFX_EnterWorldMap");
 
-        foreach (Location loc in ActiveLocations)
+        foreach (var loc in ActiveLocations)
         {
-            GameObject location = Instantiate(locationIconPrefab, Managers.U_MAN.CurrentCanvas.transform);
+            var location = Instantiate(locationIconPrefab, Managers.U_MAN.CurrentCanvas.transform);
             location.GetComponent<LocationIcon>().Location = loc;
         }
 
@@ -486,13 +560,13 @@ public class GameManager : MonoBehaviour
         if (hasRested)
         {
             NextHour(true);
-            ShopItems = GetShopItems();
+            LoadNewItems();
             Managers.CA_MAN.LoadNewRecruits();
             Managers.CA_MAN.LoadNewActions();
             Managers.U_MAN.CreateFleetingInfoPopup("You have rested!\nShops refreshed!");
 
             List<Location> refreshedShops = new();
-            foreach (Location loc in ActiveLocations)
+            foreach (var loc in ActiveLocations)
             {
                 if (VisitedLocations.FindIndex(x => x == loc.LocationName) == -1) continue;
 
@@ -500,7 +574,7 @@ public class GameManager : MonoBehaviour
                     refreshedShops.Add(loc);
             }
 
-            foreach (Location loc in refreshedShops)
+            foreach (var loc in refreshedShops)
                 VisitedLocations.Remove(loc.LocationName);
         }
     }
@@ -646,27 +720,27 @@ public class GameManager : MonoBehaviour
     {
         // MAGES
         int mageTier = GetReputationTier(ReputationType.Mages);
-        ReputationBonuses mageBonuses = GetReputationBonuses(ReputationType.Mages);
+        var mageBonuses = GetReputationBonuses(ReputationType.Mages);
         GetBonusEffects(mageBonuses, mageTier);
 
         // MUTANTS
         int mutantTier = GetReputationTier(ReputationType.Mutants);
-        ReputationBonuses mutantBonuses = GetReputationBonuses(ReputationType.Mutants);
+        var mutantBonuses = GetReputationBonuses(ReputationType.Mutants);
         GetBonusEffects(mutantBonuses, mutantTier);
 
         // ROGUES
         int rogueTier = GetReputationTier(ReputationType.Rogues);
-        ReputationBonuses rogueBonuses = GetReputationBonuses(ReputationType.Rogues);
+        var rogueBonuses = GetReputationBonuses(ReputationType.Rogues);
         GetBonusEffects(rogueBonuses, rogueTier);
 
         // TECHS
         int techTier = GetReputationTier(ReputationType.Techs);
-        ReputationBonuses techBonuses = GetReputationBonuses(ReputationType.Techs);
+        var techBonuses = GetReputationBonuses(ReputationType.Techs);
         GetBonusEffects(techBonuses, techTier);
 
         // WARRIORS
         int warriorTier = GetReputationTier(ReputationType.Warriors);
-        ReputationBonuses warriorBonuses = GetReputationBonuses(ReputationType.Warriors);
+        var warriorBonuses = GetReputationBonuses(ReputationType.Warriors);
         GetBonusEffects(warriorBonuses, warriorTier);
 
         void GetBonusEffects(ReputationBonuses bonuses, int reputationTier)
@@ -843,8 +917,6 @@ public class GameManager : MonoBehaviour
     public void NewGame()
     {
         SceneLoader.LoadAction_Async += GameLoader.NewGame_LoadAsync;
-
-        //SceneLoader.LoadAction += GameLoader.NewGame_Load;
         SceneLoader.LoadScene(SceneLoader.Scene.NarrativeScene);
     }
 
@@ -856,13 +928,13 @@ public class GameManager : MonoBehaviour
     public void EndGame()
     {
         // Game Manager
-        foreach (NPCHero npc in ActiveNPCHeroes)
+        foreach (var npc in ActiveNPCHeroes)
         {
             if (npc != null) Destroy(npc);
         }
         ActiveNPCHeroes.Clear();
 
-        foreach (Location loc in ActiveLocations)
+        foreach (var loc in ActiveLocations)
         {
             if (loc != null) Destroy(loc);
         }

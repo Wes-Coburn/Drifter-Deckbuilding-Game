@@ -261,7 +261,7 @@ public abstract class CardDisplay : MonoBehaviour
             permanents.Add(e);
 
         foreach (Effect e in permanents)
-            Managers.EF_MAN.AddEffect(gameObject, e, false, true, false);
+            Managers.EF_MAN.AddEffect(gameObject, e, false, true, false); // <<< NewInstance = FALSE
     }
 
     /******

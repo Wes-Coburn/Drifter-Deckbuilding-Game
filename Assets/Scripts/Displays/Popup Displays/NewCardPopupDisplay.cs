@@ -80,7 +80,7 @@ public class NewCardPopupDisplay : MonoBehaviour
     {
         SwitchToCards();
         // Card Popup
-        GameObject newCard = Managers.CA_MAN.ShowCard(this.newCard, 
+        var newCard = Managers.CA_MAN.ShowCard(this.newCard, 
             new Vector2(), CardManager.DisplayType.NewCard);
         if (newCard == null)
         {
@@ -110,7 +110,7 @@ public class NewCardPopupDisplay : MonoBehaviour
         foreach (Card card in chooseCards)
         {
             // Card Popup
-            GameObject newCard = Managers.CA_MAN.ShowCard(card, 
+            var newCard = Managers.CA_MAN.ShowCard(card, 
                 new Vector2(), CardManager.DisplayType.ChooseCard);
             CardDisplay cd = newCard.GetComponent<CardDisplay>();
             newCard.transform.SetParent(newCardZone.transform, false);
@@ -128,7 +128,7 @@ public class NewCardPopupDisplay : MonoBehaviour
     public void AddCard_OnClick(int cardSelection)
     {
         GetComponent<SoundPlayer>().PlaySound(2);
-        Card newCard = cardSelection == 0 ? this.newCard : chooseCards[cardSelection - 1];
+        var newCard = cardSelection == 0 ? this.newCard : chooseCards[cardSelection - 1];
         Managers.CA_MAN.AddCard(newCard, Managers.P_MAN, true);
         DestroyAndContinue();
     }
@@ -160,7 +160,7 @@ public class NewCardPopupDisplay : MonoBehaviour
 
     private void DestroyAndContinue()
     {
-        foreach (GameObject button in addCardButtons)
+        foreach (var button in addCardButtons)
             button.GetComponent<Button>().interactable = false;
         ignoreCardButton.GetComponent<Button>().interactable = false;
 

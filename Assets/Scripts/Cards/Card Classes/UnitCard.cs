@@ -26,7 +26,7 @@ public class UnitCard : Card
     public override void LoadCard(Card card)
     {
         base.LoadCard(card);
-        UnitCard uc = card as UnitCard;
+        var uc = card as UnitCard;
         power = uc.StartPower;
         CurrentPower = power;
         health = uc.StartHealth;
@@ -35,8 +35,9 @@ public class UnitCard : Card
         unitDeathSound = uc.UnitDeathSound;
 
         startingAbilities = uc.StartingAbilities;
-        CurrentAbilities = new List<CardAbility>();
-        foreach (CardAbility abi in startingAbilities)
+        CurrentAbilities = new();
+
+        foreach (var abi in startingAbilities)
         {
             if (abi == null)
             {
@@ -44,7 +45,7 @@ public class UnitCard : Card
                 continue;
             }
 
-            CardAbility newAbi = CreateInstance(abi.GetType().Name) as CardAbility;
+            var newAbi = CreateInstance(abi.GetType().Name) as CardAbility;
             newAbi.LoadCardAbility(abi);
             CurrentAbilities.Add(newAbi);
         }
@@ -53,7 +54,7 @@ public class UnitCard : Card
     public override void CopyCard(Card card)
     {
         base.CopyCard(card);
-        UnitCard uc = card as UnitCard;
+        var uc = card as UnitCard;
         power = uc.StartPower;
         CurrentPower = uc.CurrentPower;
         health = uc.StartHealth;
@@ -62,8 +63,9 @@ public class UnitCard : Card
         unitDeathSound = uc.UnitDeathSound;
 
         startingAbilities = uc.startingAbilities;
-        CurrentAbilities = new List<CardAbility>();
-        foreach (CardAbility abi in uc.CurrentAbilities)
+        CurrentAbilities = new();
+
+        foreach (var abi in uc.CurrentAbilities)
         {
             if (abi == null)
             {
@@ -74,13 +76,13 @@ public class UnitCard : Card
             // Don't copy ChangeControl abilities
             if (abi is TriggeredAbility tra)
             {
-                foreach (EffectGroup eg in tra.EffectGroupList)
-                    foreach (Effect e in eg.Effects)
+                foreach (var eg in tra.EffectGroupList)
+                    foreach (var e in eg.Effects)
                         if (e is ChangeControlEffect)
                             goto NextAbility;
             }
 
-            CardAbility newAbi = CreateInstance(abi.GetType().Name) as CardAbility;
+            var newAbi = CreateInstance(abi.GetType().Name) as CardAbility;
             newAbi.LoadCardAbility(abi);
             CurrentAbilities.Add(abi);
 

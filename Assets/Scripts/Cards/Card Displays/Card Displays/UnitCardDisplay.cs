@@ -218,7 +218,7 @@ public class UnitCardDisplay : CardDisplay
         glg.startAxis = GridLayoutGroup.Axis.Vertical;
         glg.constraintCount = 1;
 
-        foreach (CardAbility ca in UnitCard.StartingAbilities.AsEnumerable().Reverse()) // Reverse without modifying the list
+        foreach (var ca in UnitCard.StartingAbilities.AsEnumerable().Reverse()) // Reverse without modifying the list
         {
             if (ca == null)
             {
@@ -226,7 +226,7 @@ public class UnitCardDisplay : CardDisplay
                 continue;
             }
 
-            GameObject abilityIcon = GetComponent<CardZoom>().CreateZoomAbilityIcon(ca,
+            var abilityIcon = GetComponent<CardZoom>().CreateZoomAbilityIcon(ca,
                 currentAbilitiesDisplay.transform, 1);
 
             var aid = abilityIcon.GetComponent<AbilityIconDisplay>();
@@ -237,31 +237,34 @@ public class UnitCardDisplay : CardDisplay
     public void EnableTriggerIcon(AbilityTrigger abilityTrigger, bool isEnabled)
     {
         int index = 0;
-        foreach (CardAbility ca in displayedAbilities)
+        foreach (var ca in displayedAbilities)
         {
-            if (abilityTrigger != null && ca is TriggeredAbility tra &&
-                tra.AbilityTrigger.AbilityName == abilityTrigger.AbilityName) { }
-            else if (abilityTrigger == null && ca is ModifierAbility) { }
-            else
+            if (abilityTrigger != null)
             {
-                index++;
-                continue;
+                if (ca is TriggeredAbility tra &&
+                    tra.AbilityTrigger.AbilityName ==
+                    abilityTrigger.AbilityName) ToggleIcon();
             }
-
-            Color color;
-            if (isEnabled) color = Managers.CA_MAN.GetAbilityColor(ca);
-            else color = Color.gray;
-
-            GameObject icon = AbilityIcons[index];
-            var aid = icon.GetComponent<AbilityIconDisplay>();
-            aid.AbilitySprite.GetComponent<Image>().color = color;
+            else if (ca is ModifierAbility) ToggleIcon();
+            
             index++;
+
+            void ToggleIcon()
+            {
+                Color color;
+                if (isEnabled) color = Managers.CA_MAN.GetAbilityColor(ca);
+                else color = Color.gray;
+
+                var icon = AbilityIcons[index];
+                var aid = icon.GetComponent<AbilityIconDisplay>();
+                aid.AbilitySprite.GetComponent<Image>().color = color;
+            }
         }
     }
 
     private GameObject CreateAbilityIcon(CardAbility cardAbility)
     {
-        GameObject abilityIcon = Instantiate(abilityIconPrefab, new Vector2(0, 0), Quaternion.identity);
+        var abilityIcon = Instantiate(abilityIconPrefab, new Vector2(0, 0), Quaternion.identity);
         var aid = abilityIcon.GetComponent<AbilityIconDisplay>();
         aid.AbilityScript = cardAbility;
         abilityIcon.transform.SetParent(currentAbilitiesDisplay.transform, false);
@@ -276,7 +279,7 @@ public class UnitCardDisplay : CardDisplay
      *****/
     public bool AddCurrentAbility(CardAbility ca, bool iconOnly = false, bool showEffect = true)
     {
-        CardAbility newCardAbility = ScriptableObject.CreateInstance(ca.GetType().Name) as CardAbility;
+        var newCardAbility = ScriptableObject.CreateInstance(ca.GetType().Name) as CardAbility;
         newCardAbility.LoadCardAbility(ca);
         ca = newCardAbility;
 
@@ -319,7 +322,7 @@ public class UnitCardDisplay : CardDisplay
             {
                 bool iconFound = false;
                 int index = 0;
-                foreach (CardAbility ca2 in displayedAbilities)
+                foreach (var ca2 in displayedAbilities)
                 {
                     if (ca2 is TriggeredAbility ta2)
                     {
@@ -340,7 +343,7 @@ public class UnitCardDisplay : CardDisplay
         else if (ca is ModifierAbility ma)
         {
             bool iconFound = false;
-            foreach (CardAbility ca3 in displayedAbilities)
+            foreach (var ca3 in displayedAbilities)
             {
                 if (ca3 is ModifierAbility ma2) iconFound = true;
             }
@@ -408,7 +411,7 @@ public class UnitCardDisplay : CardDisplay
                 break;
         }
 
-        CardAbility ca = CurrentAbilities[abilityIndex];
+        var ca = CurrentAbilities[abilityIndex];
         CurrentAbilities.RemoveAt(abilityIndex);
 
         if (ca is StaticAbility sa)
@@ -434,15 +437,15 @@ public class UnitCardDisplay : CardDisplay
         }
         else if (ca is ModifierAbility ma)
         {
-            List<CardAbility> modAbilities = new List<CardAbility>();
-            foreach (CardAbility ability in CurrentAbilities)
+            List<CardAbility> modAbilities = new();
+            foreach (var ability in CurrentAbilities)
                 if (ability.AbilityName == ca.AbilityName)
                     modAbilities.Add(ability);
 
-            foreach (CardAbility modCa in modAbilities)
+            foreach (var modCa in modAbilities)
                 CurrentAbilities.Remove(modCa);
 
-            foreach (CardAbility ability2 in CurrentAbilities)
+            foreach (var ability2 in CurrentAbilities)
                 if (ability2 is ModifierAbility) return;
         }
 
@@ -454,7 +457,7 @@ public class UnitCardDisplay : CardDisplay
             return;
         }
 
-        GameObject icon = AbilityIcons[displayIndex];
+        var icon = AbilityIcons[displayIndex];
         AbilityIcons.RemoveAt(displayIndex);
         displayedAbilities.RemoveAt(displayIndex);
 
@@ -476,7 +479,7 @@ public class UnitCardDisplay : CardDisplay
     {
         if (abilityName == CardManager.TRIGGER_PLAY || abilityName == CardManager.ABILITY_BLITZ) return;
 
-        foreach (CardAbility ca in displayedAbilities)
+        foreach (var ca in displayedAbilities)
         {
             int displayIndex = displayedAbilities.FindIndex(x => x.AbilityName == ca.AbilityName);
 
@@ -524,17 +527,17 @@ public class UnitCardDisplay : CardDisplay
         CurrentHealth = UnitCard.StartHealth;
         MaxHealth = UnitCard.StartHealth;
 
-        foreach (GameObject go in AbilityIcons) Destroy(go);
+        foreach (var go in AbilityIcons) Destroy(go);
         AbilityIcons.Clear();
         displayedAbilities.Clear();
         CurrentAbilities.Clear();
-        foreach (CardAbility ca in UnitCard.StartingAbilities)
+        foreach (var ca in UnitCard.StartingAbilities)
         {
-            CardAbility newCa = ScriptableObject.CreateInstance(ca.GetType().Name) as CardAbility;
+            var newCa = ScriptableObject.CreateInstance(ca.GetType().Name) as CardAbility;
             newCa.LoadCardAbility(ca);
             CurrentAbilities.Add(newCa);
         }
-        foreach (CardAbility ca in CurrentAbilities)
+        foreach (var ca in CurrentAbilities)
             AddCurrentAbility(ca, true);
 
         ResetEffects();

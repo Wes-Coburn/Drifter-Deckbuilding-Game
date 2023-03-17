@@ -2,16 +2,16 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public static class SceneLoader
 {
-    private static Action onSceneLoaderCallback;
-    private static Action onSceneUpdateCallback;
-
     public static bool SceneIsLoading = false;
+    public static float LoadingProgress;
+
+    private static Action onSceneLoaderCallback, onSceneUpdateCallback;
     public static Action LoadAction;
     public static Func<IEnumerator> LoadAction_Async;
-    public static float LoadingProgress;
 
     public enum Scene
     {
@@ -45,9 +45,9 @@ public static class SceneLoader
 
             if (LoadAction == null && LoadAction_Async == null)
             {
-                if (scene != Scene.TitleScene && scene != Scene.CombatScene)
+                if (scene is not Scene.TitleScene or Scene.CombatScene)
                 {
-                    LoadScene_Finish(scene, false, true);
+                    LoadScene_Finish(scene, SceneFinishType.Immediate);
                     return;
                 }
             }
@@ -98,7 +98,7 @@ public static class SceneLoader
                 Managers.G_MAN.StartCoroutine(LoadAction_Async());
                 LoadAction_Async = null;
             }
-            else LoadScene_Finish(scene);
+            else LoadScene_Finish(scene, SceneFinishType.Delayed); // If nothing to load, delay the transition
 
             void InvokeLoadAction()
             {
@@ -112,7 +112,7 @@ public static class SceneLoader
         {
             Managers.U_MAN.Start();
             Managers.AU_MAN.CleanAudioSources();
-            Managers.AU_MAN.StopCurrentSoundscape(); // TESTING
+            Managers.AU_MAN.StopCurrentSoundscape();
             Managers.AU_MAN.StartStopSound("SFX_SceneLoading", null, AudioManager.SoundType.SFX, true);
             SceneIsLoading = false;
             bool showSkybar = true;
@@ -153,6 +153,7 @@ public static class SceneLoader
                     Debug.LogError("SCENE NOT FOUND!");
                     break;
             }
+
             Managers.U_MAN.SetSkybar(showSkybar, hideChildren);
         };
 
@@ -175,20 +176,38 @@ public static class SceneLoader
         else SceneManager.LoadScene(Scene.LoadingScene.ToString());
     }
 
-    public static void LoadScene_Finish(Scene scene, bool delayed = true, bool immediate = false)
+    public enum SceneFinishType
+    {
+        NoDelay,
+        Delayed,
+        Immediate,
+    }
+    public static void LoadScene_Finish(Scene scene, SceneFinishType finishType = SceneFinishType.NoDelay)
     {
         LoadingProgress = 1;
+        float delay;
 
-        if (immediate)
+        switch (finishType)
         {
-            SceneManager.LoadScene(scene.ToString());
-            return;
+            case SceneFinishType.NoDelay:
+                delay = 0;
+                break;
+            case SceneFinishType.Delayed:
+                delay = 4;
+                break;
+            case SceneFinishType.Immediate:
+                LoadScene();
+                return;
+            default:
+                Debug.LogError("INVALID TYPE!");
+                return;
         }
 
-        float delay = delayed ? 4f : 0f;
         FunctionTimer.Create(() => Managers.U_MAN.SetSceneFader(true), delay);
-        FunctionTimer.Create(() => SceneManager.LoadScene(scene.ToString()), delay + 2);
+        FunctionTimer.Create(() => LoadScene(), delay + 2);
         FunctionTimer.Create(() => Managers.U_MAN.SetSceneFader(false), delay + 2);
+
+        void LoadScene() => SceneManager.LoadScene(scene.ToString());
     }
 
     public static void SceneLoaderCallback()

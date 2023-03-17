@@ -86,18 +86,18 @@ public abstract class Card : ScriptableObject
         zoomOverController = card.ZoomOverController;
         cardPlaySound = card.CardPlaySound;
 
-        CurrentEffects = new List<Effect>();
-        foreach (Effect e in card.CurrentEffects) // TESTING, new instances
+        CurrentEffects = new();
+        foreach (var e in card.CurrentEffects) // TESTING, new instances
         {
-            Effect newEffect = CreateInstance(e.GetType().Name) as Effect;
+            var newEffect = CreateInstance(e.GetType().Name) as Effect;
             newEffect.LoadEffect(e);
             CurrentEffects.Add(newEffect);
         }
 
-        PermanentEffects = new List<Effect>();
-        foreach (Effect e in card.PermanentEffects) // TESTING, new instances // Needed for cards returned to hand
+        PermanentEffects = new();
+        foreach (var e in card.PermanentEffects) // TESTING, new instances // Needed for cards returned to hand
         {
-            Effect newEffect = CreateInstance(e.GetType().Name) as Effect;
+            var newEffect = CreateInstance(e.GetType().Name) as Effect;
             newEffect.LoadEffect(e);
             PermanentEffects.Add(newEffect);
         }

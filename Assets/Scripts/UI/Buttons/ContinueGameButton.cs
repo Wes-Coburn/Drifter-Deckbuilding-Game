@@ -12,7 +12,16 @@ public class ContinueGameButton : MonoBehaviour
         //UIManager.Instance.ShakeCamera(EZCameraShake.CameraShakePresets.Bump); // TESTING
         Managers.AN_MAN.CreateParticleSystem(gameObject, ParticleSystemHandler.ParticlesType.ButtonPress);
 
+        var data = SaveLoad.LoadGame(SaveLoad.SaveType.Player) as PlayerData;
+        string saveScene = data.SaveScene;
+        
+        if (!Enum.TryParse(saveScene, out SceneLoader.Scene loadScene))
+        {
+            Debug.LogError("INVALID SAVE SCENE!");
+            return;
+        }
+
         SceneLoader.LoadAction_Async += GameLoader.LoadGame_Async;
-        SceneLoader.LoadScene(SceneLoader.Scene.WorldMapScene);
+        SceneLoader.LoadScene(loadScene);
     }
 }

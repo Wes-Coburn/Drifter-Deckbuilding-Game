@@ -6,30 +6,14 @@ using UnityEngine.UI;
 
 public class HeroSelectSceneDisplay : MonoBehaviour
 {
-    [SerializeField] private GameObject heroPortrait;
-    [SerializeField] private GameObject heroName;
-    [SerializeField] private GameObject heroDescription;
-    [SerializeField] private GameObject heroBackstory;
-
-    [SerializeField] private GameObject heroPower;
-    [SerializeField] private GameObject heroPowerImage;
-    [SerializeField] private GameObject heroPowerDescription;
-    [SerializeField] private GameObject heroPowerCost;
-
-    [SerializeField] private GameObject heroUltimate;
-    [SerializeField] private GameObject heroUltimateImage;
-    [SerializeField] private GameObject heroUltimateDescription;
-    [SerializeField] private GameObject heroUltimateCost;
-
-    [SerializeField] private GameObject lockedHeroIcon;
-    [SerializeField] private GameObject lockedPowerIcon;
-    [SerializeField] private GameObject lockedUltimateIcon;
-    [SerializeField] private GameObject confirmHeroButton;
+    [SerializeField]
+    private GameObject heroPortrait, heroName, heroDescription, heroBackstory,
+        heroPower, heroPowerImage, heroPowerDescription, heroPowerCost,
+        heroUltimate, heroUltimateImage, heroUltimateDescription, heroUltimateCost,
+        lockedHeroIcon, lockedPowerIcon, lockedUltimateIcon, confirmHeroButton;
 
     private List<PlayerHero> playerHeroes;
-    private int currentHero;
-    private int currentPower;
-    private int currentUltimate;
+    private int currentHero, currentPower, currentUltimate;
 
     private const string LOCK_TEXT = "<b>???</b>";
     private const string LOCK_TEXT_SHORT = "<b>?</b>";
@@ -44,6 +28,7 @@ public class HeroSelectSceneDisplay : MonoBehaviour
     private void Start()
     {
         var allHeroes = Resources.LoadAll<PlayerHero>("Heroes");
+        var startingHeroes = new List<PlayerHero>();
         var unlockedHeroes = new List<PlayerHero>();
         var lockedHeroes = new List<PlayerHero>();
 
@@ -52,11 +37,12 @@ public class HeroSelectSceneDisplay : MonoBehaviour
             var newHero = ScriptableObject.CreateInstance<PlayerHero>();
             newHero.LoadHero(hero);
 
-            if (Managers.G_MAN.UnlockedHeroes.Contains(newHero.HeroName)) unlockedHeroes.Add(newHero);
+            if (Managers.G_MAN.StartingHeroes.Contains(newHero.HeroName)) startingHeroes.Add(newHero);
+            else if (Managers.G_MAN.UnlockedHeroes.Contains(newHero.HeroName)) unlockedHeroes.Add(newHero);
             else lockedHeroes.Add(newHero);
         }
 
-        playerHeroes = unlockedHeroes.Concat(lockedHeroes).ToList();
+        playerHeroes = startingHeroes.Concat(unlockedHeroes).Concat(lockedHeroes).ToList();
         heroBackstory.SetActive(false);
         currentPower = 0;
         currentUltimate = 0;
@@ -70,7 +56,7 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         newPH.CurrentHeroUltimate = LoadedUltimate;
         Managers.P_MAN.HeroScript = newPH;
 
-        foreach (UnitCard uc in Managers.CA_MAN.PlayerStartUnits)
+        foreach (var uc in Managers.CA_MAN.PlayerStartUnits)
             for (int i = 0; i < GameManager.PLAYER_START_UNITS; i++)
                 Managers.CA_MAN.AddCard(uc, Managers.P_MAN);
     }
@@ -130,8 +116,8 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         bool unlocked = HeroIsUnlocked;
         lockedHeroIcon.SetActive(!unlocked);
 
-        foreach (Sound snd in LoadedHero.CurrentHeroPower.PowerSounds)
-            Managers.AU_MAN.StartStopSound(null, snd);
+        foreach (var s in LoadedHero.CurrentHeroPower.PowerSounds)
+            Managers.AU_MAN.StartStopSound(null, s);
 
         heroBackstory.GetComponentInChildren<TextMeshProUGUI>().SetText(unlocked ? LoadedHero.HeroBackstory : LOCK_TEXT);
         heroName.GetComponent<TextMeshProUGUI>().SetText(unlocked ? LoadedHero.HeroName : LOCK_TEXT);

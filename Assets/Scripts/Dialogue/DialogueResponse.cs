@@ -4,16 +4,10 @@ using UnityEngine;
 public class DialogueResponse
 {
     [TextArea][SerializeField] private string responseText;
-    [SerializeField] private DialogueClip response_NextClip;
-    [SerializeField] private DialogueClip npc_NextClip;
-    [SerializeField] private bool response_IsCombatStart;
-    [SerializeField] private bool response_IsWorldMapStart;
-    [SerializeField] private bool response_IsRecruitmentStart;
-    [SerializeField] private bool response_IsActionShopStart;
-    [SerializeField] private bool response_IsShopStart;
-    [SerializeField] private bool response_IsCloningStart;
-    [SerializeField] private bool response_IsNewAugmentStart;
-    [SerializeField] private bool response_IsExit;
+    [SerializeField] private DialogueClip response_NextClip, npc_NextClip;
+    [SerializeField] private bool response_IsCombatStart, response_IsWorldMapStart,
+        response_IsRecruitmentStart,response_IsActionShopStart, response_IsShopStart,
+        response_IsCloningStart, response_IsNewAugmentStart, response_IsExit;
     [SerializeField] private Location response_TravelLocation;
 
     public string ResponseText { get => responseText; }
@@ -41,7 +35,7 @@ public class DialogueResponse
         response_IsShopStart = dr.Response_IsShopStart;
         response_IsCloningStart = dr.Response_IsCloningStart;
         response_IsNewAugmentStart = dr.Response_IsNewAugmentStart;
-        response_IsExit = dr.Response_IsExit;
         response_TravelLocation = dr.Response_TravelLocation;
+        response_IsExit = dr.Response_IsExit;
     }
 }

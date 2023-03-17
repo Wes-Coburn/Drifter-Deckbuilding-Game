@@ -17,12 +17,11 @@ public class PlayerManager : HeroManager
         else Destroy(gameObject);
     }
 
-    private int aetherCells;
+    private bool heroPowerUsed;
+    private int aetherCells, heroUltimateProgress;
+
     private List<HeroAugment> heroAugments;
     private List<HeroItem> heroItems;
-
-    private bool heroPowerUsed;
-    private int heroUltimateProgress;
 
     public override string HERO_TAG => "PlayerHero";
     public override string CARD_TAG => "PlayerCard";
@@ -82,7 +81,7 @@ public class PlayerManager : HeroManager
         {
             heroPowerUsed = value;
             var phd = HeroObject.GetComponent<PlayerHeroDisplay>();
-            GameObject powerImage = phd.HeroPowerImage;
+            var powerImage = phd.HeroPowerImage;
             var img = powerImage.GetComponent<Image>();
             img.color = heroPowerUsed ? Color.gray : Color.white;
             /*
@@ -91,7 +90,7 @@ public class PlayerManager : HeroManager
             img.color = color;
             */
 
-            GameObject powerReadyIcon = phd.PowerReadyIcon;
+            var powerReadyIcon = phd.PowerReadyIcon;
             powerReadyIcon.SetActive(!heroPowerUsed);
         }
     }
@@ -101,13 +100,14 @@ public class PlayerManager : HeroManager
         set
         {
             heroUltimateProgress = value;
-            int heroUltimateGoal = GameManager.HERO_ULTMATE_GOAL;
+            if (HeroObject == null) return;
 
             var phd = HeroObject.GetComponent<PlayerHeroDisplay>();
             phd.UltimateProgressValue = heroUltimateProgress;
-            GameObject ultimateReadyIcon = phd.UltimateReadyIcon;
-            GameObject ultimateButton = phd.UltimateButton;
+            var ultimateReadyIcon = phd.UltimateReadyIcon;
+            var ultimateButton = phd.UltimateButton;
 
+            int heroUltimateGoal = GameManager.HERO_ULTMATE_GOAL;
             if (heroUltimateProgress >= heroUltimateGoal) ultimateReadyIcon.SetActive(true);
             else ultimateReadyIcon.SetActive(false);
 
@@ -123,8 +123,8 @@ public class PlayerManager : HeroManager
     protected override void Start()
     {
         base.Start();
-        heroAugments = new List<HeroAugment>();
-        heroItems = new List<HeroItem>();
+        heroAugments = new();
+        heroItems = new();
         HeroScript = null; // Unnecessary?
         AetherCells = 0;
         IsMyTurn = false; // Needs to be false to disable DragDrop outside of combat
@@ -189,7 +189,7 @@ public class PlayerManager : HeroManager
         }
         else
         {
-            GameObject heroPower = HeroObject.GetComponent<PlayerHeroDisplay>().HeroPower;
+            var heroPower = HeroObject.GetComponent<PlayerHeroDisplay>().HeroPower;
             var groupList = HeroScript.CurrentHeroPower.EffectGroupList;
 
             if (!Managers.EF_MAN.CheckLegalTargets(groupList, heroPower, true))
@@ -216,7 +216,7 @@ public class PlayerManager : HeroManager
     {
         static void ErrorSound() => Managers.AU_MAN.StartStopSound("SFX_Error");
 
-        GameObject heroUltimate = HeroObject.GetComponent<PlayerHeroDisplay>().HeroUltimate;
+        var heroUltimate = HeroObject.GetComponent<PlayerHeroDisplay>().HeroUltimate;
         var groupList = (HeroScript as PlayerHero).CurrentHeroUltimate.EffectGroupList;
 
         if (HeroUltimateProgress < GameManager.HERO_ULTMATE_GOAL)

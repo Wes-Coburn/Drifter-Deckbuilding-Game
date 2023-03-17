@@ -125,7 +125,7 @@ public class AnimationManager : MonoBehaviour
      *****/
     public void ValueChanger(Transform parent, int value, bool setToCanvas = true, float yBuffer = 0, float xBuffer = 0)
     {
-        GameObject valueChanger = Instantiate(valueChangerPrefab, parent);
+        var valueChanger = Instantiate(valueChangerPrefab, parent);
         valueChanger.transform.localPosition = new Vector2(xBuffer, yBuffer);
 
         Transform newParent;
@@ -223,7 +223,7 @@ public class AnimationManager : MonoBehaviour
                 return null;
         }
 
-        GameObject particleSystem = Instantiate(prefab, Managers.U_MAN.CurrentWorldSpace.transform);
+        var particleSystem = Instantiate(prefab, Managers.U_MAN.CurrentWorldSpace.transform);
         var psh = particleSystem.GetComponent<ParticleSystemHandler>();
         psh.StartParticles(parent, startColor, startSize, startLifetime, stopDelay, usePointerPosition, followPosition);
         return psh;

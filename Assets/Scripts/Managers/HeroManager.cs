@@ -6,16 +6,8 @@ public abstract class HeroManager : MonoBehaviour
     protected Hero heroScript;
     private GameObject heroObject;
     protected bool isMyTurn;
-    protected int turnNumber;
-    private int currentHealth;
-    private int damageTaken_ThisTurn;
-    private int energyPerTurn;
-    private int currentEnergy;
-
-    private int exploitsPlayed;
-    private int inventionsPlayed;
-    private int schemesPlayed;
-    private int extractionsPlayed;
+    protected int turnNumber, currentHealth, damageTaken_ThisTurn, energyPerTurn, currentEnergy,
+        exploitsPlayed, inventionsPlayed, schemesPlayed, extractionsPlayed;
 
     public abstract string HERO_TAG { get; }
     public abstract string CARD_TAG { get; }
@@ -38,38 +30,40 @@ public abstract class HeroManager : MonoBehaviour
         }
     }
 
-    public abstract bool IsMyTurn { get; set; }
-    public abstract int TurnNumber { get; set; }
-
     // Zone Objects
     public Vector2 HandStart { get; private set; }
-    
+
     public GameObject HandZone { get; set; }
     public GameObject PlayZone { get; set; }
     public GameObject ActionZone { get; set; }
-    public GameObject DiscardZone { get; set; }
+
+    // !!!
+    public abstract bool IsMyTurn { get; set; } // << PlayerData! >>
+    public abstract int TurnNumber { get; set; } // << PlayerData! >>
+
+    public int TurnNumber_Direct { set => turnNumber = value; }
 
     // Zone Lists
-    public List<GameObject> HandZoneCards { get; private set; }
-    public List<GameObject> PlayZoneCards { get; private set; }
-    public List<GameObject> ActionZoneCards { get; private set; }
-    public List<Card> DiscardZoneCards { get; private set; }
+    public List<GameObject> HandZoneCards { get; set; } // << PlayerData! >>
+    public List<GameObject> PlayZoneCards { get; set; } // << PlayerData! >>
+    public List<GameObject> ActionZoneCards { get; set; } // << PlayerData! >>
+    public List<Card> DiscardZoneCards { get; set; } // << PlayerData! >>
 
     // Decks
-    public List<Card> DeckList { get; private set; }
-    public List<Card> CurrentDeck { get; private set; }
+    public List<Card> DeckList { get; set; }
+    public List<Card> CurrentDeck { get; set; } // << PlayerData! >>
 
     // Effect Lists
-    public List<GiveNextUnitEffect> GiveNextEffects { get; private set; }
-    public List<ChangeCostEffect> ChangeNextCostEffects { get; private set; }
-    public List<ModifyNextEffect> ModifyNextEffects { get; private set; }
+    public List<GiveNextUnitEffect> GiveNextEffects { get; set; } // << PlayerData! >>
+    public List<ChangeCostEffect> ChangeNextCostEffects { get; set; } // << PlayerData! >>
+    public List<ModifyNextEffect> ModifyNextEffects { get; set; } // << PlayerData! >>
 
     // Counters
-    public int AlliesDestroyed_ThisTurn { get; set; }
+    public int AlliesDestroyed_ThisTurn { get; set; } // << PlayerData! >>
 
     // Health
     public bool IsWounded() { return damageTaken_ThisTurn >= GameManager.WOUNDED_VALUE; }
-    public int CurrentHealth
+    public int CurrentHealth // << PlayerData! >>
     {
         get => currentHealth;
         set
@@ -79,7 +73,7 @@ public abstract class HeroManager : MonoBehaviour
         }
     }
     public abstract int MaxHealth { get; }
-    public int DamageTaken_ThisTurn
+    public int DamageTaken_ThisTurn // << PlayerData! >>
     {
         get => damageTaken_ThisTurn;
         set
@@ -107,7 +101,7 @@ public abstract class HeroManager : MonoBehaviour
     }
 
     // Energy
-    public int EnergyPerTurn
+    public int EnergyPerTurn // << PlayerData! >>
     {
         get => energyPerTurn;
         set
@@ -118,7 +112,7 @@ public abstract class HeroManager : MonoBehaviour
     }
     public int MaxEnergyPerTurn => GameManager.MAXIMUM_ENERGY_PER_TURN;
     public int MaxEnergy => GameManager.MAXIMUM_ENERGY;
-    public int CurrentEnergy
+    public int CurrentEnergy // << PlayerData! >>
     {
         get => currentEnergy;
         set
@@ -134,7 +128,7 @@ public abstract class HeroManager : MonoBehaviour
     }
 
     // Trackers
-    public int ExploitsPlayed
+    public int ExploitsPlayed // << PlayerData! >>
     {
         get => exploitsPlayed;
         set
@@ -155,7 +149,7 @@ public abstract class HeroManager : MonoBehaviour
         }
     }
 
-    public int InventionsPlayed
+    public int InventionsPlayed // << PlayerData! >>
     {
         get => inventionsPlayed;
         set
@@ -176,7 +170,7 @@ public abstract class HeroManager : MonoBehaviour
         }
     }
 
-    public int SchemesPlayed
+    public int SchemesPlayed // << PlayerData! >>
     {
         get => schemesPlayed;
         set
@@ -197,7 +191,7 @@ public abstract class HeroManager : MonoBehaviour
         }
     }
 
-    public int ExtractionsPlayed
+    public int ExtractionsPlayed // << PlayerData! >>
     {
         get => extractionsPlayed;
         set
@@ -220,17 +214,17 @@ public abstract class HeroManager : MonoBehaviour
 
     protected virtual void Start()
     {
-        HandZoneCards = new List<GameObject>();
-        PlayZoneCards = new List<GameObject>();
-        ActionZoneCards = new List<GameObject>();
-        DiscardZoneCards = new List<Card>();
+        HandZoneCards = new();
+        PlayZoneCards = new();
+        ActionZoneCards = new();
+        DiscardZoneCards = new();
 
-        DeckList = new List<Card>();
-        CurrentDeck = new List<Card>();
+        DeckList = new();
+        CurrentDeck = new();
 
-        GiveNextEffects = new List<GiveNextUnitEffect>();
-        ChangeNextCostEffects = new List<ChangeCostEffect>();
-        ModifyNextEffects = new List<ModifyNextEffect>();
+        GiveNextEffects = new();
+        ChangeNextCostEffects = new();
+        ModifyNextEffects = new();
     }
 
     public virtual void ResetForCombat()
@@ -263,7 +257,7 @@ public abstract class HeroManager : MonoBehaviour
 
         if (sourceObject.TryGetComponent(out ItemIcon _)) return PlayerManager.Instance;
 
-        foreach (HeroManager hMan in new HeroManager[] { PlayerManager.Instance, EnemyManager.Instance })
+        foreach (var hMan in new HeroManager[] { PlayerManager.Instance, EnemyManager.Instance })
         {
             if (compare(hMan.HERO_TAG) || compare(hMan.CARD_TAG) ||
                 compare(hMan.HERO_POWER_TAG) || compare(hMan.HERO_ULTIMATE_TAG))
@@ -278,7 +272,7 @@ public abstract class HeroManager : MonoBehaviour
 
     public static HeroManager GetSourceHero(GameObject sourceObject, out HeroManager enemyHero)
     {
-        HeroManager sourcehero = GetSourceHero(sourceObject);
+        var sourcehero = GetSourceHero(sourceObject);
         enemyHero = sourcehero == PlayerManager.Instance ? EnemyManager.Instance : PlayerManager.Instance;
         return sourcehero;
     }

@@ -12,13 +12,15 @@ public abstract class CardAbility : ScriptableObject
 
     public virtual void LoadCardAbility(CardAbility cardAbility)
     {
+        name = cardAbility.name; // For LoadAbilities in GameLoader
+
         AbilityName = cardAbility.AbilityName;
         AbilityDescription = cardAbility.AbilityDescription;
         AbilitySprite = cardAbility.AbilitySprite;
         LinkedAbilites = new List<CardAbility>();
         OverrideColor = cardAbility.OverrideColor;
         AbilityColor = cardAbility.AbilityColor;
-        foreach (CardAbility ca in cardAbility.LinkedAbilites)
+        foreach (var ca in cardAbility.LinkedAbilites)
             LinkedAbilites.Add(ca);
     }
 }

@@ -7,8 +7,39 @@ public class CombatEndPopupDisplay : MonoBehaviour
 
     public GameObject VictoryText { get => victoryText; }
     public GameObject DefeatText { get => defeatText; }
+    
+    private void Start()
+    {
+        GetComponent<SoundPlayer>().PlaySound(0);
 
-    private void Awake() => GetComponent<SoundPlayer>().PlaySound(0);
+        // VICTORY
+        if (victoryText.activeSelf)
+        {
+            if (Managers.D_MAN.EngagedHero.NextDialogueClip is CombatRewardClip crc)
+            {
+                Managers.G_MAN.GiveReputationRewards(crc);
+
+                if (crc.NewNarrative != null) Managers.G_MAN.CurrentNarrative = crc.NewNarrative;
+
+                if (crc.NewLocations != null)
+                {
+                    float delay = 0;
+                    foreach (var newLoc in crc.NewLocations)
+                    {
+                        Managers.G_MAN.GetActiveLocation(newLoc.Location, newLoc.NewNpc);
+                        if (newLoc.Location.IsAugmenter) continue;
+                        FunctionTimer.Create(() => Managers.U_MAN.CreateLocationPopup
+                        (Managers.G_MAN.GetActiveLocation(newLoc.Location), true), delay);
+                        delay += 3;
+                    }
+                }
+                else Debug.LogWarning("NEW LOCATIONS IS NULL!");
+            }
+            else Debug.LogError("NEXT CLIP IS NOT COMBAT REWARD CLIP!");
+        }
+        // DEFEAT
+        else SaveLoad.DeletePlayerData();
+    }
 
     public void OnClick()
     {
@@ -25,37 +56,20 @@ public class CombatEndPopupDisplay : MonoBehaviour
             return;
         }
 
+        // VICTORY
         if (victoryText.activeSelf)
         {
             if (Managers.D_MAN.EngagedHero.NextDialogueClip is CombatRewardClip crc)
             {
-                Managers.U_MAN.CreateChooseRewardPopup();
-
-                if (crc.NewNarrative != null) Managers.G_MAN.CurrentNarrative = crc.NewNarrative;
-
-                if (crc.NewLocations != null)
-                {
-                    float delay = 0;
-                    foreach (NewLocation newLoc in crc.NewLocations)
-                    {
-                        Managers.G_MAN.GetActiveLocation(newLoc.Location, newLoc.NewNpc);
-                        if (newLoc.Location.IsAugmenter) continue;
-                        FunctionTimer.Create(() => Managers.U_MAN.CreateLocationPopup
-                        (Managers.G_MAN.GetActiveLocation(newLoc.Location), true), delay);
-                        delay += 3;
-                    }
-                }
-                else Debug.LogWarning("NEW LOCATIONS IS NULL!");
-
-                Managers.G_MAN.GiveReputationRewards(crc);
+                if (crc.NewHero && Managers.G_MAN.UnlockNewHero()) { }
+                else if (crc.NewPowers && Managers.G_MAN.UnlockNewPowers()) { }
+                else Managers.U_MAN.CreateChooseRewardPopup();
             }
             else Debug.LogError("NEXT CLIP IS NOT COMBAT REWARD CLIP!");
         }
-        else
-        {
-            SceneLoader.LoadAction_Async += GameLoader.LoadGame_Async;
-            SceneLoader.LoadScene(SceneLoader.Scene.WorldMapScene, true);
-        }
+        // DEFEAT
+        else SceneLoader.LoadScene(SceneLoader.Scene.TitleScene, true);
+
         Managers.U_MAN.DestroyInteractablePopup(gameObject);
     }
 }

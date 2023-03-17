@@ -48,8 +48,8 @@ public class EnemyManager : HeroManager
             var refoUnits = reinforcements.ReinforcementUnits;
             var refoActions = reinforcements.ReinforcementActions;
 
-            foreach (UnitCard unit in refoUnits) Managers.CA_MAN.AddCard(unit, Managers.EN_MAN);
-            foreach (ActionCard action in refoActions) Managers.CA_MAN.AddCard(action, Managers.EN_MAN);
+            foreach (var unit in refoUnits) Managers.CA_MAN.AddCard(unit, Managers.EN_MAN);
+            foreach (var action in refoActions) Managers.CA_MAN.AddCard(action, Managers.EN_MAN);
         }
     }
 
@@ -111,13 +111,13 @@ public class EnemyManager : HeroManager
     {
         List<GameObject> cardsToReplace = new();
 
-        foreach (GameObject card in HandZoneCards)
+        foreach (var card in HandZoneCards)
         {
-            CardDisplay cd = card.GetComponent<CardDisplay>();
+            var cd = card.GetComponent<CardDisplay>();
             if (cd.CurrentEnergyCost > 2) cardsToReplace.Add(card);
         }
 
-        foreach (GameObject card in cardsToReplace) Managers.CA_MAN.DiscardCard(card);
+        foreach (var card in cardsToReplace) Managers.CA_MAN.DiscardCard(card);
         for (int i = 0; i < cardsToReplace.Count; i++)
             Managers.EV_MAN.NewDelayedAction(() =>
             Managers.CA_MAN.DrawCard(this), 0.5f, true);
@@ -135,28 +135,7 @@ public class EnemyManager : HeroManager
         Managers.EV_MAN.NewDelayedAction(() => TurnDraw(), 1);
 
         Managers.EV_MAN.NewDelayedAction(() => CreateActionSchedule(), 0);
-
-        void CreateActionSchedule()
-        {
-            if (HasActionsRemaining())
-            {
-                Managers.EV_MAN.NewDelayedAction(() => CreatePlayCardSchedule(), 0);
-                Managers.EV_MAN.NewDelayedAction(() => CreateAttackSchedule(), 0);
-                Managers.EV_MAN.NewDelayedAction(() => CreateActionSchedule(), 0);
-            }
-            else Managers.EV_MAN.NewDelayedAction(() => Managers.CO_MAN.EndCombatTurn(this), 1);
-        }
-        bool HasActionsRemaining()
-        {
-            foreach (GameObject card in HandZoneCards)
-                if (Managers.CA_MAN.IsPlayable(card, true)) return true;
-
-            foreach (GameObject unit in PlayZoneCards)
-                if (Managers.CO_MAN.CanAttack(unit, null, true, true) &&
-                    FindDefender(unit) != null) return true;
-
-            return false;
-        }
+        
         void ReplenishEnergy()
         {
             int startEnergy = CurrentEnergy;
@@ -169,7 +148,7 @@ public class EnemyManager : HeroManager
         {
             if (HandZoneCards.Count >= GameManager.MAX_HAND_SIZE)
             {
-                UIManager.Instance.CreateFleetingInfoPopup("Enemy hand is full!");
+                Managers.U_MAN.CreateFleetingInfoPopup("Enemy hand is full!");
                 Debug.Log("ENEMY HAND IS FULL!");
                 return;
             }
@@ -177,17 +156,42 @@ public class EnemyManager : HeroManager
         }
     }
 
+    public void ContinueEnemyTurn() => CreateActionSchedule();
+
+    void CreateActionSchedule()
+    {
+        if (HasActionsRemaining())
+        {
+            Managers.EV_MAN.NewDelayedAction(() => CreatePlayCardSchedule(), 0);
+            Managers.EV_MAN.NewDelayedAction(() => CreateAttackSchedule(), 0);
+            Managers.EV_MAN.NewDelayedAction(() => CreateActionSchedule(), 0);
+        }
+        else Managers.EV_MAN.NewDelayedAction(() => Managers.CO_MAN.EndCombatTurn(this), 1);
+
+        bool HasActionsRemaining()
+        {
+            foreach (var card in HandZoneCards)
+                if (Managers.CA_MAN.IsPlayable(card, true)) return true;
+
+            foreach (var unit in PlayZoneCards)
+                if (Managers.CO_MAN.CanAttack(unit, null, true, true) &&
+                    FindDefender(unit) != null) return true;
+
+            return false;
+        }
+    }
+
     private void CreatePlayCardSchedule()
     {
         List<GameObject> actionCards = new();
-        List<GameObject> priorityCards = FindPriorityCards();
+        var priorityCards = FindPriorityCards();
 
-        foreach (GameObject card in priorityCards)
+        foreach (var card in priorityCards)
         {
             if (CombatManager.IsUnitCard(card)) SchedulePlayCard(card);
             else actionCards.Add(card);
         }
-        foreach (GameObject card in actionCards) SchedulePlayCard(card);
+        foreach (var card in actionCards) SchedulePlayCard(card);
 
         List<GameObject> FindPriorityCards()
         {
@@ -197,7 +201,7 @@ public class EnemyManager : HeroManager
             List<GameObject> priorityCards = new();
 
             List<GameObject> highestCostCards = new();
-            foreach (GameObject card in HandZoneCards)
+            foreach (var card in HandZoneCards)
                 highestCostCards.Add(card);
 
             highestCostCards.Sort((c1, c2) =>
@@ -215,12 +219,12 @@ public class EnemyManager : HeroManager
 
             void AddPriorityCards()
             {
-                foreach (GameObject card in highestCostCards)
+                foreach (var card in highestCostCards)
                     AddPriorityCard(card);
             }
             void AddPriorityCard(GameObject card)
             {
-                CardDisplay cd = card.GetComponent<CardDisplay>();
+                var cd = card.GetComponent<CardDisplay>();
                 int cost = cd.CurrentEnergyCost;
                 if ((totalCost + cost) > CurrentEnergy || !Managers.CA_MAN.IsPlayable(card, true)) return;
                 priorityCards.Add(card);
@@ -256,9 +260,9 @@ public class EnemyManager : HeroManager
 
     private void CreateAttackSchedule()
     {
-        foreach (GameObject ally in PlayZoneCards)
+        foreach (var ally in PlayZoneCards)
         {
-            UnitCardDisplay ucd = CombatManager.GetUnitDisplay(ally);
+            var ucd = CombatManager.GetUnitDisplay(ally);
             if (CanAttack(ally) && FindDefender(ally) != null) SchedulePreAttack(ally);
         }
 
@@ -282,7 +286,7 @@ public class EnemyManager : HeroManager
         {
             if (CanAttack(attacker))
             {
-                GameObject defender = FindDefender(attacker);
+                var defender = FindDefender(attacker);
                 if (defender != null) Managers.CO_MAN.Attack(attacker, defender);
                 else Debug.LogError("NO VALID DEFENDERS!");
             }
@@ -302,7 +306,7 @@ public class EnemyManager : HeroManager
                 return false;
             }
 
-            UnitCardDisplay ucd = CombatManager.GetUnitDisplay(unit);
+            var ucd = CombatManager.GetUnitDisplay(unit);
             if (ucd.IsExhausted) return false;
             if (ucd.CurrentPower < 1 || ucd.CurrentHealth < 1) return false;
 
@@ -313,9 +317,9 @@ public class EnemyManager : HeroManager
     private int TotalEnemyPower()
     {
         int totalPower = 0;
-        foreach (GameObject unit in PlayZoneCards)
+        foreach (var unit in PlayZoneCards)
         {
-            UnitCardDisplay ucd = CombatManager.GetUnitDisplay(unit);
+            var ucd = CombatManager.GetUnitDisplay(unit);
             if (!ucd.IsExhausted) totalPower += ucd.CurrentPower;
         }
         return totalPower;
@@ -324,7 +328,7 @@ public class EnemyManager : HeroManager
     private int TotalPlayerPower()
     {
         int totalPower = 0;
-        foreach (GameObject unit in Managers.P_MAN.PlayZoneCards)
+        foreach (var unit in Managers.P_MAN.PlayZoneCards)
             totalPower += CombatManager.GetUnitDisplay(unit).CurrentPower;
         return totalPower;
     }
@@ -332,13 +336,13 @@ public class EnemyManager : HeroManager
     private GameObject FindDefender(GameObject attacker)
     {
         bool playerHasDefender = false;
-        int playerHealth = PlayerManager.Instance.CurrentHealth;
-        List<GameObject> legalDefenders = new List<GameObject>();
-        UnitCardDisplay attackerDisplay = attacker.GetComponent<UnitCardDisplay>();
+        int playerHealth = Managers.P_MAN.CurrentHealth;
+        List<GameObject> legalDefenders = new();
+        var attackerDisplay = attacker.GetComponent<UnitCardDisplay>();
 
-        foreach (GameObject unit in Managers.P_MAN.PlayZoneCards)
+        foreach (var unit in Managers.P_MAN.PlayZoneCards)
         {
-            UnitCardDisplay ucd = CombatManager.GetUnitDisplay(unit);
+            var ucd = CombatManager.GetUnitDisplay(unit);
             if (ucd.CurrentHealth < 1) continue;
 
             if (CardManager.GetAbility(unit, CardManager.ABILITY_DEFENDER) &&
@@ -349,9 +353,9 @@ public class EnemyManager : HeroManager
             }
         }
 
-        foreach (GameObject playerUnit in Managers.P_MAN.PlayZoneCards)
+        foreach (var playerUnit in Managers.P_MAN.PlayZoneCards)
         {
-            UnitCardDisplay ucd = CombatManager.GetUnitDisplay(playerUnit);
+            var ucd = CombatManager.GetUnitDisplay(playerUnit);
             if (ucd.CurrentHealth < 1) continue;
 
             if (playerHasDefender && !CardManager.GetAbility(playerUnit,
@@ -396,9 +400,9 @@ public class EnemyManager : HeroManager
             int highestPriority = -99;
             int attackerPower = attackerDisplay.CurrentPower;
 
-            foreach (GameObject legalDefender in legalDefenders)
+            foreach (var legalDefender in legalDefenders)
             {
-                UnitCardDisplay ucd = CombatManager.GetUnitDisplay(legalDefender);
+                var ucd = CombatManager.GetUnitDisplay(legalDefender);
                 int priority = 0;
                 int defenderPower = ucd.CurrentPower;
                 int defenderHealth = ucd.CurrentHealth;
@@ -455,13 +459,13 @@ public class EnemyManager : HeroManager
 
     public void UseHeroPower()
     {
-        List<EffectGroup> groupList = HeroScript.CurrentHeroPower.EffectGroupList;
-        GameObject heroPower = HeroObject.GetComponent<EnemyHeroDisplay>().HeroPower;
-        EffectManager.Instance.StartEffectGroupList(groupList, heroPower);
+        var groupList = HeroScript.CurrentHeroPower.EffectGroupList;
+        var heroPower = HeroObject.GetComponent<EnemyHeroDisplay>().HeroPower;
+        Managers.EF_MAN.StartEffectGroupList(groupList, heroPower);
 
         Sound[] soundList;
         soundList = HeroScript.CurrentHeroPower.PowerSounds;
-        foreach (Sound s in soundList) AudioManager.Instance.StartStopSound(null, s);
-        AnimationManager.Instance.TriggerHeroPower(heroPower);
+        foreach (var s in soundList) AudioManager.Instance.StartStopSound(null, s);
+        Managers.AN_MAN.TriggerHeroPower(heroPower);
     }
 }

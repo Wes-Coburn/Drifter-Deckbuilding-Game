@@ -6542,7 +6542,7 @@ GameObject:
   - component: {fileID: 5568074629763865852}
   - component: {fileID: 4264836071491963639}
   - component: {fileID: 8762123367953146996}
-  - component: {fileID: 5690352425031979259}
+  - component: {fileID: 344418537748383282}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -6610,7 +6610,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5690352425031979259
+--- !u!114 &344418537748383282
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6654,20 +6654,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4750024837140348046}
         m_TargetAssemblyTypeName: SoundPlayer, Assembly-CSharp
         m_MethodName: PlaySound
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: HeroSelectSceneDisplay, Assembly-CSharp
+      - m_Target: {fileID: 5418181023624390398}
+        m_TargetAssemblyTypeName: NewHeroPopupDisplay, Assembly-CSharp
         m_MethodName: SelectedHero_OnClick
         m_Mode: 1
         m_Arguments:
@@ -6921,6 +6921,7 @@ GameObject:
   - component: {fileID: 9206274241659337879}
   - component: {fileID: 5418181023624390398}
   - component: {fileID: 4750024837140348046}
+  - component: {fileID: 2370975499173332372}
   m_Layer: 5
   m_Name: NewHeroPopup
   m_TagString: Untagged
@@ -6994,6 +6995,26 @@ MonoBehaviour:
   - SFX_AddCard
   - SFX_Click1
   sounds2: []
+--- !u!95 &2370975499173332372
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9206274241659337876}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 12d403e92b867f74795c5a12a0403ae2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1001 &4292850474460721078
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7104,6 +7125,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: HeroPowerDescription
+      objectReference: {fileID: 0}
+    - target: {fileID: 8841495709614132348, guid: daa63b743b4ab254f96ecf72d11e88f9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8841495709614132349, guid: daa63b743b4ab254f96ecf72d11e88f9,
         type: 3}

@@ -22,102 +22,38 @@ public class UIManager : MonoBehaviour
     }
 
     #region FIELDS
-    [Header("SKYBAR")]
-    [SerializeField] private GameObject skyBar;
-    [SerializeField] private GameObject augmentBar;
-    [SerializeField] private GameObject augmentsDropdown;
-    [SerializeField] private GameObject itemBar;
-    [SerializeField] private GameObject itemsDropdown;
-    [SerializeField] private GameObject itemsCount;
-    [SerializeField] private GameObject reputationBar;
-    [SerializeField] private GameObject reputationsDropdown;
-    [SerializeField] private GameObject aetherCount;
-    [SerializeField] private GameObject aetherIcon;
-
-    [Header("REPUTATION")]
-    [SerializeField] private GameObject reputation_Mages;
-    [SerializeField] private GameObject reputation_Mutants;
-    [SerializeField] private GameObject reputation_Rogues;
-    [SerializeField] private GameObject reputation_Techs;
-    [SerializeField] private GameObject reputation_Warriors;
+    [Header("COLORS"), SerializeField] private Color highlightedColor;
+    [SerializeField] private Color selectedColor, rejectedColor, playableColor;
 
     [Header("SCENE FADER")]
     [SerializeField] private GameObject sceneFader;
 
-    [Header("PREFABS")]
-    [SerializeField] private GameObject screenDimmerPrefab;
-    [SerializeField] private GameObject tooltipPopupPrefab;
-    [SerializeField] private GameObject infoPopupPrefab;
-    [SerializeField] private GameObject infoPopup_SecondaryPrefab;
-    [SerializeField] private GameObject combatEndPopupPrefab;
-    [SerializeField] private GameObject turnPopupPrefab;
-    [SerializeField] private GameObject versusPopupPrefab;
-    [SerializeField] private GameObject menuPopupPrefab;
-    [SerializeField] private GameObject explicitLanguagePopupPrefab;
-    [SerializeField] private GameObject tutorialPopupPrefab;
-    [SerializeField] private GameObject tutorialActionPopupPrefab;
-    [SerializeField] private GameObject newCardPopupPrefab;
-    [SerializeField] private GameObject chooseCardPopupPrefab;
-    [SerializeField] private GameObject chooseRewardPopupPrefab;
-    [SerializeField] private GameObject aetherCellPopupPrefab;
-    [SerializeField] private GameObject cardPagePrefab;
-    [SerializeField] private GameObject cardScrollPagePrefab;
-    [SerializeField] private GameObject cardPagePopupPrefab;
-    [SerializeField] private GameObject newAugmentPopupPrefab;
-    [SerializeField] private GameObject locationPopupPrefab;
-    [SerializeField] private GameObject narrativePopupPrefab;
-    [SerializeField] private GameObject augmentIconPrefab;
-    [SerializeField] private GameObject augmentIconPopupPrefab;
-    [SerializeField] private GameObject itemPagePopupPrefab;
-    [SerializeField] private GameObject buyItemPopupPrefab;
-    [SerializeField] private GameObject removeItemPopupPrefab;
-    [SerializeField] private GameObject itemIconPrefab;
-    [SerializeField] private GameObject itemIconPopupPrefab;
-    [SerializeField] private GameObject abilityPopupPrefab;
-    [SerializeField] private GameObject abilityPopupBoxPrefab;
-    [SerializeField] private GameObject reputationPopupPrefab;
-    [SerializeField] private GameObject gameEndPopupPrefab;
+    [Header("SKYBAR"), SerializeField] private GameObject skyBar;
+    [SerializeField] private GameObject augmentBar, augmentsDropdown, itemBar,
+        itemsDropdown, itemsCount, reputationBar, reputationsDropdown, aetherCount, aetherIcon;
 
-    [Header("COLORS")]
-    [SerializeField] private Color highlightedColor;
-    [SerializeField] private Color selectedColor;
-    [SerializeField] private Color rejectedColor;
-    [SerializeField] private Color playableColor;
+    [Header("REPUTATION"), SerializeField] private GameObject reputation_Mages;
+    [SerializeField] private GameObject reputation_Mutants,
+        reputation_Rogues, reputation_Techs, reputation_Warriors;
 
-    private GameObject screenDimmer;
-    private GameObject tooltipPopup;
-    private GameObject infoPopup;
-    private GameObject infoPopup_Secondary;
-    private GameObject infoPopup_Tutorial;
-    private GameObject combatEndPopup;
-    private GameObject turnPopup;
-    private GameObject menuPopup;
-    private GameObject explicitLanguagePopup;
-    private GameObject tutorialPopup;
-    private GameObject tutorialActionPopup;
-    private GameObject newCardPopup;
-    private GameObject chooseCardPopup;
-    private GameObject chooseRewardPopup;
-    private GameObject aetherCellPopup;
-    private GameObject cardPage;
-    private GameObject cardPagePopup;
-    private GameObject newAugmentPopup;
-    private GameObject itemPagePopup;
-    private GameObject buyItemPopup;
-    private GameObject removeItemPopup;
-    private GameObject locationPopup;
-    private GameObject travelPopup;
-    private GameObject narrativePopup;
-    private GameObject augmentIconPopup;
-    private GameObject itemIconPopup;
-    private GameObject itemAbilityPopup;
-    private GameObject reputationPopup;
+    [Header("PREFABS"), SerializeField] private GameObject screenDimmerPrefab;
+    [SerializeField] private GameObject tooltipPopupPrefab, infoPopupPrefab, infoPopup_SecondaryPrefab,
+        combatEndPopupPrefab, turnPopupPrefab, versusPopupPrefab, menuPopupPrefab,
+        explicitLanguagePopupPrefab, tutorialPopupPrefab, tutorialActionPopupPrefab, newHeroPopupPrefab,
+        newCardPopupPrefab, chooseCardPopupPrefab, chooseRewardPopupPrefab, aetherCellPopupPrefab,
+        cardPagePrefab, cardScrollPagePrefab, cardPagePopupPrefab, newAugmentPopupPrefab, locationPopupPrefab,
+        narrativePopupPrefab, augmentIconPrefab, augmentIconPopupPrefab, itemPagePopupPrefab,
+        buyItemPopupPrefab, removeItemPopupPrefab, itemIconPrefab, itemIconPopupPrefab, abilityPopupPrefab,
+        abilityPopupBoxPrefab, reputationPopupPrefab, gameEndPopupPrefab;
 
-    private GameObject endTurnButton;
-    private GameObject cancelEffectButton;
-    private GameObject confirmEffectButton;
+    private GameObject screenDimmer, tooltipPopup, infoPopup, infoPopup_Secondary,
+        infoPopup_Tutorial, combatEndPopup, turnPopup, menuPopup, explicitLanguagePopup, tutorialPopup,
+        tutorialActionPopup, newHeroPopup, newCardPopup, chooseCardPopup, chooseRewardPopup, aetherCellPopup,
+        cardPage, cardPagePopup, newAugmentPopup, itemPagePopup, buyItemPopup, removeItemPopup, locationPopup,
+        travelPopup, narrativePopup, augmentIconPopup, itemIconPopup, itemAbilityPopup, reputationPopup,
+        endTurnButton, cancelEffectButton, confirmEffectButton, playerZoneOutline;
+
     private Coroutine sceneFadeRoutine;
-    private GameObject playerZoneOutline;
     private CombatLog combatLog;
 
     public const string TOOLTIP_TIMER = "TooltipTimer";
@@ -760,6 +696,22 @@ public class UIManager : MonoBehaviour
             combatEndPopup = null;
         }
     }
+    // New Hero Popup
+    public void CreateNewHeroPopup(string title, PlayerHero newHero, HeroPower newPower, HeroPower newUltimate)
+    {
+        DestroyNewHeroPopup();
+        newHeroPopup = Instantiate(newHeroPopupPrefab, CurrentZoomCanvas.transform);
+        var nhpd = newHeroPopup.GetComponent<NewHeroPopupDisplay>();
+        nhpd.DisplayNewHeroPopup(title, newHero, newPower, newUltimate);
+    }
+    public void DestroyNewHeroPopup()
+    {
+        if (newHeroPopup != null)
+        {
+            Destroy(newHeroPopup);
+            newHeroPopup = null;
+        }
+    }
     // New Card Popup
     public void CreateNewCardPopup(Card newCard, string title, Card[] chooseCards = null)
     {
@@ -799,7 +751,7 @@ public class UIManager : MonoBehaviour
         DestroyZoomObjects(); // For combat end
         chooseRewardPopup = Instantiate(chooseRewardPopupPrefab, CurrentZoomCanvas.transform);
         var nextClip = Managers.D_MAN.EngagedHero != null ? Managers.D_MAN.EngagedHero.NextDialogueClip : null;
-
+        
         // Homebase Scene
         if (SceneLoader.IsActiveScene(SceneLoader.Scene.HomeBaseScene))
         {
@@ -1123,7 +1075,7 @@ public class UIManager : MonoBehaviour
 
             Managers.AN_MAN.SkybarIconAnimation(aetherIcon);
             Managers.AN_MAN.CountingText();
-            Managers.AN_MAN.ValueChanger(aetherIcon.transform, valueChange, true, -150, 50);
+            Managers.AN_MAN.ValueChanger(aetherIcon.transform, valueChange, true, -200, 75);
         }
     }
     public void CreateAugmentIcon(HeroAugment augment, bool isNewAugment = false)

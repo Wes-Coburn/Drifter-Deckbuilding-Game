@@ -1,28 +1,33 @@
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using UnityEditor;
 using UnityEngine;
 
 public static class SaveLoad
 {
-    private static readonly string playerSave_Path = Application.persistentDataPath + "/PlayerData.data";
-    private static readonly string gameSave_Path = Application.persistentDataPath + "/GameData.data";
+    private static readonly string playerSavePath = Path.Combine(Application.persistentDataPath, "PlayerData.data");
+    private static readonly string gameSavePath = Path.Combine(Application.persistentDataPath, "GameData.data");
 
     public enum SaveType
     {
-        PlayerSave,
-        GameSave,
+        Player,
+        Game
     }
+
     private static string GetFilePath(SaveType saveType)
     {
         switch (saveType)
         {
-            case SaveType.PlayerSave: return playerSave_Path;
-            case SaveType.GameSave: return gameSave_Path;
+            case SaveType.Player:
+                return playerSavePath;
+            case SaveType.Game:
+                return gameSavePath;
             default:
-                Debug.LogError("INVALID SAVETYPE!");
+                Debug.LogError("Invalid save type!");
                 return null;
         }
     }
+
     public static void SaveGame(SaveData data, SaveType saveType)
     {
         BinaryFormatter formatter = new();
@@ -38,21 +43,33 @@ public static class SaveLoad
         {
             BinaryFormatter formatter = new();
             using FileStream stream = new(filePath, FileMode.Open);
-            SaveData data;
-            if (saveType is SaveType.PlayerSave) data = formatter.Deserialize(stream) as PlayerData;
-            else if (saveType is SaveType.GameSave) data = formatter.Deserialize(stream) as GameData;
-            else
+            SaveData data = saveType switch
             {
-                Debug.LogError("INVALID SAVEDATA TYPE!");
-                return null;
+                SaveType.Player => formatter.Deserialize(stream) as PlayerData,
+                SaveType.Game => formatter.Deserialize(stream) as GameData,
+                _ => null,
+            };
+
+            if (data == null)
+            {
+                Debug.LogError("Failed to deserialize save data!");
             }
+
             return data;
         }
         else
         {
-            Debug.LogWarning("SAVE FILE NOT FOUND IN " + filePath);
+            Debug.LogWarning($"Save file not found at path: {filePath}");
             return null;
         }
     }
-}
 
+    public static void DeleteGameData() => DeleteSaveData(GetFilePath(SaveType.Game));
+    public static void DeletePlayerData() => DeleteSaveData(GetFilePath(SaveType.Player));
+    
+    private static void DeleteSaveData(string filePath)
+    {
+        if (File.Exists(filePath)) File.Delete(filePath);
+        else Debug.LogWarning($"Save file not found at path: {filePath}");
+    }
+}

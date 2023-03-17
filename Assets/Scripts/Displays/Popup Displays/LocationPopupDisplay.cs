@@ -147,6 +147,8 @@ public class LocationPopupDisplay : MonoBehaviour
 
     public void TravelButton_OnClick()
     {
+        if (SceneLoader.SceneIsLoading) return;
+
         if (Managers.G_MAN.VisitedLocations.FindIndex(x => x == location.LocationName) == -1)
         {
             Managers.G_MAN.VisitedLocations.Add(location.LocationName);

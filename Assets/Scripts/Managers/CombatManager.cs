@@ -25,9 +25,7 @@ public class CombatManager : MonoBehaviour
     #endregion
 
     #region PROPERTIES
-    /* GAME ZONES */
     public GameObject CardZone { get; private set; }
-
     private static string DIFFICULTY_LEVEL = "DifficultyLevel";
     public int DifficultyLevel
     {
@@ -79,7 +77,7 @@ public class CombatManager : MonoBehaviour
 
         if (target.TryGetComponent(out HeroDisplay _))
         {
-            HeroManager hMan = HeroManager.GetSourceHero(target);
+            var hMan = HeroManager.GetSourceHero(target);
             int startHealth = hMan == Managers.P_MAN ? GameManager.PLAYER_STARTING_HEALTH : GameManager.ENEMY_STARTING_HEALTH;
             return hMan.CurrentHealth < startHealth;
         }
@@ -95,8 +93,8 @@ public class CombatManager : MonoBehaviour
             Managers.EN_MAN.PlayZoneCards,
         };
 
-        foreach (List<GameObject> cards in cardZoneList)
-            foreach (GameObject card in cards)
+        foreach (var cards in cardZoneList)
+            foreach (var card in cards)
                 GetUnitDisplay(card).IsExhausted = false;
     }
 
@@ -109,7 +107,7 @@ public class CombatManager : MonoBehaviour
     {
         if (unitList.Count < 1) return null;
         int lowestHealth = int.MaxValue;
-        List<GameObject> lowestHealthUnits = new List<GameObject>();
+        List<GameObject> lowestHealthUnits = new();
 
         foreach (GameObject unit in unitList)
         {
@@ -148,7 +146,7 @@ public class CombatManager : MonoBehaviour
         int highestPower = int.MinValue;
         List<GameObject> highestPowerUnits = new();
 
-        foreach (GameObject unit in unitList)
+        foreach (var unit in unitList)
         {
             if (!IsUnitCard(unit)) continue;
 
@@ -207,7 +205,7 @@ public class CombatManager : MonoBehaviour
         int lowestPower = 999;
         List<GameObject> lowestPowerUnits = new();
 
-        foreach (GameObject unit in unitList)
+        foreach (var unit in unitList)
         {
             if (!IsUnitCard(unit)) continue;
 
@@ -282,7 +280,7 @@ public class CombatManager : MonoBehaviour
         if (Managers.G_MAN.IsTutorial && Managers.P_MAN.EnergyPerTurn == 2 && !preCheck &&
             (!Managers.P_MAN.HeroPowerUsed || !defenderIsUnit)) return false;
 
-        UnitCardDisplay atkUcd = GetUnitDisplay(attacker);
+        var atkUcd = GetUnitDisplay(attacker);
         if (atkUcd.IsExhausted)
         {
             if (preCheck && !ignoreDefender)
@@ -323,7 +321,7 @@ public class CombatManager : MonoBehaviour
         {
             HeroManager.GetSourceHero(attacker, out HeroManager hMan_Enemy);
 
-            foreach (GameObject unit in hMan_Enemy.PlayZoneCards)
+            foreach (var unit in hMan_Enemy.PlayZoneCards)
             {
                 if (unit == defender) continue;
 
@@ -354,39 +352,118 @@ public class CombatManager : MonoBehaviour
      *****/
     public void StartCombat()
     {
-        Managers.U_MAN.StartCombatScene();
-        Managers.P_MAN.ResetForCombat();
-        Managers.EN_MAN.ResetForCombat();
+        var pm = Managers.P_MAN;
+        var em = Managers.EN_MAN;
+        var um = Managers.U_MAN;
+        var vm = Managers.EV_MAN;
+        var cm = Managers.CA_MAN;
+        var gm = Managers.G_MAN;
 
+        var playerData = PlayerData.SavedPlayerData;
+        if (playerData != null) PlayerData.SavedPlayerData = null;
+
+        um.StartCombatScene();
         CardZone = GameObject.Find(CARD_ZONE);
-        foreach (HeroManager hMan in new List<HeroManager>() { Managers.P_MAN, Managers.EN_MAN })
+
+        foreach (var hMan in new List<HeroManager>() { pm, em })
         {
+            if (playerData == null) hMan.ResetForCombat(); // !!! Load From Save !!!
+
             hMan.HandZone = GameObject.Find(hMan.HAND_ZONE_TAG);
             hMan.PlayZone = GameObject.Find(hMan.PLAY_ZONE_TAG);
             hMan.ActionZone = GameObject.Find(hMan.ACTION_ZONE_TAG);
-            hMan.DiscardZone = GameObject.Find(hMan.DISCARD_ZONE_TAG);
             hMan.HeroObject = GameObject.Find(hMan.HERO_TAG);
+            um.SelectTarget(hMan.HeroObject, UIManager.SelectionType.Disabled);
+
+            if (playerData != null) // !!! Load From Save !!!
+            {
+                // HandZone
+                PlaceCards(hMan.HandZoneCards, hMan.HandZone, false);
+                // PlayZone
+                PlaceCards(hMan.PlayZoneCards, hMan.PlayZone, true);
+
+                continue;
+
+                void PlaceCards(List<GameObject> cards, GameObject zone, bool isPlayed)
+                {
+                    foreach (var card in cards)
+                    {
+                        // Place card object
+                        card.transform.SetParent(Managers.CO_MAN.CardZone.transform);
+                        // Place container object
+                        cm.ChangeCardZone(card, zone,
+                            CardManager.ZoneChangeType.LoadFromSave);
+                        // Set IsPlayed in DragDrop
+                        card.GetComponent<DragDrop>().IsPlayed = isPlayed;
+                    }
+                }
+            }
+
+            var hd = hMan.HeroObject.GetComponent<HeroDisplay>();
+            hd.HeroBase.SetActive(false);
+            hd.HeroStats.SetActive(false);
+            hd.HeroNameObject.SetActive(false);
         }
 
-        Managers.U_MAN.SelectTarget(Managers.P_MAN.HeroObject, UIManager.SelectionType.Disabled);
-        Managers.U_MAN.SelectTarget(Managers.P_MAN.HeroObject, UIManager.SelectionType.Disabled);
+        if (playerData != null) // !!! Load From Save !!!
+        {
+            // Enemy Hero
+            int activeEHIndex = Managers.G_MAN.ActiveNPCHeroes.FindIndex(x => x.HeroName == playerData.EnemyHero);
+            if (activeEHIndex != -1) em.HeroScript = Managers.G_MAN.ActiveNPCHeroes[activeEHIndex];
+            else Debug.LogError("ENEMY HERO NOT FOUND!");
 
-        var pHD = Managers.P_MAN.HeroObject.GetComponent<PlayerHeroDisplay>();
-        var eHD = Managers.EN_MAN.HeroObject.GetComponent<EnemyHeroDisplay>();
+            // Hero Turn
+            bool isPlayerTurn;
+            if (playerData.HeroTurnCombat == PlayerData.TURN_PLAYER) isPlayerTurn = true;
+            else if (playerData.HeroTurnCombat == PlayerData.TURN_ENEMY) isPlayerTurn = false;
+            else
+            {
+                Debug.LogError("INVALID HERO TURN!");
+                isPlayerTurn = false;
+            }
+            pm.IsMyTurn = isPlayerTurn;
+            em.IsMyTurn = !isPlayerTurn;
 
-        pHD.HeroBase.SetActive(false);
-        pHD.HeroStats.SetActive(false);
-        pHD.HeroNameObject.SetActive(false);
+            // Current Health
+            pm.CurrentHealth = playerData.CurrentHealth_Player;
+            em.CurrentHealth = playerData.CurrentHealth_Enemy;
 
-        eHD.HeroBase.SetActive(false);
-        eHD.HeroStats.SetActive(false);
-        eHD.HeroNameObject.SetActive(false);
+            // Energy Per Turn
+            pm.EnergyPerTurn = playerData.EnergyPerTurn_Player;
+            em.EnergyPerTurn = playerData.EnergyPerTurn_Enemy;
 
-        Managers.U_MAN.EndTurnButton.SetActive(false);
-        Managers.U_MAN.CombatLog.SetActive(false);
+            // Current Energy
+            pm.CurrentEnergy = playerData.CurrentEnergy_Player;
+            em.CurrentEnergy = playerData.CurrentEnergy_Enemy;
+
+            // Hero Ultimate Progress
+            pm.HeroUltimateProgress = playerData.HeroUltimateProgress;
+
+            // Damage Taken
+            pm.DamageTaken_ThisTurn = playerData.DamageTaken_ThisTurn_Player;
+            em.DamageTaken_ThisTurn = playerData.DamageTaken_ThisTurn_Enemy;
+
+            // Display Heroes
+            DisplayHeroes();
+
+            // Turn Popup
+            CombatAudio();
+            if (pm.IsMyTurn) um.CreateTurnPopup(true);
+
+            // Select Playable Cards
+            cm.SelectPlayableCards(em.IsMyTurn);
+
+            // CONTINUE ENEMY TURN
+            if (em.IsMyTurn) em.ContinueEnemyTurn();
+
+            return;
+        }
+
+        um.EndTurnButton.SetActive(false);
+        um.CombatLog.SetActive(false);
 
         // ENEMY MANAGER
-        EnemyHero enemyHero = Managers.D_MAN.EngagedHero as EnemyHero;
+        var enemyHero = Managers.D_MAN.EngagedHero as EnemyHero;
         if (enemyHero == null)
         {
             Debug.LogError("ENEMY HERO IS NULL!");
@@ -394,112 +471,118 @@ public class CombatManager : MonoBehaviour
         }
 
         // ENEMY HERO
-        Managers.EN_MAN.HeroScript = enemyHero;
-        Managers.EN_MAN.CurrentHealth = Managers.G_MAN.IsTutorial ? 
+        em.HeroScript = enemyHero;
+        em.CurrentHealth = gm.IsTutorial ? 
             GameManager.TUTORIAL_STARTING_HEALTH : GameManager.ENEMY_STARTING_HEALTH;
 
         int energyPerTurn = GameManager.START_ENERGY_PER_TURN +
-            (Managers.G_MAN.IsTutorial ? 0 : Managers.G_MAN.GetAdditionalEnergy(DifficultyLevel));
-        Managers.EN_MAN.EnergyPerTurn = energyPerTurn;
-        Managers.EN_MAN.CurrentEnergy = 0;
-        Managers.EN_MAN.DamageTaken_ThisTurn = 0;
-        Managers.EN_MAN.AlliesDestroyed_ThisTurn = 0;
-        Managers.EN_MAN.TurnNumber = 0;
+            (gm.IsTutorial ? 0 : gm.GetAdditionalEnergy(DifficultyLevel));
+        em.EnergyPerTurn = energyPerTurn;
+        em.CurrentEnergy = 0;
+        em.DamageTaken_ThisTurn = 0;
+        em.AlliesDestroyed_ThisTurn = 0;
+        em.TurnNumber = 0;
+
+        CombatAudio(); // enemyMan.HeroScript needs to be set first
 
         // PLAYER MANAGER
-        Managers.P_MAN.CurrentHealth = Managers.P_MAN.MaxHealth;
-        Managers.P_MAN.EnergyPerTurn = GameManager.START_ENERGY_PER_TURN;
-        Managers.P_MAN.CurrentEnergy = 0;
-        Managers.P_MAN.HeroUltimateProgress = 0;
-        Managers.P_MAN.DamageTaken_ThisTurn = 0;
-        Managers.P_MAN.AlliesDestroyed_ThisTurn = 0;
-        foreach (HeroItem item in Managers.P_MAN.HeroItems) item.IsUsed = false;
-        Managers.P_MAN.TurnNumber = 0;
+        pm.CurrentHealth = pm.MaxHealth;
+        pm.EnergyPerTurn = GameManager.START_ENERGY_PER_TURN;
+        pm.CurrentEnergy = 0;
+        pm.HeroUltimateProgress = 0;
+        pm.DamageTaken_ThisTurn = 0;
+        pm.AlliesDestroyed_ThisTurn = 0;
+        foreach (var item in pm.HeroItems) item.IsUsed = false;
+        pm.TurnNumber = 0;
 
         // UPDATE DECKS
-        Managers.CA_MAN.UpdateDeck(GameManager.PLAYER);
-        Managers.CA_MAN.UpdateDeck(GameManager.ENEMY);
+        cm.UpdateDeck(pm);
+        cm.UpdateDeck(em);
 
         // DISPLAY HEROES
-        Managers.P_MAN.HeroObject.GetComponent<HeroDisplay>().HeroScript = Managers.P_MAN.HeroScript;
-        Managers.EN_MAN.HeroObject.GetComponent<HeroDisplay>().HeroScript = Managers.EN_MAN.HeroScript;
+        DisplayHeroes();
 
         // SCHEDULE ACTIONS
-        Managers.EV_MAN.NewDelayedAction(() => Managers.AN_MAN.CombatIntro(), 1);
-        Managers.EV_MAN.NewDelayedAction(() => CombatStart(), 1);
-        Managers.EV_MAN.NewDelayedAction(() => StartCombatTurn(Managers.P_MAN, true), 2);
-
-        // AUDIO
-        string soundtrack;
-        if ((Managers.EN_MAN.HeroScript as EnemyHero).IsBoss) soundtrack = "Soundtrack_CombatBoss1";
-        else soundtrack = "Soundtrack_Combat1";
-        Managers.AU_MAN.StartStopSound(soundtrack, null, AudioManager.SoundType.Soundtrack);
-        //Managers.AU_MAN.StopCurrentSoundscape();
-        FunctionTimer.Create(() => Managers.AU_MAN.StartStopSound("SFX_StartCombat1"), 0.15f);
+        vm.NewDelayedAction(() => Managers.AN_MAN.CombatIntro(), 1);
+        vm.NewDelayedAction(() => CombatStart(), 1);
+        vm.NewDelayedAction(() => StartCombatTurn(pm, true), 2);
 
         void CombatStart()
         {
-            Managers.U_MAN.CombatLogEntry($"<b>{TextFilter.Clrz_grn(Managers.P_MAN.HeroScript.HeroShortName, false)}" +
-                $" VS {TextFilter.Clrz_red(Managers.EN_MAN.HeroScript.HeroName, false)}</b>");
+            um.CombatLogEntry($"<b>{TextFilter.Clrz_grn(pm.HeroScript.HeroShortName, false)}" +
+                $" VS {TextFilter.Clrz_red(em.HeroScript.HeroName, false)}</b>");
 
-            Managers.CA_MAN.ShuffleDeck(Managers.P_MAN, false);
-            Managers.CA_MAN.ShuffleDeck(Managers.EN_MAN, false);
+            cm.ShuffleDeck(pm, false);
+            cm.ShuffleDeck(em, false);
 
             for (int i = 0; i < GameManager.START_HAND_SIZE; i++)
-                Managers.EV_MAN.NewDelayedAction(() => AllDraw(), 0.5f);
+                vm.NewDelayedAction(() => AllDraw(), 0.5f);
 
             // TUTORIAL!
-            if (Managers.G_MAN.IsTutorial)
+            if (gm.IsTutorial)
             {
-                Managers.EV_MAN.NewDelayedAction(() => Managers.U_MAN.CreateTutorialActionPopup(), 0);
-                Managers.EV_MAN.NewDelayedAction(() => Managers.EV_MAN.PauseDelayedActions(true), 0);
-                Managers.EV_MAN.NewDelayedAction(() => Managers.G_MAN.Tutorial_Tooltip(1), 0);
+                vm.NewDelayedAction(() => um.CreateTutorialActionPopup(), 0);
+                vm.NewDelayedAction(() => vm.PauseDelayedActions(true), 0);
+                vm.NewDelayedAction(() => gm.Tutorial_Tooltip(1), 0);
             }
-            Managers.G_MAN.ResolveReputationEffects(1); // REPUTATION EFFECTS [RESOLVE ORDER = 1]
+            gm.ResolveReputationEffects(1); // REPUTATION EFFECTS [RESOLVE ORDER = 1]
             PlayStartingUnits();
-            Managers.EV_MAN.NewDelayedAction(() => Mulligan_Player(), 0.5f);
-            Managers.EV_MAN.NewDelayedAction(() => Managers.EN_MAN.Mulligan(), 0.5f);
-            Managers.G_MAN.ResolveReputationEffects(2); // REPUTATION EFFECTS [RESOLVE ORDER = 2]
-            Managers.G_MAN.ResolveReputationEffects(3); // REPUTATION EFFECTS [RESOLVE ORDER = 3]
+            vm.NewDelayedAction(() => Mulligan_Player(), 0.5f);
+            vm.NewDelayedAction(() => em.Mulligan(), 0.5f);
+            gm.ResolveReputationEffects(2); // REPUTATION EFFECTS [RESOLVE ORDER = 2]
+            gm.ResolveReputationEffects(3); // REPUTATION EFFECTS [RESOLVE ORDER = 3]
 
             string cognitiveMagnifier = "Cognitive Magnifier";
-            if (Managers.P_MAN.GetAugment(cognitiveMagnifier))
+            if (pm.GetAugment(cognitiveMagnifier))
             {
-                Managers.EV_MAN.NewDelayedAction(() => CognitiveMagnifierEffect(), 0.25f);
+                vm.NewDelayedAction(() => CognitiveMagnifierEffect(), 0.25f);
 
                 void CognitiveMagnifierEffect()
                 {
                     Managers.AN_MAN.TriggerAugment(cognitiveMagnifier);
 
                     Managers.EF_MAN.StartEffectGroupList(new List<EffectGroup>
-                    { cognitiveMagnifierEffect }, Managers.P_MAN.HeroObject);
+                    { cognitiveMagnifierEffect }, pm.HeroObject);
                 }
             }
 
             // TUTORIAL!
-            if (Managers.G_MAN.IsTutorial) Managers.EV_MAN.NewDelayedAction(() => Managers.G_MAN.Tutorial_Tooltip(2), 0);
+            if (gm.IsTutorial) vm.NewDelayedAction(() => gm.Tutorial_Tooltip(2), 0);
 
             void AllDraw()
             {
-                Managers.CA_MAN.DrawCard(Managers.P_MAN);
-                Managers.CA_MAN.DrawCard(Managers.EN_MAN);
+                cm.DrawCard(pm);
+                cm.DrawCard(em);
             }
 
             void PlayStartingUnits()
             {
-                List<UnitCard> startingUnits =
-                    (Managers.EN_MAN.HeroScript as EnemyHero).Reinforcements[Managers.EN_MAN.ReinforcementGroup].StartingUnits;
+                var startingUnits = (em.HeroScript as EnemyHero).Reinforcements[em.ReinforcementGroup].StartingUnits;
                 foreach (UnitCard card in startingUnits)
                 {
-                    UnitCard newCard = Managers.CA_MAN.NewCardInstance(card) as UnitCard;
-                    Managers.EV_MAN.NewDelayedAction(() =>
-                    Managers.EF_MAN.PlayCreatedUnit(newCard, false, new List<Effect>(), Managers.EN_MAN.HeroObject), 0.5f);
+                    var newCard = cm.NewCardInstance(card) as UnitCard;
+                    vm.NewDelayedAction(() =>
+                    Managers.EF_MAN.PlayCreatedUnit(newCard, false, new List<Effect>(), em.HeroObject), 0.5f);
                 }
             }
         }
 
         void Mulligan_Player() =>
-            Managers.EF_MAN.StartEffectGroupList(new List<EffectGroup> { mulliganEffect }, Managers.P_MAN.HeroObject);
+            Managers.EF_MAN.StartEffectGroupList(new List<EffectGroup> { mulliganEffect }, pm.HeroObject);
+
+        void DisplayHeroes()
+        {
+            pm.HeroObject.GetComponent<HeroDisplay>().HeroScript = pm.HeroScript;
+            em.HeroObject.GetComponent<HeroDisplay>().HeroScript = em.HeroScript;
+        }
+
+        void CombatAudio()
+        {
+            string soundtrack = (em.HeroScript as EnemyHero).IsBoss ?
+                "Soundtrack_CombatBoss1" : "Soundtrack_Combat1";
+            Managers.AU_MAN.StartStopSound(soundtrack, null, AudioManager.SoundType.Soundtrack);
+            FunctionTimer.Create(() => Managers.AU_MAN.StartStopSound("SFX_StartCombat1"), 0.15f);
+        }
     }
 
     /******
@@ -527,7 +610,7 @@ public class CombatManager : MonoBehaviour
         Managers.EF_MAN.EffectsResolving = false;
         Managers.P_MAN.IsMyTurn = false;
 
-        foreach (HeroItem item in Managers.P_MAN.HeroItems) item.IsUsed = false;
+        foreach (var item in Managers.P_MAN.HeroItems) item.IsUsed = false;
 
         // Created Cards Played
         Managers.P_MAN.ResetForCombat();
@@ -616,6 +699,8 @@ public class CombatManager : MonoBehaviour
      *****/
     public void EndCombatTurn(HeroManager hero)
     {
+        if (!Managers.G_MAN.IsTutorial && !Managers.G_MAN.IsCombatTest) GameLoader.SaveGame(); // Consider limiting this call by checking the time in between calls
+
         Managers.EV_MAN.NewDelayedAction(() =>
         Managers.CA_MAN.TriggerPlayedUnits(CardManager.TRIGGER_TURN_END, hero), 0);
 
@@ -661,13 +746,13 @@ public class CombatManager : MonoBehaviour
         }
         void ResetTriggerCounts()
         {
-            foreach (GameObject unit in Managers.P_MAN.PlayZoneCards) ResetTrigger(unit);
-            foreach (GameObject unit in Managers.EN_MAN.PlayZoneCards) ResetTrigger(unit);
-
+            foreach (var unit in Managers.P_MAN.PlayZoneCards) ResetTrigger(unit);
+            foreach (var unit in Managers.EN_MAN.PlayZoneCards) ResetTrigger(unit);
+            
             void ResetTrigger(GameObject unit)
             {
-                UnitCardDisplay ucd = unit.GetComponent<UnitCardDisplay>();
-                foreach (CardAbility ca in ucd.CurrentAbilities)
+                var ucd = unit.GetComponent<UnitCardDisplay>();
+                foreach (var ca in ucd.CurrentAbilities)
                 {
                     if (ca is TriggeredAbility tra)
                     {

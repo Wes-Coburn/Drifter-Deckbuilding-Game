@@ -14,13 +14,13 @@ public class TriggeredAbility : CardAbility
     public override void LoadCardAbility(CardAbility cardAbility)
     {
         base.LoadCardAbility(cardAbility);
-        TriggeredAbility triggeredAbility = cardAbility as TriggeredAbility;
+        var triggeredAbility = cardAbility as TriggeredAbility;
         AbilityTrigger = triggeredAbility.AbilityTrigger;
         int triggerLimit = AbilityTrigger.TriggerLimit;
         if (triggerLimit != 0) TriggerLimit = triggerLimit;
         else TriggerLimit = triggeredAbility.TriggerLimit;
         EffectGroupList = new List<EffectGroup>();
-        foreach (EffectGroup eg in triggeredAbility.EffectGroupList)
+        foreach (var eg in triggeredAbility.EffectGroupList)
             EffectGroupList.Add(eg);
 
         TriggerCount = 0;

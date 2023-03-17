@@ -4,18 +4,15 @@ using UnityEngine.EventSystems;
 
 public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private GameObject unitZoomCardPrefab;
-    [SerializeField] private GameObject actionZoomCardPrefab;
-    [SerializeField] private GameObject abilityPopupPrefab;
-    [SerializeField] private GameObject abilityPopupBoxPrefab;
-    [SerializeField] private GameObject descriptionPopupPrefab;
+    [SerializeField] private GameObject unitZoomCardPrefab, actionZoomCardPrefab,
+        abilityPopupPrefab, abilityPopupBoxPrefab, descriptionPopupPrefab;
     [SerializeField] private CardAbility exhaustedAbility;
 
     private const float ZOOM_BUFFER = 350;
     public const float ZOOM_SCALE_VALUE = 4;
     private const float CENTER_SCALE_VALUE = 6;
     private const float POPUP_SCALE_VALUE = 3;
-    //private const float  MED_POPUP_SCALE_VALUE       =  2.5f;
+    //private const float MED_POPUP_SCALE_VALUE =  2.5f;
     private const float SMALL_POPUP_SCALE_VALUE = 2;
 
     private CardDisplay cardDisplay;
@@ -52,7 +49,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         if (Managers.U_MAN.PlayerIsTargetting && !Managers.EF_MAN.CurrentEffectGroup.Targets.PlayerHand) return;
 
         GameObject parent = null;
-        GameObject container = GetComponent<CardDisplay>().CardContainer;
+        var container = GetComponent<CardDisplay>().CardContainer;
         if (container != null) parent = container.transform.parent.gameObject;
         if (Managers.EN_MAN.HandZone != null && parent == Managers.EN_MAN.HandZone) return;
 
@@ -68,25 +65,35 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
-        if (DragDrop.DraggingCard != null || ZoomCardIsCentered) return;
+        if (DragDrop.DraggingCard != null || ZoomCardIsCentered ||
+            (Managers.U_MAN.PlayerIsTargetting &&
+            !Managers.EF_MAN.CurrentEffectGroup.Targets.PlayerHand)) return;
 
-        if (Managers.U_MAN.PlayerIsTargetting && !Managers.EF_MAN.CurrentEffectGroup.Targets.PlayerHand) return;
-
+        float popYPos = 0;
+        float popXPos = 0;
         GameObject parent = null;
-        GameObject container = GetComponent<CardDisplay>().CardContainer;
+
+        var container = GetComponent<CardDisplay>().CardContainer;
         if (container != null) parent = container.transform.parent.gameObject;
-        else return;
+        else
+        {
+            popYPos = transform.position.y + 200;
+            popXPos = transform.position.x;
 
-        if (parent == Managers.EN_MAN.HandZone || parent == Managers.P_MAN.ActionZone || parent == Managers.EN_MAN.ActionZone) return;
+            if (popYPos > 300) popYPos = 300;
+            else if (popYPos < -300) popYPos = -300;
 
-        float cardYPos;
-        float popupXPos;
+            ShowAbilityPopup(SMALL_POPUP_SCALE_VALUE);
+            return;
+        }
+
+        if (parent == Managers.EN_MAN.HandZone || parent == Managers.EN_MAN.ActionZone ||
+            parent == Managers.P_MAN.ActionZone) return;
 
         if (parent == Managers.P_MAN.HandZone || parent == Managers.EN_MAN.HandZone) ShowZoomCard(parent);
         else FunctionTimer.Create(() => ShowZoomCard(parent), 0.5f, ZOOM_CARD_TIMER);
 
-        void ShowAbilityPopup() =>
-            CreateAbilityPopups(new Vector2(popupXPos, cardYPos), SMALL_POPUP_SCALE_VALUE, true);
+        void ShowAbilityPopup(float scale) => CreateAbilityPopups(new Vector2(popXPos, popYPos), scale, true);
 
         void ShowZoomCard(GameObject parent)
         {
@@ -100,28 +107,28 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
                 float bufferY = -bufferDistance.y;
 
                 rect = Managers.P_MAN.HandZone.GetComponent<RectTransform>();
-                cardYPos = rect.position.y + ZOOM_BUFFER + 20 + bufferY;
+                popYPos = rect.position.y + ZOOM_BUFFER + 20 + bufferY;
             }
             else if (parent == Managers.P_MAN.PlayZone)
             {
                 rect = Managers.P_MAN.PlayZone.GetComponent<RectTransform>();
-                cardYPos = rect.position.y + ZOOM_BUFFER - 20;
+                popYPos = rect.position.y + ZOOM_BUFFER - 20;
             }
             else if (parent == Managers.EN_MAN.PlayZone)
             {
                 rect = Managers.EN_MAN.PlayZone.GetComponent<RectTransform>();
-                cardYPos = (int)rect.position.y - ZOOM_BUFFER;
+                popYPos = rect.position.y - ZOOM_BUFFER;
             }
             else
             {
                 Debug.LogError("INVALID PARENT!");
                 return;
             }
+
             Vector3 vec3 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if (vec3.x > 0) popupXPos = vec3.x - 400;
-            else popupXPos = vec3.x + 400;
-            CreateZoomCard(new Vector2(vec3.x, cardYPos), ZOOM_SCALE_VALUE);
-            FunctionTimer.Create(() => ShowAbilityPopup(), 0.75f, ABILITY_POPUP_TIMER);
+            popXPos = vec3.x + (vec3.x > 0 ? -400 : 400);
+            CreateZoomCard(new Vector2(vec3.x, popYPos), ZOOM_SCALE_VALUE);
+            FunctionTimer.Create(() => ShowAbilityPopup(SMALL_POPUP_SCALE_VALUE), 0.75f, ABILITY_POPUP_TIMER);
         }
     }
 
@@ -138,7 +145,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
      *****/
     private GameObject CreateZoomObject(GameObject prefab, Vector2 vec2, float scaleValue)
     {
-        GameObject zoomObject = Instantiate(prefab, Managers.U_MAN.CurrentZoomCanvas.transform);
+        var zoomObject = Instantiate(prefab, Managers.U_MAN.CurrentZoomCanvas.transform);
         zoomObject.transform.localPosition = vec2;
         zoomObject.transform.localScale = new Vector2(scaleValue, scaleValue);
         zoomPopups.Add(zoomObject);
@@ -155,9 +162,8 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         if (this == null) return;
 
         DestroyZoomCard();
-        GameObject cardPrefab;
-        if (GetComponent<CardDisplay>() is UnitCardDisplay) cardPrefab = unitZoomCardPrefab;
-        else cardPrefab = actionZoomCardPrefab;
+        GameObject cardPrefab = GetComponent<CardDisplay>() is UnitCardDisplay ?
+            unitZoomCardPrefab : actionZoomCardPrefab;
         CurrentZoomCard = CreateZoomObject(cardPrefab, new Vector2(vec2.x, vec2.y), scaleValue);
         CurrentZoomCard.GetComponent<CardDisplay>().DisplayZoomCard(gameObject);
     }
@@ -205,8 +211,8 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
             cardDisplay = GetComponent<CardDisplay>();
         }
 
-        GameObject zoomIconPrefab = GetComponent<UnitCardDisplay>().ZoomAbilityIconPrefab;
-        GameObject zoomAbilityIcon = Instantiate(zoomIconPrefab, parent);
+        var zoomIconPrefab = GetComponent<UnitCardDisplay>().ZoomAbilityIconPrefab;
+        var zoomAbilityIcon = Instantiate(zoomIconPrefab, parent);
         zoomAbilityIcon.transform.localScale = new Vector2(scaleValue, scaleValue);
         zoomAbilityIcon.GetComponent<AbilityIconDisplay>().ZoomAbilityScript = ca;
 
@@ -249,7 +255,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
      * ****** CREATE_ABILITY_POPUPS
      * *****
      *****/
-    public void CreateAbilityPopups(Vector2 vec2, float scaleValue, bool showCurrent)
+    public void CreateAbilityPopups(Vector2 popPosition, float scaleValue, bool showCurrent)
     {
         if (this == null) return;
 
@@ -287,23 +293,23 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
             return;
         }
 
-        foreach (CardAbility ca in abilityList)
+        foreach (var ca in abilityList)
         {
             AddSingle(ca);
-            foreach (CardAbility linkCa in ca.LinkedAbilites)
+            foreach (var linkCa in ca.LinkedAbilites)
             {
                 AddSingle(linkCa);
-                foreach (CardAbility linkCa2 in linkCa.LinkedAbilites)
+                foreach (var linkCa2 in linkCa.LinkedAbilites)
                     AddSingle(linkCa2);
             }
         }
 
         DestroyAbilityPopups();
-        if (singleList.Count > 4) vec2.y = 0;
+        if (singleList.Count > 4) popPosition.y = 0;
         if (singleList.Count > 9) Managers.U_MAN.HideSkybar(true);
 
-        AbilityPopupBox = CreateZoomObject(abilityPopupBoxPrefab, vec2, scaleValue);
-        foreach (CardAbility single in singleList)
+        AbilityPopupBox = CreateZoomObject(abilityPopupBoxPrefab, popPosition, scaleValue);
+        foreach (var single in singleList)
             CreatePopup(single);
 
         void AddSingle(CardAbility ca)
@@ -314,7 +320,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
                 if (ca is TriggeredAbility ta) newTriggerName = ta.AbilityTrigger.AbilityName;
                 else if (ca is AbilityTrigger at) newTriggerName = at.AbilityName;
 
-                foreach (CardAbility ca2 in singleList)
+                foreach (var ca2 in singleList)
                 {
                     if (ca2 is TriggeredAbility ta2)
                     {
@@ -327,8 +333,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
                 }
                 singleList.Add(ca);
             }
-            else if (ca is ModifierAbility) { }
-            else
+            else if (ca is not ModifierAbility)
             {
                 if (singleList.FindIndex(x => x.AbilityName ==
                 ca.AbilityName) == -1) singleList.Add(ca);
@@ -336,8 +341,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         }
         void CreatePopup(CardAbility ca)
         {
-            GameObject abilityPopup =
-                Instantiate(abilityPopupPrefab, AbilityPopupBox.transform);
+            var abilityPopup = Instantiate(abilityPopupPrefab, AbilityPopupBox.transform);
             abilityPopup.GetComponent<AbilityPopupDisplay>().DisplayAbilityPopup(ca, false, isPlayerSource);
         }
     }
@@ -345,8 +349,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     public void DestroyZoomPopups()
     {
         if (ZoomCardIsCentered) return;
-        foreach (GameObject go in zoomPopups)
-            Destroy(go);
+        foreach (var go in zoomPopups) Destroy(go);
     }
 
     private void OnDestroy() => DestroyZoomPopups();

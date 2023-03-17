@@ -18,8 +18,8 @@ public class DialogueManager : MonoBehaviour
 
     private DialogueClip currentDialogueClip;
     private DialogueSceneDisplay dialogueDisplay;
-    private string currentTypedText;
     private TextMeshProUGUI currentTmPro;
+    private string currentTypedText;
     private float typedTextDelay;
     private bool newEngagedHero;
 
@@ -34,11 +34,6 @@ public class DialogueManager : MonoBehaviour
         AllowResponse = true;
     }
 
-    /******
-     * *****
-     * ****** DIALOGUE_MANAGER
-     * *****
-     *****/
     public void Reset_DialogueManager() => StopTimedText();
 
     public void DisplayCurrentHeroes()
@@ -261,8 +256,7 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        if (currentDialogueClip is DialoguePrompt) { }
-        else
+        if (currentDialogueClip is not DialoguePrompt)
         {
             Debug.LogError("CURRENT CLIP IS NOT PROMPT!");
             return;
@@ -289,7 +283,7 @@ public class DialogueManager : MonoBehaviour
                 break;
         }
 
-        DialogueClip nextClip = dResponse.Response_NextClip;
+        var nextClip = dResponse.Response_NextClip;
         if (nextClip == null)
         {
             Debug.LogError("NEXT CLIP IS NULL!");
@@ -303,7 +297,7 @@ public class DialogueManager : MonoBehaviour
             if (nextPrompt.NewLocations != null)
             {
                 float delay = 0;
-                foreach (NewLocation newLoc in nextPrompt.NewLocations)
+                foreach (var newLoc in nextPrompt.NewLocations)
                 {
                     Managers.G_MAN.GetActiveLocation(newLoc.Location, newLoc.NewNpc);
                     if (newLoc.Location.IsAugmenter) continue;
@@ -407,6 +401,10 @@ public class DialogueManager : MonoBehaviour
             if (nextPrompt.AetherCells > 0) Managers.P_MAN.AetherCells += nextPrompt.AetherCells;
             // New Card
             if (nextPrompt.NewCard != null) Managers.U_MAN.CreateNewCardPopup(nextPrompt.NewCard, "New Card!");
+            // New Hero
+            //if (nextPrompt.NewHero) Managers.U_MAN.CreateNewHeroPopup(Managers.G_MAN.NewUnlockedHero());
+            // New Powers
+            //if (nextPrompt.NewPowers) Managers.U_MAN.CreateNewHeroPopup(Managers.G_MAN.NewUnlockedHero());
         }
 
         currentDialogueClip = nextClip;
