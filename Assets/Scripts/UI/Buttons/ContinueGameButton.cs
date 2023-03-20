@@ -4,8 +4,6 @@ using UnityEngine.UI;
 
 public class ContinueGameButton : MonoBehaviour
 {
-    private void Start() => GetComponent<Button>().interactable = GameLoader.CheckSave();
-
     public void OnClick()
     {
         if (SceneLoader.SceneIsLoading) return;

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -40,18 +39,19 @@ public class GameManager : MonoBehaviour
     // Player
     public const int MINIMUM_DECK_SIZE = 15;
     public const int PLAYER_STARTING_HEALTH = 30;
+    public const int HEAL_ON_REST = 10;
     public const int PLAYER_START_UNITS = 2; // Total Units = value * 5 (unique units)
     public const int MAXIMUM_ENERGY_PER_TURN = 10;
     public const int MAXIMUM_ENERGY = 10;
     public const int MAXIMUM_ITEMS = 2;
     public const int HERO_ULTMATE_GOAL = 3;
 
-        // Starting bonuses
+    // Starting bonuses
     public const int PLAYER_START_AETHER = 30;
     public const int BONUS_START_REWARDS = 4;
-
+    
     // Enemy
-    public const int ENEMY_STARTING_HEALTH = 30;
+    public const int ENEMY_STARTING_HEALTH = 15;
     //public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
     // Tutorial Enemy
     public const int TUTORIAL_STARTING_HEALTH = 10;
@@ -88,8 +88,8 @@ public class GameManager : MonoBehaviour
     public const int SELL_RARE_ITEM_VALUE = 20;
     // Reputation
     public const int REPUTATION_TIER_1 = 10;
-    public const int REPUTATION_TIER_2 = 15;
-    public const int REPUTATION_TIER_3 = 20;
+    public const int REPUTATION_TIER_2 = 20;
+    public const int REPUTATION_TIER_3 = 30;
 
     // Combat Rewards
     public const int AETHER_COMBAT_REWARD_1 = 30;
@@ -162,7 +162,8 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         //PlayerPrefs.DeleteAll(); // FOR TESTING ONLY
-        //SaveLoad.DeleteGameData(); // FOR TESTING ONLY
+        SaveLoad.DeleteGameData(); // FOR TESTING ONLY
+        SaveLoad.DeletePlayerData(); // FOR TESTING ONLY
 
         currentTip = Random.Range(0, loadingTips.Length);
         ActiveNPCHeroes = new();
@@ -172,15 +173,15 @@ public class GameManager : MonoBehaviour
         UnlockedHeroes = new();
         UnlockedPowers = new();
 
-        GameLoader.LoadPlayerPreferences();
-        GameLoader.LoadGame_GameData();
         Debug.Log("Application Version: " + Application.version);
+
+        GameLoader.LoadPlayerPreferences();
+        StartCoroutine(GameLoader.LoadGame_GameData_Async());
     }
-    /******
-     * *****
-     * ****** DIFFICULTY_LEVEL
-     * *****
-     *****/
+    
+    public int GetSurgeDelay(int difficulty) => 7 - (difficulty); // Surges 6 / 5 / 4
+    public int GetAdditionalEnergy(int difficulty) => ADDITIONAL_ENERGY + difficulty - 1;
+    public int GetAdditionalRewardAether(int difficulty) => ADDITIONAL_AETHER_REWARD * (difficulty - 1);
     public enum DifficultyLevel
     {
         Standard_1 = 1,
@@ -189,9 +190,6 @@ public class GameManager : MonoBehaviour
         Standard_3 = 4,
         Boss_2 = 5,
     }
-    public int GetSurgeDelay(int difficulty) => 9 - (difficulty * 2);
-    public int GetAdditionalEnergy(int difficulty) => ADDITIONAL_ENERGY + difficulty - 1;
-    public int GetAdditionalRewardAether(int difficulty) => ADDITIONAL_AETHER_REWARD * (difficulty - 1);
     public int GetAetherReward(DifficultyLevel difficultyLevel)
     {
         int reward;
@@ -397,29 +395,25 @@ public class GameManager : MonoBehaviour
     public bool UnlockNewPowers()
     {
         var pHero = Managers.P_MAN.HeroScript as PlayerHero;
-        var heroPowers = Resources.LoadAll<HeroPower>($"Hero Powers/{pHero.HeroShortName}");
-
         HeroPower heroPower = null;
         HeroPower heroUltimate = null;
 
-        if (heroPowers == null)
+        foreach (var power in pHero.AltHeroPowers)
         {
-            Debug.LogError("Failed to load HEROPOWER assets!");
-            return false;
+            if (!UnlockedPowers.Contains(power.PowerName))
+            {
+                heroPower = power;
+                break;
+            }
         }
 
-        foreach (var power in heroPowers)
+        foreach (var ult in pHero.AltHeroUltimates)
         {
-            if (UnlockedPowers.Contains(power.PowerName) ||
-                power.PowerName == pHero.HeroPower.PowerName ||
-                power.PowerName == pHero.HeroUltimate.PowerName) continue;
-
-            if (!power.IsUltimate)
+            if (!UnlockedPowers.Contains(ult.PowerName))
             {
-                if (heroPower == null) heroPower = power;
+                heroUltimate = ult;
+                break;
             }
-            else if (heroUltimate == null) heroUltimate = power;
-            
         }
 
         if (heroPower == null || heroUltimate == null)
@@ -510,10 +504,16 @@ public class GameManager : MonoBehaviour
     #region SCENE STARTERS
     public void StartTitleScene()
     {
+        IsCombatTest = false;
+
         Managers.AU_MAN.StartStopSound("Soundtrack_TitleScene", null, AudioManager.SoundType.Soundtrack);
         Managers.AU_MAN.StartStopSound("Soundscape_TitleScene", null, AudioManager.SoundType.Soundscape);
+
         GameObject.Find("VersionNumber").GetComponent<TextMeshProUGUI>().SetText(Application.version);
-        IsCombatTest = false;
+
+        var gameSaved = GameLoader.CheckSave();
+        FindObjectOfType<NewGameButton>().gameObject.SetActive(!gameSaved);
+        FindObjectOfType<ContinueGameButton>().gameObject.SetActive(gameSaved);
     }
     public void StartHeroSelectScene()
     {
@@ -522,7 +522,6 @@ public class GameManager : MonoBehaviour
     }
     public void StartTutorialScene()
     {
-        IsTutorial = true;
         SceneLoader.LoadAction += GameLoader.Tutorial_Load;
         SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);
     }
@@ -561,9 +560,12 @@ public class GameManager : MonoBehaviour
         {
             NextHour(true);
             LoadNewItems();
+
             Managers.CA_MAN.LoadNewRecruits();
             Managers.CA_MAN.LoadNewActions();
-            Managers.U_MAN.CreateFleetingInfoPopup("You have rested!\nShops refreshed!");
+            Managers.U_MAN.CreateFleetingInfoPopup("You have rested!");//\nShops refreshed!");
+
+            FunctionTimer.Create(() => Managers.P_MAN.CurrentHealth += HEAL_ON_REST, 1);
 
             List<Location> refreshedShops = new();
             foreach (var loc in ActiveLocations)
@@ -574,8 +576,7 @@ public class GameManager : MonoBehaviour
                     refreshedShops.Add(loc);
             }
 
-            foreach (var loc in refreshedShops)
-                VisitedLocations.Remove(loc.LocationName);
+            foreach (var loc in refreshedShops) VisitedLocations.Remove(loc.LocationName);
         }
     }
     public void StartCreditsScene()
@@ -946,8 +947,6 @@ public class GameManager : MonoBehaviour
         Managers.P_MAN.HeroScript = null;
         Managers.P_MAN.DeckList.Clear();
         Managers.P_MAN.CurrentDeck.Clear();
-        //ManagerHandler.P_MAN.AetherCells = 0;
-        Managers.P_MAN.HeroAugments.Clear();
         Managers.P_MAN.HeroItems.Clear();
         // Enemy Manager
         Destroy(Managers.EN_MAN.HeroScript);

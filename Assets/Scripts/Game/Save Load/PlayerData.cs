@@ -9,17 +9,18 @@ public class PlayerData : SaveData
 
     // Save Scene
     public string SaveScene; // SceneLoad.Scene.ToString() -> | WorldMapScene | CombatScene |
-
+    
     // Player Hero
-    public string PlayerHero, HeroPower, HeroUltimate;
-    // Aether
-    public int AetherCells;
+    public string PlayerHero;
+    public int CurrentHealth_Player, AetherCells;
+    // Power and Ultimate
+    public string HeroPower, HeroUltimate;
+    // Player Hero "Inventory"
+    public string[] PlayerDeck, PlayerItems;
     // Hour
     public int CurrentHour;
     // Narrative
     public string CurrentNarrative;
-    // Player Hero "Inventory"
-    public string[] PlayerDeck, PlayerAugments, PlayerItems;
     // Locations
     public string[] VisitedLocations;
     public string[,] ActiveLocations; // string[3] -> 0: LocationName, 1: CurrentNPC.HeroName, 2: CurrentObjective
@@ -30,8 +31,6 @@ public class PlayerData : SaveData
     public string[] RecruitUnits, ShopActions;
     // Loyalty
     public int RecruitLoyalty, ActionShopLoyalty, ShopLoyalty;
-    // Reputation
-    public int Reputation_Mages, Reputation_Mutants, Reputation_Rogues, Reputation_Techs, Reputation_Warriors;
 
     /*
      * <<< | COMBAT SAVE | >>>
@@ -45,8 +44,8 @@ public class PlayerData : SaveData
     public const string TURN_ENEMY = "ENEMY_TURN";
     // Turn Number
     public int TurnNumber_Player, TurnNumber_Enemy;
-    // Current Health
-    public int CurrentHealth_Player, CurrentHealth_Enemy;
+    // Enemy Health
+    public int CurrentHealth_Enemy;
     // Energy Per Turn
     public int EnergyPerTurn_Player, EnergyPerTurn_Enemy;
     // Current Energy
@@ -131,13 +130,13 @@ public class PlayerData : SaveData
         // Save Scene
         string saveScene,
         // Player Hero
-        string playerHero, int aetherCells,
+        string playerHero, int currentHealth_Player, int aetherCells,
         // Power and Ultimate
         string heroPower, string heroUltimate,
+        // Player Hero "Inventory"
+        string[] deckList, string[] items,
         // Hour and Narrative
         int currentHour, string currentNarrative,
-        // Player Hero "Inventory"
-        string[] deckList, string[] augments, string[] items,
         // Locations
         string[] visitedLocations, string[,] locationsNPCsObjectives,
         // Dialogue
@@ -146,9 +145,6 @@ public class PlayerData : SaveData
         string[,] shopItems, string[] recruitUnits, string[] shopActions,
         // Loyalty
         int recruitLoyalty, int actionShopLoyalty, int shopLoyalty,
-        // Reputation
-        int reputationMages, int reputationMutants, int reputationRogues,
-        int reputationTechs, int reputationWarriors,
 
         /*
          * <<< | COMBAT SAVE | >>>
@@ -160,8 +156,8 @@ public class PlayerData : SaveData
         string heroTurnCombat,
         // Turn Number
         int turnNumber_Player, int turnNumber_Enemy,
-        // Current Health
-        int currentHealth_Player, int currentHealth_Enemy,
+        // Enemy Health
+        int currentHealth_Enemy,
         // Energy Per Turn
         int energyPerTurn_Player, int energyPerTurn_Enemy,
         // Current Energy
@@ -208,6 +204,7 @@ public class PlayerData : SaveData
         SaveScene = saveScene;
         // Player Hero
         PlayerHero = playerHero;
+        CurrentHealth_Player = currentHealth_Player;
         AetherCells = aetherCells;
         // Power and Ultimate
         HeroPower = heroPower;
@@ -217,7 +214,6 @@ public class PlayerData : SaveData
         CurrentNarrative = currentNarrative;
         // Player Hero "Inventory"
         PlayerDeck = deckList;
-        PlayerAugments = augments;
         PlayerItems = items;
         // Locations
         ActiveLocations = locationsNPCsObjectives;
@@ -232,12 +228,6 @@ public class PlayerData : SaveData
         RecruitLoyalty = recruitLoyalty;
         ActionShopLoyalty = actionShopLoyalty;
         ShopLoyalty = shopLoyalty;
-        // Reputation
-        Reputation_Mages = reputationMages;
-        Reputation_Mutants = reputationMutants;
-        Reputation_Rogues = reputationRogues;
-        Reputation_Techs = reputationTechs;
-        Reputation_Warriors = reputationWarriors;
 
         /*
          * <<< | COMBAT SAVE | >>>
@@ -252,8 +242,7 @@ public class PlayerData : SaveData
         // Turn Number
         TurnNumber_Player = turnNumber_Player;
         TurnNumber_Enemy = turnNumber_Enemy;
-        // Current Health
-        CurrentHealth_Player = currentHealth_Player;
+        // Enemy Health
         CurrentHealth_Enemy = currentHealth_Enemy;
         // Energy Per Turn
         EnergyPerTurn_Player = energyPerTurn_Player;

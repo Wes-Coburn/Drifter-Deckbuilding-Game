@@ -6,19 +6,9 @@ public class CombatTestButton : MonoBehaviour
     [SerializeField][Range(0, 3)] private int reputationTier;
     [SerializeField] private PlayerHero developerTestHero;
     [SerializeField] private EnemyHero enemyTestHero;
-    [Header("GAUNTLET")]
-    [SerializeField] private HeroAugment[] testAugments;
-    [SerializeField] private HeroItem[] testItems;
     [Header("TEST CARDS")]
-    [SerializeField] private bool enableTestCards_1;
-    [SerializeField] private Card[] testCards_1;
-    [SerializeField] private bool enableTestCards_2;
-    [SerializeField] private Card[] testCards_2;
-    [SerializeField] private bool enableTestCards_3;
-    [SerializeField] private Card[] testCards_3;
-    [SerializeField] private bool enableTestCards_4;
-    [SerializeField] private Card[] testCards_4;
-
+    [SerializeField] private bool enableTestCards_1, enableTestCards_2, enableTestCards_3, enableTestCards_4;
+    [SerializeField] private Card[] testCards_1, testCards_2, testCards_3, testCards_4;
 
     private void Start()
     {
@@ -30,24 +20,15 @@ public class CombatTestButton : MonoBehaviour
     {
         if (SceneLoader.SceneIsLoading) return;
         //UIManager.Instance.ShakeCamera(EZCameraShake.CameraShakePresets.Bump); // TESTING
-        AnimationManager.Instance.CreateParticleSystem(gameObject, ParticleSystemHandler.ParticlesType.ButtonPress);
+        Managers.AN_MAN.CreateParticleSystem(gameObject, ParticleSystemHandler.ParticlesType.ButtonPress);
         SceneLoader.LoadAction += () => LoadCombatTest();
         SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);
     }
 
     private void LoadCombatTest()
     {
-        // Enemy Hero
-        EnemyHero eh = ScriptableObject.CreateInstance<EnemyHero>();
-        if (enemyTestHero != null) eh.LoadHero(enemyTestHero);
-        else
-        {
-            Debug.LogError("ENEMY TEST HERO IS NULL!");
-            return;
-        }
-
         // Player Hero
-        PlayerHero ph = ScriptableObject.CreateInstance<PlayerHero>();
+        var ph = ScriptableObject.CreateInstance<PlayerHero>();
         if (developerTestHero != null) ph.LoadHero(developerTestHero);
         else
         {
@@ -55,19 +36,33 @@ public class CombatTestButton : MonoBehaviour
             return;
         }
 
+        // Enemy Hero
+        var eh = ScriptableObject.CreateInstance<EnemyHero>();
+        if (enemyTestHero != null) eh.LoadHero(enemyTestHero);
+        else
+        {
+            Debug.LogError("ENEMY TEST HERO IS NULL!");
+            return;
+        }
+
         Managers.G_MAN.IsCombatTest = true;
         Managers.D_MAN.EngagedHero = eh;
         Managers.P_MAN.HeroScript = ph;
+        Managers.P_MAN.CurrentHealth = GameManager.PLAYER_STARTING_HEALTH;
 
         // Test Augments
-        foreach (HeroAugment aug in testAugments)
+        foreach (var aug in Resources.LoadAll<HeroAugment>("Hero Augments"))
             Managers.P_MAN.AddAugment(aug);
 
         // Test Items
-        HeroItem[] items = new HeroItem[testItems.Length];
-        testItems.CopyTo(items, 0);
+        int addedItems = 0;
+        var items = Resources.LoadAll<HeroItem>("Hero Items");
         items.Shuffle();
-        for (int i = 0; i < 5; i++) Managers.P_MAN.AddItem(items[i]);
+        foreach (var item in items)
+        {
+            Managers.P_MAN.AddItem(item);
+            if (++addedItems > 4) break;
+        }
 
         // Test Cards
         if (enableTestCards_1)

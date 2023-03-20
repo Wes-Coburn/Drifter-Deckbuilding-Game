@@ -56,7 +56,7 @@ MonoBehaviour:
   - Units with Spark do something the first time you play an <b>Action</b> card each
     turn.
   - Units with Research do something when you use your hero power or ultimate.
-  - Look out for <b>The Augmenter</b> to permanently upgrade your hero!
+  - Look out for <b>The Augmenter</b> to permanently upgrade all your heroes!
   - Units with Infiltrate do something when they attack the enemy hero.
   - Adding a unit to your deck increases your <b>Reputation</b> with that unit's
     faction.
@@ -64,13 +64,19 @@ MonoBehaviour:
   - Units with Armored take 1 less damage from all sources.
   - A hero is Wounded if they have taken 5+ damage this turn.
   - You can use items once each combat. Use them wisely!
-  - Right click on cards for more information.
+  - <b>Right click</b> on cards for more information.
   - Units with Defender must be attacked (if possible).
   - Every few turns, the enemy <b>Surges</b>, drawing cards and reducing their costs!
   - Units with Ward ignore enemy effects, and can't be targetted by them.
+  - When you rest at <b>Your Ship</b>, you recover 10 health.
+  - You keep your <b>Augments</b> and <b>Reputation</b> if you die!
   reputation_Mages: {fileID: 11400000, guid: eb3b373fe9394ca4cb6ee52db1027c17, type: 2}
   reputation_Mutants: {fileID: 11400000, guid: 5d97d4a9ed164724fb092edb8a07b440, type: 2}
   reputation_Rogues: {fileID: 11400000, guid: 3f85162fed2fdca409e38a3b4c0ea760, type: 2}
   reputation_Techs: {fileID: 11400000, guid: c1c9fe8476c9eb449a0aa617309cd933, type: 2}
   reputation_Warriors: {fileID: 11400000, guid: 0d8e12c67be8c1a4e991375258ae84f8,
     type: 2}
+  StartingHeroes:
+  - Kili, Neon Rider
+  - Faydra, Rogue Cyborg
+  - Yergov, Biochemist

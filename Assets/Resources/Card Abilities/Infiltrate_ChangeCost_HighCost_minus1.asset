@@ -10,12 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44c307312f791a64788051778519ac70, type: 3}
-  m_Name: Infiltrate_ChangeCost_1Any_minus1
+  m_Name: Infiltrate_ChangeCost_HighCost_minus1
   m_EditorClassIdentifier: 
-  AbilityName: 'Infiltrate: Reduce the cost of a card in your hand by 1.'
-  AbilityDescription: Reduce the cost of a card in your hand by 1.
+  AbilityName: 'Infiltrate: Reduce the cost of the highest cost card in your hand
+    by 1.'
+  AbilityDescription: Reduce the cost of the highest cost card in your hand by 1.
   AbilitySprite: {fileID: 0}
+  OverrideColor: 0
+  AbilityColor: {r: 0, g: 0, b: 0, a: 0}
   LinkedAbilites: []
   AbilityTrigger: {fileID: 11400000, guid: 87f3e6666404c694cb625a5bd096cd05, type: 2}
+  TriggerLimit: 0
   EffectGroupList:
-  - {fileID: 11400000, guid: 25e237ae9aefea544b2c3b91966d2c2b, type: 2}
+  - {fileID: 11400000, guid: 0331b8af82a75e54681f6d02bf95f016, type: 2}

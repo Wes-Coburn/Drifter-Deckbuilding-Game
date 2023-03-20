@@ -16,18 +16,9 @@ public abstract class HeroDisplay : MonoBehaviour
         }
     }
 
-    [SerializeField] private GameObject heroBase;
-    [SerializeField] private GameObject heroFrame;
-    [SerializeField] private GameObject heroStats;
-    [SerializeField] private GameObject heroPortrait;
-    [SerializeField] private GameObject heroName;
-    [SerializeField] private GameObject heroHealth;
-    [SerializeField] private GameObject woundedIcon;
-    [SerializeField] private GameObject heroHealthSlider;
-    [SerializeField] private GameObject heroEnergy;
+    [SerializeField] private GameObject heroBase, heroFrame, heroStats, heroPortrait,
+        heroName, heroHealth, woundedIcon, heroHealthSlider, heroEnergy, heroPower, powerImage;
     [SerializeField] private GameObject[] energyBars = new GameObject[10];
-    [SerializeField] private GameObject heroPower;
-    [SerializeField] private GameObject powerImage;
 
     public GameObject HeroBase { get => heroBase; }
     public GameObject HeroFrame { get => heroFrame; }
@@ -66,10 +57,8 @@ public abstract class HeroDisplay : MonoBehaviour
     {
         set
         {
-            int health = value;
-            if (health < 0) health = 0;
-            heroHealth.GetComponent<TextMeshProUGUI>().SetText(health.ToString());
-            heroHealthSlider.GetComponent<Slider>().value = health;
+            heroHealth.GetComponent<TextMeshProUGUI>().SetText(value.ToString());
+            heroHealthSlider.GetComponent<Slider>().value = value;
         }
     }
 
@@ -100,8 +89,7 @@ public abstract class HeroDisplay : MonoBehaviour
             {
                 Color color;
                 energyBar.SetActive(true);
-                if (i < currentEnergy) color = Color.white;
-                else color = Color.gray;
+                color = i < currentEnergy ? Color.white : Color.gray;
                 energyBar.GetComponent<Image>().color = color;
             }
             else energyBar.SetActive(false);
@@ -115,5 +103,8 @@ public abstract class HeroDisplay : MonoBehaviour
 
         if (HeroScript.CurrentHeroPower == null) heroPower.SetActive(false);
         else powerImage.GetComponent<Image>().sprite = HeroScript.CurrentHeroPower.PowerSprite;
+
+        heroHealthSlider.GetComponent<Slider>().maxValue = HeroScript is PlayerHero ?
+            Managers.P_MAN.MaxHealth : Managers.EN_MAN.MaxHealth;
     }
 }

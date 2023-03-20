@@ -2,9 +2,19 @@
 public class GameData : SaveData
 {
     public string[] UnlockedHeroes, UnlockedPowers;
+
+    public string[] HeroAugments;
+
     //public bool Achievement_BETAFinish;
 
-    public GameData(string[] unlockedHeroes, string[] unlockedPowers) //, bool achievement_BETA_Finish)
+    public int Reputation_Mages;
+    public int Reputation_Mutants;
+    public int Reputation_Rogues;
+    public int Reputation_Techs;
+    public int Reputation_Warriors;
+
+    public GameData(string[] unlockedHeroes, string[] unlockedPowers, string[] heroAugments,
+        int repMage, int repMutant, int repRogue, int repTech, int repWarrior) //, bool achievement_BETA_Finish)
     {
         // Unlocks
         UnlockedHeroes = unlockedHeroes;
@@ -14,7 +24,14 @@ public class GameData : SaveData
         //Achievement_BETAFinish = achievement_BETA_Finish;
 
         // Progress
-        // persistent augments
+        HeroAugments = heroAugments;
         // persistent starting cards
+
+        // Reputation
+        Reputation_Mages = repMage;
+        Reputation_Mutants = repMutant;
+        Reputation_Rogues = repRogue;
+        Reputation_Techs = repTech;
+        Reputation_Warriors = repWarrior;
     }
 }

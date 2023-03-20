@@ -20,6 +20,8 @@ public class CombatManager : MonoBehaviour
     private EffectGroup mulliganEffect;
     [Header("COGNITIVE MAGNIFIER EFFECT"), SerializeField]
     private EffectGroup cognitiveMagnifierEffect;
+    [Header("CRYOCHAMBER EFEFCT"), SerializeField]
+    private EffectGroup cryochamberEffect;
 
     public const string CARD_ZONE = "CardZone";
     #endregion
@@ -78,8 +80,7 @@ public class CombatManager : MonoBehaviour
         if (target.TryGetComponent(out HeroDisplay _))
         {
             var hMan = HeroManager.GetSourceHero(target);
-            int startHealth = hMan == Managers.P_MAN ? GameManager.PLAYER_STARTING_HEALTH : GameManager.ENEMY_STARTING_HEALTH;
-            return hMan.CurrentHealth < startHealth;
+            return hMan.CurrentHealth < hMan.MaxHealth;
         }
 
         Debug.LogError("INVALID TARGET!");
@@ -109,7 +110,7 @@ public class CombatManager : MonoBehaviour
         int lowestHealth = int.MaxValue;
         List<GameObject> lowestHealthUnits = new();
 
-        foreach (GameObject unit in unitList)
+        foreach (var unit in unitList)
         {
             if (!IsUnitCard(unit)) continue;
 
@@ -170,9 +171,9 @@ public class CombatManager : MonoBehaviour
         if (highestPowerUnits.Count > 1)
         {
             List<GameObject> highestHealthUnits = new();
-            int highestHealth = 0;
+            int highestHealth = int.MinValue;
 
-            foreach (GameObject unit in highestPowerUnits)
+            foreach (var unit in highestPowerUnits)
             {
                 int health = GetUnitDisplay(unit).CurrentHealth;
                 if (health > highestHealth)
@@ -202,7 +203,7 @@ public class CombatManager : MonoBehaviour
     public GameObject GetWeakestUnit(List<GameObject> unitList, bool targetsEnemy)
     {
         if (unitList.Count < 1) return null;
-        int lowestPower = 999;
+        int lowestPower = int.MaxValue;
         List<GameObject> lowestPowerUnits = new();
 
         foreach (var unit in unitList)
@@ -229,9 +230,9 @@ public class CombatManager : MonoBehaviour
         if (lowestPowerUnits.Count > 1)
         {
             List<GameObject> lowestHealthUnits = new();
-            int lowestHealth = 999;
+            int lowestHealth = int.MaxValue;
 
-            foreach (GameObject unit in lowestPowerUnits)
+            foreach (var unit in lowestPowerUnits)
             {
                 int health = GetUnitDisplay(unit).CurrentHealth;
                 if (health < lowestHealth)
@@ -252,6 +253,95 @@ public class CombatManager : MonoBehaviour
         }
         else return lowestPowerUnits[0];
     }
+
+    /******
+     * *****
+     * ****** GET_HIGHEST_COST
+     * *****
+     *****/
+    public GameObject GetHighestCostTarget(List<GameObject> targets)//, bool targetsEnemy)
+    {
+        if (targets.Count < 1) return null;
+        int highestCost = int.MinValue;
+        List<GameObject> highestCostTargets = new();
+
+        foreach (var target in targets)
+        {
+            var cd = target.GetComponent<CardDisplay>();
+
+            /* Unnecessary, method is only used on cards in hand
+            if (cd is UnitCardDisplay ucd)
+            {
+                if ((targetsEnemy && CardManager.GetAbility(target, CardManager.ABILITY_WARD)) ||
+                    (ucd.CurrentHealth < 1) || Managers.EF_MAN.UnitsToDestroy.Contains(target)) continue;
+            }
+            */
+
+            int cost = cd.CurrentEnergyCost;
+
+            if (cost > highestCost)
+            {
+                highestCost = cost;
+                highestCostTargets.Clear();
+                highestCostTargets.Add(target);
+            }
+            else if (cost == highestCost) highestCostTargets.Add(target);
+        }
+
+        if (highestCostTargets.Count < 1) return null;
+
+        if (highestCostTargets.Count > 1)
+        {
+            int randomIndex = Random.Range(0, highestCostTargets.Count);
+            return highestCostTargets[randomIndex];
+        }
+        else return highestCostTargets[0];
+    }
+
+    /******
+     * *****
+     * ****** GET_LOWEST_COST
+     * *****
+     *****/
+    public GameObject GetLowestCostTarget(List<GameObject> targets)//, bool targetsEnemy)
+    {
+        if (targets.Count < 1) return null;
+        int lowestCost = int.MaxValue;
+        List<GameObject> lowestCostTargets = new();
+
+        foreach (var target in targets)
+        {
+            var cd = target.GetComponent<CardDisplay>();
+
+            /* Unnecessary, method is only used on cards in hand
+            if (cd is UnitCardDisplay ucd)
+            {
+                if ((targetsEnemy && CardManager.GetAbility(target, CardManager.ABILITY_WARD)) ||
+                    (ucd.CurrentHealth < 1) || Managers.EF_MAN.UnitsToDestroy.Contains(target)) continue;
+            }
+            */
+
+            int cost = cd.CurrentEnergyCost;
+
+            if (cost < lowestCost)
+            {
+                lowestCost = cost;
+                lowestCostTargets.Clear();
+                lowestCostTargets.Add(target);
+            }
+            else if (cost == lowestCost) lowestCostTargets.Add(target);
+        }
+
+        if (lowestCostTargets.Count < 1) return null;
+
+        if (lowestCostTargets.Count > 1)
+        {
+            int randomIndex = Random.Range(0, lowestCostTargets.Count);
+            return lowestCostTargets[randomIndex];
+        }
+        else return lowestCostTargets[0];
+    }
+
     /******
      * *****
      * ****** CAN_ATTACK
@@ -364,15 +454,24 @@ public class CombatManager : MonoBehaviour
 
         um.StartCombatScene();
         CardZone = GameObject.Find(CARD_ZONE);
+        if (CardZone == null) Debug.LogError("CARD ZONE IS NULL!");
 
         foreach (var hMan in new List<HeroManager>() { pm, em })
         {
             if (playerData == null) hMan.ResetForCombat(); // !!! Load From Save !!!
 
-            hMan.HandZone = GameObject.Find(hMan.HAND_ZONE_TAG);
-            hMan.PlayZone = GameObject.Find(hMan.PLAY_ZONE_TAG);
-            hMan.ActionZone = GameObject.Find(hMan.ACTION_ZONE_TAG);
-            hMan.HeroObject = GameObject.Find(hMan.HERO_TAG);
+            hMan.HandZone = SetZone(hMan.HAND_ZONE_TAG);
+            hMan.PlayZone = SetZone(hMan.PLAY_ZONE_TAG);
+            hMan.ActionZone = SetZone(hMan.ACTION_ZONE_TAG);
+            hMan.HeroObject = SetZone(hMan.HERO_TAG);
+
+            static GameObject SetZone(string tag)
+            {
+                var zone = GameObject.Find(tag);
+                if (zone == null) Debug.LogError($"{tag} IS NULL!");
+                return zone;
+            }
+
             um.SelectTarget(hMan.HeroObject, UIManager.SelectionType.Disabled);
 
             if (playerData != null) // !!! Load From Save !!!
@@ -446,6 +545,9 @@ public class CombatManager : MonoBehaviour
             // Display Heroes
             DisplayHeroes();
 
+            // Display Skybar
+            StartCoroutine(Managers.AN_MAN.ShowSkyBarChildren(1));
+
             // Turn Popup
             CombatAudio();
             if (pm.IsMyTurn) um.CreateTurnPopup(true);
@@ -472,8 +574,7 @@ public class CombatManager : MonoBehaviour
 
         // ENEMY HERO
         em.HeroScript = enemyHero;
-        em.CurrentHealth = gm.IsTutorial ? 
-            GameManager.TUTORIAL_STARTING_HEALTH : GameManager.ENEMY_STARTING_HEALTH;
+        em.CurrentHealth = gm.IsTutorial ? GameManager.TUTORIAL_STARTING_HEALTH : em.MaxHealth;
 
         int energyPerTurn = GameManager.START_ENERGY_PER_TURN +
             (gm.IsTutorial ? 0 : gm.GetAdditionalEnergy(DifficultyLevel));
@@ -486,7 +587,7 @@ public class CombatManager : MonoBehaviour
         CombatAudio(); // enemyMan.HeroScript needs to be set first
 
         // PLAYER MANAGER
-        pm.CurrentHealth = pm.MaxHealth;
+        pm.CurrentHealth = pm.CurrentHealth; // Display current health
         pm.EnergyPerTurn = GameManager.START_ENERGY_PER_TURN;
         pm.CurrentEnergy = 0;
         pm.HeroUltimateProgress = 0;
@@ -540,9 +641,21 @@ public class CombatManager : MonoBehaviour
                 void CognitiveMagnifierEffect()
                 {
                     Managers.AN_MAN.TriggerAugment(cognitiveMagnifier);
-
                     Managers.EF_MAN.StartEffectGroupList(new List<EffectGroup>
                     { cognitiveMagnifierEffect }, pm.HeroObject);
+                }
+            }
+
+            string cryochamber = "Cryochamber";
+            if (pm.GetAugment(cryochamber))
+            {
+                vm.NewDelayedAction(() => CryochamberEffect(), 0.25f);
+
+                void CryochamberEffect()
+                {
+                    Managers.AN_MAN.TriggerAugment(cryochamber);
+                    Managers.EF_MAN.StartEffectGroupList(new List<EffectGroup>
+                    { cryochamberEffect }, pm.HeroObject);
                 }
             }
 
@@ -592,7 +705,7 @@ public class CombatManager : MonoBehaviour
      *****/
     public void EndCombat(bool playerWins)
     {
-        if (playerWins)
+        if (playerWins && Managers.P_MAN.CurrentHealth > 0) // Make sure the player doesn't win at 0 health (pretty sure it's not possible)
         {
             Managers.AU_MAN.StartStopSound(null, Managers.EN_MAN.HeroScript.HeroLose);
             FunctionTimer.Create(() =>
@@ -603,6 +716,8 @@ public class CombatManager : MonoBehaviour
             Managers.AU_MAN.StartStopSound(null, Managers.P_MAN.HeroScript.HeroLose);
             FunctionTimer.Create(() =>
             Managers.AU_MAN.StartStopSound(null, Managers.EN_MAN.HeroScript.HeroWin), 2f);
+
+            SaveLoad.DeletePlayerData(); // Delete saved PlayerData on defeat
         }
 
         Managers.EV_MAN.ClearDelayedActions();
@@ -610,6 +725,7 @@ public class CombatManager : MonoBehaviour
         Managers.EF_MAN.EffectsResolving = false;
         Managers.P_MAN.IsMyTurn = false;
 
+        // Items
         foreach (var item in Managers.P_MAN.HeroItems) item.IsUsed = false;
 
         // Created Cards Played
@@ -954,7 +1070,7 @@ public class CombatManager : MonoBehaviour
 
         if (targetValue < 1) return; // Don't deal damage to targets with 0 health
         newTargetValue = targetValue - damageValue;
-
+        
         // Damage to heroes
         if (target == Managers.P_MAN.HeroObject)
         {

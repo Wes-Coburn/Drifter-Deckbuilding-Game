@@ -25,14 +25,10 @@ public class AnimationManager : MonoBehaviour
     [SerializeField] private GameObject valueChangerPrefab;
 
     [Header("PARTICLE SYSTEMS")]
-    [SerializeField] private GameObject particleSystemPrefab;
-    [SerializeField] private GameObject particleSystem_BurstPrefab;
+    [SerializeField] private GameObject particleSystemPrefab, particleSystem_BurstPrefab;
     [Header("PARTICLE SYSTEM COLORS")]
-    [SerializeField] private Color attackColor;
-    [SerializeField] private Color buttonPressColor;
-    [SerializeField] private Color damageColor;
-    [SerializeField] private Color dragColor;
-    [SerializeField] private Color newCardColor;
+    [SerializeField] private Color attackColor, buttonPressColor,
+        damageColor, dragColor, newCardColor;
     #endregion
 
     #region PROPERTIES
@@ -768,7 +764,7 @@ public class AnimationManager : MonoBehaviour
         FunctionTimer.Create(() =>
         Managers.U_MAN.SelectTarget(Managers.EN_MAN.HeroObject, UIManager.SelectionType.Disabled), 2);
 
-        EnemyHero eh = Managers.D_MAN.EngagedHero as EnemyHero;
+        var eh = Managers.D_MAN.EngagedHero as EnemyHero;
         if (eh.IsBoss)
         {
             yield return new WaitForSeconds(2);
@@ -785,28 +781,7 @@ public class AnimationManager : MonoBehaviour
         Managers.AU_MAN.StartStopSound("SFX_Trigger");
         yield return new WaitForSeconds(0.5f);
 
-        // Augments
-        foreach (Transform augTran in Managers.U_MAN.AugmentBar.transform)
-        {
-            augTran.gameObject.SetActive(true);
-            SkybarIconAnimation(augTran.gameObject);
-        }
-        if (Managers.U_MAN.AugmentBar.transform.childCount > 0)
-            Managers.AU_MAN.StartStopSound("SFX_Trigger");
-
-        yield return new WaitForSeconds(0.5f);
-
-        // Items
-        foreach (Transform itemTran in Managers.U_MAN.ItemBar.transform)
-        {
-            itemTran.gameObject.SetActive(true);
-            SkybarIconAnimation(itemTran.gameObject);
-        }
-
-        if (Managers.U_MAN.ItemBar.transform.childCount > 0)
-            Managers.AU_MAN.StartStopSound("SFX_Trigger");
-
-        yield return new WaitForSeconds(0.5f);
+        yield return ShowSkyBarChildren();
 
         Managers.AU_MAN.StartStopSound("SFX_PortraitClick");
         do
@@ -855,6 +830,34 @@ public class AnimationManager : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         while (distance > 0);
+    }
+
+    public IEnumerator ShowSkyBarChildren(float delay = 0)
+    {
+        yield return new WaitForSeconds(delay);
+
+        // Augments
+        foreach (Transform augTran in Managers.U_MAN.AugmentBar.transform)
+        {
+            augTran.gameObject.SetActive(true);
+            SkybarIconAnimation(augTran.gameObject);
+        }
+        if (Managers.U_MAN.AugmentBar.transform.childCount > 0)
+            Managers.AU_MAN.StartStopSound("SFX_Trigger");
+
+        yield return new WaitForSeconds(0.5f);
+
+        // Items
+        foreach (Transform itemTran in Managers.U_MAN.ItemBar.transform)
+        {
+            itemTran.gameObject.SetActive(true);
+            SkybarIconAnimation(itemTran.gameObject);
+        }
+
+        if (Managers.U_MAN.ItemBar.transform.childCount > 0)
+            Managers.AU_MAN.StartStopSound("SFX_Trigger");
+
+        yield return new WaitForSeconds(0.5f);
     }
 
     /******

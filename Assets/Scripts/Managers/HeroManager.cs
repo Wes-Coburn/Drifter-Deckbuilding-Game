@@ -68,8 +68,14 @@ public abstract class HeroManager : MonoBehaviour
         get => currentHealth;
         set
         {
+            int startHealth = currentHealth;
+
+            if (value < 0) value = 0;
+            else if (value > MaxHealth) value = MaxHealth;
             currentHealth = value;
-            HeroObject.GetComponent<HeroDisplay>().HeroHealth = currentHealth;
+
+            if (HeroObject != null) HeroObject.GetComponent<HeroDisplay>().HeroHealth = currentHealth;
+            else if (this is PlayerManager) Managers.U_MAN.SetCurrentHealth(currentHealth - startHealth);
         }
     }
     public abstract int MaxHealth { get; }
@@ -91,7 +97,7 @@ public abstract class HeroManager : MonoBehaviour
                     return;
                 }
 
-                List<GameObject> enemyZoneList = heroScript is PlayerHero ? 
+                var enemyZoneList = heroScript is PlayerHero ? 
                     Managers.EN_MAN.PlayZoneCards : Managers.P_MAN.PlayZoneCards;
                 
                 Managers.EF_MAN.TriggerModifiers_SpecialTrigger

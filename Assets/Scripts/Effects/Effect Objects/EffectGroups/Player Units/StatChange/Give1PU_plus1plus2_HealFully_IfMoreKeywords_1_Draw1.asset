@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a22d7123f6ee007468cbdc6e9b6fe2b0, type: 3}
-  m_Name: Give1PU_plus2plus3_Armored_Forcefield
+  m_Name: Give1PU_plus1plus2_HealFully_IfMoreKeywords_1_Draw1
   m_EditorClassIdentifier: 
   Targets: {fileID: 11400000, guid: 3536ddc3f75919646b8fab53d9f33c8a, type: 2}
   ResolveIndependent: 0
-  EffectsDescription: Give an ally +2|+3, Armored, and Forcefield.
+  EffectsDescription: Give an ally +1|+2 and fully heal it. If it has 2+ positive
+    keywords, draw 1.
   Effects:
-  - {fileID: 11400000, guid: 0e100f014063fe6488fa2a9a6f9a7d16, type: 2}
-  - {fileID: 11400000, guid: df798152d560f2240b1ea451c695519f, type: 2}
-  - {fileID: 11400000, guid: b36d4f0a48f8fee48b0aaf088686fda7, type: 2}
+  - {fileID: 11400000, guid: 2020870446673f14a8dd178c0f853a66, type: 2}
+  - {fileID: 11400000, guid: 5119f91679cc488448528cd38a4cb039, type: 2}
+  - {fileID: 11400000, guid: 97947e4875399fd4f8f1c77845e91959, type: 2}

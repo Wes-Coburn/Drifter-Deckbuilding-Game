@@ -10,12 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44c307312f791a64788051778519ac70, type: 3}
-  m_Name: Research_GiveSelf_Forcefield
+  m_Name: Research_GiveSelf_plus1plus0_Forcefield
   m_EditorClassIdentifier: 
-  AbilityName: 'Research: Gain Forcefield.'
-  AbilityDescription: Gain Forcefield.
+  AbilityName: 'Research: Gain +1|+0 and Forcefield.'
+  AbilityDescription: Gain +1|+0 and Forcefield.
   AbilitySprite: {fileID: 0}
+  OverrideColor: 0
+  AbilityColor: {r: 0, g: 0, b: 0, a: 0}
   LinkedAbilites: []
   AbilityTrigger: {fileID: 11400000, guid: 01172d320cca3e84b9b071705ddb3163, type: 2}
+  TriggerLimit: 0
   EffectGroupList:
+  - {fileID: 11400000, guid: af2fb13f00060804f84ae4af6a1432f0, type: 2}
   - {fileID: 11400000, guid: 7c8ab2c389366044395aafeb1abeb8cc, type: 2}

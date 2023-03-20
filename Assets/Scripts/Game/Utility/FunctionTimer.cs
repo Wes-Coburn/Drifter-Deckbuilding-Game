@@ -27,7 +27,7 @@ public class FunctionTimer
 
     private static void RemoveTimer(FunctionTimer functionTimer)
     {
-        InitIfNeeded();
+        //InitIfNeeded(); // If init is needed, then the activeTimerList doesn't exist anyway
         activeTimerList.Remove(functionTimer);
     }
 

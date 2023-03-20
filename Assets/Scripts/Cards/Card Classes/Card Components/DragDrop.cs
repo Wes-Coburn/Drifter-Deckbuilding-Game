@@ -80,8 +80,6 @@ public class DragDrop : MonoBehaviour
         if (!Managers.P_MAN.IsMyTurn || Managers.EF_MAN.EffectsResolving || Managers.EV_MAN.ActionsDelayed ||
             CompareTag(Managers.EN_MAN.CARD_TAG) || DraggingCard != null || ArrowIsDragging) return;
 
-        FunctionTimer.StopTimer(CardZoom.ZOOM_CARD_TIMER);
-        FunctionTimer.StopTimer(CardZoom.ABILITY_POPUP_TIMER);
         DraggingCard = gameObject;
 
         if (!IsPlayed)
@@ -108,11 +106,11 @@ public class DragDrop : MonoBehaviour
             dragArrow = Instantiate(Managers.CA_MAN.DragArrowPrefab, Managers.U_MAN.CurrentCanvas.transform);
             dragArrow.GetComponent<DragArrow>().SourceCard = gameObject;
 
-            foreach (GameObject enemyUnit in Managers.EN_MAN.PlayZoneCards)
+            foreach (var enemyUnit in Managers.EN_MAN.PlayZoneCards)
                 if (Managers.CO_MAN.CanAttack(gameObject, enemyUnit))
                     Managers.U_MAN.SelectTarget(enemyUnit, UIManager.SelectionType.Highlighted);
 
-            foreach (GameObject playerUnit in Managers.P_MAN.PlayZoneCards)
+            foreach (var playerUnit in Managers.P_MAN.PlayZoneCards)
                 Managers.U_MAN.SelectTarget(playerUnit, UIManager.SelectionType.Disabled);
 
             if (Managers.CO_MAN.CanAttack(gameObject, Managers.EN_MAN.HeroObject))
@@ -188,8 +186,7 @@ public class DragDrop : MonoBehaviour
             Enemy = null;
         }
 
-
-        foreach (GameObject enemyUnit in Managers.EN_MAN.PlayZoneCards)
+        foreach (var enemyUnit in Managers.EN_MAN.PlayZoneCards)
             Managers.U_MAN.SelectTarget(enemyUnit, UIManager.SelectionType.Disabled);
 
         Managers.U_MAN.SelectTarget(Managers.EN_MAN.HeroObject, UIManager.SelectionType.Disabled);

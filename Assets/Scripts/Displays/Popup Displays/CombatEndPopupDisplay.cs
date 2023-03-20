@@ -11,6 +11,7 @@ public class CombatEndPopupDisplay : MonoBehaviour
     private void Start()
     {
         GetComponent<SoundPlayer>().PlaySound(0);
+        if (Managers.G_MAN.IsTutorial || Managers.G_MAN.IsCombatTest) return;
 
         // VICTORY
         if (victoryText.activeSelf)
@@ -37,11 +38,9 @@ public class CombatEndPopupDisplay : MonoBehaviour
             }
             else Debug.LogError("NEXT CLIP IS NOT COMBAT REWARD CLIP!");
         }
-        // DEFEAT
-        else SaveLoad.DeletePlayerData();
     }
 
-    public void OnClick()
+    public void ContinueButton_OnClick()
     {
         if (Managers.G_MAN.IsCombatTest)
         {
@@ -59,13 +58,11 @@ public class CombatEndPopupDisplay : MonoBehaviour
         // VICTORY
         if (victoryText.activeSelf)
         {
-            if (Managers.D_MAN.EngagedHero.NextDialogueClip is CombatRewardClip crc)
-            {
-                if (crc.NewHero && Managers.G_MAN.UnlockNewHero()) { }
-                else if (crc.NewPowers && Managers.G_MAN.UnlockNewPowers()) { }
-                else Managers.U_MAN.CreateChooseRewardPopup();
-            }
-            else Debug.LogError("NEXT CLIP IS NOT COMBAT REWARD CLIP!");
+            // For 'main' (non-random) encounters...
+            // First try to unlock new powers, then try to unlock a new hero
+            if (!Managers.G_MAN.CurrentLocation.IsRandomEncounter &&
+                (Managers.G_MAN.UnlockNewPowers() || Managers.G_MAN.UnlockNewHero())) { }
+            else Managers.U_MAN.CreateChooseRewardPopup();
         }
         // DEFEAT
         else SceneLoader.LoadScene(SceneLoader.Scene.TitleScene, true);

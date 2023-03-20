@@ -4,5 +4,5 @@ using UnityEngine.EventSystems;
 public class DestroyZoomObjects : MonoBehaviour, IPointerClickHandler
 {
     public void OnPointerClick(PointerEventData eventData) =>
-        UIManager.Instance.DestroyZoomObjects();
+        Managers.U_MAN.DestroyZoomObjects();
 }

@@ -5,16 +5,9 @@ using UnityEngine.UI;
 
 public class LocationPopupDisplay : MonoBehaviour
 {
-    [SerializeField] private GameObject locationName;
-    [SerializeField] private GameObject locationDescription;
-    [SerializeField] private GameObject locationHours;
-    [SerializeField] private GameObject objectivesDescription;
-    [SerializeField] private GameObject travelButtons;
-    [SerializeField] private GameObject difficultyLevel;
-    [SerializeField] private GameObject difficultyValue;
-    [SerializeField] private GameObject difficultyText;
-    [SerializeField] private GameObject undoButton;
-    [SerializeField] private GameObject closePopupButton;
+    [SerializeField] private GameObject locationName, locationDescription, locationHours,
+        objectivesDescription, travelButtons, difficultyLevel, difficultyValue,
+        difficultyText, undoButton, closePopupButton;
 
     private Location location;
     public Location Location
@@ -120,8 +113,8 @@ public class LocationPopupDisplay : MonoBehaviour
         else newColor = Color.green;
 
         int surgeValue = Managers.G_MAN.GetSurgeDelay(difficulty);
-        int aetherValue = Managers.G_MAN.GetAdditionalRewardAether(difficulty);
         int energyValue = Managers.G_MAN.GetAdditionalEnergy(difficulty);
+        int aetherValue = Managers.G_MAN.GetAdditionalRewardAether(difficulty);
         int reputationValue = Managers.G_MAN.GetBonusReputation(difficulty);
 
         string text =
@@ -129,12 +122,12 @@ public class LocationPopupDisplay : MonoBehaviour
             $"\n-> Enemies start with +{TextFilter.Clrz_red(energyValue + "")} energy." +
             $"\n\n-> +{TextFilter.Clrz_grn(aetherValue + "")} aether.";
 
-        if (location.IsRandomEncounter) text += $"\n-> +{TextFilter.Clrz_grn(reputationValue + "")} reputation."; // Only works if random encounters are the only locations with reputation rewards
-
+        // ::: WATCH :::
+        // Only works if random encounters are the only locations with reputation rewards
+        if (location.IsRandomEncounter) text += $"\n-> +{TextFilter.Clrz_grn(reputationValue + "")} reputation.";
         difficultyValue.GetComponent<TextMeshProUGUI>().SetText(difficulty + "");
         difficultyValue.GetComponent<TextMeshProUGUI>().color = newColor;
-        difficultyLevel.GetComponentInChildren<Slider>
-            ().handleRect.GetComponent<Image>().color = newColor;
+        difficultyLevel.GetComponentInChildren<Slider>().handleRect.GetComponent<Image>().color = newColor;
         difficultyText.GetComponent<TextMeshProUGUI>().SetText(text);
     }
 

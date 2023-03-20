@@ -4,9 +4,7 @@ using UnityEngine.UI;
 
 public class ItemIcon : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private GameObject iconImage;
-    [SerializeField] private GameObject itemUsedIcon;
-
+    [SerializeField] private GameObject iconImage, itemUsedIcon;
     private HeroItem loadedItem;
 
     //private const string ITEM_POPUP_TIMER = "ItemPopupTimer";
@@ -17,9 +15,8 @@ public class ItemIcon : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         set
         {
             loadedItem = value;
-            iconImage.GetComponent<Image>().sprite =
-                loadedItem.ItemImage;
-            IsUsed = loadedItem.IsUsed; // TESTING
+            iconImage.GetComponent<Image>().sprite = loadedItem.ItemImage;
+            IsUsed = loadedItem.IsUsed;
         }
     }
 
@@ -34,13 +31,13 @@ public class ItemIcon : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
     public void OnPointerClick(PointerEventData pointerEventData)
     {
-        if (EffectManager.Instance.EffectsResolving || EventManager.Instance.ActionsDelayed) return;
+        if (Managers.EF_MAN.EffectsResolving || Managers.EV_MAN.ActionsDelayed) return;
         if (!SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene)) return;
 
         if (loadedItem.IsUsed)
         {
             Managers.U_MAN.CreateFleetingInfoPopup("Item already used this combat!");
-            AudioManager.Instance.StartStopSound("SFX_Error");
+            Managers.AU_MAN.StartStopSound("SFX_Error");
             return;
         }
 

@@ -7,12 +7,8 @@ public class PlayerHeroDisplay : HeroDisplay
     [SerializeField] private GameObject powerCost;
     [SerializeField] private GameObject powerReadyIcon;
 
-    [SerializeField] private GameObject heroUltimate;
-    [SerializeField] private GameObject ultimateImage;
-    [SerializeField] private GameObject ultimateCost;
-    [SerializeField] private GameObject ultimateReadyIcon;
-    [SerializeField] private GameObject ultimateButton;
-    [SerializeField] private GameObject ultimateProgressValue;
+    [SerializeField] private GameObject heroUltimate, ultimateImage, ultimateCost,
+        ultimateReadyIcon, ultimateButton, ultimateProgressValue;
     [SerializeField] private GameObject[] ultimateProgressBars = new GameObject[GameManager.HERO_ULTMATE_GOAL];
 
     public GameObject PowerReadyIcon { get => powerReadyIcon; }
@@ -44,9 +40,9 @@ public class PlayerHeroDisplay : HeroDisplay
         powerCost.GetComponent<TextMeshProUGUI>().SetText(HeroScript.CurrentHeroPower.PowerCost.ToString());
         ultimateImage.GetComponent<Image>().sprite = (HeroScript as PlayerHero).CurrentHeroUltimate.PowerSprite;
 
-        int cost = Managers.P_MAN.GetUltimateCost(out Color ultimateColor);
-        var ultimateGui = ultimateCost.GetComponent<TextMeshProUGUI>();
-        ultimateGui.SetText(cost.ToString());
-        ultimateGui.color = ultimateColor;
+        int ultCost = Managers.P_MAN.GetUltimateCost(out Color ultColor);
+        var ultGUI = ultimateCost.GetComponent<TextMeshProUGUI>();
+        ultGUI.SetText(ultCost.ToString());
+        ultGUI.color = ultColor;
     }
 }

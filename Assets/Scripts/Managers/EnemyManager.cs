@@ -96,8 +96,25 @@ public class EnemyManager : HeroManager
     }
 
     public int ReinforcementGroup { get; set; }
-    public override int MaxHealth => Managers.G_MAN.IsTutorial ?
-        GameManager.TUTORIAL_STARTING_HEALTH : GameManager.ENEMY_STARTING_HEALTH;
+    public override int MaxHealth
+    {
+        get
+        {
+            if (Managers.G_MAN.IsTutorial) return GameManager.TUTORIAL_STARTING_HEALTH;
+
+            else
+            {
+                int levelToInt = (int)(HeroScript as EnemyHero).EnemyLevel;
+                if (levelToInt < 1)
+                {
+                    Debug.LogError("UNEXPECTED BEHVAIOR!");
+                    levelToInt = 1;
+                }
+
+                return GameManager.ENEMY_STARTING_HEALTH + (5 * (levelToInt - 1));
+            }
+        }
+    }
 
     public override void ResetForCombat()
     {

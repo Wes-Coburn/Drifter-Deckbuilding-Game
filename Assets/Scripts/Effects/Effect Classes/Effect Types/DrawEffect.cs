@@ -12,7 +12,7 @@ public class DrawEffect : Effect
     public override void LoadEffect(Effect effect)
     {
         base.LoadEffect(effect);
-        DrawEffect de = effect as DrawEffect;
+        var de = effect as DrawEffect;
         IsDiscardEffect = de.IsDiscardEffect;
         DiscardAll = de.DiscardAll;
         IsMulliganEffect = de.IsMulliganEffect;

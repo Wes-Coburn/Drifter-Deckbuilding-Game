@@ -42,6 +42,8 @@ public class HeroSelectSceneDisplay : MonoBehaviour
             else lockedHeroes.Add(newHero);
         }
 
+        (startingHeroes[1], startingHeroes[0]) = (startingHeroes[0], startingHeroes[1]);
+
         playerHeroes = startingHeroes.Concat(unlockedHeroes).Concat(lockedHeroes).ToList();
         heroBackstory.SetActive(false);
         currentPower = 0;
@@ -55,10 +57,6 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         newPH.CurrentHeroPower = LoadedPower;
         newPH.CurrentHeroUltimate = LoadedUltimate;
         Managers.P_MAN.HeroScript = newPH;
-
-        foreach (var uc in Managers.CA_MAN.PlayerStartUnits)
-            for (int i = 0; i < GameManager.PLAYER_START_UNITS; i++)
-                Managers.CA_MAN.AddCard(uc, Managers.P_MAN);
     }
 
     public void ConfirmButton_OnClick()

@@ -203,8 +203,7 @@ public class DialogueManager : MonoBehaviour
         foreach (string s in filterWords)
         {
             string stars = "";
-            for (int i = 0; i < s.Length; i++)
-                stars += "*";
+            for (int i = 0; i < s.Length; i++) stars += "*";
             text = text.Replace(s, stars);
         }
         return text;
@@ -215,8 +214,7 @@ public class DialogueManager : MonoBehaviour
         typedTextDelay = 0.05f;
         StopTimedText();
         string filteredText = FilterText(text);
-        CurrentTextRoutine =
-            StartCoroutine(TimedTextNumerator(filteredText, tmPro));
+        CurrentTextRoutine = StartCoroutine(TimedTextNumerator(filteredText, tmPro));
     }
     public void StopTimedText(bool finishText = false)
     {
@@ -238,7 +236,7 @@ public class DialogueManager : MonoBehaviour
         string currentText;
         for (int i = 0; i < fullText.Length + 1; i++)
         {
-            AudioManager.Instance.StartStopSound("SFX_Typing");
+            Managers.AU_MAN.StartStopSound("SFX_Typing");
             currentText = fullText.Substring(0, i);
             tmPro.SetText(currentText);
             yield return new WaitForSeconds(delay);
@@ -320,8 +318,10 @@ public class DialogueManager : MonoBehaviour
         // Travel Location
         if (dResponse.Response_TravelLocation != null)
         {
-            Location location = dResponse.Response_TravelLocation;
+            var location = dResponse.Response_TravelLocation;
             Managers.U_MAN.CreateTravelPopup(Managers.G_MAN.GetActiveLocation(location));
+
+            DelayedDisable();
             return;
         }
         // Combat Start
@@ -329,7 +329,7 @@ public class DialogueManager : MonoBehaviour
         {
             SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);
             if (nextClip is CombatRewardClip) EngagedHero.NextDialogueClip = nextClip;
-            else Debug.LogError("NEXT CLIP IS NOT COMBAT REWARD CLIP!");
+            else Debug.LogError("NEXT CLIP IS NOT COMBAT REWARD CLIP!");            
             return;
         }
         // World Map Start
@@ -342,36 +342,47 @@ public class DialogueManager : MonoBehaviour
         if (dResponse.Response_IsRecruitmentStart)
         {
             Managers.U_MAN.CreateCardPage(CardPageDisplay.CardPageType.RecruitUnit);
+
+            DelayedDisable();
             return;
         }
         // Action Shop
         if (dResponse.Response_IsActionShopStart)
         {
             Managers.U_MAN.CreateCardPage(CardPageDisplay.CardPageType.AcquireAction);
+
+            DelayedDisable();
             return;
         }
         // Item Shop
         if (dResponse.Response_IsShopStart)
         {
             Managers.U_MAN.CreateItemPagePopup(false);
+
+            DelayedDisable();
             return;
         }
         // Cloning
         if (dResponse.Response_IsCloningStart)
         {
             Managers.U_MAN.CreateCardPage(CardPageDisplay.CardPageType.CloneUnit);
+
+            DelayedDisable();
             return;
         }
         // New Augment
         if (dResponse.Response_IsNewAugmentStart)
         {
             Managers.U_MAN.CreateNewAugmentPopup();
+            DelayedDisable();
         }
         // Exit
         if (dResponse.Response_IsExit)
         {
             Managers.U_MAN.CreateGameEndPopup(); // FOR BETA ONLY
             GameLoader.SaveGame(); // FOR BETA ONLY
+
+            DelayedDisable();
             return;
         }
 
@@ -400,7 +411,11 @@ public class DialogueManager : MonoBehaviour
             // Aether Cells
             if (nextPrompt.AetherCells > 0) Managers.P_MAN.AetherCells += nextPrompt.AetherCells;
             // New Card
-            if (nextPrompt.NewCard != null) Managers.U_MAN.CreateNewCardPopup(nextPrompt.NewCard, "New Card!");
+            if (nextPrompt.NewCard != null)
+            {
+                Managers.U_MAN.CreateNewCardPopup(nextPrompt.NewCard, "New Card!");
+                DelayedDisable();
+            }
             // New Hero
             //if (nextPrompt.NewHero) Managers.U_MAN.CreateNewHeroPopup(Managers.G_MAN.NewUnlockedHero());
             // New Powers
@@ -410,5 +425,11 @@ public class DialogueManager : MonoBehaviour
         currentDialogueClip = nextClip;
         if (nextPrompt != null && nextPrompt.NewCard == null &&
             !dResponse.Response_IsNewAugmentStart) DisplayDialoguePopup();
+
+        void DelayedDisable()
+        {
+            AllowResponse = false;
+            FunctionTimer.Create(() => AllowResponse = true, 0.5f);
+        }
     }
 }

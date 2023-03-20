@@ -8,20 +8,12 @@ public class LocationIcon : MonoBehaviour
     [SerializeField] private GameObject locationImage;
 
     [Header("BADGES"), SerializeField] private GameObject badges;
-    [SerializeField] private GameObject unvisitedBadge;
-    [SerializeField] private GameObject priorityBadge;
-    [SerializeField] private GameObject nonPriorityBadge;
-    [SerializeField] private GameObject closedBadge;
+    [SerializeField] private GameObject unvisitedBadge, priorityBadge,
+        nonPriorityBadge, closedBadge;
 
     [Header("ICONS")]
-    [SerializeField] private Sprite priorityIcon;
-    [SerializeField] private Sprite nonPriorityIcon;
-    [SerializeField] private Sprite homeBaseSprite;
-    [SerializeField] private Sprite augmenterSprite;
-    [SerializeField] private Sprite shopSprite;
-    [SerializeField] private Sprite recruitmentSprite;
-    [SerializeField] private Sprite actionShopSprite;
-    [SerializeField] private Sprite cloningSprite;
+    [SerializeField] private Sprite priorityIcon, nonPriorityIcon, homeBaseSprite,
+        augmenterSprite, shopSprite, recruitmentSprite, actionShopSprite, cloningSprite;
 
     private Location location;
 
@@ -52,7 +44,8 @@ public class LocationIcon : MonoBehaviour
 
             if ((!isOpen || !isPriority) && !location.IsHomeBase)
             {
-                foreach (GameObject go in new GameObject[]
+                float scaleDown = 0.7f;
+                foreach (var go in new GameObject[]
                 {
                     locationImage,
                     priorityBadge,
@@ -64,13 +57,13 @@ public class LocationIcon : MonoBehaviour
 
                     // Scale
                     var scale = rect.localScale;
-                    Vector2 newScale = new(scale.x * 0.6f, scale.y * 0.6f);
+                    Vector2 newScale = new(scale.x * scaleDown, scale.y * scaleDown);
                     go.GetComponent<RectTransform>().localScale = newScale;
 
                     // Opacity
                     var img = go.GetComponent<Image>();
                     var clr = img.color;
-                    clr.a = 0.5f;
+                    clr.a = 0.6f;
                     img.color = clr;
                 }
 
@@ -102,7 +95,7 @@ public class LocationIcon : MonoBehaviour
     public void OnClick()
     {
         if (FindObjectOfType<ChooseRewardPopupDisplay>() != null ||
-            FindObjectOfType<NarrativePopupDisplay>() != null) return; // TESTING
+            FindObjectOfType<NarrativePopupDisplay>() != null) return;
 
         if (Location.IsHomeBase) TravelPopup();
         else

@@ -18,14 +18,14 @@ public class CardManager : MonoBehaviour
 
     #region FIELDS
 
-    [Header("PREFABS")]
-    [SerializeField] private GameObject unitCardPrefab, actionCardPrefab, cardContainerPrefab, dragArrowPrefab;
+    [Header("PREFABS"), SerializeField] private GameObject unitCardPrefab;
+    [SerializeField] private GameObject actionCardPrefab, cardContainerPrefab, dragArrowPrefab;
     [Header("PLAYER START UNITS")]
     [SerializeField] private UnitCard[] playerStartUnits;
     [Header("TUTORIAL PLAYER UNITS")]
     [SerializeField] private UnitCard[] tutorialPlayerUnits;
-    [Header("ULTIMATE CREATED CARDS")]
-    [SerializeField] private ActionCard exploit_Ultimate, invention_Ultimate, scheme_Ultimate, extraction_Ultimate;
+    [Header("ULTIMATE CREATED CARDS"), SerializeField] private ActionCard exploit_Ultimate;
+    [SerializeField] private ActionCard invention_Ultimate, scheme_Ultimate, extraction_Ultimate;
 
     private int lastCardIndex, lastContainerIndex;
 
@@ -295,8 +295,8 @@ public class CardManager : MonoBehaviour
             return null;
         }
 
-        List<Card> deck = hero.CurrentDeck;
-        List<GameObject> hand = hero.HandZoneCards;
+        var deck = hero.CurrentDeck;
+        var hand = hero.HandZoneCards;
         string cardTag = hero.CARD_TAG;
         Vector2 position = new();
 
@@ -328,13 +328,14 @@ public class CardManager : MonoBehaviour
         // Shuffle discard into deck
         if (drawnCard == null && deck.Count < 1)
         {
-            List<Card> discard = hero.DiscardZoneCards;
+            var discard = hero.DiscardZoneCards;
             if (discard.Count < 1)
             {
                 Debug.LogError("DISCARD IS EMPTY!");
                 return null;
             }
-            foreach (Card c in discard) deck.Add(c);
+
+            deck.AddRange(discard);
             discard.Clear();
             ShuffleDeck(hero);
         }
@@ -366,8 +367,9 @@ public class CardManager : MonoBehaviour
 
         if (additionalEffects != null)
         {
-            foreach (Effect addEffect in additionalEffects)
-                Managers.EF_MAN.ResolveEffect(new List<GameObject> { card }, addEffect, false, 0, out _, false);
+            foreach (var addEffect in additionalEffects)
+                Managers.EF_MAN.ResolveEffect(new List<GameObject>
+                { card }, addEffect, false, 0, out _, false);
         }
 
         return card;
@@ -517,7 +519,7 @@ public class CardManager : MonoBehaviour
         if (cardDisplay is UnitCardDisplay)
         {
             bool isPlayerHero = hMan == Managers.P_MAN;
-            List<GameObject> zoneCards = isPlayerHero ? Managers.P_MAN.PlayZoneCards : Managers.EN_MAN.PlayZoneCards;
+            var zoneCards = isPlayerHero ? Managers.P_MAN.PlayZoneCards : Managers.EN_MAN.PlayZoneCards;
             string errorMessage = isPlayerHero ? "You can't play more units!" : "Enemy can't play more units!";
 
             if (zoneCards.Count >= GameManager.MAX_UNITS_PLAYED)
@@ -570,9 +572,9 @@ public class CardManager : MonoBehaviour
      *****/
     public void PlayCard(GameObject card)
     {
-        HeroManager hMan = HeroManager.GetSourceHero(card);
-        CardDisplay cd = card.GetComponent<CardDisplay>();
-        CardContainer container = cd.CardContainer.GetComponent<CardContainer>();
+        var hMan = HeroManager.GetSourceHero(card);
+        var cd = card.GetComponent<CardDisplay>();
+        var container = cd.CardContainer.GetComponent<CardContainer>();
 
         if (cd is UnitCardDisplay)
         {
@@ -671,24 +673,21 @@ public class CardManager : MonoBehaviour
      * ****** DISCARD_CARD [HAND/ACTION_ZONE >>> DISCARD]
      * *****
      *****/
-        public void DiscardCard(GameObject card, bool isAction = false)
+    public void DiscardCard(GameObject card, bool isAction = false)
     {
-        CardDisplay cd = card.GetComponent<CardDisplay>();
-        List<GameObject> previousZone;
-        List<Card> newZone;
-        HeroManager hMan = HeroManager.GetSourceHero(card);
+        var cd = card.GetComponent<CardDisplay>();
+        var hMan = HeroManager.GetSourceHero(card);
 
-        previousZone = isAction ? hMan.ActionZoneCards : hMan.HandZoneCards;
-        newZone = hMan.DiscardZoneCards;
-
+        var previousZone = isAction ? hMan.ActionZoneCards : hMan.HandZoneCards;
+        var newZone = hMan.DiscardZoneCards;
         previousZone.Remove(card);
+
         if (cd.CardScript.BanishAfterPlay) HideCard(card);
         else
         {
             cd.ResetCard();
             newZone.Add(HideCard(card));
         }
-
         if (!isAction) Managers.AU_MAN.StartStopSound("SFX_DiscardCard");
     }
 
@@ -699,9 +698,7 @@ public class CardManager : MonoBehaviour
      *****/
     private void ResolveActionCard(GameObject card)
     {
-        List<EffectGroup> groupList =
-            card.GetComponent<ActionCardDisplay>().ActionCard.EffectGroupList;
-
+        var groupList = card.GetComponent<ActionCardDisplay>().ActionCard.EffectGroupList;
         Managers.EF_MAN.StartEffectGroupList(groupList, card);
     }
 
@@ -719,7 +716,7 @@ public class CardManager : MonoBehaviour
             int playableCards = 0;
             bool isPlayerTurn = !setAllFalse && Managers.P_MAN.IsMyTurn;
 
-            foreach (GameObject card in Managers.P_MAN.HandZoneCards)
+            foreach (var card in Managers.P_MAN.HandZoneCards)
             {
                 if (card == null)
                 {
@@ -739,7 +736,7 @@ public class CardManager : MonoBehaviour
 
             bool playerHasActions = playableCards > 0;
 
-            foreach (GameObject ally in Managers.P_MAN.PlayZoneCards)
+            foreach (var ally in Managers.P_MAN.PlayZoneCards)
             {
                 if (isPlayerTurn && Managers.CO_MAN.CanAttack(ally, null, true, true))
                 {
@@ -1065,17 +1062,19 @@ public class CardManager : MonoBehaviour
      * ****** ADD/REMOVE_CARD
      * *****
      *****/
-    public void AddCard(Card card, HeroManager hero, bool newCard = false)
+    public void AddCard(Card card, HeroManager hero, bool changeReputation = false)
     {
         var cardInstance = ScriptableObject.CreateInstance(card.GetType()) as Card;
         cardInstance.LoadCard(card);
         hero.DeckList.Add(cardInstance);
-        if (hero == Managers.P_MAN && newCard) UnitReputationChange(card, false);
+
+        if (changeReputation && hero == Managers.P_MAN)
+            UnitReputationChange(card, false);
     }
     public void RemovePlayerCard(Card card)
     {
         Managers.P_MAN.DeckList.Remove(card);
-        UnitReputationChange(card, true);
+        //UnitReputationChange(card, true);
     }
 
     private void UnitReputationChange(Card card, bool isRemoval)

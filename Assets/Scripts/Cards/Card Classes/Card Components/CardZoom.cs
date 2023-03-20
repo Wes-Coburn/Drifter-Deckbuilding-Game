@@ -44,16 +44,17 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
     public void OnPointerClick(PointerEventData pointerEventData)
     {
-        if (DragDrop.DraggingCard != null || ZoomCardIsCentered) return;
+        if (pointerEventData.button != PointerEventData.InputButton.Right) return;
 
-        if (Managers.U_MAN.PlayerIsTargetting && !Managers.EF_MAN.CurrentEffectGroup.Targets.PlayerHand) return;
+        if (DragDrop.DraggingCard != null || ZoomCardIsCentered ||
+            (Managers.U_MAN.PlayerIsTargetting &&
+            !Managers.EF_MAN.CurrentEffectGroup.Targets.PlayerHand)) return;
 
         GameObject parent = null;
         var container = GetComponent<CardDisplay>().CardContainer;
         if (container != null) parent = container.transform.parent.gameObject;
-        if (Managers.EN_MAN.HandZone != null && parent == Managers.EN_MAN.HandZone) return;
 
-        if (pointerEventData.button != PointerEventData.InputButton.Right) return;
+        if (Managers.EN_MAN.HandZone != null && parent == Managers.EN_MAN.HandZone) return;
 
         Managers.U_MAN.DestroyZoomObjects();
         ZoomCardIsCentered = true;
@@ -77,11 +78,12 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         if (container != null) parent = container.transform.parent.gameObject;
         else
         {
-            popYPos = transform.position.y + 200;
+            int buffer = 300;
+            popYPos = transform.position.y + buffer;
             popXPos = transform.position.x;
 
-            if (popYPos > 300) popYPos = 300;
-            else if (popYPos < -300) popYPos = -300;
+            if (popYPos > buffer) popYPos = buffer;
+            else if (popYPos < -buffer) popYPos = -buffer;
 
             ShowAbilityPopup(SMALL_POPUP_SCALE_VALUE);
             return;
@@ -162,7 +164,7 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         if (this == null) return;
 
         DestroyZoomCard();
-        GameObject cardPrefab = GetComponent<CardDisplay>() is UnitCardDisplay ?
+        var cardPrefab = GetComponent<CardDisplay>() is UnitCardDisplay ?
             unitZoomCardPrefab : actionZoomCardPrefab;
         CurrentZoomCard = CreateZoomObject(cardPrefab, new Vector2(vec2.x, vec2.y), scaleValue);
         CurrentZoomCard.GetComponent<CardDisplay>().DisplayZoomCard(gameObject);
@@ -305,12 +307,11 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         }
 
         DestroyAbilityPopups();
-        if (singleList.Count > 4) popPosition.y = 0;
-        if (singleList.Count > 9) Managers.U_MAN.HideSkybar(true);
+        if (singleList.Count > 4) popPosition.y = 0; // Long list
+        if (singleList.Count > 9) Managers.U_MAN.HideSkybar(true); // Xtra-Long List
 
         AbilityPopupBox = CreateZoomObject(abilityPopupBoxPrefab, popPosition, scaleValue);
-        foreach (var single in singleList)
-            CreatePopup(single);
+        foreach (var single in singleList) CreatePopup(single);
 
         void AddSingle(CardAbility ca)
         {

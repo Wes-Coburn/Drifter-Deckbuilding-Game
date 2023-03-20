@@ -9,24 +9,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3157ea15b0cf341bb27506b35eee1e, type: 3}
-  m_Name: RemoveAbility_Marked_IfHasMarked_IfResolves_ChangeControl_1turn
+  m_Script: {fileID: 11500000, guid: 6905d9529a6c1f048b40c0cd80a097d3, type: 3}
+  m_Name: Draw_1_IfEnemyDestroyed
   m_EditorClassIdentifier: 
   IsRequired: 0
   IgnoreLegality: 0
-  Value: 0
+  Value: 1
   IsNegative: 0
   IsDerivedValue: 0
   DerivedValue: 0
   Countdown: 0
   IsPermanent: 0
-  ShootRay: 1
-  RayColor: {r: 1, g: 1, b: 1, a: 1}
+  ShootRay: 0
+  RayColor: {r: 0, g: 0, b: 0, a: 0}
   PreCheckConditions: 0
   CheckConditionsIndependent: 0
-  EffectConditionType: 11
-  EffectCondition_Value: 0
-  IfHasAbility_Value: {fileID: 11400000, guid: 67b65f6bf1f93db43afb76d61b1435b2, type: 2}
+  EffectConditionType: 18
+  EffectCondition_Value: 1
+  IfHasAbility_Value: {fileID: 0}
   IfHasTrigger_Value: {fileID: 0}
   IfHasAbility: {fileID: 0}
   IfHasAbilityEffects: []
@@ -36,14 +36,11 @@ MonoBehaviour:
   IfHasGreaterPowerEffects: []
   IfHasLowerPowerValue: 0
   IfHasLowerPowerEffects: []
-  IfResolvesEffects:
-  - {fileID: 11400000, guid: 2c8a2664534b39946a2233834a21a310, type: 2}
-  - {fileID: 11400000, guid: 19f23de7a9e36a346b914c52c420266f, type: 2}
+  IfResolvesEffects: []
   ResolveSimultaneous: 0
   IfResolvesGroups: []
   ForEachEffects: []
-  removeAbility: {fileID: 11400000, guid: 67b65f6bf1f93db43afb76d61b1435b2, type: 2}
-  removeAllAbilities: 0
-  removeAllButNegativeAbilities: 0
-  removePositiveAbilities: 0
-  removeNegativeAbilities: 0
+  IsDiscardEffect: 0
+  DiscardAll: 0
+  IsMulliganEffect: 0
+  AdditionalEffects: []

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -25,12 +26,12 @@ public class UIManager : MonoBehaviour
     [Header("COLORS"), SerializeField] private Color highlightedColor;
     [SerializeField] private Color selectedColor, rejectedColor, playableColor;
 
-    [Header("SCENE FADER")]
-    [SerializeField] private GameObject sceneFader;
+    [Header("SCENE FADER"), SerializeField] private GameObject sceneFader;
 
     [Header("SKYBAR"), SerializeField] private GameObject skyBar;
-    [SerializeField] private GameObject augmentBar, augmentsDropdown, itemBar,
-        itemsDropdown, itemsCount, reputationBar, reputationsDropdown, aetherCount, aetherIcon;
+    [SerializeField]
+    private GameObject augmentBar, augmentsDropdown, itemBar,
+        itemsDropdown, itemsCount, reputationBar, reputationsDropdown, aetherCount, aetherIcon, currentHealth, healthValue;
 
     [Header("REPUTATION"), SerializeField] private GameObject reputation_Mages;
     [SerializeField] private GameObject reputation_Mutants,
@@ -138,7 +139,7 @@ public class UIManager : MonoBehaviour
         if (enabled)
         {
             var sr = playerZoneOutline.GetComponentInChildren<SpriteRenderer>();
-            Color col = selected ? highlightedColor : selectedColor;
+            var col = selected ? highlightedColor : selectedColor;
             col.a = 0.3f;
             sr.color = col;
         }
@@ -160,7 +161,7 @@ public class UIManager : MonoBehaviour
     }
     private IEnumerator FadeSceneNumerator(bool fadeOut)
     {
-        Image img = sceneFader.GetComponent<Image>();
+        var img = sceneFader.GetComponent<Image>();
         float alphaChange = 0.015f;
 
         if (fadeOut)
@@ -216,19 +217,19 @@ public class UIManager : MonoBehaviour
         etbd.EnemyTurnSide.SetActive(!isMyTurn);
 
         if (!isMyTurn) isInteractable = false;
-        Button[] buttons = endTurnButton.GetComponentsInChildren<Button>();
-        foreach (Button b in buttons) b.interactable = isInteractable;
+        var buttons = endTurnButton.GetComponentsInChildren<Button>();
+        foreach (var b in buttons) b.interactable = isInteractable;
     }
     public void SetReadyEndTurnButton(bool isReady)
     {
         if (endTurnButton == null) return;
 
         var etbd = endTurnButton.GetComponent<EndTurnButtonDisplay>();
-        Button etb = etbd.PlayerTurnSide.GetComponent<Button>();
+        var etb = etbd.PlayerTurnSide.GetComponent<Button>();
 
-        Color normalColor = isReady ? Color.green : Color.gray;
-        Color highlightedColor = Color.black;
-        Color disabledColor = Color.gray;
+        var normalColor = isReady ? Color.green : Color.gray;
+        var highlightedColor = Color.black;
+        var disabledColor = Color.gray;
 
         disabledColor.a = 0.3f;
         var btnClr = etb.colors;
@@ -269,7 +270,7 @@ public class UIManager : MonoBehaviour
             }
             else cs.CardOutline.SetActive(true);
 
-            Image image = cs.CardOutline.GetComponent<Image>();
+            var image = cs.CardOutline.GetComponent<Image>();
             if (enabled) SetColor(image);
 
             if (selectionType is SelectionType.Selected && PlayerIsTargetting)
@@ -294,7 +295,7 @@ public class UIManager : MonoBehaviour
             }
             else hs.HeroOutline.SetActive(true);
 
-            Image image = hs.HeroOutline.GetComponentInChildren<Image>();
+            var image = hs.HeroOutline.GetComponentInChildren<Image>();
             if (enabled) SetColor(image);
         }
         else
@@ -357,7 +358,7 @@ public class UIManager : MonoBehaviour
             AbilityZoom.AbilityPopup
         };
 
-        foreach (GameObject go in objectsToDestroy) Destroy(go);
+        foreach (var go in objectsToDestroy) Destroy(go);
     }
 
     /******
@@ -822,7 +823,7 @@ public class UIManager : MonoBehaviour
         }
 
         DestroyCardPage();
-        GameObject prefab = isScrollPopup ? cardScrollPagePrefab : cardPagePrefab;
+        var prefab = isScrollPopup ? cardScrollPagePrefab : cardPagePrefab;
         cardPage = Instantiate(prefab, CurrentCanvas.transform);
         cardPage.GetComponent<CardPageDisplay>().DisplayCardPage(cardPageType, playSound, scrollValue);
     }
@@ -971,8 +972,7 @@ public class UIManager : MonoBehaviour
     }
     public void DestroyNarrativePopup()
     {
-        if (Managers.D_MAN.CurrentTextRoutine != null)
-            Managers.D_MAN.StopTimedText();
+        if (Managers.D_MAN.CurrentTextRoutine != null) Managers.D_MAN.StopTimedText();
 
         if (narrativePopup != null)
         {
@@ -989,7 +989,7 @@ public class UIManager : MonoBehaviour
     public void UpdateItemsCount()
     {
         int unusedItems = 0;
-        foreach (HeroItem item in Managers.P_MAN.HeroItems)
+        foreach (var item in Managers.P_MAN.HeroItems)
             if (!item.IsUsed) unusedItems++;
 
         itemsCount.GetComponent<TextMeshProUGUI>().SetText(unusedItems.ToString());
@@ -1041,10 +1041,11 @@ public class UIManager : MonoBehaviour
             ClearAugmentBar();
             ClearItemBar();
 
-            foreach (HeroAugment ha in Managers.P_MAN.HeroAugments)
+            foreach (var ha in Managers.P_MAN.HeroAugments)
                 CreateAugmentIcon(ha);
-            foreach (HeroItem hi in Managers.P_MAN.HeroItems)
+            foreach (var hi in Managers.P_MAN.HeroItems)
                 CreateItemIcon(hi);
+
             foreach (Transform augTran in augmentBar.transform)
                 augTran.gameObject.SetActive(!hideChildren);
             foreach (Transform itemTran in itemBar.transform)
@@ -1055,6 +1056,9 @@ public class UIManager : MonoBehaviour
             SetAetherCount(0);
             UpdateItemsCount();
             SetAllReputation();
+
+            currentHealth.SetActive(!SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene));
+            SetCurrentHealth(0);
         }
 
         augmentsDropdown.SetActive(false);
@@ -1063,7 +1067,7 @@ public class UIManager : MonoBehaviour
     }
     public void SetAetherCount(int valueChange)
     {
-        if (!skyBar.activeSelf) return;
+        if (!skyBar.activeInHierarchy) return;
 
         var tmpro = aetherCount.GetComponentInChildren<TextMeshProUGUI>();
         tmpro.SetText(Managers.P_MAN.AetherCells - valueChange + "");
@@ -1075,41 +1079,59 @@ public class UIManager : MonoBehaviour
 
             Managers.AN_MAN.SkybarIconAnimation(aetherIcon);
             Managers.AN_MAN.CountingText();
-            Managers.AN_MAN.ValueChanger(aetherIcon.transform, valueChange, true, -200, 75);
+            Managers.AN_MAN.ValueChanger(aetherIcon.transform, valueChange, true, -275, 75);
+        }
+    }
+    public void SetCurrentHealth(int valueChange)
+    {
+        if (!skyBar.activeInHierarchy || !currentHealth.activeInHierarchy) return;
+
+        var tmpro = healthValue.GetComponent<TextMeshProUGUI>();
+        var slider = currentHealth.GetComponentInChildren<Slider>();
+
+        tmpro.SetText(Managers.P_MAN.CurrentHealth + "");
+        slider.maxValue = Managers.P_MAN.MaxHealth;
+        slider.value = Managers.P_MAN.CurrentHealth;
+
+        if (valueChange != 0)
+        {
+            Managers.AU_MAN.StartStopSound("SFX_StatPlus");
+            Managers.AN_MAN.SkybarIconAnimation(healthValue);
+            Managers.AN_MAN.ValueChanger(healthValue.transform, valueChange, true, -250, 75);
         }
     }
     public void CreateAugmentIcon(HeroAugment augment, bool isNewAugment = false)
     {
-        if (!skyBar.activeSelf) return;
-        GameObject augmentIcon = Instantiate(augmentIconPrefab, augmentBar.transform);
+        if (!skyBar.activeInHierarchy) return;
+        var augmentIcon = Instantiate(augmentIconPrefab, augmentBar.transform);
         augmentIcon.GetComponent<AugmentIcon>().LoadedAugment = augment;
         if (isNewAugment) Managers.AN_MAN.SkybarIconAnimation(augmentIcon);
     }
     public void CreateItemIcon(HeroItem item, bool isNewItem = false)
     {
-        if (!skyBar.activeSelf) return;
-        GameObject itemIcon = Instantiate(itemIconPrefab, itemBar.transform);
+        if (!skyBar.activeInHierarchy) return;
+        var itemIcon = Instantiate(itemIconPrefab, itemBar.transform);
         itemIcon.GetComponent<ItemIcon>().LoadedItem = item;
         if (isNewItem) Managers.AN_MAN.SkybarIconAnimation(itemIcon);
     }
     public void ClearAugmentBar()
     {
-        if (!skyBar.activeSelf) return;
+        if (!skyBar.activeInHierarchy) return;
         foreach (Transform tran in augmentBar.transform)
             Destroy(tran.gameObject);
     }
     public void ClearItemBar()
     {
-        if (!skyBar.activeSelf) return;
+        if (!skyBar.activeInHierarchy) return;
         foreach (Transform tran in itemBar.transform)
             Destroy(tran.gameObject);
     }
     public void CreateAugmentIconPopup(HeroAugment augment, GameObject sourceIcon)
     {
         DestroyAugmentIconPopup();
-        augmentIconPopup = Instantiate(augmentIconPopupPrefab, CurrentCanvas.transform);
-        Vector2 sourcePos = sourceIcon.transform.localPosition;
-        augmentIconPopup.transform.localPosition = new Vector2(sourcePos.x - 275, sourcePos.y + 250);
+        augmentIconPopup = Instantiate(augmentIconPopupPrefab, UICanvas.transform); // UICanvas!
+        Vector2 sourcePos = sourceIcon.transform.position;
+        augmentIconPopup.transform.position = new Vector2(sourcePos.x - 250, sourcePos.y - 50);
         augmentIconPopup.GetComponent<AugmentIconPopupDisplay>().HeroAugment = augment;
     }
     public void DestroyAugmentIconPopup()
@@ -1123,9 +1145,9 @@ public class UIManager : MonoBehaviour
     public void CreateItemIconPopup(HeroItem item, GameObject sourceIcon, bool isUseItemConfirm = false)
     {
         DestroyItemIconPopup();
-        itemIconPopup = Instantiate(itemIconPopupPrefab, CurrentZoomCanvas.transform);
-        Vector2 sourcePos = sourceIcon.transform.localPosition;
-        itemIconPopup.transform.localPosition = new Vector2(sourcePos.x - 125, sourcePos.y + 250);
+        itemIconPopup = Instantiate(itemIconPopupPrefab, UICanvas.transform); // UICanvas!
+        Vector2 sourcePos = sourceIcon.transform.position;
+        itemIconPopup.transform.position = new Vector2(sourcePos.x - 250, sourcePos.y - 50);
         var iipd = itemIconPopup.GetComponent<ItemIconPopupDisplay>();
         iipd.LoadedItem = item;
         iipd.SourceIcon = sourceIcon;
@@ -1147,13 +1169,12 @@ public class UIManager : MonoBehaviour
     {
         DestroyItemAbilityPopup();
         itemAbilityPopup = Instantiate(abilityPopupBoxPrefab, CurrentZoomCanvas.transform);
-        foreach (CardAbility linkedCa in item.LinkedAbilities)
+        foreach (var linkedCa in item.LinkedAbilities)
             CreateAbilityPopup(linkedCa);
 
         void CreateAbilityPopup(CardAbility ca)
         {
-            GameObject abilityPopup =
-                    Instantiate(abilityPopupPrefab, itemAbilityPopup.transform);
+            var abilityPopup = Instantiate(abilityPopupPrefab, itemAbilityPopup.transform);
             abilityPopup.GetComponent<AbilityPopupDisplay>().DisplayAbilityPopup(ca, false, true);
         }
     }
@@ -1207,7 +1228,7 @@ public class UIManager : MonoBehaviour
 
         repIcon.GetComponentInChildren<TextMeshProUGUI>().SetText(repScore.ToString());
 
-        Button button = repIcon.GetComponent<Button>();
+        var button = repIcon.GetComponent<Button>();
         var colors = button.colors;
         if (repScore >= GameManager.REPUTATION_TIER_1) colors.normalColor = Color.green;
         else colors.normalColor = Color.white;
@@ -1231,25 +1252,16 @@ public class UIManager : MonoBehaviour
 
     public void SetAllReputation()
     {
-        List<GameManager.ReputationType> repTypes = new List<GameManager.ReputationType>()
-        {
-            GameManager.ReputationType.Mages,
-            GameManager.ReputationType.Mutants,
-            GameManager.ReputationType.Rogues,
-            GameManager.ReputationType.Techs,
-            GameManager.ReputationType.Warriors
-        };
-
-        foreach (GameManager.ReputationType type in repTypes)
-            SetReputation(type);
+        foreach (GameManager.ReputationType type in
+            Enum.GetValues(typeof(GameManager.ReputationType))) SetReputation(type);
     }
 
     public void CreateReputationPopup(GameManager.ReputationType repType, GameObject sourceIcon)
     {
         DestroyReputationPopup();
-        reputationPopup = Instantiate(reputationPopupPrefab, UICanvas.transform);
-        Vector2 sourcePos = sourceIcon.transform.localPosition;
-        reputationPopup.transform.localPosition = new Vector2(sourcePos.x - 300, sourcePos.y + 100);
+        reputationPopup = Instantiate(reputationPopupPrefab, UICanvas.transform); // UICanvas!
+        Vector2 sourcePos = sourceIcon.transform.position;
+        reputationPopup.transform.position = new Vector2(sourcePos.x - 300, 750);
         reputationPopup.GetComponent<ReputationPopupDisplay>().DisplayReputationPopup
             (Managers.G_MAN.GetReputation(repType), Managers.G_MAN.GetReputationTier(repType),
             Managers.G_MAN.GetReputationBonuses(repType));
