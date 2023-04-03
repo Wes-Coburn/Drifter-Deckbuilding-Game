@@ -60,7 +60,7 @@ public class ItemDescriptionDisplay : MonoBehaviour, IPointerClickHandler, IPoin
             if (!hasBonus) text += "\n(Visit <b>The Augmenter</b>)";
             Managers.U_MAN.CreateFleetingInfoPopup(text);
         }
-        else if (Managers.P_MAN.AetherCells < Managers.G_MAN.GetItemCost(loadedItem, out _, false))
+        else if (Managers.P_MAN.CurrentAether < Managers.G_MAN.GetItemCost(loadedItem, out _, false))
             Managers.U_MAN.InsufficientAetherPopup();
         else Managers.U_MAN.CreateBuyItemPopup(loadedItem);
     }

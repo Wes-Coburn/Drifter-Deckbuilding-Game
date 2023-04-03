@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class MultiplierEffect : Effect
 {
-    [Tooltip("Give the effect this many times"), Range(0, 5)]
+    [Tooltip("Give the effect this many times"), Range(1, 5)]
     public int Multiplier;
     [Tooltip("If enabled, the effect will be given an unlimited number of times within the duration")]
     public bool Unlimited;

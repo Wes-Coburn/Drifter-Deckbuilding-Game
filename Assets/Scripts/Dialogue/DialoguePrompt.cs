@@ -5,21 +5,16 @@ public class DialoguePrompt : DialogueClip
 {
     [Header("DIALOGUE PROMPT")]
     [SerializeField, TextArea] protected string dialoguePromptText;
-    [Space, Header("DIALOGUE RESPONSES")]
-    [SerializeField] private DialogueResponse dialogueResponse1,
-        dialogueResponse2, dialogueResponse3;
-    [Header("NEW ENGAGED HERO")]
-    [SerializeField] private NPCHero newEngagedHero;
-    [Header("HIDE NPC")]
-    [SerializeField] private bool hideNPC;
-    [Header("DIALOGUE REWARDS")]
-    [SerializeField] private Card newCard;
+    [Space, Header("DIALOGUE RESPONSES"), SerializeField] private DialogueResponse dialogueResponse1;
+    [SerializeField] private DialogueResponse dialogueResponse2, dialogueResponse3;
+    [Header("NEW ENGAGED HERO"), SerializeField] private NPCHero newEngagedHero;
+    [Header("HIDE NPC"), SerializeField] private bool hideNPC;
+    [Header("DIALOGUE REWARDS"), SerializeField] private Card newCard;
     [SerializeField, Range(0, 5)] private int aetherCells;
-    [Header("NEW LOCATIONS")]
-    [SerializeField] private NewLocation[] newLocations;
-    [Header("REPUTATION")]
-    [SerializeField, Range(-3, 3)] private int reputation_Mages, reputation_Mutants,
-        reputation_Rogues, reputation_Techs, reputation_Warriors;
+    [Header("NEW LOCATIONS"), SerializeField] private NewLocation[] newLocations;
+    [Header("REPUTATION"), SerializeField] private int reputation_Mages;
+    [SerializeField] private int reputation_Mutants, reputation_Rogues,
+        reputation_Techs, reputation_Warriors;
 
     public string DialoguePromptText { get => dialoguePromptText; }
     public DialogueResponse DialogueResponse1 { get => dialogueResponse1; }

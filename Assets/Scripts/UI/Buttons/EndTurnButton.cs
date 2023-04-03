@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class EndTurnButton : MonoBehaviour, IPointerClickHandler
 {
-    Button button;
+    private Button button;
     private void Awake() => button = GetComponent<Button>();
     private void Update()
     {

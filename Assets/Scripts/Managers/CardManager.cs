@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -19,13 +20,22 @@ public class CardManager : MonoBehaviour
     #region FIELDS
 
     [Header("PREFABS"), SerializeField] private GameObject unitCardPrefab;
-    [SerializeField] private GameObject actionCardPrefab, cardContainerPrefab, dragArrowPrefab;
+    [SerializeField] private GameObject actionCardPrefab, unitZoomCardPrefab,
+        actionZoomCardPrefab, cardContainerPrefab, dragArrowPrefab;
     [Header("PLAYER START UNITS")]
     [SerializeField] private UnitCard[] playerStartUnits;
     [Header("TUTORIAL PLAYER UNITS")]
     [SerializeField] private UnitCard[] tutorialPlayerUnits;
     [Header("ULTIMATE CREATED CARDS"), SerializeField] private ActionCard exploit_Ultimate;
     [SerializeField] private ActionCard invention_Ultimate, scheme_Ultimate, extraction_Ultimate;
+
+    // Related Card References
+    [Header("RELATED CARD REFERENCES")]
+    public Card[] Exploits;
+    public Card[] Inventions;
+    public Card[] Schemes;
+    public Card[] Extractions;
+    public Card[] Traps;
 
     private int lastCardIndex, lastContainerIndex;
 
@@ -152,6 +162,8 @@ public class CardManager : MonoBehaviour
     #region PROPERTIES
     public GameObject UnitCardPrefab { get => unitCardPrefab; }
     public GameObject ActionCardPrefab { get => actionCardPrefab; }
+    public GameObject UnitZoomCardPrefab { get => unitZoomCardPrefab; }
+    public GameObject ActionZoomCardPrefab { get => actionZoomCardPrefab; }
     public GameObject CardContainerPrefab { get => cardContainerPrefab; }
     public GameObject DragArrowPrefab { get => dragArrowPrefab; }
 
@@ -178,6 +190,49 @@ public class CardManager : MonoBehaviour
     #endregion
 
     #region CARD HANDLING
+    /******
+     * *****
+     * ****** GetRelatedCards
+     * *****
+     *****/
+    public Card[] GetCreatedCards(string cardType, bool includeUltimates)
+    {
+        if (Enum.TryParse(cardType, out Card.CreatedCardType enumType))
+            return GetCreatedCards(enumType, includeUltimates);
+        else return null;
+    }
+    public Card[] GetCreatedCards(Card.CreatedCardType cardType, bool includeUltimates)
+    {
+        Card[] createdCards;
+        Card ultimate;
+
+        switch (cardType)
+        {
+            case Card.CreatedCardType.Exploit:
+                createdCards = Exploits;
+                ultimate = exploit_Ultimate;
+                break;
+            case Card.CreatedCardType.Invention:
+                createdCards = Inventions;
+                ultimate = invention_Ultimate;
+                break;
+            case Card.CreatedCardType.Scheme:
+                createdCards = Schemes;
+                ultimate = scheme_Ultimate;
+                break;
+            case Card.CreatedCardType.Extraction:
+                createdCards = Extractions;
+                ultimate = extraction_Ultimate;
+                break;
+            case Card.CreatedCardType.Trap:
+                return Traps;
+            default:
+                Debug.LogError("INVALID CARD TYPE!");
+                return null;
+        }
+
+        return includeUltimates ? createdCards.Concat(new Card[] { ultimate }).ToArray() : createdCards;
+    }
     /******
      * *****
      * ****** NEW_CARD_INSTANCE
@@ -218,24 +273,19 @@ public class CardManager : MonoBehaviour
 
         if (card is UnitCard)
         {
-            prefab = UnitCardPrefab;
-            if (type is DisplayType.NewCard) // Unused "New Card" functionality
-                prefab = prefab.GetComponent<CardZoom>().UnitZoomCardPrefab;
+            // Unused "New Card" functionality
+            prefab = type is DisplayType.NewCard ? UnitZoomCardPrefab : UnitCardPrefab;
         }
         else if (card is ActionCard)
         {
-            prefab = ActionCardPrefab;
-            if (type is DisplayType.NewCard) // Unused "New Card" functionality
-                prefab = prefab.GetComponent<CardZoom>().ActionZoomCardPrefab;
+            // Unused "New Card" functionality
+            prefab = type is DisplayType.NewCard ? ActionZoomCardPrefab : ActionCardPrefab;
         }
 
         GameObject parent = null;
-        if (Managers.CO_MAN.CardZone != null)
-            parent = Managers.CO_MAN.CardZone;
-        else if (Managers.U_MAN.CurrentCanvas != null)
-            parent = Managers.U_MAN.CurrentCanvas;
-        else if (Managers.U_MAN.UICanvas != null)
-            parent = Managers.U_MAN.UICanvas;
+        if (Managers.CO_MAN.CardZone != null) parent = Managers.CO_MAN.CardZone;
+        else if (Managers.U_MAN.CurrentCanvas != null) parent = Managers.U_MAN.CurrentCanvas;
+        else if (Managers.U_MAN.UICanvas != null) parent = Managers.U_MAN.UICanvas;
 
         if (parent == null)
         {
@@ -264,7 +314,7 @@ public class CardManager : MonoBehaviour
             prefab.tag = Managers.P_MAN.CARD_TAG; // For CardZoom.CreateAbilityPopups()
             var newCard = NewCardInstance(card);
             if (type is DisplayType.HeroSelect) cd.CardScript = newCard;
-            else if (type is DisplayType.NewCard) cd.DisplayZoomCard(null, newCard);
+            else if (type is DisplayType.NewCard) cd.DisplayZoomCard(newCard);
             else if (type is DisplayType.ChooseCard or DisplayType.Cardpage) cd.DisplayCardPageCard(newCard);
         }
         return prefab;
@@ -386,7 +436,6 @@ public class CardManager : MonoBehaviour
         ChangeControl,
         LoadFromSave,
     }
-    //bool returnToIndex = false, bool changeControl = false
     public void ChangeCardZone(GameObject card, GameObject newZone, ZoneChangeType changeType = ZoneChangeType.Default)
     {
         if (card == null)
@@ -782,11 +831,14 @@ public class CardManager : MonoBehaviour
     public string FilterCreatedCardProgress(string text, bool isPlayerSource)
     {
         HeroManager hMan = isPlayerSource ? Managers.P_MAN : Managers.EN_MAN;
-        text = text.Replace("{EXPLOITS}", $"{hMan.ExploitsPlayed}");
-        text = text.Replace("{INVENTIONS}", $"{hMan.InventionsPlayed}");
-        text = text.Replace("{SCHEMES}", $"{hMan.SchemesPlayed}");
-        text = text.Replace("{EXTRACTIONS}", $"{hMan.ExtractionsPlayed}");
+        text = text.Replace("{EXPLOITS}", CardProgress(hMan.ExploitsPlayed));
+        text = text.Replace("{INVENTIONS}", CardProgress(hMan.InventionsPlayed));
+        text = text.Replace("{SCHEMES}", CardProgress(hMan.SchemesPlayed));
+        text = text.Replace("{EXTRACTIONS}", CardProgress(hMan.ExtractionsPlayed));
         return text;
+
+        static string CardProgress(int progress) =>
+            $"{TextFilter.Clrz_ylw(progress.ToString())}/{TextFilter.Clrz_ylw("3")}";
     }
 
     public string FilterKeywords(string text)
@@ -823,19 +875,12 @@ public class CardManager : MonoBehaviour
     public Color GetAbilityColor(CardAbility cardAbility)
     {
         if (cardAbility.OverrideColor) return cardAbility.AbilityColor;
-
-        if (cardAbility is TriggeredAbility ||
-            cardAbility is ModifierAbility) return Color.yellow;
+        if (cardAbility is TriggeredAbility or ModifierAbility) return Color.yellow;
 
         foreach (string posAbi in PositiveAbilities)
-        {
             if (cardAbility.AbilityName == posAbi) return Color.green;
-        }
-
         foreach (string negAbi in NegativeAbilities)
-        {
             if (cardAbility.AbilityName == negAbi) return Color.red;
-        }
 
         return Color.yellow;
     }
@@ -1071,11 +1116,6 @@ public class CardManager : MonoBehaviour
         if (changeReputation && hero == Managers.P_MAN)
             UnitReputationChange(card, false);
     }
-    public void RemovePlayerCard(Card card)
-    {
-        Managers.P_MAN.DeckList.Remove(card);
-        //UnitReputationChange(card, true);
-    }
 
     private void UnitReputationChange(Card card, bool isRemoval)
     {
@@ -1241,8 +1281,7 @@ public class CardManager : MonoBehaviour
 
                     Debug.Log("TRIGGER! <" + triggerName + ">");
                     effectFound = true;
-                    int additionalTriggers =
-                        Managers.EF_MAN.TriggerModifiers_TriggerAbility(triggerName, unitCard);
+                    int additionalTriggers = Managers.EF_MAN.TriggerModifiers_TriggerAbility(triggerName, unitCard);
                     int totalTriggers = 1 + additionalTriggers;
 
                     List<TriggeredAbility> targetList;

@@ -23,12 +23,10 @@ public class AnimationManager : MonoBehaviour
     private Color previousBarColor;
 
     [SerializeField] private GameObject valueChangerPrefab;
-
-    [Header("PARTICLE SYSTEMS")]
-    [SerializeField] private GameObject particleSystemPrefab, particleSystem_BurstPrefab;
-    [Header("PARTICLE SYSTEM COLORS")]
-    [SerializeField] private Color attackColor, buttonPressColor,
-        damageColor, dragColor, newCardColor;
+    [Header("PARTICLE SYSTEMS"), SerializeField] private GameObject particleSystemPrefab;
+    [SerializeField] private GameObject particleSystem_BurstPrefab;
+    [Header("PARTICLE SYSTEM COLORS"), SerializeField] private Color attackColor;
+    [SerializeField] private Color buttonPressColor, damageColor, dragColor, newCardColor;
     #endregion
 
     #region PROPERTIES
@@ -402,14 +400,14 @@ public class AnimationManager : MonoBehaviour
     public void ModifyHeroHealthState(GameObject hero, int healthChange)
     {
         ChangeAnimationState(hero, "Modify_Health");
-        GameObject healthScore = hero.GetComponent<HeroDisplay>().HeroHealthObject;
+        var healthScore = hero.GetComponent<HeroDisplay>().HeroHealthObject;
         ValueChanger(healthScore.transform, healthChange);
     }
     public void ModifyHeroEnergyState(int energyChange, GameObject hero, bool playSound = true)
     {
         if (playSound) Managers.AU_MAN.StartStopSound("SFX_EnergyRefill");
         ChangeAnimationState(hero, "Modify_Energy");
-        GameObject energyScore = hero.GetComponent<HeroDisplay>().HeroEnergyObject;
+        var energyScore = hero.GetComponent<HeroDisplay>().HeroEnergyObject;
         ValueChanger(energyScore.transform, energyChange);
     }
     public void TriggerHeroPower(GameObject heroPower) => ChangeAnimationState(heroPower, "Trigger");
@@ -450,9 +448,9 @@ public class AnimationManager : MonoBehaviour
     public void UnitTakeDamageState(GameObject unitCard, int damageValue, bool isMeleeAttacker)
     {
         ChangeAnimationState(unitCard.GetComponent<UnitCardDisplay>().UnitStats, "Take_Damage");
-        UnitCardDisplay ucd = unitCard.GetComponent<UnitCardDisplay>();
-        GameObject stats = ucd.UnitStats;
-        GameObject healthScore = ucd.HealthScore;
+        var ucd = unitCard.GetComponent<UnitCardDisplay>();
+        var stats = ucd.UnitStats;
+        var healthScore = ucd.HealthScore;
         ValueChanger(healthScore.transform, -damageValue, isMeleeAttacker);
         SetAnimatorBool(stats, "IsDamaged", CombatManager.IsDamaged(unitCard));
     }
@@ -480,8 +478,8 @@ public class AnimationManager : MonoBehaviour
     {
         if (!setStatsOnly && !showZero && powerChange == 0 && healthChange == 0) return;
 
-        UnitCardDisplay ucd = unitCard.GetComponent<UnitCardDisplay>();
-        GameObject stats = ucd.UnitStats;
+        var ucd = unitCard.GetComponent<UnitCardDisplay>();
+        var stats = ucd.UnitStats;
         SetAnimatorBool(stats, "IsDamaged", CombatManager.IsDamaged(unitCard));
         SetAnimatorBool(stats, "PowerIsDebuffed", ucd.CurrentPower < ucd.UnitCard.StartPower);
         SetAnimatorBool(stats, "PowerIsBuffed", ucd.CurrentPower > ucd.UnitCard.StartPower);
@@ -511,17 +509,16 @@ public class AnimationManager : MonoBehaviour
 
         void ModifyPower()
         {
-            GameObject powerScore = ucd.PowerScore;
+            var powerScore = ucd.PowerScore;
             ValueChanger(powerScore.transform, powerChange);
         }
         void ModifyHealth()
         {
-            GameObject healthScore = ucd.HealthScore;
+            var healthScore = ucd.HealthScore;
             ValueChanger(healthScore.transform, healthChange);
         }
     }
 
-    // Ability Trigger
     public void AbilityTriggerState(GameObject triggerIcon)
     {
         if (triggerIcon == null)
@@ -671,20 +668,20 @@ public class AnimationManager : MonoBehaviour
         float distance;
         float fScale = 1;
 
-        GameObject turBut = Managers.U_MAN.EndTurnButton;
-        GameObject combatLog = Managers.U_MAN.CombatLog;
+        var turBut = Managers.U_MAN.EndTurnButton;
+        var combatLog = Managers.U_MAN.CombatLog;
 
-        HeroDisplay pHD = Managers.P_MAN.HeroObject.GetComponent<HeroDisplay>();
-        GameObject pBase = pHD.HeroBase;
-        GameObject pFrame = pHD.HeroFrame;
-        GameObject pStats = pHD.HeroStats;
-        GameObject pName = pHD.HeroNameObject;
+        var pHD = Managers.P_MAN.HeroObject.GetComponent<HeroDisplay>();
+        var pBase = pHD.HeroBase;
+        var pFrame = pHD.HeroFrame;
+        var pStats = pHD.HeroStats;
+        var pName = pHD.HeroNameObject;
 
-        HeroDisplay eHD = Managers.EN_MAN.HeroObject.GetComponent<HeroDisplay>();
-        GameObject eBase = eHD.HeroBase;
-        GameObject eFrame = eHD.HeroFrame;
-        GameObject eStats = eHD.HeroStats;
-        GameObject eName = eHD.HeroNameObject;
+        var eHD = Managers.EN_MAN.HeroObject.GetComponent<HeroDisplay>();
+        var eBase = eHD.HeroBase;
+        var eFrame = eHD.HeroFrame;
+        var eStats = eHD.HeroStats;
+        var eName = eHD.HeroNameObject;
 
         Vector2 turButStart = turBut.transform.position;
         Vector2 combatLogStart = combatLog.transform.localPosition;
@@ -876,7 +873,7 @@ public class AnimationManager : MonoBehaviour
 
         float distance;
         float bufferDistance = defenderIsUnit ? 150 : 350;
-        GameObject container = attacker.GetComponent<CardDisplay>().CardContainer;
+        var container = attacker.GetComponent<CardDisplay>().CardContainer;
         container.GetComponent<CardContainer>().IsDetached = true;
         attacker.transform.SetAsLastSibling();
         Vector2 defPos = defender.transform.position;
@@ -944,7 +941,7 @@ public class AnimationManager : MonoBehaviour
         float yTarget = isUpShift ? -350 : Managers.P_MAN.HandStart.y;
 
         Vector2 target = new(0, yTarget);
-        GameObject hand = Managers.P_MAN.HandZone;
+        var hand = Managers.P_MAN.HandZone;
         Managers.AU_MAN.StartStopSound("SFX_ShiftHand");
 
         do

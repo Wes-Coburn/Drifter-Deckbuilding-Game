@@ -37,15 +37,19 @@ public class BundleLoader : MonoBehaviour
             Debug.Log("Failed to load AssetBundle!");
             yield break;
         }
+
+        GameObject gameManager = null;
         foreach (string asset in myLoadedAssetBundle.GetAllAssetNames())
         {
             var assetLoadRequest = myLoadedAssetBundle.LoadAssetAsync<GameObject>(asset);
             yield return assetLoadRequest;
 
             var prefab = assetLoadRequest.asset as GameObject;
-            Instantiate(prefab);
+            if (prefab.TryGetComponent(out GameManager _)) gameManager = prefab;
+            else Instantiate(prefab);
         }
 
+        Instantiate(gameManager); // GameManager.Start() must be called LAST
         myLoadedAssetBundle.Unload(false);
         onComplete?.Invoke();
     }

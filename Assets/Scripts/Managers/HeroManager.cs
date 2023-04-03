@@ -112,11 +112,10 @@ public abstract class HeroManager : MonoBehaviour
         get => energyPerTurn;
         set
         {
-            energyPerTurn = value > MaxEnergyPerTurn ? MaxEnergyPerTurn : value;
+            energyPerTurn = value > MaxEnergy ? MaxEnergy : value;
             HeroObject.GetComponent<HeroDisplay>().SetHeroEnergy(CurrentEnergy, energyPerTurn);
         }
     }
-    public int MaxEnergyPerTurn => GameManager.MAXIMUM_ENERGY_PER_TURN;
     public int MaxEnergy => GameManager.MAXIMUM_ENERGY;
     public int CurrentEnergy // << PlayerData! >>
     {

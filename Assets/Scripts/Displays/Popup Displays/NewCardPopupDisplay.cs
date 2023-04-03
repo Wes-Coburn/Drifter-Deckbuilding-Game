@@ -87,7 +87,7 @@ public class NewCardPopupDisplay : MonoBehaviour
             Debug.LogError("CARD IS NULL!");
             return;
         }
-        CardZoom cz = newCard.GetComponent<CardZoom>();
+        var cz = newCard.GetComponent<CardZoom>();
         newCard.transform.SetParent(newCardZone.transform, false);
         // Description Popup
         cz.CreateDescriptionPopup(new Vector2(-550, 0), 3);
@@ -107,18 +107,18 @@ public class NewCardPopupDisplay : MonoBehaviour
         SwitchToCards();
         redrawCardsButton.SetActive(true);
 
-        foreach (Card card in chooseCards)
+        foreach (var card in chooseCards)
         {
             // Card Popup
             var newCard = Managers.CA_MAN.ShowCard(card, 
                 new Vector2(), CardManager.DisplayType.ChooseCard);
-            CardDisplay cd = newCard.GetComponent<CardDisplay>();
+            var cd = newCard.GetComponent<CardDisplay>();
             newCard.transform.SetParent(newCardZone.transform, false);
             cd.DisableVisuals();
             newCard.transform.localScale = new Vector2(3, 3);
         }
 
-        foreach (GameObject button in addCardButtons)
+        foreach (var button in addCardButtons)
         {
             button.transform.localPosition =
                 new Vector2(button.transform.localPosition.x, -400);
@@ -136,7 +136,7 @@ public class NewCardPopupDisplay : MonoBehaviour
     public void IgnoreCard_OnClick()
     {
         GetComponent<SoundPlayer>().PlaySound(3);
-        Managers.P_MAN.AetherCells += GameManager.IGNORE_CARD_AETHER;
+        Managers.P_MAN.CurrentAether += GameManager.IGNORE_CARD_AETHER;
         DestroyAndContinue();
     }
 
@@ -144,13 +144,13 @@ public class NewCardPopupDisplay : MonoBehaviour
     {
         GetComponent<SoundPlayer>().PlaySound(3);
 
-        if (Managers.P_MAN.AetherCells < redrawCost)
+        if (Managers.P_MAN.CurrentAether < redrawCost)
         {
             Managers.U_MAN.InsufficientAetherPopup();
             return;
         }
 
-        Managers.P_MAN.AetherCells -= redrawCost;
+        Managers.P_MAN.CurrentAether -= redrawCost;
         CardManager.ChooseCard chooseCardType = chooseCards[0] is UnitCard ? 
             CardManager.ChooseCard.Unit : CardManager.ChooseCard.Action;
 

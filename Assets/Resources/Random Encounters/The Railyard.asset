@@ -17,21 +17,26 @@ MonoBehaviour:
   locationFullName: The Old Railyard
   locationDescription: A nexus of snaking railroads from the old world.
   firstObjective: "Track down a tech\u2019s failed experiment (+2 Tech reputation)."
-  worldMapPosition: {x: 175, y: 100}
+  worldMapPosition: {x: 150, y: 100}
   firstNPC: {fileID: 11400000, guid: 2e9de5005239b2046bb8ea9fc3a8ff9a, type: 2}
   locationSoundscape:
     name: 
     clip: {fileID: 0}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
+  locationBackground: 0
+  isRecurring: 0
   isCombatOnly: 1
-  isHomeBase: 0
-  isAugmenter: 0
-  isRecruitment: 0
-  isShop: 0
-  isCloning: 0
   isRandomEncounter: 1
+  isHomeBase: 0
+  isRecruitment: 0
+  isActionShop: 0
+  isItemShop: 0
+  isCloner: 0
+  isAugmenter: 0
+  isHealer: 0
   isClosed_Hour1: 0
   isClosed_Hour2: 0
   isClosed_Hour3: 0

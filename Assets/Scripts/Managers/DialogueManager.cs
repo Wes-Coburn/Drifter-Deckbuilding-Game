@@ -75,7 +75,6 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue()
     {
-        //Managers.AU_MAN.StopCurrentSoundscape();
         Managers.AU_MAN.StartStopSound(null,
             Managers.G_MAN.CurrentLocation.LocationSoundscape, AudioManager.SoundType.Soundscape);
         Managers.AU_MAN.StartStopSound("Soundtrack_Dialogue1", null,
@@ -96,7 +95,7 @@ public class DialogueManager : MonoBehaviour
         if (prompt.NewLocations != null)
         {
             float delay = 0;
-            foreach (NewLocation newLoc in prompt.NewLocations)
+            foreach (var newLoc in prompt.NewLocations)
             {
                 Managers.G_MAN.GetActiveLocation(newLoc.Location, newLoc.NewNpc);
                 if (newLoc.Location.IsAugmenter) continue;
@@ -131,7 +130,7 @@ public class DialogueManager : MonoBehaviour
             dialogueDisplay.NPCHeroSpeech = "";
             newEngagedHero = false;
             AllowResponse = false;
-            AnimationManager.Instance.NewEngagedHero(false);
+            Managers.AN_MAN.NewEngagedHero(false);
             return;
         }
 
@@ -143,8 +142,7 @@ public class DialogueManager : MonoBehaviour
         if (string.IsNullOrEmpty(dpr.DialogueResponse1.ResponseText))
             r1_Active = false;
         dialogueDisplay.Response_1_Object.SetActive(r1_Active);
-        if (r1_Active)
-            dialogueDisplay.Response_1 =
+        if (r1_Active) dialogueDisplay.Response_1 =
                 FilterText(dpr.DialogueResponse1.ResponseText);
 
         // Response 2
@@ -152,8 +150,7 @@ public class DialogueManager : MonoBehaviour
         if (string.IsNullOrEmpty(dpr.DialogueResponse2.ResponseText))
             r2_Active = false;
         dialogueDisplay.Response_2_Object.SetActive(r2_Active);
-        if (r2_Active)
-            dialogueDisplay.Response_2 =
+        if (r2_Active) dialogueDisplay.Response_2 =
                 FilterText(dpr.DialogueResponse2.ResponseText);
 
         // Response 3
@@ -161,8 +158,7 @@ public class DialogueManager : MonoBehaviour
         if (string.IsNullOrEmpty(dpr.DialogueResponse3.ResponseText))
             r3_Active = false;
         dialogueDisplay.Response_3_Object.SetActive(r3_Active);
-        if (r3_Active)
-            dialogueDisplay.Response_3 =
+        if (r3_Active) dialogueDisplay.Response_3 =
                 FilterText(dpr.DialogueResponse3.ResponseText);
     }
 
@@ -376,6 +372,26 @@ public class DialogueManager : MonoBehaviour
             Managers.U_MAN.CreateNewAugmentPopup();
             DelayedDisable();
         }
+        // Healing
+        if (dResponse.Response_IsHealing)
+        {
+            if (Managers.P_MAN.CurrentHealth >= Managers.P_MAN.MaxHealth)
+            {
+                Managers.U_MAN.CreateFleetingInfoPopup("Your hero is at max health!");
+                Managers.AU_MAN.StartStopSound("SFX_Error");
+            }
+            else if (Managers.P_MAN.CurrentAether < GameManager.HEALING_COST)
+                Managers.U_MAN.InsufficientAetherPopup();
+            else
+            {
+                Managers.P_MAN.CurrentAether -= GameManager.HEALING_COST;
+                Managers.P_MAN.CurrentHealth += GameManager.HEALING_VALUE;
+                Managers.G_MAN.ActiveLocations.Remove(Managers.G_MAN.CurrentLocation);
+            }
+
+            DelayedDisable();
+            return;
+        }
         // Exit
         if (dResponse.Response_IsExit)
         {
@@ -409,7 +425,7 @@ public class DialogueManager : MonoBehaviour
             }
 
             // Aether Cells
-            if (nextPrompt.AetherCells > 0) Managers.P_MAN.AetherCells += nextPrompt.AetherCells;
+            if (nextPrompt.AetherCells > 0) Managers.P_MAN.CurrentAether += nextPrompt.AetherCells;
             // New Card
             if (nextPrompt.NewCard != null)
             {

@@ -73,7 +73,7 @@ public class CardShopButton : MonoBehaviour
                 }
                 break;
             default:
-                if (Managers.P_MAN.AetherCells < cardCost)
+                if (Managers.P_MAN.CurrentAether < cardCost)
                 {
                     Managers.U_MAN.InsufficientAetherPopup();
                     return;

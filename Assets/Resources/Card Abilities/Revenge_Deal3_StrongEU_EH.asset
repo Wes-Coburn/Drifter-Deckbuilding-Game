@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44c307312f791a64788051778519ac70, type: 3}
+  m_Name: Revenge_Deal3_StrongEU_EH
+  m_EditorClassIdentifier: 
+  AbilityName: 'Revenge: Deal 3 to the strongest enemy and the enemy hero.'
+  AbilityDescription: Deal 3 to the strongest enemy and the enemy hero.
+  AbilitySprite: {fileID: 0}
+  OverrideColor: 0
+  AbilityColor: {r: 0, g: 0, b: 0, a: 0}
+  LinkedAbilites: []
+  AbilityTrigger: {fileID: 11400000, guid: 55d83941db05710428faf12e595b4a38, type: 2}
+  TriggerLimit: 0
+  EffectGroupList:
+  - {fileID: 11400000, guid: 6fc154bafacc13543b56dded872f136a, type: 2}
+  - {fileID: 11400000, guid: 3707c2687c883aa4cab36d0c1624205f, type: 2}

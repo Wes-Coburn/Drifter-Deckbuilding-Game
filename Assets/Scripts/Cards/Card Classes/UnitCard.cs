@@ -61,8 +61,8 @@ public class UnitCard : Card
         CurrentHealth = uc.CurrentHealth;
         MaxHealth = uc.MaxHealth;
         unitDeathSound = uc.UnitDeathSound;
-
         startingAbilities = uc.startingAbilities;
+
         CurrentAbilities = new();
 
         foreach (var abi in uc.CurrentAbilities)
@@ -84,7 +84,7 @@ public class UnitCard : Card
 
             var newAbi = CreateInstance(abi.GetType().Name) as CardAbility;
             newAbi.LoadCardAbility(abi);
-            CurrentAbilities.Add(abi);
+            CurrentAbilities.Add(newAbi);
 
         NextAbility:;
         }

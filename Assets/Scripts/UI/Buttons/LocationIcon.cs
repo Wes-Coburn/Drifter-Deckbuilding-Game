@@ -1,8 +1,9 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class LocationIcon : MonoBehaviour
+public class LocationIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private GameObject locationName;
     [SerializeField] private GameObject locationImage;
@@ -12,8 +13,10 @@ public class LocationIcon : MonoBehaviour
         nonPriorityBadge, closedBadge;
 
     [Header("ICONS")]
-    [SerializeField] private Sprite priorityIcon, nonPriorityIcon, homeBaseSprite,
-        augmenterSprite, shopSprite, recruitmentSprite, actionShopSprite, cloningSprite;
+    [SerializeField] private Sprite priorityIcon;
+    [SerializeField] private Sprite nonPriorityIcon, homeBaseSprite,
+        itemShopSprite, recruitmentSprite, actionShopSprite,
+        cloningSprite, augmenterSprite, healerSprite;
 
     private Location location;
 
@@ -27,7 +30,7 @@ public class LocationIcon : MonoBehaviour
             transform.position = location.WorldMapPosition;
 
             bool visited = false;
-            if (!location.IsAugmenter && GameManager.Instance.VisitedLocations.FindIndex
+            if (Managers.G_MAN.VisitedLocations.FindIndex
                 (x => x == location.LocationName) != -1) visited = true;
 
             bool isOpen = Managers.G_MAN.LocationOpen(location);
@@ -74,11 +77,12 @@ public class LocationIcon : MonoBehaviour
 
             // Recurring Locations
             if (location.IsHomeBase) image = homeBaseSprite;
-            else if (location.IsAugmenter) image = augmenterSprite;
-            else if (location.IsShop) image = shopSprite;
+            else if (location.IsItemShop) image = itemShopSprite;
             else if (location.IsRecruitment) image = recruitmentSprite;
             else if (location.IsActionShop) image = actionShopSprite;
-            else if (location.IsCloning) image = cloningSprite;
+            else if (location.IsCloner) image = cloningSprite;
+            else if (location.IsAugmenter) image = augmenterSprite;
+            else if (location.IsHealer) image = healerSprite;
 
             // Default Locations
             else if (isPriority) image = priorityIcon;
@@ -94,8 +98,7 @@ public class LocationIcon : MonoBehaviour
 
     public void OnClick()
     {
-        if (FindObjectOfType<ChooseRewardPopupDisplay>() != null ||
-            FindObjectOfType<NarrativePopupDisplay>() != null) return;
+        if (!Managers.U_MAN.PlayerCanTravel) return;
 
         if (Location.IsHomeBase) TravelPopup();
         else
@@ -114,6 +117,14 @@ public class LocationIcon : MonoBehaviour
         void TravelPopup() => Managers.U_MAN.CreateTravelPopup(Location);
     }
 
-    public void OnPointerEnter() => Managers.U_MAN.CreateLocationPopup(Location);
-    public void OnPointerExit() => Managers.U_MAN.DestroyLocationPopup();
+    public void OnPointerEnter(PointerEventData data)
+    {
+        if (!Managers.U_MAN.PlayerCanTravel) return;
+        Managers.U_MAN.CreateLocationPopup(Location);
+    }
+    public void OnPointerExit(PointerEventData data)
+    {
+        if (!Managers.U_MAN.PlayerCanTravel) return;
+        Managers.U_MAN.DestroyLocationPopup();
+    }
 }

@@ -4,13 +4,8 @@ using System.Collections.Generic;
 
 public class PowerZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private GameObject powerPopupPrefab;
-    [SerializeField] private GameObject abilityPopupBoxPrefab;
-    [SerializeField] private GameObject abilityPopupPrefab;
-
-    [SerializeField] private bool abilityPopupOnly;
-    [SerializeField] private bool isUltimate;
-    [SerializeField] private bool isEnemyPower;
+    [SerializeField] private GameObject powerPopupPrefab, abilityPopupBoxPrefab, abilityPopupPrefab;
+    [SerializeField] private bool abilityPopupOnly, isUltimate, isEnemyPower;
 
     private GameObject powerPopup;
     private GameObject abilityPopupBox;
@@ -28,6 +23,7 @@ public class PowerZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             powerPopup = null;
         }
     }
+
     public void DestroyAbilityPopup()
     {
         FunctionTimer.StopTimer(ABILITY_POPUP_TIMER);
@@ -40,6 +36,7 @@ public class PowerZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
+        if (!enabled) return;
         if (CardZoom.ZoomCardIsCentered || DragDrop.DraggingCard) return;
         DestroyPowerPopup();
         if (!abilityPopupOnly) FunctionTimer.Create(() => CreatePowerPopup(), 0.5f, POWER_POPUP_TIMER);
@@ -47,8 +44,10 @@ public class PowerZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         ShowLinkedAbilities(LoadedPower, CardZoom.ZOOM_SCALE_VALUE), 0.5f, POWER_POPUP_TIMER);
         else Debug.LogError("LOADED POWER IS NULL!");
     }
+
     public void OnPointerExit(PointerEventData pointerEventData)
     {
+        if (!enabled) return;
         DestroyPowerPopup();
         DestroyAbilityPopup();
     }
@@ -103,7 +102,8 @@ public class PowerZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             if (!isEnemyPower) position.Set(-75, -50);
             else position.Set(0, -50);
         }
-        else if (SceneLoader.IsActiveScene(SceneLoader.Scene.HomeBaseScene)) position.Set(350, 0);
+        // Homebase Scene
+        else if (SceneLoader.IsActiveScene(SceneLoader.Scene.HomeBaseScene)) position.Set(0, 0);
 
         abilityPopupBox.transform.localPosition = position;
         abilityPopupBox.transform.localScale = new Vector2(scaleValue, scaleValue);

@@ -11,5 +11,28 @@ public class HeroPower : ScriptableObject
     [Header("POWER DESCRIPTION"), TextArea] public string PowerDescription;
     [Header("EFFECT GROUPS")] public List<EffectGroup> EffectGroupList;
     [Header("LINKED ABILITIES")] public List<CardAbility> LinkedAbilities;
-    //[Header("ULTIMATE")] public bool IsUltimate;
+
+    [Header("RELATED CARDS"), SerializeField] private List<Card> relatedCards;
+    [Header("RELATED CARD TYPES"), SerializeField] private List<Card.CreatedCardType> relatedCardTypes;
+    
+    public List<Card> RelatedCards
+    {
+        get
+        {
+            List<Card> allRelatedCards = new();
+
+            if (relatedCards != null) allRelatedCards.AddRange(relatedCards);
+
+            if (relatedCardTypes != null)
+            {
+                foreach (var cardType in relatedCardTypes)
+                {
+                    var cardTypeCards = Managers.CA_MAN.GetCreatedCards(cardType, true);
+                    if (cardTypeCards != null) allRelatedCards.AddRange(cardTypeCards);
+                }
+            }
+
+            return allRelatedCards;
+        }
+    }
 }

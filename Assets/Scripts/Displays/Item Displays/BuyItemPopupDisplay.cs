@@ -28,7 +28,7 @@ public class BuyItemPopupDisplay : MonoBehaviour
     public void ConfirmButton_OnClick()
     {
         Managers.P_MAN.AddItem(heroItem, true);
-        Managers.P_MAN.AetherCells -= Managers.G_MAN.GetItemCost(heroItem, out _, false);
+        Managers.P_MAN.CurrentAether -= Managers.G_MAN.GetItemCost(heroItem, out _, false);
         Managers.G_MAN.ShopItems.Remove(heroItem);
         bool isReady = false;
         int previousProgress = Managers.G_MAN.ShopLoyalty;

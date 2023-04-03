@@ -31,11 +31,7 @@ public class TimeClockDisplay : MonoBehaviour
         handRect = clockHand.GetComponent<RectTransform>();
         hand = clockHand.GetComponent<Image>();
         dimmer = screenDimmer.GetComponent<Image>();
-
-        hours = new List<GameObject>()
-        {
-            hour1Text, hour2Text, hour3Text, hour4Text
-        };
+        hours = new() { hour1Text, hour2Text, hour3Text, hour4Text };
     }
 
     public void SetClockValues(int newHour, bool isNewHour)
@@ -54,11 +50,8 @@ public class TimeClockDisplay : MonoBehaviour
 
     private IEnumerator SetClockValuesNumerator(int newHour)
     {
-        int previousHour;
-        if (newHour == 1) previousHour = 4;
-        else previousHour = newHour - 1;
-
         // PREVIOUS HOUR
+        int previousHour = newHour == 1 ? 4 : newHour - 1;
         SetActiveHour(previousHour);
         GetClockValues(previousHour);
         clockHand.transform.rotation = zRot;
@@ -66,7 +59,7 @@ public class TimeClockDisplay : MonoBehaviour
         dimColor.a = dimAlph;
         dimmer.color = dimColor;
 
-        ParticleSystemHandler psh = AnimationManager.Instance.CreateParticleSystem
+        var psh = Managers.AN_MAN.CreateParticleSystem
             (clockHand.transform.parent.gameObject, ParticleSystemHandler.ParticlesType.Drag);
         Color previousColor = hand.color;
         hand.color = activeHourColor;
@@ -104,14 +97,15 @@ public class TimeClockDisplay : MonoBehaviour
         SetActiveHour(newHour);
         Managers.AU_MAN.StartStopSound("SFX_TimeLapse", null);
 
-        GetClockValues(newHour); // TESTING
+        GetClockValues(newHour);
+        float dimspeed = 0.03f;
         if (newHour == 1)
         {
             while (dimmer.color.a > dimAlph)
             {
                 dimColor.a -= 0.01f;
                 dimmer.color = dimColor;
-                yield return new WaitForSeconds(0.05f);
+                yield return new WaitForSeconds(dimspeed);
             }
         }
         else
@@ -120,7 +114,7 @@ public class TimeClockDisplay : MonoBehaviour
             {
                 dimColor.a += 0.01f;
                 dimmer.color = dimColor;
-                yield return new WaitForSeconds(0.05f);
+                yield return new WaitForSeconds(dimspeed);
             }
         }
     }

@@ -12,7 +12,7 @@ public class CombatTestButton : MonoBehaviour
 
     private void Start()
     {
-        Debug.LogWarning("COMBAT TEST BUTTON ENABLED!");
+        Debug.LogWarning("!!! <<< COMBAT TEST BUTTON ENABLED >>> !!!");
         if (!Application.isEditor) gameObject.SetActive(false);
     }
 

@@ -576,8 +576,7 @@ public class CombatManager : MonoBehaviour
         em.HeroScript = enemyHero;
         em.CurrentHealth = gm.IsTutorial ? GameManager.TUTORIAL_STARTING_HEALTH : em.MaxHealth;
 
-        int energyPerTurn = GameManager.START_ENERGY_PER_TURN +
-            (gm.IsTutorial ? 0 : gm.GetAdditionalEnergy(DifficultyLevel));
+        int energyPerTurn = gm.IsTutorial ? 0 : gm.GetEnemyStartingEnergy(DifficultyLevel);
         em.EnergyPerTurn = energyPerTurn;
         em.CurrentEnergy = 0;
         em.DamageTaken_ThisTurn = 0;
@@ -588,7 +587,7 @@ public class CombatManager : MonoBehaviour
 
         // PLAYER MANAGER
         pm.CurrentHealth = pm.CurrentHealth; // Display current health
-        pm.EnergyPerTurn = GameManager.START_ENERGY_PER_TURN;
+        pm.EnergyPerTurn = 0;
         pm.CurrentEnergy = 0;
         pm.HeroUltimateProgress = 0;
         pm.DamageTaken_ThisTurn = 0;
@@ -773,7 +772,7 @@ public class CombatManager : MonoBehaviour
                 Managers.P_MAN.HeroPowerUsed = false;
 
                 int startEnergy = Managers.P_MAN.CurrentEnergy;
-                if (Managers.P_MAN.EnergyPerTurn < Managers.P_MAN.MaxEnergyPerTurn) Managers.P_MAN.EnergyPerTurn++;
+                if (Managers.P_MAN.EnergyPerTurn < Managers.P_MAN.MaxEnergy) Managers.P_MAN.EnergyPerTurn++;
                 Managers.P_MAN.CurrentEnergy = Managers.P_MAN.EnergyPerTurn;
 
                 int energyChange = Managers.P_MAN.CurrentEnergy - startEnergy;

@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -47,6 +48,10 @@ MonoBehaviour:
     type: 3}
   actionCardPrefab: {fileID: 7279803143792002406, guid: 1a4b96b16aa18c74490df04672670e01,
     type: 3}
+  unitZoomCardPrefab: {fileID: 7279803143792002406, guid: c07a0922a28da3343827254dbc38f442,
+    type: 3}
+  actionZoomCardPrefab: {fileID: 7279803143792002406, guid: cb7743522e2ef634aa7afbb5890a7252,
+    type: 3}
   cardContainerPrefab: {fileID: 5835463840310308633, guid: ab8693c0900fa6c4eb37fe81ed77ac82,
     type: 3}
   dragArrowPrefab: {fileID: 1190123679167858368, guid: d8b7cf6cad2aa4a4db9a846023b2153a,
@@ -65,6 +70,26 @@ MonoBehaviour:
   scheme_Ultimate: {fileID: 11400000, guid: c19be637f83c78044b64c6ca6a4705a0, type: 2}
   extraction_Ultimate: {fileID: 11400000, guid: e88b9672be4674141b6f07d4af804992,
     type: 2}
+  Exploits:
+  - {fileID: 11400000, guid: 2fa62cb5b060d914d9fb78506d85d0b4, type: 2}
+  - {fileID: 11400000, guid: 95c9bd0b01cf5e24cb014f811196ff15, type: 2}
+  - {fileID: 11400000, guid: 4b39453d6b0947046b8296d625815f9f, type: 2}
+  Inventions:
+  - {fileID: 11400000, guid: 8eccc3bad866ec54d9d070d29bbf5def, type: 2}
+  - {fileID: 11400000, guid: 281de4c38948feb45a38722a2848f65a, type: 2}
+  - {fileID: 11400000, guid: 038f74e9c6641b843883da75d3572ba4, type: 2}
+  Schemes:
+  - {fileID: 11400000, guid: e46addf1d804f574786f08056c9c51d1, type: 2}
+  - {fileID: 11400000, guid: 81cae13a9ad4e0740a008124eea5efad, type: 2}
+  - {fileID: 11400000, guid: 418da183b392b37439daf9adb74edc5c, type: 2}
+  Extractions:
+  - {fileID: 11400000, guid: e3d0fe79bb444824f991c71cf50d612e, type: 2}
+  - {fileID: 11400000, guid: 1f9c3973af3545f448f82d15824b83d1, type: 2}
+  - {fileID: 11400000, guid: 4c1d2a853dcdfe34896c117d03120e6f, type: 2}
+  Traps:
+  - {fileID: 11400000, guid: 072b1f3b30affea41a0ec183d9a18982, type: 2}
+  - {fileID: 11400000, guid: 64bc9862643a29b488bf982376453b08, type: 2}
+  - {fileID: 11400000, guid: 2cfa1c0d364ae1046accfa5a22ed23f4, type: 2}
   GeneratableKeywords:
   - {fileID: 11400000, guid: 57872a211be3230468dfe7be7b6f28c3, type: 2}
   - {fileID: 11400000, guid: a068db5ffbe74b34e877408328ee8e33, type: 2}

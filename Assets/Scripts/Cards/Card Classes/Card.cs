@@ -1,17 +1,15 @@
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public abstract class Card : ScriptableObject
 {
-    [SerializeField] private Sprite cardArt;
-    [SerializeField] private Sprite cardBorder;
+    [SerializeField] private Sprite cardArt, cardBorder;
     [SerializeField, Range(0, GameManager.MAXIMUM_ENERGY)] private int energyCost;
     [SerializeField] private Effect.ConditionType costConditionType;
     [SerializeField, Range(0, 10), Tooltip("The value checked by the condition, if any")] private int costConditionValue;
     [SerializeField, Range(-5, 0), Tooltip("The modifier applied to the cost")] private int costConditionModifier;
-    [SerializeField] private string cardName;
-    [SerializeField] private string cardType;
-    [SerializeField] private string cardSubType;
+    [SerializeField] private string cardName, cardType, cardSubType;
     public enum Rarity
     {
         Common,
@@ -19,10 +17,11 @@ public abstract class Card : ScriptableObject
         Legend
     }
     [SerializeField] private Rarity cardRarity;
-    [TextArea][SerializeField] private string cardDescription;
+    [TextArea, SerializeField] private string cardDescription;
+    [SerializeField] protected Card[] relatedCards;
+    [SerializeField] private CreatedCardType[] relatedCardTypes;
     [SerializeField] private Sound cardPlaySound;
-    [SerializeField] private AnimatorOverrideController overController;
-    [SerializeField] private AnimatorOverrideController zoomOverController;
+    [SerializeField] private AnimatorOverrideController overController, zoomOverController;
 
     public Sprite CardArt { get => cardArt; }
     public Sprite CardBorder { get => cardBorder; }
@@ -35,6 +34,36 @@ public abstract class Card : ScriptableObject
     public string CardSubType { get => cardSubType; }
     public Rarity CardRarity { get => cardRarity; }
     public string CardDescription { get => cardDescription; }
+    public Card[] RelatedCards
+    {
+        
+        get
+        {
+            List<Card> allRelatedCards = new();
+            
+            if (relatedCards != null) allRelatedCards.AddRange(relatedCards);
+
+            if (relatedCardTypes != null)
+            {
+                foreach (var cardType in relatedCardTypes)
+                {
+                    var cardTypeCards = Managers.CA_MAN.GetCreatedCards(cardType, true);
+                    if (cardTypeCards != null) allRelatedCards.AddRange(cardTypeCards);
+                }
+            }
+
+            return allRelatedCards.ToArray();
+        }
+    }
+    public enum CreatedCardType
+    {
+        Exploit,
+        Invention,
+        Scheme,
+        Extraction,
+        Trap
+    }
+    public CreatedCardType[] RelatedCardTypes { get => relatedCardTypes; }
     public Sound CardPlaySound { get => cardPlaySound; }
 
     public AnimatorOverrideController OverController { get => overController; }
@@ -60,12 +89,14 @@ public abstract class Card : ScriptableObject
         cardSubType = card.CardSubType;
         cardRarity = card.CardRarity;
         cardDescription = card.CardDescription;
+        relatedCards = (Card[])card.relatedCards?.Clone();
+        relatedCardTypes = (CreatedCardType[])card.RelatedCardTypes?.Clone();
         overController = card.OverController;
         zoomOverController = card.ZoomOverController;
         cardPlaySound = card.CardPlaySound;
 
-        CurrentEffects = new List<Effect>();
-        PermanentEffects = new List<Effect>();
+        CurrentEffects = new();
+        PermanentEffects = new();
     }
 
     public virtual void CopyCard(Card card)
@@ -82,6 +113,8 @@ public abstract class Card : ScriptableObject
         cardSubType = card.CardSubType;
         cardRarity = card.CardRarity;
         cardDescription = card.CardDescription;
+        relatedCards = (Card[])card.relatedCards?.Clone();
+        relatedCardTypes = (CreatedCardType[])card.RelatedCardTypes?.Clone();
         overController = card.OverController;
         zoomOverController = card.ZoomOverController;
         cardPlaySound = card.CardPlaySound;

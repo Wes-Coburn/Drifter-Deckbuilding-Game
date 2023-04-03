@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnemyManager : HeroManager
@@ -63,34 +64,35 @@ public class EnemyManager : HeroManager
 
             if (Managers.G_MAN.IsTutorial) return;
 
+            var ehd = HeroObject.GetComponent<EnemyHeroDisplay>();
             int surgeDelay = Managers.G_MAN.GetSurgeDelay(Managers.CO_MAN.DifficultyLevel);
-            if (TurnNumber > 0 && TurnNumber % surgeDelay == 0)
+            int turnsLeft = surgeDelay - (TurnNumber % surgeDelay);
+            int surgeValue = TurnNumber / surgeDelay;
+
+            if (TurnNumber > 0)
             {
-                int surgeCount = TurnNumber / surgeDelay;
-                if (surgeCount < 1)
-                {
-                    Debug.LogError("SURGE COUNT < 1!");
-                    return;
-                }
+                ehd.DisplaySurgeProgress(turnsLeft, surgeValue + 1, surgeDelay);
 
-                for (int i = 0; i < surgeCount; i++)
-                    Managers.EV_MAN.NewDelayedAction(() => Surge(), 0.5f, true);
-
-                Managers.EV_MAN.NewDelayedAction(() => SurgePopup(), 0.5f, true);
-
-                void SurgePopup()
+                if (TurnNumber % surgeDelay == 0)
                 {
-                    Managers.U_MAN.CreateFleetingInfoPopup($"ENEMY SURGE!\n[{surgeCount}x]");
-                    Managers.AN_MAN.CreateParticleSystem(null, ParticleSystemHandler.ParticlesType.Explosion, 2);
+                    for (int i = 0; i < surgeValue; i++)
+                        Managers.EV_MAN.NewDelayedAction(() => Surge(), 0.5f, true);
+
+                    Managers.EV_MAN.NewDelayedAction(() => SurgePopup(), 0.5f, true);
                 }
-                void Surge()
-                {
-                    GameObject surgeCard = Managers.CA_MAN.DrawCard(this);
-                    if (surgeCard != null)
-                    {
-                        surgeCard.GetComponent<CardDisplay>().ChangeCurrentEnergyCost(-surgeCount);
-                    }
-                }
+            }
+            else ehd.DisplaySurgeProgress(surgeDelay, 1, surgeDelay);
+
+            void SurgePopup()
+            {
+                Managers.U_MAN.CreateFleetingInfoPopup($"ENEMY SURGE!\n[{surgeValue}x]");
+                Managers.AN_MAN.CreateParticleSystem(null, ParticleSystemHandler.ParticlesType.Explosion, 2);
+            }
+            void Surge()
+            {
+                var surgeCard = Managers.CA_MAN.DrawCard(this);
+                if (surgeCard != null)
+                    surgeCard.GetComponent<CardDisplay>().ChangeCurrentEnergyCost(-surgeValue);
             }
         }
     }
@@ -101,7 +103,6 @@ public class EnemyManager : HeroManager
         get
         {
             if (Managers.G_MAN.IsTutorial) return GameManager.TUTORIAL_STARTING_HEALTH;
-
             else
             {
                 int levelToInt = (int)(HeroScript as EnemyHero).EnemyLevel;
@@ -156,7 +157,7 @@ public class EnemyManager : HeroManager
         void ReplenishEnergy()
         {
             int startEnergy = CurrentEnergy;
-            if (EnergyPerTurn < MaxEnergyPerTurn) EnergyPerTurn++;
+            if (EnergyPerTurn < MaxEnergy) EnergyPerTurn++;
             CurrentEnergy = EnergyPerTurn;
             int energyChange = CurrentEnergy - startEnergy;
             Managers.AN_MAN.ModifyHeroEnergyState(energyChange, HeroObject);
@@ -216,7 +217,6 @@ public class EnemyManager : HeroManager
             int cardsToPlay = 0;
 
             List<GameObject> priorityCards = new();
-
             List<GameObject> highestCostCards = new();
             foreach (var card in HandZoneCards)
                 highestCostCards.Add(card);
@@ -277,7 +277,12 @@ public class EnemyManager : HeroManager
 
     private void CreateAttackSchedule()
     {
-        foreach (var ally in PlayZoneCards)
+        // Strongest enemies attack first (to avoid 'wasting' attacks, sacrificing units unnecessarily)
+        var sortHighPower = PlayZoneCards.ToList();
+        sortHighPower.Sort((c1, c2) => CombatManager.GetUnitDisplay(c1).CurrentPower -
+        CombatManager.GetUnitDisplay(c2).CurrentPower);
+        
+        foreach (var ally in sortHighPower)
         {
             var ucd = CombatManager.GetUnitDisplay(ally);
             if (CanAttack(ally) && FindDefender(ally) != null) SchedulePreAttack(ally);

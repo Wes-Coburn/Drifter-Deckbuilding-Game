@@ -18,21 +18,26 @@ MonoBehaviour:
   locationDescription: A community of tech outcasts.
   firstObjective: Capture a warrior who vandalized a rogue clan facility (+2 Rogue
     reputation).
-  worldMapPosition: {x: 50, y: 150}
+  worldMapPosition: {x: 25, y: 150}
   firstNPC: {fileID: 11400000, guid: 398960f1cd21c51479d0f28e6537c0ea, type: 2}
   locationSoundscape:
     name: 
     clip: {fileID: 0}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
+  locationBackground: 0
+  isRecurring: 0
   isCombatOnly: 1
-  isHomeBase: 0
-  isAugmenter: 0
-  isRecruitment: 0
-  isShop: 0
-  isCloning: 0
   isRandomEncounter: 1
+  isHomeBase: 0
+  isRecruitment: 0
+  isActionShop: 0
+  isItemShop: 0
+  isCloner: 0
+  isAugmenter: 0
+  isHealer: 0
   isClosed_Hour1: 0
   isClosed_Hour2: 0
   isClosed_Hour3: 0

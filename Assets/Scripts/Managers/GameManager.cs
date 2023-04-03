@@ -17,31 +17,28 @@ public class GameManager : MonoBehaviour
     }
 
     #region FIELDS
-    [Header("LOCATION BACKGROUNDS")]
-    [SerializeField] private Sprite locationBG_City, locationBG_Wasteland;
-    [Header("LOCATION ICON")]
-    [SerializeField] GameObject locationIconPrefab;
-    [Header("LOADING TIPS")]
-    [SerializeField, TextArea] private string[] loadingTips;
-    [Header("REPUTATION BONUSES")]
-    [SerializeField] private ReputationBonuses reputation_Mages, reputation_Mutants,
-        reputation_Rogues, reputation_Techs, reputation_Warriors;
+    [Header("LOCATION BACKGROUNDS"), SerializeField] private Sprite locationBG_City;
+    [SerializeField] private Sprite locationBG_Wasteland;
+    [Header("LOCATION ICON"), SerializeField] GameObject locationIconPrefab;
+    [Header("LOADING TIPS"), SerializeField, TextArea] private string[] loadingTips;
+    [Header("REPUTATION BONUSES"), SerializeField] private ReputationBonuses reputation_Mages;
+    [SerializeField] private ReputationBonuses reputation_Mutants, reputation_Rogues,
+        reputation_Techs, reputation_Warriors;
 
     private int currentTip;
 
     // Universal
-    public const int WOUNDED_VALUE = 5;
+    public const int WOUNDED_VALUE = 1;
     public const int START_HAND_SIZE = 4;
     public const int MAX_HAND_SIZE = 10;
     public const int MAX_UNITS_PLAYED = 6;
-    public const int START_ENERGY_PER_TURN = 0;
+    //public const int START_ENERGY_PER_TURN = 0;
 
     // Player
     public const int MINIMUM_DECK_SIZE = 15;
     public const int PLAYER_STARTING_HEALTH = 30;
     public const int HEAL_ON_REST = 10;
-    public const int PLAYER_START_UNITS = 2; // Total Units = value * 5 (unique units)
-    public const int MAXIMUM_ENERGY_PER_TURN = 10;
+    public const int PLAYER_START_UNITS = 3; // Total Units = value * 5 (unique units)
     public const int MAXIMUM_ENERGY = 10;
     public const int MAXIMUM_ITEMS = 2;
     public const int HERO_ULTMATE_GOAL = 3;
@@ -49,14 +46,12 @@ public class GameManager : MonoBehaviour
     // Starting bonuses
     public const int PLAYER_START_AETHER = 30;
     public const int BONUS_START_REWARDS = 4;
-    
+
     // Enemy
-    public const int ENEMY_STARTING_HEALTH = 15;
+    public const int ENEMY_STARTING_HEALTH = 10; // 15
     //public const int ENEMY_STARTING_HEALTH = 1; // FOR TESTING ONLY
     // Tutorial Enemy
     public const int TUTORIAL_STARTING_HEALTH = 10;
-    // Boss Enemy
-    private const int ADDITIONAL_ENERGY = 0;
 
     // Aether Rewards
     public const int IGNORE_CARD_AETHER = 15;
@@ -86,6 +81,9 @@ public class GameManager : MonoBehaviour
     // Sell Items
     public const int SELL_ITEM_VALUE = 15;
     public const int SELL_RARE_ITEM_VALUE = 20;
+    // Healing
+    public const int HEALING_COST = 20;
+    public const int HEALING_VALUE = 10;
     // Reputation
     public const int REPUTATION_TIER_1 = 10;
     public const int REPUTATION_TIER_2 = 20;
@@ -155,15 +153,16 @@ public class GameManager : MonoBehaviour
     public int Reputation_Rogues { get; set; }
     public int Reputation_Techs { get; set; }
     public int Reputation_Warriors { get; set; }
+    
+    // Tutorials
+    public bool TutorialActive_WorldMap { get; set; }
     #endregion
 
     #region METHODS
     #region UTILITY
     private void Start()
     {
-        //PlayerPrefs.DeleteAll(); // FOR TESTING ONLY
-        SaveLoad.DeleteGameData(); // FOR TESTING ONLY
-        SaveLoad.DeletePlayerData(); // FOR TESTING ONLY
+        ForTestingOnly(); // FOR TESTING ONLY
 
         currentTip = Random.Range(0, loadingTips.Length);
         ActiveNPCHeroes = new();
@@ -174,21 +173,35 @@ public class GameManager : MonoBehaviour
         UnlockedPowers = new();
 
         Debug.Log("Application Version: " + Application.version);
-
         GameLoader.LoadPlayerPreferences();
         StartCoroutine(GameLoader.LoadGame_GameData_Async());
+
+#pragma warning disable CS8321 // Local function is declared but never used
+        static void ForTestingOnly()
+        {
+            Debug.LogWarning("!!! <<<FOR TESTING ONLY>>> !!!");
+            if (!Application.isEditor) return;
+
+            //PlayerPrefs.DeleteAll();
+            //Debug.LogWarning("|PLAYER PREFS| deleted!");
+            //SaveLoad.DeleteGameData();
+            //Debug.LogWarning("|GAME DATA| deleted!");
+            SaveLoad.DeletePlayerData();
+            Debug.LogWarning("|PLAYER DATA| deleted!");
+        }
+#pragma warning restore CS8321 // Local function is declared but never used
     }
     
     public int GetSurgeDelay(int difficulty) => 7 - (difficulty); // Surges 6 / 5 / 4
-    public int GetAdditionalEnergy(int difficulty) => ADDITIONAL_ENERGY + difficulty - 1;
+    public int GetEnemyStartingEnergy(int difficulty) => difficulty - 1;
     public int GetAdditionalRewardAether(int difficulty) => ADDITIONAL_AETHER_REWARD * (difficulty - 1);
     public enum DifficultyLevel
     {
         Standard_1 = 1,
         Standard_2 = 2,
-        Boss_1 = 3,
+        Boss_1     = 3,
         Standard_3 = 4,
-        Boss_2 = 5,
+        Boss_2     = 5,
     }
     public int GetAetherReward(DifficultyLevel difficultyLevel)
     {
@@ -249,7 +262,7 @@ public class GameManager : MonoBehaviour
         var randomEncounters = Resources.LoadAll<Location>("Random Encounters");
         randomEncounters.Shuffle();
 
-        foreach (Location location in randomEncounters)
+        foreach (var location in randomEncounters)
         {
             if (VisitedLocations.FindIndex(x => x == location.LocationName) == -1)
             {
@@ -278,6 +291,15 @@ public class GameManager : MonoBehaviour
         CurrentHour = CurrentHour == 4 ? 1 : CurrentHour + 1;
         // Random Encounter
         if (addRandomEncounter && CurrentHour != 4) AddRandomEncounter();
+
+        if (CurrentHour == 4)
+        {
+            foreach (var loc in ActiveLocations)
+            {
+                if (loc.IsHomeBase) loc.CurrentObjective = "Rest and claim your reward.";
+                break;
+            }
+        }
     }
     /******
      * *****
@@ -359,7 +381,8 @@ public class GameManager : MonoBehaviour
         {
             var newLoc = ScriptableObject.CreateInstance<Location>();
             newLoc.LoadLocation(location);
-            newLoc.CurrentObjective = newLoc.FirstObjective;
+            // Only set the current objective if the loaded location doesn't have one
+            newLoc.CurrentObjective = location.CurrentObjective ?? newLoc.FirstObjective;
             if (newNPC != null) newLoc.CurrentNPC = GetActiveNPC(newNPC);
             else newLoc.CurrentNPC = GetActiveNPC(location.FirstNPC);
             ActiveLocations.Add(newLoc);
@@ -368,7 +391,7 @@ public class GameManager : MonoBehaviour
     }
     /******
      * *****
-     * ****** GET_UNLOCKED_HERO/POWER
+     * ****** UNLOCK_NEW_HERO/POWERS
      * *****
      *****/
     public bool UnlockNewHero()
@@ -398,21 +421,27 @@ public class GameManager : MonoBehaviour
         HeroPower heroPower = null;
         HeroPower heroUltimate = null;
 
-        foreach (var power in pHero.AltHeroPowers)
+        if (pHero.AltHeroPowers != null) // Throws errors without this if count < 1
         {
-            if (!UnlockedPowers.Contains(power.PowerName))
+            foreach (var power in pHero.AltHeroPowers)
             {
-                heroPower = power;
-                break;
+                if (!UnlockedPowers.Contains(power.PowerName))
+                {
+                    heroPower = power;
+                    break;
+                }
             }
         }
 
-        foreach (var ult in pHero.AltHeroUltimates)
+        if (pHero.AltHeroUltimates!= null) // Throws errors without this if count < 1
         {
-            if (!UnlockedPowers.Contains(ult.PowerName))
+            foreach (var ult in pHero.AltHeroUltimates)
             {
-                heroUltimate = ult;
-                break;
+                if (!UnlockedPowers.Contains(ult.PowerName))
+                {
+                    heroUltimate = ult;
+                    break;
+                }
             }
         }
 
@@ -472,17 +501,17 @@ public class GameManager : MonoBehaviour
         {
             case 1:
                 tip = $"Click each card you want to redraw, then click the " +
-                    $"{TextFilter.Clrz_ylw("Confirm Button")} (or press the {TextFilter.Clrz_ylw("Space Bar")}).";
+                    $"{TextFilter.Clrz_ylw("confirm button")} (or press the {TextFilter.Clrz_ylw("space bar")}).";
                 break;
             case 2:
                 tip = $"Play a card by dragging it out of your hand. Cards you can play are highlighted in {TextFilter.Clrz_grn("green")}.";
                 break;
             case 3:
-                tip = $"End your turn by clicking the {TextFilter.Clrz_ylw("End Turn Button")} " +
-                    $"(or pressing the {TextFilter.Clrz_ylw("Space Bar")}).";
+                tip = $"End your turn by clicking the {TextFilter.Clrz_ylw("end turn button")} " +
+                    $"(or pressing the {TextFilter.Clrz_ylw("space bar")}).";
                 break;
             case 4:
-                tip = "Click your hero power to use it (below your hero's portrait).";
+                tip = $"Click your {TextFilter.Clrz_ylw("hero power")} to use it (below your hero's portrait).";
                 break;
             case 5:
                 tip = "Attack an enemy unit by dragging an ally to them.";
@@ -515,11 +544,6 @@ public class GameManager : MonoBehaviour
         FindObjectOfType<NewGameButton>().gameObject.SetActive(!gameSaved);
         FindObjectOfType<ContinueGameButton>().gameObject.SetActive(gameSaved);
     }
-    public void StartHeroSelectScene()
-    {
-        //Managers.AU_MAN.StopCurrentSoundscape();
-        FindObjectOfType<HeroSelectSceneDisplay>().DisplaySelectedHero(); // Move to HeroSelectSceneDisplay.Start() ? Timing issue ?
-    }
     public void StartTutorialScene()
     {
         SceneLoader.LoadAction += GameLoader.Tutorial_Load;
@@ -550,38 +574,37 @@ public class GameManager : MonoBehaviour
     }
     public void StartHomeBaseScene()
     {
-        //Managers.AU_MAN.StopCurrentSoundscape();
-        Managers.AU_MAN.StartStopSound("SFX_EnterHomeBase");
-
         bool hasRested = CurrentHour == 4;
+        Managers.AU_MAN.StartStopSound("SFX_EnterHomeBase");
         FindObjectOfType<HomeBaseSceneDisplay>().ClaimRewardButton.SetActive(hasRested);
 
         if (hasRested)
         {
             NextHour(true);
             LoadNewItems();
-
             Managers.CA_MAN.LoadNewRecruits();
             Managers.CA_MAN.LoadNewActions();
             Managers.U_MAN.CreateFleetingInfoPopup("You have rested!");//\nShops refreshed!");
-
             FunctionTimer.Create(() => Managers.P_MAN.CurrentHealth += HEAL_ON_REST, 1);
+
+            var clinic = Resources.Load("Locations/The Clinic") as Location;
+            GetActiveLocation(clinic);
 
             List<Location> refreshedShops = new();
             foreach (var loc in ActiveLocations)
             {
-                if (VisitedLocations.FindIndex(x => x == loc.LocationName) == -1) continue;
-
-                if (loc.IsShop || loc.IsRecruitment || loc.IsActionShop)
+                if (loc.IsHomeBase) loc.CurrentObjective = loc.FirstObjective;
+                else if (loc.IsRecurring)
+                {
+                    if (VisitedLocations.FindIndex(x => x == loc.LocationName) == -1) continue;
                     refreshedShops.Add(loc);
+                }
             }
-
             foreach (var loc in refreshedShops) VisitedLocations.Remove(loc.LocationName);
         }
     }
     public void StartCreditsScene()
     {
-        //Managers.AU_MAN.StopCurrentSoundscape();
         Managers.AU_MAN.StartStopSound("Soundtrack_Combat1",
             null, AudioManager.SoundType.Soundtrack);
     }
@@ -719,6 +742,8 @@ public class GameManager : MonoBehaviour
 
     public void ResolveReputationEffects(int resolveOrder)
     {
+        if (Managers.G_MAN.IsTutorial) return;
+
         // MAGES
         int mageTier = GetReputationTier(ReputationType.Mages);
         var mageBonuses = GetReputationBonuses(ReputationType.Mages);
@@ -943,7 +968,7 @@ public class GameManager : MonoBehaviour
         VisitedLocations.Clear();
 
         // Player Manager
-        // Don't destroy ManagerHandler.P_MAN objects, they are assets not instances
+        // DO NOT destroy ManagerHandler.P_MAN objects, they are assets not instances
         Managers.P_MAN.HeroScript = null;
         Managers.P_MAN.DeckList.Clear();
         Managers.P_MAN.CurrentDeck.Clear();

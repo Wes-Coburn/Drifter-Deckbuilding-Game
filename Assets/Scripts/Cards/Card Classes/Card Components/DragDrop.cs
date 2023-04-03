@@ -157,6 +157,7 @@ public class DragDrop : MonoBehaviour
                                 ResetPosition();
                                 return;
                             }
+                            else Managers.U_MAN.DestroyInfoPopup(UIManager.InfoPopupType.Tutorial);
                             break;
                     }
                 }

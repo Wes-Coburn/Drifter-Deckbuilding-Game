@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public abstract class CardAbility : ScriptableObject
@@ -17,10 +18,9 @@ public abstract class CardAbility : ScriptableObject
         AbilityName = cardAbility.AbilityName;
         AbilityDescription = cardAbility.AbilityDescription;
         AbilitySprite = cardAbility.AbilitySprite;
-        LinkedAbilites = new List<CardAbility>();
+        LinkedAbilites = new();
         OverrideColor = cardAbility.OverrideColor;
         AbilityColor = cardAbility.AbilityColor;
-        foreach (var ca in cardAbility.LinkedAbilites)
-            LinkedAbilites.Add(ca);
+        LinkedAbilites = cardAbility.LinkedAbilites.ToList();
     }
 }

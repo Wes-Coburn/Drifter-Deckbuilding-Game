@@ -17,7 +17,7 @@ MonoBehaviour:
   locationFullName: DarkTech Outpost
   locationDescription: A DarkTech intelligence center.
   firstObjective: Find the location of the Vektor Sanctum.
-  worldMapPosition: {x: -820, y: 145}
+  worldMapPosition: {x: -820, y: 165}
   firstNPC: {fileID: 11400000, guid: 41b85d4f1cc7fa44f80329366f378102, type: 2}
   locationSoundscape:
     name: 
@@ -27,14 +27,16 @@ MonoBehaviour:
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   locationBackground: 1
+  isRecurring: 0
   isCombatOnly: 1
+  isRandomEncounter: 0
   isHomeBase: 0
-  isAugmenter: 0
   isRecruitment: 0
   isActionShop: 0
-  isShop: 0
-  isCloning: 0
-  isRandomEncounter: 0
+  isItemShop: 0
+  isCloner: 0
+  isAugmenter: 0
+  isHealer: 0
   isClosed_Hour1: 0
   isClosed_Hour2: 0
   isClosed_Hour3: 0

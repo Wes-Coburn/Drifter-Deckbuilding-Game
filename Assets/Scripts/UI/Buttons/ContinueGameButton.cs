@@ -19,7 +19,7 @@ public class ContinueGameButton : MonoBehaviour
             return;
         }
 
-        SceneLoader.LoadAction_Async += GameLoader.LoadGame_Async;
+        SceneLoader.LoadAction_Async += GameLoader.LoadGame_PlayerData_Async;
         SceneLoader.LoadScene(loadScene);
     }
 }

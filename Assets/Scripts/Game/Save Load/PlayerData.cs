@@ -19,9 +19,13 @@ public class PlayerData : SaveData
     public string[] PlayerDeck, PlayerItems;
     // Hour
     public int CurrentHour;
+    public bool IsNewHour;
     // Narrative
     public string CurrentNarrative;
+    // Engaged Hero
+    public string EngagedHero;
     // Locations
+    public string CurrentLocation;
     public string[] VisitedLocations;
     public string[,] ActiveLocations; // string[3] -> 0: LocationName, 1: CurrentNPC.HeroName, 2: CurrentObjective
     // Dialogue
@@ -136,7 +140,9 @@ public class PlayerData : SaveData
         // Player Hero "Inventory"
         string[] deckList, string[] items,
         // Hour and Narrative
-        int currentHour, string currentNarrative,
+        int currentHour, bool isNewHour, string currentNarrative,
+        // Engaged Hero and Current Location
+        string engagedHero, string currentLocation,
         // Locations
         string[] visitedLocations, string[,] locationsNPCsObjectives,
         // Dialogue
@@ -211,7 +217,12 @@ public class PlayerData : SaveData
         HeroUltimate = heroUltimate;
         // Hour and Narrative
         CurrentHour = currentHour;
+        IsNewHour = isNewHour;
         CurrentNarrative = currentNarrative;
+        // Engaged Hero
+        EngagedHero = engagedHero;
+        // Current Location
+        CurrentLocation = currentLocation;
         // Player Hero "Inventory"
         PlayerDeck = deckList;
         PlayerItems = items;

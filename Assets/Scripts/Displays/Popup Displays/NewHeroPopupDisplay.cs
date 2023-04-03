@@ -4,10 +4,10 @@ using UnityEngine.UI;
 
 public class NewHeroPopupDisplay : MonoBehaviour
 {
-    [SerializeField] private GameObject popupTitle, newHeroChest, continueButton,
+    [SerializeField]
+    private GameObject popupTitle, newHeroChest, continueButton,
         playerHero, heroPortrait, heroName, heroDescription, heroBackstory,
-        heroPower, heroPowerImage, heroPowerDescription, heroPowerCost,
-        heroUltimate, heroUltimateImage, heroUltimateDescription, heroUltimateCost;
+        heroPowerDescription, heroUltimateDescription;
 
     private PlayerHero newPlayerHero;
     private HeroPower newHeroPower, newHeroUltimate;
@@ -23,8 +23,8 @@ public class NewHeroPopupDisplay : MonoBehaviour
 
         newHeroChest.SetActive(true);
         this.playerHero.SetActive(false);
-        this.heroPower.SetActive(false);
-        this.heroUltimate.SetActive(false);
+        this.heroPowerDescription.SetActive(false);
+        this.heroUltimateDescription.SetActive(false);
 
         Managers.AN_MAN.CreateParticleSystem(newHeroChest, ParticleSystemHandler.ParticlesType.NewCard, 5);
     }
@@ -40,8 +40,7 @@ public class NewHeroPopupDisplay : MonoBehaviour
 
         playerHero.SetActive(true);
         heroPortrait.GetComponent<Image>().sprite = newPlayerHero.HeroPortrait;
-        Managers.U_MAN.GetPortraitPosition(newPlayerHero.HeroName,
-            out Vector2 position, out Vector2 scale, SceneLoader.Scene.HeroSelectScene);
+        Managers.U_MAN.GetPortraitPosition(newPlayerHero.HeroName, out Vector2 position, out Vector2 scale);
         heroPortrait.transform.localPosition = position;
         heroPortrait.transform.localScale = scale;
         heroName.GetComponent<TextMeshProUGUI>().SetText(newPlayerHero.HeroName);
@@ -49,17 +48,13 @@ public class NewHeroPopupDisplay : MonoBehaviour
         heroBackstory.GetComponentInChildren<TextMeshProUGUI>().SetText(newPlayerHero.HeroBackstory);
         heroBackstory.SetActive(false);
 
-        heroPower.SetActive(true);
-        heroPower.GetComponent<PowerZoom>().LoadedPower = newHeroPower;
-        heroPowerCost.GetComponent<TextMeshProUGUI>().SetText(newHeroPower.PowerCost.ToString());
-        heroPowerImage.GetComponent<Image>().sprite = newHeroPower.PowerSprite;
-        heroPowerDescription.GetComponent<TextMeshProUGUI>().SetText(newHeroPower.PowerDescription);
+        heroPowerDescription.SetActive(true);
+        heroPowerDescription.GetComponent<HeroPowerDescriptionDisplay>()
+            .DisplayHeroPower(newHeroPower, false);
 
-        heroUltimate.SetActive(true);
-        heroUltimate.GetComponent<PowerZoom>().LoadedPower = newHeroUltimate;
-        heroUltimateCost.GetComponent<TextMeshProUGUI>().SetText(newHeroUltimate.PowerCost.ToString());
-        heroUltimateImage.GetComponent<Image>().sprite = newHeroUltimate.PowerSprite;
-        heroUltimateDescription.GetComponent<TextMeshProUGUI>().SetText(newHeroUltimate.PowerDescription);
+        heroUltimateDescription.SetActive(true);
+        heroUltimateDescription.GetComponent<HeroPowerDescriptionDisplay>()
+            .DisplayHeroPower(newHeroUltimate, true);
     }
 
     public void ContinueButton_OnClick()
@@ -68,7 +63,7 @@ public class NewHeroPopupDisplay : MonoBehaviour
         DestroyAndContinue();
     }
 
-    public void SelectedHero_OnClick() => heroBackstory.SetActive(!heroBackstory.activeSelf);
+    public void ShowInfoButton_OnClick() => heroBackstory.SetActive(!heroBackstory.activeSelf);
 
     private void DestroyAndContinue()
     {

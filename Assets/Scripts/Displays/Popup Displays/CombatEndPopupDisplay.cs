@@ -58,10 +58,8 @@ public class CombatEndPopupDisplay : MonoBehaviour
         // VICTORY
         if (victoryText.activeSelf)
         {
-            // For 'main' (non-random) encounters...
             // First try to unlock new powers, then try to unlock a new hero
-            if (!Managers.G_MAN.CurrentLocation.IsRandomEncounter &&
-                (Managers.G_MAN.UnlockNewPowers() || Managers.G_MAN.UnlockNewHero())) { }
+            if (Managers.G_MAN.UnlockNewPowers() || Managers.G_MAN.UnlockNewHero()) { }
             else Managers.U_MAN.CreateChooseRewardPopup();
         }
         // DEFEAT

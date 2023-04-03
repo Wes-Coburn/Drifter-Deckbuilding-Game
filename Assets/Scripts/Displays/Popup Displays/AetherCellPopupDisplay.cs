@@ -23,7 +23,7 @@ public class AetherCellPopupDisplay : MonoBehaviour
         continueButton.SetActive(false);
         foreach (GameObject go in hiddenZones) go.SetActive(false);
         aetherQuantity.GetComponent<TextMeshProUGUI>().SetText(0 + "");
-        totalAether.GetComponent<TextMeshProUGUI>().SetText(Managers.P_MAN.AetherCells + "");
+        totalAether.GetComponent<TextMeshProUGUI>().SetText(Managers.P_MAN.CurrentAether + "");
         GetComponent<SoundPlayer>().PlaySound(0);
         Managers.AN_MAN.CreateParticleSystem(newAetherChest, ParticleSystemHandler.ParticlesType.NewCard, 5);
     }
@@ -34,7 +34,7 @@ public class AetherCellPopupDisplay : MonoBehaviour
         continueButton.SetActive(true);
         foreach (GameObject go in hiddenZones) go.SetActive(true);
         GetComponent<SoundPlayer>().PlaySound(1);
-        Managers.P_MAN.AetherCells += AetherQuantity;
+        Managers.P_MAN.CurrentAether += AetherQuantity;
         Managers.AN_MAN.CreateParticleSystem(null, ParticleSystemHandler.ParticlesType.ButtonPress, 1);
     }
 

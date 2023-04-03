@@ -408,7 +408,6 @@ GameObject:
   - component: {fileID: 7001515754728082526}
   - component: {fileID: 7001515754728082524}
   - component: {fileID: 7001515754728082499}
-  - component: {fileID: 3035030366327839322}
   - component: {fileID: 7001515754728082525}
   - component: {fileID: 2302033733526092013}
   - component: {fileID: 894198271350849087}
@@ -518,51 +517,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &3035030366327839322
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7001515754728082527}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 7001515754728082525}
-          m_TargetAssemblyTypeName: LocationButton, Assembly-CSharp
-          m_MethodName: OnPointerEnter
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 7001515754728082525}
-          m_TargetAssemblyTypeName: LocationButton, Assembly-CSharp
-          m_MethodName: OnPointerExit
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!114 &7001515754728082525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -585,11 +539,12 @@ MonoBehaviour:
   priorityIcon: {fileID: 21300000, guid: 241fab2f3a062da4a906622b5b254e41, type: 3}
   nonPriorityIcon: {fileID: 21300000, guid: b59831b484934de4288f143109503811, type: 3}
   homeBaseSprite: {fileID: 21300000, guid: 8a84f4cbaaa6be444bab2cca8e2f5289, type: 3}
-  augmenterSprite: {fileID: 21300000, guid: c8d49ecca8a473f4991482a9a350375c, type: 3}
-  shopSprite: {fileID: 21300000, guid: 52dd273d386433046a6178f17c931757, type: 3}
+  itemShopSprite: {fileID: 21300000, guid: 52dd273d386433046a6178f17c931757, type: 3}
   recruitmentSprite: {fileID: 21300000, guid: 64713ae1c0f092a4e92f7a2efefeb808, type: 3}
   actionShopSprite: {fileID: 21300000, guid: bb2b04469eb44e54891cbfaf0e69b836, type: 3}
   cloningSprite: {fileID: 21300000, guid: 8ff2dad17647c3a409758a943853dcff, type: 3}
+  augmenterSprite: {fileID: 21300000, guid: c8d49ecca8a473f4991482a9a350375c, type: 3}
+  healerSprite: {fileID: 21300000, guid: fef0038b60191af47a911b32769e4ca7, type: 3}
 --- !u!114 &2302033733526092013
 MonoBehaviour:
   m_ObjectHideFlags: 0

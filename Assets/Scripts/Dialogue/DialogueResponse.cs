@@ -7,7 +7,7 @@ public class DialogueResponse
     [SerializeField] private DialogueClip response_NextClip, npc_NextClip;
     [SerializeField] private bool response_IsCombatStart, response_IsWorldMapStart,
         response_IsRecruitmentStart,response_IsActionShopStart, response_IsShopStart,
-        response_IsCloningStart, response_IsNewAugmentStart, response_IsExit;
+        response_IsCloningStart, response_IsNewAugmentStart, response_IsHealing, response_IsExit;
     [SerializeField] private Location response_TravelLocation;
 
     public string ResponseText { get => responseText; }
@@ -20,6 +20,7 @@ public class DialogueResponse
     public bool Response_IsShopStart { get => response_IsShopStart; }
     public bool Response_IsCloningStart { get => response_IsCloningStart; }
     public bool Response_IsNewAugmentStart { get => response_IsNewAugmentStart; }
+    public bool Response_IsHealing { get => response_IsHealing; }
     public bool Response_IsExit { get => response_IsExit; }
     public Location Response_TravelLocation { get => response_TravelLocation; }
 
@@ -35,6 +36,7 @@ public class DialogueResponse
         response_IsShopStart = dr.Response_IsShopStart;
         response_IsCloningStart = dr.Response_IsCloningStart;
         response_IsNewAugmentStart = dr.Response_IsNewAugmentStart;
+        response_IsHealing = dr.Response_IsHealing;
         response_TravelLocation = dr.Response_TravelLocation;
         response_IsExit = dr.Response_IsExit;
     }

@@ -192,24 +192,10 @@ MonoBehaviour:
   reputationTier: 0
   developerTestHero: {fileID: 11400000, guid: 2de3c75baa7d5f54fbe6c020c04073e9, type: 2}
   enemyTestHero: {fileID: 11400000, guid: 9c40f5513276a2547901dfdfe8875048, type: 2}
-  testAugments:
-  - {fileID: 11400000, guid: 7264763dfee18dd41a9e3bed17fa5f7d, type: 2}
-  - {fileID: 11400000, guid: 513ae22f8600da948bfb3c4a73aa33a7, type: 2}
-  - {fileID: 11400000, guid: 57fe36df3e9c87e499ab987a471e140b, type: 2}
-  testItems:
-  - {fileID: 11400000, guid: 3f1403dbae16c6e47845a04f8fcb3157, type: 2}
-  - {fileID: 11400000, guid: 9ad95d71efbbd694e9879ced07fc512b, type: 2}
-  - {fileID: 11400000, guid: 6dfce5660e4c5144285a6d47cf235170, type: 2}
-  - {fileID: 11400000, guid: 5250747bf0a73d54da51f4a4c7401087, type: 2}
-  - {fileID: 11400000, guid: 4ff1b464413b0794b8de608bfdd17a14, type: 2}
-  - {fileID: 11400000, guid: 60bf670c02ac5bf4d9c72e6baa60a6a4, type: 2}
-  - {fileID: 11400000, guid: d32fac4e7a22f9c42b07572a57524128, type: 2}
-  - {fileID: 11400000, guid: f13eb1c174435f148b341d32fc1a07cf, type: 2}
-  - {fileID: 11400000, guid: 14ae89d7041f03249af804f195108ba9, type: 2}
-  - {fileID: 11400000, guid: 2d1e5cdb1c1abac4590fb477bcd8d46a, type: 2}
-  - {fileID: 11400000, guid: 21d9c1c980a30aa46821cfcfde519323, type: 2}
-  - {fileID: 11400000, guid: c49c6e214e1d99749b29814c038c19ac, type: 2}
   enableTestCards_1: 1
+  enableTestCards_2: 0
+  enableTestCards_3: 0
+  enableTestCards_4: 0
   testCards_1:
   - {fileID: 11400000, guid: 7603fae3620cb544bad564f38ef15102, type: 2}
   - {fileID: 11400000, guid: 80a41bd029c153248937237e21ad5e23, type: 2}
@@ -222,15 +208,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: aad035373b2251640b0ed2ca6c111ae8, type: 2}
   - {fileID: 11400000, guid: 9078d93c4334d6749b6688a94d925f37, type: 2}
   - {fileID: 11400000, guid: 6091d6cabe8f1ef4e9f56f25edd944d6, type: 2}
-  - {fileID: 11400000, guid: 35c3e7d8d50d71e47aa0155b5ef0ab1b, type: 2}
-  - {fileID: 11400000, guid: 35c3e7d8d50d71e47aa0155b5ef0ab1b, type: 2}
-  - {fileID: 11400000, guid: 35c3e7d8d50d71e47aa0155b5ef0ab1b, type: 2}
-  - {fileID: 11400000, guid: 35c3e7d8d50d71e47aa0155b5ef0ab1b, type: 2}
-  enableTestCards_2: 0
+  - {fileID: 11400000, guid: 4f5a3b76ed000c64d800c51bc897e59f, type: 2}
+  - {fileID: 11400000, guid: a67f5bfd620876b4f92826478c65b0be, type: 2}
+  - {fileID: 11400000, guid: a67f5bfd620876b4f92826478c65b0be, type: 2}
+  - {fileID: 11400000, guid: a67f5bfd620876b4f92826478c65b0be, type: 2}
+  - {fileID: 11400000, guid: 131cf432095eda5409fdb5983491f670, type: 2}
+  - {fileID: 11400000, guid: 131cf432095eda5409fdb5983491f670, type: 2}
+  - {fileID: 11400000, guid: 131cf432095eda5409fdb5983491f670, type: 2}
+  - {fileID: 11400000, guid: 131cf432095eda5409fdb5983491f670, type: 2}
   testCards_2: []
-  enableTestCards_3: 0
   testCards_3: []
-  enableTestCards_4: 0
   testCards_4: []
 --- !u!114 &7934613449062274718
 MonoBehaviour:
@@ -254,7 +241,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0, g: 0, b: 0, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.4402727, b: 0, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}

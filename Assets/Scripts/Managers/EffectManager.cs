@@ -206,7 +206,7 @@ public class EffectManager : MonoBehaviour
         }
         else isAdditionalEffect = false;
 
-        // UNIT ABILITY TRIGGER
+        // UNIT TRIGGER VFX
         if (effectSource.TryGetComponent(out UnitCardDisplay ucd))
         {
             if (!isAdditionalEffect && !string.IsNullOrEmpty(triggerName))
@@ -305,6 +305,22 @@ public class EffectManager : MonoBehaviour
             if (et.PlayerHand) AddAllTargets(hMan_Source.HandZoneCards);
             if (et.PlayerDeck) AddAllTargets_Cards(hMan_Source.CurrentDeck);
         }
+        /* // Effects that target some cards in the player's deck (the top X)
+        else if (et.PlayerDeck)
+        {
+            if (et.UnitCard || et.ActionCard)
+            {
+                int cardsAdded = 0;
+                foreach (var card in hMan_Source.CurrentDeck)
+                    if (IsValidTarget(card) &&
+                        AddTarget_Card(card) &&
+                        ++cardsAdded >= et.TargetNumber) break;
+            }
+            else Debug.LogError("INVALID EFFECT TARGET!");
+
+            bool IsValidTarget(Card card) => (card is UnitCard && et.UnitCard) || (card is ActionCard && et.ActionCard);
+        }
+        */
         if (et.TargetsLowestHealth)
         {
             if (et.PlayerUnit) AddLowHealthUnit(hMan_Source.PlayZoneCards, false);
@@ -376,33 +392,35 @@ public class EffectManager : MonoBehaviour
             if (target != null) AddTarget(target);
         }
 
-        void AddTarget(GameObject target)
+        bool AddTarget(GameObject target)
         {
             if (target == null)
             {
                 Debug.LogError("TARGET IS NULL!");
-                return;
+                return false;
             }
-            if (targets.Contains(target)) return;
+            if (targets.Contains(target)) return false;
             if (hMan_Source != HeroManager.GetSourceHero(target))
             {
                 if (target.TryGetComponent(out DragDrop dd) && dd.IsPlayed)
                 {
-                    if (CardManager.GetAbility(target, CardManager.ABILITY_WARD)) return;
+                    if (CardManager.GetAbility(target, CardManager.ABILITY_WARD)) return false;
                 }
             }
             targets.Add(target);
+            return true;
         }
 
-        void AddTarget_Card(Card target)
+        bool AddTarget_Card(Card target)
         {
             if (target == null)
             {
                 Debug.LogError("TARGET IS NULL!");
-                return;
+                return false;
             }
-            if (targets_Cards.Contains(target)) return;
+            if (targets_Cards.Contains(target)) return false;
             targets_Cards.Add(target);
+            return true;
         }
     }
 
@@ -553,7 +571,7 @@ public class EffectManager : MonoBehaviour
 
         Managers.U_MAN.CreateInfoPopup(description, UIManager.InfoPopupType.Default);
 
-        foreach (var card in Managers.P_MAN.HandZoneCards)
+        foreach (var card in Managers.P_MAN.HandZoneCards.Concat(Managers.P_MAN.PlayZoneCards))
             if (!legalTargets[currentEffectGroup].Contains(card))
             {
                 Managers.U_MAN.SelectTarget(card, UIManager.SelectionType.Disabled);
@@ -1264,9 +1282,11 @@ public class EffectManager : MonoBehaviour
                 ValidateCondition((GameObject unit) => GetUnitKeywords(unit) < effect.EffectCondition_Value);
                 break;
             case Effect.ConditionType.AlliesDestroyed_ThisTurn:
+                if (effect.EffectCondition_Value < 1) Debug.LogWarning("EFFECT CONDITION VALUE < 1!");
                 if (hMan_Source.AlliesDestroyed_ThisTurn < effect.EffectCondition_Value) InvalidateAllTargets();
                 break;
             case Effect.ConditionType.EnemiesDestroyed_ThisTurn:
+                if (effect.EffectCondition_Value < 1) Debug.LogWarning("EFFECT CONDITION VALUE < 1!");
                 if (hMan_Enemy.AlliesDestroyed_ThisTurn < effect.EffectCondition_Value) InvalidateAllTargets();
                 break;
             case Effect.ConditionType.CostsLess:
@@ -1882,9 +1902,13 @@ public class EffectManager : MonoBehaviour
                     }
                     else
                     {
+                        /*
                         var createdCards = Resources.LoadAll<Card>("Cards_Created");
                         foreach (var c in createdCards)
                             if (c.CardSubType == cardType) cardPool.Add(c);
+                        */
+
+                        cardPool.AddRange(Managers.CA_MAN.GetCreatedCards(cardType, false)); // TESTING
 
                         if (cardPool.Count < 1)
                         {
@@ -1972,8 +1996,7 @@ public class EffectManager : MonoBehaviour
                     return;
                 }
 
-                if (cardScript is UnitCard) { }
-                else Debug.LogError("SCRIPT IS NOT UNIT CARD!");
+                if (cardScript is not UnitCard) Debug.LogError("SCRIPT IS NOT UNIT CARD!");
 
                 cardScript = Managers.CA_MAN.NewCardInstance(cardScript);
                 var newCardObj = PlayCreatedUnit(cardScript as UnitCard, pce.EnemyCard, pce.AdditionalEffects);
@@ -2009,8 +2032,7 @@ public class EffectManager : MonoBehaviour
 
                 if (cpyCrd.IsExactCopy)
                 {
-                    List<Effect> newEffects = new();
-                    foreach (var e in newCard.CurrentEffects) newEffects.Add(e);
+                    List<Effect> newEffects = newCard.CurrentEffects.ToList();
                     foreach (var e in newEffects) AddEffect(newCardObj, e, true, false);
                 }
             }

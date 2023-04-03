@@ -69,7 +69,7 @@ public class SettingsMenu : MonoBehaviour
     public void GameInfoButton_OnClick()
     {
         gameInfoPopup.SetActive(!gameInfoPopup.activeSelf);
-        TextMeshProUGUI tmpro = gameInfoButton.GetComponentInChildren<TextMeshProUGUI>();
+        var tmpro = gameInfoButton.GetComponentInChildren<TextMeshProUGUI>();
         string text = gameInfoPopup.activeSelf ? "Back" : "How to Play";
         tmpro.SetText(text);
     }

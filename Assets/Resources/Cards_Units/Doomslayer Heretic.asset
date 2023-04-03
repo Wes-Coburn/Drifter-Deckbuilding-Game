@@ -15,6 +15,9 @@ MonoBehaviour:
   cardArt: {fileID: 21300000, guid: 784cb39a996488f47af8efff38c565eb, type: 3}
   cardBorder: {fileID: 21300000, guid: 14ba384dc2d28d74d9bdad2182e18da6, type: 3}
   energyCost: 6
+  costConditionType: 0
+  costConditionValue: 0
+  costConditionModifier: 0
   cardName: Doomslayer Heretic
   cardType: Warrior
   cardSubType: 
@@ -30,9 +33,8 @@ MonoBehaviour:
   overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
   zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
   power: 4
-  health: 5
+  health: 7
   startingAbilities:
-  - {fileID: 11400000, guid: 3e5874c35dad2f34d96f6d4b9d15a4dd, type: 2}
   - {fileID: 11400000, guid: fb7d9f8a1c61bc74da0562a51aa24c5c, type: 2}
   unitDeathSound:
     name: 

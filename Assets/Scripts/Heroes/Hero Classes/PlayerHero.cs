@@ -10,7 +10,7 @@ public class PlayerHero : Hero
     [Header("ALT HERO ULTIMATES")]
     [SerializeField] private HeroPower[] altHeroUltimates;
     [Header("HERO BACKSTORY")]
-    [SerializeField][TextArea] private string heroBackstory;
+    [SerializeField, TextArea] private string heroBackstory;
 
     public HeroPower[] AltHeroPowers { get => altHeroPowers; }
     public HeroPower HeroUltimate { get => heroUltimate; }
@@ -21,7 +21,7 @@ public class PlayerHero : Hero
     public override void LoadHero(Hero hero)
     {
         base.LoadHero(hero);
-        PlayerHero ph = hero as PlayerHero;
+        var ph = hero as PlayerHero;
         altHeroPowers = (HeroPower[])ph.AltHeroPowers?.Clone();
         heroUltimate = ph.HeroUltimate;
         altHeroUltimates = (HeroPower[])ph.AltHeroUltimates?.Clone();

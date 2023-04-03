@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a7f7b2ee0c588b4880372b94623cf06, type: 3}
   m_Name: Faydra, Rogue Cyborg
   m_EditorClassIdentifier: 
-  developerNotes: 
   heroName: Faydra, Rogue Cyborg
   heroShortName: Faydra
   heroPortrait: {fileID: 21300000, guid: 8ab8d13b7c9402b4d87ca2e659d22f99, type: 3}
@@ -22,22 +21,23 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 77635470bfbeb824fbe57f2341ebee61, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   heroLose:
     name: 
     clip: {fileID: 8300000, guid: c97b6d44d84bf9849990b5df28f50204, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   heroPower: {fileID: 11400000, guid: 5b55828862e034244817521d89529ba9, type: 2}
+  altHeroPowers:
+  - {fileID: 11400000, guid: 5218ced66816cfa46b1f8f1b80110054, type: 2}
+  - {fileID: 11400000, guid: d2ad7d133d8a5ba4fbeaacb1160d66b4, type: 2}
   heroUltimate: {fileID: 11400000, guid: 63aafb4bc94b93e45832857b5df7adae, type: 2}
-  heroSkills:
-  - {fileID: 11400000, guid: f7c13c69accabb0419771d8ba657e4f7, type: 2}
-  - {fileID: 11400000, guid: f515cd78841c1854496a4803bfd37458, type: 2}
-  - {fileID: 11400000, guid: d425461e911e0de4998290de9ca170de, type: 2}
-  - {fileID: 11400000, guid: dcbc62a5588a34b44b9ed93d63d4c38f, type: 2}
-  - {fileID: 11400000, guid: 2dd34371ad1300b4b8562e9c9647e8a0, type: 2}
-  - {fileID: 11400000, guid: 9c76934f1f401e041a837f4396ee1751, type: 2}
+  altHeroUltimates:
+  - {fileID: 11400000, guid: 1c77970bf16a00f43b31ad1cb47ee9a5, type: 2}
+  - {fileID: 11400000, guid: 3c55025eac56a1b44b5d121d9a15530f, type: 2}
   heroBackstory: "Faydra\u2019s parents were corporate elites, and she grew up in
     the clutches of The Corporations.\nShe was 12 when she disabled the tracker embedded
     in her skull, and made her escape into the real world. It\u2019s not a pretty

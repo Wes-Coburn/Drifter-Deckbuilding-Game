@@ -7,16 +7,11 @@ using UnityEngine.UI;
 public class UnitCardDisplay : CardDisplay
 {
     [Header("Stats"), SerializeField] private GameObject unitStats;
-    [SerializeField] private GameObject powerScoreDisplay;
-    [SerializeField] private GameObject healthScoreDisplay;
-    [SerializeField] private GameObject currentAbilitiesDisplay;
+    [SerializeField] private GameObject powerScoreDisplay, healthScoreDisplay, currentAbilitiesDisplay;
     [Header("Visual Effects"), SerializeField] private GameObject exhaustedIcon;
-    [SerializeField] private GameObject cardDimmer;
-    [SerializeField] private GameObject destroyedIcon;
+    [SerializeField] private GameObject cardDimmer, destroyedIcon;
     [Header("Ability VFX"), SerializeField] private GameObject vfx_Defender;
-    [SerializeField] private GameObject vfx_Forcefield;
-    [SerializeField] private GameObject vfx_Stealth;
-    [SerializeField] private GameObject vfx_Ward;
+    [SerializeField] private GameObject vfx_Forcefield, vfx_Stealth, vfx_Ward;
     [Header("Prefabs"), SerializeField] private GameObject abilityIconPrefab;
     [SerializeField] private GameObject zoomAbilityIconPrefab;
 
@@ -46,12 +41,6 @@ public class UnitCardDisplay : CardDisplay
             DisplayPower(CurrentPower);
         }
     }
-    private void DisplayPower(int power)
-    {
-        TextMeshProUGUI txtPro =
-            powerScoreDisplay.GetComponent<TextMeshProUGUI>();
-        txtPro.SetText(power.ToString());
-    }
     public int CurrentHealth
     {
         get
@@ -65,11 +54,6 @@ public class UnitCardDisplay : CardDisplay
             UnitCard.CurrentHealth = value;
             DisplayHealth(CurrentHealth);
         }
-    }
-    private void DisplayHealth(int health)
-    {
-        var txtPro = healthScoreDisplay.GetComponent<TextMeshProUGUI>();
-        txtPro.SetText(health.ToString());
     }
     public int MaxHealth
     {
@@ -89,16 +73,42 @@ public class UnitCardDisplay : CardDisplay
 
     protected void Awake()
     {
-        AbilityIcons = new List<GameObject>();
-        displayedAbilities = new List<CardAbility>();
+        AbilityIcons = new();
+        displayedAbilities = new();
     }
 
+    /******
+     * *****
+     * ****** DISPLAY_POWER/HEALTH
+     * *****
+     *****/
+    private void DisplayPower(int power)
+    {
+        var txtPro = powerScoreDisplay.GetComponent<TextMeshProUGUI>();
+        txtPro.SetText(power.ToString());
+    }
+    private void DisplayHealth(int health)
+    {
+        var txtPro = healthScoreDisplay.GetComponent<TextMeshProUGUI>();
+        txtPro.SetText(health.ToString());
+    }
+
+    /******
+     * *****
+     * ****** CHANGE_CURRENT_POWER
+     * *****
+     *****/
     public void ChangeCurrentPower(int value)
     {
         UnitCard.CurrentPower += value;
         DisplayPower(CurrentPower);
     }
 
+    /******
+     * *****
+     * ****** DISPLAY_CARD
+     * *****
+     *****/
     protected override void DisplayCard()
     {
         base.DisplayCard();
@@ -110,100 +120,115 @@ public class UnitCardDisplay : CardDisplay
         vfx_Stealth.SetActive(false);
         vfx_Ward.SetActive(false);
 
-        foreach (CardAbility cardAbility in UnitCard.CurrentAbilities) // Reverse without modifying the list .AsEnumerable().Reverse()
+        foreach (CardAbility cardAbility in UnitCard.CurrentAbilities) // Reverse? ( Without modifying the list -> .AsEnumerable().Reverse() )
             AddCurrentAbility(cardAbility, true);
     }
 
-    public override void DisplayZoomCard(GameObject parentCard, Card card = null)
+    /******
+     * *****
+     * ****** DISPLAY_ZOOM_CARD
+     * *****
+     *****/
+    public override void DisplayZoomCard(GameObject parentCard, bool isBaseZoomCard = false)
     {
-        base.DisplayZoomCard(parentCard, card);
+        base.DisplayZoomCard(parentCard, isBaseZoomCard);
 
-        UnitCard uc;
-        if (card == null) // For zoom cards based on a child card
+        var ucd = parentCard.GetComponent<UnitCardDisplay>();
+        UnitCard uc = ucd.UnitCard;
+        List<CardAbility> abilityList;
+
+        if (CardZoom.ZoomCardIsCentered)
         {
-            UnitCardDisplay ucd = parentCard.GetComponent<UnitCardDisplay>();
-            uc = ucd.UnitCard;
-            List<CardAbility> abilityList;
+            DisplayPower(uc.StartPower);
+            DisplayHealth(uc.StartHealth);
+            abilityList = uc.StartingAbilities;
+        }
+        else
+        {
+            DisplayPower(ucd.CurrentPower);
+            var powerTxt = powerScoreDisplay.GetComponent<TextMeshProUGUI>();
+            if (ucd.CurrentPower < uc.StartPower) powerTxt.color = Color.red;
+            else if (ucd.CurrentPower > uc.StartPower) powerTxt.color = Color.green;
 
-            if (CardZoom.ZoomCardIsCentered)
+            DisplayHealth(ucd.CurrentHealth);
+            var healthTxt = healthScoreDisplay.GetComponent<TextMeshProUGUI>();
+            if (ucd.CurrentHealth < ucd.MaxHealth) healthTxt.color = Color.red;
+            else if (ucd.CurrentHealth > uc.StartHealth) healthTxt.color = Color.green;
+
+            abilityList = ucd.CurrentAbilities;
+        }
+
+        DisplayZoomCard_Finish(abilityList);
+    }
+    public override void DisplayZoomCard(Card card, bool isBaseZoomCard = false)
+    {
+        base.DisplayZoomCard(card, isBaseZoomCard);
+
+        UnitCard uc = card as UnitCard;
+        List<CardAbility> abilityList = uc.StartingAbilities;
+
+        DisplayPower(uc.StartPower);
+        DisplayHealth(uc.StartHealth);
+
+        /* >>> What was the reason for this? <<<
+         * >>> Causes bug where abilities are added the actual unit every time card is zoomed <<<
+         * 
+        foreach (CardAbility ca in uc.StartingAbilities)
+        {
+            if (ca == null)
             {
-                DisplayPower(uc.StartPower);
-                DisplayHealth(uc.StartHealth);
-                abilityList = uc.StartingAbilities;
+                Debug.LogError("EMPTY ABILITY!");
+                continue;
+            }
+            CurrentAbilities.Add(ca);
+        }
+
+        ShowAbilities(uc.StartingAbilities);
+        */
+
+        DisplayZoomCard_Finish(abilityList);
+    }
+    private void DisplayZoomCard_Finish(List<CardAbility> abilityList)
+    {
+        List<CardAbility> shownAbilities = new();
+        List<GameObject> shownObjects = new();
+        List<int> shownAbilityCounts = new();
+
+        foreach (var ca in abilityList) // Reverse? ( Without modifying the list -> .AsEnumerable().Reverse() )
+        {
+            if (ca == null)
+            {
+                Debug.LogError("EMPTY ABILITY!");
+                continue;
+            }
+
+            int abilityIndex = shownAbilities.FindIndex(x => x.AbilityName == ca.AbilityName);
+            if (abilityIndex == -1)
+            {
+                var abilityIcon =
+                    GetComponent<CardZoom>().CreateZoomAbilityIcon(ca,
+                    currentAbilitiesDisplay.transform, 1);
+
+                var aid = abilityIcon.GetComponent<AbilityIconDisplay>();
+                aid.AbilitySprite.GetComponent<Image>().color = Managers.CA_MAN.GetAbilityColor(ca);
+
+                shownAbilities.Add(ca);
+                shownObjects.Add(abilityIcon);
+                shownAbilityCounts.Add(1);
             }
             else
             {
-                DisplayPower(ucd.CurrentPower);
-                TextMeshProUGUI powerTxt = powerScoreDisplay.GetComponent<TextMeshProUGUI>();
-                if (ucd.CurrentPower < uc.StartPower) powerTxt.color = Color.red;
-                else if (ucd.CurrentPower > uc.StartPower) powerTxt.color = Color.green;
-
-                DisplayHealth(ucd.CurrentHealth);
-                TextMeshProUGUI healthTxt = healthScoreDisplay.GetComponent<TextMeshProUGUI>();
-                if (ucd.CurrentHealth < ucd.MaxHealth) healthTxt.color = Color.red;
-                else if (ucd.CurrentHealth > uc.StartHealth) healthTxt.color = Color.green;
-
-                abilityList = ucd.CurrentAbilities;
-            }
-
-            ShowAbilities(abilityList);
-        }
-        else // For zoom cards NOT based on a child card, for formatting only
-        {
-            uc = card as UnitCard;
-            DisplayPower(uc.StartPower);
-            DisplayHealth(uc.StartHealth);
-
-            foreach (CardAbility ca in uc.StartingAbilities)
-            {
-                if (ca == null)
-                {
-                    Debug.LogError("EMPTY ABILITY!");
-                    continue;
-                }
-                CurrentAbilities.Add(ca);
-            }
-
-            ShowAbilities(uc.StartingAbilities);
-        }
-
-        void ShowAbilities(List<CardAbility> abilityList)
-        {
-            List<CardAbility> shownAbilities = new();
-            List<GameObject> shownObjects = new();
-            List<int> shownAbilityCounts = new();
-
-            foreach (CardAbility ca in abilityList) // Reverse without modifying the list .AsEnumerable().Reverse()
-            {
-                if (ca == null)
-                {
-                    Debug.LogError("EMPTY ABILITY!");
-                    continue;
-                }
-
-                int abilityIndex = shownAbilities.FindIndex(x => x.AbilityName == ca.AbilityName);
-                if (abilityIndex == -1)
-                {
-                    GameObject abilityIcon =
-                        GetComponent<CardZoom>().CreateZoomAbilityIcon(ca,
-                        currentAbilitiesDisplay.transform, 1);
-
-                    AbilityIconDisplay aid = abilityIcon.GetComponent<AbilityIconDisplay>();
-                    aid.AbilitySprite.GetComponent<Image>().color = Managers.CA_MAN.GetAbilityColor(ca);
-
-                    shownAbilities.Add(ca);
-                    shownObjects.Add(abilityIcon);
-                    shownAbilityCounts.Add(1);
-                }
-                else
-                {
-                    int abilityCount = ++shownAbilityCounts[abilityIndex];
-                    shownObjects[abilityIndex].GetComponent<AbilityIconDisplay>().AbilityMultiplier = abilityCount;
-                }
+                int abilityCount = ++shownAbilityCounts[abilityIndex];
+                shownObjects[abilityIndex].GetComponent<AbilityIconDisplay>().AbilityMultiplier = abilityCount;
             }
         }
     }
 
+    /******
+     * *****
+     * ****** DISPLAY_CARD_PAGE_CARD
+     * *****
+     *****/
     public override void DisplayCardPageCard(Card card)
     {
         base.DisplayCardPageCard(card);
@@ -234,6 +259,11 @@ public class UnitCardDisplay : CardDisplay
         }
     }
 
+    /******
+     * *****
+     * ****** ENABLE_TRIGGER_ICON
+     * *****
+     *****/
     public void EnableTriggerIcon(AbilityTrigger abilityTrigger, bool isEnabled)
     {
         int index = 0;
@@ -251,25 +281,12 @@ public class UnitCardDisplay : CardDisplay
 
             void ToggleIcon()
             {
-                Color color;
-                if (isEnabled) color = Managers.CA_MAN.GetAbilityColor(ca);
-                else color = Color.gray;
-
+                var color = isEnabled ? Managers.CA_MAN.GetAbilityColor(ca) : Color.gray;
                 var icon = AbilityIcons[index];
                 var aid = icon.GetComponent<AbilityIconDisplay>();
                 aid.AbilitySprite.GetComponent<Image>().color = color;
             }
         }
-    }
-
-    private GameObject CreateAbilityIcon(CardAbility cardAbility)
-    {
-        var abilityIcon = Instantiate(abilityIconPrefab, new Vector2(0, 0), Quaternion.identity);
-        var aid = abilityIcon.GetComponent<AbilityIconDisplay>();
-        aid.AbilityScript = cardAbility;
-        abilityIcon.transform.SetParent(currentAbilitiesDisplay.transform, false);
-        aid.AbilitySprite.GetComponent<Image>().color = Managers.CA_MAN.GetAbilityColor(cardAbility);
-        return abilityIcon;
     }
 
     /******
@@ -374,6 +391,16 @@ public class UnitCardDisplay : CardDisplay
             AbilityIcons.Add(CreateAbilityIcon(ca));
             displayedAbilities.Add(ca);
         }
+
+        GameObject CreateAbilityIcon(CardAbility cardAbility)
+        {
+            var abilityIcon = Instantiate(abilityIconPrefab, new Vector2(0, 0), Quaternion.identity);
+            var aid = abilityIcon.GetComponent<AbilityIconDisplay>();
+            aid.AbilityScript = cardAbility;
+            abilityIcon.transform.SetParent(currentAbilitiesDisplay.transform, false);
+            aid.AbilitySprite.GetComponent<Image>().color = Managers.CA_MAN.GetAbilityColor(cardAbility);
+            return abilityIcon;
+        }
     }
 
     /******
@@ -418,12 +445,12 @@ public class UnitCardDisplay : CardDisplay
         {
             if (sa.AbilityStacks)
             {
-                List<CardAbility> stackedAbilities = new List<CardAbility>();
-                foreach (CardAbility ability in CurrentAbilities)
+                List<CardAbility> stackedAbilities = new();
+                foreach (var ability in CurrentAbilities)
                     if (ability.AbilityName == ca.AbilityName)
                         stackedAbilities.Add(ability);
 
-                foreach (CardAbility stackedCa in stackedAbilities)
+                foreach (var stackedCa in stackedAbilities)
                     CurrentAbilities.Remove(stackedCa);
             }
 

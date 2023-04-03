@@ -86,7 +86,8 @@ public class NarrativePopupDisplay : MonoBehaviour
     {
         Managers.U_MAN.DestroyNarrativePopup();
 
-        if (loadedNarrative.NarrativeName.StartsWith("Part 1")) // Awkward way to do this
+        /* Bonus Cards Feature
+        if (loadedNarrative.NarrativeName.StartsWith("Part 1"))
         {
             int bonusRewards = GameManager.BONUS_START_REWARDS;
             if (bonusRewards > 0)
@@ -96,6 +97,13 @@ public class NarrativePopupDisplay : MonoBehaviour
 
                 Managers.U_MAN.CreateChooseRewardPopup();
             }
+        }
+        */
+
+        if (Managers.G_MAN.TutorialActive_WorldMap)
+        {
+            Managers.G_MAN.TutorialActive_WorldMap = false;
+            Managers.U_MAN.CreateTutorialActionPopup(TutorialActionPopupDisplay.Type.WorldMap);
         }
     }
 }

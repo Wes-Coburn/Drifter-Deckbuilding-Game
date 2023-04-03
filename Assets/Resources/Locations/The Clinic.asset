@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b47e9eb1cc6fb34cbca4d90c15dd059, type: 3}
+  m_Name: The Clinic
+  m_EditorClassIdentifier: 
+  isPriorityLocation: 0
+  locationName: The Clinic
+  locationFullName: The Health Clinic
+  locationDescription: A dilapidated shack with bloodstained walls.
+  firstObjective: Heal your hero.
+  worldMapPosition: {x: -630, y: -270}
+  firstNPC: {fileID: 11400000, guid: 16b90d264a7cbac48b018e6c0a4f5de1, type: 2}
+  locationSoundscape:
+    name: 
+    clip: {fileID: 8300000, guid: 0d28a3effb524409ca5e50160bb39321, type: 3}
+    volume: 0.8
+    pitch: 1
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  locationBackground: 0
+  isRecurring: 1
+  isCombatOnly: 0
+  isRandomEncounter: 0
+  isHomeBase: 0
+  isRecruitment: 0
+  isActionShop: 0
+  isItemShop: 0
+  isCloner: 0
+  isAugmenter: 0
+  isHealer: 1
+  isClosed_Hour1: 0
+  isClosed_Hour2: 0
+  isClosed_Hour3: 0

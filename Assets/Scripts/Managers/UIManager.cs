@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -30,8 +31,9 @@ public class UIManager : MonoBehaviour
 
     [Header("SKYBAR"), SerializeField] private GameObject skyBar;
     [SerializeField]
-    private GameObject augmentBar, augmentsDropdown, itemBar,
-        itemsDropdown, itemsCount, reputationBar, reputationsDropdown, aetherCount, aetherIcon, currentHealth, healthValue;
+    private GameObject augmentBar, augmentsDropdown, augmentsCount, itemBar,
+        itemsDropdown, itemsCount, reputationBar, reputationsDropdown,
+        aetherCount, aetherIcon, currentHealth, healthValue;
 
     [Header("REPUTATION"), SerializeField] private GameObject reputation_Mages;
     [SerializeField] private GameObject reputation_Mutants,
@@ -41,7 +43,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject tooltipPopupPrefab, infoPopupPrefab, infoPopup_SecondaryPrefab,
         combatEndPopupPrefab, turnPopupPrefab, versusPopupPrefab, menuPopupPrefab,
         explicitLanguagePopupPrefab, tutorialPopupPrefab, tutorialActionPopupPrefab, newHeroPopupPrefab,
-        newCardPopupPrefab, chooseCardPopupPrefab, chooseRewardPopupPrefab, aetherCellPopupPrefab,
+        newCardPopupPrefab, chooseCardPopupPrefab, chooseRewardPopupPrefab,
         cardPagePrefab, cardScrollPagePrefab, cardPagePopupPrefab, newAugmentPopupPrefab, locationPopupPrefab,
         narrativePopupPrefab, augmentIconPrefab, augmentIconPopupPrefab, itemPagePopupPrefab,
         buyItemPopupPrefab, removeItemPopupPrefab, itemIconPrefab, itemIconPopupPrefab, abilityPopupPrefab,
@@ -49,7 +51,7 @@ public class UIManager : MonoBehaviour
 
     private GameObject screenDimmer, tooltipPopup, infoPopup, infoPopup_Secondary,
         infoPopup_Tutorial, combatEndPopup, turnPopup, menuPopup, explicitLanguagePopup, tutorialPopup,
-        tutorialActionPopup, newHeroPopup, newCardPopup, chooseCardPopup, chooseRewardPopup, aetherCellPopup,
+        tutorialActionPopup, newHeroPopup, newCardPopup, chooseCardPopup, chooseRewardPopup,
         cardPage, cardPagePopup, newAugmentPopup, itemPagePopup, buyItemPopup, removeItemPopup, locationPopup,
         travelPopup, narrativePopup, augmentIconPopup, itemIconPopup, itemAbilityPopup, reputationPopup,
         endTurnButton, cancelEffectButton, confirmEffectButton, playerZoneOutline;
@@ -58,12 +60,13 @@ public class UIManager : MonoBehaviour
     private CombatLog combatLog;
 
     public const string TOOLTIP_TIMER = "TooltipTimer";
+
+    public const string LOCK_TEXT = "<b>???</b>";
+    public const string LOCK_TEXT_SHORT = "<b>?</b>";
     #endregion
 
     #region PROPERTIES
     public GameObject NewCardPopup { get => newCardPopup; }
-    public GameObject ChooseCardPopup { get => chooseCardPopup; }
-    public GameObject CardPagePopup { get => cardPagePopup; }
     public GameObject ConfirmUseItemPopup { get; set; }
     public GameObject EndTurnButton { get => endTurnButton; }
     public GameObject AugmentBar { get => augmentBar; }
@@ -72,14 +75,17 @@ public class UIManager : MonoBehaviour
     public GameObject ItemsDropdown { get => itemsDropdown; }
     public GameObject ReputationBar { get => reputationBar; }
     public GameObject ReputationsDropdown { get => reputationsDropdown; }
-    public Color HighlightedColor { get => highlightedColor; }
     public GameObject CombatLog { get => combatLog.gameObject; }
+    public Color HighlightedColor { get => highlightedColor; }
 
-    public bool PlayerIsTargetting { get; set; }
     public GameObject CurrentWorldSpace { get; private set; }
     public GameObject CurrentCanvas { get; private set; }
     public GameObject CurrentZoomCanvas { get; private set; }
     public GameObject UICanvas { get; set; }
+
+    public bool PlayerIsTargetting { get; set; }
+    public bool PlayerCanTravel => !(newCardPopup != null || chooseCardPopup != null ||
+        narrativePopup != null || tutorialActionPopup != null);
     #endregion
 
     #region METHODS
@@ -227,11 +233,12 @@ public class UIManager : MonoBehaviour
         var etbd = endTurnButton.GetComponent<EndTurnButtonDisplay>();
         var etb = etbd.PlayerTurnSide.GetComponent<Button>();
 
-        var normalColor = isReady ? Color.green : Color.gray;
-        var highlightedColor = Color.black;
+        var normalColor = isReady ? Color.green : Color.grey;
+        normalColor.a = 0.7f;
+        var highlightedColor = isReady ? Color.green : Color.black;
         var disabledColor = Color.gray;
-
         disabledColor.a = 0.3f;
+
         var btnClr = etb.colors;
         btnClr.normalColor = normalColor;
         btnClr.highlightedColor = highlightedColor;
@@ -337,14 +344,15 @@ public class UIManager : MonoBehaviour
     public void DestroyZoomObjects()
     {
         // Skybar
-        if (SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene))
-            HideSkybar(false);
+        if (SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene)) HideSkybar(false);
 
         // Screen Dimmer
         SetScreenDimmer(false);
 
         // CardZoom
         CardZoom.ZoomCardIsCentered = false;
+        CardZoom.BaseZoomCard = null;
+        CardZoom.ActiveZoomCard = 0;
 
         // Function Timers
         FunctionTimer.StopTimer(CardZoom.ZOOM_CARD_TIMER);
@@ -366,116 +374,70 @@ public class UIManager : MonoBehaviour
      * ****** GET_PORTRAIT_POSITION
      * *****
      *****/
-    public void GetPortraitPosition(string heroName, out Vector2 position,
-        out Vector2 scale, SceneLoader.Scene scene)
+    public void GetPortraitPosition(string heroName, out Vector2 position, out Vector2 scale)
     {
         position = new Vector2();
         scale = new Vector2();
+
+        bool isCombat = SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene);
+
         switch (heroName)
         {
             // FAYDRA
             case "Faydra, Rogue Cyborg":
-                switch (scene)
-                {
-                    case SceneLoader.Scene.HeroSelectScene:
-                        position.Set(-40, 0);
-                        scale.Set(1.3f, 1.3f);
-                        break;
-                    case SceneLoader.Scene.DialogueScene:
-                        goto case SceneLoader.Scene.CombatScene;
-                        /*
-                        position.Set(-150, -75);
-                        scale.Set(2.5f, 2.5f);
-                        break;
-                        */
-                    case SceneLoader.Scene.CombatScene:
-                        position.Set(-90, -20);
-                        scale.Set(1.2f, 1.2f);
-                        break;
-                }
+                position.Set(-90, -20);
+                scale.Set(1.2f, 1.2f);
                 break;
             // GENZER
             case "Genzer, Evolved Mutant":
-                switch (scene)
+                if (isCombat)
                 {
-                    case SceneLoader.Scene.HeroSelectScene:
-                        position.Set(0, 0);
-                        scale.Set(1.3f, 1.3f);
-                        break;
-                    case SceneLoader.Scene.DialogueScene:
-                        goto case SceneLoader.Scene.CombatScene;
-                        /*
-                        position.Set(0, -100);
-                        scale.Set(2f, 2f);
-                        break;
-                        */
-                    case SceneLoader.Scene.CombatScene:
-                        position.Set(5, -20);
-                        scale.Set(1f, 1f);
-                        break;
+                    position.Set(5, -20);
+                    scale.Set(1f, 1f);
+                }
+                else
+                {
+                    position.Set(5, 15);
+                    scale.Set(1f, 1f);
                 }
                 break;
             // KILI
             case "Kili, Neon Rider":
-                switch (scene)
+                if (isCombat)
                 {
-                    case SceneLoader.Scene.HeroSelectScene:
-                        position.Set(0, -30);
-                        scale.Set(1.2f, 1.2f);
-                        break;
-                    case SceneLoader.Scene.DialogueScene:
-                        goto case SceneLoader.Scene.CombatScene;
-                        /*
-                        position.Set(-90, -325);
-                        scale.Set(3, 3);
-                        break;
-                        */
-                    case SceneLoader.Scene.CombatScene:
-                        position.Set(-30, -90);
-                        scale.Set(1.2f, 1.2f);
-                        break;
+                    position.Set(-30, -90);
+                    scale.Set(1.2f, 1.2f);
+                }
+                else
+                {
+                    position.Set(-30, -70);
+                    scale.Set(1.2f, 1.2f);
                 }
                 break;
             // MARDRIK
             case "Madrik, Obsessed Mage":
-                switch (scene)
+                if (isCombat)
                 {
-                    case SceneLoader.Scene.HeroSelectScene:
-                        position.Set(0, -10);
-                        scale.Set(1.4f, 1.4f);
-                        break;
-                    case SceneLoader.Scene.DialogueScene:
-                        goto case SceneLoader.Scene.CombatScene;
-                        /*
-                        position.Set(0, -45);
-                        scale.Set(2f, 2f);
-                        break;
-                        */
-                    case SceneLoader.Scene.CombatScene:
-                        position.Set(0, -35);
-                        scale.Set(1.2f, 1.2f);
-                        break;
+                    position.Set(0, -35);
+                    scale.Set(1.2f, 1.2f);
+                }
+                else
+                {
+                    position.Set(0, -15);
+                    scale.Set(1.2f, 1.2f);
                 }
                 break;
             // YERGOV
             case "Yergov, Biochemist":
-                switch (scene)
+                if (isCombat)
                 {
-                    case SceneLoader.Scene.HeroSelectScene:
-                        position.Set(-15, -35);
-                        scale.Set(1.3f, 1.3f);
-                        break;
-                    case SceneLoader.Scene.DialogueScene:
-                        goto case SceneLoader.Scene.CombatScene;
-                        /*
-                        position.Set(-145, -145);
-                        scale.Set(2, 2);
-                        break;
-                        */
-                    case SceneLoader.Scene.CombatScene:
-                        position.Set(-15, -45);
-                        scale.Set(0.9f, 0.9f);
-                        break;
+                    position.Set(-15, -45);
+                    scale.Set(0.9f, 0.9f);
+                }
+                else
+                {
+                    position.Set(-75, -75);
+                    scale.Set(1.2f, 1.2f);
                 }
                 break;
             default:
@@ -524,33 +486,19 @@ public class UIManager : MonoBehaviour
         if (explicitLanguagePopup != null) return;
         explicitLanguagePopup = Instantiate(explicitLanguagePopupPrefab, CurrentCanvas.transform);
     }
-    public void DestroyExplicitLanguagePopup()
-    {
-        if (explicitLanguagePopup != null)
-        {
-            Destroy(explicitLanguagePopup);
-            explicitLanguagePopup = null;
-        }
-    }
     // Tutorial Popup
     public void CreateTutorialPopup()
     {
         if (tutorialPopup != null) return;
         tutorialPopup = Instantiate(tutorialPopupPrefab, CurrentCanvas.transform);
     }
-    public void DestroyTutorialPopup()
-    {
-        if (tutorialPopup != null)
-        {
-            Destroy(tutorialPopup);
-            tutorialPopup = null;
-        }
-    }
     // Tutorial Action Popup
-    public void CreateTutorialActionPopup()
+    public void CreateTutorialActionPopup
+        (TutorialActionPopupDisplay.Type tutorialType = TutorialActionPopupDisplay.Type.Tutorial)
     {
         if (tutorialActionPopup != null) return;
         tutorialActionPopup = Instantiate(tutorialActionPopupPrefab, CurrentZoomCanvas.transform);
+        tutorialActionPopup.GetComponent<TutorialActionPopupDisplay>().TutorialType = tutorialType;
     }
     public void DestroyTutorialActionPopup()
     {
@@ -619,7 +567,7 @@ public class UIManager : MonoBehaviour
     }
     public void InsufficientAetherPopup()
     {
-        CreateFleetingInfoPopup($"Not enough aether! (You have {Managers.P_MAN.AetherCells} aether)");
+        CreateFleetingInfoPopup($"Not enough aether! (You have {Managers.P_MAN.CurrentAether} aether)");
         Managers.AU_MAN.StartStopSound("SFX_Error");
     }
     public void DismissInfoPopup()
@@ -760,7 +708,7 @@ public class UIManager : MonoBehaviour
             if (Managers.P_MAN.GetAugment(aetherMagnet))
             {
                 Managers.AN_MAN.TriggerAugment(aetherMagnet);
-                Managers.P_MAN.AetherCells += GameManager.AETHER_MAGNET_REWARD;
+                Managers.P_MAN.CurrentAether += GameManager.AETHER_MAGNET_REWARD;
             }
         }
         /* Dialogue does not have ChooseRewardPopup functionality
@@ -777,35 +725,9 @@ public class UIManager : MonoBehaviour
             if (nextClip is CombatRewardClip)
             {
                 int aetherReward = Managers.G_MAN.GetAetherReward((Managers.D_MAN.EngagedHero as EnemyHero).EnemyLevel);
-                Managers.P_MAN.AetherCells += aetherReward;
+                Managers.P_MAN.CurrentAether += aetherReward;
             }
             else Debug.LogError("NEXT CLIP IS NOT COMBAT REWARD CLIP!");
-        }
-    }
-    public void DestroyChooseRewardPopup()
-    {
-        if (chooseRewardPopup != null)
-        {
-            Destroy(chooseRewardPopup);
-            chooseRewardPopup = null;
-        }
-    }
-    /*
-    // Aether Cell Popup
-    public void CreateAetherCellPopup(int quanity)
-    {
-        DestroyAetherCellPopup();
-        aetherCellPopup = Instantiate(aetherCellPopupPrefab, CurrentZoomCanvas.transform);
-        var acpd = aetherCellPopup.GetComponent<AetherCellPopupDisplay>();
-        acpd.AetherQuantity = quanity;
-    }
-    */
-    public void DestroyAetherCellPopup()
-    {
-        if (aetherCellPopup != null)
-        {
-            Destroy(aetherCellPopup);
-            aetherCellPopup = null;
         }
     }
     // Card Page
@@ -951,7 +873,8 @@ public class UIManager : MonoBehaviour
         DestroyLocationPopup();
         travelPopup = Instantiate(locationPopupPrefab, CurrentCanvas.transform);
         var lpd = travelPopup.GetComponent<LocationPopupDisplay>();
-        if (location.IsRecurring) lpd.DifficultyLevel.SetActive(false);
+        // Augmenter is only non-recurring location w/o combat
+        if (location.IsRecurring || location.IsAugmenter) lpd.DifficultyLevel.SetActive(false);
         lpd.Location = location;
     }
     public void DestroyTravelPopup()
@@ -986,12 +909,14 @@ public class UIManager : MonoBehaviour
      * ****** SKYBAR
      * *****
      *****/
-    public void UpdateItemsCount()
+    public void UpdateItemsCount(bool setToZero = false)
     {
         int unusedItems = 0;
-        foreach (var item in Managers.P_MAN.HeroItems)
-            if (!item.IsUsed) unusedItems++;
-
+        if (!setToZero)
+        {
+            foreach (var item in Managers.P_MAN.HeroItems)
+                if (!item.IsUsed) unusedItems++;
+        }
         itemsCount.GetComponent<TextMeshProUGUI>().SetText(unusedItems.ToString());
     }
     public void AugmentsButton_OnClick(bool forceOpen)
@@ -1040,23 +965,35 @@ public class UIManager : MonoBehaviour
         {
             ClearAugmentBar();
             ClearItemBar();
+            var augTmpro = augmentsCount.GetComponent<TextMeshProUGUI>();
 
-            foreach (var ha in Managers.P_MAN.HeroAugments)
-                CreateAugmentIcon(ha);
-            foreach (var hi in Managers.P_MAN.HeroItems)
-                CreateItemIcon(hi);
-
-            foreach (Transform augTran in augmentBar.transform)
-                augTran.gameObject.SetActive(!hideChildren);
-            foreach (Transform itemTran in itemBar.transform)
-                itemTran.gameObject.SetActive(!hideChildren);
-            foreach (Transform repTran in reputationBar.transform)
-                repTran.gameObject.SetActive(!hideChildren);
+            if (Managers.G_MAN.IsTutorial)
+            {
+                augTmpro.SetText(0 + "");
+                UpdateItemsCount(true);
+                SetAllReputation(true);
+            }
+            else
+            {
+                // Augments
+                foreach (var ha in Managers.P_MAN.HeroAugments)
+                    CreateAugmentIcon(ha);
+                foreach (Transform augTran in augmentBar.transform)
+                    augTran.gameObject.SetActive(!hideChildren);
+                augTmpro.SetText(Managers.P_MAN.HeroAugments.Count.ToString());
+                // Items
+                foreach (var hi in Managers.P_MAN.HeroItems)
+                    CreateItemIcon(hi);
+                foreach (Transform itemTran in itemBar.transform)
+                    itemTran.gameObject.SetActive(!hideChildren);
+                UpdateItemsCount();
+                // Reputation
+                foreach (Transform repTran in reputationBar.transform)
+                    repTran.gameObject.SetActive(!hideChildren);
+                SetAllReputation();
+            }
 
             SetAetherCount(0);
-            UpdateItemsCount();
-            SetAllReputation();
-
             currentHealth.SetActive(!SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene));
             SetCurrentHealth(0);
         }
@@ -1070,7 +1007,7 @@ public class UIManager : MonoBehaviour
         if (!skyBar.activeInHierarchy) return;
 
         var tmpro = aetherCount.GetComponentInChildren<TextMeshProUGUI>();
-        tmpro.SetText(Managers.P_MAN.AetherCells - valueChange + "");
+        tmpro.SetText(Managers.P_MAN.CurrentAether - valueChange + "");
         tmpro.color = Color.white; // In case the coroutine is stopped while the text is red
 
         if (valueChange != 0)
@@ -1187,33 +1124,34 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void SetReputation(GameManager.ReputationType type, int valueChange = 0, bool triggerOnly = false)
+    public void SetReputation(GameManager.ReputationType type, int valueChange = 0, bool triggerOnly = false, bool setToZero = false)
     {
         if (!skyBar.activeSelf) return;
 
         GameObject repIcon;
         int repScore;
+
         switch (type)
         {
             case GameManager.ReputationType.Mages:
                 repIcon = reputation_Mages;
-                repScore = Managers.G_MAN.Reputation_Mages;
+                repScore = setToZero ? 0 : Managers.G_MAN.Reputation_Mages;
                 break;
             case GameManager.ReputationType.Mutants:
                 repIcon = reputation_Mutants;
-                repScore = Managers.G_MAN.Reputation_Mutants;
+                repScore = setToZero ? 0 : Managers.G_MAN.Reputation_Mutants;
                 break;
             case GameManager.ReputationType.Rogues:
                 repIcon = reputation_Rogues;
-                repScore = Managers.G_MAN.Reputation_Rogues;
+                repScore = setToZero ? 0 : Managers.G_MAN.Reputation_Rogues;
                 break;
             case GameManager.ReputationType.Techs:
                 repIcon = reputation_Techs;
-                repScore = Managers.G_MAN.Reputation_Techs;
+                repScore = setToZero ? 0 : Managers.G_MAN.Reputation_Techs;
                 break;
             case GameManager.ReputationType.Warriors:
                 repIcon = reputation_Warriors;
-                repScore = Managers.G_MAN.Reputation_Warriors;
+                repScore = setToZero ? 0 : Managers.G_MAN.Reputation_Warriors;
                 break;
             default:
                 Debug.LogError("INVALID REPUTATION TYPE!");
@@ -1245,15 +1183,16 @@ public class UIManager : MonoBehaviour
             string sound;
             if (triggerOnly) sound = "SFX_Trigger";
             else sound = "SFX_Reputation";
-            AudioManager.Instance.StartStopSound(sound);
+            Managers.AU_MAN.StartStopSound(sound);
             Managers.AN_MAN.SkybarIconAnimation(repIcon);
         }
     }
 
-    public void SetAllReputation()
+    public void SetAllReputation(bool setToZero = false)
     {
         foreach (GameManager.ReputationType type in
-            Enum.GetValues(typeof(GameManager.ReputationType))) SetReputation(type);
+            Enum.GetValues(typeof(GameManager.ReputationType)))
+            SetReputation(type, 0, false, setToZero);
     }
 
     public void CreateReputationPopup(GameManager.ReputationType repType, GameObject sourceIcon)

@@ -20,11 +20,13 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: e45bfc749555e2642a7a84f17585362f, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   - name: 
     clip: {fileID: 8300000, guid: c1a936b7567d1a24196b7035b345b53c, type: 3}
     volume: 0.8
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   PowerDescription: Deal 1 to an ally to create an Extraction in hand. If this destroys
     it, create another.
@@ -33,3 +35,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1a57cadd97d60314a997b74639dc3656, type: 2}
   LinkedAbilities:
   - {fileID: 11400000, guid: 589d8790e70e8e449a667fb1fcce5a80, type: 2}
+  relatedCards: []
+  relatedCardTypes: 03000000

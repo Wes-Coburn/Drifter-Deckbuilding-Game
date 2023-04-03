@@ -46,7 +46,7 @@ public static class GameLoader
 
         // Player Manager
         Managers.P_MAN.CurrentHealth = GameManager.PLAYER_STARTING_HEALTH;
-        Managers.P_MAN.AetherCells = 0;
+        Managers.P_MAN.CurrentAether = 0;
 
         // Heroes
         string phName = "Kili, Neon Rider";
@@ -90,17 +90,19 @@ public static class GameLoader
     public static IEnumerator NewGame_LoadAsync()
     {
         var gm = Managers.G_MAN;
-
         gm.IsTutorial = false;
-        gm.CurrentHour = 4;
-        gm.IsNewHour = true;
+
+        gm.CurrentHour = 3;
+        gm.NextHour(false); // Current Hour set to 4, HomeBase objective modified
+
+        // Loyalty
         gm.RecruitLoyalty = 3; // First recruit free
         gm.ActionShopLoyalty = 3; // First action free
         gm.ShopLoyalty = 3; // First item free
 
         // Player Manager
         Managers.P_MAN.CurrentHealth = GameManager.PLAYER_STARTING_HEALTH - GameManager.HEAL_ON_REST;
-        Managers.P_MAN.AetherCells = GameManager.PLAYER_START_AETHER;
+        Managers.P_MAN.CurrentAether = GameManager.PLAYER_START_AETHER;
         Managers.P_MAN.DeckList.Clear();
 
         // Starting Units
@@ -113,7 +115,7 @@ public static class GameLoader
         Managers.CA_MAN.LoadNewActions();
         gm.LoadNewItems();
 
-        // Narratives
+        // Starting Narratives
         string narPath = "Narratives";
         var request_setting = Resources.LoadAsync<Narrative>($"{narPath}/SettingNarrative");
         yield return request_setting;
@@ -135,7 +137,7 @@ public static class GameLoader
 
         NewGame_LoadAsync_Progress(); // <<< Load Progress #2
 
-        // Locations
+        // Starting Locations
         foreach (string loc in new string[]
         {
             "Your Ship",
@@ -172,16 +174,21 @@ public static class GameLoader
     {
         if (SaveLoad.LoadGame(SaveLoad.SaveType.Game) is not GameData data)
         {
-            GameData newData = new(Managers.G_MAN.StartingHeroes, new string[]{}, new string[]{}, 0, 0, 0, 0, 0);
+            GameData newData = new(Managers.G_MAN.StartingHeroes,
+                // Powers and Augments
+                new string[]{}, new string[]{},
+                // Reputation
+                0, 0, 0, 0, 0,
+                // Tutorials
+                true);
             SaveLoad.SaveGame(newData, SaveLoad.SaveType.Game);
             data = SaveLoad.LoadGame(SaveLoad.SaveType.Game) as GameData;
         }
 
-        yield return new WaitForFixedUpdate(); // Wait for PlayerManager.Start() to set PlayerManager.HeroAugments
-        yield return new WaitForFixedUpdate();
+        //yield return new WaitForFixedUpdate(); // Wait for PlayerManager.Start() to set PlayerManager.HeroAugments
+        //yield return new WaitForFixedUpdate();
 
         // AUGMENTS
-        Managers.P_MAN.HeroAugments.Clear();
         for (int i = 0; i < data.HeroAugments.Length; i++)
         {
             var request_Aug = Resources.LoadAsync<HeroAugment>($"Hero Augments/{data.HeroAugments[i]}");
@@ -193,7 +200,7 @@ public static class GameLoader
                 continue;
             }
 
-            Managers.P_MAN.HeroAugments.Add(request_Aug.asset as HeroAugment);
+            Managers.P_MAN.AddAugment(request_Aug.asset as HeroAugment);
         }
 
         // HEROES AND POWERS
@@ -211,14 +218,17 @@ public static class GameLoader
         gm.Reputation_Rogues = data.Reputation_Rogues;
         gm.Reputation_Techs = data.Reputation_Techs;
         gm.Reputation_Warriors = data.Reputation_Warriors;
+
+        // Tutorials
+        gm.TutorialActive_WorldMap = data.TutorialActive_WorldMap;
     }
-    private static void LoadGame_Async_Progress()
+    private static void LoadGame_PlayerData_Async_Progress()
     {
-        const int loadItems = 9;
+        const int loadItems = 11;
         const float increment = 1f / loadItems;
         SceneLoader.LoadingProgress += increment;
     }
-    public static IEnumerator LoadGame_Async()
+    public static IEnumerator LoadGame_PlayerData_Async()
     {
         if (SaveLoad.LoadGame(SaveLoad.SaveType.Player) is not PlayerData data)
         {
@@ -237,7 +247,7 @@ public static class GameLoader
         // PLAYER HERO
         var request_PHero = Resources.LoadAsync<PlayerHero>($"Heroes/Player Heroes/{data.PlayerHero}");
         yield return request_PHero;
-        LoadGame_Async_Progress(); // <<< Load Progress #1
+        LoadGame_PlayerData_Async_Progress(); // <<< Load Progress #1
 
         if (request_PHero.asset == null) Debug.LogError("Failed to load PLAYERHERO asset!");
         else
@@ -251,7 +261,7 @@ public static class GameLoader
         pm.CurrentHealth = data.CurrentHealth_Player;
 
         // AETHER CELLS
-        pm.AetherCells = data.AetherCells;
+        pm.CurrentAether = data.AetherCells;
 
         // HERO POWER
         var pHero = pm.HeroScript as PlayerHero;
@@ -309,7 +319,7 @@ public static class GameLoader
             else if (request_Card.asset is ActionCard)
                 Managers.CA_MAN.AddCard(request_Card.asset as ActionCard, pm);
         }
-        LoadGame_Async_Progress(); // <<< Load Progress #2
+        LoadGame_PlayerData_Async_Progress(); // <<< Load Progress #2
 
         // ITEMS
         pm.HeroItems.Clear();
@@ -326,10 +336,13 @@ public static class GameLoader
 
             pm.HeroItems.Add(request_Item.asset as HeroItem);
         }
-        LoadGame_Async_Progress(); // <<< Load Progress #3
+        LoadGame_PlayerData_Async_Progress(); // <<< Load Progress #3
 
         // CURRENT HOUR
         gm.CurrentHour = data.CurrentHour;
+
+        // IS NEW HOUR
+        gm.IsNewHour = data.IsNewHour;
 
         // CURRENT NARRATIVE
         if (data.CurrentNarrative != "")
@@ -339,10 +352,35 @@ public static class GameLoader
 
             if (request_CurNar.asset == null) Debug.LogError("Failed to load NARRATIVE asset!");
             else gm.CurrentNarrative = request_CurNar.asset as Narrative;
-
         }
         else gm.CurrentNarrative = null;
-        LoadGame_Async_Progress(); // <<< Load Progress #4
+        LoadGame_PlayerData_Async_Progress(); // <<< Load Progress #4
+
+        // ENGAGED HERO
+        if (data.EngagedHero != "")
+        {
+            var request_EngHero = Resources.LoadAsync<NPCHero>($"Heroes/NPC Heroes/{data.EngagedHero}");
+            yield return request_EngHero;
+
+            if (request_EngHero.asset == null) Debug.LogError("Failed to load HERO asset!");
+            else Managers.D_MAN.EngagedHero =
+                    Managers.G_MAN.GetActiveNPC(request_EngHero.asset as NPCHero);
+        }
+        else Managers.D_MAN.EngagedHero = null;
+        LoadGame_PlayerData_Async_Progress(); // <<< Load Progress #5
+
+        // CURRENT LOCATION
+        if (data.CurrentLocation != "")
+        {
+            var request_CurLoc = Resources.LoadAsync<Location>($"Locations/{data.CurrentLocation}");
+            yield return request_CurLoc;
+
+            if (request_CurLoc.asset == null) Debug.LogError("Failed to load LOCATION asset!");
+            else Managers.G_MAN.CurrentLocation =
+                    Managers.G_MAN.GetActiveLocation(request_CurLoc.asset as Location);
+        }
+        else Managers.G_MAN.CurrentLocation = null;
+        LoadGame_PlayerData_Async_Progress(); // <<< Load Progress #6
 
         // NPCS
         gm.ActiveNPCHeroes.Clear();
@@ -362,7 +400,7 @@ public static class GameLoader
             yield return request_Clip;
             npc.NextDialogueClip = request_Clip.asset as DialogueClip;
         }
-        LoadGame_Async_Progress(); // <<< Load Progress #5
+        LoadGame_PlayerData_Async_Progress(); // <<< Load Progress #7
 
         // LOCATIONS
         gm.ActiveLocations.Clear();
@@ -386,7 +424,7 @@ public static class GameLoader
             location.CurrentNPC = gm.GetActiveNPC(request_NPC.asset as NPCHero);
             location.CurrentObjective = data.ActiveLocations[i, 2];
         }
-        LoadGame_Async_Progress(); // <<< Load Progress #6
+        LoadGame_PlayerData_Async_Progress(); // <<< Load Progress #8
 
         gm.VisitedLocations.Clear();
         foreach (string location in data.VisitedLocations)
@@ -407,7 +445,7 @@ public static class GameLoader
             itemAsset.IsUsed = isUsed;
             gm.ShopItems.Add(itemAsset);
         }
-        LoadGame_Async_Progress(); // <<< Load Progress #7
+        LoadGame_PlayerData_Async_Progress(); // <<< Load Progress #9
 
         // RECRUIT UNITS
         Managers.CA_MAN.PlayerRecruitUnits.Clear();
@@ -418,7 +456,7 @@ public static class GameLoader
 
             Managers.CA_MAN.PlayerRecruitUnits.Add(request_Recruit.asset as UnitCard);
         }
-        LoadGame_Async_Progress(); // <<< Load Progress #8
+        LoadGame_PlayerData_Async_Progress(); // <<< Load Progress #10
 
         // SHOP ACTIONS
         Managers.CA_MAN.ActionShopCards.Clear();
@@ -428,7 +466,7 @@ public static class GameLoader
             yield return request_Action;
             Managers.CA_MAN.ActionShopCards.Add(request_Action.asset as ActionCard);
         }
-        LoadGame_Async_Progress(); // <<< Load Progress #9
+        LoadGame_PlayerData_Async_Progress(); // <<< Load Progress #11
 
         // LOYALTY
         gm.RecruitLoyalty = data.RecruitLoyalty;
@@ -726,7 +764,8 @@ public static class GameLoader
         int repWar = gm.Reputation_Warriors;
 
         GameData data = new(unlockedHeroes, unlockedPowers, augments,
-            repMag, repMut, repRog, repTec, repWar);
+            repMag, repMut, repRog, repTec, repWar,
+            gm.TutorialActive_WorldMap);
         SaveLoad.SaveGame(data, SaveLoad.SaveType.Game);
     }
     public static void SaveGame() // PUBLIC FOR BETA ONLY
@@ -745,7 +784,7 @@ public static class GameLoader
         var pHero = pm.HeroScript as PlayerHero;
         string name_ph = pHero.HeroName;
         int health_ph = pm.CurrentHealth;
-        int aether = pm.AetherCells;
+        int aether = pm.CurrentAether;
         string power_ph = GetObjectName(pHero.CurrentHeroPower);
         string ultimate = GetObjectName(pHero.CurrentHeroUltimate);
 
@@ -761,11 +800,18 @@ public static class GameLoader
 
         // Hour, Visited Locations
         int currentHour = gm.CurrentHour;
+        bool isNewHour = gm.IsNewHour;
         var visitedLocations = gm.VisitedLocations.ToArray();
 
         // Current Narrative
         string narrativeName = "";
         if (gm.CurrentNarrative != null) narrativeName = GetObjectName(gm.CurrentNarrative);
+
+        // Engaged Hero and Current Location
+        string engagedHero = "";
+        if (Managers.D_MAN.EngagedHero != null) engagedHero = Managers.D_MAN.EngagedHero.HeroName;
+        string currentLocation = "";
+        if (Managers.G_MAN.CurrentLocation != null) currentLocation = Managers.G_MAN.CurrentLocation.LocationName;
 
         // NPCSAndClips
         var npcsAndClips = new string[gm.ActiveNPCHeroes.Count, 2];
@@ -904,7 +950,9 @@ public static class GameLoader
             // Player Hero "Inventory"
             deckList, items,
             // Hour and Narrative
-            currentHour, narrativeName,
+            currentHour, isNewHour, narrativeName,
+            // Engaged Hero and Current Location
+            engagedHero, currentLocation,
             // Locations
             visitedLocations, activeLocations,
             // Dialogue

@@ -86,8 +86,8 @@ public class CardPagePopupDisplay : MonoBehaviour
 
     private void RemoveCard()
     {
-        Managers.P_MAN.AetherCells += cardCost;
-        Managers.CA_MAN.RemovePlayerCard(card);
+        Managers.P_MAN.CurrentAether += cardCost;
+        Managers.P_MAN.DeckList.Remove(card);
     }
 
     private void RecruitUnit()
@@ -96,7 +96,7 @@ public class CardPagePopupDisplay : MonoBehaviour
         if (recruitIndex != -1) Managers.CA_MAN.PlayerRecruitUnits.RemoveAt(recruitIndex);
         else Debug.LogError("RECRUIT UNIT NOT FOUND!");
 
-        Managers.P_MAN.AetherCells -= cardCost;
+        Managers.P_MAN.CurrentAether -= cardCost;
         previousProgress = Managers.G_MAN.RecruitLoyalty;
         if (++Managers.G_MAN.RecruitLoyalty == GameManager.RECRUIT_LOYALTY_GOAL) rewardIsReady = true;
         else if (Managers.G_MAN.RecruitLoyalty > GameManager.RECRUIT_LOYALTY_GOAL) Managers.G_MAN.RecruitLoyalty = 0;
@@ -111,7 +111,7 @@ public class CardPagePopupDisplay : MonoBehaviour
         if (actionIndex != -1) Managers.CA_MAN.ActionShopCards.RemoveAt(actionIndex);
         else Debug.LogError("ACQUIRED ACTION NOT FOUND!");
 
-        Managers.P_MAN.AetherCells -= cardCost;
+        Managers.P_MAN.CurrentAether -= cardCost;
         previousProgress = Managers.G_MAN.ActionShopLoyalty;
         if (++Managers.G_MAN.ActionShopLoyalty == GameManager.ACTION_LOYALTY_GOAL) rewardIsReady = true;
         else if (Managers.G_MAN.ActionShopLoyalty > GameManager.ACTION_LOYALTY_GOAL) Managers.G_MAN.ActionShopLoyalty = 0;
@@ -122,7 +122,7 @@ public class CardPagePopupDisplay : MonoBehaviour
 
     private void CloneUnit()
     {
-        Managers.P_MAN.AetherCells -= cardCost;
+        Managers.P_MAN.CurrentAether -= cardCost;
         Managers.CA_MAN.AddCard(card, Managers.P_MAN, true);
     }
 

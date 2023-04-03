@@ -37,8 +37,7 @@ public abstract class HeroDisplay : MonoBehaviour
 
             if (this is PlayerHeroDisplay)
             {
-                Managers.U_MAN.GetPortraitPosition
-                    (HeroScript.HeroName, out Vector2 position, out Vector2 scale, SceneLoader.Scene.CombatScene);
+                Managers.U_MAN.GetPortraitPosition(HeroScript.HeroName, out Vector2 position, out Vector2 scale);
                 heroPortrait.transform.localPosition = position;
                 heroPortrait.transform.localScale = scale;
             }
@@ -84,7 +83,7 @@ public abstract class HeroDisplay : MonoBehaviour
 
         for (int i = 0; i < energyBars.Length; i++)
         {
-            GameObject energyBar = energyBars[i];
+            var energyBar = energyBars[i];
             if (i < maxEnergy || i < currentEnergy)
             {
                 Color color;

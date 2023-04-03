@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,7 +17,7 @@ public class PlayerManager : HeroManager
     }
 
     private bool heroPowerUsed;
-    private int aetherCells, heroUltimateProgress;
+    private int currentAether, heroUltimateProgress;
 
     private List<HeroAugment> heroAugments;
     private List<HeroItem> heroItems;
@@ -48,14 +47,14 @@ public class PlayerManager : HeroManager
 
     public override int TurnNumber { get => turnNumber; set { turnNumber = value; } }
 
-    public int AetherCells
+    public int CurrentAether
     {
-        get => aetherCells;
+        get => currentAether;
         set
         {
-            int previousCount = aetherCells;
-            aetherCells = value;
-            int valueChange = aetherCells - previousCount;
+            int previousCount = currentAether;
+            currentAether = value;
+            int valueChange = currentAether - previousCount;
 
             AnimationManager.CountingTextObject.ClearCountingTexts();
 
@@ -84,12 +83,6 @@ public class PlayerManager : HeroManager
             var powerImage = phd.HeroPowerImage;
             var img = powerImage.GetComponent<Image>();
             img.color = heroPowerUsed ? Color.gray : Color.white;
-            /*
-            var color = img.color;
-            color.a = heroPowerUsed ? 0.6f : 1;
-            img.color = color;
-            */
-
             var powerReadyIcon = phd.PowerReadyIcon;
             powerReadyIcon.SetActive(!heroPowerUsed);
         }
@@ -123,10 +116,10 @@ public class PlayerManager : HeroManager
     protected override void Start()
     {
         base.Start();
-        heroAugments = new();
-        heroItems = new();
+        heroAugments ??= new();
+        heroItems ??= new();
         HeroScript = null; // Unnecessary?
-        AetherCells = 0;
+        CurrentAether = 0;
         IsMyTurn = false; // Needs to be false to disable DragDrop outside of combat
     }
 
@@ -165,6 +158,7 @@ public class PlayerManager : HeroManager
 
     public bool GetAugment(string augmentName)
     {
+        if (Managers.G_MAN.IsTutorial) return false;
         int augmentIndex = heroAugments.FindIndex(x => x.AugmentName == augmentName);
         return augmentIndex != -1;
     }
@@ -287,6 +281,6 @@ public class PlayerManager : HeroManager
         Sound[] soundList;
         if (isUltimate) soundList = (HeroScript as PlayerHero).CurrentHeroUltimate.PowerSounds;
         else soundList = HeroScript.CurrentHeroPower.PowerSounds;
-        foreach (Sound s in soundList) Managers.AU_MAN.StartStopSound(null, s);
+        foreach (var s in soundList) Managers.AU_MAN.StartStopSound(null, s);
     }
 }

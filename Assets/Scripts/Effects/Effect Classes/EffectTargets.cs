@@ -39,6 +39,9 @@ public class EffectTargets : ScriptableObject
     public bool PlayerHand;
     public bool PlayerDeck;
 
+    //public bool UnitCard;
+    //public bool ActionCard;
+
     [Header("ENEMY")]
     public bool EnemyHero;
     public bool EnemyUnit;
@@ -62,6 +65,8 @@ public class EffectTargets : ScriptableObject
         if (PlayerUnit != targets.PlayerUnit) return false;
         if (PlayerHand != targets.PlayerHand) return false;
         if (PlayerDeck != targets.PlayerDeck) return false;
+        //if (UnitCard != targets.UnitCard) return false;
+        //if (ActionCard!= targets.ActionCard) return false;
         if (EnemyHero != targets.EnemyHero) return false;
         if (EnemyUnit != targets.EnemyUnit) return false;
         if (SavedTarget != targets.SavedTarget) return false;

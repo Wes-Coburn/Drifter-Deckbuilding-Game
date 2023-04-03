@@ -126,7 +126,7 @@ public static class SceneLoader
                     break;
                 case Scene.HeroSelectScene:
                     showSkybar = false;
-                    Managers.G_MAN.StartHeroSelectScene();
+                    // HeroSelectSceneDisplay.Start() handles scene start
                     break;
                 case Scene.NarrativeScene:
                     showSkybar = false;

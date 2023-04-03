@@ -23,6 +23,8 @@ MonoBehaviour:
   cardSubType: 
   cardRarity: 0
   cardDescription: The Void distorts thought and form alike.
+  relatedCards:
+  - {fileID: 11400000, guid: 18ad24a3b12436040bd84309e421cfde, type: 2}
   cardPlaySound:
     name: 
     clip: {fileID: 0}
@@ -32,9 +34,11 @@ MonoBehaviour:
     source: {fileID: 0}
   overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
   zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
-  effectDescription: Stun two enemies, or Silence them if their power is 0.
+  effectDescription: Stun two enemies and play two 1|1 Rogues with Stealth.
   effectGroupList:
-  - {fileID: 11400000, guid: e69e2f7cc81da024b8b13aaef533b3dc, type: 2}
+  - {fileID: 11400000, guid: 152f69e71e9e49f43894d4463b6bf6ef, type: 2}
+  - {fileID: 11400000, guid: aaa8b7b14a9b9414f869d5871306a47d, type: 2}
+  - {fileID: 11400000, guid: aaa8b7b14a9b9414f869d5871306a47d, type: 2}
   linkedAbilities:
   - {fileID: 11400000, guid: 37a54b5ce20d48941893b9f48eee681f, type: 2}
-  - {fileID: 11400000, guid: 618928fdbfb535e4c9496411cfb5d879, type: 2}
+  - {fileID: 11400000, guid: edfe3b459c9ebb14eb21ba3bb2f309a0, type: 2}

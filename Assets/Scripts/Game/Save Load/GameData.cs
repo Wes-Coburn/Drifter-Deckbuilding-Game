@@ -1,11 +1,10 @@
+using JetBrains.Annotations;
+
 [System.Serializable]
 public class GameData : SaveData
 {
     public string[] UnlockedHeroes, UnlockedPowers;
-
     public string[] HeroAugments;
-
-    //public bool Achievement_BETAFinish;
 
     public int Reputation_Mages;
     public int Reputation_Mutants;
@@ -13,15 +12,17 @@ public class GameData : SaveData
     public int Reputation_Techs;
     public int Reputation_Warriors;
 
+    //public bool Achievement_BETAFinish;
+
+    public bool TutorialActive_WorldMap;
+
     public GameData(string[] unlockedHeroes, string[] unlockedPowers, string[] heroAugments,
-        int repMage, int repMutant, int repRogue, int repTech, int repWarrior) //, bool achievement_BETA_Finish)
+        int repMage, int repMutant, int repRogue, int repTech, int repWarrior,
+        bool tutorWorldMap)
     {
         // Unlocks
         UnlockedHeroes = unlockedHeroes;
         UnlockedPowers = unlockedPowers;
-
-        // Achievements
-        //Achievement_BETAFinish = achievement_BETA_Finish;
 
         // Progress
         HeroAugments = heroAugments;
@@ -33,5 +34,11 @@ public class GameData : SaveData
         Reputation_Rogues = repRogue;
         Reputation_Techs = repTech;
         Reputation_Warriors = repWarrior;
+
+        // Achievements
+        //Achievement_BETAFinish = achievement_BETA_Finish;
+
+        // Tutorials
+        TutorialActive_WorldMap = tutorWorldMap;
     }
 }
