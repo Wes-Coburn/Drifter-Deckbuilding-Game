@@ -82,3 +82,5 @@ private void Awake()
   <a href="Assets/Scripts/Cards/Card Classes/Card Components/DragDrop.cs">DragDrop</a>
   🔴
 </p>
+
+© 2023 Wesley H.G. Coburn. All rights reserved.
