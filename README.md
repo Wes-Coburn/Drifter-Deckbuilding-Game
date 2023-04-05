@@ -21,7 +21,7 @@
 </p>
 
 <h2>
-  The Creators
+  Collaborators
 </h2>
 <p>
   Wesley Coburn (Concept and Programming) --> <a href="https://github.com/weslex555" target="_blank">GitHub</a>
