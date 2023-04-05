@@ -2,13 +2,13 @@
   💎Drifter Deckbuilding Game💎
 </h1>
 
-<h2 align="center">
+<h3 align="center">
   A deckbuilding adventure game in corporate dystopia.
   <br>
   Created with <a href="https://www.unity.com">Unity</a>.
   <br><br>
   <a href="https://drifterthegame.com/" target="_blank">💠Play Drifter Now!💠</a>
-</h2>
+</h3>
 
 <h5 align="center">
   Wesley Coburn (Concept and Programming) => <a href="https://github.com/weslex555" target="_blank">GitHub</a>
