@@ -83,4 +83,5 @@ private void Awake()
   🔴
 </p>
 
-© 2023 Wesley H.G. Coburn. All rights reserved.
+
+*© 2023 Wesley H.G. Coburn. All rights reserved.*
