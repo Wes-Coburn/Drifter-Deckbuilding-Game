@@ -2,13 +2,13 @@
   💎Drifter Deckbuilding Game💎
 </h1>
 
-<h3 align="center">
+<h2 align="center">
   <a href="https://drifterthegame.com/" target="_blank">💠Play Now!💠</a>
   <br><br>
   A deckbuilding adventure game in corporate dystopia.
   <br>
   Created with <a href="https://www.unity.com">Unity</a>.
-</h3>
+</h2>
 
 <br>
 
@@ -21,14 +21,14 @@
 </p>
 
 <h2>
-  Collaborators
+  👯Collaborators👯
 </h2>
 <p>
   Wesley Coburn (Concept and Programming) --> <a href="https://github.com/weslex555" target="_blank">GitHub</a>
   <br><br>
-  Joe Rouverol (Art and Design) --------------> <a href="https://www.instagram.com/dragonswordart/" target="_blank">Instagram</a>
+  Joe Rouverol (Art and Design) --> <a href="https://www.instagram.com/dragonswordart/" target="_blank">Instagram</a>
   <br><br>
-  Alden Muller (Soundtrack) ---------------> <a href="https://soundcloud.com/little_fields" target="_blank">SoundCloud</a>
+  Alden Muller (Soundtrack) --> <a href="https://soundcloud.com/little_fields" target="_blank">SoundCloud</a>
 </p>
                                                                                                      
 <h2>
@@ -36,7 +36,7 @@
 </h2>
 
 <h3>
-  Managers
+  🌐Managers🌐
 </h3>
   
 <p>  
@@ -66,7 +66,7 @@ private void Awake()
   ```
     
 <h3>
-  Components
+  🚧Components🚧
 </h3>
 
 > Display/component classes are attached to prefabs and loaded from a manager class.
@@ -83,9 +83,9 @@ private void Awake()
   🔴
 </p>
 
-<h3>
-  License
-</h3>
+<h2>
+📋License📋
+</h2>
 <p>
   <a href="LICENSE.md">ALL RIGHTS RESERVED</a>
 </p>
