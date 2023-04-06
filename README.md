@@ -2,13 +2,13 @@
   💎Drifter Deckbuilding Game💎
 </h1>
 
-<h2 align="center">
+<p align="center">
   <a href="https://drifterthegame.com/" target="_blank">💠Play Now!💠</a>
   <br><br>
   A deckbuilding adventure game in corporate dystopia.
   <br>
   Created with <a href="https://www.unity.com">Unity</a>.
-</h2>
+</p>
 
 <br>
 
