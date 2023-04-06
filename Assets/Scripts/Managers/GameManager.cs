@@ -85,9 +85,9 @@ public class GameManager : MonoBehaviour
     public const int HEALING_COST = 20;
     public const int HEALING_VALUE = 10;
     // Reputation
-    public const int REPUTATION_TIER_1 = 10;
-    public const int REPUTATION_TIER_2 = 20;
-    public const int REPUTATION_TIER_3 = 30;
+    public const int REPUTATION_TIER_1 = 8;
+    public const int REPUTATION_TIER_2 = 15;
+    public const int REPUTATION_TIER_3 = 25;
 
     // Combat Rewards
     public const int AETHER_COMBAT_REWARD_1 = 30;

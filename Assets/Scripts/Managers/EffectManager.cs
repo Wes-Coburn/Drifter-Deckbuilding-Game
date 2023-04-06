@@ -522,17 +522,19 @@ public class EffectManager : MonoBehaviour
         Managers.U_MAN.PlayerIsTargetting = true;
         string description = effectGroupList[currentEffectGroup].EffectsDescription;
         var et = effectGroupList[currentEffectGroup].Targets;
+        
+        if (et.PlayerHand) Managers.AN_MAN.ShiftPlayerHand(true); // TESTING
 
         if (effect is DrawEffect de2 && de2.IsDiscardEffect)
         {
-            Managers.AN_MAN.ShiftPlayerHand(true);
+            //Managers.AN_MAN.ShiftPlayerHand(true); // moved^
             if (et.VariableNumber)
             {
                 if (et.AllowZero) Managers.U_MAN.SetConfirmEffectButton(true);
                 else Managers.U_MAN.SetCancelEffectButton(true);
 
                 if (de2.IsMulliganEffect) description = "Choose cards to redraw.";
-                else if (et.TargetNumber < 8)
+                else if (et.TargetNumber < GameManager.MAX_HAND_SIZE)
                 {
                     string card = "card";
                     if (et.TargetNumber > 1) card = "cards";
@@ -549,12 +551,17 @@ public class EffectManager : MonoBehaviour
         }
         else
         {
+            /*
             if (effect is ChangeCostEffect ||
                 (effect is CopyCardEffect cpyCrd && !cpyCrd.PlayCopy))
                 Managers.AN_MAN.ShiftPlayerHand(true);
+            */
 
-            if (!isAdditionalEffect && (string.IsNullOrEmpty(triggerName) ||
-                triggerName == CardManager.TRIGGER_PLAY)) Managers.U_MAN.SetCancelEffectButton(true);
+            if (!isAdditionalEffect && 
+                (string.IsNullOrEmpty(triggerName) || triggerName == CardManager.TRIGGER_PLAY))
+                Managers.U_MAN.SetCancelEffectButton(true);
+
+            //Debug.LogWarning($"IsAdditinoalEffect >>> {isAdditionalEffect} >>> TriggerName >>> {triggerName}");
 
             if (dragArrow != null)
             {
@@ -606,6 +613,8 @@ public class EffectManager : MonoBehaviour
         foreach (var target in legalTargets[currentEffectGroup])
             Managers.U_MAN.SelectTarget(target, UIManager.SelectionType.Disabled);
 
+        if (CurrentEffectGroup.Targets.PlayerHand) Managers.AN_MAN.ShiftPlayerHand(false); // TESTING
+
         // FOR_EACH_EFFECTS
         if (CurrentEffect.ForEachEffects.Count > 0)
         {
@@ -615,13 +624,15 @@ public class EffectManager : MonoBehaviour
         }
         if (CurrentEffect is DrawEffect de)
         {
-            if (de.IsDiscardEffect) Managers.AN_MAN.ShiftPlayerHand(false);
+            //if (de.IsDiscardEffect) Managers.AN_MAN.ShiftPlayerHand(false);
             if (de.IsMulliganEffect) Managers.CA_MAN.ShuffleDeck(Managers.P_MAN);
         }
         else
         {
+            /*
             if (CurrentEffect is ChangeCostEffect or CopyCardEffect)
                 Managers.AN_MAN.ShiftPlayerHand(false);
+            */
 
             if (dragArrow != null)
             {
@@ -1154,16 +1165,20 @@ public class EffectManager : MonoBehaviour
                 return;
             }
 
+            bool isUnit = CombatManager.IsUnitCard(target);
+
+            // Ignore actions for effects targetting units in hand
+            if (!isUnit && effect is StatChangeEffect or GiveAbilityEffect) return;
+
+            // Ignore enemies with Ward
             if (hMan_Source != HeroManager.GetSourceHero(target) &&
-                hMan_Enemy.PlayZoneCards.Contains(target) && //target.TryGetComponent(out DragDrop dd) && dd.IsPlayed &&
-                CardManager.GetAbility(target, CardManager.ABILITY_WARD)) return; // Ignore enemy units in play with Ward
+                hMan_Enemy.PlayZoneCards.Contains(target) &&
+                CardManager.GetAbility(target, CardManager.ABILITY_WARD)) return;
 
             // Check to see if the source should be able to target itself
             if (target == effectSource &&
                 !(targets.TargetsSelf || targets.PlayerHero || targets.EnemyHero ||
                 targets.TargetsWeakest || targets.TargetsStrongest || targets.TargetsLowestHealth)) return;
-
-            bool isUnit = CombatManager.IsUnitCard(target);
 
             // ENEMY BEHAVIOR
             if (hMan_Source == Managers.EN_MAN && isUnit)
@@ -1345,7 +1360,7 @@ public class EffectManager : MonoBehaviour
         currentEffect = 0; // Unnecessary
 
         float delay = 0;
-        if (triggerName != null && triggerName != CardManager.TRIGGER_PLAY) delay = 0.25f;
+        if (!string.IsNullOrEmpty(triggerName) && triggerName != CardManager.TRIGGER_PLAY) delay = 0.25f;
 
         foreach (var eg in effectGroupList)
         {

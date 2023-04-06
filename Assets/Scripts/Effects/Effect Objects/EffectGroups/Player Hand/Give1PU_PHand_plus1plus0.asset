@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a22d7123f6ee007468cbdc6e9b6fe2b0, type: 3}
-  m_Name: Deal2_1EU_IfDsty_Deal1_LowHealthEU
+  m_Name: Give1PU_PHand_plus1plus0
   m_EditorClassIdentifier: 
-  Targets: {fileID: 11400000, guid: 878f131356ce5eb4dade11e2fe3691eb, type: 2}
+  Targets: {fileID: 11400000, guid: c592a3bf886948b4c8827edecdb219cc, type: 2}
+  ResolveIndependent: 0
+  EffectsDescription: Give a unit in your hand +1|+0.
   Effects:
-  - {fileID: 11400000, guid: fff8b4e3a24c993408c9ea05126d0df9, type: 2}
-  EffectsDescription: Deal 2 to an enemy. If this destroys it, deal 1 to the lowest
-    health enemy.
+  - {fileID: 11400000, guid: 6f737ef37b1ca1b439a50e2deca31470, type: 2}

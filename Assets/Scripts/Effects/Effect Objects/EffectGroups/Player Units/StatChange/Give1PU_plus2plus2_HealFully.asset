@@ -10,13 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a22d7123f6ee007468cbdc6e9b6fe2b0, type: 3}
-  m_Name: Give1PU_plus1plus2_IfMoreKeywords_1_plus2plus3
+  m_Name: Give1PU_plus2plus2_HealFully
   m_EditorClassIdentifier: 
   Targets: {fileID: 11400000, guid: 3536ddc3f75919646b8fab53d9f33c8a, type: 2}
   ResolveIndependent: 0
-  EffectsDescription: Give an ally +1|+2 and fully heal it, or +2|+3 if it has 2+
-    positive keywords.
+  EffectsDescription: Give an ally +2|+2 and fully heal it.
   Effects:
-  - {fileID: 11400000, guid: 1afded9f6fcac4446a0bc191b046ed70, type: 2}
-  - {fileID: 11400000, guid: 2543229c827a33740be3349db8591d5a, type: 2}
+  - {fileID: 11400000, guid: dab5c4d8cc05fe542aec0aba56d2b30f, type: 2}
   - {fileID: 11400000, guid: 5119f91679cc488448528cd38a4cb039, type: 2}

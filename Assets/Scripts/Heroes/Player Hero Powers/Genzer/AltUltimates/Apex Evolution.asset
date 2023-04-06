@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Apex Evolution
   m_EditorClassIdentifier: 
   PowerName: Alpha Evolution
-  PowerCost: 2
+  PowerCost: 3
   PowerSprite: {fileID: 21300000, guid: a9ad61fa6a2044b42b92fe918758f4a1, type: 3}
   PowerSounds:
   - name: 
@@ -28,8 +28,9 @@ MonoBehaviour:
     pitch: 1
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
-  PowerDescription: Give an ally +1|+2 and fully heal it, or +2|+3 if it has 2+ positive
-    keywords.
+  PowerDescription: Give an ally +1|+1 and three random positive keywords.
   EffectGroupList:
   - {fileID: 11400000, guid: 88254923d7e114e4ebb158eb0507cfdd, type: 2}
   LinkedAbilities: []
+  relatedCards: []
+  relatedCardTypes: 

@@ -184,7 +184,6 @@ public static class SceneLoader
     }
     public static void LoadScene_Finish(Scene scene, SceneFinishType finishType = SceneFinishType.NoDelay)
     {
-        LoadingProgress = 1;
         float delay;
 
         switch (finishType)
@@ -203,6 +202,7 @@ public static class SceneLoader
                 return;
         }
 
+        FunctionTimer.Create(() => { if (LoadingProgress >= 0) LoadingProgress = 1; }, delay);
         FunctionTimer.Create(() => Managers.U_MAN.SetSceneFader(true), delay);
         FunctionTimer.Create(() => LoadScene(), delay + 2);
         FunctionTimer.Create(() => Managers.U_MAN.SetSceneFader(false), delay + 2);

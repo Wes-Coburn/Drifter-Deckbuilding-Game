@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a22d7123f6ee007468cbdc6e9b6fe2b0, type: 3}
-  m_Name: Give1PU_plus1plus2_HealFully_IfMoreKeywords_1_Draw1
+  m_Name: Give1PU_plus1plus1_3xRandPosKeyword
   m_EditorClassIdentifier: 
   Targets: {fileID: 11400000, guid: 3536ddc3f75919646b8fab53d9f33c8a, type: 2}
   ResolveIndependent: 0
-  EffectsDescription: Give an ally +1|+2 and fully heal it. If it has 2+ positive
-    keywords, draw 1.
+  EffectsDescription: Give an ally +1|+1 and three random positive keywords.
   Effects:
-  - {fileID: 11400000, guid: 2020870446673f14a8dd178c0f853a66, type: 2}
-  - {fileID: 11400000, guid: 5119f91679cc488448528cd38a4cb039, type: 2}
-  - {fileID: 11400000, guid: 97947e4875399fd4f8f1c77845e91959, type: 2}
+  - {fileID: 11400000, guid: c3327fe33a648424490968f107b39022, type: 2}
+  - {fileID: 11400000, guid: a3819008d1dad2d49aba9d90ae44d70b, type: 2}
+  - {fileID: 11400000, guid: a3819008d1dad2d49aba9d90ae44d70b, type: 2}
+  - {fileID: 11400000, guid: a3819008d1dad2d49aba9d90ae44d70b, type: 2}
