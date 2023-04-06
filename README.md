@@ -36,7 +36,7 @@
 </h2>
 
 <h3>
-  🌐Managers🌐
+  Managers
 </h3>
   
 <p>  
@@ -66,7 +66,7 @@ private void Awake()
   ```
     
 <h3>
-  🚧Components🚧
+  Components
 </h3>
 
 > Display/component classes are attached to prefabs and loaded from a manager class.
