@@ -91,5 +91,5 @@ private void Awake()
 </p>
 
 <p align="center">
-  <img src="https://i.imgur.com/IHxpjkKm.png" alt="Drifter Deckbuilding Game">
+  <img src="https://i.imgur.com/IHxpjkKm.png" alt="Secret Passage Games">
 </p>
