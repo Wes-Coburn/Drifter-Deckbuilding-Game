@@ -3,14 +3,12 @@
 </h1>
 
 <p align="center">
-  <a href="https://drifterthegame.com/" target="_blank">💠Play Now!💠</a>
-  <br><br>
   A deckbuilding adventure game in corporate dystopia.
   <br>
-  Created with <a href="https://www.unity.com">Unity</a>.
+  <a href="https://drifterthegame.com/" target="_blank">💠Play Now!💠</a>
+  <br><br>
+  Created with <a href="https://www.unity.com">Unity<br><img src="https://i.imgur.com/zkhsC86.png?1" width=50px height=50px></a>
 </p>
-
-<br>
 
 <p align="center">
   <img src="https://i.imgur.com/v7UQh3km.jpg" alt="Drifter Deckbuilding Game">
