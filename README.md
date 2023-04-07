@@ -89,3 +89,7 @@ private void Awake()
 <p>
   <a href="LICENSE.md">ALL RIGHTS RESERVED</a>
 </p>
+
+<p align="center">
+  <img src="https://i.imgur.com/IHxpjkKm.png" alt="Drifter Deckbuilding Game">
+</p>
