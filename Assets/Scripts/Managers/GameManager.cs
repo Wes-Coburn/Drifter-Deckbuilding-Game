@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
     public const int PLAYER_START_UNITS = 3; // Total Units = value * 5 (unique units)
     public const int MAXIMUM_ENERGY = 10;
     public const int MAXIMUM_ITEMS = 2;
+    public const int MAXIMUM_AUGMENTS = 6;
     public const int HERO_ULTMATE_GOAL = 3;
 
     // Starting bonuses
@@ -75,8 +76,8 @@ public class GameManager : MonoBehaviour
     public const int CLONE_RARE_UNIT_COST = 45;
     public const int CLONE_LEGEND_UNIT_COST = 55;
     // Items
-    public const int BUY_ITEM_COST = 35;
-    public const int BUY_RARE_ITEM_COST = 50;
+    public const int BUY_ITEM_COST = 20;
+    public const int BUY_RARE_ITEM_COST = 30;
     public const int SHOP_LOYALTY_GOAL = 3;
     // Sell Items
     public const int SELL_ITEM_VALUE = 15;
@@ -259,6 +260,10 @@ public class GameManager : MonoBehaviour
      *****/
     public void AddRandomEncounter()
     {
+        // Only *1* random encounter at a time
+        foreach (var location in ActiveLocations)
+            if (location.IsRandomEncounter) return;
+
         var randomEncounters = Resources.LoadAll<Location>("Random Encounters");
         randomEncounters.Shuffle();
 

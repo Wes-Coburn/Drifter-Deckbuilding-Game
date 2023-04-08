@@ -18,9 +18,12 @@ public class HeroSelectSceneDisplay : MonoBehaviour
         LoadedHero.CurrentHeroPower : LoadedHero.AltHeroPowers[currentPower - 1];
     private HeroPower LoadedUltimate => currentUltimate == 0 ?
         LoadedHero.CurrentHeroUltimate : LoadedHero.AltHeroUltimates[currentUltimate - 1];
-    private bool HeroIsUnlocked => Managers.G_MAN.UnlockedHeroes.Contains(LoadedHero.HeroName);
-    private bool PowerIsUnlocked => currentPower == 0 || Managers.G_MAN.UnlockedPowers.Contains(LoadedPower.PowerName);
-    private bool UltimateIsUnlocked => currentUltimate == 0 || Managers.G_MAN.UnlockedPowers.Contains(LoadedUltimate.PowerName);
+    private bool HeroIsUnlocked =>
+        Managers.G_MAN.UnlockedHeroes.Contains(LoadedHero.HeroName);
+    private bool PowerIsUnlocked => currentPower == 0 ||
+        Managers.G_MAN.UnlockedPowers.Contains(LoadedPower.PowerName);
+    private bool UltimateIsUnlocked => currentUltimate == 0 ||
+        Managers.G_MAN.UnlockedPowers.Contains(LoadedUltimate.PowerName);
 
     private void Start()
     {
@@ -126,6 +129,10 @@ public class HeroSelectSceneDisplay : MonoBehaviour
             cardPageCard.transform.localScale = new Vector2(1.5f, 1.5f);
             cardPageCard.transform.SetParent(relatedCardsContainer.transform, false);
         }
+
+        Vector2 relatedCardsPos = relatedCardsContainer.transform.localPosition;
+        if (relatedCards.Count > 4) relatedCardsContainer.transform.localPosition =
+                new Vector2(relatedCardsPos.x, -115);
 
         void AddSingles(List<Card> cards)
         {

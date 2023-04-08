@@ -313,6 +313,7 @@ public class UnitCardDisplay : CardDisplay
                     break;
                 case CardManager.ABILITY_STEALTH:
                     vfx_Stealth.SetActive(true);
+                    vfx_Defender.SetActive(false);
                     break;
                 case CardManager.ABILITY_WARD:
                     vfx_Ward.SetActive(true);

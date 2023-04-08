@@ -20,9 +20,8 @@ public class RemoveItemPopupDisplay : MonoBehaviour
         set
         {
             heroItem = value;
-            int cost;
-            if (heroItem.IsRareItem) cost = GameManager.SELL_RARE_ITEM_VALUE;
-            else cost = GameManager.SELL_ITEM_VALUE;
+            int cost = heroItem.IsRareItem ?
+                GameManager.SELL_RARE_ITEM_VALUE : GameManager.SELL_ITEM_VALUE;
 
             string text = $"Sell <b><u>{heroItem.ItemName}</u></b>" +
                 $" for {TextFilter.Clrz_red(cost + "")} aether?";

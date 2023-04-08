@@ -829,7 +829,8 @@ public class EffectManager : MonoBehaviour
                 else if (effectSource.TryGetComponent(out ItemIcon icon))
                 {
                     Managers.U_MAN.CombatLogEntry($"You used {TextFilter.Clrz_ylw(icon.LoadedItem.ItemName)} (Item).");
-                    icon.IsUsed = true;
+                    //icon.IsUsed = true; // Deprecated w/ roguelike update, items are disposable
+                    Managers.P_MAN.HeroItems.Remove(icon.LoadedItem); // TESTING
                     Managers.U_MAN.SetSkybar(true);
                 }
                 else if (effectSource.CompareTag(Managers.P_MAN.HERO_POWER_TAG))
@@ -1032,12 +1033,15 @@ public class EffectManager : MonoBehaviour
             Debug.LogError("SOURCE HERO IS NULL!");
         }
 
+        /* Not always true
         if (targets.NoTargets && effect.PreCheckConditions)
         {
             Debug.LogError("EFFECTS WITH NO TARGETS CANNOT PRECHECK CONDITIONS!");
             return false;
         }
+        */
 
+        // DERIVED VALUES
         if (effect.IsDerivedValue)
         {
             if (effect.DerivedValue == Effect.DerivedValueType.Allies_Count &&
@@ -1059,12 +1063,30 @@ public class EffectManager : MonoBehaviour
                 foreach (var target in zone)
                     AddTarget(target);
 
+            /*
             // PRECHECK CONDITIONS
             if (effect.PreCheckConditions)
             {
                 // CHECK CONDITIONS INDEPENDENT
                 if (!(effect.CheckConditionsIndependent && !isAdditionalEffect))
                     legalTargets[currentGroup] = GetValidTargets(effect, legalTargets[currentGroup]);
+            }
+            */
+        }
+
+        // PRECHECK CONDITIONS
+        if (effect.PreCheckConditions)
+        {
+            // CHECK CONDITIONS INDEPENDENT
+            if (!(effect.CheckConditionsIndependent && !isAdditionalEffect))
+            {
+                if (targets.NoTargets) // TESTING
+                {
+                    var validTargets = GetValidTargets(effect, new List<GameObject> { effectSource });
+                    if (validTargets.Count < 1) return false;
+                }
+
+                legalTargets[currentGroup] = GetValidTargets(effect, legalTargets[currentGroup]);
             }
         }
 
@@ -1310,6 +1332,12 @@ public class EffectManager : MonoBehaviour
             case Effect.ConditionType.CostsMore:
                 ValidateCondition((GameObject card) => card.GetComponent<CardDisplay>().CurrentEnergyCost > effect.EffectCondition_Value);
                 break;
+            case Effect.ConditionType.HasMoreCards_Player:
+                if (hMan_Source.HandZoneCards.Count <= effect.EffectCondition_Value) InvalidateAllTargets();
+                break;
+            case Effect.ConditionType.HasLessCards_Player:
+                if (hMan_Source.HandZoneCards.Count >= effect.EffectCondition_Value) InvalidateAllTargets();
+                break;
             default:
                 Debug.LogError("INVALID CONDITION TYPE!");
                 break;
@@ -1530,9 +1558,17 @@ public class EffectManager : MonoBehaviour
         List<GameObject> validTargets;
         bool isValidEffect = true;
 
+        /*
         if ((effect is DrawEffect dre && !dre.IsDiscardEffect) || effect is CreateCardEffect or PlayCardEffect)
         {
             validTargets = GetValidTargets(effect, allTargets.Count < 1 ? new List<GameObject> { effectSource } : allTargets);
+            if (validTargets.Count < 1) isValidEffect = false;
+        }
+        */
+
+        if (allTargets.Count < 1) // TESTING
+        {
+            validTargets = GetValidTargets(effect, new List<GameObject> { effectSource });
             if (validTargets.Count < 1) isValidEffect = false;
         }
 
@@ -1761,22 +1797,25 @@ public class EffectManager : MonoBehaviour
         {
             if (EffectRayError()) return;
 
-            var hMan = HeroManager.GetSourceHero(newEffectSource);
-            int startEnergy = hMan.CurrentEnergy;
-            int energyPerTurn = hMan.EnergyPerTurn;
-
-            int newEnergy = startEnergy + effect.Value;
-            if (newEnergy > energyPerTurn) newEnergy = energyPerTurn;
-            if (newEnergy < startEnergy) newEnergy = startEnergy;
-
-            if (newEnergy > startEnergy)
+            if (isValidEffect)
             {
-                if (hMan == Managers.P_MAN) Managers.P_MAN.CurrentEnergy = newEnergy;
-                else Managers.EN_MAN.CurrentEnergy = newEnergy;
-            }
+                var hMan = HeroManager.GetSourceHero(newEffectSource);
+                int startEnergy = hMan.CurrentEnergy;
+                int energyPerTurn = hMan.EnergyPerTurn;
 
-            int energyChange = newEnergy - startEnergy;
-            Managers.AN_MAN.ModifyHeroEnergyState(energyChange, hMan.HeroObject);
+                int newEnergy = startEnergy + effect.Value;
+                if (newEnergy > energyPerTurn) newEnergy = energyPerTurn;
+                if (newEnergy < startEnergy) newEnergy = startEnergy;
+
+                if (newEnergy > startEnergy)
+                {
+                    if (hMan == Managers.P_MAN) Managers.P_MAN.CurrentEnergy = newEnergy;
+                    else Managers.EN_MAN.CurrentEnergy = newEnergy;
+                }
+
+                int energyChange = newEnergy - startEnergy;
+                Managers.AN_MAN.ModifyHeroEnergyState(energyChange, hMan.HeroObject);
+            }
         }
         // GIVE_NEXT_UNIT
         else if (effect is GiveNextUnitEffect gnfe)
@@ -1917,12 +1956,6 @@ public class EffectManager : MonoBehaviour
                     }
                     else
                     {
-                        /*
-                        var createdCards = Resources.LoadAll<Card>("Cards_Created");
-                        foreach (var c in createdCards)
-                            if (c.CardSubType == cardType) cardPool.Add(c);
-                        */
-
                         cardPool.AddRange(Managers.CA_MAN.GetCreatedCards(cardType, false)); // TESTING
 
                         if (cardPool.Count < 1)
@@ -2838,12 +2871,6 @@ public class EffectManager : MonoBehaviour
     {
         var cardZone = HeroManager.GetSourceHero(card).PlayZoneCards;
         var cd = card.GetComponent<CardDisplay>();
-
-        if (!(cd is UnitCardDisplay or ActionCardDisplay))
-        {
-            Debug.LogError("INVALID DISPLAY TYPE!");
-            return;
-        }
 
         foreach (GameObject unit in cardZone)
         {

@@ -32,11 +32,20 @@ public abstract class Card : ScriptableObject
     public string CardName { get => cardName; }
     public string CardType { get => cardType; }
     public string CardSubType { get => cardSubType; }
+    public string CardTypeFull
+    {
+        get
+        {
+            string spacer = "";
+            if (!string.IsNullOrEmpty(cardType) &&
+                !string.IsNullOrEmpty(cardSubType)) spacer = " - ";
+            return cardType + spacer + cardSubType;
+        }
+    }
     public Rarity CardRarity { get => cardRarity; }
     public string CardDescription { get => cardDescription; }
     public Card[] RelatedCards
     {
-        
         get
         {
             List<Card> allRelatedCards = new();

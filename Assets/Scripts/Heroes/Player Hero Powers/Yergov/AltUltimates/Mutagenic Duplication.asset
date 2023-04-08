@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 024a223818b76d04b90b880bd4d0c3a0, type: 3}
+  m_Name: Mutagenic Duplication
+  m_EditorClassIdentifier: 
+  PowerName: Mutagenic Duplication
+  PowerCost: 2
+  PowerSprite: {fileID: 21300000, guid: c54c23cbc8389794b9633a99c9d6dd74, type: 3}
+  PowerSounds:
+  - name: 
+    clip: {fileID: 8300000, guid: a9fa46c5401762e48b4231b107034962, type: 3}
+    volume: 0.8
+    pitch: 1
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: 756f33ee80ede05449e66ae5deafc781, type: 3}
+    volume: 1
+    pitch: 1
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  PowerDescription: "Clone an enemy. Give it Blitz and \u201CTurn End: Destroy this
+    unit.\u201D"
+  EffectGroupList:
+  - {fileID: 11400000, guid: 5cfaabb8d97db4840b4e2b1fd35d27f1, type: 2}
+  LinkedAbilities:
+  - {fileID: 11400000, guid: 3e5874c35dad2f34d96f6d4b9d15a4dd, type: 2}
+  - {fileID: 11400000, guid: f9f029cd91a81544eb06ce77a5f40ab8, type: 2}
+  relatedCards: []
+  relatedCardTypes: 

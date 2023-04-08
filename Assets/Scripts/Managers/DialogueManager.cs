@@ -97,6 +97,9 @@ public class DialogueManager : MonoBehaviour
             float delay = 0;
             foreach (var newLoc in prompt.NewLocations)
             {
+                if (newLoc.Location.IsAugmenter &&
+                    Managers.P_MAN.HeroAugments.Count >= GameManager.MAXIMUM_AUGMENTS) continue;
+
                 Managers.G_MAN.GetActiveLocation(newLoc.Location, newLoc.NewNpc);
                 if (newLoc.Location.IsAugmenter) continue;
                 FunctionTimer.Create(() => Managers.U_MAN.CreateLocationPopup
@@ -293,6 +296,9 @@ public class DialogueManager : MonoBehaviour
                 float delay = 0;
                 foreach (var newLoc in nextPrompt.NewLocations)
                 {
+                    if (newLoc.Location.IsAugmenter &&
+                        Managers.P_MAN.HeroAugments.Count >= GameManager.MAXIMUM_AUGMENTS) continue;
+
                     Managers.G_MAN.GetActiveLocation(newLoc.Location, newLoc.NewNpc);
                     if (newLoc.Location.IsAugmenter) continue;
                     FunctionTimer.Create(() =>

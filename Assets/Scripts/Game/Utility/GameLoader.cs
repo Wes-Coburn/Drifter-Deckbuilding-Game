@@ -92,9 +92,6 @@ public static class GameLoader
         var gm = Managers.G_MAN;
         gm.IsTutorial = false;
 
-        gm.CurrentHour = 3;
-        gm.NextHour(false); // Current Hour set to 4, HomeBase objective modified
-
         // Loyalty
         gm.RecruitLoyalty = 3; // First recruit free
         gm.ActionShopLoyalty = 3; // First action free
@@ -161,6 +158,10 @@ public static class GameLoader
             var location = request_location.asset as Location;
             gm.GetActiveLocation(location);
         }
+
+        // Current Hour
+        gm.CurrentHour = 3;
+        gm.NextHour(false); // Set current hour to 4 and change homebase objective
 
         SceneLoader.LoadScene_Finish(SceneLoader.Scene.NarrativeScene);
     }

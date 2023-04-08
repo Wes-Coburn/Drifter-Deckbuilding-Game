@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 024a223818b76d04b90b880bd4d0c3a0, type: 3}
+  m_Name: Eternal Dawn
+  m_EditorClassIdentifier: 
+  PowerName: Eternal Dawn
+  PowerCost: 1
+  PowerSprite: {fileID: 21300000, guid: c5ce5d13c0fc97442b343461badcfcad, type: 3}
+  PowerSounds:
+  - name: 
+    clip: {fileID: 8300000, guid: 1fc27e9aef0302f49a117ba60db422f5, type: 3}
+    volume: 0.8
+    pitch: 1
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: 9957ec83bf40cba4bb616c9870fe0070, type: 3}
+    volume: 1
+    pitch: 1
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  PowerDescription: Draw 1, then discard 1. If you have 6+ cards in hand, replenish
+    1 energy.
+  EffectGroupList:
+  - {fileID: 11400000, guid: 296aaae7da690534d992b5a515ca2bbf, type: 2}
+  - {fileID: 11400000, guid: 5ee9a5b83512b1a429cbe490eb4afee0, type: 2}
+  - {fileID: 11400000, guid: f3c7673bdc2c5524997143f90e6e38f8, type: 2}
+  LinkedAbilities: []
+  relatedCards: []
+  relatedCardTypes: 

@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a7f7b2ee0c588b4880372b94623cf06, type: 3}
   m_Name: Yergov, Biochemist
   m_EditorClassIdentifier: 
-  developerNotes: 
   heroName: Yergov, Biochemist
   heroShortName: Yergov
   heroPortrait: {fileID: 21300000, guid: 3a15cb9c022007e4aa3c93bedcd27476, type: 3}
@@ -22,22 +21,23 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: a9fa46c5401762e48b4231b107034962, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   heroLose:
     name: 
     clip: {fileID: 8300000, guid: f69dbe1620800e84184b3c9ca9d99a4d, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   heroPower: {fileID: 11400000, guid: 8d0e298eaa6016e40ac8ec50c9a92d69, type: 2}
+  altHeroPowers:
+  - {fileID: 11400000, guid: 9a03d38f2de280346b9a3885730df869, type: 2}
+  - {fileID: 11400000, guid: 02490fc9665cc8d4797b08a3fee92b2b, type: 2}
   heroUltimate: {fileID: 11400000, guid: 359999cc86267744b803918f301a43ff, type: 2}
-  heroSkills:
-  - {fileID: 11400000, guid: 16deb438c6e85a24dbd14820ed3e5abb, type: 2}
-  - {fileID: 11400000, guid: 321f20ba2be7a294ca921a21247535d2, type: 2}
-  - {fileID: 11400000, guid: e1da213119238694e974c94f1fa9e0c2, type: 2}
-  - {fileID: 11400000, guid: a6e523ee3c15c0448becb05400494916, type: 2}
-  - {fileID: 11400000, guid: 919c90e23902c7f4abf27ee9262c9ac4, type: 2}
-  - {fileID: 11400000, guid: e3c1fa916514de64c899907ba6866cad, type: 2}
+  altHeroUltimates:
+  - {fileID: 11400000, guid: b25af13149a67c94ebe5af8cdd96c65b, type: 2}
+  - {fileID: 11400000, guid: 9508771ad6ee4f24b86440f93ac3bfcb, type: 2}
   heroBackstory: 'Yergov grew up in a region untouched by The Corporations, but inevitably,
     they found him.
 

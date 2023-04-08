@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,7 +8,7 @@ public class NewHeroPopupDisplay : MonoBehaviour
     [SerializeField]
     private GameObject popupTitle, newHeroChest, continueButton,
         playerHero, heroPortrait, heroName, heroDescription, heroBackstory,
-        heroPowerDescription, heroUltimateDescription;
+        heroPowerDescription, heroUltimateDescription, relatedCardsContainer;
 
     private PlayerHero newPlayerHero;
     private HeroPower newHeroPower, newHeroUltimate;
@@ -23,8 +24,8 @@ public class NewHeroPopupDisplay : MonoBehaviour
 
         newHeroChest.SetActive(true);
         this.playerHero.SetActive(false);
-        this.heroPowerDescription.SetActive(false);
-        this.heroUltimateDescription.SetActive(false);
+        heroPowerDescription.SetActive(false);
+        heroUltimateDescription.SetActive(false);
 
         Managers.AN_MAN.CreateParticleSystem(newHeroChest, ParticleSystemHandler.ParticlesType.NewCard, 5);
     }
@@ -55,6 +56,38 @@ public class NewHeroPopupDisplay : MonoBehaviour
         heroUltimateDescription.SetActive(true);
         heroUltimateDescription.GetComponent<HeroPowerDescriptionDisplay>()
             .DisplayHeroPower(newHeroUltimate, true);
+
+        DisplayRelatedCards();
+    }
+
+    private void DisplayRelatedCards()
+    {
+        List<Card> relatedCards = new();
+        AddSingles(newHeroPower.RelatedCards);
+        AddSingles(newHeroUltimate.RelatedCards);
+
+        foreach (var card in relatedCards)
+        {
+            var cardPageCard = Managers.CA_MAN.ShowCard(card, new Vector2(), CardManager.DisplayType.Cardpage);
+            var cd = cardPageCard.GetComponent<CardDisplay>();
+            cd.DisableVisuals();
+            cardPageCard.transform.localScale = new Vector2(1.5f, 1.5f);
+            cardPageCard.transform.SetParent(relatedCardsContainer.transform, false);
+        }
+
+        Vector2 relatedCardsPos = relatedCardsContainer.transform.localPosition;
+        if (relatedCards.Count > 4) relatedCardsContainer.transform.localPosition =
+                new Vector2(relatedCardsPos.x, -115);
+
+        void AddSingles(List<Card> cards)
+        {
+            foreach (var card in cards) AddSingle(card);
+        }
+        void AddSingle(Card card)
+        {
+            if (relatedCards.FindIndex(x => card.CardName == x.CardName) == -1)
+                relatedCards.Add(card);
+        }
     }
 
     public void ContinueButton_OnClick()

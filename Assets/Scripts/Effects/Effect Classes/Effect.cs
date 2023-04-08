@@ -85,6 +85,9 @@ public abstract class Effect : ScriptableObject
 
         CostsLess,
         CostsMore,
+
+        HasMoreCards_Player,
+        HasLessCards_Player,
     }
 
     [Header("EFFECT CONDITIONS")]

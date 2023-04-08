@@ -23,6 +23,8 @@ MonoBehaviour:
   cardSubType: 
   cardRarity: 0
   cardDescription: "\u201CRiderrrrs, saddle up!\u201D\n- Kili"
+  relatedCards: []
+  relatedCardTypes: 
   cardPlaySound:
     name: 
     clip: {fileID: 0}
@@ -32,8 +34,9 @@ MonoBehaviour:
     source: {fileID: 0}
   overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
   zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
-  effectDescription: Give the next unit you play this turn +1|+1 and Blitz.
+  effectDescription: Give the next unit you play this turn Blitz. Draw 1.
   effectGroupList:
-  - {fileID: 11400000, guid: 8cf2d5b5eb4fb1f459641e107b15c014, type: 2}
+  - {fileID: 11400000, guid: ad49b44a4550b8b409a91328390e7b8e, type: 2}
+  - {fileID: 11400000, guid: 023c2a13540808347adc8dfb99742db9, type: 2}
   linkedAbilities:
   - {fileID: 11400000, guid: 3e5874c35dad2f34d96f6d4b9d15a4dd, type: 2}

@@ -57,13 +57,6 @@ public abstract class CardDisplay : MonoBehaviour
     }
     public string CardTypeLine
     {
-        get
-        {
-            string spacer = "";
-            if (!string.IsNullOrEmpty(CardScript.CardType) &&
-                !string.IsNullOrEmpty(CardScript.CardSubType)) spacer = " - ";
-            return CardScript.CardType + spacer + CardScript.CardSubType;
-        }
         set => cardTypeLine.GetComponent<TextMeshProUGUI>().SetText(value);
     }
     public int ChangeNextCostValue { get; set; }
@@ -133,7 +126,7 @@ public abstract class CardDisplay : MonoBehaviour
     }
     private int GetCostConditionValue()
     {
-        HeroManager hMan_Source = HeroManager.GetSourceHero(gameObject, out HeroManager hMan_Enemy);
+        var hMan_Source = HeroManager.GetSourceHero(gameObject, out HeroManager hMan_Enemy);
         switch (CardScript.CostConditionType)
         {
             case Effect.ConditionType.NONE:
@@ -146,6 +139,12 @@ public abstract class CardDisplay : MonoBehaviour
                 break;
             case Effect.ConditionType.EnemiesDestroyed_ThisTurn:
                 if (hMan_Enemy.AlliesDestroyed_ThisTurn < CardScript.CostConditionValue) return 0;
+                break;
+            case Effect.ConditionType.HasMoreCards_Player:
+                if (hMan_Source.HandZoneCards.Count <= CardScript.CostConditionValue) return 0;
+                break;
+            case Effect.ConditionType.HasLessCards_Player:
+                if (hMan_Source.HandZoneCards.Count >= CardScript.CostConditionValue) return 0;
                 break;
             default:
                 Debug.LogError("INVALID CONDITION TYPE!");
@@ -183,7 +182,7 @@ public abstract class CardDisplay : MonoBehaviour
     {
         var cd = parentCard.GetComponent<CardDisplay>();
         cardScript = cd.CardScript; // MUST BE FIRST
-        CardTypeLine = cd.CardTypeLine;
+        CardTypeLine = cardScript.CardTypeFull;
         CardName = cd.CardName;
         CardArt = cd.CardArt;
         CardBorder = cd.CardBorder;
@@ -197,14 +196,12 @@ public abstract class CardDisplay : MonoBehaviour
     public virtual void DisplayZoomCard(Card card, bool isBaseZoomCard = false)
     {
         cardScript = card;
-        string spacer = "";
-        if (!string.IsNullOrEmpty(card.CardSubType)) spacer = " - ";
-        CardTypeLine = card.CardType + spacer + card.CardSubType;
+        CardTypeLine = card.CardTypeFull;
         CardName = card.CardName;
         CardArt = card.CardArt;
         CardBorder = card.CardBorder;
         DisplayEnergyCost(card.StartEnergyCost);
-        gameObject.tag = Managers.P_MAN.CARD_TAG; // TESTING
+        gameObject.tag = Managers.P_MAN.CARD_TAG;
 
         DisplayZoomCard_Finish(isBaseZoomCard); // MUST BE LAST
     }

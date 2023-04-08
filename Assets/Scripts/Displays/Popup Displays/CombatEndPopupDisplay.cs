@@ -27,6 +27,9 @@ public class CombatEndPopupDisplay : MonoBehaviour
                     float delay = 0;
                     foreach (var newLoc in crc.NewLocations)
                     {
+                        if (newLoc.Location.IsAugmenter &&
+                            Managers.P_MAN.HeroAugments.Count >= GameManager.MAXIMUM_AUGMENTS) continue;
+
                         Managers.G_MAN.GetActiveLocation(newLoc.Location, newLoc.NewNpc);
                         if (newLoc.Location.IsAugmenter) continue;
                         FunctionTimer.Create(() => Managers.U_MAN.CreateLocationPopup
