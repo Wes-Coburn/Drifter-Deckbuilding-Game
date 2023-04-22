@@ -5,7 +5,7 @@ using UnityEngine;
 public class UnitCard : Card
 {
     [Header("POWER")]
-    [SerializeField][Range(0, 10)] private int power;
+    [SerializeField][Range(1, 10)] private int power;
     [Header("HEALTH")]
     [SerializeField][Range(1, 10)] private int health;
     [Header("ABILITIES")]

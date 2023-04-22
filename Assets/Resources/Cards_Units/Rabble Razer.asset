@@ -25,6 +25,7 @@ MonoBehaviour:
   cardDescription: '"My sisters will carry my legacy beyond death."'
   relatedCards:
   - {fileID: 11400000, guid: 7cecede94b2ae7743ba64fad32bb71ad, type: 2}
+  relatedCardTypes: 
   cardPlaySound:
     name: 
     clip: {fileID: 8300000, guid: 7c6110f2471fff54e961f11b460d3b50, type: 3}
@@ -34,7 +35,7 @@ MonoBehaviour:
     source: {fileID: 0}
   overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
   zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
-  power: 2
+  power: 3
   health: 1
   startingAbilities:
   - {fileID: 11400000, guid: d381eda006bf0ef4e86dd2233662e4ff, type: 2}

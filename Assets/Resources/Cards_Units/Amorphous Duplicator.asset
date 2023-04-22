@@ -23,6 +23,8 @@ MonoBehaviour:
   cardSubType: 
   cardRarity: 0
   cardDescription: Amorphous Duplicator is...
+  relatedCards: []
+  relatedCardTypes: 
   cardPlaySound:
     name: 
     clip: {fileID: 8300000, guid: f3e77abaa8f025b40b66e4e4420373cf, type: 3}
@@ -35,6 +37,7 @@ MonoBehaviour:
   power: 2
   health: 3
   startingAbilities:
+  - {fileID: 11400000, guid: 0c9bafd0564d11947a28d93981c1f1f4, type: 2}
   - {fileID: 11400000, guid: e8a1c723e7f4a2d4da371d213a3878d5, type: 2}
   unitDeathSound:
     name: 

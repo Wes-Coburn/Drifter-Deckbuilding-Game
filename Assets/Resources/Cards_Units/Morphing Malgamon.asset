@@ -23,6 +23,8 @@ MonoBehaviour:
   cardSubType: 
   cardRarity: 1
   cardDescription: Morphing Malgamon is...
+  relatedCards: []
+  relatedCardTypes: 
   cardPlaySound:
     name: 
     clip: {fileID: 8300000, guid: 0b9c339bd9f734e4fa698a3bdcd6b88f, type: 3}
@@ -32,8 +34,8 @@ MonoBehaviour:
     source: {fileID: 0}
   overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
   zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
-  power: 2
-  health: 5
+  power: 1
+  health: 6
   startingAbilities:
   - {fileID: 11400000, guid: bc124aff5627c734a91055be03a74735, type: 2}
   - {fileID: 11400000, guid: d2dcbb18d46157b46b810348456b5335, type: 2}
