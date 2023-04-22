@@ -10,38 +10,39 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 120ae26cc4846f34db63edca720772b3, type: 3}
-  m_Name: Bloodsworn Vindicator
+  m_Name: Mutant_3_4
   m_EditorClassIdentifier: 
-  cardArt: {fileID: 21300000, guid: 548223ae7edd4264f96706e63425d9f9, type: 3}
-  cardBorder: {fileID: 21300000, guid: 14ba384dc2d28d74d9bdad2182e18da6, type: 3}
-  energyCost: 4
+  cardArt: {fileID: 21300000, guid: 8aa5e361639c0084496dd2b43ac85499, type: 3}
+  cardBorder: {fileID: 21300000, guid: 743e735f744cf494c9f9081b4ba9303f, type: 3}
+  energyCost: 0
   costConditionType: 0
   costConditionValue: 0
   costConditionModifier: 0
-  cardName: Bloodsworn Vindicator
-  cardType: Warrior
+  cardName: Mutant
+  cardType: Mutant
   cardSubType: 
   cardRarity: 0
-  cardDescription: Bloodsworn Vindicator...
+  cardDescription: Each mutant experiences a unique evolution, heavily influenced
+    by their environment.
   relatedCards: []
   relatedCardTypes: 
   cardPlaySound:
     name: 
-    clip: {fileID: 8300000, guid: 6950d0e0368cdf341a486352e336d0e1, type: 3}
-    volume: 0.8
+    clip: {fileID: 8300000, guid: f590c663d711f354e9f4863353ab0df6, type: 3}
+    volume: 1
     pitch: 1
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
   overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
   zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
-  power: 4
-  health: 5
+  power: 3
+  health: 4
   startingAbilities:
-  - {fileID: 11400000, guid: be5d4bf44883cf7478e63494e63a4a32, type: 2}
+  - {fileID: 11400000, guid: 0c9bafd0564d11947a28d93981c1f1f4, type: 2}
   unitDeathSound:
     name: 
-    clip: {fileID: 8300000, guid: c400c1b05285e1c49a753359d3da449f, type: 3}
-    volume: 0.8
+    clip: {fileID: 8300000, guid: e68c8ec31dcb16e4483ff4a4e8c230dc, type: 3}
+    volume: 1
     pitch: 1
     mixerGroup: {fileID: 0}
     source: {fileID: 0}

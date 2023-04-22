@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44c307312f791a64788051778519ac70, type: 3}
+  m_Name: Spark_GiveStrongEU_Stun_Silence
+  m_EditorClassIdentifier: 
+  AbilityName: 'Spark: Stun and Silence the strongest enemy.'
+  AbilityDescription: Stun and Silence the strongest enemy.
+  AbilitySprite: {fileID: 0}
+  OverrideColor: 0
+  AbilityColor: {r: 0, g: 0, b: 0, a: 0}
+  LinkedAbilites:
+  - {fileID: 11400000, guid: 37a54b5ce20d48941893b9f48eee681f, type: 2}
+  - {fileID: 11400000, guid: 618928fdbfb535e4c9496411cfb5d879, type: 2}
+  AbilityTrigger: {fileID: 11400000, guid: 6a4ae90bdc7ada64e8953b624852a67f, type: 2}
+  TriggerLimit: 0
+  EffectGroupList:
+  - {fileID: 11400000, guid: 5abbf4e8888674a478ae86dd93106c73, type: 2}
