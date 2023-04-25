@@ -1338,6 +1338,15 @@ public class EffectManager : MonoBehaviour
             case Effect.ConditionType.HasLessCards_Player:
                 if (hMan_Source.HandZoneCards.Count >= effect.EffectCondition_Value) InvalidateAllTargets();
                 break;
+            case Effect.ConditionType.HasMoreAllies_Player:
+                if (hMan_Source.PlayZoneCards.Count <= effect.EffectCondition_Value) InvalidateAllTargets(); // <<!>>
+                break;
+            case Effect.ConditionType.HasLessAllies_Player:
+                if (hMan_Source.PlayZoneCards.Count >= effect.EffectCondition_Value) InvalidateAllTargets(); // <<!>>
+                break;
+            case Effect.ConditionType.HasExactAllies_Player:
+                if (hMan_Source.PlayZoneCards.Count != effect.EffectCondition_Value) InvalidateAllTargets(); // <<!>>
+                break;
             default:
                 Debug.LogError("INVALID CONDITION TYPE!");
                 break;

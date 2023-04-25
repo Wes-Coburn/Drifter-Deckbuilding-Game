@@ -28,8 +28,10 @@ MonoBehaviour:
     pitch: 1
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
-  PowerDescription: Create an Extraction in hand if an ally was destroyed this turn.
+  PowerDescription: Create two Extractions in hand if an ally was destroyed this
+    turn.
   EffectGroupList:
+  - {fileID: 11400000, guid: b1726c4b2879b3b4d9e65637c0b74f02, type: 2}
   - {fileID: 11400000, guid: b1726c4b2879b3b4d9e65637c0b74f02, type: 2}
   LinkedAbilities:
   - {fileID: 11400000, guid: 589d8790e70e8e449a667fb1fcce5a80, type: 2}

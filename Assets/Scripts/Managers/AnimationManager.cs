@@ -129,7 +129,11 @@ public class AnimationManager : MonoBehaviour
             valueChanger.transform.localScale = new Vector2(2, 2);
         }
         else if (setToCanvas) newParent = Managers.U_MAN.CurrentCanvas.transform;
-        else newParent = parent.parent.parent.parent;
+        else
+        {
+            newParent = parent.parent.parent.parent;
+            newParent.SetAsLastSibling();
+        }
 
         valueChanger.transform.SetParent(newParent);
         valueChanger.transform.SetAsLastSibling();
@@ -909,7 +913,7 @@ public class AnimationManager : MonoBehaviour
 
         particleHandler.StopParticles();
         container.GetComponent<CardContainer>().IsDetached = false;
-        attacker.transform.SetAsFirstSibling();
+        //attacker.transform.SetAsFirstSibling();
         Managers.EV_MAN.PauseDelayedActions(false);
 
         static float GetCurrentSpeed(float distance)
@@ -943,6 +947,9 @@ public class AnimationManager : MonoBehaviour
         Vector2 target = new(0, yTarget);
         var hand = Managers.P_MAN.HandZone;
         Managers.AU_MAN.StartStopSound("SFX_ShiftHand");
+
+        foreach (var card in Managers.P_MAN.HandZoneCards)
+            card.transform.SetAsLastSibling(); // TESTING
 
         do
         {

@@ -19,28 +19,15 @@ MonoBehaviour:
   IsDerivedValue: 0
   DerivedValue: 0
   Countdown: 0
+  IsPermanent: 0
   ShootRay: 0
   RayColor: {r: 0, g: 0, b: 0, a: 0}
   PreCheckConditions: 0
   CheckConditionsIndependent: 0
-  IfHasItemsCondition: 0
-  IsLessItemsCondition: 0
-  IfHasItemsValue: 0
-  IfNotWoundedCondition: 0
-  IfAnyWoundedCondition: 0
-  IfPlayerWoundedCondition: 0
-  IfEnemyWoundedCondition: 1
-  IfExhaustedCondition: 0
-  IfRefreshedCondition: 0
-  IfDamagedCondition: 0
-  IfNotDamagedCondition: 0
-  IfHasPowerCondition: 0
-  IsLessPowerCondition: 0
-  IfHasPowerValue: 0
-  IfHasAbilityCondition: {fileID: 0}
-  IfNotHasAbilityCondition: 0
-  IfHasTriggerCondition: {fileID: 0}
-  IfNotHasTriggerCondition: 0
+  EffectConditionType: 3
+  EffectCondition_Value: 0
+  IfHasAbility_Value: {fileID: 0}
+  IfHasTrigger_Value: {fileID: 0}
   IfHasAbility: {fileID: 0}
   IfHasAbilityEffects: []
   IfHasTrigger: {fileID: 0}

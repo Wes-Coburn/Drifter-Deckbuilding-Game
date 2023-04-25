@@ -88,6 +88,10 @@ public abstract class Effect : ScriptableObject
 
         HasMoreCards_Player,
         HasLessCards_Player,
+
+        HasMoreAllies_Player,
+        HasLessAllies_Player,
+        HasExactAllies_Player,
     }
 
     [Header("EFFECT CONDITIONS")]
