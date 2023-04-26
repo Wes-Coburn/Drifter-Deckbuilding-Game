@@ -163,7 +163,7 @@ public class GameManager : MonoBehaviour
     #region UTILITY
     private void Start()
     {
-        ForTestingOnly(); // FOR TESTING ONLY
+        //ForTestingOnly(); // FOR TESTING ONLY
 
         currentTip = Random.Range(0, loadingTips.Length);
         ActiveNPCHeroes = new();
@@ -561,6 +561,8 @@ public class GameManager : MonoBehaviour
 
         foreach (var loc in ActiveLocations)
         {
+            if (CurrentHour != 4 && !LocationOpen(loc)) continue;
+
             var location = Instantiate(locationIconPrefab, Managers.U_MAN.CurrentCanvas.transform);
             location.GetComponent<LocationIcon>().Location = loc;
         }
@@ -606,6 +608,13 @@ public class GameManager : MonoBehaviour
                 }
             }
             foreach (var loc in refreshedShops) VisitedLocations.Remove(loc.LocationName);
+
+            string aetherMagnet = "Aether Magnet";
+            if (Managers.P_MAN.GetAugment(aetherMagnet))
+            {
+                Managers.P_MAN.CurrentAether += AETHER_MAGNET_REWARD;
+                FunctionTimer.Create(() => Managers.AN_MAN.TriggerAugment(aetherMagnet), 0.1f);
+            }
         }
     }
     public void StartCreditsScene()

@@ -385,18 +385,22 @@ public class DialogueManager : MonoBehaviour
             {
                 Managers.U_MAN.CreateFleetingInfoPopup("Your hero is at max health!");
                 Managers.AU_MAN.StartStopSound("SFX_Error");
+                DelayedDisable();
+                return;
             }
             else if (Managers.P_MAN.CurrentAether < GameManager.HEALING_COST)
+            {
                 Managers.U_MAN.InsufficientAetherPopup();
+                DelayedDisable();
+                return;
+            }
             else
             {
                 Managers.P_MAN.CurrentAether -= GameManager.HEALING_COST;
                 Managers.P_MAN.CurrentHealth += GameManager.HEALING_VALUE;
                 Managers.G_MAN.ActiveLocations.Remove(Managers.G_MAN.CurrentLocation);
             }
-
             DelayedDisable();
-            return;
         }
         // Exit
         if (dResponse.Response_IsExit)

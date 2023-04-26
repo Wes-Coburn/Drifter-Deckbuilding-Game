@@ -134,7 +134,6 @@ public class PlayerManager : HeroManager
         heroItems.Add(item);
         Managers.U_MAN.CreateItemIcon(item, isNewItem);
         if (isNewItem) Managers.AU_MAN.StartStopSound("SFX_BuyItem");
-        Managers.U_MAN.UpdateItemsCount();
     }
 
     private bool GetItem(string itemName)

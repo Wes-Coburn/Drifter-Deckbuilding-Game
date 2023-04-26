@@ -830,8 +830,8 @@ public class EffectManager : MonoBehaviour
                 {
                     Managers.U_MAN.CombatLogEntry($"You used {TextFilter.Clrz_ylw(icon.LoadedItem.ItemName)} (Item).");
                     //icon.IsUsed = true; // Deprecated w/ roguelike update, items are disposable
-                    Managers.P_MAN.HeroItems.Remove(icon.LoadedItem); // TESTING
-                    Managers.U_MAN.SetSkybar(true);
+                    Managers.P_MAN.HeroItems.Remove(icon.LoadedItem);
+                    Managers.U_MAN.SetSkybar(true); // Reload skybar
                 }
                 else if (effectSource.CompareTag(Managers.P_MAN.HERO_POWER_TAG))
                 {
@@ -1380,6 +1380,17 @@ public class EffectManager : MonoBehaviour
                 validTargets.Add(t);
 
         return validTargets;
+    }
+
+    public bool IsValidTarget_ChangeCost(GameObject card, ChangeCostEffect chgCst)
+    {
+        if (CombatManager.IsUnitCard(card))
+        {
+            if (!chgCst.ChangeUnitCost) return false;
+        }
+        else if (!chgCst.ChangeActionCost) return false;
+
+        return true;
     }
     #endregion
 
@@ -3037,17 +3048,6 @@ public class EffectManager : MonoBehaviour
 
             if (!hasEnabledModifiers) ucd.EnableTriggerIcon(null, false);
         }
-    }
-
-    public bool IsValidTarget_ChangeCost(GameObject card, ChangeCostEffect chgCst)
-    {
-        if (CombatManager.IsUnitCard(card))
-        {
-            if (!chgCst.ChangeUnitCost) return false;
-        }
-        else if (!chgCst.ChangeActionCost) return false;
-
-        return true;
     }
 
     /******

@@ -596,6 +596,7 @@ public class UnitCardDisplay : CardDisplay
         if (CardManager.GetAbility(gameObject, CardManager.ABILITY_WARD))
             vfx_Ward.SetActive(true);
 
+        // Don't show Defender if unit also has Stealth (cancels it out)
         if (CardManager.GetAbility(gameObject, CardManager.ABILITY_STEALTH))
             vfx_Stealth.SetActive(true);
         else if (CardManager.GetAbility(gameObject, CardManager.ABILITY_DEFENDER))

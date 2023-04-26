@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -147,6 +146,7 @@ public class HomeBaseSceneDisplay : MonoBehaviour
             foreach (var power in powers)
                 AddUnlockedPower(power, powerList);
         }
+
         void AddUnlockedPower(HeroPower power, List<HeroPower> powerList)
         {
             int powerIndex = Managers.G_MAN.UnlockedPowers.FindIndex(x => x == power.PowerName);

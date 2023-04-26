@@ -30,9 +30,17 @@ public class UIManager : MonoBehaviour
 
     [Header("SKYBAR"), SerializeField] private GameObject skyBar;
     [SerializeField]
-    private GameObject augmentBar, augmentsDropdown, augmentsCount, itemBar,
-        itemsDropdown, itemsCount, reputationBar, reputationsDropdown,
-        aetherCount, aetherIcon, currentHealth, healthValue;
+    private GameObject
+        // Augments
+        augmentBar, augmentsDropdown, augmentsCount,
+        // Items
+        itemBar,
+        // Reputation
+        reputationBar, reputationsDropdown,
+        // Aether
+        aetherCount, aetherIcon,
+        // Health
+        currentHealth, healthValue;
 
     [Header("REPUTATION"), SerializeField] private GameObject reputation_Mages;
     [SerializeField] private GameObject reputation_Mutants,
@@ -71,7 +79,6 @@ public class UIManager : MonoBehaviour
     public GameObject AugmentBar { get => augmentBar; }
     public GameObject AugmentsDropdown { get => augmentsDropdown; }
     public GameObject ItemBar { get => itemBar; }
-    public GameObject ItemsDropdown { get => itemsDropdown; }
     public GameObject ReputationBar { get => reputationBar; }
     public GameObject ReputationsDropdown { get => reputationsDropdown; }
     public GameObject CombatLog { get => combatLog.gameObject; }
@@ -703,12 +710,7 @@ public class UIManager : MonoBehaviour
         // Homebase Scene
         if (SceneLoader.IsActiveScene(SceneLoader.Scene.HomeBaseScene))
         {
-            string aetherMagnet = "Aether Magnet";
-            if (Managers.P_MAN.GetAugment(aetherMagnet))
-            {
-                Managers.AN_MAN.TriggerAugment(aetherMagnet);
-                Managers.P_MAN.CurrentAether += GameManager.AETHER_MAGNET_REWARD;
-            }
+            // blank
         }
         /* Dialogue does not have ChooseRewardPopup functionality
         // Dialogue Scene
@@ -908,48 +910,21 @@ public class UIManager : MonoBehaviour
      * ****** SKYBAR
      * *****
      *****/
-    public void UpdateItemsCount(bool setToZero = false)
-    {
-        int unusedItems = 0;
-        if (!setToZero)
-        {
-            foreach (var item in Managers.P_MAN.HeroItems)
-                if (!item.IsUsed) unusedItems++;
-        }
-        itemsCount.GetComponent<TextMeshProUGUI>().SetText(unusedItems.ToString());
-    }
     public void AugmentsButton_OnClick(bool forceOpen)
     {
         FunctionTimer.StopTimer(AnimationManager.CLOSE_SKYBAR_TIMER);
-        bool setActive;
-        if (forceOpen) setActive = true;
-        else setActive = !augmentsDropdown.activeSelf;
+        bool setActive = forceOpen || !augmentsDropdown.activeSelf;
 
         augmentsDropdown.SetActive(setActive);
-        itemsDropdown.SetActive(false);
-        reputationsDropdown.SetActive(false);
-    }
-    public void ItemsButton_OnClick(bool forceOpen)
-    {
-        FunctionTimer.StopTimer(AnimationManager.CLOSE_SKYBAR_TIMER);
-        bool setActive;
-        if (forceOpen) setActive = true;
-        else setActive = !itemsDropdown.activeSelf;
-
-        itemsDropdown.SetActive(setActive);
-        augmentsDropdown.SetActive(false);
         reputationsDropdown.SetActive(false);
     }
     public void ReputationsButton_OnClick(bool forceOpen)
     {
         FunctionTimer.StopTimer(AnimationManager.CLOSE_SKYBAR_TIMER);
-        bool setActive;
-        if (forceOpen) setActive = true;
-        else setActive = !reputationsDropdown.activeSelf;
+        bool setActive = forceOpen || !reputationsDropdown.activeSelf;
 
         reputationsDropdown.SetActive(setActive);
         augmentsDropdown.SetActive(false);
-        itemsDropdown.SetActive(false);
     }
 
     public void HideSkybar(bool isHidden)
@@ -969,7 +944,6 @@ public class UIManager : MonoBehaviour
             if (Managers.G_MAN.IsTutorial)
             {
                 augTmpro.SetText(0 + "");
-                UpdateItemsCount(true);
                 SetAllReputation(true);
             }
             else
@@ -985,7 +959,6 @@ public class UIManager : MonoBehaviour
                     CreateItemIcon(hi);
                 foreach (Transform itemTran in itemBar.transform)
                     itemTran.gameObject.SetActive(!hideChildren);
-                UpdateItemsCount();
                 // Reputation
                 foreach (Transform repTran in reputationBar.transform)
                     repTran.gameObject.SetActive(!hideChildren);
@@ -998,7 +971,6 @@ public class UIManager : MonoBehaviour
         }
 
         augmentsDropdown.SetActive(false);
-        itemsDropdown.SetActive(false);
         reputationsDropdown.SetActive(false);
     }
     public void SetAetherCount(int valueChange)
@@ -1082,8 +1054,8 @@ public class UIManager : MonoBehaviour
     {
         DestroyItemIconPopup();
         itemIconPopup = Instantiate(itemIconPopupPrefab, UICanvas.transform); // UICanvas!
-        Vector2 sourcePos = sourceIcon.transform.position;
-        itemIconPopup.transform.position = new Vector2(sourcePos.x - 250, sourcePos.y - 50);
+        Vector2 sourcePos = sourceIcon.transform.localPosition;
+        itemIconPopup.transform.localPosition = new Vector2(sourcePos.x + 250, 375);// sourcePos.y - 140);
         var iipd = itemIconPopup.GetComponent<ItemIconPopupDisplay>();
         iipd.LoadedItem = item;
         iipd.SourceIcon = sourceIcon;

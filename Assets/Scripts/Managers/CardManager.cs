@@ -1481,8 +1481,7 @@ public class CardManager : MonoBehaviour
                 }
         }
 
-        foreach (var trap in resolveFirstTraps)
-            TriggerAllEffects(trap);
+        foreach (var trap in resolveFirstTraps) TriggerAllEffects(trap);
 
         void TriggerAllEffects(GameObject trap)
         {
@@ -1503,11 +1502,27 @@ public class CardManager : MonoBehaviour
 
                     foreach (var trapEffect in trapAbility.TrapEffects)
                         Managers.EV_MAN.NewDelayedAction(() =>
-                        TriggerEffect(trappedUnit, trapEffect, true, trap), 0.5f, true);
+                        TriggerEffect(trappedUnit, trapEffect, true, trap), 0, true);
                 }
         }
-        void TriggerEffect(GameObject unit, Effect effect, bool shootRay, GameObject source) =>
-            Managers.EF_MAN.ResolveEffect(new List<GameObject> { unit }, effect, shootRay, 0, out _, false, source);
+
+        void TriggerEffect(GameObject unit, Effect effect, bool shootRay, GameObject source)
+        {
+            if (unit == null)
+            {
+                Debug.Log("TRAPPED UNIT IS NULL!");
+                return;
+            }
+            if (source == null)
+            {
+                Debug.LogError("SOURCE TRAP IS NULL!");
+                return;
+            }
+
+            Managers.EV_MAN.NewDelayedAction(() =>
+            Managers.EF_MAN.ResolveEffect(new List<GameObject>
+            { unit }, effect, shootRay, 0, out _, false, source), 0.5f, true);
+        }
     }
     #endregion
     #endregion

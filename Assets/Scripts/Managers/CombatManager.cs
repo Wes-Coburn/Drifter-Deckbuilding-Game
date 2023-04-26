@@ -490,8 +490,7 @@ public class CombatManager : MonoBehaviour
                         // Place card object
                         card.transform.SetParent(Managers.CO_MAN.CardZone.transform);
                         // Place container object
-                        cm.ChangeCardZone(card, zone,
-                            CardManager.ZoneChangeType.LoadFromSave);
+                        cm.ChangeCardZone(card, zone, CardManager.ZoneChangeType.LoadFromSave);
                         // Set IsPlayed in DragDrop
                         card.GetComponent<DragDrop>().IsPlayed = isPlayed;
                     }

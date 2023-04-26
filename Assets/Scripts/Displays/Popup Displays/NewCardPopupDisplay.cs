@@ -4,12 +4,9 @@ using UnityEngine.UI;
 
 public class NewCardPopupDisplay : MonoBehaviour
 {
-    [SerializeField] private GameObject popupTitle;
-    [SerializeField] private GameObject newCardZone;
-    [SerializeField] private GameObject newCardChest;
+    [SerializeField] private GameObject popupTitle, newCardZone,
+        newCardChest, ignoreCardButton, redrawCardsButton;
     [SerializeField] private GameObject[] addCardButtons;
-    [SerializeField] private GameObject ignoreCardButton;
-    [SerializeField] private GameObject redrawCardsButton;
 
     private int redrawCost;
     private Card newCard;
@@ -177,7 +174,8 @@ public class NewCardPopupDisplay : MonoBehaviour
             // blank
         }
         // Dialogue Scene
-        else if (SceneLoader.IsActiveScene(SceneLoader.Scene.DialogueScene)) Managers.D_MAN.DisplayDialoguePopup();
+        else if (SceneLoader.IsActiveScene(SceneLoader.Scene.DialogueScene))
+            Managers.D_MAN.DisplayDialoguePopup();
         // Combat Scene
         else if (SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene))
         {

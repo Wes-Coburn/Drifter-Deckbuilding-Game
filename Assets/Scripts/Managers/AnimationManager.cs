@@ -540,11 +540,9 @@ public class AnimationManager : MonoBehaviour
     // Icon Animation
     public void SkybarIconAnimation(GameObject icon)
     {
-        FunctionTimer.StopTimer(CLOSE_SKYBAR_TIMER);
         GameObject skybar = icon.transform.parent.parent.gameObject;
 
         if (skybar == Managers.U_MAN.AugmentsDropdown) Managers.U_MAN.AugmentsButton_OnClick(true);
-        else if (skybar == Managers.U_MAN.ItemsDropdown) Managers.U_MAN.ItemsButton_OnClick(true);
         else if (skybar == Managers.U_MAN.ReputationsDropdown) Managers.U_MAN.ReputationsButton_OnClick(true);
         else
         {
@@ -553,8 +551,7 @@ public class AnimationManager : MonoBehaviour
         }
 
         Trigger();
-        FunctionTimer.Create(() =>
-        CloseSkybar(skybar), 1, CLOSE_SKYBAR_TIMER);
+        FunctionTimer.Create(() => CloseSkybar(skybar), 1, CLOSE_SKYBAR_TIMER);
 
         void Trigger() => ChangeAnimationState(icon, "Trigger");
         static void CloseSkybar(GameObject bar) => bar.SetActive(false);
@@ -564,7 +561,7 @@ public class AnimationManager : MonoBehaviour
     {
         foreach (Transform icon in Managers.U_MAN.AugmentBar.transform)
         {
-            AugmentIcon augmentIcon = icon.GetComponent<AugmentIcon>();
+            var augmentIcon = icon.GetComponent<AugmentIcon>();
             if (augmentIcon.LoadedAugment.AugmentName == augmentName)
             {
                 SkybarIconAnimation(icon.gameObject);
@@ -837,6 +834,16 @@ public class AnimationManager : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
 
+        // Reputation
+        foreach (Transform repTran in Managers.U_MAN.ReputationBar.transform)
+        {
+            repTran.gameObject.SetActive(true);
+            SkybarIconAnimation(repTran.gameObject);
+        }
+        Managers.AU_MAN.StartStopSound("SFX_Trigger");
+
+        yield return new WaitForSeconds(0.5f);
+
         // Augments
         foreach (Transform augTran in Managers.U_MAN.AugmentBar.transform)
         {
@@ -949,7 +956,14 @@ public class AnimationManager : MonoBehaviour
         Managers.AU_MAN.StartStopSound("SFX_ShiftHand");
 
         foreach (var card in Managers.P_MAN.HandZoneCards)
-            card.transform.SetAsLastSibling(); // TESTING
+            card.transform.SetAsLastSibling();
+
+        foreach (var card in Managers.P_MAN.PlayZoneCards)
+        {
+            var ucd = card.GetComponent<UnitCardDisplay>();
+            if (isUpShift) ucd.DisableVFX();
+            else ucd.EnableVFX();
+        }
 
         do
         {

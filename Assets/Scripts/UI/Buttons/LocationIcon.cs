@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class LocationIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private GameObject locationName;
-    [SerializeField] private GameObject locationImage;
+    [SerializeField] private GameObject locationName, locationImage, backgroundSpotlight;
 
     [Header("BADGES"), SerializeField] private GameObject badges;
     [SerializeField] private GameObject unvisitedBadge, priorityBadge,
@@ -29,13 +28,21 @@ public class LocationIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             locationName.GetComponent<TextMeshProUGUI>().SetText(location.LocationName);
             transform.position = location.WorldMapPosition;
 
-            bool visited = false;
-            if (Managers.G_MAN.VisitedLocations.FindIndex
-                (x => x == location.LocationName) != -1) visited = true;
-
+            bool visited = Managers.G_MAN.VisitedLocations
+                .FindIndex(x => x == location.LocationName) != -1;
             bool isOpen = Managers.G_MAN.LocationOpen(location);
             bool isPriority = location.IsPriorityLocation;
+
             closedBadge.SetActive(!isOpen);
+
+            // Don't use the background spotlight for non-priority locations
+            // Switch the target graphic to the location image
+            if (!isPriority && !location.IsHomeBase)
+            {
+                backgroundSpotlight.SetActive(false);
+                GetComponent<Button>().targetGraphic =
+                    locationImage.GetComponent<Graphic>();
+            }
 
             if (isOpen)
             {
@@ -43,11 +50,20 @@ public class LocationIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                 priorityBadge.SetActive(isPriority);
                 nonPriorityBadge.SetActive(!isPriority);
             }
-            else unvisitedBadge.SetActive(false);
+            else
+            {
+                unvisitedBadge.SetActive(false);
+
+                // Change selected color to red for closed locations
+                var btn = GetComponent<Button>();
+                var clrs = btn.colors;
+                clrs.selectedColor = Color.red;
+                btn.colors = clrs;
+            }
 
             if ((!isOpen || !isPriority) && !location.IsHomeBase)
             {
-                float scaleDown = 0.7f;
+                float scaleDown = 0.8f;
                 foreach (var go in new GameObject[]
                 {
                     locationImage,
@@ -64,9 +80,9 @@ public class LocationIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                     go.GetComponent<RectTransform>().localScale = newScale;
 
                     // Opacity
-                    var img = go.GetComponent<Image>();
+                    var img = go.GetComponentInChildren<Image>();
                     var clr = img.color;
-                    clr.a = 0.6f;
+                    clr.a = 0.8f;
                     img.color = clr;
                 }
 

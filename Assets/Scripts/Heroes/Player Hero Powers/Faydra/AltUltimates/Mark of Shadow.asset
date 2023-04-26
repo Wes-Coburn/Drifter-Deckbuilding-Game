@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Mark of Shadow
   m_EditorClassIdentifier: 
   PowerName: Mark of Shadow
-  PowerCost: 2
+  PowerCost: 3
   PowerSprite: {fileID: 21300000, guid: 4da66b246b0c64c4c8a7adf12b95d930, type: 3}
   PowerSounds:
   - name: 
@@ -28,10 +28,9 @@ MonoBehaviour:
     pitch: 1
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
-  PowerDescription: Stun, Mark, and Silence an enemy.
+  PowerDescription: Gain control of an enemy this turn.
   EffectGroupList:
-  - {fileID: 11400000, guid: ae985519948e42e4bba564c00f5bf1fb, type: 2}
-  LinkedAbilities:
-  - {fileID: 11400000, guid: 37a54b5ce20d48941893b9f48eee681f, type: 2}
-  - {fileID: 11400000, guid: 67b65f6bf1f93db43afb76d61b1435b2, type: 2}
-  - {fileID: 11400000, guid: 618928fdbfb535e4c9496411cfb5d879, type: 2}
+  - {fileID: 11400000, guid: dff3528641655cf4cb5071dfa7f75496, type: 2}
+  LinkedAbilities: []
+  relatedCards: []
+  relatedCardTypes: 

@@ -63,6 +63,7 @@ public class HeroSelectSceneDisplay : MonoBehaviour
 
     private void DisplaySelectedHero()
     {
+
         bool unlocked = HeroIsUnlocked;
         lockedHeroIcon.SetActive(!unlocked);
 
@@ -147,50 +148,61 @@ public class HeroSelectSceneDisplay : MonoBehaviour
 
     public void ConfirmButton_OnClick()
     {
+        if (SceneLoader.SceneIsLoading) return;
         LoadSelection();
         SceneLoader.LoadScene(SceneLoader.Scene.WorldMapScene);
     }
 
-    public void BackButton_OnClick() => Managers.G_MAN.EndGame();
+    public void BackButton_OnClick()
+    {
+        if (SceneLoader.SceneIsLoading) return;
+        Managers.G_MAN.EndGame();
+    }
 
     public void SelectHero_RightArrow_OnClick()
     {
+        if (SceneLoader.SceneIsLoading) return;
         if (++currentHero > playerHeroes.Count - 1) currentHero = 0;
         DisplaySelectedHero();
     }
 
     public void SelectHero_LeftArrow_OnClick()
     {
+        if (SceneLoader.SceneIsLoading) return;
         if (--currentHero < 0) currentHero = playerHeroes.Count - 1;
         DisplaySelectedHero();
     }
 
     public void ShowInfoButton_OnClick()
     {
-        if (lockedHeroIcon.activeInHierarchy) return;
+        if (SceneLoader.SceneIsLoading || lockedHeroIcon.activeInHierarchy) return;
         heroBackstory.SetActive(!heroBackstory.activeSelf);
     }
 
     public void SelectPower_RightArrow_OnClick()
     {
+        if (SceneLoader.SceneIsLoading) return;
         if (++currentPower > LoadedHero.AltHeroPowers.Length) currentPower = 0;
         DisplaySelectedPower();
     }
 
     public void SelectPower_LeftArrow_OnClick()
     {
+        if (SceneLoader.SceneIsLoading) return;
         if (--currentPower < 0) currentPower = LoadedHero.AltHeroPowers.Length;
         DisplaySelectedPower();
     }
 
     public void SelectUltimate_RightArrow_OnClick()
     {
+        if (SceneLoader.SceneIsLoading) return;
         if (++currentUltimate > LoadedHero.AltHeroUltimates.Length) currentUltimate = 0;
         DisplaySelectedUltimate();
     }
 
     public void SelectUltimate_LeftArrow_OnClick()
     {
+        if (SceneLoader.SceneIsLoading) return;
         if (--currentUltimate < 0) currentUltimate = LoadedHero.AltHeroUltimates.Length;
         DisplaySelectedUltimate();
     }
