@@ -35,15 +35,6 @@ public class LocationIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
             closedBadge.SetActive(!isOpen);
 
-            // Don't use the background spotlight for non-priority locations
-            // Switch the target graphic to the location image
-            if (!isPriority && !location.IsHomeBase)
-            {
-                backgroundSpotlight.SetActive(false);
-                GetComponent<Button>().targetGraphic =
-                    locationImage.GetComponent<Graphic>();
-            }
-
             if (isOpen)
             {
                 unvisitedBadge.SetActive(!visited);
@@ -57,12 +48,17 @@ public class LocationIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                 // Change selected color to red for closed locations
                 var btn = GetComponent<Button>();
                 var clrs = btn.colors;
-                clrs.selectedColor = Color.red;
+                clrs.highlightedColor = Color.red;
                 btn.colors = clrs;
             }
 
             if ((!isOpen || !isPriority) && !location.IsHomeBase)
             {
+                // Don't use the background spotlight for non-priority or closed locations
+                // Switch the target graphic to the location image
+                backgroundSpotlight.SetActive(false);
+                GetComponent<Button>().targetGraphic = locationImage.GetComponent<Graphic>();
+
                 float scaleDown = 0.8f;
                 foreach (var go in new GameObject[]
                 {

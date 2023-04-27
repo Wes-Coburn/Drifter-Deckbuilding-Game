@@ -5,11 +5,8 @@ using UnityEngine.UI;
 
 public class ItemDescriptionDisplay : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private GameObject itemImage;
-    [SerializeField] private GameObject itemName;
-    [SerializeField] private GameObject itemDescription;
-    [SerializeField] private GameObject itemCost;
-    [SerializeField] private GameObject rareIcon;
+    [SerializeField] private GameObject itemImage, itemName,
+        itemDescription, itemCost, rareIcon;
 
     private const string ITEM_ABILITY_POPUP_TIMER = "ItemAbilityPopupTimer";
 
@@ -27,17 +24,12 @@ public class ItemDescriptionDisplay : MonoBehaviour, IPointerClickHandler, IPoin
                 (Managers.CA_MAN.FilterKeywords(loadedItem.ItemDescription));
 
             string text = Managers.G_MAN.GetItemCost(loadedItem, out bool isDiscounted, IsItemRemoval).ToString();
-            TextMeshProUGUI txtGui = itemCost.GetComponent<TextMeshProUGUI>();
+            var txtGui = itemCost.GetComponent<TextMeshProUGUI>();
             if (IsItemRemoval) text = "+" + text;
             txtGui.SetText(text);
 
             if (!IsItemRemoval && isDiscounted)
-            {
-                Button button = GetComponent<Button>();
-                var colors = button.colors;
-                colors.normalColor = Color.green;
-                button.colors = colors;
-            }
+                itemCost.GetComponent<TextMeshProUGUI>().color = Color.green;
 
             rareIcon.SetActive(loadedItem.IsRareItem);
         }

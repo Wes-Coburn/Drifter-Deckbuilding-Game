@@ -40,7 +40,7 @@ public static class GameLoader
      * ****** TUTORIAL
      * *****
      *****/
-    public static void Tutorial_Load()
+    public static IEnumerator LoadTutorial_Async()
     {
         Managers.G_MAN.IsTutorial = true;
 
@@ -69,11 +69,16 @@ public static class GameLoader
             }
         }
 
+        Managers.P_MAN.DeckList.Clear(); // TESTING
         foreach (var unit in Managers.CA_MAN.TutorialPlayerUnits)
             for (int i = 0; i < 5; i++)
                 Managers.CA_MAN.AddCard(unit, Managers.P_MAN);
 
+        SceneLoader.CurrentLoadRoutine = null; // TESTING
         SceneLoader.LoadingProgress = 1;
+        SceneLoader.LoadScene_Finish(SceneLoader.Scene.CombatScene);
+
+        yield break; // Required for IEnumerator
     }
 
     /******
@@ -81,13 +86,17 @@ public static class GameLoader
      * ****** NEW_GAME
      * *****
      *****/
-    private static void NewGame_LoadAsync_Progress()
+    private static IEnumerator LoadNewGame_Async_Progress()
     {
+        yield return new WaitUntil(() => Managers.U_MAN.SceneFadeRoutine == null); // TESTING
+        if (SceneLoader.CurrentLoadRoutine != null) yield break; // TESTING
+
         const int loadItems = 8;
         const float increment = 1f / loadItems;
+        if (SceneLoader.LoadingProgress < 0) SceneLoader.LoadingProgress = 0;
         SceneLoader.LoadingProgress += increment;
     }
-    public static IEnumerator NewGame_LoadAsync()
+    public static IEnumerator LoadNewGame_Async()
     {
         var gm = Managers.G_MAN;
         gm.IsTutorial = false;
@@ -124,7 +133,7 @@ public static class GameLoader
             gm.CurrentNarrative = SettingNarrative;
         }
 
-        NewGame_LoadAsync_Progress(); // <<< Load Progress #1
+        yield return LoadNewGame_Async_Progress(); // <<< Load Progress #1
 
         var request_narrative = Resources.LoadAsync<Narrative>($"{narPath}/NewGameNarrative");
         yield return request_narrative;
@@ -132,7 +141,7 @@ public static class GameLoader
         if (request_narrative.asset == null) Debug.LogError("Failed to load NARRATIVE asset!");
         else NewGameNarrative = request_narrative.asset as Narrative;
 
-        NewGame_LoadAsync_Progress(); // <<< Load Progress #2
+        yield return LoadNewGame_Async_Progress(); // <<< Load Progress #2
 
         // Starting Locations
         foreach (string loc in new string[]
@@ -147,7 +156,7 @@ public static class GameLoader
         {
             var request_location = Resources.LoadAsync<Location>($"Locations/{loc}");
             yield return request_location;
-            NewGame_LoadAsync_Progress(); // <<< Load Progress #3-8
+            yield return LoadNewGame_Async_Progress(); // <<< Load Progress #3-8
 
             if (request_location.asset == null)
             {
@@ -163,15 +172,16 @@ public static class GameLoader
         gm.CurrentHour = 3;
         gm.NextHour(false); // Set current hour to 4 and change homebase objective
 
-        SceneLoader.LoadScene_Finish(SceneLoader.Scene.NarrativeScene);
+        SceneLoader.BackgroundLoadRoutine = null; // TESTING
+        if (SceneLoader.SceneIsLoading) SceneLoader.LoadScene_Finish(SceneLoader.Scene.NarrativeScene);
     }
 
     /******
      * *****
-     * ****** LOAD_GAME
+     * ****** SAVED_GAME
      * *****
      *****/
-    public static IEnumerator LoadGame_GameData_Async()
+    public static void LoadSavedGame_GameData()
     {
         if (SaveLoad.LoadGame(SaveLoad.SaveType.Game) is not GameData data)
         {
@@ -190,7 +200,7 @@ public static class GameLoader
         for (int i = 0; i < data.HeroAugments.Length; i++)
         {
             var request_Aug = Resources.LoadAsync<HeroAugment>($"Hero Augments/{data.HeroAugments[i]}");
-            yield return request_Aug;
+            //yield return request_Aug;
 
             if (request_Aug.asset == null)
             {
@@ -218,13 +228,17 @@ public static class GameLoader
         // Tutorials
         gm.TutorialActive_WorldMap = data.TutorialActive_WorldMap;
     }
-    private static void LoadGame_PlayerData_Async_Progress(bool isCombatLoad)
+    private static IEnumerator LoadSavedGame_PlayerData_Async_Progress(bool isCombatLoad)
     {
+        yield return new WaitUntil(() => Managers.U_MAN.SceneFadeRoutine == null); // TESTING
+        if (SceneLoader.CurrentLoadRoutine != null) yield break; // TESTING
+
         int loadItems = isCombatLoad ? 18 : 11;
         float increment = 1f / loadItems;
+        if (SceneLoader.LoadingProgress < 0) SceneLoader.LoadingProgress = 0;
         SceneLoader.LoadingProgress += increment;
     }
-    public static IEnumerator LoadGame_PlayerData_Async()
+    public static IEnumerator LoadSavedGame_PlayerData_Async()
     {
         if (SaveLoad.LoadGame(SaveLoad.SaveType.Player) is not PlayerData data)
         {
@@ -236,7 +250,7 @@ public static class GameLoader
         var pm = Managers.P_MAN;
         var em = Managers.EN_MAN;
 
-        bool isCombatLoad = data.SaveScene != SceneLoader.Scene.CombatScene.ToString();
+        bool isCombatLoad = data.SaveScene == SceneLoader.Scene.CombatScene.ToString();
 
         /*
          * <<< | UNIVERSAL LOAD | >>>
@@ -245,7 +259,7 @@ public static class GameLoader
         // PLAYER HERO
         var request_PHero = Resources.LoadAsync<PlayerHero>($"Heroes/Player Heroes/{data.PlayerHero}");
         yield return request_PHero;
-        LoadGame_PlayerData_Async_Progress(isCombatLoad); // <<< Load Progress #1
+        yield return LoadSavedGame_PlayerData_Async_Progress(isCombatLoad); // <<< Load Progress #1
 
         if (request_PHero.asset == null) Debug.LogError("Failed to load PLAYERHERO asset!");
         else
@@ -317,7 +331,7 @@ public static class GameLoader
             else if (request_Card.asset is ActionCard)
                 Managers.CA_MAN.AddCard(request_Card.asset as ActionCard, pm);
         }
-        LoadGame_PlayerData_Async_Progress(isCombatLoad); // <<< Load Progress #2
+        yield return LoadSavedGame_PlayerData_Async_Progress(isCombatLoad); // <<< Load Progress #2
 
         // ITEMS
         pm.HeroItems.Clear();
@@ -334,7 +348,7 @@ public static class GameLoader
 
             pm.HeroItems.Add(request_Item.asset as HeroItem);
         }
-        LoadGame_PlayerData_Async_Progress(isCombatLoad); // <<< Load Progress #3
+        yield return LoadSavedGame_PlayerData_Async_Progress(isCombatLoad); // <<< Load Progress #3
 
         // CURRENT HOUR
         gm.CurrentHour = data.CurrentHour;
@@ -352,7 +366,7 @@ public static class GameLoader
             else gm.CurrentNarrative = request_CurNar.asset as Narrative;
         }
         else gm.CurrentNarrative = null;
-        LoadGame_PlayerData_Async_Progress(isCombatLoad); // <<< Load Progress #4
+        yield return LoadSavedGame_PlayerData_Async_Progress(isCombatLoad); // <<< Load Progress #4
 
         // ENGAGED HERO
         if (data.EngagedHero != "")
@@ -365,7 +379,7 @@ public static class GameLoader
                     Managers.G_MAN.GetActiveNPC(request_EngHero.asset as NPCHero);
         }
         else Managers.D_MAN.EngagedHero = null;
-        LoadGame_PlayerData_Async_Progress(isCombatLoad); // <<< Load Progress #5
+        yield return LoadSavedGame_PlayerData_Async_Progress(isCombatLoad); // <<< Load Progress #5
 
         // CURRENT LOCATION
         if (data.CurrentLocation != "")
@@ -378,7 +392,7 @@ public static class GameLoader
                     Managers.G_MAN.GetActiveLocation(request_CurLoc.asset as Location);
         }
         else Managers.G_MAN.CurrentLocation = null;
-        LoadGame_PlayerData_Async_Progress(isCombatLoad); // <<< Load Progress #6
+        yield return LoadSavedGame_PlayerData_Async_Progress(isCombatLoad); // <<< Load Progress #6
 
         // NPCS
         gm.ActiveNPCHeroes.Clear();
@@ -398,7 +412,7 @@ public static class GameLoader
             yield return request_Clip;
             npc.NextDialogueClip = request_Clip.asset as DialogueClip;
         }
-        LoadGame_PlayerData_Async_Progress(isCombatLoad); // <<< Load Progress #7
+        yield return LoadSavedGame_PlayerData_Async_Progress(isCombatLoad); // <<< Load Progress #7
 
         // LOCATIONS
         gm.ActiveLocations.Clear();
@@ -422,7 +436,7 @@ public static class GameLoader
             location.CurrentNPC = gm.GetActiveNPC(request_NPC.asset as NPCHero);
             location.CurrentObjective = data.ActiveLocations[i, 2];
         }
-        LoadGame_PlayerData_Async_Progress(isCombatLoad); // <<< Load Progress #8
+        yield return LoadSavedGame_PlayerData_Async_Progress(isCombatLoad); // <<< Load Progress #8
 
         gm.VisitedLocations.Clear();
         foreach (string location in data.VisitedLocations)
@@ -443,7 +457,7 @@ public static class GameLoader
             itemAsset.IsUsed = isUsed;
             gm.ShopItems.Add(itemAsset);
         }
-        LoadGame_PlayerData_Async_Progress(isCombatLoad); // <<< Load Progress #9
+        yield return LoadSavedGame_PlayerData_Async_Progress(isCombatLoad); // <<< Load Progress #9
 
         // RECRUIT UNITS
         Managers.CA_MAN.PlayerRecruitUnits.Clear();
@@ -454,7 +468,7 @@ public static class GameLoader
 
             Managers.CA_MAN.PlayerRecruitUnits.Add(request_Recruit.asset as UnitCard);
         }
-        LoadGame_PlayerData_Async_Progress(isCombatLoad); // <<< Load Progress #10
+        yield return LoadSavedGame_PlayerData_Async_Progress(isCombatLoad); // <<< Load Progress #10
 
         // SHOP ACTIONS
         Managers.CA_MAN.ActionShopCards.Clear();
@@ -464,7 +478,7 @@ public static class GameLoader
             yield return request_Action;
             Managers.CA_MAN.ActionShopCards.Add(request_Action.asset as ActionCard);
         }
-        LoadGame_PlayerData_Async_Progress(isCombatLoad); // <<< Load Progress #11 [END non-combat loading]
+        yield return LoadSavedGame_PlayerData_Async_Progress(isCombatLoad); // <<< Load Progress #11 [END non-combat loading]
 
         // LOYALTY
         gm.RecruitLoyalty = data.RecruitLoyalty;
@@ -475,9 +489,10 @@ public static class GameLoader
          * <<< | COMBAT LOAD | >>>
          */
 
-        if (isCombatLoad)
+        if (!isCombatLoad)
         {
-            SceneLoader.LoadScene_Finish(SceneLoader.Scene.WorldMapScene);
+            SceneLoader.BackgroundLoadRoutine = null; // TESTING
+            if (SceneLoader.SceneIsLoading) SceneLoader.LoadScene_Finish(SceneLoader.Scene.WorldMapScene); // TESTING
             yield break;
         }
 
@@ -513,44 +528,45 @@ public static class GameLoader
         // Give Next Effects
         yield return gm.StartCoroutine(LoadEffects(data.GiveNextEffects_Player, pm.GiveNextEffects));
         yield return gm.StartCoroutine(LoadEffects(data.GiveNextEffects_Enemy, em.GiveNextEffects));
-        LoadGame_PlayerData_Async_Progress(isCombatLoad); // <<< Load Progress #12
+        yield return LoadSavedGame_PlayerData_Async_Progress(isCombatLoad); // <<< Load Progress #12
 
         // Change Next Cost Effects
         yield return gm.StartCoroutine(LoadEffects(data.ChangeNextCostEffects_Player, pm.ChangeNextCostEffects));
         yield return gm.StartCoroutine(LoadEffects(data.ChangeNextCostEffects_Enemy, em.ChangeNextCostEffects));
-        LoadGame_PlayerData_Async_Progress(isCombatLoad); // <<< Load Progress #13
+        yield return LoadSavedGame_PlayerData_Async_Progress(isCombatLoad); // <<< Load Progress #13
 
         // Modify Next Effects
         yield return gm.StartCoroutine(LoadEffects(data.ModifyNextEffects_Player, pm.ModifyNextEffects));
         yield return gm.StartCoroutine(LoadEffects(data.ModifyNextEffects_Enemy, em.ModifyNextEffects));
-        LoadGame_PlayerData_Async_Progress(isCombatLoad); // <<< Load Progress #14
+        yield return LoadSavedGame_PlayerData_Async_Progress(isCombatLoad); // <<< Load Progress #14
 
         // Current Decks
         yield return gm.StartCoroutine(LoadCards(data.CurrentDeck_Player, pm.CurrentDeck));
         yield return gm.StartCoroutine(LoadCards(data.CurrentDeck_Enemy, em.CurrentDeck));
-        LoadGame_PlayerData_Async_Progress(isCombatLoad); // <<< Load Progress #15
+        yield return LoadSavedGame_PlayerData_Async_Progress(isCombatLoad); // <<< Load Progress #15
 
         // Hand Zone Cards
         yield return gm.StartCoroutine(LoadCards_Obj(data.HandZoneCards_Player, pm.HandZoneCards, Managers.P_MAN));
         yield return gm.StartCoroutine(LoadCards_Obj(data.HandZoneCards_Enemy, em.HandZoneCards, Managers.EN_MAN));
-        LoadGame_PlayerData_Async_Progress(isCombatLoad); // <<< Load Progress #16
+        yield return LoadSavedGame_PlayerData_Async_Progress(isCombatLoad); // <<< Load Progress #16
 
         // Play Zone Cards
         yield return gm.StartCoroutine(LoadCards_Obj(data.PlayZoneCards_Player, pm.PlayZoneCards, Managers.P_MAN));
         yield return gm.StartCoroutine(LoadCards_Obj(data.PlayZoneCards_Enemy, em.PlayZoneCards, Managers.EN_MAN));
-        LoadGame_PlayerData_Async_Progress(isCombatLoad); // <<< Load Progress #17
+        yield return LoadSavedGame_PlayerData_Async_Progress(isCombatLoad); // <<< Load Progress #17
 
         // Discard Zone Cards
         yield return gm.StartCoroutine(LoadCards(data.DiscardZoneCards_Player, pm.DiscardZoneCards));
         yield return gm.StartCoroutine(LoadCards(data.DiscardZoneCards_Enemy, em.DiscardZoneCards));
-        LoadGame_PlayerData_Async_Progress(isCombatLoad); // <<< Load Progress #18 [END combat loading]
+        yield return LoadSavedGame_PlayerData_Async_Progress(isCombatLoad); // <<< Load Progress #18 [END combat loading]
 
         /*
          * <<< | LOAD SCENE FINISH | >>>
          */
 
         PlayerData.SavedPlayerData = data;
-        SceneLoader.LoadScene_Finish(SceneLoader.Scene.CombatScene);
+        SceneLoader.BackgroundLoadRoutine = null; // TESTING
+        if (SceneLoader.SceneIsLoading) SceneLoader.LoadScene_Finish(SceneLoader.Scene.CombatScene);
 
         /*
          * <<< | LOAD METHODS | >>>
@@ -617,7 +633,6 @@ public static class GameLoader
             for (int i = 0; i < cards.GetLength(0); i++)
             {
                 var savedCard = cards[i];
-                // Name
                 string cardName = savedCard[0][0][0];
                 ResourceRequest LoadResource(string path) => Resources.LoadAsync<Card>($"{path}/{cardName}");
 
@@ -630,9 +645,9 @@ public static class GameLoader
                     "Cards_Created",
                     "Cards_Created_Unique",
                 };
-                int tryPathIdx = 0;
 
-                while (request_Card == null || request_Card.asset == null || tryPathIdx >= assetPaths.Length)
+                int tryPathIdx = 0;
+                while ((tryPathIdx < assetPaths.Length) && (request_Card == null || request_Card.asset == null))
                 {
                     string tryPath = assetPaths[tryPathIdx++];
                     request_Card = LoadResource(tryPath);

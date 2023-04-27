@@ -39,10 +39,6 @@ public class AnimationManager : MonoBehaviour
 
     #region METHODS
     #region UTILITY
-    private void Start()
-    {
-        // blank
-    }
 
     public void ProgressBarRoutine_Stop()
     {
@@ -551,7 +547,7 @@ public class AnimationManager : MonoBehaviour
         }
 
         Trigger();
-        FunctionTimer.Create(() => CloseSkybar(skybar), 1, CLOSE_SKYBAR_TIMER);
+        FunctionTimer.Create(() => CloseSkybar(skybar), 1.5f, CLOSE_SKYBAR_TIMER);
 
         void Trigger() => ChangeAnimationState(icon, "Trigger");
         static void CloseSkybar(GameObject bar) => bar.SetActive(false);
@@ -769,16 +765,6 @@ public class AnimationManager : MonoBehaviour
             Managers.U_MAN.CreateVersusPopup(true);
         }
 
-        // Reputations
-        foreach (Transform repTran in Managers.U_MAN.ReputationBar.transform)
-        {
-            repTran.gameObject.SetActive(true);
-            SkybarIconAnimation(repTran.gameObject);
-        }
-
-        Managers.AU_MAN.StartStopSound("SFX_Trigger");
-        yield return new WaitForSeconds(0.5f);
-
         yield return ShowSkyBarChildren();
 
         Managers.AU_MAN.StartStopSound("SFX_PortraitClick");
@@ -840,8 +826,8 @@ public class AnimationManager : MonoBehaviour
             repTran.gameObject.SetActive(true);
             SkybarIconAnimation(repTran.gameObject);
         }
-        Managers.AU_MAN.StartStopSound("SFX_Trigger");
 
+        Managers.AU_MAN.StartStopSound("SFX_Trigger");
         yield return new WaitForSeconds(0.5f);
 
         // Augments
@@ -850,10 +836,12 @@ public class AnimationManager : MonoBehaviour
             augTran.gameObject.SetActive(true);
             SkybarIconAnimation(augTran.gameObject);
         }
-        if (Managers.U_MAN.AugmentBar.transform.childCount > 0)
-            Managers.AU_MAN.StartStopSound("SFX_Trigger");
 
-        yield return new WaitForSeconds(0.5f);
+        if (Managers.U_MAN.AugmentBar.transform.childCount > 0)
+        {
+            Managers.AU_MAN.StartStopSound("SFX_Trigger");
+            yield return new WaitForSeconds(0.5f);
+        }
 
         // Items
         foreach (Transform itemTran in Managers.U_MAN.ItemBar.transform)
@@ -863,9 +851,10 @@ public class AnimationManager : MonoBehaviour
         }
 
         if (Managers.U_MAN.ItemBar.transform.childCount > 0)
+        {
             Managers.AU_MAN.StartStopSound("SFX_Trigger");
-
-        yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 
     /******

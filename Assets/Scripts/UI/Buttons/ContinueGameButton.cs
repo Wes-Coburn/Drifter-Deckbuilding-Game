@@ -7,7 +7,6 @@ public class ContinueGameButton : MonoBehaviour
     public void OnClick()
     {
         if (SceneLoader.SceneIsLoading) return;
-        //UIManager.Instance.ShakeCamera(EZCameraShake.CameraShakePresets.Bump); // TESTING
         Managers.AN_MAN.CreateParticleSystem(gameObject, ParticleSystemHandler.ParticlesType.ButtonPress);
 
         var data = SaveLoad.LoadGame(SaveLoad.SaveType.Player) as PlayerData;
@@ -19,7 +18,9 @@ public class ContinueGameButton : MonoBehaviour
             return;
         }
 
-        SceneLoader.LoadAction_Async += GameLoader.LoadGame_PlayerData_Async;
-        SceneLoader.LoadScene(loadScene);
+        //SceneLoader.LoadAction_Async += GameLoader.LoadSavedGame_PlayerData_Async;
+        //SceneLoader.LoadScene(loadScene);
+
+        SceneLoader.LoadScene(loadScene); // TESTING
     }
 }

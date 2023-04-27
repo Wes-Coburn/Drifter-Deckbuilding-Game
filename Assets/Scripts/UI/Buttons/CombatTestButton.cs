@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class CombatTestButton : MonoBehaviour
@@ -19,13 +20,13 @@ public class CombatTestButton : MonoBehaviour
     public void OnClick()
     {
         if (SceneLoader.SceneIsLoading) return;
-        //UIManager.Instance.ShakeCamera(EZCameraShake.CameraShakePresets.Bump); // TESTING
         Managers.AN_MAN.CreateParticleSystem(gameObject, ParticleSystemHandler.ParticlesType.ButtonPress);
-        SceneLoader.LoadAction += () => LoadCombatTest();
-        SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);
+        //SceneLoader.LoadAction_Async += () => LoadCombatTest_Async();
+        //SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);
+        SceneLoader.LoadScene(SceneLoader.Scene.CombatScene, LoadCombatTest_Async); // TESTING
     }
 
-    private void LoadCombatTest()
+    private IEnumerator LoadCombatTest_Async()
     {
         // Player Hero
         var ph = ScriptableObject.CreateInstance<PlayerHero>();
@@ -33,7 +34,7 @@ public class CombatTestButton : MonoBehaviour
         else
         {
             Debug.LogError("DEVELOPER TEST HERO IS NULL!");
-            return;
+            yield break;
         }
 
         // Enemy Hero
@@ -42,7 +43,7 @@ public class CombatTestButton : MonoBehaviour
         else
         {
             Debug.LogError("ENEMY TEST HERO IS NULL!");
-            return;
+            yield break;
         }
 
         Managers.G_MAN.IsCombatTest = true;
@@ -112,7 +113,7 @@ public class CombatTestButton : MonoBehaviour
                 break;
             default:
                 Debug.LogError("INVALID TIER!");
-                return;
+                yield break;
         }
 
         Managers.G_MAN.Reputation_Mages = reputation;
@@ -120,5 +121,10 @@ public class CombatTestButton : MonoBehaviour
         Managers.G_MAN.Reputation_Rogues = reputation;
         Managers.G_MAN.Reputation_Techs = reputation;
         Managers.G_MAN.Reputation_Warriors = reputation;
+
+        SceneLoader.CurrentLoadRoutine = null; // TESTING
+        SceneLoader.LoadScene_Finish(SceneLoader.Scene.CombatScene); // TESTING
+
+        yield break; // Required for IEnumerator
     }
 }

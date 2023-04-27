@@ -84,6 +84,8 @@ public class UIManager : MonoBehaviour
     public GameObject CombatLog { get => combatLog.gameObject; }
     public Color HighlightedColor { get => highlightedColor; }
 
+    public Coroutine SceneFadeRoutine { get => sceneFadeRoutine; }
+
     public GameObject CurrentWorldSpace { get; private set; }
     public GameObject CurrentCanvas { get; private set; }
     public GameObject CurrentZoomCanvas { get; private set; }
@@ -733,7 +735,7 @@ public class UIManager : MonoBehaviour
     }
     // Card Page
     public void CreateCardPage(CardPageDisplay.CardPageType cardPageType,
-        bool playSound = true, bool isScrollPopup = true)
+        bool isReload = false, bool isScrollPopup = true)
     {
         float scrollValue = 1;
         if (cardPage != null && isScrollPopup)
@@ -748,7 +750,8 @@ public class UIManager : MonoBehaviour
         DestroyCardPage();
         var prefab = isScrollPopup ? cardScrollPagePrefab : cardPagePrefab;
         cardPage = Instantiate(prefab, CurrentCanvas.transform);
-        cardPage.GetComponent<CardPageDisplay>().DisplayCardPage(cardPageType, playSound, scrollValue);
+        if (isReload) cardPage.GetComponent<Animator>().SetBool("Static", true); // TESTING
+        cardPage.GetComponent<CardPageDisplay>().DisplayCardPage(cardPageType, isReload, scrollValue);
     }
     public void DestroyCardPage(bool childrenOnly = false)
     {

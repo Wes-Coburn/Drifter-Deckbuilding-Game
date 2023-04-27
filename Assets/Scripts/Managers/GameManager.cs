@@ -175,7 +175,7 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("Application Version: " + Application.version);
         GameLoader.LoadPlayerPreferences();
-        StartCoroutine(GameLoader.LoadGame_GameData_Async());
+        GameLoader.LoadSavedGame_GameData();
 
 #pragma warning disable CS8321 // Local function is declared but never used
         static void ForTestingOnly()
@@ -548,11 +548,16 @@ public class GameManager : MonoBehaviour
         var gameSaved = GameLoader.CheckSave();
         FindObjectOfType<NewGameButton>().gameObject.SetActive(!gameSaved);
         FindObjectOfType<ContinueGameButton>().gameObject.SetActive(gameSaved);
+
+        SceneLoader.BackgroundLoadRoutine = StartCoroutine(gameSaved ?
+            GameLoader.LoadSavedGame_PlayerData_Async() : GameLoader.LoadNewGame_Async()); // TESTING
     }
     public void StartTutorialScene()
     {
-        SceneLoader.LoadAction += GameLoader.Tutorial_Load;
-        SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);
+        //SceneLoader.LoadAction_Async += GameLoader.LoadTutorial_Async;
+        //SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);
+
+        SceneLoader.LoadScene(SceneLoader.Scene.CombatScene, GameLoader.LoadTutorial_Async); // TESTING
     }
     public void StartWorldMapScene()
     {
@@ -956,8 +961,10 @@ public class GameManager : MonoBehaviour
      *****/
     public void NewGame()
     {
-        SceneLoader.LoadAction_Async += GameLoader.NewGame_LoadAsync;
-        SceneLoader.LoadScene(SceneLoader.Scene.NarrativeScene);
+        //SceneLoader.LoadAction_Async += GameLoader.LoadNewGame_Async;
+        //SceneLoader.LoadScene(SceneLoader.Scene.NarrativeScene);
+
+        SceneLoader.LoadScene(SceneLoader.Scene.NarrativeScene); // TESTING
     }
 
     /******

@@ -403,13 +403,19 @@ public class EnemyManager : HeroManager
         else if (CurrentHealth > (MaxHealth * 0.5f) && TotalPlayerPower() < (CurrentHealth * 0.5f))
         {
             /*
-             * If player hero is <SEVERELY THREATENED> or the attacker has Infiltrate,
-             * attack the player hero. Otherwise, attack a player unit.
+             * If player hero is <SEVERELY THREATENED>
+             * OR 
+             * the attacker has Infiltrate
+             * OR
+             * the attacker has an 'enemy hero becomes Wounded' trigger and the player hero is not wounded
+             * 
+             * ---> Attack the player hero.
+             * ---> Otherwise, attack a player unit.
              */
             if (!playerHasDefender)
             {
-                if (TotalEnemyPower() >= playerHealth * 0.75f ||
-                    CardManager.GetTrigger(attacker, CardManager.TRIGGER_INFILTRATE))
+                if (TotalEnemyPower() >= playerHealth * 0.75f || CardManager.GetTrigger(attacker, CardManager.TRIGGER_INFILTRATE) ||
+                    (CardManager.GetModifier(attacker, ModifierAbility.TriggerType.EnemyHeroWounded) && !Managers.P_MAN.IsWounded()))
                     return Managers.P_MAN.HeroObject;
             }
         }

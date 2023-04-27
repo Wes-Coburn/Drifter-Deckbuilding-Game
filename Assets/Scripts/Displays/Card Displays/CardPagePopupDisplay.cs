@@ -77,7 +77,7 @@ public class CardPagePopupDisplay : MonoBehaviour
                 return;
         }
 
-        Managers.U_MAN.CreateCardPage(cardPageType, false);
+        Managers.U_MAN.CreateCardPage(cardPageType, true);
         Managers.AN_MAN.CreateParticleSystem(gameObject, ParticleSystemHandler.ParticlesType.ButtonPress);
 
         if (setProgressBar) FindObjectOfType<CardPageDisplay>().SetProgressBar

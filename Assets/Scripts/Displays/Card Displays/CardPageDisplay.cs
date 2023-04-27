@@ -80,10 +80,10 @@ public class CardPageDisplay : MonoBehaviour
             Managers.AN_MAN.SetProgressBar(currentProgress, newProgress, progressBar, progressFill);
     }
 
-    public void DisplayCardPage(CardPageType cardPageType, bool playSound, float scrollValue)
+    public void DisplayCardPage(CardPageType cardPageType, bool isReload, float scrollValue)
     {
         this.cardPageType = cardPageType;
-        cardGroupList = new List<Card>();
+        cardGroupList = new();
         string titleText;
         bool setProgressBar = false;
         int progress = 0;
@@ -138,7 +138,7 @@ public class CardPageDisplay : MonoBehaviour
         else noCardsTooltip.SetActive(true);
         if (isScrollPage) LoadScrollPage(scrollValue);
         else LoadCardPage();
-        if (playSound) Managers.AU_MAN.StartStopSound("SFX_CreatePopup1");
+        if (!isReload) Managers.AU_MAN.StartStopSound("SFX_CreatePopup1");
     }
 
     private void LoadScrollPage(float scrollValue)
@@ -159,6 +159,7 @@ public class CardPageDisplay : MonoBehaviour
             cd.DisableVisuals();
             cardPageCard.transform.localScale = new Vector2(4, 4);
             cardPageCard.transform.SetParent(cpccd.CardPageCard.transform, false);
+            cardPageCard.transform.localPosition = new Vector2(); // TESTING
             CreateCardPageButton(card, cpccd.CardCostButton);
         }
     }

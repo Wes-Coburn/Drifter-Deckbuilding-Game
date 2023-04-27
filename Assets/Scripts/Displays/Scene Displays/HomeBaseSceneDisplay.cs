@@ -177,10 +177,17 @@ public class HomeBaseSceneDisplay : MonoBehaviour
     public void ShowInfoButton_OnClick() =>
         heroBackstory.SetActive(!heroBackstory.activeSelf);
 
-    public void RemoveCardButton_OnClick(bool playSound = true) =>
-        Managers.U_MAN.CreateCardPage(CardPageDisplay.CardPageType.RemoveCard, playSound);
+    public void RemoveCardButton_OnClick()
+    {
+        if (FindObjectOfType<CardPageDisplay>() != null) return;
+        Managers.U_MAN.CreateCardPage(CardPageDisplay.CardPageType.RemoveCard);
+    }
 
-    public void RemoveItemButton_OnClick() => Managers.U_MAN.CreateItemPagePopup(true);
+    public void RemoveItemButton_OnClick()
+    {
+        if (FindObjectOfType<ItemPageDisplay>() != null) return;
+        Managers.U_MAN.CreateItemPagePopup(true);
+    }
 
     public void ClaimRewardButton_OnClick()
     {

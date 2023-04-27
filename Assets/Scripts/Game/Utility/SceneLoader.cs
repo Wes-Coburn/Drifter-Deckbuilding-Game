@@ -10,8 +10,10 @@ public static class SceneLoader
     public static float LoadingProgress;
 
     private static Action onSceneLoaderCallback, onSceneUpdateCallback;
-    public static Action LoadAction;
-    public static Func<IEnumerator> LoadAction_Async;
+    //public static Func<IEnumerator> LoadAction_Async;
+
+    public static Coroutine CurrentLoadRoutine; // Load next content ('Tutorial OR 'Combat Test')
+    public static Coroutine BackgroundLoadRoutine; // Load main content in background ('New Game' OR 'Continue Game')
 
     public enum Scene
     {
@@ -28,6 +30,18 @@ public static class SceneLoader
     
     public static bool IsActiveScene(Scene scene) => SceneManager.GetActiveScene().name == scene.ToString();
 
+    public static void LoadScene(Scene scene, Func<IEnumerator> loadAction, bool loadSameScene = false, bool fadeTransition = true)
+    {
+        if (SceneIsLoading || (!loadSameScene && IsActiveScene(scene))) return;
+        if (loadAction == null)
+        {
+            Debug.LogError("LOAD ACTION IS NULL!");
+            return;
+        }
+
+        CurrentLoadRoutine = Managers.G_MAN.StartCoroutine(loadAction());
+        LoadScene(scene, loadSameScene, fadeTransition);
+    }
     public static void LoadScene(Scene scene, bool loadSameScene = false, bool fadeTransition = true)
     {
         if (SceneIsLoading || (!loadSameScene && IsActiveScene(scene))) return;
@@ -43,7 +57,7 @@ public static class SceneLoader
             lsd.ChapterText = "Drifter";
             lsd.TipText = "";
 
-            if (LoadAction == null && LoadAction_Async == null)
+            if (CurrentLoadRoutine == null && BackgroundLoadRoutine == null)
             {
                 if (scene is not Scene.TitleScene or Scene.CombatScene)
                 {
@@ -51,7 +65,7 @@ public static class SceneLoader
                     return;
                 }
             }
-            else LoadingProgress = 0;
+            //else LoadingProgress = 0;
 
             Managers.AU_MAN.StartStopSound("SFX_SceneLoading", null, AudioManager.SoundType.SFX, false, true);
 
@@ -92,20 +106,8 @@ public static class SceneLoader
             lsd.ChapterText = chapterText;
             lsd.TipText = Managers.G_MAN.CurrentTip;
 
-            if (LoadAction != null) FunctionTimer.Create(() => InvokeLoadAction(), 2);
-            else if (LoadAction_Async != null)
-            {
-                Managers.G_MAN.StartCoroutine(LoadAction_Async());
-                LoadAction_Async = null;
-            }
-            else LoadScene_Finish(scene, SceneFinishType.Delayed); // If nothing to load, delay the transition
-
-            void InvokeLoadAction()
-            {
-                LoadAction();
-                LoadAction = null;
-                LoadScene_Finish(scene);
-            }
+            if (CurrentLoadRoutine == null && BackgroundLoadRoutine == null) // TESTING
+                LoadScene_Finish(scene, SceneFinishType.Delayed);
         };
 
         onSceneUpdateCallback = () =>
@@ -158,7 +160,7 @@ public static class SceneLoader
         };
 
         // Stop Corotoutines
-        Managers.G_MAN.StopAllCoroutines();
+        //Managers.G_MAN.StopAllCoroutines();
         Managers.AN_MAN.StopAllCoroutines();
         Managers.D_MAN.StopAllCoroutines();
         Managers.U_MAN.StopAllCoroutines();
@@ -170,7 +172,8 @@ public static class SceneLoader
 
         if (fadeTransition)
         {
-            FunctionTimer.Create(() => Managers.U_MAN.SetSceneFader(true), 0f);
+            //FunctionTimer.Create(() => Managers.U_MAN.SetSceneFader(true), 0);
+            Managers.U_MAN.SetSceneFader(true); // TESTING
             FunctionTimer.Create(() => SceneManager.LoadScene(Scene.LoadingScene.ToString()), 1.5f);
         }
         else SceneManager.LoadScene(Scene.LoadingScene.ToString());

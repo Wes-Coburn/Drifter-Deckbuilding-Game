@@ -284,7 +284,7 @@ public class CardManager : MonoBehaviour
 
         GameObject parent = null;
         if (Managers.CO_MAN.CardZone != null) parent = Managers.CO_MAN.CardZone;
-        else if (Managers.U_MAN.CurrentCanvas != null) parent = Managers.U_MAN.CurrentCanvas;
+        //else if (Managers.U_MAN.CurrentCanvas != null) parent = Managers.U_MAN.CurrentCanvas;
         else if (Managers.U_MAN.UICanvas != null) parent = Managers.U_MAN.UICanvas;
 
         if (parent == null)
@@ -301,10 +301,10 @@ public class CardManager : MonoBehaviour
         {
             cd.CardScript = card;
 
-            var containParent = Managers.U_MAN.CurrentCanvas != null ?
-                Managers.U_MAN.CurrentCanvas : Managers.U_MAN.UICanvas; // Creating cards with GameLoader
+            //var containParent = Managers.U_MAN.CurrentCanvas != null ? Managers.U_MAN.CurrentCanvas : Managers.U_MAN.UICanvas;
+            //cd.CardContainer = Instantiate(CardContainerPrefab, containParent.transform);
 
-            cd.CardContainer = Instantiate(CardContainerPrefab, containParent.transform);
+            cd.CardContainer = Instantiate(CardContainerPrefab, Managers.U_MAN.UICanvas.transform); // TESTING
             cd.CardContainer.transform.position = position;
             var cc = cd.CardContainer.GetComponent<CardContainer>();
             cc.Child = prefab;
@@ -452,7 +452,7 @@ public class CardManager : MonoBehaviour
         var cd = card.GetComponent<CardDisplay>();
         var dd = card.GetComponent<DragDrop>();
         var container = cd.CardContainer.GetComponent<CardContainer>();
-        System.Action action;
+        Action action;
 
         bool isPlayed = true;
         bool wasPlayed = dd.IsPlayed; // For cards returned to hand
@@ -1246,6 +1246,30 @@ public class CardManager : MonoBehaviour
                     if (tra.TriggerLimit != 0 && tra.TriggerCount >= tra.TriggerLimit) continue;
                     return true;
                 }
+        return false;
+    }
+    public static bool GetModifier(GameObject unitCard, ModifierAbility.TriggerType triggerType)
+    {
+        if (unitCard == null)
+        {
+            Debug.LogError("CARD IS NULL!");
+            return false;
+        }
+        if (!unitCard.TryGetComponent(out UnitCardDisplay ucd))
+        {
+            Debug.LogError("TARGET IS NOT UNIT!");
+            return false;
+        }
+
+        foreach (var ca in ucd.CurrentAbilities)
+            if (ca is ModifierAbility ma)
+                if (ma.SpecialTriggerType == triggerType) return true;
+                /* Unnecessary, method only used to check if enemies have 'enemy hero Wounded' triggers
+                {
+                    if (ma.TriggerLimit != 0 && ma.TriggerCount >= ma.TriggerLimit) continue;
+                    return true;
+                }
+                */
         return false;
     }
     /******

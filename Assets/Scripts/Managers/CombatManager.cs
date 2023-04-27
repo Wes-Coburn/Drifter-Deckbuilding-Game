@@ -487,8 +487,14 @@ public class CombatManager : MonoBehaviour
                 {
                     foreach (var card in cards)
                     {
+                        if (card == null)
+                        {
+                            Debug.LogError("LOADED CARD IS NULL!");
+                            continue;
+                        }
+
                         // Place card object
-                        card.transform.SetParent(Managers.CO_MAN.CardZone.transform);
+                        card.transform.SetParent(CardZone.transform);
                         // Place container object
                         cm.ChangeCardZone(card, zone, CardManager.ZoneChangeType.LoadFromSave);
                         // Set IsPlayed in DragDrop
