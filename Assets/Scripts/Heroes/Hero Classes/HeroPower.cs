@@ -6,6 +6,9 @@ public class HeroPower : ScriptableObject
 {
     [Header("POWER NAME")] public string PowerName;
     [Header("POWER COST"), Range(0, GameManager.MAXIMUM_ENERGY)] public int PowerCost;
+    [Header("COST CONDITION")] public Effect.ConditionType CostConditionType;
+    [Range(0, 10), Tooltip("The value checked by the condition, if any")] public int CostConditionValue;
+    [Range(-5, 0), Tooltip("The modifier applied to the cost")] public int CostConditionModifier;
     [Header("POWER IMAGE")] public Sprite PowerSprite;
     [Header("POWER SOUND")] public Sound[] PowerSounds;
     [Header("POWER DESCRIPTION"), TextArea] public string PowerDescription;

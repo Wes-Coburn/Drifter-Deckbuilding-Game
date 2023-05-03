@@ -9,23 +9,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 010c114205487034fa4c5ae46c0aa067, type: 3}
-  m_Name: CreateCard_Extraction_IfAllyDestroyed_PreCheck
+  m_Script: {fileID: 11500000, guid: c257f6645b4aa02429ead13f1b40809a, type: 3}
+  m_Name: Give_Forcefield_2turns
   m_EditorClassIdentifier: 
   IsRequired: 0
   IgnoreLegality: 0
-  Value: 0
+  Value: 1
   IsNegative: 0
   IsDerivedValue: 0
   DerivedValue: 0
-  Countdown: 0
+  Countdown: 2
   IsPermanent: 0
-  ShootRay: 0
-  RayColor: {r: 0, g: 0, b: 0, a: 0}
-  PreCheckConditions: 1
+  ShootRay: 1
+  RayColor: {r: 1, g: 1, b: 0, a: 1}
+  PreCheckConditions: 0
   CheckConditionsIndependent: 0
-  EffectConditionType: 17
-  EffectCondition_Value: 1
+  EffectConditionType: 0
+  EffectCondition_Value: 0
   IfHasAbility_Value: {fileID: 0}
   IfHasTrigger_Value: {fileID: 0}
   IfHasAbility: {fileID: 0}
@@ -40,16 +40,5 @@ MonoBehaviour:
   ResolveSimultaneous: 0
   IfResolvesGroups: []
   ForEachEffects: []
-  randomCard: 0
-  createdCard: {fileID: 0}
-  createdCardType: Extraction
-  additionalEffects: []
-  restrictCost: 0
-  minCost: 0
-  maxCost: 0
-  restrictType: 0
-  includeUnits: 0
-  includeActions: 0
-  restrictSubtype: 0
-  cardSubtype: 
-  excludeSelf: 0
+  CardAbility: {fileID: 11400000, guid: 44eb684e5e3c70e4f830456effa3f6b6, type: 2}
+  Type: 0

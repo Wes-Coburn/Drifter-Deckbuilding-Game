@@ -199,8 +199,9 @@ public class UIManager : MonoBehaviour
                 img.color = tempColor;
                 yield return new WaitForFixedUpdate();
             }
+
+            sceneFadeRoutine = null; // TESTING
         }
-        sceneFadeRoutine = null;
     }
     /******
      * *****

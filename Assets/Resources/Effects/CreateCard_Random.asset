@@ -9,19 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64bbb3283eff66646a1722eef8a565b3, type: 3}
-  m_Name: Give_plus2plus3_Permanent
+  m_Script: {fileID: 11500000, guid: 010c114205487034fa4c5ae46c0aa067, type: 3}
+  m_Name: CreateCard_Random
   m_EditorClassIdentifier: 
   IsRequired: 0
   IgnoreLegality: 0
-  Value: 1
+  Value: 0
   IsNegative: 0
   IsDerivedValue: 0
   DerivedValue: 0
   Countdown: 0
-  IsPermanent: 1
-  ShootRay: 1
-  RayColor: {r: 1, g: 1, b: 0, a: 1}
+  IsPermanent: 0
+  ShootRay: 0
+  RayColor: {r: 0, g: 0, b: 0, a: 0}
   PreCheckConditions: 0
   CheckConditionsIndependent: 0
   EffectConditionType: 0
@@ -40,13 +40,16 @@ MonoBehaviour:
   ResolveSimultaneous: 0
   IfResolvesGroups: []
   ForEachEffects: []
-  PowerChange: 2
-  DoublePower: 0
-  SetPowerZero: 0
-  PowerIsDerived: 0
-  DerivedPowerType: 0
-  HealthChange: 3
-  DoubleHealth: 0
-  HealthIsDerived: 0
-  DerivedHealthType: 0
-  ResetStats: 0
+  randomCard: 1
+  createdCard: {fileID: 0}
+  createdCardType: 
+  additionalEffects: []
+  restrictCost: 0
+  minCost: 0
+  maxCost: 0
+  restrictType: 0
+  includeUnits: 0
+  includeActions: 0
+  restrictSubtype: 0
+  cardSubtype: 
+  excludeSelf: 1

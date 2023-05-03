@@ -691,7 +691,7 @@ public class EffectManager : MonoBehaviour
             if (isUserCancel)
             {
                 Managers.P_MAN.HeroPowerUsed = false;
-                Managers.P_MAN.CurrentEnergy += Managers.P_MAN.HeroScript.CurrentHeroPower.PowerCost;
+                Managers.P_MAN.CurrentEnergy += Managers.P_MAN.GetPowerCost(out _);
             }
         }
         else if (effectSource.CompareTag(Managers.P_MAN.HERO_ULTIMATE_TAG))
@@ -1771,7 +1771,7 @@ public class EffectManager : MonoBehaviour
                 Managers.AN_MAN.ShakeCamera(AnimationManager.Bump_Light);
                 int previousHealth = ucd.CurrentHealth;
                 ucd.CurrentHealth = 0;
-                Managers.AN_MAN.UnitTakeDamageState(target, previousHealth, false);
+                Managers.AN_MAN.UnitTakeDamageState(target, previousHealth, true);
                 Managers.CO_MAN.DestroyUnit(target);
             }
         }

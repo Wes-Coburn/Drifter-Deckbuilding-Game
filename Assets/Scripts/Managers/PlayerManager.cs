@@ -174,7 +174,7 @@ public class PlayerManager : HeroManager
             Managers.U_MAN.CreateFleetingInfoPopup("Hero power already used this turn!");
             ErrorSound();
         }
-        else if (CurrentEnergy < HeroScript.CurrentHeroPower.PowerCost)
+        else if (CurrentEnergy < GetPowerCost(out _))
         {
             if (isPreCheck) return false;
             Managers.U_MAN.CreateFleetingInfoPopup("Not enough energy!");
@@ -194,7 +194,7 @@ public class PlayerManager : HeroManager
             else
             {
                 if (isPreCheck) return true;
-                CurrentEnergy -= HeroScript.CurrentHeroPower.PowerCost;
+                CurrentEnergy -= GetPowerCost(out _);
                 HeroPowerUsed = true;
                 PlayerPowerSounds();
                 ParticleBurst(heroPower);
@@ -255,20 +255,33 @@ public class PlayerManager : HeroManager
         return GameManager.MAXIMUM_ITEMS + bonusItems;
     }
 
+    public int GetPowerCost(out Color powerColor)
+    {
+        var pwr = HeroScript.CurrentHeroPower;
+        int cost = pwr.PowerCost;
+        cost += Managers.CA_MAN.GetCostConditionValue(pwr, HeroObject); // TESTING
+
+        if (pwr.PowerCost > 0 && cost < pwr.PowerCost) powerColor = Color.green;
+        else powerColor = Color.white;
+
+        if (cost < 0) cost = 0;
+        return cost;
+    }
+
     public int GetUltimateCost(out Color ultimateColor)
     {
-        int cost = (HeroScript as PlayerHero).CurrentHeroUltimate.PowerCost;
+        var ult = (HeroScript as PlayerHero).CurrentHeroUltimate;
+        int cost = ult.PowerCost;
+        cost += Managers.CA_MAN.GetCostConditionValue(ult, HeroObject); // TESTING
 
         if (Managers.G_MAN.GetReputationTier(GameManager.ReputationType.Techs) > 2)
         {
-            if (cost > 0)
-            {
-                cost--;
-                ultimateColor = Color.green;
-            }
+            if (ult.PowerCost > 0 && cost < ult.PowerCost) ultimateColor = Color.green;
             else ultimateColor = Color.white;
         }
         else ultimateColor = Color.white;
+
+        if (cost < 0) cost = 0;
         return cost;
     }
 

@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c257f6645b4aa02429ead13f1b40809a, type: 3}
-  m_Name: Give_Ranged_Permanent
+  m_Script: {fileID: 11500000, guid: 64bbb3283eff66646a1722eef8a565b3, type: 3}
+  m_Name: Give_plus4plus4
   m_EditorClassIdentifier: 
   IsRequired: 0
   IgnoreLegality: 0
@@ -19,7 +19,7 @@ MonoBehaviour:
   IsDerivedValue: 0
   DerivedValue: 0
   Countdown: 0
-  IsPermanent: 1
+  IsPermanent: 0
   ShootRay: 1
   RayColor: {r: 1, g: 1, b: 0, a: 1}
   PreCheckConditions: 0
@@ -40,5 +40,13 @@ MonoBehaviour:
   ResolveSimultaneous: 0
   IfResolvesGroups: []
   ForEachEffects: []
-  CardAbility: {fileID: 11400000, guid: ea3240d3d6b88204c8166979a836ea6e, type: 2}
-  Type: 0
+  PowerChange: 4
+  DoublePower: 0
+  SetPowerZero: 0
+  PowerIsDerived: 0
+  DerivedPowerType: 0
+  HealthChange: 4
+  DoubleHealth: 0
+  HealthIsDerived: 0
+  DerivedHealthType: 0
+  ResetStats: 0

@@ -434,6 +434,8 @@ public class AnimationManager : MonoBehaviour
         ChangeAnimationState(card, "Played_Unit");
     public void PlayedActionState(GameObject card) =>
         ChangeAnimationState(card, "Played_Action");
+    public void ChangeCostState(GameObject card) =>
+        ChangeAnimationState(card, "ChangeCost");
 
     /******
      * *****

@@ -753,6 +753,45 @@ public class CardManager : MonoBehaviour
 
     /******
      * *****
+     * ****** GET_COST_CONDITION_VALUE
+     * *****
+     *****/
+    public int GetCostConditionValue(Card cardScript, GameObject source) =>
+        GetCostConditionValue_Finish(source, cardScript.CostConditionType, cardScript.CostConditionValue, cardScript.CostConditionModifier);
+    public int GetCostConditionValue(HeroPower power, GameObject source) =>
+        GetCostConditionValue_Finish(source, power.CostConditionType, power.CostConditionValue, power.CostConditionModifier);
+
+    private int GetCostConditionValue_Finish(GameObject source, Effect.ConditionType conditionType, int conditionValue, int conditionModifier)
+    {
+        var hMan_Source = HeroManager.GetSourceHero(source, out HeroManager hMan_Enemy);
+        switch (conditionType)
+        {
+            case Effect.ConditionType.NONE:
+                return 0;
+            case Effect.ConditionType.EnemyWounded:
+                if (!hMan_Enemy.IsWounded()) return 0;
+                break;
+            case Effect.ConditionType.AlliesDestroyed_ThisTurn:
+                if (hMan_Source.AlliesDestroyed_ThisTurn < conditionValue) return 0;
+                break;
+            case Effect.ConditionType.EnemiesDestroyed_ThisTurn:
+                if (hMan_Enemy.AlliesDestroyed_ThisTurn < conditionValue) return 0;
+                break;
+            case Effect.ConditionType.HasMoreCards_Player:
+                if (hMan_Source.HandZoneCards.Count <= conditionValue) return 0;
+                break;
+            case Effect.ConditionType.HasLessCards_Player:
+                if (hMan_Source.HandZoneCards.Count >= conditionValue) return 0;
+                break;
+            default:
+                Debug.LogError("INVALID CONDITION TYPE!");
+                return 0;
+        }
+        return conditionModifier;
+    }
+
+    /******
+     * *****
      * ****** SELECT_PLAYABLE_CARDS
      * *****
      *****/
@@ -765,6 +804,7 @@ public class CardManager : MonoBehaviour
             int playableCards = 0;
             bool isPlayerTurn = !setAllFalse && Managers.P_MAN.IsMyTurn;
 
+            // Cards in Hand
             foreach (var card in Managers.P_MAN.HandZoneCards)
             {
                 if (card == null)
@@ -773,7 +813,8 @@ public class CardManager : MonoBehaviour
                     continue;
                 }
 
-                card.GetComponent<CardDisplay>().UpdateCurrentEnergyCost(); // TESTING
+                // Apply cost conditions
+                card.GetComponent<CardDisplay>().UpdateCurrentEnergyCost();
 
                 if (isPlayerTurn && IsPlayable(card, true))
                 {
@@ -782,6 +823,10 @@ public class CardManager : MonoBehaviour
                 }
                 else Managers.U_MAN.SelectTarget(card, UIManager.SelectionType.Disabled);
             }
+
+            // Hero Powers
+            // Display cost condition values
+            Managers.P_MAN.HeroObject.GetComponent<PlayerHeroDisplay>().DisplayHeroPowers();
 
             bool playerHasActions = playableCards > 0;
 

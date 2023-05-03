@@ -14,16 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardArt: {fileID: 21300000, guid: fcfd42b80d40d1049b6ab7dc600effb6, type: 3}
   cardBorder: {fileID: 21300000, guid: da4d9c0ce8b0a5744aac584cd2e675b1, type: 3}
-  energyCost: 2
-  costConditionType: 0
-  costConditionValue: 0
-  costConditionModifier: 0
+  energyCost: 4
+  costConditionType: 22
+  costConditionValue: 4
+  costConditionModifier: -2
   cardName: Sudden Move
   cardType: Action
   cardSubType: 
   cardRarity: 0
   cardDescription: Sudden Move is...
   relatedCards: []
+  relatedCardTypes: 
   cardPlaySound:
     name: 
     clip: {fileID: 0}
@@ -33,9 +34,10 @@ MonoBehaviour:
     source: {fileID: 0}
   overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
   zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
-  effectDescription: Draw 1, then discard any number of cards. For each card discarded,
-    draw 1 and replenish 1 energy.
+  effectDescription: Create 3 random cards in hand. Costs 2 less if you have 3 or
+    fewer cards in hand.
   effectGroupList:
-  - {fileID: 11400000, guid: 296aaae7da690534d992b5a515ca2bbf, type: 2}
-  - {fileID: 11400000, guid: 7e05b971260fe2344bd0ec67369300dd, type: 2}
+  - {fileID: 11400000, guid: c12be63f3ab02b248b92c37dded2cd5c, type: 2}
+  - {fileID: 11400000, guid: c12be63f3ab02b248b92c37dded2cd5c, type: 2}
+  - {fileID: 11400000, guid: c12be63f3ab02b248b92c37dded2cd5c, type: 2}
   linkedAbilities: []

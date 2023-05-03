@@ -40,6 +40,16 @@ public class PlayerHeroDisplay : HeroDisplay
         powerCost.GetComponent<TextMeshProUGUI>().SetText(HeroScript.CurrentHeroPower.PowerCost.ToString());
         ultimateImage.GetComponent<Image>().sprite = (HeroScript as PlayerHero).CurrentHeroUltimate.PowerSprite;
 
+        DisplayHeroPowers();
+    }
+
+    public void DisplayHeroPowers()
+    {
+        int pwrCost = Managers.P_MAN.GetPowerCost(out Color pwrColor);
+        var pwrGUI = powerCost.GetComponent<TextMeshProUGUI>();
+        pwrGUI.SetText(pwrCost.ToString());
+        pwrGUI.color = pwrColor;
+
         int ultCost = Managers.P_MAN.GetUltimateCost(out Color ultColor);
         var ultGUI = ultimateCost.GetComponent<TextMeshProUGUI>();
         ultGUI.SetText(ultCost.ToString());

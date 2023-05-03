@@ -9,23 +9,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a133a5ba718e59840addfbddbeb74d74, type: 3}
-  m_Name: PlayCard_Trap_IfEnemyDestroyed
+  m_Script: {fileID: 11500000, guid: 797abdbea5ef996498aaf19e6bb2517a, type: 3}
+  m_Name: Deal_6_R
   m_EditorClassIdentifier: 
-  IsRequired: 0
+  IsRequired: 1
   IgnoreLegality: 0
-  Value: 0
+  Value: 6
   IsNegative: 0
   IsDerivedValue: 0
   DerivedValue: 0
   Countdown: 0
   IsPermanent: 0
-  ShootRay: 0
-  RayColor: {r: 0, g: 0, b: 0, a: 0}
+  ShootRay: 1
+  RayColor: {r: 1, g: 0, b: 0, a: 1}
   PreCheckConditions: 0
   CheckConditionsIndependent: 0
-  EffectConditionType: 18
-  EffectCondition_Value: 1
+  EffectConditionType: 0
+  EffectCondition_Value: 0
   IfHasAbility_Value: {fileID: 0}
   IfHasTrigger_Value: {fileID: 0}
   IfHasAbility: {fileID: 0}
@@ -40,7 +40,5 @@ MonoBehaviour:
   ResolveSimultaneous: 0
   IfResolvesGroups: []
   ForEachEffects: []
-  enemyCard: 0
-  playedCard: {fileID: 0}
-  playedCardType: Trap
-  additionalEffects: []
+  IfDestroyedEffects: []
+  BanishIfDestroyed: 0

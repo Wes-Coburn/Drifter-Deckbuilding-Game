@@ -396,18 +396,12 @@ public class EnemyManager : HeroManager
         // If enemy hero is <UNTHREATENED>
         if (CurrentHealth > (MaxHealth * 0.65f) && TotalPlayerPower() < (CurrentHealth * 0.35f))
         {
-            // Attack an enemy unless there are no good attacks
-            return GetBestDefender(!playerHasDefender); // Return good attacks only if player does not have defender
-        }
-        // If enemy hero is <MILDLY THREATENED>
-        else if (CurrentHealth > (MaxHealth * 0.5f) && TotalPlayerPower() < (CurrentHealth * 0.5f))
-        {
             /*
-             * If player hero is <SEVERELY THREATENED>
+             * > If player hero is <SEVERELY THREATENED>
              * OR 
-             * the attacker has Infiltrate
+             * > The attacker has Infiltrate
              * OR
-             * the attacker has an 'enemy hero becomes Wounded' trigger and the player hero is not wounded
+             * > The attacker has an 'enemy hero becomes Wounded' trigger and the player hero is not wounded
              * 
              * ---> Attack the player hero.
              * ---> Otherwise, attack a player unit.
@@ -418,6 +412,12 @@ public class EnemyManager : HeroManager
                     (CardManager.GetModifier(attacker, ModifierAbility.TriggerType.EnemyHeroWounded) && !Managers.P_MAN.IsWounded()))
                     return Managers.P_MAN.HeroObject;
             }
+        }
+        // If enemy hero is <MILDLY THREATENED>
+        else if (CurrentHealth > (MaxHealth * 0.5f) && TotalPlayerPower() < (CurrentHealth * 0.5f))
+        {
+            // Attack an enemy unless there are no good attacks
+            return GetBestDefender(!playerHasDefender); // Return good attacks only if player does not have defender
         }
 
         return GetBestDefender(false);

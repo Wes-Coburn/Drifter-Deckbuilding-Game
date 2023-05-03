@@ -53,7 +53,13 @@ public class CombatEndPopupDisplay : MonoBehaviour
 
         if (Managers.G_MAN.IsTutorial)
         {
-            if (victoryText.activeSelf) Managers.G_MAN.NewGame();
+            if (victoryText.activeSelf)
+            {
+                SceneLoader.BackgroundLoadRoutine =
+                    Managers.G_MAN.StartCoroutine(GameLoader.LoadNewGame_Async()); // TESTING
+
+                Managers.G_MAN.NewGame();
+            }
             else Managers.G_MAN.StartTutorialScene();
             return;
         }

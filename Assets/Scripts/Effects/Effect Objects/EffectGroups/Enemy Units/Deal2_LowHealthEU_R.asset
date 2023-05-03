@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a22d7123f6ee007468cbdc6e9b6fe2b0, type: 3}
-  m_Name: Destroy_ALLEU_IfHas_Marked
+  m_Name: Deal2_LowHealthEU_R
   m_EditorClassIdentifier: 
-  Targets: {fileID: 11400000, guid: 573bb54bf17f0a44db9ae5ee9972e6b2, type: 2}
+  Targets: {fileID: 11400000, guid: df2e96eeb96698348bcda5ba0db36c27, type: 2}
   ResolveIndependent: 0
-  EffectsDescription: Destroy ALL Marked enemies.
+  EffectsDescription: Deal 2 to the lowest health enemy.
   Effects:
-  - {fileID: 11400000, guid: 0e1f83cfec7ad5a448cfab16ea2843b6, type: 2}
+  - {fileID: 11400000, guid: 8c8315897783c914dab1726e051b0dba, type: 2}

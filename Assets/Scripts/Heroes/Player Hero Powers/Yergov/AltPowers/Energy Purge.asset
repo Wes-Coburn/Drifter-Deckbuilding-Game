@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Energy Purge
   m_EditorClassIdentifier: 
   PowerName: Energy Purge
-  PowerCost: 0
+  PowerCost: 2
+  CostConditionType: 17
+  CostConditionValue: 1
+  CostConditionModifier: -2
   PowerSprite: {fileID: 21300000, guid: 426e33a0bd0dbcc4b8193413d2a8f3c6, type: 3}
   PowerSounds:
   - name: 
@@ -28,11 +31,11 @@ MonoBehaviour:
     pitch: 1
     mixerGroup: {fileID: 0}
     source: {fileID: 0}
-  PowerDescription: Create two Extractions in hand if an ally was destroyed this
-    turn.
+  PowerDescription: Create two Extractions in hand. Costs 2 less if an ally was destroyed
+    this turn.
   EffectGroupList:
-  - {fileID: 11400000, guid: b1726c4b2879b3b4d9e65637c0b74f02, type: 2}
-  - {fileID: 11400000, guid: b1726c4b2879b3b4d9e65637c0b74f02, type: 2}
+  - {fileID: 11400000, guid: 1a57cadd97d60314a997b74639dc3656, type: 2}
+  - {fileID: 11400000, guid: 1a57cadd97d60314a997b74639dc3656, type: 2}
   LinkedAbilities:
   - {fileID: 11400000, guid: 589d8790e70e8e449a667fb1fcce5a80, type: 2}
   relatedCards: []

@@ -270,7 +270,7 @@ public abstract class HeroManager : MonoBehaviour
 
             bool compare(string tag) => sourceObject.CompareTag(tag);
         }
-        
+
         Debug.LogError("INVALID TAG!");
         return null;
     }

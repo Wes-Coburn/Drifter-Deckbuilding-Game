@@ -37,7 +37,7 @@ public class ItemDescriptionDisplay : MonoBehaviour, IPointerClickHandler, IPoin
 
     public void OnPointerClick(PointerEventData pointerEventData)
     {
-        if (Managers.AN_MAN.ProgressBarRoutine != null) return;
+        //if (Managers.AN_MAN.ProgressBarRoutine != null) return;
 
         if (IsItemRemoval)
         {

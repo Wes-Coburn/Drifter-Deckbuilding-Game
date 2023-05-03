@@ -44,6 +44,8 @@ public static class GameLoader
     {
         Managers.G_MAN.IsTutorial = true;
 
+        yield return new WaitUntil(() => Managers.U_MAN.SceneFadeRoutine == null); // TESTING
+
         // Player Manager
         Managers.P_MAN.CurrentHealth = GameManager.PLAYER_STARTING_HEALTH;
         Managers.P_MAN.CurrentAether = 0;
@@ -76,9 +78,13 @@ public static class GameLoader
 
         SceneLoader.CurrentLoadRoutine = null; // TESTING
         SceneLoader.LoadingProgress = 1;
-        SceneLoader.LoadScene_Finish(SceneLoader.Scene.CombatScene);
 
-        yield break; // Required for IEnumerator
+        yield return new WaitUntil(() => Managers.U_MAN.SceneFadeRoutine == null); // TESTING
+
+        if (SceneLoader.SceneIsLoading)
+            SceneLoader.LoadScene_Finish(SceneLoader.Scene.CombatScene);
+
+        //yield break; // Required for IEnumerator
     }
 
     /******
@@ -173,7 +179,8 @@ public static class GameLoader
         gm.NextHour(false); // Set current hour to 4 and change homebase objective
 
         SceneLoader.BackgroundLoadRoutine = null; // TESTING
-        if (SceneLoader.SceneIsLoading) SceneLoader.LoadScene_Finish(SceneLoader.Scene.NarrativeScene);
+        if (SceneLoader.SceneIsLoading && SceneLoader.CurrentLoadRoutine == null)
+            SceneLoader.LoadScene_Finish(SceneLoader.Scene.NarrativeScene);
     }
 
     /******
@@ -492,7 +499,8 @@ public static class GameLoader
         if (!isCombatLoad)
         {
             SceneLoader.BackgroundLoadRoutine = null; // TESTING
-            if (SceneLoader.SceneIsLoading) SceneLoader.LoadScene_Finish(SceneLoader.Scene.WorldMapScene); // TESTING
+            if (SceneLoader.SceneIsLoading && SceneLoader.CurrentLoadRoutine == null)
+                SceneLoader.LoadScene_Finish(SceneLoader.Scene.WorldMapScene); // TESTING
             yield break;
         }
 
@@ -566,7 +574,8 @@ public static class GameLoader
 
         PlayerData.SavedPlayerData = data;
         SceneLoader.BackgroundLoadRoutine = null; // TESTING
-        if (SceneLoader.SceneIsLoading) SceneLoader.LoadScene_Finish(SceneLoader.Scene.CombatScene);
+        if (SceneLoader.SceneIsLoading && SceneLoader.CurrentLoadRoutine == null)
+            SceneLoader.LoadScene_Finish(SceneLoader.Scene.CombatScene);
 
         /*
          * <<< | LOAD METHODS | >>>

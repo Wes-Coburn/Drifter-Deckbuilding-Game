@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a22d7123f6ee007468cbdc6e9b6fe2b0, type: 3}
-  m_Name: GiveALLPU_Defender_2turns
+  m_Name: Give1PU_plus2plus0_Ranged
   m_EditorClassIdentifier: 
-  Targets: {fileID: 11400000, guid: 137a8a746a31eee4e8962e641f6223df, type: 2}
+  Targets: {fileID: 11400000, guid: 3536ddc3f75919646b8fab53d9f33c8a, type: 2}
   ResolveIndependent: 0
-  EffectsDescription: Give ALL allies Defender until your next turn.
+  EffectsDescription: Give an ally +2|+0 and Ranged.
   Effects:
-  - {fileID: 11400000, guid: 225b8ce96aecf34458bce13e3a2949d2, type: 2}
+  - {fileID: 11400000, guid: 608b897dc3324cf4798db10d894f43b2, type: 2}
+  - {fileID: 11400000, guid: a8d9ff28efc24944787d91149c13905d, type: 2}

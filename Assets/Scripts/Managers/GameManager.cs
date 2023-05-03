@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
     public const int SELL_RARE_ITEM_VALUE = 20;
     // Healing
     public const int HEALING_COST = 20;
-    public const int HEALING_VALUE = 10;
+    public const int HEALING_VALUE = 15;
     // Reputation
     public const int REPUTATION_TIER_1 = 8;
     public const int REPUTATION_TIER_2 = 15;
@@ -552,13 +552,8 @@ public class GameManager : MonoBehaviour
         SceneLoader.BackgroundLoadRoutine = StartCoroutine(gameSaved ?
             GameLoader.LoadSavedGame_PlayerData_Async() : GameLoader.LoadNewGame_Async()); // TESTING
     }
-    public void StartTutorialScene()
-    {
-        //SceneLoader.LoadAction_Async += GameLoader.LoadTutorial_Async;
-        //SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);
-
+    public void StartTutorialScene() =>
         SceneLoader.LoadScene(SceneLoader.Scene.CombatScene, GameLoader.LoadTutorial_Async); // TESTING
-    }
     public void StartWorldMapScene()
     {
         Managers.AU_MAN.StartStopSound("Soundtrack_WorldMapScene", null, AudioManager.SoundType.Soundtrack);
@@ -959,13 +954,7 @@ public class GameManager : MonoBehaviour
      * ****** NEW_GAME
      * *****
      *****/
-    public void NewGame()
-    {
-        //SceneLoader.LoadAction_Async += GameLoader.LoadNewGame_Async;
-        //SceneLoader.LoadScene(SceneLoader.Scene.NarrativeScene);
-
-        SceneLoader.LoadScene(SceneLoader.Scene.NarrativeScene); // TESTING
-    }
+    public void NewGame() => SceneLoader.LoadScene(SceneLoader.Scene.NarrativeScene); // TESTING
 
     /******
      * *****

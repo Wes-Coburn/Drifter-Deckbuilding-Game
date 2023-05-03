@@ -33,14 +33,21 @@ public static class SceneLoader
     public static void LoadScene(Scene scene, Func<IEnumerator> loadAction, bool loadSameScene = false, bool fadeTransition = true)
     {
         if (SceneIsLoading || (!loadSameScene && IsActiveScene(scene))) return;
+
         if (loadAction == null)
         {
             Debug.LogError("LOAD ACTION IS NULL!");
             return;
         }
 
-        CurrentLoadRoutine = Managers.G_MAN.StartCoroutine(loadAction());
+        if (BackgroundLoadRoutine != null) // TESTING
+        {
+            Managers.G_MAN.StopCoroutine(BackgroundLoadRoutine);
+            BackgroundLoadRoutine = null;
+        }
+
         LoadScene(scene, loadSameScene, fadeTransition);
+        CurrentLoadRoutine = Managers.G_MAN.StartCoroutine(loadAction());
     }
     public static void LoadScene(Scene scene, bool loadSameScene = false, bool fadeTransition = true)
     {

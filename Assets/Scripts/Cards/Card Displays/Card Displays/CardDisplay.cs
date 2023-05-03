@@ -112,6 +112,12 @@ public abstract class CardDisplay : MonoBehaviour
     {
         CardScript.CurrentEnergyCost += value;
         DisplayEnergyCost(CurrentEnergyCost);
+
+        if (gameObject.CompareTag(Managers.P_MAN.CARD_TAG))
+        {
+            Managers.AN_MAN.ChangeCostState(gameObject);
+            Managers.AN_MAN.ValueChanger(energyCost.transform, value);
+        }
     }
 
     /******
@@ -121,37 +127,10 @@ public abstract class CardDisplay : MonoBehaviour
      *****/
     public void UpdateCurrentEnergyCost()
     {
-        costConditionValue = GetCostConditionValue();
+        costConditionValue = Managers.CA_MAN.GetCostConditionValue(CardScript, gameObject);
         DisplayEnergyCost(CurrentEnergyCost);
     }
-    private int GetCostConditionValue()
-    {
-        var hMan_Source = HeroManager.GetSourceHero(gameObject, out HeroManager hMan_Enemy);
-        switch (CardScript.CostConditionType)
-        {
-            case Effect.ConditionType.NONE:
-                return 0;
-            case Effect.ConditionType.EnemyWounded:
-                if (!hMan_Enemy.IsWounded()) return 0;
-                break;
-            case Effect.ConditionType.AlliesDestroyed_ThisTurn:
-                if (hMan_Source.AlliesDestroyed_ThisTurn < CardScript.CostConditionValue) return 0;
-                break;
-            case Effect.ConditionType.EnemiesDestroyed_ThisTurn:
-                if (hMan_Enemy.AlliesDestroyed_ThisTurn < CardScript.CostConditionValue) return 0;
-                break;
-            case Effect.ConditionType.HasMoreCards_Player:
-                if (hMan_Source.HandZoneCards.Count <= CardScript.CostConditionValue) return 0;
-                break;
-            case Effect.ConditionType.HasLessCards_Player:
-                if (hMan_Source.HandZoneCards.Count >= CardScript.CostConditionValue) return 0;
-                break;
-            default:
-                Debug.LogError("INVALID CONDITION TYPE!");
-                return 0;
-        }
-        return CardScript.CostConditionModifier;
-    }
+    
 
     /******
      * *****
