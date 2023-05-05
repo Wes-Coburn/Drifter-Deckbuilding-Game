@@ -86,7 +86,7 @@ public class TutorialActionPopupDisplay : MonoBehaviour
                 text = $"Your hero has {TextFilter.Clrz_ylw("Health")}, " +
                     $"{TextFilter.Clrz_ylw("Energy")}, a {TextFilter.Clrz_ylw("Power")}, " +
                     $"and an {TextFilter.Clrz_ylw("Ultimate")}. " +
-                    "\nHover over each component for an explanation.";
+                    "\nHover over each component for more details.";
                 position.Set(470, 0);
                 break;
             case (Type.Tutorial, 4):

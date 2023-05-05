@@ -84,16 +84,17 @@ public class CardZoom : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         if (container != null) parent = container.transform.parent.gameObject;
         else
         {
-            // Buffer for card page cards, avoiding related cards in hero select scene
-            bool isCardPageCard = !FindObjectOfType<HeroSelectSceneDisplay>();
-            int buffer = isCardPageCard ? 300 : 0;
-            int minMax = 300;//isCardPageCard ? buffer : 300;
+            //bool isCardPageCard = !FindObjectOfType<HeroSelectSceneDisplay>() && !FindObjectOfType<NewHeroPopupDisplay>();
+            bool isCardPageCard = FindObjectOfType<CardPageDisplay>(); // TESTING
 
-            popYPos = transform.position.y + buffer;
+            int yBuffer = isCardPageCard ? 300 : 0;
+            int yMinMax = 300;//isCardPageCard ? buffer : 300;
+
+            popYPos = transform.position.y + yBuffer;
             popXPos = transform.position.x;
 
-            if (popYPos > minMax) popYPos = minMax;
-            else if (popYPos < -minMax) popYPos = -minMax;
+            if (popYPos > yMinMax) popYPos = yMinMax;
+            else if (popYPos < -yMinMax) popYPos = -yMinMax;
 
             ShowAbilityPopup(SMALL_POPUP_SCALE_VALUE);
             return;

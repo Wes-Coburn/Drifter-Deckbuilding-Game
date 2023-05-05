@@ -20,8 +20,8 @@ public class EventManager : MonoBehaviour
             return;
         }
 
-        delayedActions = new List<DelayedAction>();
-        delayedActions_priority = new List<DelayedAction>();
+        delayedActions = new();
+        delayedActions_priority = new();
         isPaused = false;
     }
 
@@ -63,7 +63,7 @@ public class EventManager : MonoBehaviour
      *****/
     public void NewDelayedAction(Action action, float delay, bool resolveNext = false, bool priorityAction = false)
     {
-        DelayedAction da = new DelayedAction
+        DelayedAction da = new()
         {
             Action = action,
             Delay = delay,
@@ -93,7 +93,7 @@ public class EventManager : MonoBehaviour
         this.isPaused = isPaused;
 
         if (isResuming) NextDelayedAction();
-        UIManager.Instance.UpdateEndTurnButton(!isPaused);
+        Managers.U_MAN.UpdateEndTurnButton(!isPaused);
     }
 
     public void ClearDelayedActions()

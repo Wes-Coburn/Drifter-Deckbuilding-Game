@@ -34,7 +34,11 @@ public class DialogueManager : MonoBehaviour
         AllowResponse = true;
     }
 
-    public void Reset_DialogueManager() => StopTimedText();
+    public void Reset_DialogueManager()
+    {
+        StopTimedText();
+        StopAllCoroutines();
+    }
 
     public void DisplayCurrentHeroes()
     {

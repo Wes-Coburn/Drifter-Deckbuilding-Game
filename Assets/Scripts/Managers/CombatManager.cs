@@ -540,8 +540,11 @@ public class CombatManager : MonoBehaviour
             pm.CurrentEnergy = playerData.CurrentEnergy_Player;
             em.CurrentEnergy = playerData.CurrentEnergy_Enemy;
 
-            // Hero Ultimate Progress
+            // Player Hero Ultimate Progress
             pm.HeroUltimateProgress = playerData.HeroUltimateProgress;
+
+            // Enemy Hero Surge Progress
+            em.SurgeProgress(true); // TESTING
 
             // Damage Taken
             pm.DamageTaken_ThisTurn = playerData.DamageTaken_ThisTurn_Player;
@@ -610,7 +613,7 @@ public class CombatManager : MonoBehaviour
         // SCHEDULE ACTIONS
         vm.NewDelayedAction(() => Managers.AN_MAN.CombatIntro(), 1);
         vm.NewDelayedAction(() => CombatStart(), 1);
-        vm.NewDelayedAction(() => StartCombatTurn(pm, true), 2);
+        vm.NewDelayedAction(() => StartCombatTurn(Managers.P_MAN, true), 2);
 
         void CombatStart()
         {
@@ -1030,7 +1033,8 @@ public class CombatManager : MonoBehaviour
             var ucd = GetUnitDisplay(striker);
             int power = ucd.CurrentPower;
 
-            TakeDamage(defender, power, out dealtDamage, out defenderDestroyed, isMeleeAttacker);
+            // IsMeleeAttacker must be reversed here, the target of the attack will have the opposite designation
+            TakeDamage(defender, power, out dealtDamage, out defenderDestroyed, !isMeleeAttacker);
 
             // Poisonous
             if (IsUnitCard(defender))
@@ -1130,10 +1134,7 @@ public class CombatManager : MonoBehaviour
             {
                 Managers.AN_MAN.ShakeCamera(EZCameraShake.CameraShakePresets.Earthquake);
                 Managers.AN_MAN.SetAnimatorBool(target, "IsDestroyed", true);
-                bool playerWins;
-                if (target == Managers.P_MAN.HeroObject) playerWins = false;
-                else playerWins = true;
-                EndCombat(playerWins);
+                EndCombat(target == Managers.EN_MAN.HeroObject);
             }
         }
     }

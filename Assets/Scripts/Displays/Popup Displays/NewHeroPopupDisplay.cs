@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class NewHeroPopupDisplay : MonoBehaviour
 {
     [SerializeField]
-    private GameObject popupTitle, newHeroChest, continueButton,
+    private GameObject popupTitle, newHeroChest, continueButton, panelLeft, panelRight,
         playerHero, heroPortrait, heroName, heroDescription, heroBackstory,
         heroPowerDescription, heroUltimateDescription, relatedCardsContainer;
 
@@ -65,6 +65,13 @@ public class NewHeroPopupDisplay : MonoBehaviour
         List<Card> relatedCards = new();
         AddSingles(newHeroPower.RelatedCards);
         AddSingles(newHeroUltimate.RelatedCards);
+
+        if (relatedCards.Count < 1)
+        {
+            panelLeft.transform.position = new Vector2(20, 0);
+            panelRight.transform.position = new Vector2(-50, 0);
+            return;
+        }
 
         foreach (var card in relatedCards)
         {

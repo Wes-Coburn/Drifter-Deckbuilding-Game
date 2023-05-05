@@ -113,23 +113,18 @@ public class AnimationManager : MonoBehaviour
      * ****** VALUE_CHANGE
      * *****
      *****/
-    public void ValueChanger(Transform parent, int value, bool setToCanvas = true, float yBuffer = 0, float xBuffer = 0)
+    public void ValueChanger(Transform parent, int value, bool followParent = false, Vector2 buffer = new())
     {
         var valueChanger = Instantiate(valueChangerPrefab, parent);
-        valueChanger.transform.localPosition = new Vector2(xBuffer, yBuffer);
+        valueChanger.transform.localPosition = buffer;
 
         Transform newParent;
-        if (yBuffer != 0)
+        if (buffer != new Vector2())
         {
             newParent = Managers.U_MAN.UICanvas.transform;
             valueChanger.transform.localScale = new Vector2(2, 2);
         }
-        else if (setToCanvas) newParent = Managers.U_MAN.CurrentCanvas.transform;
-        else
-        {
-            newParent = parent.parent.parent.parent;
-            newParent.SetAsLastSibling();
-        }
+        else newParent = Managers.U_MAN.CurrentCanvas.transform; // TESTING
 
         valueChanger.transform.SetParent(newParent);
         valueChanger.transform.SetAsLastSibling();
@@ -145,7 +140,25 @@ public class AnimationManager : MonoBehaviour
         valueText += value;
         valueChanger.GetComponentInChildren<TextMeshProUGUI>().SetText(valueText);
         valueChanger.GetComponentInChildren<Animator>().SetBool("IsPositiveChange", isPositiveChange);
+
+        if (followParent)
+        {
+            var folPar = valueChanger.AddComponent<FollowParent>();
+            folPar.Parent = parent;
+        }
     }
+
+    class FollowParent : MonoBehaviour
+    {
+        public Transform Parent;
+
+        private void FixedUpdate()
+        {
+            if (Parent == null) return;
+            transform.localPosition = new Vector2(Parent.position.x, Parent.position.y);
+        }
+    }
+
 
     /******
      * *****
@@ -447,13 +460,13 @@ public class AnimationManager : MonoBehaviour
     private void ModifyAllUnitStatsState(GameObject card) => ChangeAnimationState(card, "Modify_All");
     public void DestroyUnitCardState(GameObject unitCard) => ChangeAnimationState(unitCard, "Destroyed");
 
-    public void UnitTakeDamageState(GameObject unitCard, int damageValue, bool isMeleeAttacker)
+    public void UnitTakeDamageState(GameObject unitCard, int damageValue, bool followCard)
     {
         ChangeAnimationState(unitCard.GetComponent<UnitCardDisplay>().UnitStats, "Take_Damage");
         var ucd = unitCard.GetComponent<UnitCardDisplay>();
         var stats = ucd.UnitStats;
         var healthScore = ucd.HealthScore;
-        ValueChanger(healthScore.transform, -damageValue, isMeleeAttacker);
+        ValueChanger(healthScore.transform, -damageValue, followCard);
         SetAnimatorBool(stats, "IsDamaged", CombatManager.IsDamaged(unitCard));
     }
 
@@ -549,7 +562,7 @@ public class AnimationManager : MonoBehaviour
         }
 
         Trigger();
-        FunctionTimer.Create(() => CloseSkybar(skybar), 1.5f, CLOSE_SKYBAR_TIMER);
+        FunctionTimer.Create(() => CloseSkybar(skybar), 1f, CLOSE_SKYBAR_TIMER);
 
         void Trigger() => ChangeAnimationState(icon, "Trigger");
         static void CloseSkybar(GameObject bar) => bar.SetActive(false);
@@ -911,7 +924,7 @@ public class AnimationManager : MonoBehaviour
 
         particleHandler.StopParticles();
         container.GetComponent<CardContainer>().IsDetached = false;
-        //attacker.transform.SetAsFirstSibling();
+        attacker.transform.SetAsFirstSibling(); // TESTING
         Managers.EV_MAN.PauseDelayedActions(false);
 
         static float GetCurrentSpeed(float distance)
@@ -945,9 +958,6 @@ public class AnimationManager : MonoBehaviour
         Vector2 target = new(0, yTarget);
         var hand = Managers.P_MAN.HandZone;
         Managers.AU_MAN.StartStopSound("SFX_ShiftHand");
-
-        foreach (var card in Managers.P_MAN.HandZoneCards)
-            card.transform.SetAsLastSibling();
 
         foreach (var card in Managers.P_MAN.PlayZoneCards)
         {

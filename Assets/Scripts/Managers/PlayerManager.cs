@@ -47,6 +47,7 @@ public class PlayerManager : HeroManager
 
     public override int TurnNumber { get => turnNumber; set { turnNumber = value; } }
 
+    public int CurrentAether_Direct { set { currentAether = value; } }
     public int CurrentAether
     {
         get => currentAether;

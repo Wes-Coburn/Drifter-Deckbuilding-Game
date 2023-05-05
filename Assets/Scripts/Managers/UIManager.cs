@@ -84,14 +84,13 @@ public class UIManager : MonoBehaviour
     public GameObject CombatLog { get => combatLog.gameObject; }
     public Color HighlightedColor { get => highlightedColor; }
 
-    public Coroutine SceneFadeRoutine { get => sceneFadeRoutine; }
-
     public GameObject CurrentWorldSpace { get; private set; }
     public GameObject CurrentCanvas { get; private set; }
     public GameObject CurrentZoomCanvas { get; private set; }
     public GameObject UICanvas { get; set; }
 
     public bool PlayerIsTargetting { get; set; }
+    public bool SceneIsFading { get; private set; }
     public bool PlayerCanTravel => !(newCardPopup != null || chooseCardPopup != null ||
         narrativePopup != null || tutorialActionPopup != null);
     #endregion
@@ -178,8 +177,10 @@ public class UIManager : MonoBehaviour
         var img = sceneFader.GetComponent<Image>();
         float alphaChange = 0.015f;
 
+        // Fade Out
         if (fadeOut)
         {
+            SceneIsFading = true;
             while (img.color.a < 1)
             {
                 var tempColor = img.color;
@@ -189,6 +190,7 @@ public class UIManager : MonoBehaviour
                 yield return new WaitForFixedUpdate();
             }
         }
+        // Fade In
         else
         {
             while (img.color.a > 0)
@@ -199,9 +201,10 @@ public class UIManager : MonoBehaviour
                 img.color = tempColor;
                 yield return new WaitForFixedUpdate();
             }
-
-            sceneFadeRoutine = null; // TESTING
+            SceneIsFading = false;
         }
+
+        sceneFadeRoutine = null;
     }
     /******
      * *****
@@ -549,7 +552,7 @@ public class UIManager : MonoBehaviour
         switch (infoPopupType)
         {
             case InfoPopupType.Default:
-                infoPopup = Instantiate(infoPopupPrefab, CurrentZoomCanvas.transform); // TESTING on ZOOM
+                infoPopup = Instantiate(infoPopupPrefab, CurrentZoomCanvas.transform);
                 ipd = infoPopup.GetComponent<InfoPopupDisplay>();
                 ipd.DisplayInfoPopup(message, showContinue);
                 infoPopup.transform.localPosition = vec2;
@@ -638,9 +641,7 @@ public class UIManager : MonoBehaviour
         DestroyCombatEndPopup();
         combatEndPopup = Instantiate(combatEndPopupPrefab, CurrentZoomCanvas.transform);
         var cepd = combatEndPopup.GetComponent<CombatEndPopupDisplay>();
-        GameObject particleParent;
-        if (playerWins) particleParent = cepd.VictoryText;
-        else particleParent = cepd.DefeatText;
+        GameObject particleParent = playerWins ? cepd.VictoryText : cepd.DefeatText;
         Managers.AN_MAN.CreateParticleSystem(particleParent, ParticleSystemHandler.ParticlesType.Drag);
         Managers.AN_MAN.CreateParticleSystem(particleParent, ParticleSystemHandler.ParticlesType.NewCard);
         cepd.VictoryText.SetActive(playerWins);
@@ -983,15 +984,15 @@ public class UIManager : MonoBehaviour
 
         var tmpro = aetherCount.GetComponentInChildren<TextMeshProUGUI>();
         tmpro.SetText(Managers.P_MAN.CurrentAether - valueChange + "");
-        tmpro.color = Color.white; // In case the coroutine is stopped while the text is red
+        tmpro.color = Color.white; // In case coroutine was stopped while text is red
 
         if (valueChange != 0)
         {
-            new AnimationManager.CountingTextObject(tmpro, valueChange, Color.red);
+            new AnimationManager.CountingTextObject(tmpro, valueChange, valueChange > 0 ? Color.green : Color.yellow);
 
             Managers.AN_MAN.SkybarIconAnimation(aetherIcon);
             Managers.AN_MAN.CountingText();
-            Managers.AN_MAN.ValueChanger(aetherIcon.transform, valueChange, true, -275, 75);
+            Managers.AN_MAN.ValueChanger(aetherIcon.transform, valueChange, false, new Vector2(75, -275));
         }
     }
     public void SetCurrentHealth(int valueChange)
@@ -1009,7 +1010,7 @@ public class UIManager : MonoBehaviour
         {
             Managers.AU_MAN.StartStopSound("SFX_StatPlus");
             Managers.AN_MAN.SkybarIconAnimation(healthValue);
-            Managers.AN_MAN.ValueChanger(healthValue.transform, valueChange, true, -250, 75);
+            Managers.AN_MAN.ValueChanger(healthValue.transform, valueChange, false, new Vector2(75, -250));
         }
     }
     public void CreateAugmentIcon(HeroAugment augment, bool isNewAugment = false)
@@ -1150,14 +1151,12 @@ public class UIManager : MonoBehaviour
         if (valueChange != 0)
         {
             ReputationTrigger();
-            Managers.AN_MAN.ValueChanger(repIcon.transform, valueChange, true, -100);
+            Managers.AN_MAN.ValueChanger(repIcon.transform, valueChange, false, new Vector2(-100, 0));
         }
 
         void ReputationTrigger()
         {
-            string sound;
-            if (triggerOnly) sound = "SFX_Trigger";
-            else sound = "SFX_Reputation";
+            string sound =  triggerOnly ? "SFX_Trigger" : "SFX_Reputation";
             Managers.AU_MAN.StartStopSound(sound);
             Managers.AN_MAN.SkybarIconAnimation(repIcon);
         }

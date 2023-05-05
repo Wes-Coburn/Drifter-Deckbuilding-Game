@@ -21,20 +21,8 @@ public class CombatTestButton : MonoBehaviour
     {
         if (SceneLoader.SceneIsLoading) return;
 
-        if (SceneLoader.CurrentLoadRoutine != null)
-        {
-            Managers.G_MAN.StopCoroutine(SceneLoader.CurrentLoadRoutine); // TESTING
-            SceneLoader.CurrentLoadRoutine = null;
-        }
-
-        if (SceneLoader.BackgroundLoadRoutine != null)
-        {
-            Managers.G_MAN.StopCoroutine(SceneLoader.BackgroundLoadRoutine); // TESTING
-            SceneLoader.BackgroundLoadRoutine = null;
-        }
-
         Managers.AN_MAN.CreateParticleSystem(gameObject, ParticleSystemHandler.ParticlesType.ButtonPress);
-        SceneLoader.LoadScene(SceneLoader.Scene.CombatScene, LoadCombatTest_Async); // TESTING
+        SceneLoader.LoadScene(SceneLoader.Scene.CombatScene, LoadCombatTest_Async);
     }
 
     private IEnumerator LoadCombatTest_Async()
@@ -133,8 +121,11 @@ public class CombatTestButton : MonoBehaviour
         Managers.G_MAN.Reputation_Techs = reputation;
         Managers.G_MAN.Reputation_Warriors = reputation;
 
-        SceneLoader.CurrentLoadRoutine = null; // TESTING
-        SceneLoader.LoadScene_Finish(SceneLoader.Scene.CombatScene); // TESTING
+        SceneLoader.CurrentLoadRoutine = null;
+        PlayerData.SavedPlayerData = null;
+
+        if (SceneLoader.SceneIsLoading)
+            SceneLoader.LoadScene_Finish(SceneLoader.Scene.CombatScene);
 
         yield break; // Required for IEnumerator
     }

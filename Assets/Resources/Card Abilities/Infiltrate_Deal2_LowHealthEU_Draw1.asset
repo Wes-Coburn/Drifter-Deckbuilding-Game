@@ -10,17 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44c307312f791a64788051778519ac70, type: 3}
-  m_Name: Infiltrate_CreateCard_Scheme_Deal1_EH
+  m_Name: Infiltrate_Deal2_LowHealthEU_Draw1
   m_EditorClassIdentifier: 
-  AbilityName: 'Infiltrate: Create a Scheme in hand and deal 1 to the enemy hero.'
-  AbilityDescription: Create a Scheme in hand and deal 1 to the enemy hero.
+  AbilityName: 'Infiltrate: Deal 2 to the lowest health enemy. Draw 1.'
+  AbilityDescription: Deal 2 to the lowest health enemy. Draw 1.
   AbilitySprite: {fileID: 0}
   OverrideColor: 0
   AbilityColor: {r: 0, g: 0, b: 0, a: 0}
-  LinkedAbilites:
-  - {fileID: 11400000, guid: f92d2e0741d1f6d44987a4283e12b434, type: 2}
+  LinkedAbilites: []
   AbilityTrigger: {fileID: 11400000, guid: 87f3e6666404c694cb625a5bd096cd05, type: 2}
   TriggerLimit: 0
   EffectGroupList:
-  - {fileID: 11400000, guid: 45a8a9afa65b37541897226d439c4de4, type: 2}
-  - {fileID: 11400000, guid: 894403a43df25f847af0d87bbb1d4900, type: 2}
+  - {fileID: 11400000, guid: 9c792facf3f058a4d9dfa601b2bae655, type: 2}
+  - {fileID: 11400000, guid: 023c2a13540808347adc8dfb99742db9, type: 2}

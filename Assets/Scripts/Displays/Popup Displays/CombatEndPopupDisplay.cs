@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class CombatEndPopupDisplay : MonoBehaviour
 {
-    [SerializeField] private GameObject victoryText;
-    [SerializeField] private GameObject defeatText;
+    [SerializeField] private GameObject victoryText, defeatText;
 
     public GameObject VictoryText { get => victoryText; }
     public GameObject DefeatText { get => defeatText; }
@@ -45,27 +44,26 @@ public class CombatEndPopupDisplay : MonoBehaviour
 
     public void ContinueButton_OnClick()
     {
-        if (Managers.G_MAN.IsCombatTest)
-        {
-            Managers.G_MAN.EndGame();
-            return;
-        }
+        if (SceneLoader.SceneIsLoading) return;
 
-        if (Managers.G_MAN.IsTutorial)
+        // Combat Test
+        if (Managers.G_MAN.IsCombatTest) Managers.G_MAN.EndGame();
+        // Tutorial
+        else if (Managers.G_MAN.IsTutorial)
         {
+            Managers.G_MAN.IsTutorial = false; // TESTING
+
             if (victoryText.activeSelf)
             {
                 SceneLoader.BackgroundLoadRoutine =
-                    Managers.G_MAN.StartCoroutine(GameLoader.LoadNewGame_Async()); // TESTING
-
+                    Managers.G_MAN.StartCoroutine(GameLoader.LoadNewGame_Async());
+                
                 Managers.G_MAN.NewGame();
             }
             else Managers.G_MAN.StartTutorialScene();
-            return;
         }
-
         // VICTORY
-        if (victoryText.activeSelf)
+        else if (victoryText.activeSelf)
         {
             // First try to unlock new powers, then try to unlock a new hero
             if (Managers.G_MAN.UnlockNewPowers() || Managers.G_MAN.UnlockNewHero()) { }

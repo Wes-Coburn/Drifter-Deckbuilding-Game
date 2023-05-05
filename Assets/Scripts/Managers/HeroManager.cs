@@ -63,6 +63,8 @@ public abstract class HeroManager : MonoBehaviour
 
     // Health
     public bool IsWounded() { return damageTaken_ThisTurn >= GameManager.WOUNDED_VALUE; }
+
+    public int CurrentHealth_Direct { set { currentHealth = value; } }
     public int CurrentHealth // << PlayerData! >>
     {
         get => currentHealth;

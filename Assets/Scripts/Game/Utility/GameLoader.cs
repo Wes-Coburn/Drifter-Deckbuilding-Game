@@ -44,42 +44,47 @@ public static class GameLoader
     {
         Managers.G_MAN.IsTutorial = true;
 
-        yield return new WaitUntil(() => Managers.U_MAN.SceneFadeRoutine == null); // TESTING
+        yield return new WaitUntil(() => !Managers.U_MAN.SceneIsFading); // TESTING
 
         // Player Manager
         Managers.P_MAN.CurrentHealth = GameManager.PLAYER_STARTING_HEALTH;
         Managers.P_MAN.CurrentAether = 0;
 
         // Heroes
-        string phName = "Kili, Neon Rider";
-        string ehName = "Tiny Mutant";
-        var heroes = Resources.LoadAll<Hero>("Tutorial");
-
-        foreach (var hero in heroes)
+        var playerHero_Request = Resources.LoadAsync<PlayerHero>("Tutorial/Tutorial Player Hero");
+        yield return playerHero_Request;
+        if (playerHero_Request.asset == null) Debug.LogError("Failed to load PLAYER HERO asset!");
+        else
         {
-            if (hero.HeroName == phName)
-            {
-                var playerHero = ScriptableObject.CreateInstance<PlayerHero>();
-                playerHero.LoadHero(hero);
-                Managers.P_MAN.HeroScript = playerHero;
-            }
-            else if (hero.HeroName == ehName)
-            {
-                var enemyHero = ScriptableObject.CreateInstance<EnemyHero>();
-                enemyHero.LoadHero(hero);
-                Managers.D_MAN.EngagedHero = enemyHero;
-            }
+            var playerHero = ScriptableObject.CreateInstance<PlayerHero>();
+            playerHero.LoadHero(playerHero_Request.asset as PlayerHero);
+            Managers.P_MAN.HeroScript = playerHero;
         }
+
+        yield return new WaitUntil(() => !Managers.U_MAN.SceneIsFading); // TESTING
+
+        var enemyHero_Request = Resources.LoadAsync<EnemyHero>("Tutorial/Tutorial Enemy Hero");
+        yield return enemyHero_Request;
+        if (enemyHero_Request.asset == null) Debug.LogError("Failed to load ENEMY HERO asset!");
+        else
+        {
+            var enemyHero = ScriptableObject.CreateInstance<EnemyHero>();
+            enemyHero.LoadHero(enemyHero_Request.asset as EnemyHero);
+            Managers.EN_MAN.HeroScript = enemyHero;
+            Managers.D_MAN.EngagedHero = enemyHero;
+        }
+
+        yield return new WaitUntil(() => !Managers.U_MAN.SceneIsFading); // TESTING
 
         Managers.P_MAN.DeckList.Clear(); // TESTING
         foreach (var unit in Managers.CA_MAN.TutorialPlayerUnits)
             for (int i = 0; i < 5; i++)
                 Managers.CA_MAN.AddCard(unit, Managers.P_MAN);
 
+        yield return new WaitUntil(() => !Managers.U_MAN.SceneIsFading); // TESTING
+
         SceneLoader.CurrentLoadRoutine = null; // TESTING
         SceneLoader.LoadingProgress = 1;
-
-        yield return new WaitUntil(() => Managers.U_MAN.SceneFadeRoutine == null); // TESTING
 
         if (SceneLoader.SceneIsLoading)
             SceneLoader.LoadScene_Finish(SceneLoader.Scene.CombatScene);
@@ -94,8 +99,12 @@ public static class GameLoader
      *****/
     private static IEnumerator LoadNewGame_Async_Progress()
     {
-        yield return new WaitUntil(() => Managers.U_MAN.SceneFadeRoutine == null); // TESTING
-        if (SceneLoader.CurrentLoadRoutine != null) yield break; // TESTING
+        yield return new WaitUntil(() => !Managers.U_MAN.SceneIsFading); // TESTING
+        if (SceneLoader.CurrentLoadRoutine != null)
+        {
+            yield return new WaitUntil(() => SceneLoader.CurrentLoadRoutine == null); // TESTING
+            yield break;
+        }
 
         const int loadItems = 8;
         const float increment = 1f / loadItems;
@@ -105,22 +114,32 @@ public static class GameLoader
     public static IEnumerator LoadNewGame_Async()
     {
         var gm = Managers.G_MAN;
-        gm.IsTutorial = false;
-
-        // Loyalty
-        gm.RecruitLoyalty = 3; // First recruit free
-        gm.ActionShopLoyalty = 3; // First action free
-        gm.ShopLoyalty = 3; // First item free
 
         // Player Manager
-        Managers.P_MAN.CurrentHealth = GameManager.PLAYER_STARTING_HEALTH - GameManager.HEAL_ON_REST;
-        Managers.P_MAN.CurrentAether = GameManager.PLAYER_START_AETHER;
+        Managers.P_MAN.CurrentHealth_Direct = GameManager.PLAYER_STARTING_HEALTH - GameManager.HEAL_ON_REST;
+        Managers.P_MAN.CurrentAether_Direct = GameManager.PLAYER_START_AETHER;
         Managers.P_MAN.DeckList.Clear();
 
         // Starting Units
         foreach (var uc in Managers.CA_MAN.PlayerStartUnits)
             for (int i = 0; i < GameManager.PLAYER_START_UNITS; i++)
                 Managers.CA_MAN.AddCard(uc, Managers.P_MAN);
+
+        if (gm.IsTutorial)
+        {
+            //gm.IsTutorial = false;
+            SceneLoader.LoadingProgress = 1;
+            yield break;
+        }
+        //gm.IsTutorial = false;
+        /** ---> END post-tutorial loading **/
+        // New game is loaded asynchronously before tutorial begins
+        // The following values are already set
+
+        // Loyalty
+        gm.RecruitLoyalty = 3; // First recruit free
+        gm.ActionShopLoyalty = 3; // First action free
+        gm.ShopLoyalty = 3; // First item free
 
         // Load New Content
         Managers.CA_MAN.LoadNewRecruits();
@@ -237,8 +256,12 @@ public static class GameLoader
     }
     private static IEnumerator LoadSavedGame_PlayerData_Async_Progress(bool isCombatLoad)
     {
-        yield return new WaitUntil(() => Managers.U_MAN.SceneFadeRoutine == null); // TESTING
-        if (SceneLoader.CurrentLoadRoutine != null) yield break; // TESTING
+        yield return new WaitUntil(() => !Managers.U_MAN.SceneIsFading); // TESTING
+        if (SceneLoader.CurrentLoadRoutine != null)
+        {
+            yield return new WaitUntil(() => SceneLoader.CurrentLoadRoutine == null); // TESTING
+            yield break;
+        }
 
         int loadItems = isCombatLoad ? 18 : 11;
         float increment = 1f / loadItems;

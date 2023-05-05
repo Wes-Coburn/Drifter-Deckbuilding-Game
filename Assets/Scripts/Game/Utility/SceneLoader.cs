@@ -40,11 +40,14 @@ public static class SceneLoader
             return;
         }
 
+        /*
         if (BackgroundLoadRoutine != null) // TESTING
         {
             Managers.G_MAN.StopCoroutine(BackgroundLoadRoutine);
             BackgroundLoadRoutine = null;
+            PlayerData.SavedPlayerData = null; // Unnecessary
         }
+        */
 
         LoadScene(scene, loadSameScene, fadeTransition);
         CurrentLoadRoutine = Managers.G_MAN.StartCoroutine(loadAction());
@@ -52,6 +55,7 @@ public static class SceneLoader
     public static void LoadScene(Scene scene, bool loadSameScene = false, bool fadeTransition = true)
     {
         if (SceneIsLoading || (!loadSameScene && IsActiveScene(scene))) return;
+
         SceneIsLoading = true;
         LoadingProgress = -1;
 
@@ -72,7 +76,7 @@ public static class SceneLoader
                     return;
                 }
             }
-            //else LoadingProgress = 0;
+            else LoadingProgress = 0;
 
             Managers.AU_MAN.StartStopSound("SFX_SceneLoading", null, AudioManager.SoundType.SFX, false, true);
 
@@ -113,7 +117,7 @@ public static class SceneLoader
             lsd.ChapterText = chapterText;
             lsd.TipText = Managers.G_MAN.CurrentTip;
 
-            if (CurrentLoadRoutine == null && BackgroundLoadRoutine == null) // TESTING
+            if (CurrentLoadRoutine == null && BackgroundLoadRoutine == null)
                 LoadScene_Finish(scene, SceneFinishType.Delayed);
         };
 
@@ -166,21 +170,19 @@ public static class SceneLoader
             Managers.U_MAN.SetSkybar(showSkybar, hideChildren);
         };
 
-        // Stop Corotoutines
-        //Managers.G_MAN.StopAllCoroutines();
-        Managers.AN_MAN.StopAllCoroutines();
-        Managers.D_MAN.StopAllCoroutines();
-        Managers.U_MAN.StopAllCoroutines();
-
         // Reset Managers
         Managers.D_MAN.Reset_DialogueManager();
         Managers.EV_MAN.Reset_EventManager();
         Managers.EF_MAN.Reset_EffectManager();
 
+        // Stop Corotoutines
+        Managers.AN_MAN.StopAllCoroutines();
+        Managers.U_MAN.StopAllCoroutines();
+
         if (fadeTransition)
         {
-            //FunctionTimer.Create(() => Managers.U_MAN.SetSceneFader(true), 0);
-            Managers.U_MAN.SetSceneFader(true); // TESTING
+            //FunctionTimer.Create(() => Managers.U_MAN.SetSceneFader(true), 0); // Helps with making coroutines run smoother???
+            Managers.U_MAN.SetSceneFader(true);
             FunctionTimer.Create(() => SceneManager.LoadScene(Scene.LoadingScene.ToString()), 1.5f);
         }
         else SceneManager.LoadScene(Scene.LoadingScene.ToString());

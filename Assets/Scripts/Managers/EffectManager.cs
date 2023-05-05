@@ -814,8 +814,7 @@ public class EffectManager : MonoBehaviour
                         Managers.CA_MAN.TriggerPlayedUnits(CardManager.TRIGGER_SPARK, hMan), 0, true);
                     }
                 }
-                // Enemies resolve these triggers in ManagerHandler.CA_MAN.PlayCard()
-                else if (CombatManager.IsUnitCard(effectSource) && HeroManager.GetSourceHero(effectSource) == Managers.P_MAN)
+                else if (CombatManager.IsUnitCard(effectSource))// && HeroManager.GetSourceHero(effectSource) == Managers.P_MAN)
                 {
                     if (triggerName == CardManager.TRIGGER_PLAY)
                     {
@@ -1771,7 +1770,7 @@ public class EffectManager : MonoBehaviour
                 Managers.AN_MAN.ShakeCamera(AnimationManager.Bump_Light);
                 int previousHealth = ucd.CurrentHealth;
                 ucd.CurrentHealth = 0;
-                Managers.AN_MAN.UnitTakeDamageState(target, previousHealth, true);
+                Managers.AN_MAN.UnitTakeDamageState(target, previousHealth, false);
                 Managers.CO_MAN.DestroyUnit(target);
             }
         }

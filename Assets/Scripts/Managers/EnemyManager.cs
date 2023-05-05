@@ -61,39 +61,42 @@ public class EnemyManager : HeroManager
         set
         {
             turnNumber = value;
-
             if (Managers.G_MAN.IsTutorial) return;
+            SurgeProgress();
+        }
+    }
 
-            var ehd = HeroObject.GetComponent<EnemyHeroDisplay>();
-            int surgeDelay = Managers.G_MAN.GetSurgeDelay(Managers.CO_MAN.DifficultyLevel);
-            int turnsLeft = surgeDelay - (TurnNumber % surgeDelay);
-            int surgeValue = TurnNumber / surgeDelay;
+    public void SurgeProgress(bool displayOnly = false)
+    {
+        var ehd = HeroObject.GetComponent<EnemyHeroDisplay>();
+        int surgeDelay = Managers.G_MAN.GetSurgeDelay(Managers.CO_MAN.DifficultyLevel);
+        int turnsLeft = surgeDelay - (TurnNumber % surgeDelay);
+        int surgeValue = TurnNumber / surgeDelay;
 
-            if (TurnNumber > 0)
+        if (TurnNumber > 0)
+        {
+            ehd.DisplaySurgeProgress(turnsLeft, surgeValue + 1, surgeDelay);
+
+            if (!displayOnly && TurnNumber % surgeDelay == 0)
             {
-                ehd.DisplaySurgeProgress(turnsLeft, surgeValue + 1, surgeDelay);
+                for (int i = 0; i < surgeValue; i++)
+                    Managers.EV_MAN.NewDelayedAction(() => Surge(), 0.5f, true);
 
-                if (TurnNumber % surgeDelay == 0)
-                {
-                    for (int i = 0; i < surgeValue; i++)
-                        Managers.EV_MAN.NewDelayedAction(() => Surge(), 0.5f, true);
+                Managers.EV_MAN.NewDelayedAction(() => SurgePopup(), 0.5f, true);
+            }
+        }
+        else ehd.DisplaySurgeProgress(surgeDelay, 1, surgeDelay);
 
-                    Managers.EV_MAN.NewDelayedAction(() => SurgePopup(), 0.5f, true);
-                }
-            }
-            else ehd.DisplaySurgeProgress(surgeDelay, 1, surgeDelay);
-
-            void SurgePopup()
-            {
-                Managers.U_MAN.CreateFleetingInfoPopup($"ENEMY SURGE!\n[{surgeValue}x]");
-                Managers.AN_MAN.CreateParticleSystem(null, ParticleSystemHandler.ParticlesType.Explosion, 2);
-            }
-            void Surge()
-            {
-                var surgeCard = Managers.CA_MAN.DrawCard(this);
-                if (surgeCard != null)
-                    surgeCard.GetComponent<CardDisplay>().ChangeCurrentEnergyCost(-surgeValue);
-            }
+        void SurgePopup()
+        {
+            Managers.U_MAN.CreateFleetingInfoPopup($"ENEMY SURGE!\n[{surgeValue}x]");
+            Managers.AN_MAN.CreateParticleSystem(null, ParticleSystemHandler.ParticlesType.Explosion, 2);
+        }
+        void Surge()
+        {
+            var surgeCard = Managers.CA_MAN.DrawCard(this);
+            if (surgeCard != null)
+                surgeCard.GetComponent<CardDisplay>().ChangeCurrentEnergyCost(-surgeValue);
         }
     }
 
@@ -393,8 +396,8 @@ public class EnemyManager : HeroManager
         // If player hero is <LETHALLY THREATENED>
         if (!playerHasDefender && TotalEnemyPower() >= playerHealth) return Managers.P_MAN.HeroObject;
 
-        // If enemy hero is <UNTHREATENED>
-        if (CurrentHealth > (MaxHealth * 0.65f) && TotalPlayerPower() < (CurrentHealth * 0.35f))
+        // If enemy hero is <LESS THREATENED>
+        if (CurrentHealth > (MaxHealth * 0.5f) && TotalPlayerPower() < (CurrentHealth * 0.5f))
         {
             /*
              * > If player hero is <SEVERELY THREATENED>
@@ -408,13 +411,13 @@ public class EnemyManager : HeroManager
              */
             if (!playerHasDefender)
             {
-                if (TotalEnemyPower() >= playerHealth * 0.75f || CardManager.GetTrigger(attacker, CardManager.TRIGGER_INFILTRATE) ||
+                if (TotalEnemyPower() >= playerHealth * 0.5f || CardManager.GetTrigger(attacker, CardManager.TRIGGER_INFILTRATE) ||
                     (CardManager.GetModifier(attacker, ModifierAbility.TriggerType.EnemyHeroWounded) && !Managers.P_MAN.IsWounded()))
                     return Managers.P_MAN.HeroObject;
             }
         }
-        // If enemy hero is <MILDLY THREATENED>
-        else if (CurrentHealth > (MaxHealth * 0.5f) && TotalPlayerPower() < (CurrentHealth * 0.5f))
+        // If enemy hero is <MORE THREATENED>
+        else if (CurrentHealth > (MaxHealth * 0.3f) && TotalPlayerPower() < (CurrentHealth * 0.5f))
         {
             // Attack an enemy unless there are no good attacks
             return GetBestDefender(!playerHasDefender); // Return good attacks only if player does not have defender

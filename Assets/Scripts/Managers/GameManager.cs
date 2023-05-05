@@ -539,6 +539,7 @@ public class GameManager : MonoBehaviour
     public void StartTitleScene()
     {
         IsCombatTest = false;
+        IsTutorial = false;
 
         Managers.AU_MAN.StartStopSound("Soundtrack_TitleScene", null, AudioManager.SoundType.Soundtrack);
         Managers.AU_MAN.StartStopSound("Soundscape_TitleScene", null, AudioManager.SoundType.Soundscape);

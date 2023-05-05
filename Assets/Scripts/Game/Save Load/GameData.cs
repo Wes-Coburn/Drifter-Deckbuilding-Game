@@ -1,5 +1,3 @@
-using JetBrains.Annotations;
-
 [System.Serializable]
 public class GameData : SaveData
 {
@@ -26,7 +24,7 @@ public class GameData : SaveData
 
         // Progress
         HeroAugments = heroAugments;
-        // persistent starting cards
+        // persistent starting cards ???
 
         // Reputation
         Reputation_Mages = repMage;
