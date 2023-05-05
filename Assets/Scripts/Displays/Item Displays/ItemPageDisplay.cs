@@ -5,15 +5,8 @@ using UnityEngine.UI;
 
 public class ItemPageDisplay : MonoBehaviour
 {
-    [SerializeField] private GameObject pageTitle;
-    [SerializeField] private GameObject items;
-    [SerializeField] private GameObject itemDescriptionPrefab;
-    [SerializeField] private GameObject noItemsTooltip;
-
-    [Header("PROGRESS BAR")]
-    [SerializeField] private GameObject progressBar;
-    [SerializeField] private GameObject progressFill;
-    [SerializeField] private GameObject progressBarText;
+    [SerializeField] private GameObject pageTitle, items, itemDescriptionPrefab,
+        noItemsTooltip, progressBar, progressFill, progressBarText;
 
     public void SetProgressBar(int currentProgress, int newProgress, bool isReady, bool isFirstDisplay = false)
     {

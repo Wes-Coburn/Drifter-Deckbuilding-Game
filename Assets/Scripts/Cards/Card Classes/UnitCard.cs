@@ -73,8 +73,9 @@ public class UnitCard : Card
                 continue;
             }
 
-            // Don't copy ChangeControl abilities
-            if (abi is TriggeredAbility tra)
+            // Don't copy turn end ChangeControl abilities
+            if (abi is TriggeredAbility tra &&
+                tra.AbilityTrigger.AbilityName == CardManager.TRIGGER_TURN_END)
             {
                 foreach (var eg in tra.EffectGroupList)
                     foreach (var e in eg.Effects)

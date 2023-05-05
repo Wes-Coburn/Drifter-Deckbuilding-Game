@@ -399,33 +399,33 @@ public class EnemyManager : HeroManager
         // If enemy hero is <LESS THREATENED>
         if (CurrentHealth > (MaxHealth * 0.5f) && TotalPlayerPower() < (CurrentHealth * 0.5f))
         {
-            /*
-             * > If player hero is <SEVERELY THREATENED>
-             * OR 
-             * > The attacker has Infiltrate
-             * OR
-             * > The attacker has an 'enemy hero becomes Wounded' trigger and the player hero is not wounded
-             * 
-             * ---> Attack the player hero.
-             * ---> Otherwise, attack a player unit.
-             */
-            if (!playerHasDefender)
-            {
-                if (TotalEnemyPower() >= playerHealth * 0.5f || CardManager.GetTrigger(attacker, CardManager.TRIGGER_INFILTRATE) ||
-                    (CardManager.GetModifier(attacker, ModifierAbility.TriggerType.EnemyHeroWounded) && !Managers.P_MAN.IsWounded()))
-                    return Managers.P_MAN.HeroObject;
-            }
+            if (!playerHasDefender) return Managers.P_MAN.HeroObject;
+            return GetBestDefender();
         }
         // If enemy hero is <MORE THREATENED>
         else if (CurrentHealth > (MaxHealth * 0.3f) && TotalPlayerPower() < (CurrentHealth * 0.5f))
         {
-            // Attack an enemy unless there are no good attacks
-            return GetBestDefender(!playerHasDefender); // Return good attacks only if player does not have defender
+            if (!playerHasDefender && ShouldAttackHero(attacker)) return Managers.P_MAN.HeroObject;
+            return GetBestDefender();
         }
 
-        return GetBestDefender(false);
+        return GetBestDefender();
+        // ---> FINAL RETURN
 
-        GameObject GetBestDefender(bool goodAttacksOnly)
+        bool ShouldAttackHero(GameObject attacker)
+        {
+            return CardManager.GetTrigger(attacker, CardManager.TRIGGER_INFILTRATE) ||
+                (CardManager.GetModifier(attacker, ModifierAbility.TriggerType.EnemyHeroWounded) && !Managers.P_MAN.IsWounded());
+        }
+
+        GameObject GetBestDefender()
+        {
+            var bestDef = GetBetterDefender(true);
+            if (bestDef != null) return bestDef;
+            return GetBetterDefender(false);
+        }
+
+        GameObject GetBetterDefender(bool goodAttacksOnly)
         {
             GameObject defender = null;
             int highestPriority = -99;
@@ -494,9 +494,8 @@ public class EnemyManager : HeroManager
         var heroPower = HeroObject.GetComponent<EnemyHeroDisplay>().HeroPower;
         Managers.EF_MAN.StartEffectGroupList(groupList, heroPower);
 
-        Sound[] soundList;
-        soundList = HeroScript.CurrentHeroPower.PowerSounds;
-        foreach (var s in soundList) AudioManager.Instance.StartStopSound(null, s);
+        var soundList = HeroScript.CurrentHeroPower.PowerSounds;
+        foreach (var s in soundList) Managers.AU_MAN.StartStopSound(null, s);
         Managers.AN_MAN.TriggerHeroPower(heroPower);
     }
 }

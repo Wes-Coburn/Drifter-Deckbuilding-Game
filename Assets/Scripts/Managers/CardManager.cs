@@ -498,8 +498,15 @@ public class CardManager : MonoBehaviour
             lastCardIndex = dd.LastIndex;
             lastContainerIndex = cd.CardContainer.transform.GetSiblingIndex();
 
+            /*
             if (newZone == Managers.P_MAN.HandZone) card.transform.SetAsLastSibling();
             else card.transform.SetAsFirstSibling();
+            */
+
+            // Set hand cards immediately or they will momentarily appear in front of others
+            if (newZone == Managers.EN_MAN.HandZone) card.transform.SetAsFirstSibling();
+            else if (newZone == Managers.P_MAN.HandZone) card.transform.SetAsLastSibling();
+            else container.OnAttachAction += () => card.transform.SetAsFirstSibling();
         }
 
         container.MoveContainer(newZone);
@@ -1422,7 +1429,6 @@ public class CardManager : MonoBehaviour
             }
             return false;
         }
-
         void TriggerAbility(TriggeredAbility tra)
         {
             if (unitCard == null)

@@ -60,7 +60,7 @@ public class CombatEndPopupDisplay : MonoBehaviour
                 
                 Managers.G_MAN.NewGame();
             }
-            else Managers.G_MAN.StartTutorialScene();
+            else Managers.G_MAN.StartTutorial();
         }
         // VICTORY
         else if (victoryText.activeSelf)

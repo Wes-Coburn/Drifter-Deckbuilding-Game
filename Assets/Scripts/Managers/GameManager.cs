@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -547,13 +548,13 @@ public class GameManager : MonoBehaviour
         GameObject.Find("VersionNumber").GetComponent<TextMeshProUGUI>().SetText(Application.version);
 
         var gameSaved = GameLoader.CheckSave();
-        FindObjectOfType<NewGameButton>().gameObject.SetActive(!gameSaved);
+        //FindObjectOfType<NewGameButton>().gameObject.SetActive(!gameSaved);
         FindObjectOfType<ContinueGameButton>().gameObject.SetActive(gameSaved);
 
         SceneLoader.BackgroundLoadRoutine = StartCoroutine(gameSaved ?
             GameLoader.LoadSavedGame_PlayerData_Async() : GameLoader.LoadNewGame_Async()); // TESTING
     }
-    public void StartTutorialScene() =>
+    public void StartTutorial() =>
         SceneLoader.LoadScene(SceneLoader.Scene.CombatScene, GameLoader.LoadTutorial_Async); // TESTING
     public void StartWorldMapScene()
     {
@@ -955,7 +956,26 @@ public class GameManager : MonoBehaviour
      * ****** NEW_GAME
      * *****
      *****/
-    public void NewGame() => SceneLoader.LoadScene(SceneLoader.Scene.NarrativeScene); // TESTING
+    public void NewGame()
+    {
+        if (GameLoader.CheckSave())
+        {
+            FunctionTimer.Create(() => LoadNewGame(), 1.3f);
+        }
+
+        SceneLoader.LoadScene(SceneLoader.Scene.NarrativeScene);
+
+        void LoadNewGame()
+        {
+            if (SceneLoader.BackgroundLoadRoutine != null)
+            {
+                StopCoroutine(SceneLoader.BackgroundLoadRoutine);
+                SceneLoader.BackgroundLoadRoutine = null;
+            }
+
+            SceneLoader.BackgroundLoadRoutine = Managers.G_MAN.StartCoroutine(GameLoader.LoadNewGame_Async());
+        }
+    }
 
     /******
      * *****
@@ -963,6 +983,16 @@ public class GameManager : MonoBehaviour
      * *****
      *****/
     public void EndGame()
+    {
+        ClearGameData();
+
+        // Dialogue Manager
+        Managers.D_MAN.EndDialogue();
+        // Scene Loader
+        SceneLoader.LoadScene(SceneLoader.Scene.TitleScene);
+    }
+
+    public void ClearGameData()
     {
         // Game Manager
         foreach (var npc in ActiveNPCHeroes)
@@ -987,13 +1017,6 @@ public class GameManager : MonoBehaviour
         // Enemy Manager
         Destroy(Managers.EN_MAN.HeroScript);
         Managers.EN_MAN.HeroScript = null;
-        // Dialogue Manager
-        Managers.D_MAN.EndDialogue();
-        // UI Manager
-        Managers.U_MAN.ClearAugmentBar();
-        Managers.U_MAN.ClearItemBar();
-        // Scene Loader
-        SceneLoader.LoadScene(SceneLoader.Scene.TitleScene);
     }
     #endregion
 }

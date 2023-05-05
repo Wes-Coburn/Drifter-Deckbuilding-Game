@@ -100,11 +100,9 @@ public static class GameLoader
     private static IEnumerator LoadNewGame_Async_Progress()
     {
         yield return new WaitUntil(() => !Managers.U_MAN.SceneIsFading); // TESTING
-        if (SceneLoader.CurrentLoadRoutine != null)
-        {
-            yield return new WaitUntil(() => SceneLoader.CurrentLoadRoutine == null); // TESTING
-            yield break;
-        }
+
+        // Don't mess up loading progress
+        if (SceneLoader.CurrentLoadRoutine != null) yield break;
 
         const int loadItems = 8;
         const float increment = 1f / loadItems;
@@ -114,11 +112,11 @@ public static class GameLoader
     public static IEnumerator LoadNewGame_Async()
     {
         var gm = Managers.G_MAN;
+        gm.ClearGameData(); // TESTING
 
         // Player Manager
         Managers.P_MAN.CurrentHealth_Direct = GameManager.PLAYER_STARTING_HEALTH - GameManager.HEAL_ON_REST;
         Managers.P_MAN.CurrentAether_Direct = GameManager.PLAYER_START_AETHER;
-        Managers.P_MAN.DeckList.Clear();
 
         // Starting Units
         foreach (var uc in Managers.CA_MAN.PlayerStartUnits)
@@ -127,11 +125,9 @@ public static class GameLoader
 
         if (gm.IsTutorial)
         {
-            //gm.IsTutorial = false;
             SceneLoader.LoadingProgress = 1;
             yield break;
         }
-        //gm.IsTutorial = false;
         /** ---> END post-tutorial loading **/
         // New game is loaded asynchronously before tutorial begins
         // The following values are already set
@@ -256,12 +252,10 @@ public static class GameLoader
     }
     private static IEnumerator LoadSavedGame_PlayerData_Async_Progress(bool isCombatLoad)
     {
-        yield return new WaitUntil(() => !Managers.U_MAN.SceneIsFading); // TESTING
-        if (SceneLoader.CurrentLoadRoutine != null)
-        {
-            yield return new WaitUntil(() => SceneLoader.CurrentLoadRoutine == null); // TESTING
-            yield break;
-        }
+        yield return new WaitUntil(() => !Managers.U_MAN.SceneIsFading);
+
+        // Don't mess up loading progress
+        if (SceneLoader.CurrentLoadRoutine != null) yield break;
 
         int loadItems = isCombatLoad ? 18 : 11;
         float increment = 1f / loadItems;
@@ -336,6 +330,8 @@ public static class GameLoader
         pm.DeckList.Clear();
         for (int i = 0; i < data.PlayerDeck.Length; i++)
         {
+            yield return new WaitUntil(() => !Managers.U_MAN.SceneIsFading); // TESTING
+
             var request_Card = Resources.LoadAsync<Card>($"Cards_Starting/{data.PlayerDeck[i]}");
             yield return request_Card;
 

@@ -70,7 +70,7 @@ public static class SceneLoader
 
             if (CurrentLoadRoutine == null && BackgroundLoadRoutine == null)
             {
-                if (scene is not Scene.TitleScene or Scene.CombatScene)
+                if (scene != Scene.TitleScene && scene != Scene.CombatScene)
                 {
                     LoadScene_Finish(scene, SceneFinishType.Immediate);
                     return;

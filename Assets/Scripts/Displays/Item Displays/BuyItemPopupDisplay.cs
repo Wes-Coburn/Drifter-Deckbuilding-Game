@@ -34,7 +34,7 @@ public class BuyItemPopupDisplay : MonoBehaviour
         int previousProgress = Managers.G_MAN.ShopLoyalty;
         if (++Managers.G_MAN.ShopLoyalty == GameManager.SHOP_LOYALTY_GOAL) isReady = true;
         else if (Managers.G_MAN.ShopLoyalty > GameManager.SHOP_LOYALTY_GOAL) Managers.G_MAN.ShopLoyalty = 0;
-        Managers.U_MAN.CreateItemPagePopup(false);
+        Managers.U_MAN.CreateItemPagePopup(false, true);
         FindObjectOfType<ItemPageDisplay>().SetProgressBar(previousProgress, Managers.G_MAN.ShopLoyalty, isReady);
 
         Managers.AN_MAN.CreateParticleSystem(gameObject, ParticleSystemHandler.ParticlesType.ButtonPress);

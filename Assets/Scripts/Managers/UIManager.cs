@@ -796,11 +796,12 @@ public class UIManager : MonoBehaviour
         }
     }
     // Item Page Popup
-    public void CreateItemPagePopup(bool isItemRemoval, bool playSound = true)
+    public void CreateItemPagePopup(bool isItemRemoval, bool isReload = false)
     {
         DestroyItemPagePopup();
         itemPagePopup = Instantiate(itemPagePopupPrefab, CurrentCanvas.transform);
-        itemPagePopup.GetComponent<ItemPageDisplay>().DisplayItems(isItemRemoval, playSound);
+        if (isReload) itemPagePopup.GetComponent<Animator>().SetBool("Static", true); // TESTING
+        itemPagePopup.GetComponent<ItemPageDisplay>().DisplayItems(isItemRemoval, !isReload);
     }
     public void DestroyItemPagePopup(bool childrenOnly = false)
     {

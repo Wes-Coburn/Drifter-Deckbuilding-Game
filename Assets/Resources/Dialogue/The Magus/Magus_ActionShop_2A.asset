@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialoguePromptText: Welcome to The Emporium. What knowledge do you seek?
   dialogueResponse1:
-    responseText: Never mind, thanks anyway.
+    responseText: See you around. *Leave*
     response_NextClip: {fileID: 11400000}
     npc_NextClip: {fileID: 0}
     response_IsCombatStart: 0
@@ -24,6 +24,7 @@ MonoBehaviour:
     response_IsShopStart: 0
     response_IsCloningStart: 0
     response_IsNewAugmentStart: 0
+    response_IsHealing: 0
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   dialogueResponse2:
@@ -37,6 +38,7 @@ MonoBehaviour:
     response_IsShopStart: 0
     response_IsCloningStart: 0
     response_IsNewAugmentStart: 0
+    response_IsHealing: 0
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   dialogueResponse3:
@@ -51,6 +53,7 @@ MonoBehaviour:
     response_IsShopStart: 0
     response_IsCloningStart: 0
     response_IsNewAugmentStart: 0
+    response_IsHealing: 0
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   newEngagedHero: {fileID: 0}

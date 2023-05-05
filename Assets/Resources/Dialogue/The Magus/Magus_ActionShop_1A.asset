@@ -15,7 +15,7 @@ MonoBehaviour:
   dialoguePromptText: Welcome to The Emporium. Here, let me show you what I can teach
     you.
   dialogueResponse1:
-    responseText: Never mind, thanks anyway.
+    responseText: See you around. *Leave*
     response_NextClip: {fileID: 11400000, guid: f0aa37c3368a49747bd13f960d18e9a8,
       type: 2}
     npc_NextClip: {fileID: 11400000, guid: f0aa37c3368a49747bd13f960d18e9a8, type: 2}
@@ -26,6 +26,7 @@ MonoBehaviour:
     response_IsShopStart: 0
     response_IsCloningStart: 0
     response_IsNewAugmentStart: 0
+    response_IsHealing: 0
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   dialogueResponse2:
@@ -39,6 +40,7 @@ MonoBehaviour:
     response_IsShopStart: 0
     response_IsCloningStart: 0
     response_IsNewAugmentStart: 0
+    response_IsHealing: 0
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   dialogueResponse3:
@@ -53,6 +55,7 @@ MonoBehaviour:
     response_IsShopStart: 0
     response_IsCloningStart: 0
     response_IsNewAugmentStart: 0
+    response_IsHealing: 0
     response_IsExit: 0
     response_TravelLocation: {fileID: 0}
   newEngagedHero: {fileID: 0}

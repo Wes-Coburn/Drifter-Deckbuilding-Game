@@ -68,8 +68,8 @@ public class NewHeroPopupDisplay : MonoBehaviour
 
         if (relatedCards.Count < 1)
         {
-            panelLeft.transform.position = new Vector2(20, 0);
-            panelRight.transform.position = new Vector2(-50, 0);
+            panelLeft.transform.localPosition = new Vector2(20, 0);
+            panelRight.transform.localPosition = new Vector2(-50, 0);
             return;
         }
 

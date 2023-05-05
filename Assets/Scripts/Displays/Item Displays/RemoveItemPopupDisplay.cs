@@ -36,9 +36,8 @@ public class RemoveItemPopupDisplay : MonoBehaviour
         if (heroItem.IsRareItem) cost = GameManager.SELL_RARE_ITEM_VALUE;
         else cost = GameManager.SELL_ITEM_VALUE;
         Managers.P_MAN.CurrentAether += cost;
-        Managers.U_MAN.CreateItemPagePopup(true, false);
+        Managers.U_MAN.CreateItemPagePopup(true, true);
     }
 
-    public void CancelButton_OnClick() =>
-        Managers.U_MAN.DestroyInteractablePopup(gameObject);
+    public void CancelButton_OnClick() => Managers.U_MAN.DestroyInteractablePopup(gameObject);
 }
