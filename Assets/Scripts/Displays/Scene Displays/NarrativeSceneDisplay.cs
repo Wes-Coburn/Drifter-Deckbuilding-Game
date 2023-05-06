@@ -4,10 +4,8 @@ using UnityEngine.UI;
 
 public class NarrativeSceneDisplay : MonoBehaviour
 {
-    [SerializeField] private GameObject background;
-    [SerializeField] private GameObject narrativeText;
-    [SerializeField] private GameObject clipCounter;
-    [SerializeField] private GameObject continueButton;
+    [SerializeField] private GameObject background, narrativeText,
+        clipCounter, continueButton;
 
     private Narrative narrative;
     private int currentClip;
@@ -71,6 +69,6 @@ public class NarrativeSceneDisplay : MonoBehaviour
     public void ContinueButton_OnClick()
     {
         if (SceneLoader.SceneIsLoading) return;
-        GameManager.Instance.EndNarrative();
+        Managers.G_MAN.EndNarrativeScene();
     }
 }

@@ -15,6 +15,9 @@ MonoBehaviour:
   cardArt: {fileID: 21300000, guid: 375988af92e8bed4796dcc5007eb6738, type: 3}
   cardBorder: {fileID: 21300000, guid: da4d9c0ce8b0a5744aac584cd2e675b1, type: 3}
   energyCost: 5
+  costConditionType: 3
+  costConditionValue: 0
+  costConditionModifier: -2
   cardName: Vektor Battlesuit
   cardType: Action
   cardSubType: 
@@ -29,9 +32,10 @@ MonoBehaviour:
     source: {fileID: 0}
   overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
   zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
-  effectDescription: Give an ally +2|+3, Armored, and Forcefield.
+  effectDescription: Give an ally +3|+3 and Armored. Costs 2 less if the enemy hero
+    is Wounded.
   effectGroupList:
   - {fileID: 11400000, guid: a41f552b1bddeda4ba729a4faf77d4c3, type: 2}
   linkedAbilities:
   - {fileID: 11400000, guid: 57872a211be3230468dfe7be7b6f28c3, type: 2}
-  - {fileID: 11400000, guid: 44eb684e5e3c70e4f830456effa3f6b6, type: 2}
+  - {fileID: 11400000, guid: e90fc3bafeee0d94ba2ff2fc6f53dbac, type: 2}

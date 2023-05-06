@@ -26,8 +26,7 @@ public class DialogueSceneDisplay : MonoBehaviour
         {
             playerHeroImage.GetComponent<Image>().sprite = value;
             UIManager.Instance.GetPortraitPosition
-                (PlayerManager.Instance.HeroScript.HeroName,
-                out Vector2 position, out Vector2 scale, SceneLoader.Scene.DialogueScene);
+                (PlayerManager.Instance.HeroScript.HeroName, out Vector2 position, out Vector2 scale);
             playerHeroImage.transform.localPosition = position;
             playerHeroImage.transform.localScale = scale;
         }

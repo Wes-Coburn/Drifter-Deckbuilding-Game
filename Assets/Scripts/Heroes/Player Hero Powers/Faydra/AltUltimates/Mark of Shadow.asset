@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 024a223818b76d04b90b880bd4d0c3a0, type: 3}
+  m_Name: Mark of Shadow
+  m_EditorClassIdentifier: 
+  PowerName: Mark of Shadow
+  PowerCost: 3
+  PowerSprite: {fileID: 21300000, guid: 4da66b246b0c64c4c8a7adf12b95d930, type: 3}
+  PowerSounds:
+  - name: 
+    clip: {fileID: 8300000, guid: 77635470bfbeb824fbe57f2341ebee61, type: 3}
+    volume: 0.8
+    pitch: 1
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: d176cfb07985e9c46bf36c418c6764b1, type: 3}
+    volume: 1
+    pitch: 1
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  PowerDescription: Gain control of an enemy this turn.
+  EffectGroupList:
+  - {fileID: 11400000, guid: dff3528641655cf4cb5071dfa7f75496, type: 2}
+  LinkedAbilities: []
+  relatedCards: []
+  relatedCardTypes: 

@@ -6,40 +6,54 @@ public class ActionCardDisplay : CardDisplay
     [SerializeField] private GameObject cardDescription;
     public ActionCard ActionCard { get => CardScript as ActionCard; }
 
+    /******
+     * *****
+     * ****** DISPLAY_CARD
+     * *****
+     *****/
     protected override void DisplayCard()
     {
         base.DisplayCard();
-        cardDescription.GetComponent<TextMeshProUGUI>().SetText(Managers.CA_MAN.FilterKeywords(ActionCard.EffectDescription));
+        cardDescription.GetComponent<TextMeshProUGUI>()
+            .SetText(Managers.CA_MAN.FilterKeywords(ActionCard.EffectDescription));
     }
 
-    public override void DisplayZoomCard(GameObject parentCard, Card card = null)
+    /******
+     * *****
+     * ****** DISPLAY_ZOOM_CARD
+     * *****
+     *****/
+    public override void DisplayZoomCard(GameObject parentCard, bool isBaseZoomCard = false)
     {
-        base.DisplayZoomCard(parentCard, card);
-        TextMeshProUGUI tmPro = cardDescription.GetComponent<TextMeshProUGUI>();
-        string description;
-        if (card == null)
-        {
-            ActionCardDisplay acd = parentCard.GetComponent<ActionCardDisplay>();
-            description = acd.ActionCard.EffectDescription;
-        }
-        else
-        {
-            ActionCard ac = card as ActionCard;
-            description = ac.EffectDescription;
-        }
+        base.DisplayZoomCard(parentCard, isBaseZoomCard);
+
+        var acd = parentCard.GetComponent<ActionCardDisplay>();
+        string description = acd.ActionCard.EffectDescription;
+        DisplayZoomCard_Finish(description);
+    }
+    public override void DisplayZoomCard(Card card, bool isBaseZoomCard = false)
+    {
+        base.DisplayZoomCard(card, isBaseZoomCard);
+
+        var ac = card as ActionCard;
+        string description = ac.EffectDescription;
+        DisplayZoomCard_Finish(description);
+    }
+    private void DisplayZoomCard_Finish(string description)
+    {
+        var tmPro = cardDescription.GetComponent<TextMeshProUGUI>();
         tmPro.SetText(Managers.CA_MAN.FilterKeywords(description));
     }
 
+    /******
+     * *****
+     * ****** DISPLAY_CARD_PAGE_CARD
+     * *****
+     *****/
     public override void DisplayCardPageCard(Card card)
     {
         base.DisplayCardPageCard(card);
         CardScript = card;
-    }
-
-    public override void DisplayChooseCard(Card card)
-    {
-        base.DisplayChooseCard(card);
-        DisplayCardPageCard(card);
     }
 
     public override void ResetCard()

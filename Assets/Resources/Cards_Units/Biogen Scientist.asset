@@ -15,26 +15,34 @@ MonoBehaviour:
   cardArt: {fileID: 21300000, guid: dde263c5eddc94749baa74d5b7935bbc, type: 3}
   cardBorder: {fileID: 21300000, guid: df0cd5fe0e12b6048bd705355a698648, type: 3}
   energyCost: 2
+  costConditionType: 0
+  costConditionValue: 0
+  costConditionModifier: 0
   cardName: Biogen Scientist
   cardType: Tech
   cardSubType: 
-  isRare: 0
+  cardRarity: 0
   cardDescription: Biogen Scientist is...
+  relatedCards: []
+  relatedCardTypes: 
   cardPlaySound:
     name: 
     clip: {fileID: 8300000, guid: 756839825a6943a44bb3ded66a5c6ddc, type: 3}
     volume: 0.8
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
   zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
   power: 1
-  health: 3
+  health: 4
   startingAbilities:
-  - {fileID: 11400000, guid: 5edb02225c88bb34ca4b90ab92da5c7c, type: 2}
+  - {fileID: 11400000, guid: 57872a211be3230468dfe7be7b6f28c3, type: 2}
+  - {fileID: 11400000, guid: 0b85250ab7a0c244d9ebc1d60e71cb5f, type: 2}
   unitDeathSound:
     name: 
     clip: {fileID: 8300000, guid: d1564c30d0cc7a448b95ec3d7cbfd09e, type: 3}
     volume: 0.8
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}

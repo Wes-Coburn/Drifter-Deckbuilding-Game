@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a7f7b2ee0c588b4880372b94623cf06, type: 3}
   m_Name: Madrik, Obsessed Mage
   m_EditorClassIdentifier: 
-  developerNotes: 
   heroName: Madrik, Obsessed Mage
   heroShortName: Madrik
   heroPortrait: {fileID: 21300000, guid: c432fe59cf372414e91e3bdcfb065792, type: 3}
@@ -22,22 +21,23 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: a6c110dcef169cf4382dd4e91f742134, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   heroLose:
     name: 
     clip: {fileID: 8300000, guid: dadeb738ae0193348a73740af22769fa, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   heroPower: {fileID: 11400000, guid: 90a9d357823b858418c130a70ed38760, type: 2}
+  altHeroPowers:
+  - {fileID: 11400000, guid: c4e6e6c7ff2d3ba46b3cd5d3102bb3ac, type: 2}
+  - {fileID: 11400000, guid: 0211bc2833ce83f4cb318951c672e70d, type: 2}
   heroUltimate: {fileID: 11400000, guid: acdcd4d0dde3f7940bba2771f6d452b6, type: 2}
-  heroSkills:
-  - {fileID: 11400000, guid: 3cb2f6f279fc21f44b6560926a687d1d, type: 2}
-  - {fileID: 11400000, guid: fd34374ee0e811b48a1bc1e6581fe738, type: 2}
-  - {fileID: 11400000, guid: e9d9a79be6bbd874babb3eba229e3988, type: 2}
-  - {fileID: 11400000, guid: a32806c10bb88b645a389ec97130804a, type: 2}
-  - {fileID: 11400000, guid: 23c55db972e13eb48812517333274bcd, type: 2}
-  - {fileID: 11400000, guid: cd8632f90d7680e40850a9e24653c0a4, type: 2}
+  altHeroUltimates:
+  - {fileID: 11400000, guid: 0c9dd7f8769f48f4b8e3d1cadddc4193, type: 2}
+  - {fileID: 11400000, guid: 6e988b4ad876c6240a01027478ba8dc5, type: 2}
   heroBackstory: "Madrik was an aether engineer on a corporate colony, an indentured
     servant to Vektor.\nThough his life was dismal, he managed to find love, a wife.\nWhen
     she was caught stealing rations, she was executed without a moment\u2019s hesitation.\nThe

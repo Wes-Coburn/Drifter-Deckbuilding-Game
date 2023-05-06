@@ -3,12 +3,8 @@ using UnityEngine;
 
 public class NarrativePopupDisplay : MonoBehaviour
 {
-    [SerializeField] private GameObject narrativeTitle;
-    [SerializeField] private GameObject narrativeText;
-    [SerializeField] private GameObject clipCounter;
-    [SerializeField] private GameObject continueButton;
-    [SerializeField] private GameObject nextButton;
-    [SerializeField] private GameObject previousButton;
+    [SerializeField] private GameObject narrativeTitle, narrativeText,
+        clipCounter, continueButton, nextButton, previousButton;
 
     private Narrative loadedNarrative;
     private int currentClip;
@@ -34,7 +30,7 @@ public class NarrativePopupDisplay : MonoBehaviour
 
     private void DisplayCurrentClip(bool isFirstDisplay = false)
     {
-        if (isFirstDisplay) AudioManager.Instance.StartStopSound
+        if (isFirstDisplay) Managers.AU_MAN.StartStopSound
                 (null, loadedNarrative.NarrativeStartSound);
 
         int clipCount = loadedNarrative.NarrativeText.Length;
@@ -82,6 +78,28 @@ public class NarrativePopupDisplay : MonoBehaviour
         continueButton.SetActive(false);
     }
 
-    public void ContinueButton_OnClick() =>
+    public void ContinueButton_OnClick()
+    {
         Managers.U_MAN.DestroyNarrativePopup();
+
+        /* Bonus Cards Feature
+        if (loadedNarrative.NarrativeName.StartsWith("Part 1"))
+        {
+            int bonusRewards = GameManager.BONUS_START_REWARDS;
+            if (bonusRewards > 0)
+            {
+                if (bonusRewards > 1)
+                    ChooseRewardPopupDisplay.BonusRewards += bonusRewards;
+
+                Managers.U_MAN.CreateChooseRewardPopup();
+            }
+        }
+        */
+
+        if (Managers.G_MAN.TutorialActive_WorldMap)
+        {
+            Managers.G_MAN.TutorialActive_WorldMap = false;
+            Managers.U_MAN.CreateTutorialActionPopup(TutorialActionPopupDisplay.Type.WorldMap);
+        }
+    }
 }

@@ -1,13 +1,19 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public static class SceneLoader
 {
-    private static Action onSceneLoaderCallback;
-    private static Action onSceneUpdateCallback;
     public static bool SceneIsLoading = false;
-    public static Action LoadAction;
+    public static float LoadingProgress;
+
+    private static Action onSceneLoaderCallback, onSceneUpdateCallback;
+    //public static Func<IEnumerator> LoadAction_Async;
+
+    public static Coroutine CurrentLoadRoutine; // Load next content ('Tutorial OR 'Combat Test')
+    public static Coroutine BackgroundLoadRoutine; // Load main content in background ('New Game' OR 'Continue Game')
 
     public enum Scene
     {
@@ -21,18 +27,57 @@ public static class SceneLoader
         CombatScene,
         CreditsScene
     }
-
+    
     public static bool IsActiveScene(Scene scene) => SceneManager.GetActiveScene().name == scene.ToString();
 
+    public static void LoadScene(Scene scene, Func<IEnumerator> loadAction, bool loadSameScene = false, bool fadeTransition = true)
+    {
+        if (SceneIsLoading || (!loadSameScene && IsActiveScene(scene))) return;
+
+        if (loadAction == null)
+        {
+            Debug.LogError("LOAD ACTION IS NULL!");
+            return;
+        }
+
+        /*
+        if (BackgroundLoadRoutine != null) // TESTING
+        {
+            Managers.G_MAN.StopCoroutine(BackgroundLoadRoutine);
+            BackgroundLoadRoutine = null;
+            PlayerData.SavedPlayerData = null; // Unnecessary
+        }
+        */
+
+        LoadScene(scene, loadSameScene, fadeTransition);
+        CurrentLoadRoutine = Managers.G_MAN.StartCoroutine(loadAction());
+    }
     public static void LoadScene(Scene scene, bool loadSameScene = false, bool fadeTransition = true)
     {
         if (SceneIsLoading || (!loadSameScene && IsActiveScene(scene))) return;
+
         SceneIsLoading = true;
+        LoadingProgress = -1;
 
         onSceneLoaderCallback = () =>
         {
             Managers.U_MAN.SetSkybar(false);
             Managers.U_MAN.SetSceneFader(false);
+
+            var lsd = UnityEngine.Object.FindObjectOfType<LoadingSceneDisplay>();
+            lsd.ChapterText = "Drifter";
+            lsd.TipText = "";
+
+            if (CurrentLoadRoutine == null && BackgroundLoadRoutine == null)
+            {
+                if (scene != Scene.TitleScene && scene != Scene.CombatScene)
+                {
+                    LoadScene_Finish(scene, SceneFinishType.Immediate);
+                    return;
+                }
+            }
+            else LoadingProgress = 0;
+
             Managers.AU_MAN.StartStopSound("SFX_SceneLoading", null, AudioManager.SoundType.SFX, false, true);
 
             string chapterText;
@@ -69,31 +114,18 @@ public static class SceneLoader
                     break;
             }
 
-            var lsd = UnityEngine.Object.FindObjectOfType<LoadingSceneDisplay>();
             lsd.ChapterText = chapterText;
             lsd.TipText = Managers.G_MAN.CurrentTip;
 
-            if (LoadAction != null) FunctionTimer.Create(() => InvokeLoadAction(), 2);
-            else LoadScene_Finish();
-
-            void InvokeLoadAction()
-            {
-                LoadAction?.Invoke();
-                LoadAction = null;
-                LoadScene_Finish();
-            }
-            void LoadScene_Finish()
-            {
-                FunctionTimer.Create(() => Managers.U_MAN.SetSceneFader(true), 4);
-                FunctionTimer.Create(() => SceneManager.LoadScene(scene.ToString()), 6);
-                FunctionTimer.Create(() => Managers.U_MAN.SetSceneFader(false), 6);
-            }
+            if (CurrentLoadRoutine == null && BackgroundLoadRoutine == null)
+                LoadScene_Finish(scene, SceneFinishType.Delayed);
         };
 
         onSceneUpdateCallback = () =>
         {
             Managers.U_MAN.Start();
             Managers.AU_MAN.CleanAudioSources();
+            Managers.AU_MAN.StopCurrentSoundscape();
             Managers.AU_MAN.StartStopSound("SFX_SceneLoading", null, AudioManager.SoundType.SFX, true);
             SceneIsLoading = false;
             bool showSkybar = true;
@@ -107,53 +139,87 @@ public static class SceneLoader
                     break;
                 case Scene.HeroSelectScene:
                     showSkybar = false;
-                    Managers.G_MAN.StartHeroSelectScene();
+                    // HeroSelectSceneDisplay.Start() handles scene start
                     break;
                 case Scene.NarrativeScene:
                     showSkybar = false;
-                    Managers.G_MAN.StartNarrative();
+                    Managers.G_MAN.StartNarrativeScene();
                     break;
                 case Scene.WorldMapScene:
-                    Managers.G_MAN.EnterWorldMap();
+                    Managers.G_MAN.StartWorldMapScene();
                     break;
                 case Scene.HomeBaseScene:
-                    Managers.G_MAN.EnterHomeBase();
+                    Managers.G_MAN.StartHomeBaseScene();
                     break;
                 case Scene.DialogueScene:
-                    Managers.G_MAN.StartDialogue();
+                    Managers.D_MAN.StartDialogue();
                     break;
                 case Scene.CombatScene:
-                    Managers.G_MAN.StartCombat();
+                    Managers.CO_MAN.StartCombat();
                     hideChildren = true;
                     break;
                 case Scene.CreditsScene:
                     showSkybar = false;
-                    Managers.G_MAN.StartCredits();
+                    Managers.G_MAN.StartCreditsScene();
                     break;
                 default:
                     Debug.LogError("SCENE NOT FOUND!");
                     break;
             }
+
             Managers.U_MAN.SetSkybar(showSkybar, hideChildren);
         };
-
-        // Stop Corotoutines
-        Managers.G_MAN.StopAllCoroutines();
-        Managers.AN_MAN.StopAllCoroutines();
-        Managers.D_MAN.StopAllCoroutines();
-        Managers.U_MAN.StopAllCoroutines();
 
         // Reset Managers
         Managers.D_MAN.Reset_DialogueManager();
         Managers.EV_MAN.Reset_EventManager();
         Managers.EF_MAN.Reset_EffectManager();
 
+        // Stop Corotoutines
+        Managers.AN_MAN.StopAllCoroutines();
+        Managers.U_MAN.StopAllCoroutines();
+
         if (fadeTransition)
         {
-            FunctionTimer.Create(() => Managers.U_MAN.SetSceneFader(true), 0f);
+            //FunctionTimer.Create(() => Managers.U_MAN.SetSceneFader(true), 0); // Helps with making coroutines run smoother???
+            Managers.U_MAN.SetSceneFader(true);
             FunctionTimer.Create(() => SceneManager.LoadScene(Scene.LoadingScene.ToString()), 1.5f);
         }
         else SceneManager.LoadScene(Scene.LoadingScene.ToString());
+    }
+
+    public enum SceneFinishType
+    {
+        NoDelay,
+        Delayed,
+        Immediate,
+    }
+    public static void LoadScene_Finish(Scene scene, SceneFinishType finishType = SceneFinishType.NoDelay)
+    {
+        float delay;
+
+        switch (finishType)
+        {
+            case SceneFinishType.NoDelay:
+                delay = 0;
+                break;
+            case SceneFinishType.Delayed:
+                delay = 4;
+                break;
+            case SceneFinishType.Immediate:
+                LoadScene();
+                return;
+            default:
+                Debug.LogError("INVALID TYPE!");
+                return;
+        }
+
+        FunctionTimer.Create(() => { if (LoadingProgress >= 0) LoadingProgress = 1; }, delay);
+        FunctionTimer.Create(() => Managers.U_MAN.SetSceneFader(true), delay);
+        FunctionTimer.Create(() => LoadScene(), delay + 2);
+        FunctionTimer.Create(() => Managers.U_MAN.SetSceneFader(false), delay + 2);
+
+        void LoadScene() => SceneManager.LoadScene(scene.ToString());
     }
 
     public static void SceneLoaderCallback()

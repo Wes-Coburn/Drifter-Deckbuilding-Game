@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3712138012431901036
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2550938577004964003}
+  - component: {fileID: 6656463491970808230}
+  m_Layer: 0
+  m_Name: CardManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2550938577004964003
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3712138012431901036}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6656463491970808230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3712138012431901036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7373cbee29c916349af7e6b8470d4e29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitCardPrefab: {fileID: 7279803143792002406, guid: 1699411500fdc00408cd317524df96b6,
+    type: 3}
+  actionCardPrefab: {fileID: 7279803143792002406, guid: 1a4b96b16aa18c74490df04672670e01,
+    type: 3}
+  unitZoomCardPrefab: {fileID: 7279803143792002406, guid: c07a0922a28da3343827254dbc38f442,
+    type: 3}
+  actionZoomCardPrefab: {fileID: 7279803143792002406, guid: cb7743522e2ef634aa7afbb5890a7252,
+    type: 3}
+  cardContainerPrefab: {fileID: 5835463840310308633, guid: ab8693c0900fa6c4eb37fe81ed77ac82,
+    type: 3}
+  dragArrowPrefab: {fileID: 1190123679167858368, guid: d8b7cf6cad2aa4a4db9a846023b2153a,
+    type: 3}
+  playerStartUnits:
+  - {fileID: 11400000, guid: d6446d2a91b4745419fb94c9af2a9206, type: 2}
+  - {fileID: 11400000, guid: f195a8ce7fae4d0458ddafd2699964fd, type: 2}
+  - {fileID: 11400000, guid: 4cbad238a798ec84392ea61af6374e9d, type: 2}
+  - {fileID: 11400000, guid: bfc97ad1a0482774997b1ed121336f10, type: 2}
+  - {fileID: 11400000, guid: 2424eff6a1113374ca0908ff0efdbde4, type: 2}
+  tutorialPlayerUnits:
+  - {fileID: 11400000, guid: 4cbad238a798ec84392ea61af6374e9d, type: 2}
+  - {fileID: 11400000, guid: bfc97ad1a0482774997b1ed121336f10, type: 2}
+  exploit_Ultimate: {fileID: 11400000, guid: 9a7414729c6b99f488e4d3027e10ea5c, type: 2}
+  invention_Ultimate: {fileID: 11400000, guid: 321cfdd8afd4cbe4ca9d53d0ac3c9e90, type: 2}
+  scheme_Ultimate: {fileID: 11400000, guid: c19be637f83c78044b64c6ca6a4705a0, type: 2}
+  extraction_Ultimate: {fileID: 11400000, guid: e88b9672be4674141b6f07d4af804992,
+    type: 2}
+  Exploits:
+  - {fileID: 11400000, guid: 2fa62cb5b060d914d9fb78506d85d0b4, type: 2}
+  - {fileID: 11400000, guid: 95c9bd0b01cf5e24cb014f811196ff15, type: 2}
+  - {fileID: 11400000, guid: 4b39453d6b0947046b8296d625815f9f, type: 2}
+  Inventions:
+  - {fileID: 11400000, guid: 8eccc3bad866ec54d9d070d29bbf5def, type: 2}
+  - {fileID: 11400000, guid: 281de4c38948feb45a38722a2848f65a, type: 2}
+  - {fileID: 11400000, guid: 038f74e9c6641b843883da75d3572ba4, type: 2}
+  Schemes:
+  - {fileID: 11400000, guid: e46addf1d804f574786f08056c9c51d1, type: 2}
+  - {fileID: 11400000, guid: 81cae13a9ad4e0740a008124eea5efad, type: 2}
+  - {fileID: 11400000, guid: 418da183b392b37439daf9adb74edc5c, type: 2}
+  Extractions:
+  - {fileID: 11400000, guid: e3d0fe79bb444824f991c71cf50d612e, type: 2}
+  - {fileID: 11400000, guid: 1f9c3973af3545f448f82d15824b83d1, type: 2}
+  - {fileID: 11400000, guid: 4c1d2a853dcdfe34896c117d03120e6f, type: 2}
+  Traps:
+  - {fileID: 11400000, guid: 072b1f3b30affea41a0ec183d9a18982, type: 2}
+  - {fileID: 11400000, guid: 64bc9862643a29b488bf982376453b08, type: 2}
+  - {fileID: 11400000, guid: 2cfa1c0d364ae1046accfa5a22ed23f4, type: 2}
+  GeneratableKeywords:
+  - {fileID: 11400000, guid: 57872a211be3230468dfe7be7b6f28c3, type: 2}
+  - {fileID: 11400000, guid: a068db5ffbe74b34e877408328ee8e33, type: 2}
+  - {fileID: 11400000, guid: 44eb684e5e3c70e4f830456effa3f6b6, type: 2}
+  - {fileID: 11400000, guid: 0c9bafd0564d11947a28d93981c1f1f4, type: 2}
+  - {fileID: 11400000, guid: ea3240d3d6b88204c8166979a836ea6e, type: 2}
+  - {fileID: 11400000, guid: bc124aff5627c734a91055be03a74735, type: 2}
+  - {fileID: 11400000, guid: c67d8d67ab4a0294293b6847c50fd28a, type: 2}

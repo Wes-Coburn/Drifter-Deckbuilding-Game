@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Modifier Ability", menuName = "Card Abilities/Modifier Ability")]
@@ -59,11 +60,9 @@ public class ModifierAbility : CardAbility
     public override void LoadCardAbility(CardAbility cardAbility)
     {
         base.LoadCardAbility(cardAbility);
-        ModifierAbility modifierAbility = cardAbility as ModifierAbility;
+        var modifierAbility = cardAbility as ModifierAbility;
 
-        EffectGroupList = new List<EffectGroup>();
-        foreach (EffectGroup eg in modifierAbility.EffectGroupList)
-            EffectGroupList.Add(eg);
+        EffectGroupList = modifierAbility.EffectGroupList.ToList();
 
         TriggerLimit = modifierAbility.TriggerLimit;
         RemoveAfterTrigger = modifierAbility.RemoveAfterTrigger;
@@ -72,9 +71,7 @@ public class ModifierAbility : CardAbility
         AllAbilityTriggers = modifierAbility.AllAbilityTriggers;
 
         ModifyPlayUnit = modifierAbility.ModifyPlayUnit;
-        PlayUnitEffects = new List<Effect>();
-        foreach (Effect e in modifierAbility.PlayUnitEffects)
-            PlayUnitEffects.Add(e);
+        PlayUnitEffects = modifierAbility.PlayUnitEffects.ToList();
 
         ModifyPlayAction = modifierAbility.ModifyPlayAction;
         PlayActionType = modifierAbility.PlayActionType;
@@ -82,9 +79,7 @@ public class ModifierAbility : CardAbility
         ModifySpecialTrigger = modifierAbility.ModifySpecialTrigger;
         SpecialTriggerType = modifierAbility.SpecialTriggerType;
         SpecialTriggerValue = modifierAbility.SpecialTriggerValue;
-        SpecialTriggerEffects = new List<Effect>();
-        foreach (Effect e in modifierAbility.SpecialTriggerEffects)
-            SpecialTriggerEffects.Add(e);
+        SpecialTriggerEffects = modifierAbility.SpecialTriggerEffects.ToList();
 
         AllyAbility = modifierAbility.AllyAbility;
 

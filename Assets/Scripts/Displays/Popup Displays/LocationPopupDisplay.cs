@@ -5,15 +5,9 @@ using UnityEngine.UI;
 
 public class LocationPopupDisplay : MonoBehaviour
 {
-    [SerializeField] private GameObject locationName;
-    [SerializeField] private GameObject locationDescription;
-    [SerializeField] private GameObject locationHours;
-    [SerializeField] private GameObject objectivesDescription;
-    [SerializeField] private GameObject travelButtons;
-    [SerializeField] private GameObject difficultyLevel;
-    [SerializeField] private GameObject difficultyValue;
-    [SerializeField] private GameObject difficultyText;
-    [SerializeField] private GameObject closePopupButton;
+    [SerializeField] private GameObject locationName, locationDescription, locationHours,
+        objectivesDescription, travelButtons, difficultyLevel, difficultyValue,
+        difficultyText, undoButton, closePopupButton;
 
     private Location location;
     public Location Location
@@ -24,7 +18,21 @@ public class LocationPopupDisplay : MonoBehaviour
             LocationName = location.LocationFullName;
             LocationDescription = location.LocationDescription;
             ObjectivesDescription = Managers.CA_MAN.FilterUnitTypes(location.CurrentObjective);
-            WorldMapPosition = new Vector2(0, 0); // CHANGE?
+
+            Vector2 mapPos = location.WorldMapPosition;
+            Vector2 popPos = new();
+
+            float buffer = 100;
+            if (mapPos.x > buffer) popPos.x = 350;
+            else if (mapPos.x < -buffer) popPos.x = difficultyLevel.activeInHierarchy ? -100 : -350;
+
+            if (mapPos.y > buffer) popPos.y = 100;
+            else if (mapPos.y < -buffer) popPos.y = -200;
+
+            WorldMapPosition = popPos;
+
+            difficultyLevel.GetComponentInChildren<Slider>().SetValueWithoutNotify(Managers.CO_MAN.DifficultyLevel);
+            SetDifficultyLevel(Managers.CO_MAN.DifficultyLevel);
 
             if (!location.IsRecurring)
             {
@@ -87,7 +95,7 @@ public class LocationPopupDisplay : MonoBehaviour
     {
         set
         {
-            transform.position = value;
+            transform.localPosition = value;
         }
     }
 
@@ -95,49 +103,65 @@ public class LocationPopupDisplay : MonoBehaviour
     public GameObject DifficultyLevel { get => difficultyLevel; }
     public GameObject ClosePopupButton { get => closePopupButton; }
 
-    private void Awake()
-    {
-        int level = CombatManager.Instance.DifficultyLevel;
-        difficultyLevel.GetComponentInChildren<Slider>().SetValueWithoutNotify(level);
-        SetDifficultyLevel(level);
-    }
+    private void Awake() => undoButton.SetActive(false);
 
     private void SetDifficultyLevel(int difficulty)
     {
         Color newColor;
-        if (difficulty > 2) newColor = Color.red;
-        else if (difficulty > 1) newColor = Color.yellow;
-        else newColor = Color.green;
+        switch (difficulty)
+        {
+            case 1:
+                newColor = Color.green;
+                break;
+            case 2:
+                newColor = Color.blue;
+                break;
+            case 3:
+                newColor = Color.red;
+                break;
+            default:
+                Debug.LogError("INVALID DIFFICULTY!");
+                return;
+        }
 
         int surgeValue = Managers.G_MAN.GetSurgeDelay(difficulty);
-        int energyValue = GameManager.BOSS_BONUS_ENERGY + difficulty - 1;
-        int aetherValue = GameManager.ADDITIONAL_AETHER_REWARD * (difficulty - 1);
+        int energyValue = Managers.G_MAN.GetEnemyStartingEnergy(difficulty);
+        int aetherValue = Managers.G_MAN.GetAdditionalRewardAether(difficulty);
+        int reputationValue = Managers.G_MAN.GetBonusReputation(difficulty);
 
         string text =
             $"-> Enemies surge every {TextFilter.Clrz_red(surgeValue + "")} turns." +
-            $"\n-> Enemy bosses start with {TextFilter.Clrz_red(energyValue + "")} energy." +
-            $"\n\n-> +{TextFilter.Clrz_grn(aetherValue + "")} aether";
+            $"\n-> Enemies start with +{TextFilter.Clrz_red(energyValue + "")} energy." +
+            $"\n\n-> +{TextFilter.Clrz_grn(aetherValue + "")} aether.";
 
-        difficultyValue.GetComponent<TextMeshProUGUI>().SetText(difficulty + "");
-        difficultyValue.GetComponent<TextMeshProUGUI>().color = newColor;
-        difficultyLevel.GetComponentInChildren<Slider>
-            ().handleRect.GetComponent<Image>().color = newColor;
+        // ::: WATCH :::
+        // Only works if random encounters are the ONLY locations with reputation rewards
+        if (location.IsRandomEncounter) text += $"\n-> +{TextFilter.Clrz_grn(reputationValue + "")} reputation.";
+        var diffTmpro = difficultyValue.GetComponent<TextMeshProUGUI>();
+        diffTmpro.SetText(difficulty + "");
+        diffTmpro.color = newColor;
+        difficultyLevel.GetComponentInChildren<Slider>().handleRect.GetComponent<Image>().color = newColor;
         difficultyText.GetComponent<TextMeshProUGUI>().SetText(text);
     }
+
     public void DifficultySlider_OnSlide(float level)
     {
         int intLevel = (int)level;
-        CombatManager.Instance.DifficultyLevel = intLevel;
+        Managers.CO_MAN.DifficultyLevel = intLevel;
         SetDifficultyLevel(intLevel);
     }
 
     public void TravelButton_OnClick()
     {
+        if (SceneLoader.SceneIsLoading) return;
+
+        Managers.AN_MAN.CreateParticleSystem(gameObject, ParticleSystemHandler.ParticlesType.ButtonPress);
+
         if (Managers.G_MAN.VisitedLocations.FindIndex(x => x == location.LocationName) == -1)
         {
-            Managers.G_MAN.VisitedLocations.Add(location.LocationName);
-
             if (!location.IsRecurring) Managers.G_MAN.NextHour(!location.IsRandomEncounter);
+            if ((location.IsRecurring && !location.IsAugmenter && !location.IsHealer) || location.IsRandomEncounter)
+                Managers.G_MAN.VisitedLocations.Add(location.LocationName);
         }
 
         if (location.IsHomeBase)
@@ -147,9 +171,7 @@ public class LocationPopupDisplay : MonoBehaviour
         }
 
         Managers.G_MAN.CurrentLocation = Managers.G_MAN.GetActiveLocation(location);
-
-        if (location.IsRecruitment || location.IsActionShop || location.IsShop || location.IsCloning) { }
-        else Managers.G_MAN.ActiveLocations.Remove(Managers.G_MAN.CurrentLocation);
+        if (!location.IsRecurring) Managers.G_MAN.ActiveLocations.Remove(Managers.G_MAN.CurrentLocation);
         Managers.D_MAN.EngagedHero = Managers.G_MAN.GetActiveNPC(Managers.G_MAN.CurrentLocation.CurrentNPC);
 
         if (location.IsCombatOnly) SceneLoader.LoadScene(SceneLoader.Scene.CombatScene);
@@ -160,5 +182,6 @@ public class LocationPopupDisplay : MonoBehaviour
     {
         Managers.U_MAN.DestroyTravelPopup();
         Managers.U_MAN.DestroyLocationPopup();
+        Destroy(gameObject);
     }
 }

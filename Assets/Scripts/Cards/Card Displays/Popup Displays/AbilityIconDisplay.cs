@@ -7,10 +7,8 @@ public class AbilityIconDisplay : MonoBehaviour
     /* ABILITY_SCRIPTABLE_OBJECT */
     private CardAbility abilityScript;
 
-    [SerializeField] private GameObject abilitySprite;
-    [SerializeField] private GameObject abilityName;
-    [SerializeField] private GameObject abilityMultiplier;
-
+    [SerializeField] private GameObject abilitySprite, abilityName, abilityMultiplier;
+    
     public GameObject AbilitySprite { get => abilitySprite; }
 
     public int AbilityMultiplier

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -22,127 +23,76 @@ public class UIManager : MonoBehaviour
     }
 
     #region FIELDS
-    [Header("SKYBAR")]
-    [SerializeField] private GameObject skyBar;
-    [SerializeField] private GameObject augmentBar;
-    [SerializeField] private GameObject augmentsDropdown;
-    [SerializeField] private GameObject itemBar;
-    [SerializeField] private GameObject itemsDropdown;
-    [SerializeField] private GameObject itemsCount;
-    [SerializeField] private GameObject reputationBar;
-    [SerializeField] private GameObject reputationsDropdown;
-    [SerializeField] private GameObject aetherCount;
-    [SerializeField] private GameObject aetherIcon;
+    [Header("COLORS"), SerializeField] private Color highlightedColor;
+    [SerializeField] private Color selectedColor, rejectedColor, playableColor;
 
-    [Header("REPUTATION")]
-    [SerializeField] private GameObject reputation_Mages;
-    [SerializeField] private GameObject reputation_Mutants;
-    [SerializeField] private GameObject reputation_Rogues;
-    [SerializeField] private GameObject reputation_Techs;
-    [SerializeField] private GameObject reputation_Warriors;
+    [Header("SCENE FADER"), SerializeField] private GameObject sceneFader;
 
-    [Header("SCENE FADER")]
-    [SerializeField] private GameObject sceneFader;
+    [Header("SKYBAR"), SerializeField] private GameObject skyBar;
+    [SerializeField]
+    private GameObject
+        // Augments
+        augmentBar, augmentsDropdown, augmentsCount,
+        // Items
+        itemBar,
+        // Reputation
+        reputationBar, reputationsDropdown,
+        // Aether
+        aetherCount, aetherIcon,
+        // Health
+        currentHealth, healthValue;
 
-    [Header("PREFABS")]
-    [SerializeField] private GameObject screenDimmerPrefab;
-    [SerializeField] private GameObject tooltipPopupPrefab;
-    [SerializeField] private GameObject infoPopupPrefab;
-    [SerializeField] private GameObject infoPopup_SecondaryPrefab;
-    [SerializeField] private GameObject combatEndPopupPrefab;
-    [SerializeField] private GameObject turnPopupPrefab;
-    [SerializeField] private GameObject versusPopupPrefab;
-    [SerializeField] private GameObject menuPopupPrefab;
-    [SerializeField] private GameObject explicitLanguagePopupPrefab;
-    [SerializeField] private GameObject tutorialPopupPrefab;
-    [SerializeField] private GameObject tutorialActionPopupPrefab;
-    [SerializeField] private GameObject newCardPopupPrefab;
-    [SerializeField] private GameObject chooseCardPopupPrefab;
-    [SerializeField] private GameObject chooseRewardPopupPrefab;
-    [SerializeField] private GameObject aetherCellPopupPrefab;
-    [SerializeField] private GameObject cardPagePrefab;
-    [SerializeField] private GameObject cardScrollPagePrefab;
-    [SerializeField] private GameObject cardPagePopupPrefab;
-    [SerializeField] private GameObject newAugmentPopupPrefab;
-    [SerializeField] private GameObject locationPopupPrefab;
-    [SerializeField] private GameObject narrativePopupPrefab;
-    [SerializeField] private GameObject augmentIconPrefab;
-    [SerializeField] private GameObject augmentIconPopupPrefab;
-    [SerializeField] private GameObject itemPagePopupPrefab;
-    [SerializeField] private GameObject buyItemPopupPrefab;
-    [SerializeField] private GameObject removeItemPopupPrefab;
-    [SerializeField] private GameObject itemIconPrefab;
-    [SerializeField] private GameObject itemIconPopupPrefab;
-    [SerializeField] private GameObject abilityPopupPrefab;
-    [SerializeField] private GameObject abilityPopupBoxPrefab;
-    [SerializeField] private GameObject reputationPopupPrefab;
-    [SerializeField] private GameObject gameEndPopupPrefab;
+    [Header("REPUTATION"), SerializeField] private GameObject reputation_Mages;
+    [SerializeField] private GameObject reputation_Mutants,
+        reputation_Rogues, reputation_Techs, reputation_Warriors;
 
-    [Header("COLORS")]
-    [SerializeField] private Color highlightedColor;
-    [SerializeField] private Color selectedColor;
-    [SerializeField] private Color rejectedColor;
-    [SerializeField] private Color playableColor;
+    [Header("PREFABS"), SerializeField] private GameObject screenDimmerPrefab;
+    [SerializeField] private GameObject tooltipPopupPrefab, infoPopupPrefab, infoPopup_SecondaryPrefab,
+        combatEndPopupPrefab, turnPopupPrefab, versusPopupPrefab, menuPopupPrefab,
+        explicitLanguagePopupPrefab, tutorialPopupPrefab, tutorialActionPopupPrefab, newHeroPopupPrefab,
+        newCardPopupPrefab, chooseCardPopupPrefab, chooseRewardPopupPrefab,
+        cardPagePrefab, cardScrollPagePrefab, cardPagePopupPrefab, newAugmentPopupPrefab, locationPopupPrefab,
+        narrativePopupPrefab, augmentIconPrefab, augmentIconPopupPrefab, itemPagePopupPrefab,
+        buyItemPopupPrefab, removeItemPopupPrefab, itemIconPrefab, itemIconPopupPrefab, abilityPopupPrefab,
+        abilityPopupBoxPrefab, reputationPopupPrefab, gameEndPopupPrefab;
 
-    private GameObject screenDimmer;
-    private GameObject tooltipPopup;
-    private GameObject infoPopup;
-    private GameObject infoPopup_Secondary;
-    private GameObject infoPopup_Tutorial;
-    private GameObject combatEndPopup;
-    private GameObject turnPopup;
-    private GameObject menuPopup;
-    private GameObject explicitLanguagePopup;
-    private GameObject tutorialPopup;
-    private GameObject tutorialActionPopup;
-    private GameObject newCardPopup;
-    private GameObject chooseCardPopup;
-    private GameObject chooseRewardPopup;
-    private GameObject aetherCellPopup;
-    private GameObject cardPage;
-    private GameObject cardPagePopup;
-    private GameObject newAugmentPopup;
-    private GameObject itemPagePopup;
-    private GameObject buyItemPopup;
-    private GameObject removeItemPopup;
-    private GameObject locationPopup;
-    private GameObject travelPopup;
-    private GameObject narrativePopup;
-    private GameObject augmentIconPopup;
-    private GameObject itemIconPopup;
-    private GameObject itemAbilityPopup;
-    private GameObject reputationPopup;
+    private GameObject screenDimmer, tooltipPopup, infoPopup, infoPopup_Secondary,
+        infoPopup_Tutorial, combatEndPopup, turnPopup, menuPopup, explicitLanguagePopup, tutorialPopup,
+        tutorialActionPopup, newHeroPopup, newCardPopup, chooseCardPopup, chooseRewardPopup,
+        cardPage, cardPagePopup, newAugmentPopup, itemPagePopup, buyItemPopup, removeItemPopup, locationPopup,
+        travelPopup, narrativePopup, augmentIconPopup, itemIconPopup, itemAbilityPopup, reputationPopup,
+        endTurnButton, cancelEffectButton, confirmEffectButton, playerZoneOutline;
 
-    private GameObject endTurnButton;
-    private GameObject cancelEffectButton;
-    private GameObject confirmEffectButton;
     private Coroutine sceneFadeRoutine;
-    private GameObject playerZoneOutline;
     private CombatLog combatLog;
 
     public const string TOOLTIP_TIMER = "TooltipTimer";
+
+    public const string LOCK_TEXT = "<b>???</b>";
+    public const string LOCK_TEXT_SHORT = "<b>?</b>";
     #endregion
 
     #region PROPERTIES
     public GameObject NewCardPopup { get => newCardPopup; }
-    public GameObject ChooseCardPopup { get => chooseCardPopup; }
-    public GameObject CardPagePopup { get => cardPagePopup; }
     public GameObject ConfirmUseItemPopup { get; set; }
     public GameObject EndTurnButton { get => endTurnButton; }
     public GameObject AugmentBar { get => augmentBar; }
     public GameObject AugmentsDropdown { get => augmentsDropdown; }
     public GameObject ItemBar { get => itemBar; }
-    public GameObject ItemsDropdown { get => itemsDropdown; }
     public GameObject ReputationBar { get => reputationBar; }
     public GameObject ReputationsDropdown { get => reputationsDropdown; }
-    public Color HighlightedColor { get => highlightedColor; }
     public GameObject CombatLog { get => combatLog.gameObject; }
+    public Color HighlightedColor { get => highlightedColor; }
 
-    public bool PlayerIsTargetting { get; set; }
     public GameObject CurrentWorldSpace { get; private set; }
     public GameObject CurrentCanvas { get; private set; }
     public GameObject CurrentZoomCanvas { get; private set; }
     public GameObject UICanvas { get; set; }
+
+    public bool PlayerIsTargetting { get; set; }
+    public bool SceneIsFading { get; private set; }
+    public bool PlayerCanTravel => !(newCardPopup != null || chooseCardPopup != null ||
+        narrativePopup != null || tutorialActionPopup != null);
     #endregion
 
     #region METHODS
@@ -185,6 +135,14 @@ public class UIManager : MonoBehaviour
 
     /******
      * *****
+     * ****** CANCEL/CONFIRM_EFFECT_BUTTON
+     * *****
+     *****/
+    public void SetCancelEffectButton(bool isEnabled) => cancelEffectButton.SetActive(isEnabled);
+    public void SetConfirmEffectButton(bool isEnabled) => confirmEffectButton.SetActive(isEnabled);
+
+    /******
+     * *****
      * ****** PLAYER_ZONE_OUTLINE
      * *****
      *****/
@@ -193,10 +151,8 @@ public class UIManager : MonoBehaviour
         playerZoneOutline.SetActive(enabled);
         if (enabled)
         {
-            SpriteRenderer sr = playerZoneOutline.GetComponentInChildren<SpriteRenderer>();
-            Color col;
-            if (!selected) col = selectedColor;
-            else col = highlightedColor;
+            var sr = playerZoneOutline.GetComponentInChildren<SpriteRenderer>();
+            var col = selected ? highlightedColor : selectedColor;
             col.a = 0.3f;
             sr.color = col;
         }
@@ -218,11 +174,13 @@ public class UIManager : MonoBehaviour
     }
     private IEnumerator FadeSceneNumerator(bool fadeOut)
     {
-        Image img = sceneFader.GetComponent<Image>();
+        var img = sceneFader.GetComponent<Image>();
         float alphaChange = 0.015f;
 
+        // Fade Out
         if (fadeOut)
         {
+            SceneIsFading = true;
             while (img.color.a < 1)
             {
                 var tempColor = img.color;
@@ -232,6 +190,7 @@ public class UIManager : MonoBehaviour
                 yield return new WaitForFixedUpdate();
             }
         }
+        // Fade In
         else
         {
             while (img.color.a > 0)
@@ -242,7 +201,9 @@ public class UIManager : MonoBehaviour
                 img.color = tempColor;
                 yield return new WaitForFixedUpdate();
             }
+            SceneIsFading = false;
         }
+
         sceneFadeRoutine = null;
     }
     /******
@@ -257,8 +218,7 @@ public class UIManager : MonoBehaviour
             Destroy(screenDimmer);
             screenDimmer = null;
         }
-        if (screenIsDimmed) screenDimmer =
-                Instantiate(screenDimmerPrefab, CurrentZoomCanvas.transform);
+        if (screenIsDimmed) screenDimmer = Instantiate(screenDimmerPrefab, CurrentZoomCanvas.transform);
     }
     /******
      * *****
@@ -271,53 +231,33 @@ public class UIManager : MonoBehaviour
 
         bool isMyTurn = Managers.P_MAN.IsMyTurn;
         var etbd = endTurnButton.GetComponent<EndTurnButtonDisplay>();
-        etbd.EndTurnSide.SetActive(isMyTurn);
-        etbd.OpponentTurnSide.SetActive(!isMyTurn);
+        etbd.PlayerTurnSide.SetActive(isMyTurn);
+        etbd.EnemyTurnSide.SetActive(!isMyTurn);
 
         if (!isMyTurn) isInteractable = false;
-        Button[] buttons = endTurnButton.GetComponentsInChildren<Button>();
-        foreach (Button b in buttons) b.interactable = isInteractable;
+        var buttons = endTurnButton.GetComponentsInChildren<Button>();
+        foreach (var b in buttons) b.interactable = isInteractable;
     }
     public void SetReadyEndTurnButton(bool isReady)
     {
         if (endTurnButton == null) return;
 
         var etbd = endTurnButton.GetComponent<EndTurnButtonDisplay>();
-        Button etb = etbd.EndTurnSide.GetComponent<Button>();
+        var etb = etbd.PlayerTurnSide.GetComponent<Button>();
 
-        Color normalColor;
-        Color highlightedColor;
-        Color disabledColor;
-
-        if (isReady)
-        {
-            normalColor = Color.white;
-            highlightedColor = Color.gray;
-            disabledColor = Color.gray;
-        }
-        else
-        {
-            normalColor = Color.black;
-            highlightedColor = Color.red;
-            disabledColor = Color.black;
-        }
-
+        var normalColor = isReady ? Color.green : Color.grey;
+        normalColor.a = 0.7f;
+        var highlightedColor = isReady ? Color.green : Color.black;
+        var disabledColor = Color.gray;
         disabledColor.a = 0.3f;
+
         var btnClr = etb.colors;
         btnClr.normalColor = normalColor;
         btnClr.highlightedColor = highlightedColor;
         btnClr.disabledColor = disabledColor;
         etb.colors = btnClr;
     }
-    /******
-     * *****
-     * ****** CANCEL/CONFIRM_EFFECT_BUTTON
-     * *****
-     *****/
-    public void SetCancelEffectButton(bool isEnabled) =>
-        cancelEffectButton.SetActive(isEnabled);
-    public void SetConfirmEffectButton(bool isEnabled) =>
-        confirmEffectButton.SetActive(isEnabled);
+
     /******
      * *****
      * ****** SELECT_TARGET
@@ -349,7 +289,7 @@ public class UIManager : MonoBehaviour
             }
             else cs.CardOutline.SetActive(true);
 
-            Image image = cs.CardOutline.GetComponent<Image>();
+            var image = cs.CardOutline.GetComponent<Image>();
             if (enabled) SetColor(image);
 
             if (selectionType is SelectionType.Selected && PlayerIsTargetting)
@@ -374,7 +314,7 @@ public class UIManager : MonoBehaviour
             }
             else hs.HeroOutline.SetActive(true);
 
-            Image image = hs.HeroOutline.GetComponentInChildren<Image>();
+            var image = hs.HeroOutline.GetComponentInChildren<Image>();
             if (enabled) SetColor(image);
         }
         else
@@ -416,14 +356,15 @@ public class UIManager : MonoBehaviour
     public void DestroyZoomObjects()
     {
         // Skybar
-        if (SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene))
-            HideSkybar(false);
+        if (SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene)) HideSkybar(false);
 
         // Screen Dimmer
         SetScreenDimmer(false);
 
         // CardZoom
         CardZoom.ZoomCardIsCentered = false;
+        CardZoom.BaseZoomCard = null;
+        CardZoom.ActiveZoomCard = 0;
 
         // Function Timers
         FunctionTimer.StopTimer(CardZoom.ZOOM_CARD_TIMER);
@@ -437,7 +378,7 @@ public class UIManager : MonoBehaviour
             AbilityZoom.AbilityPopup
         };
 
-        foreach (GameObject go in objectsToDestroy) Destroy(go);
+        foreach (var go in objectsToDestroy) Destroy(go);
     }
 
     /******
@@ -445,101 +386,70 @@ public class UIManager : MonoBehaviour
      * ****** GET_PORTRAIT_POSITION
      * *****
      *****/
-    public void GetPortraitPosition(string heroName, out Vector2 position,
-        out Vector2 scale, SceneLoader.Scene scene)
+    public void GetPortraitPosition(string heroName, out Vector2 position, out Vector2 scale)
     {
         position = new Vector2();
         scale = new Vector2();
+
+        bool isCombat = SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene);
+
         switch (heroName)
         {
             // FAYDRA
             case "Faydra, Rogue Cyborg":
-                switch (scene)
-                {
-                    case SceneLoader.Scene.HeroSelectScene:
-                        position.Set(-40, 0);
-                        scale.Set(1.3f, 1.3f);
-                        break;
-                    case SceneLoader.Scene.DialogueScene:
-                        position.Set(-150, -75);
-                        scale.Set(2.5f, 2.5f);
-                        break;
-                    case SceneLoader.Scene.CombatScene:
-                        position.Set(-90, -20);
-                        scale.Set(1.2f, 1.2f);
-                        break;
-                }
+                position.Set(-90, -20);
+                scale.Set(1.2f, 1.2f);
                 break;
             // GENZER
             case "Genzer, Evolved Mutant":
-                switch (scene)
+                if (isCombat)
                 {
-                    case SceneLoader.Scene.HeroSelectScene:
-                        position.Set(0, 0);
-                        scale.Set(1.3f, 1.3f);
-                        break;
-                    case SceneLoader.Scene.DialogueScene:
-                        position.Set(0, -100);
-                        scale.Set(2f, 2f);
-                        break;
-                    case SceneLoader.Scene.CombatScene:
-                        position.Set(5, -20);
-                        scale.Set(1f, 1f);
-                        break;
+                    position.Set(5, -20);
+                    scale.Set(1f, 1f);
+                }
+                else
+                {
+                    position.Set(5, 15);
+                    scale.Set(1f, 1f);
                 }
                 break;
             // KILI
             case "Kili, Neon Rider":
-                switch (scene)
+                if (isCombat)
                 {
-                    case SceneLoader.Scene.HeroSelectScene:
-                        position.Set(0, -30);
-                        scale.Set(1.2f, 1.2f);
-                        break;
-                    case SceneLoader.Scene.DialogueScene:
-                        position.Set(-90, -325);
-                        scale.Set(3, 3);
-                        break;
-                    case SceneLoader.Scene.CombatScene:
-                        position.Set(-30, -90);
-                        scale.Set(1.2f, 1.2f);
-                        break;
+                    position.Set(-30, -90);
+                    scale.Set(1.2f, 1.2f);
+                }
+                else
+                {
+                    position.Set(-30, -70);
+                    scale.Set(1.2f, 1.2f);
                 }
                 break;
             // MARDRIK
             case "Madrik, Obsessed Mage":
-                switch (scene)
+                if (isCombat)
                 {
-                    case SceneLoader.Scene.HeroSelectScene:
-                        position.Set(0, -10);
-                        scale.Set(1.4f, 1.4f);
-                        break;
-                    case SceneLoader.Scene.DialogueScene:
-                        position.Set(0, -45);
-                        scale.Set(2f, 2f);
-                        break;
-                    case SceneLoader.Scene.CombatScene:
-                        position.Set(0, -35);
-                        scale.Set(1.2f, 1.2f);
-                        break;
+                    position.Set(0, -35);
+                    scale.Set(1.2f, 1.2f);
+                }
+                else
+                {
+                    position.Set(0, -15);
+                    scale.Set(1.2f, 1.2f);
                 }
                 break;
             // YERGOV
             case "Yergov, Biochemist":
-                switch (scene)
+                if (isCombat)
                 {
-                    case SceneLoader.Scene.HeroSelectScene:
-                        position.Set(-15, -35);
-                        scale.Set(1.3f, 1.3f);
-                        break;
-                    case SceneLoader.Scene.DialogueScene:
-                        position.Set(-145, -145);
-                        scale.Set(2, 2);
-                        break;
-                    case SceneLoader.Scene.CombatScene:
-                        position.Set(-15, -45);
-                        scale.Set(0.9f, 0.9f);
-                        break;
+                    position.Set(-15, -45);
+                    scale.Set(0.9f, 0.9f);
+                }
+                else
+                {
+                    position.Set(-75, -75);
+                    scale.Set(1.2f, 1.2f);
                 }
                 break;
             default:
@@ -567,7 +477,6 @@ public class UIManager : MonoBehaviour
     public void CreateTooltipPopup(Vector2 position, string text)
     {
         DestroyTooltipPopup();
-
         tooltipPopup = Instantiate(tooltipPopupPrefab, CurrentWorldSpace.transform);
         tooltipPopup.transform.localPosition = position;
         tooltipPopup.GetComponentInChildren<TextMeshPro>().SetText(text);
@@ -589,33 +498,19 @@ public class UIManager : MonoBehaviour
         if (explicitLanguagePopup != null) return;
         explicitLanguagePopup = Instantiate(explicitLanguagePopupPrefab, CurrentCanvas.transform);
     }
-    public void DestroyExplicitLanguagePopup()
-    {
-        if (explicitLanguagePopup != null)
-        {
-            Destroy(explicitLanguagePopup);
-            explicitLanguagePopup = null;
-        }
-    }
     // Tutorial Popup
     public void CreateTutorialPopup()
     {
         if (tutorialPopup != null) return;
         tutorialPopup = Instantiate(tutorialPopupPrefab, CurrentCanvas.transform);
     }
-    public void DestroyTutorialPopup()
-    {
-        if (tutorialPopup != null)
-        {
-            Destroy(tutorialPopup);
-            tutorialPopup = null;
-        }
-    }
     // Tutorial Action Popup
-    public void CreateTutorialActionPopup()
+    public void CreateTutorialActionPopup
+        (TutorialActionPopupDisplay.Type tutorialType = TutorialActionPopupDisplay.Type.Tutorial)
     {
         if (tutorialActionPopup != null) return;
         tutorialActionPopup = Instantiate(tutorialActionPopupPrefab, CurrentZoomCanvas.transform);
+        tutorialActionPopup.GetComponent<TutorialActionPopupDisplay>().TutorialType = tutorialType;
     }
     public void DestroyTutorialActionPopup()
     {
@@ -657,7 +552,7 @@ public class UIManager : MonoBehaviour
         switch (infoPopupType)
         {
             case InfoPopupType.Default:
-                infoPopup = Instantiate(infoPopupPrefab, CurrentZoomCanvas.transform); // TESTING on ZOOM
+                infoPopup = Instantiate(infoPopupPrefab, CurrentZoomCanvas.transform);
                 ipd = infoPopup.GetComponent<InfoPopupDisplay>();
                 ipd.DisplayInfoPopup(message, showContinue);
                 infoPopup.transform.localPosition = vec2;
@@ -684,7 +579,7 @@ public class UIManager : MonoBehaviour
     }
     public void InsufficientAetherPopup()
     {
-        CreateFleetingInfoPopup($"Not enough aether! (You have {Managers.P_MAN.AetherCells} aether)");
+        CreateFleetingInfoPopup($"Not enough aether! (You have {Managers.P_MAN.CurrentAether} aether)");
         Managers.AU_MAN.StartStopSound("SFX_Error");
     }
     public void DismissInfoPopup()
@@ -746,9 +641,7 @@ public class UIManager : MonoBehaviour
         DestroyCombatEndPopup();
         combatEndPopup = Instantiate(combatEndPopupPrefab, CurrentZoomCanvas.transform);
         var cepd = combatEndPopup.GetComponent<CombatEndPopupDisplay>();
-        GameObject particleParent;
-        if (playerWins) particleParent = cepd.VictoryText;
-        else particleParent = cepd.DefeatText;
+        GameObject particleParent = playerWins ? cepd.VictoryText : cepd.DefeatText;
         Managers.AN_MAN.CreateParticleSystem(particleParent, ParticleSystemHandler.ParticlesType.Drag);
         Managers.AN_MAN.CreateParticleSystem(particleParent, ParticleSystemHandler.ParticlesType.NewCard);
         cepd.VictoryText.SetActive(playerWins);
@@ -760,6 +653,22 @@ public class UIManager : MonoBehaviour
         {
             Destroy(combatEndPopup);
             combatEndPopup = null;
+        }
+    }
+    // New Hero Popup
+    public void CreateNewHeroPopup(string title, PlayerHero newHero, HeroPower newPower, HeroPower newUltimate)
+    {
+        DestroyNewHeroPopup();
+        newHeroPopup = Instantiate(newHeroPopupPrefab, CurrentZoomCanvas.transform);
+        var nhpd = newHeroPopup.GetComponent<NewHeroPopupDisplay>();
+        nhpd.DisplayNewHeroPopup(title, newHero, newPower, newUltimate);
+    }
+    public void DestroyNewHeroPopup()
+    {
+        if (newHeroPopup != null)
+        {
+            Destroy(newHeroPopup);
+            newHeroPopup = null;
         }
     }
     // New Card Popup
@@ -798,51 +707,53 @@ public class UIManager : MonoBehaviour
     // Choose Reward Popup
     public void CreateChooseRewardPopup()
     {
-        DestroyZoomObjects(); // TESTING, for combat end
+        DestroyZoomObjects(); // For combat end
         chooseRewardPopup = Instantiate(chooseRewardPopupPrefab, CurrentZoomCanvas.transform);
-    }
-    public void DestroyChooseRewardPopup()
-    {
-        if (chooseRewardPopup != null)
+        var nextClip = Managers.D_MAN.EngagedHero != null ? Managers.D_MAN.EngagedHero.NextDialogueClip : null;
+        
+        // Homebase Scene
+        if (SceneLoader.IsActiveScene(SceneLoader.Scene.HomeBaseScene))
         {
-            Destroy(chooseRewardPopup);
-            chooseRewardPopup = null;
+            // blank
         }
-    }
-    // Aether Cell Popup
-    public void CreateAetherCellPopup(int quanity)
-    {
-        DestroyAetherCellPopup();
-        aetherCellPopup = Instantiate(aetherCellPopupPrefab, CurrentZoomCanvas.transform);
-        var acpd = aetherCellPopup.GetComponent<AetherCellPopupDisplay>();
-        acpd.AetherQuantity = quanity;
-    }
-    public void DestroyAetherCellPopup()
-    {
-        if (aetherCellPopup != null)
+        /* Dialogue does not have ChooseRewardPopup functionality
+        // Dialogue Scene
+        else if (SceneLoader.IsActiveScene(SceneLoader.Scene.DialogueScene))
         {
-            Destroy(aetherCellPopup);
-            aetherCellPopup = null;
+            var dp = nextClip as DialoguePrompt;
+            if (dp.AetherCells > 0) Managers.P_MAN.AetherCells += dp.AetherCells;
+        }
+        */
+        // Combat Scene
+        else if (SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene))
+        {
+            if (nextClip is CombatRewardClip)
+            {
+                int aetherReward = Managers.G_MAN.GetAetherReward((Managers.D_MAN.EngagedHero as EnemyHero).EnemyLevel);
+                Managers.P_MAN.CurrentAether += aetherReward;
+            }
+            else Debug.LogError("NEXT CLIP IS NOT COMBAT REWARD CLIP!");
         }
     }
     // Card Page
     public void CreateCardPage(CardPageDisplay.CardPageType cardPageType,
-        bool playSound = true, bool isScrollPopup = true)
+        bool isReload = false, bool isScrollPopup = true)
     {
         float scrollValue = 1;
         if (cardPage != null && isScrollPopup)
         {
             if (cardPage.GetComponent<CardPageDisplay>().IsScrollPage)
             {
-                ScrollRect sRect = cardPage.GetComponentInChildren<ScrollRect>();
+                var sRect = cardPage.GetComponentInChildren<ScrollRect>();
                 scrollValue = sRect.verticalNormalizedPosition;
             }
         }
 
         DestroyCardPage();
-        GameObject prefab = isScrollPopup ? cardScrollPagePrefab : cardPagePrefab;
+        var prefab = isScrollPopup ? cardScrollPagePrefab : cardPagePrefab;
         cardPage = Instantiate(prefab, CurrentCanvas.transform);
-        cardPage.GetComponent<CardPageDisplay>().DisplayCardPage(cardPageType, playSound, scrollValue);
+        if (isReload) cardPage.GetComponent<Animator>().SetBool("Static", true); // TESTING
+        cardPage.GetComponent<CardPageDisplay>().DisplayCardPage(cardPageType, isReload, scrollValue);
     }
     public void DestroyCardPage(bool childrenOnly = false)
     {
@@ -885,11 +796,12 @@ public class UIManager : MonoBehaviour
         }
     }
     // Item Page Popup
-    public void CreateItemPagePopup(bool isItemRemoval, bool playSound = true)
+    public void CreateItemPagePopup(bool isItemRemoval, bool isReload = false)
     {
         DestroyItemPagePopup();
         itemPagePopup = Instantiate(itemPagePopupPrefab, CurrentCanvas.transform);
-        itemPagePopup.GetComponent<ItemPageDisplay>().DisplayItems(isItemRemoval, playSound);
+        if (isReload) itemPagePopup.GetComponent<Animator>().SetBool("Static", true); // TESTING
+        itemPagePopup.GetComponent<ItemPageDisplay>().DisplayItems(isItemRemoval, !isReload);
     }
     public void DestroyItemPagePopup(bool childrenOnly = false)
     {
@@ -937,11 +849,12 @@ public class UIManager : MonoBehaviour
     public void CreateLocationPopup(Location location, bool isFleeting = false)
     {
         if (travelPopup != null || narrativePopup != null) return;
+        DestroyLocationPopup();
         locationPopup = Instantiate(locationPopupPrefab, CurrentZoomCanvas.transform);
-        LocationPopupDisplay lpd = locationPopup.GetComponent<LocationPopupDisplay>();
-        lpd.Location = location;
+        var lpd = locationPopup.GetComponent<LocationPopupDisplay>();
         lpd.TravelButtons.SetActive(false);
         lpd.DifficultyLevel.SetActive(false);
+        lpd.Location = location;
 
         if (isFleeting)
         {
@@ -962,13 +875,14 @@ public class UIManager : MonoBehaviour
     // Travel Popup
     public void CreateTravelPopup(Location location)
     {
-        if (narrativePopup != null) return;
+        if (narrativePopup != null || chooseRewardPopup != null) return;
         DestroyTravelPopup();
+        DestroyLocationPopup();
         travelPopup = Instantiate(locationPopupPrefab, CurrentCanvas.transform);
-        LocationPopupDisplay lpd = travelPopup.GetComponent<LocationPopupDisplay>();
+        var lpd = travelPopup.GetComponent<LocationPopupDisplay>();
+        // Augmenter is only non-recurring location w/o combat
+        if (location.IsRecurring || location.IsAugmenter) lpd.DifficultyLevel.SetActive(false);
         lpd.Location = location;
-
-        if (location.IsRecurring) lpd.DifficultyLevel.SetActive(false);
     }
     public void DestroyTravelPopup()
     {
@@ -983,13 +897,12 @@ public class UIManager : MonoBehaviour
     {
         DestroyNarrativePopup();
         narrativePopup = Instantiate(narrativePopupPrefab, CurrentCanvas.transform);
-        NarrativePopupDisplay npd = narrativePopup.GetComponent<NarrativePopupDisplay>();
+        var npd = narrativePopup.GetComponent<NarrativePopupDisplay>();
         npd.LoadedNarrative = narrative;
     }
     public void DestroyNarrativePopup()
     {
-        if (Managers.D_MAN.CurrentTextRoutine != null)
-            Managers.D_MAN.StopTimedText();
+        if (Managers.D_MAN.CurrentTextRoutine != null) Managers.D_MAN.StopTimedText();
 
         if (narrativePopup != null)
         {
@@ -1003,46 +916,21 @@ public class UIManager : MonoBehaviour
      * ****** SKYBAR
      * *****
      *****/
-    public void UpdateItemsCount()
-    {
-        int unusedItems = 0;
-        foreach (HeroItem item in Managers.P_MAN.HeroItems)
-            if (!item.IsUsed) unusedItems++;
-
-        itemsCount.GetComponent<TextMeshProUGUI>().SetText(unusedItems.ToString());
-    }
     public void AugmentsButton_OnClick(bool forceOpen)
     {
         FunctionTimer.StopTimer(AnimationManager.CLOSE_SKYBAR_TIMER);
-        bool setActive;
-        if (forceOpen) setActive = true;
-        else setActive = !augmentsDropdown.activeSelf;
+        bool setActive = forceOpen || !augmentsDropdown.activeSelf;
 
         augmentsDropdown.SetActive(setActive);
-        itemsDropdown.SetActive(false);
-        reputationsDropdown.SetActive(false);
-    }
-    public void ItemsButton_OnClick(bool forceOpen)
-    {
-        FunctionTimer.StopTimer(AnimationManager.CLOSE_SKYBAR_TIMER);
-        bool setActive;
-        if (forceOpen) setActive = true;
-        else setActive = !itemsDropdown.activeSelf;
-
-        itemsDropdown.SetActive(setActive);
-        augmentsDropdown.SetActive(false);
         reputationsDropdown.SetActive(false);
     }
     public void ReputationsButton_OnClick(bool forceOpen)
     {
         FunctionTimer.StopTimer(AnimationManager.CLOSE_SKYBAR_TIMER);
-        bool setActive;
-        if (forceOpen) setActive = true;
-        else setActive = !reputationsDropdown.activeSelf;
+        bool setActive = forceOpen || !reputationsDropdown.activeSelf;
 
         reputationsDropdown.SetActive(setActive);
         augmentsDropdown.SetActive(false);
-        itemsDropdown.SetActive(false);
     }
 
     public void HideSkybar(bool isHidden)
@@ -1057,74 +945,107 @@ public class UIManager : MonoBehaviour
         {
             ClearAugmentBar();
             ClearItemBar();
+            var augTmpro = augmentsCount.GetComponent<TextMeshProUGUI>();
 
-            foreach (HeroAugment ha in Managers.P_MAN.HeroAugments)
-                CreateAugmentIcon(ha);
-            foreach (HeroItem hi in Managers.P_MAN.HeroItems)
-                CreateItemIcon(hi);
-            foreach (Transform augTran in augmentBar.transform)
-                augTran.gameObject.SetActive(!hideChildren);
-            foreach (Transform itemTran in itemBar.transform)
-                itemTran.gameObject.SetActive(!hideChildren);
-            foreach (Transform repTran in reputationBar.transform)
-                repTran.gameObject.SetActive(!hideChildren);
+            if (Managers.G_MAN.IsTutorial)
+            {
+                augTmpro.SetText(0 + "");
+                SetAllReputation(true);
+            }
+            else
+            {
+                // Augments
+                foreach (var ha in Managers.P_MAN.HeroAugments)
+                    CreateAugmentIcon(ha);
+                foreach (Transform augTran in augmentBar.transform)
+                    augTran.gameObject.SetActive(!hideChildren);
+                augTmpro.SetText(Managers.P_MAN.HeroAugments.Count.ToString());
+                // Items
+                foreach (var hi in Managers.P_MAN.HeroItems)
+                    CreateItemIcon(hi);
+                foreach (Transform itemTran in itemBar.transform)
+                    itemTran.gameObject.SetActive(!hideChildren);
+                // Reputation
+                foreach (Transform repTran in reputationBar.transform)
+                    repTran.gameObject.SetActive(!hideChildren);
+                SetAllReputation();
+            }
 
             SetAetherCount(0);
-            UpdateItemsCount();
-            SetAllReputation();
+            currentHealth.SetActive(!SceneLoader.IsActiveScene(SceneLoader.Scene.CombatScene));
+            SetCurrentHealth(0);
         }
 
         augmentsDropdown.SetActive(false);
-        itemsDropdown.SetActive(false);
         reputationsDropdown.SetActive(false);
     }
     public void SetAetherCount(int valueChange)
     {
-        if (!skyBar.activeSelf) return;
+        if (!skyBar.activeInHierarchy) return;
 
-        TextMeshProUGUI tmpro = aetherCount.GetComponentInChildren<TextMeshProUGUI>();
-        tmpro.SetText(Managers.P_MAN.AetherCells - valueChange + "");
+        var tmpro = aetherCount.GetComponentInChildren<TextMeshProUGUI>();
+        tmpro.SetText(Managers.P_MAN.CurrentAether - valueChange + "");
+        tmpro.color = Color.white; // In case coroutine was stopped while text is red
 
         if (valueChange != 0)
         {
-            new AnimationManager.CountingTextObject(tmpro, valueChange, Color.red);
+            new AnimationManager.CountingTextObject(tmpro, valueChange, valueChange > 0 ? Color.green : Color.yellow);
 
             Managers.AN_MAN.SkybarIconAnimation(aetherIcon);
             Managers.AN_MAN.CountingText();
+            Managers.AN_MAN.ValueChanger(aetherIcon.transform, valueChange, false, new Vector2(75, -275));
+        }
+    }
+    public void SetCurrentHealth(int valueChange)
+    {
+        if (!skyBar.activeInHierarchy || !currentHealth.activeInHierarchy) return;
+
+        var tmpro = healthValue.GetComponent<TextMeshProUGUI>();
+        var slider = currentHealth.GetComponentInChildren<Slider>();
+
+        tmpro.SetText(Managers.P_MAN.CurrentHealth + "");
+        slider.maxValue = Managers.P_MAN.MaxHealth;
+        slider.value = Managers.P_MAN.CurrentHealth;
+
+        if (valueChange != 0)
+        {
+            Managers.AU_MAN.StartStopSound("SFX_StatPlus");
+            Managers.AN_MAN.SkybarIconAnimation(healthValue);
+            Managers.AN_MAN.ValueChanger(healthValue.transform, valueChange, false, new Vector2(75, -250));
         }
     }
     public void CreateAugmentIcon(HeroAugment augment, bool isNewAugment = false)
     {
-        if (!skyBar.activeSelf) return;
-        GameObject augmentIcon = Instantiate(augmentIconPrefab, augmentBar.transform);
+        if (!skyBar.activeInHierarchy) return;
+        var augmentIcon = Instantiate(augmentIconPrefab, augmentBar.transform);
         augmentIcon.GetComponent<AugmentIcon>().LoadedAugment = augment;
         if (isNewAugment) Managers.AN_MAN.SkybarIconAnimation(augmentIcon);
     }
     public void CreateItemIcon(HeroItem item, bool isNewItem = false)
     {
-        if (!skyBar.activeSelf) return;
-        GameObject itemIcon = Instantiate(itemIconPrefab, itemBar.transform);
+        if (!skyBar.activeInHierarchy) return;
+        var itemIcon = Instantiate(itemIconPrefab, itemBar.transform);
         itemIcon.GetComponent<ItemIcon>().LoadedItem = item;
         if (isNewItem) Managers.AN_MAN.SkybarIconAnimation(itemIcon);
     }
     public void ClearAugmentBar()
     {
-        if (!skyBar.activeSelf) return;
+        if (!skyBar.activeInHierarchy) return;
         foreach (Transform tran in augmentBar.transform)
             Destroy(tran.gameObject);
     }
     public void ClearItemBar()
     {
-        if (!skyBar.activeSelf) return;
+        if (!skyBar.activeInHierarchy) return;
         foreach (Transform tran in itemBar.transform)
             Destroy(tran.gameObject);
     }
     public void CreateAugmentIconPopup(HeroAugment augment, GameObject sourceIcon)
     {
         DestroyAugmentIconPopup();
-        augmentIconPopup = Instantiate(augmentIconPopupPrefab, CurrentCanvas.transform);
-        Vector2 sourcePos = sourceIcon.transform.localPosition;
-        augmentIconPopup.transform.localPosition = new Vector2(sourcePos.x - 275, sourcePos.y + 250);
+        augmentIconPopup = Instantiate(augmentIconPopupPrefab, UICanvas.transform); // UICanvas!
+        Vector2 sourcePos = sourceIcon.transform.position;
+        augmentIconPopup.transform.position = new Vector2(sourcePos.x - 250, sourcePos.y - 50);
         augmentIconPopup.GetComponent<AugmentIconPopupDisplay>().HeroAugment = augment;
     }
     public void DestroyAugmentIconPopup()
@@ -1138,10 +1059,10 @@ public class UIManager : MonoBehaviour
     public void CreateItemIconPopup(HeroItem item, GameObject sourceIcon, bool isUseItemConfirm = false)
     {
         DestroyItemIconPopup();
-        itemIconPopup = Instantiate(itemIconPopupPrefab, CurrentZoomCanvas.transform);
+        itemIconPopup = Instantiate(itemIconPopupPrefab, UICanvas.transform); // UICanvas!
         Vector2 sourcePos = sourceIcon.transform.localPosition;
-        itemIconPopup.transform.localPosition = new Vector2(sourcePos.x - 125, sourcePos.y + 250);
-        ItemIconPopupDisplay iipd = itemIconPopup.GetComponent<ItemIconPopupDisplay>();
+        itemIconPopup.transform.localPosition = new Vector2(sourcePos.x + 250, 375);// sourcePos.y - 140);
+        var iipd = itemIconPopup.GetComponent<ItemIconPopupDisplay>();
         iipd.LoadedItem = item;
         iipd.SourceIcon = sourceIcon;
         iipd.Buttons.SetActive(isUseItemConfirm);
@@ -1162,13 +1083,12 @@ public class UIManager : MonoBehaviour
     {
         DestroyItemAbilityPopup();
         itemAbilityPopup = Instantiate(abilityPopupBoxPrefab, CurrentZoomCanvas.transform);
-        foreach (CardAbility linkedCa in item.LinkedAbilities)
+        foreach (var linkedCa in item.LinkedAbilities)
             CreateAbilityPopup(linkedCa);
 
         void CreateAbilityPopup(CardAbility ca)
         {
-            GameObject abilityPopup =
-                    Instantiate(abilityPopupPrefab, itemAbilityPopup.transform);
+            var abilityPopup = Instantiate(abilityPopupPrefab, itemAbilityPopup.transform);
             abilityPopup.GetComponent<AbilityPopupDisplay>().DisplayAbilityPopup(ca, false, true);
         }
     }
@@ -1181,33 +1101,34 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void SetReputation(GameManager.ReputationType type, int valueChange = 0, bool triggerOnly = false)
+    public void SetReputation(GameManager.ReputationType type, int valueChange = 0, bool triggerOnly = false, bool setToZero = false)
     {
         if (!skyBar.activeSelf) return;
 
         GameObject repIcon;
         int repScore;
+
         switch (type)
         {
             case GameManager.ReputationType.Mages:
                 repIcon = reputation_Mages;
-                repScore = Managers.G_MAN.Reputation_Mages;
+                repScore = setToZero ? 0 : Managers.G_MAN.Reputation_Mages;
                 break;
             case GameManager.ReputationType.Mutants:
                 repIcon = reputation_Mutants;
-                repScore = Managers.G_MAN.Reputation_Mutants;
+                repScore = setToZero ? 0 : Managers.G_MAN.Reputation_Mutants;
                 break;
             case GameManager.ReputationType.Rogues:
                 repIcon = reputation_Rogues;
-                repScore = Managers.G_MAN.Reputation_Rogues;
+                repScore = setToZero ? 0 : Managers.G_MAN.Reputation_Rogues;
                 break;
             case GameManager.ReputationType.Techs:
                 repIcon = reputation_Techs;
-                repScore = Managers.G_MAN.Reputation_Techs;
+                repScore = setToZero ? 0 : Managers.G_MAN.Reputation_Techs;
                 break;
             case GameManager.ReputationType.Warriors:
                 repIcon = reputation_Warriors;
-                repScore = Managers.G_MAN.Reputation_Warriors;
+                repScore = setToZero ? 0 : Managers.G_MAN.Reputation_Warriors;
                 break;
             default:
                 Debug.LogError("INVALID REPUTATION TYPE!");
@@ -1222,7 +1143,7 @@ public class UIManager : MonoBehaviour
 
         repIcon.GetComponentInChildren<TextMeshProUGUI>().SetText(repScore.ToString());
 
-        Button button = repIcon.GetComponent<Button>();
+        var button = repIcon.GetComponent<Button>();
         var colors = button.colors;
         if (repScore >= GameManager.REPUTATION_TIER_1) colors.normalColor = Color.green;
         else colors.normalColor = Color.white;
@@ -1231,40 +1152,30 @@ public class UIManager : MonoBehaviour
         if (valueChange != 0)
         {
             ReputationTrigger();
-            Managers.AN_MAN.ValueChanger(repIcon.transform, valueChange, -100);
+            Managers.AN_MAN.ValueChanger(repIcon.transform, valueChange, false, new Vector2(-100, 0));
         }
 
         void ReputationTrigger()
         {
-            string sound;
-            if (triggerOnly) sound = "SFX_Trigger";
-            else sound = "SFX_Reputation";
-            AudioManager.Instance.StartStopSound(sound);
+            string sound =  triggerOnly ? "SFX_Trigger" : "SFX_Reputation";
+            Managers.AU_MAN.StartStopSound(sound);
             Managers.AN_MAN.SkybarIconAnimation(repIcon);
         }
     }
 
-    public void SetAllReputation()
+    public void SetAllReputation(bool setToZero = false)
     {
-        List<GameManager.ReputationType> repTypes = new List<GameManager.ReputationType>()
-        {
-            GameManager.ReputationType.Mages,
-            GameManager.ReputationType.Mutants,
-            GameManager.ReputationType.Rogues,
-            GameManager.ReputationType.Techs,
-            GameManager.ReputationType.Warriors
-        };
-
-        foreach (GameManager.ReputationType type in repTypes)
-            SetReputation(type);
+        foreach (GameManager.ReputationType type in
+            Enum.GetValues(typeof(GameManager.ReputationType)))
+            SetReputation(type, 0, false, setToZero);
     }
 
     public void CreateReputationPopup(GameManager.ReputationType repType, GameObject sourceIcon)
     {
         DestroyReputationPopup();
-        reputationPopup = Instantiate(reputationPopupPrefab, UICanvas.transform);
-        Vector2 sourcePos = sourceIcon.transform.localPosition;
-        reputationPopup.transform.localPosition = new Vector2(sourcePos.x - 300, sourcePos.y + 100);
+        reputationPopup = Instantiate(reputationPopupPrefab, UICanvas.transform); // UICanvas!
+        Vector2 sourcePos = sourceIcon.transform.position;
+        reputationPopup.transform.position = new Vector2(sourcePos.x - 300, 750);
         reputationPopup.GetComponent<ReputationPopupDisplay>().DisplayReputationPopup
             (Managers.G_MAN.GetReputation(repType), Managers.G_MAN.GetReputationTier(repType),
             Managers.G_MAN.GetReputationBonuses(repType));

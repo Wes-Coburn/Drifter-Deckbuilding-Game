@@ -15,14 +15,11 @@ public class CardPageDisplay : MonoBehaviour
 
     [Header("REFERENCES")]
     [SerializeField] private GameObject cardGroup;
-    [SerializeField] private GameObject costGroup;
-    [SerializeField] private GameObject pageTitle;
-    [SerializeField] private GameObject noCardsTooltip;
+    [SerializeField] private GameObject costGroup, pageTitle, noCardsTooltip;
 
     [Header("PROGRESS BAR")]
     [SerializeField] private GameObject progressBar;
-    [SerializeField] private GameObject progressFill;
-    [SerializeField] private GameObject progressBarText;
+    [SerializeField] private GameObject progressFill, progressBarText;
 
     private Scrollbar scrollbar;
 
@@ -83,10 +80,10 @@ public class CardPageDisplay : MonoBehaviour
             Managers.AN_MAN.SetProgressBar(currentProgress, newProgress, progressBar, progressFill);
     }
 
-    public void DisplayCardPage(CardPageType cardPageType, bool playSound, float scrollValue)
+    public void DisplayCardPage(CardPageType cardPageType, bool isReload, float scrollValue)
     {
         this.cardPageType = cardPageType;
-        cardGroupList = new List<Card>();
+        cardGroupList = new();
         string titleText;
         bool setProgressBar = false;
         int progress = 0;
@@ -134,8 +131,6 @@ public class CardPageDisplay : MonoBehaviour
         if (cardGroupList.Count > 0)
         {
             noCardsTooltip.SetActive(false);
-
-            // ChatGPT Refactor
             cardGroupList = cardGroupList.OrderBy(c => c.StartEnergyCost)
                               .ThenBy(c => c.CardName)
                               .ToList();
@@ -143,12 +138,12 @@ public class CardPageDisplay : MonoBehaviour
         else noCardsTooltip.SetActive(true);
         if (isScrollPage) LoadScrollPage(scrollValue);
         else LoadCardPage();
-        if (playSound) Managers.AU_MAN.StartStopSound("SFX_CreatePopup1");
+        if (!isReload) Managers.AU_MAN.StartStopSound("SFX_CreatePopup1");
     }
 
     private void LoadScrollPage(float scrollValue)
     {
-        Rect rect = cardGroup.GetComponent<RectTransform>().rect;
+        var rect = cardGroup.GetComponent<RectTransform>().rect;
         int rows = Mathf.CeilToInt(cardGroupList.Count / 4f);
         if (rows < 1) rows = 1;
         float height = 650 * rows + 100;
@@ -157,14 +152,14 @@ public class CardPageDisplay : MonoBehaviour
 
         foreach (Card card in cardGroupList)
         {
-            GameObject container = Instantiate(cardPageCardContainerPrefab, cardGroup.transform);
+            var container = Instantiate(cardPageCardContainerPrefab, cardGroup.transform);
             var cpccd = container.GetComponent<CardPageCardContainerDisplay>();
-            GameObject cardPageCard =
-                Managers.CA_MAN.ShowCard(card, new Vector2(), CardManager.DisplayType.Cardpage);
-            CardDisplay cd = cardPageCard.GetComponent<CardDisplay>();
+            var cardPageCard = Managers.CA_MAN.ShowCard(card, new Vector2(), CardManager.DisplayType.Cardpage);
+            var cd = cardPageCard.GetComponent<CardDisplay>();
             cd.DisableVisuals();
             cardPageCard.transform.localScale = new Vector2(4, 4);
             cardPageCard.transform.SetParent(cpccd.CardPageCard.transform, false);
+            cardPageCard.transform.localPosition = new Vector2(); // TESTING
             CreateCardPageButton(card, cpccd.CardCostButton);
         }
     }
@@ -176,23 +171,22 @@ public class CardPageDisplay : MonoBehaviour
             Debug.LogError("MORE THAN 4 CARDS ON CARD PAGE!");
             return;
         }
-        foreach (Card card in cardGroupList)
+        foreach (var card in cardGroupList)
         {
-            GameObject cardObj = Managers.CA_MAN.ShowCard
-                (card, new Vector2(), CardManager.DisplayType.Cardpage);
+            var cardObj = Managers.CA_MAN.ShowCard(card, new Vector2(), CardManager.DisplayType.Cardpage);
             cardObj.transform.SetParent(cardGroup.transform);
 
-            CardDisplay cd = cardObj.GetComponent<CardDisplay>();
+            var cd = cardObj.GetComponent<CardDisplay>();
             cd.DisableVisuals();
             cardObj.transform.localScale = new Vector2(4, 4);
-            GameObject button = CreateCardPageButton(card, costGroup);
+            var button = CreateCardPageButton(card, costGroup);
             if (button == null) return;
         }
     }
 
     private GameObject CreateCardPageButton(Card card, GameObject parent)
     {
-        GameObject button = Instantiate(cardShopButtonPrefab, parent.transform);
+        var button = Instantiate(cardShopButtonPrefab, parent.transform);
         button.GetComponent<CardShopButton>().SetCard(card, cardPageType);
         return button;
     }

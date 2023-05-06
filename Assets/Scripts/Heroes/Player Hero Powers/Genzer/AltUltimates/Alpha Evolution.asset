@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 024a223818b76d04b90b880bd4d0c3a0, type: 3}
+  m_Name: Alpha Evolution
+  m_EditorClassIdentifier: 
+  PowerName: Alpha Evolution
+  PowerCost: 2
+  PowerSprite: {fileID: 21300000, guid: fee1a0c5c88b06a4eb113fd27dfdc2db, type: 3}
+  PowerSounds:
+  - name: 
+    clip: {fileID: 8300000, guid: 99e12abd88b353340a501d7db5039617, type: 3}
+    volume: 0.8
+    pitch: 1
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: c96a7ff0487116044997983e6086394e, type: 3}
+    volume: 1
+    pitch: 1
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  PowerDescription: For the rest of the game, give units you play a random positive
+    keyword.
+  EffectGroupList:
+  - {fileID: 11400000, guid: e89cc7a2d5545e04996733c023b9ffb7, type: 2}
+  LinkedAbilities: []
+  relatedCards: []
+  relatedCardTypes: 

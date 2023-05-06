@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerManager : HeroManager
 {
@@ -16,12 +16,11 @@ public class PlayerManager : HeroManager
         else Destroy(gameObject);
     }
 
-    private int aetherCells;
+    private bool heroPowerUsed;
+    private int currentAether, heroUltimateProgress;
+
     private List<HeroAugment> heroAugments;
     private List<HeroItem> heroItems;
-
-    private bool heroPowerUsed;
-    private int heroUltimateProgress;
 
     public override string HERO_TAG => "PlayerHero";
     public override string CARD_TAG => "PlayerCard";
@@ -35,7 +34,7 @@ public class PlayerManager : HeroManager
     public override Hero HeroScript { get => heroScript; set { heroScript = value; } }
     public List<HeroAugment> HeroAugments { get => heroAugments; }
     public List<HeroItem> HeroItems { get => heroItems; }
-
+    
     public override bool IsMyTurn
     {
         get => isMyTurn;
@@ -48,16 +47,19 @@ public class PlayerManager : HeroManager
 
     public override int TurnNumber { get => turnNumber; set { turnNumber = value; } }
 
-    public int AetherCells
+    public int CurrentAether_Direct { set { currentAether = value; } }
+    public int CurrentAether
     {
-        get => aetherCells;
+        get => currentAether;
         set
         {
-            int previousCount = aetherCells;
-            aetherCells = value;
-            int valueChange = aetherCells - previousCount;
+            int previousCount = currentAether;
+            currentAether = value;
+            int valueChange = currentAether - previousCount;
 
             AnimationManager.CountingTextObject.ClearCountingTexts();
+
+            /*
             var acpd = FindObjectOfType<AetherCellPopupDisplay>();
             if (acpd != null)
             {
@@ -67,6 +69,7 @@ public class PlayerManager : HeroManager
                 new AnimationManager.CountingTextObject(acpd.AetherQuantityObject.GetComponent<TextMeshProUGUI>(),
                     valueChange, Color.red, acpd.AetherQuantity_Additional);
             }
+            */
 
             if (UIManager.Instance != null) Managers.U_MAN.SetAetherCount(valueChange);
         }
@@ -77,7 +80,11 @@ public class PlayerManager : HeroManager
         set
         {
             heroPowerUsed = value;
-            GameObject powerReadyIcon = HeroObject.GetComponent<PlayerHeroDisplay>().PowerReadyIcon;
+            var phd = HeroObject.GetComponent<PlayerHeroDisplay>();
+            var powerImage = phd.HeroPowerImage;
+            var img = powerImage.GetComponent<Image>();
+            img.color = heroPowerUsed ? Color.gray : Color.white;
+            var powerReadyIcon = phd.PowerReadyIcon;
             powerReadyIcon.SetActive(!heroPowerUsed);
         }
     }
@@ -87,13 +94,14 @@ public class PlayerManager : HeroManager
         set
         {
             heroUltimateProgress = value;
-            int heroUltimateGoal = GameManager.HERO_ULTMATE_GOAL;
+            if (HeroObject == null) return;
 
             var phd = HeroObject.GetComponent<PlayerHeroDisplay>();
             phd.UltimateProgressValue = heroUltimateProgress;
-            GameObject ultimateReadyIcon = phd.UltimateReadyIcon;
-            GameObject ultimateButton = phd.UltimateButton;
+            var ultimateReadyIcon = phd.UltimateReadyIcon;
+            var ultimateButton = phd.UltimateButton;
 
+            int heroUltimateGoal = GameManager.HERO_ULTMATE_GOAL;
             if (heroUltimateProgress >= heroUltimateGoal) ultimateReadyIcon.SetActive(true);
             else ultimateReadyIcon.SetActive(false);
 
@@ -109,10 +117,10 @@ public class PlayerManager : HeroManager
     protected override void Start()
     {
         base.Start();
-        heroAugments = new List<HeroAugment>();
-        heroItems = new List<HeroItem>();
+        heroAugments ??= new();
+        heroItems ??= new();
         HeroScript = null; // Unnecessary?
-        AetherCells = 0;
+        CurrentAether = 0;
         IsMyTurn = false; // Needs to be false to disable DragDrop outside of combat
     }
 
@@ -127,7 +135,6 @@ public class PlayerManager : HeroManager
         heroItems.Add(item);
         Managers.U_MAN.CreateItemIcon(item, isNewItem);
         if (isNewItem) Managers.AU_MAN.StartStopSound("SFX_BuyItem");
-        Managers.U_MAN.UpdateItemsCount();
     }
 
     private bool GetItem(string itemName)
@@ -151,6 +158,7 @@ public class PlayerManager : HeroManager
 
     public bool GetAugment(string augmentName)
     {
+        if (Managers.G_MAN.IsTutorial) return false;
         int augmentIndex = heroAugments.FindIndex(x => x.AugmentName == augmentName);
         return augmentIndex != -1;
     }
@@ -167,7 +175,7 @@ public class PlayerManager : HeroManager
             Managers.U_MAN.CreateFleetingInfoPopup("Hero power already used this turn!");
             ErrorSound();
         }
-        else if (CurrentEnergy < HeroScript.HeroPower.PowerCost)
+        else if (CurrentEnergy < GetPowerCost(out _))
         {
             if (isPreCheck) return false;
             Managers.U_MAN.CreateFleetingInfoPopup("Not enough energy!");
@@ -175,8 +183,8 @@ public class PlayerManager : HeroManager
         }
         else
         {
-            GameObject heroPower = HeroObject.GetComponent<PlayerHeroDisplay>().HeroPower;
-            var groupList = HeroScript.HeroPower.EffectGroupList;
+            var heroPower = HeroObject.GetComponent<PlayerHeroDisplay>().HeroPower;
+            var groupList = HeroScript.CurrentHeroPower.EffectGroupList;
 
             if (!Managers.EF_MAN.CheckLegalTargets(groupList, heroPower, true))
             {
@@ -187,7 +195,7 @@ public class PlayerManager : HeroManager
             else
             {
                 if (isPreCheck) return true;
-                CurrentEnergy -= HeroScript.HeroPower.PowerCost;
+                CurrentEnergy -= GetPowerCost(out _);
                 HeroPowerUsed = true;
                 PlayerPowerSounds();
                 ParticleBurst(heroPower);
@@ -202,8 +210,8 @@ public class PlayerManager : HeroManager
     {
         static void ErrorSound() => Managers.AU_MAN.StartStopSound("SFX_Error");
 
-        GameObject heroUltimate = HeroObject.GetComponent<PlayerHeroDisplay>().HeroUltimate;
-        var groupList = (HeroScript as PlayerHero).HeroUltimate.EffectGroupList;
+        var heroUltimate = HeroObject.GetComponent<PlayerHeroDisplay>().HeroUltimate;
+        var groupList = (HeroScript as PlayerHero).CurrentHeroUltimate.EffectGroupList;
 
         if (HeroUltimateProgress < GameManager.HERO_ULTMATE_GOAL)
         {
@@ -217,7 +225,7 @@ public class PlayerManager : HeroManager
             Managers.U_MAN.CreateFleetingInfoPopup("Not enough energy!");
             ErrorSound();
         }
-        else if (!Managers.EF_MAN.CheckLegalTargets((HeroScript as PlayerHero).HeroUltimate.EffectGroupList, heroUltimate, true))
+        else if (!Managers.EF_MAN.CheckLegalTargets((HeroScript as PlayerHero).CurrentHeroUltimate.EffectGroupList, heroUltimate, true))
         {
             if (isPreCheck) return false;
             Managers.U_MAN.CreateFleetingInfoPopup("You can't do that right now!");
@@ -248,20 +256,33 @@ public class PlayerManager : HeroManager
         return GameManager.MAXIMUM_ITEMS + bonusItems;
     }
 
+    public int GetPowerCost(out Color powerColor)
+    {
+        var pwr = HeroScript.CurrentHeroPower;
+        int cost = pwr.PowerCost;
+        cost += Managers.CA_MAN.GetCostConditionValue(pwr, HeroObject); // TESTING
+
+        if (pwr.PowerCost > 0 && cost < pwr.PowerCost) powerColor = Color.green;
+        else powerColor = Color.white;
+
+        if (cost < 0) cost = 0;
+        return cost;
+    }
+
     public int GetUltimateCost(out Color ultimateColor)
     {
-        int cost = (HeroScript as PlayerHero).HeroUltimate.PowerCost;
+        var ult = (HeroScript as PlayerHero).CurrentHeroUltimate;
+        int cost = ult.PowerCost;
+        cost += Managers.CA_MAN.GetCostConditionValue(ult, HeroObject); // TESTING
 
         if (Managers.G_MAN.GetReputationTier(GameManager.ReputationType.Techs) > 2)
         {
-            if (cost > 0)
-            {
-                cost--;
-                ultimateColor = Color.green;
-            }
+            if (ult.PowerCost > 0 && cost < ult.PowerCost) ultimateColor = Color.green;
             else ultimateColor = Color.white;
         }
         else ultimateColor = Color.white;
+
+        if (cost < 0) cost = 0;
         return cost;
     }
 
@@ -271,8 +292,8 @@ public class PlayerManager : HeroManager
     public void PlayerPowerSounds(bool isUltimate = false)
     {
         Sound[] soundList;
-        if (isUltimate) soundList = (HeroScript as PlayerHero).HeroUltimate.PowerSounds;
-        else soundList = HeroScript.HeroPower.PowerSounds;
-        foreach (Sound s in soundList) Managers.AU_MAN.StartStopSound(null, s);
+        if (isUltimate) soundList = (HeroScript as PlayerHero).CurrentHeroUltimate.PowerSounds;
+        else soundList = HeroScript.CurrentHeroPower.PowerSounds;
+        foreach (var s in soundList) Managers.AU_MAN.StartStopSound(null, s);
     }
 }

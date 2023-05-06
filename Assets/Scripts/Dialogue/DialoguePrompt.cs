@@ -4,28 +4,17 @@ using UnityEngine;
 public class DialoguePrompt : DialogueClip
 {
     [Header("DIALOGUE PROMPT")]
-    [TextArea]
-    [SerializeField] protected string dialoguePromptText;
-    [Space]
-    [Header("DIALOGUE RESPONSES")]
-    [SerializeField] private DialogueResponse dialogueResponse1;
-    [SerializeField] private DialogueResponse dialogueResponse2;
-    [SerializeField] private DialogueResponse dialogueResponse3;
-    [Header("NEW ENGAGED HERO")]
-    [SerializeField] private NPCHero newEngagedHero;
-    [Header("HIDE NPC")]
-    [SerializeField] private bool hideNPC;
-    [Header("DIALOGUE REWARDS")]
-    [SerializeField] private Card newCard;
-    [SerializeField][Range(0, 5)] private int aetherCells;
-    [Header("NEW LOCATIONS")]
-    [SerializeField] private NewLocation[] newLocations;
-    [Header("REPUTATION")]
-    [SerializeField][Range(-3, 3)] private int reputation_Mages;
-    [SerializeField][Range(-3, 3)] private int reputation_Mutants;
-    [SerializeField][Range(-3, 3)] private int reputation_Rogues;
-    [SerializeField][Range(-3, 3)] private int reputation_Techs;
-    [SerializeField][Range(-3, 3)] private int reputation_Warriors;
+    [SerializeField, TextArea] protected string dialoguePromptText;
+    [Space, Header("DIALOGUE RESPONSES"), SerializeField] private DialogueResponse dialogueResponse1;
+    [SerializeField] private DialogueResponse dialogueResponse2, dialogueResponse3;
+    [Header("NEW ENGAGED HERO"), SerializeField] private NPCHero newEngagedHero;
+    [Header("HIDE NPC"), SerializeField] private bool hideNPC;
+    [Header("DIALOGUE REWARDS"), SerializeField] private Card newCard;
+    [SerializeField, Range(0, 5)] private int aetherCells;
+    [Header("NEW LOCATIONS"), SerializeField] private NewLocation[] newLocations;
+    [Header("REPUTATION"), SerializeField] private int reputation_Mages;
+    [SerializeField] private int reputation_Mutants, reputation_Rogues,
+        reputation_Techs, reputation_Warriors;
 
     public string DialoguePromptText { get => dialoguePromptText; }
     public DialogueResponse DialogueResponse1 { get => dialogueResponse1; }
@@ -47,10 +36,8 @@ public class DialoguePrompt : DialogueClip
     public override void LoadDialogueClip(DialogueClip dc)
     {
         base.LoadDialogueClip(dc);
-        DialoguePrompt dp = dc as DialoguePrompt;
-        dialogueResponse1 = new DialogueResponse();
-        dialogueResponse2 = new DialogueResponse();
-        dialogueResponse3 = new DialogueResponse();
+        var dp = dc as DialoguePrompt;
+        dialogueResponse1 = dialogueResponse2 = dialogueResponse3 = new DialogueResponse();
         dialogueResponse1.LoadResponse(dp.DialogueResponse1);
         dialogueResponse2.LoadResponse(dp.DialogueResponse2);
         dialogueResponse3.LoadResponse(dp.DialogueResponse3);

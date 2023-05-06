@@ -5,7 +5,7 @@ public class ExplicitLanguagePopupDisplay : MonoBehaviour
     private void SetPrefs(bool hideExplicitLanguage)
     {
         Managers.G_MAN.HideExplicitLanguage = hideExplicitLanguage;
-        Managers.G_MAN.SavePlayerPreferences();
+        GameLoader.SavePlayerPreferences();
         Managers.U_MAN.CreateTutorialPopup();
     }
     private void DestroySelf() =>

@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class EndTurnButtonDisplay : MonoBehaviour
 {
-    public GameObject EndTurnSide;
-    public GameObject OpponentTurnSide;
+    [SerializeField] private GameObject playerTurnSide, enemyTurnSide;
+
+    public GameObject PlayerTurnSide => playerTurnSide;
+    public GameObject EnemyTurnSide => enemyTurnSide;
 }

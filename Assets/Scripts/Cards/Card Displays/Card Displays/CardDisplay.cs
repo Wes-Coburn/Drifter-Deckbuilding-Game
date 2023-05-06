@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(CardZoom))]
 public abstract class CardDisplay : MonoBehaviour
 {
     /* CARD_SCRIPTABLE_OBJECT */
@@ -17,14 +18,8 @@ public abstract class CardDisplay : MonoBehaviour
         }
     }
 
-    [SerializeField] private GameObject cardName;
-    [SerializeField] private GameObject cardArt;
-    [SerializeField] private GameObject cardBorder;
-    [SerializeField] private GameObject cardTypeLine;
-    [SerializeField] private GameObject commonIcon;
-    [SerializeField] private GameObject rareIcon;
-    [SerializeField] private GameObject legendIcon;
-    [SerializeField] private GameObject energyCost;
+    [SerializeField] private GameObject cardName, cardArt, cardBorder,
+        cardTypeLine, commonIcon, rareIcon, legendIcon, energyCost;
 
     private GameObject cardContainer;
     private Animator animator;
@@ -62,20 +57,14 @@ public abstract class CardDisplay : MonoBehaviour
     }
     public string CardTypeLine
     {
-        get
-        {
-            string spacer = "";
-            if (!string.IsNullOrEmpty(CardScript.CardType) &&
-                !string.IsNullOrEmpty(CardScript.CardSubType)) spacer = " - ";
-            return CardScript.CardType + spacer + CardScript.CardSubType;
-        }
         set => cardTypeLine.GetComponent<TextMeshProUGUI>().SetText(value);
     }
+    public int ChangeNextCostValue { get; set; }
     public int CurrentEnergyCost
     {
         get
         {
-            int cost = CardScript.CurrentEnergyCost + costConditionValue;
+            int cost = CardScript.CurrentEnergyCost + ChangeNextCostValue + costConditionValue;
             return cost < 0 ? 0 : cost;
         }
         private set
@@ -84,6 +73,25 @@ public abstract class CardDisplay : MonoBehaviour
             DisplayEnergyCost(CurrentEnergyCost);
         }
     }
+
+    /******
+     * *****
+     * ****** SET_RARITY
+     * *****
+     *****/
+    private void SetRarity(Card card)
+    {
+        var rarity = card.CardRarity;
+        commonIcon.SetActive(rarity is Card.Rarity.Common);
+        rareIcon.SetActive(rarity is Card.Rarity.Rare);
+        legendIcon.SetActive(rarity is Card.Rarity.Legend);
+    }
+
+    /******
+     * *****
+     * ****** DISPLAY_ENERGY_COST
+     * *****
+     *****/
     private void DisplayEnergyCost(int cost)
     {
         var txtGui = energyCost.GetComponentInChildren<TextMeshProUGUI>();
@@ -104,40 +112,25 @@ public abstract class CardDisplay : MonoBehaviour
     {
         CardScript.CurrentEnergyCost += value;
         DisplayEnergyCost(CurrentEnergyCost);
+
+        if (gameObject.CompareTag(Managers.P_MAN.CARD_TAG))
+        {
+            Managers.AN_MAN.ChangeCostState(gameObject);
+            Managers.AN_MAN.ValueChanger(energyCost.transform, value);
+        }
     }
 
     /******
      * *****
-     * ****** GET/UPDATE_CURRENT_ENERGY_COST
+     * ****** UPDATE_CURRENT_ENERGY_COST
      * *****
      *****/
     public void UpdateCurrentEnergyCost()
     {
-        costConditionValue = GetCostConditionValue();
+        costConditionValue = Managers.CA_MAN.GetCostConditionValue(CardScript, gameObject);
         DisplayEnergyCost(CurrentEnergyCost);
     }
-    private int GetCostConditionValue()
-    {
-        HeroManager hMan_Source = HeroManager.GetSourceHero(gameObject, out HeroManager hMan_Enemy);
-        switch (CardScript.CostConditionType)
-        {
-            case Effect.ConditionType.NONE:
-                return 0;
-            case Effect.ConditionType.EnemyWounded:
-                if (!hMan_Enemy.IsWounded()) return 0;
-                break;
-            case Effect.ConditionType.AlliesDestroyed_ThisTurn:
-                if (hMan_Source.AlliesDestroyed_ThisTurn < CardScript.CostConditionValue) return 0;
-                break;
-            case Effect.ConditionType.EnemiesDestroyed_ThisTurn:
-                if (hMan_Enemy.AlliesDestroyed_ThisTurn < CardScript.CostConditionValue) return 0;
-                break;
-            default:
-                Debug.LogError("INVALID CONDITION TYPE!");
-                return 0;
-        }
-        return CardScript.CostConditionModifier;
-    }
+    
 
     /******
      * *****
@@ -164,64 +157,52 @@ public abstract class CardDisplay : MonoBehaviour
      * ****** DISPLAY_ZOOM_CARD
      * *****
      *****/
-    public virtual void DisplayZoomCard(GameObject parentCard, Card card = null)
+    public virtual void DisplayZoomCard(GameObject parentCard, bool isBaseZoomCard = false)
     {
-        if (card == null)
-        {
-            CardDisplay cd = parentCard.GetComponent<CardDisplay>();
-            cardScript = cd.CardScript; // MUST COME FIRST
-            CardTypeLine = cd.CardTypeLine;
-            CardName = cd.CardName;
-            CardArt = cd.CardArt;
-            CardBorder = cd.CardBorder;
-            gameObject.tag = parentCard.tag;
+        var cd = parentCard.GetComponent<CardDisplay>();
+        cardScript = cd.CardScript; // MUST BE FIRST
+        CardTypeLine = cardScript.CardTypeFull;
+        CardName = cd.CardName;
+        CardArt = cd.CardArt;
+        CardBorder = cd.CardBorder;
+        gameObject.tag = parentCard.tag;
 
-            if (CardZoom.ZoomCardIsCentered)
-                DisplayEnergyCost(cd.cardScript.StartEnergyCost);
-            else DisplayEnergyCost(cd.CurrentEnergyCost);
-        }
-        else
-        {
-            cardScript = card;
-            string spacer = "";
-            if (!string.IsNullOrEmpty(card.CardSubType)) spacer = " - ";
-            CardTypeLine = card.CardType + spacer + card.CardSubType;
-            CardName = card.CardName;
-            CardArt = card.CardArt;
-            CardBorder = card.CardBorder;
-            DisplayEnergyCost(card.StartEnergyCost);
+        if (CardZoom.ZoomCardIsCentered) DisplayEnergyCost(cd.cardScript.StartEnergyCost);
+        else DisplayEnergyCost(cd.CurrentEnergyCost);
 
-        }
+        DisplayZoomCard_Finish(isBaseZoomCard); // MUST BE LAST
+    }
+    public virtual void DisplayZoomCard(Card card, bool isBaseZoomCard = false)
+    {
+        cardScript = card;
+        CardTypeLine = card.CardTypeFull;
+        CardName = card.CardName;
+        CardArt = card.CardArt;
+        CardBorder = card.CardBorder;
+        DisplayEnergyCost(card.StartEnergyCost);
+        gameObject.tag = Managers.P_MAN.CARD_TAG;
+
+        DisplayZoomCard_Finish(isBaseZoomCard); // MUST BE LAST
+    }
+    private void DisplayZoomCard_Finish(bool isBaseZoomCard)
+    {
         if (TryGetComponent(out animator))
         {
-            animator.runtimeAnimatorController = CardScript.ZoomOverController;
-            AnimationManager.Instance.ZoomedState(gameObject);
+            var controller = cardScript.ZoomOverController;
+            if (controller == null)
+            {
+                Debug.LogError("ZOOM CONTROLLER IS NULL!");
+                return;
+            }
+
+            animator.runtimeAnimatorController = controller;
+            Managers.AN_MAN.ZoomedState(gameObject);
         }
+
         SetRarity(cardScript);
-    }
 
-    private void SetRarity(Card card)
-    {
-        bool isCommon = false;
-        bool isRare = false;
-        bool isLegend = false;
-
-        switch (card.CardRarity)
-        {
-            case Card.Rarity.Common:
-                isCommon = true;
-                break;
-            case Card.Rarity.Rare:
-                isRare = true;
-                break;
-            case Card.Rarity.Legend:
-                isLegend = true;
-                break;
-        }
-
-        commonIcon.SetActive(isCommon);
-        rareIcon.SetActive(isRare);
-        legendIcon.SetActive(isLegend);
+        if (CardZoom.ZoomCardIsCentered) GetComponent<CardZoom>()
+                .SetRelatedCards(isBaseZoomCard ? cardScript : null); // TESTING
     }
 
     /******
@@ -230,16 +211,6 @@ public abstract class CardDisplay : MonoBehaviour
      * *****
      *****/
     public virtual void DisplayCardPageCard(Card card) => SetRarity(card);
-
-    /******
-     * *****
-     * ****** DISPLAY_CHOOSE_CARD
-     * *****
-     *****/
-    public virtual void DisplayChooseCard(Card card)
-    {
-        // blank
-    }
 
     /******
      * *****
@@ -259,22 +230,20 @@ public abstract class CardDisplay : MonoBehaviour
      *****/
     public void ResetEffects()
     {
-        List<Effect> toDestroy = new();
-        foreach (Effect e in CardScript.CurrentEffects)
+        List<Effect> effectsToDestroy = new();
+        foreach (var e in CardScript.CurrentEffects)
         {
-            if (e.IsPermanent || e is ChangeCostEffect chgCst && chgCst.ChangeNextCost) { }
-            else toDestroy.Add(e);
+            if ( ! (e.IsPermanent ||
+                e is ChangeCostEffect chgCst && chgCst.ChangeNextCost))
+                effectsToDestroy.Add(e);
         }
 
-        foreach (Effect e in toDestroy) Destroy(e);
+        foreach (var e in effectsToDestroy) Destroy(e);
         CardScript.CurrentEffects.Clear();
 
         List<Effect> permanents = new();
-        foreach (Effect e in cardScript.PermanentEffects)
-            permanents.Add(e);
-
-        foreach (Effect e in permanents)
-            EffectManager.Instance.AddEffect(gameObject, e, false, true, false);
+        foreach (var e in cardScript.PermanentEffects) permanents.Add(e);
+        foreach (var e in permanents) Managers.EF_MAN.AddEffect(gameObject, e, false, true, false); // <<< NewInstance === FALSE >>>
     }
 
     /******

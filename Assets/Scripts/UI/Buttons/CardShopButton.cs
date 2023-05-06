@@ -56,7 +56,7 @@ public class CardShopButton : MonoBehaviour
 
     public void OnClick()
     {
-        if (Managers.AN_MAN.ProgressBarRoutine != null) return;
+        //if (Managers.AN_MAN.ProgressBarRoutine != null) return;
 
         switch (cardPageType)
         {
@@ -73,7 +73,7 @@ public class CardShopButton : MonoBehaviour
                 }
                 break;
             default:
-                if (Managers.P_MAN.AetherCells < cardCost)
+                if (Managers.P_MAN.CurrentAether < cardCost)
                 {
                     Managers.U_MAN.InsufficientAetherPopup();
                     return;

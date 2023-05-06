@@ -7,12 +7,8 @@ public class PlayerHeroDisplay : HeroDisplay
     [SerializeField] private GameObject powerCost;
     [SerializeField] private GameObject powerReadyIcon;
 
-    [SerializeField] private GameObject heroUltimate;
-    [SerializeField] private GameObject ultimateImage;
-    [SerializeField] private GameObject ultimateCost;
-    [SerializeField] private GameObject ultimateReadyIcon;
-    [SerializeField] private GameObject ultimateButton;
-    [SerializeField] private GameObject ultimateProgressValue;
+    [SerializeField] private GameObject heroUltimate, ultimateImage, ultimateCost,
+        ultimateReadyIcon, ultimateButton, ultimateProgressValue;
     [SerializeField] private GameObject[] ultimateProgressBars = new GameObject[GameManager.HERO_ULTMATE_GOAL];
 
     public GameObject PowerReadyIcon { get => powerReadyIcon; }
@@ -41,12 +37,22 @@ public class PlayerHeroDisplay : HeroDisplay
     public override void DisplayHero()
     {
         base.DisplayHero();
-        powerCost.GetComponent<TextMeshProUGUI>().SetText(HeroScript.HeroPower.PowerCost.ToString());
-        ultimateImage.GetComponent<Image>().sprite = (HeroScript as PlayerHero).HeroUltimate.PowerSprite;
+        powerCost.GetComponent<TextMeshProUGUI>().SetText(HeroScript.CurrentHeroPower.PowerCost.ToString());
+        ultimateImage.GetComponent<Image>().sprite = (HeroScript as PlayerHero).CurrentHeroUltimate.PowerSprite;
 
-        int cost = PlayerManager.Instance.GetUltimateCost(out Color ultimateColor);
-        TextMeshProUGUI ultimateGui = ultimateCost.GetComponent<TextMeshProUGUI>();
-        ultimateGui.SetText(cost.ToString());
-        ultimateGui.color = ultimateColor;
+        DisplayHeroPowers();
+    }
+
+    public void DisplayHeroPowers()
+    {
+        int pwrCost = Managers.P_MAN.GetPowerCost(out Color pwrColor);
+        var pwrGUI = powerCost.GetComponent<TextMeshProUGUI>();
+        pwrGUI.SetText(pwrCost.ToString());
+        pwrGUI.color = pwrColor;
+
+        int ultCost = Managers.P_MAN.GetUltimateCost(out Color ultColor);
+        var ultGUI = ultimateCost.GetComponent<TextMeshProUGUI>();
+        ultGUI.SetText(ultCost.ToString());
+        ultGUI.color = ultColor;
     }
 }

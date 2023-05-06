@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class ItemIconPopupDisplay : MonoBehaviour
 {
-    [SerializeField] private GameObject itemText;
-    [SerializeField] private GameObject buttons;
+    [SerializeField] private GameObject itemText, buttons;
 
     private HeroItem loadedItem;
     public GameObject Buttons { get => buttons; }
@@ -25,8 +24,7 @@ public class ItemIconPopupDisplay : MonoBehaviour
 
     public void UseItem_OnClick()
     {
-        if (!Managers.P_MAN.IsMyTurn || EffectManager.Instance.EffectsResolving ||
-            EventManager.Instance.ActionsDelayed) return;
+        if (!Managers.P_MAN.IsMyTurn || Managers.EF_MAN.EffectsResolving || Managers.EV_MAN.ActionsDelayed) return;
 
         if (SourceIcon == null)
         {
@@ -37,7 +35,7 @@ public class ItemIconPopupDisplay : MonoBehaviour
         if (!Managers.EF_MAN.CheckLegalTargets(loadedItem.EffectGroupList, SourceIcon, true))
         {
             Managers.U_MAN.CreateFleetingInfoPopup("You can't use that right now!");
-            AudioManager.Instance.StartStopSound("SFX_Error");
+            Managers.AU_MAN.StartStopSound("SFX_Error");
         }
         else Managers.EF_MAN.StartEffectGroupList(loadedItem.EffectGroupList, SourceIcon);
         ClosePopup_OnClick();

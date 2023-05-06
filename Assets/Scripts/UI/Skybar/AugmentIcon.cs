@@ -24,5 +24,5 @@ public class AugmentIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public void OnPointerExit(PointerEventData pointerEventData) =>
         Managers.U_MAN.DestroyAugmentIconPopup();
 
-    private void OnDisable() => Managers.U_MAN.DestroyAugmentIconPopup(); // TESTING
+    private void OnDisable() => Managers.U_MAN.DestroyAugmentIconPopup();
 }

@@ -23,6 +23,7 @@ public abstract class Hero : ScriptableObject
     public Sound HeroWin { get => heroWin; }
     public Sound HeroLose { get => heroLose; }
     public HeroPower HeroPower { get => heroPower; }
+    public HeroPower CurrentHeroPower { get; set; }
 
     public virtual void LoadHero(Hero hero)
     {
@@ -33,5 +34,6 @@ public abstract class Hero : ScriptableObject
         heroWin = hero.HeroWin;
         heroLose = hero.HeroLose;
         heroPower = hero.HeroPower;
+        CurrentHeroPower = heroPower;
     }
 }

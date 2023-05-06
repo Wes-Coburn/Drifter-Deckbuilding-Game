@@ -21,15 +21,23 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 99e12abd88b353340a501d7db5039617, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   heroLose:
     name: 
     clip: {fileID: 8300000, guid: 496c09b77ab56b14a92856233395572f, type: 3}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
   heroPower: {fileID: 11400000, guid: 3a6da59b76116ac4aaa2a28041b54048, type: 2}
+  altHeroPowers:
+  - {fileID: 11400000, guid: 16ab479895b25aa4b8b4743d91e1121c, type: 2}
+  - {fileID: 11400000, guid: 5aeadf8553447434094b9b7da8f28e2a, type: 2}
   heroUltimate: {fileID: 11400000, guid: 668edd0a031b0914d83326ea90787a55, type: 2}
+  altHeroUltimates:
+  - {fileID: 11400000, guid: 368cbf0e517fde549b7fb14e8305facb, type: 2}
+  - {fileID: 11400000, guid: b23fe6596f1f706449fa7db4830ddd5f, type: 2}
   heroBackstory: "Genzer grew up in a corporate slum, working for scraps.\r\nWhen
     he got the chance to be in a clinical study and make some real money, he took
     it.\r\nThe participants were injected with experimental serums, and most didn\u2019t

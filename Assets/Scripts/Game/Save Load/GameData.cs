@@ -1,22 +1,8 @@
 [System.Serializable]
-public class GameData
+public class GameData : SaveData
 {
-    public int CurrentHour;
-    public string CurrentNarrative;
-    public string PlayerHero;
-    public string[] PlayerDeck;
-    public string[] PlayerAugments;
-    public string[] PlayerItems;
-    public int AetherCells;
-    public string[,] NPCSAndClips;
-    public string[,] LocationsNPCsObjectives;
-    public string[] VisitedLocations;
-    public string[] ShopItems;
-    public string[] RecruitUnits;
-    public string[] ShopActions;
-    public int RecruitLoyalty;
-    public int ActionShopLoyalty;
-    public int ShopLoyalty;
+    public string[] UnlockedHeroes, UnlockedPowers;
+    public string[] HeroAugments;
 
     public int Reputation_Mages;
     public int Reputation_Mutants;
@@ -24,38 +10,33 @@ public class GameData
     public int Reputation_Techs;
     public int Reputation_Warriors;
 
-    public bool Achievement_BETA_Finish;
+    //public bool Achievement_BETAFinish;
 
-    public GameData(int currentHour, string currentNarrative, string playerHero, string[] deckList,
-        string[] augments, string[] items, int aetherCells,
-        string[,] npcsAndClips, string[,] locationsNPCsObjectives, string[] visitedLocations,
-        string[] shopItems, string[] recruitUnits, string[] shopActions,
-        int recruitLoyalty, int actionShopLoyalty, int shopLoyalty,
-        int reputationMages, int reputationMutants, int reputationRogues, int reputationTechs, int reputationWarriors)
+    public bool TutorialActive_WorldMap;
+
+    public GameData(string[] unlockedHeroes, string[] unlockedPowers, string[] heroAugments,
+        int repMage, int repMutant, int repRogue, int repTech, int repWarrior,
+        bool tutorWorldMap)
     {
-        CurrentHour = currentHour;
-        CurrentNarrative = currentNarrative;
-        PlayerHero = playerHero;
-        PlayerDeck = (string[])deckList.Clone();
-        PlayerAugments = (string[])augments.Clone();
-        PlayerItems = (string[])items.Clone();
-        AetherCells = aetherCells;
-        NPCSAndClips = (string[,])npcsAndClips.Clone();
-        LocationsNPCsObjectives = (string[,])locationsNPCsObjectives.Clone();
-        VisitedLocations = (string[])visitedLocations.Clone();
+        // Unlocks
+        UnlockedHeroes = unlockedHeroes;
+        UnlockedPowers = unlockedPowers;
 
-        ShopItems = (string[])shopItems.Clone();
-        RecruitUnits = (string[])recruitUnits.Clone();
-        ShopActions = (string[])shopActions.Clone();
+        // Progress
+        HeroAugments = heroAugments;
+        // persistent starting cards ???
 
-        RecruitLoyalty = recruitLoyalty;
-        ActionShopLoyalty = actionShopLoyalty;
-        ShopLoyalty = shopLoyalty;
+        // Reputation
+        Reputation_Mages = repMage;
+        Reputation_Mutants = repMutant;
+        Reputation_Rogues = repRogue;
+        Reputation_Techs = repTech;
+        Reputation_Warriors = repWarrior;
 
-        Reputation_Mages = reputationMages;
-        Reputation_Mutants = reputationMutants;
-        Reputation_Rogues = reputationRogues;
-        Reputation_Techs = reputationTechs;
-        Reputation_Warriors = reputationWarriors;
+        // Achievements
+        //Achievement_BETAFinish = achievement_BETA_Finish;
+
+        // Tutorials
+        TutorialActive_WorldMap = tutorWorldMap;
     }
 }

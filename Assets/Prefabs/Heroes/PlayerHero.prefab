@@ -86,10 +86,12 @@ MonoBehaviour:
   heroStats: {fileID: 1454891523495471295}
   heroPortrait: {fileID: 4436423408031473297}
   heroName: {fileID: 2804961601154400438}
-  heroHealth: {fileID: 6959884907754415300}
+  heroHealth: {fileID: 640553914239712429}
   woundedIcon: {fileID: 5318517517094618127}
   heroHealthSlider: {fileID: 8746642549523946823}
   heroEnergy: {fileID: 7575394106176348809}
+  heroPower: {fileID: 1688925298268153764}
+  powerImage: {fileID: 339675607916109570}
   energyBars:
   - {fileID: 6842639795089367957}
   - {fileID: 7098272330153483542}
@@ -101,8 +103,6 @@ MonoBehaviour:
   - {fileID: 1236380311471600378}
   - {fileID: 8072879260127726458}
   - {fileID: 5126385004642908356}
-  heroPower: {fileID: 1688925298268153764}
-  powerImage: {fileID: 339675607916109570}
   powerCost: {fileID: 2663200519992360546}
   powerReadyIcon: {fileID: 3032303709927901542}
   heroUltimate: {fileID: 8478150817196788707}
@@ -265,6 +265,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1303281839548037138}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &640553914239712429 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1942629830042584255, guid: 322b87facb59a90408aa6114cc7ab1ae,
+    type: 3}
+  m_PrefabInstance: {fileID: 1303281839548037138}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &646485327081020631 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1940744775532602565, guid: 322b87facb59a90408aa6114cc7ab1ae,
@@ -394,12 +400,6 @@ RectTransform:
 --- !u!1 &6842639795089367957 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5540517494176521095, guid: 322b87facb59a90408aa6114cc7ab1ae,
-    type: 3}
-  m_PrefabInstance: {fileID: 1303281839548037138}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &6959884907754415300 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8250688659875405014, guid: 322b87facb59a90408aa6114cc7ab1ae,
     type: 3}
   m_PrefabInstance: {fileID: 1303281839548037138}
   m_PrefabAsset: {fileID: 0}

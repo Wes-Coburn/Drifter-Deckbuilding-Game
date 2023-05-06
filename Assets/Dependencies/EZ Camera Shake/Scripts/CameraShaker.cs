@@ -10,7 +10,7 @@ namespace EZCameraShake
         /// The single instance of the CameraShaker in the current scene. Do not use if you have multiple instances.
         /// </summary>
         public static CameraShaker Instance;
-        static Dictionary<string, CameraShaker> instanceList = new Dictionary<string, CameraShaker>();
+        static Dictionary<string, CameraShaker> instanceList = new();
 
         /// <summary>
         /// The default position influence of all shakes created by this shaker.
@@ -31,7 +31,7 @@ namespace EZCameraShake
 
         Vector3 posAddShake, rotAddShake;
 
-        List<CameraShakeInstance> cameraShakeInstances = new List<CameraShakeInstance>();
+        List<CameraShakeInstance> cameraShakeInstances = new();
 
         void Awake()
         {
@@ -74,10 +74,7 @@ namespace EZCameraShake
         /// <returns></returns>
         public static CameraShaker GetInstance(string name)
         {
-            CameraShaker c;
-
-            if (instanceList.TryGetValue(name, out c))
-                return c;
+            if (instanceList.TryGetValue(name, out CameraShaker c)) return c;
 
             Debug.LogError("CameraShake " + name + " not found!");
 
@@ -105,9 +102,11 @@ namespace EZCameraShake
         /// <returns>A CameraShakeInstance that can be used to alter the shake's properties.</returns>
         public CameraShakeInstance ShakeOnce(float magnitude, float roughness, float fadeInTime, float fadeOutTime)
         {
-            CameraShakeInstance shake = new CameraShakeInstance(magnitude, roughness, fadeInTime, fadeOutTime);
-            shake.PositionInfluence = DefaultPosInfluence;
-            shake.RotationInfluence = DefaultRotInfluence;
+            CameraShakeInstance shake = new(magnitude, roughness, fadeInTime, fadeOutTime)
+            {
+                PositionInfluence = DefaultPosInfluence,
+                RotationInfluence = DefaultRotInfluence
+            };
             cameraShakeInstances.Add(shake);
 
             return shake;
@@ -125,9 +124,11 @@ namespace EZCameraShake
         /// <returns>A CameraShakeInstance that can be used to alter the shake's properties.</returns>
         public CameraShakeInstance ShakeOnce(float magnitude, float roughness, float fadeInTime, float fadeOutTime, Vector3 posInfluence, Vector3 rotInfluence)
         {
-            CameraShakeInstance shake = new CameraShakeInstance(magnitude, roughness, fadeInTime, fadeOutTime);
-            shake.PositionInfluence = posInfluence;
-            shake.RotationInfluence = rotInfluence;
+            CameraShakeInstance shake = new(magnitude, roughness, fadeInTime, fadeOutTime)
+            {
+                PositionInfluence = posInfluence,
+                RotationInfluence = rotInfluence
+            };
             cameraShakeInstances.Add(shake);
 
             return shake;
@@ -142,9 +143,11 @@ namespace EZCameraShake
         /// <returns>A CameraShakeInstance that can be used to alter the shake's properties.</returns>
         public CameraShakeInstance StartShake(float magnitude, float roughness, float fadeInTime)
         {
-            CameraShakeInstance shake = new CameraShakeInstance(magnitude, roughness);
-            shake.PositionInfluence = DefaultPosInfluence;
-            shake.RotationInfluence = DefaultRotInfluence;
+            CameraShakeInstance shake = new(magnitude, roughness)
+            {
+                PositionInfluence = DefaultPosInfluence,
+                RotationInfluence = DefaultRotInfluence
+            };
             shake.StartFadeIn(fadeInTime);
             cameraShakeInstances.Add(shake);
             return shake;
@@ -161,9 +164,11 @@ namespace EZCameraShake
         /// <returns>A CameraShakeInstance that can be used to alter the shake's properties.</returns>
         public CameraShakeInstance StartShake(float magnitude, float roughness, float fadeInTime, Vector3 posInfluence, Vector3 rotInfluence)
         {
-            CameraShakeInstance shake = new CameraShakeInstance(magnitude, roughness);
-            shake.PositionInfluence = posInfluence;
-            shake.RotationInfluence = rotInfluence;
+            CameraShakeInstance shake = new(magnitude, roughness)
+            {
+                PositionInfluence = posInfluence,
+                RotationInfluence = rotInfluence
+            };
             shake.StartFadeIn(fadeInTime);
             cameraShakeInstances.Add(shake);
             return shake;

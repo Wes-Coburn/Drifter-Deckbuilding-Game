@@ -18,21 +18,26 @@ MonoBehaviour:
   locationDescription: Home to creatures as unsavory as the smell.
   firstObjective: Track down a mutant that has ravaged a local warrior clan (+2 Warrior
     reputation).
-  worldMapPosition: {x: -340, y: -120}
+  worldMapPosition: {x: -255, y: -100}
   firstNPC: {fileID: 11400000, guid: 5b38f70d393cf7f4da65a15c8ba2caf0, type: 2}
   locationSoundscape:
     name: 
     clip: {fileID: 0}
     volume: 1
     pitch: 1
+    mixerGroup: {fileID: 0}
     source: {fileID: 0}
+  locationBackground: 0
+  isRecurring: 0
   isCombatOnly: 1
-  isHomeBase: 0
-  isAugmenter: 0
-  isRecruitment: 0
-  isShop: 0
-  isCloning: 0
   isRandomEncounter: 1
+  isHomeBase: 0
+  isRecruitment: 0
+  isActionShop: 0
+  isItemShop: 0
+  isCloner: 0
+  isAugmenter: 0
+  isHealer: 0
   isClosed_Hour1: 0
   isClosed_Hour2: 0
   isClosed_Hour3: 0

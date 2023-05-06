@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Triggered Ability", menuName = "Card Abilities/Triggered Ability")]
@@ -14,14 +15,12 @@ public class TriggeredAbility : CardAbility
     public override void LoadCardAbility(CardAbility cardAbility)
     {
         base.LoadCardAbility(cardAbility);
-        TriggeredAbility triggeredAbility = cardAbility as TriggeredAbility;
+        var triggeredAbility = cardAbility as TriggeredAbility;
         AbilityTrigger = triggeredAbility.AbilityTrigger;
         int triggerLimit = AbilityTrigger.TriggerLimit;
         if (triggerLimit != 0) TriggerLimit = triggerLimit;
         else TriggerLimit = triggeredAbility.TriggerLimit;
-        EffectGroupList = new List<EffectGroup>();
-        foreach (EffectGroup eg in triggeredAbility.EffectGroupList)
-            EffectGroupList.Add(eg);
+        EffectGroupList = triggeredAbility.EffectGroupList.ToList();
 
         TriggerCount = 0;
     }

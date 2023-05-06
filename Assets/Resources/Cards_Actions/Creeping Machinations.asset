@@ -12,14 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51efad6bfc5b70344acf9c2c28efe1a1, type: 3}
   m_Name: Creeping Machinations
   m_EditorClassIdentifier: 
-  cardArt: {fileID: 21300000, guid: b24bd2eb98db11c4992d2eb9075814c2, type: 3}
+  cardArt: {fileID: 21300000, guid: 45d104be3b24434468546d0a9d7a3461, type: 3}
   cardBorder: {fileID: 21300000, guid: da4d9c0ce8b0a5744aac584cd2e675b1, type: 3}
-  energyCost: 2
+  energyCost: 1
+  costConditionType: 0
+  costConditionValue: 0
+  costConditionModifier: 0
   cardName: Creeping Machinations
   cardType: Action
   cardSubType: 
   cardRarity: 0
   cardDescription: Creeping Machinations is...
+  relatedCards:
+  - {fileID: 11400000, guid: a68cd8dd2a6f906409e7c9a42e81c06d, type: 2}
+  relatedCardTypes: 
   cardPlaySound:
     name: 
     clip: {fileID: 0}

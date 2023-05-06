@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7366453145632001178
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7366453145632001176}
+  - component: {fileID: 2905654371754264081}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7366453145632001176
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7366453145632001178}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2905654371754264081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7366453145632001178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f2a081891608e489f43757f227fb42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locationBG_City: {fileID: 21300000, guid: a94fe93580619904fbba8a87fa6a10b9, type: 3}
+  locationBG_Wasteland: {fileID: 21300000, guid: b0d0a3f79c08e7e4ca4ff8cadf2bd890,
+    type: 3}
+  locationIconPrefab: {fileID: 7001515754728082527, guid: 66d6680aaf145824992863dceab07391,
+    type: 3}
+  loadingTips:
+  - You gain 1 energy at the start of your turn, increased by 1 each turn (max 10).
+  - Units with Deathblow do something when they destroy another unit.
+  - Visit <color="yellow"><b>your ship</b></color> to sell sell cards and change
+    your powers!
+  - Units with Spark do something the first time you play an action card each turn.
+  - Units with Research do something when you use your hero power or ultimate.
+  - Look out for <color="yellow"><b>The Augmenter</b></color> to permanently upgrade
+    your heroes!
+  - Units with Infiltrate do something when they attack the enemy hero.
+  - Adding a unit to your deck increases your <color="yellow"><b>reputation</b></color>
+    with that unit's faction.
+  - Units with Ranged aren't struck back when they attack.
+  - Units with Armored take 1 less damage from all sources.
+  - A hero is Wounded if they've taken damage this turn.
+  - You can use an item once, then it's gone!
+  - <color="yellow"><b>Right click</b></color> on cards for more information.
+  - Units with Defender must be attacked (if possible).
+  - Every few turns, the enemy <color="yellow"><b>surges</b></color>, drawing cards
+    and reducing their costs!
+  - Units with Ward ignore enemy effects, and can't be targetted by them.
+  - When you rest each night, you recover 10 health.
+  - You keep <color="yellow"><b>augments</b></color> and <color="yellow"><b>reputation</b></color>
+    if you die!
+  reputation_Mages: {fileID: 11400000, guid: eb3b373fe9394ca4cb6ee52db1027c17, type: 2}
+  reputation_Mutants: {fileID: 11400000, guid: 5d97d4a9ed164724fb092edb8a07b440, type: 2}
+  reputation_Rogues: {fileID: 11400000, guid: 3f85162fed2fdca409e38a3b4c0ea760, type: 2}
+  reputation_Techs: {fileID: 11400000, guid: c1c9fe8476c9eb449a0aa617309cd933, type: 2}
+  reputation_Warriors: {fileID: 11400000, guid: 0d8e12c67be8c1a4e991375258ae84f8,
+    type: 2}
+  StartingHeroes:
+  - Kili, Neon Rider
+  - Faydra, Rogue Cyborg
+  - Yergov, Biochemist

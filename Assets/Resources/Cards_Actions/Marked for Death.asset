@@ -14,12 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardArt: {fileID: 21300000, guid: 355a6951bcd290b4280c4525211d49e0, type: 3}
   cardBorder: {fileID: 21300000, guid: da4d9c0ce8b0a5744aac584cd2e675b1, type: 3}
-  energyCost: 5
+  energyCost: 4
+  costConditionType: 0
+  costConditionValue: 0
+  costConditionModifier: 0
   cardName: Marked for Death
   cardType: Action
   cardSubType: 
   cardRarity: 1
-  cardDescription: Marked for Death is...
+  cardDescription: "\"You\u2019re dead! You\u2019re all DEAD!\""
+  relatedCards: []
+  relatedCardTypes: 
   cardPlaySound:
     name: 
     clip: {fileID: 0}
@@ -29,7 +34,7 @@ MonoBehaviour:
     source: {fileID: 0}
   overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
   zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
-  effectDescription: Destroy ALL Marked enemies, then Mark ALL enemies.
+  effectDescription: Deal 5 to ALL Marked enemies, then Mark ALL enemies.
   effectGroupList:
   - {fileID: 11400000, guid: 75bb6e394dd92f24985b101afa54bca4, type: 2}
   - {fileID: 11400000, guid: af0dc46b92439e34898d0fcb50c91940, type: 2}

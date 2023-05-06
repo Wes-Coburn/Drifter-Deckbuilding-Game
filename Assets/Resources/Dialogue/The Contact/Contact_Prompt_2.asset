@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b107ecdac65374f8c56b3212c061ce, type: 3}
   m_Name: Contact_Prompt_2
   m_EditorClassIdentifier: 
-  dialoguePromptText: '*Whispering*
-
-    Come closer. They have bugs everywhere.'
+  dialoguePromptText: Come closer. They have bugs everywhere.
   dialogueResponse1:
     responseText: 
     response_NextClip: {fileID: 0}
@@ -22,6 +20,7 @@ MonoBehaviour:
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
+    response_IsActionShopStart: 0
     response_IsShopStart: 0
     response_IsCloningStart: 0
     response_IsNewAugmentStart: 0
@@ -35,6 +34,7 @@ MonoBehaviour:
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
+    response_IsActionShopStart: 0
     response_IsShopStart: 0
     response_IsCloningStart: 0
     response_IsNewAugmentStart: 0
@@ -47,6 +47,7 @@ MonoBehaviour:
     response_IsCombatStart: 0
     response_IsWorldMapStart: 0
     response_IsRecruitmentStart: 0
+    response_IsActionShopStart: 0
     response_IsShopStart: 0
     response_IsCloningStart: 0
     response_IsNewAugmentStart: 0
@@ -55,8 +56,6 @@ MonoBehaviour:
   newEngagedHero: {fileID: 0}
   hideNPC: 0
   newCard: {fileID: 0}
-  newAllyCard: 0
-  newExecutionCard: 0
   aetherCells: 0
   newLocations: []
   reputation_Mages: 0

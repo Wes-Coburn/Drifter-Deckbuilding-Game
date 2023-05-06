@@ -1,22 +1,18 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Collections.Generic;
 
 public class PowerZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private GameObject powerPopupPrefab;
-    [SerializeField] private GameObject abilityPopupBoxPrefab;
-    [SerializeField] private GameObject abilityPopupPrefab;
-
-    [SerializeField] private bool abilityPopupOnly;
-    [SerializeField] private bool isUltimate;
-    [SerializeField] private bool isEnemyPower;
+    [SerializeField] private GameObject powerPopupPrefab, abilityPopupBoxPrefab, abilityPopupPrefab;
+    [SerializeField] private bool abilityPopupOnly, isUltimate, isEnemyPower;
 
     private GameObject powerPopup;
     private GameObject abilityPopupBox;
     public const string POWER_POPUP_TIMER = "PowerPopupTimer";
     public const string ABILITY_POPUP_TIMER = "AbilityBoxTimer";
 
-    public HeroPower LoadedPower { get; set; }
+    public HeroPower LoadedPower { get; set; } // Used for non-combat powers only
 
     public void DestroyPowerPopup()
     {
@@ -27,6 +23,7 @@ public class PowerZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             powerPopup = null;
         }
     }
+
     public void DestroyAbilityPopup()
     {
         FunctionTimer.StopTimer(ABILITY_POPUP_TIMER);
@@ -39,35 +36,28 @@ public class PowerZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerEnter(PointerEventData pointerEventData)
     {
+        if (!enabled) return;
         if (CardZoom.ZoomCardIsCentered || DragDrop.DraggingCard) return;
         DestroyPowerPopup();
         if (!abilityPopupOnly) FunctionTimer.Create(() => CreatePowerPopup(), 0.5f, POWER_POPUP_TIMER);
-        else FunctionTimer.Create(() =>
+        else if (LoadedPower != null) FunctionTimer.Create(() =>
         ShowLinkedAbilities(LoadedPower, CardZoom.ZOOM_SCALE_VALUE), 0.5f, POWER_POPUP_TIMER);
+        else Debug.LogError("LOADED POWER IS NULL!");
     }
+
     public void OnPointerExit(PointerEventData pointerEventData)
     {
+        if (!enabled) return;
         DestroyPowerPopup();
         DestroyAbilityPopup();
     }
 
     private void CreatePowerPopup()
     {
-        float newX;
-        float newY;
+        float newX = isEnemyPower ? -250 : 300;
+        float newY = isEnemyPower ? 320 : -360;
 
-        if (!isEnemyPower)
-        {
-            newX = 300;
-            newY = -360;
-        }
-        else
-        {
-            newX = -250;
-            newY = 320;
-        }
-
-        Vector3 spawnPoint = new Vector2(newX, newY);
+        Vector2 spawnPoint = new(newX, newY);
         float scaleValue = 2.5f;
         powerPopup = Instantiate(powerPopupPrefab, Managers.U_MAN.CurrentWorldSpace.transform);
         powerPopup.transform.localPosition = spawnPoint;
@@ -76,30 +66,28 @@ public class PowerZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         HeroPower hp;
         if (!isEnemyPower)
         {
-            PlayerHeroDisplay phd = GetComponentInParent<PlayerHeroDisplay>();
-            if (isUltimate) hp = (phd.HeroScript as PlayerHero).HeroUltimate;
-            else hp = phd.HeroScript.HeroPower;
+            var phd = GetComponentInParent<PlayerHeroDisplay>();
+            if (isUltimate) hp = (phd.HeroScript as PlayerHero).CurrentHeroUltimate;
+            else hp = phd.HeroScript.CurrentHeroPower;
         }
         else
         {
-            EnemyHeroDisplay ehd = GetComponentInParent<EnemyHeroDisplay>();
-            hp = ehd.HeroScript.HeroPower;
+            var ehd = GetComponentInParent<EnemyHeroDisplay>();
+            hp = ehd.HeroScript.CurrentHeroPower;
         }
-
 
         if (hp == null)
         {
             Debug.LogError("HERO POWER IS NULL!");
             return;
         }
+
         powerPopup.GetComponent<PowerPopupDisplay>().PowerScript = hp;
         FunctionTimer.Create(() => ShowLinkedAbilities(hp, scaleValue), 0.75f, ABILITY_POPUP_TIMER);
     }
 
     private void ShowLinkedAbilities(HeroPower hp, float scaleValue)
     {
-        //if (this == null) return; // TESTING
-
         if (hp == null)
         {
             Debug.LogError("HERO POWER IS NULL!");
@@ -107,32 +95,40 @@ public class PowerZoom : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         }
 
         abilityPopupBox = Instantiate(abilityPopupBoxPrefab, Managers.U_MAN.CurrentZoomCanvas.transform);
-        Vector2 position = new Vector2();
+        Vector2 position = new();
 
         if (!abilityPopupOnly) // Combat Scene
         {
             if (!isEnemyPower) position.Set(-75, -50);
-            else position.Set(0, -50); // TESTING
+            else position.Set(0, -50);
         }
-        else
-        {
-            /*
-            if (SceneLoader.IsActiveScene(SceneLoader.Scene.HeroSelectScene))
-                position.Set(350, 100);
-             */
+        // Homebase Scene
+        else if (SceneLoader.IsActiveScene(SceneLoader.Scene.HomeBaseScene)) position.Set(0, 0);
 
-            if (SceneLoader.IsActiveScene(SceneLoader.Scene.HomeBaseScene))
-                position.Set(350, 0);
-        }
         abilityPopupBox.transform.localPosition = position;
         abilityPopupBox.transform.localScale = new Vector2(scaleValue, scaleValue);
-        foreach (CardAbility ca in hp.LinkedAbilities)
+
+        List<CardAbility> linkedAbilities = new();
+        foreach (var ca in hp.LinkedAbilities)
+        {
+            AddLinkedCA(ca);
+            foreach (var ca2 in ca.LinkedAbilites)
+                AddLinkedCA(ca2);
+        }
+        
+        foreach (var ca in linkedAbilities)
             CreateAbilityPopup(ca, abilityPopupBox.transform, 1);
+
+        void AddLinkedCA(CardAbility ca)
+        {
+            if (linkedAbilities.FindIndex(x => x.AbilityName == ca.AbilityName) == -1)
+                linkedAbilities.Add(ca);
+        }
     }
 
     private void CreateAbilityPopup(CardAbility ca, Transform parent, float scaleValue)
     {
-        GameObject abilityPopup = Instantiate(abilityPopupPrefab, parent);
+        var abilityPopup = Instantiate(abilityPopupPrefab, parent);
         abilityPopup.transform.localScale = new Vector2(scaleValue, scaleValue);
         abilityPopup.GetComponent<AbilityPopupDisplay>().DisplayAbilityPopup(ca, false, !isEnemyPower);
     }

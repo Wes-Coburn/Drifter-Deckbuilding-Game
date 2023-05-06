@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a22d7123f6ee007468cbdc6e9b6fe2b0, type: 3}
+  m_Name: Give1EU_Stun_Marked_Deal1
+  m_EditorClassIdentifier: 
+  Targets: {fileID: 11400000, guid: 878f131356ce5eb4dade11e2fe3691eb, type: 2}
+  ResolveIndependent: 0
+  EffectsDescription: Stun and Mark an enemy, then deal 1 to it.
+  Effects:
+  - {fileID: 11400000, guid: d69c966727c88d84489e1fe64d7f7a7e, type: 2}
+  - {fileID: 11400000, guid: 0c8bb1c8a93df8148b4f916bdc30f3e7, type: 2}
+  - {fileID: 11400000, guid: 4d3f33925dcfef44588efad39d21b2f3, type: 2}

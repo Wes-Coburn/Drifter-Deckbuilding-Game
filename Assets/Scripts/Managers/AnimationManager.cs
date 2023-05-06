@@ -23,16 +23,10 @@ public class AnimationManager : MonoBehaviour
     private Color previousBarColor;
 
     [SerializeField] private GameObject valueChangerPrefab;
-
-    [Header("PARTICLE SYSTEMS")]
-    [SerializeField] private GameObject particleSystemPrefab;
+    [Header("PARTICLE SYSTEMS"), SerializeField] private GameObject particleSystemPrefab;
     [SerializeField] private GameObject particleSystem_BurstPrefab;
-    [Header("PARTICLE SYSTEM COLORS")]
-    [SerializeField] private Color attackColor;
-    [SerializeField] private Color buttonPressColor;
-    [SerializeField] private Color damageColor;
-    [SerializeField] private Color dragColor;
-    [SerializeField] private Color newCardColor;
+    [Header("PARTICLE SYSTEM COLORS"), SerializeField] private Color attackColor;
+    [SerializeField] private Color buttonPressColor, damageColor, dragColor, newCardColor;
     #endregion
 
     #region PROPERTIES
@@ -45,10 +39,6 @@ public class AnimationManager : MonoBehaviour
 
     #region METHODS
     #region UTILITY
-    private void Start()
-    {
-        // blank
-    }
 
     public void ProgressBarRoutine_Stop()
     {
@@ -123,19 +113,18 @@ public class AnimationManager : MonoBehaviour
      * ****** VALUE_CHANGE
      * *****
      *****/
-    public void ValueChanger(Transform parent, int value, float yBuffer = 0, bool setToCanvas = true)
+    public void ValueChanger(Transform parent, int value, bool followParent = false, Vector2 buffer = new())
     {
-        GameObject valueChanger = Instantiate(valueChangerPrefab, parent);
-        valueChanger.transform.localPosition = new Vector2(0, yBuffer);
+        var valueChanger = Instantiate(valueChangerPrefab, parent);
+        valueChanger.transform.localPosition = buffer;
 
         Transform newParent;
-        if (yBuffer != 0)
+        if (buffer != new Vector2())
         {
             newParent = Managers.U_MAN.UICanvas.transform;
             valueChanger.transform.localScale = new Vector2(2, 2);
         }
-        else if (setToCanvas) newParent = Managers.U_MAN.CurrentCanvas.transform;
-        else newParent = parent.parent.parent.parent;
+        else newParent = Managers.U_MAN.CurrentCanvas.transform; // TESTING
 
         valueChanger.transform.SetParent(newParent);
         valueChanger.transform.SetAsLastSibling();
@@ -151,7 +140,25 @@ public class AnimationManager : MonoBehaviour
         valueText += value;
         valueChanger.GetComponentInChildren<TextMeshProUGUI>().SetText(valueText);
         valueChanger.GetComponentInChildren<Animator>().SetBool("IsPositiveChange", isPositiveChange);
+
+        if (followParent)
+        {
+            var folPar = valueChanger.AddComponent<FollowParent>();
+            folPar.Parent = parent;
+        }
     }
+
+    class FollowParent : MonoBehaviour
+    {
+        public Transform Parent;
+
+        private void FixedUpdate()
+        {
+            if (Parent == null) return;
+            transform.localPosition = new Vector2(Parent.position.x, Parent.position.y);
+        }
+    }
+
 
     /******
      * *****
@@ -223,7 +230,7 @@ public class AnimationManager : MonoBehaviour
                 return null;
         }
 
-        GameObject particleSystem = Instantiate(prefab, Managers.U_MAN.CurrentWorldSpace.transform);
+        var particleSystem = Instantiate(prefab, Managers.U_MAN.CurrentWorldSpace.transform);
         var psh = particleSystem.GetComponent<ParticleSystemHandler>();
         psh.StartParticles(parent, startColor, startSize, startLifetime, stopDelay, usePointerPosition, followPosition);
         return psh;
@@ -406,14 +413,14 @@ public class AnimationManager : MonoBehaviour
     public void ModifyHeroHealthState(GameObject hero, int healthChange)
     {
         ChangeAnimationState(hero, "Modify_Health");
-        GameObject healthScore = hero.GetComponent<HeroDisplay>().HeroHealthObject;
+        var healthScore = hero.GetComponent<HeroDisplay>().HeroHealthObject;
         ValueChanger(healthScore.transform, healthChange);
     }
     public void ModifyHeroEnergyState(int energyChange, GameObject hero, bool playSound = true)
     {
         if (playSound) Managers.AU_MAN.StartStopSound("SFX_EnergyRefill");
         ChangeAnimationState(hero, "Modify_Energy");
-        GameObject energyScore = hero.GetComponent<HeroDisplay>().HeroEnergyObject;
+        var energyScore = hero.GetComponent<HeroDisplay>().HeroEnergyObject;
         ValueChanger(energyScore.transform, energyChange);
     }
     public void TriggerHeroPower(GameObject heroPower) => ChangeAnimationState(heroPower, "Trigger");
@@ -440,6 +447,8 @@ public class AnimationManager : MonoBehaviour
         ChangeAnimationState(card, "Played_Unit");
     public void PlayedActionState(GameObject card) =>
         ChangeAnimationState(card, "Played_Action");
+    public void ChangeCostState(GameObject card) =>
+        ChangeAnimationState(card, "ChangeCost");
 
     /******
      * *****
@@ -451,13 +460,13 @@ public class AnimationManager : MonoBehaviour
     private void ModifyAllUnitStatsState(GameObject card) => ChangeAnimationState(card, "Modify_All");
     public void DestroyUnitCardState(GameObject unitCard) => ChangeAnimationState(unitCard, "Destroyed");
 
-    public void UnitTakeDamageState(GameObject unitCard, int damageValue, bool isMeleeAttacker)
+    public void UnitTakeDamageState(GameObject unitCard, int damageValue, bool followCard)
     {
         ChangeAnimationState(unitCard.GetComponent<UnitCardDisplay>().UnitStats, "Take_Damage");
-        UnitCardDisplay ucd = unitCard.GetComponent<UnitCardDisplay>();
-        GameObject stats = ucd.UnitStats;
-        GameObject healthScore = ucd.HealthScore;
-        ValueChanger(healthScore.transform, -damageValue, 0, isMeleeAttacker); // TESTING
+        var ucd = unitCard.GetComponent<UnitCardDisplay>();
+        var stats = ucd.UnitStats;
+        var healthScore = ucd.HealthScore;
+        ValueChanger(healthScore.transform, -damageValue, followCard);
         SetAnimatorBool(stats, "IsDamaged", CombatManager.IsDamaged(unitCard));
     }
 
@@ -484,8 +493,8 @@ public class AnimationManager : MonoBehaviour
     {
         if (!setStatsOnly && !showZero && powerChange == 0 && healthChange == 0) return;
 
-        UnitCardDisplay ucd = unitCard.GetComponent<UnitCardDisplay>();
-        GameObject stats = ucd.UnitStats;
+        var ucd = unitCard.GetComponent<UnitCardDisplay>();
+        var stats = ucd.UnitStats;
         SetAnimatorBool(stats, "IsDamaged", CombatManager.IsDamaged(unitCard));
         SetAnimatorBool(stats, "PowerIsDebuffed", ucd.CurrentPower < ucd.UnitCard.StartPower);
         SetAnimatorBool(stats, "PowerIsBuffed", ucd.CurrentPower > ucd.UnitCard.StartPower);
@@ -515,17 +524,16 @@ public class AnimationManager : MonoBehaviour
 
         void ModifyPower()
         {
-            GameObject powerScore = ucd.PowerScore;
+            var powerScore = ucd.PowerScore;
             ValueChanger(powerScore.transform, powerChange);
         }
         void ModifyHealth()
         {
-            GameObject healthScore = ucd.HealthScore;
+            var healthScore = ucd.HealthScore;
             ValueChanger(healthScore.transform, healthChange);
         }
     }
 
-    // Ability Trigger
     public void AbilityTriggerState(GameObject triggerIcon)
     {
         if (triggerIcon == null)
@@ -543,11 +551,9 @@ public class AnimationManager : MonoBehaviour
     // Icon Animation
     public void SkybarIconAnimation(GameObject icon)
     {
-        FunctionTimer.StopTimer(CLOSE_SKYBAR_TIMER);
         GameObject skybar = icon.transform.parent.parent.gameObject;
 
         if (skybar == Managers.U_MAN.AugmentsDropdown) Managers.U_MAN.AugmentsButton_OnClick(true);
-        else if (skybar == Managers.U_MAN.ItemsDropdown) Managers.U_MAN.ItemsButton_OnClick(true);
         else if (skybar == Managers.U_MAN.ReputationsDropdown) Managers.U_MAN.ReputationsButton_OnClick(true);
         else
         {
@@ -556,8 +562,7 @@ public class AnimationManager : MonoBehaviour
         }
 
         Trigger();
-        FunctionTimer.Create(() =>
-        CloseSkybar(skybar), 1, CLOSE_SKYBAR_TIMER);
+        FunctionTimer.Create(() => CloseSkybar(skybar), 1f, CLOSE_SKYBAR_TIMER);
 
         void Trigger() => ChangeAnimationState(icon, "Trigger");
         static void CloseSkybar(GameObject bar) => bar.SetActive(false);
@@ -567,7 +572,7 @@ public class AnimationManager : MonoBehaviour
     {
         foreach (Transform icon in Managers.U_MAN.AugmentBar.transform)
         {
-            AugmentIcon augmentIcon = icon.GetComponent<AugmentIcon>();
+            var augmentIcon = icon.GetComponent<AugmentIcon>();
             if (augmentIcon.LoadedAugment.AugmentName == augmentName)
             {
                 SkybarIconAnimation(icon.gameObject);
@@ -675,20 +680,20 @@ public class AnimationManager : MonoBehaviour
         float distance;
         float fScale = 1;
 
-        GameObject turBut = Managers.U_MAN.EndTurnButton;
-        GameObject combatLog = Managers.U_MAN.CombatLog;
+        var turBut = Managers.U_MAN.EndTurnButton;
+        var combatLog = Managers.U_MAN.CombatLog;
 
-        HeroDisplay pHD = Managers.P_MAN.HeroObject.GetComponent<HeroDisplay>();
-        GameObject pBase = pHD.HeroBase;
-        GameObject pFrame = pHD.HeroFrame;
-        GameObject pStats = pHD.HeroStats;
-        GameObject pName = pHD.HeroNameObject;
+        var pHD = Managers.P_MAN.HeroObject.GetComponent<HeroDisplay>();
+        var pBase = pHD.HeroBase;
+        var pFrame = pHD.HeroFrame;
+        var pStats = pHD.HeroStats;
+        var pName = pHD.HeroNameObject;
 
-        HeroDisplay eHD = Managers.EN_MAN.HeroObject.GetComponent<HeroDisplay>();
-        GameObject eBase = eHD.HeroBase;
-        GameObject eFrame = eHD.HeroFrame;
-        GameObject eStats = eHD.HeroStats;
-        GameObject eName = eHD.HeroNameObject;
+        var eHD = Managers.EN_MAN.HeroObject.GetComponent<HeroDisplay>();
+        var eBase = eHD.HeroBase;
+        var eFrame = eHD.HeroFrame;
+        var eStats = eHD.HeroStats;
+        var eName = eHD.HeroNameObject;
 
         Vector2 turButStart = turBut.transform.position;
         Vector2 combatLogStart = combatLog.transform.localPosition;
@@ -768,45 +773,14 @@ public class AnimationManager : MonoBehaviour
         FunctionTimer.Create(() =>
         Managers.U_MAN.SelectTarget(Managers.EN_MAN.HeroObject, UIManager.SelectionType.Disabled), 2);
 
-        EnemyHero eh = Managers.D_MAN.EngagedHero as EnemyHero;
+        var eh = Managers.D_MAN.EngagedHero as EnemyHero;
         if (eh.IsBoss)
         {
             yield return new WaitForSeconds(2);
             Managers.U_MAN.CreateVersusPopup(true);
         }
 
-        // Reputations
-        foreach (Transform repTran in Managers.U_MAN.ReputationBar.transform)
-        {
-            repTran.gameObject.SetActive(true);
-            SkybarIconAnimation(repTran.gameObject);
-        }
-
-        Managers.AU_MAN.StartStopSound("SFX_Trigger");
-        yield return new WaitForSeconds(0.5f);
-
-        // Augments
-        foreach (Transform augTran in Managers.U_MAN.AugmentBar.transform)
-        {
-            augTran.gameObject.SetActive(true);
-            SkybarIconAnimation(augTran.gameObject);
-        }
-        if (Managers.U_MAN.AugmentBar.transform.childCount > 0)
-            Managers.AU_MAN.StartStopSound("SFX_Trigger");
-
-        yield return new WaitForSeconds(0.5f);
-
-        // Items
-        foreach (Transform itemTran in Managers.U_MAN.ItemBar.transform)
-        {
-            itemTran.gameObject.SetActive(true);
-            SkybarIconAnimation(itemTran.gameObject);
-        }
-
-        if (Managers.U_MAN.ItemBar.transform.childCount > 0)
-            Managers.AU_MAN.StartStopSound("SFX_Trigger");
-
-        yield return new WaitForSeconds(0.5f);
+        yield return ShowSkyBarChildren();
 
         Managers.AU_MAN.StartStopSound("SFX_PortraitClick");
         do
@@ -857,6 +831,47 @@ public class AnimationManager : MonoBehaviour
         while (distance > 0);
     }
 
+    public IEnumerator ShowSkyBarChildren(float delay = 0)
+    {
+        yield return new WaitForSeconds(delay);
+
+        // Reputation
+        foreach (Transform repTran in Managers.U_MAN.ReputationBar.transform)
+        {
+            repTran.gameObject.SetActive(true);
+            SkybarIconAnimation(repTran.gameObject);
+        }
+
+        Managers.AU_MAN.StartStopSound("SFX_Trigger");
+        yield return new WaitForSeconds(0.5f);
+
+        // Augments
+        foreach (Transform augTran in Managers.U_MAN.AugmentBar.transform)
+        {
+            augTran.gameObject.SetActive(true);
+            SkybarIconAnimation(augTran.gameObject);
+        }
+
+        if (Managers.U_MAN.AugmentBar.transform.childCount > 0)
+        {
+            Managers.AU_MAN.StartStopSound("SFX_Trigger");
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        // Items
+        foreach (Transform itemTran in Managers.U_MAN.ItemBar.transform)
+        {
+            itemTran.gameObject.SetActive(true);
+            SkybarIconAnimation(itemTran.gameObject);
+        }
+
+        if (Managers.U_MAN.ItemBar.transform.childCount > 0)
+        {
+            Managers.AU_MAN.StartStopSound("SFX_Trigger");
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
     /******
      * *****
      * ****** UNIT_ATTACK
@@ -873,7 +888,7 @@ public class AnimationManager : MonoBehaviour
 
         float distance;
         float bufferDistance = defenderIsUnit ? 150 : 350;
-        GameObject container = attacker.GetComponent<CardDisplay>().CardContainer;
+        var container = attacker.GetComponent<CardDisplay>().CardContainer;
         container.GetComponent<CardContainer>().IsDetached = true;
         attacker.transform.SetAsLastSibling();
         Vector2 defPos = defender.transform.position;
@@ -909,7 +924,7 @@ public class AnimationManager : MonoBehaviour
 
         particleHandler.StopParticles();
         container.GetComponent<CardContainer>().IsDetached = false;
-        attacker.transform.SetAsFirstSibling();
+        attacker.transform.SetAsFirstSibling(); // TESTING
         Managers.EV_MAN.PauseDelayedActions(false);
 
         static float GetCurrentSpeed(float distance)
@@ -941,8 +956,15 @@ public class AnimationManager : MonoBehaviour
         float yTarget = isUpShift ? -350 : Managers.P_MAN.HandStart.y;
 
         Vector2 target = new(0, yTarget);
-        GameObject hand = Managers.P_MAN.HandZone;
+        var hand = Managers.P_MAN.HandZone;
         Managers.AU_MAN.StartStopSound("SFX_ShiftHand");
+
+        foreach (var card in Managers.P_MAN.PlayZoneCards)
+        {
+            var ucd = card.GetComponent<UnitCardDisplay>();
+            if (isUpShift) ucd.DisableVFX();
+            else ucd.EnableVFX();
+        }
 
         do
         {

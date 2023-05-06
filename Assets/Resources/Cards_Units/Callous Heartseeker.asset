@@ -15,11 +15,16 @@ MonoBehaviour:
   cardArt: {fileID: 21300000, guid: 60d8fc4ddc96c594db255f7153324538, type: 3}
   cardBorder: {fileID: 21300000, guid: 9bd64dff0d5e1ee41a091e6ca32da037, type: 3}
   energyCost: 4
+  costConditionType: 0
+  costConditionValue: 0
+  costConditionModifier: 0
   cardName: Callous Heartseeker
   cardType: Rogue
   cardSubType: 
-  cardRarity: 0
+  cardRarity: 1
   cardDescription: Callous Heartseeker is...
+  relatedCards: []
+  relatedCardTypes: 
   cardPlaySound:
     name: 
     clip: {fileID: 8300000, guid: 96aa0c4daf7ade341bc2159916831e8a, type: 3}
@@ -29,11 +34,11 @@ MonoBehaviour:
     source: {fileID: 0}
   overController: {fileID: 22100000, guid: f49b8e2710542154f9aea8abddec8b4c, type: 2}
   zoomOverController: {fileID: 22100000, guid: 6abed099666479c4ba57c88f83a7b210, type: 2}
-  power: 3
+  power: 2
   health: 4
   startingAbilities:
   - {fileID: 11400000, guid: edfe3b459c9ebb14eb21ba3bb2f309a0, type: 2}
-  - {fileID: 11400000, guid: 8468031a67c768f4195cd8f6edd0e24b, type: 2}
+  - {fileID: 11400000, guid: 113f0e6efdd4d5248ba5c0b94a441334, type: 2}
   unitDeathSound:
     name: 
     clip: {fileID: 8300000, guid: c5ee44d78705d9a45bac5851ae0e826b, type: 3}

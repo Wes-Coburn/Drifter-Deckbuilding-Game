@@ -16,14 +16,18 @@ public class CombatManager : MonoBehaviour
     }
 
     #region FIELDS
-    // Shared Zones
+    [Header("MULLIGAN EFFECT"), SerializeField]
+    private EffectGroup mulliganEffect;
+    [Header("COGNITIVE MAGNIFIER EFFECT"), SerializeField]
+    private EffectGroup cognitiveMagnifierEffect;
+    [Header("CRYOCHAMBER EFEFCT"), SerializeField]
+    private EffectGroup cryochamberEffect;
+
     public const string CARD_ZONE = "CardZone";
     #endregion
 
     #region PROPERTIES
-    /* GAME ZONES */
     public GameObject CardZone { get; private set; }
-
     private static string DIFFICULTY_LEVEL = "DifficultyLevel";
     public int DifficultyLevel
     {
@@ -34,35 +38,6 @@ public class CombatManager : MonoBehaviour
 
     #region METHODS
     #region UTILITY
-    private void Start()
-    {
-        // blank
-    }
-
-    /******
-     * *****
-     * ****** START_COMBAT_SCENE
-     * *****
-     *****/
-    public void StartCombatScene()
-    {
-        // GAME ZONES
-        // ALL CARDS
-        CardZone = GameObject.Find(CARD_ZONE);
-
-        foreach (HeroManager hMan in new List<HeroManager>() { Managers.P_MAN, Managers.EN_MAN })
-        {
-            hMan.HandZone = GameObject.Find(hMan.HAND_ZONE_TAG);
-            hMan.PlayZone = GameObject.Find(hMan.PLAY_ZONE_TAG);
-            hMan.ActionZone = GameObject.Find(hMan.ACTION_ZONE_TAG);
-            hMan.DiscardZone = GameObject.Find(hMan.DISCARD_ZONE_TAG);
-            hMan.HeroObject = GameObject.Find(hMan.HERO_TAG);
-        }
-
-        Managers.U_MAN.SelectTarget(Managers.P_MAN.HeroObject, UIManager.SelectionType.Disabled);
-        Managers.U_MAN.SelectTarget(Managers.P_MAN.HeroObject, UIManager.SelectionType.Disabled);
-    }
-
     public static UnitCardDisplay GetUnitDisplay(GameObject card)
     {
         if (card == null)
@@ -97,14 +72,31 @@ public class CombatManager : MonoBehaviour
         }
         return target.TryGetComponent<ActionCardDisplay>(out _);
     }
-    public static bool IsDamaged(GameObject unitCard)
+    public static bool IsDamaged(GameObject target)
     {
-        if (!unitCard.TryGetComponent(out UnitCardDisplay ucd))
+        if (target.TryGetComponent(out UnitCardDisplay ucd))
+            return ucd.CurrentHealth < ucd.MaxHealth;
+
+        if (target.TryGetComponent(out HeroDisplay _))
         {
-            Debug.LogError("TARGET IS NOT UNIT CARD!");
-            return false;
+            var hMan = HeroManager.GetSourceHero(target);
+            return hMan.CurrentHealth < hMan.MaxHealth;
         }
-        return ucd.CurrentHealth < ucd.MaxHealth;
+
+        Debug.LogError("INVALID TARGET!");
+        return false;
+    }
+    public void RefreshAllUnits()
+    {
+        List<List<GameObject>> cardZoneList = new()
+        {
+            Managers.P_MAN.PlayZoneCards,
+            Managers.EN_MAN.PlayZoneCards,
+        };
+
+        foreach (var cards in cardZoneList)
+            foreach (var card in cards)
+                GetUnitDisplay(card).IsExhausted = false;
     }
 
     /******
@@ -116,9 +108,9 @@ public class CombatManager : MonoBehaviour
     {
         if (unitList.Count < 1) return null;
         int lowestHealth = int.MaxValue;
-        List<GameObject> lowestHealthUnits = new List<GameObject>();
+        List<GameObject> lowestHealthUnits = new();
 
-        foreach (GameObject unit in unitList)
+        foreach (var unit in unitList)
         {
             if (!IsUnitCard(unit)) continue;
 
@@ -155,7 +147,7 @@ public class CombatManager : MonoBehaviour
         int highestPower = int.MinValue;
         List<GameObject> highestPowerUnits = new();
 
-        foreach (GameObject unit in unitList)
+        foreach (var unit in unitList)
         {
             if (!IsUnitCard(unit)) continue;
 
@@ -179,9 +171,9 @@ public class CombatManager : MonoBehaviour
         if (highestPowerUnits.Count > 1)
         {
             List<GameObject> highestHealthUnits = new();
-            int highestHealth = 0;
+            int highestHealth = int.MinValue;
 
-            foreach (GameObject unit in highestPowerUnits)
+            foreach (var unit in highestPowerUnits)
             {
                 int health = GetUnitDisplay(unit).CurrentHealth;
                 if (health > highestHealth)
@@ -211,10 +203,10 @@ public class CombatManager : MonoBehaviour
     public GameObject GetWeakestUnit(List<GameObject> unitList, bool targetsEnemy)
     {
         if (unitList.Count < 1) return null;
-        int lowestPower = 999;
+        int lowestPower = int.MaxValue;
         List<GameObject> lowestPowerUnits = new();
 
-        foreach (GameObject unit in unitList)
+        foreach (var unit in unitList)
         {
             if (!IsUnitCard(unit)) continue;
 
@@ -238,9 +230,9 @@ public class CombatManager : MonoBehaviour
         if (lowestPowerUnits.Count > 1)
         {
             List<GameObject> lowestHealthUnits = new();
-            int lowestHealth = 999;
+            int lowestHealth = int.MaxValue;
 
-            foreach (GameObject unit in lowestPowerUnits)
+            foreach (var unit in lowestPowerUnits)
             {
                 int health = GetUnitDisplay(unit).CurrentHealth;
                 if (health < lowestHealth)
@@ -261,6 +253,95 @@ public class CombatManager : MonoBehaviour
         }
         else return lowestPowerUnits[0];
     }
+
+    /******
+     * *****
+     * ****** GET_HIGHEST_COST
+     * *****
+     *****/
+    public GameObject GetHighestCostTarget(List<GameObject> targets)//, bool targetsEnemy)
+    {
+        if (targets.Count < 1) return null;
+        int highestCost = int.MinValue;
+        List<GameObject> highestCostTargets = new();
+
+        foreach (var target in targets)
+        {
+            var cd = target.GetComponent<CardDisplay>();
+
+            /* Unnecessary, method is only used on cards in hand
+            if (cd is UnitCardDisplay ucd)
+            {
+                if ((targetsEnemy && CardManager.GetAbility(target, CardManager.ABILITY_WARD)) ||
+                    (ucd.CurrentHealth < 1) || Managers.EF_MAN.UnitsToDestroy.Contains(target)) continue;
+            }
+            */
+
+            int cost = cd.CurrentEnergyCost;
+
+            if (cost > highestCost)
+            {
+                highestCost = cost;
+                highestCostTargets.Clear();
+                highestCostTargets.Add(target);
+            }
+            else if (cost == highestCost) highestCostTargets.Add(target);
+        }
+
+        if (highestCostTargets.Count < 1) return null;
+
+        if (highestCostTargets.Count > 1)
+        {
+            int randomIndex = Random.Range(0, highestCostTargets.Count);
+            return highestCostTargets[randomIndex];
+        }
+        else return highestCostTargets[0];
+    }
+
+    /******
+     * *****
+     * ****** GET_LOWEST_COST
+     * *****
+     *****/
+    public GameObject GetLowestCostTarget(List<GameObject> targets)//, bool targetsEnemy)
+    {
+        if (targets.Count < 1) return null;
+        int lowestCost = int.MaxValue;
+        List<GameObject> lowestCostTargets = new();
+
+        foreach (var target in targets)
+        {
+            var cd = target.GetComponent<CardDisplay>();
+
+            /* Unnecessary, method is only used on cards in hand
+            if (cd is UnitCardDisplay ucd)
+            {
+                if ((targetsEnemy && CardManager.GetAbility(target, CardManager.ABILITY_WARD)) ||
+                    (ucd.CurrentHealth < 1) || Managers.EF_MAN.UnitsToDestroy.Contains(target)) continue;
+            }
+            */
+
+            int cost = cd.CurrentEnergyCost;
+
+            if (cost < lowestCost)
+            {
+                lowestCost = cost;
+                lowestCostTargets.Clear();
+                lowestCostTargets.Add(target);
+            }
+            else if (cost == lowestCost) lowestCostTargets.Add(target);
+        }
+
+        if (lowestCostTargets.Count < 1) return null;
+
+        if (lowestCostTargets.Count > 1)
+        {
+            int randomIndex = Random.Range(0, lowestCostTargets.Count);
+            return lowestCostTargets[randomIndex];
+        }
+        else return lowestCostTargets[0];
+    }
+
     /******
      * *****
      * ****** CAN_ATTACK
@@ -289,7 +370,7 @@ public class CombatManager : MonoBehaviour
         if (Managers.G_MAN.IsTutorial && Managers.P_MAN.EnergyPerTurn == 2 && !preCheck &&
             (!Managers.P_MAN.HeroPowerUsed || !defenderIsUnit)) return false;
 
-        UnitCardDisplay atkUcd = GetUnitDisplay(attacker);
+        var atkUcd = GetUnitDisplay(attacker);
         if (atkUcd.IsExhausted)
         {
             if (preCheck && !ignoreDefender)
@@ -330,7 +411,7 @@ public class CombatManager : MonoBehaviour
         {
             HeroManager.GetSourceHero(attacker, out HeroManager hMan_Enemy);
 
-            foreach (GameObject unit in hMan_Enemy.PlayZoneCards)
+            foreach (var unit in hMan_Enemy.PlayZoneCards)
             {
                 if (unit == defender) continue;
 
@@ -356,20 +437,459 @@ public class CombatManager : MonoBehaviour
     #region BASIC COMBAT
     /******
      * *****
-     * ****** REFRESH_ALL_UNITS
+     * ****** START_COMBAT
      * *****
      *****/
-    public void RefreshAllUnits()
+    public void StartCombat()
     {
-        List<List<GameObject>> cardZoneList = new()
-        {
-            Managers.P_MAN.PlayZoneCards,
-            Managers.EN_MAN.PlayZoneCards,
-        };
+        var pm = Managers.P_MAN;
+        var em = Managers.EN_MAN;
+        var um = Managers.U_MAN;
+        var vm = Managers.EV_MAN;
+        var cm = Managers.CA_MAN;
+        var gm = Managers.G_MAN;
 
-        foreach (List<GameObject> cards in cardZoneList)
-            foreach (GameObject card in cards)
-                GetUnitDisplay(card).IsExhausted = false;
+        var playerData = PlayerData.SavedPlayerData;
+        if (playerData != null) PlayerData.SavedPlayerData = null;
+
+        um.StartCombatScene();
+        CardZone = GameObject.Find(CARD_ZONE);
+        if (CardZone == null) Debug.LogError("CARD ZONE IS NULL!");
+
+        foreach (var hMan in new List<HeroManager>() { pm, em })
+        {
+            if (playerData == null) hMan.ResetForCombat(); // !!! Load From Save !!!
+
+            hMan.HandZone = SetZone(hMan.HAND_ZONE_TAG);
+            hMan.PlayZone = SetZone(hMan.PLAY_ZONE_TAG);
+            hMan.ActionZone = SetZone(hMan.ACTION_ZONE_TAG);
+            hMan.HeroObject = SetZone(hMan.HERO_TAG);
+
+            static GameObject SetZone(string tag)
+            {
+                var zone = GameObject.Find(tag);
+                if (zone == null) Debug.LogError($"{tag} IS NULL!");
+                return zone;
+            }
+
+            um.SelectTarget(hMan.HeroObject, UIManager.SelectionType.Disabled);
+
+            if (playerData != null) // !!! Load From Save !!!
+            {
+                // HandZone
+                PlaceCards(hMan.HandZoneCards, hMan.HandZone, false);
+                // PlayZone
+                PlaceCards(hMan.PlayZoneCards, hMan.PlayZone, true);
+
+                continue;
+
+                void PlaceCards(List<GameObject> cards, GameObject zone, bool isPlayed)
+                {
+                    foreach (var card in cards)
+                    {
+                        if (card == null)
+                        {
+                            Debug.LogError("LOADED CARD IS NULL!");
+                            continue;
+                        }
+
+                        // Place card object
+                        card.transform.SetParent(CardZone.transform);
+                        // Place container object
+                        cm.ChangeCardZone(card, zone, CardManager.ZoneChangeType.LoadFromSave);
+                        // Set IsPlayed in DragDrop
+                        card.GetComponent<DragDrop>().IsPlayed = isPlayed;
+                    }
+                }
+            }
+
+            var hd = hMan.HeroObject.GetComponent<HeroDisplay>();
+            hd.HeroBase.SetActive(false);
+            hd.HeroStats.SetActive(false);
+            hd.HeroNameObject.SetActive(false);
+        }
+
+        if (playerData != null) // !!! Load From Save !!!
+        {
+            // Enemy Hero
+            int activeEHIndex = Managers.G_MAN.ActiveNPCHeroes.FindIndex(x => x.HeroName == playerData.EnemyHero);
+            if (activeEHIndex != -1) em.HeroScript = Managers.G_MAN.ActiveNPCHeroes[activeEHIndex];
+            else Debug.LogError("ENEMY HERO NOT FOUND!");
+
+            // Hero Turn
+            bool isPlayerTurn;
+            if (playerData.HeroTurnCombat == PlayerData.TURN_PLAYER) isPlayerTurn = true;
+            else if (playerData.HeroTurnCombat == PlayerData.TURN_ENEMY) isPlayerTurn = false;
+            else
+            {
+                Debug.LogError("INVALID HERO TURN!");
+                isPlayerTurn = false;
+            }
+            pm.IsMyTurn = isPlayerTurn;
+            em.IsMyTurn = !isPlayerTurn;
+
+            // Current Health
+            pm.CurrentHealth = playerData.CurrentHealth_Player;
+            em.CurrentHealth = playerData.CurrentHealth_Enemy;
+
+            // Energy Per Turn
+            pm.EnergyPerTurn = playerData.EnergyPerTurn_Player;
+            em.EnergyPerTurn = playerData.EnergyPerTurn_Enemy;
+
+            // Current Energy
+            pm.CurrentEnergy = playerData.CurrentEnergy_Player;
+            em.CurrentEnergy = playerData.CurrentEnergy_Enemy;
+
+            // Player Hero Ultimate Progress
+            pm.HeroUltimateProgress = playerData.HeroUltimateProgress;
+
+            // Enemy Hero Surge Progress
+            em.SurgeProgress(true); // TESTING
+
+            // Damage Taken
+            pm.DamageTaken_ThisTurn = playerData.DamageTaken_ThisTurn_Player;
+            em.DamageTaken_ThisTurn = playerData.DamageTaken_ThisTurn_Enemy;
+
+            // Display Heroes
+            DisplayHeroes();
+
+            // Display Skybar
+            StartCoroutine(Managers.AN_MAN.ShowSkyBarChildren(1));
+
+            // Turn Popup
+            CombatAudio();
+            if (pm.IsMyTurn) um.CreateTurnPopup(true);
+
+            // Select Playable Cards
+            cm.SelectPlayableCards(em.IsMyTurn);
+
+            // CONTINUE ENEMY TURN
+            if (em.IsMyTurn) em.ContinueEnemyTurn();
+
+            return;
+        }
+
+        um.EndTurnButton.SetActive(false);
+        um.CombatLog.SetActive(false);
+
+        // ENEMY MANAGER
+        var enemyHero = Managers.D_MAN.EngagedHero as EnemyHero;
+        if (enemyHero == null)
+        {
+            Debug.LogError("ENEMY HERO IS NULL!");
+            return;
+        }
+
+        // ENEMY HERO
+        em.HeroScript = enemyHero;
+        em.CurrentHealth = gm.IsTutorial ? GameManager.TUTORIAL_STARTING_HEALTH : em.MaxHealth;
+
+        int energyPerTurn = gm.IsTutorial ? 0 : gm.GetEnemyStartingEnergy(DifficultyLevel);
+        em.EnergyPerTurn = energyPerTurn;
+        em.CurrentEnergy = 0;
+        em.DamageTaken_ThisTurn = 0;
+        em.AlliesDestroyed_ThisTurn = 0;
+        em.TurnNumber = 0;
+
+        CombatAudio(); // enemyMan.HeroScript needs to be set first
+
+        // PLAYER MANAGER
+        pm.CurrentHealth = pm.CurrentHealth; // Display current health
+        pm.EnergyPerTurn = 0;
+        pm.CurrentEnergy = 0;
+        pm.HeroUltimateProgress = 0;
+        pm.DamageTaken_ThisTurn = 0;
+        pm.AlliesDestroyed_ThisTurn = 0;
+        foreach (var item in pm.HeroItems) item.IsUsed = false;
+        pm.TurnNumber = 0;
+
+        // UPDATE DECKS
+        cm.UpdateDeck(pm);
+        cm.UpdateDeck(em);
+
+        // DISPLAY HEROES
+        DisplayHeroes();
+
+        // SCHEDULE ACTIONS
+        vm.NewDelayedAction(() => Managers.AN_MAN.CombatIntro(), 1);
+        vm.NewDelayedAction(() => CombatStart(), 1);
+        vm.NewDelayedAction(() => StartCombatTurn(Managers.P_MAN, true), 2);
+
+        void CombatStart()
+        {
+            um.CombatLogEntry($"<b>{TextFilter.Clrz_grn(pm.HeroScript.HeroShortName, false)}" +
+                $" VS {TextFilter.Clrz_red(em.HeroScript.HeroName, false)}</b>");
+
+            cm.ShuffleDeck(pm, false);
+            cm.ShuffleDeck(em, false);
+
+            for (int i = 0; i < GameManager.START_HAND_SIZE; i++)
+                vm.NewDelayedAction(() => AllDraw(), 0.5f);
+
+            // TUTORIAL!
+            if (gm.IsTutorial)
+            {
+                vm.NewDelayedAction(() => um.CreateTutorialActionPopup(), 0);
+                vm.NewDelayedAction(() => vm.PauseDelayedActions(true), 0);
+                vm.NewDelayedAction(() => gm.Tutorial_Tooltip(1), 0);
+            }
+            gm.ResolveReputationEffects(1); // REPUTATION EFFECTS [RESOLVE ORDER = 1]
+            PlayStartingUnits();
+            vm.NewDelayedAction(() => Mulligan_Player(), 0.5f);
+            vm.NewDelayedAction(() => em.Mulligan(), 0.5f);
+            gm.ResolveReputationEffects(2); // REPUTATION EFFECTS [RESOLVE ORDER = 2]
+            gm.ResolveReputationEffects(3); // REPUTATION EFFECTS [RESOLVE ORDER = 3]
+
+            string cognitiveMagnifier = "Cognitive Magnifier";
+            if (pm.GetAugment(cognitiveMagnifier))
+            {
+                vm.NewDelayedAction(() => CognitiveMagnifierEffect(), 0.25f);
+
+                void CognitiveMagnifierEffect()
+                {
+                    Managers.AN_MAN.TriggerAugment(cognitiveMagnifier);
+                    Managers.EF_MAN.StartEffectGroupList(new List<EffectGroup>
+                    { cognitiveMagnifierEffect }, pm.HeroObject);
+                }
+            }
+
+            string cryochamber = "Cryochamber";
+            if (pm.GetAugment(cryochamber))
+            {
+                vm.NewDelayedAction(() => CryochamberEffect(), 0.25f);
+
+                void CryochamberEffect()
+                {
+                    Managers.AN_MAN.TriggerAugment(cryochamber);
+                    Managers.EF_MAN.StartEffectGroupList(new List<EffectGroup>
+                    { cryochamberEffect }, pm.HeroObject);
+                }
+            }
+
+            // TUTORIAL!
+            if (gm.IsTutorial) vm.NewDelayedAction(() => gm.Tutorial_Tooltip(2), 0);
+
+            void AllDraw()
+            {
+                cm.DrawCard(pm);
+                cm.DrawCard(em);
+            }
+
+            void PlayStartingUnits()
+            {
+                var startingUnits = (em.HeroScript as EnemyHero).Reinforcements[em.ReinforcementGroup].StartingUnits;
+                foreach (UnitCard card in startingUnits)
+                {
+                    var newCard = cm.NewCardInstance(card) as UnitCard;
+                    vm.NewDelayedAction(() =>
+                    Managers.EF_MAN.PlayCreatedUnit(newCard, false, new List<Effect>(), em.HeroObject), 0.5f);
+                }
+            }
+        }
+
+        void Mulligan_Player() =>
+            Managers.EF_MAN.StartEffectGroupList(new List<EffectGroup> { mulliganEffect }, pm.HeroObject);
+
+        void DisplayHeroes()
+        {
+            pm.HeroObject.GetComponent<HeroDisplay>().HeroScript = pm.HeroScript;
+            em.HeroObject.GetComponent<HeroDisplay>().HeroScript = em.HeroScript;
+        }
+
+        void CombatAudio()
+        {
+            string soundtrack = (em.HeroScript as EnemyHero).IsBoss ?
+                "Soundtrack_CombatBoss1" : "Soundtrack_Combat1";
+            Managers.AU_MAN.StartStopSound(soundtrack, null, AudioManager.SoundType.Soundtrack);
+            FunctionTimer.Create(() => Managers.AU_MAN.StartStopSound("SFX_StartCombat1"), 0.15f);
+        }
+    }
+
+    /******
+     * *****
+     * ****** END_COMBAT
+     * *****
+     *****/
+    public void EndCombat(bool playerWins)
+    {
+        if (playerWins && Managers.P_MAN.CurrentHealth > 0) // Make sure the player doesn't win at 0 health (pretty sure it's not possible)
+        {
+            Managers.AU_MAN.StartStopSound(null, Managers.EN_MAN.HeroScript.HeroLose);
+            FunctionTimer.Create(() =>
+            Managers.AU_MAN.StartStopSound(null, Managers.P_MAN.HeroScript.HeroWin), 2f);
+        }
+        else
+        {
+            Managers.AU_MAN.StartStopSound(null, Managers.P_MAN.HeroScript.HeroLose);
+            FunctionTimer.Create(() =>
+            Managers.AU_MAN.StartStopSound(null, Managers.EN_MAN.HeroScript.HeroWin), 2f);
+
+            SaveLoad.DeletePlayerData(); // Delete saved PlayerData on defeat
+        }
+
+        Managers.EV_MAN.ClearDelayedActions();
+        Managers.U_MAN.PlayerIsTargetting = false;
+        Managers.EF_MAN.EffectsResolving = false;
+        Managers.P_MAN.IsMyTurn = false;
+
+        // Items
+        foreach (var item in Managers.P_MAN.HeroItems) item.IsUsed = false;
+
+        // Created Cards Played
+        Managers.P_MAN.ResetForCombat();
+        Managers.EN_MAN.ResetForCombat();
+
+        FunctionTimer.Create(() => Managers.U_MAN.CreateCombatEndPopup(playerWins), 2f);
+    }
+
+    /******
+     * *****
+     * ****** START_COMBAT_TURN
+     * *****
+     *****/
+    private void StartCombatTurn(HeroManager hero, bool isFirstTurn = false)
+    {
+        bool isPlayerTurn = hero == Managers.P_MAN;
+        string logText = "\n" + (isPlayerTurn ? "[Your Turn]" : "[Enemy Turn]");
+
+        Managers.EV_MAN.NewDelayedAction(() => TurnPopup(), 0);
+        Managers.EV_MAN.NewDelayedAction(() => Managers.U_MAN.CombatLogEntry(logText), 0);
+
+        if (isPlayerTurn)
+        {
+            Managers.EV_MAN.NewDelayedAction(() => PlayerTurnStart(), 2);
+            Managers.EV_MAN.NewDelayedAction(() => TurnDraw(), 0.5f);
+
+            string synapticStabilizer = "Synaptic Stabilizer";
+
+            if (isFirstTurn && Managers.P_MAN.GetAugment(synapticStabilizer))
+                Managers.EV_MAN.NewDelayedAction(() => SynapticStabilizerEffect(), 0.5f);
+
+            void SynapticStabilizerEffect()
+            {
+                Managers.P_MAN.CurrentEnergy++;
+                Managers.AN_MAN.ModifyHeroEnergyState(1, Managers.P_MAN.HeroObject);
+                Managers.AN_MAN.TriggerAugment(synapticStabilizer);
+                Managers.CA_MAN.SelectPlayableCards();
+            }
+
+            void PlayerTurnStart()
+            {
+                Managers.P_MAN.IsMyTurn = true;
+                Managers.EN_MAN.IsMyTurn = false;
+                Managers.P_MAN.HeroPowerUsed = false;
+
+                int startEnergy = Managers.P_MAN.CurrentEnergy;
+                if (Managers.P_MAN.EnergyPerTurn < Managers.P_MAN.MaxEnergy) Managers.P_MAN.EnergyPerTurn++;
+                Managers.P_MAN.CurrentEnergy = Managers.P_MAN.EnergyPerTurn;
+
+                int energyChange = Managers.P_MAN.CurrentEnergy - startEnergy;
+                Managers.AN_MAN.ModifyHeroEnergyState(energyChange, Managers.P_MAN.HeroObject);
+
+                Managers.P_MAN.TurnNumber++;
+
+                // TUTORIAL!
+                if (Managers.G_MAN.IsTutorial && Managers.P_MAN.EnergyPerTurn == 2) Managers.G_MAN.Tutorial_Tooltip(4);
+            }
+
+            void TurnDraw()
+            {
+                Managers.CA_MAN.DrawCard(Managers.P_MAN);
+                Managers.CA_MAN.SelectPlayableCards();
+            }
+        }
+
+        if (isPlayerTurn) Managers.EV_MAN.NewDelayedAction(() =>
+        Managers.CA_MAN.TriggerPlayedUnits(CardManager.TRIGGER_TURN_START, hero), 0);
+        else
+        {
+            Managers.P_MAN.IsMyTurn = false;
+            Managers.EN_MAN.IsMyTurn = true;
+            Managers.EV_MAN.NewDelayedAction(() => Managers.EN_MAN.StartEnemyTurn(), 1);
+        }
+
+        void TurnPopup()
+        {
+            Managers.AU_MAN.StartStopSound("SFX_NextTurn");
+            Managers.U_MAN.CreateTurnPopup(isPlayerTurn);
+        }
+    }
+
+    /******
+     * *****
+     * ****** END__COMBAT_TURN
+     * *****
+     *****/
+    public void EndCombatTurn(HeroManager hero)
+    {
+        if (!Managers.G_MAN.IsTutorial && !Managers.G_MAN.IsCombatTest) GameLoader.SaveGame(); // Consider limiting this call by checking the time in between calls
+
+        Managers.EV_MAN.NewDelayedAction(() =>
+        Managers.CA_MAN.TriggerPlayedUnits(CardManager.TRIGGER_TURN_END, hero), 0);
+
+        Managers.EV_MAN.NewDelayedAction(() => Managers.CO_MAN.RefreshAllUnits(), 0.5f);
+        Managers.EV_MAN.NewDelayedAction(() => RemoveEffects(), 0);
+        Managers.EV_MAN.NewDelayedAction(() => ResetTriggerCounts(), 0);
+        Managers.EV_MAN.NewDelayedAction(() => Managers.CA_MAN.SelectPlayableCards(), 0); // To reset conditional card costs (i.e. based on units destroyed this turn)
+
+        if (hero == Managers.EN_MAN) Managers.EV_MAN.NewDelayedAction(() => StartCombatTurn(Managers.P_MAN), 0.5f);
+        else if (hero == Managers.P_MAN)
+        {
+            if (Managers.G_MAN.IsTutorial) // TUTORIAL!
+                switch (Managers.P_MAN.EnergyPerTurn)
+                {
+                    case 1:
+                        if (Managers.P_MAN.CurrentEnergy > 0) return;
+                        else Managers.U_MAN.DestroyInfoPopup(UIManager.InfoPopupType.Tutorial);
+                        break;
+                    case 2:
+                        if (!Managers.P_MAN.HeroPowerUsed || Managers.EN_MAN.PlayZoneCards.Count > 0) return;
+                        else Managers.U_MAN.DestroyInfoPopup(UIManager.InfoPopupType.Tutorial);
+                        break;
+                }
+
+            Managers.P_MAN.IsMyTurn = false;
+            Managers.CA_MAN.SelectPlayableCards(true);
+            Managers.EV_MAN.NewDelayedAction(() => StartCombatTurn(Managers.EN_MAN), 0.5f);
+        }
+        else Debug.LogError("INVALID PLAYER!");
+
+        void RemoveEffects()
+        {
+            Managers.EF_MAN.RemoveTemporaryEffects();
+            Managers.EF_MAN.RemoveGiveNextEffects(hero);
+            Managers.EF_MAN.RemoveChangeNextCostEffects(hero);
+            Managers.EF_MAN.RemoveModifyNextEffects(hero);
+
+            Managers.P_MAN.DamageTaken_ThisTurn = 0;
+            Managers.P_MAN.AlliesDestroyed_ThisTurn = 0;
+
+            Managers.EN_MAN.DamageTaken_ThisTurn = 0;
+            Managers.EN_MAN.AlliesDestroyed_ThisTurn = 0;
+        }
+        void ResetTriggerCounts()
+        {
+            foreach (var unit in Managers.P_MAN.PlayZoneCards) ResetTrigger(unit);
+            foreach (var unit in Managers.EN_MAN.PlayZoneCards) ResetTrigger(unit);
+            
+            void ResetTrigger(GameObject unit)
+            {
+                var ucd = unit.GetComponent<UnitCardDisplay>();
+                foreach (var ca in ucd.CurrentAbilities)
+                {
+                    if (ca is TriggeredAbility tra)
+                    {
+                        tra.TriggerCount = 0;
+                        ucd.EnableTriggerIcon(tra.AbilityTrigger, true);
+                    }
+                    else if (ca is ModifierAbility ma)
+                    {
+                        ma.TriggerCount = 0;
+                        ucd.EnableTriggerIcon(null, true);
+                    }
+                }
+            }
+        }
     }
     #endregion
 
@@ -513,7 +1033,8 @@ public class CombatManager : MonoBehaviour
             var ucd = GetUnitDisplay(striker);
             int power = ucd.CurrentPower;
 
-            TakeDamage(defender, power, out dealtDamage, out defenderDestroyed, isMeleeAttacker);
+            // IsMeleeAttacker must be reversed here, the target of the attack will have the opposite designation
+            TakeDamage(defender, power, out dealtDamage, out defenderDestroyed, !isMeleeAttacker);
 
             // Poisonous
             if (IsUnitCard(defender))
@@ -557,7 +1078,7 @@ public class CombatManager : MonoBehaviour
 
         if (targetValue < 1) return; // Don't deal damage to targets with 0 health
         newTargetValue = targetValue - damageValue;
-
+        
         // Damage to heroes
         if (target == Managers.P_MAN.HeroObject)
         {
@@ -613,10 +1134,7 @@ public class CombatManager : MonoBehaviour
             {
                 Managers.AN_MAN.ShakeCamera(EZCameraShake.CameraShakePresets.Earthquake);
                 Managers.AN_MAN.SetAnimatorBool(target, "IsDestroyed", true);
-                bool playerWins;
-                if (target == Managers.P_MAN.HeroObject) playerWins = false;
-                else playerWins = true;
-                Managers.G_MAN.EndCombat(playerWins);
+                EndCombat(target == Managers.EN_MAN.HeroObject);
             }
         }
     }

@@ -14,9 +14,7 @@ public class NewAugmentPopupDisplay : MonoBehaviour
         get => availableAugments[selectedAugment];
     }
 
-    [SerializeField] private GameObject augmentName;
-    [SerializeField] private GameObject augmentImage;
-    [SerializeField] private GameObject augmentDescription;
+    [SerializeField] private GameObject augmentName, augmentImage, augmentDescription;
 
     private void Start()
     {
@@ -71,10 +69,9 @@ public class NewAugmentPopupDisplay : MonoBehaviour
     public void ConfirmButton_OnClick()
     {
         Managers.P_MAN.AddAugment(LoadedAugment, true);
-        UIManager.Instance.DestroyNewAugmentPopup();
-        DialogueManager.Instance.DisplayDialoguePopup();
-
-        AnimationManager.Instance.CreateParticleSystem(gameObject, ParticleSystemHandler.ParticlesType.ButtonPress); // TESTING
+        Managers.U_MAN.DestroyNewAugmentPopup();
+        Managers.D_MAN.DisplayDialoguePopup();
+        Managers.AN_MAN.CreateParticleSystem(gameObject, ParticleSystemHandler.ParticlesType.ButtonPress);
     }
 }
 

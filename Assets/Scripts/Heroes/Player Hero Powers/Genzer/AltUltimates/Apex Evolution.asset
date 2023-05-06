@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 024a223818b76d04b90b880bd4d0c3a0, type: 3}
+  m_Name: Apex Evolution
+  m_EditorClassIdentifier: 
+  PowerName: Alpha Evolution
+  PowerCost: 3
+  PowerSprite: {fileID: 21300000, guid: 75b4b7701e79d8540be17c10afda2a3a, type: 3}
+  PowerSounds:
+  - name: 
+    clip: {fileID: 8300000, guid: 99e12abd88b353340a501d7db5039617, type: 3}
+    volume: 0.8
+    pitch: 1
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: c96a7ff0487116044997983e6086394e, type: 3}
+    volume: 1
+    pitch: 1
+    mixerGroup: {fileID: 0}
+    source: {fileID: 0}
+  PowerDescription: Give an ally +1|+1 and three random positive keywords.
+  EffectGroupList:
+  - {fileID: 11400000, guid: 88254923d7e114e4ebb158eb0507cfdd, type: 2}
+  LinkedAbilities: []
+  relatedCards: []
+  relatedCardTypes: 

@@ -1,27 +1,21 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class LocationIcon : MonoBehaviour
+public class LocationIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private GameObject locationName;
-    [SerializeField] private GameObject locationImage;
+    [SerializeField] private GameObject locationName, locationImage, backgroundSpotlight;
 
     [Header("BADGES"), SerializeField] private GameObject badges;
-    [SerializeField] private GameObject unvisitedBadge;
-    [SerializeField] private GameObject priorityBadge;
-    [SerializeField] private GameObject nonPriorityBadge;
-    [SerializeField] private GameObject closedBadge;
+    [SerializeField] private GameObject unvisitedBadge, priorityBadge,
+        nonPriorityBadge, closedBadge;
 
     [Header("ICONS")]
     [SerializeField] private Sprite priorityIcon;
-    [SerializeField] private Sprite nonPriorityIcon;
-    [SerializeField] private Sprite homeBaseSprite;
-    [SerializeField] private Sprite augmenterSprite;
-    [SerializeField] private Sprite shopSprite;
-    [SerializeField] private Sprite recruitmentSprite;
-    [SerializeField] private Sprite actionShopSprite;
-    [SerializeField] private Sprite cloningSprite;
+    [SerializeField] private Sprite nonPriorityIcon, homeBaseSprite,
+        itemShopSprite, recruitmentSprite, actionShopSprite,
+        cloningSprite, augmenterSprite, healerSprite;
 
     private Location location;
 
@@ -34,37 +28,80 @@ public class LocationIcon : MonoBehaviour
             locationName.GetComponent<TextMeshProUGUI>().SetText(location.LocationName);
             transform.position = location.WorldMapPosition;
 
-            bool visited = false;
-            if (!location.IsAugmenter && GameManager.Instance.VisitedLocations.FindIndex
-                (x => x == location.LocationName) != -1) visited = true;
+            bool visited = Managers.G_MAN.VisitedLocations
+                .FindIndex(x => x == location.LocationName) != -1;
+            bool isOpen = Managers.G_MAN.LocationOpen(location);
+            bool isPriority = location.IsPriorityLocation;
 
-            bool open = Managers.G_MAN.LocationOpen(location);
-            closedBadge.SetActive(!open);
+            closedBadge.SetActive(!isOpen);
 
-            if (open)
+            if (isOpen)
             {
                 unvisitedBadge.SetActive(!visited);
-                priorityBadge.SetActive(location.IsPriorityLocation);
-                nonPriorityBadge.SetActive(!location.IsPriorityLocation);
+                priorityBadge.SetActive(isPriority);
+                nonPriorityBadge.SetActive(!isPriority);
             }
-            else unvisitedBadge.SetActive(false);
+            else
+            {
+                unvisitedBadge.SetActive(false);
+
+                // Change selected color to red for closed locations
+                var btn = GetComponent<Button>();
+                var clrs = btn.colors;
+                clrs.highlightedColor = Color.red;
+                btn.colors = clrs;
+            }
+
+            if ((!isOpen || !isPriority) && !location.IsHomeBase)
+            {
+                // Don't use the background spotlight for non-priority or closed locations
+                // Switch the target graphic to the location image
+                backgroundSpotlight.SetActive(false);
+                GetComponent<Button>().targetGraphic = locationImage.GetComponent<Graphic>();
+
+                float scaleDown = 0.8f;
+                foreach (var go in new GameObject[]
+                {
+                    locationImage,
+                    priorityBadge,
+                    nonPriorityBadge,
+                    closedBadge,
+                })
+                {
+                    var rect = go.GetComponent<RectTransform>();
+
+                    // Scale
+                    var scale = rect.localScale;
+                    Vector2 newScale = new(scale.x * scaleDown, scale.y * scaleDown);
+                    go.GetComponent<RectTransform>().localScale = newScale;
+
+                    // Opacity
+                    var img = go.GetComponentInChildren<Image>();
+                    var clr = img.color;
+                    clr.a = 0.8f;
+                    img.color = clr;
+                }
+
+                locationName.GetComponent<RectTransform>().localPosition = new Vector2(0, -60);
+            }
 
             Sprite image = null;
 
             // Recurring Locations
             if (location.IsHomeBase) image = homeBaseSprite;
-            else if (location.IsAugmenter) image = augmenterSprite;
-            else if (location.IsShop) image = shopSprite;
+            else if (location.IsItemShop) image = itemShopSprite;
             else if (location.IsRecruitment) image = recruitmentSprite;
             else if (location.IsActionShop) image = actionShopSprite;
-            else if (location.IsCloning) image = cloningSprite;
+            else if (location.IsCloner) image = cloningSprite;
+            else if (location.IsAugmenter) image = augmenterSprite;
+            else if (location.IsHealer) image = healerSprite;
 
             // Default Locations
-            else if (location.IsPriorityLocation) image = priorityIcon;
+            else if (isPriority) image = priorityIcon;
             else
             {
                 image = nonPriorityIcon;
-                badges.transform.localPosition = new Vector2(17, 19);
+                badges.transform.localPosition = new Vector2(10, 12);
             }
 
             if (image != null) locationImage.GetComponent<Image>().sprite = image;
@@ -73,6 +110,8 @@ public class LocationIcon : MonoBehaviour
 
     public void OnClick()
     {
+        if (!Managers.U_MAN.PlayerCanTravel) return;
+
         if (Location.IsHomeBase) TravelPopup();
         else
         {
@@ -90,7 +129,14 @@ public class LocationIcon : MonoBehaviour
         void TravelPopup() => Managers.U_MAN.CreateTravelPopup(Location);
     }
 
-    public void OnPointerEnter() => Managers.U_MAN.CreateLocationPopup(Location);
-
-    public void OnPointerExit() => Managers.U_MAN.DestroyLocationPopup();
+    public void OnPointerEnter(PointerEventData data)
+    {
+        if (!Managers.U_MAN.PlayerCanTravel) return;
+        Managers.U_MAN.CreateLocationPopup(Location);
+    }
+    public void OnPointerExit(PointerEventData data)
+    {
+        if (!Managers.U_MAN.PlayerCanTravel) return;
+        Managers.U_MAN.DestroyLocationPopup();
+    }
 }

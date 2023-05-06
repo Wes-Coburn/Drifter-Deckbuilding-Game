@@ -28,13 +28,13 @@ public class BuyItemPopupDisplay : MonoBehaviour
     public void ConfirmButton_OnClick()
     {
         Managers.P_MAN.AddItem(heroItem, true);
-        Managers.P_MAN.AetherCells -= Managers.G_MAN.GetItemCost(heroItem, out _, false);
+        Managers.P_MAN.CurrentAether -= Managers.G_MAN.GetItemCost(heroItem, out _, false);
         Managers.G_MAN.ShopItems.Remove(heroItem);
         bool isReady = false;
         int previousProgress = Managers.G_MAN.ShopLoyalty;
         if (++Managers.G_MAN.ShopLoyalty == GameManager.SHOP_LOYALTY_GOAL) isReady = true;
         else if (Managers.G_MAN.ShopLoyalty > GameManager.SHOP_LOYALTY_GOAL) Managers.G_MAN.ShopLoyalty = 0;
-        Managers.U_MAN.CreateItemPagePopup(false);
+        Managers.U_MAN.CreateItemPagePopup(false, true);
         FindObjectOfType<ItemPageDisplay>().SetProgressBar(previousProgress, Managers.G_MAN.ShopLoyalty, isReady);
 
         Managers.AN_MAN.CreateParticleSystem(gameObject, ParticleSystemHandler.ParticlesType.ButtonPress);
