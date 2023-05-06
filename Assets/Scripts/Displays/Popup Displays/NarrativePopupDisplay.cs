@@ -3,12 +3,8 @@ using UnityEngine;
 
 public class NarrativePopupDisplay : MonoBehaviour
 {
-    [SerializeField] private GameObject narrativeTitle;
-    [SerializeField] private GameObject narrativeText;
-    [SerializeField] private GameObject clipCounter;
-    [SerializeField] private GameObject continueButton;
-    [SerializeField] private GameObject nextButton;
-    [SerializeField] private GameObject previousButton;
+    [SerializeField] private GameObject narrativeTitle, narrativeText,
+        clipCounter, continueButton, nextButton, previousButton;
 
     private Narrative loadedNarrative;
     private int currentClip;
