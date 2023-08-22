@@ -2362,7 +2362,9 @@ public class EffectManager : MonoBehaviour
             Managers.AU_MAN.StartStopSound(null, ucd.UnitCard.CardPlaySound);
             unitCard.GetComponent<DragDrop>().IsPlayed = true;
             Managers.AN_MAN.UnitStatChangeState(unitCard, 0, 0, false, true);
-            unitCard.transform.SetAsFirstSibling();
+            //unitCard.transform.SetAsFirstSibling();
+            unitCard.transform.SetAsLastSibling();
+            FunctionTimer.Create(() => { if (unitCard != null) unitCard.transform.SetAsFirstSibling(); }, 1.5f);
 
             Managers.CA_MAN.TriggerTrapAbilities(card); // Resolves 4th
             TriggerModifiers_PlayCard(card); // Resolves 3rd

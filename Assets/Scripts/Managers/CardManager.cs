@@ -691,9 +691,12 @@ public class CardManager : MonoBehaviour
 
             if (!TriggerUnitAbility(card, TRIGGER_PLAY)) UnitTriggers(); // TESTING
 
-            card.transform.SetAsFirstSibling();
             PlayCardSound();
             ParticleBurst();
+
+            //card.transform.SetAsFirstSibling();
+            card.transform.SetAsLastSibling();
+            FunctionTimer.Create(() => { if (card != null) card.transform.SetAsFirstSibling(); }, 1.5f);
 
             void UnitTriggers()
             {
