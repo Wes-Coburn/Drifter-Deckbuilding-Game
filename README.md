@@ -5,7 +5,7 @@
 <p align="center">
   A deckbuilding adventure game in corporate dystopia.
   <br>
-  <a href="https://drifterthegame.com/" target="_blank">💠Play Now!💠</a>
+  <a href="https://weslex555.itch.io/drifter-deckbuilding-game/download/ieuEK3_ASTYEBXAEJ7w7_HcubBCo2jCDl6Et2K_F/" target="_blank">💠Play Now!💠</a>
   <br><br>
   Created with <a href="https://www.unity.com">Unity<br><img src="https://i.imgur.com/zkhsC86.png?1" width=50px height=50px></a>
 </p>
